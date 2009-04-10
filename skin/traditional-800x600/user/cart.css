@@ -134,21 +134,25 @@
     border-bottom: 1px solid #818085;
 }
 
+treechildren::-moz-tree-cell-text(batchMarker) {font-size: 16px; font-style: italic; font-weight: bolder; color: black;}
+treechildren::-moz-tree-cell-text(selected) {font-size: 16px; font-weight: bolder;}
+
 treechildren::-moz-tree-row(selected) {background-color: #3b556c !important; }
-treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c !important; }
-treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
-treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
 treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
 treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
 treechildren::-moz-tree-row(treeVerifyAge) {background-color: steelblue;}
 treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
-treechildren::-moz-tree-row(batchMarker) {border-bottom: 4px solid black !important;}
+treechildren::-moz-tree-row(treeTOTAL) {background-color: #da7f12;}
+treechildren::-moz-tree-row(batchMarker) {border-bottom: 2px dotted black !important;}
+treechildren::-moz-tree-cell-text(discountApplied) {color: brown; font-style: italic; font-weight: bolder;}
+treechildren::-moz-tree-cell-text(surchargeApplied) {color: green; font-style: italic; font-weight: bolder;}
+treechildren::-moz-tree-cell-text(treecellTax) {font-size: 13px !important; font-weight: normal !important;}
+treechildren::-moz-tree-cell-text(current_qty) {font-size: 13px !important; font-weight: normal !important;}
 /*
+treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
 treechildren::-moz-tree-row(treeTRAY) {background-color: #8e9d90;}
 treechildren::-moz-tree-row(treeSUBTOTAL) {background-color: #71a5d0;}
-treechildren::-moz-tree-row(treeTOTAL) {background-color: #da7f12;}
 treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
-treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
 */
 /*treechildren::-moz-tree-image(treecellUntagged) {list-style-image: url(images/prod-add.png);}*/
@@ -180,8 +184,8 @@ treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/chec
 }
 
 .cartList tree #current_qty {
-    max-width: 67px;
-    min-width: 67px;
+    max-width: 52px;
+    min-width: 52px;
 }
 
 .cartList tree #current_price {
@@ -190,8 +194,8 @@ treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/chec
 }
 
 .cartList tree #current_subtotal {
-    max-width: 76px;
-    min-width: 76px;
+    max-width: 93px;
+    min-width: 93px;
 }
 .cartList tree #current_tax {
     max-width: 20px;

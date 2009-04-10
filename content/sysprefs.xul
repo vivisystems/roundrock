@@ -48,9 +48,12 @@
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
             <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool" />
             <preference id="pref_allowoverstock" name="vivipos.fec.settings.AllowOverStock" type="bool" />
+            <preference id="pref_viewlocalordersonly" name="vivipos.fec.settings.ViewLocalOrdersOnly" type="bool" />
             <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool" />
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
             <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool" />
+            <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int" />
+            <preference id="pref_idletime" name="vivipos.fec.settings.idle.time" type="int" />
 
         </preferences>
 
@@ -77,11 +80,22 @@
                 </row>
                 <row>
                     <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
+                    <checkbox preference="pref_viewlocalordersonly" id="pref_viewlocalordersonlyCtrl" label="&general.viewlocalordersonly;" />
+                </row>
+                <row>
+                    <hbox>
+                        <label control="idletime" value="&general.idletime;"/>
+                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
+                    </hbox>
                 </row>
                 <row>
                     <vbox>
                         <label control="defaultpricelevel" value="&general.defaultpricelevel;"/>
                         <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>
+                    </vbox>
+                    <vbox>
+                        <label control="maxsaleperiodleaddays" value="&general.maxsaleperiodleaddays;"/>
+                        <textbox preference="pref_maxsaleperiodleaddays" id="maxsaleperiodleaddays" type="number" size="3" min="0"/>
                     </vbox>
                 </row>
             </rows>
@@ -189,7 +203,6 @@
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
             <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
             <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
-            <preference id="pref_endshiftonsignoff" name="vivipos.fec.settings.EndShiftOnSignOff" type="bool" />
             <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool" />
         </preferences>
         <vbox>
@@ -228,7 +241,6 @@
                     </row>
                     <row>
                         <checkbox id="mustemptyqueue" label="&login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
-                        <checkbox id="endshiftonsignoff" label="&login.endshiftonsignoff;" preference="pref_endshiftonsignoff"/>
                     </row>
                 </rows>
             </grid>
@@ -388,13 +400,17 @@
                     </menulist>
                 </row>
 
-                <row>
+                <!-- row>
                     <checkbox id="requireCheckNo" label="&orderdata.requirecheckno;" preference="pref_requirecheckno"/>
                     <checkbox id="requireTableNo" label="&orderdata.requiretableno;" preference="pref_requiretableno"/>
-                </row>
+                </row -->
 
             </rows>
         </grid>
+
+        <hbox class="ToolBar" pack="center">
+            <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
+        </hbox>
 
     </prefpane>
     
@@ -451,5 +467,15 @@
 
     </prefpane>
 -->
+	<panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+		<vbox flex="1">
+		<groupbox flex="1">
+		    <caption id="common_wait" label="Waiting..." class="PageTitle"/>
+		    <spacer style="height: 20px;" />
+		    <progressmeter id="progress" mode="undetermined" value="0" />
+		    <spacer style="height: 20px;" />
+		</groupbox>
+		</vbox>
+	</panel>
 
 </prefwindow>

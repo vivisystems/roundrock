@@ -314,7 +314,7 @@
                             else {
                                 //self.log('VFD display length: [' + encodedResult.length + '], printed length: [' + len + ']');
                             }
-                            self.log('DEBUG', 'In Worker thread: VFD display length: [' + encodedResult.length + '], displayed length: [' + len + ']');
+                            //self.log('DEBUG', 'In Worker thread: VFD display length: [' + encodedResult.length + '], displayed length: [' + len + ']');
                             self.closeSerialPort(portPath);
 
                         }

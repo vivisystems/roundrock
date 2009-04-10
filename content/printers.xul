@@ -35,8 +35,8 @@
 
             </vbox>
             <hbox>
-                <hbox class="ToolBar" flex="1">
-                </hbox>
+            	<hbox class="ToolBar" flex="1">
+            	</hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('closeBrowser', null, 'Printers');"/>

@@ -4,7 +4,7 @@
 
         getValue: function() {
 
-            var selectedItems = this.tree.selectedItems;
+            var selectedItems = this.tree.selectedItems.sort(function(a,b) {return a - b});
             var selectedItemsStr = [];
 
             var data = this.data;

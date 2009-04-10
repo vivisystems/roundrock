@@ -2,17 +2,17 @@
 [&DWON]${head.store.branch|center:14}[&DWOFF]
 ${head.store.telephone1|center:24}
 
-${_( 'Terminal' ) + ': '}${head.store.terminal_no}
-${_( 'Clerk' ) + ': '}${head.clerk_displayname}
+${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
+${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 
 ${head.title|center:24}
 {for user in body}
 ------------------------
-${_( 'User Name' ) + ':'}
+${_( '(rpt)User Name' ) + ':'}
 ${user.username|right:24}
-${_( 'Display Name' ) + ':'}
+${_( '(rpt)Display Name' ) + ':'}
 ${user.displayname|right:24}
-${_( 'Access Group' ) + ':'}
+${_( '(rpt)Access Group' ) + ':'}
 ${user.group|right:24}
 {/for}
 ------------------------

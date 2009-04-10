@@ -13,14 +13,21 @@
 
         doRestart: false,
         restartClock: false,
+
+        _suspendLoadTest: false,
     
         initial: function() {
+
+            this.patch102();
+            this.patch110();
             
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
             GeckoJS.Session.set('screenwidth', this.screenwidth);
             GeckoJS.Session.set('screenheight', this.screenheight);
+
+            // patch
 
             this.createPluPanel();
             //this.requestCommand('initial', null, 'Pricelevel');
@@ -65,6 +72,34 @@
             this.requestCommand('initialLogin', null, 'Main');
         },
 
+        patch102: function() {
+
+            // add DB column main.products.alt_name1
+            var productModel = new ProductModel();
+            try {
+                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "alt_name1" VARCHAR');
+            }
+            catch(e) {
+            }
+
+            // add DB column main.products.alt_name2
+            try {
+                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "alt_name2" VARCHAR');
+            }
+            catch(e) {
+            }
+        },
+
+        patch110: function() {
+            // add DB column main.products.manual_adjustment_only
+            var productModel = new ProductModel();
+            try {
+                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "manual_adjustment_only" BOOL');
+            }
+            catch(e) {
+            }
+        },
+
         _getKeypadController: function() {
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
@@ -98,7 +133,7 @@
 
         ChangeUserDialog: function () {
             var aURL = "chrome://viviecr/content/changeuser.xul";
-            var aName = "ChangeUser";
+            var aName = _('Change User');
             var aArguments = "";
             var posX = 0;
             var posY = 0;
@@ -110,7 +145,7 @@
 
         ClockInOutDialog: function () {
             var aURL = "chrome://viviecr/content/clockinout.xul";
-            var aName = "Clock In/Out";
+            var aName = _('Clock In/Out');
             var aArguments = "";
             var posX = 0;
             var posY = 0;
@@ -121,9 +156,10 @@
         },
 
 
-        PLUSearchDialog: function () {
-            
+        PLUSearchDialog: function (addtocart) {
+            //
             var buf = this._getKeypadController().getBuffer();
+
             this.requestCommand('clear', null, 'Cart');
             var item;
             var txn = GeckoJS.Session.get('current_transaction');
@@ -134,21 +170,26 @@
             }
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
-            var aName = "PLUSearch";
+            var aName = _('Product Search');
             var aArguments = {buffer: buf, item: item};
-            var posX = 0;
-            var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-            //$do('load', null, 'Categories');
 
-            GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
+            if (aArguments.ok) {
+                if (addtocart && aArguments.item) {
+                    this.requestCommand('addItem',aArguments.item,'Cart');
+                }
+                return aArguments.item;
+            }
+            else
+                return null;
         },
 
         printerDashboard: function () {
             var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
             var width = this.screenwidth * .6;
-            var height = this.screenheight * .6;
+            var height = this.screenheight * .8;
 
             var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
             var devices = deviceController ? deviceController.getSelectedDevices() : [];
@@ -257,6 +298,19 @@
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
         },
 
+        orderDialog: function () {
+            var aURL = 'chrome://viviecr/content/view_order.xul';
+            var aName = _('Order Details');
+            var aArguments = {index: 'sequence', value: this._getKeypadController().getBuffer()};
+            var posX = 0;
+            var posY = 0;
+            var width = this.screenwidth;
+            var height = this.screenheight;
+            
+            this.requestCommand('clear', null, 'Cart');
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
+        },
+
         createPluPanel: function () {
 
             this.depPanelView = new NSIDepartmentsView('catescrollablepanel');
@@ -307,6 +361,7 @@
                         // department not group
                         var buf = this._getKeypadController().getBuffer();
                         if(GeckoJS.Session.get('cart_set_qty_value') != null || buf.length > 0  ) {
+                            dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
                         }
                     }
@@ -389,7 +444,6 @@
             else {
                 GeckoJS.Session.clear('user');
             }
-            this.dispatchEvent('onSetClerk', userRecord);
         },
 
         updateOptions: function () {
@@ -416,7 +470,7 @@
 
             // check if default user successfully logged in
             if (this.Acl.getUserPrincipal()) {
-                this.setClerk();
+                this.requestCommand('setClerk', null, 'Main');
             }
             else {
                 this.ChangeUserDialog();
@@ -681,8 +735,8 @@
 
             if (waitCaption) waitCaption.setAttribute("label", title);
 
-            waitPanel.sizeTo(360, 120);
-            var x = (width - 360) / 2;
+            waitPanel.sizeTo(600, 120);
+            var x = (width - 600) / 2;
             var y = (height - 240) / 2;
             waitPanel.openPopupAtScreen(x, y);
 
@@ -701,6 +755,8 @@
             var weeklyPack = GeckoJS.Configure.read('vivipos.fec.settings.OrderWeeklyPack') || -1;
 
             if (retainDays > 0) {
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
                 var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing old data...'), 1000);
 
@@ -713,6 +769,7 @@
                     var order = new OrderModel();
                     var conditions = "orders.transaction_submitted<='" + retainDate +
                                      "' AND orders.status<='1'";
+
                     order.removeOrders(conditions);
 
                     // dispatch beforeClearOrderData event
@@ -720,6 +777,7 @@
 
                     // if pack order data...
                     var today = (new Date()).getDay();
+
                     if (pack || (weeklyPack == today)) {
                         order.execute("VACUUM");
                     }
@@ -727,11 +785,11 @@
                     // dispatch afterPackOrderData event
                     this.dispatchEvent('afterPackOrderData', retainDate);
 
-
                     delete order;
 
                 } catch (e) {}
                 finally {
+                    GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                     waitPanel.hidePopup();
                 }
 
@@ -754,10 +812,9 @@
         },
 
         dispatch: function(arg) {
-
             var args = arg.split('|');
 
-            this.requestCommand(args[0], args[1], args[2]) ;
+            $do(args[0], args[1], args[2]) ;
             /*
             var printer = GeckoJS.Controller.getInstanceByName('Print');
             if (printer) {
@@ -780,26 +837,58 @@
             }
         },
 
+        suspendLoadTest: function(data) {
+            this._suspendLoadTest = true;
+        },
+
         loadTest: function(params) {
             var paramList = [];
             if (params) paramList = params.split(',');
             var count = parseInt(paramList[0]) || 1;
             var items = parseInt(paramList[1]) || 1;
-            var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
-            var customers = GeckoJS.Session.get('customers');
-            var products = GeckoJS.Session.get('products');
+            var resume = parseInt(paramList[2]) || 0;
+            var customers = GeckoJS.Session.get('customers') || [];
+            var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
             var numCustomers = customers.length;
             
             var customerController = GeckoJS.Controller.getInstanceByName('Customers');
             
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            //
-            for (var i = 0; i < count; i++) {
+            var startIndex = 0;
+            var waitPanel;
+
+            var progressBar = document.getElementById('progress');
+            progressBar.mode = 'determined';
+
+            if (resume && this.loadTestState != null) {
+                startIndex = this.loadTestState;
+                this.loadTestState = null;
+                progressBar.value = startIndex * 100 / count;
+                waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+            }
+            else {
+                progressBar.value = 0;
+                waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+            }
+
+            //this.sleep(100);
+            
+            for (var i = startIndex; i < count; i++) {
+
+                if (this._suspendLoadTest) {
+                    this._suspendLoadTest = false;
+                    this.loadTestState = i;
+                    
+                    break;
+                }
 
                 // select a member
                 if (customerController && numCustomers > 0) {
-                    var customer = customers[Math.floor(numCustomers * Math.random())];
+                    var cIndex = Math.floor(numCustomers * Math.random());
+                    if (cIndex >= numCustomers) cIndex = numCustomers - 1;
+                    
+                    var customer = customers[cIndex];
                     var txn = cart._getTransaction(true);
                     customerController.processSetCustomerResult(txn, {ok: true, customer: customer});
                 }
@@ -807,7 +896,10 @@
                 for (var j = 0; j < items; j++) {
 
                     // select an item with no condiments from product list
-                    var item = products[Math.floor(numProds * Math.random())];
+                    var pindex = Math.floor(numProds * Math.random());
+                    if (pindex >= numProds) pindex = numProds - 1;
+                    
+                    var item = products[pindex];
                     if (item.force_condiment) {
                         item.force_condiment = false;
                     }
@@ -824,11 +916,16 @@
                 // finalize order with cash
                 cart.cash();
 
-                // delay
+                // update progress bar
+                progressBar.value = (i + 1) * 100 / count;
+
+                // GC & delay
+                GREUtils.gc();
                 this.sleep(300 + 100 * Math.random());
             }
 
             waitPanel.hidePopup();
+            progressBar.mode = 'undetermined';
         }
     };
 

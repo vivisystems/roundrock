@@ -72,6 +72,8 @@ function launchControl(panel) {
 
             }else {
 
+                VirtualKeyboard.show();
+
                 var paths = pref['path'].split(' ');
                 var launchAp = paths[0];
                 var args = paths.slice(1);
@@ -79,6 +81,7 @@ function launchControl(panel) {
                 var fileAp = new GeckoJS.File(launchAp);
                 fileAp.run(args, true);
 
+                VirtualKeyboard.hide();
             }
         }
         catch (e) {alert(e);}

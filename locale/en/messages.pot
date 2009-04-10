@@ -40,6 +40,9 @@ msgstr "Ledger"
 msgid "Price Level Schedule"
 msgstr "Price Level Schedule"
 
+msgid "Static Condiments"
+msgstr "Condiment Dock"
+
 msgid "Reports"
 msgstr "Reports"
 
@@ -661,9 +664,22 @@ msgstr "Add Memo"
 msgid "addmemo.name"
 msgstr "Add Memo"
 
+msgid "addlinkedcondiment.desc"
+msgstr ""
+"This function registers one or more condiments against a product from condiment groups linked to that product. The parameter field must be empty."
+
+msgid "addlinkedcondiment.label"
+msgstr "Add Linked Condiment"
+
+msgid "addlinkedcondiment.name"
+msgstr "Add Linked Condiment"
+
 msgid "addcondiment.desc"
 msgstr ""
-"This function registers a condiment. The parameter field must be empty."
+"This function registers one or more condiments given by the function parameter against a product. "
+"The condiments do not need to be explicitly linked to the product. The parameter field should contain a "
+"comma-separated list of condiment name - price tuples. Condiment name and price should be separated by a "
+"'|' symbol in each tuple."
 
 msgid "addcondiment.label"
 msgstr "Add Condiment"
@@ -1446,3 +1462,395 @@ msgstr "Printer Dashboard"
 
 msgid "printerDashboard.name"
 msgstr "Printer Dashboard"
+
+msgid "acl_view_order"
+msgstr "View Order"
+
+msgid "vieworder.desc"
+msgstr ""
+"This function allows the operator to quickly view the complete details of an "
+"order. No parameter is needed."
+
+msgid "vieworder.label"
+msgstr "View Order"
+
+msgid "vieworder.name"
+msgstr "View Order"
+
+msgid "(rpt)Terminal"
+msgstr "Terminal"
+
+msgid "(rpt)Clerk"
+msgstr "Clerk"
+
+msgid "(rpt)Printed Time"
+msgstr "Printed Time"
+
+msgid "(rpt)Job"
+msgstr "Job"
+
+msgid "(rpt)Clock In"
+msgstr "Clock In"
+
+msgid "(rpt)Clock Out"
+msgstr "Clock Out"
+
+msgid "(rpt)Span Time"
+msgstr "Span Time"
+
+msgid "(rpt)Summary"
+msgstr "Summary"
+
+msgid "(rpt)Sale Period"
+msgstr "Sale Period"
+
+msgid "(rpt)Shift No."
+msgstr "Shift No."
+
+msgid "(rpt)Balance"
+msgstr "Balance"
+
+msgid "(rpt)Cash"
+msgstr "Cash"
+
+msgid "(rpt)Sales"
+msgstr "Sales"
+
+msgid "(rpt)Excess"
+msgstr "Excess"
+
+msgid "(rpt)Ledger In"
+msgstr "Ledger In"
+
+msgid "(rpt)Ledger Out"
+msgstr "Ledger Out"
+
+msgid "(rpt)Type"
+msgstr "Type"
+
+msgid "(rpt)Amount"
+msgstr "Amount"
+
+msgid "(rpt)Count"
+msgstr "Count"
+
+msgid "(rpt)Destination"
+msgstr "Destination"
+
+msgid "(rpt)Terminal ID"
+msgstr "Terminal ID"
+
+msgid "(rpt)Start Time"
+msgstr "Start Time"
+
+msgid "(rpt)End Time"
+msgstr "End Time"
+
+msgid "(rpt)Terminal No."
+msgstr "Terminal No."
+
+msgid "(rpt)Drawer No."
+msgstr "Drawer No."
+
+msgid "(rpt)Time"
+msgstr "Time"
+
+msgid "(rpt)Event"
+msgstr "Event"
+
+msgid "(rpt)Number of Events"
+msgstr "Number of Events"
+
+msgid "(rpt)Term_No."
+msgstr "Term_No."
+
+msgid "(rpt)Sequence"
+msgstr "Sequence"
+
+msgid "(rpt)Total"
+msgstr "Total"
+
+msgid "(rpt)Add-on Tax"
+msgstr "Add-on Tax"
+
+msgid "(rpt)Surcharge"
+msgstr "Surcharge"
+
+msgid "(rpt)Discount"
+msgstr "Discount"
+
+msgid "(rpt)Payment"
+msgstr "Payment"
+
+msgid "(rpt)Check"
+msgstr "Check"
+
+msgid "(rpt)Credit Card"
+msgstr "Credit Card"
+
+msgid "(rpt)Coupon"
+msgstr "Coupon"
+
+msgid "(rpt)Gift Card"
+msgstr "Gift Card"
+
+msgid "(rpt)Seq."
+msgstr "Seq."
+
+msgid "(rpt)Service Clerk"
+msgstr "Service Clerk"
+
+msgid "(rpt)Proceeds Clerk"
+msgstr "Proceeds Clerk"
+
+msgid "(rpt)Proceeds"
+msgstr "Proceeds"
+
+msgid "(rpt)Service"
+msgstr "Service"
+
+msgid "(rpt)Guests"
+msgstr "Guests"
+
+msgid "(rpt)Items"
+msgstr "Items"
+
+msgid "(rpt)Product No."
+msgstr "Product No."
+
+msgid "(rpt)Product Name"
+msgstr "Product Name"
+
+msgid "(rpt)Price"
+msgstr "Price"
+
+msgid "(rpt)Quantity"
+msgstr "Quantity"
+
+msgid "(rpt)Termianl No"
+msgstr "Termianl No."
+
+msgid "(rpt)No."
+msgstr "No."
+
+msgid "(rpt)Name"
+msgstr "Name"
+
+msgid "(rpt)Included Tax"
+msgstr "Included Tax"
+
+msgid "(rpt)Orders"
+msgstr "Orders"
+
+msgid "(rpt)Status"
+msgstr "Status"
+
+msgid "(rpt)Avg. Price"
+msgstr "Avg. Price"
+
+msgid "(rpt)Qty"
+msgstr "Qty"
+
+msgid "(rpt)Qty."
+msgstr "Qty."
+
+msgid "(rpt)Barcode"
+msgstr "Barcode"
+
+msgid "(rpt)Tax"
+msgstr "Tax"
+
+msgid "(rpt)Stock"
+msgstr "Stock"
+
+msgid "(rpt)Safe_Stock"
+msgstr "Safe_Stock"
+
+msgid "(rpt)Halo"
+msgstr "Halo"
+
+msgid "(rpt)Lalo"
+msgstr "Lalo"
+
+msgid "(rpt)Maintain_Stock"
+msgstr "Maintain_Stock"
+
+msgid "(rpt)Return_Stock"
+msgstr "Return_Stock"
+
+msgid "(rpt)Single"
+msgstr "Single"
+
+msgid "(rpt)Age_Verification"
+msgstr "Age_Verification"
+
+msgid "(rpt)Visible"
+msgstr "Visible"
+
+msgid "(rpt)Department No."
+msgstr "Department No."
+
+msgid "(rpt)Department Name"
+msgstr "Department Name"
+
+msgid "(rpt)Product"
+msgstr "Product"
+
+msgid "(rpt)Safe Stock"
+msgstr "Safe Stock"
+
+msgid "(rpt)Revenue"
+msgstr "Revenue"
+
+msgid "(rpt)Sales Summary"
+msgstr "Sales Summary"
+
+msgid "(rpt)Average Total"
+msgstr "Average Total"
+
+msgid "(rpt)Average Guest"
+msgstr "Average Guest"
+
+msgid "(rpt)Average Items"
+msgstr "Average Items"
+
+msgid "(rpt)Payment List"
+msgstr "Payment List"
+
+msgid "(rpt)Destination Summary"
+msgstr "Destination Summary"
+
+msgid "(rpt)Times"
+msgstr "Times"
+
+msgid "(rpt)Top Department Sales"
+msgstr "Top Department Sales"
+
+msgid "(rpt)Department"
+msgstr "Department"
+
+msgid "(rpt)Hourly Sales"
+msgstr "Hourly Sales"
+
+msgid "(rpt)Top Product Sales"
+msgstr "Top Product Sales"
+
+msgid "(rpt)Tax summary"
+msgstr "Tax summary"
+
+msgid "(rpt)Rate"
+msgstr "Rate"
+
+msgid "(rpt)Discount Summary"
+msgstr "Discount Summary"
+
+msgid "(rpt)Surcharge Summary"
+msgstr "Surcharge Summary"
+
+msgid "(rpt)General Information"
+msgstr "General Information"
+
+msgid "(rpt)Tax Name"
+msgstr "Tax Name"
+
+msgid "(rpt)Tax Rate"
+msgstr "Tax Rate"
+
+msgid "(rpt)Tax Type"
+msgstr "Tax Type"
+
+msgid "(rpt)Min Stock"
+msgstr "Min Stock"
+
+msgid "(rpt)Min.Stock"
+msgstr "Min.Stock"
+
+msgid "(rpt)User Name"
+msgstr "User Name"
+
+msgid "(rpt)Display Name"
+msgstr "Display Name"
+
+msgid "(rpt)Access Group"
+msgstr "Access Group"
+
+msgid "(view)completed"
+msgstr "completed"
+
+msgid "(view)stored"
+msgstr "stored"
+
+msgid "(view)cancelled"
+msgstr "cancelled"
+
+msgid "(view)voided"
+msgstr "voided"
+
+msgid "(view)order sequence"
+msgstr "sequence"
+
+msgid "(view)order status"
+msgstr "status"
+
+msgid "(view)order destination"
+msgstr "destination"
+
+msgid "(view)branch"
+msgstr "branch"
+
+msgid "(view)terminal"
+msgstr "terminal"
+
+msgid "(view)opened"
+msgstr "opened"
+
+msgid "(view)open clerk"
+msgstr "open clerk"
+
+msgid "(view)submitted"
+msgstr "submitted"
+
+msgid "(view)close clerk"
+msgstr "close clerk"
+
+msgid "(view)customer"
+msgstr "customer"
+
+msgid "(view)contact"
+msgstr "contact"
+
+msgid "(view)email"
+msgstr "email"
+
+msgid "(view)check #"
+msgstr "check #"
+
+msgid "(view)table #"
+msgstr "table #"
+
+msgid "(view)customers"
+msgstr "customers"
+
+msgid "(view)Item Subtotal"
+msgstr "Item Subtotal"
+
+msgid "(view)Adjustments"
+msgstr "Adjustments"
+
+msgid "(view)Add-on Taxes"
+msgstr "Add-on Taxes"
+
+msgid "(view)Total"
+msgstr "Total"
+
+msgid "(view)Payment Subtotal"
+msgstr "Payment Subtotal"
+
+msgid "(view)Change"
+msgstr "Change"
+
+msgid "Order sequence [%S] does not exist"
+msgstr ""
+
+msgid "Unable to display order; no order sequence given"
+msgstr ""

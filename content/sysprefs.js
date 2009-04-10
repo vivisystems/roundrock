@@ -38,7 +38,7 @@
         //
         var weekmenulist = document.getElementById('weekmenulist');
         var date = new Date();
-        date.setDate(date.getDate() - (date.getDay() - 0));
+        date.setDate(date.getDate() - (date.getDay() + 1));
         for (var i=-1; i < 7; i++) {
             var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
             menuitem.setAttribute( 'value', i );
@@ -64,6 +64,34 @@
 
 
 })();
+
+function rebuildDatabases() {
+
+    // popup progress bar
+    var waitPanel = document.getElementById( 'wait_panel' );
+    var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+    var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+
+    waitPanel.sizeTo(600, 120);
+    var x = (width - 600) / 2;
+    var y = (height - 240) / 2;
+    waitPanel.openPopupAtScreen(x, y);
+	
+	var sleepTime = 0;
+    // release CPU for progressbar ...
+    if (!sleepTime) {
+      sleepTime = 1000;
+    }
+    GeckoJS.BaseObject.sleep(sleepTime);
+
+    //close all connection
+    GeckoJS.ConnectionManager.closeAll();
+    
+    GREUtils.File.run('/data/scripts/rebuild_databases.sh', [], true);
+
+    // unpopup progressbar
+    waitPanel.hidePopup();
+}
 
 function closePreferences() {
     try {

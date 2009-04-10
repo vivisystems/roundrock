@@ -17,6 +17,7 @@
     list-style-image: url(../icons/icon_devices.png);
     -moz-box-orient: vertical;
     background-color:silver;
+    -moz-border-radius: 8px;
     color: #3b312b;
 }
 

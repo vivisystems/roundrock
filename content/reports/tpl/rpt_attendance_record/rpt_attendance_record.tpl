@@ -7,14 +7,14 @@
 	<p class="heading_store">${head.store.telephone1}</p>
 
 	<div style="float: left;">
-		<p class="heading_p">${_( 'Terminal' ) + ': '}${head.store.terminal_no}</p>
-		<p class="heading_p">${_( 'Clerk' ) + ': '}${head.clerk_displayname}</p>
+		<p class="heading_p">${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}</p>
+		<p class="heading_p">${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}</p>
 		<p class="caption">${head.title}</p>
 	</div>
 
 	<div style="float: right;">
 		<p class="heading_p">&nbsp;</p>
-		<p class="heading_p" align="right">${_( 'Printed Time' ) + ': '}${foot.gen_time}</p>
+		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
 		<p class="caption">${head.start_time} - ${head.end_time}</p>
 	</div>
 
@@ -26,10 +26,10 @@
             		<td colspan="8" class="subtitle">${master.username}</td>
             	</tr>
                 <tr class="fields">
-                    <th style="text-align: left;">${_( 'Job' )}</th>
-                    <th style="text-align: left;">${_( 'Clock In' )}</th>
-                    <th style="text-align: left;">${_( 'Clock Out' )}</th>
-                    <th style="text-align: left;">${_( 'Span Time' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Job' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Clock In' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Clock Out' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Span Time' )}</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,7 +44,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">${_( 'Summary' ) + ':'}</td>
+                    <td colspan="3">${_( '(rpt)Summary' ) + ':'}</td>
                     <td>${master.total_spantime}</td>
                 </tr>
             </tfoot>

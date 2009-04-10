@@ -67,7 +67,7 @@
         initDefaultTax: function () {
 
             // make sure tax rate field is always populated
-            var rate;
+            var rate = '';
             var taxes = GeckoJS.Session.get('taxes');
             if (taxes == null) taxes = this.Tax.getTaxList();
 
