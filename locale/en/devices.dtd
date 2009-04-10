@@ -30,6 +30,9 @@
 <!ENTITY devices.check.print.all.routing.label "Print all items">
 <!ENTITY devices.report.printer.1.label "Report Printer">
 <!ENTITY devices.report.printer.2.label "Label Printer">
+<!ENTITY devices.paperwidth.label "Paper Width">
+<!ENTITY devices.paperwidth.narrow "Narrow (58mm)">
+<!ENTITY devices.paperwidth.normal "Normal (80mm)">
 <!ENTITY devices.vfd.1.label "VFD 1">
 <!ENTITY devices.vfd.2.label "VFD 2">
 <!ENTITY devices.cashdrawer.1.label "Cash Drawer 1">
