@@ -49,6 +49,7 @@
 <!ENTITY tableman.tableoptions.tableperiodlimit "Time limit for the use of table (Minutes):">
 <!ENTITY tableman.tableoptions.tablebookingtimeout "Booking time out (Minutes):">
 <!ENTITY tableman.tableoptions.tableremindtime "Remind before booking time (Minutes):">
+<!ENTITY tableman.tableoptions.maxcheckno "Max Check No:">
 
 <!ENTITY tableman.tableoptions.displayoptions "Display Elements:">
 <!ENTITY tableman.tableoptions.displaycheckno "Check No">

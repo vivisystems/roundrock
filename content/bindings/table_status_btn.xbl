@@ -24,7 +24,7 @@
   <content>
     <xul:hbox flex="1" xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
     <html:div anonid="face_div" style="position: relative;">
-        <html:div anonid="div" style="position: absolute; top: 0px; width: 100%; text-align: center;">
+        <html:div anonid="div" style="position: absolute; top: 10px; width: 100%; text-align: center;">
             <html:span anonid="bg_table_no" class="bgtext">12</html:span>
         </html:div>
         <html:div anonid="div" style="position: absolute; top: 0px; width: 100%;">
