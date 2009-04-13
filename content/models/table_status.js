@@ -77,6 +77,7 @@ GREUtils.log("in table status initialize...");
         },
 
         getNewCheckNo: function() {
+        //@todo rack
 GREUtils.log("getNewCheckNo...");
             this.resetCheckNoArray();
             var i = 1;
@@ -107,6 +108,7 @@ GREUtils.log("in getNewCheckNo:" + i);
         },
 
         getTableStatusList: function(reload) {
+        // @todo rack
 GREUtils.log("getTableStatusList...");
             if (!reload) {
                 var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
@@ -178,6 +180,7 @@ GREUtils.log("getTableStatusList...");
         },
 
         getTableList: function(reload) {
+        // @todo rack
 GREUtils.log("getTableList...");
             if (!reload) {
                 var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
@@ -195,6 +198,7 @@ GREUtils.log("getTableList...");
         },
 
         getCheckList: function(key, no, reload) {
+        // @todo rack
 GREUtils.log("getCheckList...");
             if (!reload) {
                 var checks = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
@@ -272,7 +276,7 @@ GREUtils.log("getCheckList...");
         },
 
         addCheck: function(checkObj) {
-            //
+            // @todo rack
 GREUtils.log("add check...");
             var isNewCheck = true;
             var newCheck = null;
@@ -328,6 +332,7 @@ GREUtils.log("add check...");
         },
 
         removeCheck: function(checkObj) {
+        // @todo rack
 GREUtils.log("remove check...");
             var i = 0;
             var idx = -1;

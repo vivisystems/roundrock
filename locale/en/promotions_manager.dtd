@@ -3,7 +3,8 @@
 <!ENTITY    promotions_manager.tree.name.label      "Name">
 <!ENTITY    promotions_manager.tree.active.label      "Active">
 <!ENTITY    promotions_manager.button.action.add     "Add">
-<!ENTITY    promotions_manager.button.action.up     "Up">
+<!ENTITY    promotions_manager.button.action.download     "Download">
+<!ENTITY    promotions_manager.button.action.export     "Export">
 
 <!ENTITY    promotions_manager.tab.basic     "Basic">
 <!ENTITY    promotions_manager.tab.time_control     "Time Control">

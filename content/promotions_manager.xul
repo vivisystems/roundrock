@@ -38,12 +38,15 @@
                                                 hidevscroll="true"
                                                 hidecolumnpicker="true"
                                                 scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
-                                                onselect="$do('modify', this, 'PromotionsManager')"/>
+                                                onselect="$do('modify', this, 'PromotionsManager')">
+
+                        <button id="upBtn" disabled="true" class="BtnUp" style="min-width: 32px;" oncommand="$do('up', null, 'PromotionsManager');" />
+                        <button id="downBtn" disabled="true" class="BtnDown" style="min-width: 32px;" oncommand="$do('down', null, 'PromotionsManager');" />
+                    </viviscrollabletree>
                     <spacer height="3px" />
                     <hbox class="ToolBar" flex="1">
-                        <button id="addBtn" label="&promotions_manager.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'PromotionsManager');" />
-                        <button id="upBtn" label="&promotions_manager.button.action.up;" disabled="true" class="BtnUp" oncommand="$do('up', null, 'PromotionsManager');" />
-                        <button id="downBtn" label="&promotions_manager.button.action.down;" disabled="true" class="BtnDown" oncommand="$do('down', null, 'PromotionsManager');" />
+                        <vivibutton id="addBtn" label="&promotions_manager.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'PromotionsManager');" />
+                        <vivibutton id="downloadBtn" label="&promotions_manager.button.action.download;" disabled="false" class="BtnDownload" oncommand="$do('add', null, 'PromotionsManager');" />
                     </hbox>
                 </vbox>
             </vbox>
