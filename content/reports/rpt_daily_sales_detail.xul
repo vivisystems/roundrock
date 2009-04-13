@@ -85,6 +85,8 @@
             </splitter>
 			<hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
+                	<vivibutton id="previous_page" label="&rptdailysalesdetail.previouspage;" disabled="false" class="previousPage" oncommand="$do('previousPage', null, 'RptDailySalesDetail');" />
+                    <vivibutton id="next_page" label="&rptdailysalesdetail.nextpage;" disabled="false" class="nextPage" oncommand="$do('nextPage', null, 'RptDailySalesDetail');" />
 
                     <vivibutton id="export_pdf" label="&rptdailysalesdetail.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDailySalesDetail');" />
                     <vivibutton id="export_csv" label="&rptdailysalesdetail.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDailySalesDetail');" />
