@@ -22,6 +22,7 @@
             <thead>
                 <tr>
                     <th style="text-align: left;">${_( '(rpt)Term_No.' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
@@ -38,6 +39,7 @@
 {for detail in body}
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
+                    <td style="text-align: left;">${detail.date}</td>
                     <td style="text-align: right;">${detail.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|viviFormatPrices:true}</td>
@@ -53,7 +55,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="1">${_( '(rpt)Summary' ) + ':'}</td>
+                    <td colspan="2">${_( '(rpt)Summary' ) + ':'}</td>
                     <td style="text-align: right;">${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>

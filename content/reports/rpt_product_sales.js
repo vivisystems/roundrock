@@ -2,6 +2,7 @@
 	include( 'chrome://viviecr/content/models/category.js' );
     include( 'chrome://viviecr/content/models/order.js' );
     include( 'chrome://viviecr/content/models/order_item.js' );
+    include( 'chrome://viviecr/content/models/product.js' );
 
     // include controllers  and register itself
 

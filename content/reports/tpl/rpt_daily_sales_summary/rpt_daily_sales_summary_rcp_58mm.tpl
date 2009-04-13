@@ -12,6 +12,8 @@ ${head.title|center:24}
 -----------------------
 ${_( '(rpt)Termianl No' ) + ':'}
 ${detail.terminal_no|right:24}
+${_( '(rpt)Time' ) + ':'}
+${detail.date|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${detail.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}

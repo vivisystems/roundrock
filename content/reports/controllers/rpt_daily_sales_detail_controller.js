@@ -64,8 +64,8 @@
             	
             	switch ( sortby ) {
             		case 'terminal_no':
-            			break;
             		case 'transaction_created':
+            			break;
             		case 'item_subtotal':
             		case 'tax_subtotal':
             		case 'surcharge_subtotal':

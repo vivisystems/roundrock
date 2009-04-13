@@ -44,7 +44,8 @@
             start = parseInt( this._start / 1000, 10 );
             end = parseInt( this._end / 1000, 10 );
 
-            var fields = ['orders.transaction_created',
+            var fields = [
+            				'orders.transaction_created',
                             'orders.terminal_no',
                             'orders.status',
                             'SUM("orders"."total") AS "Order.HourTotal"',
@@ -52,7 +53,8 @@
                             'STRFTIME("%H",DATETIME("orders"."transaction_created", "unixepoch", "localtime")) AS "Order.Hour"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
-                            'SUM("orders"."items_count") AS "Order.ItemsCount"'];
+                            'SUM("orders"."items_count") AS "Order.ItemsCount"'
+                        ];
 
              var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end +
@@ -95,7 +97,8 @@
 
             var orderItem = new OrderItemModel();
 
-            var fields = ['orders.terminal_no',
+            var fields = [
+            				'orders.terminal_no',
                             'order_items.created',
                             'order_items.cate_no',
                             'order_items.cate_name',
@@ -103,7 +106,8 @@
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
                             'SUM("order_items"."current_subtotal") as "OrderItem.total"',
-                            'order_items.current_tax'];
+                            'order_items.current_tax'
+                        ];
                             
              var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end + "'";
@@ -152,13 +156,15 @@
 
             var orderItem = new OrderItemModel();
 
-            var fields = ['orders.terminal_no',
+            var fields = [
+            				'orders.terminal_no',
                     		'order_items.created',
                             'order_items.product_no',
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
                             'SUM("order_items"."current_subtotal") as "OrderItem.total"',
-                            'order_items.current_tax'];
+                            'order_items.current_tax'
+                         ];
                             
              var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end + "'";
@@ -268,9 +274,7 @@
             start = parseInt( this._start / 1000, 10 );
             end = parseInt( this._end / 1000, 10 );
 
-            var fields = ['orders.transaction_created',
-                            'orders.terminal_no',
-                            'orders.status',
+            var fields = [
                             'SUM("orders"."total") AS "Order.Total"',
                             'SUM( "orders"."item_subtotal" ) AS "Order.ItemSubtotal"',
                             'SUM( "orders"."discount_subtotal" ) AS "Order.DiscountSubtotal"',
@@ -281,7 +285,7 @@
                             'SUM("orders"."items_count") AS "Order.ItemsCount"',
                             'AVG("orders"."total") AS "Order.AvgTotal"',
                             'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
-                            'AVG("orders"."items_count") AS "Order.AvgItemsCount"',
+                            'AVG("orders"."items_count") AS "Order.AvgItemsCount"'
                         ];
 
              var conditions = "orders." + this._periodtype + ">='" + start +
@@ -299,9 +303,16 @@
             var orderby = 'orders.terminal_no,orders.' + this._periodtype;
 
             var order = new OrderModel();
-            var datas = order.find( 'first', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: -1 } );
+            var orderRecords = order.find( 'first', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 0 } );
+            
+            // get the number of sold items.
+            var sql = "select sum( current_qty ) as qty from order_items join orders on orders.id = order_items.order_id where " + conditions;
+            var orderItem = new OrderItemModel();
+            var orderItemRecords = orderItem.getDataSource().fetchAll( sql );
+            
+            orderRecords.ItemsCount = orderItemRecords[ 0 ].qty;
 
-            return datas;
+            return orderRecords;
         },
         
         _taxSummary: function() {
@@ -370,7 +381,7 @@
                             'orders.destination as "Order.destination"',
                             'count( orders.id ) as "Order.num_trans"',
                             'sum( orders.total ) as "Order.total"'
-                        ];
+                         ];
 
             var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end +
@@ -407,7 +418,7 @@
                             discountOrSurcharge + '_name',
                             'count( * ) as num_rows',
                             'sum( current_' + discountOrSurcharge +' ) as amount',
-                        ];
+                         ];
 
             var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end +
@@ -441,9 +452,9 @@
             } );
             
             var fields = [
-                        discountOrSurcharge + '_name',
-                        'count( * ) as num_rows',
-                        'sum( current_' + discountOrSurcharge + ' ) as amount',
+                        	discountOrSurcharge + '_name',
+                        	'count( * ) as num_rows',
+                        	'sum( current_' + discountOrSurcharge + ' ) as amount',
                          ];
             
             var orderAddition = new OrderAdditionModel();
