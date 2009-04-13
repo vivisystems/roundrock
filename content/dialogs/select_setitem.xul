@@ -42,8 +42,8 @@
                         <separator class="groove-thin" orient="vertical" width="1" flex="0" style="margin: 0 5px 0 5px"/>
                         <vbox flex="2">
 
-                            <label id="setitem-caption" value="" class="PageTitle SubTitle"/>
-
+                            <label id="setitem-caption" value="" class="PageTitle"/>
+                            <separator class="groove-thin" style="margin: 2px 0 5px 0"/>
                             <vbox flex="1">
                                 <vbox>
                                     <label value="&select.setitem.preset;"/>

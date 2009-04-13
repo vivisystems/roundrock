@@ -564,17 +564,22 @@
 
             // start at first set item where preset_no == null and linkgroup_id != null
             var startIndex = 0;
-            for (var i = 0; i < item.SetItem.length; i++) {
-                var entry = item.SetItem[i];
+            var pluset = item.SetItem;
+            for (var i = 0; i < pluset.length; i++) {
+                var entry = pluset[i];
 
                 if (entry.linkgroup_id != null && entry.linkgroup_id != '') {
                     startIndex = i;
                     break;
                 }
             }
+
+            pluset.forEach(function(setitem) {
+               setitem.product_no = '';
+            });
             
             var dialog_data = {
-                pluset: item.SetItem,
+                pluset: pluset,
                 name: item.name,
                 start: startIndex
             };
@@ -639,8 +644,7 @@
             var product = productsById[item.id];
 
             // assign each cart set item into product set
-            //var pluset = GREUtils.extend({}, product.SetItem);
-            let pluset = product.SetItem;
+            var pluset = product.SetItem;
 
             var startIndex = 0;
             for (var i = 0; i < pluset.length; i++) {
@@ -649,7 +653,6 @@
                     startIndex = i;
                 }
             }
-            
             var dialog_data = {
                 pluset: pluset,
                 name: item.name,

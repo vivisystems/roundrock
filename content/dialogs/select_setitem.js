@@ -204,7 +204,14 @@
                 if (setitem) {
                     // set caption
                     var captionObj = document.getElementById('setitem-caption');
-                    if (captionObj) captionObj.value = setitem.setitem.label;
+                    if (captionObj) {
+                        if (setitem.product) {
+                            captionObj.value = setitem.setitem.label + ': ' + setitem.product.name;
+                        }
+                        else {
+                            captionObj.value = setitem.setitem.label;
+                        }
+                    }
 
                     // populate preset item
                     if (setitem.preset) {
@@ -257,13 +264,28 @@
             },
 
             moveToNext: function() {
-                var currentIndex = $buttonPanel[0].selectedIndex;
-                if (++currentIndex < plusetData.length) {
-                    opts.selectSetItem(currentIndex);
+                for (var currentIndex = $buttonPanel[0].selectedIndex + 1;
+                     currentIndex < plusetData.length;
+                     currentIndex ++) {
+                     if (plusetData[currentIndex].setitem.linkgroup_id) {
+                        opts.selectSetItem(currentIndex);
+                        return;
+                    }
                 }
-                else {
-                    opts.validateSetItemForm();
+
+                // update label
+                var captionObj = document.getElementById('setitem-caption');
+                if (captionObj) {
+
+                    var setitem = plusetData[$buttonPanel[0].selectedIndex];
+                    if (setitem.product) {
+                        captionObj.value = setitem.setitem.label + ': ' + setitem.product.name;
+                    }
+                    else {
+                        captionObj.value = setitem.setitem.label;
+                    }
                 }
+                opts.validateSetItemForm();
             }
 
         });
