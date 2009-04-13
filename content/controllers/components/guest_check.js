@@ -174,17 +174,23 @@ this.log("in onSubmit..." + evt.type);
                         this.recallByTableNo(i);
                         var user = new GeckoJS.AclComponent().getUserPrincipal();
                         var service_clerk;
+                        var service_clerk_displayname;
                         if ( user != null ) {
                             service_clerk = user.username;
+                            service_clerk_displayname = user.description;
                         }
 
                         var curTransaction = null;
                         curTransaction = this._controller._getTransaction();
                         if (curTransaction) {
 this.log("change service_clerk:" + service_clerk);
-                            if (service_clerk) curTransaction.service_clerk = service_clerk;
+                            if (service_clerk) {
+                                curTransaction.data.service_clerk = service_clerk;
+                                curTransaction.data.service_clerk_displayname = service_clerk_displayname;
+                            }
                         }
                         this.store();
+                        this._controller.dispatchEvent('onStore', curTransaction);
                         break;
                 }
             }else {
