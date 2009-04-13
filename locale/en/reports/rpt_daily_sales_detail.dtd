@@ -21,3 +21,5 @@
 <!ENTITY rptdailysalesdetail.all "List All">
 <!ENTITY rptdailysalesdetail.wait "Waiting...">
 <!ENTITY rptdailysalesdetail.sequence_no "Sequence:">
+<!ENTITY rptdailysalesdetail.previouspage "Previous Page">
+<!ENTITY rptdailysalesdetail.nextpage "Next Page">
