@@ -1,5 +1,6 @@
 CREATE  TABLE IF NOT EXISTS "main"."promotion_actives" (
-"id" VARCHAR PRIMARY KEY,
+"sn" INTEGER PRIMARY KEY,
+"id" VARCHAR,
 "name" VARCHAR, 
 "code" VARCHAR,
 "alt_name1" VARCHAR,
@@ -14,7 +15,8 @@ CREATE  TABLE IF NOT EXISTS "main"."promotion_actives" (
 
 
 CREATE  TABLE IF NOT EXISTS "main"."promotion_cart_items" (
-"id" VARCHAR PRIMARY KEY,
+"sn" INTEGER PRIMARY KEY,
+"id" VARCHAR,
 "name" VARCHAR,
 "no" VARCHAR,
 "barcode" VARCHAR,
@@ -31,4 +33,6 @@ CREATE  TABLE IF NOT EXISTS "main"."promotion_cart_items" (
 "current_condiment" FLOAT
 );
 
-
+CREATE  INDEX "main"."idx_promotion_cart_items_id" ON "promotion_cart_items" ("id");
+CREATE  INDEX "main"."idx_promotion_cart_items_no" ON "promotion_cart_items" ("no");
+CREATE  INDEX "main"."idx_promotion_cart_items_cate_no" ON "promotion_cart_items" ("cate_no");

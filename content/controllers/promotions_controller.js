@@ -427,6 +427,7 @@
         },
 
         updateTransaction: function(totalPromotionDiscount) {
+            this.log('dddd');
             this._transaction['data']['promotion_subtotal'] = totalPromotionDiscount;
         }
 

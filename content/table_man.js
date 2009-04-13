@@ -4,7 +4,7 @@
     include('chrome://viviecr/content/models/table.js');
     include('chrome://viviecr/content/models/table_region.js');
     include('chrome://viviecr/content/models/table_booking.js');
-    include('chrome://viviecr/content/models/table_statuse.js');
+    include('chrome://viviecr/content/models/table_status.js');
 
     // include controllers  and register itself
 

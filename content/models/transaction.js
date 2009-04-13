@@ -930,8 +930,9 @@
                 this.removeDisplaySeq(index, removeCount);
 
                 // recalc all
-                //this.calcPromotions();
-                //this.calcItemsTax();
+                this.calcPromotions();
+                
+                this.calcItemsTax();
 
 
             }else {
