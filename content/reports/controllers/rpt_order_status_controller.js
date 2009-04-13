@@ -74,8 +74,8 @@
 					case 'terminal_no':
 					case 'service_clerk_displayname':
 					case 'status':
-						break;
 					case 'transaction_created':
+						break;
 					case 'sequence':
 					case 'invoice_no':
 					case 'item_subtotal':

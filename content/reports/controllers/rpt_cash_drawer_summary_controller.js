@@ -27,7 +27,7 @@
                             'clerk_displayname',
                             'event_type',
                             'count( event_type ) as num_events'
-                        ];
+                         ];
                         
             var conditions = "created >= '" + start +
                             "' AND created <= '" + end + "'";

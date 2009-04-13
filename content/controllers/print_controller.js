@@ -784,7 +784,7 @@
             }
 
             //@debug
-            // if (data.order) this.log(this.dump(data.order));
+             if (data.order) this.log(this.dump(data.order));
             // if (data.customer) this.log(this.dump(data.customer));
             // if (data.store) this.log(this.dump(data.store));
             // if (data.annotations) this.log(this.dump(data.annotations));

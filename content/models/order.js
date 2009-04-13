@@ -175,6 +175,11 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
                     case 'hasMarker':
                         orderItem['has_marker'] = item[key];
                         break;
+                    case 'parent_index':
+                        if (item[key] != null && item[key] != '') {
+                            orderItem['parent_no'] = data.items[item[key]].no;
+                        }
+                        break;
                     case 'type':
                     case 'index':
                         break;

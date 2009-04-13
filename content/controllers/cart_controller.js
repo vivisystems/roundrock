@@ -31,6 +31,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+
         },
 
         suspend: function () {
@@ -140,9 +141,11 @@
             var item = evt.data;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var productsById = GeckoJS.Session.get('productsById');
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var setItemsStockStatus = 1;
             var setItemsAgeVerificationRequired = 0;
             var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired');
+            var setItemSelectionRequired = false;
             var curTransaction = this._getTransaction();
 
             // cart.log('Item:' + cart.dump(item));
@@ -171,13 +174,13 @@
                 }
             }
 
-            // retrieve set menu items only if setmenu is set
+            // retrieve set items only if SetItem is set
             var setItems = [];
-            if (item.setmenu != null && item.setmenu.length > 0) {
-                // invoke Product controller to get
-                setItems = GeckoJS.Controller.getInstanceByName('Plus')._setMenuFromString(item);
+            if (item.SetItem != null && item.SetItem.length > 0) {
+                setItems = item.SetItem;
                 for (var i = 0; i < setItems.length; i++) {
-                    var product = productsById[setItems[i].item_id];
+                    var productId = barcodesIndexes[setItems[i].preset_no];
+                    var product = productsById[productId];
                     if (product && product.age_verification) {
                         setItemsAgeVerificationRequired = 1;
                         break;
@@ -185,32 +188,46 @@
                 }
             }
             // check stock status...
-            if ( !cart._returnMode) {
-                // first check main item
+            //
+            // first check main item
+            if (!cart._returnMode)
                 if (!cart.checkStock("addItem", sellQty, item)) evt.preventDefault();
                 
-                // if set items are present, check each one individually
-                setItems.forEach(function(setitem) {
-                    var product = productsById[setitem.item_id];
-                    if (product) {
-                        if (!cart.checkStock('addItem', sellQty * setitem.quantity, product, false)) {
+            // if set items are present, check each one individually
+            setItems.forEach(function(setitem) {
+                var productId = barcodesIndexes[setitem.preset_no];
+                var product = productsById[productId];
+                if (product) {
+                    if (!cart._returnMode && !cart.checkStock('addItem', sellQty * setitem.quantity, product, false)) {
+
+                        // is group available?
+                        if (setitem.linkgroup_id) {
+                            setItemSelectionRequired = true;
+                        }
+                        else {
                             evt.preventDefault();
                             return;
                         }
-                        if (product.stock_status != null && product.stock_status != 1)
-                            setItemsStockStatus = product.stock_status;
                     }
-                });
-                //this._getCartlist().refresh();
-            }
+                    if (product.stock_status != null && product.stock_status != 1)
+                        setItemsStockStatus = product.stock_status;
+                }
+                else if (setitem.linkgroup_id) {
+                    setItemSelectionRequired = true;
+                }
+            });
+            //
+            // @irving: 4/9/2009 no reason to disallow return of product sets;
+            /*
             else {
-                // we don't allow return of set menus'
+                // we don't allow return of product sets
                 if (setItems.length > 0 ) {
                     //@todo OSD
                     NotifyUtils.warn(_('Return of product sets [%S] not allowed!', [item.name]));
                     evt.preventDefault();
                 }
             }
+            */
 
             // check if age verification required
             if ( !evt._cancel) {
@@ -227,6 +244,7 @@
                     if (requireAck) {
                         if (GREUtils.Dialog.confirm(null, _('confirm age'), _('Is customer of age for purchase of [%S]?', [item.name])) == false) {
                             evt.preventDefault();
+                            return;
                         }
                     }
                     else {
@@ -240,6 +258,7 @@
                         cart.dispatchEvent('onWarning', '');
                     }
                 }
+                evt.data.setItemSelectionRequired = setItemSelectionRequired;
             }
         },
 
@@ -474,7 +493,13 @@
             }
 
             if (this.dispatchEvent('beforeAddItem', item)) {
-                if ( this._returnMode) {
+                // check if set item selection is needed
+                if (item.setItemSelectionRequired) {
+                    this.setItemSelectionDialog(curTransaction, item);
+                    return;
+                }
+
+                if (this._returnMode) {
                     var qty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
                     GeckoJS.Session.set('cart_set_qty_value', qty);
                 }
@@ -535,6 +560,192 @@
             //this._getCartlist().refresh();
         },
 	
+        setItemSelectionDialog: function (txn, item) {
+
+            // start at first set item where preset_no == null and linkgroup_id != null
+            var startIndex = 0;
+            var pluset = item.SetItem;
+            for (var i = 0; i < pluset.length; i++) {
+                var entry = pluset[i];
+
+                if (entry.linkgroup_id != null && entry.linkgroup_id != '') {
+                    startIndex = i;
+                    break;
+                }
+            }
+
+            pluset.forEach(function(setitem) {
+               setitem.product_no = '';
+            });
+            
+            var dialog_data = {
+                pluset: pluset,
+                name: item.name,
+                start: startIndex
+            };
+            var self = this;
+            return $.popupPanel('selectSetItemPanel', dialog_data).next(function(evt){
+
+                if (evt.data.ok) {
+                    var plusetData = evt.data.plusetData;
+
+                    self.log('DEBUG', 'product set selections: ' + self.dump(plusetData));
+
+                    let plu = item;
+                    var setitems = [];
+
+                    plusetData.forEach(function(setitem) {
+
+                        var qty = setitem.setitem.quantity;
+                        var selected_no = setitem.product.no;
+                        var preset_no = setitem.setitem.preset_no;
+                        var priceDiff = 0;
+
+                        if (preset_no != selected_no) {
+
+                            // compute price differential
+                            var sellPrice = txn.calcSellPrice(null, qty, setitem.product);
+
+                            priceDiff = sellPrice - setitem.setitem.baseprice;
+                            if (priceDiff < 0 && !setitem.setitem.reduction) {
+                                priceDiff = 0;
+                            }
+                        }
+
+                        var newItem = {
+                            preset_no: setitem.product.no,
+                            quantity: setitem.setitem.quantity,
+                            price: priceDiff
+                        };
+
+                        setitems.push(newItem);
+                    });
+                    plu.SetItem = setitems;
+
+                    self.log('DEBUG', 'virtual product set: ' + self.dump(plu));
+                    self.addItem(plu);
+                }
+                else {
+                    this.log('DEBUG', 'product set cancelled');
+                }
+            });
+
+        },
+
+        setItemModifyDialog: function (txn, item, itemDisplay) {
+            // construct virtual set item from cart content
+
+            // get cart set items
+            var setItems = txn.getSetItemsByIndex(item.index);
+            var plusetDispIndex = txn.getDisplayIndexByIndex(item.index);
+
+            // get product set definition
+            var productsById = GeckoJS.Session.get('productsById');
+            var product = productsById[item.id];
+
+            // assign each cart set item into product set
+            var pluset = product.SetItem;
+
+            var startIndex = 0;
+            for (var i = 0; i < pluset.length; i++) {
+                pluset[i].product_no = setItems[i].no;
+                if (setItems[i].no == itemDisplay.no) {
+                    startIndex = i;
+                }
+            }
+            var dialog_data = {
+                pluset: pluset,
+                name: item.name,
+                start: startIndex
+            };
+            var self = this;
+            return $.popupPanel('selectSetItemPanel', dialog_data).next(function(evt){
+                if (evt.data.ok) {
+                    var plusetData = evt.data.plusetData;
+                    self.log('DEBUG', 'product set selections: ' + self.dump(plusetData));
+
+                    var newItems = [];
+
+                    plusetData.forEach(function(setitem) {
+
+                        var qty = setitem.setitem.quantity;
+                        var selected_no = setitem.product.no;
+                        var preset_no = setitem.setitem.preset_no;
+                        var priceDiff = 0;
+                        let item = setitem.product;
+
+                        if (preset_no != selected_no) {
+
+                            // compute price differential
+                            var sellPrice = txn.calcSellPrice(null, qty, setitem.product);
+
+                            priceDiff = sellPrice - setitem.setitem.baseprice;
+                            if (priceDiff < 0 && !setitem.setitem.reduction) {
+                                priceDiff = 0;
+                            }
+                        }
+
+                        var newItem = {
+                            item: item,
+                            preset_no: setitem.product.no,
+                            quantity: setitem.setitem.quantity,
+                            price: priceDiff
+                        };
+
+                        newItems.push(newItem);
+                    });
+
+                    self.log('DEBUG', 'virtual product set: ' + self.dump(newItems));
+
+                    // check if set items have changed
+                    var changed = false;
+
+                    // loop through set items to determine if individual set items need to be swapped
+                    var removedSetItems = [];
+                    var outOfStock = false;
+                    for (var i = 0; i < setItems.length; i++) {
+                        var oldSetItem = setItems[i];
+                        var newSetItem = newItems[i];
+
+                        if (oldSetItem.no != newSetItem.preset_no) {
+
+                            changed = true;
+
+                            // store swapped out item
+                            removedSetItems.push(oldSetItem);
+
+                            // back out stock of swapped out item
+                            txn.data.items_summary[oldSetItem.id].qty_subtotal -= oldSetItem.current_qty;
+
+                            // check stock of swapped in item
+                            if (!self.checkStock('addItem', oldSetItem.current_qty, newSetItem.item, 0)) {
+                                outOfStock = true;
+                            }
+                        }
+                    }
+
+                    // restore stock of swapped out items
+                    removedSetItems.forEach(function(item) {
+                        txn.data.items_summary[item.id].qty_subtotal += item.current_qty;
+                    });
+                    
+                    if (outOfStock) {
+                        return;
+                    }
+                    // void then add
+                    if (changed) {
+                        txn.modifyItemAt(plusetDispIndex, newItems);
+
+                        self.clearAndSubtotal();
+                    }
+
+                }
+                else {
+                    self.log('DEBUG', 'product set cancelled');
+                }
+            });
+        },
+
         addItemByBarcode: function(barcode) {
 
             if (barcode == null || barcode.length == 0) return;
@@ -578,6 +789,15 @@
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
+            // check if has buffer
+            if (buf.length>0) {
+                this.setPrice(buf);
+            }
+
+            // check whether price or quantity or both are being modified
+            var newPrice = GeckoJS.Session.get('cart_set_price_value');
+            var newQuantity = GeckoJS.Session.get('cart_set_qty_value');
+
             this.cancelReturn();
 
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
@@ -585,7 +805,7 @@
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
@@ -593,15 +813,15 @@
             if (curTransaction.isClosed()) {
                 NotifyUtils.warn(_('This order is being finalized and items may not be modified'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
-            if(index <0) {
+            if (index < 0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
@@ -609,7 +829,7 @@
             if (curTransaction.isLocked(index)) {
                 NotifyUtils.warn(_('Stored items may not be modified'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
@@ -619,19 +839,33 @@
             if (itemDisplay.type != 'item' && itemDisplay.type != 'condiment') {
                 this.dispatchEvent('onModifyItemError', {});
 
-                //@todo OSD
-                NotifyUtils.warn(_('Cannot modify the selected item [%S]', [itemDisplay.name]));
+                if (itemDisplay.type == 'setitem') {
 
-                this.subtotal();
-                return;
+                    // disallow quantity/price modification on set items
+                    if (newQuantity != null || newPrice != null) {
+                        //@todo OSD
+                        NotifyUtils.warn(_('Price/quantity of product set item [%S] may not be modified', [itemDisplay.name]));
+
+                        this.clearAndSubtotal();
+                        return;
+                    }
+                }
+                else {
+                    //@todo OSD
+                    NotifyUtils.warn(_('Cannot modify the selected item [%S]', [itemDisplay.name]));
+
+                    this.clearAndSubtotal();
+                    return;
+                }
             }
 
             // check if user is allowed to modify condiment
             if (itemDisplay.type == 'condiment' && !this.Acl.isUserInRole('acl_modify_condiment_price')) {
+
                 //@todo OSD
                 NotifyUtils.warn(_('Not authorized to modify condiment price'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
@@ -641,7 +875,7 @@
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemTrans.name]));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
@@ -651,7 +885,7 @@
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemTrans.name]));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 /*
@@ -672,34 +906,30 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify condiment price; no price entered'));
-                GeckoJS.Session.remove('cart_set_qty_value');
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return ;
             }
 
-            // check if has buffer
-            if (buf.length>0) {
-                this.setPrice(buf);
+            if (itemDisplay.type == 'setitem') {
+                this.setItemModifyDialog(curTransaction, itemTrans, itemDisplay);
+                return;
             }
-
-            // check whether price or quantity or both are being modified
-            var newPrice = GeckoJS.Session.get('cart_set_price_value');
-            var newQuantity = GeckoJS.Session.get('cart_set_qty_value');
+            
             var modifyPrice = (newPrice != null && newPrice != itemTrans.current_price);
             var modifyQuantity = (newQuantity != null && newQuantity != itemTrans.current_qty);
             
             if (modifyPrice && !this.Acl.isUserInRole('acl_modify_price')) {
                 NotifyUtils.warn(_('Not authorized to modify price'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
             if (modifyQuantity && !this.Acl.isUserInRole('acl_modify_quantity')) {
                 NotifyUtils.warn(_('Not authorized to modify quantity'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
             
@@ -710,10 +940,8 @@
             if (positivePriceRequired && curTransaction != null) {
                 if (curTransaction.checkSellPrice(itemTrans) <= 0) {
                     NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
-                    GeckoJS.Session.remove('cart_set_price_value');
-                    GeckoJS.Session.remove('cart_set_qty_value');
 
-                    this.subtotal();
+                    this.clearAndSubtotal();
                     return;
                 }
             }
@@ -726,10 +954,7 @@
 
                 this.dispatchEvent('afterModifyItem', [modifiedItem, itemDisplay]);
             }
-            GeckoJS.Session.remove('cart_set_price_value');
-            GeckoJS.Session.remove('cart_set_qty_value');
-
-            this.subtotal();
+            this.clearAndSubtotal();
 			
         },
 	
@@ -772,8 +997,18 @@
             if (itemDisplay.type != 'item') {
                 this.dispatchEvent('onModifyItemError', {});
 
-                //@todo OSD
-                NotifyUtils.warn(_('Cannot modify quantity of selected item [%S]', [itemDisplay.name]));
+                if (itemDisplay.type == 'setitem') {
+                    //@todo OSD
+                    NotifyUtils.warn(_('Quantity of product set item [%S] may not be modified', [itemDisplay.name]));
+                }
+                else if (itemDisplay.type == 'condiment') {
+                    //@todo OSD
+                    NotifyUtils.warn(_('Quantity of condiment [%S] may not be modified', [itemDisplay.name]));
+                }
+                else {
+                    //@todo OSD
+                    NotifyUtils.warn(_('Cannot modify quantity of selected item [%S]', [itemDisplay.name]));
+                }
 
                 this.subtotal();
                 return;
@@ -815,6 +1050,13 @@
                 return;
             }
             
+        },
+
+        clearAndSubtotal: function() {
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
+            this.subtotal();
         },
 
         returnItem: function(cancel) {
@@ -2168,7 +2410,7 @@
             var paymentItem = {
                 type: type,
                 amount: amount,
-                origin_amount: origin_amount,
+                origin_amount: origin_amount
             };
             this.dispatchEvent('beforeAddPayment', paymentItem);
             var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
@@ -2435,7 +2677,6 @@
             // save order unless the order is being finalized (i.e. status == 1)
             if (status != 1) oldTransaction.submit(status);
             oldTransaction.data.status = status;
-            
             this.dispatchEvent('afterSubmit', oldTransaction);
 
             // sleep to allow UI events to update
@@ -3144,22 +3385,13 @@
         },
 
         newCheck: function() {
+this.log("newCheck...");
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
 
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return; // fatal error ?
-            }
-
-            curTransaction = this._getTransaction(true);
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('fatal error!!'));
-                return; // fatal error ?
-            }
+            var curTransaction = null;
 
             var r = -1;
             if (no.length == 0) {
@@ -3167,33 +3399,19 @@
             } else {
                 r = this.GuestCheck.check(no);
             }
-
-            if (r >= 0) {
-                curTransaction.data.check_no = r;
-            } else {
-                NotifyUtils.warn(_('Check# %S is exist!!', [no]));
-            }
+this.log("after newCheck..." + r);
 
             this.subtotal();
         },
 
         newTable: function() {
+this.log("newTable...");
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
 
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return; // fatal error ?
-            }
-
-            curTransaction = this._getTransaction(true);
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('fatal error!!'));
-                return; // fatal error ?
-            }
+            var curTransaction = null;
 
             var r = -1;
             if (no.length == 0) {
@@ -3201,12 +3419,7 @@
             } else {
                 r = this.GuestCheck.table(no);
             }
-
-            if (r >= 0) {
-                curTransaction.data.table_no = r;
-            } else {
-                NotifyUtils.warn(_('Table# %S is exist!!', [no]));
-            }
+this.log("after newTable..." + r);
 
             this.subtotal();
         },
@@ -3286,10 +3499,12 @@
                 return; // fatal error ?
             }
 
-            curTransaction = this._getTransaction(true);
             if (curTransaction == null) {
-                NotifyUtils.warn(_('fatal error!!'));
-                return; // fatal error ?
+                curTransaction = this._getTransaction(true);
+                if (curTransaction == null) {
+                    NotifyUtils.warn(_('fatal error!!'));
+                    return; // fatal error ?
+                }
             }
 
             var r = this.GuestCheck.guest(no);
@@ -3407,241 +3622,8 @@
             }
 
             var r = this.GuestCheck.transferToTableNo(no);
-        },
-
-        guestCheck: function(action) {
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
-            var curTransaction;
-            var param = action.split('|');
-            var action = param[0];
-            var param2 = param[1];
-
-            var no = buf;
-
-            var r = -1;
-
-            this.dispatchEvent('onWarning', '');
-
-            switch(action) {
-                case 'newCheck':
-                    curTransaction = this._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-
-                    if (buf.length == 0) {
-                        r = this.GuestCheck.getNewCheckNo();
-                    } else {
-                        r = this.GuestCheck.check(no);
-                    }
-
-                    if (r >= 0) {
-                        curTransaction.data.check_no = r;
-                    } else {
-                        NotifyUtils.warn(_('Check# %S is exist!!', [no]));
-                    }
-                    break;
-                case 'releaseCheck':
-                    curTransaction = this._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-
-                    r = this.GuestCheck.releaseCheckNo(no);
-                    break;
-                case 'newTable':
-                    curTransaction = this._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-
-                    if (buf.length == 0) {
-                        r = this.GuestCheck.getNewTableNo();
-                    } else {
-                        r = this.GuestCheck.table(no);
-                    }
-
-                    if (r >= 0) {
-                        curTransaction.data.table_no = r;
-                    } else {
-                        NotifyUtils.warn(_('Table# %S is exist!!', [no]));
-                    }
-                    break;
-                case 'guest':
-                    curTransaction = this._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-
-                    r = this.GuestCheck.guest(no);
-                    curTransaction.data.no_of_customers = no;
-                    break;
-                case 'store':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        r = this.GuestCheck.store();
-                        this.dispatchEvent('onStore', curTransaction);
-                    }
-                    else {
-                        NotifyUtils.warn(_('No change to store'));
-                    }
-                    break;
-                case 'recallSequence':
-                    r = this.GuestCheck.recallByOrderNo(no);
-                case 'recallCheck':
-                    r = this.GuestCheck.recallByCheckNo(no);
-                    break;
-                case 'recallTable':
-                    r = this.GuestCheck.recallByTableNo(no);
-                    break;
-
-                case 'transferSequence':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                        // r = this.GuestCheck.store();
-                        // this.dispatchEvent('onStore', curTransaction);
-                    }
-
-                    r = this.GuestCheck.transferToOrderNo(no);
-                    break;
-                case 'transferCheck':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                        // r = this.GuestCheck.store();
-                        // this.dispatchEvent('onStore', curTransaction);
-                    }
-
-                    // r = this.GuestCheck.transferToCheckNo(no);
-                    r = this.GuestCheck.mergeOrder(no, curTransaction.data);
-                    break;
-                case 'transferTable':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                        // r = this.GuestCheck.store();
-                        // this.dispatchEvent('onStore', curTransaction);
-                    }
-                    
-                    r = this.GuestCheck.transferToTableNo(no);
-                    break;
-                case 'splitOrder':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                        // r = this.GuestCheck.store();
-                        // this.dispatchEvent('onStore', curTransaction);
-                    }
-
-                    r = this.GuestCheck.splitOrder(no, curTransaction.data);
-
-                    break;
-            }
-            // @irving: comment out the subtotal() call 02-16-09
-            //this.subtotal();
-            
-            return;
         }
+        
     };
 
     GeckoJS.Controller.extend(__controller__);

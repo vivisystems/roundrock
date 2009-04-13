@@ -27,7 +27,7 @@
                             'sum(order_payments.amount) as "Order.payment_subtotal"',
                             'order_payments.name as "Order.payment_name"',
                             'orders.transaction_created',
-                            //'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
+                            'strftime( "%Y-%m-%d", "orders"."transaction_created", "unixepoch" ) AS "Order.date"',
                             'orders.id',
                             //'orders.sequence',
                             'orders.status',
@@ -47,8 +47,9 @@
                             'orders.terminal_no'
                         ];
 
-            var conditions = "orders.transaction_created>='" + start +
-                            "' AND orders.transaction_created<='" + end +
+			var periodType = document.getElementById( 'period_type' ).value;
+            var conditions = "orders." + periodType + ">='" + start +
+                            "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status='1'";
 
             if (machineid.length > 0) {
@@ -58,7 +59,7 @@
                 //var groupby = '"Order.Date"';
             }
             var groupby = 'order_payments.order_id, order_payments.name';//order_payments.order_id';
-            var orderby = 'orders.terminal_no, orders.item_subtotal desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.terminal_no, "Order.date", orders.item_subtotal desc';//orders.transaction_created, orders.id';
 
             // var order = new OrderModel();
 
@@ -93,7 +94,9 @@
 
             var self = this;
             var terminal;
+            var date;
             var old_terminal;
+            var old_date;
             
             datas.forEach(function(data){
 
@@ -103,8 +106,10 @@
                 o.Order = o;
                 
                 terminal = o.terminal_no;
+                date = o.date;
+                
 
-               if ( terminal != old_terminal ) {
+                if ( terminal != old_terminal || date != old_date ) {
                     if ( !repDatas[ oid ] ) {
                         repDatas[ oid ] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
                     }
@@ -117,7 +122,7 @@
 		                repDatas[ oid ][ 'giftcard' ] = 0.0;
 		            }
 		           
-		           if ( o.payment_name == 'cash' )
+		            if ( o.payment_name == 'cash' )
 	                	repDatas[ oid ][ o.payment_name ] += o.payment_subtotal - o.change;
 	                else repDatas[ oid ][ o.payment_name ] += o.payment_subtotal;
 
@@ -151,6 +156,7 @@
               
                 old_oid = oid;
                 old_terminal = terminal;
+                old_date = date;
             });
             
             var orderedData = [];
@@ -169,6 +175,7 @@
 		        	
 		        	switch ( sortby ) {
 		        		case 'terminal_no':
+		        		case 'time':
 		        			if ( a > b ) return 1;
 							if ( a < b ) return -1;
 							return 0;
@@ -187,7 +194,6 @@
 							return 0;
 		        	}
             	}
-            	
             	orderedData.sort( sortFunction );
             }
             

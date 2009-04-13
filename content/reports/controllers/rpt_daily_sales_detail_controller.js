@@ -10,6 +10,14 @@
         name: 'RptDailySalesDetail',
         
         _fileName: "rpt_daily_sales_detail",
+        
+        _enableButton: function( enable ) {
+        	this._super( enable );
+        	
+            var disabled = !enable;
+            $( '#previous_page' ).attr( 'disabled', disabled );
+            $( '#next_page' ).attr( 'disabled', disabled );
+        },
 
         _set_reportRecords: function() {
             var start = document.getElementById( 'start_date' ).value;
@@ -64,8 +72,8 @@
             	
             	switch ( sortby ) {
             		case 'terminal_no':
-            			break;
             		case 'transaction_created':
+            			break;
             		case 'item_subtotal':
             		case 'tax_subtotal':
             		case 'surcharge_subtotal':
@@ -79,13 +87,17 @@
             	orderby = 'orders.' + sortby + desc;
             }
             	
-            var limit = 5000;
+            var limit = this._recordLimit + ' offset ' + this._recordOffset;
             	
             var sql = 'select ' + fields + ' from ' + tables + ' where ' + conditions + ' order by ' + orderby + ' limit ' + limit + ';';
 
             var order = new OrderModel();
 
 			var results = order.getDataSource().fetchAll( sql );
+			
+			// prompt for the last data row.
+			if ( results.length == 0 )
+				alert( 'No datum!' );
 
 			var summary = {
 				item_subtotal: 0,

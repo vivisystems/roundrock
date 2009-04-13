@@ -41,4 +41,9 @@ include('chrome://viviecr/content/models/storecontact.js');
 include('chrome://viviecr/content/models/transaction.js');
 include('chrome://viviecr/content/models/user.js');
 
+include('chrome://viviecr/content/models/table.js');
+include('chrome://viviecr/content/models/table_region.js');
+include('chrome://viviecr/content/models/table_booking.js');
+include('chrome://viviecr/content/models/table_status.js');
+
 })();

@@ -8,6 +8,7 @@ ${head.title|center:42}
 {for detail in body}
 ------------------------------------------
 ${'    ' + _( '(rpt)Termianl No' ) + ':'|left:17}${detail.terminal_no}
+${'    ' + _( '(rpt)Time' ) + ':'|left:17}${detail.date}
 ${'    ' + _( '(rpt)Total' ) + ':'|left:17}${detail.item_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ':'|left:17}${detail.tax_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Surcharge' ) + ':'|left:17}${detail.surcharge_subtotal|viviFormatPrices:true}

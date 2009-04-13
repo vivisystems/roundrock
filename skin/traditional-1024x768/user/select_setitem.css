@@ -1,0 +1,10 @@
+#selectSetItemPanel #plusetscrollablepanel {
+    min-width: 300px;
+    max-width: 300px;
+    width: 300px;
+}
+
+.SubTitle {
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+}

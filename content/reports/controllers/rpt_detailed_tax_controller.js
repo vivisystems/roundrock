@@ -13,7 +13,7 @@
         
         _setData: function( start, end, periodType, terminalNo ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
-			var end_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
+			var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
             start = parseInt(start / 1000, 10);
             end = parseInt(end / 1000, 10);

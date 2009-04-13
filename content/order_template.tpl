@@ -75,25 +75,26 @@
 {for item in order.OrderItem}
 {eval}
     prodName = item.product_name;
-    if (item.destination != null && item.destination != '') prodName = '(' + item.destination + ') ' + prodName;
+    indent = (item.parent_no != null && item.parent_no != '') ? '&nbsp;&nbsp;' : '';
+    if (item.destination != null && item.destination != '' && indent == '') prodName = '(' + item.destination + ') ' + prodName;
 {/eval}
     <tr>
-        <td style="width: 400px">${prodName}</td>
+        <td style="width: 400px">${indent + prodName}</td>
         <td/>
         <td style="width: 70px; text-align: right">${item.current_qty} X</td>
-        <td style="width: 100px; text-align: right;">${item.current_price}</td>
-        <td style="width: 100px; text-align: right;">${item.current_subtotal|viviFormatPrices:true}</td>
-        <td>${item.tax_name}</td>
+        <td style="width: 100px; text-align: right;">{if indent == ''}${item.current_price}{/if}</td>
+        <td style="width: 100px; text-align: right;">{if indent == ''}${item.current_subtotal|viviFormatPrices:true}{/if}</td>
+        <td>{if indent == ''}${item.tax_name}{/if}</td>
     </tr>
 {if item.condiments != null && item.condiments != ''}
     <tr>
-        <td colspan="3">&nbsp;&nbsp;${item.condiments}</td>
+        <td colspan="3">&nbsp;&nbsp;${indent + item.condiments}</td>
         <td style="width: 100px; text-align: right;">${item.current_condiment|viviFormatPrices:true}</td>
     </tr>
 {/if}
 {if item.memo != null && item.memo != ''}
     <tr>
-        <td colspan="6">&nbsp;&nbsp;&nbsp;&nbsp;${item.memo}</td>
+        <td colspan="6">&nbsp;&nbsp;&nbsp;&nbsp;${indent + item.memo}</td>
     </tr>
 {/if}
 {if item.has_discount}

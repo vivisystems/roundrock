@@ -3,7 +3,7 @@
 
 <!ENTITY plus.tab.base.data1  "Basic 1">
 <!ENTITY plus.tab.base.data2  "Basic 2 ">
-<!ENTITY plus.tab.setmenu     "Sets">
+<!ENTITY plus.tab.pluset     "Set Items">
 <!ENTITY plus.tab.appearance "Appearance">
 <!ENTITY plus.tab.pricelevels "Price Levels">
 <!ENTITY plus.tab.condimentgroups "Condiments">
@@ -15,7 +15,7 @@
 <!ENTITY plus.base.data  "Product Details">
 <!ENTITY plus.base.data1  "Basic Data (Page 1)">
 <!ENTITY plus.base.data2  "Basic Data (Page 2)">
-<!ENTITY plus.setmenu     "Product Set">
+<!ENTITY plus.pluset     "Product Set">
 <!ENTITY plus.appearance "Appearance">
 <!ENTITY plus.pricelevels "Price Levels">
 <!ENTITY plus.linkgroups "Link Groups">
@@ -57,9 +57,18 @@
 <!ENTITY plus.sale.unit.gallon "Gallon">
 <!ENTITY plus.location "Stock Location">
 
-<!ENTITY plus.header.no "No.">
-<!ENTITY plus.header.name "Name">
+<!ENTITY plus.header.label "Label">
+<!ENTITY plus.header.preset "Default Item">
 <!ENTITY plus.header.quantity "Qty">
+<!ENTITY plus.header.baseprice "Price">
+<!ENTITY plus.header.group "Group">
+<!ENTITY plus.header.reduction "Reduction?">
+<!ENTITY plus.setitem.label "Label">
+<!ENTITY plus.setitem.base.price "Base Price">
+<!ENTITY plus.setitem.quantity "Quantity">
+<!ENTITY plus.setitem.reduce.price "Allow Reduction">
+<!ENTITY plus.setitem.preset.item "Preset Item">
+<!ENTITY plus.setitem.linkgroup "Product Group">
 
 <!ENTITY plus.image "Product Icon">
 <!ENTITY plus.button.color "Button Color">
@@ -76,6 +85,7 @@
 <!ENTITY plus.button.action.add "Add">
 <!ENTITY plus.button.action.modify "Modify">
 <!ENTITY plus.button.action.delete "Delete">
+<!ENTITY plus.button.action.update.setitem "Update">
 
 <!ENTITY plus.button.numpad.clear "CLEAR">
 <!ENTITY plus.button.numpad.del "DEL">

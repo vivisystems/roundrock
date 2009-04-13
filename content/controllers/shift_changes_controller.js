@@ -22,6 +22,7 @@
             if(main) {
                 main.addEventListener('onSetClerk', this.startShift, this);
             }
+
         },
 
         load: function() {
