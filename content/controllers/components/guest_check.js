@@ -170,6 +170,22 @@ this.log("in onSubmit..." + evt.type);
                             curTransaction.data.table_no = "" + i;
                         }
                         break;
+                    case 'ChangeClerk':
+                        this.recallByTableNo(i);
+                        var user = new GeckoJS.AclComponent().getUserPrincipal();
+                        var service_clerk;
+                        if ( user != null ) {
+                            service_clerk = user.username;
+                        }
+
+                        var curTransaction = null;
+                        curTransaction = this._controller._getTransaction();
+                        if (curTransaction) {
+this.log("change service_clerk:" + service_clerk);
+                            if (service_clerk) curTransaction.service_clerk = service_clerk;
+                        }
+                        this.store();
+                        break;
                 }
             }else {
                 while (i <= 200) {
@@ -183,6 +199,25 @@ this.log("in onSubmit..." + evt.type);
 
             GeckoJS.Session.set('vivipos_fec_table_number', i);
             return "" + i;
+        },
+
+        table: function(table_no) {
+
+            var r = this._tableStatusModel.getTableNo(table_no);
+
+            if (r >= 0) {
+                var curTransaction = null;
+                curTransaction = this._controller._getTransaction();
+                if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                    curTransaction = this._controller._getTransaction(true);
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('fatal error!!'));
+                        return; // fatal error ?
+                    }
+                }
+                GeckoJS.Session.set('vivipos_fec_table_number', r);
+                curTransaction.data.table_no = r;
+            }
         },
 
         load: function () {
@@ -448,14 +483,8 @@ this.log("in onSubmit..." + evt.type);
                     break;
                 case 'AllCheck':
                     // @todo should be rewrite...
-                    
-                    var order = new OrderModel();
-                    var fields = ['orders.id', 'orders.sequence', 'orders.destination', 'orders.check_no',
-                                  'orders.table_no', 'orders.status', 'orders.total'];
 
-                    var conditions = "orders.status='2'";
-                    var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
-                    // var ord = order.find('all', {fields: fields, conditions: conditions});
+                    var ord = this._tableStatusModel.getCheckList('AllCheck', no);
 
                     if (ord && ord.length > 1) {
                         //

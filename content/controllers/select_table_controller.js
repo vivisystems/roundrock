@@ -194,11 +194,17 @@
         },
 
         doMergeTable: function() {
-            //
+            this._setPromptLabel('*** Merge Table ***', 'Please Select the source table as master table...', 'Press CANCEL button to cancel function');
+
+            var pnl = this._showPromptPanel('prompt_panel');
+            this._inputObj.action = 'MergeTable';
         },
 
         doUnmergeTable: function() {
-            //
+            this._setPromptLabel('*** Unmerge Table ***', 'Please Select the hold table to be unmerge...', 'Press CANCEL button to cancel function');
+
+            var pnl = this._showPromptPanel('prompt_panel');
+            this._inputObj.action = 'UnmergeTable';
         },
 
         doBookingTable: function() {
@@ -206,11 +212,23 @@
         },
 
         doChangeClerk: function() {
-            //
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            var service_clerk;
+            if ( user != null ) {
+                service_clerk = user.username;
+            }
+
+            this._setPromptLabel('*** Change Clerk ***', _('Please Select a Table to change service clerk to logined user [ %S ]...', [service_clerk]), 'Press CANCEL button to cancel function');
+
+            var pnl = this._showPromptPanel('prompt_panel');
+            this._inputObj.action = 'ChangeClerk';
         },
 
         doTransTable: function() {
-            //
+            this._setPromptLabel('*** Trans Table ***', 'Please Select the source table to translate...', 'Press CANCEL button to cancel function');
+
+            var pnl = this._showPromptPanel('prompt_panel');
+            this._inputObj.action = 'TransTable';
         },
 
         doSelectTableNo: function() {

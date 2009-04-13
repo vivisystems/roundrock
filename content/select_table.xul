@@ -61,12 +61,14 @@
 
                     <button id="ok" label="&selecttable.selectno;" default="true" type="radio" group="func" oncommand="$do('doSelectTableNo', null, 'SelectTable');"/>
                     <button id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
-                    <button id="unmerge_table" label="&selecttable.unmergetable;" type="radio" group="func" default="false" oncommand="$do('doUnmergeTable', null, 'SelectTable');"/>
                     <button id="merge_table" label="&selecttable.mergetable;" type="radio" group="func" default="false" oncommand="$do('doMergeTable', null, 'SelectTable');"/>
+                    <button id="unmerge_table" label="&selecttable.unmergetable;" type="radio" group="func" default="false" oncommand="$do('doUnmergeTable', null, 'SelectTable');"/>
 
                     <button id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
                     <button id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
                     <button id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTableNo', null, 'SelectTable');"/>
+                    <button id="change_clerk" label="&selecttable.changeclerk;" default="true" type="radio" group="func" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
+                    <button id="trans_table" label="&selecttable.transtable;" default="true" type="radio" group="func" oncommand="$do('doTransTable', null, 'SelectTable');"/>
                 </arrowscrollbox>
                 <button id="refresh_table_status" label="&selecttable.refreshtablestatus;" default="true" type="radio" group="func" oncommand="$do('doRefreshTableStatus', null, 'SelectTable');"/>
                 <!-- button  id="ok" label="&dialog.okButton.label;" default="true" type="radio" group="func" oncommand="doOKButton();"/ -->

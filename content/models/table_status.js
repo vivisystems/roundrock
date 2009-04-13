@@ -173,8 +173,12 @@ GREUtils.log("getTableStatusList...");
             //
         },
 
-        getTableno: function() {
+        getTableNo: function(table_no) {
             //
+            if (table_no) {
+                this._tableNoArray[table_no] = 1;
+            }
+            return table_no;
         },
 
         getTableList: function(reload) {
@@ -203,7 +207,12 @@ GREUtils.log("getCheckList...");
                     var orders = [];
                     switch (key) {
                         case 'OrderNo':
+                        case 'AllCheck':
                             // @todo
+                            checks.forEach(function(o){
+                                orders.push(o);
+                            });
+                            return orders;
                             break;
                         case 'CheckNo':
                             checks.forEach(function(o){
