@@ -1,7 +1,6 @@
 <?php
 /* 
  */
-
 $DATABASE_PATH = '/data/databases';
 
 App::import('Core', array('Configure', 'ClassRegistry', 'Overloadable', 'Validation', 'Behavior', 'ConnectionManager', 'Set', 'String','Folder'));

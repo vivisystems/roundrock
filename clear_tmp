@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+
+#
+# execute php sync client 
+#
+dir=`dirname $0`
+
+find ${dir}/app/tmp -type f -exec rm -f {} \;
+

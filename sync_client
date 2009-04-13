@@ -2,7 +2,7 @@
 #
 
 #
-# execute php sync client 
+# execute php sync client
 #
 cmd=${1:-help}
 pid=$$
@@ -12,4 +12,7 @@ cd $dir ;
 
 #echo "pid = ${pid}"
 
-exec ${dir}/cake/console/cake sync_client ${cmd}
+find ${dir}/app/tmp -type f -exec rm -f {} \;
+
+exec ${dir}/cake/console/cake -app ${dir}/app sync_client ${cmd}
+

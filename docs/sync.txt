@@ -1,0 +1,16 @@
+# Client:
+# 1 - perform_sync
+#   2 - handshake_authenticate
+#     4 - handshake_response
+#   7 - do_get_server_data
+#     9 - Replica.up
+#   10 - do_send_client_data
+#     11 - Replica.down
+#
+# Server:
+# 3 - handshake(GET)
+# 5 - handshake(POST)
+#   6 - handshake_response
+# 8 - down.yaml(GET)
+# 12 - up.yaml(POST)
+
