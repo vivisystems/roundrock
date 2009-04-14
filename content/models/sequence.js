@@ -1,5 +1,6 @@
 var SequenceModel = window.SequenceModel = GeckoJS.Model.extend(
 {
+    
     getSequence: function(key) {
         return (new this).getSequence(key);
     },

@@ -31,6 +31,76 @@ GREUtils.log("in table status initialize...");
             }
         },
 
+    getRemoteService: function(method) {
+        this.syncSettings = (new SyncSetting()).read();
+
+        if (this.syncSettings && this.syncSettings.active == 1) {
+
+            //  http://localhost:3000/sequences/getSequence/check_no
+            // check connection status
+            this.url = this.syncSettings.protocol + '://' +
+                        this.syncSettings.hostname + ':' +
+                        this.syncSettings.port + '/' +
+                        'sequences/' + method;
+
+            this.username = 'vivipos';
+            this.password = this.syncSettings.password ;
+
+            return this.url;
+
+        }else {
+            return false;
+        }
+    },
+
+    requestRemoteService: function(url, key, value) {
+
+                    var reqUrl = url + '/' + key;
+
+                    if (value != null) reqUrl += '/' + value;
+
+                    var username = this.username ;
+                    var password = this.password ;
+
+                    var req = new XMLHttpRequest();
+
+                    req.mozBackgroundRequest = true;
+
+                    /* Request Timeout guard */
+                    /*
+                    var timeout = null;
+                    timeout = setTimeout(function() {
+                        clearTimeout(timeout);
+                        req.abort();
+                    }, 15000);
+                    */
+                    /* Start Request with http basic authorization */
+                    var seq = -1;
+                    req.open('GET', reqUrl, false, username, password);
+                    var onstatechange = function (aEvt) {
+                        if (req.readyState == 4) {
+                            if(req.status == 200) {
+                                var result = GeckoJS.BaseObject.unserialize(req.responseText);
+                                if (result.status == 'ok') {
+                                    seq = result.value;
+                                }else {
+                                    seq = -1;
+                                }
+                            }else {
+                                seq = -1;
+                            }
+                        }
+                        delete req;
+                    };
+
+                    // req.onreadystatechange = onstatechange
+                    req.send(null);
+                    onstatechange();
+                    return seq;
+
+    },
+
+
 /*
         initial: function() {
 

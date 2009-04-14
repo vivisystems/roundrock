@@ -179,7 +179,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    alert(e);
+                    //alert(e);
                     NotifyUtils.error(_('An error occurred while adding Promotion Rule [%S]. The rule may not have been added successfully', [inputData.name]));
                 }
             }
@@ -413,7 +413,7 @@
 
                     var triggerSettings = this.getTriggerSettingsFromUI();
                     var typeSettings = this.getTypeSettingsFromUI();
-                    alert(this.dump(triggerSettings) + this.dump(typeSettings));
+                    this.log(this.dump(triggerSettings) + this.dump(typeSettings));
 
                     formData['trigger_data'] = GeckoJS.BaseObject.serialize(triggerSettings);
                     formData['type_data'] = GeckoJS.BaseObject.serialize(typeSettings);

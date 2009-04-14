@@ -21,6 +21,7 @@ CREATE  TABLE IF NOT EXISTS "main"."promotion_cart_items" (
 "no" VARCHAR,
 "barcode" VARCHAR,
 "cate_no" VARCHAR,
+"link_group" VARCHAR,
 "index" VARCHAR,
 "org_qty" FLOAT DEFAULT 0,
 "current_qty" FLOAT,
@@ -36,3 +37,4 @@ CREATE  TABLE IF NOT EXISTS "main"."promotion_cart_items" (
 CREATE  INDEX "main"."idx_promotion_cart_items_id" ON "promotion_cart_items" ("id");
 CREATE  INDEX "main"."idx_promotion_cart_items_no" ON "promotion_cart_items" ("no");
 CREATE  INDEX "main"."idx_promotion_cart_items_cate_no" ON "promotion_cart_items" ("cate_no");
+CREATE  INDEX "main"."idx_promotion_cart_items_link_group" ON "promotion_cart_items" ("link_group");

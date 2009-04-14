@@ -796,7 +796,7 @@ pref("vivipos.fec.settings.controlpanels.system.xterm.roles", "acl_xterm");
 
 pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.label", "Promotions Manager");
 pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.path", "chrome://viviecr/content/promotions_manager.xul");
-pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.icon", "chrome://viviecr/skin/icons/promotions.png");
+pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.icon", "chrome://viviecr/skin/icons/icon_promotions.png");
 pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.roles", "acl_manage_promotions");
 
 pref("vivipos.fec.registry.promotion.trigger.bypass.classname", "Bypass");

@@ -246,15 +246,14 @@
 
             // log cartItemModel
             var items = cartItemModel.find('all');
-        //this.log(this.dump(items));
+            //this.log(this.dump(items));
 
         },
 
         resetTransactionData: function() {
 
-        // var cartItemModel = this._cartItemModel = this._cartItemModel ? this._cartItemModel : new PromotionCartItemModel();
-
-        // cartItemModel.saveTransactionItems(this._transaction.data);
+            var fakeEvt = {data: this._transaction};
+            this.prepareTransactionData(fakeEvt);
 
         },
 
@@ -364,7 +363,7 @@
                 var endDate = new Date(promotion.end_date*1000);
 
                 if (!now.between( startDate, endDate)) {
-                    this.log('now = ' + now.getTime() + ', start_date = ' + startDate.getTime() + ', endDate = ' + endDate.getTime());
+                    //this.log('now = ' + now.getTime() + ', start_date = ' + startDate.getTime() + ', endDate = ' + endDate.getTime());
                     this.log('expire or not yet in date');
                     return false;
                 }
@@ -376,7 +375,7 @@
                 var endHourMinute = parseInt(endTime.toString("HHmm"));
 
                 if (nowHourMinute < startHourMinute || nowHourMinute > endHourMinute) {
-                    this.log('now = ' + nowHourMinute + ', start_time = ' + startHourMinute + ', end_time = ' + endHourMinute);
+                    //this.log('now = ' + nowHourMinute + ', start_time = ' + startHourMinute + ', end_time = ' + endHourMinute);
                     this.log('not in promotion hours');
                     return false;
                 }
@@ -386,7 +385,7 @@
                 var nowOfWeek = now.getDay();
 
                 if (promotion.days_of_week.length != 0 && promotion.days_of_week.indexOf(nowOfWeek) == -1 ) {
-                    this.log('now = ' + nowOfWeek + ', days_of_week = ' + promotion.days_of_week);
+                    //this.log('now = ' + nowOfWeek + ', days_of_week = ' + promotion.days_of_week);
                     this.log('not in promotion week day');
                     return false;
                 }
@@ -427,7 +426,7 @@
         },
 
         updateTransaction: function(totalPromotionDiscount) {
-            this.log('dddd');
+            this.log('updateTransaction');
             this._transaction['data']['promotion_subtotal'] = totalPromotionDiscount;
         }
 
