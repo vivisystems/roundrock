@@ -75,7 +75,6 @@
                 sale_period: '',
                 shift_number: '',
 
-                lockIndex: -1,
                 batchCount: 0,
                 closed: false,
 
@@ -760,7 +759,7 @@
                 else if (itemDisplay.type == 'condiment') {
                     condimentPrice = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : itemDisplay.current_price;
                     var condimentItem = {
-                        id: itemDisplay.id,
+                        id: itemTrans.id,
                         name: itemDisplay.name,
                         current_subtotal: condimentPrice == 0 ? '' : condimentPrice
                     };
@@ -985,7 +984,7 @@
                 var display_sequences = this.data.display_sequences;
 
                 // look down display sequence to find location of next item that is
-                // not a discount, surcharge, or memo
+                // not a discount, surcharge, memo, setitem, or condiment
 
                 for (var i = index + 1; i < display_sequences.length; i++) {
                     var checkItem = display_sequences[i];
@@ -1042,10 +1041,25 @@
                     delete this.data.trans_surcharges[itemIndex];
                 }
                 if (itemDisplay.type == 'condiment') {
-                    // condiment may be linked to a set item
                     var targetItem = this.getItemAt(index, true);
-                    delete targetItem.condiments[itemDisplay.name];
+                    var firstCondimentIndex = this.getFirstCondimentIndex(targetItem);
+                    var firstCondimentDisplay = this.getDisplaySeqAt(firstCondimentIndex);
 
+                    if (firstCondimentDisplay && !firstCondimentDisplay.open) {
+                        targetItem.condiments = {};
+                    }
+                    else {
+                        delete targetItem.condiments[itemDisplay.name];
+
+                        if (firstCondimentDisplay && itemDisplay.name == firstCondimentDisplay.name) {
+                            var secondCondimentIndex = this.getFirstCondimentIndex(targetItem, firstCondimentIndex + 1);
+                            var secondCondimentDisplay = this.getDisplaySeqAt(secondCondimentIndex);
+
+                            if (secondCondimentDisplay) secondCondimentDisplay.open = true;
+                        }
+                    }
+
+                    // condiment may be linked to a set item
                     // if item is a set item, compute condiment subtotals
                     if (targetItem.parent_index != null) {
                         var condiment_subtotal = 0;
@@ -1519,7 +1533,7 @@
 
         },
 
-        appendCondiment: function(index, condiments, replace){
+        appendCondiment: function(index, condiments, replace, replaceInPlace){
 
             var item = this.getItemAt(index, true);                           // item to add condiment to
             var targetItem = this.getItemAt(index);
@@ -1528,18 +1542,16 @@
             var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item to add condiment to
 
             var prevRowCount = this.getDisplaySeqCount();
-
             var displayIndex = replace ? this.getDisplayIndexByIndex(itemIndex) : index;
 
             if (item.type == 'item') {
-
+                
                 if (condiments.length >0) {
 
-                    if (replace && item.condiments != null) {
+                    if (replace && item.condiments != null && item.condiments != {}) {
 
                         // void all condiment items up to next item whose index is different from itemIndex
-                        i = displayIndex + 1;
-                        for (; i < this.getDisplaySeqCount();) {
+                        for (var i = displayIndex + 1; i < this.getDisplaySeqCount();) {
                             var displayItem = this.getDisplaySeqAt(i);
                             if (displayItem.index != itemIndex)
                                 break;
@@ -1552,8 +1564,9 @@
                             }
                         }
                         prevRowCount = this.getDisplaySeqCount();
-                    }
 
+                        if (replace && replaceInPlace) displayIndex = index - 1;
+                    }
                     condiments.forEach(function(condiment){
                         // this extra check is a workaround for the bug in XULRunner where an item may appear to be selected
                         // but is actually not
@@ -1561,6 +1574,7 @@
                             var condimentItem = {
                                 id: item.id,
                                 name: condiment.name,
+                                price: condiment.price,
                                 current_subtotal: condiment.price == 0 ? '' : condiment.price
                             };
 
@@ -1572,8 +1586,8 @@
                                 NotifyUtils.warn(_('Condiment [%S] already added to [%S]', [condiment.name, item.name]));
                             }
                             else {
-                                var newCondiment = GeckoJS.BaseObject.extend(condiment, {});
-                                item.condiments[condiment.name] = newCondiment;
+                                //var newCondiment = GeckoJS.BaseObject.extend({}, condiment);
+                                item.condiments[condiment.name] = condimentItem;
 
                                 // update condiment display
                                 var level = targetDisplayItem.type == 'setitem' ? 2 : null;
@@ -1583,6 +1597,7 @@
                         }
                     }, this);
 
+                    if (replaceInPlace) displayIndex = index;
                 }
 
                 // if item is a set item, compute condiment subtotals
@@ -1618,6 +1633,87 @@
 
         },
 
+        expandCondiments: function(index) {
+            var item = this.getItemAt(index, true);
+            var itemDisplay = this.getDisplaySeqAt(index);
+
+            if (item && itemDisplay && !itemDisplay.open) {
+
+                // convert condiments into a form suitable for this.appendCondiment
+                var condimentArray = [];
+
+                for (var c in item.condiments) {
+                    var condimentItem = {};
+                    condimentItem.name = c;
+                    condimentItem.price = item.condiments[c].price;
+
+                    condimentArray.push(condimentItem);
+                }
+
+                // restore collapsedCondiments
+                item.condiments = item.collapsedCondiments;
+                this.appendCondiment(index, condimentArray, true, true);
+
+                // update open state of first condiment item
+                var firstCondiment = this.getDisplaySeqAt(index);
+                if (firstCondiment) {
+                    firstCondiment.open = true;
+                }
+            }
+        },
+
+        collapseCondiments: function(index) {
+            var item = this.getItemAt(index, true);
+            var itemDisplay = this.getDisplaySeqAt(index);
+
+            if (item && item.condiments && itemDisplay && itemDisplay.open) {
+                var condiments = GREUtils.extend({}, item.condiments);
+
+                // construct new condiment display
+                var condimentNames = '';
+                var condimentSubtotal = 0;
+                var condimentList = GeckoJS.BaseObject.getKeys(condiments);
+
+                condimentList.forEach(function(c) {
+                    condimentNames += (condimentNames == '') ? c : (',' + c);
+                    condimentSubtotal += parseInt(condiments[c].price) || 0;
+                });
+
+                var condimentItem = {
+                    id: item.id,
+                    name: condimentNames,
+                    price: condimentSubtotal
+                };
+                this.appendCondiment(index, [condimentItem], true, true);
+
+                // save collapsed condiment
+                item.collapsedCondiments = item.condiments;
+
+                // restore condiments
+                item.condiments = condiments;
+
+                // update open state of collapsed condiment item
+                var collapsedCondiments = this.getDisplaySeqAt(index);
+                if (collapsedCondiments) {
+                    collapsedCondiments.open = false;
+                }
+            }
+        },
+
+        getFirstCondimentIndex: function(itemTrans, startIndex) {
+            var dispIndex = this.getDisplayIndexByIndex(itemTrans.index);
+            startIndex = parseInt(startIndex) || 0;
+
+            if (dispIndex > -1) {
+                for (var i = Math.max(dispIndex + 1, startIndex); i < this.getDisplaySeqCount(); i++) {
+                    var displayItem = this.getDisplaySeqAt(i);
+                    if (displayItem.type == 'condiment' && displayItem.index == itemTrans.index) {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        },
 
         appendMemo: function(index, memo){
 
@@ -1775,15 +1871,30 @@
             // set order lock index
             this.data.batchItemCount = batchItemCount;
             this.data.batchPaymentCount = batchPaymentCount;
-            this.data.lockIndex = index;
         },
 
         isLocked: function(index) {
-            return (index <= this.data.lockIndex);
+            var dispItem = this.getDisplaySeqAt(index);
+            if (!dispItem) {
+                return false;
+            }
+            else if ('batch' in dispItem) {
+                return true;
+            }
+            else if (dispItem.type == 'condiment') {
+                var item = this.getItemAt(index);
+                return (item && 'batch' in item);
+            }
+            else {
+                return false;
+            }
         },
 
         isModified: function() {
-            return (!('lockIndex' in this.data) && this.data.display_sequences.length > 0) || this.data.lockIndex < (this.data.display_sequences.length - 1);
+            for (var i = this.getDisplaySeqCount() - 1; i >= 0; i--) {
+                if (!this.isLocked(i)) return true;
+            }
+            return false;
         },
 
         hasItemsInBatch: function(batch) {

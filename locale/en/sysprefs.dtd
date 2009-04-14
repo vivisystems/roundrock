@@ -17,6 +17,7 @@
 <!ENTITY general.clearcartafterfinalization "Clear register screen after order is finalized">
 <!ENTITY general.allowoverstock "Allow negative stock">
 <!ENTITY general.viewlocalordersonly "View orders from this terminal only">
+<!ENTITY general.collapsecondiments "Collapse condiments into a single line">
 <!ENTITY general.idletime "System idle time (seconds)">
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">

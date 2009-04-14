@@ -226,8 +226,6 @@
                 var rate = product.rate;
                 $('#rate').val(rate);
                 $('#rate_name').val(this.getRateName(rate));
-
-                this.log(this.dump(product));
             }
             else {
                 var valObj = this.getInputDefault();

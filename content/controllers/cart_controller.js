@@ -859,14 +859,45 @@
                 }
             }
 
-            // check if user is allowed to modify condiment
-            if (itemDisplay.type == 'condiment' && !this.Acl.isUserInRole('acl_modify_condiment_price')) {
+            if (itemDisplay.type == 'condiment') {
 
-                //@todo OSD
-                NotifyUtils.warn(_('Not authorized to modify condiment price'));
+                // check if condiment is open
+                if ('open' in itemDisplay && !itemDisplay.open) {
 
-                this.clearAndSubtotal();
-                return;
+                    //@todo OSD
+                    NotifyUtils.warn(_('Cannot modify condiments when collapsed'));
+
+                    this.clearAndSubtotal();
+                    return;
+                }
+
+                // check if quantity is entered
+                if (newQuantity != null) {
+                    //@todo OSD
+                    NotifyUtils.warn(_('Cannot modify condiment quantity'));
+
+                    this.clearAndSubtotal();
+                    return ;
+                }
+                
+                // check if price is entered
+                if (buf.length <= 0) {
+                    //@todo OSD
+                    NotifyUtils.warn(_('Cannot modify condiment price; no price entered'));
+
+                    this.clearAndSubtotal();
+                    return ;
+                }
+
+                // check if user is allowed to modify condiment price
+                if (!this.Acl.isUserInRole('acl_modify_condiment_price')) {
+
+                    //@todo OSD
+                    NotifyUtils.warn(_('Not authorized to modify condiment price'));
+
+                    this.clearAndSubtotal();
+                    return;
+                }
             }
 
             if (itemTrans.hasDiscount || itemTrans.hasSurcharge) {
@@ -901,14 +932,6 @@
 */
             if (itemDisplay.type == 'condiment' && buf.length <= 0 ) {
                 // @todo popup ??
-                this.log('DEBUG', 'modify condiment but price not set!! plu = ' + this.dump(itemTrans) );
-                this.dispatchEvent('onModifyItemError', {});
-
-                //@todo OSD
-                NotifyUtils.warn(_('Cannot modify condiment price; no price entered'));
-
-                this.clearAndSubtotal();
-                return ;
             }
 
             if (itemDisplay.type == 'setitem') {
@@ -3046,8 +3069,39 @@
             if(curTransaction != null && index >=0) {
 
                 // self.log(self.dump(curTransaction.data));
-                curTransaction.appendCondiment(index, selectedCondiments, replace);
-                this.dispatchEvent('afterAddCondiment', selectedCondiments);
+
+                var item = curTransaction.getItemAt(index, true);
+                if (item) {
+
+                    // expand condiments if collapsed
+
+                    // get first condiment display item
+                    var condDisplayIndex = curTransaction.getFirstCondimentIndex(item);
+                    var condDisplayItem = curTransaction.getDisplaySeqAt(condDisplayIndex);
+                    var collapseCondiments;
+
+                    if (condDisplayItem && condDisplayItem.open) {
+                        collapseCondiments = false;
+                    }
+                    else if (condDisplayItem) {
+                        collapseCondiments = true;
+                        curTransaction.expandCondiments(condDisplayIndex);
+                    }
+                    else {
+                        collapseCondiments = GeckoJS.Configure.read('vivipos.fec.settings.collapse.condiments');
+                    }
+
+                    curTransaction.appendCondiment(index, selectedCondiments, replace);
+
+                    condDisplayIndex = curTransaction.getFirstCondimentIndex(item);
+                    condDisplayItem = curTransaction.getDisplaySeqAt(condDisplayIndex);
+                    condDisplayItem.open = true;
+                        
+                    if (collapseCondiments) {
+                        curTransaction.collapseCondiments(condDisplayIndex);
+                    }
+                    this.dispatchEvent('afterAddCondiment', selectedCondiments);
+                }
             }
 
             this.subtotal();
