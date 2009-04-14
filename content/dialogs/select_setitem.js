@@ -37,7 +37,12 @@
             },
 
             init: function(evt) {
-                var plusetViewHelper = new NSIProductsView('plusetscrollablepanel');
+                //var plusetViewHelper = new NSIProductsView('plusetscrollablepanel');
+                var plusetViewHelper = new GeckoJS.NSITreeViewArray();
+                var buttonClass0 = $buttonPanel[0].getAttribute('buttonClass0');
+                var buttonClass1 = $buttonPanel[0].getAttribute('buttonClass1');
+                var buttonClass2 = $buttonPanel[0].getAttribute('buttonClass2');
+
                 plusetViewHelper.getCellValue = function(row, col) {
                     this.log('DEBUG', 'in pluset get cell value: ' + row + ',' + GeckoJS.BaseObject.dump(col));
 
@@ -61,6 +66,24 @@
                     this.log('DEBUG', 'value: ' +  sResult);
                     return sResult;
                 };
+
+                plusetViewHelper.renderButton = function(row, btn) {
+
+                    var data = plusetData[row];
+                    var classStr = '';
+                    if (!data.plugroup) {
+                        classStr = buttonClass0;
+                    }
+                    else if (data.product) {
+                        classStr = buttonClass1;
+                    }
+                    else {
+                        classStr = buttonClass2;
+                    }
+//alert('in renderButton [' + row + '] ' + classStr);
+                    if (classStr) btn.setAttribute('class', classStr);
+                };
+                
                 $buttonPanel[0].datasource = plusetViewHelper ;
 
                 var presetViewHelper = new NSIProductsView('presetbuttonpanel');
