@@ -415,7 +415,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             }
 
             var input = {value: this._selectedFile.leafName};
-            var result = GREUtils.Dialog.prompt(this.window, "Rename image", "Original image: '" + this._selectedFile.leafName, input);
+            var result = GREUtils.Dialog.prompt(this.window, _('Rename Image'), _('Original image: ') + this._selectedFile.leafName, input);
 
             if (result) {
                 try {
@@ -435,7 +435,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 }
                 catch (e) {
                     //
-                    NotifyUtils.info(_('Rename Image (%S) Error'));
+                    NotifyUtils.info(_('Rename Image (%S) Error'), [this._selectedFile.leafName]);
                 }
                 finally {
                     //

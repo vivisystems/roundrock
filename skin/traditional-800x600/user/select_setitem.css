@@ -1,0 +1,33 @@
+#selectSetItemPanel #plusetscrollablepanel {
+    min-width: 250px;
+    max-width: 250px;
+    width: 250px;
+}
+
+.SubTitle {
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+}
+
+.pluset-button {
+    min-height:50px;
+    min-width: 50px;
+    border: 1px solid;
+    -moz-appearance: none;
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+
+    -moz-border-top-colors: #red;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+
+    list-style-image: none;
+}
+
+.pluset-button image {
+    display: none;
+}

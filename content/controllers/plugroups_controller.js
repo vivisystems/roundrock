@@ -169,6 +169,10 @@
                 NotifyUtils.error(_('[%S] has one or more products and may not be deleted', [name]));
                 evt.preventDefault();
             }
+            else if (this.hasTaggedProductSets(evt.data.id)) {
+                NotifyUtils.error(_('[%S] belongs to one or more product sets and may not be deleted', [name]));
+                evt.preventDefault();
+            }
             else if (device != null && device.isGroupLinked(evt.data.id)) {
                 NotifyUtils.error(_('[%S] has been linked to one or more check printers and may not be deleted', [name]));
                 evt.preventDefault();
@@ -245,6 +249,14 @@
                 conditions: 'link_group like "%' + plugroupId + '%"'
             });
             return (taggedProducts && taggedProducts.length > 0);
+        },
+
+        hasTaggedProductSets: function (plugroupId) {
+            var setItemModel = new SetItemModel();
+            var taggedProductSets = setItemModel.find('all', {
+                conditions: 'linkgroup_id = "' + plugroupId + '"'
+            });
+            return (taggedProductSets && taggedProductSets.length > 0);
         },
 
         load: function () {

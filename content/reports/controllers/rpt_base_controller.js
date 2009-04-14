@@ -9,6 +9,8 @@
         name: 'RptBase',
         components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
         packageName: 'viviecr',
+        _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
+        _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -68,6 +70,20 @@
 	        var bw = document.getElementById( 'preview_frame' );
 	        var doc = bw.contentWindow.document.getElementById( 'abody' );
 	        doc.innerHTML = result;
+	    },
+	    
+	    previousPage: function() {
+	    	var offset = this._recordOffset - this._recordLimit;
+	    	if ( offset >= 0 ) {
+	    		this._recordOffset = offset;
+	    		this.execute();
+	    	} else alert( _( 'We are now on the first page.' ) );
+	    },
+	    
+	    nextPage: function() {
+	    	this._recordOffset += this._recordLimit;
+	    	
+	    	this.execute();
 	    },
 
         execute: function() {

@@ -399,6 +399,14 @@ textbox:not([onclick]) *[readonly] {
     background: transparent url(images/prod-remove.png) center center no-repeat;
 }
 
+.upbtn {
+    background: transparent url(images/go-up.png) center center no-repeat;
+}
+
+.downbtn {
+    background: transparent url(images/go-down.png) center center no-repeat;
+}
+
 .soldoutbtn {
     border: 2px solid black !important;
     background: transparent url(images/prohibitsale.png) center center no-repeat;

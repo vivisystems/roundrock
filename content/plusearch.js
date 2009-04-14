@@ -34,7 +34,7 @@
             var buf = inputObj.buffer;
             var item = inputObj.item;
             var barcode;
-            if (buf.length > 0) {
+            if (buf && buf.length > 0) {
                 barcode = buf;
             }
             else if (item != null) {
