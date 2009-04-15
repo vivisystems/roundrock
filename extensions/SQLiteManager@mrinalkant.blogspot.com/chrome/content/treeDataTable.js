@@ -98,50 +98,24 @@ TreeDataTable.prototype = {
       this.StoreClickLocation(ev);
   },
 
-  // AddTreecol: Add the column to the tree view
-  AddTreecol: function(treecols, sId, col, sTooltip, iWidth, bLast, bExtraRowId) {
-    var treecol = document.createElement("treecol");
-    treecol.setAttribute("label", col);
-    if (bExtraRowId)
-      treecol.setAttribute("extraRowId", true);
-    treecol.setAttribute("id", sId);
-    if (sTooltip != null)
-      treecol.setAttribute("tooltiptext", sTooltip);
-
-    if (iWidth > 0)
-      treecol.setAttribute("style", "width:" + iWidth + "ex");
-		treecol.setAttribute("flex","1");
-    if (bLast) {
-			//treecol.removeAttribute("flex");
-			//this minwidth setting does not seem to work.
-			//also, there is no way yet of resizing the last column
-			treecol.setAttribute("minwidth",iWidth);
-    }
-    treecols.appendChild(treecol); 
-
-    //if (!bLast) 
-		{
-      var splitter = document.createElement("splitter");
-      splitter.setAttribute("id", "splitter" + col);
-      splitter.setAttribute("class", "tree-splitter");        
-      splitter.setAttribute("resizebefore", "closest");
-      splitter.setAttribute("resizeafter", "closest");
-      treecols.appendChild(splitter); 
-    }
-  },
-
-  AddTreecol3: function(treecols, sId, col, sTooltip, iWidth, bLast, bExtraRowId) {
+  AddTreecol: function(treecols, sId, col, sColType, iWidth, bLast, bExtraRowId, sClickFn, sBgColor) {
     //bExtraRowId = true for rowid column which is not one of the tables'columns
     var treecol = document.createElement("treecol");
     treecol.setAttribute("label", col);
+    treecol.setAttribute("sDataType", sColType);
+//    treecol.setAttribute("smSortDir", "none");
     if (bExtraRowId)
       treecol.setAttribute("extraRowId", true);
     treecol.setAttribute("id", sId);
 		treecol.setAttribute("width",iWidth);
 		treecol.setAttribute("minwidth",10);
+		if (sClickFn != null)
+		  treecol.setAttribute("onclick", sClickFn);
+		if (sBgColor != null)
+		  treecol.setAttribute("style","color:"+sBgColor);
 
-    if (sTooltip != null)
-      treecol.setAttribute("tooltiptext", sTooltip);
+    if (sColType != null)
+      treecol.setAttribute("tooltiptext", col + " (" + sColType + ")");
 
     if (bLast) {
       //want to do anything special for the last column? do it here.
@@ -175,56 +149,73 @@ TreeDataTable.prototype = {
     }
   },
 
-  // PopulateTableData: Assign our custom treeview
   // iExtraColForRowId: indicates column number for the column which is a rowid
   //           0 means no extra rowid, column numbering begins with 1
   //     use this while copying Issue #151
-  PopulateTableData: function(aTableData, aColumns, iExtraColForRowId) {   
-      var treecols = this.treeTable.firstChild;
-      ClearElement(treecols);
-      
-      // Order columns (slow method; needs to be reworked)
-      var iColumnCount = 0;
-      var iRow;
-      var iWidth, iTotalWidth, iMaxWidth;
-      var sTooltip;
-      var allCols = [];
-      for (var col in aColumns) {
-        iColumnCount = iColumnCount + 1;
-        var aTemp = [aColumns[col][0], aColumns[col][1]];
-        allCols.push(aTemp);
-			}
+  createColumns: function(aColumns, iExtraColForRowId, aSortInfo, sClickFn) {
+    var treecols = this.treeTable.firstChild;
+    ClearElement(treecols);
 
-      var iTreeWidth = this.treeTable.boxObject.width;
-      for (var iColumn = 0; iColumn < iColumnCount; iColumn++) {
-        iTotalWidth = 0;
-        iMaxWidth = 0;
-        iTotalWidth = iTreeWidth/iColumnCount;
-        if (iTotalWidth < 50) iTotalWidth = 50;
+    var iColumnCount = 0;
+    var iRow;
+    var iWidth, iTotalWidth, iMaxWidth;
+    var sColType;
+    var allCols = [];
+    for (var col in aColumns) {
+      iColumnCount = iColumnCount + 1;
+      var aTemp = [aColumns[col][0], aColumns[col][1]];
+      allCols.push(aTemp);
+		}
 
-        sTooltip = allCols[iColumn][0] + " (" + GetColumnTypeString(allCols[iColumn][1]) + ")";
+    var iTreeWidth = this.treeTable.boxObject.width;
+    for (var iColumn = 0; iColumn < iColumnCount; iColumn++) {
+      iTotalWidth = 0;
+      iMaxWidth = 0;
+      iTotalWidth = iTreeWidth/iColumnCount;
+      if (iTotalWidth < 50) iTotalWidth = 50;
 
-        var bExtraColForRowId = (iColumn==iExtraColForRowId-1) ? true : false;
-        if (gbGecko_1_9)
-          this.AddTreecol3(treecols, iColumn, allCols[iColumn][0], sTooltip, iTotalWidth, (iColumn==iColumnCount-1?true:false), bExtraColForRowId);
-        else
-          this.AddTreecol(treecols, iColumn, allCols[iColumn][0], sTooltip, iTotalWidth, (iColumn==iColumnCount-1?true:false), bExtraColForRowId);
+      sColType = GetColumnTypeString(allCols[iColumn][1]);
+
+      var sBgColor = null;
+      for(var i = 0; i < aSortInfo.length; i++) {
+        if (aSortInfo[i][0] == allCols[iColumn][0]) {
+          switch (aSortInfo[i][1]) {
+            case "asc":
+              sBgColor = "green";
+              break;
+            case "desc":
+              sBgColor = "red";
+              break;
+          }
+        }
       }
-      this.treeTable.view = new this.DatabaseTreeView(aTableData,aColumns);
-      this.ShowTable(true);
+
+      var bExtraColForRowId = (iColumn==iExtraColForRowId-1) ? true : false;
+      this.AddTreecol(treecols, iColumn, allCols[iColumn][0], sColType, iTotalWidth, (iColumn==iColumnCount-1?true:false), bExtraColForRowId, sClickFn, sBgColor);
+    }
+  },
+
+  // PopulateTableData: Assign our custom treeview
+  PopulateTableData: function(aTableData, aColumns) {   
+    this.treeTable.view = new this.DatabaseTreeView(aTableData,aColumns);
+    this.ShowTable(true);
   },
 
   // DatabaseTreeView: Create a custom nsITreeView
   DatabaseTreeView: function(aTableData, aColumns) {
     // http://kb.mozillazine.org/Sorting_Trees
     // 2 dimensional array containing table contents
-    this.aTableData = aTableData; 
-    // Column information (index, order, type)
-  	this.aColumns = aColumns;   
-  	// Number of rows in the table
-    this.rowCount = aTableData.length;  
+    this.aTableData = aTableData;
+    // Column information
+  	this.aColumns = aColumns;
+  	this.aOrder = [];
+  	for (var i=0; i < this.aColumns.length; i++)
+  	 this.aOrder.push(-1);//0=asc; 1=desc
 
-    this.getCellText = function(row,column) { 
+  	// Number of rows in the table
+    this.rowCount = aTableData.length;
+
+    this.getCellText = function(row,column) {
       var sResult;
       try { sResult= this.aTableData[row][column.id]; }
       catch (e) { return "<" + row + "," + column.id + ">"; }
@@ -245,13 +236,15 @@ TreeDataTable.prototype = {
     this.SortColumn = function(col) {
       var index  = col.id; 
       var name = this.aColumns[index][0];
-      var order = this.aColumns[index][1];
-      var isnum = ((this.aColumns[index][2]==1 || this.aColumns[index][2]==1)?1:0);
-      this.aColumns[index][1] = (order==0)?1:0; // switch order flag
-
+      var type = this.aColumns[index][1];
+      var isnum = ((this.aColumns[index][2]==1)?1:0);
+      this.aOrder[index] = (this.aOrder[index]==0)?1:0;
+      var order = this.aOrder[index];
+//alert(order+"="+name);
+      
       this.SortTable(this.aTableData,index,order,isnum);  // sort the table
       this.rowCount= this.aTableData.length; // Not the right place for this but...
-      //this.treeTable.view = new treeView(this.aTableData, this.aColumns, this.rowCount);       
+      this.treeTable.view = new treeView(this.aTableData, this.aColumns, this.rowCount);       
     };
 
   // This is the actual sorting method, extending the array.sort() method

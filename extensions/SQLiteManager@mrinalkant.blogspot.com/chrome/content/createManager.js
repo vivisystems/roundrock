@@ -11,7 +11,7 @@ var CreateManager = {
 
 	loadEmptyColumns: function() {
 		var node = document.getElementById("rows-all");
-		this.numOfEmptyColumns = sm_getPreferenceValue("maxColumnsInTable", 20);
+		this.numOfEmptyColumns = sm_prefsBranch.getIntPref("maxColumnsInTable");
 
 		var row = document.getElementById("row-template");
 		for(var i = 0; i < this.numOfEmptyColumns; i++) {
@@ -39,7 +39,6 @@ var CreateManager = {
 
     document.getElementById("tablename").value = aRetVals.tableName;
 		var node = document.getElementById("rows-all");
-//		this.numOfEmptyColumns = sm_getPreferenceValue("maxColumnsInTable", 20);
 		this.numOfEmptyColumns = aRetVals.colNames.length;
 		
 		var row = document.getElementById("row-template");

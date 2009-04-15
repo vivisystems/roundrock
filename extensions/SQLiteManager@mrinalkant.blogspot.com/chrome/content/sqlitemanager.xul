@@ -3,18 +3,17 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://sqlitemanager/skin/sqlitemanager.css" type="text/css"?>
 
-<?xul-overlay href="chrome://sqlitemanager/content/tabDbInfo.xul"?>
 <?xul-overlay href="chrome://sqlitemanager/content/menuSqlHelper.xul"?>
+<?xul-overlay href="chrome://sqlitemanager/content/tabDbInfo.xul"?>
 <?xul-overlay href="chrome://sqlitemanager/content/jsStrings.xul"?>
+<?xul-overlay href="chrome://sqlitemanager/content/exim.xul"?>
 
 <!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
  
-<window id="sqlitemanager-window"
- title="&window.title;"
+<window id="sqlitemanager-window" title="&window.title;"
  persist="screenX screenY width height sizemode"
  orient="vertical"
- onload="SQLiteManager.Startup()"
- onunload="SQLiteManager.Shutdown()"
+ onload="SQLiteManager.Startup()" onunload="SQLiteManager.Shutdown()"
  onresize="SQLiteManager.resizeThings()"
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
  xmlns:html="http://www.w3.org/1999/xhtml">
@@ -22,13 +21,14 @@
 	<!-- Icon from chrome -->
 	<html:link rel="icon" href="chrome://sqlitemanager/skin/images/icon16.png"/>
 
-  <script type="application/x-javascript" src="misc.js"/>  
+  <script type="application/x-javascript" src="globals.js"/>  
+  <script type="application/x-javascript" src="functions/functions.js"/>  
   <script type="application/x-javascript" src="tokenize.js"/>  
   <script type="application/x-javascript" src="preferences.js"/>  
   <script type="application/x-javascript" src="sqlite.js"/>  
   <script type="application/x-javascript" src="treeDataTable.js"/>  
   <script type="application/x-javascript" src="treeDbStructure.js"/>  
-  <script type="application/x-javascript" src="export.js"/>  
+  <script type="application/x-javascript" src="exim.js"/>  
   <script type="application/x-javascript" src="createManager.js"/>  
   <script type="application/x-javascript" src="sqlitemanager.js"/>  
   <script type="application/x-javascript" src="extManager.js"/>  
@@ -259,7 +259,7 @@
       src="chrome://sqlitemanager/locale/strings.properties"/>
   </stringbundleset>
 
-  <vbox flex="1">
+  <vbox id="hello" flex="1">
     <toolbox id="tb-main">
 			<menubar id="sm-menubar">
 			  <menu id="menu-database" label="&menu.db;" accesskey="&menu.db.ak;">
@@ -338,7 +338,7 @@
 						label="&mi.extensionTable;" accesskey="&mi.extensionTable.ak;"
 						oncommand="SQLiteManager.useExtensionManagementTable(this.hasAttribute('checked'),false);" observes="bc-dbOpen"/>
 
-			      <menuitem hidden="true" label="Experiment"
+			      <menuitem id="experiment" label="Experiment"
 						oncommand="SQLiteManager.experiment()"/>
 			    </menupopup>
 			  </menu>
@@ -383,19 +383,21 @@
         <toolbarbutton tooltiptext="&menu.db.connect;"  
 					image="chrome://sqlitemanager/skin/images/open.png"
 					oncommand="SQLiteManager.openDatabase()" />
+        <toolbarbutton tooltiptext="&import;" label="&import;"
+					oncommand="SQLiteManager.importFromFile()" observes="bc-dbOpen"/>
 				<toolbarseparator/>
       </toolbar>
       <toolbar id="sm-toolbar-table">
-        <toolbarbutton command="smc-createTable" label="&createTable;"
+        <toolbarbutton command="smc-createTable"
 					image="chrome://sqlitemanager/skin/images/create_table.png"/>
-        <toolbarbutton command="smc-dropTable" label="&dropTable;"
+        <toolbarbutton command="smc-dropTable"
 					image="chrome://sqlitemanager/skin/images/delete_table.png"/>
 				<toolbarseparator/>
       </toolbar>
       <toolbar id="sm-toolbar-index">
-        <toolbarbutton command="smc-createIndex" label="&createIndex;"
+        <toolbarbutton command="smc-createIndex"
 					image="chrome://sqlitemanager/skin/images/create_index.png"/>
-        <toolbarbutton command="smc-dropIndex" label="&dropIndex;"
+        <toolbarbutton command="smc-dropIndex"
 					image="chrome://sqlitemanager/skin/images/delete_index.png"/>
 				<toolbarseparator/>
       </toolbar>
@@ -451,6 +453,8 @@
     </splitter>
 
     <vbox flex="1">
+    <!-- deck has to have flex -->
+    <deck id="d-mainarea" flex="1">
 		<tabbox id="sm-tabbox" flex="1">
 		  <tabs id="sm-tabs" onselect="SQLiteManager.doSelectTab(this.selectedItem)">
 		    <tab id="tab-structure" linkedpanel="structureTab" label="&tab.structure;"
@@ -466,10 +470,11 @@
 		  <tabpanels flex="1">
 		    <tabpanel id="structureTab" flex="1">
 		    <vbox id="vb-structureTab" flex="1">
-					<hbox id="gb-master-ops-master" hidden="true">
+		      <deck id="d-master-ops" hidden="true">
+					<hbox id="gb-master-ops-master">
 		        <button label="&export;" command="smc-exportTable"/>
 					</hbox>
-					<hbox id="gb-master-ops-table" hidden="true">
+					<hbox id="gb-master-ops-table">
 						<button label="&drop;" command="smc-dropTable"/>
 		        <button label="&empty;" command="smc-emptyTable"/>
 		        <button label="&rename;" command="smc-renameTable"/>
@@ -477,20 +482,21 @@
 		        <button label="&copy;" command="smc-copyTable"/>
 		        <button label="&export;" command="smc-exportTable"/>
 					</hbox>
-				  <hbox id="gb-master-ops-view" hidden="true">
+				  <hbox id="gb-master-ops-view">
 		        <button label="&drop;" command="smc-dropView"/>
 		        <button label="&rename;" command="smc-renameView"/>
 		        <button label="&modify;" command="smc-modifyView"/>
 		        <button label="&export;" command="smc-exportView"/>
 					</hbox>
-				  <hbox id="gb-master-ops-index" hidden="true">
+				  <hbox id="gb-master-ops-index">
 		        <button label="&drop;" command="smc-dropIndex"/>
 		        <button label="&reindex;" command="smc-reindexIndex"/>
 					</hbox>
-				  <hbox id="gb-master-ops-trigger" hidden="true">
+				  <hbox id="gb-master-ops-trigger">
 		        <button label="&drop;" command="smc-dropTrigger"/>
 		        <button label="&rename;" command="smc-renameTrigger"/>
 					</hbox>
+					</deck>
 				  <groupbox id="gb-master-info" hidden="true">
 				  <caption label="&infoFromMaster;"/>
 					<hbox>
@@ -511,7 +517,8 @@
 						value="" />
 				  </groupbox>
 				  <vbox flex="1" style="overflow:auto">
-				  <vbox id="gb-more-info-table" hidden="true">
+				  <deck id="d-more-info" hidden="true">
+				  <vbox id="gb-more-info-table" style="overflow:auto" flex="1">
 					<groupbox>
 					<caption label="&moreInfo;"/>
 
@@ -569,8 +576,8 @@
 				  </hbox>
 				  </groupbox>
 				  </vbox>
-				  <groupbox id="gb-more-info-view" hidden="true"/>
-				  <vbox id="gb-more-info-index" hidden="true">
+				  <groupbox id="gb-more-info-view"/>
+				  <vbox id="gb-more-info-index">
 						<groupbox>
 						<caption label="&indexProp;"/>
 					
@@ -591,8 +598,8 @@
 					  </hbox>
 						</groupbox>
 				  </vbox>
-				  <groupbox id="gb-more-info-trigger" hidden="true">
-				  </groupbox>
+				  <groupbox id="gb-more-info-trigger"/>
+				  </deck>
 				  </vbox>
 				  </vbox>
 		    </tabpanel>
@@ -618,10 +625,8 @@
 								oncommand="SQLiteManager.operateOnTable('delete')" />
 				    </hbox>
 <!-- trial for sliding forms -->
-				    <hbox id="hb-sliding" hidden="true" flex="1">
-				      
-				    </hbox>
-
+            <vbox flex="1">
+				    <vbox id="box-rowedit" flex="1" hidden="true" style="overflow: auto"/>
 				    <tree id="browse-tree" style="min-height:20em" editable="true"
 								flex="1" seltype="multiple" enableColumnDrag="false">
 				      <treecols hidden="true"/>
@@ -629,6 +634,7 @@
 							  hidden="true" flex="1" 
                 context="mp-editTableRow"/>  
 				    </tree>
+				    </vbox>
 				    <hbox id="browse-navigate">
 				    	<button id="btn-nav-first" label="&lt;&lt;"
 								tooltiptext="&first;" 
@@ -713,17 +719,20 @@
 		    <tabpanel id="dbInfoTab"/>
 		  </tabpanels>
 		</tabbox>
+		<tabbox id="eximTabbox"/>
+		</deck>
 		</vbox>
 		</hbox>
-  </vbox>
+		</vbox>
 
-<statusbar id="sbFull">
-	<statusbarpanel id="sbSqliteVersion" label="" style="font-weight:bold"/>
-	<statusbarpanel id="sbGeckoVersion" label="" style="font-weight:bold;color:red"/>
-	<statusbarpanel id="sbExtVersion" label="" style="color:#666666"/>
-	<statusbarpanel id="sbSharedMode" label="---" style="font-weight:bold;"/>
-	<statusbarpanel id="sbPanel-display" label="" flex="1"/>
-</statusbar>  
+    <statusbar id="sbFull">
+    	<statusbarpanel id="sbSqliteVersion" label="" style="font-weight:bold"/>
+    	<statusbarpanel id="sbGeckoVersion" label="" style="font-weight:bold"/>
+    	<statusbarpanel id="sbExtVersion" label="" style="color:#666666"/>
+    	<statusbarpanel id="sbSharedMode" label="---" style="font-weight:bold;"/>
+    	<statusbarpanel id="sbPanel-display" label="" flex="1"/>
+    	<statusbarpanel id="sbQueryTime" label=""/>
+    </statusbar>  
 
 <vbox hidden="true" id="jsStrings" />
 

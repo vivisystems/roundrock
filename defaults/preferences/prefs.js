@@ -25,7 +25,7 @@ pref("javascript.options.jit.content", true);
 pref("javascript.options.jit.chrome", true);
 
 /* extension prefs - turn off extension updating for now */
-pref("extensions.update.enabled", false);
+pref("extensions.update.enabled", true);
 pref("extensions.update.interval", 86400);
 
 // pref("xpinstall.dialog.confirm", "chrome://vivipos/content/xpinstall/xpinstallConfirm.xul");
@@ -59,9 +59,9 @@ pref("security.warn_entering_secure.show_once", true);
 pref("security.warn_leaving_secure.show_once", true);
 
 // NB these point at AMO
-// pref("extensions.update.url", "chrome://mozapps/locale/extensions/extensions.properties");
-// pref("extensions.getMoreExtensionsURL", "chrome://mozapps/locale/extensions/extensions.properties");
-// pref("extensions.getMoreThemesURL", "chrome://mozapps/locale/extensions/extensions.properties");
+pref("extensions.update.url", "about:blank");
+pref("extensions.getMoreExtensionsURL", "about:blank");
+pref("extensions.getMoreThemesURL", "about:blank");
 
 // Prevent popups by default
 pref("privacy.popups.firstTime",            true);

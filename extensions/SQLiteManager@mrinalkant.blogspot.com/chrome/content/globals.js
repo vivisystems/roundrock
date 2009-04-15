@@ -1,20 +1,48 @@
-var gExtVersion = "0.3.17";
+const Cc = Components.classes;
+const Ci = Components.interfaces;
+
+var gAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+var gbGecko_191 = (Cc["@mozilla.org/xpcom/version-comparator;1"]
+                      .getService(Ci.nsIVersionComparator)
+                      .compare(gAppInfo.platformVersion, "1.9.1") >= 0);
+
+var smGlobals = {
+  gExtVersion: "0.4.8",//vveerrssiioonn
+  g_tempNamePrefix: "__temp__",
+  g_smBundle: null,
+  gAppInfo: Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo),
+  gbGecko_191: (Cc["@mozilla.org/xpcom/version-comparator;1"]
+                  .getService(Ci.nsIVersionComparator)
+                  .compare(this.gAppInfo.platformVersion, "1.9.1") >= 0),
+  gOS: navigator.appVersion,
+  
+  smPrompt: Cc["@mozilla.org/embedcomp/prompt-service;1"]
+                .getService(Ci.nsIPromptService),
+  
+  gSbPanelDisplay: null,
+  g_strForNull: "NULL",
+  g_strForBlob: "BLOB",
+  g_showBlobSize: true
+};
+
+var gExtVersion = "0.4.8";//vveerrssiioonn
+var gExtCreator = "Mrinal Kant";
+
 var g_tempNamePrefix = "__temp__";
 var g_smBundle = null;
-var gAppInfo = Components.classes["@mozilla.org/xre/app-info;1"]
-                    .getService(Components.interfaces.nsIXULAppInfo);
-var gbGecko_1_9 = (Components.classes["@mozilla.org/xpcom/version-comparator;1"]
-                      .getService(Components.interfaces.nsIVersionComparator)
-                      .compare(gAppInfo.platformVersion, "1.9") >= 0);
 var gOS = navigator.appVersion;
 
-var smPrompt = 	Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-              .getService(Components.interfaces.nsIPromptService);							
+var smPrompt = 	Cc["@mozilla.org/embedcomp/prompt-service;1"]
+              .getService(Ci.nsIPromptService);							
 
 var gSbPanelDisplay = null;
 var g_strForNull = "NULL";
 var g_strForBlob = "BLOB";
 var g_showBlobSize = true;
+
+function $$(sId) {
+  return document.getElementById(sId);
+}
 
 // GetColumnTypeString: Determine the type of the table column
 function GetColumnTypeString(iType) {
@@ -80,11 +108,10 @@ function sm_launchHelp() {
 }
 
 function sm_openURL(UrlToGoTo) {
-  var ios = Components.classes["@mozilla.org/network/io-service;1"]
-                      .getService(Components.interfaces.nsIIOService);
+  var ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
   var uri = ios.newURI(UrlToGoTo, null, null);
-  var protocolSvc = Components.classes["@mozilla.org/uriloader/external-protocol-service;1"]
-                    .getService(Components.interfaces.nsIExternalProtocolService);
+  var protocolSvc = Cc["@mozilla.org/uriloader/external-protocol-service;1"]
+                    .getService(Ci.nsIExternalProtocolService);
 
   if (!protocolSvc.isExposedProtocol(uri.scheme)) {
     // If we're not a browser, use the external protocol service to load the URI.
@@ -96,8 +123,8 @@ function sm_openURL(UrlToGoTo) {
   
   // Try to get the most recently used browser window
   try {
-    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                       .getService(Components.interfaces.nsIWindowMediator);
+    var wm = Cc["@mozilla.org/appshell/window-mediator;1"]
+                       .getService(Ci.nsIWindowMediator);
     navWindow = wm.getMostRecentWindow("navigator:browser");
   } catch(ex) {}
 
@@ -118,8 +145,8 @@ function sm_openURL(UrlToGoTo) {
   else {
     // If there is no recently used browser window 
     // then open new browser window with the URL
-    var ass = Components.classes["@mozilla.org/appshell/appShellService;1"]
-                .getService(Components.interfaces.nsIAppShellService);
+    var ass = Cc["@mozilla.org/appshell/appShellService;1"]
+                .getService(Ci.nsIAppShellService);
     var win = ass.hiddenDOMWindow;
     win.openDialog(sm_getBrowserURL(), "", "chrome,all, dialog=no", UrlToGoTo );
   }
@@ -128,8 +155,8 @@ function sm_openURL(UrlToGoTo) {
 function sm_getBrowserURL() {
    // For SeaMonkey etc where the browser window is different.
    try {
-      var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-         .getService(Components.interfaces.nsIPrefBranch);
+      var prefs = Cc["@mozilla.org/preferences-service;1"]
+          .getService(Ci.nsIPrefBranch);
       var url = prefs.getCharPref("browser.chromeURL");
       if (url)
          return url;
@@ -151,12 +178,12 @@ function sm_getLStr(sName) {
 }
 
 function sm_getJsStr(sName) {
-  return document.getElementById("jss-" + sName).value;
+  return $$("jss-" + sName).value;
 }
 
 function sm_chooseDirectory(sTitle) {
-	const nsIFilePicker = Components.interfaces.nsIFilePicker;
-	var fp = Components.classes["@mozilla.org/filepicker;1"]
+	const nsIFilePicker = Ci.nsIFilePicker;
+	var fp = Cc["@mozilla.org/filepicker;1"]
 		      .createInstance(nsIFilePicker);
 	fp.init(window, sTitle, nsIFilePicker.modeGetFolder);
 	
@@ -259,3 +286,72 @@ function sm_makeDefaultValue(str) {
 
   return sDefValue;
 }
+
+function sm_confirm(sTitle, sMessage) {
+	var aRetVals = {};
+  var oWin = window.openDialog("chrome://sqlitemanager/content/confirm.xul",
+        "confirmDialog", "chrome, resizable, centerscreen, modal, dialog",
+        sTitle, sMessage, aRetVals, "confirm");
+  return aRetVals.bConfirm;
+}
+
+function sm_alert(sTitle, sMessage) {
+	var aRetVals = {};
+  var oWin = window.openDialog("chrome://sqlitemanager/content/confirm.xul",
+        "alertDialog", "chrome, resizable, centerscreen, modal, dialog",
+        sTitle, sMessage, aRetVals, "alert");
+}
+
+function sm_confirmBeforeExecuting(aQueries, sMessage, confirmPrefName) {
+  if (confirmPrefName == undefined)
+    confirmPrefName = "confirm.otherSql";
+  var bConfirm = sm_prefsBranch.getBoolPref(confirmPrefName);
+
+	var answer = true;
+	var ask = "Are you sure you want to perform the following operation(s):";
+	//in case confirmation is needed, reassign value to answer
+  if (bConfirm) {
+  	var txt = ask + "\n" + sMessage + "\nSQL:\n" + aQueries.join("\n");
+  	if (typeof sMessage == "object" && !sMessage[1]) {
+  		txt = ask + "\n" + sMessage[0];
+  	}
+		answer = sm_confirm("Confirm the operation", txt);
+	}
+
+	return answer;
+}
+
+//cTimePrecision: Y, M, D, h, m, s
+function getISODateTimeFormat(dt, cSeparator, cPrecision) {
+  var aPrecision = ["Y", "M", "D", "h", "m", "s"];
+  var aSeparators = ["", "-", "-", "T", ":", ":"];
+  if (dt == null)
+    dt = new Date();
+
+  var tt;
+  var iPrecision = aPrecision.indexOf(cPrecision);
+  var sDate = dt.getFullYear();
+  for (var i = 1; i <= iPrecision; i++) {
+    switch (i) {
+      case 1:
+        tt = new Number(dt.getMonth() + 1);
+        break;
+      case 2:
+        tt = new Number(dt.getDate());
+        break;
+      case 3:
+        tt = new Number(dt.getHours());
+        break;
+      case 4:
+        tt = new Number(dt.getMinutes());
+        break;
+      case 5:
+        tt = new Number(dt.getSeconds());
+        break;
+    }
+    var cSep = (cSeparator == null)?aSeparators[i]:cSeparator;
+    sDate += cSep + ((tt < 10)? "0" + tt.toString() : tt);
+  }
+  return sDate;
+}
+

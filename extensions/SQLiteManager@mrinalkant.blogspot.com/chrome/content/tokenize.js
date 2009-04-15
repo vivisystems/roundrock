@@ -80,6 +80,8 @@ function sql_tokenizer(input) {
       else if (tt == "end")
         tk = tkEND;
     }
+    if (token.match(/[\n\s]+/))
+      tk = tkWS;
     state = trans[state][tk];
     stmt += token;
     if (tk != tkWS) bOnlyWhitespace = false;
@@ -100,7 +102,6 @@ function sql_tokenizer(input) {
 function csv_tokenizer(input, separator) {
   var re_linebreak = /[\n\r]+/
 
-//  var re_token = /[\"][^\"]*[\"](?!\")|[,]|[\n\r]|[^,]*|./g
   var re_token = /[\"]([^\"]|(\"\"))*[\"]|[,]|[\n\r]|[^,\n\r]*|./g
   if (separator == ";")
     re_token = /[\"]([^\"]|(\"\"))*[\"]|[;]|[\n\r]|[^;\n\r]*|./g
@@ -128,7 +129,6 @@ function csv_tokenizer(input, separator) {
           || tkp == tkSEPARATOR) {
         line.push("");
       }
-//      alert("sep=" + token);
     }
     else if (token == "\n" || token == "\r") {
       tk = tkNEWLINE;
@@ -136,7 +136,6 @@ function csv_tokenizer(input, separator) {
         allLines.push(line);
         line = [];
       }
-//      alert("line=" + token);
     }
     else { //field value
       tk = tkNORMAL;
@@ -147,13 +146,7 @@ function csv_tokenizer(input, separator) {
         }
       }
       line.push(token);
-//      alert("normal=" + token);
     }
-
-  }
-  //for lines not terminated with \r or \n
-  if (line.length > 0) {
-//    allLines.push(line);
   }
 
   return allLines;

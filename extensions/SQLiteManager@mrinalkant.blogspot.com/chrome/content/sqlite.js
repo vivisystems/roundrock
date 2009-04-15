@@ -21,6 +21,7 @@ SQLiteHandler.prototype = {
   mLogicalDbName: "main", //for main, temp and attached databases
 
 	lastErrorString: "",
+  miTime: 0, //time elapsed during queries
 				
   // openDatabase: opens a connection to the database file nsIFile
   // bShared = true: first attempt shared mode, then unshared
@@ -38,9 +39,6 @@ SQLiteHandler.prototype = {
 			// this.dataConnection.lastErrorString returns "not an error"
 		}
 		catch (e) { //attempt unshared connection; supported since sqlite 3.5.4.1
-      if (!gbGecko_1_9)
-        return false;
-		  
   		try {
         this.dataConnection = this.storageService.openUnsharedDatabase(nsIFile);
         this.mbShared = false;
@@ -91,9 +89,13 @@ SQLiteHandler.prototype = {
     this.mOpenStatus = "";
   },
 
-  getOpenStatus: function() {
-    return this.mOpenStatus;
+  createFunction: function(fnName, argLength, fnObject) {
+    this.dataConnection.createFunction(fnName, argLength, fnObject);
   },
+
+  getOpenStatus: function() { return this.mOpenStatus; },
+
+  getElapsedTime: function() { return this.miTime; },
 
 	setLogicalDbName: function(sDbName) {
     this.mLogicalDbName = sDbName;	
@@ -128,19 +130,19 @@ SQLiteHandler.prototype = {
 		this.selectQuery("SELECT sqlite_version()");
 		return this.aTableData[0][0];
   },
-	
+
   get schemaVersion() { return this.dataConnection.schemaVersion;	},
-	
+
 	setSetting: function(sSetting, sValue) {
 		if (sSetting == "encoding" || sSetting == "temp_store_directory")
 			sValue = "'" + sValue + "'";
 		var sQuery = "PRAGMA " + sSetting + " = " + sValue;
 		//do not execute in a transaction; some settings will cause error
 		this.selectQuery(sQuery);
-		
+
 		return this.getSetting(sSetting);
 	},
-	
+
 	getSetting: function(sSetting) {
 		var iValue = null;
 		this.selectQuery("PRAGMA " + sSetting);
@@ -210,18 +212,23 @@ SQLiteHandler.prototype = {
   // loadTableData: retrieves data from a table including rowid if needed
   // return r: -1 = error, 0 = ok without extracol,
   // r > 0 means column number of extracol starting with 1
-  loadTableData: function(sObjType, sObjName, sCondition, iLimit, iOffset) {
+  loadTableData: function(sObjType, sObjName, aArgs) {
   	if (sObjType != "master" && sObjType != "table" && sObjType != "view")
   		return -1;
   		
-  	iLimit = parseInt(iLimit);
-  	if (isNaN(iLimit))
-  		iLimit = -1;
-  		
-  	iOffset = parseInt(iOffset);
-  	if (isNaN(iOffset))
-  		iOffset = 0;
-  		
+    var sCondition = aArgs.sWhere?aArgs.sWhere:"";
+    var iLimit = aArgs.iLimit?aArgs.iLimit:-1;
+    var iOffset = aArgs.iOffset?aArgs.iOffset:0;
+    var sOrder = "";
+    if (aArgs.aOrder && aArgs.aOrder.length > 0) {
+      var aTemp = [];
+      for (var i = 0; i < aArgs.aOrder.length; i++) {
+        aTemp.push(aArgs.aOrder[i][0] + " " + aArgs.aOrder[i][1]);
+      }
+      sOrder = " ORDER BY " + aTemp.join(",") + " ";
+            //alert("sOrder = " + sOrder);
+    }
+
 		var extracol = "";
 		var iRetVal = 0;
   	var sLimitClause = " LIMIT " + iLimit + " OFFSET " + iOffset;
@@ -238,7 +245,7 @@ SQLiteHandler.prototype = {
     //table having columns called rowid behave erratically
     sObjName = this.getPrefixedName(sObjName, "");
 		this.selectQuery("SELECT " + extracol + " * FROM " + sObjName + " "
-						+ sCondition + sLimitClause);
+						+ sCondition + sOrder + sLimitClause);
 		return iRetVal;
 	},
 
@@ -303,7 +310,6 @@ SQLiteHandler.prototype = {
 		
   // selectQuery : execute a select query and store the results
   selectQuery: function(sQuery, bBlobAsHex) {
-  	//alert(sQuery);
     this.aTableData = new Array();
     this.aTableType = new Array();
 // if aColumns is not null, there is a problem in tree display
@@ -311,6 +317,7 @@ SQLiteHandler.prototype = {
     this.aColumns = null;        
     var bResult = false;
  
+    var timeStart = Date.now();
     try {		// mozIStorageStatement
 			var stmt = this.dataConnection.createStatement(sQuery);
 		}
@@ -392,6 +399,7 @@ SQLiteHandler.prototype = {
         this.aTableType.push(aType);
         bFirstRow = false;
       }
+      this.miTime = Date.now() - timeStart;
     } catch (e) { 
 			this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null);
     	this.setErrorString();
@@ -484,7 +492,7 @@ SQLiteHandler.prototype = {
 		aReturn["cid"] = 0;
 		return aReturn;
   },
-    
+
   // getTableColumns : execute a pragma query and return the results
   getTableColumns: function(sTableName, sDbName) {
 		var sQuery = this.getPragmaSchemaQuery("table_info", sTableName, sDbName);
@@ -509,7 +517,24 @@ SQLiteHandler.prototype = {
 		}
 		return aResult;
 	},
-	
+
+  getColumnsNullAllowStatus: function(sTableName, bNullAllowed) {
+		var aResult = [];
+		var info = this.getTableColumns(sTableName, "");
+		var columns = info[0];
+		for(var i = 0; i < columns.length; i++) {
+		  if (bNullAllowed) {
+  			if (columns[i][info[1]["notnull"][0]] == 0)
+  				aResult.push(columns[i][info[1]["name"][0]]);
+			}
+		  else {
+  			if (columns[i][info[1]["notnull"][0]] != 0)
+  				aResult.push(columns[i][info[1]["name"][0]]);
+			}
+		}
+		return aResult;
+  },
+
   getPragmaSchemaQuery: function(sPragma, sObject, sDbName) {
     if (sDbName == "")
       sDbName = this.mLogicalDbName;
@@ -599,89 +624,13 @@ SQLiteHandler.prototype = {
         return dataset;	
 	},
 	
-	executeMultiple: function(sQuery) {
-		//commit, if some leftover transaction is in progress
-		if (this.dataConnection.transactionInProgress)
-			this.dataConnection.commitTransaction();
-
-		//begin a transaction, iff no transaction in progress
-		if (!this.dataConnection.transactionInProgress)
-			this.dataConnection.beginTransaction();
-
-		var aQueries = [];
-		var arr = sQuery.split(";");
-		var i = 0;
-		var str = arr[i];
-		while(true) {
-			var statement = this.isValidStatement(str);
-			if (statement) {
-				aQueries.push(str);
-				alert(aQueries.length + " = " + str);
-				try {
-				alert("executing ");
-					statement.execute();
-					this.setErrorString();
-				}
-				catch (e)	{
-					// statement will be undefined because it throws error);
-					this.onSqlError(e, "Execute failed: " + str, 
-									this.dataConnection.lastErrorString);
-					this.setErrorString();
-					if (this.dataConnection.transactionInProgress) {
-						this.dataConnection.rollbackTransaction();
-					}
-					return false;
-				}
-				finally {
-					//statement.reset();
-				}
-				i++;
-				if (i >= arr.length) {
-								alert("i > arr.length ");
-					this.dataConnection.commitTransaction();
-					return true;
-				}
-				else
-					str = arr[i];
-			}
-			else {
-				// statement creation failed. append the next portion and check for validity
-				i++;
-				if (i >= arr.length) {
-					this.onSqlError(e, "Likely SQL syntax error: " + arr[i], 
-								this.dataConnection.lastErrorString);
-					this.setErrorString();
-					return false;
-				}
-				else {
-					str = str + ";" + arr[i];
-								alert("joined  " + str);
-					continue;
-				}
-			}
-		}
-		//commit transaction, if reached here
-		if (this.dataConnection.transactionInProgress)
-			this.dataConnection.commitTransaction();
-
-		return true;
-	},
-	
-	isValidStatement: function(sQuery) {
-    try {
-			var statement = this.dataConnection.createStatement(sQuery);
-		}
-		catch (e) {
-			return false;
-		}
-		return statement;
-	},
-	
 	executeTransaction: function(aQueries) {
+    //IS THIS NEEDED?
 		//commit, if some leftover transaction is in progress
 		if (this.dataConnection.transactionInProgress)
 			this.dataConnection.commitTransaction();
 
+    var timeStart = Date.now();
 		//begin a transaction, iff no transaction in progress
 		if (!this.dataConnection.transactionInProgress)
 			this.dataConnection.beginTransaction();
@@ -689,25 +638,12 @@ SQLiteHandler.prototype = {
 		for(var i = 0; i < aQueries.length; i++) {
 	    try {
 				var statement = this.dataConnection.createStatement(aQueries[i]);
+				statement.execute();
+				this.setErrorString();
 			}
 			catch (e) {
 				// statement will be undefined because it throws error);
 				this.onSqlError(e, "Likely SQL syntax error: " + aQueries[i], 
-								this.dataConnection.lastErrorString);
-				this.setErrorString();
-				if (this.dataConnection.transactionInProgress) {
-					this.dataConnection.rollbackTransaction();
-				}
-				return false;
-			}
-	
-			try {
-				statement.execute();
-				this.setErrorString();
-			}
-			catch (e)	{
-				// statement will be undefined because it throws error);
-				this.onSqlError(e, "Execute failed: " + aQueries[i], 
 								this.dataConnection.lastErrorString);
 				this.setErrorString();
 				if (this.dataConnection.transactionInProgress) {
@@ -723,6 +659,7 @@ SQLiteHandler.prototype = {
 		if (this.dataConnection.transactionInProgress)
 			this.dataConnection.commitTransaction();
 
+    this.miTime = Date.now() - timeStart;
 		return true;
 	},	
 
@@ -771,8 +708,7 @@ SQLiteHandler.prototype = {
 
 		try {
 			stmt.reset();
-			if (gbGecko_1_9)
-				stmt.finalize();
+			stmt.finalize();
 		} catch (e) {
 				this.onSqlError(e, "Failed to reset/finalize", 
 								this.dataConnection.lastErrorString);
@@ -783,26 +719,7 @@ SQLiteHandler.prototype = {
   },
 
 	confirmAndExecute: function(aQueries, sMessage, confirmPrefName, aParamData) {
-		var ask = "Are you sure you want to perform the following operation(s):";
-		var sQuery = "";
-		for(var i = 0; i < aQueries.length; i++)
-			sQuery += aQueries[i] + "\n";
-			
-	  var bConfirm = true;
-	  if (confirmPrefName != undefined)
-	  	bConfirm = sm_prefsBranch.getBoolPref(confirmPrefName);
-	  else
-	  	bConfirm = sm_prefsBranch.getBoolPref("confirm.otherSql");
-
-  	var answer = true;
-  	//in case confirmation is needed, reassign value to answer
-	  if (bConfirm) {
-	  	var txt = ask + "\n" + sMessage + "\nSQL: " + sQuery;
-	  	if (typeof sMessage == "object" && !sMessage[1]) {
-	  		txt = ask + "\n" + sMessage[0];
-	  	}
-			answer = smPrompt.confirm(null, "SQLite Manager: Confirm the operation", txt);
-		}
+		var answer = sm_confirmBeforeExecuting(aQueries, sMessage, confirmPrefName);
 
 		if(answer) {
 			if (aParamData)
@@ -810,8 +727,14 @@ SQLiteHandler.prototype = {
 			else
 				return this.executeTransaction(aQueries);
 		}
-
 		return false;
+	},
+
+	executeWithoutConfirm: function(aQueries, aParamData) {
+		if (aParamData)
+			return this.executeWithParams(aQueries[0], aParamData);
+		else
+			return this.executeTransaction(aQueries);
 	},
 
 	onSqlError: function(ex, msg, SQLmsg) {
@@ -824,27 +747,13 @@ SQLiteHandler.prototype = {
 	},
 
 //functions for db list (main, temp and attached)
-  appendAttachedDb: function(sDbName, sPath) {
-    this.maDbList.push(sDbName);
-  },
-
-  removeAttachedDb: function(sDbName) {
-    var iPos = this.maDbList.indexOf(sDbName);
-    if (iPos >= 0)
-      this.maDbList.splice(iPos, 1);
-  },
-
   getDatabaseList: function() {
-    if (gbGecko_1_9) {//use pragma database_list
-  		this.selectQuery("PRAGMA database_list");
-  
-  		var cols = ["main", "temp"];
-  		for(var i = 0; i < this.aTableData.length; i++)
-  		  if (this.aTableData[i][0] > 1) //sometimes, temp is not returned
-          cols.push(this.aTableData[i][1]);
-  		return cols;
-    }
-    else
-      return this.maDbList;
+		this.selectQuery("PRAGMA database_list");
+
+		var cols = ["main", "temp"];
+		for(var i = 0; i < this.aTableData.length; i++)
+		  if (this.aTableData[i][0] > 1) //sometimes, temp is not returned
+        cols.push(this.aTableData[i][1]);
+		return cols;
   }
 };

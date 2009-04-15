@@ -1,7 +1,17 @@
 rel_date=`date +'%Y%m%d%H%M%S'`
 version=`cat VERSION`	
 
-filename=vivipos_sdk_${rel_date}
+filename=vivipos_sdk_${version}_${rel_date}.zip
+
+sha1_filename=vivipos_sdk_${version}_${rel_date}.sha1
+sha1deep -r -l chrome components defaults extensions modules plugins xulrunner getSystemLicenseStub matchbox-keyboard run_vivipos vivipos > ${sha1_filename}
+sha1sum=`sha1deep < ${sha1_filename}`
+
+regsum="s/^ApplicationHash=.*/ApplicationHash=${sha1sum}/g"
+
+sed ${regsum} application.ini > application-sum.ini
+mv application-sum.ini application.ini
+
 
 regex1="s/^Version=.*/Version=${version}/g"
 regex2="s/^BuildID=.*/BuildID=${rel_date}/g"

@@ -18,6 +18,8 @@ var SQLiteManager = {
   miLimit: -1,
   miOffset: 0,
   miCount: 0,
+
+  maSortInfo: [],
   msBrowseObjName: null,
   msBrowseCondition: null,
 
@@ -51,14 +53,35 @@ var SQLiteManager = {
   maMruList: [],
 
   experiment: function() {
+    SmExim.loadDialog("import", "d-mainarea");
+    return true;
+
+  var tt = "";
+  for (var i in document.documentElement)
+    if (typeof document.documentElement[i] != "function")
+    tt += i + "=" + document.documentElement[i] + "\n";
+  sm_confirm("", tt);
+
+  var st =  "position:absolute;" +
+            "top:" + document.documentElement.clientTop + "px;" +
+            "left:" + document.documentElement.clientLeft + "px;" +
+            "width:" + document.documentElement.clientWidth + "px;" +
+            "height:" + document.documentElement.clientHeight + "px;";
+            alert(st);
+           alert(document.documentElement.offsetTop);
+    var vb = document.createElement("vbox");
+    document.documentElement.appendChild(vb);
+    vb.setAttribute("style", st);
+    //document.getElementById("sbFull").setAttribute("top", 0);
   },
 
   // Startup: called ONCE during the browser window "load" event
   Startup: function() {
+    $$("experiment").hidden = true;
     //create the menus by associating appropriate popups
     this.createMenu();
 
-    g_smBundle = document.getElementById("sm-bundle");
+    g_smBundle = $$("sm-bundle");
 
     //initialize the structure tree
  		smStructTrees[0].init();
@@ -68,38 +91,29 @@ var SQLiteManager = {
     treeBrowse.init();
     treeExecute.init();
 
-    var mi = document.getElementById("menu-general-sharedPagerCache");
-    if (!gbGecko_1_9) {//sqlite 3.5.4.1 onwards supports openUnsharedDatabase
-      mi.hidden = true;
-    }
+    var mi = $$("menu-general-sharedPagerCache");
 
     this.showMruList();
 
-    //enable pragma version options for gecko 1.9
-    if (gbGecko_1_9)
-      document.getElementById("gb-pragmaVersion").hidden = false;
-
     // Load clipboard service
-    this.clipService = Components.classes["@mozilla.org/widget/clipboardhelper;1"]
-       .getService(Components.interfaces.nsIClipboardHelper);
+    this.clipService = Cc["@mozilla.org/widget/clipboardhelper;1"]
+       .getService(Ci.nsIClipboardHelper);
 
     //get the nodes for Status bar panels
-    this.sbPanel["display"] = document.getElementById("sbPanel-display");
-    //global var in misc.js for sbpanel[display]
+    this.sbPanel["display"] = $$("sbPanel-display");
+    //global var in globals.js for sbpanel[display]
     gSbPanelDisplay = this.sbPanel["display"];
 
-    document.getElementById("sbExtVersion").setAttribute("label", gExtVersion);
+    $$("sbExtVersion").setAttribute("label", gExtVersion);
 
     //display whether we are using Gecko 1.9+ in the status bar (Issue#35)
-    var sbGeckoVersion = document.getElementById("sbGeckoVersion");
+    var sbGeckoVersion = $$("sbGeckoVersion");
     sbGeckoVersion.setAttribute("label","Gecko " + gAppInfo.platformVersion);
-    if (gbGecko_1_9)
-    	sbGeckoVersion.setAttribute("style","font-weight:bold;color:green");
 
-		document.getElementById("vb-structureTab").hidden = true;
-		document.getElementById("vb-browseTab").hidden = true;
-		document.getElementById("vb-executeTab").hidden = true;
-		document.getElementById("vb-dbInfoTab").hidden = true;
+		$$("vb-structureTab").hidden = true;
+		$$("vb-browseTab").hidden = true;
+		$$("vb-executeTab").hidden = true;
+		$$("vb-dbInfoTab").hidden = true;
 
     //preferences service to add oberver
     // and then observe changes via the observe function
@@ -107,11 +121,14 @@ var SQLiteManager = {
     //initialize the preference service with the correct branch
     this.prefs = sm_prefsBranch;
     //query interface to be able to use addObserver method
-    this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+    this.prefs.QueryInterface(Ci.nsIPrefBranch2);
     //now, add the observer which will be implemented using observe method
     //calling removeObserver when done with observing helps the memory
     this.prefs.addObserver("", this, false);
 
+    var iNumRecords = sm_prefsBranch.getIntPref("displayNumRecords");
+    if (iNumRecords == -1)
+      sm_prefsBranch.setIntPref("displayNumRecords", 100);
     //manage changes when the following preferences change.
     //although the this.observe function handles the observer
     //calling these functions reduces the size of the code
@@ -131,8 +148,8 @@ var SQLiteManager = {
 			var sPath = this.getMruLatest();
 			if(sPath != null) {
 				//Last used DB found, open this DB
-				var newfile = Components.classes["@mozilla.org/file/local;1"]
-									.createInstance(Components.interfaces.nsILocalFile);
+				var newfile = Cc["@mozilla.org/file/local;1"]
+              .createInstance(Ci.nsILocalFile);
 				newfile.initWithPath(sPath);
 				//if the last used file is not found, bail out
 				if(!newfile.exists()) {
@@ -176,24 +193,24 @@ var SQLiteManager = {
 		var suffixes = ["table", "index", "view", "trigger"];
 		for(var i = 0; i < suffixes.length; i++) {
 		  var suffix = suffixes[i];
-		  var mp = document.getElementById("mp-" + suffix);
+		  var mp = $$("mp-" + suffix);
 		  var clone = mp.cloneNode(true);
 		  clone.setAttribute("id", "mp-main-" + suffix);
-		  var menu = document.getElementById("menu-" + suffix);
+		  var menu = $$("menu-" + suffix);
 		  ClearElement(menu);
 		  menu.appendChild(clone);
 		}
-	  var mpdb = document.getElementById("mp-dbstructure");
+	  var mpdb = $$("mp-dbstructure");
 		for(var i = 0; i < suffixes.length; i++) {
 		  var suffix = suffixes[i];
-		  var mp = document.getElementById("mp-" + suffix);
+		  var mp = $$("mp-" + suffix);
 		  var ch = mp.childNodes;
       for (var c = 0; c < ch.length; c++) {
   		  var clone = ch[c].cloneNode(true);
   		  clone.setAttribute("smType", suffix);
         mpdb.appendChild(clone);
       }
-		  var mp = document.getElementById("mp-create-" + suffix);
+		  var mp = $$("mp-create-" + suffix);
 		  var ch = mp.childNodes;
       for (var c = 0; c < ch.length; c++) {
   		  var clone = ch[c].cloneNode(true);
@@ -204,14 +221,14 @@ var SQLiteManager = {
 	},
 
 	changeDbSetting: function(sSetting) {
-		var node = document.getElementById("pr-" + sSetting);
+		var node = $$("pr-" + sSetting);
 		var sVal = node.value;
 		var newVal = Database.setSetting(sSetting, sVal);
 		node.value = newVal;
 	},
 		
 	setTreeStructureContextMenu: function() {
-		var tree = document.getElementById(smStructTrees[this.miDbObjects].treeId);
+		var tree = $$(smStructTrees[this.miDbObjects].treeId);
 		var idx = tree.currentIndex;
 		// idx = -1 if nothing is selected; says xulplanet element reference
 		if(idx == -1)
@@ -233,7 +250,7 @@ var SQLiteManager = {
  			if (this.aObjTypes.indexOf(info) != -1)
    	    mpId = info;
     }
-	  var mpdb = document.getElementById("mp-dbstructure");
+	  var mpdb = $$("mp-dbstructure");
 	  var ch = mpdb.childNodes;
 		for(var i = 0; i < ch.length; i++) {
 		  var suffix = ch[i].getAttribute("smType");
@@ -249,9 +266,8 @@ var SQLiteManager = {
     var aNewList = [];
     var aPrefList = [];
 
-    var fDir = Components.classes["@mozilla.org/file/directory_service;1"]
-            .getService(Components.interfaces.nsIProperties)
-            .get("ProfD", Components.interfaces.nsIFile);
+    var fDir = Cc["@mozilla.org/file/directory_service;1"]
+            .getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
     if (sPath.indexOf(fDir.path) == 0) {
       var sRelPath = "[ProfD]" + sPath.substring(fDir.path.length);
       aNewList.push(sRelPath);
@@ -267,7 +283,8 @@ var SQLiteManager = {
         break;
     }
     this.maMruList = aNewList;
-    sm_prefsBranch.setCharPref("mruPath.1", this.maMruList.join(","));
+
+    sm_setUnicodePref("mruPath.1", this.maMruList.join(","));
     this.showMruList();
   },
 
@@ -275,7 +292,7 @@ var SQLiteManager = {
     for (var i = 0; i < this.maMruList.length; i++) {
       if (this.getMruFullPath(this.maMruList[i]) == sPath) {
         this.maMruList.splice(i, 1);
-        sm_prefsBranch.setCharPref("mruPath.1", this.maMruList.join(","));
+        sm_setUnicodePref("mruPath.1", this.maMruList.join(","));
         this.showMruList();
         return true;
       }
@@ -284,7 +301,7 @@ var SQLiteManager = {
   },
 
   getMruLatest: function() {
-    var sMru = sm_prefsBranch.getCharPref("mruPath.1");
+    var sMru = sm_prefsBranch.getComplexValue("mruPath.1", Ci.nsISupportsString).data;
     this.maMruList = sMru.split(",");
     if (this.maMruList.length > 0)
       return this.getMruFullPath(this.maMruList[0]);
@@ -294,9 +311,8 @@ var SQLiteManager = {
 
   getMruFullPath: function(sMruVal) {
     var sRelConst = "[ProfD]";
-    var fDir = Components.classes["@mozilla.org/file/directory_service;1"]
-            .getService(Components.interfaces.nsIProperties)
-            .get("ProfD", Components.interfaces.nsIFile);
+    var fDir = Cc["@mozilla.org/file/directory_service;1"]
+            .getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
 
     var sFullPath = sMruVal;
     if (sFullPath.indexOf(sRelConst) == 0)
@@ -308,12 +324,12 @@ var SQLiteManager = {
   showMruList: function() {
     this.getMruLatest();
 
-    var menupopupNode = document.getElementById("menu-mru").firstChild;
+    var menupopupNode = $$("menu-mru").firstChild;
     ClearElement(menupopupNode);
     for (var i = 0; i < this.maMruList.length; i++) {
       var sFullPath = this.getMruFullPath(this.maMruList[i])
 
-		  var mp = document.getElementById("mi-mru");
+		  var mp = $$("mi-mru");
 		  var mi = mp.cloneNode(true);
 		  mi.setAttribute("id", "mi-mru-" + i);
   	  mi.setAttribute("label", sFullPath);
@@ -329,19 +345,19 @@ var SQLiteManager = {
 		switch(data) {
 			case "hideMainToolbar":
 				var bPrefVal = sm_prefsBranch.getBoolPref("hideMainToolbar");
-				document.getElementById("hbox-main-toolbar").hidden = bPrefVal;
+				$$("hbox-main-toolbar").hidden = bPrefVal;
 				break;
 			case "showMainToolbarDatabase":
 				var bPrefVal = sm_prefsBranch.getBoolPref("showMainToolbarDatabase");
-				document.getElementById("sm-toolbar-database").hidden = !bPrefVal;
+				$$("sm-toolbar-database").hidden = !bPrefVal;
 				break;
 			case "showMainToolbarTable":
 				var bPrefVal = sm_prefsBranch.getBoolPref("showMainToolbarTable");
-				document.getElementById("sm-toolbar-table").hidden = !bPrefVal;
+				$$("sm-toolbar-table").hidden = !bPrefVal;
 				break;
 			case "showMainToolbarIndex":
 				var bPrefVal = sm_prefsBranch.getBoolPref("showMainToolbarIndex");
-				document.getElementById("sm-toolbar-index").hidden = !bPrefVal;
+				$$("sm-toolbar-index").hidden = !bPrefVal;
 				break;
 			case "sqliteFileExtensions":
 				var sExt = sm_prefsBranch.getCharPref("sqliteFileExtensions");
@@ -363,31 +379,32 @@ var SQLiteManager = {
 			case "displayNumRecords":
 				var iPrefVal = sm_prefsBranch.getIntPref("displayNumRecords");
 				this.miLimit = iPrefVal;
+				if (this.miLimit == 0) this.miLimit = -1;
 				this.miOffset = 0;
 				break;
 			case "textForBlob":
-				g_strForBlob = sm_getPreferenceValue("textForBlob", g_strForBlob);
+				g_strForBlob = sm_prefsBranch.getCharPref("textForBlob");
 				break;
 			case "showBlobSize":
-				g_showBlobSize = sm_getPreferenceValue("showBlobSize", g_showBlobSize);
+				g_showBlobSize = sm_prefsBranch.getBoolPref("showBlobSize");
 				break;
 			case "handleADS": //for ADS on Windows/NTFS
-        document.getElementById("mi-connect-ads-win").hidden = true;
+        $$("mi-connect-ads-win").hidden = true;
         if (navigator.oscpu.indexOf("Windows") >= 0) {
           var iPrefVal = sm_prefsBranch.getIntPref("handleADS");
           if (iPrefVal == 1)
-            document.getElementById("mi-connect-ads-win").hidden = false;
+            $$("mi-connect-ads-win").hidden = false;
         }
         break;
 			case "posInTargetApp":
-      var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
-                        .getService(Components.interfaces.nsIXULAppInfo);
+      var appInfo = Cc["@mozilla.org/xre/app-info;1"]
+                        .getService(Ci.nsIXULAppInfo);
       if(appInfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}") {
-        var md = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-          .getInterface(Components.interfaces.nsIWebNavigation)
-          .QueryInterface(Components.interfaces.nsIDocShellTreeItem).rootTreeItem
-          .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-          .getInterface(Components.interfaces.nsIDOMWindow).document;
+        var md = window.QueryInterface(Ci.nsIInterfaceRequestor)
+          .getInterface(Ci.nsIWebNavigation)
+          .QueryInterface(Ci.nsIDocShellTreeItem).rootTreeItem
+          .QueryInterface(Ci.nsIInterfaceRequestor)
+          .getInterface(Ci.nsIDOMWindow).document;
         var iVal = sm_prefsBranch.getIntPref("posInTargetApp");
         var mi = md.getElementById("menuitem-sqlitemanager");
         if (mi) {
@@ -442,7 +459,7 @@ var SQLiteManager = {
     }
 
     //3. 
-    var tree = document.getElementById(smStructTrees[this.miDbObjects].treeId);
+    var tree = $$(smStructTrees[this.miDbObjects].treeId);
 
 		//requery for all the objects afresh and redraw the tree
     for (var iC = 0; iC < this.aObjTypes.length; iC++) {
@@ -483,7 +500,7 @@ var SQLiteManager = {
 	// selected database object (table, index, view & trigger)
 	//this function is trigered by the select event on the tree
   getDbObjectInfo: function() {
-    var tree = document.getElementById(smStructTrees[this.miDbObjects].treeId);
+    var tree = $$(smStructTrees[this.miDbObjects].treeId);
 		var idx = tree.currentIndex;
 
 		// idx = -1 if nothing is selected; says xulplanet element reference
@@ -520,15 +537,10 @@ var SQLiteManager = {
   hideTabStructure: function() {
 		//hide the hboxes containing object specific operation buttons
 		//later enable one appropriate hbox according to the selection in tree
-		for(var i = 0; i < this.aObjTypes.length; i++) {
-			document.getElementById("gb-master-ops-" + this.aObjTypes[i])
-			  .hidden = true;
-			if (i > 0)
-        document.getElementById("gb-more-info-" + this.aObjTypes[i])
-			     .hidden = true;
-		}			
+		$$("d-master-ops").hidden = true;
+    $$("d-more-info").hidden = true;
     //hide other things
-		document.getElementById("gb-master-info").hidden = true;
+		$$("gb-master-info").hidden = true;
   },
 
   emptyTabStructure: function() {
@@ -539,7 +551,7 @@ var SQLiteManager = {
 		var fld = ["type","name","tbl_name","rootpage", "sql"];
 		var node;
 		for (var i = 0; i < fld.length; i++) {
-			node = document.getElementById("str-" + fld[i]);
+			node = $$("str-" + fld[i]);
 			node.value = "";
 		}
 
@@ -562,19 +574,20 @@ var SQLiteManager = {
 		}	
 		
 		//display this groupbox only if it will show something meaningful
-		document.getElementById("gb-master-info").hidden = false;
+		$$("gb-master-info").hidden = false;
 		
 		var r_name = this.mostCurrObjName;
 		var r_type = this.mostCurrObjType;
-		if (this.miDbObjects != 1) //do not enable for master tables
-		  document.getElementById("gb-master-ops-" + r_type).hidden = false;
+
+	  $$("d-master-ops").hidden = false;
+	  $$("d-master-ops").selectedPanel = $$("gb-master-ops-" + r_type);
 
 		var fld = ["type","name","tbl_name","rootpage", "sql"];
 		var row = Database.getMasterInfo(r_name, fld, "");
 
 		var node;
 		for(var i=0; i < fld.length; i++) {
-			node = document.getElementById("str-"+fld[i]);
+			node = $$("str-"+fld[i]);
 			var val = row[i];
 			if(fld[i] == "type") {
 				val = val.toUpperCase();
@@ -588,8 +601,8 @@ var SQLiteManager = {
 			this.printTableInfo(this.aCurrObjNames[r_type], r_type);
 		}
 		if(r_type == "index") {
-			var box = document.getElementById("gb-more-info-" + r_type);
-			box.hidden = false;
+  	  $$("d-more-info").hidden = false;
+  	  $$("d-more-info").selectedPanel = $$("gb-more-info-index");
 			this.printIndexInfo(this.aCurrObjNames[r_type]);
 		}
 		return true;
@@ -599,17 +612,19 @@ var SQLiteManager = {
     if (this.miDbObjects == 1) //no add column option for master tables
       sType = "master";
 
-		var box = document.getElementById("gb-more-info-table");
-		box.hidden = false;
+	  $$("d-more-info").hidden = false;
+	  $$("d-more-info").selectedPanel = $$("gb-more-info-table");
+//		var box = $$("gb-more-info-table");
+//		box.hidden = false;
 
-		var vbox = document.getElementById("vb-more-info-table-columns");
+		var vbox = $$("vb-more-info-table-columns");
 		ClearElement(vbox);
     if (sTable == null)
       return;
 
-    document.getElementById("hb-addcol").hidden = false;
+    $$("hb-addcol").hidden = false;
     if (sType == "master") //no add column option for master tables
-      document.getElementById("hb-addcol").hidden = true;
+      $$("hb-addcol").hidden = true;
 
 		var info = Database.getTableColumns(sTable, "");
 
@@ -678,19 +693,52 @@ var SQLiteManager = {
 
 		var aTableInfo = Database.getTableInfo(sTable, -1);
 
-		document.getElementById("numFields").value = aTableInfo["numFields"];
-		document.getElementById("numIndexes").value = aTableInfo["numIndexes"];
-		document.getElementById("numRecords").value = aTableInfo["numRecords"];
+		$$("numFields").value = aTableInfo["numFields"];
+		$$("numIndexes").value = aTableInfo["numIndexes"];
+		$$("numRecords").value = aTableInfo["numRecords"];
   },
 
   printIndexInfo: function(sIndex) {
 		var aIndexInfo = Database.getIndexInfo(sIndex, this.miDbObjects);
 		
-		document.getElementById("tabletoindex").value = aIndexInfo["table"];
-		document.getElementById("fieldtoindex").value = aIndexInfo["cols"];
-		document.getElementById("duplicatevalues").value = sm_getLStr("allowed");
+		$$("tabletoindex").value = aIndexInfo["table"];
+		$$("fieldtoindex").value = aIndexInfo["cols"];
+		$$("duplicatevalues").value = sm_getLStr("allowed");
 		if(aIndexInfo["unique"] == 1)
-			document.getElementById("duplicatevalues").value = sm_getLStr("notAllowed");
+			$$("duplicatevalues").value = sm_getLStr("notAllowed");
+  },
+
+  changeSortOrder: function(ev) {
+    if (ev.button==2) //right click
+      return;
+    var tgt = ev.target
+    var sColName = tgt.getAttribute("label");
+    var bFound = false;
+    for(var i = 0; i < this.maSortInfo.length; i++) {
+      if (this.maSortInfo[i][0] == sColName) {
+        bFound = true;
+        switch (this.maSortInfo[i][1]) {
+          case "none":
+            this.maSortInfo[i][1] = "asc";
+            break;
+          case "asc":
+            this.maSortInfo[i][1] = "desc";
+            break;
+          case "desc":
+            this.maSortInfo[i][1] = "none";
+            break;
+        }
+        var aTemp = this.maSortInfo[i];
+        this.maSortInfo.splice(i, 1);
+
+        if (aTemp[1] != "none")
+          this.maSortInfo.splice(0, 0, aTemp);
+      }
+    }
+    if (!bFound)
+      this.maSortInfo.splice(0, 0, [sColName, "asc"]);
+    this.loadTabBrowse();
+    //alert(sColName + "=" + sDataType + "=" + tgt.getAttribute("smSortDir"));
   },
 
 	//loadTabBrowse: populates the table list and the tree view for current table
@@ -712,8 +760,11 @@ var SQLiteManager = {
 		if (sObjType != "table" && sObjType != "master" && sObjType != "view")
 			return false;
 
-		document.getElementById("browse-type").value = sObjType.toUpperCase();
-		document.getElementById("browse-name").value = this.mostCurrObjName;
+		$$("browse-type").value = sObjType.toUpperCase();
+		if ($$("browse-name").value != this.mostCurrObjName)
+		  this.maSortInfo = [];
+
+		$$("browse-name").value = this.mostCurrObjName;
 
 		//populate the treeview
     var sObjName = this.mostCurrObjName;
@@ -722,14 +773,14 @@ var SQLiteManager = {
 			this.msBrowseObjName = sObjName;
 			this.msBrowseCondition = "";
 		}
-			
-		//some UI depends on whether table/master tables/view is shown
-		var btnAdd =	document.getElementById("btnAddRecord");
-		var btnDup =	document.getElementById("btnAddDupRecord");
-		var btnEdit =	document.getElementById("btnEditRecord");
-		var btnDelete =	document.getElementById("btnDeleteRecord");
 
-		var treeChildren = document.getElementById("browse-treechildren");
+		//some UI depends on whether table/master tables/view is shown
+		var btnAdd =	$$("btnAddRecord");
+		var btnDup =	$$("btnAddDupRecord");
+		var btnEdit =	$$("btnEditRecord");
+		var btnDelete =	$$("btnDeleteRecord");
+
+		var treeChildren = $$("browse-treechildren");
 
     var setting = [false, "mp-editTableRow", "SQLiteManager.operateOnTable('update')"];
 		if (sObjType == "table" && (this.mostCurrObjName == "sqlite_master" || this.mostCurrObjName == "sqlite_temp_master")) {
@@ -752,10 +803,13 @@ var SQLiteManager = {
     treeBrowse.ShowTable(false);
 
     try {
-      var iRetVal = Database.loadTableData(sObjType, sObjName, this.msBrowseCondition,   
-										this.miLimit, this.miOffset);
+      var aOrder = this.maSortInfo;
+      var aArgs = {sWhere: this.msBrowseCondition, iLimit: this.miLimit,
+                  iOffset: this.miOffset, aOrder: aOrder};
+      var iRetVal = Database.loadTableData(sObjType, sObjName, aArgs);
+      var timeElapsed = Database.getElapsedTime();
     } catch (e) { 
-      sm_message(sm_getLStr("loadDataFailed"), 0x3);
+      sm_message(e + "\n" + sm_getLStr("loadDataFailed"), 0x3);
 			return false;
     }
     if (iRetVal == -1)
@@ -764,10 +818,13 @@ var SQLiteManager = {
     var records = Database.getRecords();
     var columns = Database.getColumns();
   	this.miCount = Database.getTableCount(sObjName, this.msBrowseCondition);
-    	
+	  $$("sbQueryTime").label = "ET: " + timeElapsed;
+
 		this.manageNavigationControls();    	
-    if (records && columns)
-        treeBrowse.PopulateTableData(records, columns, iRetVal);
+    if (records && columns) {
+      treeBrowse.createColumns(columns, iRetVal, this.maSortInfo, "SQLiteManager.changeSortOrder(event);");
+      treeBrowse.PopulateTableData(records, columns);
+    }
 		return true;
   },
 
@@ -790,21 +847,21 @@ var SQLiteManager = {
 		}
 		this.loadTabBrowse();
 	},
-	
+
 	manageNavigationControls: function() {
 		//manage textboxes
-  	document.getElementById("nav-total-val").value = this.miCount;
+  	$$("nav-total-val").value = this.miCount;
   	var iStart = (this.miCount == 0) ? 0 : (this.miOffset + 1);
-  	document.getElementById("nav-start-val").value = iStart;
+  	$$("nav-start-val").value = iStart;
   	var iEnd = this.miOffset + this.miLimit;
   	iEnd = ((iEnd > this.miCount) || (this.miLimit == -1)) ? this.miCount : iEnd;
-  	document.getElementById("nav-end-val").value = iEnd;
+  	$$("nav-end-val").value = iEnd;
 
 		//manage buttons
-		var btnFirst = document.getElementById("btn-nav-first");
-		var btnPrevious = document.getElementById("btn-nav-previous");
-		var btnNext = document.getElementById("btn-nav-next");
-		var btnLast = document.getElementById("btn-nav-last");
+		var btnFirst = $$("btn-nav-first");
+		var btnPrevious = $$("btn-nav-previous");
+		var btnNext = $$("btn-nav-next");
+		var btnLast = $$("btn-nav-last");
 
 		btnFirst.disabled = false;
 		btnPrevious.disabled = false;
@@ -837,7 +894,7 @@ var SQLiteManager = {
 			btnLast.disabled = false;
 		}
 	},
-	
+
 	//loadTabExecute: anything to be done when that tab is shown goes here
   loadTabExecute: function() {
     this.populateQueryListbox();
@@ -848,17 +905,14 @@ var SQLiteManager = {
     //no need to waste resources if this tab is not selected
     if(this.getSelectedTabId() != "tab-dbinfo")
     	return false;
-    	
+
     if (this.sCurrentDatabase == null)
     	return false;
 
-    //auto_vacuum is a problem on Calendar 0.9 pre/Gecko 1.8.0.17pre
-		var aSettings = ["auto_vacuum", "cache_size", "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "read_uncommitted", "short_column_names", "synchronous", "temp_store", "temp_store_directory"];
-    if (gbGecko_1_9)
-		  aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "read_uncommitted", "short_column_names", "synchronous", "temp_store", "temp_store_directory"];
+	  aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "page_count", "freelist_count", "read_uncommitted", "short_column_names", "synchronous", "temp_store", "temp_store_directory"];
 		for(var i = 0; i < aSettings.length; i++)	{
 		  var sSetting = aSettings[i];
-			var node = document.getElementById("pr-" + sSetting);
+			var node = $$("pr-" + sSetting);
 			var newVal = Database.getSetting(sSetting);
 			node.value = newVal;
 		}
@@ -866,8 +920,8 @@ var SQLiteManager = {
 	},
 
   search: function() {
-		var oType = document.getElementById("browse-type").value.toUpperCase();
-    var oName = document.getElementById("browse-name").value;
+		var oType = $$("browse-type").value.toUpperCase();
+    var oName = $$("browse-name").value;
     if (oType == "VIEW")
       return this.searchView(oName);
     if (oType == "TABLE" || oType == "MASTER") {
@@ -879,7 +933,8 @@ var SQLiteManager = {
   },
 
   searchView1: function(sViewName) {
-  	Database.loadTableData("view", sViewName, "", 1, 0);
+    var aArgs = {sWhere: "", iLimit: 1, iOffset: 0};
+  	Database.loadTableData("view", sViewName, aArgs);
     var records = Database.getRecords();
     if (records.length == 0) {
     	alert(sm_getLStr("noRecord"));
@@ -897,7 +952,7 @@ var SQLiteManager = {
 		this.aFieldNames = aColumns[0];
 		var aTypes = aColumns[1];
 
-		var grbox = document.getElementById("hb-sliding");
+		var grbox = $$("hb-sliding");
 		ClearElement(grbox);
 //    		var cap = document.createElement("caption");
 //    		cap.setAttribute("label", "Enter Field Values");
@@ -936,7 +991,8 @@ var SQLiteManager = {
   },
 
   searchView: function(sViewName) {
-  	Database.loadTableData("view", sViewName, "", 1, 0);
+    var aArgs = {sWhere: "", iLimit: 1, iOffset: 0};
+  	Database.loadTableData("view", sViewName, aArgs);
     var records = Database.getRecords();
     if (records.length == 0) {
     	alert(sm_getLStr("noRecord"));
@@ -966,12 +1022,12 @@ var SQLiteManager = {
 
   //getSelectedTab: returns the selected tab
   getSelectedTab: function() {
-		return document.getElementById("sm-tabs").selectedItem;
+		return $$("sm-tabs").selectedItem;
   },
 
   //getSelectedTabId: returns the id of the selected tab
   getSelectedTabId: function() {
-		var oSelectedTab = document.getElementById("sm-tabs").selectedItem;
+		var oSelectedTab = $$("sm-tabs").selectedItem;
 		var id = oSelectedTab.getAttribute("id");
 		return id;
   },
@@ -1014,7 +1070,7 @@ var SQLiteManager = {
 
   //bImplicit: false = called from menuitem; true = function call
   useExtensionManagementTable: function(bUse, bImplicit) {
-    var mi = document.getElementById("menu-general-extensionTable");
+    var mi = $$("menu-general-extensionTable");
 
 		if(this.sCurrentDatabase == null) {
 		  //revert to the state before clicking
@@ -1035,12 +1091,12 @@ var SQLiteManager = {
 		this.refresh();
 
 		//hide/show the images for query history in the execute sql tab
-		document.getElementById("queryHistoryPrevImage").hidden = !bUse;
-		document.getElementById("queryHistoryNextImage").hidden = !bUse;
-		document.getElementById("querySaveByNameImage").hidden = !bUse;
-		document.getElementById("queryHistoryClearImage").hidden = !bUse;
+		$$("queryHistoryPrevImage").hidden = !bUse;
+		$$("queryHistoryNextImage").hidden = !bUse;
+		$$("querySaveByNameImage").hidden = !bUse;
+		$$("queryHistoryClearImage").hidden = !bUse;
 
-		document.getElementById("listbox-queries").hidden = !bUse;
+		$$("listbox-queries").hidden = !bUse;
 
     return true;
   },
@@ -1048,17 +1104,17 @@ var SQLiteManager = {
   showPrevSql: function() {
     var sQuery = smExtManager.getPrevSql();
     if (!sQuery) return;
-    document.getElementById("txtSqlStatement").value = sQuery;
+    $$("txtSqlStatement").value = sQuery;
   },
 
   showNextSql: function() {
     var sQuery = smExtManager.getNextSql();
     if (!sQuery) return;
-    document.getElementById("txtSqlStatement").value = sQuery;
+    $$("txtSqlStatement").value = sQuery;
   },
 
 	saveSqlByName: function()	{
-		var sQuery = document.getElementById("txtSqlStatement").value;
+		var sQuery = $$("txtSqlStatement").value;
 		if (sQuery.length <= 0)
 			alert("Nothing to save.");
 
@@ -1071,13 +1127,13 @@ var SQLiteManager = {
   },
 
 	onSelectQuery: function() {
-    var sVal = document.getElementById("listbox-queries").value;
+    var sVal = $$("listbox-queries").value;
     if (sVal != sQuerySelectInstruction)
-  		document.getElementById("txtSqlStatement").value = sVal;
+  		$$("txtSqlStatement").value = sVal;
 	},
 
 	populateQueryListbox: function() {
-		var listbox = document.getElementById("listbox-queries");
+		var listbox = $$("listbox-queries");
     if (this.sCurrentDatabase == null) {
       listbox.hidden = true;
     	return false;
@@ -1100,36 +1156,42 @@ var SQLiteManager = {
 		}
 
 		//get the query string from an xul page
-		var sQuery = document.getElementById("txtSqlStatement").value;
+		var sQuery = $$("txtSqlStatement").value;
 		
 		var queries = sql_tokenizer(sQuery);
     if (queries.length == 0) {
 			alert(sm_getLStr("writeSomeSql"));
 			return;
 		}
+		var aData, aColumns;
+    var timeElapsed = 0;
     var bRet = false;
 //		if(sType == "select")
     if (queries.length == 1) {
       sQuery = queries[0];
 			bRet = Database.selectQuery(sQuery);
-			//Database.executeMultiple(sQuery);
+			timeElapsed = Database.getElapsedTime();
       //store the query in config db
-			if (bRet) smExtManager.addQuery(sQuery);
+			if (bRet) {
+    		aData = Database.getRecords();
+    		aColumns = Database.getColumns();
+   		  sm_message(sm_getLStr("rowsReturned") + ": " + aData.length, 0x2);
+        smExtManager.addQuery(sQuery);
+      }
       //set this value so that query history is reset to latest query
       //that is previous will again begin from the latest query
   		smExtManager.goToLastQuery();
 		}
 		else {
-			Database.executeTransaction(queries);
+			bRet = Database.executeTransaction(queries);
+			timeElapsed = Database.getElapsedTime();
 		}
 		
-		var aData = Database.getRecords();
-		var aColumns = Database.getColumns();
 		//display the last error in the textbox
-		document.getElementById("sqlLastError").value = Database.getLastError();
-		if (bRet)
-		  sm_message(sm_getLStr("rowsReturned") + ": " + aData.length, 0x2);
-		//document.getElementById("sqlRowsAffected").value = " ( " + aData.length + " rows returned )";
+		$$("sqlLastError").value = Database.getLastError();
+		if (bRet) {
+		  $$("sbQueryTime").label = "ET: " + timeElapsed;
+		}
 
 		//the following two lines must be before the code for tree
 		//otherwise, it does not refresh the structure tree as expected
@@ -1137,8 +1199,9 @@ var SQLiteManager = {
 		this.loadTabBrowse();
 		
 		treeExecute.ShowTable(false);
-		if (bRet) {
-		  treeExecute.PopulateTableData(aData, aColumns, 0);
+		if (bRet && queries.length == 1) {
+		  treeExecute.createColumns(aColumns, 0, [], null);
+		  treeExecute.PopulateTableData(aData, aColumns);
 		}
 	},
 
@@ -1158,8 +1221,8 @@ var SQLiteManager = {
 		var dir = sm_chooseDirectory(sm_getLStr("selectFolderForDb"));
 		if (dir != null) {
 			//access this new copied file
-			var newfile = Components.classes["@mozilla.org/file/local;1"]
-								.createInstance(Components.interfaces.nsILocalFile);
+			var newfile = Cc["@mozilla.org/file/local;1"]
+								.createInstance(Ci.nsILocalFile);
 			newfile.initWithPath(dir.path);
 			newfile.append(fname);
 			
@@ -1232,8 +1295,8 @@ var SQLiteManager = {
 			this.sCurrentDatabase.copyTo(dir, fname);
 
 			//access this new copied file
-			var newfile = Components.classes["@mozilla.org/file/local;1"]
-								.createInstance(Components.interfaces.nsILocalFile);
+			var newfile = Cc["@mozilla.org/file/local;1"]
+								.createInstance(Ci.nsILocalFile);
 			newfile.initWithPath(dir.path);
 			newfile.append(fname);
 			
@@ -1259,10 +1322,20 @@ var SQLiteManager = {
 			alert(sm_getLStr("firstOpenADb"));
 			return false;
 		}
-  	var sQuery = "VACUUM";
-  	//cannot vacuum from within a transaction
-  	Database.selectQuery(sQuery);
-  	return true;
+		var befPageCount = Database.getSetting("page_count");
+		var pageSize = Database.getSetting("page_size");
+    var sQuery = "VACUUM";
+    //cannot vacuum from within a transaction
+    Database.selectQuery(sQuery);
+		var aftPageCount = Database.getSetting("page_count");
+    sm_alert("Result of Compacting", "The database was compacted using VACUUM statement.\n" +
+      "Before compacting:\n" +
+      "   Page Count    = " + befPageCount + "\n" +
+      "   Database Size = " + befPageCount*pageSize + " bytes\n" +
+      "After compacting:\n" +
+      "   Page Count    = " + aftPageCount + "\n" +
+      "   Database Size = " + aftPageCount*pageSize + " bytes\n");
+    return true;
   },
 
   analyzeDatabase: function() {
@@ -1271,7 +1344,6 @@ var SQLiteManager = {
 			return false;
     }
   	var sQuery = "ANALYZE";
-  	//cannot vacuum from within a transaction
   	Database.selectQuery(sQuery);
   	return true;
   },
@@ -1295,8 +1367,8 @@ var SQLiteManager = {
   },
 
   openDatabase: function() {        
-		const nsIFilePicker = Components.interfaces.nsIFilePicker;
-		var fp = Components.classes["@mozilla.org/filepicker;1"]
+		const nsIFilePicker = Ci.nsIFilePicker;
+		var fp = Cc["@mozilla.org/filepicker;1"]
 			           .createInstance(nsIFilePicker);
 		fp.init(window, sm_getLStr("selectDb"), nsIFilePicker.modeOpen);
     var sExt = "";
@@ -1319,8 +1391,8 @@ var SQLiteManager = {
   },
 
   openDatabaseADS: function() {        
-		const nsIFilePicker = Components.interfaces.nsIFilePicker;
-		var fp = Components.classes["@mozilla.org/filepicker;1"]
+		const nsIFilePicker = Ci.nsIFilePicker;
+		var fp = Cc["@mozilla.org/filepicker;1"]
 			           .createInstance(nsIFilePicker);
 		fp.init(window, sm_getLStr("selectDb"), nsIFilePicker.modeOpen);
     var sExt = "";
@@ -1349,9 +1421,15 @@ var SQLiteManager = {
   },
 
   openDatabaseWithPath: function(sPath) {
-		var newfile = Components.classes["@mozilla.org/file/local;1"]
-							.createInstance(Components.interfaces.nsILocalFile);
-		newfile.initWithPath(sPath);
+		var newfile = Cc["@mozilla.org/file/local;1"]
+							.createInstance(Ci.nsILocalFile);
+		try {
+      newfile.initWithPath(sPath);
+    } catch (e) {
+		  alert("File not found: " + sPath);
+		  this.removeFromMru(sPath);
+		  return false;
+    }
 		if(newfile.exists()) {
     	if(this.closeDatabase(false)) {
 				this.sCurrentDatabase = newfile;
@@ -1435,12 +1513,15 @@ var SQLiteManager = {
 	  }
   },
 
-  alterColumn: function(sTable, iCol) {        
-    var sOldName = document.getElementById("id-for-colname-" + iCol)
+  alterColumn: function(sTable, iCol) {
+    var bConfirm = sm_confirm("Dangerous Operation", "This is a potentially dangerous operation. SQLite does not support statements that can alter a column in a table. Here, we attempt to reconstruct the new CREATE SQL statement by looking at the pragma table_info which does not contain complete information about the structure of the existing table.\n\nDo you still want to proceed?");
+    if (!bConfirm)
+      return false;
+    var sOldName = $$("id-for-colname-" + iCol)
                       .getAttribute("oldvalue");
-    var sNewName = document.getElementById("id-for-colname-" + iCol).value;
-    var sNewType = document.getElementById("id-for-coltype-" + iCol).value;
-    var sNewDefVal = document.getElementById("id-for-coldefval-" + iCol).value;
+    var sNewName = $$("id-for-colname-" + iCol).value;
+    var sNewType = $$("id-for-coltype-" + iCol).value;
+    var sNewDefVal = $$("id-for-coldefval-" + iCol).value;
     sNewDefVal = sm_makeDefaultValue(sNewDefVal);
     var aNewInfo = {oldColName: sOldName,
                     newColName: sNewName,
@@ -1455,6 +1536,11 @@ var SQLiteManager = {
   },
 
   dropColumn: function(sTable, sColumn) {        
+    var bConfirm = sm_confirm("Dangerous Operation", "This is a potentially dangerous operation. SQLite does not support statements that can alter a column in a table. Here, we attempt to reconstruct the new CREATE SQL statement by looking at the pragma table_info which does not contain complete information about the structure of the existing table.\n\nDo you still want to proceed?");
+    if (!bConfirm)
+      return false;
+//    var bConfirm = sm_prefsBranch.getBoolPref("allowUnsafeTableAlteration");
+    
 		var bReturn = CreateManager.modifyTable("dropColumn", sTable, sColumn);
 		if(bReturn) {
 			this.refreshDbStructure();
@@ -1511,8 +1597,8 @@ var SQLiteManager = {
   	    sFileName = sFileName.substr(0, iPos);
     }
 		// get export file
-		const nsIFilePicker = Components.interfaces.nsIFilePicker;
-		var fp = Components.classes["@mozilla.org/filepicker;1"]
+		const nsIFilePicker = Ci.nsIFilePicker;
+		var fp = Cc["@mozilla.org/filepicker;1"]
 			      .createInstance(nsIFilePicker);
 		fp.init(window, "Export to file ", nsIFilePicker.modeSave);
 		fp.appendFilters(nsIFilePicker.filterAll);
@@ -1525,17 +1611,17 @@ var SQLiteManager = {
 			alert("Please choose a file to save the exported data to.");
 			return false;
 		}
-		var file = Components.classes["@mozilla.org/file/local;1"]
-							.createInstance(Components.interfaces.nsILocalFile);
+		var file = Cc["@mozilla.org/file/local;1"]
+							.createInstance(Ci.nsILocalFile);
 		file.initWithFile(fp.file);
 
-		var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
-                    .createInstance(Components.interfaces.nsIFileOutputStream);
+		var foStream = Cc["@mozilla.org/network/file-output-stream;1"]
+                    .createInstance(Ci.nsIFileOutputStream);
 		// use 0x02 | 0x10 to open file for appending.
 		foStream.init(file, 0x02 | 0x08 | 0x20, 0664, 0); // write, create, truncate
 
-    var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
-              .createInstance(Components.interfaces.nsIConverterOutputStream);
+    var os = Cc["@mozilla.org/intl/converter-output-stream;1"]
+              .createInstance(Ci.nsIConverterOutputStream);
     
     // This assumes that fos is the nsIOutputStream you want to write to
     os.init(foStream, "UTF-8", 0, 0x0000);
@@ -1545,7 +1631,7 @@ var SQLiteManager = {
   		var iExportNum = 0;
      	var aTableNames = Database.getObjectList("table", sDbName);
   		for (var i = 0; i < aTableNames.length; i++) {
-  			iExportNum = SmExporter.writeSqlContent(os, sDbName, aTableNames[i], bCreate, bTransact);
+  			iExportNum = SmExim.writeSqlContent(os, sDbName, aTableNames[i], bCreate, bTransact);
   		}
 		}
 		var aObjNames = [];
@@ -1583,12 +1669,7 @@ var SQLiteManager = {
 			alert(sm_getLStr("firstOpenADb"));
 			return false;
 		}
-    window.openDialog("chrome://sqlitemanager/content/export.xul",
-						"import",	"chrome, resizable, centerscreen, modal, dialog", 
-						Database, "import");
-		this.refreshDbStructure();
-		this.loadTabBrowse();
-		return true;
+    SmExim.loadDialog("import", "d-mainarea");
 	},
 	
 	exportObject: function(sObjectType) {
@@ -1599,9 +1680,10 @@ var SQLiteManager = {
 
 		var sObjectName = this.aCurrObjNames[sObjectType];
 		
-    window.openDialog("chrome://sqlitemanager/content/export.xul",
-						"export",	"chrome, resizable, centerscreen, modal, dialog", 
-						Database, sObjectType, sObjectName);
+//    window.openDialog("chrome://sqlitemanager/content/export.xul",
+//						"export",	"chrome, resizable, centerscreen, modal, dialog", 
+//						Database, sObjectType, sObjectName);
+    SmExim.loadDialog("export", "d-mainarea", sObjectType, sObjectName);
 		return true;
   },
 
@@ -1727,21 +1809,21 @@ var SQLiteManager = {
     }
     if(sOperation == "addColumn") {
       var newCol = [];
-      newCol["name"] = document.getElementById("tb-addcol-name").value;
-      newCol["type"] = document.getElementById("tb-addcol-type").value;
-      newCol["notnull"] = document.getElementById("tb-addcol-notnull").checked;
-      newCol["dflt_value"] = document.getElementById("tb-addcol-default").value;
+      newCol["name"] = $$("tb-addcol-name").value;
+      newCol["type"] = $$("tb-addcol-type").value;
+      newCol["notnull"] = $$("tb-addcol-notnull").checked;
+      newCol["dflt_value"] = $$("tb-addcol-default").value;
       newCol["dflt_value"] = sm_makeDefaultValue(newCol["dflt_value"]);
 
       var bReturn = Database.addColumn(sCurrTable, newCol);
       if(bReturn) {
-        document.getElementById("tb-addcol-name").value = "";
-        document.getElementById("tb-addcol-type").value = "";
-        document.getElementById("tb-addcol-notnull").checked = false;
-        document.getElementById("tb-addcol-default").value = "";
+        $$("tb-addcol-name").value = "";
+        $$("tb-addcol-type").value = "";
+        $$("tb-addcol-notnull").checked = false;
+        $$("tb-addcol-default").value = "";
         this.refresh();
       }
-      document.getElementById("tb-addcol-name").focus();
+      $$("tb-addcol-name").focus();
       return bReturn;
     }
 
@@ -1754,7 +1836,7 @@ var SQLiteManager = {
 			colMain["name"] = "`" + colMain["name"] + "`";
 
   		//allowing for multiple selection in the tree
-			var tree = document.getElementById("browse-tree");
+			var tree = $$("browse-tree");
 			var start = new Object();
 			var end = new Object();
 			var numRanges = tree.view.selection.getRangeCount();
@@ -1791,13 +1873,20 @@ var SQLiteManager = {
 				return bReturn;
 			}
 		}
-    window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",
-					"RowOperations", "chrome, resizable, centerscreen, modal, dialog", 
-					Database, this.aCurrObjNames["table"], sOperation, rowCriteria);
-		if(sOperation != "update") {
-			this.refreshDbStructure();
+/* following code if dialog is popped up for editing etc. */
+    var bUseWindow = true;
+    if (bUseWindow) {
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",
+  					"RowOperations", "chrome, resizable, centerscreen, modal, dialog", 
+  					Database, this.aCurrObjNames["table"], sOperation, rowCriteria);
+  		if(sOperation != "update") {
+  			this.refreshDbStructure();
+  		}
+  		this.loadTabBrowse();
 		}
-		this.loadTabBrowse();
+    else {
+      RowOps.loadDialog(this.aCurrObjNames["table"], sOperation, rowCriteria);
+    }
 
 		return true;
   },
@@ -1806,12 +1895,11 @@ var SQLiteManager = {
     var file = sm_chooseDirectory("Select Default Directory");
 
     // 1. Write to prefs
-    var relFile = Components.classes["@mozilla.org/pref-relativefile;1"]
-                  .createInstance(Components.interfaces.nsIRelativeFilePref);
+    var relFile = Cc["@mozilla.org/pref-relativefile;1"]
+                  .createInstance(Ci.nsIRelativeFilePref);
     relFile.relativeToKey = "ProfD";
     relFile.file = file;      // |file| is nsILocalFile
-    sm_prefsBranch.setComplexValue("userDir", 
-         Components.interfaces.nsIRelativeFilePref, relFile);
+    sm_prefsBranch.setComplexValue("userDir", Ci.nsIRelativeFilePref, relFile);
     this.populateDBList("user");
   },
 
@@ -1822,25 +1910,23 @@ var SQLiteManager = {
     var sSelectString = sm_getLStr("selectProfileDb");
     if (sType == "profile")
       // Get the nsIFile object pointing to the profile directory
-      fileList = Components.classes["@mozilla.org/file/directory_service;1"]
-            .getService(Components.interfaces.nsIProperties)
-            .get("ProfD", Components.interfaces.nsIFile)
+      fileList = Cc["@mozilla.org/file/directory_service;1"]
+            .getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile)
             .directoryEntries;
     if (sType == "user") {
       sSelectString = sm_getLStr("selectDbInDefaultDir");
       //Read from prefs
-      var value = sm_prefsBranch.getComplexValue("userDir", 
-                  Components.interfaces.nsIRelativeFilePref);
+      var value = sm_prefsBranch.getComplexValue("userDir",Ci.nsIRelativeFilePref);
       // |value.file| is the file.
       sTooltip = value.file.path;
 			var lFile = value.file;
       fileList = lFile.directoryEntries;
     }
     //get the node for the popup menus to show profile db list
-    var listbox = document.getElementById("listbox-profileDB");
+    var listbox = $$("listbox-profileDB");
     listbox.setAttribute("dirType", sType);
     listbox.setAttribute("tooltiptext", sTooltip);
-    document.getElementById("menu-DbList").setAttribute("tooltiptext", sTooltip);
+    $$("menu-DbList").setAttribute("tooltiptext", sTooltip);
 
     listbox.removeAllItems();
     listbox.appendItem(sSelectString, "");
@@ -1850,7 +1936,7 @@ var SQLiteManager = {
     var file;
     var iFileCount = 0;
 		while (fileList.hasMoreElements()) {
-      file = fileList.getNext().QueryInterface(Components.interfaces.nsIFile);
+      file = fileList.getNext().QueryInterface(Ci.nsIFile);
       aSplit = file.leafName.split(".");
       sExt = aSplit[aSplit.length - 1]; 
 
@@ -1865,12 +1951,12 @@ var SQLiteManager = {
   // openSelectedDatabase: open a file from the database dropdown list
   openSelectedDatabase: function(sMenuListId) { 
 		//get the node for dropdown menu in which profile db list is shown       
-  	var listbox = document.getElementById(sMenuListId);
+  	var listbox = $$(sMenuListId);
     var sPath = listbox.selectedItem.value;
     var sType = listbox.getAttribute("dirType"); //profile/user
 
-		var file = Components.classes["@mozilla.org/file/local;1"]
-							.createInstance(Components.interfaces.nsILocalFile);
+		var file = Cc["@mozilla.org/file/local;1"]
+							.createInstance(Ci.nsILocalFile);
 		file.initWithPath(sPath);
 
 		//proceed only if the file exists
@@ -1889,7 +1975,7 @@ var SQLiteManager = {
 	},
 
   changeAttachedDb: function() {
-    var mlist = document.getElementById("ml-dbNames");
+    var mlist = $$("ml-dbNames");
 	  var mi = mlist.selectedItem;
 	  var sDbName = mi.getAttribute("dbName");
 	  if (sDbName == "")
@@ -1901,7 +1987,7 @@ var SQLiteManager = {
   },
 
   detachDatabase: function() {
-    var mlist = document.getElementById("ml-dbNames");
+    var mlist = $$("ml-dbNames");
 	  var mi = mlist.selectedItem;
 	  var sDbName = mi.getAttribute("dbName");
     if (mlist.selectedIndex <= 2) {
@@ -1919,11 +2005,6 @@ var SQLiteManager = {
       mlist.selectedIndex = 0;
       this.changeAttachedDb();
 		  sm_message("Database " + sDbName + " detached.", 0x2);
-
-		  //needed because pragma database_list does not work
-		  if (!gbGecko_1_9)
-		    Database.removeAttachedDb(sDbName);
-
       return true;
 		}
 		else {
@@ -1937,8 +2018,8 @@ var SQLiteManager = {
 			alert(sm_getLStr("firstOpenADb"));
 			return;
 		}
-		const nsIFilePicker = Components.interfaces.nsIFilePicker;
-		var fp = Components.classes["@mozilla.org/filepicker;1"]
+		const nsIFilePicker = Ci.nsIFilePicker;
+		var fp = Cc["@mozilla.org/filepicker;1"]
 			           .createInstance(nsIFilePicker);
 		fp.init(window, sm_getLStr("selectDb"), nsIFilePicker.modeOpen);
     var sExt = "";
@@ -1964,16 +2045,11 @@ var SQLiteManager = {
 
   		var sQuery = "ATTACH DATABASE " + sPath + " AS " + sm_doublequotes(sDbName);
   		if (Database.selectQuery(sQuery)) {
-  		  var mi = document.getElementById("ml-dbNames").appendItem(sDbName, sDbName, fp.file.leafName);
+  		  var mi = $$("ml-dbNames").appendItem(sDbName, sDbName, fp.file.leafName);
   		  mi.setAttribute("dbName", sDbName);
   		  mi.setAttribute("tooltiptext", sPath);
 
   		  sm_message("Database " + sPath + " attached as " + sDbName, 0x2);
-
-  		  //needed because pragma database_list does not work
-  		  if (!gbGecko_1_9)
-  		    Database.appendAttachedDb(sDbName, sPath);
-
         return true;
   		}
   		else {
@@ -2002,7 +2078,7 @@ var SQLiteManager = {
     //construct a name for the new file as originalname_timestamp.ext
 //    var dt = new Date();
 //    var sTimestamp = dt.getFullYear() + dt.getMonth() + dt.getDate(); 
-    var sTimestamp = Date.now(); 
+    var sTimestamp = getISODateTimeFormat(null, "", "s");//Date.now(); 
     var sFileName = nsiFileObj.leafName;
     var sMainName = sFileName, sExt = "";
     var iPos = sFileName.lastIndexOf(".");
@@ -2038,13 +2114,13 @@ var SQLiteManager = {
 
     this.mbDbJustOpened = true;
 
-    var mlist = document.getElementById("ml-dbNames");
+    var mlist = $$("ml-dbNames");
     mlist.removeAllItems();
 
 		treeBrowse.ShowTable(false);
 		treeExecute.ShowTable(false);
 
-    document.getElementById("sbSharedMode").label = "---";
+    $$("sbSharedMode").label = "---";
 
 		//try connecting to database
 		var bConnected = false;
@@ -2057,27 +2133,27 @@ var SQLiteManager = {
   			 //create backup before opening
           this.createTimestampedBackup(this.sCurrentDatabase);
   
-          var mi = document.getElementById("menu-general-sharedPagerCache");
+          var mi = $$("menu-general-sharedPagerCache");
           var bSharedPagerCache = mi.hasAttribute("checked");
           bConnected = Database.openDatabase(this.sCurrentDatabase,bSharedPagerCache);
         }
-        document.getElementById("vb-structureTab").hidden = false;
-        document.getElementById("vb-browseTab").hidden = false;
-        document.getElementById("vb-executeTab").hidden = false;
-        document.getElementById("vb-dbInfoTab").hidden = false;
+        $$("vb-structureTab").hidden = false;
+        $$("vb-browseTab").hidden = false;
+        $$("vb-executeTab").hidden = false;
+        $$("vb-dbInfoTab").hidden = false;
 
-        document.getElementById("bc-dbOpen").removeAttribute("disabled");
+        $$("bc-dbOpen").removeAttribute("disabled");
 		  }
 			if(this.sCurrentDatabase == null) {
 		    Database.closeConnection();
     		//call it to hide all things there - Issue #90, etc.
-        document.getElementById("bc-dbOpen").setAttribute("disabled", true);
+        $$("bc-dbOpen").setAttribute("disabled", true);
 
         this.emptyTabStructure();
-     		document.getElementById("vb-structureTab").hidden = true;
-    		document.getElementById("vb-browseTab").hidden = true;
-    		document.getElementById("vb-executeTab").hidden = true;
-    		document.getElementById("vb-dbInfoTab").hidden = true;
+     		$$("vb-structureTab").hidden = true;
+    		$$("vb-browseTab").hidden = true;
+    		$$("vb-executeTab").hidden = true;
+    		$$("vb-dbInfoTab").hidden = true;
         this.useExtensionManagementTable(false, true);
 		  }
 		} 
@@ -2090,7 +2166,7 @@ var SQLiteManager = {
 
     var path = "", leafName = "";
     if (bConnected) {
-      document.getElementById("sbSharedMode").label = Database.getOpenStatus();
+      $$("sbSharedMode").label = Database.getOpenStatus();
 
       if (nsiFileObj.path) {
         path = nsiFileObj.path;
@@ -2112,7 +2188,7 @@ var SQLiteManager = {
         this.useExtensionManagementTable(smExtManager.getUsage(), true);
       }
       //populate the db list menu with main and temp
-      var mlist = document.getElementById("ml-dbNames");
+      var mlist = $$("ml-dbNames");
       mlist.removeAllItems();
       var mi = mlist.appendItem(leafName, leafName, "");
       mi.setAttribute("dbName", "main");
@@ -2128,7 +2204,10 @@ var SQLiteManager = {
       this.changeAttachedDb();
       //display the sqlite version in the status bar
       var sV = sm_getLStr("sqlite") + " " + Database.sqliteVersion;
-      document.getElementById("sbSqliteVersion").setAttribute("label",sV);
+      $$("sbSqliteVersion").setAttribute("label",sV);
+
+      //creating a function
+      Database.createFunction("REGEXP", 2, smDbFunctions.regexp);
     }
     if (!bConnected) {
     	this.sCurrentDatabase = null;
@@ -2144,9 +2223,9 @@ var SQLiteManager = {
   selectAllRecords: function() {
     var t;
     if(this.getSelectedTabId() == "tab-browse")
-      t = document.getElementById("browse-tree");
+      t = $$("browse-tree");
     else if(this.getSelectedTabId() == "tab-execute")
-      t = document.getElementById("treeSqlOutput");
+      t = $$("treeSqlOutput");
     else
       return;
 
@@ -2155,7 +2234,7 @@ var SQLiteManager = {
   },
 
   setSqlText: function(val) {
-    document.getElementById("txtSqlStatement").value = val;
+    $$("txtSqlStatement").value = val;
   },
 
   resizeThings: function() {
@@ -2174,14 +2253,14 @@ smExampleObserver.prototype =
   },
   
 	register: function() {
-    var observerService = Components.classes["@mozilla.org/observer-service;1"]
-                          .getService(Components.interfaces.nsIObserverService);
+    var observerService = Cc["@mozilla.org/observer-service;1"]
+                          .getService(Ci.nsIObserverService);
     observerService.addObserver(this, "myTopicID", false);
   },
   
 	unregister: function() {
-    var observerService = Components.classes["@mozilla.org/observer-service;1"]
-                            .getService(Components.interfaces.nsIObserverService);
+    var observerService = Cc["@mozilla.org/observer-service;1"]
+                            .getService(Ci.nsIObserverService);
     observerService.removeObserver(this, "myTopicID");
   }
 }
