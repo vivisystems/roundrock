@@ -13,6 +13,8 @@
         
         _worker: null,
 
+        _useMainThread: false,
+
         // load device configuration and selections
         initial: function () {
 
@@ -20,6 +22,8 @@
 
             // initialize worker thread
             this._worker = GREUtils.Thread.getWorkerThread();
+
+            this._useMainThread = (this._worker === GREUtils.Thread.getMainThread());
 
             // add event listener for beforeSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -314,7 +318,9 @@
                             else {
                                 //self.log('VFD display length: [' + encodedResult.length + '], printed length: [' + len + ']');
                             }
-                            //self.log('DEBUG', 'In Worker thread: VFD display length: [' + encodedResult.length + '], displayed length: [' + len + ']');
+                            // use dump in worker thread
+                            // self.log('DEBUG', 'In Worker thread: VFD display length: [' + encodedResult.length + '], displayed length: [' + len + ']');
+                            // dump('In Worker thread: VFD display length: [' + encodedResult.length + '], displayed length: [' + len + ']');
                             self.closeSerialPort(portPath);
 
                         }
@@ -346,7 +352,14 @@
                     throw Components.results.NS_ERROR_NO_INTERFACE;
                 }
             };
-            this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
+
+            // if main thread , run directly
+            if (this._useMainThread) {
+                runnable.run();
+            }else {
+                this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
+            }
+
         }
 
     };

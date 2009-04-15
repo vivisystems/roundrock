@@ -31,6 +31,76 @@ GREUtils.log("in table status initialize...");
             }
         },
 
+    getRemoteService: function(method) {
+        this.syncSettings = (new SyncSetting()).read();
+
+        if (this.syncSettings && this.syncSettings.active == 1) {
+
+            //  http://localhost:3000/sequences/getSequence/check_no
+            // check connection status
+            this.url = this.syncSettings.protocol + '://' +
+                        this.syncSettings.hostname + ':' +
+                        this.syncSettings.port + '/' +
+                        'sequences/' + method;
+
+            this.username = 'vivipos';
+            this.password = this.syncSettings.password ;
+
+            return this.url;
+
+        }else {
+            return false;
+        }
+    },
+
+    requestRemoteService: function(url, key, value) {
+
+                    var reqUrl = url + '/' + key;
+
+                    if (value != null) reqUrl += '/' + value;
+
+                    var username = this.username ;
+                    var password = this.password ;
+
+                    var req = new XMLHttpRequest();
+
+                    req.mozBackgroundRequest = true;
+
+                    /* Request Timeout guard */
+                    /*
+                    var timeout = null;
+                    timeout = setTimeout(function() {
+                        clearTimeout(timeout);
+                        req.abort();
+                    }, 15000);
+                    */
+                    /* Start Request with http basic authorization */
+                    var seq = -1;
+                    req.open('GET', reqUrl, false, username, password);
+                    var onstatechange = function (aEvt) {
+                        if (req.readyState == 4) {
+                            if(req.status == 200) {
+                                var result = GeckoJS.BaseObject.unserialize(req.responseText);
+                                if (result.status == 'ok') {
+                                    seq = result.value;
+                                }else {
+                                    seq = -1;
+                                }
+                            }else {
+                                seq = -1;
+                            }
+                        }
+                        delete req;
+                    };
+
+                    // req.onreadystatechange = onstatechange
+                    req.send(null);
+                    onstatechange();
+                    return seq;
+
+    },
+
+
 /*
         initial: function() {
 
@@ -77,6 +147,7 @@ GREUtils.log("in table status initialize...");
         },
 
         getNewCheckNo: function() {
+        //@todo rack
 GREUtils.log("getNewCheckNo...");
             this.resetCheckNoArray();
             var i = 1;
@@ -107,6 +178,7 @@ GREUtils.log("in getNewCheckNo:" + i);
         },
 
         getTableStatusList: function(reload) {
+        // @todo rack
 GREUtils.log("getTableStatusList...");
             if (!reload) {
                 var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
@@ -178,6 +250,7 @@ GREUtils.log("getTableStatusList...");
         },
 
         getTableList: function(reload) {
+        // @todo rack
 GREUtils.log("getTableList...");
             if (!reload) {
                 var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
@@ -195,6 +268,7 @@ GREUtils.log("getTableList...");
         },
 
         getCheckList: function(key, no, reload) {
+        // @todo rack
 GREUtils.log("getCheckList...");
             if (!reload) {
                 var checks = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
@@ -272,7 +346,7 @@ GREUtils.log("getCheckList...");
         },
 
         addCheck: function(checkObj) {
-            //
+            // @todo rack
 GREUtils.log("add check...");
             var isNewCheck = true;
             var newCheck = null;
@@ -328,6 +402,7 @@ GREUtils.log("add check...");
         },
 
         removeCheck: function(checkObj) {
+        // @todo rack
 GREUtils.log("remove check...");
             var i = 0;
             var idx = -1;

@@ -37,6 +37,8 @@
                 surcharge_subtotal: 0,
                 discount_subtotal: 0,
                 payment_subtotal: 0,
+                
+                promotion_subtotal: 0,
 
                 price_modifier: 1,    // used to modify item subtotals
                 
@@ -1012,8 +1014,9 @@
                 this.removeDisplaySeq(index, removeCount);
 
                 // recalc all
-                //this.calcPromotions();
-                //this.calcItemsTax();
+                this.calcPromotions();
+                
+                this.calcItemsTax();
 
 
             }else {
@@ -2227,7 +2230,7 @@
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
             var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
-            var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0;
+            var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0, promotion_subtotal=0;
 
             // item subtotal and grouping
             this.data.items_summary = {}; // reset summary
@@ -2282,7 +2285,9 @@
                 payment_subtotal += parseFloat(payItem.amount);
             }
 
-            total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal;
+            promotion_subtotal = this.data.promotion_subtotal ;
+
+            total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal - promotion_subtotal;
             remain = total - payment_subtotal;
 
             this.data.total = this.getRoundedPrice(total);

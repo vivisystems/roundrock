@@ -1864,6 +1864,30 @@ msgstr ""
 msgid "Unable to display order; no order sequence given"
 msgstr ""
 
+msgid "Promotions Manager"
+msgstr ""
+
+msgid "acl_manage_promotions"
+msgstr "Promotions Manager"
+
+msgid "trigger.bypass.label"
+msgstr "ByPass"
+
+msgid "trigger.bypass.name"
+msgstr "ByPass"
+
+msgid "trigger.bypass.desc"
+msgstr "ByPass Trigger always pass success to promotion type."
+
+msgid "type.bypass.label"
+msgstr "ByPass"
+
+msgid "type.bypass.name"
+msgstr "ByPass"
+
+msgid "type.bypass.desc"
+msgstr "ByPass Type always pass success."
+
 msgid "confirm timezone change"
 msgstr ""
 
@@ -3213,6 +3237,51 @@ msgid "Error in Print controller; no worker thread available!"
 msgstr ""
 
 msgid "Specified template [%S] is empty or does not exist!"
+msgstr ""
+
+msgid "trigger."
+msgstr ""
+
+msgid "type."
+msgstr ""
+
+msgid "Add New Promotion Rule"
+msgstr ""
+
+msgid "New Promotion Rule"
+msgstr ""
+
+msgid "Rule Name"
+msgstr ""
+
+msgid "Rule Code"
+msgstr ""
+
+msgid "Promotion Rule [%S] already exists."
+msgstr ""
+
+msgid "Promotion Rule [%S] added successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while adding Promotion Rule [%S]. The rule may not have "
+"been added successfully"
+msgstr ""
+
+msgid "Promotion Rule [%S] removed successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while removing Promotion Rule [%S]. The group may not have "
+"been removed successfully"
+msgstr ""
+
+msgid "Promotion Rule [%S] modified successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while removing Promotion Rule [%S]. The group may not have "
+"been modified successfully"
 msgstr ""
 
 msgid "Password and Verify Password not the same"

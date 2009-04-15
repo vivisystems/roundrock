@@ -72,6 +72,10 @@
             this.requestCommand('initialLogin', null, 'Main');
         },
 
+        destroy: function() {
+            this.observer.unregister();
+        },
+
         patch102: function() {
 
             // add DB column main.products.alt_name1
