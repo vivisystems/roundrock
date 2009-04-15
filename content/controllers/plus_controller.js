@@ -11,7 +11,7 @@
         _selectedIndex: null,
         _selCateNo: null,
         _selCateName: null,
-        _selCateIndex: null,
+        _selCateIndex: -1,
         components: ['Tax'],
         
         catePanelView: null,
@@ -20,6 +20,8 @@
         _productGroups: null,
         _selectedPluSetIndex: null,
         _condGroupsById: null,
+        _categoriesByNo: {},
+        _categoryIndexByNo: {},
 
         createGroupPanel: function () {
 
@@ -35,7 +37,8 @@
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;
 
-            this._productGroups = groups;
+            //this._productGroups = groups;
+            this._productGroups = GeckoJS.Session.get('categoriesIndexesAll').concat(GeckoJS.Session.get('allPlugroups'));
 
             var condGroups = GeckoJS.Session.get('condGroups');
 
@@ -76,6 +79,13 @@
         },
 
         createPluPanel: function () {
+            // construct categoryByNo lookup table
+            var categories = GeckoJS.Session.get('categories');
+            for (var i = 0; i < categories.length; i++) {
+                this._categoriesByNo['' + categories[i].no] = categories[i];
+                this._categoryIndexByNo['' + categories[i].no] = i;
+            };
+            
             // NSIDepartmentsView use rows and columns from preferences, so let's
             // save rows and columns attribute values here and restore them later
             var catpanel = document.getElementById('catescrollablepanel');
@@ -218,7 +228,12 @@
             plupanel.ensureIndexIsVisible(index);
             
             if (product) {
-                product.cate_name = this._selCateName;
+                if (this._selCateNo == null) {
+                    product.cate_name = this._categoriesByNo[product.cate_no].name;
+                }
+                else {
+                    product.cate_name = this._selCateName;
+                }
                 this.setInputData(product);
 
                 this.reorderCondimentGroup();
@@ -242,13 +257,21 @@
         getDepartment: function () {
             var cate_no = $('#cate_no').val();
             var cates_data = GeckoJS.Session.get('categories');
+            var index = this._selCateIndex;
 
+            if (this._selCateNo == null) {
+                var product = this.productPanelView.getCurrentIndexData(this._selectedIndex);
+                if (product) {
+                    index = this._categoryIndexByNo[product.cate_no];
+                }
+            }
+            
             var aURL = 'chrome://viviecr/content/select_department.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
                 cate_no: cate_no,
                 depsData: cates_data,
-                index: this._selCateIndex
+                index: index
             };
             window.openDialog(aURL, 'select_department', features, inputObj);
 
@@ -327,6 +350,7 @@
         _setPluSet: function () {
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+            var categories = GeckoJS.Session.get('categoriesById');
             var groupsById = GeckoJS.Session.get('plugroupsById');
 
             // get current product no
@@ -352,7 +376,12 @@
 
                 var product_id = barcodesIndexes[preset_no];
                 var product = product_id ? productsById[product_id] : '';
+
                 var group = groupsById[linkgroup_id];
+                if (typeof group == 'undefined') {
+                    // try department
+                    group = categories[linkgroup_id];
+                }
 
                 this._pluset[i].preset = product ? product.name : '';
                 this._pluset[i].linkgroup = group ? group.name : '';
@@ -504,20 +533,21 @@
             var groupNameObj = document.getElementById('setitem_linkgroup');
             var groupIdObj = document.getElementById('setitem_linkgroup_id');
 
-            var groupName = groupNameObj.value;
+            var groupId = groupIdObj.value;
 
             // locate index of selected index
             var productGroups = this._productGroups;
+            
             var index = -1;
-            if (groupName != '' && productGroups != null) {
+            if (groupId != '' && productGroups != null) {
                 for (var i = 0; i < productGroups.length; i++) {
-                    if (productGroups[i].name == groupName) {
+                    if (productGroups[i].id == groupId) {
                         index = i;
                         break;
                     }
                 }
             }
-            var inputObj = {groupData: productGroups, index: index};
+            var inputObj = {groupData: productGroups, index: index, plugroupOnly: false};
 
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
             if (inputObj.ok && inputObj.group_id != '') {
@@ -697,7 +727,15 @@
         },
 
         add: function  () {
-            if (this._selCateNo == null) return;
+            if (this._selCateNo == null) {
+                if (this._selCateIndex == -1) return;
+
+                var plugroup = this.catePanelView.getCurrentIndexData(this._selCateIndex);
+
+                // product group selected, put up product picker and add the selected product to this product group
+                this.addProductToGroup(plugroup);
+                return;
+            }
 
             // auto-generate?
             var autoProdNo = GeckoJS.Configure.read('vivipos.fec.settings.AutoGenerateProdNo');
@@ -839,13 +877,24 @@
                     else {
                         product.SetItem = [];
                     }
-                    
                     this.updateSession('modify', inputData, product);
-                    
+
                     var newIndex = this._selectedIndex;
                     if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
 
-                    this.clickPluPanel(newIndex);
+                    //this.clickPluPanel(newIndex);
+
+                    if (!this._setCateNo) {
+                        // if current department is a product group, order may have changed so we need to re-scan
+                        var data = this.productPanelView.data;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i] == inputData.id) {
+                                newIndex = i;
+                                break;
+                            }
+                        }
+                        this.clickPluPanel(newIndex);
+                    }
 
                     // @todo OSD
                     OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
@@ -931,6 +980,45 @@
                         */
                 }
             }
+        },
+
+        addProductToGroup: function(plugroup) {
+
+            var aURL = "chrome://viviecr/content/plusearch.xul";
+            var aName = _('Product Search');
+            var width = this.screenwidth;
+            var height = this.screenheight;
+            var inputObj = {buffer: ''};
+
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
+            if (inputObj.ok) {
+                if (inputObj.item) {
+                    var product = inputObj.item;
+
+                    if (product.link_group.indexOf(plugroup.id) > -1) {
+                        // @todo OSD
+                        NotifyUtils.warn(_('Product [%S] already linked to to product group [%S]',
+                                           [product.name, plugroup.name]));
+                    }
+                    else {
+                        alert('adding product to group');
+
+                        product.link_group += ((product.link_group) ? ',' : '') + plugroup.id;
+                        alert('new product groups: ' +  product.link_group);
+
+                        var productModel = new ProductModel();
+                        productModel.id = product.id;
+                        productModel.save(product);
+                        
+                        this.updateSession('modify', product, product);
+
+                        // @todo OSD
+                        OsdUtils.info(_('Product [%S] successfully linked to product group [%S]',
+                                        [product.name, plugroup.name]));
+                    }
+                }
+            }
+            this.validateForm();
         },
 
         updateSession: function(action, data, oldData) {
@@ -1263,6 +1351,124 @@
             }
         },
 
+        clonePlu: function() {
+            if (this._selectedIndex != null && this._selectedIndex > -1) {
+                // get source product
+                var index = this._selectedIndex;
+                var product = this.productPanelView.getCurrentIndexData(index);
+                var productsById = GeckoJS.Session.get('productsById');
+                var targets = [];
+                var targetIndexes = [];
+                var targetGroupName = '';
+
+                // get target
+                if (this._selCateNo == null) {
+                    if (this._selCateIndex == -1) {
+                        return;
+                    }
+
+                    // target is product group
+                    var plugroup = this.catePanelView.getCurrentIndexData(this._selCateIndex);
+                    var productsIndexesByGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+
+                    targetGroupName = _('Product Group [%S]', [plugroup.name]);
+                    targetIndexes = productsIndexesByGroupAll[plugroup.id];
+                }
+                else {
+                    var cateIndex = this._selCateIndex;
+                    var category = this.catePanelView.getCurrentIndexData(cateIndex);
+                    var productsIndexesByCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+
+                    targetGroupName = _('Department [%S (%S)]', [category.name, category.no]);
+                    targetIndexes = productsIndexesByCateAll[category.no];
+                }
+                targetIndexes.map(function(index) {
+                                      if (index != product.id) targets.push(productsById[index]);
+                                  });
+                
+                // get data set to clone
+                // a. basic data (Tax + switches)
+                // b. appearance
+                // c. condiments
+                // d. prices
+                // e. link groups
+                var aURL = 'chrome://viviecr/content/prompt_clone_plu.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * .9 + ',height=' + this.screenheight * .9;
+                var inputObj = {
+                    title: _('Product to Clone') + ' [' + product.name + ']',
+                    targetsLabel: targetGroupName,
+                    targets: targets
+                };
+
+                window.openDialog(aURL, _('Clone Product'), features, inputObj);
+
+                if (inputObj.ok && inputObj.selectedItems && inputObj.selectedItems.length > 0) {
+
+                    var productModel = new ProductModel();
+
+                    for (var i = 0; i < inputObj.selectedItems.length; i++) {
+                        var oldData = targets[inputObj.selectedItems[i]];
+                        var newData = GREUtils.extend({}, oldData);
+
+                        var modified = false;
+
+                        if (inputObj.cloneSettings['basic-data']) {
+                            modified = true;
+
+                            newData.rate = product.rate;
+                            newData.auto_maintain_stock = product.auto_maintain_stock;
+                            newData.return_stock = product.return_stock;
+                            newData.force_memo = product.force_memo;
+                            newData.visible = product.visible;
+                            newData.single = product.single;
+                            newData.age_verification = product.age_verification;
+                            newData.icon_only = product.icon_only;
+                            newData.manual_adjustment_only = product.manual_adjustment_only;
+                            newData.memo = product.memo;
+                        }
+
+                        if (inputObj.cloneSettings['appearance']) {
+                            modified = true;
+
+                            newData.button_color = product.button_color;
+                            newData.font_size = product.font_size;
+                        }
+
+                        if (inputObj.cloneSettings['prices']) {
+                            modified = true;
+
+                            for (var level = 1; level <= 9; level++) {
+                                newData['level_enable' + level] = product['level_enable' + level];
+                                newData['price_level' + level] = product['price_level' + level];
+                                newData['halo' + level] = product['halo' + level];
+                                newData['lalo' + level] = product['lalo' + level];
+                            }
+                        }
+
+                        if (inputObj.cloneSettings['condiments']) {
+                            newData.force_condiment = product.force_condiment;
+                            newData.cond_group = product.cond_group;
+                            modified = true;
+                        }
+
+                        if (inputObj.cloneSettings['linkgroups']) {
+                            newData.link_group = product.link_group;
+                            modified = true;
+                        }
+
+                        if (modified) {
+                            productModel.id = newData.id;
+                            productModel.save(newData);
+
+                            this.updateSession('modify', newData, oldData);
+                        }
+                    }
+                    // @todo OSD
+                    OsdUtils.info(_('Product [%S] cloned successfully', [product.name]));
+                }
+            }
+        },
+
         validatePluSetForm: function() {
             // input elements
             var selectedIndex = this.getPluSetListObj().selectedIndex;
@@ -1303,7 +1509,17 @@
         
         validateForm: function(resetTabs) {
             // category selected?
-            document.getElementById('add_plu').setAttribute('disabled', (this._selCateNo == null || this._selCateNo == -1));
+            if (this._selCateNo == null || this._selCateNo == -1) {
+                if (this._selCateIndex != -1) {
+                    document.getElementById('add_plu').setAttribute('disabled', false);
+                }
+                else {
+                    document.getElementById('add_plu').setAttribute('disabled', true);
+                }
+            }
+            else {
+                document.getElementById('add_plu').setAttribute('disabled', false);
+            }
 
             // reset tab panel to first tab?
             if (resetTabs) document.getElementById('tabs').selectedIndex = 0;
@@ -1312,6 +1528,7 @@
             if (this._selectedIndex == null || this._selectedIndex == -1) {
                 // disable Modify, Delete buttons
                 document.getElementById('modify_plu').setAttribute('disabled', true);
+                document.getElementById('clone_plu').setAttribute('disabled', true);
                 document.getElementById('delete_plu').setAttribute('disabled', true);
 
                 // disable all tabs
@@ -1343,6 +1560,7 @@
 
                 // conditionally enable Modify, Delete buttons
                 document.getElementById('modify_plu').setAttribute('disabled', productName.length == 0);
+                document.getElementById('clone_plu').setAttribute('disabled', false);
                 document.getElementById('delete_plu').setAttribute('disabled', false);
             }
         }

@@ -7,6 +7,7 @@ function startup() {
 
     $do('createGroupPanel', null, "Plus");
 	$do('createPluPanel', null, "Plus");
+
     $do('initDefaultTax', null, 'Plus');
 
     $do('createFilterRows', null, 'PluSearch');

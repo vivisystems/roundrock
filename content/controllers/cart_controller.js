@@ -428,7 +428,8 @@
         addItem: function(plu) {
 
             if (this._suspended) return;
-            
+
+            var currentIndex = this._cartView.getSelectedIndex();
             var item = GREUtils.extend({}, plu);
 
             // not valid plu item.
@@ -467,10 +468,9 @@
             // been applied to the current item and price/tax status are the same
             
             if (curTransaction && !this._returnMode) {
-                var index = this._cartView.getSelectedIndex();
-                if (!curTransaction.isLocked(index)) {
-                    var currentItem = curTransaction.getItemAt(index);
-                    var currentItemDisplay = curTransaction.getDisplaySeqAt(index);
+                if (!curTransaction.isLocked(currentIndex)) {
+                    var currentItem = curTransaction.getItemAt(currentIndex);
+                    var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
 
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     var qty = GeckoJS.Session.get('cart_set_qty_value');
@@ -515,21 +515,31 @@
                 this.dispatchEvent('afterAddItem', addedItem);
 
                 var self = this;
-
+                var cart = this._getCartlist();
+                
                 // wrap with chain method
                 next( function() {
 
                     if (addedItem.id == plu.id && !self._returnMode) {
 
+                        currentIndex = curTransaction.getDisplayIndexByIndex(addedItem.index);
                         return next( function() {
 
                             if (plu.force_condiment) {
+
+                                // need to move cursor to addedItem
+                                cart.selection.select(currentIndex);
+
                                 return self.addCondiment(plu, null, doSIS);
                             }
 
                         }).next( function() {
 				 
                             if (plu.force_memo) {
+
+                                // need to move cursor to addedItem
+                                cart.selection.select(currentIndex);
+
                                 return self.addMemo(plu);
                             }
 
@@ -3099,6 +3109,9 @@
                         
                     if (collapseCondiments) {
                         curTransaction.collapseCondiments(condDisplayIndex);
+
+	                this._getCartlist().scrollToRow(0);			
+	                this._getCartlist().treeBoxObject.ensureRowIsVisible(condDisplayIndex);			
                     }
                     this.dispatchEvent('afterAddCondiment', selectedCondiments);
                 }

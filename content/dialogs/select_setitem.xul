@@ -34,8 +34,8 @@
                                                    seltype="single" labelField="name" imageField="no"
                                                    class="prodscrollablepanel"
                                                    buttonClass0="pluset-button product-button-color-default font-medium"
-                                                   buttonClass1="pluset-button product-button-color-10 font-medium"
-                                                   buttonClass2="pluset-button product-button-color-6 font-medium"
+                                                   buttonClass1="pluset-button product-button-color-11 font-medium"
+                                                   buttonClass2="pluset-button product-button-color-8 font-medium"
                                                    oncommand="$(document.getElementById('selectSetItemPanel')).data('popupPanel.opts').clickPluSet(this)"
                                                    scrollUpClass="ScrollUp"
                                                    scrollDownClass="ScrollDown">

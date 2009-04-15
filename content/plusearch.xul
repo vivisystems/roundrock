@@ -69,7 +69,7 @@
                     <spacer style="height:5px;" />
                     <viviscrollabletree id="plusearchscrollablepanel" flex="1"
                                         headers="&plus.product.no;,&plus.product.name;,&plus.stock.level;"
-                                        fields="no,name,stock"
+                                        fields="no,name,stock" hidecolumnpicker="true"
                                         onclick="$do('select',this.selectedIndex, 'PluSearch');"
                                         class="plupnl" dir="reverse"
                                         scrollUpClass="ScrollUp"
@@ -245,11 +245,14 @@
                     </tabpanel>
                 </tabpanels>
             </tabbox>
-            <hbox id="dialogButtons" class="ToolBar" pack="end" >
-                <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
-                <spacer flex="1" />
-                <button class="ExitBtn" id="cancel" label="&dialog.closeButton.label;" default="false" oncommand="doCancelButton();"/>
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+            <hbox>
+                <hbox id="dialogButtons" class="ToolBar" pack="start" flex="1">
+                    <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                    <button class="ExitBtn" id="cancel" label="&dialog.closeButton.label;" default="false" oncommand="doCancelButton();"/>
+                </hbox>
             </hbox>
         </vbox>
         </hbox>
