@@ -42,8 +42,7 @@
                             'order_annotations.text';
 
             var conditions = "orders." + periodType + ">='" + start +
-                            "' AND orders." + periodType + "<='" + end +
-                            "' AND orders.status='1'";
+                            "' AND orders." + periodType + "<='" + end + "'";
 
             if (machineid.length > 0)
                 conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
@@ -109,6 +108,41 @@
             this._reportRecords.head.machine_id = machineid;
             
             this._reportRecords.body = records;
+        },
+        
+        execute: function() {
+        	this._super();
+        	
+        	function orderDialog( orderID ) {
+		        var aURL = 'chrome://viviecr/content/view_order.xul';
+		        var aName = _( 'Order Details' );
+		        var aArguments = { index: 'id', value: orderID };
+		        var posX = 0;
+		        var posY = 0;
+		        var width = GeckoJS.Session.get( 'screenwidth' );
+		        var height = GeckoJS.Session.get( 'screenheight' );
+		        
+		        GREUtils.Dialog.openWindow( window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments );
+		    }
+        	
+        	var div = document.getElementById( 'preview_frame' ).contentWindow.document.getElementById( 'docbody' );
+        	
+        	div.addEventListener( 'click', function( event ) {
+        		if ( event.originalTarget.parentNode.id && event.originalTarget.parentNode.tagName == 'TR' )
+					orderDialog( event.originalTarget.parentNode.id );
+			}, true );
+        	
+        	/*if ( table.hasChildNodes ) {
+        		var children = table.getElementsByTagName( 'tr' );
+        		
+		    	for ( var i = 0; i < children.length; i++ ) {
+		    		if ( children[ i ].id ) {
+						children[ i ].addEventListener( 'click', function( event ) {
+							orderDialog( event.currentTarget.id );
+						}, true );
+					}
+		    	}
+		    }*/
         },
 
         load: function() {
