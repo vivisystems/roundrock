@@ -324,6 +324,7 @@
             }
             
             // @todo delay saving order to database til after print jobs have all been scheduled
+            alert('schedule order commit');
             if (txn.data.status == 1) this.scheduleOrderCommit(txn);
 
             // clear dashboard settings

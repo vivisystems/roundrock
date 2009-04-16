@@ -1949,6 +1949,9 @@
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
             // check if order is open
             var curTransaction = this._getTransaction();
 
@@ -1957,8 +1960,6 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
 
                 this.subtotal();
                 return; // fatal error ?
@@ -1977,8 +1978,6 @@
                 if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
-                    GeckoJS.Session.remove('cart_set_price_value');
-                    GeckoJS.Session.remove('cart_set_qty_value');
 
                     this.subtotal();
                     return; // fatal error ?
@@ -1986,6 +1985,16 @@
 
             }
             else {
+                if (balance <= 0) {
+                    this.clear();
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
                 if (payment == 0 || isNaN(payment)) {
                     //@todo OSD
                     //NotifyUtils.warn(_('Please enter an amount first'));
@@ -2068,6 +2077,7 @@
             }
 
             var payment = (amount != null) ? amount : parseFloat(buf);
+            var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
@@ -2088,8 +2098,18 @@
 
             }
             else {
+                if (balance <= 0) {
+                    this.clear();
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
                 if (payment == null || payment == 0 || isNaN(payment)) {
-                    payment = curTransaction.getRemainTotal();
+                    payment = balance;
                 }
             }
 
@@ -2178,6 +2198,16 @@
 
             }
             else {
+                if (balance <= 0) {
+                    this.clear();
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
                 if (payment == 0 || isNaN(payment)) {
                     payment = balance;
                 }
@@ -2271,6 +2301,16 @@
 
             }
             else {
+                if (balance <= 0) {
+                    this.clear();
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
                 if (payment == null || payment == 0 || isNaN(payment)) {
                     payment = balance;
                 }
@@ -2704,39 +2744,42 @@
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
-            this.dispatchEvent('beforeSubmit', oldTransaction);
+            if (this.dispatchEvent('beforeSubmit', {status: status, txn: oldTransaction})) {
             
-            oldTransaction.lockItems();
+                oldTransaction.lockItems();
 
-            // save order unless the order is being finalized (i.e. status == 1)
-            if (status != 1) oldTransaction.submit(status);
-            oldTransaction.data.status = status;
-            this.dispatchEvent('afterSubmit', oldTransaction);
+                // save order unless the order is being finalized (i.e. status == 1)
+                if (status != 1) oldTransaction.submit(status);
+                oldTransaction.data.status = status;
+                this.dispatchEvent('afterSubmit', oldTransaction);
 
-            // sleep to allow UI events to update
-            //this.sleep(100);
-            
-            // GeckoJS.Session.remove('current_transaction');
-            GeckoJS.Session.remove('cart_last_sell_item');
-            GeckoJS.Session.remove('cart_set_price_value');
-            GeckoJS.Session.remove('cart_set_qty_value');
+                // sleep to allow UI events to update
+                //this.sleep(100);
 
-            //this.dispatchEvent('onClear', 0.00);
-            this._getKeypadController().clearBuffer();
-            this.cancelReturn();
+                // GeckoJS.Session.remove('current_transaction');
+                GeckoJS.Session.remove('cart_last_sell_item');
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
 
-            // clear register screen if needed
-            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                this._cartView.empty();
+                //this.dispatchEvent('onClear', 0.00);
+                this._getKeypadController().clearBuffer();
+                this.cancelReturn();
+
+                // clear register screen if needed
+                if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                    this._cartView.empty();
+                }
+
+                if (status != 2) {
+                    if (status != 1) this.dispatchEvent('onWarning', '');
+                    this.dispatchEvent('onSubmit', oldTransaction);
+                }
+                else
+                    this.dispatchEvent('onGetSubtotal', oldTransaction);
             }
-
-            if (status != 2) {
-                if (status != 1) this.dispatchEvent('onWarning', '');
-                this.dispatchEvent('onSubmit', oldTransaction);
-            }
-            else
+            else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
-
+            }
         },
 
 

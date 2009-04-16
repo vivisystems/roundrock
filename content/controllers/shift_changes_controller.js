@@ -460,7 +460,7 @@
             var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
-                shiftChangeDetails:shiftChangeDetails,
+                shiftChangeDetails: shiftChangeDetails,
                 cashNet: cashNet,
                 balance: salesRevenue + ledgerInTotal + ledgerOutTotal,
                 salesRevenue: salesRevenue,

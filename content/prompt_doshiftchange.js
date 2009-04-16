@@ -59,10 +59,9 @@ var options;
         document.getElementById('cancel').setAttribute('disabled', false);
 
         document.getElementById('clearBtn').addEventListener('command', clearTextBox, false);
-        document.getElementById('amount').select();
+        document.getElementById('amount').textbox.select();
         
         document.getElementById('close').disabled = !canEndSalePeriod;
-        
         doSetOKCancel(
 
             function(){
