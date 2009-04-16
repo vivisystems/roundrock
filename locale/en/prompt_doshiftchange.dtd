@@ -1,6 +1,7 @@
 <!ENTITY prompt.shiftchange.title  "Shift Change">
 <!ENTITY prompt.shiftchange.cash  "Net Cash">
 <!ENTITY prompt.shiftchange.balance  "Balance">
+<!ENTITY prompt.shiftchange.deposit  "Deposit/Credit">
 <!ENTITY prompt.shiftchange.sales  "Sales Total">
 <!ENTITY prompt.shiftchange.ledger.in  "Non-sale In">
 <!ENTITY prompt.shiftchange.ledger.out  "Non-sale Out">

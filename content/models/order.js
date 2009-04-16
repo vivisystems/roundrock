@@ -307,7 +307,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
             orderPayment['shift_number'] = data.shift_number;
             orderPayment['terminal_no'] = data.terminal_no;
             
-            if (i == len) {
+            if (i == len && data.status == 1) {
                 orderPayment['change'] = Math.abs(data.remain);
             } else {
                 orderPayment['change'] = 0;

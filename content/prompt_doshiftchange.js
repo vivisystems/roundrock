@@ -6,6 +6,7 @@ var options;
     var balance = inputObj.balance;
     var giftcardExcess = inputObj.giftcardExcess;
     var salesRevenue = inputObj.salesRevenue;
+    var deposit = inputObj.deposit;
     var ledgerInTotal = inputObj.ledgerInTotal;
     var ledgerOutTotal = inputObj.ledgerOutTotal;
     var cashNet = inputObj.cashNet;
@@ -18,11 +19,12 @@ var options;
      */
     function startup() {
         // set ledger entry types
+        var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+        var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+        
         window.viewDetailHelper = new GeckoJS.NSITreeViewArray(shiftChangeDetails);
         window.viewDetailHelper.getCellValue= function(row, col) {
             
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
             var text;
             if (col.id == "type") {
                 text = _(this.data[row].type);
@@ -46,12 +48,13 @@ var options;
         };
         
         document.getElementById('shiftscrollablepanel').datasource = window.viewDetailHelper ;
-        document.getElementById('cash').value = cashNet;
-        document.getElementById('balance').value = balance;
-        document.getElementById('sales').value = salesRevenue;
-        document.getElementById('ledger_in').value = ledgerInTotal;
-        document.getElementById('ledger_out').value = ledgerOutTotal;
-        document.getElementById('excess').value = giftcardExcess;
+        document.getElementById('cash').value = cashNet.toFixed(precision_prices);
+        document.getElementById('balance').value = balance.toFixed(precision_prices);
+        document.getElementById('sales').value = salesRevenue.toFixed(precision_prices);
+        document.getElementById('deposit').value = deposit.toFixed(precision_prices);
+        document.getElementById('ledger_in').value = ledgerInTotal.toFixed(precision_prices);
+        document.getElementById('ledger_out').value = ledgerOutTotal.toFixed(precision_prices);
+        document.getElementById('excess').value = giftcardExcess.toFixed(precision_prices);
         
         document.getElementById('cancel').setAttribute('disabled', false);
 
@@ -63,7 +66,6 @@ var options;
         doSetOKCancel(
 
             function(){
-
                 inputObj.description = document.getElementById('description').value;
                 // inputObj.type = document.getElementById('type').value;
                 inputObj.type = 'IN';
