@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % SelectProductGroup SYSTEM "chrome://viviecr/locale/select_product_group.dtd">
+  %SelectProductGroup;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
+
+<window title="&productgroups.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js" />
+  
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
+  
+  <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_plugroups_view.js'/>
+
+  <script type="application/x-javascript" src="chrome://viviecr/content/select_product_group.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+            <caption label="&productgroups.title;" class="PageTitle" />
+            <label id="productgroups" hidden="true" value="" />
+            <hbox class="SelectBox">
+                <viviscrollablebuttonpanel id="productgroupscrollablepanel" flex="1" cols="4" rows="7" labelField="name"
+                                           class="catescrollablepanel"
+                                           buttonClass="plubtn"
+                                           scrollUpClass="ScrollUp"
+                                           scrollDownClass="ScrollDown" >
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
+            </hbox>
+            <spacer flex="1" />
+            <hbox>
+                <hbox class="ToolBar" flex="1">
+                    <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>    
+
+</window>

@@ -399,6 +399,14 @@ textbox:not([onclick]) *[readonly] {
     background: transparent url(images/prod-remove.png) center center no-repeat;
 }
 
+.upbtn {
+    background: transparent url(images/go-up.png) center center no-repeat;
+}
+
+.downbtn {
+    background: transparent url(images/go-down.png) center center no-repeat;
+}
+
 .soldoutbtn {
     border: 2px solid black !important;
     background: transparent url(images/prohibitsale.png) center center no-repeat;
@@ -407,6 +415,26 @@ textbox:not([onclick]) *[readonly] {
 .soldoutbtn[checked=true] {
     border: 2px solid black !important;
     background: yellow url(images/prohibitsale.png) center center no-repeat;
+}
+
+.clonebtn {
+    background: transparent url(images/copy-32x32.png) center center no-repeat;
+}
+
+.clonebtn[disabled=false] {
+    border: 2px solid black !important;
+}
+
+.clonebtn[disabled=true] {
+    border: 0px solid black !important;
+}
+
+.selectAllBtn {
+    background: transparent url(images/check.png) center center no-repeat;
+}
+
+.clearAllBtn {
+    background: transparent url(images/uncheck.png) center center no-repeat;
 }
 
 .dialogbtns .vkb {

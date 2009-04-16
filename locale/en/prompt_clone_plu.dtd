@@ -1,0 +1,8 @@
+<!ENTITY cloneplu.title  "Clone Product Settings">
+<!ENTITY cloneplu.settings.label  "Settings to Clone">
+<!ENTITY cloneplu.settings.basic.data  "Basic Data">
+<!ENTITY cloneplu.settings.appearance  "Appearance">
+<!ENTITY cloneplu.settings.condiments  "Condiments">
+<!ENTITY cloneplu.settings.prices  "Prices">
+<!ENTITY cloneplu.settings.linkgroups  "Link Groups">
+<!ENTITY cloneplu.target.name  "Product Name">

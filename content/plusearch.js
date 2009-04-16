@@ -28,13 +28,13 @@
             );
 
         // parse windows.arguments to get initial search parameters
-        if (window.arguments.length > 0) {
+        if (window.arguments && (window.arguments.length > 0)) {
             var inputObj = window.arguments[0];
 
             var buf = inputObj.buffer;
             var item = inputObj.item;
             var barcode;
-            if (buf.length > 0) {
+            if (buf && buf.length > 0) {
                 barcode = buf;
             }
             else if (item != null) {

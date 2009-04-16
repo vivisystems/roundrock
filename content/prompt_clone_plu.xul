@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % ClonePlu SYSTEM "chrome://viviecr/locale/prompt_clone_plu.dtd">
+  %ClonePlu;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&cloneplu.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    
+  <script type="application/x-javascript" src="chrome://viviecr/content/prompt_clone_plu.js" />
+    
+    <vbox class="pop-dialog" flex="1">
+        <vbox class="MainPnl" flex="1">
+            <groupbox  flex="1" orient="vertical">
+                <caption id="title-caption" label="" class="PageTitle"/>
+
+                <separator class="groove-thin" style="margin: 5px 0 5px 0"/>
+                <label id="settings-label" value="&cloneplu.settings.label;" class="PageTitle"/>
+
+                <grid class="DataForm">
+                    <columns>
+                        <column flex="1"/>
+                        <column flex="1"/>
+                        <column flex="1"/>
+                        <column flex="1"/>
+                        <column flex="1"/>
+                    </columns>
+                    <rows>
+                        <row id="row0">
+                            <checkbox id="setting-basic-data" checked="true" label="&cloneplu.settings.basic.data;" form="settingsForm" name="basic-data" default="1"/>
+                            <checkbox id="setting-appearance" checked="true" label="&cloneplu.settings.appearance;" form="settingsForm" name="appearance" default="1"/>
+                            <checkbox id="setting-prices" checked="false" label="&cloneplu.settings.prices;" form="settingsForm" name="prices" default="1"/>
+                            <checkbox id="setting-condiments" checked="true" label="&cloneplu.settings.condiments;" form="settingsForm" name="condiments" default="1"/>
+                            <checkbox id="setting-linkgroups" checked="true" label="&cloneplu.settings.linkgroups;" form="settingsForm" name="linkgroups" default="1"/>
+                        </row>
+                        <row id="row1">
+                        </row>
+                    </rows>
+                </grid>
+
+                <separator class="groove-thin" style="margin: 5px 0 5px 0"/>
+                <label id="targets-label" value="" class="PageTitle"/>
+
+                <viviscrollabletree id="targetscrollablepanel" flex="1" class="ListPnl"
+                                    headers="&cloneplu.target.name;"
+                                    fields="name" hidecolumnpicker="true" seltype="multiple"
+                                    oncommand="if (event.mode) this.selection.selectAll(); else this.selection.clearSelection()"
+                                    onselect="$('#ok')[0].setAttribute('disabled', this.selectedItems.length == 0)"
+                                    scrollUpClass="ScrollUp"
+                                    scrollDownClass="ScrollDown">
+                    <spacer flex="1" />
+                    <button id="select_all" oncommand="event.mode = 1" class="systoolbtn selectAllBtn"/>
+                    <button id="select_none" oncommand="event.mode = 0" class="systoolbtn clearAllBtn"/>
+                    <spacer flex="1" />
+                </viviscrollabletree>
+            </groupbox>
+            <spacer height="10px"/>
+            <hbox>
+                <hbox id="toolButtons" class="ToolBar" flex="1">
+                    <button id="ok" label="&dialog.okButton.label;" disabled="true" default="true" oncommand="doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label="" oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+    
+</window>

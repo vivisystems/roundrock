@@ -55,6 +55,7 @@
             // get browser content body
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById( 'abody' );
+            var print = document.getElementById('print');
             
             // load data
             var orderModel = new OrderModel();
@@ -73,6 +74,8 @@
 
             if (doc) {
                 doc.innerHTML = result;
+
+		print.setAttribute('disabled', false);
             }
         }
 

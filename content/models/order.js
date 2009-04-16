@@ -3,7 +3,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
     useDbConfig: 'order',
 
-    hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation'],
+    hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation', 'OrderItemCondiment'],
     hasOne: ['OrderObject'],
 
     behaviors: ['Sync'],
@@ -18,6 +18,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
         this.OrderAddition.delAll(cond);
         // this.OrderPayment.delAll(cond);
         this.OrderObject.delAll(cond);
+        this.OrderItemCondiment.delAll(cond);
     },
 
     saveOrder: function(data) {
@@ -34,6 +35,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
             r = this.saveOrderItems(data);
             r = this.saveOrderAdditions(data);
             r = this.saveOrderPayments(data);
+            r = this.saveOrderItemCondiments(data);
 
             // serialize to database
             // serialize must call serializeOrder by your self
@@ -91,6 +93,15 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
     },
 
+
+    saveOrderItemCondiments: function(data) {
+        var orderItemCondiments = this.mappingTranToOrderItemCondimentsFields(data);
+        var r;
+        this.OrderItemCondiment.begin();
+        r = this.OrderItemCondiment.saveAll(orderItemCondiments);
+        this.OrderItemCondiment.commit();
+        return r;
+    },
 
     mappingTranToOrderFields: function(data) {
         
@@ -175,6 +186,11 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
                     case 'hasMarker':
                         orderItem['has_marker'] = item[key];
                         break;
+                    case 'parent_index':
+                        if (item[key] != null && item[key] != '') {
+                            orderItem['parent_no'] = data.items[item[key]].no;
+                        }
+                        break;
                     case 'type':
                     case 'index':
                         break;
@@ -190,6 +206,42 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
         }
         return orderItems;
         
+    },
+
+
+    mappingTranToOrderItemCondimentsFields: function(data) {
+
+        var orderItemCondiments = [];
+
+        for (var iid in data.items) {
+
+            var item = data.items[iid];
+
+            for (var cond in item.condiments) {
+
+                var orderItemCondiment = {};
+
+                orderItemCondiment['item_id'] = iid;
+                orderItemCondiment['order_id'] = data.id;
+
+                var condiment = item.condiments[cond];
+
+                for (var key in condiment) {
+                    switch(key) {
+                        case 'id':
+                        case 'current_subtotal':
+                            break;
+
+                        default:
+                            orderItemCondiment[key] = condiment[key];
+                            break;
+                    }
+                }
+                orderItemCondiments.push(orderItemCondiment);
+            }
+        }
+        return orderItemCondiments;
+
     },
 
 
@@ -336,6 +388,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
             self.OrderObject.execute("DELETE FROM " + self.OrderObject.table + " WHERE " + cond);
             self.OrderReceipt.execute("DELETE FROM " + self.OrderReceipt.table + " WHERE " + cond);
             self.OrderAnnotation.execute("DELETE FROM " + self.OrderAnnotation.table + " WHERE " + cond);
+            self.OrderItemCondiment.execute("DELETE FROM " + self.OrderItemCondiment.table + " WHERE " + cond);
 
             // update progressbar...
             GeckoJS.BaseObject.sleep(50);

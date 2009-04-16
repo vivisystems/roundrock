@@ -22,8 +22,12 @@
         reserveHotKeys: {
             '$13': true,
             '$190': true,
-            'ctrl-$81': true,
-            'ctrl-$82': true,
+            'ctrl-$67': true, // ctrl+c
+            'ctrl-$79': true, // ctrl+o
+            'ctrl-$81': true, // ctrl+q
+            'ctrl-$82': true, // ctrl+r
+            'ctrl-$83': true, // ctrl+s
+            'ctrl-$86': true, // ctrl+v
             '$48': true,
             '$49': true,
             '$50': true,

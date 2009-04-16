@@ -42,10 +42,10 @@ var options;
 
         // hide input1?
         if (!('input1' in inputObj)) {
+            document.getElementById('row1').hidden = true;
             document.getElementById('title1').hidden = true;
             document.getElementById('input1').hidden = true;
             document.getElementById('input1').setAttribute('multiline', false);
-            document.getElementById('row1').setAttribute('flex', 0);
         }
         else {
             if ('multiline1' in inputObj) {

@@ -268,6 +268,14 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
   list-style-image: url(images/icon_add.png);
 }
 
+.BtnUp {
+  list-style-image: url(images/go-up.png);
+}
+
+.BtnDown {
+  list-style-image: url(images/go-down.png);
+}
+
 /* �����D��s�P�϶� ��}�B�x�s�B��L�K�� */
 .dialogbtns {
   background: #eee3d6;

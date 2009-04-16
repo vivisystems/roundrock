@@ -94,7 +94,7 @@
                     req.mozBackgroundRequest = true;
 
                     /* Request Timeout guard */
-                    var timout = null;
+                    var timeout = null;
                     timeout = setTimeout(function() {
                         clearTimeout(timeout);
                         req.abort();

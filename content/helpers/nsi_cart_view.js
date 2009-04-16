@@ -81,12 +81,9 @@
                     else newIndex = oldIndex;
                 }
                 */
-            }else {
-                this.tree.invalidate();
-                //this.tree.ensureRowIsVisible(oldIndex);
-                //this.tree.view.selection.currentIndex = oldIndex;
-                //this.tree.view.selection.select(oldIndex);
             }
+            this.tree.invalidate();
+
             if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
             else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
             //GREUtils.log('rowCountChanged 2: ' + rc1 + ', ' + rc2 + ', ' + newIndex);
@@ -206,6 +203,58 @@
             return this.data[row].level;
         },
 
+        isContainer: function(row) {
+            var itemDisplay = this.data[row];
+
+            // is a container only if this is the first condiment
+            var result = false;
+            if (itemDisplay.type == 'condiment') {
+
+                result = true;
+                // look back through data to see if another condiment exists
+                for (var i = row - 1; i >= 0; i--) {
+                    var item = this.data[i];
+                    //this.log('checking item [' + item.type + ']: ' + item.name);
+                    if (item.type == 'item' || item.type == 'setitem') {
+                        break;
+                    }
+                    else if (item.type == 'condiment') {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+
+            //this.log('isContainer [' + itemDisplay.name + ' (' + row + ')]: ' + result);
+            return result;
+        },
+
+        toggleOpenState: function(row) {
+            var itemDisplay = this.data[row];
+            if (itemDisplay.open) {
+                this._transaction.collapseCondiments(row);
+            }
+            else {
+                this._transaction.expandCondiments(row);
+            }
+        },
+
+        isContainerOpen: function(row) {
+            return this.data[row].open;
+        },
+
+        isContainerEmpty: function(row) {
+            return false;
+        },
+
+        hasNextSibling: function(row, afterIndex) {
+            return false;
+        },
+
+        getParentIndex: function(row) {
+            return -1;
+        },
+        
         getCurrentIndexData: function (row) {
             return this.data[row];
         }

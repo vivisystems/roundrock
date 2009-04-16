@@ -11,14 +11,17 @@
         _selectedIndex: null,
         _selCateNo: null,
         _selCateName: null,
-        _selCateIndex: null,
+        _selCateIndex: -1,
         components: ['Tax'],
         
         catePanelView: null,
         productPanelView: null,
         _pluset: [],
+        _productGroups: null,
         _selectedPluSetIndex: null,
         _condGroupsById: null,
+        _categoriesByNo: {},
+        _categoryIndexByNo: {},
 
         createGroupPanel: function () {
 
@@ -26,11 +29,16 @@
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
             var pluGroupModel = new PlugroupModel();
-            var groups = pluGroupModel.find('all');
+            var groups = pluGroupModel.find('all', {
+                order: 'display_order, name'
+            } );
 
             var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;
+
+            //this._productGroups = groups;
+            this._productGroups = GeckoJS.Session.get('categoriesIndexesAll').concat(GeckoJS.Session.get('allPlugroups'));
 
             var condGroups = GeckoJS.Session.get('condGroups');
 
@@ -71,6 +79,13 @@
         },
 
         createPluPanel: function () {
+            // construct categoryByNo lookup table
+            var categories = GeckoJS.Session.get('categories');
+            for (var i = 0; i < categories.length; i++) {
+                this._categoriesByNo['' + categories[i].no] = categories[i];
+                this._categoryIndexByNo['' + categories[i].no] = i;
+            };
+            
             // NSIDepartmentsView use rows and columns from preferences, so let's
             // save rows and columns attribute values here and restore them later
             var catpanel = document.getElementById('catescrollablepanel');
@@ -117,6 +132,9 @@
 
             // initialize input field states
             this.validateForm(true);
+
+            // initialize PluSet form
+            this.validatePluSetForm();
         },
 
         changePluPanel: function(index) {
@@ -210,7 +228,12 @@
             plupanel.ensureIndexIsVisible(index);
             
             if (product) {
-                product.cate_name = this._selCateName;
+                if (this._selCateNo == null) {
+                    product.cate_name = this._categoriesByNo[product.cate_no].name;
+                }
+                else {
+                    product.cate_name = this._selCateName;
+                }
                 this.setInputData(product);
 
                 this.reorderCondimentGroup();
@@ -227,18 +250,28 @@
             }
             
             this.validateForm(index == -1);
+
+            this.selectSetItem(-1);
         },
 
         getDepartment: function () {
             var cate_no = $('#cate_no').val();
             var cates_data = GeckoJS.Session.get('categories');
+            var index = this._selCateIndex;
 
+            if (this._selCateNo == null) {
+                var product = this.productPanelView.getCurrentIndexData(this._selectedIndex);
+                if (product) {
+                    index = this._categoryIndexByNo[product.cate_no];
+                }
+            }
+            
             var aURL = 'chrome://viviecr/content/select_department.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
                 cate_no: cate_no,
                 depsData: cates_data,
-                index: this._selCateIndex
+                index: index
             };
             window.openDialog(aURL, 'select_department', features, inputObj);
 
@@ -270,76 +303,91 @@
         
         getPluSetListObj: function() {
             if(this._listObj == null) {
-                this._listObj = document.getElementById('plusetscrollablepanel');
+                this._listObj = document.getElementById('plusetscrollabletree');
             }
             return this._listObj;
         },
 
-        clickPluSetsPanel: function (index) {
-            this._selectedPluSetIndex = index;
-        },
+        removeSetItem: function () {
+            var plusetscrollabletree = this.getPluSetListObj();
+            var selectedIndex = plusetscrollabletree.selectedIndex;
+            var selectedItems = plusetscrollabletree.selectedItems;
+            if (selectedIndex > -1 && selectedItems.length > 0) {
+                this._pluset.splice(selectedIndex, 1);
+                plusetscrollabletree.treeBoxObject.rowCountChanged(this._pluset.length, -1);
 
-        _searchPlu: function (barcode) {
-            $('#plu').val('').focus();
-            if (barcode == '') return;
-
-            var productsById = GeckoJS.Session.get('productsById');
-            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-            var product;
-
-            if (!barcodesIndexes[barcode]) {
-                // barcode notfound
-                return null;
-            }else {
-                var id = barcodesIndexes[barcode];
-                product = productsById[id];
-                return product;
+                if (selectedIndex >= this._pluset.length) {
+                    selectedIndex = this._pluset.length - 1;
+                }
+                this.selectSetItem(selectedIndex);
             }
         },
 
-        removePluSet: function (){
-            if (this._selectedPluSetIndex == null) return;
-            this._pluset.splice(this._selectedPluSetIndex, 1);
-            var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
-            this.getPluSetListObj().datasource = panelView;
+        moveSetItem: function (dir) {
+            var plusetscrollabletree = this.getPluSetListObj();
+            var selectedIndex = plusetscrollabletree.selectedIndex;
+            var selectedItems = plusetscrollabletree.selectedItems;
 
-            var setmenu = [];
-            this._pluset.forEach(function(o){
-                setmenu.push(encodeURI(o.no + '=' + o.qty));
-            });
-            $('#setmenu').val( setmenu.join('&'));
+            if (selectedIndex > -1 && selectedItems.length > 0) {
+                var newIndex = selectedIndex + dir;
+                if (newIndex >= this._pluset.length) {
+                    newIndex = this._pluset.length - 1;
+                }
+                else if (newIndex < 0) {
+                    newIndex = 0;
+                }
+
+                if (newIndex != selectedIndex) {
+                    var currentItem = this._pluset[selectedIndex];
+                    this._pluset[selectedIndex] = this._pluset[newIndex];
+                    this._pluset[newIndex] = currentItem;
+
+                    this.selectSetItem(newIndex);
+                }
+            }
         },
 
         _setPluSet: function () {
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-            var str = $('#setmenu').val();
+            var categories = GeckoJS.Session.get('categoriesById');
+            var groupsById = GeckoJS.Session.get('plugroupsById');
 
-            var pluset = GeckoJS.String.parseStr(str);
+            // get current product no
+            var productNo = document.getElementById('product_no').value;
 
-            // this.log('pluset:' + this.dump(pluset));
+            if (productNo != null && productNo != '') {
+                // load set items from DB
+                var setItemModel = new SetItemModel();
+                this._pluset = setItemModel.findByIndex('all', {
+                    index: 'pluset_no',
+                    value: productNo,
+                    order: 'sequence'
+                });
+            }
+            else {
+                this._pluset = [];
+            }
 
-            this._pluset = [];
-            for (var key in pluset) {
-                key = decodeURI(key);
-                if (key == '') break;
-                
-                var qty = pluset[key];
-                try {
-                    var id = barcodesIndexes[key];
-                    var name = productsById[id].name;
-                    this._pluset.push({
-                        no: key,
-                        name: name,
-                        qty: qty
-                    });
-                } catch (e) {
-                    var id = '';
-                    var name = '';
+            // retrieve current product and group names
+            for (var i = 0; i < this._pluset.length; i++) {
+                var preset_no = this._pluset[i].preset_no;
+                var linkgroup_id = this._pluset[i].linkgroup_id;
+
+                var product_id = barcodesIndexes[preset_no];
+                var product = product_id ? productsById[product_id] : '';
+
+                var group = groupsById[linkgroup_id];
+                if (typeof group == 'undefined') {
+                    // try department
+                    group = categories[linkgroup_id];
                 }
-                
-            };
 
+                this._pluset[i].preset = product ? product.name : '';
+                this._pluset[i].linkgroup = group ? group.name : '';
+                this._pluset[i].reduction_label = this._pluset[i].reduction ? _('Y') : _('N');
+            }
+        
             var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
             this.getPluSetListObj().datasource = panelView;
         },
@@ -374,66 +422,144 @@
             document.getElementById('cond_group_name').value = cond_group_name;
         },*/
 
-        getPlu: function (){
+        addSetItem: function (){
 
-            var aURL = 'chrome://viviecr/content/prompt_addpluset.xul';
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
-                input0:null, require0:true, alphaOnly0:true,
-                input1:1, require1:true, numberOnly1:true
+                input0:null, require0:true
             };
 
-            window.openDialog(aURL, _('Add New Product Set'), features, _('Product Set'), '', _('Product No.or Barcode'), _('Quantity'), inputObj);
+            window.openDialog(aURL, _('Add New Set Item'), features, _('Set Item'), '', _('Label'), '', inputObj);
 
-            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
-                var product = this._searchPlu(inputObj.input0);
-                if (product) {
-                    // validate product - must not be a product set itself, must not be this product set
-                    var formData = this.getInputData();
-                    if (product.no == formData.no) {
-                        //@todo OSD?
-                        GREUtils.Dialog.alert(window,
-                                              _('Product Set'),
-                                              _('[%S] (%S) may not be a member of its own product set.', [product.name, inputObj.input0]));
-                        return;
-                    }
+            if (inputObj.ok && inputObj.input0) {
+                
+                var newItem = {
+                    label: inputObj.input0,
+                    preset: '',
+                    baseprice: '',
+                    quantity: 1,
+                    linkgroup: '',
+                    reduction: 0,
+                    reduction_label: _('N'),
+                    preset_no: '',
+                    linkgroup_id: ''
+                };
 
-                    if (product.setmenu != null && product.setmenu.length > 0) {
-                        GREUtils.Dialog.alert(window,
-                                              _('Product Set'),
-                                              _('[%S] (%S) is a product set and may not be a member of another product set.', [product.name, inputObj.input0]));
-                        return;
-                    }
-
-                    var inputData = {
-                        no: product.no,
-                        name: product.name,
-                        qty: inputObj.input1
-                    };
-
-                    var index = this.getPluSetListObj().currentIndex;
-
-                    if (index < 0)
-                        this._pluset.push(inputData);
-                    else {
-                        this._pluset.splice(index, 0, inputData);
-                    }
-
-                    var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
-                    this.getPluSetListObj().datasource = panelView;
-                    var setmenu = [];
-                    this._pluset.forEach(function(o){
-                        setmenu.push(encodeURI(o.no + '=' + o.qty));
-                    });
-                    $('#setmenu').val( setmenu.join('&'));
-                }
-                else {
-                    GREUtils.Dialog.alert(window,
-                                          _('Product Set'),
-                                          _('Product not found [%S].', [inputObj.input0]));
-                }
+                // splice into current data
+                var plusetscrollabletree = this.getPluSetListObj();
+                var index = plusetscrollabletree.selectedIndex;
+                
+                this._pluset.splice(++index, 0, newItem);
+                
+                plusetscrollabletree.treeBoxObject.rowCountChanged(this._pluset.length, 1);
+                this.selectSetItem(index);
             }
 
+        },
+
+        modifySetItem: function() {
+            var plusetscrollabletree = this.getPluSetListObj();
+            var selectedIndex = plusetscrollabletree.selectedIndex;
+
+            if (selectedIndex > -1) {
+                var modifiedItem = GeckoJS.FormHelper.serializeToObject('setitemForm');
+                modifiedItem.reduction_label = (modifiedItem.reduction) ? _('Y') : _('N');
+
+                this._pluset[selectedIndex] = modifiedItem;
+                plusetscrollabletree.treeBoxObject.ensureRowIsVisible(selectedIndex);
+                plusetscrollabletree.refresh();
+            }
+        },
+        
+        selectSetItem: function(index) {
+
+            var setItem = this._pluset[index];
+            var plusetscrollabletree = this.getPluSetListObj();
+            
+            if (setItem) {
+                GeckoJS.FormHelper.unserializeFromObject('setitemForm', setItem);
+            }
+            else {
+                GeckoJS.FormHelper.reset('setitemForm');
+            }
+
+            plusetscrollabletree.selection.select(index);
+            plusetscrollabletree.treeBoxObject.ensureRowIsVisible(index);
+            plusetscrollabletree.refresh();
+
+            this.validatePluSetForm();
+        },
+
+        selectProduct: function() {
+            
+            var aURL = "chrome://viviecr/content/plusearch.xul";
+            var aName = _('Product Search');
+            var width = this.screenwidth;
+            var height = this.screenheight;
+            var pluNo = document.getElementById('setitem_preset_no').value;
+            var productNo = document.getElementById('product_no').value;
+            var inputObj = {buffer: pluNo};
+
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
+            if (inputObj.ok) {
+                if (inputObj.item) {
+                    if (inputObj.item.SetItem && inputObj.item.SetItem.length > 0) {
+                        NotifyUtils.warn(_('[%S] (%S) is a product set and may not be a member of another product set.', [inputObj.item.name, inputObj.item.no]));
+                    }
+                    else if (inputObj.item.no == productNo) {
+                        NotifyUtils.warn(_('[%S] (%S) may not be a member of its own product set.', [inputObj.item.name, inputObj.item.no]));
+                    }
+                    else {
+                        document.getElementById('setitem_preset').value = inputObj.item.name;
+                        document.getElementById('setitem_preset_no').value = inputObj.item.no;
+                    }
+                }
+            }
+            else {
+                document.getElementById('setitem_preset').value = '';
+                document.getElementById('setitem_preset_no').value = ''
+            }
+
+            this.validatePluSetForm();
+        },
+
+        selectProductGroup: function() {
+
+            var aURL = "chrome://viviecr/content/select_product_group.xul";
+            var aName = _('Product Group');
+            var width = this.screenwidth;
+            var height = this.screenheight;
+            var groupNameObj = document.getElementById('setitem_linkgroup');
+            var groupIdObj = document.getElementById('setitem_linkgroup_id');
+
+            var groupId = groupIdObj.value;
+
+            // locate index of selected index
+            var productGroups = this._productGroups;
+            
+            var index = -1;
+            if (groupId != '' && productGroups != null) {
+                for (var i = 0; i < productGroups.length; i++) {
+                    if (productGroups[i].id == groupId) {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            var inputObj = {groupData: productGroups, index: index, plugroupOnly: false};
+
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
+            if (inputObj.ok && inputObj.group_id != '') {
+                groupNameObj.value = inputObj.group_name;
+                groupIdObj.value = inputObj.group_id;
+            }
+            else {
+                groupNameObj.value = '';
+                groupIdObj.value = '';
+            }
+
+            this.validatePluSetForm();
         },
 
         initDefaultTax: function () {
@@ -572,12 +698,44 @@
                         }
                     }
                 }
+
+                // if set items are defined, make sure product is not the default iten of another prouct set
+                if (this._pluset != null && this._pluset.length > 0) {
+                    var setItemModel = new SetItemModel();
+
+                    var pluSetItem = setItemModel.findByIndex('first', {
+                        index: 'preset_no',
+                        value: data.no
+                    });
+                    if (pluSetItem) {
+                        NotifyUtils.warn(_('This product is part of product set [%S] and may not itself be a product set', [pluSetItem.pluset_no]));
+                        return 8;
+                    }
+
+                    // also make sure each set item entry has either preset_no or linkgroup_id set
+                    for (var i = 0; i < this._pluset.length; i++) {
+                        var entry = this._pluset[i];
+                        if ((entry.preset_no == null || entry.preset_no == '') &&
+                            (entry.linkgroup_id == null || entry.linkgroup_id == '')) {
+                            NotifyUtils.warn(_('Product set item [%S] does not have either default item or group configured', [entry.label]));
+                            return 9;
+                        }
+                    }
+                }
             }
             return result;
         },
 
         add: function  () {
-            if (this._selCateNo == null) return;
+            if (this._selCateNo == null) {
+                if (this._selCateIndex == -1) return;
+
+                var plugroup = this.catePanelView.getCurrentIndexData(this._selCateIndex);
+
+                // product group selected, put up product picker and add the selected product to this product group
+                this.addProductToGroup(plugroup);
+                return;
+            }
 
             // auto-generate?
             var autoProdNo = GeckoJS.Configure.read('vivipos.fec.settings.AutoGenerateProdNo');
@@ -672,33 +830,6 @@
 
         },
 
-        _setMenuFromString: function (plu) {
-            //GREUtils.log('setMenuStr: ' + setMenuStr);
-            var entries = plu.setmenu.split('&');
-            var setitems = [];
-            //GREUtils.log('entries: ' + GeckoJS.BaseObject.dump(entries));
-            if (entries.length > 0) {
-                for (var i = 0; i < entries.length; i++) {
-                    var entry = entries[i].split('=');
-                    var plucode = entry[0];
-                    var pluqty = entry[1];
-
-                    //GREUtils.log('entry: ' + GeckoJS.BaseObject.dump(entry));
-                    var product = this._searchPlu(plucode);
-
-                    if (product != null) {
-                        //GREUtils.log('product: ' + GeckoJS.BaseObject.dump(product));
-                        var setitem = {product_id: plu.id,
-                                       item_id: product.id,
-                                       quantity: pluqty};
-                        setitems.push(setitem);
-                        //GREUtils.log('setitem: ' + GeckoJS.BaseObject.dump(setitem));
-                    }
-                }
-            }
-            return setitems;
-        },
-
         modify: function  () {
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
@@ -711,8 +842,6 @@
             if (this._checkData(inputData) == 0) {
                 var prodModel = new ProductModel();
                 //try {
-                    var setitems = this._setMenuFromString(inputData);
-                    
                     prodModel.id = inputData.id;
                     prodModel.save(inputData);
                     
@@ -722,27 +851,50 @@
 
                     // first we delete old items
                     var oldSetItems = setItemModel.findByIndex('all', {
-                        index: 'product_id',
-                        value: prodModel.id
+                        index: 'pluset_no',
+                        value: inputData.no
                     });
-
-                    oldSetItems.forEach(function(item) {
-                        setItemModel.del(item.id);
+                    
+                    oldSetItems.forEach(function(setitem) {
+                        setItemModel.del(setitem.id);
                     })
 
                     // then we add new set items
 
-                    setitems.forEach(function(item) {
-                        item.id = '';
-                        setItemModel.save(item);
-                    })
-                    
+                    if (this._pluset != null && this._pluset.length > 0) {
+
+                        for (var i = 0; i < this._pluset.length; i++) {
+                            var setitem = this._pluset[i];
+                            setitem.id = '';
+                            setItemModel.id = '';
+                            setitem.sequence = i;
+                            setitem.pluset_no = inputData.no;
+
+                            setItemModel.save(setitem);
+                        }
+                        product.SetItem = this._pluset;
+                    }
+                    else {
+                        product.SetItem = [];
+                    }
                     this.updateSession('modify', inputData, product);
-                    
+
                     var newIndex = this._selectedIndex;
                     if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
 
-                    this.clickPluPanel(newIndex);
+                    //this.clickPluPanel(newIndex);
+
+                    if (!this._setCateNo) {
+                        // if current department is a product group, order may have changed so we need to re-scan
+                        var data = this.productPanelView.data;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i] == inputData.id) {
+                                newIndex = i;
+                                break;
+                            }
+                        }
+                        this.clickPluPanel(newIndex);
+                    }
 
                     // @todo OSD
                     OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
@@ -782,18 +934,18 @@
             if (product) {
                 // check if product is included in set menu; if it is, don't allow removal
                 var setItemModel = new SetItemModel();
-                var setMenu = setItemModel.findByIndex('first', {
-                    index: 'item_id',
-                    value: product.id
+                var pluset = setItemModel.findByIndex('first', {
+                    index: 'preset_no',
+                    value: product.no
                 });
-                if (setMenu != null) {
-                    NotifyUtils.warn(_('Product [%S] is part of a product set [%S] and may not be removed', [product.name, setMenu.Product.name]));
+                if (pluset != null) {
+                    NotifyUtils.warn(_('Product [%S] is part of a product set [%S] and may not be removed', [product.name, pluset.pluset_no]));
                     return;
                 }
 
                 if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
                 
-                    try {
+                    //try {
                         prodModel.del(product.id);
 
                         // cascade delete set items
@@ -801,16 +953,15 @@
                         var setItemModel = new SetItemModel();
 
                         var oldSetItems = setItemModel.findByIndex('all', {
-                            index: 'product_id',
-                            value: product.id
+                            index: 'pluset_no',
+                            value: product.no
                         });
 
-                        oldSetItems.forEach(function(item) {
-                            setItemModel.del(item.id);
-                            try {
-                                this.RemoveImage(item.no);
-                            } catch (e) {}
+                        oldSetItems.forEach(function(setitem) {
+                            setItemModel.del(setitem.id);
                         })
+
+                        this.RemoveImage(product.no);
                         
                         this.updateSession('remove', product);
 
@@ -821,13 +972,53 @@
 
                         // @todo OSD
                         OsdUtils.info(_('Product [%S] removed successfully', [product.name]));
-                    }
+                    /*}
                     catch (e) {
                         // @todo OSD
                         NotifyUtils.error(_('An error occurred while removing Product [%S]. The product may not have been removed successfully', [product.name]));
                     }
+                        */
                 }
             }
+        },
+
+        addProductToGroup: function(plugroup) {
+
+            var aURL = "chrome://viviecr/content/plusearch.xul";
+            var aName = _('Product Search');
+            var width = this.screenwidth;
+            var height = this.screenheight;
+            var inputObj = {buffer: ''};
+
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
+            if (inputObj.ok) {
+                if (inputObj.item) {
+                    var product = inputObj.item;
+
+                    if (product.link_group.indexOf(plugroup.id) > -1) {
+                        // @todo OSD
+                        NotifyUtils.warn(_('Product [%S] already linked to to product group [%S]',
+                                           [product.name, plugroup.name]));
+                    }
+                    else {
+                        alert('adding product to group');
+
+                        product.link_group += ((product.link_group) ? ',' : '') + plugroup.id;
+                        alert('new product groups: ' +  product.link_group);
+
+                        var productModel = new ProductModel();
+                        productModel.id = product.id;
+                        productModel.save(product);
+                        
+                        this.updateSession('modify', product, product);
+
+                        // @todo OSD
+                        OsdUtils.info(_('Product [%S] successfully linked to product group [%S]',
+                                        [product.name, plugroup.name]));
+                    }
+                }
+            }
+            this.validateForm();
         },
 
         updateSession: function(action, data, oldData) {
@@ -1160,9 +1351,175 @@
             }
         },
 
+        clonePlu: function() {
+            if (this._selectedIndex != null && this._selectedIndex > -1) {
+                // get source product
+                var index = this._selectedIndex;
+                var product = this.productPanelView.getCurrentIndexData(index);
+                var productsById = GeckoJS.Session.get('productsById');
+                var targets = [];
+                var targetIndexes = [];
+                var targetGroupName = '';
+
+                // get target
+                if (this._selCateNo == null) {
+                    if (this._selCateIndex == -1) {
+                        return;
+                    }
+
+                    // target is product group
+                    var plugroup = this.catePanelView.getCurrentIndexData(this._selCateIndex);
+                    var productsIndexesByGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+
+                    targetGroupName = _('Product Group [%S]', [plugroup.name]);
+                    targetIndexes = productsIndexesByGroupAll[plugroup.id];
+                }
+                else {
+                    var cateIndex = this._selCateIndex;
+                    var category = this.catePanelView.getCurrentIndexData(cateIndex);
+                    var productsIndexesByCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+
+                    targetGroupName = _('Department [%S (%S)]', [category.name, category.no]);
+                    targetIndexes = productsIndexesByCateAll[category.no];
+                }
+                targetIndexes.map(function(index) {
+                                      if (index != product.id) targets.push(productsById[index]);
+                                  });
+                
+                // get data set to clone
+                // a. basic data (Tax + switches)
+                // b. appearance
+                // c. condiments
+                // d. prices
+                // e. link groups
+                var aURL = 'chrome://viviecr/content/prompt_clone_plu.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * .9 + ',height=' + this.screenheight * .9;
+                var inputObj = {
+                    title: _('Product to Clone') + ' [' + product.name + ']',
+                    targetsLabel: targetGroupName,
+                    targets: targets
+                };
+
+                window.openDialog(aURL, _('Clone Product'), features, inputObj);
+
+                if (inputObj.ok && inputObj.selectedItems && inputObj.selectedItems.length > 0) {
+
+                    var productModel = new ProductModel();
+
+                    for (var i = 0; i < inputObj.selectedItems.length; i++) {
+                        var oldData = targets[inputObj.selectedItems[i]];
+                        var newData = GREUtils.extend({}, oldData);
+
+                        var modified = false;
+
+                        if (inputObj.cloneSettings['basic-data']) {
+                            modified = true;
+
+                            newData.rate = product.rate;
+                            newData.auto_maintain_stock = product.auto_maintain_stock;
+                            newData.return_stock = product.return_stock;
+                            newData.force_memo = product.force_memo;
+                            newData.visible = product.visible;
+                            newData.single = product.single;
+                            newData.age_verification = product.age_verification;
+                            newData.icon_only = product.icon_only;
+                            newData.manual_adjustment_only = product.manual_adjustment_only;
+                            newData.memo = product.memo;
+                        }
+
+                        if (inputObj.cloneSettings['appearance']) {
+                            modified = true;
+
+                            newData.button_color = product.button_color;
+                            newData.font_size = product.font_size;
+                        }
+
+                        if (inputObj.cloneSettings['prices']) {
+                            modified = true;
+
+                            for (var level = 1; level <= 9; level++) {
+                                newData['level_enable' + level] = product['level_enable' + level];
+                                newData['price_level' + level] = product['price_level' + level];
+                                newData['halo' + level] = product['halo' + level];
+                                newData['lalo' + level] = product['lalo' + level];
+                            }
+                        }
+
+                        if (inputObj.cloneSettings['condiments']) {
+                            newData.force_condiment = product.force_condiment;
+                            newData.cond_group = product.cond_group;
+                            modified = true;
+                        }
+
+                        if (inputObj.cloneSettings['linkgroups']) {
+                            newData.link_group = product.link_group;
+                            modified = true;
+                        }
+
+                        if (modified) {
+                            productModel.id = newData.id;
+                            productModel.save(newData);
+
+                            this.updateSession('modify', newData, oldData);
+                        }
+                    }
+                    // @todo OSD
+                    OsdUtils.info(_('Product [%S] cloned successfully', [product.name]));
+                }
+            }
+        },
+
+        validatePluSetForm: function() {
+            // input elements
+            var selectedIndex = this.getPluSetListObj().selectedIndex;
+            var label = document.getElementById('setitem_label').value;
+            var qty = parseInt(document.getElementById('setitem_quantity').value);
+            var preset = document.getElementById('setitem_preset_no').value;
+            var linkgroup = document.getElementById('setitem_linkgroup_id').value;
+
+            // action elements
+            var modifyBtn = document.getElementById('modify_setitem');
+            var presetObj = document.getElementById('setitem_preset');
+            var groupObj = document.getElementById('setitem_linkgroup');
+
+            // enable modify btn if:
+            //
+            // 1. an setitem has been selected
+            // 2. label is not null
+            // 3. either or both of preset and linkgroup are set
+            // 4. qty > 0
+            if (selectedIndex > -1) {
+                if ((label != null && label != '') &&
+                    ((preset != null && preset != '') || (linkgroup != null && linkgroup != '')) &&
+                    (qty > 0)) {
+                    modifyBtn.removeAttribute('disabled');
+                }
+                else {
+                    modifyBtn.setAttribute('disabled', true);
+                }
+                presetObj.removeAttribute('disabled');
+                groupObj.removeAttribute('disabled');
+            }
+            else {
+                modifyBtn.setAttribute('disabled', true);
+                presetObj.setAttribute('disabled', true);
+                groupObj.setAttribute('disabled', true);
+            }
+        },
+        
         validateForm: function(resetTabs) {
             // category selected?
-            document.getElementById('add_plu').setAttribute('disabled', (this._selCateNo == null || this._selCateNo == -1));
+            if (this._selCateNo == null || this._selCateNo == -1) {
+                if (this._selCateIndex != -1) {
+                    document.getElementById('add_plu').setAttribute('disabled', false);
+                }
+                else {
+                    document.getElementById('add_plu').setAttribute('disabled', true);
+                }
+            }
+            else {
+                document.getElementById('add_plu').setAttribute('disabled', false);
+            }
 
             // reset tab panel to first tab?
             if (resetTabs) document.getElementById('tabs').selectedIndex = 0;
@@ -1171,6 +1528,7 @@
             if (this._selectedIndex == null || this._selectedIndex == -1) {
                 // disable Modify, Delete buttons
                 document.getElementById('modify_plu').setAttribute('disabled', true);
+                document.getElementById('clone_plu').setAttribute('disabled', true);
                 document.getElementById('delete_plu').setAttribute('disabled', true);
 
                 // disable all tabs
@@ -1202,6 +1560,7 @@
 
                 // conditionally enable Modify, Delete buttons
                 document.getElementById('modify_plu').setAttribute('disabled', productName.length == 0);
+                document.getElementById('clone_plu').setAttribute('disabled', false);
                 document.getElementById('delete_plu').setAttribute('disabled', false);
             }
         }

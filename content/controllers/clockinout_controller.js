@@ -90,12 +90,14 @@
             var username;
             var userpass = document.getElementById('user_password').value;
             var jobname;
+            var displayname;
             var index;
 
             if (this.userpanel && this.users) {
                 index = this.userpanel.selectedIndex;
                 if (index > -1 && index < this.users.length) {
                     username = this.users[index].username;
+                    displayname = this.users[index].displayname;
                 }
             }
             
@@ -134,7 +136,7 @@
                         return;
                     }
                     var clockstamp = new ClockStampModel();
-                    clockstamp.saveStamp('clockin', username, jobname);
+                    clockstamp.saveStamp('clockin', username, jobname, displayname);
 
                     this.listSummary(username);
                     $('#user_password').val('');

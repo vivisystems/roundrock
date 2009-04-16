@@ -1783,6 +1783,15 @@ msgstr "Display Name"
 msgid "(rpt)Access Group"
 msgstr "Access Group"
 
+msgid "(rpt)Telphone"
+msgstr "Telphone"
+
+msgid "(rpt)Start"
+msgstr "Start"
+
+msgid "(rpt)End"
+msgstr "End"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -1863,6 +1872,30 @@ msgstr ""
 
 msgid "Unable to display order; no order sequence given"
 msgstr ""
+
+msgid "Promotions Manager"
+msgstr ""
+
+msgid "acl_manage_promotions"
+msgstr "Promotions Manager"
+
+msgid "trigger.bypass.label"
+msgstr "ByPass"
+
+msgid "trigger.bypass.name"
+msgstr "ByPass"
+
+msgid "trigger.bypass.desc"
+msgstr "ByPass Trigger always pass success to promotion type."
+
+msgid "type.bypass.label"
+msgstr "ByPass"
+
+msgid "type.bypass.name"
+msgstr "ByPass"
+
+msgid "type.bypass.desc"
+msgstr "ByPass Type always pass success."
 
 msgid "confirm timezone change"
 msgstr ""
@@ -2097,7 +2130,19 @@ msgstr ""
 msgid "Not an open order; cannot modify the selected item"
 msgstr ""
 
+msgid "Price/quantity of product set item [%S] may not be modified"
+msgstr ""
+
 msgid "Cannot modify the selected item [%S]"
+msgstr ""
+
+msgid "Cannot modify condiments when collapsed"
+msgstr ""
+
+msgid "Cannot modify condiment quantity"
+msgstr ""
+
+msgid "Cannot modify condiment price; no price entered"
 msgstr ""
 
 msgid "Not authorized to modify condiment price"
@@ -2112,9 +2157,6 @@ msgstr ""
 msgid "Cannot modify; no price or quantity entered"
 msgstr ""
 
-msgid "Cannot modify condiment price; no price entered"
-msgstr ""
-
 msgid "Not authorized to modify price"
 msgstr ""
 
@@ -2122,6 +2164,12 @@ msgid "Not authorized to modify quantity"
 msgstr ""
 
 msgid "Product [%S] may not be modified with a price of [%S]!"
+msgstr ""
+
+msgid "Quantity of product set item [%S] may not be modified"
+msgstr ""
+
+msgid "Quantity of condiment [%S] may not be modified"
 msgstr ""
 
 msgid "Cannot modify quantity of selected item [%S]"
@@ -2405,15 +2453,6 @@ msgstr ""
 msgid "Not an open order; unable to store"
 msgstr ""
 
-msgid "fatal error!!"
-msgstr ""
-
-msgid "Check# %S is exist!!"
-msgstr ""
-
-msgid "Table# %S is exist!!"
-msgstr ""
-
 msgid "This order has been submitted"
 msgstr ""
 
@@ -2424,6 +2463,9 @@ msgid "This order is empty"
 msgstr ""
 
 msgid "No change to store"
+msgstr ""
+
+msgid "fatal error!!"
 msgstr ""
 
 msgid "This order has been modified and must be stored first"
@@ -2780,6 +2822,12 @@ msgstr ""
 msgid "Image (%S) is successfully deleted"
 msgstr ""
 
+msgid "Rename Image"
+msgstr ""
+
+msgid "Original image: "
+msgstr ""
+
 msgid "Image (%S) successfully renamed to (%S)"
 msgstr ""
 
@@ -2985,6 +3033,12 @@ msgstr ""
 msgid "The Check# %S has been merged to Check# %S!!"
 msgstr ""
 
+msgid "trigger."
+msgstr ""
+
+msgid "type."
+msgstr ""
+
 msgid "Add New Filter"
 msgstr ""
 
@@ -3030,6 +3084,9 @@ msgstr ""
 msgid "Duplicate Product Group name [%S]; Product group not modified."
 msgstr ""
 
+msgid "[%S] belongs to one or more product sets and may not be deleted"
+msgstr ""
+
 msgid ""
 "[%S] has been linked to one or more check printers and may not be deleted"
 msgstr ""
@@ -3037,26 +3094,20 @@ msgstr ""
 msgid "Product Group [%S] removed successfully"
 msgstr ""
 
-msgid "Add New Product Set"
+msgid "Add New Set Item"
 msgstr ""
 
-msgid "Product Set"
+msgid "Set Item"
 msgstr ""
 
-msgid "Product No.or Barcode"
-msgstr ""
-
-msgid "Quantity"
-msgstr ""
-
-msgid "[%S] (%S) may not be a member of its own product set."
+msgid "Label"
 msgstr ""
 
 msgid ""
 "[%S] (%S) is a product set and may not be a member of another product set."
 msgstr ""
 
-msgid "Product not found [%S]."
+msgid "[%S] (%S) may not be a member of its own product set."
 msgstr ""
 
 msgid "Product No. must not be empty."
@@ -3087,6 +3138,14 @@ msgstr ""
 
 msgid ""
 "Price level %S preset price [%S] is less than LALO [%S]; product not modified"
+msgstr ""
+
+msgid ""
+"This product is part of product set [%S] and may not itself be a product set"
+msgstr ""
+
+msgid ""
+"Product set item [%S] does not have either default item or group configured"
 msgstr ""
 
 msgid "Add New Product"
@@ -3126,6 +3185,27 @@ msgstr ""
 msgid ""
 "An error occurred while removing Product [%S]. The product may not have been "
 "removed successfully"
+msgstr ""
+
+msgid "Product [%S] already linked to to product group [%S]"
+msgstr ""
+
+msgid "Product [%S] successfully linked to product group [%S]"
+msgstr ""
+
+msgid "Product Group [%S]"
+msgstr ""
+
+msgid "Department [%S (%S)]"
+msgstr ""
+
+msgid "Product to Clone"
+msgstr ""
+
+msgid "Clone Product"
+msgstr ""
+
+msgid "Product [%S] cloned successfully"
 msgstr ""
 
 msgid "Product [%S] Not Found!"
@@ -3215,7 +3295,58 @@ msgstr ""
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
+msgid "Add New Promotion Rule"
+msgstr ""
+
+msgid "New Promotion Rule"
+msgstr ""
+
+msgid "Rule Name"
+msgstr ""
+
+msgid "Rule Code"
+msgstr ""
+
+msgid "Promotion Rule [%S] already exists."
+msgstr ""
+
+msgid "Promotion Rule [%S] added successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while adding Promotion Rule [%S]. The rule may not have "
+"been added successfully"
+msgstr ""
+
+msgid "Promotion Rule [%S] removed successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while removing Promotion Rule [%S]. The group may not have "
+"been removed successfully"
+msgstr ""
+
+msgid "Promotion Rule [%S] modified successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while removing Promotion Rule [%S]. The group may not have "
+"been modified successfully"
+msgstr ""
+
 msgid "Password and Verify Password not the same"
+msgstr ""
+
+msgid "Recall Check"
+msgstr ""
+
+msgid "Split Check"
+msgstr ""
+
+msgid "Merge Check"
+msgstr ""
+
+msgid "Select Table No"
 msgstr ""
 
 msgid "Invalid cash drawer change amount [%S]"
@@ -3299,6 +3430,81 @@ msgid "<Restore from Stick> is done!!"
 msgstr ""
 
 msgid "Must select a item from stick list."
+msgstr ""
+
+msgid "Add Table"
+msgstr ""
+
+msgid "New Table"
+msgstr ""
+
+msgid "Table No"
+msgstr ""
+
+msgid "Table Name"
+msgstr ""
+
+msgid "Table No [%S] has already been assigned exists"
+msgstr ""
+
+msgid "Table [%S] added successfully"
+msgstr ""
+
+msgid "Table [%S (%S)] modified successfully"
+msgstr ""
+
+msgid "confirm delete table [%S (%S)]"
+msgstr ""
+
+msgid "Are you sure you want to delete table [%S (%S)]?"
+msgstr ""
+
+msgid "Table [%S (%S)] deleted successfully"
+msgstr ""
+
+msgid "Add Region"
+msgstr ""
+
+msgid "New Region"
+msgstr ""
+
+msgid "Region Name"
+msgstr ""
+
+msgid "Region [%S] added successfully"
+msgstr ""
+
+msgid "Region [%S] modified successfully"
+msgstr ""
+
+msgid "confirm delete region [%S (%S)]"
+msgstr ""
+
+msgid "Are you sure you want to delete region [%S]?"
+msgstr ""
+
+msgid "Region [%S] deleted successfully"
+msgstr ""
+
+msgid "Add Booking"
+msgstr ""
+
+msgid "New Booking"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Telephone"
+msgstr ""
+
+msgid "Booking added successfully"
+msgstr ""
+
+msgid "Booking [%S] modified successfully"
+msgstr ""
+
+msgid "Options saved successfully"
 msgstr ""
 
 msgid "Tax code must not be empty."
@@ -3514,6 +3720,9 @@ msgstr ""
 msgid "Attendance Record Report"
 msgstr ""
 
+msgid "We are now on the first page."
+msgstr ""
+
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
@@ -3548,9 +3757,6 @@ msgid "item"
 msgstr ""
 
 msgid "order"
-msgstr ""
-
-msgid "Sales Summary Report"
 msgstr ""
 
 msgid "Product Stock List"

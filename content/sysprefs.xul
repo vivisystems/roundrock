@@ -54,6 +54,7 @@
             <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool" />
             <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int" />
             <preference id="pref_idletime" name="vivipos.fec.settings.idle.time" type="int" />
+            <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool" />
 
         </preferences>
 
@@ -87,6 +88,7 @@
                         <label control="idletime" value="&general.idletime;"/>
                         <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
                     </hbox>
+                    <checkbox preference="pref_collapsecondiments" id="pref_collapsecondimentsCtrl" label="&general.collapsecondiments;" />
                 </row>
                 <row>
                     <vbox>
@@ -339,7 +341,7 @@
                     <label control="depcols" value="&layout.department.cols;"/>
                     <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
                     <label control="depbtnheight" value="&layout.department.button.height;"/>
-                    <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="50" max="200" size="3" maxlength="3"/>
+                    <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
                 </row>
                 <row>
                     <label control="plurows" value="&layout.plu.label;"/>

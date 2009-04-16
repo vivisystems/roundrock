@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Promotions SYSTEM "chrome://viviecr/locale/promotions_manager.dtd">
+  %Promotions;
+  ]>
+
+<window title="&promotions_manager.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js" />
+
+    <!-- include startup script -->
+    <script src="chrome://viviecr/content/controllers/promotions_manager_controller.js" type="text/javascript"/>
+    
+    <box id="promotionsmanager-container"  class="main-dialog" flex="1">
+        <hbox flex="1" class="MainPnl" >
+            <!-- vivifuncpanel -->
+            <vbox class="MainL">
+                <vbox id="promotionsmanager-box" class="LeftPnl" pack="center" flex="1">
+                    
+                    <viviscrollabletree style="width: 300px;" id="promotions_tree"
+                                                class="promotions_list"
+                                                headers="&promotions_manager.tree.name.label;,&promotions_manager.tree.active.label;"
+                                                fields="name,active"
+                                                seltype="single"
+                                                reverse="true"
+                                                flex="1"
+                                                hidevscroll="true"
+                                                hidecolumnpicker="true"
+                                                scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
+                                                onselect="$do('modify', this, 'PromotionsManager')">
+
+                        <button id="upBtn" disabled="true" class="BtnUp" style="min-width: 32px;" oncommand="$do('up', null, 'PromotionsManager');" />
+                        <button id="downBtn" disabled="true" class="BtnDown" style="min-width: 32px;" oncommand="$do('down', null, 'PromotionsManager');" />
+                    </viviscrollabletree>
+                    <spacer height="3px" />
+                    <hbox class="ToolBar" flex="1">
+                        <vivibutton id="addBtn" label="&promotions_manager.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'PromotionsManager');" />
+                        <vivibutton id="downloadBtn" label="&promotions_manager.button.action.download;" disabled="false" class="BtnDownload" oncommand="$do('add', null, 'PromotionsManager');" />
+                    </hbox>
+                </vbox>
+            </vbox>
+            <vbox flex="1">
+                <tabbox  flex="1" crop="right" class="RightTabbox">
+                    <tabs id="tabs" >
+                        <tab id="tabBasic" label="&promotions_manager.tab.basic;" />
+                        <tab id="tabTimeControl" label="&promotions_manager.tab.time_control;" />
+                        <tab id="tabTrigger" label="&promotions_manager.tab.trigger;" />
+                        <tab id="tabType" label="&promotions_manager.tab.type;" />
+                    </tabs>
+                    <tabpanels id="tabpanels" flex="1" >
+
+                        <!-- Plu Data -->
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+                                <textbox id="id" name="id" form="promotionForm" value='' hidden="true" />
+                                <checkbox id="active" name="active" form="promotionForm" label="&promotions_manager.label.active;" disabled="true" />
+                                <grid class="DataForm" flex="1">
+                                    <columns>
+                                        <column flex="1"/>
+                                        <column flex="1" />
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <label value="&promotions_manager.label.name;" />
+                                            <textbox id="name" name="name" form="promotionForm" value='' disabled="true" />
+                                        </row>
+                                        <row>
+                                            <label value="&promotions_manager.label.code;" />
+                                            <textbox id="code" name="code" form="promotionForm" value='' disabled="true" />
+                                        </row>
+                                        <row>
+                                            <label value="&promotions_manager.label.alt_name1;" />
+                                            <textbox id="alt_name1" name="alt_name1" form="promotionForm" value='' disabled="true" />
+                                        </row>
+                                        <row>
+                                            <label value="&promotions_manager.label.alt_name2;" />
+                                            <textbox id="alt_name2" name="alt_name2" form="promotionForm" value='' disabled="true" />
+                                        </row>
+                                        <row>
+                                            <label value="&promotions_manager.label.member;" />
+                                            <radiogroup orient="vertical" id="member" name="member" form="promotionForm">
+                                                <radio label="&promotions_manager.label.member_member;" value="member" />
+                                                <radio label="&promotions_manager.label.member_nonmember;" value="nonmember" />
+                                                <radio label="&promotions_manager.label.member_everyone;" selected="true" value="everyone" />
+                                            </radiogroup>
+                                        </row>
+                                    </rows>
+                                </grid>
+                                <checkbox id="reserve_item" name="reserve_item" form="promotionForm" label="&promotions_manager.label.reserve_item;" disabled="true" />
+                            </vbox>
+                        </tabpanel>
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+
+                                <groupbox>
+                                    <caption label="&promotions_manager.label.date_between;" />
+                                    <vbox>
+                                        <label value="&promotions_manager.label.start_date;" />
+                                        <vividatetimepicker id="start_date" name="start_date" form="promotionForm" value='' type="popup" mode="date" />
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&promotions_manager.label.end_date;" />
+                                        <vividatetimepicker id="end_date" name="end_date" form="promotionForm" value='' type="popup" mode="date"/>
+                                    </vbox>
+                                </groupbox>
+
+                                <spacer flex="1" />
+
+                                <groupbox>
+                                    <caption label="&promotions_manager.label.time_duration;" />
+                                    <vbox>
+                                        <label value="&promotions_manager.label.start_time;" />
+                                        <vividatetimepicker id="start_time" name="start_time" form="promotionForm" value='' type="popup" mode="time"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&promotions_manager.label.end_time;" />
+                                        <vividatetimepicker id="end_time" name="end_time" form="promotionForm" value='' type="popup" mode="time"/>
+                                    </vbox>
+                                </groupbox>
+                                
+                                <spacer flex="1" />
+
+                                <groupbox>
+                                    <caption label="&promotions_manager.label.days_of_week;" />
+                                    <viviscrollablebuttonpanel id="days_of_week" name="days_of_week" form="promotionForm" seltype="multiple" flex="1" cols="4" rows="2" labelField="name" default="" value=""
+                                               buttonClass="editbtns font-medium" hideScrollbar="true"/>
+                                </groupbox>
+                                
+                            </vbox>
+                        </tabpanel>
+
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+                                <groupbox>
+                                    <caption label="&promotions_manager.label.select_trigger;" />
+                                    <menulist id="triggerList" name="trigger" form="promotionForm" oncommand="$do('updateTriggerUI', null, 'PromotionsManager')" disabled="true">
+                                        <menupopup>
+                                        </menupopup>
+                                    </menulist>
+                                </groupbox>
+                                <textbox class="descbox_keymap" id="trigger_desc" wrap="true" readonly="true" multiline="true" rows="2" />
+                                <spacer style="height: 10px;" />
+                                <iframe id="triggerFrame" src="about:blank" type="content" flex="1" />
+                            </vbox>
+                        </tabpanel>
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+                                <groupbox>
+                                    <caption label="&promotions_manager.label.select_type;" />
+                                    <menulist id="typeList" name="type" form="promotionForm" oncommand="$do('updateTypeUI', null, 'PromotionsManager')" disabled="true">
+                                        <menupopup>
+                                        </menupopup>
+                                    </menulist>
+                                </groupbox>
+                                <textbox class="descbox_keymap" id="type_desc" wrap="true" readonly="true" multiline="true" rows="2"/>
+                                <spacer style="height: 10px;" />
+                                <iframe id="typeFrame" src="about:blank" type="content" flex="1" />
+                            </vbox>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
+
+                <hbox>
+                    <hbox class="ToolBar" flex="1">
+                        <button id="modifyBtn" label="&promotions_manager.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('update', null, 'PromotionsManager');" />
+                        <button id="deleteBtn" label="&promotions_manager.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('remove', null, 'PromotionsManager');" />
+                    </hbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('close', null, 'PromotionsManager');"/>
+                    </hbox>
+                </hbox>
+            </vbox>
+        </hbox>
+    </box>
+</window>
