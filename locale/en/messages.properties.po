@@ -1897,6 +1897,9 @@ msgstr "ByPass"
 msgid "type.bypass.desc"
 msgstr "ByPass Type always pass success."
 
+msgid "acl_close_sale_period"
+msgstr "Close Sale Period"
+
 msgid "confirm timezone change"
 msgstr ""
 

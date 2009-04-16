@@ -75,7 +75,7 @@
             if (doc) {
                 doc.innerHTML = result;
 
-		print.setAttribute('disabled', false);
+                print.setAttribute('disabled', false);
             }
         }
 
