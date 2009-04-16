@@ -19,12 +19,12 @@
                     </xul:columns>
                     <xul:rows>
                         <xul:row flex="1">
-                            <xul:textbox anonid="label0_0" readonly="true" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
-                            <xul:textbox anonid="label0_1" readonly="true" style="color: yellow; align: right;" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="label0_0" disabled="true" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="label0_1" disabled="true" style="color: yellow; align: right;" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
                         </xul:row>
                         <xul:row flex="1">
-                            <xul:textbox anonid="label1_0" readonly="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
-                            <xul:textbox anonid="label1_1" readonly="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
+                            <xul:textbox anonid="label1_0" disabled="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
+                            <xul:textbox anonid="label1_1" disabled="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
                         </xul:row>
                     </xul:rows>
                 </xul:grid>
