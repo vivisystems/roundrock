@@ -67,3 +67,7 @@ table_status_btn {
 vivitextbox {
     -moz-binding: url('chrome://viviecr/content/bindings/vivitextbox.xbl#vivitextbox');
 }
+
+onscreenvfd {
+  -moz-binding: url("chrome://viviecr/content/bindings/onscreenvfd.xbl#onscreenvfd");
+}
