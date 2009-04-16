@@ -48,8 +48,7 @@
 				                	<label value="&rptstocks.sortby;" />
 						            <menulist id="sortby">
 						                <menupopup id="sortby_menupopup">
-						                    <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
-						                    <menuitem selected="false" label="&rptstocks.no;" value="no" />
+						                    <menuitem selected="true" label="&rptstocks.no;" value="no" />
 						                    <menuitem selected="false" label="&rptstocks.name;" value="name" />
 						                    <menuitem selected="false" label="&rptstocks.stock;" value="stock" />
 						                    <menuitem selected="false" label="&rptstocks.min_stock;" value="min_stock" />

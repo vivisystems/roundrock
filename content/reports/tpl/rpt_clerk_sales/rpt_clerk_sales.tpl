@@ -53,7 +53,7 @@
                     	${order.service_clerk_displayname}
                     {/if}
                     </td>
-                    <td style="text-align: left;">${order.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
+                    <td style="text-align: left;">${order.transaction_created|unixTimeToString}</td>
                     <td style="text-align: left;">${order.sequence}</td>
                     <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.tax_subtotal|viviFormatPrices:true}</td>

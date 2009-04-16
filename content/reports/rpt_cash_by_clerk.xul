@@ -48,21 +48,10 @@
 		                    </row>
 		                    <row>
 		                        <vbox>
-		                            <label value="&rptcashbyclerk.periodtype;" />
-					                <menulist id="period_type">
-					                    <menupopup id="periodtype_menupopup">
-					                        <menuitem selected="true" label="&rptcashbyclerk.starttime;" value="starttime" />
-					                        <menuitem selected="false" label="&rptcashbyclerk.saleperiod;" value="sale_period" />
-					                    </menupopup>
-					                </menulist>
-		                        </vbox>
-		                        <vbox>
 		                            <label value="&rptcashbyclerk.shiftno;" />
 				                    <textbox id="shift_no" value='' width="300"/>
 		                        </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
+		                        <vbox>
 				                    <label value="&rptcashbyclerk.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>
 				                </vbox>

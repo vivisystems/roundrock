@@ -110,7 +110,8 @@
                         ];
                             
              var conditions = "orders." + this._periodtype + ">='" + start +
-                            "' AND orders." + this._periodtype + "<='" + end + "'";
+                            "' AND orders." + this._periodtype + "<='" + end +
+                            "' AND orders.status='1'";
 
             if ( this._machineid.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
@@ -167,7 +168,8 @@
                          ];
                             
              var conditions = "orders." + this._periodtype + ">='" + start +
-                            "' AND orders." + this._periodtype + "<='" + end + "'";
+                            "' AND orders." + this._periodtype + "<='" + end +
+                            "' AND orders.status='1'";
                             
             if ( this._machineid.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
@@ -283,7 +285,7 @@
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
                             'SUM("orders"."items_count") AS "Order.ItemsCount"',
-                            'AVG("orders"."total") AS "Order.AvgTotal"',
+                            'CAST( AVG("orders"."total") AS INTEGER ) AS "Order.AvgTotal"',
                             'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
                             'AVG("orders"."items_count") AS "Order.AvgItemsCount"'
                         ];
@@ -309,7 +311,7 @@
             var sql = "select sum( current_qty ) as qty from order_items join orders on orders.id = order_items.order_id where " + conditions;
             var orderItem = new OrderItemModel();
             var orderItemRecords = orderItem.getDataSource().fetchAll( sql );
-            
+          
             orderRecords.ItemsCount = orderItemRecords[ 0 ].qty;
 
             return orderRecords;

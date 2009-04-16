@@ -17,6 +17,8 @@
 
             var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            
+            var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
@@ -33,9 +35,8 @@
                             "' AND created <= '" + end + "'";
 
             var groupby = 'clerk_displayname, event_type';
-            var orderby = 'num_events desc';
+            var orderby = sortby + ' desc';
             
-            var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' )
             	var orderby = sortby;
 

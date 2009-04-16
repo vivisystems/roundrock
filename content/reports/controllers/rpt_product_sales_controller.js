@@ -38,7 +38,7 @@
             	conditions += " AND orders.shift_number = " + shiftNo;
 
             var groupby = 'order_items.product_no';
-            var orderby = '"OrderItem.total" desc';
+            var orderby = '"' + sortBy + '" desc';
             
             // prepare category stuff.
             var deptCondition = '';

@@ -40,8 +40,8 @@
                 <caption label="&plus.title;" class="PageTitle"/>
                 <vbox flex="1" pack="start" class="LeftPnl">
                     <label value="&plus.search.label;" class="SubTitle" />
-                    <textbox id="plu" value="" />
-                    <spacer style="height:5px;" />
+                    <vivitextbox id="plu" value="" numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>
+                    <!--spacer style="height:5px;" />
                     <hbox pack="center">
                         <numberpad id="multinumberpad" class="numpad"/>
                         <vbox>
@@ -49,7 +49,7 @@
                             <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="fixedbtn"/>
                             <vivibutton id="ekeyBtn"  label="&plus.button.numpad.enter;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="fixedbtn" />
                         </vbox>
-                    </hbox>
+                    </hbox-->
                     <spacer style="height:5px;" />
                     <groupbox id="advance_search">
                         <caption label="&plus.search.advancesearch;:" class="SubTitle" />

@@ -11,7 +11,7 @@
         
         _fileName: 'rpt_cash_by_clerk',
         
-        _set_reportData: function( start, end, periodType, shiftNo, terminalNo ) {            
+        _set_reportData: function( start, end, shiftNo, terminalNo ) {            
         	var d = new Date();
             d.setTime( start );
             var start_str = d.toString( 'yyyy/MM/dd HH:mm' );
@@ -22,8 +22,8 @@
             end = parseInt(end / 1000, 10);
 
             var fields = [];
-            var conditions = "shift_changes." + periodType + ">='" + start +
-                            "' AND shift_changes." + periodType + "<='" + end +
+            var conditions = "shift_changes.sale_period >= '" + start +
+                            "' AND shift_changes.sale_period <= '" + end +
                             "'";
             
             if ( shiftNo.length > 0 )
@@ -34,7 +34,7 @@
 
             var groupby;
 
-            var orderby = 'shift_changes.terminal_no, shift_changes.' + periodType;
+            var orderby = 'shift_changes.terminal_no, shift_changes.sale_period';
 
             var shiftChange = new ShiftChangeModel();
             var records = shiftChange.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 } );
@@ -50,7 +50,7 @@
                 o.endtime = d.toString('yy/MM/dd HH:mm');
                 
                 d.setTime( o.sale_period * 1000 );
-                o.sale_period = d.toString( 'yyyy/MM/dd' );
+                o.sale_period = d.toString( 'yyyy-MM-dd HH:mm:ss' );
 
                 o.balance = GeckoJS.NumberHelper.round(o.balance, precision_prices, rounding_prices) || 0;
                 o.balance = o.balance.toFixed(precision_prices);
@@ -77,22 +77,21 @@
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
             
-            var periodType = document.getElementById( 'period_type' ).value;
             var shiftNo = document.getElementById( 'shift_no' ).value;
 
             var machineid = document.getElementById( 'machine_id' ).value;
             
-            this._set_reportData( start, end, periodType, shiftNo, machineid );
+            this._set_reportData( start, end, shiftNo, machineid );
         },
         
         set_reportRecords: function( parameters ) { // used while doing shift change.
-        	this._set_reportData( parameters.start, parameters.end, parameters.periodType, parameters.shiftNo, parameters.terminalNo );
+        	this._set_reportData( parameters.start, parameters.end, parameters.shiftNo, parameters.terminalNo );
         },
         
-        printShiftChangeReport: function( start, end, periodType, shiftNo, terminalNo ) {
+        printShiftChangeReport: function( start, end, shiftNo, terminalNo ) {
         	// the parameters 'start' and 'end' are both thirteen-digit integer.
         	
-        	this._set_reportData( start, end, periodType, shiftNo, terminalNo );
+        	this._set_reportData( start, end, shiftNo, terminalNo );
         	this._setTemplateDataHead();
         	
         	var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
@@ -108,10 +107,10 @@
             rcp.printReport( 'report', tpl, this._reportRecords );
         },
         
-        getProcessedTpl: function( start, end, periodType, shiftNo, terminalNo ) {
+        getProcessedTpl: function( start, end, shiftNo, terminalNo ) {
         	// the parameters 'start' and 'end' are both thirteen-digit integer.
         	
-        	this._set_reportData( start, end, periodType, shiftNo, terminalNo );
+        	this._set_reportData( start, end, shiftNo, terminalNo );
         	this._setTemplateDataHead();
 
             var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );

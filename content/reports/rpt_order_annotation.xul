@@ -2,7 +2,7 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % rpt_daily_sales SYSTEM "chrome://viviecr/locale/reports/rpt_daily_sales_summary.dtd">
+  <!ENTITY % rpt_daily_sales SYSTEM "chrome://viviecr/locale/reports/rpt_order_annotation.dtd">
   %rpt_daily_sales;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
@@ -22,12 +22,12 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_daily_sales_summary.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_order_annotation.js" />
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
 		    <vbox>
-		        <caption label="&rptdailysalessummary.title;"  class="PageTitle"/>
+		        <caption label="&rptorderannotation.title;"  class="PageTitle"/>
 		        <hbox>
 		            <hbox flex="1">
 		            <grid class="DataForm" flex="1">
@@ -37,54 +37,59 @@
 		                <rows>
 		                    <row>
 		                        <vbox>
-		                            <label value="&rptdailysalessummary.startdate;" />
+		                            <label value="&rptorderannotation.startdate;" />
 		                            <vividatetimepicker id="start_date" value='' type="popup" />
 		                        </vbox>
 		                        <vbox>
-		                            <label value="&rptdailysalessummary.enddate;" />
+		                            <label value="&rptorderannotation.enddate;" />
 		                            <vividatetimepicker id="end_date" value='' type="popup"/>
 		                        </vbox>
 		                    </row>
 		                    <row>
 		                    	<vbox>
-		                    		<label value="&rptdailysalessummary.periodtype;" />
+		                    		<label value="&rptorderannotation.periodtype;" />
 					                <menulist id="period_type">
 					                    <menupopup id="periodtype_menupopup">
-					                        <menuitem selected="true" label="&rptdailysalessummary.starttime;" value="transaction_created" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.saleperiod;" value="sale_period" />
+					                        <menuitem selected="true" label="&rptorderannotation.starttime;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptorderannotation.saleperiod;" value="sale_period" />
 					                    </menupopup>
 					                </menulist>
 		                    	</vbox>
 		                    	<vbox>
-				                	<label value="&rptdailysalessummary.sortby;" />
+				                	<label value="&rptorderannotation.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="&rptdailysalessummary.terminal_no;" value="terminal_no" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.time;" value="time" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.item_subtotal;" value="item_subtotal" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.tax_subtotal;" value="tax_subtotal" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.surcharge_subtotal;" value="surcharge_subtotal" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.discount_subtotal;" value="discount_subtotal" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.total;" value="total" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.cash;" value="cash" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.check;" value="check" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.creditcard;" value="creditcard" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.coupon;" value="coupon" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.giftcard;" value="giftcard" />
+					                        <menuitem selected="true" label="&rptorderannotation.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="false" label="&rptorderannotation.time;" value="time" />
+					                        <menuitem selected="false" label="&rptorderannotation.sequence;" value="sequence" />
+					                        <menuitem selected="false" label="&rptorderannotation.annotationtext;" value="text" />
+					                        <menuitem selected="false" label="&rptorderannotation.item_subtotal;" value="item_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.tax_subtotal;" value="tax_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.surcharge_subtotal;" value="surcharge_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.total;" value="total" />
 					                    </menupopup>
 					                </menulist>
 			                    </vbox>
 		                    </row>
 		                    <row>
 		                    	<vbox>
-				                    <label value="&rptdailysalessummary.machineid;" />
+		                    		<label value="&rptorderannotation.annotationtype;" />
+		                    		<menulist id="annotation_type">
+					                    <menupopup id="annotationtype_menupopup">
+					                        <menuitem selected="true" label="&rptorderannotation.all;" value="all" />
+					                    </menupopup>
+					                </menulist>
+					            </vbox>
+		                    	<vbox>
+				                    <label value="&rptorderannotation.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>
 				                </vbox>
 				            </row>
 		                </rows>
 		            </grid>
 		            </hbox>
-		            <button id="execute" label="&rptdailysalessummary.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDailySalesSummary');" />
+		            <button id="execute" label="&rptorderannotation.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptOrderAnnotation');" />
 		        </hbox>
             </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
@@ -93,11 +98,11 @@
 			<hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 
-                    <vivibutton id="export_pdf" label="&rptdailysalessummary.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDailySalesSummary');" />
-                    <vivibutton id="export_csv" label="&rptdailysalessummary.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDailySalesSummary');" />
-                    <vivibutton id="export_rcp" label="&rptdailysalessummary.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDailySalesSummary');" />
+                    <vivibutton id="export_pdf" label="&rptorderannotation.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptOrderAnnotation');" />
+                    <vivibutton id="export_csv" label="&rptorderannotation.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptOrderAnnotation');" />
+                    <vivibutton id="export_rcp" label="&rptorderannotation.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptOrderAnnotation');" />
 
-                    <vivibutton id="togglesize" label="&rptdailysalessummary.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    <vivibutton id="togglesize" label="&rptorderannotation.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                     
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
@@ -115,7 +120,7 @@
     <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
         <vbox flex="1">
         <groupbox flex="1">
-            <caption label="&rptdailysalessummary.wait;" class="PageTitle"/>
+            <caption label="&rptorderannotation.wait;" class="PageTitle"/>
             <spacer style="height: 20px;" />
             <progressmeter id="progress" mode="undetermined" value="0" />
             <spacer style="height: 20px;" />

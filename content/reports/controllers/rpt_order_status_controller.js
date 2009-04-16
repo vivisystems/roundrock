@@ -19,6 +19,8 @@
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             var machineid = document.getElementById('machine_id').value;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt(start / 1000, 10);
             end = parseInt(end / 1000, 10);
@@ -64,9 +66,8 @@
                 //var groupby = '"Order.Date"';
             }
             var groupby = '';
-            var orderby = 'orders.terminal_no, orders.status, orders.item_subtotal desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.' + sortby + ', orders.status, orders.item_subtotal desc';//orders.transaction_created, orders.id';
             
-            var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' ) {
 				var desc = '';
 				
@@ -155,22 +156,9 @@
 
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
-            
-            function addMenuitem( dbModel, fields, order, group, menupopupId, valueField, labelField ) {
-		        //set up the designated pop-up menulist.
-		        var records = dbModel.find( 'all', { fields: fields, order: order, group: group } );
-		        var menupopup = document.getElementById( menupopupId );
-
-		        records.forEach( function( data ) {
-		            var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
-		            menuitem.setAttribute( 'value', data[ valueField ] );
-		            menuitem.setAttribute( 'label', data[ labelField ] );
-		            menupopup.appendChild( menuitem );
-		        });
-		    }
 		    	    
-		    addMenuitem( new OrderModel(), [ 'service_clerk_displayname' ],
-		    			[ 'service_clerk_displayname' ], [ 'service_clerk_displayname' ], 'service_clerk_menupopup', 'service_clerk_displayname', 'service_clerk_displayname' );
+		    this._addMenuitem( new OrderModel(), [ 'service_clerk_displayname' ], "",
+		    			'service_clerk_displayname', 'service_clerk_displayname', 'service_clerk_menupopup', 'service_clerk_displayname', 'service_clerk_displayname' );
 
             this._enableButton(false);
         }

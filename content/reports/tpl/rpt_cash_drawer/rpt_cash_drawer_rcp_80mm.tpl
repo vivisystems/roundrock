@@ -10,7 +10,7 @@ ${head.title|center:42}
 ${_( '(rpt)Terminal No.' ) + ': '}${item.terminal_no}
 ${_( '(rpt)Drawer No.' ) + ': '}${item.drawer_no}
 ${_( '(rpt)Clerk' ) + ': '}${item.clerk_displayname}
-${_( '(rpt)Time' ) + ': '}${item.created}
+${_( '(rpt)Time' ) + ': '}${item.created|unixTimeToString}
 ${_( '(rpt)Event' ) + ': '}${item.event_type}
 {/for}
 ------------------------------------------
