@@ -13,7 +13,7 @@
         
         _set_reportRecords: function() {
         	var sortby = document.getElementById( 'sortby' ).value;
-        	var orderby = 'no';
+        	var orderby = sortby;
         	if ( sortby != 'all' )
         		orderby = sortby;
             

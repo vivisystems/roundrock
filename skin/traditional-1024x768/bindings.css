@@ -60,3 +60,6 @@ vivifuncpanelecr {
   -moz-binding: url("chrome://viviecr/content/bindings/vivifuncpanelecr.xbl#vivifuncpanelecr");
 }
 
+vivitextbox {
+    -moz-binding: url('chrome://viviecr/content/bindings/vivitextbox.xbl#vivitextbox');
+}

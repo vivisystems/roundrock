@@ -638,7 +638,7 @@
 				if ( !all )
 					shiftNumber = this.getShiftNumber().toString();
 
-		        reportController.printShiftChangeReport( salePeriod, salePeriod, 'sale_period', shiftNumber, terminalNo );
+		        reportController.printShiftChangeReport( salePeriod, salePeriod, shiftNumber, terminalNo );
 		    } catch ( e ) {
 		    } finally {
 		    	if ( waitPanel ) waitPanel.hidePopup();
@@ -667,7 +667,6 @@
             var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
             var salePeriod = this.getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get('terminal_no');
-            var periodType = 'sale_period';
 
 			var shiftNumber = '';
 			if ( !all )
@@ -676,7 +675,6 @@
 			var parameters = {
 				start: salePeriod,
 				end: salePeriod,
-				periodType: periodType,
 				shiftNo: shiftNumber,
 				terminalNo: terminalNo
 			};
@@ -684,7 +682,7 @@
 			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
 			
 			try {
-				var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, periodType, shiftNumber, terminalNo );
+				var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
 			} catch ( e ) {
 			} finally {
 				if ( waitPanel ) waitPanel.hidePopup();

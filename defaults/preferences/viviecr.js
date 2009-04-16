@@ -43,16 +43,12 @@ pref("vivipos.fec.settings.controlpanels.config.devices.path", "chrome://viviecr
 pref("vivipos.fec.settings.controlpanels.config.devices.icon", "chrome://viviecr/skin/icons/icon_devices.png");
 pref("vivipos.fec.settings.controlpanels.config.devices.roles", "acl_manage_devices");
 
+
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.label", "Synchronization Settings");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.path", "chrome://viviecr/content/sync_settings.xul");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.icon", "chrome://viviecr/skin/icons/icon_sync.png");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.roles", "acl_manage_sync_settings");
-
-pref("vivipos.fec.settings.controlpanels.config.remote_control.label", "Remote Control");
-pref("vivipos.fec.settings.controlpanels.config.remote_control.path", "chrome://viviecr/content/remote_control.xul");
-pref("vivipos.fec.settings.controlpanels.config.remote_control.icon", "chrome://viviecr/skin/icons/icon_vnc.png");
-pref("vivipos.fec.settings.controlpanels.config.remote_control.roles", "acl_remote_control");
-
+ 
 pref("vivipos.fec.settings.controlpanels.product.departments.label", "Departments");
 pref("vivipos.fec.settings.controlpanels.product.departments.path", "chrome://viviecr/content/departments.xul");
 pref("vivipos.fec.settings.controlpanels.product.departments.icon", "chrome://viviecr/skin/icons/icon_department.png");
@@ -147,11 +143,6 @@ pref("vivipos.fec.settings.controlpanels.config.functionpanel.label", "Function 
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://viviecr/content/funcpanelecrprefs.xul");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.roles", "acl_manage_function_panel");
-
-pref("vivipos.fec.settings.controlpanels.system.tableman.label", "Table Manage");
-pref("vivipos.fec.settings.controlpanels.system.tableman.path", "chrome://viviecr/content/table_man.xul");
-pref("vivipos.fec.settings.controlpanels.system.tableman.icon", "chrome://viviecr/skin/icons/icon_generic.png");
-pref("vivipos.fec.settings.controlpanels.system.tableman.roles", "acl_manage_tableman");
 
 pref("vivipos.fec.settings.controlpanels.system.network_setting.label", "Network Setting");
 pref("vivipos.fec.settings.controlpanels.system.network_setting.type", "application");
@@ -551,11 +542,6 @@ pref("vivipos.fec.registry.function.programmable.printerDashboard.command", "pri
 pref("vivipos.fec.registry.function.programmable.printerDashboard.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.data", "");
 
-pref("vivipos.fec.registry.function.programmable.vieworder.access", "acl_view_order");
-pref("vivipos.fec.registry.function.programmable.vieworder.command", "orderDialog");
-pref("vivipos.fec.registry.function.programmable.vieworder.controller", "Main");
-pref("vivipos.fec.registry.function.programmable.vieworder.data", "");
-
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');
@@ -672,6 +658,11 @@ pref("vivipos.fec.reportpanels.clerksalesreport.label", "Clerk Sales Report");
 pref("vivipos.fec.reportpanels.clerksalesreport.path", "chrome://viviecr/content/reports/rpt_clerk_sales.xul");
 pref("vivipos.fec.reportpanels.clerksalesreport.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.clerksalesreport.roles", "acl_run_report");
+
+pref("vivipos.fec.reportpanels.orderannotation.label", "Order Annotation Report");
+pref("vivipos.fec.reportpanels.orderannotation.path", "chrome://viviecr/content/reports/rpt_order_annotation.xul");
+pref("vivipos.fec.reportpanels.orderannotation.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.orderannotation.roles", "acl_run_report");
  
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");

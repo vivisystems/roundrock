@@ -64,3 +64,6 @@ table_status_btn {
   -moz-binding: url("chrome://viviecr/content/bindings/table_status_btn.xbl#table_status_btn");
 }
 
+vivitextbox {
+    -moz-binding: url('chrome://viviecr/content/bindings/vivitextbox.xbl#vivitextbox');
+}

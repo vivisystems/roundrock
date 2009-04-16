@@ -50,10 +50,9 @@
 						            	<label value="&cashdrawersummary.sortby;" />
 								        <menulist id="sortby">
 								            <menupopup id="sortby_menupopup">
-								                <menuitem selected="true" label="[&cashdrawersummary.all;]" value="all" />
 								                <menuitem selected="false" label="&cashdrawersummary.clerk_displayname;" value="clerk_displayname" />
 								                <menuitem selected="false" label="&cashdrawersummary.event_type;" value="event_type" />
-								                <menuitem selected="false" label="&cashdrawersummary.num_events;" value="num_events" />
+								                <menuitem selected="true" label="&cashdrawersummary.num_events;" value="num_events" />
 								            </menupopup>
 								        </menulist>
 								    </vbox>

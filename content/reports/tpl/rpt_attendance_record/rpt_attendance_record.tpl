@@ -36,8 +36,8 @@
 {for stamp in master.clockStamps}
                 <tr>
                     <td style="text-align: left;">${stamp.job}</td>
-                    <td style="text-align: left;">${stamp.InTime}</td>
-                    <td style="text-align: left;">${stamp.OutTime}</td>
+                    <td style="text-align: left;">${stamp.clockin_time}</td>
+                    <td style="text-align: left;">${stamp.clockout_time}</td>
                     <td style="text-align: left;">${stamp.SpanTime}</td>
                 </tr>
 {/for}

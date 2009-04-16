@@ -36,7 +36,7 @@
 {for detail in body}
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
-                    <td style="text-align: left;">${detail.Order.time}</td>
+                    <td style="text-align: left;">${detail.Order.time|unixTimeToString}</td>
                     <td style="text-align: left;">${detail.sequence}</td>
                     <td style="text-align: right;">${detail.item_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatPrices:true}</td>

@@ -50,8 +50,7 @@
 		                    		<label value="&rptdailysalesdetail.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="[&rptdailysalesdetail.all;]" value="all" />
-					                        <menuitem selected="false" label="&rptdailysalesdetail.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="true" label="&rptdailysalesdetail.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptdailysalesdetail.transaction_created;" value="transaction_created" />
 					                        <menuitem selected="false" label="&rptdailysalesdetail.item_subtotal;" value="item_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysalesdetail.tax_subtotal;" value="tax_subtotal" />
@@ -71,7 +70,7 @@
 		                    <row>
 		                    	<vbox>
 				                    <label value="&rptdailysalesdetail.machineid;" />
-				                    <textbox id="machine_id" value='' width="300"/>
+				                    <textbox id="machine_id" value='' width="300" />
 		                        </vbox>
 		                    </row>
 		                </rows>
@@ -109,21 +108,6 @@
                     </box>
 
                 </groupbox>
-                <!--vbox>
-                    <vbox class="ToolBar BarHeight">
-
-                        <vivibutton id="export_pdf" label="&rptdailysalesdetail.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptDailySalesDetail');" />
-                        <vivibutton id="export_csv" label="&rptdailysalesdetail.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'RptDailySalesDetail');" />
-                        <vivibutton id="export_rcp" label="&rptdailysalesdetail.exportrcp;" disabled="false" class="editbtns" oncommand="$do('exportRcp', null, 'RptDailySalesDetail');" />
-
-                        <vivibutton id="togglesize" label="&rptdailysalesdetail.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                        <spacer flex="1" />
-                    </vbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
-                    </hbox>
-                </vbox-->
             </hbox>
         </vbox>
     </vbox>
@@ -138,5 +122,4 @@
         </groupbox>
         </vbox>
     </panel>
-
 </window>

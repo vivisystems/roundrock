@@ -1600,7 +1600,13 @@ msgstr "Seq."
 msgid "(rpt)Service Clerk"
 msgstr "Service Clerk"
 
+msgid "Service Clerk"
+msgstr "Service Clerk"
+
 msgid "(rpt)Proceeds Clerk"
+msgstr "Proceeds Clerk"
+
+msgid "Proceeds Clerk"
 msgstr "Proceeds Clerk"
 
 msgid "(rpt)Proceeds"

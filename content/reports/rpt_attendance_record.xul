@@ -69,9 +69,8 @@
 				                	<label value="&rptattendancerecord.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
 					                        <menuitem selected="false" label="&rptattendancerecord.job;" value="job" />
-					                        <menuitem selected="false" label="&rptattendancerecord.intime;" value="InTime" />
+					                        <menuitem selected="true" label="&rptattendancerecord.intime;" value="InTime" />
 					                        <menuitem selected="false" label="&rptattendancerecord.outtime;" value="OutTime" />
 					                        <menuitem selected="false" label="&rptattendancerecord.spantime;" value="SpanTime" />
 					                    </menupopup>

@@ -60,12 +60,11 @@
 				                	<label value="&productsales.sortby;" />
 						            <menulist id="sortby">
 						                <menupopup id="sortby_menupopup">
-						                    <menuitem selected="true" label="[&productsales.all;]" value="all" />
 						                    <menuitem selected="false" label="&productsales.product_no;" value="product_no" />
 						                    <menuitem selected="false" label="&productsales.product_name;" value="product_name" />
 						                    <menuitem selected="false" label="&productsales.avg_price;" value="avg_price" />
 						                    <menuitem selected="false" label="&productsales.qty;" value="qty" />
-						                    <menuitem selected="false" label="&productsales.total;" value="total" />
+						                    <menuitem selected="true" label="&productsales.total;" value="total" />
 						                </menupopup>
 						            </menulist>
 						        </vbox>
