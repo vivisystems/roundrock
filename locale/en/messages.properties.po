@@ -1609,7 +1609,13 @@ msgstr "Seq."
 msgid "(rpt)Service Clerk"
 msgstr "Service Clerk"
 
+msgid "Service Clerk"
+msgstr "Service Clerk"
+
 msgid "(rpt)Proceeds Clerk"
+msgstr "Proceeds Clerk"
+
+msgid "Proceeds Clerk"
 msgstr "Proceeds Clerk"
 
 msgid "(rpt)Proceeds"
@@ -1791,6 +1797,21 @@ msgstr "Start"
 
 msgid "(rpt)End"
 msgstr "End"
+
+msgid "(rpt)Annotation Text"
+msgstr "Annotation Text"
+
+msgid "(rpt)Deposit"
+msgstr "Deposit"
+
+msgid "(rpt)TYPE"
+msgstr "type"
+
+msgid "(rpt)ORDER"
+msgstr "order"
+
+msgid "(rpt)ITEM"
+msgstr "item"
 
 msgid "(view)completed"
 msgstr "completed"
@@ -2328,6 +2349,9 @@ msgid "Check Type"
 msgstr ""
 
 msgid "Refund amount [%S] may not exceed amount paid [%S]"
+msgstr ""
+
+msgid "No payments accepted when balance is zero or negative"
 msgstr ""
 
 msgid "Credit Card Payment Error"
@@ -3753,14 +3777,14 @@ msgstr ""
 msgid "Hourly Sales Report"
 msgstr ""
 
+msgid "Order Annotation Report"
+msgstr ""
+
 msgid "Product Sales Report"
 msgstr ""
 
-msgid "item"
-msgstr ""
-
-msgid "order"
-msgstr ""
-
 msgid "Product Stock List"
+msgstr ""
+
+msgid "(rpt)Subtotal"
 msgstr ""

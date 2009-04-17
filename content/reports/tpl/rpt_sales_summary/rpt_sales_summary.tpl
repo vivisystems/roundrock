@@ -282,7 +282,7 @@
             	<thead>
             		<tr>
             			<th style="text-align: left;">${_( '(rpt)Name' )}</th>
-            			<th style="text-align: left;">${_( '(rpt)Type' )}</th>
+            			<th style="text-align: left;">${_( '(rpt)TYPE' )}</th>
             			<th style="text-align: right;">${_( '(rpt)Count' )}</th>
             			<th style="text-align: right;">${_( '(rpt)Amount' )}</th>
             		</tr>
@@ -312,7 +312,7 @@
             	<thead>
             		<tr>
             			<th style="text-align: left;">${_( '(rpt)Name' )}</th>
-            			<th style="text-align: left;">${_( '(rpt)Type' )}</th>
+            			<th style="text-align: left;">${_( '(rpt)TYPE' )}</th>
             			<th style="text-align: right;">${_( '(rpt)Count' )}</th>
             			<th style="text-align: right;">${_( '(rpt)Amount' )}</th>
             		</tr>

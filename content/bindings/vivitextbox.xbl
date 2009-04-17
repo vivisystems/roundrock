@@ -22,7 +22,7 @@
         </resources-->
 
         <content>
-
+<children />
             <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer" allowevents="true">
                 <xul:label xbl:inherits="value=label"/>
                 <xul:textbox anonid="input" flex="1" inherits="onfocus,oninput,onchange"/>
@@ -147,6 +147,8 @@
             	}
               ]]>
             </handler>
+            
+            <handler event="keypress" keycode="VK_RETURN" action = "eval( this.getAttribute( 'onenter' ) );" />
         </handlers>
     </binding>
 </bindings>

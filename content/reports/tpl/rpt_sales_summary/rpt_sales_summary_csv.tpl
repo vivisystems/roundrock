@@ -70,14 +70,14 @@
 "${_( '(rpt)Summary' ) + ':'}","","${body.hourly_sales.summary.Guests|default:0}","${body.hourly_sales.summary.OrderNum|default:0}","${body.hourly_sales.summary.HourTotal|default:0|viviFormatPrices:true}"
 "",""
 "${_( '(rpt)Discount Summary' )}"
-"","${_( '(rpt)Name' )}","${_( '(rpt)Type' )}","${_( '(rpt)Count' )}","${_( '(rpt)Amount' )}"
+"","${_( '(rpt)Name' )}","${_( '(rpt)TYPE' )}","${_( '(rpt)Count' )}","${_( '(rpt)Amount' )}"
 {for detail in body.discount_summary.data}
 "","${detail.discount_name}","${detail.itemOrAddition}","${detail.num_rows|default:0}","${detail.amount|default:0|viviFormatPrices:true}"
 {/for}
 "${_( '(rpt)Summary' ) + ':'}","","","${body.discount_summary.summary.num_rows|default:0}","${body.discount_summary.summary.amount|default:0|viviFormatPrices:true}"
 "",""
 "${_( '(rpt)Surcharge Summary' )}"
-"","${_( '(rpt)Name' )}","${_( '(rpt)Type' )}","${_( '(rpt)Count' )}","${_( '(rpt)Amount' )}"
+"","${_( '(rpt)Name' )}","${_( '(rpt)TYPE' )}","${_( '(rpt)Count' )}","${_( '(rpt)Amount' )}"
 {for detail in body.surcharge_summary.data}
 "","${detail.surcharge_name}","${detail.itemOrAddition}","${detail.num_rows|default:0}","${detail.amount|default:0|viviFormatPrices:true}"
 {/for}

@@ -87,7 +87,7 @@ ${'  ' + _( '(rpt)Total' ) + ':'|left:9}${body.hourly_sales.summary.HourTotal|de
 ${_( '(rpt)Discount Summary' )}
 {for detail in body.discount_summary.data}
 ${'  ' + _( '(rpt)Name' ) + ':'|left:18}${detail.discount_name|right:24}
-${'  ' + _( '(rpt)Type' ) + ':'|left:18}${detail.itemOrAddition|right:24}
+${'  ' + _( '(rpt)TYPE' ) + ':'|left:18}${detail.itemOrAddition|right:24}
 ${'  ' + _( '(rpt)Count' ) + ':'|left:18}${detail.num_rows|default:0|right:24}
 ${'  ' + _( '(rpt)Amount' ) + ':'|left:18}${detail.amount|default:0|viviFormatPrices:true|right:24}
 
@@ -99,7 +99,7 @@ ${'  ' + _( '(rpt)Amount' ) + ':'|left:18}${body.discount_summary.summary.amount
 ${_( '(rpt)Surcharge Summary' )}
 {for detail in body.surcharge_summary.data}
 ${'  ' + _( '(rpt)Name' ) + ':'|left:18}${detail.surcharge_name|right:24}
-${'  ' + _( '(rpt)Type' ) + ':'|left:18}${detail.itemOrAddition|right:24}
+${'  ' + _( '(rpt)TYPE' ) + ':'|left:18}${detail.itemOrAddition|right:24}
 ${'  ' + _( '(rpt)Count' ) + ':'|left:18}${detail.num_rows|default:0|right:24}
 ${'  ' + _( '(rpt)Amount' ) + ':'|left:18}${detail.amount|default:0|viviFormatPrices:true|right:24}
 
