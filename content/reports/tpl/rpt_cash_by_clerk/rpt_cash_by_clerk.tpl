@@ -32,6 +32,7 @@
                     <th style="text-align: right;">${_( '(rpt)Cash' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Sales' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Excess' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Deposit' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Ledger In' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Ledger Out' )}</th>
                 </tr>
@@ -47,11 +48,12 @@
                 	<td style="text-align: right;">${master.cash|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.sales|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.excess|default:0|viviFormatPrices:true}</td>
+                	<td style="text-align: right;">${master.deposit|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.ledger_in|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.ledger_out|default:0|viviFormatPrices:true}</td>
                 </tr>
                 <tr style="border-top: 1px solid #4ca;">
-                	<td colspan="4" style="vertical-align: top;">
+                	<td colspan="5" style="vertical-align: top;">
                 		<table style="width: 100%;">
                 			<tr style="color: gray; font-style: italic;">
                 				<th style="text-align: left;">${_( '(rpt)Type' )}</th>

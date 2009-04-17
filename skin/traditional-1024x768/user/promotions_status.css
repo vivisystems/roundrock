@@ -1,0 +1,72 @@
+/*  skin for main screen ------------------------------------------------------------- */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+promotions_status textbox {
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.vbox_promotions {
+    background-color: #1e1b14;
+}
+
+.label_promotions {
+    color: #f49b1d;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 15pt;
+    font-family: monospace;
+    font-weight: bold !important;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.subtotal_promotions {
+    color: red;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 15pt;
+    font-family: monospace;
+    font-weight: bold !important;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.tree_promotions tree {
+    margin: 0px;
+    border: none;
+    color: #f4f4f4;
+    background-color: #1e1b14;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+
+.tree_promotions treechildren::-moz-tree-row(selected) { background-color: #1e1b14; }
+
+.tree_promotions .tree-scrollable-columns {
+    max-height: 0px;
+}
+
+
+.tree_promotions_detail #promotion_name, .tree_promotions_detail #promotion_code, .tree_promotions_detail #name,
+.tree_promotions_detail #no {
+    text-align: left;
+}
+
+.tree_promotions_detail #name {
+    width: 150px;
+}
+.tree_promotions_detail #current_qty, .tree_promotions_detail #current_subtotal,
+.tree_promotions_detail #discount_subtotal, .tree_promotions_detail #current_tax {
+    text-align: right;
+    width: 60px;
+}

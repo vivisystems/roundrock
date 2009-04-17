@@ -137,6 +137,8 @@
             this.data.decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
             this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
+            Transaction.events.dispatch('onCreate', this, this);
+
         },
 
         emptyView: function() {
@@ -159,6 +161,7 @@
             // maintain stock...
             if (status > 0)
                 self.requestCommand('decStock', self.data, "Stocks");
+
 
             if (!discard) {
 
@@ -315,7 +318,7 @@
 
             type = type || 'item';
 
-            _('Trans');
+            // _('Trans');
             var itemDisplay = {} ;
             var dispName;
             if (type == 'item') {
@@ -572,6 +575,8 @@
 
         appendItem: function(item){
 
+            //var profileStart = (new Date()).getTime();
+
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var productsById = GeckoJS.Session.get('productsById');
             var prevRowCount = this.data.display_sequences.length;
@@ -660,6 +665,9 @@
             this.updateCartView(prevRowCount, currentRowCount, currentRowCount - 1);
 
             this.updateLastSellItem(itemAdded);
+
+            //var profileEnd = (new Date()).getTime();
+            //this.log('appendItem End ' + (profileEnd - profileStart));
 
             return itemAdded;
         },
@@ -959,6 +967,8 @@
 
         voidItemAt: function(index){
 
+            // var startProfile = (new Date()).getTime();
+
             var prevRowCount = this.data.display_sequences.length;
 
             var itemTrans = this.getItemAt(index); // item in transaction
@@ -1015,11 +1025,12 @@
 
                 // recalc all
                 this.calcPromotions();
-                
-                this.calcItemsTax();
 
+                this.calcItemsTax(itemRemoved, true);
+                //this.calcItemsTax();
 
             }else {
+
                 if (itemDisplay.type == 'memo' ) {
                     if (itemTrans) itemTrans.memo= "";
                 }
@@ -1045,12 +1056,15 @@
                     subtotal.hasDiscount = false;
                     delete this.data.trans_discounts[itemIndex];
                 }
+                
                 if (itemDisplay.type == 'trans_surcharge') {
                     var subtotal = this.getDisplaySeqAt(itemDisplay.subtotal_index);
                     subtotal.hasSurcharge = false;
                     delete this.data.trans_surcharges[itemIndex];
                 }
+
                 if (itemDisplay.type == 'condiment') {
+
                     var targetItem = this.getItemAt(index, true);
                     var firstCondimentIndex = this.getFirstCondimentIndex(targetItem);
                     var firstCondimentDisplay = this.getDisplaySeqAt(firstCondimentIndex);
@@ -1084,6 +1098,7 @@
                     this.calcItemSubtotal(itemTrans);
 
                 }
+                
                 if (itemDisplay.type == 'payment') {
                     // make sure payment has not been subtotalled
                     var displayItems = this.data.display_sequences;
@@ -1101,6 +1116,7 @@
                     // remove payment record
                     delete this.data.trans_payments[itemIndex];
                 }
+
                 if (itemDisplay.type == 'subtotal' ||
                     itemDisplay.type == 'total' ||
                     itemDisplay.type == 'tray') {
@@ -1140,24 +1156,27 @@
 
                 // recalc all
                 this.calcPromotions();
-                
+
                 this.calcItemsTax(itemTrans);
                 
-                this.calcTotal();
+                //this.calcTotal();
 
             }
 
             var currentRowCount = this.data.display_sequences.length;
 
+            //this.log('VoidItem6' +( (new Date()).getTime() - startProfile));
             this.calcTotal();
 
+            //this.log('VoidItem7' +( (new Date()).getTime() - startProfile));
             this.updateCartView(prevRowCount, currentRowCount, index);
-
+            //this.log('VoidItem' +( (new Date()).getTime() - startProfile));
             return itemRemoved;
 
         },
 
         calcItemSubtotal: function(item) {
+
             var subtotal = item.current_qty * item.current_price || 0;
             var condiment_subtotal = 0;
             var setmenu_subtotal = 0;
@@ -1181,6 +1200,9 @@
             
             item.current_subtotal = this.getRoundedPrice((subtotal + setmenu_subtotal + condiment_subtotal) * item.price_modifier);
             itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+
+            Transaction.events.dispatch('onCalcItemSubtotal', item, this);
+
         },
 
 
@@ -2176,8 +2198,9 @@
             Transaction.events.dispatch('onCalcPromotions', this, this);
         },
 
-        calcItemsTax:  function(calcItem) {
+        calcItemsTax:  function(calcItem, isRemove) {
 
+            isRemove = isRemove || false;
             // for performance issue
             var items;
             if (calcItem) items = [calcItem];
@@ -2194,7 +2217,7 @@
             tax_type: null,
             current_tax: 0,
             */
-                if (item.parent_index == null) {
+                if (item.parent_index == null && !isRemove) {
                     var tax = Transaction.Tax.getTax(item.tax_name);
                     if(tax) {
                         item.tax_rate = tax.rate;
@@ -2226,6 +2249,8 @@
 
         calcTotal: function() {
 
+            //var profileStart = (new Date()).getTime();
+            
             //this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(this.data));
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
@@ -2305,6 +2330,9 @@
             this.data.surcharge_subtotal = this.data.item_surcharge_subtotal + this.data.trans_surcharge_subtotal;
 
             Transaction.events.dispatch('afterCalcTotal', this.data, this);
+
+            //var profileEnd = (new Date()).getTime();
+            //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
         //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 

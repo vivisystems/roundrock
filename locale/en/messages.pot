@@ -1789,6 +1789,21 @@ msgstr "Start"
 msgid "(rpt)End"
 msgstr "End"
 
+msgid "(rpt)Annotation Text"
+msgstr "Annotation Text"
+
+msgid "(rpt)Deposit"
+msgstr "Deposit"
+
+msgid "(rpt)TYPE"
+msgstr "type"
+
+msgid "(rpt)ORDER"
+msgstr "order"
+
+msgid "(rpt)ITEM"
+msgstr "item"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -1896,3 +1911,7 @@ msgstr "ByPass Type always pass success."
 
 msgid "acl_close_sale_period"
 msgstr "Close Sale Period"
+
+msgid "Your Saving"
+msgstr "** Your Saving **"
+

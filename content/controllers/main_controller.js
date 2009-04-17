@@ -19,9 +19,6 @@
     
         initial: function() {
 
-            this.patch102();
-            this.patch110();
-            
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
@@ -75,34 +72,6 @@
 
         destroy: function() {
             this.observer.unregister();
-        },
-
-        patch102: function() {
-
-            // add DB column main.products.alt_name1
-            var productModel = new ProductModel();
-            try {
-                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "alt_name1" VARCHAR');
-            }
-            catch(e) {
-            }
-
-            // add DB column main.products.alt_name2
-            try {
-                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "alt_name2" VARCHAR');
-            }
-            catch(e) {
-            }
-        },
-
-        patch110: function() {
-            // add DB column main.products.manual_adjustment_only
-            var productModel = new ProductModel();
-            try {
-                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "manual_adjustment_only" BOOL');
-            }
-            catch(e) {
-            }
         },
 
         _getKeypadController: function() {

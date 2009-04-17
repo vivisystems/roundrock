@@ -128,7 +128,7 @@ ${_( '(rpt)Discount Summary' )}
 {for detail in body.discount_summary.data}
 ${_( '(rpt)Name' ) + ':'}
 ${detail.discount_name|right:24}
-${_( '(rpt)Type' ) + ':'}
+${_( '(rpt)TYPE' ) + ':'}
 ${detail.itemOrAddition|right:24}
 ${_( '(rpt)Count' ) + ':'}
 ${detail.num_rows|default:0|right:24}
@@ -146,7 +146,7 @@ ${_( '(rpt)Surcharge Summary' )}
 {for detail in body.surcharge_summary.data}
 ${_( '(rpt)Name' ) + ':'}
 ${detail.surcharge_name|right:24}
-${_( '(rpt)Type' ) + ':'}
+${_( '(rpt)TYPE' ) + ':'}
 ${detail.itemOrAddition|right:24}
 ${_( '(rpt)Count' ) + ':'}
 ${detail.num_rows|default:0|right:24}

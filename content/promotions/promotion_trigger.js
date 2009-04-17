@@ -166,24 +166,28 @@ var __klass__ = {
         // set MatchedItemsQty
         this.setMatchedItemsQty(qty);
 
-//        this.log(this.dump(items) + ',,,' + qty);
-        
         var remain = qty;
 
         var matchedItems = [];
         var matchedItemsSubtotal = 0;
 
+        var self = this;
+
         items.forEach(function(item){
 
             // enough
-            if (remain <= 0) return;
+            if (remain <= 0) {
+                return;
+            }
 
             var itemSubtotal = item.current_subtotal;
             var itemQty = item.current_qty;
             // var itemPrice = item.current_price;
 
             // enough
-            if (itemSubtotal <= 0 || itemQty <= 0) return ;
+            if (itemSubtotal <= 0 || itemQty <= 0) {
+                return ;
+            }
 
             var matchedItem = GREUtils.extend({}, item);
 
@@ -207,7 +211,7 @@ var __klass__ = {
             matchedItems.push(matchedItem);
         });
 
-//        this.log(this.dump(matchedItems) + ',,,' + qty);
+        //this.log(this.dump(matchedItems) + ',,,' + qty + ',,,' + matchedItemsSubtotal);
 
         // set MatchedItemsSubtotal
         this.setMatchedItemsSubtotal(matchedItemsSubtotal);

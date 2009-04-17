@@ -306,7 +306,7 @@
             var event = document.createEvent("Event");
             event.initEvent("promotion_modify", true, true);
             document.getElementById('triggerFrame').contentWindow.dispatchEvent(event);
-
+            
             var settings = GeckoJS.Session.get('promotions_manager.trigger.settings.'+triggerKey) || {};
 
             return settings;

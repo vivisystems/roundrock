@@ -1609,7 +1609,13 @@ msgstr "Seq."
 msgid "(rpt)Service Clerk"
 msgstr "Service Clerk"
 
+msgid "Service Clerk"
+msgstr "Service Clerk"
+
 msgid "(rpt)Proceeds Clerk"
+msgstr "Proceeds Clerk"
+
+msgid "Proceeds Clerk"
 msgstr "Proceeds Clerk"
 
 msgid "(rpt)Proceeds"
@@ -1792,6 +1798,21 @@ msgstr "Start"
 msgid "(rpt)End"
 msgstr "End"
 
+msgid "(rpt)Annotation Text"
+msgstr "Annotation Text"
+
+msgid "(rpt)Deposit"
+msgstr "Deposit"
+
+msgid "(rpt)TYPE"
+msgstr "type"
+
+msgid "(rpt)ORDER"
+msgstr "order"
+
+msgid "(rpt)ITEM"
+msgstr "item"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -1899,6 +1920,9 @@ msgstr "ByPass Type always pass success."
 
 msgid "acl_close_sale_period"
 msgstr "Close Sale Period"
+
+msgid "Your Saving"
+msgstr "** Your Saving **"
 
 msgid "confirm timezone change"
 msgstr ""
@@ -2328,6 +2352,9 @@ msgid "Check Type"
 msgstr ""
 
 msgid "Refund amount [%S] may not exceed amount paid [%S]"
+msgstr ""
+
+msgid "No payments accepted when balance is zero or negative"
 msgstr ""
 
 msgid "Credit Card Payment Error"
@@ -3036,12 +3063,6 @@ msgstr ""
 msgid "The Check# %S has been merged to Check# %S!!"
 msgstr ""
 
-msgid "trigger."
-msgstr ""
-
-msgid "type."
-msgstr ""
-
 msgid "Add New Filter"
 msgstr ""
 
@@ -3296,6 +3317,12 @@ msgid "Error in Print controller; no worker thread available!"
 msgstr ""
 
 msgid "Specified template [%S] is empty or does not exist!"
+msgstr ""
+
+msgid "trigger."
+msgstr ""
+
+msgid "type."
 msgstr ""
 
 msgid "Add New Promotion Rule"
@@ -3753,14 +3780,14 @@ msgstr ""
 msgid "Hourly Sales Report"
 msgstr ""
 
+msgid "Order Annotation Report"
+msgstr ""
+
 msgid "Product Sales Report"
 msgstr ""
 
-msgid "item"
-msgstr ""
-
-msgid "order"
-msgstr ""
-
 msgid "Product Stock List"
+msgstr ""
+
+msgid "(rpt)Subtotal"
 msgstr ""
