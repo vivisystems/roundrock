@@ -65,8 +65,7 @@
 				                	<label value="&rptclerksales.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="[&rptclerksales.all;]" value="all" />
-					                        <menuitem selected="false" label="&rptclerksales.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="true" label="&rptclerksales.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptclerksales.associated_clerk;" value="associated_clerk_displayname" />
 					                        <menuitem selected="false" label="&rptclerksales.transaction_created;" value="transaction_created" />
 					                        <menuitem selected="false" label="&rptclerksales.sequence;" value="sequence" />

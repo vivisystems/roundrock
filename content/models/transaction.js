@@ -771,7 +771,8 @@
                     var condimentItem = {
                         id: itemTrans.id,
                         name: itemDisplay.name,
-                        current_subtotal: condimentPrice == 0 ? '' : condimentPrice
+                        current_subtotal: condimentPrice == 0 ? '' : condimentPrice,
+                        open: itemDisplay.open
                     };
                 }
                 var obj = {
@@ -904,6 +905,9 @@
 
                         var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
 
+                        // inherit open state
+                        condimentItemDisplay2.open = condimentItem.open;
+
                         // update condiment display
                         this.data.display_sequences[index] = condimentItemDisplay2 ;
 
@@ -930,6 +934,9 @@
                         targetItem.current_condiment = condiment_subtotal;
 
                         var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment', 2);
+
+                        // inherit open state
+                        condimentItemDisplay2.open = condimentItem.open;
 
                         // update condiment display
                         this.data.display_sequences[index] = condimentItemDisplay2 ;

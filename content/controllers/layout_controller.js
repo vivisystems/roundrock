@@ -146,7 +146,7 @@
                 if (cropDeptLabel) deptPanel.setAttribute('crop', 'end');
                 else deptPanel.removeAttribute('crop');
 
-                if ((departmentRows > 0) && (departmentCols > 0)) {
+                if ((departmentRows > 0) && (departmentCols > 0) && (departmentButtonHeight > 0)) {
                     deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
                     deptPanel.setAttribute('hidden', false);
                     deptPanel.initGrid();

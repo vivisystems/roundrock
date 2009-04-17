@@ -1600,7 +1600,13 @@ msgstr "Seq."
 msgid "(rpt)Service Clerk"
 msgstr "Service Clerk"
 
+msgid "Service Clerk"
+msgstr "Service Clerk"
+
 msgid "(rpt)Proceeds Clerk"
+msgstr "Proceeds Clerk"
+
+msgid "Proceeds Clerk"
 msgstr "Proceeds Clerk"
 
 msgid "(rpt)Proceeds"
@@ -1783,6 +1789,12 @@ msgstr "Start"
 msgid "(rpt)End"
 msgstr "End"
 
+msgid "(rpt)Annotation Text"
+msgstr "Annotation Text"
+
+msgid "(rpt)Deposit"
+msgstr "Deposit"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -1887,4 +1899,10 @@ msgstr "ByPass"
 
 msgid "type.bypass.desc"
 msgstr "ByPass Type always pass success."
+
+msgid "acl_close_sale_period"
+msgstr "Close Sale Period"
+
+msgid "Your Saving"
+msgstr "** Your Saving **"
 

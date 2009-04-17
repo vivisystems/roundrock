@@ -34,10 +34,14 @@
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl" pack="center">
+            <separator class="groove-thin"/>
             <caption label="&printer.dashboard.receipt.title;" class="PageTitle" />
+            <separator class="groove-thin"/>
             <hbox id="receipt-row" flex="1" pack="center">
             </hbox>
+            <separator class="groove-thin"/>
             <caption label="&printer.dashboard.check.title;" class="PageTitle" />
+            <separator class="groove-thin"/>
             <hbox id="check-row" flex="1" pack="center">
             </hbox>
             <hbox flex="1">

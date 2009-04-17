@@ -176,7 +176,7 @@ if (typeof(TrimPath) != 'undefined') {
 
         // unixTimeToLocale modifier
         $T.parseTemplate_etc.modifierDef['unixTimeToString'] = function ( time, format ) {
-            format = format || 'datetime';
+            format = format || 'yyyy-MM-dd HH:mm';
             var t = time.toFixed(0).length > 10 ? time : time * 1000;
             var d = new Date(t);
 

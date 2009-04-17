@@ -2,12 +2,15 @@ var ClockStampModel = GeckoJS.Model.extend({
     name: 'ClockStamp',
     indexes: ['username', 'job', 'created', 'clockin_date'],
 
-    saveStamp: function(type, username, job) {
+    saveStamp: function(type, username, job, displayname) {
 
         var data = {};
         var today = new Date();
 
+        if (!displayname) displayname = username;
         data['username'] = username;
+        data['displayname'] = displayname;
+        
         switch (type) {
             case "clockin":
                 var last = this.findLastStamp(username);

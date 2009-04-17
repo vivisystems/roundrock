@@ -84,6 +84,7 @@
 
 <!ENTITY plus.button.action.add "Add">
 <!ENTITY plus.button.action.modify "Modify">
+<!ENTITY plus.button.action.clone "Clone">
 <!ENTITY plus.button.action.delete "Delete">
 <!ENTITY plus.button.action.update.setitem "Update">
 

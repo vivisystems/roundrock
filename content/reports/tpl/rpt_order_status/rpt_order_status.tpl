@@ -39,7 +39,7 @@
                     <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.service_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.status}</td>
-                    <td style="text-align: left;">${detail.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
+                    <td style="text-align: left;">${detail.transaction_created|unixTimeToString}</td>
                     <td style="text-align: left;">${detail.sequence}</td>
                     <td style="text-align: right;">${detail.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|viviFormatPrices:true}</td>

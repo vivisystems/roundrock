@@ -9,7 +9,7 @@
     RptBaseController.extend( {
         name: 'RptDailySalesDetail',
         
-        _fileName: "rpt_daily_sales_detail",
+        _fileName: 'rpt_daily_sales_detail',
         
         _enableButton: function( enable ) {
         	this._super( enable );
@@ -28,12 +28,14 @@
             
             var machineid = document.getElementById( 'machine_id' ).value;
             var sequenceNo = document.getElementById( 'sequence_no' ).value;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
 
             var fields =	'orders.id, ' +
-            				'DATE( orders.transaction_created, "unixepoch", "localtime" ) as time, ' +
+            				'orders.transaction_created as time, ' +
                             'orders.sequence, ' +
                             'orders.total, ' +
                             'orders.tax_subtotal, ' +
@@ -60,13 +62,12 @@
 
             if ( machineid.length > 0 )
                 conditions += " and orders.terminal_no like '" + machineid + "%'";
-            
+          
             if ( sequenceNo.length > 0 )
             	conditions += " and orders.sequence like '" + sequenceNo + "%'";
 
-            var orderby = 'orders.terminal_no, orders.item_subtotal desc';//orders.transaction_created';
+            var orderby = 'orders.' + sortby + ', orders.item_subtotal desc';//orders.transaction_created';
             
-            var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' ) {
             	var desc = "";
             	

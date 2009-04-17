@@ -19,6 +19,8 @@
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             var machineid = document.getElementById('machine_id').value;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt(start / 1000, 10);
             end = parseInt(end / 1000, 10);
@@ -46,7 +48,7 @@
             }
 
             
-            var orderby = '"Order.HourTotal" desc';//orders.transaction_created';
+            var orderby = '"' + sortby + '" desc';//orders.transaction_created';
 
             var order = new OrderModel();
             var records = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1} );
@@ -54,7 +56,6 @@
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
             
-            var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' ) {
             	records.sort(
             		function ( a, b ) {

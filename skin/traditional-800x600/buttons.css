@@ -417,6 +417,26 @@ textbox:not([onclick]) *[readonly] {
     background: yellow url(images/prohibitsale.png) center center no-repeat;
 }
 
+.clonebtn {
+    background: transparent url(images/copy-32x32.png) center center no-repeat;
+}
+
+.clonebtn[disabled=false] {
+    border: 2px solid black !important;
+}
+
+.clonebtn[disabled=true] {
+    border: 0px solid black !important;
+}
+
+.selectAllBtn {
+    background: transparent url(images/check.png) center center no-repeat;
+}
+
+.clearAllBtn {
+    background: transparent url(images/uncheck.png) center center no-repeat;
+}
+
 .dialogbtns .vkb {
     list-style-image: url(images/keyboard.png);
     margin: 2px;

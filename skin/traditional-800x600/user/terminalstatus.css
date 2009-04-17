@@ -5,6 +5,7 @@
     border-width: 1px;
     border-color: black;
     font-size: x-small;
+    color: black;
     text-align: center;
 }
 
@@ -14,6 +15,7 @@
     background-color: transparent;
     border-width: 1px;
     font-size: x-small;
+    color: black;
     text-align: center;
     max-width: 80px;
 }
@@ -25,6 +27,7 @@
     background-color: transparent;
     max-height: 30px;
     text-align: center;
+    color: black;
 }
 
 .console_message_value {
@@ -34,6 +37,7 @@
     background-color: transparent;
     border-width: 1px;
     font-size: x-small;
+    color: black;
 }
 
 .clock {

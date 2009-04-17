@@ -198,6 +198,31 @@
                 	waitPanel.hidePopup();
             }
         },
+        
+        /**
+         * @param fields is an array consisted of strings indicating the fields going to be added to popup menu.
+         * @param conditions is a string, the conditions to constrain the DB retrieval. Pass a null string if none of it.
+         * @param order is an string indicating the fields by which the retrieved records are going to be ordered.
+         * @param group is an string indicating the fields by which the records will be grouped.
+         * @param menupopupId is a string standing for the id of the menupopup element.
+         * @param valueField is a string meaning the DB field to be the value attribute of the xul menuitem element.
+         * @param labelField is a string meaning the DB field to be the label attribute of the xul menuitem element.
+         *
+         * The propose of this private method is to add some menuitems into a certain xul menupopup element.
+         */
+         
+        _addMenuitem: function( dbModel, fields, conditions, order, group, menupopupId, valueField, labelField ) {
+	        //set up the designated pop-up menulist.
+	        var records = dbModel.find( 'all', { fields: fields, conditions: conditions, order: order, group: group } );
+	        var menupopup = document.getElementById( menupopupId );
+
+	        records.forEach( function( data ) {
+	            var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
+	            menuitem.setAttribute( 'value', data[ valueField ] );
+	            menuitem.setAttribute( 'label', data[ labelField ] );
+	            menupopup.appendChild( menuitem );
+	        });
+	    },
 
         load: function() {
             this._enableButton( false );

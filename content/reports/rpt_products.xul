@@ -50,8 +50,7 @@
 				                    <label value="&rptproducts.sortby;" />
 				                    <menulist id="sortby">
 				                        <menupopup id="sortby_menupopup">
-				                            <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
-				                            <menuitem selected="false" label="&rptproducts.no;" value="no" />
+				                            <menuitem selected="true" label="&rptproducts.no;" value="no" />
 				                            <menuitem selected="false" label="&rptproducts.name;" value="name" />
 				                            <menuitem selected="false" label="&rptproducts.barcode;" value="barcode" />
 				                            <menuitem selected="false" label="&rptproducts.rate;" value="rate" />

@@ -13,6 +13,7 @@
 
         _set_reportRecords: function() {
             var department = document.getElementById('department').value;
+            var sortby = document.getElementById( 'sortby' ).value;
 
             var fields = [ 'cate_no', 'no', 'name', 'stock', 'min_stock' ];
 
@@ -41,9 +42,8 @@
 
             var groupby;
             
-            var orderby = 'products.cate_no,products.no';
+            var orderby = 'products.cate_no,products.' + sortby;
             
-            var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' )
             	orderby = 'products.' + sortby;
 

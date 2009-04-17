@@ -6,7 +6,7 @@
 
         useDbConfig: 'order',
 
-        hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation','OrderPromotion'],
+        hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'],
         hasOne: ['OrderObject'],
 
         behaviors: ['Sync'],
@@ -21,6 +21,7 @@
             this.OrderAddition.delAll(cond);
             // this.OrderPayment.delAll(cond);
             this.OrderObject.delAll(cond);
+            this.OrderItemCondiment.delAll(cond);
             this.OrderPromotion.delAll(cond);
         },
 
@@ -38,6 +39,7 @@
                 r = this.saveOrderItems(data);
                 r = this.saveOrderAdditions(data);
                 r = this.saveOrderPayments(data);
+                r = this.saveOrderItemCondiments(data);
                 r = this.saveOrderPromotions(data);
 
             // serialize to database
@@ -82,6 +84,15 @@
             this.OrderAddition.commit();
             return r;
 
+        },
+
+        saveOrderItemCondiments: function(data) {
+            var orderItemCondiments = this.mappingTranToOrderItemCondimentsFields(data);
+            var r;
+            this.OrderItemCondiment.begin();
+            r = this.OrderItemCondiment.saveAll(orderItemCondiments);
+            this.OrderItemCondiment.commit();
+            return r;
         },
 
         saveOrderPayments: function(data) {
@@ -211,9 +222,43 @@
                 }
 
                 orderItems.push(orderItem);
-
             }
             return orderItems;
+
+        },
+
+        mappingTranToOrderItemCondimentsFields: function(data) {
+
+            var orderItemCondiments = [];
+
+            for (var iid in data.items) {
+
+                var item = data.items[iid];
+
+                for (var cond in item.condiments) {
+
+                    var orderItemCondiment = {};
+
+                    orderItemCondiment['item_id'] = iid;
+                    orderItemCondiment['order_id'] = data.id;
+
+                    var condiment = item.condiments[cond];
+
+                    for (var key in condiment) {
+                        switch(key) {
+                            case 'id':
+                            case 'current_subtotal':
+                                break;
+
+                            default:
+                                orderItemCondiment[key] = condiment[key];
+                                break;
+                        }
+                    }
+                    orderItemCondiments.push(orderItemCondiment);
+                }
+            }
+            return orderItemCondiments;
 
         },
 
@@ -266,7 +311,6 @@
                 delete (applyItem['id']);
 
                 orderPromotions.push(applyItem);
-
             }
 
             return orderPromotions;
@@ -331,7 +375,7 @@
             try {
                 var orderObject = this.OrderObject.find('first', {
                     conditions:"order_id='"+order_id+"'"
-                    });
+                });
                 if(orderObject) {
                     return GeckoJS.BaseObject.unserialize(orderObject.object);
                 }
@@ -390,6 +434,8 @@
                 self.OrderObject.execute("DELETE FROM " + self.OrderObject.table + " WHERE " + cond);
                 self.OrderReceipt.execute("DELETE FROM " + self.OrderReceipt.table + " WHERE " + cond);
                 self.OrderAnnotation.execute("DELETE FROM " + self.OrderAnnotation.table + " WHERE " + cond);
+                self.OrderItemCondiment.execute("DELETE FROM " + self.OrderItemCondiment.table + " WHERE " + cond);
+                self.OrderPromotion.execute("DELETE FROM " + self.OrderPromotion.table + " WHERE " + cond);
 
                 // update progressbar...
                 GeckoJS.BaseObject.sleep(50);

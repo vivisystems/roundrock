@@ -69,8 +69,7 @@
 				                	<label value="&rptdailysales.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="[&rptdailysales.all;]" value="all" />
-					                        <menuitem selected="false" label="&rptdailysales.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="true" label="&rptdailysales.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptdailysales.service_clerk;" value="service_clerk_displayname" />
 					                        <menuitem selected="false" label="&rptdailysales.proceeds_clerk;" value="proceeds_clerk_displayname" />
 					                        <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created" />

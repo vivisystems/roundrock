@@ -17,6 +17,8 @@
 
             var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            
+            var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
@@ -27,9 +29,12 @@
                             'DATETIME("clock_stamps"."created", "unixepoch", "localtime") AS "ClockStamp.InTime"',
                             'DATETIME("clock_stamps"."modified", "unixepoch", "localtime") AS "ClockStamp.OutTime"',
                             'ABS("clock_stamps"."modified" - "clock_stamps"."created") AS "ClockStamp.Spans"',
-                            'TIME(ABS("clock_stamps"."modified" - "clock_stamps"."created"), "unixepoch") AS "ClockStamp.SpanTime"',
+                            'strftime("%d %H:%M:%S", ABS("clock_stamps"."modified" - "clock_stamps"."created"), "unixepoch") AS "ClockStamp.SpanTime"',
                             'clock_stamps.username',
-                            'clock_stamps.job'
+                            'clock_stamps.job',
+                            'clockin_time',
+                            'clockout_time',
+                            'displayname'
                         ];
 
             var conditions = "clock_stamps.created>='" + start +
@@ -45,19 +50,11 @@
            		conditions += " AND clock_stamps.job = '" + jobTitle + "'";
 
             var groupby = 'clock_stamps.username';
-            var orderby = 'clock_stamps.username,clock_stamps.created';
+            var orderby = 'clock_stamps.username, "' + sortby + '"';
 
             var clockStamp = new ClockStampModel();
             var datas = clockStamp.find( 'all', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1 } );
 
-            /*
-            var user = new UserModel();
-            var users = user.find('all', {
-                fields: ['username','displayname','group']
-                });
-            */
-            
-            var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' ) {
 		        datas.sort(
 				    function( a, b ) {
@@ -78,13 +75,20 @@
             datas.forEach(function(o){
                 if (!clockStamps[o.username]) {
                     clockStamps[o.username] = {};
-                    clockStamps[o.username].username = o.username;
+                    clockStamps[o.username].username = o.displayname;
                     clockStamps[o.username].total_spans = 0;
                     clockStamps[o.username].clockStamps = [];
                 }
+                
+                // refine SpanTime by decreasing the day part by one.
+                var num_day = parseInt( o.SpanTime[ 0 ] + o.SpanTime[ 1 ], 10 );
+                num_day--;
+                o.SpanTime = '' + parseInt( num_day / 10, 10 ) + num_day % 10 + o.SpanTime.substr( 2 );
+                
                 clockStamps[o.username].clockStamps.push(GREUtils.extend({}, o));
                 clockStamps[o.username].total_spans += o.Spans;
-                clockStamps[o.username].total_spantime = GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans / 60 / 60),2) + ":" +
+                clockStamps[o.username].total_spantime = 	GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans / 24 / 60 / 60),2) + " " +
+                											GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans / 60 / 60) % 24,2) + ":" +
                                                             GeckoJS.String.padLeft(parseInt((clockStamps[o.username].total_spans / 60) % 60),2) + ":" +
                                                             GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans % 60),2);
             });
@@ -107,23 +111,10 @@
 
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
-            
-            function addMenuitem( dbModel, fields, order, group, menupopupId, valueField, labelField ) {
-		        //set up the designated pop-up menulist.
-		        var records = dbModel.find( 'all', { fields: fields, order: order, group: group } );
-		        var menupopup = document.getElementById( menupopupId );
-
-		        records.forEach( function( data ) {
-		            var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
-		            menuitem.setAttribute( 'value', data[ valueField ] );
-		            menuitem.setAttribute( 'label', data[ labelField ] );
-		            menupopup.appendChild( menuitem );
-		        });
-		    }
 		    
-		    addMenuitem( new ClockStampModel(), [ 'username' ], [ 'username' ], [ 'username' ], 'user_menupopup', 'username', 'username' );
+		    this._addMenuitem( new ClockStampModel(), [ 'displayname' ], '', 'displayname', 'displayname', 'user_menupopup', 'displayname', 'displayname' );
             
-            addMenuitem( new ClockStampModel(), [ 'job' ], [ 'job' ], [ 'job' ], 'job_menupopup', 'job', 'job' );
+            this._addMenuitem( new ClockStampModel(), [ 'job' ], '', 'job', 'job', 'job_menupopup', 'job', 'job' );
 
             this._enableButton(false);
         }

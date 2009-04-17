@@ -19,6 +19,8 @@
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
             var machineid = document.getElementById( 'machine_id' ).value;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
@@ -64,7 +66,7 @@
                          ];
                 
             var groupby = 'order_payments.order_id, order_payments.name';
-            var orderby = 'orders.terminal_no, orders.total desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.' + sortby + ', orders.total desc';//orders.transaction_created, orders.id';
 
             var orderPayment = new OrderPaymentModel();
 
@@ -130,9 +132,7 @@
             });
             
             this._datas = GeckoJS.BaseObject.getValues(repDatas);
-            
-            var sortby = document.getElementById( 'sortby' ).value;
-            
+
             if ( sortby == 'associated_clerk_displayname' ) {
 		        if ( clerk_type == 'service_clerk_displayname' )
 					sortby = 'proceeds_clerk_displayname';

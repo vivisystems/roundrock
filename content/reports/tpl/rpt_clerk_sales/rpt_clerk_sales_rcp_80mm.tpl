@@ -1,3 +1,4 @@
+
 [&QSON]${head.store.name|center:15}[&QSOFF]
 [&DWON]${head.store.branch|center:15}[&DWOFF]
 ${head.store.telephone1|center:42}
@@ -8,10 +9,10 @@ ${head.title|center:42}
 {for clerk in body}
 Clerk:${clerk.name|right:36}
 ------------------------------------------
-${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:10}  ${_( '(rpt)Seq.' )|left:20}
+${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Seq.' )|left:14}
 --------  ----------  --------------------
 {for order in clerk.orders}
-${order.terminal_no|left:8}  ${order.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${order.sequence|left:20}
+${order.terminal_no|left:8}  ${order.transaction_created|unixTimeToString|left:16}  ${order.sequence|left:14}
 ${'    ' + _( clerk.associated_clerk ) + ':'|left:17}{if clerk.associated_clerk == 'Proceeds Clerk'}${order.proceeds_clerk_displayname}{/if}{if clerk.associated_clerk == 'Service Clerk'}${order.service_clerk_displayname}{/if}
     
 ${'    ' + _( '(rpt)Total' ) + ': '|left:17}${order.item_subtotal|viviFormatPrices:true}
