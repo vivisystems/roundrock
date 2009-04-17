@@ -15,7 +15,7 @@
         <content>
             <xul:textbox anonid="textbox"
                          xbl:inherits="class,flex"
-                         readonly="true"/>
+                         disabled="true"/>
         </content>
         <implementation>
 

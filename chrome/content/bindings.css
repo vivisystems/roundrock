@@ -28,10 +28,6 @@ scrollablepanel {
   -moz-binding: url("chrome://vivipos/content/bindings/scrollablepanel.xbl#scrollablepanel");
 }
 
-onscreenvfd {
-  -moz-binding: url("chrome://vivipos/content/bindings/onscreenvfd.xbl#onscreenvfd");
-}
-
 isuserinrole {
   -moz-binding: url("chrome://vivipos/content/bindings/isuserinrole.xbl#isuserinrole");
 }
