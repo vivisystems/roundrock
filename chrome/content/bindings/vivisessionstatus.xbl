@@ -198,7 +198,7 @@
                             var labelNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
                             labelNode.setAttribute('class', labelClass);
                             labelNode.setAttribute('value', labels[index]);
-                            labelNode.setAttribute('readonly', 'true');
+                            labelNode.setAttribute('disabled', 'true');
                             row.appendChild(labelNode);
                         }
 
@@ -207,7 +207,7 @@
                         valueNode.setAttribute('class', valueClass);
                         valueNode.setAttribute('anonid', 'value' + index);
                         valueNode.setAttribute('value', GeckoJS.Session.get(this.keys[index]));
-                        valueNode.setAttribute('readonly', 'true');
+                        valueNode.setAttribute('disabled', 'true');
                         row.appendChild(valueNode);
                         this.nodes.push(valueNode);
 
