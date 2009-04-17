@@ -155,6 +155,9 @@
                     case 'markers':
                         break;
 
+                    case 'promotion_subtotal':
+                        orderData['promotion_subtotal'] = parseFloat(0-data['promotion_subtotal']);
+                        break;
                     default:
                         orderData[key] = data[key];
                         break;
@@ -308,6 +311,7 @@
 
                 applyItem['order_id'] = data.id;
                 applyItem['promotion_id'] = applyItem['id'];
+                applyItem['discount_subtobal'] = parseFloat(0 - applyItem['discount_subtobal']);
                 delete (applyItem['id']);
 
                 orderPromotions.push(applyItem);
