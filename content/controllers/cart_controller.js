@@ -1201,9 +1201,7 @@
             }
 
             this.dispatchEvent('beforeVoidItem', itemTrans);
-
             var voidedItem = curTransaction.voidItemAt(index);
-
             this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
 
             this.subtotal();

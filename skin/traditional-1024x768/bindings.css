@@ -60,3 +60,7 @@ vivifuncpanelecr {
   -moz-binding: url("chrome://viviecr/content/bindings/vivifuncpanelecr.xbl#vivifuncpanelecr");
 }
 
+promotions_status {
+  -moz-binding: url("chrome://viviecr/content/bindings/promotions_status.xbl#promotions_status");
+}
+

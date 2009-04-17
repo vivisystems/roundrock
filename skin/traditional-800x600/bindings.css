@@ -64,3 +64,7 @@ table_status_btn {
   -moz-binding: url("chrome://viviecr/content/bindings/table_status_btn.xbl#table_status_btn");
 }
 
+promotions_status {
+  -moz-binding: url("chrome://viviecr/content/bindings/promotions_status.xbl#promotions_status");
+}
+

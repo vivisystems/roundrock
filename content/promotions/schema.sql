@@ -1,4 +1,4 @@
-CREATE  TABLE IF NOT EXISTS "main"."promotion_actives" (
+CREATE  TABLE IF NOT EXISTS "main"."promotion_applies" (
 "sn" INTEGER PRIMARY KEY,
 "id" VARCHAR,
 "name" VARCHAR, 
@@ -10,22 +10,28 @@ CREATE  TABLE IF NOT EXISTS "main"."promotion_actives" (
 "trigger_label" VARCHAR,
 "type" VARCHAR,
 "type_name" VARCHAR,
-"type_label" VARCHAR
+"type_label" VARCHAR,
+"matched_amount" INTEGER,
+"matched_items_qty" INTEGER,
+"matched_items_subtotal" FLOAT,
+"discount_subtotal" FLOAT,
+"tax_name" VARCHAR,
+"current_tax" FLOAT
+
 );
 
-
 CREATE  TABLE IF NOT EXISTS "main"."promotion_cart_items" (
-"sn" INTEGER PRIMARY KEY,
+"index" VARCHAR PRIMARY KEY,
 "id" VARCHAR,
 "name" VARCHAR,
 "no" VARCHAR,
 "barcode" VARCHAR,
 "cate_no" VARCHAR,
 "link_group" VARCHAR,
-"index" VARCHAR,
 "org_qty" FLOAT DEFAULT 0,
 "current_qty" FLOAT,
 "current_price" FLOAT,
+"org_subtotal" FLOAT DEFAULT 0,
 "current_subtotal" FLOAT,
 "current_tax" FLOAT,
 "current_discount" FLOAT,
@@ -33,6 +39,17 @@ CREATE  TABLE IF NOT EXISTS "main"."promotion_cart_items" (
 "condiments" VARCHAR,
 "current_condiment" FLOAT
 );
+
+
+CREATE  TABLE IF NOT EXISTS "main"."promotion_cart_additions" (
+"id" VARCHAR PRIMARY KEY,
+"current_tax" FLOAT,
+"discount_name" VARCHAR,
+"current_discount" FLOAT,
+"surcharge_name" VARCHAR,
+"current_surcharge" FLOAT
+);
+
 
 CREATE  INDEX "main"."idx_promotion_cart_items_id" ON "promotion_cart_items" ("id");
 CREATE  INDEX "main"."idx_promotion_cart_items_no" ON "promotion_cart_items" ("no");
