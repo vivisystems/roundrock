@@ -40,7 +40,7 @@
             var cart = this._controller;
             if (cart) {
                 cart.addEventListener('newTransaction', this.handleNewTransaction, this);
-                cart.addEventListener('onSubmit', this.handleNewTransaction, this);
+                // cart.addEventListener('onSubmit', this.handleNewTransaction, this);
                 cart.addEventListener('onCancel', this.handleNewTransaction, this);
                 // cart.addEventListener('onClear', this.handleClear, this);
                 cart.addEventListener('onStore', this.handleNewTransaction, this);
@@ -76,16 +76,21 @@ this.log("evt.type:" + evt.type);
             }
             if (evt.type == 'onStartShift' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
                 if (evt.type == 'onStore') {
-this.log("in inStore..." + evt.type);
+this.log("in onStore..." + evt.type);
                     this._tableStatusModel.addCheck(evt.data.data);
                 }
                 if (evt.type == 'afterSubmit') {
                 //    this._tableStatusModel.removeCheck(evt.data.data);
-                    return;
-                }
-                if (evt.type == 'onSubmit') {
-this.log("in onSubmit..." + evt.type);
+                //    return;
+                    try {
                     this._tableStatusModel.removeCheck(evt.data.data);
+                    } catch(e) {}
+                }
+                if (evt.type == 'onSubmit'/* || evt.type == 'onCancel'*/) {
+// this.log("in onSubmit..." + evt.type);
+//                    try {
+//                    this._tableStatusModel.removeCheck(evt.data.data);
+//                    } catch(e) {}
                     // return;
                 }
                 if (this._guestCheck.requireTableNo) {
@@ -122,7 +127,7 @@ this.log("in onSubmit..." + evt.type);
 
             // get table status
             var tables = this._tableStatusModel.getTableStatusList();
-
+// GREUtils.log(GeckoJS.BaseObject.dump(tables));
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
@@ -183,11 +188,28 @@ this.log("in onSubmit..." + evt.type);
                         var curTransaction = null;
                         curTransaction = this._controller._getTransaction();
                         if (curTransaction) {
-this.log("change service_clerk:" + service_clerk);
                             if (service_clerk) {
                                 curTransaction.data.service_clerk = service_clerk;
                                 curTransaction.data.service_clerk_displayname = service_clerk_displayname;
                             }
+                        }
+                        this.store();
+                        this._controller.dispatchEvent('onStore', curTransaction);
+                        break;
+                    case 'MergeTable':
+                        // var holdby = inputObj.sourceTableNo;
+                        // alert(holdby);
+                        // this._tableStatusModel.holdTable(i, holdby);
+                        break;
+                    case 'TransTable':
+                        var targetTableNo = Math.round(parseInt(i));
+                        var sourceTableNo = inputObj.sourceTableNo;
+this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
+                        this.recallByTableNo(sourceTableNo);
+                        var curTransaction = null;
+                        curTransaction = this._controller._getTransaction();
+                        if (curTransaction) {
+                            this.table("" + targetTableNo);
                         }
                         this.store();
                         this._controller.dispatchEvent('onStore', curTransaction);

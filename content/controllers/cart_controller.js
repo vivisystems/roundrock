@@ -3173,7 +3173,7 @@ this.log("newTable...");
 
             var curTransaction = this._getTransaction();
             if (curTransaction) {
-                if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0) {
+                if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0 && curTransaction.data.recall !=2) {
                     NotifyUtils.warn(_('This order must be store first'));
                     return;
                 }
@@ -3195,7 +3195,7 @@ this.log("after newTable..." + r);
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
-// recall order
+
             return this.GuestCheck.recallByOrderNo(no);
         },
 

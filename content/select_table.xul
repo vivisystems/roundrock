@@ -28,7 +28,13 @@
     </script>
     -->
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/order.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/order_item.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/order_payment.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table_status.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/table.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/table_region.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/table_booking.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/select_table.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/controllers/select_table_controller.js" />
 
@@ -43,7 +49,8 @@
                                            buttonTagName="table_status_btn"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown"
-                                           oncommand="$do('doFunc', null, 'SelectTable');">
+                                           buttonPopup2="order_display_panel"
+                                           oncommand="$do('doFunc', event, 'SelectTable');">
                     <spacer flex="1"/>
                 </viviscrollablebuttonpanel>
             </hbox>
@@ -84,13 +91,20 @@
             <vbox flex="1">
                 <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
                 <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
+                <label id="prompt_3" value="prompt 3" class="PromptLabel2" />
                 <spacer flex="1" />
-                <label id="prompt_3" value="prompt 3" class="PromptLabel3" />
+                <label id="prompt_4" value="prompt 4" class="PromptLabel3" />
             </vbox>
             <vbox>
                 
             </vbox>
         </hbox>
+    </panel>
+
+    <panel id="order_display_panel" position="after_start" class="PromptPnl">
+        <html:div id="order_display_div" style="background: #fed;">
+            
+        </html:div>
     </panel>
 
 </window>
