@@ -2864,6 +2864,15 @@ msgstr ""
 msgid "Rename Image (%S) Error"
 msgstr ""
 
+msgid "Export Error"
+msgstr ""
+
+msgid "Import/Export already in progress"
+msgstr ""
+
+msgid "Export device and/or folder not found [%S]"
+msgstr ""
+
 msgid "Please select a data category to export"
 msgstr ""
 
@@ -2877,6 +2886,12 @@ msgid " (%S)"
 msgstr ""
 
 msgid "Data export to CSV file [%S] finished!"
+msgstr ""
+
+msgid "Import Error"
+msgstr ""
+
+msgid "Import device and/or folder not found [%S]"
 msgstr ""
 
 msgid "Please select a data category to import"
@@ -3670,6 +3685,9 @@ msgstr ""
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
+msgid "Sold Out -"
+msgstr ""
+
 msgid "REM"
 msgstr ""
 
@@ -3704,9 +3722,6 @@ msgid "CHG"
 msgstr ""
 
 msgid "Sale Completed"
-msgstr ""
-
-msgid "Sold Out -"
 msgstr ""
 
 msgid "Scroll Forward"
