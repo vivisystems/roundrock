@@ -311,7 +311,7 @@
 
                 applyItem['order_id'] = data.id;
                 applyItem['promotion_id'] = applyItem['id'];
-                applyItem['discount_subtobal'] = parseFloat(0 - applyItem['discount_subtobal']);
+                applyItem['discount_subtotal'] = parseFloat(0 - applyItem['discount_subtotal']);
                 delete (applyItem['id']);
 
                 orderPromotions.push(applyItem);
