@@ -56,8 +56,8 @@
 		this.charCodes = this.hasAttribute('charCode') ? this.getAttribute('charCode') : "" ;
 		this.canceled = this.hasAttribute('canceled') ? this.getAttribute('canceled').toUpperCase() == "TRUE" : false;
 		this.target =  this.hasAttribute('target')  ? this.getAttribute('target'): "";
+		this.bubbles = this.hasAttribute('bubbles') ? this.getAttribute('bubbles').toUpperCase() == "TRUE" : false;
 //		
-
 		let buttonContainer = document.getAnonymousElementByAttribute(this, "anonid", "sendkeybutton-box");
 		
 		let image= document.getAnonymousElementByAttribute(this, "anonid", "sendkeybuttonImage"); 		
@@ -81,8 +81,6 @@
 	<xbl:method name="fireEvent">
 		<xbl:body >
 <![CDATA[
-
-		
 		var evt = document.createEvent('KeyboardEvent');
 		evt.initKeyEvent("keypress", this.bubbles, this.cancelable, this.viewArg, this.control, this.alt, this.shift, this.meta, this.keyCode, this.charCode);
 
