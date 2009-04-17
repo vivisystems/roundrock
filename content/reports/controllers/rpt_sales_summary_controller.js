@@ -448,7 +448,7 @@
             results.forEach( function( result ) {
             	summary.num_rows += result.num_rows;
             	summary.amount += result.amount;
-            	result.itemOrAddition = _( 'item' );
+            	result.itemOrAddition = _( '(rpt)ITEM' );
             	
             	data.push( result );
             } );
@@ -465,7 +465,7 @@
             results.forEach( function( result ) {
             	summary.num_rows += result.num_rows;
             	summary.amount += result.amount;
-            	result.itemOrAddition = _( 'order' );
+            	result.itemOrAddition = _( '(rpt)ORDER' );
             	
             	data.push( result );
             } );
