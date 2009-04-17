@@ -15,6 +15,7 @@
         restartClock: false,
 
         _suspendLoadTest: false,
+        _groupPath: [],
     
         initial: function() {
 
@@ -369,11 +370,30 @@
                             return this.requestCommand('addItem',dep,'Cart');
                         }
                     }
-            
+
                     // change pluview panel
                     var clearBuf = GeckoJS.Configure.read("vivipos.fec.settings.ChangeDepartmentClearBuffer") || false;
                     if(clearBuf) this.requestCommand('clear',null,'Cart');
                     this.pluPanelView.setCatePanelIndex(index);
+                    
+                    // is this group linked to other departments/groups?
+                    if (dep.link_department || dep.link_group) {
+                        var categoryIndexes = [];
+                        var plugroupIndexes = [];
+
+                        if (dep.link_department) {
+                            categoryIndexes = dep.link_department.split(',');
+                        }
+
+                        if (dep.link_group) {
+                            plugroupIndexes = dep.link_group.split(',');
+                        }
+                        var departmentIndexes = categoryIndexes.concat(plugroupIndexes)
+
+                        this.depPanelView.navigateDown(departmentIndexes);
+
+                        document.getElementById('catescrollablepanel-top').hidden = false;
+                    }
                 }
             }
         },
@@ -398,7 +418,16 @@
                     prodpanel.invalidate(index);
                 }
                 else if (!product.soldout) {
-                    return this.requestCommand('addItem',product,'Cart');
+                    this.requestCommand('addItem',product,'Cart');
+
+                    // return to top level if necessary
+                    var returnToTop = GeckoJS.Configure.read('vivipos.fec.settings.department.pops.to.top');
+                    var currentLevel = this.depPanelView.getCurrentLevel();
+
+                    if (returnToTop && currentLevel > 0) {
+                        this.depPanelView.navigateTop();
+                        document.getElementById('catescrollablepanel-top').hidden = true;
+                    }
                 }
             }
         },

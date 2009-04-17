@@ -23,7 +23,9 @@
                                    scrollDownClass="depart_scroll_down"
                                    seltype="single" >
             <spacer flex="1"/>
-            <vivibutton id="catescrollablepanel-soldout" class="systoolbtn soldoutbtn" flex="0" type="checkbox" checkState="0" oncommand="event.stopPropagation()"/>
+            <vivibutton id="catescrollablepanel-top" class="gotopbtn" flex="0" hidden="true"
+                        oncommand="this.parentNode.datasource.navigateTop(); this.hidden = true; event.stopPropagation()"/>
+            <vivibutton id="catescrollablepanel-soldout" class="soldoutbtn" flex="0" type="checkbox" checkState="0" oncommand="event.stopPropagation()"/>
             <spacer flex="1"/>
         </viviscrollablebuttonpanel>
         <!-- End Catalogs -->
@@ -38,7 +40,7 @@
                                    scrollDownClass="depart_scroll_down"
                                    seltype="none" >
             <spacer flex="1"/>
-            <vivibutton id="prodscrollablepanel-soldout" class="systoolbtn soldoutbtn" flex="0" type="checkbox" checkState="0" oncommand="event.stopPropagation()"/>
+            <vivibutton id="prodscrollablepanel-soldout" class="soldoutbtn" flex="0" type="checkbox" checkState="0" oncommand="event.stopPropagation()"/>
             <spacer flex="1"/>
         </viviscrollablebuttonpanel>
         <!-- End PLUs -->

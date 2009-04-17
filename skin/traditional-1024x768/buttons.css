@@ -407,13 +407,29 @@ textbox:not([onclick]) *[readonly] {
     background: transparent url(images/go-down.png) center center no-repeat;
 }
 
+.gotopbtn {
+    margin: 0px;
+    height: 48px;
+    min-width: 40px;
+    max-width: 40px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+    border-width: 0px;
+    background: transparent url(images/optionsUp.png) 0 0 no-repeat;
+}
+
 .soldoutbtn {
-    border: 2px solid black !important;
+    margin: 0px;
+    height: 48px;
+    min-width: 36px;
+    max-width: 40px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+    border: 2px solid black;
     background: transparent url(images/prohibitsale.png) center center no-repeat;
 }
 
 .soldoutbtn[checked=true] {
-    border: 2px solid black !important;
     background: yellow url(images/prohibitsale.png) center center no-repeat;
 }
 

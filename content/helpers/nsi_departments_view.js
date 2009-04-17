@@ -6,6 +6,7 @@
 
             this._data = [];
             this.hideInvisible = true;
+            this._path = [];
 
             var plugroupModel = new PlugroupModel();
             var plugroups = plugroupModel.find('all', {order: 'display_order, name'});
@@ -80,7 +81,54 @@
 
         },
 
+        navigateDown: function(departmentIndexes) {
 
+            // for our protection, we limit depths to 20
+
+            if (this._path.length < 20) {
+                // push current department indexes on to stack
+                this._path.push(this._data);
+
+                // set given department indexes as the current set of departments
+                this._data = departmentIndexes;
+
+                this.tree.selectedIndex = -1;
+                this.tree.selectedItems = [];
+                this.tree.ensureIndexIsVisible(0);
+                this.tree.invalidate();
+            }
+        },
+
+        navigateUp: function() {
+            // pop last set of departments
+            var data = this._path.pop();
+
+            this.tree.selectedIndex = -1;
+            this.tree.selectedItems = [];
+
+            if (data) {
+                this._data = data;
+                this.tree.ensureIndexIsVisible(0);
+                this.tree.invalidate();
+            }
+            else {
+                this.refreshView(true);
+            }
+        },
+
+        navigateTop: function() {
+            this._path = [];
+            this.tree.selectedIndex = -1;
+            this.tree.selectedItems = [];
+            this.tree.ensureIndexIsVisible(0);
+
+            this.refreshView(true);
+        },
+
+        getCurrentLevel: function() {
+            return this._path.length;
+        },
+        
         getCurrentIndexData: function (row) {
             var id = this.data[row];
             var categories = GeckoJS.Session.get('categoriesById');

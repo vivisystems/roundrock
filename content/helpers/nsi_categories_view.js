@@ -97,6 +97,33 @@
             this.refreshView();
         },
 
+        getValue: function() {
+
+            var selectedItems = this.tree.selectedItems.sort(function(a,b) {return a - b});
+            var selectedItemsStr = [];
+            var data = this._data;
+            selectedItems.forEach(function(idx){
+                selectedItemsStr.push(data[idx]);
+            });
+
+            return selectedItemsStr.join(',');
+        },
+
+        setValue: function(items) {
+
+            var selectedItemsStr = items.split(',');
+            var selectedItems = [];
+
+            var dataIdIndex = GeckoJS.Array.objectExtract(this._data, '{n}.id');
+
+            selectedItemsStr.forEach(function(id){
+                var index = GeckoJS.Array.inArray(id, dataIdIndex);
+                if (index != -1) selectedItems.push(index);
+            });
+            this.tree.selectedItems = selectedItems;
+
+        },
+
         getCurrentIndexData: function (row) {
             var id = this.data[row];
             var categories = GeckoJS.Session.get('categoriesById');

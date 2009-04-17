@@ -55,6 +55,7 @@
             <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int" />
             <preference id="pref_idletime" name="vivipos.fec.settings.idle.time" type="int" />
             <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool" />
+            <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool" />
 
         </preferences>
 
@@ -82,6 +83,10 @@
                 <row>
                     <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
                     <checkbox preference="pref_viewlocalordersonly" id="pref_viewlocalordersonlyCtrl" label="&general.viewlocalordersonly;" />
+                </row>
+                <row>
+                    <checkbox preference="pref_departmentpopstotop" id="pref_departmentpopstotopCtrl" label="&general.departmentpopstotop;" />
+                    <checkbox preference="pref_collapsecondiments" id="pref_collapsecondimentsCtrl" label="&general.collapsecondiments;" />
                 </row>
                 <row>
                     <hbox>

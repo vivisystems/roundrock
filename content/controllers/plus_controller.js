@@ -1001,10 +1001,7 @@
                                            [product.name, plugroup.name]));
                     }
                     else {
-                        alert('adding product to group');
-
                         product.link_group += ((product.link_group) ? ',' : '') + plugroup.id;
-                        alert('new product groups: ' +  product.link_group);
 
                         var productModel = new ProductModel();
                         productModel.id = product.id;

@@ -66,10 +66,6 @@
 }
 
 /*  */
-.RightPnlB {
-  
-}
-
 
 /* default texbox  */
 textbox:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd) {
@@ -363,7 +359,7 @@ checkbox:hover, radio:hover {
 }
 .RightTabbox tab {
     -moz-appearance: none;
-    padding: 16px 8px;
+    padding: 20px 8px;
     background: white url(images/sep.png) center right no-repeat;
     border:none;
     color: #393939;
@@ -378,7 +374,7 @@ checkbox:hover, radio:hover {
 }
 .RightTabbox tabpanel {
     border-top: 1px solid #c1ab8e;
-    padding: 10px 5px;
+    padding: 5px 5px;
 }
 .RightTabbox tabpanels {
     -moz-appearance: none;

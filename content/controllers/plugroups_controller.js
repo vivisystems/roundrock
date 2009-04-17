@@ -260,6 +260,20 @@
         },
 
         load: function () {
+            // populate plugroup panel
+            var pluGroupModel = new PlugroupModel();
+            var groups = pluGroupModel.find('all', {
+                conditions: 'visible = 1',
+                order: 'display_order, name'
+            } );
+
+            var plugroupscrollablepanel = document.getElementById('plugroupscrollablepanel');
+            var plugroupPanelView = new NSIPluGroupsView(groups);
+            plugroupscrollablepanel.datasource = plugroupPanelView;
+
+            // populate department panel
+            var depPanelView = new NSICategoriesView('depscrollablepanel');
+
             var panel = this.getListObj();
 
             this.requestCommand('list', {index: -1, order: 'display_order, name'});
@@ -284,6 +298,8 @@
                 this.requestCommand('list', {index: index, order: 'display_order, name'});
             }
 
+            this.validateForm();
+            
             document.getElementById('plugroup_name').focus();
         },
 
@@ -341,6 +357,9 @@
             var delBtn = document.getElementById('delete_plugroup');
             var visibleCheckbox = document.getElementById('visible');
 
+            var tab1 = document.getElementById('tab1');
+            var tab2 = document.getElementById('tab2');
+
             var panel = this.getListObj();
             if (panel.selectedIndex > -1) {
 
@@ -348,13 +367,17 @@
                 nameTextbox.removeAttribute('disabled');
                 modBtn.setAttribute('disabled', name.length < 1);
                 delBtn.setAttribute('disabled', false);
-                visibleCheckbox.setAttribute('disabled', false);
+                visibleCheckbox.removeAttribute('disabled');
+                tab1.removeAttribute('disabled');
+                tab2.removeAttribute('disabled');
             }
             else {
                 nameTextbox.setAttribute('disabled', true);
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
                 visibleCheckbox.setAttribute('disabled', true);
+                tab1.setAttribute('disabled', true);
+                tab2.setAttribute('disabled', true);
             }
         }
 	
