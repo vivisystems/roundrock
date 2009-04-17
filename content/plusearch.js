@@ -6,10 +6,7 @@
     function startup() {
 
         centerWindowOnScreen();
-
-        $('#clearBtn')[0].addEventListener('command', clearTextBox, false);
-        // $('#ekeyBtn')[0].addEventListener('command', searchPlu, true);
-
+        
         $do('createFilterRows', null, 'PluSearch');
 
         doSetOKCancel(

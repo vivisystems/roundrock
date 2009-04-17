@@ -31,9 +31,9 @@
 				<xul:vbox id="numpad" pack="center">
 				<xul:numberpad id="multinumberpad" xbl:inherits="class=numpadClass" target=""/>
 					<xul:hbox>
-					    <xul:sendkeybutton id="bkeyBtn" label="&vivitextbox.button.del;" keyCode="0x08" xbl:inherits="class=fixedbtnClass"/>
-					    <xul:sendkeybutton id="clearBtn" label="&vivitextbox.button.clear;" oncommand="clearFocusedElement();" xbl:inherits="class=fixedbtnClass"/>
-					    <xul:sendkeybutton id="enterBtn" label="&vivitextbox.button.enter;" oncommand="document.getBindingParent( this ).action();" xbl:inherits="class=fixedbtnClass"/>
+					    <xul:sendkeybutton anonid="bkeyBtn" label="&vivitextbox.button.del;" keyCode="0x08" xbl:inherits="class=fixedbtnClass"/>
+					    <xul:sendkeybutton anonid="clearBtn" label="&vivitextbox.button.clear;" oncommand="clearFocusedElement();" xbl:inherits="class=fixedbtnClass"/>
+					    <xul:sendkeybutton anonid="enterBtn" label="&vivitextbox.button.enter;" bubbles="true" keyCode="0x0D" oncommand="hide()" xbl:inherits="class=fixedbtnClass"/>
 					</xul:hbox>
 				</xul:vbox>
 				</xul:panel>
@@ -51,7 +51,15 @@
         		  ]]>
         		</body>
         	</xbl:method>
-        	
+
+            <xbl:method name="hide">
+        		<body>
+        		  <![CDATA[
+                    this[ this.getAttribute( 'keypad' ) + '_panel' ].hidePopup();
+        		  ]]>
+        		</body>
+            </xbl:method>
+
         	<xbl:method name="action">
         		<body>
         		  <![CDATA[
@@ -74,7 +82,6 @@
 					
 					this.input.select();
 
-            		this[ this.getAttribute( 'keypad' ) + '_panel' ].hidePopup();
         		  ]]>
         		</body>
         	</xbl:method>
