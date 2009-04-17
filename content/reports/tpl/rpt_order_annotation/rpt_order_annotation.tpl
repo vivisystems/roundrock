@@ -39,7 +39,7 @@
             </thead>
             <tbody>
 {for orders in types.orders}
-                <tr>
+                <tr id="${orders.id}">
                     <td style="text-align: left;">${orders.terminal_no}</td>
                     <td style="text-align: left;">${orders.time|unixTimeToString}</td>
                     <td style="text-align: left;">${orders.sequence}</td>
