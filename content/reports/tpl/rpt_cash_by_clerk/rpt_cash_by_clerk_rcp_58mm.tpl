@@ -19,6 +19,7 @@ ${_( '(rpt)Balance' ) + ':'|left:12}${master.balance|default:0|viviFormatPrices:
 ${_( '(rpt)Cash' ) + ':'|left:12}${master.cash|default:0|viviFormatPrices:true}
 ${_( '(rpt)Sales' ) + ':'|left:12}${master.sales|default:0|viviFormatPrices:true}
 ${_( '(rpt)Excess' ) + ':'|left:12}${master.excess|default:0|viviFormatPrices:true}
+${_( '(rpt)Deposit' ) + ':'|left:12}${master.deposit|default:0|viviFormatPrices:true}
 ${_( '(rpt)Ledger In' ) + ':'|left:12}${master.ledger_in|default:0|viviFormatPrices:true}
 ${_( '(rpt)Ledger Out' ) + ':'|left:12}${master.ledger_out|default:0|viviFormatPrices:true}
 ------------------------

@@ -9,8 +9,8 @@
 {for master in body}
 ""
 "${master.terminal_no}","${master.starttime}","${master.endtime}"
-"${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift No.' )}","${_( '(rpt)Balance' )}","${_( '(rpt)Cash' )}","${_( '(rpt)Sales' )}","${_( '(rpt)Excess' )}","${_( '(rpt)Ledger In' )}","${_( '(rpt)Ledger Out' )}"
-"${master.sale_period}","${master.shift_number}","${master.balance|default:0|viviFormatPrices:true}","${master.cash|default:0|viviFormatPrices:true}","${master.sales|default:0|viviFormatPrices:true}","${master.excess|default:0|viviFormatPrices:true}","${master.ledger_in|default:0|viviFormatPrices:true}","${master.ledger_out|default:0|viviFormatPrices:true}"
+"${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift No.' )}","${_( '(rpt)Balance' )}","${_( '(rpt)Cash' )}","${_( '(rpt)Sales' )}","${_( '(rpt)Excess' )}","${_( '(rpt)Deposit' )}","${_( '(rpt)Ledger In' )}","${_( '(rpt)Ledger Out' )}"
+"${master.sale_period}","${master.shift_number}","${master.balance|default:0|viviFormatPrices:true}","${master.cash|default:0|viviFormatPrices:true}","${master.sales|default:0|viviFormatPrices:true}","${master.excess|default:0|viviFormatPrices:true}","${master.deposit|default:0|viviFormatPrices:true}","${master.ledger_in|default:0|viviFormatPrices:true}","${master.ledger_out|default:0|viviFormatPrices:true}"
 ""
 "","${_( '(rpt)Type' )}","${_( '(rpt)Amount' )}","${_( '(rpt)Count' )}","","${_( '(rpt)Destination' )}","${_( '(rpt)Amount' )}","${_( '(rpt)Count' )}"
 {for detail in master.ShiftChangeDetail}

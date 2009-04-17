@@ -1789,6 +1789,12 @@ msgstr "Start"
 msgid "(rpt)End"
 msgstr "End"
 
+msgid "(rpt)Annotation Text"
+msgstr "Annotation Text"
+
+msgid "(rpt)Deposit"
+msgstr "Deposit"
+
 msgid "(view)completed"
 msgstr "completed"
 
