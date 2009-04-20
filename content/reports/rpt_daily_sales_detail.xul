@@ -56,6 +56,7 @@
 					                        <menuitem selected="false" label="&rptdailysalesdetail.tax_subtotal;" value="tax_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysalesdetail.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysalesdetail.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptdailysalesdetail.promotion_subtotal;" value="promotion_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysalesdetail.total;" value="total" />
 					                        <menuitem selected="false" label="&rptdailysalesdetail.guests;" value="no_of_customers" />
 					                        <menuitem selected="false" label="&rptdailysalesdetail.items;" value="items_count" />

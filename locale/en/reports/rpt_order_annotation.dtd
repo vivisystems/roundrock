@@ -14,6 +14,7 @@
 <!ENTITY rptorderannotation.item_subtotal "Total">
 <!ENTITY rptorderannotation.surcharge_subtotal "Surcharge">
 <!ENTITY rptorderannotation.discount_subtotal "Discount">
+<!ENTITY rptorderannotation.promotion_subtotal "Promotion">
 <!ENTITY rptorderannotation.sequence "Sequence">
 <!ENTITY rptorderannotation.annotationtext "Annotation Text">
 <!ENTITY rptorderannotation.all "List All">

@@ -33,7 +33,7 @@
             this._filterDatas.forEach(function(o){
                 var index = parseInt(o.index);
                 var len = parseInt(o.length);
-                alert(index + ':' + len);
+                //alert(index + ':' + len);
                 var row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
                 var filter_label = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:label");
                 var filter_textbox = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
@@ -92,24 +92,27 @@
 
         select: function(index) {
             //
-            var barcode = this._listDatas[index].no;
-            var productsById = GeckoJS.Session.get('productsById');
-            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-            var product;
+            var data = this._listDatas[index];
+            if (data) {
+                var barcode = data.no;
+                var productsById = GeckoJS.Session.get('productsById');
+                var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+                var product;
 
-            if (!barcodesIndexes[barcode]) {
-                // barcode notfound
-                // @todo OSD?
-                GREUtils.Dialog.alert(window,
-                                      _('Product Search'),
-                                      _('Product [%S] Not Found!', [barcode]));
-            }else {
-                var id = barcodesIndexes[barcode];
-                product = productsById[id];
-                GeckoJS.FormHelper.unserializeFromObject('productForm', product);
-                // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
-                var inputObj = window.arguments[0];
-                inputObj.item = product;
+                if (!barcodesIndexes[barcode]) {
+                    // barcode notfound
+                    // @todo OSD?
+                    GREUtils.Dialog.alert(window,
+                                          _('Product Search'),
+                                          _('Product [%S] Not Found!', [barcode]));
+                }else {
+                    var id = barcodesIndexes[barcode];
+                    product = productsById[id];
+                    GeckoJS.FormHelper.unserializeFromObject('productForm', product);
+                    // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
+                    var inputObj = window.arguments[0];
+                    inputObj.item = product;
+                }
             }
         },
 

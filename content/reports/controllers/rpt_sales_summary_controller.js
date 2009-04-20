@@ -287,7 +287,8 @@
                             'SUM("orders"."items_count") AS "Order.ItemsCount"',
                             'CAST( AVG("orders"."total") AS INTEGER ) AS "Order.AvgTotal"',
                             'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
-                            'AVG("orders"."items_count") AS "Order.AvgItemsCount"'
+                            'AVG("orders"."items_count") AS "Order.AvgItemsCount"',
+                            'SUM( "orders"."promotion_subtotal" ) AS "Order.PromotionSubtotal"'
                         ];
 
              var conditions = "orders." + this._periodtype + ">='" + start +

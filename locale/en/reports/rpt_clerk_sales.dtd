@@ -17,6 +17,7 @@
 <!ENTITY rptclerksales.item_subtotal "Total">
 <!ENTITY rptclerksales.surcharge_subtotal "Surcharge">
 <!ENTITY rptclerksales.discount_subtotal "Discount">
+<!ENTITY rptclerksales.promotion_subtotal "Promotion">
 <!ENTITY rptclerksales.cash "Cash">
 <!ENTITY rptclerksales.check "Check">
 <!ENTITY rptclerksales.creditcard "Credit Card">

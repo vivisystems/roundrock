@@ -17,6 +17,7 @@
 <!ENTITY rptorderstatus.item_subtotal "Total">
 <!ENTITY rptorderstatus.surcharge_subtotal "Surcharge">
 <!ENTITY rptorderstatus.discount_subtotal "Discount">
+<!ENTITY rptorderstatus.promotion_subtotal "Promotion">
 <!ENTITY rptorderstatus.all "List All">
 <!ENTITY rptorderstatus.wait "Waiting...">
 <!ENTITY rptorderstatus.service_clerks "Service Clerks:">

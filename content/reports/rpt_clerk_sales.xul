@@ -74,6 +74,7 @@
 					                        <menuitem selected="false" label="&rptclerksales.tax_subtotal;" value="tax_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptclerksales.promotion_subtotal;" value="promotion_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.total;" value="total" />
 					                        <menuitem selected="false" label="&rptclerksales.cash;" value="cash" />
 					                        <menuitem selected="false" label="&rptclerksales.check;" value="check" />

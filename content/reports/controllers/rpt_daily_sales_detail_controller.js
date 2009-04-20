@@ -41,6 +41,7 @@
                             'orders.tax_subtotal, ' +
                             'orders.item_subtotal, ' +
                             'orders.discount_subtotal, ' +
+                            'orders.promotion_subtotal, ' +
                             'orders.surcharge_subtotal, ' +
                             'orders.items_count, ' +
                             'orders.no_of_customers, ' +
@@ -79,6 +80,7 @@
             		case 'tax_subtotal':
             		case 'surcharge_subtotal':
             		case 'discount_subtotal':
+            		case 'promotion_subtotal':
             		case 'total':
             		case 'no_of_customers':
             		case 'items_count':
@@ -105,6 +107,7 @@
 				tax_subtotal: 0,
 				surcharge_subtotal: 0,
 				discount_subtotal: 0,
+				promotion_subtotal: 0,
 				payment: 0
 			};
 
@@ -129,6 +132,7 @@
 					record.tax_subtotal = result.tax_subtotal;
 					record.item_subtotal = result.item_subtotal;
 					record.discount_subtotal = result.discount_subtotal;
+					record.promotion_subtotal = result.promotion_subtotal;
 					record.surcharge_subtotal = result.surcharge_subtotal;
 					record.items_count = result.items_count;
 					record.no_of_customers = result.no_of_customers;
@@ -140,6 +144,7 @@
 					summary.tax_subtotal += result.tax_subtotal;
 					summary.surcharge_subtotal += result.surcharge_subtotal;
 					summary.discount_subtotal += result.discount_subtotal;
+					summary.promotion_subtotal += result.promotion_subtotal;
 					summary.payment += result.total;
 				}
 				

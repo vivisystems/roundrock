@@ -29,6 +29,8 @@ ${_( '(rpt)Surcharge' ) + ':'}
 ${orders.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}
 ${orders.discount_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Promotion' ) + ':'}
+${orders.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${orders.total|viviFormatPrices:true|right:24}
 {/for}
@@ -42,6 +44,8 @@ ${_( '(rpt)Surcharge' ) + ':'}
 ${types.summary.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}
 ${types.summary.discount_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Promotion' ) + ':'}
+${types.summary.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${types.summary.total|viviFormatPrices:true|right:24}
 {/for}

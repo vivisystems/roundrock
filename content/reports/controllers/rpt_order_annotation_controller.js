@@ -37,6 +37,7 @@
                             'orders.total,' +
                             'orders.surcharge_subtotal,' +
                             'orders.discount_subtotal,' +
+                            'orders.promotion_subtotal,' +
                             'orders.terminal_no,' +
                             'order_annotations.type,' +
                             'order_annotations.text';
@@ -56,6 +57,7 @@
 	        		case 'tax_subtotal':
 	        		case 'surcharge_subtotal':
 	        		case 'discount_subtotal':
+	        		case 'promotion_subtotal':
 	        		case 'total':
 	        			'orders.' + sortby + ' desc';
 	        			break;
@@ -71,9 +73,9 @@
 			var sql = 'select ' + fields + ' from orders join order_annotations on orders.id = order_annotations.order_id where ' + conditions + ' order by ' + orderby + ';';
 			var orderRecords = order.getDataSource().fetchAll( sql );
 			
-			conditions = '';
+			conditions = ' where created >= "' + start + '" and created <= "' + end + '"';
 			if ( annotationType != 'all' )
-				conditions = ' where type = "' + annotationType + '"';
+				conditions = ' and type = "' + annotationType + '"';
 			var orderAnnotation = new OrderAnnotationModel();
 			sql = 'select distinct type from order_annotations' + conditions + ';';
 			var orderAnnotationRecords = orderAnnotation.getDataSource().fetchAll( sql );
@@ -87,6 +89,7 @@
 						tax_subtotal: 0.0,
 						surcharge_subtotal: 0.0,
 						discount_subtotal: 0.0,
+						promotion_subtotal: 0.0,
 						total: 0.0
 					}
 				};
@@ -99,6 +102,7 @@
 				records[ orderRecord.type ].summary.tax_subtotal += orderRecord.tax_subtotal;
 				records[ orderRecord.type ].summary.surcharge_subtotal += orderRecord.surcharge_subtotal;
 				records[ orderRecord.type ].summary.discount_subtotal += orderRecord.discount_subtotal;
+				records[ orderRecord.type ].summary.promotion_subtotal += orderRecord.promotion_subtotal;
 				records[ orderRecord.type ].summary.total += orderRecord.total;
 			} );
             

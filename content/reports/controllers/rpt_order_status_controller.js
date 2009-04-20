@@ -39,6 +39,7 @@
                             'orders.precision_prices',
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
+                            'orders.promotion_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -83,6 +84,7 @@
 					case 'tax_subtotal':
 					case 'surcharge_subtotal':
 					case 'discount_subtotal':
+					case 'promotion_subtotal':
 					case 'total':
 						desc = ' desc';
 						break;
@@ -100,6 +102,7 @@
         	var total = 0;
         	var surcharge_subtotal = 0;
         	var discount_subtotal = 0;
+        	var promotion_subtotal = 0;
             
             records.forEach( function( record ) {
             	delete record.Order;
@@ -109,6 +112,7 @@
 		    	total += record.total;
 		    	surcharge_subtotal += record.surcharge_subtotal;
 		    	discount_subtotal += record.discount_subtotal;
+		    	promotion_subtotal += record.promotion_subtotal;
             	
             	switch ( parseInt( record.status, 10 ) ) {
             		case 1:
@@ -132,7 +136,8 @@
             	item_subtotal: item_subtotal,
             	total: total,
             	surcharge_subtotal: surcharge_subtotal,
-            	discount_subtotal: discount_subtotal
+            	discount_subtotal: discount_subtotal,
+            	promotion_subtotal: promotion_subtotal
             };
             
             this._reportRecords.head.titile = _( 'Order Status Report' );

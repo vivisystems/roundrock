@@ -81,6 +81,7 @@
 					                        <menuitem selected="false" label="&rptorderstatus.tax_subtotal;" value="tax_subtotal" />
 					                        <menuitem selected="false" label="&rptorderstatus.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptorderstatus.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptorderstatus.promotion_subtotal;" value="promotion_subtotal" />
 					                        <menuitem selected="false" label="&rptorderstatus.total;" value="total" />
 					                    </menupopup>
 					                </menulist>
