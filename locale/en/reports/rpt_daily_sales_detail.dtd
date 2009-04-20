@@ -15,6 +15,7 @@
 <!ENTITY rptdailysalesdetail.tax_subtotal "Add-on Tax">
 <!ENTITY rptdailysalesdetail.surcharge_subtotal "Surcharge">
 <!ENTITY rptdailysalesdetail.discount_subtotal "Discount">
+<!ENTITY rptdailysalesdetail.promotion_subtotal "Promotion">
 <!ENTITY rptdailysalesdetail.total "Payment">
 <!ENTITY rptdailysalesdetail.guests "Guests">
 <!ENTITY rptdailysalesdetail.items "Items">

@@ -21,10 +21,12 @@
             var orderItem = new OrderItemModel();
 
             var fields = [
+            				'orders.' + periodType + ' as "Order.time"',
             				'orders.sequence',
             				'orders.total',
             				'orders.tax_subtotal',
             				'orders.included_tax_subtotal',
+            				'orders.promotion_subtotal',
             				'order_items.order_id',
             				'order_items.tax_name',
             				'order_items.tax_type',
@@ -62,7 +64,8 @@
 				tax_subtotal: 0,
 				included_tax_subtotal: 0,
 				surcharge_subtotal: 0,
-				discount_subtotal: 0
+				discount_subtotal: 0,
+				promotion_subtotal: 0
 			};
 			
 			taxList.forEach( function( tax ) {
@@ -96,6 +99,7 @@
 					summary.included_tax_subtotal += data.Order.included_tax_subtotal;
 					summary.surcharge_subtotal += records[ oid ][ 'surcharge_subtotal' ];
 					summary.discount_subtotal += records[ oid ][ 'discount_subtotal' ];
+					summary.promotion_subtotal += data.Order.promotion_subtotal;
 				}
 				
 				var taxObject = TaxComponent.prototype.getTax( data.tax_name );

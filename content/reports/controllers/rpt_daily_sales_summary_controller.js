@@ -43,6 +43,7 @@
                             'orders.precision_prices',
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
+                            'orders.promotion_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -84,6 +85,7 @@
             	total: 0,
             	surcharge_subtotal: 0,
             	discount_subtotal: 0,
+            	promotion_subtotal: 0,
             	cash: 0,
             	check: 0,
             	creditcard: 0,
@@ -140,6 +142,7 @@
 		                repDatas[ tmp_oid ][ 'total' ] += o.total;
 		                repDatas[ tmp_oid ][ 'surcharge_subtotal' ] += o.surcharge_subtotal;
 		                repDatas[ tmp_oid ][ 'discount_subtotal' ] += o.discount_subtotal;
+		                repDatas[ tmp_oid ][ 'promotion_subtotal' ] += o.promotion_subtotal;
 		                repDatas[ tmp_oid ][ 'tax_subtotal' ] += o.tax_subtotal;
 		                repDatas[ tmp_oid ][ 'item_subtotal' ] += o.item_subtotal;
 		            }
@@ -149,6 +152,7 @@
                 	footDatas.total += o.total;
 		            footDatas.surcharge_subtotal += o.surcharge_subtotal;
 		            footDatas.discount_subtotal += o.discount_subtotal;
+		            footDatas.promotion_subtotal += o.promotion_subtotal;
 		            footDatas.tax_subtotal += o.tax_subtotal;
 		            footDatas.item_subtotal += o.item_subtotal;
 		        }
@@ -184,6 +188,7 @@
 		        		case 'tax_subtotal':
 		        		case 'surcharge_subtotal':
 		        		case 'discount_subtotal':
+		        		case 'promotion_subtotal':
 		        		case 'total':
 		        		case 'cash':
 		        		case 'check':

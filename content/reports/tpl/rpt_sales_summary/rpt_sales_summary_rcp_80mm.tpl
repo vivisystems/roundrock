@@ -12,6 +12,7 @@ ${'  ' + _( '(rpt)Total' ) + ':'|left:13}${body.sales_summary.ItemSubtotal|defau
 ${'  ' + _( '(rpt)Add-on Tax' ) + ':'|left:13}${body.sales_summary.TaxSubtotal|default:0|viviFormatPrices:true|right:29}
 ${'  ' + _( '(rpt)Surcharge' ) + ':'|left:13}${body.sales_summary.SurchargeSubtotal|default:0|viviFormatPrices:true|right:29}
 ${'  ' + _( '(rpt)Discount' ) + ':'|left:13}${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true|right:29}
+${'  ' + _( '(rpt)Promotion' ) + ':'|left:13}${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true|right:29}
 ${'  ' + _( '(rpt)Revenue' ) + ':'|left:13}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:29}
 ------------------------------------------
 ${_( '(rpt)Sales Summary' )}

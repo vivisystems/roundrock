@@ -23,8 +23,10 @@
         <thead>
             <tr>
                 <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Promotion' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Included Tax' )}</th>
@@ -37,8 +39,10 @@
 {for item in body}
             <tr>
                 <td style="text-align: left;">${item.Order.sequence}</td>
+                <td style="text-align: left;">${item.Order.time|unixTimeToString}</td>
                 <td style="text-align: right;">${item.Order.total|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.Order.promotion_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.Order.tax_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.Order.included_tax_subtotal|default:0|viviFormatPrices:true}</td>
@@ -50,9 +54,10 @@
         </tbody>
         <tfoot>
             <tr>
-				<td>${_( '(rpt)Summary' ) + ':'}</td>
+				<td colspan="2">${_( '(rpt)Summary' ) + ':'}</td>
 				<td style="text-align: right;">${foot.summary.total|default:0|viviFormatPrices:true}</td>
 				<td style="text-align: right;">${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
+				<td style="text-align: right;">${foot.summary.promotion_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.tax_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.included_tax_subtotal|default:0|viviFormatPrices:true}</td>

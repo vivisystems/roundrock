@@ -22,6 +22,8 @@ ${_( '(rpt)Surcharge' ) + ':'}
 ${detail.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}
 ${detail.discount_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Promotion' ) + ':'}
+${detail.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${detail.total|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}
@@ -45,6 +47,8 @@ ${_( '(rpt)Surcharge' ) + ':'}
 ${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}
 ${foot.foot_datas.discount_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Promotion' ) + ':'}
+${foot.foot_datas.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${foot.foot_datas.total|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}

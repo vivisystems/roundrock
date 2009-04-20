@@ -1804,6 +1804,9 @@ msgstr "order"
 msgid "(rpt)ITEM"
 msgstr "item"
 
+msgid "(rpt)Promotion"
+msgstr "Promotion"
+
 msgid "(view)completed"
 msgstr "completed"
 
