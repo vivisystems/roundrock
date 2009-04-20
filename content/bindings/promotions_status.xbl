@@ -196,6 +196,8 @@
                         var num_items = transaction.data['promotion_apply_items'] ? transaction.data['promotion_apply_items'].length : 0;
                         this._subtotal.value = this.format(transaction.data['promotion_subtotal']);
                         this._applies.value = '#' + num_items;
+                    }else if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                        isReset = true;
                     }
 
                     if(isReset){
@@ -217,7 +219,10 @@
                     
                     if(transaction) {
                         this._tree.datasource = transaction.data['promotion_apply_items'] || [];
+                    }else if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                        isReset = true;
                     }
+
 
                     if(isReset) {
                         this._tree.datasource = [];
