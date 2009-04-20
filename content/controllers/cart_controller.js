@@ -126,6 +126,7 @@
                 }
             }
             else {
+                delete item.stock_status;
                 if (clearWarning != false) cart.dispatchEvent('onWarning', '');
             }
             return true;
