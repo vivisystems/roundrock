@@ -33,7 +33,7 @@
             this._filterDatas.forEach(function(o){
                 var index = parseInt(o.index);
                 var len = parseInt(o.length);
-                alert(index + ':' + len);
+                //alert(index + ':' + len);
                 var row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
                 var filter_label = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:label");
                 var filter_textbox = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
