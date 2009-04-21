@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % product_sales SYSTEM "chrome://viviecr/locale/reports/rpt_promotion_summary.dtd">
+  %product_sales;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_promotion_summary.js" />
+
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+		    <vbox>
+		        <caption label="&promotionsummary.title;" class="PageTitle"/>
+		        <!--caption label="&promotionsummary.conditions;" / -->
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <vbox>
+		                            <label value="&promotionsummary.startdate;" />
+		                            <vividatetimepicker id="start_date" value='' type="popup" />  
+		                        </vbox>
+		                        <vbox>
+		                            <label value="&promotionsummary.enddate;" />
+		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                        </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
+		                    		<label value="&promotionsummary.periodtype;" />
+						            <menulist id="periodtype">
+						                <menupopup id="periodtype_menupopup">
+						                    <menuitem selected="true" label="&promotionsummary.created;" value="transaction_created" />
+						                    <menuitem selected="false" label="&promotionsummary.saleperiod;" value="sale_period" />
+						                </menupopup>
+						            </menulist>
+						        </vbox>
+						        <vbox>
+				                	<label value="&promotionsummary.sortby;" />
+						            <menulist id="sortby">
+						                <menupopup id="sortby_menupopup">
+						                    <menuitem selected="true" label="&promotionsummary.date;" value="date" />
+						                    <menuitem selected="false" label="&promotionsummary.total;" value="total" />
+						                    <menuitem selected="false" label="&promotionsummary.order_count;" value="order_count" />
+						                    <menuitem selected="false" label="&promotionsummary.promotion_subtotal;" value="promotion_subtotal" />
+						                    <menuitem selected="false" label="&promotionsummary.matched_count;" value="matched_count" />
+						                    <menuitem selected="false" label="&promotionsummary.matched_items_qty;" value="matched_items_qty" />
+						                    <menuitem selected="false" label="&promotionsummary.matched_items_subtotal;" value="matched_items_subtotal" />
+						                </menupopup>
+						            </menulist>
+						        </vbox>
+				            </row>
+				            <row>
+				            	<vbox>
+				                	<label value="&promotionsummary.promotion;" />
+						            <menulist id="promotion" flex="1">
+				                        <menupopup id="promotion_menupopup"  flex="1">
+				                            <menuitem selected="true" label="[&promotionsummary.all;]" value="all" />
+				                        </menupopup>
+						            </menulist>
+						        </vbox>
+						        <vbox>
+				                	<label value="&promotionsummary.empty_promotion;" />
+						            <menulist id="empty_promotion">
+						                <menupopup id="empty_promotion_menupopup">
+						                    <menuitem selected="true" label="&promotionsummary.hide;" value="hide" />
+						                    <menuitem selected="false" label="&promotionsummary.show;" value="show" />
+						                </menupopup>
+						            </menulist>
+						        </vbox>
+				            </row>
+		                    <row>
+		                    	<vbox>
+				                    <label value="&promotionsummary.shiftno;" />
+				                    <textbox id="shiftno" value='' width="300"/>
+				                </vbox>
+				                <vbox>
+				                    <label value="&promotionsummary.machineid;" />
+				                    <textbox id="machine_id" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&promotionsummary.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptPromotionSummary');" />
+		        </hbox>
+            </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+            <hbox class="TopPnl">
+                <hbox class="ReportTool" flex="1">
+                    <vivibutton id="export_pdf" label="&promotionsummary.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptPromotionSummary');" />
+                    <vivibutton id="export_csv" label="&promotionsummary.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptPromotionSummary');" />
+                    <vivibutton id="export_rcp" label="&promotionsummary.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptPromotionSummary');" />
+
+                    <vivibutton id="togglesize" label="&promotionsummary.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    
+                </hbox>
+            </hbox>
+            
+
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
+                    </box>
+
+                </groupbox>
+            </hbox>
+        </vbox>
+    </vbox>
+  
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&promotionsummary.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
+    
+
+</window>
