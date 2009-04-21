@@ -1807,6 +1807,9 @@ msgstr "item"
 msgid "(rpt)Promotion"
 msgstr "Promotion"
 
+msgid "(rpt)Subtotal"
+msgstr "Subtotal"
+
 msgid "(view)completed"
 msgstr "completed"
 
