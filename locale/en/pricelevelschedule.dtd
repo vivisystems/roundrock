@@ -5,3 +5,4 @@
 <!ENTITY pricelevelschedule.button.add "Add">
 <!ENTITY pricelevelschedule.step1 "Step 1. Selet Price Level">
 <!ENTITY pricelevelschedule.step2 "Step 2. Set Start Time">
+<!ENTITY pricelevelschedule.add.header "Add New Price Level Schedule">

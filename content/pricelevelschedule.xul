@@ -59,7 +59,7 @@
                 </viviscrollabletree>
             </vbox>
             <vbox >
-                <label value="Add New Price Level Schedule" class="PageTitle"/>
+                <label value="&pricelevelschedule.add.header;" class="PageTitle"/>
                 <vbox class="PLbox" flex="1">
                     <label value="&pricelevelschedule.step1;" class="SubTitle"/>
                     <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="3" rows="4" hideScrollbar="true" labelField="name"
