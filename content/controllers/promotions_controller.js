@@ -450,10 +450,8 @@
             this._transaction['data']['promotion_subtotal'] = totalPromotionDiscount;
             this._transaction['data']['promotion_apply_items'] = applyItems;
             this._transaction['data']['promotion_matched_items'] = promotionMatchedItems;
-
 //            this.log('updateTransaction' +  this.dump(applyItems) + this.dump(promotionMatchedItems));
         }
-
 
     };
 
