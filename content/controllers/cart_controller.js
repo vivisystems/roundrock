@@ -1975,7 +1975,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2086,7 +2087,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2186,7 +2188,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2289,7 +2292,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2424,8 +2428,9 @@
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
 
             if (returnMode) {
+                // payment refund
                 var err = false;
-                if (paymentsTypes.length == 0) {
+                if (false && paymentsTypes.length == 0) {
                     NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
                     err = true;
                 }
@@ -2435,7 +2440,8 @@
                     amount = curTransaction.getPaymentSubtotal();
                 }
 
-                if (!err && amount > curTransaction.getPaymentSubtotal()) {
+                // payment refund
+                if (false && !err && amount > curTransaction.getPaymentSubtotal()) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
                         [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
                     err = true;

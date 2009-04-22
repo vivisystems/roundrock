@@ -49,6 +49,11 @@ pref("vivipos.fec.settings.controlpanels.config.sync_settings.path", "chrome://v
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.icon", "chrome://viviecr/skin/icons/icon_sync.png");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.roles", "acl_manage_sync_settings");
  
+pref("vivipos.fec.settings.controlpanels.config.remote_control.label", "Remote Control");
+pref("vivipos.fec.settings.controlpanels.config.remote_control.path", "chrome://viviecr/content/remote_control.xul");
+pref("vivipos.fec.settings.controlpanels.config.remote_control.icon", "chrome://viviecr/skin/icons/icon_vnc.png");
+pref("vivipos.fec.settings.controlpanels.config.remote_control.roles", "acl_remote_control");
+
 pref("vivipos.fec.settings.controlpanels.product.departments.label", "Departments");
 pref("vivipos.fec.settings.controlpanels.product.departments.path", "chrome://viviecr/content/departments.xul");
 pref("vivipos.fec.settings.controlpanels.product.departments.icon", "chrome://viviecr/skin/icons/icon_department.png");
@@ -138,6 +143,11 @@ pref("vivipos.fec.settings.controlpanels.product.imagemanager.label", "Image Man
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.path", "chrome://viviecr/content/imageManager.xul");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.icon", "chrome://viviecr/skin/icons/icon_imgmanager.png");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.roles", "acl_manage_images");
+
+pref("vivipos.fec.settings.controlpanels.system.tableman.label", "Table Manage");
+pref("vivipos.fec.settings.controlpanels.system.tableman.path", "chrome://viviecr/content/table_man.xul");
+pref("vivipos.fec.settings.controlpanels.system.tableman.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.system.tableman.roles", "acl_manage_tableman");
 
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.label", "Function Panel Configuration");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://viviecr/content/funcpanelecrprefs.xul");
@@ -512,25 +522,10 @@ pref("vivipos.fec.registry.function.programmable.annotate.command", "AnnotateDia
 pref("vivipos.fec.registry.function.programmable.annotate.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.annotate.data", "");
 
-pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
-pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
-pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
-
-pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
-pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
-pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
-
-pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
-pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
-pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
-
-pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
-pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
-pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
+pref("vivipos.fec.registry.function.programmable.vieworder.access", "acl_view_order");
+pref("vivipos.fec.registry.function.programmable.vieworder.command", "orderDialog");
+pref("vivipos.fec.registry.function.programmable.vieworder.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.vieworder.data", "");
 
 pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
 pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
