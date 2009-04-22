@@ -1,4 +1,5 @@
-RewriteEngine on
-RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
-php_flag magic_quotes_gpc off
-php_flag register_globals off
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+   RewriteRule    ^$ app/webroot/    [L]
+   RewriteRule    (.*) app/webroot/$1 [L]
+</IfModule>
