@@ -91,7 +91,10 @@
     prodName = item.product_name;
     indent = (item.parent_no != null && item.parent_no != '') ? '&nbsp;&nbsp;' : '';
     if (item.destination != null && item.destination != '' && indent == '') prodName = '(' + item.destination + ') ' + prodName;
-    itemCondiments = order.OrderItemCondiment.filter(function(c) {return c.item_id == item.id});
+    itemCondiments = [];
+    if (order.OrderItemCondiment && order.OrderItemCondiment.length > 0) {
+        itemCondiments = order.OrderItemCondiment.filter(function(c) {return c.item_id == item.id});
+    }
 {/eval}
     <tr>
         <td style="width: 400px">${indent + prodName}</td>
