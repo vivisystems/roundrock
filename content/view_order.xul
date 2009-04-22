@@ -46,9 +46,13 @@
                 </box>
             </hbox>
             <hbox flex="1">
-                <hbox class="ReportTool" pack="start" flex="1">
+                <hbox class="ToolBar" pack="start" flex="1">
+                    <vivibutton id="void" class="BtnDel" label="&vieworder.button.void;"
+                                oncommand="$do('voidSale', null, 'ViewOrder')" />
+                </hbox>
+                <hbox class="ReportTool">
                     <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="document.getElementById('preview_frame').contentWindow.print();" />
-		</hbox>
+                </hbox>
                 <hbox id="dialogButtons" class="dialogbtns">
                     <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>

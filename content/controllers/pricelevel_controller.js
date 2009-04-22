@@ -50,7 +50,7 @@
                         var newpriceLevel = schedule[idx].pricelevel;
                         if (newpriceLevel == 0) newpriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
                         if (!changeToCurrent && oldpriceLevel && oldpriceLevel != newpriceLevel)
-                            NotifyUtils.warn(_('Price Level changed from [%S] to [%S]', [oldpriceLevel, newpriceLevel]));
+                            NotifyUtils.info(_('Price Level changed from [%S] to [%S]', [oldpriceLevel, newpriceLevel]));
                         this._changeLevel(newpriceLevel);
                         schedule.splice(0, idx + 1);
                     }

@@ -1813,6 +1813,9 @@ msgstr "order"
 msgid "(rpt)ITEM"
 msgstr "item"
 
+msgid "(rpt)Promotion"
+msgstr "Promotion"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -1852,8 +1855,17 @@ msgstr "submitted"
 msgid "(view)close clerk"
 msgstr "close clerk"
 
-msgid "(view)customer"
-msgstr "customer"
+msgid "(view)void clerk"
+msgstr "void clerk"
+
+msgid "(view)sale period"
+msgstr "sale period"
+
+msgid "(view)shift number"
+msgstr "shift number"
+
+msgid "(view)no_of_customers"
+msgstr "customers"
 
 msgid "(view)contact"
 msgstr "contact"
@@ -3685,6 +3697,30 @@ msgstr ""
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
+msgid "No orders matching [%S] found"
+msgstr ""
+
+msgid "[%S] orders matching [%S]"
+msgstr ""
+
+msgid "[%S] orders returned"
+msgstr ""
+
+msgid "Void Sale"
+msgstr ""
+
+msgid "Failed to void: the selected order no longer exists"
+msgstr ""
+
+msgid "Failed to void: the selected order is not/has been yet been completed"
+msgstr ""
+
+msgid "Are you sure you want to void this transaction?"
+msgstr ""
+
+msgid "Order successfully voided"
+msgstr ""
+
 msgid "Sold Out -"
 msgstr ""
 
@@ -3805,4 +3841,7 @@ msgid "Product Stock List"
 msgstr ""
 
 msgid "(rpt)Subtotal"
+msgstr ""
+
+msgid "(view)customer"
 msgstr ""

@@ -1846,8 +1846,17 @@ msgstr "submitted"
 msgid "(view)close clerk"
 msgstr "close clerk"
 
-msgid "(view)customer"
-msgstr "customer"
+msgid "(view)void clerk"
+msgstr "void clerk"
+
+msgid "(view)sale period"
+msgstr "sale period"
+
+msgid "(view)shift number"
+msgstr "shift number"
+
+msgid "(view)no_of_customers"
+msgstr "customers"
 
 msgid "(view)contact"
 msgstr "contact"
