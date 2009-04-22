@@ -4,11 +4,11 @@ App::import('Core', array('HttpSocket','CakeLog'));
 
 class SyncClientsController extends AppController {
 
-	var $name = 'SyncClients';
+    var $name = 'SyncClients';
 
     var $uses = null;
 	
-	var $components = array('SyncHandler');
+    var $components = array('SyncHandler');
 
     var $syncSettings = array();
 
@@ -21,36 +21,21 @@ class SyncClientsController extends AppController {
     var $pushURL = "";
 
 
-	function beforeFilter() {
+    function beforeFilter() {
 
         $this->syncSettings =& Configure::read('sync_settings');
 
-        $this->authURL = $this->syncSettings['protocol'] . '://' .
-               $this->syncSettings['hostname'] . ':' .
-               $this->syncSettings['port'] . '/' .
-               'syncs/auth/' .
-               $this->syncSettings['machine_id'] ;
+        $baseURI = $this->syncSettings['protocol'] . '://' .
+        $this->syncSettings['hostname'] . ':' .
+        $this->syncSettings['port'] . '/' .
+               'syncs';
 
-        $this->pullURL = $this->syncSettings['protocol'] . '://' .
-               $this->syncSettings['hostname'] . ':' .
-               $this->syncSettings['port'] . '/' .
-               'syncs/pull/' .
-               $this->syncSettings['machine_id'] ;
+        $this->authURL = $baseURI . '/auth/' . $this->syncSettings['machine_id'] ;
+        $this->pullURL = $baseURI . '/pull/' . $this->syncSettings['machine_id'] ;
+        $this->pullCommitURL = $baseURI . '/pull_commit/' . $this->syncSettings['machine_id'] ;
+        $this->pushURL = $baseURI . '/push/' . $this->syncSettings['machine_id'] ;
 
-        $this->pullCommitURL = $this->syncSettings['protocol'] . '://' .
-               $this->syncSettings['hostname'] . ':' .
-               $this->syncSettings['port'] . '/' .
-               'syncs/pull_commit/' .
-               $this->syncSettings['machine_id'] ;
-
-        $this->pushURL = $this->syncSettings['protocol'] . '://' .
-               $this->syncSettings['hostname'] . ':' .
-               $this->syncSettings['port'] . '/' .
-               'syncs/push/' .
-               $this->syncSettings['machine_id'] ;
-
-
-	}
+    }
 
     function &getHttpSocket() {
 
@@ -62,10 +47,10 @@ class SyncClientsController extends AppController {
                                                                'method' => 'Basic',
                                                                'user'=>'vivipos',
                                                                'pass'=> $password
-                                                                 )
-                                                ),
+                )
+            ),
                               'timeout' => $timeout
-                             );
+        );
         // auth from server
         $http = new HttpSocket($http_config);
         return $http;
@@ -189,20 +174,20 @@ class SyncClientsController extends AppController {
     }
 
 
-	function index() {
+    function index() {
 
-		exit;
-	}
+        exit;
+    }
 
 
-	function perform_sync() {
+    function perform_sync() {
 
         $pull_result = $this->client_pull();
         $push_result = $this->client_push();
 
         return array('pull_result' => ($pull_result !== false), 'push_result' => ($push_result !== false) );
         
-	}
+    }
 
 }
 ?>

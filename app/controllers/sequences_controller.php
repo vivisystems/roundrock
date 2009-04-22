@@ -12,12 +12,11 @@ class SequencesController extends AppController {
 
     var $syncSettings = array();
 
-    function beforeFilter2() {
+    function beforeFilter() {
 
         $this->syncSettings =& Configure::read('sync_settings');
 
         $sync_settings =& $this->syncSettings;
-
 
         $password = "rachir";
         if ($sync_settings != null) {

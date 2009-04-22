@@ -96,7 +96,6 @@ class SyncHandlerComponent extends Object {
      */
     function getLastSynced($machine_id, $dbConfig) {
 
-
         $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
         $data = $syncRemoteMachine->find('first', array('conditions' => array('machine_id' => $machine_id)));
 
@@ -465,13 +464,13 @@ class SyncHandlerComponent extends Object {
     }
 
 
-/**
- * save server datas
- *
- * <client call pull>
- *
- * @param string $server_machine_id
- */
+    /**
+     * save server datas
+     *
+     * <client call pull>
+     *
+     * @param string $server_machine_id
+     */
     function saveServerData($server_machine_id, &$datas) {
 
         $my_machine_id = $this->syncSettings['machine_id'];
@@ -483,13 +482,13 @@ class SyncHandlerComponent extends Object {
     }
 
 
-/**
- * get client datas to server
- *
- * <client call pull>
- *
- * @param string $server_machine_id
- */
+    /**
+     * get client datas to server
+     *
+     * <client call pull>
+     *
+     * @param string $server_machine_id
+     */
     function getClientData($server_machine_id) {
 
         $datas = $this->getData($server_machine_id);
@@ -499,13 +498,13 @@ class SyncHandlerComponent extends Object {
     }
 
 
-/**
- * save client datas
- *
- * <client call pull>
- *
- * @param string $server_machine_id
- */
+    /**
+     * save client datas
+     *
+     * <client call pull>
+     *
+     * @param string $server_machine_id
+     */
     function saveClientData($client_machine_id, &$datas) {
 
         $my_machine_id = $this->syncSettings['machine_id'];
@@ -631,10 +630,10 @@ class SyncHandlerComponent extends Object {
                 case 'delete':
                     return "DELETE FROM {$table} {$conditions}";
                     break;
+            }
         }
-    }
 
-}
+    }
 
 
 ?>

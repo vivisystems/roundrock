@@ -15,7 +15,6 @@ class Sequence extends AppModel {
         $this->save(array('value'=>$value));
         return $value;
 
-
     }
 
     function setSequence() {

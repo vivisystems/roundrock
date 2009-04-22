@@ -2,9 +2,9 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
-        <em:id>77d1c1ae-25be-11de-8be6-001a6bcea6a4</em:id>
+        <em:id>webapp@firich.com.tw</em:id>
         <em:name>VIVIPOS WebApp and WebServices</em:name>
-        <em:version>1.0.0.20090410192130</em:version>
+        <em:version>1.0.0.20090414160209</em:version>
         <em:description></em:description>
         <em:creator>FIRICH VIVIPOS TEAM</em:creator>
         <em:homepageURL>http://www.firich.com.tw/</em:homepageURL>
