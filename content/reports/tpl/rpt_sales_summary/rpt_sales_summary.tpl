@@ -338,6 +338,36 @@
 				</tfoot>
 			</table>
 			<br />
+			
+			<table id="body-table">
+            	<caption>${_( '(rpt)Promotion Summary' )}</caption>
+            	<thead>
+            		<tr>
+            			<th style="text-align: left;">${_( '(rpt)Name' )}</th>
+            			<th style="text-align: left;">${_( '(rpt)Code' )}</th>
+            			<th style="text-align: right;">${_( '(rpt)Count' )}</th>
+            			<th style="text-align: right;">${_( '(rpt)Discount' )}</th>
+            		</tr>
+            	</thead>
+            	<tbody>
+	{for detail in body.promotion_summary.results}
+					<tr>
+						<td style="text-align: left;">${detail.name}</td>
+						<td style="text-align: left;">${detail.code}</td>
+						<td style="text-align: right;">${detail.matched_count|default:0}</td>
+						<td style="text-align: right;">${detail.discount_subtotal|default:0|viviFormatPrices:true}</td>
+					</tr>
+	{/for}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">${_( '(rpt)Summary' ) + ':'}</td>
+						<td style="text-align: right;">${body.promotion_summary.summary.matched_count|default:0}</td>
+						<td style="text-align: right;">${body.promotion_summary.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
+					</tr>
+				</tfoot>
+			</table>
+			<br />
         </td>
     </tr>
 

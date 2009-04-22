@@ -664,6 +664,11 @@ pref("vivipos.fec.reportpanels.orderannotation.path", "chrome://viviecr/content/
 pref("vivipos.fec.reportpanels.orderannotation.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.orderannotation.roles", "acl_run_report");
  
+pref("vivipos.fec.reportpanels.promotionsummary.label", "Promotion Summary Report");
+pref("vivipos.fec.reportpanels.promotionsummary.path", "chrome://viviecr/content/reports/rpt_promotion_summary.xul");
+pref("vivipos.fec.reportpanels.promotionsummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.promotionsummary.roles", "acl_run_report");
+
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");

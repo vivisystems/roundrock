@@ -109,6 +109,18 @@ ${_( '(rpt)Summary' ) + ':'}
 ${'  ' + _( '(rpt)Count' ) + ':'|left:18}${body.surcharge_summary.summary.num_rows|default:0|right:24}
 ${'  ' + _( '(rpt)Amount' ) + ':'|left:18}${body.surcharge_summary.summary.amount|default:0|viviFormatPrices:true|right:24}
 ------------------------------------------
+${_( '(rpt)Promotion Summary' )}
+{for detail in body.promotion_summary.results}
+${'  ' + _( '(rpt)Name' ) + ':'|left:18}${detail.name|right:24}
+${'  ' + _( '(rpt)Code' ) + ':'|left:18}${detail.code|right:24}
+${'  ' + _( '(rpt)Count' ) + ':'|left:18}${detail.matched_count|default:0|right:24}
+${'  ' + _( '(rpt)Discount' ) + ':'|left:18}${detail.discount_subtotal|default:0|viviFormatPrices:true|right:24}
+
+{/for}
+${_( '(rpt)Summary' ) + ':'}
+${'  ' + _( '(rpt)Count' ) + ':'|left:18}${body.promotion_summary.summary.matched_count|default:0|right:24}
+${'  ' + _( '(rpt)Discount' ) + ':'|left:18}${body.promotion_summary.summary.discount_subtotal|default:0|viviFormatPrices:true|right:24}
+------------------------------------------
 ${foot.gen_time}
 [&CR]
 [&CR]
