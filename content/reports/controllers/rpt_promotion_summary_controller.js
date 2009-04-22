@@ -20,14 +20,15 @@
 
             var fields = 	'strftime( "%Y-%m-%d", o.' + periodType + ', "unixepoch", "localtime" ) as date, ' +
             				'sum( o.total ) as total, ' +
-            				'sum( o.promotion_subtotal ) as promotion_subtotal, ' +
+            				'sum( op.discount_subtotal ) as promotion_subtotal, ' +
             				'op.promotion_id as promotion_id, ' +
             				'count( op.id ) as matched_count, ' +
             				'sum( op.matched_items_qty ) as matched_items_qty, ' +
             				'sum( op.matched_items_subtotal ) as matched_items_subtotal';
                             
             var conditions = 'o.' + periodType + '>="' + start +
-                            '" and o.' + periodType + '<="' + end + '"';
+                            '" and o.' + periodType + '<="' + end + '"' +
+                            ' and o.status = 1';
             
             if (terminalNo.length > 0)
                 conditions += " and o.terminal_no LIKE '" + terminalNo + "%'";
@@ -40,8 +41,21 @@
 
             var groupby = 'date, op.promotion_id, op.order_id';
             var orderby = 'date, op.promotion_id, op.order_id';
+			
+			var subquery = 	'select ' + fields + ' from order_promotions op join orders o on op.order_id = o.id' +
+            				' where ' + conditions + ' group by ' + groupby + ' order by ' + orderby;
+            				
+            var s_fields =  's.date as date, ' +
+            				'sum( s.total ) as total, ' +
+            				'sum( s.promotion_subtotal ) as promotion_subtotal, ' +
+            				's.promotion_id as promotion_id, ' +
+            				'sum( s.matched_count ) as matched_count, ' +
+            				'sum( s.matched_items_qty ) as matched_items_qty, ' +
+            				'sum( s.matched_items_subtotal ) as matched_items_subtotal, ' +
+            				'count( s.promotion_id ) as order_count';
             
-		    // for sorting.
+            var s_orderby = sortBy;				
+            // for sorting.
 		    if ( sortBy != 'all' && sortBy != 'date' ) {
 		    	switch ( sortBy ) {
 					case 'total':
@@ -50,12 +64,11 @@
 					case 'matched_count':
 					case 'matched_items_qty':
 					case 'matched_items_subtotal':
-						orderby += ', ' + sortBy + ' desc';
+						s_orderby += ' desc';
 				}
 			}
-			
-			var sql = 	'select ' + fields + ' from order_promotions op join orders o on op.order_id = o.id' +
-            			' where ' + conditions + ' group by ' + groupby + ' order by ' + orderby + ';';
+            				
+            var sql = 'select ' + s_fields + ' from ( ' + subquery + ' ) as s group by s.date, s.promotion_id order by ' + s_orderby + ';';
            	
             var orderModel = new OrderModel();
   			var records = orderModel.getDataSource().fetchAll( sql );
@@ -81,15 +94,15 @@
   				}
   			} );
   			
-  			var old_date = null;
-  			var old_promotion_id = null;
-  			var _self = this;
+  			//var old_date = null;
+  			//var old_promotion_id = null;
+  			//var _self = this;
   			records.forEach( function( record ) {
-  				record.order_count = 1;
+  				//record.order_count = 1;
   				
-  				if ( record.date != old_date || record.promotion_id != old_promotion_id ) {
-  					results[ record.promotion_id ].entries.push( record );
-  				} else {
+  				//if ( record.date != old_date || record.promotion_id != old_promotion_id ) {
+  				results[ record.promotion_id ].entries.push( record );
+  				/*} else {
 	  				var index = results[ record.promotion_id ].entries.length - 1;
 	  				var entry = results[ record.promotion_id ].entries[ index ];
 	  				
@@ -99,13 +112,13 @@
 	  					if ( r != 'date' && r !='order_count' )
 	  						entry[ r ] += record[ r ];
 	  				}
-	  			}
+	  			}*/
   				
   				for ( s in results[ record.promotion_id ].summary )
   					results[ record.promotion_id ].summary[ s ] += record[ s ];
   					
-  				old_date = record.date;
-  				old_promotion_id = record.promotion_id;
+  				//old_date = record.date;
+  				//old_promotion_id = record.promotion_id;
   			} );
   			
   			if ( emptyPromotion == 'hide' ) {
