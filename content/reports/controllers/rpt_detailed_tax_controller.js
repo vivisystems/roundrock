@@ -37,7 +37,8 @@
                          ];
                             
             var conditions = "orders." + periodType + ">='" + start +
-                            "' AND orders." + periodType + "<='" + end + "'";
+                            "' AND orders." + periodType + "<='" + end + "'" +
+                            " and orders.status = 1";
             
             if ( terminalNo.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + terminalNo + "%'";

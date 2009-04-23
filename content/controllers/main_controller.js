@@ -134,13 +134,12 @@
             //
             var buf = this._getKeypadController().getBuffer();
 
-            this.requestCommand('clear', null, 'Cart');
             var item;
             var txn = GeckoJS.Session.get('current_transaction');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if (cart && txn) {
                 var index = cart._cartView.getSelectedIndex();
-                item = txn.getItemAt(index);
+                item = txn.getItemAt(index, true);
             }
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
@@ -157,7 +156,7 @@
                 return aArguments.item;
             }
             else
-                return null;
+                this.requestCommand('subtotal', null, 'Cart');
         },
 
         printerDashboard: function () {
@@ -281,8 +280,10 @@
             var width = this.screenwidth;
             var height = this.screenheight;
             
-            this.requestCommand('clear', null, 'Cart');
+            //this._getKeypadController().clearBuffer();
+            this.requestCommand('clearBuffer', null, 'Keypad');
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
+            this.requestCommand('subtotal', null, 'Cart');
         },
 
         createPluPanel: function () {

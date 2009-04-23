@@ -154,8 +154,8 @@
                             <menulist id="roundingtaxes" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
                                 <menupopup>
                                     <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
                                     <!--
+                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
                                     <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
                                     <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
                                     <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>
@@ -176,8 +176,8 @@
                             <menulist id="roundingprices" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingPrices', this.value)">
                                 <menupopup>
                                     <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
                                     <!--
+                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
                                     <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
                                     <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
                                     <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>

@@ -26,47 +26,61 @@
 <hr/>
 <pre><table style="width: 720px">
     <tr>
-        <td style="width: 80px">${_('(view)order sequence')+':'}</td>
+        <td style="width: 90px">${_('(view)order sequence')+':'}</td>
         <td> ${order.sequence}</td>
-        <td style="width: 80px">${_('(view)order status')+':'}</td>
+        <td style="width: 90px">${_('(view)order status')+':'}</td>
         <td>${status}</td>
-        <td style="width: 80px">${_('(view)order destination')+':'}</td>
+        <td style="width: 90px">${_('(view)order destination')+':'}</td>
         <td>${order.destination}</td>
     </tr>
     <tr>
-        <td style="width: 80px">${_('(view)terminal')+':'}</td>
+        <td style="width: 90px">${_('(view)terminal')+':'}</td>
         <td>${order.terminal_no}</td>
-        <td style="width: 80px">${_('(view)branch')+':'}</td>
+        <td style="width: 90px">${_('(view)branch')+':'}</td>
         <td>${order.branch + ' (' + order.branch_id + ')'}</td>
     </tr>
     <tr>
-        <td style="width: 80px">${_('(view)open clerk')+':'}</td>
+        <td style="width: 90px">${_('(view)sale period')+':'}</td>
+        <td>${(new Date(order.sale_period * 1000)).toLocaleFormat('%Y-%m-%d')}</td>
+        <td style="width: 90px">${_('(view)shift number')+':'}</td>
+        <td>${order.shift_number}</td>
+    </tr>
+    <tr>
+        <td style="width: 90px">${_('(view)open clerk')+':'}</td>
         <td>${order.service_clerk_displayname}</td>
-        <td style="width: 80px">${_('(view)opened')+':'}</td>
+        <td style="width: 90px">${_('(view)opened')+':'}</td>
         <td>${(new Date(order.transaction_created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</td>
     </tr>
     <tr>
-        <td style="width: 80px">${_('(view)open clerk')+':'}</td>
+        <td style="width: 90px">${_('(view)close clerk')+':'}</td>
         <td>${order.proceeds_clerk_displayname}</td>
-        <td style="width: 80px">${_('(view)submitted')+':'}</td>
+        <td style="width: 90px">${_('(view)submitted')+':'}</td>
         <td>${(new Date(order.transaction_submitted * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</td>
     </tr>
+{if order.status == -2}
+    <tr>
+        <td style="width: 90px">${_('(view)void clerk')+':'}</td>
+        <td>${order.void_clerk_displayname}</td>
+        <td style="width: 90px">${_('(view)voided')+':'}</td>
+        <td>${(new Date(order.transaction_voided * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</td>
+    </tr>
+{/if}
 {if order.member}
     <tr>
-        <td style="width: 80px">${_('(view)customer')+':'}</td>
+        <td style="width: 90px">${_('(view)customer')+':'}</td>
         <td> ${order.member_displayname}</td>
-        <td style="width: 80px">${_('(view)contact')+':'}</td>
+        <td style="width: 90px">${_('(view)contact')+':'}</td>
         <td>${order.member_cellphone}</td>
-        <td style="width: 80px">${_('(view)email')+':'}</td>
+        <td style="width: 90px">${_('(view)email')+':'}</td>
         <td>${order.member_email}</td>
     </tr>
 {/if}
     <tr>
-        <td style="width: 80px">${_('(view)check #')+':'}</td>
+        <td style="width: 90px">${_('(view)check #')+':'}</td>
         <td> ${order.check_no}</td>
-        <td style="width: 80px">${_('(view)table #')+':'}</td>
+        <td style="width: 90px">${_('(view)table #')+':'}</td>
         <td>${order.table_no}</td>
-        <td style="width: 80px">${_('(view)customers')+':'}</td>
+        <td style="width: 90px">${_('(view)no_of_customers')+':'}</td>
         <td>${order.no_of_customers}</td>
     </tr>
 </table></pre><hr/>
@@ -77,6 +91,10 @@
     prodName = item.product_name;
     indent = (item.parent_no != null && item.parent_no != '') ? '&nbsp;&nbsp;' : '';
     if (item.destination != null && item.destination != '' && indent == '') prodName = '(' + item.destination + ') ' + prodName;
+    itemCondiments = [];
+    if (order.OrderItemCondiment && order.OrderItemCondiment.length > 0) {
+        itemCondiments = order.OrderItemCondiment.filter(function(c) {return c.item_id == item.id});
+    }
 {/eval}
     <tr>
         <td style="width: 400px">${indent + prodName}</td>
@@ -86,12 +104,12 @@
         <td style="width: 100px; text-align: right;">{if indent == ''}${item.current_subtotal|viviFormatPrices:true}{/if}</td>
         <td>{if indent == ''}${item.tax_name}{/if}</td>
     </tr>
-{if item.condiments != null && item.condiments != ''}
+{for condiment in itemCondiments}
     <tr>
-        <td colspan="3">&nbsp;&nbsp;${indent + item.condiments}</td>
-        <td style="width: 100px; text-align: right;">${item.current_condiment|viviFormatPrices:true}</td>
+        <td colspan="3">&nbsp;&nbsp;${indent + condiment.name}</td>
+        <td style="width: 100px; text-align: right;">${condiment.price|viviFormatPrices:true}</td>
     </tr>
-{/if}
+{/for}
 {if item.memo != null && item.memo != ''}
     <tr>
         <td colspan="6">&nbsp;&nbsp;&nbsp;&nbsp;${indent + item.memo}</td>
@@ -166,9 +184,9 @@
 {if order.OrderPayment}
 {for payment in order.OrderPayment}
     <tr>
-        <td>&nbsp;&nbsp;${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : payment.name}</td>
-        <td colspan="2">${(payment.memo1 != null && payment.memo1 != '') ? payment.name : ''}</td>
-        <td style="text-align: right;">${payment.origin_amount}</td>
+        <td>&nbsp;&nbsp;${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : _(payment.name)}</td>
+        <td colspan="2">${(payment.memo1 != null && payment.memo1 != '') ? _(payment.name) : ''}</td>
+        <td style="text-align: right;">${payment.origin_amount|viviFormatPrices:true}</td>
         <td style="text-align: right;">${payment.amount|viviFormatPrices:true}</td>
     </tr>
     {if payment.memo2 != null && payment.memo2 != ''}

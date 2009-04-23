@@ -1810,6 +1810,33 @@ msgstr "Promotion"
 msgid "(rpt)Subtotal"
 msgstr "Subtotal"
 
+msgid "(rpt)Promotion Summary"
+msgstr "Promotion Summary"
+
+msgid "(rpt)Code"
+msgstr "Code"
+
+msgid "(rpt)Voided Orders"
+msgstr "Voided Orders"
+
+msgid "(rpt)Date"
+msgstr "Date"
+
+msgid "(rpt)Order Count"
+msgstr "Order Count"
+
+msgid "(rpt)Promotion Subtotal"
+msgstr "Promotion Subtotal"
+
+msgid "(rpt)Matched Count"
+msgstr "Matched Count"
+
+msgid "(rpt)Matched Items Qty."
+msgstr "Matched Items Qty."
+
+msgid "(rpt)Matched Items Subtotal"
+msgstr "Matched Items Subtotal"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -1849,8 +1876,17 @@ msgstr "submitted"
 msgid "(view)close clerk"
 msgstr "close clerk"
 
-msgid "(view)customer"
-msgstr "customer"
+msgid "(view)void clerk"
+msgstr "void clerk"
+
+msgid "(view)sale period"
+msgstr "sale period"
+
+msgid "(view)shift number"
+msgstr "shift number"
+
+msgid "(view)no_of_customers"
+msgstr "customers"
 
 msgid "(view)contact"
 msgstr "contact"

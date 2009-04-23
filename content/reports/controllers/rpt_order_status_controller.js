@@ -116,13 +116,16 @@
             	
             	switch ( parseInt( record.status, 10 ) ) {
             		case 1:
-            			record.status = 'Finalized';
+            			record.status = _( 'Finalized' );
             			break;
             		case 2:
-            			record.status = 'Saved';
+            			record.status = _( 'Saved' );
             			break;
             		case -1:
-            			record.status = 'Canceled';
+            			record.status = _( 'Canceled' );
+            			break;
+            		case -2:
+            			record.status = _( 'Voided' );
             			break;
             	}
             });

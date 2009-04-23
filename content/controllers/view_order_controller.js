@@ -10,6 +10,8 @@
 
         name: 'ViewOrder',
 
+        _orderId: null,
+
         load: function(inputObj) {
 
             // load matching order(s)
@@ -44,18 +46,36 @@
                 menulist.appendItem(order.sequence + ' ' + location, order.id, '');
             });
 
+            // disable void sale button initially
+            var voidBtn = document.getElementById('void');
+            voidBtn.setAttribute('disabled', true);
+            
             if (orders.length == 1) {
-                menulist.selectedIndex = 0;
                 this.displayOrder(orders[0].id);
             }
+            else if (orders.length == 0) {
+                menulist.appendItem(_('No orders matching [%S] found', [inputObj.value]), '', '');
+            }
+            else {
+                if (inputObj.value) {
+                    menulist.insertItemAt(0, _('[%S] orders matching [%S]', [orders.length, inputObj.value]), '');
+                }
+                else {
+                    menulist.insertItemAt(0, _('[%S] orders returned', [orders.length]), '');
+                }
+            }
+            menulist.selectedIndex = 0;
         },
 
         displayOrder: function (id) {
 
+            if (!id) return;
+            
             // get browser content body
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById( 'abody' );
             var print = document.getElementById('print');
+            var voidBtn = document.getElementById('void');
             
             // load data
             var orderModel = new OrderModel();
@@ -70,6 +90,8 @@
             data.order = order;
             data.sequence = order.sequence;
 
+            this.log(this.dump(order));
+            
             var result = tpl.process(data);
 
             if (doc) {
@@ -77,6 +99,26 @@
 
                 print.setAttribute('disabled', false);
             }
+
+            this._orderId = id;
+
+            // enable void sale button only if order has status of 1
+            voidBtn.setAttribute('disabled', !order || order.status != 1 || !this.Acl.isUserInRole('acl_void_transactions'));
+        },
+
+        voidSale: function() {
+
+            var id = this._orderId;
+
+            if (!id) return;
+
+            // invoke Cart.voidSale in main window
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                                                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var cartController = mainWindow.GeckoJS.Controller.getInstanceByName('Cart');
+            cartController.requestCommand('voidSale', id, 'Cart');
+
+            this.displayOrder(id);
         }
 
     };

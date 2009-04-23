@@ -873,7 +873,8 @@
             if (itemDisplay.type == 'condiment') {
 
                 // check if condiment is open
-                if ('open' in itemDisplay && !itemDisplay.open) {
+                var parentItem = curTransaction.getItemAt(index, true);
+                if ('open' in itemDisplay && !itemDisplay.open && GeckoJS.BaseObject.getKeys(parentItem.condiments).length > 1) {
 
                     //@todo OSD
                     NotifyUtils.warn(_('Cannot modify condiments when collapsed'));
@@ -1974,7 +1975,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
 
@@ -2085,7 +2087,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2185,7 +2188,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2288,7 +2292,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2423,8 +2428,9 @@
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
 
             if (returnMode) {
+                // payment refund
                 var err = false;
-                if (paymentsTypes.length == 0) {
+                if (false && paymentsTypes.length == 0) {
                     NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
                     err = true;
                 }
@@ -2434,7 +2440,8 @@
                     amount = curTransaction.getPaymentSubtotal();
                 }
 
-                if (!err && amount > curTransaction.getPaymentSubtotal()) {
+                // payment refund
+                if (false && !err && amount > curTransaction.getPaymentSubtotal()) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
                         [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
                     err = true;
@@ -3041,12 +3048,12 @@
                 condimentItem = productsById[setItem.id];
 
                 // extract cartItem's selected condiments, if any
-                if (setItem.condiments != null) {
+                if (!immediateMode && setItem.condiments != null) {
                     for (var c in setItem.condiments) {
                         if (condiments == null) {
                             condiments = {};
                         }
-                        condiments[c] = setItem.condiments[c];
+                        condiments.push(setItem.condiments[c]);
                     }
                 }
             }
@@ -3221,6 +3228,117 @@
 
         },
 
+
+        voidSale: function(id) {
+
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+
+            if (!id) return;
+
+            // load data
+            var orderModel = new OrderModel();
+            var order = orderModel.findById(id, 2);
+
+            if (!order) {
+                GREUtils.Dialog.alert(window,
+                                      _('Void Sale'),
+                                      _('Failed to void: the selected order no longer exists'));
+                return;
+            }
+
+            if (order.status != 1) {
+                GREUtils.Dialog.alert(window,
+                                      _('Void Sale'),
+                                      _('Failed to void: the selected order is not/has been yet been completed'));
+                return;
+            }
+
+            if (GREUtils.Dialog.confirm(window,
+                                        _('Void Sale'),
+                                        _('Are you sure you want to void transaction [%S]?', [order.sequence]))) {
+
+                if (this.dispatchEvent('beforeVoidSale', order)) {
+
+                    var user = new GeckoJS.AclComponent().getUserPrincipal();
+
+                    // get sale period and shift number
+                    var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
+                    var salePeriod = (shiftController) ? shiftController.getSalePeriod() : '';
+                    var shiftNumber = (shiftController) ? shiftController.getShiftNumber() : '';
+
+                    var terminalNo = GeckoJS.Session.get('terminal_no');
+
+                    var paymentModel = new OrderPaymentModel();
+
+                    // reverse payments
+                    for (var p in order.OrderPayment) {
+                        var payment = order.OrderPayment[p];
+
+                        // reverse amount, origin_amount, change
+                        payment.id = '';
+                        payment.amount = - payment.amount;
+                        payment.origin_amount = - payment.origin_amount;
+                        payment.change = - payment.change;
+
+                        // update proceeds_clerk
+                        if (user != null) {
+                            payment.proceeds_clerk = user.username;
+                            payment.proceeds_clerk_displayname = user.description;
+                        }
+
+                        payment.sale_period = salePeriod;
+                        payment.shift_number = shiftNumber;
+                        payment.terminal_no = terminalNo;
+                    }
+
+                    // begin transaction
+                    orderModel.begin();
+
+                    // save payment record
+                    paymentModel.saveAll(order.OrderPayment);
+
+                    // update order status to voided
+                    order.status = -2;
+
+                    // update void clerk, time, sale period and shift number
+                    if (user) {
+                        order.void_clerk = user.username;
+                        order.void_clerk_displayname = user.description;
+                    }
+                    order.transaction_voided = (new Date()).getTime() / 1000;
+                    order.void_sale_period = salePeriod;
+                    order.void_shift_number = shiftNumber;
+
+                    orderModel.id = order.id;
+                    orderModel.save(order);
+
+                    // end transaction
+                    orderModel.commit();
+
+                    // restore stock
+                    for (var o in order.OrderItem) {
+
+                        // look up corresponding product and set the product id into the item; also reverse quantity
+                        var item = order.OrderItem[o];
+                        var productId = barcodesIndexes[item.product_no];
+
+                        item.current_qty = - item.current_qty;
+                        item.id = productId;
+                    }
+                    order.items = order.OrderItem;
+
+                    var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
+                    stockController.requestCommand('decStock', order, 'Stocks');
+
+                    if (this.dispatchEvent('afterVoidSale', order)) {
+
+                        GREUtils.Dialog.alert(window,
+                                              _('Void Sale'),
+                                              _('Transaction [%S] successfully voided', [order.sequence]));
+                    }
+                }
+            }
+        },
 
         getAnnotationDialog: function (type) {
 

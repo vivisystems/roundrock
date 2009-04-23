@@ -20,6 +20,7 @@ ${'  ' + _( '(rpt)Orders' ) + ':'|left:16}${body.sales_summary.OrderNum|default:
 ${'  ' + _( '(rpt)Total' ) + ':'|left:16}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Guests' ) + ':'|left:16}${body.sales_summary.Guests|default:0|right:26}
 ${'  ' + _( '(rpt)Items' ) + ':'|left:16}${body.sales_summary.ItemsCount|default:0|right:26}
+${'  ' + _( '(rpt)Voided Orders' ) + ':'|left:16}${body.sales_summary.VoidedOrders|default:0|right:26}
 ${'  ' + _( '(rpt)Average Total' ) + ':'|left:16}${body.sales_summary.AvgTotal|default:0|format:2|right:26}
 ${'  ' + _( '(rpt)Average Guest' ) + ':'|left:16}${body.sales_summary.AvgGuests|default:0|format:2|right:26}
 ${'  ' + _( '(rpt)Average Items' ) + ':'|left:16}${body.sales_summary.AvgItemsCount|default:0|format:2|right:26}
