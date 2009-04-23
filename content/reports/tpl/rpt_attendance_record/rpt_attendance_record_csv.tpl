@@ -10,7 +10,7 @@
 {for master in body}
 "${master.username}","${_( '(rpt)Job' )}","${_( '(rpt)Clock In' )}","${_( '(rpt)Clock Out' )}","${_( '(rpt)Span Time' )}"
 {for stamp in master.clockStamps}
-"","${stamp.job}","${stamp.InTime}","${stamp.OutTime}","${stamp.SpanTime}"
+"","${stamp.job}","${stamp.clockin_time}","${stamp.clockout_time}","${stamp.SpanTime}"
 {/for}
 "","","","${_( '(rpt)Summary' ) + ':'}","${master.total_spantime}"
 "",""

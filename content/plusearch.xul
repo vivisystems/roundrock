@@ -40,16 +40,7 @@
                 <caption label="&plus.title;" class="PageTitle"/>
                 <vbox flex="1" pack="start" class="LeftPnl">
                     <label value="&plus.search.label;" class="SubTitle" />
-                    <textbox id="plu" value="" />
-                    <spacer style="height:5px;" />
-                    <hbox pack="center">
-                        <numberpad id="multinumberpad" class="numpad"/>
-                        <vbox>
-                            <sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="fixedbtn"  />
-                            <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="fixedbtn"/>
-                            <vivibutton id="ekeyBtn"  label="&plus.button.numpad.enter;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="fixedbtn" />
-                        </vbox>
-                    </hbox>
+                    <vivitextbox id="plu" value="" numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>
                     <spacer style="height:5px;" />
                     <groupbox id="advance_search">
                         <caption label="&plus.search.advancesearch;:" class="SubTitle" />
@@ -69,7 +60,7 @@
                     <spacer style="height:5px;" />
                     <viviscrollabletree id="plusearchscrollablepanel" flex="1"
                                         headers="&plus.product.no;,&plus.product.name;,&plus.stock.level;"
-                                        fields="no,name,stock"
+                                        fields="no,name,stock" hidecolumnpicker="true"
                                         onclick="$do('select',this.selectedIndex, 'PluSearch');"
                                         class="plupnl" dir="reverse"
                                         scrollUpClass="ScrollUp"
@@ -245,11 +236,14 @@
                     </tabpanel>
                 </tabpanels>
             </tabbox>
-            <hbox id="dialogButtons" class="ToolBar" pack="end" >
-                <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
-                <spacer flex="1" />
-                <button class="ExitBtn" id="cancel" label="&dialog.closeButton.label;" default="false" oncommand="doCancelButton();"/>
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+            <hbox>
+                <hbox id="dialogButtons" class="ToolBar" pack="start" flex="1">
+                    <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                    <button class="ExitBtn" id="cancel" label="&dialog.closeButton.label;" default="false" oncommand="doCancelButton();"/>
+                </hbox>
             </hbox>
         </vbox>
         </hbox>

@@ -39,8 +39,7 @@
 				                    <label value="&rptdepartments.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="[&rptdepartments.all;]" value="all" />
-					                        <menuitem selected="false" label="&rptdepartments.no;" value="no" />
+					                        <menuitem selected="true" label="&rptdepartments.no;" value="no" />
 					                        <menuitem selected="false" label="&rptdepartments.name;" value="name" />
 					                    </menupopup>
 					                </menulist>

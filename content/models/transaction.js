@@ -37,6 +37,8 @@
                 surcharge_subtotal: 0,
                 discount_subtotal: 0,
                 payment_subtotal: 0,
+                
+                promotion_subtotal: 0,
 
                 price_modifier: 1,    // used to modify item subtotals
                 
@@ -75,7 +77,6 @@
                 sale_period: '',
                 shift_number: '',
 
-                lockIndex: -1,
                 batchCount: 0,
                 closed: false,
 
@@ -136,6 +137,8 @@
             this.data.decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
             this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
+            Transaction.events.dispatch('onCreate', this, this);
+
         },
 
         emptyView: function() {
@@ -158,6 +161,7 @@
             // maintain stock...
             if (status > 0)
                 self.requestCommand('decStock', self.data, "Stocks");
+
 
             if (!discard) {
 
@@ -314,7 +318,7 @@
 
             type = type || 'item';
 
-            _('Trans');
+            // _('Trans');
             var itemDisplay = {} ;
             var dispName;
             if (type == 'item') {
@@ -571,6 +575,8 @@
 
         appendItem: function(item){
 
+            //var profileStart = (new Date()).getTime();
+
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var productsById = GeckoJS.Session.get('productsById');
             var prevRowCount = this.data.display_sequences.length;
@@ -659,6 +665,9 @@
             this.updateCartView(prevRowCount, currentRowCount, currentRowCount - 1);
 
             this.updateLastSellItem(itemAdded);
+
+            //var profileEnd = (new Date()).getTime();
+            //this.log('appendItem End ' + (profileEnd - profileStart));
 
             return itemAdded;
         },
@@ -760,9 +769,10 @@
                 else if (itemDisplay.type == 'condiment') {
                     condimentPrice = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : itemDisplay.current_price;
                     var condimentItem = {
-                        id: itemDisplay.id,
+                        id: itemTrans.id,
                         name: itemDisplay.name,
-                        current_subtotal: condimentPrice == 0 ? '' : condimentPrice
+                        current_subtotal: condimentPrice == 0 ? '' : condimentPrice,
+                        open: itemDisplay.open
                     };
                 }
                 var obj = {
@@ -895,6 +905,9 @@
 
                         var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
 
+                        // inherit open state
+                        condimentItemDisplay2.open = condimentItem.open;
+
                         // update condiment display
                         this.data.display_sequences[index] = condimentItemDisplay2 ;
 
@@ -921,6 +934,9 @@
                         targetItem.current_condiment = condiment_subtotal;
 
                         var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment', 2);
+
+                        // inherit open state
+                        condimentItemDisplay2.open = condimentItem.open;
 
                         // update condiment display
                         this.data.display_sequences[index] = condimentItemDisplay2 ;
@@ -950,6 +966,8 @@
         },
 
         voidItemAt: function(index){
+
+            // var startProfile = (new Date()).getTime();
 
             var prevRowCount = this.data.display_sequences.length;
 
@@ -985,7 +1003,7 @@
                 var display_sequences = this.data.display_sequences;
 
                 // look down display sequence to find location of next item that is
-                // not a discount, surcharge, or memo
+                // not a discount, surcharge, memo, setitem, or condiment
 
                 for (var i = index + 1; i < display_sequences.length; i++) {
                     var checkItem = display_sequences[i];
@@ -1006,11 +1024,13 @@
                 this.removeDisplaySeq(index, removeCount);
 
                 // recalc all
-                //this.calcPromotions();
+                this.calcPromotions();
+
+                this.calcItemsTax(itemRemoved, true);
                 //this.calcItemsTax();
 
-
             }else {
+
                 if (itemDisplay.type == 'memo' ) {
                     if (itemTrans) itemTrans.memo= "";
                 }
@@ -1036,16 +1056,34 @@
                     subtotal.hasDiscount = false;
                     delete this.data.trans_discounts[itemIndex];
                 }
+                
                 if (itemDisplay.type == 'trans_surcharge') {
                     var subtotal = this.getDisplaySeqAt(itemDisplay.subtotal_index);
                     subtotal.hasSurcharge = false;
                     delete this.data.trans_surcharges[itemIndex];
                 }
-                if (itemDisplay.type == 'condiment') {
-                    // condiment may be linked to a set item
-                    var targetItem = this.getItemAt(index, true);
-                    delete targetItem.condiments[itemDisplay.name];
 
+                if (itemDisplay.type == 'condiment') {
+
+                    var targetItem = this.getItemAt(index, true);
+                    var firstCondimentIndex = this.getFirstCondimentIndex(targetItem);
+                    var firstCondimentDisplay = this.getDisplaySeqAt(firstCondimentIndex);
+
+                    if (firstCondimentDisplay && !firstCondimentDisplay.open) {
+                        targetItem.condiments = {};
+                    }
+                    else {
+                        delete targetItem.condiments[itemDisplay.name];
+
+                        if (firstCondimentDisplay && itemDisplay.name == firstCondimentDisplay.name) {
+                            var secondCondimentIndex = this.getFirstCondimentIndex(targetItem, firstCondimentIndex + 1);
+                            var secondCondimentDisplay = this.getDisplaySeqAt(secondCondimentIndex);
+
+                            if (secondCondimentDisplay) secondCondimentDisplay.open = true;
+                        }
+                    }
+
+                    // condiment may be linked to a set item
                     // if item is a set item, compute condiment subtotals
                     if (targetItem.parent_index != null) {
                         var condiment_subtotal = 0;
@@ -1060,6 +1098,7 @@
                     this.calcItemSubtotal(itemTrans);
 
                 }
+                
                 if (itemDisplay.type == 'payment') {
                     // make sure payment has not been subtotalled
                     var displayItems = this.data.display_sequences;
@@ -1077,6 +1116,7 @@
                     // remove payment record
                     delete this.data.trans_payments[itemIndex];
                 }
+
                 if (itemDisplay.type == 'subtotal' ||
                     itemDisplay.type == 'total' ||
                     itemDisplay.type == 'tray') {
@@ -1116,24 +1156,27 @@
 
                 // recalc all
                 this.calcPromotions();
-                
+
                 this.calcItemsTax(itemTrans);
                 
-                this.calcTotal();
+                //this.calcTotal();
 
             }
 
             var currentRowCount = this.data.display_sequences.length;
 
+            //this.log('VoidItem6' +( (new Date()).getTime() - startProfile));
             this.calcTotal();
 
+            //this.log('VoidItem7' +( (new Date()).getTime() - startProfile));
             this.updateCartView(prevRowCount, currentRowCount, index);
-
+            //this.log('VoidItem' +( (new Date()).getTime() - startProfile));
             return itemRemoved;
 
         },
 
         calcItemSubtotal: function(item) {
+
             var subtotal = item.current_qty * item.current_price || 0;
             var condiment_subtotal = 0;
             var setmenu_subtotal = 0;
@@ -1157,6 +1200,9 @@
             
             item.current_subtotal = this.getRoundedPrice((subtotal + setmenu_subtotal + condiment_subtotal) * item.price_modifier);
             itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+
+            Transaction.events.dispatch('onCalcItemSubtotal', item, this);
+
         },
 
 
@@ -1519,7 +1565,7 @@
 
         },
 
-        appendCondiment: function(index, condiments, replace){
+        appendCondiment: function(index, condiments, replace, replaceInPlace){
 
             var item = this.getItemAt(index, true);                           // item to add condiment to
             var targetItem = this.getItemAt(index);
@@ -1528,18 +1574,16 @@
             var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item to add condiment to
 
             var prevRowCount = this.getDisplaySeqCount();
-
             var displayIndex = replace ? this.getDisplayIndexByIndex(itemIndex) : index;
 
             if (item.type == 'item') {
-
+                
                 if (condiments.length >0) {
 
-                    if (replace && item.condiments != null) {
+                    if (replace && item.condiments != null && item.condiments != {}) {
 
                         // void all condiment items up to next item whose index is different from itemIndex
-                        i = displayIndex + 1;
-                        for (; i < this.getDisplaySeqCount();) {
+                        for (var i = displayIndex + 1; i < this.getDisplaySeqCount();) {
                             var displayItem = this.getDisplaySeqAt(i);
                             if (displayItem.index != itemIndex)
                                 break;
@@ -1552,8 +1596,9 @@
                             }
                         }
                         prevRowCount = this.getDisplaySeqCount();
-                    }
 
+                        if (replace && replaceInPlace) displayIndex = index - 1;
+                    }
                     condiments.forEach(function(condiment){
                         // this extra check is a workaround for the bug in XULRunner where an item may appear to be selected
                         // but is actually not
@@ -1561,6 +1606,7 @@
                             var condimentItem = {
                                 id: item.id,
                                 name: condiment.name,
+                                price: condiment.price,
                                 current_subtotal: condiment.price == 0 ? '' : condiment.price
                             };
 
@@ -1572,8 +1618,8 @@
                                 NotifyUtils.warn(_('Condiment [%S] already added to [%S]', [condiment.name, item.name]));
                             }
                             else {
-                                var newCondiment = GeckoJS.BaseObject.extend(condiment, {});
-                                item.condiments[condiment.name] = newCondiment;
+                                //var newCondiment = GeckoJS.BaseObject.extend({}, condiment);
+                                item.condiments[condiment.name] = condimentItem;
 
                                 // update condiment display
                                 var level = targetDisplayItem.type == 'setitem' ? 2 : null;
@@ -1583,6 +1629,7 @@
                         }
                     }, this);
 
+                    if (replaceInPlace) displayIndex = index;
                 }
 
                 // if item is a set item, compute condiment subtotals
@@ -1618,6 +1665,87 @@
 
         },
 
+        expandCondiments: function(index) {
+            var item = this.getItemAt(index, true);
+            var itemDisplay = this.getDisplaySeqAt(index);
+
+            if (item && itemDisplay && !itemDisplay.open) {
+
+                // convert condiments into a form suitable for this.appendCondiment
+                var condimentArray = [];
+
+                for (var c in item.condiments) {
+                    var condimentItem = {};
+                    condimentItem.name = c;
+                    condimentItem.price = item.condiments[c].price;
+
+                    condimentArray.push(condimentItem);
+                }
+
+                // restore collapsedCondiments
+                item.condiments = item.collapsedCondiments;
+                this.appendCondiment(index, condimentArray, true, true);
+
+                // update open state of first condiment item
+                var firstCondiment = this.getDisplaySeqAt(index);
+                if (firstCondiment) {
+                    firstCondiment.open = true;
+                }
+            }
+        },
+
+        collapseCondiments: function(index) {
+            var item = this.getItemAt(index, true);
+            var itemDisplay = this.getDisplaySeqAt(index);
+
+            if (item && item.condiments && itemDisplay && itemDisplay.open) {
+                var condiments = GREUtils.extend({}, item.condiments);
+
+                // construct new condiment display
+                var condimentNames = '';
+                var condimentSubtotal = 0;
+                var condimentList = GeckoJS.BaseObject.getKeys(condiments);
+
+                condimentList.forEach(function(c) {
+                    condimentNames += (condimentNames == '') ? c : (',' + c);
+                    condimentSubtotal += parseInt(condiments[c].price) || 0;
+                });
+
+                var condimentItem = {
+                    id: item.id,
+                    name: condimentNames,
+                    price: condimentSubtotal
+                };
+                this.appendCondiment(index, [condimentItem], true, true);
+
+                // save collapsed condiment
+                item.collapsedCondiments = item.condiments;
+
+                // restore condiments
+                item.condiments = condiments;
+
+                // update open state of collapsed condiment item
+                var collapsedCondiments = this.getDisplaySeqAt(index);
+                if (collapsedCondiments) {
+                    collapsedCondiments.open = false;
+                }
+            }
+        },
+
+        getFirstCondimentIndex: function(itemTrans, startIndex) {
+            var dispIndex = this.getDisplayIndexByIndex(itemTrans.index);
+            startIndex = parseInt(startIndex) || 0;
+
+            if (dispIndex > -1) {
+                for (var i = Math.max(dispIndex + 1, startIndex); i < this.getDisplaySeqCount(); i++) {
+                    var displayItem = this.getDisplaySeqAt(i);
+                    if (displayItem.type == 'condiment' && displayItem.index == itemTrans.index) {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        },
 
         appendMemo: function(index, memo){
 
@@ -1775,15 +1903,30 @@
             // set order lock index
             this.data.batchItemCount = batchItemCount;
             this.data.batchPaymentCount = batchPaymentCount;
-            this.data.lockIndex = index;
         },
 
         isLocked: function(index) {
-            return (index <= this.data.lockIndex);
+            var dispItem = this.getDisplaySeqAt(index);
+            if (!dispItem) {
+                return false;
+            }
+            else if ('batch' in dispItem) {
+                return true;
+            }
+            else if (dispItem.type == 'condiment') {
+                var item = this.getItemAt(index);
+                return (item && 'batch' in item);
+            }
+            else {
+                return false;
+            }
         },
 
         isModified: function() {
-            return (!('lockIndex' in this.data) && this.data.display_sequences.length > 0) || this.data.lockIndex < (this.data.display_sequences.length - 1);
+            for (var i = this.getDisplaySeqCount() - 1; i >= 0; i--) {
+                if (!this.isLocked(i)) return true;
+            }
+            return false;
         },
 
         hasItemsInBatch: function(batch) {
@@ -2055,8 +2198,9 @@
             Transaction.events.dispatch('onCalcPromotions', this, this);
         },
 
-        calcItemsTax:  function(calcItem) {
+        calcItemsTax:  function(calcItem, isRemove) {
 
+            isRemove = isRemove || false;
             // for performance issue
             var items;
             if (calcItem) items = [calcItem];
@@ -2073,7 +2217,7 @@
             tax_type: null,
             current_tax: 0,
             */
-                if (item.parent_index == null) {
+                if (item.parent_index == null && !isRemove) {
                     var tax = Transaction.Tax.getTax(item.tax_name);
                     if(tax) {
                         item.tax_rate = tax.rate;
@@ -2105,11 +2249,13 @@
 
         calcTotal: function() {
 
+            //var profileStart = (new Date()).getTime();
+            
             //this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(this.data));
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
             var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
-            var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0;
+            var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0, promotion_subtotal=0;
 
             // item subtotal and grouping
             this.data.items_summary = {}; // reset summary
@@ -2164,7 +2310,9 @@
                 payment_subtotal += parseFloat(payItem.amount);
             }
 
-            total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal;
+            promotion_subtotal = this.data.promotion_subtotal ;
+
+            total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal - promotion_subtotal;
             remain = total - payment_subtotal;
 
             this.data.total = this.getRoundedPrice(total);
@@ -2182,6 +2330,9 @@
             this.data.surcharge_subtotal = this.data.item_surcharge_subtotal + this.data.trans_surcharge_subtotal;
 
             Transaction.events.dispatch('afterCalcTotal', this.data, this);
+
+            //var profileEnd = (new Date()).getTime();
+            //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
         //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 

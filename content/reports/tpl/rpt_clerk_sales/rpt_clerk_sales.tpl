@@ -33,6 +33,7 @@
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Promotion' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Payment' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Cash' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Check' )}</th>
@@ -53,12 +54,13 @@
                     	${order.service_clerk_displayname}
                     {/if}
                     </td>
-                    <td style="text-align: left;">${order.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
+                    <td style="text-align: left;">${order.transaction_created|unixTimeToString}</td>
                     <td style="text-align: left;">${order.sequence}</td>
                     <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.discount_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.promotion_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.total|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.cash|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.check|default:0|viviFormatPrices:true}</td>
@@ -77,6 +79,7 @@
                     <td style="text-align: right;">${clerk.summary.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.discount_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.promotion_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.total|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.cash|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.check|viviFormatPrices:true}</td>

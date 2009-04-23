@@ -1,0 +1,29 @@
+<!ENTITY promotionsummary.title "Promotion Summary Report">
+<!ENTITY promotionsummary.conditions "Conditions:">
+<!ENTITY promotionsummary.startdate "Start Date:">
+<!ENTITY promotionsummary.enddate "End Date:">
+<!ENTITY promotionsummary.execute "Execute">
+<!ENTITY promotionsummary.exportpdf "Export to PDF">
+<!ENTITY promotionsummary.exportcsv "Export to CSV">
+<!ENTITY promotionsummary.exportrcp "Print">
+<!ENTITY promotionsummary.togglezoom "Toggle Zoom">
+<!ENTITY promotionsummary.machineid "Terminal No:">
+<!ENTITY promotionsummary.sortby "Sort By:">
+<!ENTITY promotionsummary.date "Date">
+<!ENTITY promotionsummary.total "Total">
+<!ENTITY promotionsummary.promotion_subtotal "Promotion Subtotal">
+<!ENTITY promotionsummary.matched_count "Matched Count">
+<!ENTITY promotionsummary.order_count "Order Count">
+<!ENTITY promotionsummary.matched_amount "Matched Amount">
+<!ENTITY promotionsummary.matched_items_qty "Matched Items Qty.">
+<!ENTITY promotionsummary.matched_items_subtotal "Matched Items Subtotal">
+<!ENTITY promotionsummary.all "List All">
+<!ENTITY promotionsummary.wait "Waiting...">
+<!ENTITY promotionsummary.periodtype "Period Type:">
+<!ENTITY promotionsummary.created "Order Start Time">
+<!ENTITY promotionsummary.saleperiod "Sale Period">
+<!ENTITY promotionsummary.shiftno "Shift No.:">
+<!ENTITY promotionsummary.promotion "Promotion:">
+<!ENTITY promotionsummary.empty_promotion "Not Applied Promotion Rules:">
+<!ENTITY promotionsummary.show "Show">
+<!ENTITY promotionsummary.hide "Hide">

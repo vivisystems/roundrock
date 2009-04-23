@@ -13,7 +13,7 @@ ${head.title|center:24}
 ${_( '(rpt)Term_No.' )}:
 ${detail.terminal_no|right:24}
 ${_( '(rpt)Time' ) + ':'}
-${detail.Order.time|right:24}
+${detail.Order.time|unixTimeToString|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
 ${_( '(rpt)Guests' ) + ':'}
@@ -28,20 +28,28 @@ ${_( '(rpt)Surcharge' ) + ':'}
 ${detail.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}
 ${detail.discount_subtotal|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Promotion' ) + ':'}
+${detail.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${detail.total|default:0|viviFormatPrices:true|right:24}
 {for items in detail.OrderItem}
 ------------------------
-${_( '(rpt)Product No.' ) + ':'}
+${_( '(rpt)Product No.' )}
 ${items.product_no|right:24}
-${_( '(rpt)Product Name' ) + ':'}
+${_( '(rpt)Product Name' )}
 ${items.product_name|right:24}
-${_( '(rpt)Price' ) + ':'}
-${items.current_price|right:24}
-${_( '(rpt)Quantity' ) + ':'}
+${_( '(rpt)Tax Name' )}
+${items.tax_name|right:24}
+${_( '(rpt)Discount' )}
+${items.current_discount|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Surcharge' )}
+${items.current_surcharge|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Price' )}
+${items.current_price|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Quantity' )}
 ${items.current_qty|right:24}
-${_( '(rpt)Total' ) + ':'}
-${items.current_subtotal|right:24}
+${_( '(rpt)Subtotal' )}
+${items.current_subtotal|default:0|viviFormatPrices:true|right:24}
 {/for}
 {/for}
 ------------------------

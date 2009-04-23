@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Promotions SYSTEM "chrome://viviecr/locale/promotions_manager.dtd">
+  %Promotions;
+]>
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <binding id="promotions_status">
+        <content>
+            <xul:vbox flex="1" anonid="box" class="vbox_promotions" xbl:inherits="class=boxClass,pack,width,height,disabled,flex,dir" >
+                <xul:grid flex="1" >
+                    <xul:columns>
+                        <xul:column />
+                        <xul:column flex="1"/>
+                        <xul:column flex="1"/>
+                        <xul:column />
+                    </xul:columns>
+                    <xul:rows>
+                        <xul:row align="center" >
+                            <xul:textbox anonid="title_label" disabled="true" class="label_promotions" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="subtotal_label" disabled="true" class="subtotal_promotions" xbl:inherits="class=subtotalClass,value"></xul:textbox>
+                            <xul:textbox anonid="applies_label" disabled="true" class="label_promotions" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:image style="width:36px; height:36px;" xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/icon_list.png" onclick="popupDetailPanel()"/>
+                        </xul:row>
+                    </xul:rows>
+                </xul:grid>
+                <xul:viviscrollabletree class="tree_promotions" anonid="promotions_tree" xbl:inherits="class=treeClass,flex" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
+                                primary="name" scrollMode="cursor"
+                                headers="##########,####,###,######"
+                                fields="name,code,matched_items_qty,discount_subtotal"
+                                scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" />
+
+                <xul:popupset>
+                <xul:panel anonid="popup_panel" noautohide="false">
+                    <xul:hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;">
+                    <xul:vbox class="MainPnl" flex="1">
+                    <xul:caption id="promotionDetails-title" class="PageTitle" label="&promotions_detail.label.title;" />
+                    <xul:viviscrollabletree class="tree_promotions_detail" anonid="promotions_tree_detail" xbl:inherits="class=treeDetailClass,flex" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
+                                    primary="name" scrollMode="cursor"
+                                    headers="&promotions_detail.label.promotion_name;,&promotions_detail.label.promotion_code;,&promotions_detail.label.plu_name;,&promotions_detail.label.plu_no;,&promotions_detail.label.current_qty;,&promotions_detail.label.current_subtotal;,&promotions_detail.label.discount_subtotal;"
+                                    fields="promotion_name,promotion_code,name,no,current_qty,current_subtotal,discount_subtotal"
+                                    scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" />
+                    <xul:spacer height="10px"/>
+
+                    <xul:hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <xul:button class="ExitBtn" id="paymentDetails-ok" label="&dialog.closeButton.label;" default="true" oncommand="hideDetailPanel();"/>
+                    </xul:hbox>
+                    </xul:vbox>
+                    </xul:hbox>
+                </xul:panel>
+                </xul:popupset>
+            </xul:vbox>
+        </content>
+  
+        <xbl:implementation>
+
+            <field name="_autohide">false</field>
+            <field name="_type">null</field>
+            <field name="_box">null</field>
+            <field name="_title">null</field>
+            <field name="_subtotal">null</field>
+            <field name="_applies">null</field>
+            <field name="_tree">null</field>
+            <field name="_panel">null</field>
+            <field name="_apply_items">null</field>
+            <field name="_matched_items">null</field>
+
+            <constructor>
+            <![CDATA[
+
+                if (this.getAttribute('autohide').toLowerCase() == 'true') {
+                    this._autohide = true;
+                }
+                this._box = document.getAnonymousElementByAttribute(this, "anonid", "box");
+                this._title = document.getAnonymousElementByAttribute(this, "anonid", "title_label");
+                this._subtotal = document.getAnonymousElementByAttribute(this, "anonid", "subtotal_label");
+                this._applies = document.getAnonymousElementByAttribute(this, "anonid", "applies_label");
+                this._type = this.getAttribute("type") || 'summary' ;
+                this._tree = document.getAnonymousElementByAttribute(this, "anonid", "promotions_tree");
+                this._tree_detail = document.getAnonymousElementByAttribute(this, "anonid", "promotions_tree_detail");
+                this._panel = document.getAnonymousElementByAttribute(this, "anonid", "popup_panel");
+
+                if(this._type == 'summary') {
+                    this._tree.setAttribute('hidden', true);
+                }
+
+                this.format = function(number) {
+                    var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+                    var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+                    var decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
+                    var thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
+
+                    var roundedPrice = GeckoJS.NumberHelper.round(Math.abs(number), precision_prices, rounding_prices) || 0;
+                    if (number < 0) roundedPrice = 0 - roundedPrice;
+
+                    var options = {
+                        decimals: decimals,
+                        thousands: thousands,
+                        places: ((precision_prices>0)?precision_prices:0)
+                    };
+
+                    // format display precision
+                    return GeckoJS.NumberHelper.format(roundedPrice, options);
+
+                };
+
+
+                // save i18n title
+                this._title.value = _('Your Saving');
+                this._subtotal.value = this.format(0);
+                this._applies.value = '#0';
+
+                this.cartevents = GeckoJS.Controller.getInstanceByName('Cart').events;
+
+                var self = this;
+
+                this.onGetSubtotal = function(evt) {
+                    var transaction = evt ? evt.data : null;
+
+                    if(transaction) {
+                        this._apply_items = transaction.data['promotion_apply_items'] || [] ;
+                        this._matched_items = transaction.data['promotion_matched_items'] || [] ;
+                    }
+
+                    self.updateSubtotal(transaction, false);
+                    if(self._type != 'summary') self.updateDetail(transaction, false);
+                    self.updateView();
+                };
+
+                this.afterCancel = function(evt) {
+                    var transaction = evt ? evt.data : null;
+                    self.updateSubtotal(transaction, true);
+                    if(self._type != 'summary') self.updateDetail(transaction, true);
+                    self.updateView();
+                };
+
+                this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
+                this.cartevents.addListener('afterCancel', this.afterCancel, this);
+
+                self.updateView();
+
+
+                // POPUP PANEL
+                var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+                var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
+                $.installPanel(this._panel, {
+
+                    css: {
+                        top: 0,
+                        left: 0,
+                        width: screenwidth-100,
+                        height: screenheight-100
+                    },
+
+                    init: function(evt) {
+
+                    },
+
+                    load: function(evt) {
+                        self._tree_detail.datasource = evt.data;
+                        // GREUtils.log('panel popup');
+                    },
+
+                    hide: function (evt) {
+
+                    }
+
+                });
+
+
+            ]]>
+            </constructor>
+
+            <destructor>
+            <![CDATA[
+                if (this.cartevents) {
+                    this.cartevents.removeListener('onGetSubtotal', this.onGetSubtotal);
+                    this.cartevents.removeListener('afterCancel', this.afterCancel);
+                }
+            ]]>
+            </destructor>
+
+            <xbl:method name="updateSubtotal">
+                <xbl:parameter name="transaction"/>
+                <xbl:parameter name="isReset"/>
+                <xbl:body>
+                <![CDATA[
+
+                    if (transaction) {
+                        var num_items = transaction.data['promotion_apply_items'] ? transaction.data['promotion_apply_items'].length : 0;
+                        this._subtotal.value = this.format(transaction.data['promotion_subtotal']);
+                        this._applies.value = '#' + num_items;
+                    }else if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                        isReset = true;
+                    }
+
+                    if(isReset){
+                        this._subtotal.value = this.format(0);
+                        this._applies.value = '#0';
+                    }
+
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+
+            <xbl:method name="updateDetail">
+                <xbl:parameter name="transaction"/>
+                <xbl:parameter name="isReset"/>
+                <xbl:body>
+                <![CDATA[
+
+                    
+                    if(transaction) {
+                        this._tree.datasource = transaction.data['promotion_apply_items'] || [];
+                    }else if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                        isReset = true;
+                    }
+
+
+                    if(isReset) {
+                        this._tree.datasource = [];
+                    }
+
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="updateView">
+                <xbl:body>
+                <![CDATA[
+
+                    if (parseFloat(this._subtotal.value)>0) {
+                        if(this._autohide) this._box.removeAttribute('hidden');
+                    }else {
+                        if(this._autohide) this._box.setAttribute('hidden', true);
+                    }
+
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="popupDetailPanel">
+                <xbl:body>
+                <![CDATA[
+
+                    var applyItems = this._apply_items || [] ;
+                    var matchedItems = this._matched_items || [] ;
+                    var datas = [];
+                    var idx = 0;
+                    try {
+                        applyItems.forEach(function(item) {
+                            var promotion_item = {};
+                            promotion_item.promotion_name = item.name + "" ;
+                            promotion_item.promotion_code = item.code + "";
+                            promotion_item.name = " - " ; // item.trigger_name + "";
+                            promotion_item.no = " - " ; //item.type_name + "";
+                            promotion_item.current_qty = item.matched_items_qty + "";
+                            promotion_item.current_subtotal = item.matched_items_subtotal + "";
+                            promotion_item.discount_subtotal = item.discount_subtotal + "";
+                            datas.push(promotion_item);
+                            datas.splice.apply(datas,[datas.length,0].concat(matchedItems[idx]));
+                            idx++;
+                        });
+                    }catch(e){ }
+
+                    $.popupPanel(this._panel, datas);
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="hideDetailPanel">
+                <xbl:body>
+                <![CDATA[
+                    $.hidePanel(this._panel, false);
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+
+
+        </xbl:implementation>
+
+    </binding>
+
+</bindings>

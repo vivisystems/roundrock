@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % rpt_daily_sales SYSTEM "chrome://viviecr/locale/reports/rpt_order_annotation.dtd">
+  %rpt_daily_sales;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main" 
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_order_annotation.js" />
+
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+		    <vbox>
+		        <caption label="&rptorderannotation.title;"  class="PageTitle"/>
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <vbox>
+		                            <label value="&rptorderannotation.startdate;" />
+		                            <vividatetimepicker id="start_date" value='' type="popup" />
+		                        </vbox>
+		                        <vbox>
+		                            <label value="&rptorderannotation.enddate;" />
+		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                        </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
+		                    		<label value="&rptorderannotation.periodtype;" />
+					                <menulist id="period_type">
+					                    <menupopup id="periodtype_menupopup">
+					                        <menuitem selected="true" label="&rptorderannotation.starttime;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptorderannotation.saleperiod;" value="sale_period" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
+				                	<label value="&rptorderannotation.sortby;" />
+					                <menulist id="sortby">
+					                    <menupopup id="sortby_menupopup">
+					                        <menuitem selected="true" label="&rptorderannotation.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="false" label="&rptorderannotation.time;" value="time" />
+					                        <menuitem selected="false" label="&rptorderannotation.sequence;" value="sequence" />
+					                        <menuitem selected="false" label="&rptorderannotation.annotationtext;" value="text" />
+					                        <menuitem selected="false" label="&rptorderannotation.item_subtotal;" value="item_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.tax_subtotal;" value="tax_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.surcharge_subtotal;" value="surcharge_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.promotion_subtotal;" value="promotion_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.total;" value="total" />
+					                    </menupopup>
+					                </menulist>
+			                    </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
+		                    		<label value="&rptorderannotation.annotationtype;" />
+		                    		<menulist id="annotation_type">
+					                    <menupopup id="annotationtype_menupopup">
+					                        <menuitem selected="true" label="&rptorderannotation.all;" value="all" />
+					                    </menupopup>
+					                </menulist>
+					            </vbox>
+		                    	<vbox>
+				                    <label value="&rptorderannotation.machineid;" />
+				                    <textbox id="machine_id" value='' width="300"/>
+				                </vbox>
+				            </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&rptorderannotation.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptOrderAnnotation');" />
+		        </hbox>
+            </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+			<hbox class="TopPnl">
+                <hbox class="ReportTool"  flex="1">
+
+                    <vivibutton id="export_pdf" label="&rptorderannotation.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptOrderAnnotation');" />
+                    <vivibutton id="export_csv" label="&rptorderannotation.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptOrderAnnotation');" />
+                    <vivibutton id="export_rcp" label="&rptorderannotation.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptOrderAnnotation');" />
+
+                    <vivibutton id="togglesize" label="&rptorderannotation.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    
+                </hbox>
+            </hbox>
+            <box class="reportbox" flex="1">
+                <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
+            </box>
+        </vbox>
+    </vbox>
+    
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&rptorderannotation.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
+
+</window>

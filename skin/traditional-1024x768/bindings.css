@@ -60,3 +60,14 @@ vivifuncpanelecr {
   -moz-binding: url("chrome://viviecr/content/bindings/vivifuncpanelecr.xbl#vivifuncpanelecr");
 }
 
+vivitextbox {
+    -moz-binding: url('chrome://viviecr/content/bindings/vivitextbox.xbl#vivitextbox');
+}
+
+onscreenvfd {
+  -moz-binding: url("chrome://viviecr/content/bindings/onscreenvfd.xbl#onscreenvfd");
+}
+
+promotions_status {
+  -moz-binding: url("chrome://viviecr/content/bindings/promotions_status.xbl#promotions_status");
+}

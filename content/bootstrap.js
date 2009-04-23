@@ -26,7 +26,8 @@ include('chrome://viviecr/content/models/order_payment.js');
 include('chrome://viviecr/content/models/order_object.js');
 include('chrome://viviecr/content/models/order_receipt.js');
 include('chrome://viviecr/content/models/order_annotation.js');
-
+include('chrome://viviecr/content/models/order_item_condiment.js');
+include('chrome://viviecr/content/models/order_promotion.js');
 include('chrome://viviecr/content/models/ledger_entry_type.js');
 include('chrome://viviecr/content/models/ledger_record.js');
 
@@ -40,6 +41,7 @@ include('chrome://viviecr/content/models/shift_marker.js');
 include('chrome://viviecr/content/models/storecontact.js');
 include('chrome://viviecr/content/models/transaction.js');
 include('chrome://viviecr/content/models/user.js');
+include('chrome://viviecr/content/models/promotion.js');
 
 include('chrome://viviecr/content/models/table.js');
 include('chrome://viviecr/content/models/table_region.js');

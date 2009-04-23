@@ -15,12 +15,10 @@
         restartClock: false,
 
         _suspendLoadTest: false,
+        _groupPath: [],
     
         initial: function() {
 
-            this.patch102();
-            this.patch110();
-            
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
@@ -72,32 +70,8 @@
             this.requestCommand('initialLogin', null, 'Main');
         },
 
-        patch102: function() {
-
-            // add DB column main.products.alt_name1
-            var productModel = new ProductModel();
-            try {
-                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "alt_name1" VARCHAR');
-            }
-            catch(e) {
-            }
-
-            // add DB column main.products.alt_name2
-            try {
-                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "alt_name2" VARCHAR');
-            }
-            catch(e) {
-            }
-        },
-
-        patch110: function() {
-            // add DB column main.products.manual_adjustment_only
-            var productModel = new ProductModel();
-            try {
-                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "manual_adjustment_only" BOOL');
-            }
-            catch(e) {
-            }
+        destroy: function() {
+            this.observer.unregister();
         },
 
         _getKeypadController: function() {
@@ -160,13 +134,12 @@
             //
             var buf = this._getKeypadController().getBuffer();
 
-            this.requestCommand('clear', null, 'Cart');
             var item;
             var txn = GeckoJS.Session.get('current_transaction');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if (cart && txn) {
                 var index = cart._cartView.getSelectedIndex();
-                item = txn.getItemAt(index);
+                item = txn.getItemAt(index, true);
             }
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
@@ -183,7 +156,7 @@
                 return aArguments.item;
             }
             else
-                return null;
+                this.requestCommand('subtotal', null, 'Cart');
         },
 
         printerDashboard: function () {
@@ -307,8 +280,10 @@
             var width = this.screenwidth;
             var height = this.screenheight;
             
-            this.requestCommand('clear', null, 'Cart');
+            //this._getKeypadController().clearBuffer();
+            this.requestCommand('clearBuffer', null, 'Keypad');
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
+            this.requestCommand('subtotal', null, 'Cart');
         },
 
         createPluPanel: function () {
@@ -365,11 +340,30 @@
                             return this.requestCommand('addItem',dep,'Cart');
                         }
                     }
-            
+
                     // change pluview panel
                     var clearBuf = GeckoJS.Configure.read("vivipos.fec.settings.ChangeDepartmentClearBuffer") || false;
                     if(clearBuf) this.requestCommand('clear',null,'Cart');
                     this.pluPanelView.setCatePanelIndex(index);
+                    
+                    // is this group linked to other departments/groups?
+                    if (dep.link_department || dep.link_group) {
+                        var categoryIndexes = [];
+                        var plugroupIndexes = [];
+
+                        if (dep.link_department) {
+                            categoryIndexes = dep.link_department.split(',');
+                        }
+
+                        if (dep.link_group) {
+                            plugroupIndexes = dep.link_group.split(',');
+                        }
+                        var departmentIndexes = categoryIndexes.concat(plugroupIndexes)
+
+                        this.depPanelView.navigateDown(departmentIndexes);
+
+                        document.getElementById('catescrollablepanel-top').hidden = false;
+                    }
                 }
             }
         },
@@ -394,7 +388,16 @@
                     prodpanel.invalidate(index);
                 }
                 else if (!product.soldout) {
-                    return this.requestCommand('addItem',product,'Cart');
+                    this.requestCommand('addItem',product,'Cart');
+
+                    // return to top level if necessary
+                    var returnToTop = GeckoJS.Configure.read('vivipos.fec.settings.department.pops.to.top');
+                    var currentLevel = this.depPanelView.getCurrentLevel();
+
+                    if (returnToTop && currentLevel > 0) {
+                        this.depPanelView.navigateTop();
+                        document.getElementById('catescrollablepanel-top').hidden = true;
+                    }
                 }
             }
         },

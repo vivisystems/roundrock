@@ -203,6 +203,58 @@
             return this.data[row].level;
         },
 
+        isContainer: function(row) {
+            var itemDisplay = this.data[row];
+
+            // is a container only if this is the first condiment
+            var result = false;
+            if (itemDisplay.type == 'condiment') {
+
+                result = true;
+                // look back through data to see if another condiment exists
+                for (var i = row - 1; i >= 0; i--) {
+                    var item = this.data[i];
+                    //this.log('checking item [' + item.type + ']: ' + item.name);
+                    if (item.type == 'item' || item.type == 'setitem') {
+                        break;
+                    }
+                    else if (item.type == 'condiment') {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+
+            //this.log('isContainer [' + itemDisplay.name + ' (' + row + ')]: ' + result);
+            return result;
+        },
+
+        toggleOpenState: function(row) {
+            var itemDisplay = this.data[row];
+            if (itemDisplay.open) {
+                this._transaction.collapseCondiments(row);
+            }
+            else {
+                this._transaction.expandCondiments(row);
+            }
+        },
+
+        isContainerOpen: function(row) {
+            return this.data[row].open;
+        },
+
+        isContainerEmpty: function(row) {
+            return false;
+        },
+
+        hasNextSibling: function(row, afterIndex) {
+            return false;
+        },
+
+        getParentIndex: function(row) {
+            return -1;
+        },
+        
         getCurrentIndexData: function (row) {
             return this.data[row];
         }

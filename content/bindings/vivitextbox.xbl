@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % vivitextboxDTD SYSTEM "chrome://viviecr/locale/vivitextbox.dtd">
+  %vivitextboxDTD;
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+  <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
+  %bindingsDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <binding id="vivitextbox" display="xul:menu"><!-- extends="chrome://global/content/bindings/textbox.xml#textbox" -->
+        <!--resources>
+            <stylesheet src="chrome://global/skin/textbox.css"/>
+            <stylesheet src="chrome://viviecr/skin/buttons.css" />
+            <stylesheet src="chrome://viviecr/skin/options_common.css"/>
+        </resources-->
+
+        <content>
+            <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer" allowevents="true">
+                <xul:label xbl:inherits="value=label"/>
+                <xul:textbox anonid="input" flex="1" inherits="onfocus, oninput, onchange"/>
+                
+                <xul:panel anonid="numpad_panel" position="after_start" noautohide="false" noautofocus="true">
+					<xul:hbox anonid="numpad" pack="center">
+						<xul:numberpad id="multinumberpad" xbl:inherits="class=numpadClass" target=""/>
+						<xul:vbox>
+							<xul:sendkeybutton anonid="closeBtn" label="&vivitextbox.button.close;" oncommand="hide();" xbl:inherits="class=fixedbtnClass"/>
+							<xul:sendkeybutton anonid="bkeyBtn" label="&vivitextbox.button.del;" keyCode="0x08" xbl:inherits="class=fixedbtnClass"/>
+							<xul:sendkeybutton anonid="clearBtn" label="&vivitextbox.button.clear;" oncommand="clearFocusedElement();" xbl:inherits="class=fixedbtnClass"/>
+							<xul:sendkeybutton anonid="enterBtn" label="&vivitextbox.button.enter;" keyCode="0x0D" bubbles="true" oncommand="hide();" xbl:inherits="class=fixedbtnClass"/>
+						</xul:vbox>
+					</xul:hbox>
+				</xul:panel>
+            </xul:hbox>
+        </content>
+
+        <xbl:implementation>
+        	<field name="isKeypadOpened">false</field>
+        	
+        	<property name="numpad_panel" onget="return document.getAnonymousElementByAttribute( this, 'anonid', 'numpad_panel' );" readonly="true"/>
+        	
+        	<xbl:method name="clearFocusedElement">
+        		<body>
+        		  <![CDATA[
+        		  	this.input.value = "";
+        		  ]]>
+        		</body>
+        	</xbl:method>
+
+            <xbl:method name="hide">
+        		<body>
+        		  <![CDATA[
+                    this[ this.getAttribute( 'keypad' ) + '_panel' ].hidePopup();
+        		  ]]>
+        		</body>
+            </xbl:method>
+        	
+        	<!--xbl:method name="action">
+        		<body>
+        		  <![CDATA[
+        		  	var event = document.createEvent( 'KeyEvents' );
+        		  	
+        		  	// create a key event
+					event.initKeyEvent(                                                                                      
+									 "keypress",        //  in DOMString typeArg,                                                           
+									  true,             //  in boolean canBubbleArg,                                                        
+									  false,            //  in boolean cancelableArg,                                                       
+									  null,             //  in nsIDOMAbstractView viewArg,  Specifies UIEvent.view. This value may be null.     
+									  false,            //  in boolean ctrlKeyArg,                                                               
+									  false,            //  in boolean altKeyArg,                                                        
+									  false,            //  in boolean shiftKeyArg,                                                      
+									  false,            //  in boolean metaKeyArg,                                                       
+									  0x0D,             //  in unsigned long keyCodeArg,                                                      
+									  0);               //  in unsigned long charCodeArg);        
+									   
+					this.input.dispatchEvent( event );
+					
+					this.input.select();
+
+        		  ]]>
+        		</body>
+        	</xbl:method-->
+
+            <xbl:constructor>
+              <![CDATA[
+                this.input = document.getAnonymousElementByAttribute( this, 'anonid', 'input' );
+              ]]>
+            </xbl:constructor>
+
+
+            <xbl:destructor>
+              <![CDATA[
+                this.input = null;
+              ]]>
+            </xbl:destructor>
+
+
+          <!--property name="open" onget="return this.hasAttribute('open');">
+            <setter>
+              <![CDATA[
+                if (this.boxObject instanceof Components.interfaces.nsIMenuBoxObject)
+                  this.boxObject.openMenu(val);
+                return val;
+              ]]>
+            </setter>
+          </property-->
+          <property name="value">
+		    <getter>
+		      <![CDATA[
+		        return this.input.value;
+		      ]]>
+		    </getter>
+		    <setter>
+		      <![CDATA[
+		      ]]>
+		    </setter>
+		  </property>
+
+          <property name="textbox"
+                    onget="return this.input;"
+                    readonly="true" />
+                    
+		  <property name="keypad">
+		    <getter>
+		      <![CDATA[
+		        return this.getAttribute( 'keypad' ) + '_panel';
+		      ]]>
+		    </getter>
+		    <setter>
+		      <![CDATA[
+		      	return this.getAttribute( 'keypad' );
+		      ]]>
+		    </setter>
+		  </property>
+        </xbl:implementation>
+
+        <handlers>
+            <handler event="mouseover">
+              <![CDATA[
+                this.input.focus();
+              ]]>
+            </handler>
+            
+            <handler event="click">
+              <![CDATA[
+              	if ( this.getAttribute( 'popupKeypad' ) == 'true' && this.isKeypadOpened == false ) {
+	        		this[ this.getAttribute( 'keypad' ) + '_panel' ].openPopup( this, 'after_start' );
+	        		// before_start, before_end, after_start, after_end, start_before, start_after, end_before, end_after, overlap, after_pointer
+            	}
+              ]]>
+            </handler>
+            
+            <handler event="popupshowing">
+              <![CDATA[
+                this.isKeypadOpened = true;
+              ]]>
+            </handler>
+            
+            <handler event="popuphiding">
+              <![CDATA[
+                this.isKeypadOpened = false;
+                this.input.select();
+              ]]>
+            </handler>
+            
+            <handler event="keypress" keycode="VK_RETURN" action = "eval( this.getAttribute( 'onenter' ) );" />
+        </handlers>
+    </binding>
+</bindings>

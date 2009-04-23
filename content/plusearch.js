@@ -6,10 +6,7 @@
     function startup() {
 
         centerWindowOnScreen();
-
-        $('#clearBtn')[0].addEventListener('command', clearTextBox, false);
-        // $('#ekeyBtn')[0].addEventListener('command', searchPlu, true);
-
+        
         $do('createFilterRows', null, 'PluSearch');
 
         doSetOKCancel(
@@ -28,7 +25,7 @@
             );
 
         // parse windows.arguments to get initial search parameters
-        if (window.arguments.length > 0) {
+        if (window.arguments && (window.arguments.length > 0)) {
             var inputObj = window.arguments[0];
 
             var buf = inputObj.buffer;

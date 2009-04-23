@@ -36,7 +36,7 @@
         <!-- caption label="Report Panel: "/ -->
         <stack flex="1">
             <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" aclField="roles" flex="1"
-                buttonClass="ReportButton" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" class="ItemScrollablepanel">
+                buttonClass="ReportButton" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" class="ItemScrollablepanel" oncommand="launchReport(this);">
                 <spacer flex="1" />
             </viviscrollablebuttonpanel>
             <hbox id="loading" align="center" style="display: none;" class="LoadingPnl">

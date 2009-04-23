@@ -13,7 +13,7 @@ ${head.title|center:24}
 ${_( '(rpt)Term_No.' ) + ':'}
 ${detail.terminal_no|right:24}
 ${_( '(rpt)Time' ) + ':'}
-${detail.transaction_created|unixTimeToString:'yyyy-M-d'|right:24}
+${detail.transaction_created|unixTimeToString|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
 ${_( '(rpt)Service Clerk' ) + ':'}
@@ -28,6 +28,8 @@ ${_( '(rpt)Surcharge' ) + ':'}
 ${detail.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}
 ${detail.discount_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Promotion' ) + ':'}
+${detail.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${detail.total|viviFormatPrices:true|right:24}
 {/for}
@@ -41,6 +43,8 @@ ${_( '(rpt)Surcharge' ) + ':'}
 ${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}
 ${foot.foot_datas.discount_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Promotion' ) + ':'}
+${foot.foot_datas.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${foot.foot_datas.total|viviFormatPrices:true|right:24}
 ------------------------

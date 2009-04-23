@@ -71,8 +71,7 @@
 				                	<label value="&rptorderstatus.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="[&rptorderstatus.all;]" value="all" />
-					                        <menuitem selected="false" label="&rptorderstatus.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="true" label="&rptorderstatus.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptorderstatus.service_clerk;" value="service_clerk_displayname" />
 					                        <menuitem selected="false" label="&rptorderstatus.status;" value="status" />
 					                        <menuitem selected="false" label="&rptorderstatus.transaction_created;" value="transaction_created" />
@@ -82,6 +81,7 @@
 					                        <menuitem selected="false" label="&rptorderstatus.tax_subtotal;" value="tax_subtotal" />
 					                        <menuitem selected="false" label="&rptorderstatus.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptorderstatus.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptorderstatus.promotion_subtotal;" value="promotion_subtotal" />
 					                        <menuitem selected="false" label="&rptorderstatus.total;" value="total" />
 					                    </menupopup>
 					                </menulist>

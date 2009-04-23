@@ -19,6 +19,10 @@
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             var machineid = document.getElementById('machine_id').value;
+            
+            var periodType = document.getElementById( 'period_type' ).value;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt(start / 1000, 10);
             end = parseInt(end / 1000, 10);
@@ -27,7 +31,7 @@
                             'sum(order_payments.amount) as "Order.payment_subtotal"',
                             'order_payments.name as "Order.payment_name"',
                             'orders.transaction_created',
-                            'strftime( "%Y-%m-%d", "orders"."transaction_created", "unixepoch" ) AS "Order.date"',
+                            'strftime( "%Y-%m-%d", "orders"."' + periodType + '", "unixepoch", "localtime" ) AS "Order.date"',
                             'orders.id',
                             //'orders.sequence',
                             'orders.status',
@@ -39,6 +43,7 @@
                             'orders.precision_prices',
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
+                            'orders.promotion_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -47,7 +52,6 @@
                             'orders.terminal_no'
                         ];
 
-			var periodType = document.getElementById( 'period_type' ).value;
             var conditions = "orders." + periodType + ">='" + start +
                             "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status='1'";
@@ -59,7 +63,7 @@
                 //var groupby = '"Order.Date"';
             }
             var groupby = 'order_payments.order_id, order_payments.name';//order_payments.order_id';
-            var orderby = 'orders.terminal_no, "Order.date", orders.item_subtotal desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.' + sortby +', "Order.date", orders.item_subtotal desc';//orders.transaction_created, orders.id';
 
             // var order = new OrderModel();
 
@@ -81,6 +85,7 @@
             	total: 0,
             	surcharge_subtotal: 0,
             	discount_subtotal: 0,
+            	promotion_subtotal: 0,
             	cash: 0,
             	check: 0,
             	creditcard: 0,
@@ -137,6 +142,7 @@
 		                repDatas[ tmp_oid ][ 'total' ] += o.total;
 		                repDatas[ tmp_oid ][ 'surcharge_subtotal' ] += o.surcharge_subtotal;
 		                repDatas[ tmp_oid ][ 'discount_subtotal' ] += o.discount_subtotal;
+		                repDatas[ tmp_oid ][ 'promotion_subtotal' ] += o.promotion_subtotal;
 		                repDatas[ tmp_oid ][ 'tax_subtotal' ] += o.tax_subtotal;
 		                repDatas[ tmp_oid ][ 'item_subtotal' ] += o.item_subtotal;
 		            }
@@ -146,6 +152,7 @@
                 	footDatas.total += o.total;
 		            footDatas.surcharge_subtotal += o.surcharge_subtotal;
 		            footDatas.discount_subtotal += o.discount_subtotal;
+		            footDatas.promotion_subtotal += o.promotion_subtotal;
 		            footDatas.tax_subtotal += o.tax_subtotal;
 		            footDatas.item_subtotal += o.item_subtotal;
 		        }
@@ -165,8 +172,6 @@
            	for ( p in repDatas ) {
            		orderedData[ counter++ ] = GREUtils.extend( {}, repDatas[ p ] );
            	}
-           	
-            var sortby = document.getElementById( 'sortby' ).value;
 
             if ( sortby != 'all' ) {
 		        function sortFunction( a, b ) {
@@ -183,6 +188,7 @@
 		        		case 'tax_subtotal':
 		        		case 'surcharge_subtotal':
 		        		case 'discount_subtotal':
+		        		case 'promotion_subtotal':
 		        		case 'total':
 		        		case 'cash':
 		        		case 'check':

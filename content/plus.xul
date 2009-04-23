@@ -76,6 +76,8 @@
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">
                                     <spacer flex="1"/>
+                                    <button id="clone_plu" oncommand="$do('clonePlu', null, 'Plus'); event.stopPropagation()" class="systoolbtn clonebtn"/>
+                                    <spacer flex="1"/>
                                 </viviscrollablebuttonpanel>
                 <!-- End PLUs -->
                             </vbox>
@@ -89,7 +91,7 @@
                                         <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" class="fixWidth"/>
                                         <!-- sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="systembtn"  />
                                         <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="systembtn"/ -->
-                                        <vivibutton id="ekeyBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="SearchBtn"  />
+                                        <vivibutton id="ekeyBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="fixedbtn"  />
                                     </hbox>
                                     
                                     <spacer style="height:8px;" />
@@ -107,18 +109,18 @@
                                 <spacer style="height:10px;" />
                                 <groupbox id="advance_search">
                                     <caption label="&plus.search.advancesearch;:" class="SubTitle" />
-                                    <nbox>
+                                    <hbox flex="1">
                                         <grid>
                                             <rows id="rows_filter">
 
                                             </rows>
                                         </grid>
-                                        <spacer style="width:5px;" />
+                                        <spacer flex="1" />
                                         <vbox>
-                                            <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="SearchBtn"  />
-                                            <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="SearchBtn"  />
+                                            <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="fixedbtn"  />
+                                            <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="fixedbtn"  />
                                         </vbox>
-                                    </nbox>
+                                    </hbox>
                                 </groupbox>
                             </vbox>
                         </tabpanel>

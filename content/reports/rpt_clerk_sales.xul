@@ -65,8 +65,7 @@
 				                	<label value="&rptclerksales.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="[&rptclerksales.all;]" value="all" />
-					                        <menuitem selected="false" label="&rptclerksales.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="true" label="&rptclerksales.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptclerksales.associated_clerk;" value="associated_clerk_displayname" />
 					                        <menuitem selected="false" label="&rptclerksales.transaction_created;" value="transaction_created" />
 					                        <menuitem selected="false" label="&rptclerksales.sequence;" value="sequence" />
@@ -75,6 +74,7 @@
 					                        <menuitem selected="false" label="&rptclerksales.tax_subtotal;" value="tax_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptclerksales.promotion_subtotal;" value="promotion_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.total;" value="total" />
 					                        <menuitem selected="false" label="&rptclerksales.cash;" value="cash" />
 					                        <menuitem selected="false" label="&rptclerksales.check;" value="check" />

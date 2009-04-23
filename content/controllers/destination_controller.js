@@ -282,7 +282,12 @@
                     }
                 }
                 else {
-                    this.requestCommand('change', dest.pricelevel, 'Pricelevel');
+                    var oldPriceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+                    if (oldPriceLevel != dest.pricelevel) {
+                        this.requestCommand('change', dest.pricelevel, 'Pricelevel');
+                        NotifyUtils.info(_('Price Level changed from [%S] to [%S] for destination [%S]',
+                                           [oldPriceLevel, dest.pricelevel, dest.name]));
+                    }
                 }
 
                 // set txn destination

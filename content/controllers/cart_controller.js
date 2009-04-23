@@ -126,6 +126,7 @@
                 }
             }
             else {
+                delete item.stock_status;
                 if (clearWarning != false) cart.dispatchEvent('onWarning', '');
             }
             return true;
@@ -428,7 +429,8 @@
         addItem: function(plu) {
 
             if (this._suspended) return;
-            
+
+            var currentIndex = this._cartView.getSelectedIndex();
             var item = GREUtils.extend({}, plu);
 
             // not valid plu item.
@@ -467,10 +469,9 @@
             // been applied to the current item and price/tax status are the same
             
             if (curTransaction && !this._returnMode) {
-                var index = this._cartView.getSelectedIndex();
-                if (!curTransaction.isLocked(index)) {
-                    var currentItem = curTransaction.getItemAt(index);
-                    var currentItemDisplay = curTransaction.getDisplaySeqAt(index);
+                if (!curTransaction.isLocked(currentIndex)) {
+                    var currentItem = curTransaction.getItemAt(currentIndex);
+                    var currentItemDisplay = curTransaction.getDisplaySeqAt(currentIndex);
 
                     var price = GeckoJS.Session.get('cart_set_price_value');
                     var qty = GeckoJS.Session.get('cart_set_qty_value');
@@ -515,21 +516,31 @@
                 this.dispatchEvent('afterAddItem', addedItem);
 
                 var self = this;
-
+                var cart = this._getCartlist();
+                
                 // wrap with chain method
                 next( function() {
 
                     if (addedItem.id == plu.id && !self._returnMode) {
 
+                        currentIndex = curTransaction.getDisplayIndexByIndex(addedItem.index);
                         return next( function() {
 
                             if (plu.force_condiment) {
+
+                                // need to move cursor to addedItem
+                                cart.selection.select(currentIndex);
+
                                 return self.addCondiment(plu, null, doSIS);
                             }
 
                         }).next( function() {
 				 
                             if (plu.force_memo) {
+
+                                // need to move cursor to addedItem
+                                cart.selection.select(currentIndex);
+
                                 return self.addMemo(plu);
                             }
 
@@ -859,14 +870,46 @@
                 }
             }
 
-            // check if user is allowed to modify condiment
-            if (itemDisplay.type == 'condiment' && !this.Acl.isUserInRole('acl_modify_condiment_price')) {
+            if (itemDisplay.type == 'condiment') {
 
-                //@todo OSD
-                NotifyUtils.warn(_('Not authorized to modify condiment price'));
+                // check if condiment is open
+                var parentItem = curTransaction.getItemAt(index, true);
+                if ('open' in itemDisplay && !itemDisplay.open && GeckoJS.BaseObject.getKeys(parentItem.condiments).length > 1) {
 
-                this.clearAndSubtotal();
-                return;
+                    //@todo OSD
+                    NotifyUtils.warn(_('Cannot modify condiments when collapsed'));
+
+                    this.clearAndSubtotal();
+                    return;
+                }
+
+                // check if quantity is entered
+                if (newQuantity != null) {
+                    //@todo OSD
+                    NotifyUtils.warn(_('Cannot modify condiment quantity'));
+
+                    this.clearAndSubtotal();
+                    return ;
+                }
+                
+                // check if price is entered
+                if (buf.length <= 0) {
+                    //@todo OSD
+                    NotifyUtils.warn(_('Cannot modify condiment price; no price entered'));
+
+                    this.clearAndSubtotal();
+                    return ;
+                }
+
+                // check if user is allowed to modify condiment price
+                if (!this.Acl.isUserInRole('acl_modify_condiment_price')) {
+
+                    //@todo OSD
+                    NotifyUtils.warn(_('Not authorized to modify condiment price'));
+
+                    this.clearAndSubtotal();
+                    return;
+                }
             }
 
             if (itemTrans.hasDiscount || itemTrans.hasSurcharge) {
@@ -901,14 +944,6 @@
 */
             if (itemDisplay.type == 'condiment' && buf.length <= 0 ) {
                 // @todo popup ??
-                this.log('DEBUG', 'modify condiment but price not set!! plu = ' + this.dump(itemTrans) );
-                this.dispatchEvent('onModifyItemError', {});
-
-                //@todo OSD
-                NotifyUtils.warn(_('Cannot modify condiment price; no price entered'));
-
-                this.clearAndSubtotal();
-                return ;
             }
 
             if (itemDisplay.type == 'setitem') {
@@ -1178,9 +1213,7 @@
             }
 
             this.dispatchEvent('beforeVoidItem', itemTrans);
-
             var voidedItem = curTransaction.voidItemAt(index);
-
             this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
 
             this.subtotal();
@@ -1916,6 +1949,9 @@
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
             // check if order is open
             var curTransaction = this._getTransaction();
 
@@ -1924,8 +1960,6 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
 
                 this.subtotal();
                 return; // fatal error ?
@@ -1941,11 +1975,10 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
-                    GeckoJS.Session.remove('cart_set_price_value');
-                    GeckoJS.Session.remove('cart_set_qty_value');
 
                     this.subtotal();
                     return; // fatal error ?
@@ -1953,6 +1986,16 @@
 
             }
             else {
+                if (balance <= 0) {
+                    this.clear();
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
                 if (payment == 0 || isNaN(payment)) {
                     //@todo OSD
                     //NotifyUtils.warn(_('Please enter an amount first'));
@@ -2035,6 +2078,7 @@
             }
 
             var payment = (amount != null) ? amount : parseFloat(buf);
+            var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
@@ -2043,7 +2087,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2055,8 +2100,18 @@
 
             }
             else {
+                if (balance <= 0) {
+                    this.clear();
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
                 if (payment == null || payment == 0 || isNaN(payment)) {
-                    payment = curTransaction.getRemainTotal();
+                    payment = balance;
                 }
             }
 
@@ -2133,7 +2188,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2145,6 +2201,16 @@
 
             }
             else {
+                if (balance <= 0) {
+                    this.clear();
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
                 if (payment == 0 || isNaN(payment)) {
                     payment = balance;
                 }
@@ -2226,7 +2292,8 @@
                     payment = paid;
                 }
 
-                if (payment > paid) {
+                // payment refund
+                if (false && payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
                         [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2238,6 +2305,16 @@
 
             }
             else {
+                if (balance <= 0) {
+                    this.clear();
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
                 if (payment == null || payment == 0 || isNaN(payment)) {
                     payment = balance;
                 }
@@ -2351,8 +2428,9 @@
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
 
             if (returnMode) {
+                // payment refund
                 var err = false;
-                if (paymentsTypes.length == 0) {
+                if (false && paymentsTypes.length == 0) {
                     NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
                     err = true;
                 }
@@ -2362,7 +2440,8 @@
                     amount = curTransaction.getPaymentSubtotal();
                 }
 
-                if (!err && amount > curTransaction.getPaymentSubtotal()) {
+                // payment refund
+                if (false && !err && amount > curTransaction.getPaymentSubtotal()) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
                         [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
                     err = true;
@@ -2412,6 +2491,7 @@
                 amount: amount,
                 origin_amount: origin_amount
             };
+            
             this.dispatchEvent('beforeAddPayment', paymentItem);
             var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
 
@@ -2670,39 +2750,42 @@
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
-            this.dispatchEvent('beforeSubmit', oldTransaction);
+            if (this.dispatchEvent('beforeSubmit', {status: status, txn: oldTransaction})) {
             
-            oldTransaction.lockItems();
+                oldTransaction.lockItems();
 
-            // save order unless the order is being finalized (i.e. status == 1)
-            if (status != 1) oldTransaction.submit(status);
-            oldTransaction.data.status = status;
-            this.dispatchEvent('afterSubmit', oldTransaction);
+                // save order unless the order is being finalized (i.e. status == 1)
+                if (status != 1) oldTransaction.submit(status);
+                oldTransaction.data.status = status;
+                this.dispatchEvent('afterSubmit', oldTransaction);
 
-            // sleep to allow UI events to update
-            //this.sleep(100);
-            
-            // GeckoJS.Session.remove('current_transaction');
-            GeckoJS.Session.remove('cart_last_sell_item');
-            GeckoJS.Session.remove('cart_set_price_value');
-            GeckoJS.Session.remove('cart_set_qty_value');
+                // sleep to allow UI events to update
+                //this.sleep(100);
 
-            //this.dispatchEvent('onClear', 0.00);
-            this._getKeypadController().clearBuffer();
-            this.cancelReturn();
+                // GeckoJS.Session.remove('current_transaction');
+                GeckoJS.Session.remove('cart_last_sell_item');
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
 
-            // clear register screen if needed
-            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                this._cartView.empty();
+                //this.dispatchEvent('onClear', 0.00);
+                this._getKeypadController().clearBuffer();
+                this.cancelReturn();
+
+                // clear register screen if needed
+                if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                    this._cartView.empty();
+                }
+
+                if (status != 2) {
+                    if (status != 1) this.dispatchEvent('onWarning', '');
+                    this.dispatchEvent('onSubmit', oldTransaction);
+                }
+                else
+                    this.dispatchEvent('onGetSubtotal', oldTransaction);
             }
-
-            if (status != 2) {
-                if (status != 1) this.dispatchEvent('onWarning', '');
-                this.dispatchEvent('onSubmit', oldTransaction);
-            }
-            else
+            else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
-
+            }
         },
 
 
@@ -2965,12 +3048,12 @@
                 condimentItem = productsById[setItem.id];
 
                 // extract cartItem's selected condiments, if any
-                if (setItem.condiments != null) {
+                if (!immediateMode && setItem.condiments != null) {
                     for (var c in setItem.condiments) {
                         if (condiments == null) {
                             condiments = {};
                         }
-                        condiments[c] = setItem.condiments[c];
+                        condiments.push(setItem.condiments[c]);
                     }
                 }
             }
@@ -3046,8 +3129,42 @@
             if(curTransaction != null && index >=0) {
 
                 // self.log(self.dump(curTransaction.data));
-                curTransaction.appendCondiment(index, selectedCondiments, replace);
-                this.dispatchEvent('afterAddCondiment', selectedCondiments);
+
+                var item = curTransaction.getItemAt(index, true);
+                if (item) {
+
+                    // expand condiments if collapsed
+
+                    // get first condiment display item
+                    var condDisplayIndex = curTransaction.getFirstCondimentIndex(item);
+                    var condDisplayItem = curTransaction.getDisplaySeqAt(condDisplayIndex);
+                    var collapseCondiments;
+
+                    if (condDisplayItem && condDisplayItem.open) {
+                        collapseCondiments = false;
+                    }
+                    else if (condDisplayItem) {
+                        collapseCondiments = true;
+                        curTransaction.expandCondiments(condDisplayIndex);
+                    }
+                    else {
+                        collapseCondiments = GeckoJS.Configure.read('vivipos.fec.settings.collapse.condiments');
+                    }
+
+                    curTransaction.appendCondiment(index, selectedCondiments, replace);
+
+                    condDisplayIndex = curTransaction.getFirstCondimentIndex(item);
+                    condDisplayItem = curTransaction.getDisplaySeqAt(condDisplayIndex);
+                    condDisplayItem.open = true;
+                        
+                    if (collapseCondiments) {
+                        curTransaction.collapseCondiments(condDisplayIndex);
+
+	                this._getCartlist().scrollToRow(0);			
+	                this._getCartlist().treeBoxObject.ensureRowIsVisible(condDisplayIndex);			
+                    }
+                    this.dispatchEvent('afterAddCondiment', selectedCondiments);
+                }
             }
 
             this.subtotal();
@@ -3111,6 +3228,117 @@
 
         },
 
+
+        voidSale: function(id) {
+
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+
+            if (!id) return;
+
+            // load data
+            var orderModel = new OrderModel();
+            var order = orderModel.findById(id, 2);
+
+            if (!order) {
+                GREUtils.Dialog.alert(window,
+                                      _('Void Sale'),
+                                      _('Failed to void: the selected order no longer exists'));
+                return;
+            }
+
+            if (order.status != 1) {
+                GREUtils.Dialog.alert(window,
+                                      _('Void Sale'),
+                                      _('Failed to void: the selected order is not/has been yet been completed'));
+                return;
+            }
+
+            if (GREUtils.Dialog.confirm(window,
+                                        _('Void Sale'),
+                                        _('Are you sure you want to void transaction [%S]?', [order.sequence]))) {
+
+                if (this.dispatchEvent('beforeVoidSale', order)) {
+
+                    var user = new GeckoJS.AclComponent().getUserPrincipal();
+
+                    // get sale period and shift number
+                    var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
+                    var salePeriod = (shiftController) ? shiftController.getSalePeriod() : '';
+                    var shiftNumber = (shiftController) ? shiftController.getShiftNumber() : '';
+
+                    var terminalNo = GeckoJS.Session.get('terminal_no');
+
+                    var paymentModel = new OrderPaymentModel();
+
+                    // reverse payments
+                    for (var p in order.OrderPayment) {
+                        var payment = order.OrderPayment[p];
+
+                        // reverse amount, origin_amount, change
+                        payment.id = '';
+                        payment.amount = - payment.amount;
+                        payment.origin_amount = - payment.origin_amount;
+                        payment.change = - payment.change;
+
+                        // update proceeds_clerk
+                        if (user != null) {
+                            payment.proceeds_clerk = user.username;
+                            payment.proceeds_clerk_displayname = user.description;
+                        }
+
+                        payment.sale_period = salePeriod;
+                        payment.shift_number = shiftNumber;
+                        payment.terminal_no = terminalNo;
+                    }
+
+                    // begin transaction
+                    orderModel.begin();
+
+                    // save payment record
+                    paymentModel.saveAll(order.OrderPayment);
+
+                    // update order status to voided
+                    order.status = -2;
+
+                    // update void clerk, time, sale period and shift number
+                    if (user) {
+                        order.void_clerk = user.username;
+                        order.void_clerk_displayname = user.description;
+                    }
+                    order.transaction_voided = (new Date()).getTime() / 1000;
+                    order.void_sale_period = salePeriod;
+                    order.void_shift_number = shiftNumber;
+
+                    orderModel.id = order.id;
+                    orderModel.save(order);
+
+                    // end transaction
+                    orderModel.commit();
+
+                    // restore stock
+                    for (var o in order.OrderItem) {
+
+                        // look up corresponding product and set the product id into the item; also reverse quantity
+                        var item = order.OrderItem[o];
+                        var productId = barcodesIndexes[item.product_no];
+
+                        item.current_qty = - item.current_qty;
+                        item.id = productId;
+                    }
+                    order.items = order.OrderItem;
+
+                    var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
+                    stockController.requestCommand('decStock', order, 'Stocks');
+
+                    if (this.dispatchEvent('afterVoidSale', order)) {
+
+                        GREUtils.Dialog.alert(window,
+                                              _('Void Sale'),
+                                              _('Transaction [%S] successfully voided', [order.sequence]));
+                    }
+                }
+            }
+        },
 
         getAnnotationDialog: function (type) {
 

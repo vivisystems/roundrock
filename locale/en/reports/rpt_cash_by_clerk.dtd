@@ -8,7 +8,4 @@
 <!ENTITY rptcashbyclerk.togglezoom "Toggle Zoom">
 <!ENTITY rptcashbyclerk.machineid "Terminal No:">
 <!ENTITY rptcashbyclerk.wait "Waiting...">
-<!ENTITY rptcashbyclerk.periodtype "Period Type:">
-<!ENTITY rptcashbyclerk.starttime "Start Time">
-<!ENTITY rptcashbyclerk.saleperiod "Sale Period">
 <!ENTITY rptcashbyclerk.shiftno "Shift No.:">

@@ -11,7 +11,7 @@
         
         _fileName: "rpt_product_sales",
         
-        _setData: function( start, end, periodType, shiftNo, sortBy, terminalNo, department, empty_department ) {
+        _setData: function( start, end, periodType, shiftNo, sortBy, terminalNo, department, empty_department, noSalesProduct ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
 			var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
@@ -38,7 +38,7 @@
             	conditions += " AND orders.shift_number = " + shiftNo;
 
             var groupby = 'order_items.product_no';
-            var orderby = '"OrderItem.total" desc';
+            var orderby = '"' + sortBy + '" desc';
             
             // prepare category stuff.
             var deptCondition = '';
@@ -80,7 +80,6 @@
             } );
             
             // insert the zero sales products.
-            var noSalesProduct = document.getElementById( 'no_sales_product' ).value;
             if ( noSalesProduct == 'show' ) {
 		        var productModel = new ProductModel();
 		        var sql = 'attach database "/data/databases/vivipos_order.sqlite" as vivipos_order;';
@@ -157,8 +156,9 @@
             var sortby = document.getElementById( 'sortby' ).value;
             var department = document.getElementById( 'department' ).value;
             var empty_department = document.getElementById( 'empty_department' ).value;
+            var noSalesProduct = document.getElementById( 'no_sales_product' ).value;
 
-			this._setData( start, end, periodType, shiftNo, sortby, machineid, department, empty_department );
+			this._setData( start, end, periodType, shiftNo, sortby, machineid, department, empty_department, noSalesProduct );
         },
         
         load: function() {

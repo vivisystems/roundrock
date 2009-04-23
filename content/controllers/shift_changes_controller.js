@@ -203,7 +203,7 @@
             var shiftNumber = this.getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
             var salePeriodLeadDays = GeckoJS.Configure.read('vivipos.fec.settings.MaxSalePeriodLeadDays') || 0;
-            
+
             var orderPayment = new OrderPaymentModel();
 
             // check if sale period leads calendar date by more than allowed number of days
@@ -388,18 +388,31 @@
 
             var cashNet = cashReceived - cashGiven;
 
-            // compute total sales revenue
+            // compute total payments
             fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
             conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                          ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND order_payments.name != "ledger"';
-            var salesTotal = orderPayment.find('first', {fields: fields,
-                                                         conditions: conditions,
-                                                         recursive: 0
-                                                        });
+            var paymentTotal = orderPayment.find('first', {fields: fields,
+                                                           conditions: conditions,
+                                                           recursive: 0
+                                                          });
+            var paymentsReceived = (paymentTotal && paymentTotal.amount != null) ? paymentTotal.amount : 0;
+
+            // compute total sales revenue
+            fields = ['SUM(orders.total) as "Order.amount"'];
+            conditions = 'orders.status = 1 ' +
+                         ' AND orders.sale_period = "' + salePeriod + '"' +
+                         ' AND orders.shift_number = "' + shiftNumber + '"' +
+                         ' AND orders.terminal_no = "' + terminal_no + '"';
+            var salesTotal = orderModel.find('first', {fields: fields,
+                                                       conditions: conditions,
+                                                       recursive: 0
+                                                      });
 
             var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
+            var deposit = paymentsReceived - salesRevenue;
 
             // compute ledger IN balance
             fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
@@ -447,10 +460,11 @@
             var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
-                shiftChangeDetails:shiftChangeDetails,
+                shiftChangeDetails: shiftChangeDetails,
                 cashNet: cashNet,
                 balance: salesRevenue + ledgerInTotal + ledgerOutTotal,
                 salesRevenue: salesRevenue,
+                deposit: deposit,
                 ledgerInTotal: ledgerInTotal,
                 ledgerOutTotal: ledgerOutTotal,
                 giftcardExcess: giftcardExcess,
@@ -524,6 +538,7 @@
                     cash: inputObj.cashNet - amt,
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
+                    deposit: inputObj.deposit,
                     ledger_out: inputObj.ledgerOutTotal - amt,
                     ledger_in: inputObj.ledgerInTotal,
                     excess: inputObj.giftcardExcess,
@@ -638,7 +653,7 @@
 				if ( !all )
 					shiftNumber = this.getShiftNumber().toString();
 
-		        reportController.printShiftChangeReport( salePeriod, salePeriod, 'sale_period', shiftNumber, terminalNo );
+		        reportController.printShiftChangeReport( salePeriod, salePeriod, shiftNumber, terminalNo );
 		    } catch ( e ) {
 		    } finally {
 		    	if ( waitPanel ) waitPanel.hidePopup();
@@ -667,7 +682,6 @@
             var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
             var salePeriod = this.getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get('terminal_no');
-            var periodType = 'sale_period';
 
 			var shiftNumber = '';
 			if ( !all )
@@ -676,7 +690,6 @@
 			var parameters = {
 				start: salePeriod,
 				end: salePeriod,
-				periodType: periodType,
 				shiftNo: shiftNumber,
 				terminalNo: terminalNo
 			};
@@ -684,7 +697,7 @@
 			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
 			
 			try {
-				var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, periodType, shiftNumber, terminalNo );
+				var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
 			} catch ( e ) {
 			} finally {
 				if ( waitPanel ) waitPanel.hidePopup();

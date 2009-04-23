@@ -16,7 +16,7 @@
         _periodtype: null,
         _shiftno: null,
         
-        _fileName: "rpt_sales_summary",
+        _fileName: 'rpt_sales_summary',
 
         _getConditions: function() {
             this._start = document.getElementById( 'start_date' ).value;
@@ -110,7 +110,8 @@
                         ];
                             
              var conditions = "orders." + this._periodtype + ">='" + start +
-                            "' AND orders." + this._periodtype + "<='" + end + "'";
+                            "' AND orders." + this._periodtype + "<='" + end +
+                            "' AND orders.status='1'";
 
             if ( this._machineid.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
@@ -167,7 +168,8 @@
                          ];
                             
              var conditions = "orders." + this._periodtype + ">='" + start +
-                            "' AND orders." + this._periodtype + "<='" + end + "'";
+                            "' AND orders." + this._periodtype + "<='" + end +
+                            "' AND orders.status='1'";
                             
             if ( this._machineid.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
@@ -283,9 +285,10 @@
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
                             'SUM("orders"."items_count") AS "Order.ItemsCount"',
-                            'AVG("orders"."total") AS "Order.AvgTotal"',
+                            'CAST( AVG("orders"."total") AS INTEGER ) AS "Order.AvgTotal"',
                             'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
-                            'AVG("orders"."items_count") AS "Order.AvgItemsCount"'
+                            'AVG("orders"."items_count") AS "Order.AvgItemsCount"',
+                            'SUM( "orders"."promotion_subtotal" ) AS "Order.PromotionSubtotal"'
                         ];
 
              var conditions = "orders." + this._periodtype + ">='" + start +
@@ -309,9 +312,25 @@
             var sql = "select sum( current_qty ) as qty from order_items join orders on orders.id = order_items.order_id where " + conditions;
             var orderItem = new OrderItemModel();
             var orderItemRecords = orderItem.getDataSource().fetchAll( sql );
-            
+          
             orderRecords.ItemsCount = orderItemRecords[ 0 ].qty;
-
+            
+            // get the number of voided orders.
+            var where = 'status = -2';
+            var periodType;
+            if ( this._periodtype == 'sale_period' )
+            	periodType = 'void_sale_period';
+            else periodType = 'transaction_voided';
+            	
+            where += ' and orders.' + periodType + ' >= "' + start +
+                            '" and orders.' + periodType + ' <= "' + end + '"';
+                            
+            if ( this._shiftno.length > 0 )
+            	where += ' and orders.void_shift_number = ' + this._shiftno;
+            	
+            var sql = 'select count( id ) as VoidedOrders from orders where ' + where;
+            orderRecords.VoidedOrders = order.getDataSource().fetchAll( sql )[ 0 ].VoidedOrders;
+            
             return orderRecords;
         },
         
@@ -409,6 +428,80 @@
 			return records;
 		},
 		
+		_promotionSummary: function() {
+			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+            start = parseInt( this._start / 1000, 10 );
+            end = parseInt( this._end / 1000, 10 );
+            
+            var fields = 	'sum( op.discount_subtotal ) as discount_subtotal, ' +
+            				'op.promotion_id as promotion_id, ' +
+            				'count( op.id ) as matched_count';
+
+            var conditions = 'o.' + this._periodtype + '>="' + start +
+                            '" and o.' + this._periodtype + '<="' + end + '"' +
+                            ' and o.status = 1';
+            
+            if ( this._machineid.length > 0 )
+                conditions += " and o.terminal_no LIKE '" + this._machineid + "%'";
+            
+            if ( this._shiftno.length > 0 )
+            	conditions += " and o.shift_number = " + this._shiftno;
+
+            var groupby = 'op.promotion_id';
+            var orderby = 'op.promotion_id';
+			
+			var sql = 	'select ' + fields + ' from order_promotions op join orders o on op.order_id = o.id' +
+            			' where ' + conditions + ' group by ' + groupby + ' order by ' + orderby + ';';
+           	
+            var orderModel = new OrderModel();
+  			var records = orderModel.getDataSource().fetchAll( sql );
+  			
+  			var promotionModel = new PromotionModel();
+  			sql = 'select id, name, code from promotions group by id;';
+  			var promotionIds = promotionModel.getDataSource().fetchAll( sql );
+  			
+  			var results = {};
+  			var summary = {
+  				matched_count: 0,
+  				discount_subtotal: 0
+  			};
+  			
+  			promotionIds.forEach( function( promotionId ) {
+  				results[ promotionId.id ] = {
+  					name: promotionId.name,
+  					code: promotionId.code,
+  					discount_subtotal: 0,
+  					matched_count: 0
+  				}
+  			} );
+  			
+  			records.forEach( function( record ) {
+  				results[ record.promotion_id ].discount_subtotal += record.discount_subtotal;
+  				results[ record.promotion_id ].matched_count += record.matched_count;
+  				
+  				summary.matched_count += record.matched_count;
+  				summary.discount_subtotal += record.discount_subtotal;
+  			} );
+  			
+  			// for sorting.
+  			results = GeckoJS.BaseObject.getValues( results );
+  			
+  			results.sort( function( a, b ) {
+  				a = a.discount_subtotal;
+  				b = b.discount_subtotal;
+  				
+  				if ( a > b ) return 1;
+  				if ( a < b ) return -1;
+  				return 0;
+  			} );
+  			
+  			var data = {};
+  			data.results = results;
+  			data.summary = summary;
+  			
+			return data;
+		},
+		
 		_discountSurchargeSummary: function( discountOrSurcharge ) {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
             start = parseInt( this._start / 1000, 10 );
@@ -446,7 +539,7 @@
             results.forEach( function( result ) {
             	summary.num_rows += result.num_rows;
             	summary.amount += result.amount;
-            	result.itemOrAddition = _( 'item' );
+            	result.itemOrAddition = _( '(rpt)ITEM' );
             	
             	data.push( result );
             } );
@@ -463,7 +556,7 @@
             results.forEach( function( result ) {
             	summary.num_rows += result.num_rows;
             	summary.amount += result.amount;
-            	result.itemOrAddition = _( 'order' );
+            	result.itemOrAddition = _( '(rpt)ORDER' );
             	
             	data.push( result );
             } );
@@ -488,6 +581,7 @@
 			var start_str = ( new Date( this._start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( this._end ) ).toString( 'yyyy/MM/dd HH:mm' );
 
+			this._reportRecords.head.title = _( 'Sales Summary Report' );
 			this._reportRecords.head.subtitle = '( based on ' + _( this._periodtype ) + ' )';
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
@@ -501,6 +595,7 @@
 			this._reportRecords.body.tax_summary = this._taxSummary();
 			this._reportRecords.body.discount_summary = this._discountSurchargeSummary( 'discount' );
 			this._reportRecords.body.surcharge_summary = this._discountSurchargeSummary( 'surcharge' );
+			this._reportRecords.body.promotion_summary = this._promotionSummary();
 		},
 		
 		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo ) {

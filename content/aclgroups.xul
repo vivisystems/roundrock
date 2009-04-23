@@ -54,11 +54,11 @@
             <vbox flex="1" pack="center">
                 <vbox class="DataForm">
                     <label id="aclgroup_id" hidden="true" form="aclgroupForm" name="id" value="" />
-                    <label value="Group Name:" />
+                    <label value="&aclgroups.group.name;" />
                     <textbox id="aclgroup_name" value="" form="aclgroupForm" name="name" readonly="true" flex="1"/>
                 </vbox>
                 <vbox flex="1" class="RightPnlB">
-                    <label value="Role List:" class="SubTitle" />
+                    <label value="&aclgroups.role.list;" class="SubTitle" />
                     <viviscrollablebuttonpanel id="rolelistscrollablepanel" form="aclgroupForm" name="role_group" default="" seltype="multiple" flex="1"
                                                cols="3" rows="5" labelField="description" imageField="no"
                                                class="ItemScrollablepanel"

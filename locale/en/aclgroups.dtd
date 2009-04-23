@@ -2,3 +2,5 @@
 <!ENTITY aclgroups.button.action.add  "Add">
 <!ENTITY aclgroups.button.action.modify  "Modify">
 <!ENTITY aclgroups.button.action.delete  "Delete">
+<!ENTITY aclgroups.group.name "Group Name">
+<!ENTITY aclgroups.role.list "Role List">

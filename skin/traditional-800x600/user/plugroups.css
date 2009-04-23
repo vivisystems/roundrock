@@ -1,0 +1,55 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.BtnColors {
+    margin: 0px 20px 8px 20px;
+}
+
+.BtnColors label{
+    color: white;
+}
+
+.BtnColors button {
+    min-height: 55px;
+    min-width: 55px;
+}
+
+.LeftPnl {
+    width: 273px;
+    max-width: 273px;
+}
+
+.MainL {
+    border-right: 1px solid #a98f6e;
+}
+
+.DataForm {
+    margin: 5px 18px 3px 20px;
+}
+
+.RightPnlB {
+    margin: 0px 20px 6px 20px;
+}
+
+.RightPnlB vbox {
+    margin: 1px;
+    background: #f1ede5;
+}
+
+.FontSizeSet {
+    margin: 0px 12px 6px 12px;
+}
+
+.FontSizeSetHeight button{
+    height: 50px;
+}
+
+.ToolBar {
+    margin-left: 4px;
+}
+
+.RightTabbox {
+    margin: 1px 0 4px 0;
+}
+

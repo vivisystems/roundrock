@@ -66,13 +66,9 @@
 }
 
 /*  */
-.RightPnlB {
-  
-}
-
 
 /* default texbox  */
-textbox:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd) {
+textbox:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd):not(.label_promotions):not(.subtotal_promotions) {
   border: 3px solid;
   -moz-border-top-colors: #a7a7a7 #c5c5c5 #dcdcdc;
   -moz-border-right-colors: #e7e7e7 #f7f7f7 #fefefe;
@@ -86,7 +82,7 @@ textbox:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_fie
   color: #444;
 }
 
-textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd) {
+textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd):not(.label_promotions):not(.subtotal_promotions) {
   border: 1px solid #bdbcb8;
   -moz-border-top-colors: #bdbcb8;
   -moz-border-left-colors: #bdbcb8;
@@ -215,7 +211,7 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
 .ToolBar button, .ToolBar vivibutton {
   background-color: white ;
   background-image: none;
-  border: 1px solid !important;
+  border: 1px solid;
   -moz-border-top-colors: #918570;
   -moz-border-left-colors: #918570;
   -moz-border-right-colors: #918570;
@@ -230,28 +226,21 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
 }
 
 .ToolBar button:active, .ToolBar vivibutton:active {
-  background-color: white;
-  background-image: none;
-  border-top: 2px solid !important;
-  border-left: 2px solid !important;
-  border-bottom: 2px solid !important;
-  border-right: 2px solid !important;
+  border: 2px solid;
   -moz-border-top-colors: gray black;
   -moz-border-left-colors: gray black;
   -moz-border-right-colors: gray #918570;
   -moz-border-bottom-colors: gray #918570;
-  -moz-appearance: none;
-  color: #4d4234;
-  font-size: 12pt;
-  margin: 0 5px;
-  -moz-border-radius: 6px;
-  min-width: 80px;
-  padding: 0 8px;
+}
+
+.ToolBar button[disabled=true]:active, .ToolBar vivibutton[disabled=true]:active {
+  border: 0 !important;
 }
 
 .ToolBar button[disabled=true], .ToolBar vivibutton[disabled=true] {
   background-color: #fff6e8 ;
 }
+
 .ToolBar button[disabled=false]:hover, .ToolBar vivibutton[disabled=false]:hover {
     color: #148c9c;
     text-decoration: underline;
@@ -266,6 +255,14 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
 }
 .BtnAdd {
   list-style-image: url(images/icon_add.png);
+}
+
+.BtnUp {
+  list-style-image: url(images/go-up.png);
+}
+
+.BtnDown {
+  list-style-image: url(images/go-down.png);
 }
 
 /* Exit , keybroad, ... area */
@@ -355,7 +352,7 @@ checkbox:hover, radio:hover {
 }
 .RightTabbox tab {
     -moz-appearance: none;
-    padding: 16px 8px;
+    padding: 20px 8px;
     background: white url(images/sep.png) center right no-repeat;
     border:none;
     color: #393939;
@@ -370,7 +367,7 @@ checkbox:hover, radio:hover {
 }
 .RightTabbox tabpanel {
     border-top: 1px solid #c1ab8e;
-    padding: 10px 5px;
+    padding: 5px 5px;
 }
 .RightTabbox tabpanels {
     -moz-appearance: none;

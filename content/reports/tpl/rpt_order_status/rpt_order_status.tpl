@@ -30,6 +30,7 @@
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Promotion' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Payment' )}</th>
                 </tr>
             </thead>
@@ -39,12 +40,13 @@
                     <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.service_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.status}</td>
-                    <td style="text-align: left;">${detail.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
+                    <td style="text-align: left;">${detail.transaction_created|unixTimeToString}</td>
                     <td style="text-align: left;">${detail.sequence}</td>
                     <td style="text-align: right;">${detail.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.discount_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.promotion_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.total|viviFormatPrices:true}</td>
                 </tr>
 {/for}
@@ -58,6 +60,7 @@
                     <td style="text-align: right;">${foot.foot_datas.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.foot_datas.promotion_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.total|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>

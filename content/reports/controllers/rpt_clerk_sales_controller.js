@@ -19,6 +19,8 @@
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
             var machineid = document.getElementById( 'machine_id' ).value;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
@@ -55,6 +57,7 @@
                             'orders.precision_prices',
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
+                            'orders.promotion_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -64,7 +67,7 @@
                          ];
                 
             var groupby = 'order_payments.order_id, order_payments.name';
-            var orderby = 'orders.terminal_no, orders.total desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.' + sortby + ', orders.total desc';//orders.transaction_created, orders.id';
 
             var orderPayment = new OrderPaymentModel();
 
@@ -92,6 +95,7 @@
 		        	total: 0,
 		        	surcharge_subtotal: 0,
 		        	discount_subtotal: 0,
+		        	promotion_subtotal: 0,
 		        	cash: 0,
 		        	check: 0,
 		        	creditcard: 0,
@@ -130,9 +134,7 @@
             });
             
             this._datas = GeckoJS.BaseObject.getValues(repDatas);
-            
-            var sortby = document.getElementById( 'sortby' ).value;
-            
+
             if ( sortby == 'associated_clerk_displayname' ) {
 		        if ( clerk_type == 'service_clerk_displayname' )
 					sortby = 'proceeds_clerk_displayname';
@@ -159,6 +161,7 @@
 				    		case 'tax_subtotal':
 				    		case 'surcharge_subtotal':
 				    		case 'discount_subtotal':
+				    		case 'promotion_subtotal':
 				    		case 'total':
 				    		case 'cash':
 				    		case 'check':
@@ -187,6 +190,7 @@
            				clerk.summary.total += data[ 'total' ];
            				clerk.summary.surcharge_subtotal += data[ 'surcharge_subtotal' ];
            				clerk.summary.discount_subtotal += data[ 'discount_subtotal' ];
+           				clerk.summary.promotion_subtotal += data[ 'promotion_subtotal' ];
            				clerk.summary.cash += data[ 'cash' ];
            				clerk.summary.check += data[ 'check' ];
            				clerk.summary.creditcard += data[ 'creditcard' ];

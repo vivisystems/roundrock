@@ -54,6 +54,8 @@
             <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool" />
             <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int" />
             <preference id="pref_idletime" name="vivipos.fec.settings.idle.time" type="int" />
+            <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool" />
+            <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool" />
 
         </preferences>
 
@@ -83,10 +85,15 @@
                     <checkbox preference="pref_viewlocalordersonly" id="pref_viewlocalordersonlyCtrl" label="&general.viewlocalordersonly;" />
                 </row>
                 <row>
+                    <checkbox preference="pref_departmentpopstotop" id="pref_departmentpopstotopCtrl" label="&general.departmentpopstotop;" />
+                    <checkbox preference="pref_collapsecondiments" id="pref_collapsecondimentsCtrl" label="&general.collapsecondiments;" />
+                </row>
+                <row>
                     <hbox>
                         <label control="idletime" value="&general.idletime;"/>
                         <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
                     </hbox>
+                    <checkbox preference="pref_collapsecondiments" id="pref_collapsecondimentsCtrl" label="&general.collapsecondiments;" />
                 </row>
                 <row>
                     <vbox>
@@ -144,8 +151,8 @@
                             <menulist id="roundingtaxes" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
                                 <menupopup>
                                     <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
                                     <!--
+                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
                                     <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
                                     <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
                                     <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>
@@ -166,8 +173,8 @@
                             <menulist id="roundingprices" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingPrices', this.value)">
                                 <menupopup>
                                     <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
                                     <!--
+                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
                                     <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
                                     <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
                                     <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>
@@ -339,7 +346,7 @@
                     <label control="depcols" value="&layout.department.cols;"/>
                     <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
                     <label control="depbtnheight" value="&layout.department.button.height;"/>
-                    <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="50" max="200" size="3" maxlength="3"/>
+                    <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
                 </row>
                 <row>
                     <label control="plurows" value="&layout.plu.label;"/>

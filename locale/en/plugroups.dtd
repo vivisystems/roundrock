@@ -1,4 +1,6 @@
 <!ENTITY plugroups.title "Product Groups">
+<!ENTITY plugroups.tab.base "Group Details">
+<!ENTITY plugroups.tab.linkgroups "Links">
 <!ENTITY plugroups.name "Group Name">
 <!ENTITY plugroups.visible "Show on Menu">
 <!ENTITY plugroups.routing "Used to Route Orders">

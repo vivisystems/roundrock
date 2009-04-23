@@ -59,13 +59,13 @@
 				                	<label value="&rptdailysalessummary.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="[&rptdailysalessummary.all;]" value="all" />
-					                        <menuitem selected="false" label="&rptdailysalessummary.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="true" label="&rptdailysalessummary.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptdailysalessummary.time;" value="time" />
 					                        <menuitem selected="false" label="&rptdailysalessummary.item_subtotal;" value="item_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysalessummary.tax_subtotal;" value="tax_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysalessummary.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysalessummary.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptdailysalessummary.promotion_subtotal;" value="promotion_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysalessummary.total;" value="total" />
 					                        <menuitem selected="false" label="&rptdailysalessummary.cash;" value="cash" />
 					                        <menuitem selected="false" label="&rptdailysalessummary.check;" value="check" />

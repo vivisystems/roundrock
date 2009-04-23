@@ -33,7 +33,9 @@
                         <viviscrollablebuttonpanel id="plusetscrollablepanel" flex="1" cols="1" rows="7" dir="reverse"
                                                    seltype="single" labelField="name" imageField="no"
                                                    class="prodscrollablepanel"
-                                                   buttonClass="product-button mediumimagebtn"
+                                                   buttonClass0="pluset-button product-button-color-default font-medium"
+                                                   buttonClass1="pluset-button product-button-color-11 font-medium"
+                                                   buttonClass2="pluset-button product-button-color-8 font-medium"
                                                    oncommand="$(document.getElementById('selectSetItemPanel')).data('popupPanel.opts').clickPluSet(this)"
                                                    scrollUpClass="ScrollUp"
                                                    scrollDownClass="ScrollDown">

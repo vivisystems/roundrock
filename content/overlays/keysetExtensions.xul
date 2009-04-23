@@ -8,6 +8,7 @@
 
   
   <keyset id="keyset_extensions">
+    <key id="key_controlPanel" key="o" oncommand="$do('ControlPanelDialog', null, 'Main');" modifiers="control"/>
     <key id="key_enter" keycode="VK_RETURN" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');"/>
     <key id="key_num0" key="0" oncommand="$do('keypress', {charCode: 48}, 'Keypad');"/>
     <key id="key_num1" key="1" oncommand="$do('keypress', {charCode: 49}, 'Keypad');"/>

@@ -29,6 +29,7 @@
                     <td style="text-align: right;">${_( '(rpt)Add-on Tax' )}</td>
                     <td style="text-align: right;">${_( '(rpt)Surcharge' )}</td>
                     <td style="text-align: right;">${_( '(rpt)Discount' )}</td>
+                    <td style="text-align: right;">${_( '(rpt)Promotion' )}</td>
                     <td style="text-align: right;">${_( '(rpt)Revenue' )}</td>
                 </tr>
                 <tr>
@@ -36,6 +37,7 @@
                     <td style="text-align: right;">${body.sales_summary.TaxSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.SurchargeSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.Total|default:0|viviFormatPrices:true}</td>
                 </tr>
             </table>
@@ -70,18 +72,21 @@
                         <td style="text-align: left;">${_( '(rpt)Items' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.ItemsCount|default:0}</td>
                     </tr>
-
+					<tr>
+                        <td style="text-align: left;">${_( '(rpt)Voided Orders' ) + ':'}</td>
+                        <td style="text-align: right;">${body.sales_summary.VoidedOrders|default:0}</td>
+                    </tr>
                     <tr>
                         <td style="text-align: left;">${_( '(rpt)Average Total' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.AvgTotal.toFixed( 2 )|default:0}</td>
+                        <td style="text-align: right;">${body.sales_summary.AvgTotal|default:0|format:2}</td>
                     </tr>
                     <tr>
                         <td style="text-align: left;">${_( '(rpt)Average Guest' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.AvgGuests.toFixed( 2 )|default:0}</td>
+                        <td style="text-align: right;">${body.sales_summary.AvgGuests|default:0|format:2}</td>
                     </tr>
                     <tr>
                         <td style="text-align: left;">${_( '(rpt)Average Items' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.AvgItemsCount.toFixed( 2 )|default:0}</td>
+                        <td style="text-align: right;">${body.sales_summary.AvgItemsCount|default:0|format:2}</td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -282,7 +287,7 @@
             	<thead>
             		<tr>
             			<th style="text-align: left;">${_( '(rpt)Name' )}</th>
-            			<th style="text-align: left;">${_( '(rpt)Type' )}</th>
+            			<th style="text-align: left;">${_( '(rpt)TYPE' )}</th>
             			<th style="text-align: right;">${_( '(rpt)Count' )}</th>
             			<th style="text-align: right;">${_( '(rpt)Amount' )}</th>
             		</tr>
@@ -312,7 +317,7 @@
             	<thead>
             		<tr>
             			<th style="text-align: left;">${_( '(rpt)Name' )}</th>
-            			<th style="text-align: left;">${_( '(rpt)Type' )}</th>
+            			<th style="text-align: left;">${_( '(rpt)TYPE' )}</th>
             			<th style="text-align: right;">${_( '(rpt)Count' )}</th>
             			<th style="text-align: right;">${_( '(rpt)Amount' )}</th>
             		</tr>
@@ -332,6 +337,36 @@
 						<td colspan="2">${_( '(rpt)Summary' ) + ':'}</td>
 						<td style="text-align: right;">${body.surcharge_summary.summary.num_rows|default:0}</td>
 						<td style="text-align: right;">${body.surcharge_summary.summary.amount|default:0|viviFormatPrices:true}</td>
+					</tr>
+				</tfoot>
+			</table>
+			<br />
+			
+			<table id="body-table">
+            	<caption>${_( '(rpt)Promotion Summary' )}</caption>
+            	<thead>
+            		<tr>
+            			<th style="text-align: left;">${_( '(rpt)Name' )}</th>
+            			<th style="text-align: left;">${_( '(rpt)Code' )}</th>
+            			<th style="text-align: right;">${_( '(rpt)Count' )}</th>
+            			<th style="text-align: right;">${_( '(rpt)Discount' )}</th>
+            		</tr>
+            	</thead>
+            	<tbody>
+	{for detail in body.promotion_summary.results}
+					<tr>
+						<td style="text-align: left;">${detail.name}</td>
+						<td style="text-align: left;">${detail.code}</td>
+						<td style="text-align: right;">${detail.matched_count|default:0}</td>
+						<td style="text-align: right;">${detail.discount_subtotal|default:0|viviFormatPrices:true}</td>
+					</tr>
+	{/for}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">${_( '(rpt)Summary' ) + ':'}</td>
+						<td style="text-align: right;">${body.promotion_summary.summary.matched_count|default:0}</td>
+						<td style="text-align: right;">${body.promotion_summary.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
 					</tr>
 				</tfoot>
 			</table>

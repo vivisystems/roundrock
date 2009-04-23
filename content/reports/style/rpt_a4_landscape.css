@@ -125,7 +125,7 @@ padding: 4px !important;
 }
 
 #body-table tbody th:after {
-  content: ":";
+  /*content: ":";*/
   }
 
 
@@ -139,7 +139,7 @@ padding: 4px !important;
   }
 
 #body-table tfoot th:after {
-  content: ":";
+  /*content: ":";*/
   }
 
 #body-table > tfoot td {

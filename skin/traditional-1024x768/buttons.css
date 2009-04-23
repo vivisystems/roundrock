@@ -407,14 +407,50 @@ textbox:not([onclick]) *[readonly] {
     background: transparent url(images/go-down.png) center center no-repeat;
 }
 
+.gotopbtn {
+    margin: 0px;
+    height: 48px;
+    min-width: 40px;
+    max-width: 40px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+    border-width: 0px;
+    background: transparent url(images/optionsUp.png) 0 0 no-repeat;
+}
+
 .soldoutbtn {
-    border: 2px solid black !important;
+    margin: 0px;
+    height: 48px;
+    min-width: 36px;
+    max-width: 40px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+    border: 2px solid black;
     background: transparent url(images/prohibitsale.png) center center no-repeat;
 }
 
 .soldoutbtn[checked=true] {
-    border: 2px solid black !important;
     background: yellow url(images/prohibitsale.png) center center no-repeat;
+}
+
+.clonebtn {
+    background: transparent url(images/copy-48x48.png) center center no-repeat;
+}
+
+.clonebtn[disabled=false] {
+    border: 2px solid black !important;
+}
+
+.clonebtn[disabled=true] {
+    border: 0px solid black !important;
+}
+
+.selectAllBtn {
+    background: transparent url(images/check.png) center center no-repeat;
+}
+
+.clearAllBtn {
+    background: transparent url(images/uncheck.png) center center no-repeat;
 }
 
 .dialogbtns .vkb {

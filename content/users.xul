@@ -114,7 +114,13 @@
 
                                         <row>
                                             <label  value="&users.drawer;"/>
-                                            <textbox id="user_drawer" value="" form="userForm" name="drawer"/>
+                                            <menulist id="user_drawer" form="userForm" name="drawer" value="" default="">
+                                                <menupopup style="width: 200px;">
+                                                    <menuitem label="" value=""/>
+                                                    <menuitem label="1" value="1"/>
+                                                    <menuitem label="2" value="2"/>
+                                                </menupopup>
+                                            </menulist>
                                         </row>
 
                                     </rows>

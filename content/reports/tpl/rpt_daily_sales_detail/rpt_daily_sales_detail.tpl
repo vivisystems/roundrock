@@ -27,6 +27,7 @@
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Promotion' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Payment' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Guests' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Items' )}</th>
@@ -36,12 +37,13 @@
 {for detail in body}
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
-                    <td style="text-align: left;">${detail.Order.time}</td>
+                    <td style="text-align: left;">${detail.Order.time|unixTimeToString}</td>
                     <td style="text-align: left;">${detail.sequence}</td>
                     <td style="text-align: right;">${detail.item_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.promotion_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.no_of_customers}</td>
                     <td style="text-align: right;">${detail.items_count}</td>
@@ -49,8 +51,18 @@
 
                 <tr>
                     <td></td>
-                    <td colspan="9">
+                    <td colspan="10">
                         <table width="100%">
+                        	<tr style="color: gray; font-style: italic; font-size: 8pt;">
+                        		<th style="text-align: left;">${_( '(rpt)Product No.' )}</th>
+                        		<th style="text-align: left;">${_( '(rpt)Product Name' )}</th>
+                        		<th style="text-align: left;">${_( '(rpt)Tax Name' )}</th>
+                        		<th style="text-align: right;">${_( '(rpt)Discount' )}</th>
+                        		<th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
+                        		<th style="text-align: right;">${_( '(rpt)Price' )}</th>
+                        		<th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
+                        		<th style="text-align: right;">${_( '(rpt)Subtotal' )}</th>
+                        	</tr>
 {for items in detail.OrderItem}
                             <tr>
                                 <td style="text-align: left;">${items.product_no}</td>
@@ -75,6 +87,7 @@
                     <td style="text-align: right;">${foot.foot_datas.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.foot_datas.promotion_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.payment|viviFormatPrices:true}</td>
                     <td></td>
                     <td></td>

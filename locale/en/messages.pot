@@ -1600,7 +1600,13 @@ msgstr "Seq."
 msgid "(rpt)Service Clerk"
 msgstr "Service Clerk"
 
+msgid "Service Clerk"
+msgstr "Service Clerk"
+
 msgid "(rpt)Proceeds Clerk"
+msgstr "Proceeds Clerk"
+
+msgid "Proceeds Clerk"
 msgstr "Proceeds Clerk"
 
 msgid "(rpt)Proceeds"
@@ -1783,6 +1789,27 @@ msgstr "Start"
 msgid "(rpt)End"
 msgstr "End"
 
+msgid "(rpt)Annotation Text"
+msgstr "Annotation Text"
+
+msgid "(rpt)Deposit"
+msgstr "Deposit"
+
+msgid "(rpt)TYPE"
+msgstr "type"
+
+msgid "(rpt)ORDER"
+msgstr "order"
+
+msgid "(rpt)ITEM"
+msgstr "item"
+
+msgid "(rpt)Promotion"
+msgstr "Promotion"
+
+msgid "(rpt)Subtotal"
+msgstr "Subtotal"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -1822,8 +1849,17 @@ msgstr "submitted"
 msgid "(view)close clerk"
 msgstr "close clerk"
 
-msgid "(view)customer"
-msgstr "customer"
+msgid "(view)void clerk"
+msgstr "void clerk"
+
+msgid "(view)sale period"
+msgstr "sale period"
+
+msgid "(view)shift number"
+msgstr "shift number"
+
+msgid "(view)no_of_customers"
+msgstr "customers"
 
 msgid "(view)contact"
 msgstr "contact"
@@ -1863,3 +1899,34 @@ msgstr ""
 
 msgid "Unable to display order; no order sequence given"
 msgstr ""
+
+msgid "Promotions Manager"
+msgstr ""
+
+msgid "acl_manage_promotions"
+msgstr "Promotions Manager"
+
+msgid "trigger.bypass.label"
+msgstr "ByPass"
+
+msgid "trigger.bypass.name"
+msgstr "ByPass"
+
+msgid "trigger.bypass.desc"
+msgstr "ByPass Trigger always pass success to promotion type."
+
+msgid "type.bypass.label"
+msgstr "ByPass"
+
+msgid "type.bypass.name"
+msgstr "ByPass"
+
+msgid "type.bypass.desc"
+msgstr "ByPass Type always pass success."
+
+msgid "acl_close_sale_period"
+msgstr "Close Sale Period"
+
+msgid "Your Saving"
+msgstr "** Your Saving **"
+

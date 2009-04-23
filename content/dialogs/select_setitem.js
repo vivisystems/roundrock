@@ -17,11 +17,14 @@
         var barcodesIndexes;
         var groupsById;
         var productIndexesByGroup;
-        
+        var productsIndexesByCate;
+        var categoriesById;
+
         var plusetData = [];
         var preset = null;
         var selections = [];
         var opts;
+        var hidden = false;
 
         $.installPanel($panel[0], {
 
@@ -37,7 +40,11 @@
             },
 
             init: function(evt) {
-                var plusetViewHelper = new NSIProductsView('plusetscrollablepanel');
+                var plusetViewHelper = new GeckoJS.NSITreeViewArray();
+                var buttonClass0 = $buttonPanel[0].getAttribute('buttonClass0');
+                var buttonClass1 = $buttonPanel[0].getAttribute('buttonClass1');
+                var buttonClass2 = $buttonPanel[0].getAttribute('buttonClass2');
+
                 plusetViewHelper.getCellValue = function(row, col) {
                     this.log('DEBUG', 'in pluset get cell value: ' + row + ',' + GeckoJS.BaseObject.dump(col));
 
@@ -61,6 +68,32 @@
                     this.log('DEBUG', 'value: ' +  sResult);
                     return sResult;
                 };
+
+                plusetViewHelper.renderButton = function(row, btn) {
+
+                    this.log('DEBUG', 'in pluset renderButton: ' + row);
+
+                    if (hidden) {
+                        btn.removeAttribute('class');
+                        return;
+                    }
+
+                    var data = plusetData[row];
+                    var classStr = '';
+                    if (!data.plugroup) {
+                        classStr = buttonClass0;
+                    }
+                    else if (data.product) {
+                        classStr = buttonClass1;
+                    }
+                    else {
+                        classStr = buttonClass2;
+                    }
+                    if (classStr) btn.setAttribute('class', classStr);
+                    else btn.removeAttribute('class');
+                    this.log('DEBUG', 'in pluset renderButton: [' + classStr + ']');
+                };
+                
                 $buttonPanel[0].datasource = plusetViewHelper ;
 
                 var presetViewHelper = new NSIProductsView('presetbuttonpanel');
@@ -95,7 +128,9 @@
                 productsById = GeckoJS.Session.get('productsById');
                 barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
                 groupsById = GeckoJS.Session.get('plugroupsById');
-                productIndexesByGroup = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                productIndexesByGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                categoriesById = GeckoJS.Session.get('categoriesById');
+                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
 
                 $selectionPanel[0].vivibuttonpanel.resizeButtons();
                 
@@ -128,9 +163,24 @@
                         }
                     }
                     if (setitem.linkgroup_id != null && setitem.linkgroup_id != '') {
+                        var selections = [];
                         var plugroup = groupsById[setitem.linkgroup_id];
-                        var selections = productIndexesByGroup[setitem.linkgroup_id];
+                        if (typeof plugroup == 'undefined') {
+                            var cate = categoriesById[setitem.linkgroup_id];
+                            if (cate) {
+                                selections = productsIndexesByCate[cate.no];
+                                plugroup = cate;
+                            }
+                        }
+                        else {
+                            selections = productIndexesByGroup[setitem.linkgroup_id];
+                        }
                         if (plugroup) {
+                            // filter set items out of selections
+                            selections = selections.filter(function(val, index, obj) {
+                                                               var setItem = productsById[val].SetItem;
+                                                               return (setItem == null) || (setItem.length == 0);
+                                                           });
                             newItem['plugroup'] = plugroup;
                             newItem['selections'] = selections;
                         }
@@ -139,12 +189,14 @@
                 });
                 $buttonPanel[0].datasource.data = plusetData ;
 
+                // set hidden false
+                hidden = false;
+
                 // set caption
                 var captionObj = document.getElementById('pluset-caption');
                 if (captionObj) captionObj.label = evt.data.name;
 
                 // determine first set item to select
-
                 opts = $($panel[0]).data('popupPanel.opts');
                 
                 opts.selectSetItem(evt.data.start);
@@ -153,10 +205,12 @@
 
             hide: function (evt) {
 
-                // press escape
                 var isOK = typeof evt.data == 'boolean' ? evt.data : false;
 
                 evt.data = {ok: isOK, plusetData: plusetData};
+
+                hidden = true;
+                $buttonPanel[0].invalidate();
             },
 
             // select set item

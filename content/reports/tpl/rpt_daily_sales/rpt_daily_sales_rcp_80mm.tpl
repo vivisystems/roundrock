@@ -6,16 +6,17 @@ ${head.start_time} ~ ${head.end_time}
 
 ${head.title|center:42}
 ------------------------------------------
-${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:10}  ${_( '(rpt)Sequence' )|left:20}
+${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Sequence' )|left:14}
 --------  ----------  --------------------
 {for detail in body}
-${detail.terminal_no|left:8}  ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${detail.sequence|left:20}
+${detail.terminal_no|left:8}  ${detail.transaction_created|unixTimeToString|left:16}  ${detail.sequence|left:14}
 ${'    ' + _( '(rpt)Service' ) + ': '}${detail.service_clerk_displayname|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Proceeds' ) + ': '}${detail.proceeds_clerk_displayname|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Total' ) + ': '}${detail.item_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ': '}${detail.tax_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Surcharge' ) + ': '}${detail.surcharge_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Discount' ) + ': '}${detail.discount_subtotal|viviFormatPrices:true}
+${'    ' + _( '(rpt)Promotion' ) + ': '}${detail.promotion_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Payment' ) + ': '}${detail.total|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Cash' ) + ': '}${detail.cash|default:0|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Check' ) + ': '}${detail.check|viviFormatPrices:true}
@@ -29,6 +30,7 @@ ${'    ' + _( '(rpt)Total' ) + ': '}${foot.foot_datas.item_subtotal|viviFormatPr
 ${'    ' + _( '(rpt)Add-on Tax' ) + ': '}${foot.foot_datas.tax_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Surcharge' ) + ': '}${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Discount' ) + ': ' }${foot.foot_datas.discount_subtotal|viviFormatPrices:true}
+${'    ' + _( '(rpt)Promotion' ) + ': ' }${foot.foot_datas.promotion_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Payment' ) + ': '}${foot.foot_datas.total|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Cash' ) + ': '}${foot.foot_datas.cash|default:0|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Check' ) + ': '}${foot.foot_datas.check|viviFormatPrices:true}

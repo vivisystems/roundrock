@@ -14,6 +14,8 @@
         _exportDir: null,
         _finish: false,
         _busy: false,
+        _importFolder: 'database_import',
+        _exportFolder: 'database_export',
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -57,8 +59,6 @@
 
             var deviceMount = "/media/";
 
-            var hasMounted = false;
-
             if (osLastMedia.exists()) {
                 osLastMedia.open("r");
                 last_media = osLastMedia.readLine();
@@ -82,8 +82,8 @@
                     // mount dir exists
                     // autocreate backup_dir and restore dir
                     
-                    var importDir = new GeckoJS.Dir(deviceMount+'/database_import', true);
-                    var exportDir = new GeckoJS.Dir(deviceMount+'/database_export', true);
+                    var importDir = new GeckoJS.Dir(deviceMount+'/' + this._importFolder, true);
+                    var exportDir = new GeckoJS.Dir(deviceMount+'/' + this._exportFolder, true);
 
                     if (importDir.exists() && exportDir.exists()) {
 
@@ -108,9 +108,15 @@
 
         exportData: function (model) {
             // return if importing...
-            if (this._busy) return;
+            if (this._busy) {
+                GREUtils.Dialog.alert(window, _('Export Error'), _('Import/Export already in progress'));
+                return;
+            }
 
-            if (!this.checkBackupDevices()) return;
+            if (!this.checkBackupDevices()) {
+                GREUtils.Dialog.alert(window, _('Export Error'), _('Export device and/or folder not found [%S]', [this._exportFolder]));
+                return;
+            }
 
             var index = this.getListObj().selectedIndex;
             if (index < 0) {
@@ -127,7 +133,6 @@
             waitPanel.sizeTo(360, 120);
             var x = (width - 360) / 2;
             var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
             this._busy = true;
 
             this.sleep(200);
@@ -209,9 +214,15 @@
 
         importData: function(model) {
             // return if importing...
-            if (this._busy) return;
+            if (this._busy) {
+                GREUtils.Dialog.alert(window, _('Import Error'), _('Import/Export already in progress'));
+                return;
+            }
 
-            if (!this.checkBackupDevices()) return;
+            if (!this.checkBackupDevices()) {
+                GREUtils.Dialog.alert(window, _('Import Error'), _('Import device and/or folder not found [%S]', [this._importFolder]));
+                return;
+            }
 
             var index = this.getListObj().selectedIndex;
             if (index < 0) {
@@ -236,6 +247,7 @@
             var model = this._datas[index].model;
             var fileName = this._importDir + "/" + this._datas[index].filename;
             if (!GREUtils.File.exists(fileName)) {
+                waitPanel.hidePopup();
                 NotifyUtils.error(_('The specified CSV file [%S] does not exist!', [this._datas[index].filename]));
                 return;
             }
@@ -272,6 +284,7 @@
             }
             catch (e) {
                 this._busy = false;
+                waitPanel.hidePopup();
                 NotifyUtils.error(_('Unable to open the specified CSV file [%S]!', [this._datas[index].filename]));
                 return;
             }

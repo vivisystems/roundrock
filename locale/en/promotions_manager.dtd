@@ -1,0 +1,54 @@
+<!ENTITY    promotions_manager.title                   "Promotions Manager">
+
+<!ENTITY    promotions_manager.tree.name.label      "Name">
+<!ENTITY    promotions_manager.tree.active.label      "Active">
+<!ENTITY    promotions_manager.button.action.add     "Add">
+<!ENTITY    promotions_manager.button.action.download     "Download">
+<!ENTITY    promotions_manager.button.action.export     "Export">
+
+<!ENTITY    promotions_manager.tab.basic     "Basic">
+<!ENTITY    promotions_manager.tab.time_control     "Time Control">
+<!ENTITY    promotions_manager.tab.trigger     "Trigger">
+<!ENTITY    promotions_manager.tab.type     "Type">
+
+<!ENTITY    promotions_manager.button.action.down     "Down">
+<!ENTITY    promotions_manager.button.action.modify  "Modify">
+<!ENTITY    promotions_manager.button.action.delete  "Delete">
+
+<!ENTITY    promotions_manager.label.active     "Active this rule">
+<!ENTITY    promotions_manager.label.reserve_item     "Reserve Matched Items (Prevent for next rule).">
+<!ENTITY    promotions_manager.label.repeatable     "Repeat Items for this rule">
+
+<!ENTITY    promotions_manager.label.name     "Name">
+<!ENTITY    promotions_manager.label.code     "Code">
+<!ENTITY    promotions_manager.label.alt_name1     "Alternate Name1">
+<!ENTITY    promotions_manager.label.alt_name2     "Alternate Name2">
+
+<!ENTITY    promotions_manager.label.member     "Member">
+<!ENTITY    promotions_manager.label.member_member     "Member Only">
+<!ENTITY    promotions_manager.label.member_nonmember     "Non Member">
+<!ENTITY    promotions_manager.label.member_everyone     "Everyone">
+
+
+<!ENTITY    promotions_manager.label.date_between     "Select Date Between">
+<!ENTITY    promotions_manager.label.time_duration     "Select Time Duration">
+
+<!ENTITY    promotions_manager.label.start_date     "Start Date">
+<!ENTITY    promotions_manager.label.end_date     "End Date">
+
+<!ENTITY    promotions_manager.label.start_time     "Start Time">
+<!ENTITY    promotions_manager.label.end_time     "End Time">
+
+<!ENTITY    promotions_manager.label.days_of_week     "Days of Week">
+
+<!ENTITY    promotions_manager.label.select_trigger     "Select Trigger:">
+<!ENTITY    promotions_manager.label.select_type     "Select Type:">
+
+<!ENTITY    promotions_detail.label.title     "Promotions Detail">
+<!ENTITY    promotions_detail.label.promotion_name     "Rule Name">
+<!ENTITY    promotions_detail.label.promotion_code     "Rule">
+<!ENTITY    promotions_detail.label.plu_name     "Product Name">
+<!ENTITY    promotions_detail.label.plu_no     "NO">
+<!ENTITY    promotions_detail.label.current_qty     "Quanity">
+<!ENTITY    promotions_detail.label.current_subtotal     "Subtotal">
+<!ENTITY    promotions_detail.label.discount_subtotal     "Discount">

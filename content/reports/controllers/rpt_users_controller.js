@@ -13,7 +13,7 @@
 
         _set_reportRecords: function() {
 			var sortby = document.getElementById( 'sortby' ).value;
-            var orderby = 'username';
+            var orderby = sortby;
             if ( sortby != 'all' )
             	orderby = '"' + sortby + '"'; // doing so for the 'group' is a keyword.
 

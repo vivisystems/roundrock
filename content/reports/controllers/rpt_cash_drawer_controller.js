@@ -19,6 +19,8 @@
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             var machineid = document.getElementById( 'machine_id' ).value;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt(start / 1000, 10);
             end = parseInt(end / 1000, 10);
@@ -29,7 +31,7 @@
             				'terminal_no',
                     		'drawer_no',
                             'clerk_displayname',
-                            'DATETIME( "created", "unixepoch", "localtime" ) AS "created"',
+                            'created',
                             'event_type'
                         ];
                         
@@ -40,9 +42,8 @@
                 conditions += " AND terminal_no LIKE '" + machineid + "%'";
 
             var groupby = '';
-            var orderby = 'terminal_no';
+            var orderby = sortby;
             
-            var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' )
             	var orderby = sortby;
 
