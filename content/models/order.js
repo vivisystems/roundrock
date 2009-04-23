@@ -54,7 +54,8 @@
             var orderData  = this.mappingTranToOrderFields(data);
             var r;
 
-            this.id = orderData.id;
+            // this.id = orderData.id;  // remove id , this will to cause model.exists finding data exists.
+            this.create();
             this.begin();
             r = this.save(orderData);
             this.commit();

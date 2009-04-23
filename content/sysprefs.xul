@@ -121,6 +121,9 @@
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
             <preference id="pref_sequencetrackssaleperiod" name="vivipos.fec.settings.SequenceTracksSalePeriod" type="bool" />
             <preference id="pref_sequencenumberlength" name="vivipos.fec.settings.SequenceNumberLength" type="int" />
+            <preference id="pref_revalueprices" name="vivipos.fec.settings.RevaluePrices" type="int"/>
+            <preference id="pref_autorevalueprices" name="vivipos.fec.settings.AutoRevaluePrices" type="bool"/>
+
 
         </preferences>
         <vbox>
@@ -197,6 +200,13 @@
                         <vbox>
                             <label control="thousandsdelimiter" value="&formats.thousandsdelimiter;"/>
                             <textbox preference="pref_thousandsdelimiter" id="thousandsdelimiter" size="1" maxlength="1" default=","/>
+                        </vbox>
+                    </row>
+                    <row>
+                        <checkbox id="autorevalueprices" label="&formats.autorevalueprices;" preference="pref_autorevalueprices"/>
+                        <vbox>
+                            <label control="revalueprices" value="&formats.revalueprices;"/>
+                            <textbox preference="pref_revalueprices" id="revalueprices" type="number" min="0"/>
                         </vbox>
                     </row>
                 </rows>

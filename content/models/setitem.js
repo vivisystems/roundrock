@@ -1,3 +1,7 @@
-var SetItemModel = window.SetItemModel = GeckoJS.Model.extend({
-    name: 'SetItem'
-});
+(function() {
+
+    var SetItemModel = window.SetItemModel = GeckoJS.Model.extend({
+        name: 'SetItem'
+    });
+
+})();
