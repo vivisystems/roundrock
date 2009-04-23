@@ -1816,6 +1816,36 @@ msgstr "item"
 msgid "(rpt)Promotion"
 msgstr "Promotion"
 
+msgid "(rpt)Subtotal"
+msgstr "Subtotal"
+
+msgid "(rpt)Promotion Summary"
+msgstr "Promotion Summary"
+
+msgid "(rpt)Code"
+msgstr "Code"
+
+msgid "(rpt)Voided Orders"
+msgstr "Voided Orders"
+
+msgid "(rpt)Date"
+msgstr "Date"
+
+msgid "(rpt)Order Count"
+msgstr "Order Count"
+
+msgid "(rpt)Promotion Subtotal"
+msgstr "Promotion Subtotal"
+
+msgid "(rpt)Matched Count"
+msgstr "Matched Count"
+
+msgid "(rpt)Matched Items Qty."
+msgstr "Matched Items Qty."
+
+msgid "(rpt)Matched Items Subtotal"
+msgstr "Matched Items Subtotal"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -2477,6 +2507,21 @@ msgstr ""
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
+msgid "Void Sale"
+msgstr ""
+
+msgid "Failed to void: the selected order no longer exists"
+msgstr ""
+
+msgid "Failed to void: the selected order is not/has been yet been completed"
+msgstr ""
+
+msgid "Are you sure you want to void transaction [%S]?"
+msgstr ""
+
+msgid "Transaction [%S] successfully voided"
+msgstr ""
+
 msgid "Add Memo"
 msgstr ""
 
@@ -2721,6 +2766,9 @@ msgid ""
 msgstr ""
 
 msgid "This order is closed pending payment and may not be modified"
+msgstr ""
+
+msgid "Price Level changed from [%S] to [%S] for destination [%S]"
 msgstr ""
 
 msgid "Device Status"
@@ -3706,21 +3754,6 @@ msgstr ""
 msgid "[%S] orders returned"
 msgstr ""
 
-msgid "Void Sale"
-msgstr ""
-
-msgid "Failed to void: the selected order no longer exists"
-msgstr ""
-
-msgid "Failed to void: the selected order is not/has been yet been completed"
-msgstr ""
-
-msgid "Are you sure you want to void this transaction?"
-msgstr ""
-
-msgid "Order successfully voided"
-msgstr ""
-
 msgid "Sold Out -"
 msgstr ""
 
@@ -3834,13 +3867,28 @@ msgstr ""
 msgid "Order Annotation Report"
 msgstr ""
 
+msgid "Finalized"
+msgstr ""
+
+msgid "Saved"
+msgstr ""
+
+msgid "Canceled"
+msgstr ""
+
+msgid "Voided"
+msgstr ""
+
 msgid "Product Sales Report"
 msgstr ""
 
-msgid "Product Stock List"
+msgid "Promotion Summary Report"
 msgstr ""
 
-msgid "(rpt)Subtotal"
+msgid "Sales Summary Report"
+msgstr ""
+
+msgid "Product Stock List"
 msgstr ""
 
 msgid "(view)customer"

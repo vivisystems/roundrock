@@ -369,4 +369,3 @@
     GeckoJS.Controller.extend(__controller__);
 
 })();
-
