@@ -22,6 +22,7 @@
 "","${_( '(rpt)Total' ) + ':'}","${body.sales_summary.Total|default:0|viviFormatPrices:true}"
 "","${_( '(rpt)Guests' ) + ':'}","${body.sales_summary.Guests|default:0}"
 "","${_( '(rpt)Items' ) + ':'}","${body.sales_summary.ItemsCount|default:0}"
+"","${_( '(rpt)Voided Orders' ) + ':'}","${body.sales_summary.VoidedOrders|default:0}"
 "","${_( '(rpt)Average Total' ) + ':'}","${body.sales_summary.AvgTotal|default:0|format:2}"
 "","${_( '(rpt)Average Guest' ) + ':'}","${body.sales_summary.AvgGuests|default:0|format:2}"
 "","${_( '(rpt)Average Items' ) + ':'}","${body.sales_summary.AvgItemsCount|default:0|format:2}"

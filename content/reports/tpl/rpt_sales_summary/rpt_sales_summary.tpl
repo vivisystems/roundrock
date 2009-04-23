@@ -72,7 +72,10 @@
                         <td style="text-align: left;">${_( '(rpt)Items' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.ItemsCount|default:0}</td>
                     </tr>
-
+					<tr>
+                        <td style="text-align: left;">${_( '(rpt)Voided Orders' ) + ':'}</td>
+                        <td style="text-align: right;">${body.sales_summary.VoidedOrders|default:0}</td>
+                    </tr>
                     <tr>
                         <td style="text-align: left;">${_( '(rpt)Average Total' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.AvgTotal|default:0|format:2}</td>

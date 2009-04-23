@@ -314,7 +314,23 @@
             var orderItemRecords = orderItem.getDataSource().fetchAll( sql );
           
             orderRecords.ItemsCount = orderItemRecords[ 0 ].qty;
-
+            
+            // get the number of voided orders.
+            var where = 'status = -2';
+            var periodType;
+            if ( this._periodtype == 'sale_period' )
+            	periodType = 'void_sale_period';
+            else periodType = 'transaction_voided';
+            	
+            where += ' and orders.' + periodType + ' >= "' + start +
+                            '" and orders.' + periodType + ' <= "' + end + '"';
+                            
+            if ( this._shiftno.length > 0 )
+            	where += ' and orders.void_shift_number = ' + this._shiftno;
+            	
+            var sql = 'select count( id ) as VoidedOrders from orders where ' + where;
+            orderRecords.VoidedOrders = order.getDataSource().fetchAll( sql )[ 0 ].VoidedOrders;
+            
             return orderRecords;
         },
         

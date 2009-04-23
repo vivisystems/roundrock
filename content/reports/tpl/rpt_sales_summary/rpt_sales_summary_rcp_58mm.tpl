@@ -32,6 +32,8 @@ ${_( '(rpt)Guests' ) + ':'}
 ${body.sales_summary.Guests|default:0|right:24}
 ${_( '(rpt)Items' ) + ':'}
 ${body.sales_summary.ItemsCount|default:0|right:24}
+${_( '(rpt)Voided Orders' ) + ':'}
+${body.sales_summary.VoidedOrders|default:0|right:24}
 ${_( '(rpt)Average Total' ) + ':'}
 ${body.sales_summary.AvgTotal|default:0|format:2|right:24}
 ${_( '(rpt)Average Guest' ) + ':'}
