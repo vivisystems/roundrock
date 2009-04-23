@@ -2008,6 +2008,13 @@ msgstr ""
 msgid "Please confirm shift change"
 msgstr ""
 
+msgid "Void Sale"
+msgstr ""
+
+msgid ""
+"Are you sure you want to void transaction [%S] (payment [%S], refund [%S])?"
+msgstr ""
+
 msgid "Seq"
 msgstr ""
 
@@ -2507,16 +2514,13 @@ msgstr ""
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-msgid "Void Sale"
-msgstr ""
-
 msgid "Failed to void: the selected order no longer exists"
 msgstr ""
 
 msgid "Failed to void: the selected order is not/has been yet been completed"
 msgstr ""
 
-msgid "Are you sure you want to void transaction [%S]?"
+msgid "Payment Refund"
 msgstr ""
 
 msgid "Transaction [%S] successfully voided"
@@ -3439,6 +3443,9 @@ msgid ""
 "been modified successfully"
 msgstr ""
 
+msgid "Refund payment amount must be positive"
+msgstr ""
+
 msgid "Password and Verify Password not the same"
 msgstr ""
 
@@ -3763,7 +3770,10 @@ msgstr ""
 msgid "PAY"
 msgstr ""
 
-msgid "Return"
+msgid "Return Single"
+msgstr ""
+
+msgid "Return All"
 msgstr ""
 
 msgid "I"
