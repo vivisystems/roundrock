@@ -1,0 +1,17 @@
+<!ENTITY refundpayment.title  "Payment Refund">
+<!ENTITY refundpayment.payments  "Original Payments">
+<!ENTITY refundpayment.refunds  "Refund Payments ">
+<!ENTITY refundpayment.sequence "#">
+<!ENTITY refundpayment.type "Payment Type">
+<!ENTITY refundpayment.cash "Cash">
+<!ENTITY refundpayment.creditcard "Credit Card">
+<!ENTITY refundpayment.coupon "Coupon">
+<!ENTITY refundpayment.giftcard "Gift Card">
+<!ENTITY refundpayment.check "Check">
+<!ENTITY refundpayment.amount "Amount">
+<!ENTITY refundpayment.origin_amount "Original">
+<!ENTITY refundpayment.note1 "Note 1">
+<!ENTITY refundpayment.note2 "Note 2">
+<!ENTITY refundpayment.add "Add">
+<!ENTITY refundpayment.clear "Clear">
+<!ENTITY refundpayment.type.refund "Refund Type">

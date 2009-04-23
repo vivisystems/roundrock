@@ -88,9 +88,9 @@
                                 <vbox flex="1">
                                     <label value="&plus.search.label;" class="SubTitle"/>
                                     <hbox flex="1">
-                                        <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" class="fixWidth"/>
-                                        <!-- sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="systembtn"  />
-                                        <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="systembtn"/ -->
+                                        <vivitextbox id="plu" value=""
+                                                     numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                                     onenter="$do('searchPlu', this.value, 'PluSearch');" class="fixWidth"/>
                                         <vivibutton id="ekeyBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="fixedbtn"  />
                                     </hbox>
                                     

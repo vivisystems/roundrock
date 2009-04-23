@@ -69,8 +69,12 @@
                     }
                 }
 
-                this.onReturnStatus = function(evt) {
-                    self.setText0_1(_('Return'));
+                this.onReturnSingle = function(evt) {
+                    self.setText0_1(_('Return Single'));
+                }
+
+                this.onReturnAll = function(evt) {
+                    self.setText0_1(_('Return All'));
                 }
 
                 this.onAddBuffer = function(evt) {
@@ -195,7 +199,8 @@
                 this.keypadevents.addListener('onAddBuffer', this.onAddBuffer, this);
 
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
-                this.cartevents.addListener('onReturnStatus', this.onReturnStatus, this);
+                this.cartevents.addListener('onReturnSingle', this.onReturnSingle, this);
+                this.cartevents.addListener('onReturnAll', this.onReturnAll, this);
                 this.cartevents.addListener('onSetQty', this.onSetQty, this);
                 this.cartevents.addListener('onClear', this.onClear, this);
                 this.cartevents.addListener('onCancel', this.onCancel, this);
