@@ -1,6 +1,8 @@
-var UserModel = window.UserModel = GeckoJS.Model.extend({
-    name: 'User',
+(function() {
+    var UserModel = window.UserModel = GeckoJS.Model.extend({
+        name: 'User',
 
-    belongsTo: ['Job']
+        belongsTo: ['Job']
     
-});
+    });
+})();

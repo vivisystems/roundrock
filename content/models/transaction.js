@@ -32,6 +32,8 @@
 
                 total: 0,
                 remain: 0,
+                revalue_subtotal: 0,
+                qty_subtotal: 0,
                 tax_subtotal: 0,
                 included_tax_subtotal: 0,
                 surcharge_subtotal: 0,
@@ -136,6 +138,9 @@
             this.data.precision_taxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
             this.data.decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
             this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
+
+            this.data.autorevalue = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || false;
+            this.data.revalueprices = GeckoJS.Configure.read('vivipos.fec.settings.RevaluePrices');
 
             Transaction.events.dispatch('onCreate', this, this);
 
@@ -247,7 +252,8 @@
             this.view.data = this.data.display_sequences;
             this.view.rowCountChanged(prevRowCount, currentRowCount, cursorIndex);
 
-            GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
+            //GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
+            GeckoJS.Session.set('vivipos_fec_number_of_items', this.data.qty_subtotal);
             GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
 
         },
@@ -2254,7 +2260,7 @@
             //this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(this.data));
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
-            var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
+            var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0, qty_subtotal=0;
             var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0, promotion_subtotal=0;
 
             // item subtotal and grouping
@@ -2270,6 +2276,8 @@
                     item_surcharge_subtotal += parseFloat(item.current_surcharge);
                     item_discount_subtotal += parseFloat(item.current_discount);
                     item_subtotal += parseFloat(item.current_subtotal);
+
+                    qty_subtotal += item.current_qty;
                 }
 
                 // summary it
@@ -2315,8 +2323,20 @@
             total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal - promotion_subtotal;
             remain = total - payment_subtotal;
 
+            // revalue
+            if(this.data.autorevalue && this.data.revalueprices != 0) {
+                this.data.revalue_subtotal = 0 - parseFloat(total % this.data.revalueprices);
+                if(total>=0) {
+                    total = total + this.data.revalue_subtotal;
+                }else {
+                    total = total - this.data.revalue_subtotal;
+                }
+                remain = total - payment_subtotal;
+            }
+
             this.data.total = this.getRoundedPrice(total);
             this.data.remain = this.getRoundedPrice(remain);
+            this.data.qty_subtotal = qty_subtotal;
             this.data.tax_subtotal = this.getRoundedTax(tax_subtotal);
             this.data.item_subtotal = this.getRoundedPrice(item_subtotal);
             this.data.included_tax_subtotal = this.getRoundedTax(included_tax_subtotal);
@@ -2325,7 +2345,6 @@
             this.data.trans_surcharge_subtotal = this.getRoundedPrice(trans_surcharge_subtotal);
             this.data.trans_discount_subtotal = this.getRoundedPrice(trans_discount_subtotal);
             this.data.payment_subtotal = this.getRoundedPrice(payment_subtotal);
-
             this.data.discount_subtotal = this.data.item_discount_subtotal + this.data.trans_discount_subtotal ;
             this.data.surcharge_subtotal = this.data.item_surcharge_subtotal + this.data.trans_surcharge_subtotal;
 
