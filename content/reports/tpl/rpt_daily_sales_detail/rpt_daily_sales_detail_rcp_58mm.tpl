@@ -30,6 +30,8 @@ ${_( '(rpt)Discount' ) + ':'}
 ${detail.discount_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Promotion' ) + ':'}
 ${detail.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Revalue' ) + ':'}
+${detail.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${detail.total|default:0|viviFormatPrices:true|right:24}
 {for items in detail.OrderItem}

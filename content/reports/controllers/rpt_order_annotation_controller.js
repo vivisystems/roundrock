@@ -38,6 +38,7 @@
                             'orders.surcharge_subtotal,' +
                             'orders.discount_subtotal,' +
                             'orders.promotion_subtotal,' +
+                            'orders.revalue_subtotal,' +
                             'orders.terminal_no,' +
                             'order_annotations.type,' +
                             'order_annotations.text';
@@ -56,12 +57,13 @@
 	        		case 'item_subtotal':
 	        		case 'tax_subtotal':
 	        		case 'surcharge_subtotal':
-	        		case 'discount_subtotal':
-	        		case 'promotion_subtotal':
 	        		case 'total':
 	        			'orders.' + sortby + ' desc';
 	        			break;
 	        		case 'text':
+	        		case 'discount_subtotal':
+	        		case 'promotion_subtotal':
+	        		case 'revalue_subtotal':
 	        			'order_annotations.' + sortby;
 	        			break;
 	        	}
@@ -90,6 +92,7 @@
 						surcharge_subtotal: 0.0,
 						discount_subtotal: 0.0,
 						promotion_subtotal: 0.0,
+						revalue_subtotal: 0.0,
 						total: 0.0
 					}
 				};
@@ -103,6 +106,7 @@
 				records[ orderRecord.type ].summary.surcharge_subtotal += orderRecord.surcharge_subtotal;
 				records[ orderRecord.type ].summary.discount_subtotal += orderRecord.discount_subtotal;
 				records[ orderRecord.type ].summary.promotion_subtotal += orderRecord.promotion_subtotal;
+				records[ orderRecord.type ].summary.revalue_subtotal += orderRecord.revalue_subtotal;
 				records[ orderRecord.type ].summary.total += orderRecord.total;
 			} );
             

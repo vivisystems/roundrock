@@ -16,6 +16,7 @@
 <!ENTITY rptdailysalesdetail.surcharge_subtotal "Surcharge">
 <!ENTITY rptdailysalesdetail.discount_subtotal "Discount">
 <!ENTITY rptdailysalesdetail.promotion_subtotal "Promotion">
+<!ENTITY rptdailysalesdetail.revalue_subtotal "Revalue">
 <!ENTITY rptdailysalesdetail.total "Payment">
 <!ENTITY rptdailysalesdetail.guests "Guests">
 <!ENTITY rptdailysalesdetail.items "Items">

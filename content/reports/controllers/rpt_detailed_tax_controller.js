@@ -27,6 +27,7 @@
             				'orders.tax_subtotal',
             				'orders.included_tax_subtotal',
             				'orders.promotion_subtotal',
+            				'orders.revalue_subtotal',
             				'order_items.order_id',
             				'order_items.tax_name',
             				'order_items.tax_type',
@@ -66,7 +67,8 @@
 				included_tax_subtotal: 0,
 				surcharge_subtotal: 0,
 				discount_subtotal: 0,
-				promotion_subtotal: 0
+				promotion_subtotal: 0,
+				revalue_subtotal: 0
 			};
 			
 			taxList.forEach( function( tax ) {
@@ -101,6 +103,7 @@
 					summary.surcharge_subtotal += records[ oid ][ 'surcharge_subtotal' ];
 					summary.discount_subtotal += records[ oid ][ 'discount_subtotal' ];
 					summary.promotion_subtotal += data.Order.promotion_subtotal;
+					summary.revalue_subtotal += data.Order.revalue_subtotal;
 				}
 				
 				var taxObject = TaxComponent.prototype.getTax( data.tax_name );

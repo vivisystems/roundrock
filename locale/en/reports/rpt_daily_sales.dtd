@@ -18,6 +18,7 @@
 <!ENTITY rptdailysales.surcharge_subtotal "Surcharge">
 <!ENTITY rptdailysales.discount_subtotal "Discount">
 <!ENTITY rptdailysales.promotion_subtotal "Promotion">
+<!ENTITY rptdailysales.revalue_subtotal "Revalue">
 <!ENTITY rptdailysales.cash "Cash">
 <!ENTITY rptdailysales.check "Check">
 <!ENTITY rptdailysales.creditcard "Credit Card">

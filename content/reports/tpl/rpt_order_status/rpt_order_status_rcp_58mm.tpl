@@ -30,6 +30,8 @@ ${_( '(rpt)Discount' ) + ':'}
 ${detail.discount_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Promotion' ) + ':'}
 ${detail.promotion_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Revalue' ) + ':'}
+${detail.revalue_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${detail.total|viviFormatPrices:true|right:24}
 {/for}
@@ -45,6 +47,8 @@ ${_( '(rpt)Discount' ) + ':'}
 ${foot.foot_datas.discount_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Promotion' ) + ':'}
 ${foot.foot_datas.promotion_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Revalue' ) + ':'}
+${foot.foot_datas.revalue_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${foot.foot_datas.total|viviFormatPrices:true|right:24}
 ------------------------

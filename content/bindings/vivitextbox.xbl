@@ -24,7 +24,7 @@
         <content>
             <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer" allowevents="true">
                 <xul:label xbl:inherits="value=label"/>
-                <xul:textbox anonid="input" flex="1" inherits="onfocus, oninput, onchange"/>
+                <xul:textbox anonid="input" decimalplaces="Infinity" flex="1" xbl:inherits="class=textboxClass,type,hidespinbuttons,min,max"/>
                 
                 <xul:panel anonid="numpad_panel" position="after_start" noautohide="false" noautofocus="true">
 					<xul:hbox anonid="numpad" pack="center">
@@ -45,11 +45,14 @@
         	
         	<property name="numpad_panel" onget="return document.getAnonymousElementByAttribute( this, 'anonid', 'numpad_panel' );" readonly="true"/>
         	
+        	<property name="textbox" onget="return this.input" readonly="true"/>
+
         	<xbl:method name="clearFocusedElement">
         		<body>
         		  <![CDATA[
-        		  	this.input.value = "";
-        		  ]]>
+                    this.input.value = "";
+                    eval( this.getAttribute( 'oninput' ) );
+                  ]]>
         		</body>
         	</xbl:method>
 
@@ -169,7 +172,7 @@
               ]]>
             </handler>
             
-            <handler event="keypress" keycode="VK_RETURN" action = "eval( this.getAttribute( 'onenter' ) );" />
+            <handler event="keypress" keycode="VK_RETURN" action = "eval( this.getAttribute( 'onenter' ) ); return false" />
         </handlers>
     </binding>
 </bindings>
