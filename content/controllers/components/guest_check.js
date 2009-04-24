@@ -71,7 +71,7 @@ this.log("evt.type:" + evt.type);
                 if (this._guestCheck.requireCheckNo) {
                     // if (!GeckoJS.Session.get('vivipos_fec_check_number'))
                         // var check_no = this.getNewCheckNo();
-                        this._controller.newCheck();
+                        this._controller.newCheck(true);
                 }
             }
             if (evt.type == 'onStartShift' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit') {

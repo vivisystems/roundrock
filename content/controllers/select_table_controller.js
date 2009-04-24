@@ -274,7 +274,7 @@
         },
 
         _showOrderDisplayPanel: function(panel, tableObj, obj) {
-
+            var self = this;
             var promptPanel = document.getElementById(panel);
             var doc = document.getElementById('order_display_div');
 
@@ -299,7 +299,6 @@
 
             tableObj.order.forEach(function(o){
                 data.orders.push(o);
-
                 var tab = document.createElement("tab");
                 tab.setAttribute('label', 'C#' + o.check_no);
                 tabs.appendChild(tab);
@@ -310,7 +309,6 @@
 
             if (doc) {
                 doc.innerHTML = result;
-                doc.normalize();
             }
 
             promptPanel.openPopup(obj, "after_start", 0, 0, false, false);

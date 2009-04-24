@@ -32,7 +32,6 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/models/order_item.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/order_payment.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table_status.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/models/table_status_order.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table_region.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table_booking.js" />

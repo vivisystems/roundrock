@@ -93,13 +93,13 @@
     </html:tr>
 {if item.condiments != null && item.condiments != ''}
     <html:tr>
-        <html:td colspan="3">&nbsp;&nbsp;${item.condiments}</html:td>
+        <html:td colspan="3">${item.condiments}</html:td>
         <html:td style="width: 100px; text-align: right;">${item.current_condiment|viviFormatPrices:true}</html:td>
     </html:tr>
 {/if}
 {if item.memo != null && item.memo != ''}
     <html:tr>
-        <html:td colspan="6">&nbsp;&nbsp;&nbsp;&nbsp;${item.memo}</html:td>
+        <html:td colspan="6">${item.memo}</html:td>
     </html:tr>
 {/if}
 {if item.has_discount}
@@ -107,7 +107,7 @@
         item_adjustments += item.current_discount;
     {/eval}
     <html:tr>
-        <html:td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${item.discount_name}</html:td>
+        <html:td>${item.discount_name}</html:td>
         <html:td style="width: 100px; text-align: right;">${item.current_discount|viviFormatPrices:true}</html:td>
     </html:tr>
 {elseif item.has_surcharge}
@@ -115,7 +115,7 @@
         item_adjustments += item.current_surcharge;
     {/eval}
     <html:tr>
-        <html:td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${item.surcharge_name}</html:td>
+        <html:td>${item.surcharge_name}</html:td>
         <html:td style="width: 100px; text-align: right;">${item.current_surcharge|viviFormatPrices:true}</html:td>
     </html:tr>
 {/if}
@@ -134,10 +134,10 @@
     {for adjustment in order.OrderAddition}
     <html:tr>
         {if adjustment.discount_name != null}
-        <html:td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.discount_name}</html:td>
+        <html:td colspan="3">${adjustment.discount_name}</html:td>
         <html:td style="width: 100px; text-align: right;">${adjustment.current_discount|viviFormatPrices:true}</html:td>
         {else}
-        <html:td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.surcharge_name}</html:td>
+        <html:td colspan="3">${adjustment.surcharge_name}</html:td>
         <html:td style="width: 100px; text-align: right;">${adjustment.current_surcharge|viviFormatPrices:true}</html:td>
     </html:tr>
         {/if}
@@ -178,7 +178,7 @@
     </html:tr>
     {if payment.memo2 != null && payment.memo2 != ''}
     <html:tr>
-        <html:td colspan="6">&nbsp;&nbsp;&nbsp;&nbsp;${payment.memo2}</html:td>
+        <html:td colspan="6">${payment.memo2}</html:td>
     </html:tr>
     {/if}
 {/for}

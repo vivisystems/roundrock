@@ -7,7 +7,7 @@
 
         name: 'TableStatus',
 
-        hasMany: ['TableStatusOrder', 'TableBooking'],
+        hasMany: ['TableBooking'],
 
 //        behaviors: ['Sync'],
 
@@ -181,12 +181,16 @@ GREUtils.log("getNewCheckNo...");
 
         getTableStatusList: function(reload) {
         // @todo rack
-GREUtils.log("getTableStatusList...");
-            var self = this;
 
             // read all order status
             var tableStatus = this.find('all', {});
+            
+            return this.genTablesArray(tableStatus);
+        },
 
+        genTablesArray: function(tableStatus) {
+
+            var self = this;
             // set checklist
             this._checkList = tableStatus.concat([]);
 
@@ -242,7 +246,7 @@ GREUtils.log("getTableStatusList...");
                 }
             });
 
-            // read booking info
+            // read booking info,
             var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
             var min = tableSettings.TableRemindTime || 120;
             var start_time = Math.round(Date.now().addMinutes(-min) / 1000);
@@ -277,7 +281,6 @@ GREUtils.log("getTableStatusList...");
         },
 
         getTableList: function(reload) {
-        // @todo rack
 GREUtils.log("getTableList...");
 reload = true;
             if (!reload) {
@@ -326,88 +329,31 @@ reload = true;
                 return checks;
             }
             return this._checkList;
+        },
 
-GREUtils.log("getCheckList...");
-reload = true;
+        genTableStatusObj: function(tableObj) {
+            var tableStatusObj = {};
 
-            if (!reload) {
-                var checks = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
-                if (checks) {
-                    GREUtils.log("getCheckList from session...");
-                    var orders = [];
-                    switch (key) {
-                        case 'OrderNo':
-                        case 'AllCheck':
-                            // @todo
-                            checks.forEach(function(o){
-                                orders.push(o);
-                            });
-                            return orders;
-                            break;
-                        case 'CheckNo':
-                            checks.forEach(function(o){
-                                if (o.check_no == no) orders.push(o);
-                            });
-                            return orders;
-                            break;
-                        case 'TableNo':
-                            checks.forEach(function(o){
-                                if (o.table_no == no) orders.push(o);
-                            });
-                            return orders;
-                            break;
-                    }
-                    return checks;
-                }
-            }
-            var self = this;
-            var order = new OrderModel();
-            var fields = ['orders.id',
-                          'orders.sequence',
-                          'orders.check_no',
-                          'orders.table_no',
-                          'orders.status',
-                          'orders.no_of_customers',
-                          'orders.total',
-                          'orders.transaction_created',
-                          'orders.service_clerk',
-                          'orders.service_clerk_displayname',
-                          'orders.proceeds_clerk',
-                          'orders.proceeds_clerk_displayname'
-                      ];
-            switch (key) {
-                case 'CheckNo':
-                    var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
-                    break;
-                case 'TableNo':
-                    var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
-                    break;
-                case 'AllCheck':
-                    var conditions = "orders.status='2'";
-                    break;
-            }
+            var table_obj = GeckoJS.BaseObject.serialize(tableObj.table_object);
+            var order_obj = GeckoJS.BaseObject.serialize(tableObj.order_object);
+            tableStatusObj = {
+                id: tableObj.id,
+                order_id: tableObj.order_id,
+                check_no: tableObj.check_no,
+                table_no: tableObj.table_no,
+                sequence: tableObj.sequence,
+                guests: tableObj.guests,
+                holdby: tableObj.holdby,
+                clerk: tableObj.clerk,
+                booking: tableObj.booking,
+                lock: false,
+                status: 1,
+                terminal_no: tableObj.terminal_no,
+                table_object: table_obj,
+                order_object: order_obj
+            };
 
-            this._checkNoArray = [];
-            this._tableNoArray = [];
-
-            var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 0});
-
-            ord.forEach(function(o){
-                var check_no = o.check_no;
-                var table_no = o.table_no;
-
-                if (check_no) {
-                    self._checkNoArray[check_no] = 1;
-                }
-
-                if (table_no) {
-                    self._tableNoArray[table_no] = 1;
-                }
-            });
-
-            GeckoJS.Session.set('vivipos_fec_guest_check_check_list', ord);
-
-            return this._checkList = ord;
+            return tableStatusObj;
         },
 
         addCheck: function(checkObj) {
@@ -428,7 +374,7 @@ GREUtils.log("add check...");
                 table_object: this._tableList[checkObj.table_no - 1],
                 order_object: checkObj
             };
-            this.setTableStatus(tableObj.table_no, tableObj);
+            this.setTableStatus( this.genTableStatusObj(tableObj));
 
             this.getTableStatusList(true);
         },
@@ -454,7 +400,7 @@ GREUtils.log("add check...");
             };
 
             // this.setTableStatus(tableObj.table_no, tableObj);
-            this.setTableStatus("Delete Table Status::::", tableObj);
+            this.setTableStatus( this.genTableStatusObj( tableObj));
             this.getTableStatusList(true);
 
             return checkObj;
@@ -475,78 +421,33 @@ GREUtils.log("add check...");
         },
 
         getTableStatus: function(table_no) {
-            //
+        // @todo rack
             return this._tableStatusList[table_no];
         },
 
-        setTableStatus: function(table_no, tableObj) {
-// GREUtils.log("******setTableStatus:" + table_no || "");
-            
+        setTableStatus: function(tableStatusObj) {
+        // @todo rack
             var tableStatusNewObj = {};
-            var order_id = tableObj.order_id;
+            var order_id = tableStatusObj.order_id;
             var conditions = "table_statuses.order_id='" + order_id + "'";
-            var tableStatusObj = this.find('first', {conditions: conditions});
+            var tableStatusObjTmp = this.find('first', {conditions: conditions});
 
-            if (tableStatusObj) {
-                this.id = tableStatusObj.id;
-                var table_obj = GeckoJS.BaseObject.serialize(tableObj.table_object);
-                var order_obj = GeckoJS.BaseObject.serialize(tableObj.order_object);
-                tableStatusNewObj = {
-                    order_id: tableObj.order_id,
-                    check_no: tableObj.check_no,
-                    table_no: tableObj.table_no,
-                    sequence: tableObj.sequence,
-                    guests: tableObj.guests,
-                    holdby: tableObj.holdby,
-                    clerk: tableObj.clerk,
-                    booking: tableObj.booking,
-                    lock: false,
-                    status: 1,
-                    terminal_no: tableObj.terminal_no,
-                    table_object: table_obj,
-                    order_object: order_obj
-                };
-
-                if (tableObj.sequence == '') {
-                    this.del(tableObj.id);
-                    var cond = "table_status_id='" + tableStatusObj.id + "'";
-                    this.TableStatusOrder.delAll(cond);
+            // tableStatus record exist
+            if (tableStatusObjTmp) {
+                
+                if (tableStatusObj.sequence == '') {
+                    // remove tableStatus record
+                    this.del(tableStatusObj.id);
                 } else {
-                    var retObj = this.save(tableStatusNewObj);
-                    var order = {
-                        table_status_id: retObj.id,
-                        order_object: order_obj
-                    };
-                    this.TableStatusOrder.id = '';
-                    this.TableStatusOrder.save(order);
+                    // update tableStatus record
+                    this.id = tableStatusObj.id;
+                    var retObj = this.save(tableStatusObj);
                 }
             } else {
-                
-                this.id = '';
-                var table_obj = GeckoJS.BaseObject.serialize(tableObj.table_object);
-                var order_obj = GeckoJS.BaseObject.serialize(tableObj.order_object);
-                tableStatusNewObj = {
-                    order_id: tableObj.order_id,
-                    check_no: tableObj.check_no,
-                    table_no: tableObj.table_no,
-                    sequence: tableObj.sequence,
-                    guests: tableObj.guests,
-                    holdby: tableObj.holdby,
-                    clerk: tableObj.clerk,
-                    booking: tableObj.booking,
-                    lock: false,
-                    status: 1,
-                    table_object: table_obj,
-                    order_object: order_obj
-                };
-                if (tableObj.sequence != '') {
-                    var retObj = this.save(tableStatusNewObj);
-                    var order = {
-                        table_status_id: retObj.id,
-                        order_object: order_obj
-                    };
-                    this.TableStatusOrder.id = '';
-                    this.TableStatusOrder.save(order);
+                if (tableStatusObj.sequence != '') {
+                    // add new tableStatus record
+                    this.id = '';
+                    var retObj = this.save(tableStatusObj);
                 }
             }
         }

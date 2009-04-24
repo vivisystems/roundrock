@@ -3641,13 +3641,16 @@
 
         },
 
-        newCheck: function() {
+        newCheck: function(autoCheckNo) {
 this.log("newCheck...");
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
+            if (autoCheckNo)
+                var no = '';
+            else {
+                var no = this._getKeypadController().getBuffer();
+                this._getKeypadController().clearBuffer();
 
-            this.cancelReturn();
-
+                this.cancelReturn();
+            }
             var curTransaction = null;
 
             var r = -1;
