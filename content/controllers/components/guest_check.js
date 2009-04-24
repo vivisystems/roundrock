@@ -76,22 +76,12 @@ this.log("evt.type:" + evt.type);
             }
             if (evt.type == 'onStartShift' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
                 if (evt.type == 'onStore') {
-this.log("in onStore..." + evt.type);
                     this._tableStatusModel.addCheck(evt.data.data);
                 }
                 if (evt.type == 'afterSubmit') {
-                //    this._tableStatusModel.removeCheck(evt.data.data);
-                //    return;
                     try {
-                    this._tableStatusModel.removeCheck(evt.data.data);
+                        this._tableStatusModel.removeCheck(evt.data.data);
                     } catch(e) {}
-                }
-                if (evt.type == 'onSubmit'/* || evt.type == 'onCancel'*/) {
-// this.log("in onSubmit..." + evt.type);
-//                    try {
-//                    this._tableStatusModel.removeCheck(evt.data.data);
-//                    } catch(e) {}
-                    // return;
                 }
                 if (this._guestCheck.requireTableNo) {
                     // if (!GeckoJS.Session.get('vivipos_fec_table_number') || evt.type == "onStore" || evt.type == 'onStartShift')
@@ -453,7 +443,11 @@ this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
                     }
                     break;
                 case 'TableNo':
-                    var ord = this._tableStatusModel.getCheckList('TableNo', no);
+                    var ordList = this._tableStatusModel.getCheckList('TableNo', no);
+                    var ord = [];
+                    ordList.forEach(function(o){
+                        ord.push(GeckoJS.BaseObject.unserialize(o.order_object));
+                    });
                     if (ord && ord.length > 1) {
                         //
                         // alert(this.dump(ord));

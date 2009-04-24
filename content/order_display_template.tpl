@@ -1,5 +1,9 @@
+<tabpanels >
+{for order in orders}
+<tabpanel id="panel_${order.check_no}">
 {if order}
 {eval}
+/*
   item_adjustments = 0;
   status = '';
   switch(parseInt(order.status)) {
@@ -22,7 +26,9 @@
     default:
       status = order.status;
   }
+*/
 {/eval}
+<html:div>
 <html:hr/>
 <html:pre><html:table style="width: 720px">
     <html:tr>
@@ -43,7 +49,7 @@
         <html:td style="width: 80px">${_('(view)open clerk')+':'}</html:td>
         <html:td>${order.service_clerk_displayname}</html:td>
         <html:td style="width: 80px">${_('(view)opened')+':'}</html:td>
-        <html:td>${(new Date(order.transaction_created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</html:td>
+        <html:td>${(new Date(order.created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</html:td>
     </html:tr>
     <html:tr>
         <html:td style="width: 80px">${_('(view)open clerk')+':'}</html:td>
@@ -72,9 +78,9 @@
 </html:table></html:pre><html:hr/>
 
 <html:pre><html:table style="width: 720px">
-{for item in order.OrderItem}
+{for item in order.items}
 {eval}
-    prodName = item.product_name;
+    prodName = item.name;
     if (item.destination != null && item.destination != '') prodName = '(' + item.destination + ') ' + prodName;
 {/eval}
     <html:tr>
@@ -187,7 +193,7 @@
         <html:td colspan="6"><html:hr/></html:td>
     </html:tr>
 {/if}
-    
+
 {if order.OrderAnnotation}
     <html:tr>
         <html:td colspan="6"><html:hr/></html:td>
@@ -202,3 +208,8 @@
 {else}
 <html:H2>${_('Unable to display order; no order sequence given')}</html:H2>
 {/if}
+</html:div>
+</tabpanel>
+
+{/for}
+</tabpanels>

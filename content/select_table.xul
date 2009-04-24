@@ -14,7 +14,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&selecttable.title;"
-        hidechrome="false"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -32,6 +32,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/models/order_item.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/order_payment.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table_status.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/table_status_order.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table_region.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table_booking.js" />
@@ -102,9 +103,20 @@
     </panel>
 
     <panel id="order_display_panel" position="after_start" class="PromptPnl">
+
+        <tabbox class="RightTabbox" flex="1">
+        <tabs id="orders_tab" >
+            <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
+            <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
+            <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
+        </tabs>
+
         <html:div id="order_display_div" style="background: #fed;">
-            
+
         </html:div>
+
+        </tabbox>
+
     </panel>
 
 </window>
