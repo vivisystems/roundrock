@@ -1053,7 +1053,7 @@
                         this._commitTxn.submit();
 
                         // dispatch afterSubmit event...
-                        self.dispatchEvent('afterSubmit', self);
+                        self.dispatchEvent('afterSubmit', this._commitTxn);
                     }
                     catch (e) {
                         this.log('WARN', 'failed to commit order');
