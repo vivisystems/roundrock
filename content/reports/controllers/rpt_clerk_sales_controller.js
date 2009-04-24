@@ -58,6 +58,7 @@
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
                             'orders.promotion_subtotal',
+                            'orders.revalue_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -96,6 +97,7 @@
 		        	surcharge_subtotal: 0,
 		        	discount_subtotal: 0,
 		        	promotion_subtotal: 0,
+		        	revalue_subtotal: 0,
 		        	cash: 0,
 		        	check: 0,
 		        	creditcard: 0,
@@ -152,6 +154,9 @@
             				case 'terminal_no':
             				case 'associated_clerk_displayname':
             				case 'transaction_created':
+            				case 'discount_subtotal':
+				    		case 'promotion_subtotal':
+				    		case 'revalue_subtotal':
             					if ( a > b ) return 1;
 				    			if ( a < b ) return -1;
 				    			return 0;
@@ -160,8 +165,6 @@
 				    		case 'item_subtotal':
 				    		case 'tax_subtotal':
 				    		case 'surcharge_subtotal':
-				    		case 'discount_subtotal':
-				    		case 'promotion_subtotal':
 				    		case 'total':
 				    		case 'cash':
 				    		case 'check':
@@ -191,6 +194,7 @@
            				clerk.summary.surcharge_subtotal += data[ 'surcharge_subtotal' ];
            				clerk.summary.discount_subtotal += data[ 'discount_subtotal' ];
            				clerk.summary.promotion_subtotal += data[ 'promotion_subtotal' ];
+           				clerk.summary.revalue_subtotal += data[ 'revalue_subtotal' ];
            				clerk.summary.cash += data[ 'cash' ];
            				clerk.summary.check += data[ 'check' ];
            				clerk.summary.creditcard += data[ 'creditcard' ];

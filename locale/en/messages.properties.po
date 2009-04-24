@@ -1846,6 +1846,9 @@ msgstr "Matched Items Qty."
 msgid "(rpt)Matched Items Subtotal"
 msgstr "Matched Items Subtotal"
 
+msgid "(rpt)Revalue"
+msgstr "Revalue"
+
 msgid "(view)completed"
 msgstr "completed"
 

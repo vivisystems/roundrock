@@ -31,6 +31,7 @@
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Promotion' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Revalue' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Payment' )}</th>
                 </tr>
             </thead>
@@ -47,6 +48,7 @@
                     <td style="text-align: right;">${detail.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.discount_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.promotion_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.revalue_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.total|viviFormatPrices:true}</td>
                 </tr>
 {/for}
@@ -61,6 +63,7 @@
                     <td style="text-align: right;">${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.promotion_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.foot_datas.revalue_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.total|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>

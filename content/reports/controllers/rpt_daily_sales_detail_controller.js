@@ -42,6 +42,7 @@
                             'orders.item_subtotal, ' +
                             'orders.discount_subtotal, ' +
                             'orders.promotion_subtotal, ' +
+                            'orders.revalue_subtotal, ' +
                             'orders.surcharge_subtotal, ' +
                             'orders.items_count, ' +
                             'orders.no_of_customers, ' +
@@ -75,12 +76,13 @@
             	switch ( sortby ) {
             		case 'terminal_no':
             		case 'transaction_created':
+            		case 'discount_subtotal':
+            		case 'promotion_subtotal':
+            		case 'revalue_subtotal':
             			break;
             		case 'item_subtotal':
             		case 'tax_subtotal':
             		case 'surcharge_subtotal':
-            		case 'discount_subtotal':
-            		case 'promotion_subtotal':
             		case 'total':
             		case 'no_of_customers':
             		case 'items_count':
@@ -108,6 +110,7 @@
 				surcharge_subtotal: 0,
 				discount_subtotal: 0,
 				promotion_subtotal: 0,
+				revalue_subtotal: 0,
 				payment: 0
 			};
 
@@ -133,6 +136,7 @@
 					record.item_subtotal = result.item_subtotal;
 					record.discount_subtotal = result.discount_subtotal;
 					record.promotion_subtotal = result.promotion_subtotal;
+					record.revalue_subtotal = result.revalue_subtotal;
 					record.surcharge_subtotal = result.surcharge_subtotal;
 					record.items_count = result.items_count;
 					record.no_of_customers = result.no_of_customers;
@@ -145,6 +149,7 @@
 					summary.surcharge_subtotal += result.surcharge_subtotal;
 					summary.discount_subtotal += result.discount_subtotal;
 					summary.promotion_subtotal += result.promotion_subtotal;
+					summary.revalue_subtotal += result.revalue_subtotal;
 					summary.payment += result.total;
 				}
 				

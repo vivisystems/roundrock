@@ -17,6 +17,7 @@ ${'    ' + _( '(rpt)Add-on Tax' ) + ': '}${detail.tax_subtotal|viviFormatPrices:
 ${'    ' + _( '(rpt)Surcharge' ) + ': '}${detail.surcharge_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Discount' ) + ': '}${detail.discount_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Promotion' ) + ': '}${detail.promotion_subtotal|viviFormatPrices:true}
+${'    ' + _( '(rpt)Revalue' ) + ': '}${detail.revalue_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Payment' ) + ': '}${detail.total|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Cash' ) + ': '}${detail.cash|default:0|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Check' ) + ': '}${detail.check|viviFormatPrices:true}
@@ -31,6 +32,7 @@ ${'    ' + _( '(rpt)Add-on Tax' ) + ': '}${foot.foot_datas.tax_subtotal|viviForm
 ${'    ' + _( '(rpt)Surcharge' ) + ': '}${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Discount' ) + ': ' }${foot.foot_datas.discount_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Promotion' ) + ': ' }${foot.foot_datas.promotion_subtotal|viviFormatPrices:true}
+${'    ' + _( '(rpt)Revalue' ) + ': ' }${foot.foot_datas.revalue_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Payment' ) + ': '}${foot.foot_datas.total|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Cash' ) + ': '}${foot.foot_datas.cash|default:0|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Check' ) + ': '}${foot.foot_datas.check|viviFormatPrices:true}
