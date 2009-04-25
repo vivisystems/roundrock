@@ -67,7 +67,30 @@
 
             this.dispatchEvent('afterInitial', null);
 
-            this.requestCommand('initialLogin', null, 'Main');
+            // check transaction fail
+            if(Transaction.isRecoveryFileExists()) {
+
+                var tranData = Transaction.unserializeFromRecoveryFile();
+
+                var serviceClerk = tranData.service_clerk;
+                // force login
+                this.Acl.securityCheck(serviceClerk, 'dummy', false, true);
+
+                // check if successfully logged in
+                if (this.Acl.getUserPrincipal()) {
+                    // prevent onSetClerk event dispatch
+                    this.dispatchedEvents['onSetClerk'] = true;
+                    this.requestCommand('setClerk', null, 'Main');
+                }
+
+                this.dispatchEvent('onInitial', null);
+
+                this.requestCommand('recovery', tranData, 'Cart');
+
+            }else {
+                this.requestCommand('initialLogin', null, 'Main');
+            }
+            
         },
 
         destroy: function() {
@@ -447,6 +470,7 @@
             else {
                 GeckoJS.Session.clear('user');
             }
+
         },
 
         updateOptions: function () {
