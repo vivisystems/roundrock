@@ -55,7 +55,10 @@
 
             this.joblist = document.getElementById('simpleListBoxSummary');
         },
-
+        
+		/**
+		 * Called after the button 'view' attendance is clicked.
+		 */
         view: function () {
             var username;
             var userpass = $('#user_password').val();
@@ -208,7 +211,7 @@
             var clockstamp = new ClockStampModel();
             var today = new Date();
             var stamps = clockstamp.find('all', {
-                conditions: "username='" + username + "' AND clockin_date='" + today.toString("yyyy-MM-dd") + "'",
+                conditions: "username='" + username + "' AND ( clockin_date='" + today.toString("yyyy-MM-dd") + "' OR clockout = 0 )",
                 order: "created"
             });
             if (username != this.lastUser) this.clearSummary();
@@ -219,10 +222,24 @@
 
             if (stamps && stamps.length > 0) {
                 stamps.forEach(function(o){
-                    o.clockin_time = o.clockin_time ? o.clockin_time.substring(11, 19) : '--:--:--';
-                    o.clockout_time = o.clockout_time ? o.clockout_time.substring(11, 19) : '--:--:--';
+                    o.clockin_time = o.clockin_time ? o.clockin_time.substring(5, 16) : '';
+                    o.clockout_time = o.clockout_time ? o.clockout_time.substring(5, 16) : '';
                 });
                 if (oldTimes) {
+                
+                	/** 
+                	 * Enter this block only if former attendence record exists.
+                	 *
+                	 * If the difference between former record and current record is produced by checking out,
+                	 * then the difference will be in the last row since we now have the user's checking-out record.
+                	 * However, if the user tries to check in a new job without checking out of his/her previoius job,
+                	 * in this sort of cases, first, the user will be checked out automatically, and then check in the
+                	 * new job. This makes two differences to original record. First, the last row of the original record
+                	 * is now completed as the user was checked out automatically. Second, we now have a new entry indicating that the
+                	 * user has checked in a new job. And that's the reason why the code below always renews the last row of
+                	 * the original data first, and then check if there is any need to insert the new entry.
+                	 */
+                	 
                     var lastIndex = oldTimes.length - 1;
                     joblist.updateItemAt(lastIndex, stamps[lastIndex] );
                     if (stamps.length > oldTimes.length) {
@@ -247,7 +264,7 @@
         },
 
         cancel: function () {
-                window.close();
+            window.close();
         },
 
         validateForm: function () {

@@ -21,7 +21,6 @@
      */
     function clearUserPass() {
         $('#user_password').val('');
-
     }
 
     /**
@@ -31,7 +30,6 @@
         var pwd = $('#user_password').val();
         if (pwd && pwd.length > 0) pwd = pwd.substring(0, pwd.length - 1);
         $('#user_password').val(pwd);
-
     }
     
     window.addEventListener('load', startup, false);
