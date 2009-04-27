@@ -322,7 +322,7 @@ class SyncHandlerComponent extends Object {
  *
  * @param string $client_machine_id
  */
-    function getData($machine_id) {
+    function getData($machine_id, $direction="pull") {
 
         $my_machine_id = $this->syncSettings['machine_id'];
 
@@ -336,6 +336,12 @@ class SyncHandlerComponent extends Object {
 
             // ini data structure
             $data = array('datasource' => $dbConfig, 'count' => 0, 'last_synced' => 0, 'sql' => '');
+
+            // force order only support push
+            if ($dbConfig == 'order' && $direction == 'pull') {
+                $datas[$dbConfig] = $data;
+                continue;
+            }
 
             // PDO Connection object
             $datasource =& ConnectionManager::getDataSource($dbConfig);
@@ -457,7 +463,7 @@ class SyncHandlerComponent extends Object {
  */
     function getServerData($client_machine_id) {
 
-        $datas = $this->getData($client_machine_id);
+        $datas = $this->getData($client_machine_id, "pull");
 
         return $datas;
 
@@ -491,7 +497,7 @@ class SyncHandlerComponent extends Object {
      */
     function getClientData($server_machine_id) {
 
-        $datas = $this->getData($server_machine_id);
+        $datas = $this->getData($server_machine_id, "push");
 
         return $datas;
 
@@ -529,7 +535,7 @@ class SyncHandlerComponent extends Object {
 
         switch($type) {
             case 'php':
-                $response = serialize($result);
+                $response = base64_encode(bzcompress(serialize($result)));
                 break;
 
             case 'json':
@@ -554,7 +560,7 @@ class SyncHandlerComponent extends Object {
 
         switch($type) {
             case 'php':
-                $response = serialize($result);
+                $response = base64_encode(bzcompress(serialize($result)));
                 break;
 
             case 'json':
@@ -575,7 +581,7 @@ class SyncHandlerComponent extends Object {
 
         switch($type) {
             case 'php':
-                $result = unserialize($request);
+                $result = unserialize(bzdecompress(base64_decode($request)));
                 break;
 
             case 'json':
@@ -596,7 +602,7 @@ class SyncHandlerComponent extends Object {
 
         switch($type) {
             case 'php':
-                $result = unserialize($request);
+                $result = unserialize(bzdecompress(base64_decode($request)));
                 break;
 
             case 'json':

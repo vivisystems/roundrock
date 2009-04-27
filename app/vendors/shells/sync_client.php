@@ -50,6 +50,18 @@ class SyncClientShell extends Shell {
         
     }
 
+    function sync() {
+
+        $this->out("sync_client usage: ", true);
+        $this->hr(false);
+
+        $shell =& $this;
+
+        $syncResult = $shell->requestAction("/sync_clients/perform_sync");
+
+        $this->out("sync_client usage: ok", true);
+    }
+
 
 /**
  * start as daemon
