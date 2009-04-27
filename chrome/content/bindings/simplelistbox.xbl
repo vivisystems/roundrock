@@ -148,6 +148,7 @@
                 colsContainer.appendChild(splitter);                    
             }
             let listcol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:listcol");
+            listcol.setAttribute('class', this.columns[i]);
             listcol.setAttribute('flex', '1');
             colsContainer.appendChild(listcol);
 
