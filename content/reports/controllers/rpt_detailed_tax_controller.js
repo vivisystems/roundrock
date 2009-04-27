@@ -15,8 +15,8 @@
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
 			var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
-            start = parseInt(start / 1000, 10);
-            end = parseInt(end / 1000, 10);
+            start = parseInt( start / 1000, 10 );
+            end = parseInt( end / 1000, 10 );
             
             var orderItem = new OrderItemModel();
 
@@ -42,7 +42,7 @@
                             " and orders.status = 1";
             
             if ( terminalNo.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + terminalNo + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
 
             var groupby = 'order_items.order_id, order_items.tax_name, order_items.tax_type';
             var orderby = 'orders.sequence';
