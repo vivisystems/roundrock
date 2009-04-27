@@ -27,10 +27,10 @@
                             "'";
             
             if ( shiftNo.length > 0 )
-            	conditions += " and shift_changes.shift_number = " + shiftNo;
+            	conditions += " and shift_changes.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
             
             if (terminalNo.length > 0)
-                conditions += " AND shift_changes.terminal_no LIKE '" + terminalNo + "%'";
+                conditions += " AND shift_changes.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
 
             var groupby;
 

@@ -12,18 +12,18 @@
         _fileName: "rpt_hourly_sales",
 
         _set_reportRecords: function() {
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
+            var start = document.getElementById( 'start_date' ).value;
+            var end = document.getElementById( 'end_date' ).value;
 
-            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
-            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
-            var machineid = document.getElementById('machine_id').value;
+            var machineid = document.getElementById( 'machine_id' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
-            start = parseInt(start / 1000, 10);
-            end = parseInt(end / 1000, 10);
+            start = parseInt( start / 1000, 10 );
+            end = parseInt( end / 1000, 10 );
 
             var fields = [
             				'orders.transaction_created',
@@ -41,7 +41,7 @@
                             "' AND orders.transaction_created<='" + end +
                             "' AND orders.status='1'";
             if (machineid.length > 0) {
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
                 var groupby = 'orders.terminal_no,"Order.Hour"';
             } else {
                 var groupby = '"Order.Hour"';
