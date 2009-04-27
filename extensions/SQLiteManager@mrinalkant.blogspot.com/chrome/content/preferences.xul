@@ -176,7 +176,7 @@
 				  accesskey="&pref-displayNumRecords.ak;"
           control="tb-displayNumRecords"/>
         <spacer flex="1"/>
-			  <textbox id="tb-displayNumRecords" type="number" min="-1"
+			  <textbox id="tb-displayNumRecords" type="number" min="0"
 					preference="pref-displayNumRecords" 
 				  value=""/>
 			  </hbox>

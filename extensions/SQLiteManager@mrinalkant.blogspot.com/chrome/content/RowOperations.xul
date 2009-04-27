@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<!--
-<?xml-stylesheet href="chrome://test/skin/sqlitemanager.css" type="text/css"?>
- -->
- 
+
 <dialog id="dialog-table-operations" title=""
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml"
@@ -13,10 +10,11 @@
         ondialogcancel="return RowOperations.doCancel();"
 				onload="RowOperations.loadDialog();">
 
+  <script type="application/x-javascript" src="globals.js"/>  
+  <script type="application/x-javascript" src="functions/functions.js"/>  
   <script type="application/x-javascript" src="preferences.js"/>  
   <script type="application/x-javascript" src="sqlite.js"/>  
   <script type="application/x-javascript" src="RowOperations.js"/>  
-  <script type="application/x-javascript" src="misc.js"/>  
 
   <keyset>
     <key id="const-1" modifiers="control" key="1" oncommand="RowOperations.typeConstant('CURRENT_DATE')"/>
@@ -25,7 +23,9 @@
   </keyset>
 
 <notificationbox id="boxNotify" flex="1">
-<vbox style="overflow-y:auto" height="300">
+
+<deck id="deck-rowedit" selectedIndex="0">
+<vbox id="vbEdit" style="overflow-y:auto" height="300">
 <!-- dropdown list for table names-->
 	<hbox style="margin:5px 0 5px 0;">
     <spacer flex="1"/>
@@ -64,5 +64,9 @@
 	  </menulist>
 	</vbox>
 </vbox>
+<vbox id="vbConfirm">
+<textbox id="tbMessage" rows="8" multiline="true" readonly="true" flex="1"/>
+</vbox>
+</deck>
 </notificationbox>
 </dialog>

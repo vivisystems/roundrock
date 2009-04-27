@@ -13,7 +13,8 @@
 
   <script type="application/x-javascript" src="preferences.js"/>  
   <script type="application/x-javascript" src="sqlite.js"/>  
-  <script type="application/x-javascript" src="misc.js"/>  
+  <script type="application/x-javascript" src="globals.js"/>  
+  <script type="application/x-javascript" src="functions/functions.js"/>  
   <script type="application/x-javascript">
   <![CDATA[
     var SmTableCopier = {

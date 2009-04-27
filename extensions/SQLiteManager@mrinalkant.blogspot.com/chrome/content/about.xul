@@ -8,10 +8,11 @@
         buttons="accept"
         ondialogaccept="window.close();" onload="fillAboutValues();">
 
-  <script type="application/x-javascript" src="misc.js"/>  
+  <script type="application/x-javascript" src="globals.js"/>  
   <script type="application/x-javascript">
     function fillAboutValues() {
-      document.getElementById("about-version").setAttribute("value", gExtVersion);
+      $$("about-version").setAttribute("value", gExtVersion);
+      $$("about-creator").setAttribute("value", gExtCreator);
     }
   </script>  
 
@@ -29,10 +30,14 @@
 			</columns>
 			<rows>
 				<row align="center">
-					<image id="about-icon" src="chrome://sqlitemanager/skin/images/icon32.png" width="32px" height="32px"/>
+					<image id="about-icon" src="chrome://sqlitemanager/skin/images/icon32.png"
+					       width="32px" height="32px"/>
 					<vbox>
-						<text id="about-homepage" value="http://sqlite-manager.googlecode.com/" style="font-weight: bold" class="url"
-	                  onmouseover="this.style.cursor='pointer';" onclick="sm_openURL('http://sqlite-manager.googlecode.com/');"/>
+						<text id="about-homepage"
+						      value="http://sqlite-manager.googlecode.com/"
+						      style="font-weight: bold" class="url"
+	                          onmouseover="this.style.cursor='pointer';"
+	                          onclick="sm_openURL('http://sqlite-manager.googlecode.com/');"/>
 					</vbox>
 				</row>
 			</rows>
@@ -50,7 +55,7 @@
 				</row>
 				<row align="center">
 					<text value="&author; :" />
-					<text id="about-creator" value="Mrinal Kant" style="font-weight: bold" />
+					<text id="about-creator" value="" style="font-weight: bold" />
 				</row>
 			</rows>
 		</grid>

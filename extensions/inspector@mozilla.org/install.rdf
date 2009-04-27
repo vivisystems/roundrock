@@ -6,6 +6,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>inspector@mozilla.org</em:id>
     <em:version>2.0.0</em:version>
+    <em:hidden>true</em:hidden>
 
     <em:targetApplication>
       <!-- Firefox -->

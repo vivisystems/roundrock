@@ -35,15 +35,11 @@
 <!--
 pragma which have been omitted:
 case_sensitive_like - does not work
-default_synchronous - removed in 3.0.0
 incremental_vacuum(N) - supported since 3.4.0; experimental
 locking_mode: does not work
-max_page_count: does not work
 -->
 	<vbox id="vb-dbInfoTab" flex="1">
  	<description>&dbSettingsDesc;</description>
-	<groupbox id="gb-pragmaVersion" hidden="true">
-	<caption label="&versions;"/>
   	<hbox>
   		<label value="&schema_version;" class="dbinfo"/>
 			<textbox id="pr-schema_version" type="number"	value=""/>
@@ -55,7 +51,48 @@ max_page_count: does not work
 			<textbox id="pr-user_version" type="number"	value=""/>
 			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('user_version');"/>
   	</hbox>
-	</groupbox>
+
+  	<hbox>
+  		<label value="&page_size;" class="dbinfo"/>
+			<menulist id="pr-page_size">
+				<menupopup>
+					<menuitem label="512" value="512"/>
+					<menuitem label="1024" value="1024"/>
+					<menuitem label="2048" value="2048"/>
+					<menuitem label="4096" value="4096"/>
+					<menuitem label="8192" value="8192"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('page_size');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&page_count;" class="dbinfo"/>
+			<textbox id="pr-page_count" style="width:10ex" readonly="true"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&freelist_count;" class="dbinfo"/>
+			<textbox id="pr-freelist_count" style="width:10ex" readonly="true"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&max_page_count;" class="dbinfo"/>
+			<textbox id="pr-max_page_count" type="number" value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('max_page_count');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&cache_size;" class="dbinfo"/>
+			<textbox id="pr-cache_size" type="number" value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('cache_size');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&default_cache_size;" class="dbinfo"/>
+			<textbox id="pr-default_cache_size" type="number" value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('default_cache_size');"/>
+  	</hbox>
 
   	<hbox>
   		<label value="&auto_vacuum;" class="dbinfo"/>
@@ -70,12 +107,6 @@ max_page_count: does not work
   	</hbox>
 
   	<hbox>
-  		<label value="&cache_size;" class="dbinfo"/>
-			<textbox id="pr-cache_size" type="number" value=""/>
-			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('cache_size');"/>
-  	</hbox>
-
-  	<hbox>
   		<label value="&count_changes;" class="dbinfo"/>
 			<menulist id="pr-count_changes">
 				<menupopup>
@@ -84,12 +115,6 @@ max_page_count: does not work
 				</menupopup>
 			</menulist>
 			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('count_changes');"/>
-  	</hbox>
-
-  	<hbox>
-  		<label value="&default_cache_size;" class="dbinfo"/>
-			<textbox id="pr-default_cache_size" type="number" value=""/>
-			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('default_cache_size');"/>
   	</hbox>
 
   	<hbox>
@@ -114,17 +139,6 @@ max_page_count: does not work
 				</menupopup>
 			</menulist>
 			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('encoding');"/>
-  	</hbox>
-
-  	<hbox>
-  		<label value="&full_column_names;" class="dbinfo"/>
-			<menulist id="pr-full_column_names">
-				<menupopup>
-					<menuitem label="&On;" value="1"/>
-					<menuitem label="&Off;" value="0"/>
-				</menupopup>
-			</menulist>
-			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('full_column_names');"/>
   	</hbox>
 
   	<hbox>
@@ -161,26 +175,6 @@ max_page_count: does not work
   	</hbox>
 
   	<hbox>
-  		<label value="&page_size;" class="dbinfo"/>
-			<menulist id="pr-page_size">
-				<menupopup>
-					<menuitem label="512" value="512"/>
-					<menuitem label="1024" value="1024"/>
-					<menuitem label="2048" value="2048"/>
-					<menuitem label="4096" value="4096"/>
-					<menuitem label="8192" value="8192"/>
-				</menupopup>
-			</menulist>
-			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('page_size');"/>
-  	</hbox>
-
-  	<hbox>
-  		<label value="&max_page_count;" class="dbinfo"/>
-			<textbox id="pr-max_page_count" type="number" value=""/>
-			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('max_page_count');"/>
-  	</hbox>
-
-  	<hbox>
   		<label value="&read_uncommitted;" class="dbinfo"/>
 			<menulist id="pr-read_uncommitted">
 				<menupopup>
@@ -189,6 +183,17 @@ max_page_count: does not work
 				</menupopup>
 			</menulist>
 			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('read_uncommitted');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&full_column_names;" class="dbinfo"/>
+			<menulist id="pr-full_column_names">
+				<menupopup>
+					<menuitem label="&On;" value="1"/>
+					<menuitem label="&Off;" value="0"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('full_column_names');"/>
   	</hbox>
 
   	<hbox>

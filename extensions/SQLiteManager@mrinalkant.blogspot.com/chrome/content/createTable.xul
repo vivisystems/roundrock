@@ -12,7 +12,8 @@
 
   <script type="application/x-javascript" src="sqlite.js"/>  
   <script type="application/x-javascript" src="createManager.js"/>  
-  <script type="application/x-javascript" src="misc.js"/>  
+  <script type="application/x-javascript" src="globals.js"/>  
+  <script type="application/x-javascript" src="functions/functions.js"/>  
   <script type="application/x-javascript" src="preferences.js"/>  
 
 	<hbox flex="1" style="margin:5px 0 5px 0;">
@@ -33,42 +34,6 @@
   </hbox>
 	<groupbox id="rows-grbox">
 	<caption label="Define Columns"/>
-
-	<!--
-		<tree id="tree-table-structure" 
-			width="200px" 
-			hidecolumnpicker="true"
-			seltype="single"
-			rows="4" 
-			onselect="SQLiteManager.getDbObjectInfo()">
-	  <treecols>
-	    <treecol id="col-table-colname" 
-				label="Column Name" 
-				flex="1"/>
-	    <treecol id="col-table-datatype" 
-				label="Data Type" 
-				flex="1"/>
-	    <treecol id="col-table-allownull" 
-				label="Allow Nulls?" 
-				type="progressmeter"
-				flex="1"/>
-	    <treecol id="col-table-primarykey" 
-				label="Primary Key?" 
-				type="checkbox"
-				flex="1"/>
-	  </treecols>
-<treechildren>
-    <treeitem>
-      <treerow>
-        <treecell label="joe@somewhere.com"/>
-        <treecell label="Top secret plans"/>
-        <treecell mode="normal" value="20"/>
-        <treecell value="true"/>
-      </treerow>
-    </treeitem>
-  </treechildren>		
-	</tree>
--->
 		<grid style="overflow-y:auto" height="300">
 		  <columns>
 		    <column/>

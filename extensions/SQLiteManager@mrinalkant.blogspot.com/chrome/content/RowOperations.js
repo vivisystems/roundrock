@@ -1,4 +1,12 @@
 var RowOperations = {
+  mbConfirmationNeeded: false,
+
+  maQueries: [],
+  maParamData: [],
+
+  mNotifyMessages: ["Execution successful", "Execution failed"],
+  mAcceptAction: null,
+
   mIntervalID: null,
 
 	//arrays with information for each field
@@ -10,6 +18,7 @@ var RowOperations = {
 	oldBlobs: null,
 	newBlobs: null,
 	
+  mRowId: null, //for update, delete and duplicate
 	sCurrentTable: null,
 	sObject: null,
 	sOperation: null,
@@ -31,24 +40,28 @@ var RowOperations = {
 		Database = window.arguments[0];
 		this.sCurrentTable = window.arguments[1];
 		this.sOperation = window.arguments[2];
-		var rowid = window.arguments[3];
+		this.mRowId = window.arguments[3];
+
+    this.mbConfirmationNeeded = sm_prefsBranch.getBoolPref("confirm.records");
 
 		switch(this.sOperation) {
 			case "insert":
+			case "duplicate":
 				document.title = "Add New Record";
-				this.setAcceptAction("doOKAddRecord");
+				this.mAcceptAction = "doOKInsert"
+				this.setAcceptAction(this.mAcceptAction);
+				this.mNotifyMessages = ["Record inserted successfully. You can add another record now. Press Cancel to exit this dialog.", "Failure in inserting record. You can add another record now. Press Cancel to exit this dialog."];
 				break;
 			case "update":
 				document.title = "Edit Record";
-				this.setAcceptAction("doOKUpdate");
-				break;
-			case "duplicate":
-				document.title = "Add Record (Duplicate)";
-				this.setAcceptAction("doOKAddRecord");
+				this.mAcceptAction = "doOKUpdate"
+				this.setAcceptAction(this.mAcceptAction);
+				this.mNotifyMessages = ["Record updated successfully. Press Cancel to exit this dialog.", "Failure in updating record. Press Cancel to exit this dialog."];
 				break;
 			case "delete":
 				document.title = "Delete Record";
-				this.setAcceptAction("doOKDeleteRecord");
+				this.mAcceptAction = "doOKDelete"
+				this.setAcceptAction(this.mAcceptAction);
 				break;
 			case "search":
 				document.title = "Search in table: " + this.sCurrentTable;
@@ -57,7 +70,7 @@ var RowOperations = {
 			case "search-view":
 				document.title = "Search in view: " + this.sCurrentTable;
 				this.setAcceptAction("doOKSearch");
-				this.loadForViewRecord(this.sCurrentTable, rowid);
+				this.loadForViewRecord(this.sCurrentTable, window.arguments[3]);
     		window.sizeToContent();
 				return;
 		}
@@ -68,14 +81,20 @@ var RowOperations = {
 	},
 
 	setAcceptAction: function(sFunctionName) {
-		var dlg = document.getElementById("dialog-table-operations");
+		var dlg = $$("dialog-table-operations");
 		dlg.setAttribute("ondialogaccept",
+				"return RowOperations." + sFunctionName + "();");
+	},
+
+	setCancelAction: function(sFunctionName) {
+		var dlg = $$("dialog-table-operations");
+		dlg.setAttribute("ondialogcancel",
 				"return RowOperations." + sFunctionName + "();");
 	},
 
 	loadTableNames: function() {
 		this.sObject = "TABLE";
-		var listbox = document.getElementById("tablenames");
+		var listbox = $$("tablenames");
 
 		var aNormTableNames = Database.getObjectList("table", "");
 		var aTempTableNames = [];
@@ -84,7 +103,7 @@ var RowOperations = {
 	},
 
   selectTable: function(sID) {
-    var sTable = document.getElementById(sID).value;
+    var sTable = $$(sID).value;
     //to do, if the table dropdown is enabled
 	},
 	
@@ -92,10 +111,8 @@ var RowOperations = {
 	},
 		
 	onSelectOperator: function(selectedOp, sFieldName) {
-		//alert(selectedOp);
 		var ctrl = "ctrl-tb-" + sFieldName;
-		var node = document.getElementById(ctrl);
-//		node.hidden = false;
+		var node = $$(ctrl);
 		switch (this.aOps[selectedOp][0]) {
 			case "IS NULL":
 			case "IS NOT NULL":
@@ -107,10 +124,9 @@ var RowOperations = {
 	},
 	
 	loadForTableRecord: function() {
-		document.getElementById("tablenames").setAttribute("disabled", true);
+		$$("tablenames").setAttribute("disabled", true);
 		var sTableName = this.sCurrentTable;
 
-//		var Database = window.arguments[0];
 		var info = Database.getTableColumns(sTableName, "");
 		var cols = info[0];
 
@@ -134,8 +150,7 @@ var RowOperations = {
 		}
 		
 		if(this.sOperation == "update" || this.sOperation == "delete" || this.sOperation == "duplicate") {
-			var rowid = window.arguments[3];
-			var sql = "SELECT * from " + Database.getPrefixedName(sTableName, "") + " where " + rowid;
+			var sql = "SELECT * from " + Database.getPrefixedName(sTableName, "") + " where " + this.mRowId;
 			Database.selectQuery(sql);
 			var row = Database.getRecords()[0];
 			var cols = Database.getColumns();
@@ -149,14 +164,13 @@ var RowOperations = {
 				}
 				//for blobs, do the following
 				if (this.aDataTypes[j] == 4) {
-			 		var rowid = window.arguments[3];
-					var data = Database.selectBlob(this.sCurrentTable, this.aFieldNames[j], rowid);
+					var data = Database.selectBlob(this.sCurrentTable, this.aFieldNames[j], this.mRowId);
 					this.oldBlobs[j] = data;
 				}
 			}
 		}
 
-		var grbox = document.getElementById("columnEntryFields");
+		var grbox = $$("columnEntryFields");
 		ClearElement(grbox);
 		var cap = document.createElement("caption");
 		cap.setAttribute("label", "Enter Field Values");
@@ -204,18 +218,16 @@ var RowOperations = {
     if(this.sOperation != "update")
       return false;
  
-	  const nsIFilePicker = Components.interfaces.nsIFilePicker;
+	  const nsIFilePicker = Ci.nsIFilePicker;
 	  
-	  var fp = Components.classes["@mozilla.org/filepicker;1"]
+	  var fp = Cc["@mozilla.org/filepicker;1"]
 	  	           .createInstance(nsIFilePicker);
 	  fp.init(window, "Save Blob to File", nsIFilePicker.modeSave);
 	  fp.appendFilters(nsIFilePicker.filterAll);
 	  
 	  var rv = fp.show();
 	  if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
-//	 		var rowid = window.arguments[3];
 			var data = this.oldBlobs[iIndex];
-			//Database.selectBlob(this.sCurrentTable, sField, rowid);
 			
 			if(data.length == 0) //nothing to write
 				return false;
@@ -226,8 +238,8 @@ var RowOperations = {
 	    var path = fp.file.path;
 	
 	    // file is nsIFile, data is a string
-	    var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
-	                .createInstance(Components.interfaces.nsIFileOutputStream);
+	    var foStream = Cc["@mozilla.org/network/file-output-stream;1"]
+	                .createInstance(Ci.nsIFileOutputStream);
 	    
 	    // use 0x02 | 0x10 to open file for appending.
 	    foStream.init(file, 0x02 | 0x08 | 0x20, 0666, 0); 
@@ -235,8 +247,8 @@ var RowOperations = {
 	    // In a c file operation, we have no need to set file mode with or operation,
 	    // directly using "r" or "w" usually.
     
-			var bostream = Components.classes['@mozilla.org/binaryoutputstream;1']
-               .createInstance(Components.interfaces.nsIBinaryOutputStream);
+			var bostream = Cc['@mozilla.org/binaryoutputstream;1']
+               .createInstance(Ci.nsIBinaryOutputStream);
 	    bostream.setOutputStream(foStream);
 	    bostream.writeByteArray(data, data.length);
 	    
@@ -246,22 +258,22 @@ var RowOperations = {
   },
 
 	addBlob: function(iIndex) {
-	  const nsIFilePicker = Components.interfaces.nsIFilePicker;
+	  const nsIFilePicker = Ci.nsIFilePicker;
 	  
-	  var fp = Components.classes["@mozilla.org/filepicker;1"]
+	  var fp = Cc["@mozilla.org/filepicker;1"]
 	  	           .createInstance(nsIFilePicker);
 	  fp.init(window, "Select Blob File", nsIFilePicker.modeOpen);
 	  fp.appendFilters(nsIFilePicker.filterAll);
 	  
 	  var rv = fp.show();
 	  if (rv == nsIFilePicker.returnOK) {
-	    var fistream = Components.classes["@mozilla.org/network/file-input-stream;1"]
-	               .createInstance(Components.interfaces.nsIFileInputStream);
-	    var bininput = Components.classes['@mozilla.org/binaryinputstream;1']
-	               .createInstance(Components.interfaces.nsIBinaryInputStream);
+	    var fistream = Cc["@mozilla.org/network/file-input-stream;1"]
+	               .createInstance(Ci.nsIFileInputStream);
+	    var bininput = Cc['@mozilla.org/binaryinputstream;1']
+	               .createInstance(Ci.nsIBinaryInputStream);
 	
-	    var mimeservice = Components.classes['@mozilla.org/mime;1']
-	               .createInstance(Components.interfaces.nsIMIMEService);
+	    var mimeservice = Cc['@mozilla.org/mime;1']
+	               .createInstance(Ci.nsIMIMEService);
 	
 //	    var type = mimeservice.getTypeFromFile(fp.file);
 //	    if(!type)
@@ -276,7 +288,7 @@ var RowOperations = {
 
 	 		this.newBlobs[iIndex] = fileContents;
 
-  		var ctrltb = document.getElementById("ctrl-tb-" + iIndex);
+  		var ctrltb = $$("ctrl-tb-" + iIndex);
   		var val = g_strForBlob;
       if (g_showBlobSize)
 				val += " (Size: " + fileCounts + ")";
@@ -285,25 +297,25 @@ var RowOperations = {
   		ctrltb.setAttribute("fieldtype","4");
   		ctrltb.setAttribute("disabled","true");
 
-//  		var imgSave = document.getElementById("img-saveBlob-" + sField);
+//  		var imgSave = $$("img-saveBlob-" + sField);
 //  		imgSave.setAttribute("hidden","false");
   
-  		var imgRemove = document.getElementById("img-removeBlob-" + iIndex);
+  		var imgRemove = $$("img-removeBlob-" + iIndex);
   		imgRemove.setAttribute("hidden","false");
 	  }
 	
 	},
 
 	removeBlob: function(iIndex) {
-		var ctrltb = document.getElementById("ctrl-tb-" + iIndex);
+		var ctrltb = $$("ctrl-tb-" + iIndex);
 		ctrltb.setAttribute("value","");
 		ctrltb.setAttribute("fieldtype","3");
 		ctrltb.removeAttribute("disabled");
 
-		var imgSave = document.getElementById("img-saveBlob-" + iIndex);
+		var imgSave = $$("img-saveBlob-" + iIndex);
 		imgSave.setAttribute("hidden","true");
 
-		var imgRemove = document.getElementById("img-removeBlob-" + iIndex);
+		var imgRemove = $$("img-removeBlob-" + iIndex);
 		imgRemove.setAttribute("hidden","true");
 	},
 
@@ -390,7 +402,7 @@ var RowOperations = {
   getTextBoxHeight: function() {
 		//show the reference textbox, get the height and hide it
 		//needed because multiline is taller than normal textbox even when rows=1
-		var oRef = document.getElementById("reference");
+		var oRef = $$("reference");
 		oRef.hidden = false;
 		var iHeight = oRef.boxObject.height;
 		oRef.hidden = true;
@@ -432,24 +444,23 @@ var RowOperations = {
     }
 
 		for(var i = 0; i < this.aFieldDefVals.length; i++) {
-  		var inptb = document.getElementById("ctrl-tb-" + i);
+  		var inptb = $$("ctrl-tb-" + i);
   		inptb.value = sm_makeSimpleString(this.aFieldDefVals[i]);
     }
   },
 
   typeConstant: function(sConstant) {
     var focused = document.commandDispatcher.focusedElement;
-    //alert(focused.tagName + " : " + focused.id);
     if (focused.tagName == "html:textarea")
       focused.value = sConstant;
   },
 
 	collapseInputField: function(id) {
-		var inptb = document.getElementById("ctrl-tb-" + id);
+		var inptb = $$("ctrl-tb-" + id);
 		var iLines = inptb.getAttribute("rows");
 		var bMultiline = inptb.hasAttribute("multiline");
 
-    var img = document.getElementById("img-" + id);
+    var img = $$("img-" + id);
 		if (iLines == 1) {
 		  inptb.setAttribute("rows", 4);
   	  inptb.removeAttribute("height");
@@ -466,13 +477,13 @@ var RowOperations = {
 	},
 
 	loadForViewRecord: function(sViewName, aColumns) {
-		document.getElementById("tablenames").hidden = true;
-		document.getElementById("label-name").value = "View Name : " + sViewName;
+		$$("tablenames").hidden = true;
+		$$("label-name").value = "View Name : " + sViewName;
 
 		this.aFieldNames = aColumns[0];
 		var aTypes = aColumns[1];
 
-		var grbox = document.getElementById("columnEntryFields");
+		var grbox = $$("columnEntryFields");
 		ClearElement(grbox);
 		var cap = document.createElement("caption");
 		cap.setAttribute("label", "Enter Field Values");
@@ -510,12 +521,13 @@ var RowOperations = {
 		}
 	},
 
-	doOKAddRecord: function() {
+	doOKInsert: function() {
 		var colPK = null;
 		var rowidcol = Database.getTableRowidCol(this.sCurrentTable);
 		if (rowidcol["name"] != "rowid")
 			colPK = rowidcol["name"];
 
+		var aNullCols = Database.getColumnsNullAllowStatus(this.sCurrentTable, true);
 		var aDefCols = Database.getTableColumnsWithDefaultValue(this.sCurrentTable);
 		if (colPK != null)
 			aDefCols.push(colPK);
@@ -527,7 +539,7 @@ var RowOperations = {
 		var iParamCounter = 1;
 		var aParamData = [];
 		for(var i = 0; i < this.aFieldNames.length; i++) {
-			var ctrltb = document.getElementById("ctrl-tb-" + i);
+			var ctrltb = $$("ctrl-tb-" + i);
 			inpval = ctrltb.value;
 
 			//this is to allow autoincrement of primary key columns 
@@ -535,6 +547,10 @@ var RowOperations = {
 			if (aDefCols.indexOf(this.aFieldNames[i]) >= 0)
 				if(inpval.toUpperCase() == g_strForNull.toUpperCase() || inpval.length == 0)
 				  continue;
+
+      //when no input, omit column from insert unless null not allowed
+      if (inpval.length == 0 && aNullCols.indexOf(this.aFieldNames[i]) >= 0)
+        continue;
 
 			var iType = ctrltb.getAttribute("fieldtype");
       if (iType == 4 && this.newBlobs[i] == null)
@@ -555,41 +571,32 @@ var RowOperations = {
 		var cols = "(" + aCols.toString() + ")";
 		var vals = "(" + aVals.toString() + ")";
 		
-		var sQuery = "INSERT INTO " + Database.getPrefixedName(this.sCurrentTable, "")
-                + " " + cols + " VALUES " + vals;
-		var bRet = Database.confirmAndExecute([sQuery], "ADD a NEW RECORD", "confirm.records", aParamData);
-		if (bRet) {
-      var sMsg = "Record inserted successfully. You can add another record now. Press Cancel to stop adding new records.";
-		  this.notify(sMsg, "info");
-    }
-    else {
-      var sMsg = "Failure in inserting record. You can add another record now. Press Cancel to stop adding new records.";
-		  this.notify(sMsg, "warning");
-    }
-
-    this.setInsertValues(false);
-    document.getElementById("ctrl-tb-0").focus();
-    
-		return false;
+		this.maQueries = ["INSERT INTO " + Database.getPrefixedName(this.sCurrentTable, "")
+                + " " + cols + " VALUES " + vals];
+    this.maParamData = aParamData
+    if (this.mbConfirmationNeeded)
+      this.seekConfirmation();
+    else
+      this.doOKConfirm();
+    return false;
 	},
 
   notify: function(sMessage, sType) {
-	  var notifyBox = document.getElementById("boxNotify");
+	  var notifyBox = $$("boxNotify");
 	  var notification = notifyBox.appendNotification(sMessage);
 	  notification.type = sType;
 	  //notification.priority = notifyBox.PRIORITY_INFO_HIGH;
-	  setTimeout('document.getElementById("boxNotify").removeAllNotifications(false);', 3000);
+	  setTimeout('$$("boxNotify").removeAllNotifications(false);', 3000);
   },
 
 	doOKUpdate: function() {
-		var criteria = window.arguments[3];
 		var inpval, fld, inpOriginalVal, iType;
 		var cols = "";
 		var vals = "";
 		var aParamData = [];
 		var iParamCounter = 1;
 		for(var i = 0; i < this.aFieldNames.length; i++) {
-			var ctrltb = document.getElementById("ctrl-tb-" + i);
+			var ctrltb = $$("ctrl-tb-" + i);
 			inpval = ctrltb.value;
 			inpOriginalVal = ctrltb.getAttribute("originalvalue");
 			inpval = sm_makeSqlValue(inpval);
@@ -621,16 +628,26 @@ var RowOperations = {
 		  return false;
 		}
 
-		var sQuery = "UPDATE " + Database.getPrefixedName(this.sCurrentTable, "")
-                + " SET " + cols + " WHERE " + criteria;
-		return Database.confirmAndExecute([sQuery], "UPDATE RECORD", "confirm.records", aParamData);
+		this.maQueries = ["UPDATE " + Database.getPrefixedName(this.sCurrentTable, "")
+                + " SET " + cols + " WHERE " + this.mRowId];
+    this.maParamData = aParamData
+    if (this.mbConfirmationNeeded)
+      this.seekConfirmation();
+    else
+      this.doOKConfirm();
+    return false;
 	},
+
 //required in case delete option is added to the edit record dialog
-	doOKDeleteRecord: function() {
-		var criteria = window.arguments[3];
-		var sQuery = "DELETE FROM " + Database.getPrefixedName(this.sCurrentTable, "")
-                + " WHERE " + criteria;
-		return Database.confirmAndExecute([sQuery], "DELETE RECORD");
+	doOKDelete: function() {
+		this.maQueries = ["DELETE FROM " +
+          Database.getPrefixedName(this.sCurrentTable, "")+ " WHERE " + this.mRowId];
+    this.maParamData = null;
+    if (this.mbConfirmationNeeded)
+      this.seekConfirmation();
+    else
+      this.doOKConfirm();
+    return false;
 	},
 
 	//used for searching within table/view
@@ -638,11 +655,11 @@ var RowOperations = {
 		var inpval, opval, fld;
 		var where = "";
 		for(var i = 0; i < this.aFieldNames.length; i++) {
-			var ctrltb = document.getElementById("ctrl-tb-" + i);
+			var ctrltb = $$("ctrl-tb-" + i);
 			inpval = ctrltb.value;
 			if (inpval.length == 0)
 				continue;
-			opval = document.getElementById("op-" + this.aFieldNames[i]).value;
+			opval = $$("op-" + this.aFieldNames[i]).value;
 //			if (this.aOps[opval][0] == g_strIgnore)
 //				continue;
 
@@ -681,7 +698,6 @@ var RowOperations = {
 	  if(answer) {
 			//the order in which the following are set is important
 			sm_prefsBranch.setCharPref("searchCriteria", where);
-			//alert(where);
 
 			//the value of searchToggler should toggle for change event to fire.
 			var bTemp = sm_prefsBranch.getBoolPref("searchToggler");
@@ -693,6 +709,50 @@ var RowOperations = {
 	},
 		
 	doCancel: function() {
-	  return true;
-	}
+      return true;
+	},
+
+	doOKConfirm: function() {
+    this.changeState(0);
+    var bRet = Database.executeWithoutConfirm(this.maQueries, this.maParamData);
+    if (bRet) {
+		  this.notify(this.mNotifyMessages[0], "info");
+    }
+    else {
+		  this.notify(this.mNotifyMessages[1], "warning");
+    }
+
+    if (this.mAcceptAction == "doOKInsert") {
+      this.setInsertValues(false);
+      $$("ctrl-tb-0").focus();
+    }
+    if (this.mAcceptAction == "doOKUpdate") {
+      //reset values so that no further change means no more update
+    }
+    return false;
+	},
+
+	doCancelConfirm: function() {
+    this.changeState(0);
+    return false;
+	},
+
+	changeState: function(iNewState) {
+    $$("deck-rowedit").selectedIndex = iNewState;
+    if (iNewState == 0) {
+      this.setAcceptAction(this.mAcceptAction);      
+      this.setCancelAction("doCancel");      
+    }
+    if (iNewState == 1) {
+      this.setAcceptAction("doOKConfirm");      
+      this.setCancelAction("doCancelConfirm");      
+    }
+	},
+
+  seekConfirmation: function() {
+  	var ask = "Are you sure you want to execute the following statement(s):";
+  	var txt = ask + "\n\n" + this.maQueries.join("\n");
+    $$("tbMessage").value = txt;
+    this.changeState(1);
+  }
 };

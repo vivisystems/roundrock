@@ -6,6 +6,7 @@
 		<!-- core data -->
 		<em:id>{f13b157f-b174-47e7-a34d-4815ddfdfeb8}</em:id>
 		<em:version>0.9.87.4</em:version>
+		<em:hidden>true</em:hidden>
 		
 		<!-- target: Mozilla Firefox, version 0.9 to 3.0 -->
 		<em:targetApplication>

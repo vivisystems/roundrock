@@ -1,40 +1,72 @@
 var Database;
-var SmExporter = {
+var SmExim = {
 	sExpType: "",
 	sObjectName: null,
+	sObjectType: null,
 	msDbName: "main",
 	
 	lines: [],
 	mFileToImport: null,
 	msLeafName: null,
-	
-	loadExportDialog: function () {
-		Database = window.arguments[0];
+
+  mDeckId: null,
+  mPrevDeckPanelId: null,
+
+  init: function() {
+    this.msDbName = null;
+    this.sObjectType = null;
+    this.sObjectName = null;
+    this.mFileToImport = null;
+    this.msLeafName = null;
+  },
+
+  exitExim: function() {
+    if (this.mPrevDeckPanelId == "eximTabbox")
+      $$(this.mDeckId).selectedIndex = 0;
+    else
+      $$(this.mDeckId).selectedPanel = $$(this.mPrevDeckPanelId);
+  },
+
+	loadDialog: function (sOpType, sDeckId, sObjectType, sObjectName) {
+    this.init();
+    this.mDeckId = sDeckId;
+    this.mPrevDeckPanelId = $$(sDeckId).selectedPanel.id;
+
+    $$(this.mDeckId).selectedPanel = $$("eximTabbox");
 		this.msDbName = Database.logicalDbName;
 
-		var sObjectType = window.arguments[1];
-		if (sObjectType == "import") {
-			var dlg = document.getElementById("dialog-exim");
-			document.title = "Import Data";
-			dlg.setAttribute("ondialogaccept", "return SmExporter.doOKImport();");
-			document.getElementById("sql-create-statement").hidden = true;
-			document.getElementById("hb-object-selection").hidden = true;
-			document.getElementById("hb-file-selection").hidden = false;
+		if (sOpType == "import") {
+			$$("eximTab").label = "Import Wizard";
+			$$("exim-exp-ok").hidden = true;
+			$$("exim-imp-ok").hidden = false;
+			$$("eximSql-create-statement").hidden = true;
+			$$("eximObjectSelection").hidden = true;
+			$$("eximFileSelection").hidden = false;
+			$$("eximFilename").value = "";
+			return;
+		}
+		if (sOpType == "export") {
+		  this.sObjectType = sObjectType;
+		  this.sObjectName = sObjectName;
+			$$("eximTab").label = "Export Wizard: Exporting the " + sObjectType + ": " + this.sObjectName;
+			$$("exim-exp-ok").hidden = false;
+			$$("exim-imp-ok").hidden = true;
+			$$("eximSql-create-statement").hidden = false;
+			$$("eximObjectSelection").hidden = false;
+			$$("eximFileSelection").hidden = true;
+
+  		this.loadDbNames("eximDbName", Database.logicalDbName);
+      this.loadObjectNames("eximObjectNames", this.sObjectName, sObjectType);
+  
+  		$$("eximLblObjectType").value = "Name of the " + sObjectType;
 			return;
 		}
 
-    this.sObjectName = window.arguments[2];
-
-		this.loadDbNames("dbName", Database.logicalDbName);
-    this.loadObjectNames("ml-objectnames", this.sObjectName, sObjectType);
-
-		document.title = "Export the " + sObjectType + ": " + this.sObjectName;
-		document.getElementById("lbl-objectnames").value = "Name of the " + sObjectType;
 	},
 	
   loadObjectNames: function(sListBoxId, sTableName, sObjectType) {
-		var dbName = document.getElementById("dbName").value;
-		var listbox = document.getElementById(sListBoxId);
+		var dbName = $$("eximDbName").value;
+		var listbox = $$(sListBoxId);
 
     var aObjectNames = [];
     if (sObjectType == "table") {
@@ -50,39 +82,35 @@ var SmExporter = {
   },
 
   loadDbNames: function(sListBoxId, sDbName) {
-		var listbox = document.getElementById(sListBoxId);
+		var listbox = $$(sListBoxId);
     var aObjectNames = Database.getDatabaseList();
 		PopulateDropDownItems(aObjectNames, listbox, sDbName);
   },
 
   onSelectDb: function(sID) {
-		var sObjectType = window.arguments[1];
-    this.loadObjectNames("ml-objectnames", this.sObjectName, sObjectType);
+    this.loadObjectNames("eximObjectNames", this.sObjectName, this.sObjectType);
 	},
 
 	onSelectObject: function() {
-		var sObjectType = window.arguments[1];
-		this.sObjectName = document.getElementById("ml-objectnames").value;
+		this.sObjectName = $$("eximObjectNames").value;
 
-		document.title = "Export the " + sObjectType + ": " + this.sObjectName;
-		document.getElementById("sql-create-statement").hidden = false;
+		$$("eximTab").label = "Export Wizard: Exporting the " + this.sObjectType + ": " + this.sObjectName;
+		$$("eximSql-create-statement").hidden = false;
 		if (this.sObjectName == "sqlite_master" || this.sObjectName == "sqlite_temp_master") {
-		  document.getElementById("sql-create-statement").checked = false;
-		  document.getElementById("sql-create-statement").hidden = true;
+		  $$("eximSql-create-statement").checked = false;
+		  $$("eximSql-create-statement").hidden = true;
 		}
   },
 
 	onSelectTab: function() {
-		var oSelectedTab = document.getElementById("tabs-export").selectedItem;
-		var sTabId = oSelectedTab.getAttribute("id");
-		switch(sTabId) {
-			case "tab-exp-csv":
+		switch($$("eximTabsFormat").selectedItem.getAttribute("id")) {
+			case "eximTabCsv":
 				this.sExpType = "csv";
 				break;
-			case "tab-exp-sql":
+			case "eximTabSql":
 				this.sExpType = "sql";
 				break;
-			case "tab-exp-xml":
+			case "eximTabXml":
 				this.sExpType = "xml";
 				break;
 		}
@@ -90,12 +118,12 @@ var SmExporter = {
 
 	doOKExport: function() {
     this.onSelectTab();
-		var sTableName = document.getElementById("ml-objectnames").value;
-		var sDbName = document.getElementById("dbName").value;
+		var sTableName = $$("eximObjectNames").value;
+		var sDbName = $$("eximDbName").value;
 
 		// get export file
-		const nsIFilePicker = Components.interfaces.nsIFilePicker;
-		var fp = Components.classes["@mozilla.org/filepicker;1"]
+		const nsIFilePicker = Ci.nsIFilePicker;
+		var fp = Cc["@mozilla.org/filepicker;1"]
 			      .createInstance(nsIFilePicker);
 		fp.init(window, "Export to file ", nsIFilePicker.modeSave);
 		fp.appendFilters(nsIFilePicker.filterAll);
@@ -108,17 +136,16 @@ var SmExporter = {
 			alert("Please choose a file to save the exported data to.");
 			return false;
 		}
-		var file = Components.classes["@mozilla.org/file/local;1"]
-							.createInstance(Components.interfaces.nsILocalFile);
+		var file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
 		file.initWithFile(fp.file);
 
-		var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
-                    .createInstance(Components.interfaces.nsIFileOutputStream);
+		var foStream = Cc["@mozilla.org/network/file-output-stream;1"]
+                    .createInstance(Ci.nsIFileOutputStream);
 		// use 0x02 | 0x10 to open file for appending.
 		foStream.init(file, 0x02 | 0x08 | 0x20, 0664, 0); // write, create, truncate
 
-    var os = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
-              .createInstance(Components.interfaces.nsIConverterOutputStream);
+    var os = Cc["@mozilla.org/intl/converter-output-stream;1"]
+              .createInstance(Ci.nsIConverterOutputStream);
     
     // This assumes that fos is the nsIOutputStream you want to write to
     os.init(foStream, "UTF-8", 0, 0x0000);
@@ -128,28 +155,28 @@ var SmExporter = {
 		switch(this.sExpType) {
 			case "csv":
 			 //separator
-    		var cSeparator = document.getElementById("csv-separator").value;
+    		var cSeparator = $$("eximCsv_separator").value;
     		if(cSeparator == "other")
-    		  cSeparator = document.getElementById("csv-separator-text").value;
+    		  cSeparator = $$("eximCsv_separator-text").value;
         else if(cSeparator == "\\t")
           cSeparator = "\t";
         //encloser
-    		var cEncloser = document.getElementById("csv-encloser").value;
+    		var cEncloser = $$("eximCsv_encloser").value;
     		if(cEncloser == "other")
-    		 cEncloser = document.getElementById("csv-encloser-text").value;
+    		 cEncloser = $$("eximCsv_encloser-text").value;
         //colnames needed or not
-    		var bColNames = document.getElementById("csv-column-names").checked;
+    		var bColNames = $$("eximCsv_column-names").checked;
 
 				iExportNum = this.writeCsvContent(os, sQuery, cSeparator, cEncloser, bColNames);
 				break;
 			case "sql":
-    		var sDbName = document.getElementById("dbName").value;
-        var bTransact = document.getElementById("sql-transact-statement").checked;
-    		var bCreate = document.getElementById("sql-create-statement").checked;
+    		var sDbName = $$("eximDbName").value;
+        var bTransact = $$("eximSql-transact-statement").checked;
+    		var bCreate = $$("eximSql-create-statement").checked;
 				iExportNum = this.writeSqlContent(os, sDbName, this.sObjectName, bCreate, bTransact);
 				break;
 			case "xml":
-	     	var bType = document.getElementById("xml-type-attribute").checked;
+	     	var bType = $$("eximXml_type-attribute").checked;
 				iExportNum = this.writeXmlContent(os, sQuery, bType);
 				break;
 		}
@@ -299,8 +326,8 @@ var SmExporter = {
 
   selectFile: function() {
     this.onSelectTab();
-		const nsIFilePicker = Components.interfaces.nsIFilePicker;
-		var fp = Components.classes["@mozilla.org/filepicker;1"]
+		const nsIFilePicker = Ci.nsIFilePicker;
+		var fp = Cc["@mozilla.org/filepicker;1"]
 			           .createInstance(nsIFilePicker);
 		fp.init(window, "Select File to Import", nsIFilePicker.modeOpen);
 		var fileFilters = {
@@ -314,19 +341,18 @@ var SmExporter = {
 		
 		var rv = fp.show();
 		if (rv != nsIFilePicker.returnOK && rv != nsIFilePicker.returnReplace) {
-			alert("Please choose a file to import the data from.");
 			return false;
 		}
 
 		//if chosen then
-		var file = Components.classes["@mozilla.org/file/local;1"]
-							.createInstance(Components.interfaces.nsILocalFile);
+		var file = Cc["@mozilla.org/file/local;1"]
+							.createInstance(Ci.nsILocalFile);
 		file.initWithFile(fp.file);
 		//to support ADS
 		//file.initWithPath(fp.file.path + ":hhh.txt"); //ADS works
 		
 		this.msLeafName = fp.file.leafName;
-		document.getElementById("tb-filename").value = this.msLeafName;
+		$$("eximFilename").value = this.msLeafName;
 		this.mFileToImport = file;
 		var iLength = this.msLeafName.indexOf(".");
 		if (iLength >= 0)
@@ -336,26 +362,27 @@ var SmExporter = {
 
 	doOKImport: function() {
     if (this.mFileToImport == null) {
-      alert("No file to import from! Exiting.");
+      smPrompt.alert(null, "SQLite Manager - Import Error", "No file to import from!\nPlease select the file which contains the data you want to import.");
       return false;
     }
 
     var file = this.mFileToImport;
 		// |file| is nsIFile
-		var istream = Components.classes["@mozilla.org/network/file-input-stream;1"]
-                  .createInstance(Components.interfaces.nsIFileInputStream);
+		var istream = Cc["@mozilla.org/network/file-input-stream;1"]
+                  .createInstance(Ci.nsIFileInputStream);
 		istream.init(file, 0x01, 0444, 0);
 
-    var is = Components.classes["@mozilla.org/intl/converter-input-stream;1"]
-                   .createInstance(Components.interfaces.nsIConverterInputStream);
+    var is = Cc["@mozilla.org/intl/converter-input-stream;1"]
+                   .createInstance(Ci.nsIConverterInputStream);
 
     // This assumes that istream is the nsIInputStream you want to read from
-    is.init(istream, "UTF-8", 1024, 0xFFFD);
+    var charset = $$("eximFileCharSet").value;
+    is.init(istream, charset, 1024, 0xFFFD);
 
 		// read lines into array
 		var line = {}, bHasMore = true;
 		this.lines = [];
-    if (is instanceof Components.interfaces.nsIUnicharLineInputStream) {
+    if (is instanceof Ci.nsIUnicharLineInputStream) {
       do {
     			bHasMore = is.readLine(line);
     			this.lines.push(line.value);
@@ -366,19 +393,19 @@ var SmExporter = {
 		var iImportNum = 0;
 		switch(this.sExpType) {
 			case "csv":
-    		var cSeparator = document.getElementById("csv-separator").value;
+    		var cSeparator = $$("eximCsv_separator").value;
     		if(cSeparator == "other")
-    		  cSeparator = document.getElementById("csv-separator-text").value;
+    		  cSeparator = $$("eximCsv_separator-text").value;
         else if(cSeparator == "\\t")
           cSeparator = "\t";
 
-    		var cEncloser = document.getElementById("csv-encloser").value;
+    		var cEncloser = $$("eximCsv_encloser").value;
     		if(cEncloser == "other")
-    		 cEncloser = document.getElementById("csv-encloser-text").value;
+    		 cEncloser = $$("eximCsv_encloser-text").value;
         if (cEncloser == "din")
           cEncloser = '"';
 
-    		var bColNames = document.getElementById("csv-column-names").checked;
+    		var bColNames = $$("eximCsv_column-names").checked;
 
 				iImportNum = this.readCsvContent(cSeparator, cEncloser, bColNames);
 				break;
@@ -395,6 +422,11 @@ var SmExporter = {
 		    sm_message(iImportNum + " statements executed.", 0x3);
 		  else
 		    sm_message(iImportNum + " records imported.", 0x3);
+
+      SQLiteManager.refreshDbStructure();
+      SQLiteManager.loadTabBrowse();
+      return true;
+
 		}
 		else
 		  sm_message("Import failed.", 0x3);
@@ -525,9 +557,9 @@ var SmExporter = {
 		  sData += this.lines[iLine] + "\n";
 
 		var aQueries = sql_tokenizer(sData);
-		alert(aQueries);
+//		alert(aQueries);
 
-    var bTransact = document.getElementById("sql-transact-statement").checked;
+    var bTransact = $$("eximSql-transact-statement").checked;
 
     if (bTransact) {
       //remove the first and last statement which should be
@@ -536,7 +568,7 @@ var SmExporter = {
       aQueries.splice(aQueries.length - 1, 1);
     }
 
-		var answer = smPrompt.confirm(null, "SQLite Manager", "Are you sure you want to perform the following operation(s):\nImport Data by executing SQL statements");
+		var answer = smPrompt.confirm(null, "SQLite Manager", "Are you sure you want to perform the following operation(s):\nImport Data by executing SQL statements\nNumber of SQL statements: " + aQueries.length);
 		if(answer) {
 			var bReturn = Database.executeTransaction(aQueries);
 	  	if (bReturn)
@@ -546,7 +578,7 @@ var SmExporter = {
 	},
 	
 	readXmlContent: function() {
-		var bType = document.getElementById("xml-type-attribute").checked;
+		var bType = $$("eximXml_type-attribute").checked;
 
 		var aQueries = [];
 		//the following two arrays should be of equal length
@@ -632,7 +664,7 @@ var SmExporter = {
     if (Database.tableExists(sTabName, sDbName)) {
       sTabName = Database.getPrefixedName(sTabName, sDbName);
 		  //confirm before proceeding
-		  //TODO??: the buttons should say Continue (=OK), Abort (=Cancel)
+		  //TODO: the buttons should say Continue (=OK), Abort (=Cancel)
       // and Let me modify = open createTable.xul
       var answer = smPrompt.confirm(null, "SQLite Manager", "Are you sure you want to import the data to an existing table " + sTabName + "?\nClick OK to continue importing.");
       return {error: !answer, query: "", tableName: sTabName};

@@ -9,11 +9,10 @@ SMExtensionManagerExternal.prototype = {
     this.dbConfig = new SQLiteHandler();
 
     // Get the nsIFile object pointing to the profile directory
-    var profDir = Components.classes["@mozilla.org/file/directory_service;1"]
-            .getService(Components.interfaces.nsIProperties)
-            .get("ProfD", Components.interfaces.nsIFile);
-		var configFile = Components.classes['@mozilla.org/file/local;1']
-    							.createInstance(Components.interfaces.nsILocalFile);
+    var profDir = Cc["@mozilla.org/file/directory_service;1"]
+            .getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
+		var configFile = Cc['@mozilla.org/file/local;1']
+    							.createInstance(Ci.nsILocalFile);
 		configFile.initWithPath(profDir.path);
 		configFile.append("ext-sqlitemanager.sqlite");
 		
@@ -99,7 +98,7 @@ SMExtensionManagerExternal.prototype = {
 
 function SMExtensionManager() {
     this.m_db = Database;
-    this.m_tbl = sm_getPreferenceValue("tableForExtensionManagement", "__sm_ext_mgmt");
+    this.m_tbl = sm_prefsBranch.getCharPref("tableForExtensionManagement");
 };
 SMExtensionManager.prototype = {
   //variable to handle the current query in query history
