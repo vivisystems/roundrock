@@ -40,6 +40,7 @@
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
                             'orders.promotion_subtotal',
+                            'orders.revalue_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -77,14 +78,15 @@
 					case 'service_clerk_displayname':
 					case 'status':
 					case 'transaction_created':
+					case 'discount_subtotal':
+					case 'promotion_subtotal':
+					case 'revalue_subtotal':
 						break;
 					case 'sequence':
 					case 'invoice_no':
 					case 'item_subtotal':
 					case 'tax_subtotal':
 					case 'surcharge_subtotal':
-					case 'discount_subtotal':
-					case 'promotion_subtotal':
 					case 'total':
 						desc = ' desc';
 						break;
@@ -103,6 +105,7 @@
         	var surcharge_subtotal = 0;
         	var discount_subtotal = 0;
         	var promotion_subtotal = 0;
+        	var revalue_subtotal = 0;
             
             records.forEach( function( record ) {
             	delete record.Order;
@@ -113,6 +116,7 @@
 		    	surcharge_subtotal += record.surcharge_subtotal;
 		    	discount_subtotal += record.discount_subtotal;
 		    	promotion_subtotal += record.promotion_subtotal;
+		    	revalue_subtotal += record.revalue_subtotal;
             	
             	switch ( parseInt( record.status, 10 ) ) {
             		case 1:
@@ -140,7 +144,8 @@
             	total: total,
             	surcharge_subtotal: surcharge_subtotal,
             	discount_subtotal: discount_subtotal,
-            	promotion_subtotal: promotion_subtotal
+            	promotion_subtotal: promotion_subtotal,
+            	revalue_subtotal: revalue_subtotal
             };
             
             this._reportRecords.head.titile = _( 'Order Status Report' );

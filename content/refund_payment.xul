@@ -41,8 +41,8 @@
                     </row>
                     <row flex="1">
                         <viviscrollabletree id="paymentscrollablepanel" flex="1"
-                                            headers="&refundpayment.sequence;,&refundpayment.type;,&refundpayment.amount;,&refundpayment.origin_amount;,&refundpayment.change;,&refundpayment.note1;,&refundpayment.note2;"
-                                            fields="seq,name,amount,origin_amount,change,memo1,memo2" hidecolumnpicker="true"
+                                            headers="&refundpayment.sequence;,&refundpayment.type;,&refundpayment.amount;,&refundpayment.origin_amount;,&refundpayment.note1;,&refundpayment.note2;"
+                                            fields="seq,name,amount,origin_amount,memo1,memo2" hidecolumnpicker="true"
                                             class="paymentscrollablepanel" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                             <spacer flex="1"/>
                             <button flex="1" id="clone_payments" oncommand="$do('clonePayments', null, 'RefundPayment'); event.stopPropagation()" class="systoolbtn2 clonebtn"/>

@@ -34,6 +34,7 @@
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Promotion' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Revalue' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Payment' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Cash' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Check' )}</th>
@@ -61,6 +62,7 @@
                     <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.discount_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.promotion_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.revalue_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.total|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.cash|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.check|default:0|viviFormatPrices:true}</td>
@@ -80,6 +82,7 @@
                     <td style="text-align: right;">${clerk.summary.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.discount_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.promotion_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.revalue_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.total|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.cash|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.check|viviFormatPrices:true}</td>

@@ -16,19 +16,45 @@
 
         _paidTotal: 0,
 
+        _precision: 0,
+
+        _rounding: 0,
+        
+        _decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.',
+
+        _thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',',
+
+        formatPrice: function(price) {
+            var roundedPrice = GeckoJS.NumberHelper.round(Math.abs(price), this._precision, this._rounding);
+            if (price < 0) roundedPrice = 0 - roundedPrice;
+
+            var options = {
+                decimals: this._decimals,
+                thousands: this._thousands,
+                places: ((this._precision>0)?this._precision:0)
+            };
+            // format display precision
+            return GeckoJS.NumberHelper.format(roundedPrice, options);
+        },
+
         load: function(data) {
+
+            this._precision = data.precisionPrices;
+            this._rounding = data.roundingPrices;
+            
             this._originalPayments = GeckoJS.Array.objectExtract(data.payments, '{s}');
+            
             var seq = 1;
             this._originalPayments.forEach(function(p) {
                 p.seq = seq++;
-                p.amount -= p.change;
-            });
+                p.amount = this.formatPrice(p.amount - p.change);
+            }, this);
             document.getElementById('paymentscrollablepanel').datasource = this._originalPayments;
-            document.getElementById('paidTotal').value = this._paidTotal = data.paidTotal;
+            document.getElementById('paidTotal').value = this._paidTotal = this.formatPrice(data.paidTotal);
             
             document.getElementById('refundscrollablepanel').datasource = this._refundPayments;
 
-            document.getElementById('amount').textbox.value = this._paidTotal;
+            document.getElementById('amount').textbox.value = this.formatPrice(this._paidTotal);
             document.getElementById('amount').textbox.focus();
 
         },
@@ -62,17 +88,17 @@
 
         addRefundPayment: function() {
             var inputObj = GeckoJS.FormHelper.serializeToObject('refundForm');
-            var amount = parseInt(inputObj.amount);
+            var amount = parseFloat(inputObj.amount);
             var refundList = document.getElementById('refundscrollablepanel');
 
-            if (isNaN(amount) || amount == 0) {
-                NotifyUtils.warn(_('Refund payment amount must be positive'));
+            if (isNaN(inputObj.amount) || amount <= 0) {
+                NotifyUtils.warn(_('Refund payment amount must be valid, positive number'));
             }
             else {
                 var newRefundPayment = {
                     seq: this._refundPayments.length + 1,
                     name: inputObj.type,
-                    amount: amount,
+                    amount: this.formatPrice(amount),
                     memo1: inputObj.memo1,
                     memo2: inputObj.memo2
                 };
@@ -82,8 +108,7 @@
 
                 refundList.selection.select(this._refundPayments.length - 1);
 
-                this._refundTotal += amount;
-
+                this._refundTotal = this.formatPrice(this._refundTotal - - newRefundPayment.amount);
                 document.getElementById('refundTotal').value = this._refundTotal;
             }
         },
