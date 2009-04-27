@@ -431,13 +431,16 @@ GREUtils.log("add check...");
             var order_id = tableStatusObj.order_id;
             var conditions = "table_statuses.order_id='" + order_id + "'";
             var tableStatusObjTmp = this.find('first', {conditions: conditions});
-
+GREUtils.log("tableStatusObj:::");
+GREUtils.log(GeckoJS.BaseObject.dump(tableStatusObj));
+GREUtils.log("tableStatusObjTmp:::");
+GREUtils.log(GeckoJS.BaseObject.dump(tableStatusObjTmp));
             // tableStatus record exist
             if (tableStatusObjTmp) {
                 
                 if (tableStatusObj.sequence == '') {
                     // remove tableStatus record
-                    this.del(tableStatusObj.id);
+                    this.del(tableStatusObjTmp.id);
                 } else {
                     // update tableStatus record
                     this.id = tableStatusObj.id;
