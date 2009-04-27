@@ -30,6 +30,7 @@
                     <td style="text-align: right;">${_( '(rpt)Surcharge' )}</td>
                     <td style="text-align: right;">${_( '(rpt)Discount' )}</td>
                     <td style="text-align: right;">${_( '(rpt)Promotion' )}</td>
+                    <td style="text-align: right;">${_( '(rpt)Revalue' )}</td>
                     <td style="text-align: right;">${_( '(rpt)Revenue' )}</td>
                 </tr>
                 <tr>
@@ -38,6 +39,7 @@
                     <td style="text-align: right;">${body.sales_summary.SurchargeSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${body.sales_summary.RevalueSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.Total|default:0|viviFormatPrices:true}</td>
                 </tr>
             </table>

@@ -80,6 +80,7 @@
 					                        <menuitem selected="false" label="&rptdailysales.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysales.discount_subtotal;" value="discount_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysales.promotion_subtotal;" value="promotion_subtotal" />
+					                        <menuitem selected="false" label="&rptdailysales.revalue_subtotal;" value="revalue_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysales.total;" value="total" />
 					                        <menuitem selected="false" label="&rptdailysales.cash;" value="cash" />
 					                        <menuitem selected="false" label="&rptdailysales.check;" value="check" />

@@ -168,6 +168,9 @@
                 self.requestCommand('decStock', self.data, "Stocks");
 
 
+            // remove recovery file
+            Transaction.removeRecoveryFile();
+
             if (!discard) {
 
                 // order save in main thread
@@ -2350,6 +2353,7 @@
 
             Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
+            Transaction.serializeToRecoveryFile(this);
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
@@ -2450,6 +2454,52 @@
 
     Transaction.worker =  null;
 
+    Transaction.isRecoveryFileExists = function() {
+
+            var filename = "/var/tmp/cart_transaction.txt";
+
+            return GeckoJS.File.exists(filename);
+
+    };
+
+    Transaction.removeRecoveryFile = function() {
+
+            var filename = "/var/tmp/cart_transaction.txt";
+
+            GeckoJS.File.remove(filename);
+
+    };
+
+    Transaction.unserializeFromRecoveryFile = function() {
+
+            var filename = "/var/tmp/cart_transaction.txt";
+
+            // unserialize from fail recovery file
+            var file = new GeckoJS.File(filename);
+
+            if (!file.exists()) return false;
+
+            var data = null;
+            file.open("r");
+            data = GeckoJS.BaseObject.unserialize(file.read());
+            file.close();
+            file.remove();
+            delete file;
+            
+            return data;
+    };
+
+    Transaction.serializeToRecoveryFile = function(transaction) {
+
+            var filename = "/var/tmp/cart_transaction.txt";
+            
+            // save serialize to fail recovery file
+            var file = new GeckoJS.File(filename);
+            file.open("w");
+            file.write(transaction.serialize());
+            file.close();
+            delete file;
+    };
 
 
 })();

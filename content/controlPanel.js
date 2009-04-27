@@ -1,8 +1,8 @@
 (function(){
 
- /**
-  * Window Startup
-  */
+    /**
+     * Window Startup
+     */
     function startup() {
 
 
@@ -20,23 +20,32 @@
 
         categories.forEach(function(cn) {
             var ctrls = GeckoJS.BaseObject.getValues(prefs[cn]);
-            if (ctrls) ctrls = ctrls.map(function(el) {
+            var ctrls2 = [];
 
-                // if controlpanel has stringbundle create it.
-                if (el.bundle) GeckoJS.StringBundle.createBundle(el.bundle);
-                
-                var entry = {icon: el.icon,
-                             path: el.path,
-                             roles: el.roles,
-                             features: (el.features || null), 
-                             type:  (el.type || 'uri'),
-                             org_label: el.label,
-                             label: _(el.label)}
-                return entry;
-                
-            });
+            if (ctrls) {
+
+                ctrls.forEach(function(el) {
+
+                    // if controlpanel has stringbundle create it.
+                    if (el.bundle) GeckoJS.StringBundle.createBundle(el.bundle);
+
+                    // hidden inaccessible entry
+                    if(GeckoJS.AclComponent.isUserInRole(el.roles)) {
+
+                        var entry = {icon: el.icon,
+                            path: el.path,
+                            roles: el.roles,
+                            features: (el.features || null),
+                            type:  (el.type || 'uri'),
+                            org_label: el.label,
+                            label: _(el.label)}
+
+                        ctrls2.push(entry);
+                    }
+                });
+            }
             
-            var data = new GeckoJS.ArrayQuery(ctrls).orderBy("org_label asc");
+            var data = new GeckoJS.ArrayQuery(ctrls2).orderBy("org_label asc");
             window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
         
             document.getElementById(cn + 'Panel').datasource = window.viewHelper ;
