@@ -431,6 +431,7 @@ GREUtils.log("add check...");
             var order_id = tableStatusObj.order_id;
             var conditions = "table_statuses.order_id='" + order_id + "'";
             var tableStatusObjTmp = this.find('first', {conditions: conditions});
+
             // tableStatus record exist
             if (tableStatusObjTmp) {
                 
