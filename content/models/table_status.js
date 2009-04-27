@@ -434,7 +434,7 @@ GREUtils.log("add check...");
 
             // tableStatus record exist
             if (tableStatusObjTmp) {
-                
+
                 if (tableStatusObj.sequence == '') {
                     // remove tableStatus record
                     this.del(tableStatusObj.id);
