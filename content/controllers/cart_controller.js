@@ -135,8 +135,13 @@
         },
 
         clearWarning: function (evt) {
-            var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            cart.dispatchEvent('onWarning', '');
+            // clear warning only if not in refund all mode
+            if (!this._returnPersist) {
+                this.dispatchEvent('onWarning', '');
+            }
+            else {
+                this.dispatchEvent('onReturnAll', null);
+            }
         },
 
         beforeAddItem: function (evt) {
@@ -529,11 +534,15 @@
                         return next( function() {
 
                             if (plu.force_condiment) {
+                                var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
+                                var conds = condGroupsByPLU[plu.cond_group]['Condiments'];
 
-                                // need to move cursor to addedItem
-                                cart.selection.select(currentIndex);
+                                if (conds.length > 0) {
+                                    // need to move cursor to addedItem
+                                    cart.selection.select(currentIndex);
 
-                                return self.addCondiment(plu, null, doSIS);
+                                    return self.addCondiment(plu, null, doSIS);
+                                }
                             }
 
                         }).next( function() {
@@ -594,7 +603,8 @@
             var dialog_data = {
                 pluset: pluset,
                 name: item.name,
-                start: startIndex
+                start: startIndex,
+                mode: 'add'
             };
             var self = this;
             return $.popupPanel('selectSetItemPanel', dialog_data).next(function(evt){
@@ -669,7 +679,8 @@
             var dialog_data = {
                 pluset: pluset,
                 name: item.name,
-                start: startIndex
+                start: startIndex,
+                mode: 'modify'
             };
             var self = this;
             return $.popupPanel('selectSetItemPanel', dialog_data).next(function(evt){
@@ -1224,7 +1235,6 @@
                     }
                 }
             }
-
             this.dispatchEvent('beforeVoidItem', itemTrans);
             var voidedItem = curTransaction.voidItemAt(index);
             this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
@@ -2717,7 +2727,6 @@
                         _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
-                    this.dispatchEvent('onCancel', null);
                 }
                 else {
                     this.dispatchEvent('onCancel', curTransaction);
@@ -2773,7 +2782,7 @@
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
                 // sleep to allow UI events to update
-                //this.sleep(100);
+                this.sleep(100);
 
                 // GeckoJS.Session.remove('current_transaction');
                 GeckoJS.Session.remove('cart_last_sell_item');
@@ -2790,7 +2799,7 @@
                 }
 
                 if (status != 2) {
-                    if (status != 1) this.dispatchEvent('onWarning', '');
+                    if (status != 1) this.clearWarning();
                     this.dispatchEvent('onSubmit', oldTransaction);
                 }
                 else
@@ -3275,6 +3284,7 @@
             var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+
             inputObj = {
                 payments: order.OrderPayment,
                 paidTotal: order.total,

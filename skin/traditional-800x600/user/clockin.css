@@ -484,12 +484,12 @@ listbox {
     -moz-appearance: none;
 }
 
-listbox #clockin_time {
+.jobsummary .clockin_time {
     min-width: 55px;
     max-width: 55px;
 }
 
-listbox #clockout_time {
+.jobsummary .clockout_time {
     min-width: 55px;
     max-width: 55px;
 }

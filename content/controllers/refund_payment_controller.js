@@ -21,6 +21,7 @@
             var seq = 1;
             this._originalPayments.forEach(function(p) {
                 p.seq = seq++;
+                p.amount -= p.change;
             });
             document.getElementById('paymentscrollablepanel').datasource = this._originalPayments;
             document.getElementById('paidTotal').value = this._paidTotal = data.paidTotal;
