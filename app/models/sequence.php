@@ -24,7 +24,7 @@ class Sequence extends AppModel {
 
     }
 
-    function setSequence() {
+    function setSequence($key = 'default', $value = 0) {
         
         $data = $this->findByKey($key);
 

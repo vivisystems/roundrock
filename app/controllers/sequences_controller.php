@@ -75,7 +75,7 @@ class SequencesController extends AppController {
 
     function setSequence ($key, $value) {
 
-        $value = $this->Sequence->resetSequence($key, $value);
+        $value = $this->Sequence->setSequence($key, $value);
 
         $result = array('status' => 'ok', 'code' => 200 ,
             'value' => $value
