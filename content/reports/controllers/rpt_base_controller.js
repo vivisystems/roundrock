@@ -223,6 +223,12 @@
 	            menupopup.appendChild( menuitem );
 	        });
 	    },
+	    
+	    _queryStringPreprocessor: function( s ) {
+	    	var re = /\'/g;
+
+	    	return s.replace( re, '\'\'' );
+	    },
 
         load: function() {
             this._enableButton( false );

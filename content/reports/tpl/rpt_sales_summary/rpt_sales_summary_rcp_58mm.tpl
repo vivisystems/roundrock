@@ -20,6 +20,8 @@ ${_( '(rpt)Discount' ) + ':'}
 ${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Promotion' ) + ':'}
 ${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Revalue' ) + ':'}
+${body.sales_summary.RevalueSubtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revenue' ) + ':'}
 ${body.sales_summary.Total|default:0|viviFormatPrices:true|right:24}
 ------------------------
@@ -61,7 +63,7 @@ ${detail.destination} ${_( '(rpt)Amount' ) + ':'}
 ${detail.total|default:0|viviFormatPrices:true|right:24}
 {/for}
 ------------------------
-${_( '(rpt)Tax summary' )}
+${_( '(rpt)Tax Summary' )}
 {for detail in body.tax_summary.records}
 ${_( '(rpt)Tax Name' ) + ':'}
 ${detail.tax_name|right:24}

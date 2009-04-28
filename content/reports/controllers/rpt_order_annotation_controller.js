@@ -21,6 +21,7 @@
             var machineid = document.getElementById('machine_id').value;
             
             var periodType = document.getElementById( 'period_type' ).value;
+            var shiftNo = document.getElementById( 'shift_no' );
             
             var annotationType = document.getElementById( 'annotation_type' ).value;
             
@@ -38,6 +39,7 @@
                             'orders.surcharge_subtotal,' +
                             'orders.discount_subtotal,' +
                             'orders.promotion_subtotal,' +
+                            'orders.revalue_subtotal,' +
                             'orders.terminal_no,' +
                             'order_annotations.type,' +
                             'order_annotations.text';
@@ -46,22 +48,26 @@
                             "' AND orders." + periodType + "<='" + end + "'";
 
             if (machineid.length > 0)
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
+                
+            if ( shiftNo.length > 0 )
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
             
             if ( annotationType != 'all' )
-            	conditions += " and order_annotations.type = '" + annotationType + "'";
+            	conditions += " and order_annotations.type = '" + this._queryStringPreprocessor( annotationType ) + "'";
             
             if ( sortby != 'all' ) {
 		       switch ( sortby ) {
 	        		case 'item_subtotal':
 	        		case 'tax_subtotal':
 	        		case 'surcharge_subtotal':
-	        		case 'discount_subtotal':
-	        		case 'promotion_subtotal':
 	        		case 'total':
 	        			'orders.' + sortby + ' desc';
 	        			break;
 	        		case 'text':
+	        		case 'discount_subtotal':
+	        		case 'promotion_subtotal':
+	        		case 'revalue_subtotal':
 	        			'order_annotations.' + sortby;
 	        			break;
 	        	}
@@ -73,11 +79,11 @@
 			var sql = 'select ' + fields + ' from orders join order_annotations on orders.id = order_annotations.order_id where ' + conditions + ' order by ' + orderby + ';';
 			var orderRecords = order.getDataSource().fetchAll( sql );
 			
-			conditions = ' where created >= "' + start + '" and created <= "' + end + '"';
+			conditions = " where created >= '" + start + "' and created <= '" + end + "'";
 			if ( annotationType != 'all' )
-				conditions = ' and type = "' + annotationType + '"';
+				conditions += " and type = '" + this._queryStringPreprocessor( annotationType ) + "'";
 			var orderAnnotation = new OrderAnnotationModel();
-			sql = 'select distinct type from order_annotations' + conditions + ';';
+			sql = "select distinct type from order_annotations" + conditions + ";";
 			var orderAnnotationRecords = orderAnnotation.getDataSource().fetchAll( sql );
 			
 			var records = {};
@@ -90,6 +96,7 @@
 						surcharge_subtotal: 0.0,
 						discount_subtotal: 0.0,
 						promotion_subtotal: 0.0,
+						revalue_subtotal: 0.0,
 						total: 0.0
 					}
 				};
@@ -103,6 +110,7 @@
 				records[ orderRecord.type ].summary.surcharge_subtotal += orderRecord.surcharge_subtotal;
 				records[ orderRecord.type ].summary.discount_subtotal += orderRecord.discount_subtotal;
 				records[ orderRecord.type ].summary.promotion_subtotal += orderRecord.promotion_subtotal;
+				records[ orderRecord.type ].summary.revalue_subtotal += orderRecord.revalue_subtotal;
 				records[ orderRecord.type ].summary.total += orderRecord.total;
 			} );
             

@@ -10,6 +10,15 @@
         _cartView: null,
         _queuePool: null,
         _returnMode: false,
+        _returnPersist: false,
+
+        beforeFilter: function(evt) {
+            var cmd = evt.data;
+            if (cmd != 'cancel') {
+                this._lastCancelInvoke = false;
+            }
+            return true;
+        },
 
         initial: function() {
             
@@ -134,8 +143,13 @@
         },
 
         clearWarning: function (evt) {
-            var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            cart.dispatchEvent('onWarning', '');
+            // clear warning only if not in refund all mode
+            if (!this._returnPersist) {
+                this.dispatchEvent('onWarning', '');
+            }
+            else {
+                this.dispatchEvent('onReturnAll', null);
+            }
         },
 
         beforeAddItem: function (evt) {
@@ -256,7 +270,8 @@
                 else {
                     // clear warning if no stock warning
                     if ((item.stock_status == null || item.stock_status == 1) && setItemsStockStatus == 1) {
-                        cart.dispatchEvent('onWarning', '');
+                        if (!this._returnMode)
+                            cart.dispatchEvent('onWarning', '');
                     }
                 }
                 evt.data.setItemSelectionRequired = setItemSelectionRequired;
@@ -293,7 +308,11 @@
         },
 
         _newTransaction: function() {
-            var curTransaction = new Transaction();
+            
+            try {
+                var curTransaction = new Transaction();
+            }catch(e) {}
+            
             this._setTransactionToView(curTransaction);
 
             // check pricelevel schedule
@@ -311,6 +330,7 @@
 
             var curTransaction = GeckoJS.Session.get('current_transaction');
 
+            
             // null 
             if (curTransaction == null){
                 if(autoCreate) return this._newTransaction();
@@ -339,6 +359,40 @@
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
 
+        serializeQueueToRecoveryFile: function(queue) {
+
+            // save serialize to fail recovery file
+            var filename = "/var/tmp/cart_queue.txt";
+
+            var file = new GeckoJS.File(filename);
+            file.open("w");
+            file.write(GeckoJS.BaseObject.serialize(queue));
+            file.close();
+            delete file;
+
+        },
+
+        unserializeQueueFromRecoveryFile: function() {
+            
+            var filename = "/var/tmp/cart_queue.txt";
+
+            // unserialize from fail recovery file
+            var file = new GeckoJS.File(filename);
+
+            if (!file.exists()) return false;
+
+            var data = null;
+            file.open("r");
+            data = GeckoJS.BaseObject.unserialize(file.read());
+            file.close();
+            // file.remove();
+            delete file;
+
+            this._queuePool = data;
+            GeckoJS.Session.set('cart_queue_pool', this._queuePool);
+
+        },
+
         _getQueuePool: function() {
 
             this._queuePool = GeckoJS.Session.get('cart_queue_pool');
@@ -349,6 +403,7 @@
                 };
                 GeckoJS.Session.set('cart_queue_pool', this._queuePool);
             }
+
             return this._queuePool;
             
         },
@@ -527,11 +582,15 @@
                         return next( function() {
 
                             if (plu.force_condiment) {
+                                var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
+                                var conds = condGroupsByPLU[plu.cond_group]['Condiments'];
 
-                                // need to move cursor to addedItem
-                                cart.selection.select(currentIndex);
+                                if (conds.length > 0) {
+                                    // need to move cursor to addedItem
+                                    cart.selection.select(currentIndex);
 
-                                return self.addCondiment(plu, null, doSIS);
+                                    return self.addCondiment(plu, null, doSIS);
+                                }
                             }
 
                         }).next( function() {
@@ -568,7 +627,7 @@
                 
                 this.subtotal();
             }
-            //this._getCartlist().refresh();
+        //this._getCartlist().refresh();
         },
 	
         setItemSelectionDialog: function (txn, item) {
@@ -586,13 +645,14 @@
             }
 
             pluset.forEach(function(setitem) {
-               setitem.product_no = '';
+                setitem.product_no = '';
             });
             
             var dialog_data = {
                 pluset: pluset,
                 name: item.name,
-                start: startIndex
+                start: startIndex,
+                mode: 'add'
             };
             var self = this;
             return $.popupPanel('selectSetItemPanel', dialog_data).next(function(evt){
@@ -667,7 +727,8 @@
             var dialog_data = {
                 pluset: pluset,
                 name: item.name,
-                start: startIndex
+                start: startIndex,
+                mode: 'modify'
             };
             var self = this;
             return $.popupPanel('selectSetItemPanel', dialog_data).next(function(evt){
@@ -931,7 +992,7 @@
                 this.clearAndSubtotal();
                 return;
             }
-/*
+            /*
             if (itemDisplay.type == 'item' && GeckoJS.Session.get('cart_set_price_value') == null && GeckoJS.Session.get('cart_set_qty_value') == null && buf.length <= 0) {
                 // @todo popup ??
                 this.log('DEBUG', 'modifyItem but no qty / price set!! plu = ' + this.dump(itemTrans) );
@@ -943,7 +1004,7 @@
             }
 */
             if (itemDisplay.type == 'condiment' && buf.length <= 0 ) {
-                // @todo popup ??
+            // @todo popup ??
             }
 
             if (itemDisplay.type == 'setitem') {
@@ -1097,23 +1158,34 @@
         returnItem: function(cancel) {
 
             if (cancel || this._returnMode) {
-                if (this._returnMode && !cancel) {
-                    this._getKeypadController().clearBuffer();
-                    this.subtotal();
+                if (!cancel) {
+                    if (this._returnPersist) {
+                        this._returnPersist = false;
+                        this._getKeypadController().clearBuffer();
+                        this.subtotal();
+                    }
+                    else {
+                        this._returnPersist = true;
+                        this.dispatchEvent('onReturnAll', null);
+                    }
                 }
-                if (this._returnMode) {
+                else {
+                    this._returnPersist = false;
+                }
+                if (this._returnMode && !this._returnPersist) {
                     this._returnMode = false;
                     this.clearWarning();
                 }
             }
             else {
                 this._returnMode = true;
-                this.dispatchEvent('onReturnStatus', null);
+                this.dispatchEvent('onReturnSingle', null);
             }
         },
 
-        cancelReturn: function() {
-            this.returnItem(true);
+        cancelReturn: function(force) {
+            if (!this._returnPersist || force)
+                this.returnItem(true);
         },
 
         voidItem: function() {
@@ -1211,7 +1283,6 @@
                     }
                 }
             }
-
             this.dispatchEvent('beforeVoidItem', itemTrans);
             var voidedItem = curTransaction.voidItemAt(index);
             this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
@@ -1289,7 +1360,7 @@
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
 
-                // @todo OSD
+                c      // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
 
                 this.subtotal();
@@ -2380,7 +2451,9 @@
                 inputObj = {}
 
                 var ledgerEntryTypeModel = new LedgerEntryTypeModel();
-                inputObj.entry_types = ledgerEntryTypeModel.find('all', {order: 'mode, type'});
+                inputObj.entry_types = ledgerEntryTypeModel.find('all', {
+                    order: 'mode, type'
+                });
 
                 window.openDialog(aURL, _('Add New Ledger Entry'), features, inputObj);
             }
@@ -2393,7 +2466,7 @@
 
             // @todo OSD
             OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
-                               [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+                [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -2467,7 +2540,7 @@
             }
             if (!allMarked) {
                 this.addMarker('total');
-                //this._getCartlist().refresh();
+            //this._getCartlist().refresh();
             }
             
             type = type || 'cash';
@@ -2657,7 +2730,7 @@
             var curTransaction = this._getTransaction();
 
             this._getKeypadController().clearBuffer();
-            this.cancelReturn();
+            this.cancelReturn(true);
 
             if(curTransaction == null) {
                 this.dispatchEvent('onClear', null);
@@ -2673,10 +2746,10 @@
 
         },
 
-        cancel: function() {
+        cancel: function(forceCancel) {
 
             this._getKeypadController().clearBuffer();
-            this.cancelReturn();
+            this.cancelReturn(true);
 
             // cancel cart but save
             var curTransaction = this._getTransaction();
@@ -2687,6 +2760,21 @@
                 //NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?
             }
+
+            //  cancel requires confirmation with twice click
+            var now  = (new Date()).getTime();
+            if( !forceCancel && (!this._lastCancelInvoke || ( (now - this._lastCancelInvoke) > 3000)) ) {
+                try{
+                    GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+                    GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+                }catch(e) {                  
+                }
+                // prevent onCancel event dispatch
+                this.dispatchedEvents['onCancel'] = true;
+                this._lastCancelInvoke = now;
+                return ;
+            }
+            this._lastCancelInvoke = now;
 
             this.dispatchEvent('beforeCancel', curTransaction);
             
@@ -2699,12 +2787,13 @@
             if (curTransaction.data.recall == 2) {
                 
                 // determine if new items have been added
-                if (!curTransaction.isModified() ||
+                if (!curTransaction.isModified() || forceCancel ||
                     GREUtils.Dialog.confirm(null, _('confirm cancel'),
                         _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
-                    this.dispatchEvent('onCancel', null);
+
+                    this.clear();
                 }
                 else {
                     this.dispatchEvent('onCancel', curTransaction);
@@ -2750,7 +2839,10 @@
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
-            if (this.dispatchEvent('beforeSubmit', {status: status, txn: oldTransaction})) {
+            if (this.dispatchEvent('beforeSubmit', {
+                status: status,
+                txn: oldTransaction
+            })) {
             
                 oldTransaction.lockItems();
 
@@ -2760,7 +2852,7 @@
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
                 // sleep to allow UI events to update
-                //this.sleep(100);
+                this.sleep(100);
 
                 // GeckoJS.Session.remove('current_transaction');
                 GeckoJS.Session.remove('cart_last_sell_item');
@@ -2769,7 +2861,7 @@
 
                 //this.dispatchEvent('onClear', 0.00);
                 this._getKeypadController().clearBuffer();
-                this.cancelReturn();
+                this.cancelReturn(true);
 
                 // clear register screen if needed
                 if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
@@ -2777,7 +2869,7 @@
                 }
 
                 if (status != 2) {
-                    if (status != 1) this.dispatchEvent('onWarning', '');
+                    if (status != 1) this.clearWarning();
                     this.dispatchEvent('onSubmit', oldTransaction);
                 }
                 else
@@ -2822,7 +2914,7 @@
                 if (dest) {
                     if (curTransaction.data.destination != dest) {
                         if (GREUtils.Dialog.confirm(null, _('confirm destination'),
-                                                    _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
+                            _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
                             return;
                         }
                     }
@@ -2838,7 +2930,7 @@
 
                     if (mismatch) {
                         if (GREUtils.Dialog.confirm(null, _('confirm destination'),
-                                                    _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
+                            _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
                             return;
                         }
                     }
@@ -2865,11 +2957,11 @@
                         };
 
                         var data = [
-                            _('Add Annotation'),
-                            '',
-                            _(annotationType),
-                            '',
-                            inputObj
+                        _('Add Annotation'),
+                        '',
+                        _(annotationType),
+                        '',
+                        inputObj
                         ];
 
                         var self = this;
@@ -2878,10 +2970,16 @@
 
                             if (result.ok && result.input0) {
                                 if ('annotations' in curTransaction.data) {
-                                    curTransaction.data.annotations.push({type: annotationType, text: result.input0});
+                                    curTransaction.data.annotations.push({
+                                        type: annotationType,
+                                        text: result.input0
+                                    });
                                 }
                                 else {
-                                    curTransaction.data.annotations = [{type: annotationType, text: result.input0}];
+                                    curTransaction.data.annotations = [{
+                                        type: annotationType,
+                                        text: result.input0
+                                    }];
                                 }
 
                                 // save annotation in db
@@ -2908,8 +3006,8 @@
                     }
                 }
 
-                // lastly, close the transaction and store the order to generate the
-                // appropriate printouts
+            // lastly, close the transaction and store the order to generate the
+            // appropriate printouts
             }
             curTransaction.close();
             this.submit(2);
@@ -2948,7 +3046,10 @@
                     var condPrice = parmList[1] || 0;
 
                     if (condName != '' && !isNaN(condPrice)) {
-                        condArray.push({name: condName, price: condPrice});
+                        condArray.push({
+                            name: condName,
+                            price: condPrice
+                        });
                     }
                 });
             }
@@ -2959,7 +3060,6 @@
         },
 
         addCondiment: function(plu, condiments, immediateMode) {
-
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
@@ -3020,7 +3120,7 @@
                     NotifyUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
                     return;
                 }
-/*
+                /*
                 if (cartItem.current_qty < 0) {
                     var displayItem = curTransaction.getDisplaySeqAt(index);
                     //@todo OSD
@@ -3051,7 +3151,7 @@
                 if (!immediateMode && setItem.condiments != null) {
                     for (var c in setItem.condiments) {
                         if (condiments == null) {
-                            condiments = {};
+                            condiments = [];
                         }
                         condiments.push(setItem.condiments[c]);
                     }
@@ -3066,7 +3166,7 @@
                     return d;
                 }
                 else if (immediateMode && condiments) {
-				    this._appendCondiments(condiments, false);
+                    this._appendCondiments(condiments, false);
                 }
                 else {
                     return this.getCondimentsDialog(condimentItem.cond_group, condiments);
@@ -3091,16 +3191,25 @@
             }
 
             var selectedItems = [];
+            var additionalItems = [];
             var conds = condGroupsByPLU[condgroup]['Condiments'];
             if (condiments == null) {
                 //@irving filter out sold out condiments
-                selectedItems = condGroupsByPLU[condgroup]['PresetItems'].filter(function(c) {return !conds[c].soldout});
+                selectedItems = condGroupsByPLU[condgroup]['PresetItems'].filter(function(c) {
+                    return !conds[c].soldout
+                });
             }else {
                 // check item selected condiments
-                var condNames = GeckoJS.BaseObject.getKeys(condiments);
+                //var condNames = GeckoJS.BaseObject.getKeys(condiments);
+                var condNames = condiments.map(function(c) {
+                    return c.name
+                    });
                 for (var i = 0; i < conds.length; i++) {
                     if (condNames.indexOf(conds[i].name) > -1) {
                         selectedItems.push(i);
+                    }
+                    else {
+                        additionalItems.push(condiments[i]);
                     }
                 }
             }
@@ -3114,7 +3223,7 @@
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
-                    self._appendCondiments(selectedCondiments, true);
+                    self._appendCondiments(selectedCondiments.concat(additionalItems), true);
                 }
 
             });
@@ -3160,8 +3269,8 @@
                     if (collapseCondiments) {
                         curTransaction.collapseCondiments(condDisplayIndex);
 
-	                this._getCartlist().scrollToRow(0);			
-	                this._getCartlist().treeBoxObject.ensureRowIsVisible(condDisplayIndex);			
+                        this._getCartlist().scrollToRow(0);
+                        this._getCartlist().treeBoxObject.ensureRowIsVisible(condDisplayIndex);
                     }
                     this.dispatchEvent('afterAddCondiment', selectedCondiments);
                 }
@@ -3241,22 +3350,35 @@
 
             if (!order) {
                 GREUtils.Dialog.alert(window,
-                                      _('Void Sale'),
-                                      _('Failed to void: the selected order no longer exists'));
+                    _('Void Sale'),
+                    _('Failed to void: the selected order no longer exists'));
                 return;
             }
 
             if (order.status != 1) {
                 GREUtils.Dialog.alert(window,
-                                      _('Void Sale'),
-                                      _('Failed to void: the selected order is not/has been yet been completed'));
+                    _('Void Sale'),
+                    _('Failed to void: the selected order is not/has been yet been completed'));
                 return;
             }
 
-            if (GREUtils.Dialog.confirm(window,
-                                        _('Void Sale'),
-                                        _('Are you sure you want to void transaction [%S]?', [order.sequence]))) {
+            // allow operator to register refund payments
+            var aURL = 'chrome://viviecr/content/refund_payment.xul';
+            var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+            var screenheight = GeckoJS.Session.get('screenheight') || 600;
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
+            inputObj = {
+                payments: order.OrderPayment,
+                paidTotal: order.total,
+                sequence: order.sequence,
+                roundingPrices: order.rounding_prices,
+                precisionPrices: order.precision_prices
+            };
+            
+            window.openDialog(aURL, _('Payment Refund'), features, inputObj);
+
+            if (inputObj.ok) {
                 if (this.dispatchEvent('beforeVoidSale', order)) {
 
                     var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -3270,15 +3392,15 @@
 
                     var paymentModel = new OrderPaymentModel();
 
-                    // reverse payments
-                    for (var p in order.OrderPayment) {
-                        var payment = order.OrderPayment[p];
+                    // insert refund payments
+                    inputObj.refunds.forEach(function(payment) {
 
                         // reverse amount, origin_amount, change
                         payment.id = '';
+                        payment.order_id = order.id;
                         payment.amount = - payment.amount;
-                        payment.origin_amount = - payment.origin_amount;
-                        payment.change = - payment.change;
+                        payment.origin_amount = payment.amount;
+                        payment.change = 0;
 
                         // update proceeds_clerk
                         if (user != null) {
@@ -3289,13 +3411,13 @@
                         payment.sale_period = salePeriod;
                         payment.shift_number = shiftNumber;
                         payment.terminal_no = terminalNo;
-                    }
+                    });
 
                     // begin transaction
                     orderModel.begin();
 
                     // save payment record
-                    paymentModel.saveAll(order.OrderPayment);
+                    paymentModel.saveAll(inputObj.refunds);
 
                     // update order status to voided
                     order.status = -2;
@@ -3330,12 +3452,11 @@
                     var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
                     stockController.requestCommand('decStock', order, 'Stocks');
 
-                    if (this.dispatchEvent('afterVoidSale', order)) {
+                    this.dispatchEvent('afterVoidSale', order);
 
-                        GREUtils.Dialog.alert(window,
-                                              _('Void Sale'),
-                                              _('Transaction [%S] successfully voided', [order.sequence]));
-                    }
+                    GREUtils.Dialog.alert(window,
+                        _('Void Sale'),
+                        _('Transaction [%S] successfully voided', [order.sequence]));
                 }
             }
         },
@@ -3516,6 +3637,8 @@
                 GeckoJS.Session.remove('cart_set_price_value');
                 GeckoJS.Session.remove('cart_set_qty_value');
 
+                this.serializeQueueToRecoveryFile(queuePool);
+
             }
             else {
                 if (!nowarning) NotifyUtils.warn(_('Order is not queued because it is empty'));
@@ -3587,6 +3710,8 @@
 
                 self.subtotal();
 
+                self.serializeQueueToRecoveryFile(queuePool);
+
                 self.dispatchEvent('afterPullQueue', curTransaction);
             });
 
@@ -3612,13 +3737,15 @@
 
         },
 
-        newCheck: function() {
+        newCheck: function(autoCheckNo) {
 this.log("newCheck...");
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
+            if (autoCheckNo)
+                var no = '';
+            else {
+                var no = this._getKeypadController().getBuffer();
+                this._getKeypadController().clearBuffer();
+                this.cancelReturn();
+            }
             var curTransaction = null;
 
             var r = -1;
@@ -3627,19 +3754,25 @@ this.log("newCheck...");
             } else {
                 r = this.GuestCheck.check(no);
             }
-this.log("after newCheck..." + r);
+            this.log("after newCheck..." + r);
 
             this.subtotal();
         },
 
         newTable: function() {
-this.log("newTable...");
+            this.log("newTable...");
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
 
-            var curTransaction = null;
+            var curTransaction = this._getTransaction();
+            if (curTransaction) {
+                if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0 && curTransaction.data.recall !=2) {
+                    NotifyUtils.warn(_('This order must be store first'));
+                    return;
+                }
+            }
 
             var r = -1;
             if (no.length == 0) {
@@ -3647,7 +3780,7 @@ this.log("newTable...");
             } else {
                 r = this.GuestCheck.table(no);
             }
-this.log("after newTable..." + r);
+            this.log("after newTable..." + r);
 
             this.subtotal();
         },
@@ -3657,7 +3790,7 @@ this.log("after newTable..." + r);
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
-// recall order
+
             return this.GuestCheck.recallByOrderNo(no);
         },
 
@@ -3771,8 +3904,8 @@ this.log("after newTable..." + r);
             var modified = curTransaction.isModified();
             if (modified) {
                 NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                // r = this.GuestCheck.store();
-                // this.dispatchEvent('onStore', curTransaction);
+            // r = this.GuestCheck.store();
+            // this.dispatchEvent('onStore', curTransaction);
             }
 
             // r = this.GuestCheck.transferToCheckNo(no);
@@ -3809,8 +3942,8 @@ this.log("after newTable..." + r);
             var modified = curTransaction.isModified();
             if (modified) {
                 NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                // r = this.GuestCheck.store();
-                // this.dispatchEvent('onStore', curTransaction);
+            // r = this.GuestCheck.store();
+            // this.dispatchEvent('onStore', curTransaction);
             }
 
             var r = this.GuestCheck.splitOrder(no, curTransaction.data);
@@ -3845,11 +3978,26 @@ this.log("after newTable..." + r);
             var modified = curTransaction.isModified();
             if (modified) {
                 NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                // r = this.GuestCheck.store();
-                // this.dispatchEvent('onStore', curTransaction);
+            // r = this.GuestCheck.store();
+            // this.dispatchEvent('onStore', curTransaction);
             }
 
             var r = this.GuestCheck.transferToTableNo(no);
+            
+        },
+
+        recovery: function(data) {
+
+            if(data) {
+                var transaction = new Transaction();
+                transaction.data = data ;
+
+                this._setTransactionToView(transaction);
+                transaction.updateCartView(-1, -1);
+
+                this.unserializeQueueFromRecoveryFile();
+                this.subtotal();
+            }
         }
         
     };

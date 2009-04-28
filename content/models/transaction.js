@@ -32,6 +32,8 @@
 
                 total: 0,
                 remain: 0,
+                revalue_subtotal: 0,
+                qty_subtotal: 0,
                 tax_subtotal: 0,
                 included_tax_subtotal: 0,
                 surcharge_subtotal: 0,
@@ -137,6 +139,9 @@
             this.data.decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
             this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
+            this.data.autorevalue = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || false;
+            this.data.revalueprices = GeckoJS.Configure.read('vivipos.fec.settings.RevaluePrices');
+
             Transaction.events.dispatch('onCreate', this, this);
 
         },
@@ -162,6 +167,9 @@
             if (status > 0)
                 self.requestCommand('decStock', self.data, "Stocks");
 
+
+            // remove recovery file
+            Transaction.removeRecoveryFile();
 
             if (!discard) {
 
@@ -247,7 +255,8 @@
             this.view.data = this.data.display_sequences;
             this.view.rowCountChanged(prevRowCount, currentRowCount, cursorIndex);
 
-            GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
+            //GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
+            GeckoJS.Session.set('vivipos_fec_number_of_items', this.data.qty_subtotal);
             GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
 
         },
@@ -771,9 +780,11 @@
                     var condimentItem = {
                         id: itemTrans.id,
                         name: itemDisplay.name,
-                        current_subtotal: condimentPrice == 0 ? '' : condimentPrice,
-                        open: itemDisplay.open
+                        current_subtotal: condimentPrice == 0 ? '' : condimentPrice
                     };
+                    if ('open' in itemDisplay) {
+                        condimentItem.open = itemDisplay.open;
+                    }
                 }
                 var obj = {
                     sellPrice: sellPrice,
@@ -906,8 +917,10 @@
                         var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
 
                         // inherit open state
-                        condimentItemDisplay2.open = condimentItem.open;
-
+                        if ('open' in condimentItem) {
+                            condimentItemDisplay2.open = condimentItem.open;
+                        }
+                        
                         // update condiment display
                         this.data.display_sequences[index] = condimentItemDisplay2 ;
 
@@ -936,7 +949,9 @@
                         var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment', 2);
 
                         // inherit open state
-                        condimentItemDisplay2.open = condimentItem.open;
+                        if ('open' in condimentItem) {
+                            condimentItemDisplay2.open = condimentItem.open;
+                        }
 
                         // update condiment display
                         this.data.display_sequences[index] = condimentItemDisplay2 ;
@@ -2211,7 +2226,7 @@
             for(var itemIndex in items ) {
                 var item = items[itemIndex];
 
-                /*
+            /*
             tax_name: item.rate,
             tax_rate: null,
             tax_type: null,
@@ -2235,8 +2250,9 @@
                     }
 
                     // rounding tax
-                    item.current_tax = this.getRoundedTax(item.current_tax);
-                    item.included_tax = this.getRoundedTax(item.included_tax);
+                    // @don't round tax here - irving 4/28/2009
+                    //item.current_tax = this.getRoundedTax(item.current_tax);
+                    //item.included_tax = this.getRoundedTax(item.included_tax);
                     if (toTaxCharge < 0) item.current_tax = 0 - item.current_tax;
                 }
             }
@@ -2254,7 +2270,7 @@
             //this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(this.data));
             Transaction.events.dispatch('onCalcTotal', this.data, this);
 
-            var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
+            var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0, qty_subtotal=0;
             var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0, promotion_subtotal=0;
 
             // item subtotal and grouping
@@ -2270,6 +2286,8 @@
                     item_surcharge_subtotal += parseFloat(item.current_surcharge);
                     item_discount_subtotal += parseFloat(item.current_discount);
                     item_subtotal += parseFloat(item.current_subtotal);
+
+                    qty_subtotal += item.current_qty;
                 }
 
                 // summary it
@@ -2315,8 +2333,22 @@
             total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal - promotion_subtotal;
             remain = total - payment_subtotal;
 
+            // revalue
+            if(this.data.autorevalue && this.data.revalueprices != 0) {
+                if(total>=0) {
+                    this.data.revalue_subtotal = 0 - parseFloat(total % this.data.revalueprices);
+                }else {
+                    this.data.revalue_subtotal = parseFloat((0 - total) % this.data.revalueprices);
+                    if (this.data.revalue_subtotal != 0)
+                        this.data.revalue_subtotal -= this.data.revalueprices;
+                }
+                total = total + this.data.revalue_subtotal;
+                remain = total - payment_subtotal;
+            }
+
             this.data.total = this.getRoundedPrice(total);
             this.data.remain = this.getRoundedPrice(remain);
+            this.data.qty_subtotal = qty_subtotal;
             this.data.tax_subtotal = this.getRoundedTax(tax_subtotal);
             this.data.item_subtotal = this.getRoundedPrice(item_subtotal);
             this.data.included_tax_subtotal = this.getRoundedTax(included_tax_subtotal);
@@ -2325,12 +2357,12 @@
             this.data.trans_surcharge_subtotal = this.getRoundedPrice(trans_surcharge_subtotal);
             this.data.trans_discount_subtotal = this.getRoundedPrice(trans_discount_subtotal);
             this.data.payment_subtotal = this.getRoundedPrice(payment_subtotal);
-
             this.data.discount_subtotal = this.data.item_discount_subtotal + this.data.trans_discount_subtotal ;
             this.data.surcharge_subtotal = this.data.item_surcharge_subtotal + this.data.trans_surcharge_subtotal;
 
             Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
+            Transaction.serializeToRecoveryFile(this);
             //var profileEnd = (new Date()).getTime();
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
@@ -2431,6 +2463,52 @@
 
     Transaction.worker =  null;
 
+    Transaction.isRecoveryFileExists = function() {
+
+            var filename = "/var/tmp/cart_transaction.txt";
+
+            return GeckoJS.File.exists(filename);
+
+    };
+
+    Transaction.removeRecoveryFile = function() {
+
+            var filename = "/var/tmp/cart_transaction.txt";
+
+            GeckoJS.File.remove(filename);
+
+    };
+
+    Transaction.unserializeFromRecoveryFile = function() {
+
+            var filename = "/var/tmp/cart_transaction.txt";
+
+            // unserialize from fail recovery file
+            var file = new GeckoJS.File(filename);
+
+            if (!file.exists()) return false;
+
+            var data = null;
+            file.open("r");
+            data = GeckoJS.BaseObject.unserialize(file.read());
+            file.close();
+            file.remove();
+            delete file;
+            
+            return data;
+    };
+
+    Transaction.serializeToRecoveryFile = function(transaction) {
+
+            var filename = "/var/tmp/cart_transaction.txt";
+            
+            // save serialize to fail recovery file
+            var file = new GeckoJS.File(filename);
+            file.open("w");
+            file.write(transaction.serialize());
+            file.close();
+            delete file;
+    };
 
 
 })();

@@ -50,7 +50,8 @@
 		                    		<label value="&rptorderannotation.periodtype;" />
 					                <menulist id="period_type">
 					                    <menupopup id="periodtype_menupopup">
-					                        <menuitem selected="true" label="&rptorderannotation.starttime;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptorderannotation.starttime;" value="transaction_created" />
+					                        <menuitem selected="true" label="&rptorderannotation.transaction_submitted;" value="transaction_submitted" />
 					                        <menuitem selected="false" label="&rptorderannotation.saleperiod;" value="sale_period" />
 					                    </menupopup>
 					                </menulist>
@@ -68,6 +69,7 @@
 					                        <menuitem selected="false" label="&rptorderannotation.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptorderannotation.discount_subtotal;" value="discount_subtotal" />
 					                        <menuitem selected="false" label="&rptorderannotation.promotion_subtotal;" value="promotion_subtotal" />
+					                        <menuitem selected="false" label="&rptorderannotation.revalue_subtotal;" value="revalue_subtotal" />
 					                        <menuitem selected="false" label="&rptorderannotation.total;" value="total" />
 					                    </menupopup>
 					                </menulist>
@@ -82,6 +84,12 @@
 					                    </menupopup>
 					                </menulist>
 					            </vbox>
+					            <vbox>
+				                    <label value="&rptorderannotation.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
+				                </vbox>
+				            </row>
+				            <row>
 		                    	<vbox>
 				                    <label value="&rptorderannotation.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>

@@ -15,8 +15,8 @@
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
 			var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
-            start = parseInt(start / 1000, 10);
-            end = parseInt(end / 1000, 10);
+            start = parseInt( start / 1000, 10 );
+            end = parseInt( end / 1000, 10 );
             
             var orderItem = new OrderItemModel();
 
@@ -27,6 +27,7 @@
             				'orders.tax_subtotal',
             				'orders.included_tax_subtotal',
             				'orders.promotion_subtotal',
+            				'orders.revalue_subtotal',
             				'order_items.order_id',
             				'order_items.tax_name',
             				'order_items.tax_type',
@@ -37,10 +38,11 @@
                          ];
                             
             var conditions = "orders." + periodType + ">='" + start +
-                            "' AND orders." + periodType + "<='" + end + "'";
+                            "' AND orders." + periodType + "<='" + end + "'" +
+                            " and orders.status = 1";
             
             if ( terminalNo.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + terminalNo + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
 
             var groupby = 'order_items.order_id, order_items.tax_name, order_items.tax_type';
             var orderby = 'orders.sequence';
@@ -65,7 +67,8 @@
 				included_tax_subtotal: 0,
 				surcharge_subtotal: 0,
 				discount_subtotal: 0,
-				promotion_subtotal: 0
+				promotion_subtotal: 0,
+				revalue_subtotal: 0
 			};
 			
 			taxList.forEach( function( tax ) {
@@ -100,6 +103,7 @@
 					summary.surcharge_subtotal += records[ oid ][ 'surcharge_subtotal' ];
 					summary.discount_subtotal += records[ oid ][ 'discount_subtotal' ];
 					summary.promotion_subtotal += data.Order.promotion_subtotal;
+					summary.revalue_subtotal += data.Order.revalue_subtotal;
 				}
 				
 				var taxObject = TaxComponent.prototype.getTax( data.tax_name );

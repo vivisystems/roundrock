@@ -492,6 +492,29 @@ textbox:not([onclick]) *[readonly] {
 }
 
 /*-----------------------------------------------------------------------------
+ * Systool button 2
+ *-----------------------------------------------------------------------------
+ */
+
+.systoolbtn2 {
+    margin: 0px;
+    height: 48px;
+    min-width: 50px;
+    max-width: 50px;
+    border: none;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+}
+
+.systoolbtn2 label {
+    display: none;
+}
+
+.systoolbtn2 description {
+    display: none;
+}
+
+/*-----------------------------------------------------------------------------
  * Standar scroll buttons
  *-----------------------------------------------------------------------------
  */

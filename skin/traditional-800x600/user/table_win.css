@@ -22,7 +22,7 @@
 }
 
 .PromptLabel2 {
-    color: #ff0;
+    color: #fff;
     text-indent : 100px;
     list-style: circle inside;
 }
@@ -30,6 +30,15 @@
 .PromptLabel3 {
     color: #fff;
     text-align: right;
+}
+
+.whitefont {
+	font-size: 14px;
+	color: #fff;
+}
+.yellowfont {
+	font-size: 18px;
+	color: #ff0;
 }
 
 ol {

@@ -23,7 +23,7 @@
                 var cate = new CategoryModel();
                 var cateRecords = cate.find('all', {
                     fields: ['no','name'],
-                    conditions: "categories.no LIKE '" + department + "%'"
+                    conditions: "categories.no LIKE '" + this._queryStringPreprocessor( department ) + "%'"
                     });
             } else {
                 var cate = new CategoryModel();

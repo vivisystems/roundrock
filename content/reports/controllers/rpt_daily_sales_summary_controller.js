@@ -21,6 +21,7 @@
             var machineid = document.getElementById('machine_id').value;
             
             var periodType = document.getElementById( 'period_type' ).value;
+            var shiftNo = document.getElementById( 'shift_no' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
@@ -44,6 +45,7 @@
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
                             'orders.promotion_subtotal',
+                            'orders.revalue_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -56,12 +58,12 @@
                             "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status='1'";
 
-            if (machineid.length > 0) {
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
-                //var groupby = 'orders.terminal_no,"Order.Date"';
-            } else {
-                //var groupby = '"Order.Date"';
-            }
+            if ( machineid.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
+                
+            if ( shiftNo.length > 0 )
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+            	
             var groupby = 'order_payments.order_id, order_payments.name';//order_payments.order_id';
             var orderby = 'orders.' + sortby +', "Order.date", orders.item_subtotal desc';//orders.transaction_created, orders.id';
 
@@ -71,13 +73,13 @@
             // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
             var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+            //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
             // prepare reporting data
             var repDatas = {};
 
-            var initZero = parseFloat(0).toFixed(precision_prices);
+            //var initZero = parseFloat(0).toFixed(precision_prices);
 
             var footDatas = {
             	tax_subtotal: 0,
@@ -86,6 +88,7 @@
             	surcharge_subtotal: 0,
             	discount_subtotal: 0,
             	promotion_subtotal: 0,
+            	revalue_subtotal: 0,
             	cash: 0,
             	check: 0,
             	creditcard: 0,
@@ -103,7 +106,7 @@
             var old_terminal;
             var old_date;
             
-            datas.forEach(function(data){
+            datas.forEach( function( data ) {
 
                 var oid = data.Order.id;
                 var o = data.Order;
@@ -116,7 +119,7 @@
 
                 if ( terminal != old_terminal || date != old_date ) {
                     if ( !repDatas[ oid ] ) {
-                        repDatas[ oid ] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
+                        repDatas[ oid ] = GREUtils.extend( {}, o ); // {cash:0, creditcard: 0, coupon: 0}, o);
                     }
 					
 					if ( old_oid != oid ) {
@@ -143,6 +146,7 @@
 		                repDatas[ tmp_oid ][ 'surcharge_subtotal' ] += o.surcharge_subtotal;
 		                repDatas[ tmp_oid ][ 'discount_subtotal' ] += o.discount_subtotal;
 		                repDatas[ tmp_oid ][ 'promotion_subtotal' ] += o.promotion_subtotal;
+		                repDatas[ tmp_oid ][ 'revalue_subtotal' ] += o.revalue_subtotal;
 		                repDatas[ tmp_oid ][ 'tax_subtotal' ] += o.tax_subtotal;
 		                repDatas[ tmp_oid ][ 'item_subtotal' ] += o.item_subtotal;
 		            }
@@ -153,6 +157,7 @@
 		            footDatas.surcharge_subtotal += o.surcharge_subtotal;
 		            footDatas.discount_subtotal += o.discount_subtotal;
 		            footDatas.promotion_subtotal += o.promotion_subtotal;
+		            footDatas.revalue_subtotal += o.revalue_subtotal;
 		            footDatas.tax_subtotal += o.tax_subtotal;
 		            footDatas.item_subtotal += o.item_subtotal;
 		        }
@@ -181,14 +186,15 @@
 		        	switch ( sortby ) {
 		        		case 'terminal_no':
 		        		case 'time':
+		        		case 'discount_subtotal':
+		        		case 'promotion_subtotal':
+		        		case 'revalue_subtotal':
 		        			if ( a > b ) return 1;
 							if ( a < b ) return -1;
 							return 0;
 		        		case 'item_subtotal':
 		        		case 'tax_subtotal':
 		        		case 'surcharge_subtotal':
-		        		case 'discount_subtotal':
-		        		case 'promotion_subtotal':
 		        		case 'total':
 		        		case 'cash':
 		        		case 'check':

@@ -1741,8 +1741,8 @@ msgstr "Hourly Sales"
 msgid "(rpt)Top Product Sales"
 msgstr "Top Product Sales"
 
-msgid "(rpt)Tax summary"
-msgstr "Tax summary"
+msgid "(rpt)Tax Summary"
+msgstr "Tax Summary"
 
 msgid "(rpt)Rate"
 msgstr "Rate"
@@ -1809,6 +1809,36 @@ msgstr "Promotion"
 
 msgid "(rpt)Subtotal"
 msgstr "Subtotal"
+
+msgid "(rpt)Promotion Summary"
+msgstr "Promotion Summary"
+
+msgid "(rpt)Code"
+msgstr "Code"
+
+msgid "(rpt)Voided Orders"
+msgstr "Voided Orders"
+
+msgid "(rpt)Date"
+msgstr "Date"
+
+msgid "(rpt)Order Count"
+msgstr "Order Count"
+
+msgid "(rpt)Promotion Subtotal"
+msgstr "Promotion Subtotal"
+
+msgid "(rpt)Matched Count"
+msgstr "Matched Count"
+
+msgid "(rpt)Matched Items Qty."
+msgstr "Matched Items Qty."
+
+msgid "(rpt)Matched Items Subtotal"
+msgstr "Matched Items Subtotal"
+
+msgid "(rpt)Revalue"
+msgstr "Revalue"
 
 msgid "(view)completed"
 msgstr "completed"

@@ -9,7 +9,7 @@
 <!ENTITY rptclerksales.machineid "Terminal No:">
 <!ENTITY rptclerksales.sortby "Sort By:">
 <!ENTITY rptclerksales.terminal_no "Terminal No.">
-<!ENTITY rptclerksales.transaction_created "Time">
+<!ENTITY rptclerksales.time "Time">
 <!ENTITY rptclerksales.sequence "Sequence">
 <!ENTITY rptclerksales.invoice_no "Invoice No.">
 <!ENTITY rptclerksales.tax_subtotal "Add-on Tax">
@@ -18,6 +18,7 @@
 <!ENTITY rptclerksales.surcharge_subtotal "Surcharge">
 <!ENTITY rptclerksales.discount_subtotal "Discount">
 <!ENTITY rptclerksales.promotion_subtotal "Promotion">
+<!ENTITY rptclerksales.revalue_subtotal "Revalue">
 <!ENTITY rptclerksales.cash "Cash">
 <!ENTITY rptclerksales.check "Check">
 <!ENTITY rptclerksales.creditcard "Credit Card">
@@ -29,3 +30,8 @@
 <!ENTITY rptclerksales.service_clerk "Service Clerk">
 <!ENTITY rptclerksales.proceeds_clerk "Proceeds Clerk">
 <!ENTITY rptclerksales.clerk_type "Clerk Type:">
+<!ENTITY rptclerksales.periodtype "Period Type:">
+<!ENTITY rptclerksales.transaction_created "Order Opened Time">
+<!ENTITY rptclerksales.transaction_submitted "Order Finalized Time">
+<!ENTITY rptclerksales.sale_period "Sale Period">
+<!ENTITY rptclerksales.shiftno "Shift No.:">

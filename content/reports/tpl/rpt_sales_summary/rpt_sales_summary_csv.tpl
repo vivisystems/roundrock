@@ -15,6 +15,7 @@
 "","${_( '(rpt)Surcharge' )}","${body.sales_summary.SurchargeSubtotal|default:0|viviFormatPrices:true}"
 "","${_( '(rpt)Discount' )}","${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true}"
 "","${_( '(rpt)Promotion' )}","${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true}"
+"","${_( '(rpt)Revalue' )}","${body.sales_summary.RevalueSubtotal|default:0|viviFormatPrices:true}"
 "","${_( '(rpt)Revenue' )}","${body.sales_summary.Total|default:0|viviFormatPrices:true}"
 "",""
 "${_( '(rpt)Sales Summary' )}"
@@ -43,7 +44,7 @@
 "","${detail.destination} ${_( '(rpt)Amount' ) + ':'}","${detail.total|default:0|viviFormatPrices:true}"
 {/for}
 "",""
-"${_( '(rpt)Tax summary' )}"
+"${_( '(rpt)Tax Summary' )}"
 "","${_( '(rpt)Tax Name' )}","${_( '(rpt)Tax Rate' )}","${_( '(rpt)Tax Type' )}","${_( '(rpt)Total' )}"
 {for detail in body.tax_summary.records}
 "","${detail.tax_name}","${detail.tax_rate}","${detail.tax_type}","${detail.tax_subtotal|default:0|viviFormatPrices:true}"

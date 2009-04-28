@@ -13,7 +13,8 @@
 
         removeOldOrder: function(iid) {
             //
-            this.del(iid);
+
+            this.delAll("id='" + iid + "'");
 
             var cond = "order_id='" + iid + "'";
 
@@ -54,7 +55,8 @@
             var orderData  = this.mappingTranToOrderFields(data);
             var r;
 
-            this.id = orderData.id;
+            // this.id = orderData.id;  // remove id , this will to cause model.exists finding data exists.
+            this.create();
             this.begin();
             r = this.save(orderData);
             this.commit();
@@ -325,7 +327,6 @@
 
             var orderPayments = [];
             var i = 0;
-            var len = data.order_items;
             var len = GeckoJS.BaseObject.getKeys(data.trans_payments).length;
             for (var iid in data.trans_payments) {
                 i++;
@@ -348,7 +349,8 @@
                 orderPayment['shift_number'] = data.shift_number;
                 orderPayment['terminal_no'] = data.terminal_no;
 
-                if (i == len) {
+                // calculate change only if the order is being finalized
+                if (i == len && data.status == 1) {
                     orderPayment['change'] = Math.abs(data.remain);
                 } else {
                     orderPayment['change'] = 0;

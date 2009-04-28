@@ -62,12 +62,28 @@
 		                    </row>
 		                    <row>
 		                    	<vbox>
+		                    		<label value="&rptclerksales.periodtype;" />
+					                <menulist id="period_type">
+					                    <menupopup id="period_type_menupopup">
+					                        <menuitem selected="true" label="&rptclerksales.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptclerksales.transaction_submitted;" value="transaction_submitted" />
+					                        <menuitem selected="false" label="&rptclerksales.sale_period;" value="sale_period" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
+				                    <label value="&rptclerksales.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
 				                	<label value="&rptclerksales.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="&rptclerksales.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="false" label="&rptclerksales.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptclerksales.associated_clerk;" value="associated_clerk_displayname" />
-					                        <menuitem selected="false" label="&rptclerksales.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptclerksales.time;" value="time" />
 					                        <menuitem selected="false" label="&rptclerksales.sequence;" value="sequence" />
 					                        <menuitem selected="false" label="&rptclerksales.invoice_no;" value="invoice_no" />
 					                        <menuitem selected="false" label="&rptclerksales.item_subtotal;" value="item_subtotal" />
@@ -75,7 +91,8 @@
 					                        <menuitem selected="false" label="&rptclerksales.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.discount_subtotal;" value="discount_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.promotion_subtotal;" value="promotion_subtotal" />
-					                        <menuitem selected="false" label="&rptclerksales.total;" value="total" />
+					                        <menuitem selected="false" label="&rptclerksales.revalue_subtotal;" value="revalue_subtotal" />
+					                        <menuitem selected="true" label="&rptclerksales.total;" value="total" />
 					                        <menuitem selected="false" label="&rptclerksales.cash;" value="cash" />
 					                        <menuitem selected="false" label="&rptclerksales.check;" value="check" />
 					                        <menuitem selected="false" label="&rptclerksales.creditcard;" value="creditcard" />
@@ -83,7 +100,7 @@
 					                        <menuitem selected="false" label="&rptclerksales.giftcard;" value="giftcard" />
 					                    </menupopup>
 					                </menulist>
-			                    </vbox> 
+			                    </vbox>
 		                    </row>
 		                </rows>
 		            </grid>

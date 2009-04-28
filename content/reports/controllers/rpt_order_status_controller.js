@@ -19,6 +19,8 @@
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             var machineid = document.getElementById('machine_id').value;
+            var periodType = document.getElementById( 'period_type' ).value;
+            var shiftNo = document.getElementById( 'shift_no' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
@@ -26,7 +28,7 @@
             end = parseInt(end / 1000, 10);
 
             var fields = [
-                            'orders.transaction_created',
+                            'orders.' + periodType + ' as "Order.time"',
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
@@ -40,6 +42,7 @@
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
                             'orders.promotion_subtotal',
+                            'orders.revalue_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -48,8 +51,8 @@
                             'orders.terminal_no'
                          ];
 
-            var conditions = "orders.transaction_created>='" + start +
-                            "' AND orders.transaction_created<='" + end +
+            var conditions = "orders." + periodType + ">='" + start +
+                            "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status < 100";
                             
             var orderstatus = document.getElementById( 'orderstatus' ).value;
@@ -58,16 +61,16 @@
                             
             var service_clerk = document.getElementById( 'service_clerk' ).value;
             if ( service_clerk != 'all' )
-            	conditions += " AND orders.service_clerk_displayname = '" + service_clerk + "'";
+            	conditions += " AND orders.service_clerk_displayname = '" + this._queryStringPreprocessor( service_clerk ) + "'";
 
-            if (machineid.length > 0) {
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
-                //var groupby = 'orders.terminal_no,"Order.Date"';
-            } else {
-                //var groupby = '"Order.Date"';
-            }
+			if ( shiftNo.length > 0 )
+				conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+				
+            if (machineid.length > 0)
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
+                
             var groupby = '';
-            var orderby = 'orders.' + sortby + ', orders.status, orders.item_subtotal desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.terminal_no, orders.status, orders.item_subtotal desc';
             
             if ( sortby != 'all' ) {
 				var desc = '';
@@ -76,21 +79,22 @@
 					case 'terminal_no':
 					case 'service_clerk_displayname':
 					case 'status':
-					case 'transaction_created':
+					case 'time':
+					case 'discount_subtotal':
+					case 'promotion_subtotal':
+					case 'revalue_subtotal':
 						break;
 					case 'sequence':
 					case 'invoice_no':
 					case 'item_subtotal':
 					case 'tax_subtotal':
 					case 'surcharge_subtotal':
-					case 'discount_subtotal':
-					case 'promotion_subtotal':
 					case 'total':
 						desc = ' desc';
 						break;
 				}
 				
-            	orderby = 'orders.' + sortby + desc;
+            	orderby = sortby + desc;
             }
             
             var order = new OrderModel();
@@ -103,6 +107,7 @@
         	var surcharge_subtotal = 0;
         	var discount_subtotal = 0;
         	var promotion_subtotal = 0;
+        	var revalue_subtotal = 0;
             
             records.forEach( function( record ) {
             	delete record.Order;
@@ -113,31 +118,36 @@
 		    	surcharge_subtotal += record.surcharge_subtotal;
 		    	discount_subtotal += record.discount_subtotal;
 		    	promotion_subtotal += record.promotion_subtotal;
+		    	revalue_subtotal += record.revalue_subtotal;
             	
             	switch ( parseInt( record.status, 10 ) ) {
             		case 1:
-            			record.status = 'Finalized';
+            			record.status = _( 'Finalized' );
             			break;
             		case 2:
-            			record.status = 'Saved';
+            			record.status = _( 'Saved' );
             			break;
             		case -1:
-            			record.status = 'Canceled';
+            			record.status = _( 'Canceled' );
+            			break;
+            		case -2:
+            			record.status = _( 'Voided' );
             			break;
             	}
             });
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+            //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            var initZero = parseFloat(0).toFixed(precision_prices);
+            //var initZero = parseFloat(0).toFixed(precision_prices);
             var footRecords = {
             	tax_subtotal: tax_subtotal,
             	item_subtotal: item_subtotal,
             	total: total,
             	surcharge_subtotal: surcharge_subtotal,
             	discount_subtotal: discount_subtotal,
-            	promotion_subtotal: promotion_subtotal
+            	promotion_subtotal: promotion_subtotal,
+            	revalue_subtotal: revalue_subtotal
             };
             
             this._reportRecords.head.titile = _( 'Order Status Report' );

@@ -43,11 +43,11 @@
                             
             var userName = document.getElementById( 'user' ) .value;
             if ( userName != 'all' )
-            	conditions += " AND clock_stamps.username = '" + userName + "'";
+            	conditions += " AND clock_stamps.username = '" + this._queryStringPreprocessor( userName ) + "'";
             	
            	var jobTitle = document.getElementById( 'job' ).value;
            	if ( jobTitle != 'all' )
-           		conditions += " AND clock_stamps.job = '" + jobTitle + "'";
+           		conditions += " AND clock_stamps.job = '" + this._queryStringPreprocessor( jobTitle ) + "'";
 
             var groupby = 'clock_stamps.username';
             var orderby = 'clock_stamps.username, "' + sortby + '"';

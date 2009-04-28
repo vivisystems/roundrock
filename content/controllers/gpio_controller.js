@@ -22,6 +22,14 @@
         isDrawerOpen: function () {
             var ioService = this._ioService;
             if (ioService == null) return false;
+
+            ioService.iopl(3);
+            ioService.outb(0x2e,0x87);
+            ioService.outb(0x2e,0x87);
+            ioService.outb(0x2e,0x07);
+            ioService.outb(0x2f,0x07);
+            ioService.outb(0x2e,0xf1);
+
             return (((ioService.inb(0x2f) & 0x10) >> 4) > 0);
         },
 
@@ -32,6 +40,10 @@
             if (isNaN(pulses) || pulses < 1) pulses = 1;
             pulses = Math.floor(pulses);
 
+            GREUtils.File.run("/usr/sbin/gpio_opendrawer", [pulses], false);
+            return 1;
+
+            /*
             ioService.iopl(3);
             ioService.outb(0x2e,0x87);
             ioService.outb(0x2e,0x87);
@@ -50,6 +62,7 @@
 
             //this.log('DEBUG', 'GPIO controller: triggered GPIO port [' + pulses + ']');
             return status;
+            */
         }
 
 

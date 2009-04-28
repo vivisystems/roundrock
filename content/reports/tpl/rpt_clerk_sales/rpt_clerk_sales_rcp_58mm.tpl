@@ -20,7 +20,7 @@ ${_( clerk.associated_clerk )}:
 {if clerk.associated_clerk == 'Proceeds Clerk'}${order.proceeds_clerk_displayname|right:24}{/if}{if clerk.associated_clerk == 'Service Clerk'}${order.service_clerk_displayname|right:24}{/if}
 [&CR]
 ${_( '(rpt)Time' ) + ':'}
-${order.transaction_created|unixTimeToString|right:24}
+${order.time|unixTimeToString|right:24}
 ${_( '(rpt)Seq.' ) + ':'}
 ${order.sequence|right:24}
 ${_( '(rpt)Total' ) + ':'}
@@ -33,6 +33,8 @@ ${_( '(rpt)Discount' ) + ':'}
 ${order.discount_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Promotion' ) + ':'}
 ${order.promotion_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Revalue' ) + ':'}
+${order.revalue_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${order.total|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}
@@ -58,6 +60,8 @@ ${_( '(rpt)Discount' ) + ':'}
 ${clerk.summary.discount_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Promotion' ) + ':'}
 ${clerk.summary.promotion_subtotal|viviFormatPrices:true|right:24}
+${_( '(rpt)Revalue' ) + ':'}
+${clerk.summary.revalue_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${clerk.summary.total|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}

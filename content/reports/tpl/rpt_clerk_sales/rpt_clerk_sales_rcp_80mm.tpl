@@ -12,7 +12,7 @@ Clerk:${clerk.name|right:36}
 ${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Seq.' )|left:14}
 --------  ----------  --------------------
 {for order in clerk.orders}
-${order.terminal_no|left:8}  ${order.transaction_created|unixTimeToString|left:16}  ${order.sequence|left:14}
+${order.terminal_no|left:8}  ${order.time|unixTimeToString|left:16}  ${order.sequence|left:14}
 ${'    ' + _( clerk.associated_clerk ) + ':'|left:17}{if clerk.associated_clerk == 'Proceeds Clerk'}${order.proceeds_clerk_displayname}{/if}{if clerk.associated_clerk == 'Service Clerk'}${order.service_clerk_displayname}{/if}
     
 ${'    ' + _( '(rpt)Total' ) + ': '|left:17}${order.item_subtotal|viviFormatPrices:true}
@@ -20,6 +20,7 @@ ${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:17}${order.tax_subtotal|viviFormat
 ${'    ' + _( '(rpt)Surcharge' ) + ': '|left:17}${order.surcharge_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Discount' ) + ': '|left:17}${order.discount_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Promotion' ) + ': '|left:17}${order.promotion_subtotal|viviFormatPrices:true}
+${'    ' + _( '(rpt)Revalue' ) + ': '|left:17}${order.revalue_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Payment' ) + ': '|left:17}${order.total|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Cash' ) + ': '|left:17}${order.cash|default:0|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Check' ) + ': '|left:17}${order.check|viviFormatPrices:true}
@@ -34,6 +35,7 @@ ${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:17}${clerk.summary.tax_subtotal|vi
 ${'    ' + _( '(rpt)Surcharge' ) + ': '|left:17}${clerk.summary.surcharge_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Discount' ) + ': '|left:17}${clerk.summary.discount_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Promotion' ) + ': '|left:17}${clerk.summary.promotion_subtotal|viviFormatPrices:true}
+${'    ' + _( '(rpt)Revalue' ) + ': '|left:17}${clerk.summary.revalue_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Payment' ) + ': '|left:17}${clerk.summary.total|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Cash' ) + ': '|left:17}${clerk.summary.cash|default:0|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Check' ) + ': '|left:17}${clerk.summary.check|viviFormatPrices:true}

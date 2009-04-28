@@ -28,6 +28,8 @@
             
             var machineid = document.getElementById( 'machine_id' ).value;
             var sequenceNo = document.getElementById( 'sequence_no' ).value;
+            var shiftNo = document.getElementById( 'shift_no' ).value;
+            var periodType = document.getElementById( 'period_type' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
@@ -35,13 +37,14 @@
             end = parseInt( end / 1000, 10 );
 
             var fields =	'orders.id, ' +
-            				'orders.transaction_created as time, ' +
+            				'orders.' + periodType + ' as time, ' +
                             'orders.sequence, ' +
                             'orders.total, ' +
                             'orders.tax_subtotal, ' +
                             'orders.item_subtotal, ' +
                             'orders.discount_subtotal, ' +
                             'orders.promotion_subtotal, ' +
+                            'orders.revalue_subtotal, ' +
                             'orders.surcharge_subtotal, ' +
                             'orders.items_count, ' +
                             'orders.no_of_customers, ' +
@@ -57,37 +60,41 @@
                             
             var tables = 'orders left join order_items on orders.id = order_items.order_id';
 
-            var conditions = "orders.transaction_created >= '" + start +
-                            "' and orders.transaction_created <= '" + end +
+            var conditions = "orders." + periodType + " >= '" + start +
+                            "' and orders." + periodType + " <= '" + end +
                             "' and orders.status = '1'";
 
             if ( machineid.length > 0 )
-                conditions += " and orders.terminal_no like '" + machineid + "%'";
+                conditions += " and orders.terminal_no like '" + this._queryStringPreprocessor( machineid ) + "%'";
+                
+            if ( shiftNo.length > 0 ) 
+            	conditions += " and orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
           
             if ( sequenceNo.length > 0 )
-            	conditions += " and orders.sequence like '" + sequenceNo + "%'";
+            	conditions += " and orders.sequence like '" + this._queryStringPreprocessor( sequenceNo ) + "%'";
 
-            var orderby = 'orders.' + sortby + ', orders.item_subtotal desc';//orders.transaction_created';
+            var orderby = 'orders.item_subtotal desc';//orders.transaction_created';
             
             if ( sortby != 'all' ) {
             	var desc = "";
             	
             	switch ( sortby ) {
             		case 'terminal_no':
-            		case 'transaction_created':
+            		case periodType:
+            		case 'discount_subtotal':
+            		case 'promotion_subtotal':
+            		case 'revalue_subtotal':
             			break;
             		case 'item_subtotal':
             		case 'tax_subtotal':
             		case 'surcharge_subtotal':
-            		case 'discount_subtotal':
-            		case 'promotion_subtotal':
             		case 'total':
             		case 'no_of_customers':
             		case 'items_count':
             			desc = ' desc';
             	}
             	
-            	orderby = 'orders.' + sortby + desc;
+            	orderby = sortby + desc;
             }
             	
             var limit = this._recordLimit + ' offset ' + this._recordOffset;
@@ -108,6 +115,7 @@
 				surcharge_subtotal: 0,
 				discount_subtotal: 0,
 				promotion_subtotal: 0,
+				revalue_subtotal: 0,
 				payment: 0
 			};
 
@@ -133,6 +141,7 @@
 					record.item_subtotal = result.item_subtotal;
 					record.discount_subtotal = result.discount_subtotal;
 					record.promotion_subtotal = result.promotion_subtotal;
+					record.revalue_subtotal = result.revalue_subtotal;
 					record.surcharge_subtotal = result.surcharge_subtotal;
 					record.items_count = result.items_count;
 					record.no_of_customers = result.no_of_customers;
@@ -145,6 +154,7 @@
 					summary.surcharge_subtotal += result.surcharge_subtotal;
 					summary.discount_subtotal += result.discount_subtotal;
 					summary.promotion_subtotal += result.promotion_subtotal;
+					summary.revalue_subtotal += result.revalue_subtotal;
 					summary.payment += result.total;
 				}
 				

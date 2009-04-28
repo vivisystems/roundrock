@@ -1750,8 +1750,8 @@ msgstr "Hourly Sales"
 msgid "(rpt)Top Product Sales"
 msgstr "Top Product Sales"
 
-msgid "(rpt)Tax summary"
-msgstr "Tax summary"
+msgid "(rpt)Tax Summary"
+msgstr "Tax Summary"
 
 msgid "(rpt)Rate"
 msgstr "Rate"
@@ -1815,6 +1815,39 @@ msgstr "item"
 
 msgid "(rpt)Promotion"
 msgstr "Promotion"
+
+msgid "(rpt)Subtotal"
+msgstr "Subtotal"
+
+msgid "(rpt)Promotion Summary"
+msgstr "Promotion Summary"
+
+msgid "(rpt)Code"
+msgstr "Code"
+
+msgid "(rpt)Voided Orders"
+msgstr "Voided Orders"
+
+msgid "(rpt)Date"
+msgstr "Date"
+
+msgid "(rpt)Order Count"
+msgstr "Order Count"
+
+msgid "(rpt)Promotion Subtotal"
+msgstr "Promotion Subtotal"
+
+msgid "(rpt)Matched Count"
+msgstr "Matched Count"
+
+msgid "(rpt)Matched Items Qty."
+msgstr "Matched Items Qty."
+
+msgid "(rpt)Matched Items Subtotal"
+msgstr "Matched Items Subtotal"
+
+msgid "(rpt)Revalue"
+msgstr "Revalue"
 
 msgid "(view)completed"
 msgstr "completed"
@@ -1976,6 +2009,13 @@ msgid "Drawer change may not be negative"
 msgstr ""
 
 msgid "Please confirm shift change"
+msgstr ""
+
+msgid "Void Sale"
+msgstr ""
+
+msgid ""
+"Are you sure you want to void transaction [%S] (payment [%S], refund [%S])?"
 msgstr ""
 
 msgid "Seq"
@@ -2477,6 +2517,18 @@ msgstr ""
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
+msgid "Failed to void: the selected order no longer exists"
+msgstr ""
+
+msgid "Failed to void: the selected order is not/has been yet been completed"
+msgstr ""
+
+msgid "Payment Refund"
+msgstr ""
+
+msgid "Transaction [%S] successfully voided"
+msgstr ""
+
 msgid "Add Memo"
 msgstr ""
 
@@ -2490,6 +2542,9 @@ msgid "Cannot queue the recalled order!!"
 msgstr ""
 
 msgid "Order is not queued because it is empty"
+msgstr ""
+
+msgid "This order must be store first"
 msgstr ""
 
 msgid "Not an open order; unable to store"
@@ -2721,6 +2776,9 @@ msgid ""
 msgstr ""
 
 msgid "This order is closed pending payment and may not be modified"
+msgstr ""
+
+msgid "Price Level changed from [%S] to [%S] for destination [%S]"
 msgstr ""
 
 msgid "Device Status"
@@ -3391,19 +3449,88 @@ msgid ""
 "been modified successfully"
 msgstr ""
 
+msgid "Refund payment amount must be valid, positive number"
+msgstr ""
+
 msgid "Password and Verify Password not the same"
+msgstr ""
+
+msgid "B#"
+msgstr ""
+
+msgid "C#"
+msgstr ""
+
+msgid "T#"
+msgstr ""
+
+msgid "Host Table"
 msgstr ""
 
 msgid "Recall Check"
 msgstr ""
 
+msgid "Please Select a Table to recall..."
+msgstr ""
+
+msgid "Press CANCEL button to cancel function"
+msgstr ""
+
 msgid "Split Check"
+msgstr ""
+
+msgid "Please Select a Table to split..."
 msgstr ""
 
 msgid "Merge Check"
 msgstr ""
 
+msgid "Please Select a Table to merge..."
+msgstr ""
+
+msgid "Merge Table"
+msgstr ""
+
+msgid "Please Select the source table as master table..."
+msgstr ""
+
+msgid "Unmerge Table"
+msgstr ""
+
+msgid "Please Select the hold table to be unmerge..."
+msgstr ""
+
+msgid "Change Clerk"
+msgstr ""
+
+msgid "Select a table to change service clerk to [ %S ]..."
+msgstr ""
+
+msgid "Trans Table"
+msgstr ""
+
+msgid "Please Select the source table to translate..."
+msgstr ""
+
+msgid "Select Table"
+msgstr ""
+
+msgid "Please Select a Table..."
+msgstr ""
+
 msgid "Select Table No"
+msgstr ""
+
+msgid "This table is empty!!"
+msgstr ""
+
+msgid "Please Select the target table to translate..."
+msgstr ""
+
+msgid "Please Select a empty table to merge..."
+msgstr ""
+
+msgid "This table had not been hold!!"
 msgstr ""
 
 msgid "Invalid cash drawer change amount [%S]"
@@ -3706,21 +3833,6 @@ msgstr ""
 msgid "[%S] orders returned"
 msgstr ""
 
-msgid "Void Sale"
-msgstr ""
-
-msgid "Failed to void: the selected order no longer exists"
-msgstr ""
-
-msgid "Failed to void: the selected order is not/has been yet been completed"
-msgstr ""
-
-msgid "Are you sure you want to void this transaction?"
-msgstr ""
-
-msgid "Order successfully voided"
-msgstr ""
-
 msgid "Sold Out -"
 msgstr ""
 
@@ -3730,16 +3842,16 @@ msgstr ""
 msgid "PAY"
 msgstr ""
 
-msgid "Return"
+msgid "Return Single"
+msgstr ""
+
+msgid "Return All"
 msgstr ""
 
 msgid "I"
 msgstr ""
 
 msgid "QTY"
-msgstr ""
-
-msgid "Change Clerk"
 msgstr ""
 
 msgid "Password"
@@ -3834,14 +3946,35 @@ msgstr ""
 msgid "Order Annotation Report"
 msgstr ""
 
+msgid "Finalized"
+msgstr ""
+
+msgid "Saved"
+msgstr ""
+
+msgid "Canceled"
+msgstr ""
+
+msgid "Voided"
+msgstr ""
+
 msgid "Product Sales Report"
+msgstr ""
+
+msgid "Promotion Summary Report"
+msgstr ""
+
+msgid "Sales Summary Report"
 msgstr ""
 
 msgid "Product Stock List"
 msgstr ""
 
-msgid "(rpt)Subtotal"
+msgid "(view)customer"
 msgstr ""
 
-msgid "(view)customer"
+msgid "(view)Promotions"
+msgstr ""
+
+msgid "(view)Revalue"
 msgstr ""

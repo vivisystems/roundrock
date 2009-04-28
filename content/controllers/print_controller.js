@@ -313,13 +313,16 @@
             // don't print if order has been pre-finalized and the order is being submitted for completion
             // since receipts and checks would have already been printed
             if (txn.data.status != 1 || !txn.isClosed()) {
-                // check if checks need to be printed
-                if (txn.data.batchItemCount > 0) {
-                    this.printChecks(evt.data, null, 'submit');
-                }
                 // check if receipts need to be printed
                 if (txn.data.batchPaymentCount > 0 || txn.isClosed()) {
                     this.printReceipts(evt.data, null, 'submit');
+                }
+                // allow UI to catch up
+                this.sleep(100);
+
+                // check if checks need to be printed
+                if (txn.data.batchItemCount > 0) {
+                    this.printChecks(evt.data, null, 'submit');
                 }
             }
             
@@ -331,7 +334,7 @@
 
             // @hack
             // sleep to allow UI to catch up
-            this.sleep(50);
+            this.sleep(100);
         },
 
         // handle store order events
@@ -339,20 +342,24 @@
             var txn = evt.data;
             //this.log('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
 
+            // check if receipts need to be printed
+            if (txn.data.batchPaymentCount > 0)
+                this.printReceipts(evt.data, null, 'store');
+
+            // @hack
+            // sleep to allow UI to catch up
+            this.sleep(100);
+            
             // check if checks need to be printed
             if (txn.data.batchItemCount > 0)
                 this.printChecks(evt.data, null, 'store');
 
-            // check if receipts need to be printed
-            if (txn.data.batchPaymentCount > 0)
-                this.printReceipts(evt.data, null, 'store');
-            
             // clear dashboard settings
             this.resetDashboardSettings();
 
             // @hack
             // sleep to allow UI to catch up
-            this.sleep(50);
+            this.sleep(100);
         },
 
         resetDashboardSettings: function() {
@@ -747,7 +754,6 @@
 
         // print slip using the given parameters
         printSlip: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
-
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller; no worker thread available!'));
                 return;
@@ -875,6 +881,9 @@
                 result = template;
             }
 
+            if (!result || result.length == 0) {
+                return;
+            }
             /*
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +
@@ -1053,7 +1062,7 @@
                         this._commitTxn.submit();
 
                         // dispatch afterSubmit event...
-                        self.dispatchEvent('afterSubmit', self);
+                        self.dispatchEvent('afterSubmit', this._commitTxn);
                     }
                     catch (e) {
                         this.log('WARN', 'failed to commit order');

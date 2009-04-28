@@ -35,8 +35,6 @@
  */
 
 .vivifuncpanelecr_matrix_button_mapped {
-    min-width: 40px;
-    min-height: 40px;
     margin: 0px;
     padding: 0px;
     list-style-type: none;
@@ -68,9 +66,6 @@
  */
 
 .vivifuncpanelecr_matrix_button_nomap {
-    min-width: 40px;
-    min-height: 40px;
-    width: 40px;
     margin: 0px;
     padding: 0px;
     list-style-type: none;
@@ -93,9 +88,6 @@
  */
 
 .vivifuncpanelecr_matrix_button_configure {
-    min-width: 40px;
-    min-height: 40px;
-    width: 40px;
     margin: 0px;
     padding: 0px;
     list-style-type: none;

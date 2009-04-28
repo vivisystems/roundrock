@@ -29,22 +29,23 @@
                          ];
                             
             var conditions = "orders." + periodType + ">='" + start +
-                            "' AND orders." + periodType + "<='" + end + "'";
+                            "' AND orders." + periodType + "<='" + end + "'" +
+                            " AND orders.status = 1";
             
             if (terminalNo.length > 0)
-                conditions += " AND orders.terminal_no LIKE '" + terminalNo + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
             
             if ( shiftNo.length > 0 )
-            	conditions += " AND orders.shift_number = " + shiftNo;
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
 
-            var groupby = 'order_items.product_no';
-            var orderby = '"' + sortBy + '" desc';
+            var groupby = "order_items.product_no";
+            var orderby = sortBy + " desc";
             
             // prepare category stuff.
             var deptCondition = '';
             if ( department != 'all' ) {
-            	conditions += " AND order_items.cate_no = '" + department + "'";
-            	deptCondition = 'no = "' + department + '"';
+            	conditions += " AND order_items.cate_no = '" + this._queryStringPreprocessor( department ) + "'";
+            	deptCondition = "no = '" + this._queryStringPreprocessor( department ) + "'";
             }
             
 	        var categoryModel = new CategoryModel();
@@ -68,7 +69,7 @@
 	        	}
 	        } );
 
-            var orderItemRecords = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby } );
+            var orderItemRecords = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby } );
 
             orderItemRecords.forEach( function( record ) {
             	delete record.OrderItem;
@@ -143,12 +144,12 @@
 		},
 
         _set_reportRecords: function() {
-            var waitPanel = this._showWaitPanel('wait_panel');
+            var waitPanel = this._showWaitPanel( 'wait_panel' );
 
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
+            var start = document.getElementById( 'start_date' ).value;
+            var end = document.getElementById( 'end_date' ).value;
 
-            var machineid = document.getElementById('machine_id').value;
+            var machineid = document.getElementById( 'machine_id' ).value;
             
             var periodType = document.getElementById( 'periodtype' ).value;
             var shiftNo = document.getElementById( 'shiftno' ).value;
@@ -167,17 +168,17 @@
             var mm = today.getMonth();
             var dd = today.getDate();
 
-            var start = (new Date(yy,mm,dd,0,0,0)).getTime();
-            var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
+            var start = ( new Date( yy, mm, dd, 0, 0, 0 ) ).getTime();
+            var end = ( new Date( yy, mm, dd + 1, 0, 0, 0 ) ).getTime();
 
-            document.getElementById('start_date').value = start;
-            document.getElementById('end_date').value = end;
+            document.getElementById( 'start_date' ).value = start;
+            document.getElementById( 'end_date' ).value = end;
             
             // setup the department menu.
             var cate = new CategoryModel();
-            var cateRecords = cate.find('all', {
-                fields: ['no','name']
-                });
+            var cateRecords = cate.find( 'all', {
+                fields: [ 'no', 'name' ]
+                } );
             var dpt = document.getElementById( 'department_menupopup' );
 
             cateRecords.forEach( function( data ){

@@ -15,12 +15,15 @@
 <!ENTITY rptorderannotation.surcharge_subtotal "Surcharge">
 <!ENTITY rptorderannotation.discount_subtotal "Discount">
 <!ENTITY rptorderannotation.promotion_subtotal "Promotion">
+<!ENTITY rptorderannotation.revalue_subtotal "Revalue">
 <!ENTITY rptorderannotation.sequence "Sequence">
 <!ENTITY rptorderannotation.annotationtext "Annotation Text">
 <!ENTITY rptorderannotation.all "List All">
 <!ENTITY rptorderannotation.wait "Waiting...">
 <!ENTITY rptorderannotation.periodtype "Period Type:">
-<!ENTITY rptorderannotation.starttime "Order Start Time">
+<!ENTITY rptorderannotation.starttime "Order Opened Time">
+<!ENTITY rptorderannotation.transaction_submitted "Order Finalized Time">
 <!ENTITY rptorderannotation.saleperiod "Sale Period">
 <!ENTITY rptorderannotation.time "Time">
 <!ENTITY rptorderannotation.annotationtype "Annotation Type:">
+<!ENTITY rptorderannotation.shiftno "Shift No.:">

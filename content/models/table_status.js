@@ -7,7 +7,9 @@
 
         name: 'TableStatus',
 
-        behaviors: ['Sync'],
+        hasMany: ['TableBooking'],
+
+        //        behaviors: ['Sync'],
 
         _checkNoArray: [],
         _tableNoArray: [],
@@ -18,90 +20,96 @@
 
         initial: function (c) {
             // this._super(c);
-GREUtils.log("table status initialize...");
+            GREUtils.log("table status initialize...");
 
-            this._checkList = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
-            this._tableList = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
-            this._tableStatusList = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
+            //            this._checkList = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
+            //            this._tableList = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
+            //            this._tableStatusList = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
             if (!this._tableStatusList) {
-GREUtils.log("in table status initialize...");
+                GREUtils.log("in table status initialize...");
                 this.getTableList();
                 this.getCheckList("AllCheck");
                 this.getTableStatusList();
             }
         },
 
-    getRemoteService: function(method) {
-        this.syncSettings = (new SyncSetting()).read();
+        getRemoteService: function(method) {
+            this.syncSettings = (new SyncSetting()).read();
 
-        if (this.syncSettings && this.syncSettings.active == 1) {
+            if (this.syncSettings && this.syncSettings.active == 1) {
 
-            //  http://localhost:3000/sequences/getSequence/check_no
-            // check connection status
-            this.url = this.syncSettings.protocol + '://' +
-                        this.syncSettings.hostname + ':' +
-                        this.syncSettings.port + '/' +
-                        'sequences/' + method;
+                //  http://localhost:3000/sequences/getSequence/check_no
+                // check connection status
+                this.url = this.syncSettings.protocol + '://' +
+                this.syncSettings.hostname + ':' +
+                this.syncSettings.port + '/' +
+                'table_status/' + method;
 
-            this.username = 'vivipos';
-            this.password = this.syncSettings.password ;
+                this.username = 'vivipos';
+                this.password = this.syncSettings.password ;
 
-            return this.url;
+                return this.url;
 
-        }else {
-            return false;
-        }
-    },
+            }else {
+                return false;
+            }
+        },
 
-    requestRemoteService: function(url, key, value) {
+        requestRemoteService: function(method, url, value) {
 
-                    var reqUrl = url + '/' + key;
+            var reqUrl = url ;
 
-                    if (value != null) reqUrl += '/' + value;
+            var username = this.username ;
+            var password = this.password ;
 
-                    var username = this.username ;
-                    var password = this.password ;
+            var req = new XMLHttpRequest();
 
-                    var req = new XMLHttpRequest();
+            req.mozBackgroundRequest = true;
 
-                    req.mozBackgroundRequest = true;
+            /* Request Timeout guard */
+            var timeout = null;
+            timeout = setTimeout(function() {
+                clearTimeout(timeout);
+                req.abort();
+            }, 15000);
 
-                    /* Request Timeout guard */
-                    /*
-                    var timeout = null;
-                    timeout = setTimeout(function() {
-                        clearTimeout(timeout);
-                        req.abort();
-                    }, 15000);
-                    */
-                    /* Start Request with http basic authorization */
-                    var seq = -1;
-                    req.open('GET', reqUrl, false, username, password);
-                    var onstatechange = function (aEvt) {
-                        if (req.readyState == 4) {
-                            if(req.status == 200) {
-                                var result = GeckoJS.BaseObject.unserialize(req.responseText);
-                                if (result.status == 'ok') {
-                                    seq = result.value;
-                                }else {
-                                    seq = -1;
-                                }
-                            }else {
-                                seq = -1;
-                            }
+            /* Start Request with http basic authorization */
+            var data = null;
+            req.open(method, reqUrl, false/*, username, password*/);
+            req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
+            var onstatechange = function (aEvt) {
+                if (req.readyState == 4) {
+                    if(req.status == 200) {
+                        var result = GeckoJS.BaseObject.unserialize(req.responseText);
+                        if (result.status == 'ok') {
+                            data = result.value;
+                        }else {
+                            data = false;
                         }
-                        delete req;
-                    };
+                    }else {
+                        data = false;
+                    }
+                }
+                delete req;
+            };
 
-                    // req.onreadystatechange = onstatechange
-                    req.send(null);
-                    onstatechange();
-                    return seq;
+            // req.onreadystatechange = onstatechange
+			if(method == 'POST') {
+				req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				req.setRequestHeader("Content-length", "request_data=".length + value.length);
+				req.setRequestHeader("Connection", "close");
+		        req.send("request_data="+value);
+			}else {
+	            req.send(null);
+			}
+	
+            onstatechange();
+            return data;
 
-    },
+        },
 
 
-/*
+        /*
         initial: function() {
 
             this.view = null,
@@ -147,8 +155,8 @@ GREUtils.log("in table status initialize...");
         },
 
         getNewCheckNo: function() {
-        //@todo rack
-GREUtils.log("getNewCheckNo...");
+            //@todo rack
+            GREUtils.log("getNewCheckNo...");
             this.resetCheckNoArray();
             var i = 1;
             var cnt = 0;
@@ -157,7 +165,7 @@ GREUtils.log("getNewCheckNo...");
             var ar = this._checkList;
             while (true) {
                 i = SequenceModel.getSequence('check_no');
-GREUtils.log("in getNewCheckNo:" + i);
+
                 if (i > maxCheckNo) {
                     i = 0;
                     SequenceModel.resetSequence('check_no');
@@ -178,80 +186,122 @@ GREUtils.log("in getNewCheckNo:" + i);
         },
 
         getTableStatusList: function(reload) {
-        // @todo rack
-GREUtils.log("getTableStatusList...");
-            if (!reload) {
-                var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
-                if (tables) {
-                    GREUtils.log("getTableStatusList from session...");
-                    return tables;
-                }
+
+            var remoteUrl = this.getRemoteService('getTableStatusList');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                tableStatus = this.requestRemoteService('GET', remoteUrl, null);
+                // GREUtils.log(this.dump(tableStatus));
+
+
+            }else {
+                // read all order status
+                tableStatus = this.find('all', {});
+
             }
+            
+            return this.genTablesArray(tableStatus);
+        },
+
+        genTablesArray: function(tableStatus) {
+
             var self = this;
-            var i = 1;
-            // var ar = this.getCheckList('AllCheck', null);
-            var ar = this._checkList;
+            // set checklist
+            this._checkList = tableStatus.concat([]);
 
-            var tableList = this._tableList;
+            // gen tables status
             var tables = [];
-
-            tableList.forEach(function(o){
-                tables[o.table_no] = GeckoJS.BaseObject.clone(o);
-            });
-
-            ar.forEach(function(o) {
-                if (o.table_no) {
-                    if (tables[o.table_no]) {
-                        if (tables[o.table_no].sequence) {
-                            // multi checks in the same table...
+            tableStatus.forEach(function(o) {
+                if (o.order_id) {
+                    if (o.table_no) {
+                        if (tables[o.table_no]) {
+                            //
                             tables[o.table_no].checks += 1;
+                            tables[o.table_no].guests += Math.round(parseInt(o.guests));
+
                         } else {
-                            tables[o.table_no].sequence = o.sequence;
-                            tables[o.table_no].check_no = o.check_no;
-                            tables[o.table_no].total = o.total;
-                            tables[o.table_no].no_of_customers = o.no_of_customers;
+                            tables[o.table_no] = GeckoJS.BaseObject.clone(o);
                             tables[o.table_no].checks = 1;
-                            tables[o.table_no].transaction_created = o.transaction_created;
-                            tables[o.table_no].order_id = o.id;
-                            tables[o.table_no].clerk = o.service_clerk_displayname;
-                            // tables[o.table_no - 1].table_label = o.table_name;
+                            tables[o.table_no].guests = Math.round(parseInt(o.guests));
+                            tables[o.table_no].order = [];
                         }
-                    } else {
-                        GREUtils.log("error tables object...");
-                        GREUtils.log(GeckoJS.BaseObject.dump(o));
+                        tables[o.table_no].table = GeckoJS.BaseObject.unserialize(tables[o.table_no].table_object);
+                        // tables[o.table_no].order = GeckoJS.BaseObject.unserialize(tables[o.table_no].order_object);
+                        tables[o.table_no].order.push( GeckoJS.BaseObject.unserialize(o.order_object));
+                    }
+                } else {
+                    if (o.table_no) {
+                        tables[o.table_no] = GeckoJS.BaseObject.clone(o);
+                    // tables[o.table_no]
                     }
                 }
+
             });
 
+            // add empty tables...
+            self._tableList.forEach(function(o){
+                if (tables[o.table_no] == null && o.active) {
+                    tables[o.table_no] = {
+                        order_id: '',
+                        check_no: '',
+                        table_no: o.table_no,
+                        sequence: '',
+                        guests: 0,
+                        holdby: o.holdby,
+                        clerk: '',
+                        booking: 0,
+                        lock: false,
+                        status: 0,
+                        terminal_no: '',
+
+                        table_object: null,
+                        order_object: null
+                    };
+                    tables[o.table_no].table = GeckoJS.BaseObject.clone(o);
+                }
+            });
+
+            // read booking info,
             var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
             var min = tableSettings.TableRemindTime || 120;
             var start_time = Math.round(Date.now().addMinutes(-min) / 1000);
             var end_time = Math.round(Date.now().addMinutes(min) / 1000);
             var conditions = "table_bookings.booking>='" + start_time +
-                            "' AND table_bookings.booking<='" + end_time +
-                            "'";
+            "' AND table_bookings.booking<='" + end_time +
+            "'";
             var bookingModel = new TableBookingModel();
-            var bookings = bookingModel.find('all', {conditions: conditions});
+            var bookings = bookingModel.find('all', {
+                conditions: conditions
+            });
 
             bookings.forEach(function(o){
                 tables[o.table_no].booking = o;
             });
-// GREUtils.log(GeckoJS.BaseObject.dump(tables));
-            GeckoJS.Session.set('vivipos_fec_guest_check_table_status_list', tables);
+
+            this._tableStatusList = tables;
             return tables;
+
         },
 
         getCheckNo: function() {
-            //
+        //
+
         },
 
-        getTableno: function() {
+        getTableNo: function(table_no) {
             //
+            if (table_no) {
+                this._tableNoArray[table_no] = 1;
+            }
+            return table_no;
+
         },
 
         getTableList: function(reload) {
-        // @todo rack
-GREUtils.log("getTableList...");
+            GREUtils.log("getTableList...");
+            reload = true;
             if (!reload) {
                 var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
                 if (tables) {
@@ -268,161 +318,171 @@ GREUtils.log("getTableList...");
         },
 
         getCheckList: function(key, no, reload) {
-        // @todo rack
-GREUtils.log("getCheckList...");
-            if (!reload) {
-                var checks = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
-                if (checks) {
-                    GREUtils.log("getCheckList from session...");
-                    var orders = [];
-                    switch (key) {
-                        case 'OrderNo':
-                            // @todo
-                            break;
-                        case 'CheckNo':
-                            checks.forEach(function(o){
-                                if (o.check_no == no) orders.push(o);
-                            });
-                            return orders;
-                            break;
-                        case 'TableNo':
-                            checks.forEach(function(o){
-                                if (o.table_no == no) orders.push(o);
-                            });
-                            return orders;
-                            break;
-                    }
-                    return checks;
+            //            return this._checkList;
+            var checks = this._checkList;
+            if (checks) {
+                GREUtils.log("getCheckList from session...");
+                var orders = [];
+                switch (key) {
+                    case 'OrderNo':
+                    case 'AllCheck':
+                        // @todo
+                        checks.forEach(function(o){
+                            orders.push(o);
+                        });
+                        return orders;
+                        break;
+                    case 'CheckNo':
+                        checks.forEach(function(o){
+                            if (o.check_no == no) orders.push(o);
+                        });
+                        return orders;
+                        break;
+                    case 'TableNo':
+                        checks.forEach(function(o){
+                            if (o.table_no == no) orders.push(o);
+                        });
+                        return orders;
+                        break;
                 }
+                return checks;
             }
-            var self = this;
-            var order = new OrderModel();
-            var fields = ['orders.id',
-                          'orders.sequence',
-                          'orders.check_no',
-                          'orders.table_no',
-                          'orders.status',
-                          'orders.no_of_customers',
-                          'orders.total',
-                          'orders.transaction_created',
-                          'orders.service_clerk',
-                          'orders.service_clerk_displayname',
-                          'orders.proceeds_clerk',
-                          'orders.proceeds_clerk_displayname'
-                      ];
-            switch (key) {
-                case 'CheckNo':
-                    var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
-                    break;
-                case 'TableNo':
-                    var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
-                    break;
-                case 'AllCheck':
-                    var conditions = "orders.status='2'";
-                    break;
-            }
+            return this._checkList;
+        },
 
-            this._checkNoArray = [];
-            this._tableNoArray = [];
+        genTableStatusObj: function(tableObj) {
+            var tableStatusObj = {};
 
-            var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 0});
+            var table_obj = GeckoJS.BaseObject.serialize(tableObj.table_object);
+            var order_obj = GeckoJS.BaseObject.serialize(tableObj.order_object);
+            tableStatusObj = {
+                id: tableObj.id,
+                order_id: tableObj.order_id,
+                check_no: tableObj.check_no,
+                table_no: tableObj.table_no,
+                sequence: tableObj.sequence,
+                guests: tableObj.guests,
+                holdby: tableObj.holdby,
+                clerk: tableObj.clerk,
+                booking: tableObj.booking,
+                lock: false,
+                status: 1,
+                terminal_no: tableObj.terminal_no,
+                table_object: table_obj,
+                order_object: order_obj
+            };
 
-            ord.forEach(function(o){
-                var check_no = o.check_no;
-                var table_no = o.table_no;
-
-                if (check_no) {
-                    self._checkNoArray[check_no] = 1;
-                }
-
-                if (table_no) {
-                    self._tableNoArray[table_no] = 1;
-                }
-            });
-
-            GeckoJS.Session.set('vivipos_fec_guest_check_check_list', ord);
-
-            return this._checkList = ord;
+            return tableStatusObj;
         },
 
         addCheck: function(checkObj) {
-            // @todo rack
-GREUtils.log("add check...");
-            var isNewCheck = true;
-            var newCheck = null;
-            this._checkList.forEach(function(o){
-                if (o.check_no == checkObj.check_no) {
+            GREUtils.log("add check...");
+            var tableObj = {
+                order_id: checkObj.id,
+                check_no: checkObj.check_no,
+                table_no: checkObj.table_no,
+                sequence: checkObj.seq,
+                guests: checkObj.no_of_customers,
+                holdby: '',
+                clerk: checkObj.service_clerk,
+                booking: 0,
+                lock: false,
+                status: 0,
+                terminal_no: checkObj.terminal_no,
 
-                    o.check_no = checkObj.check_no;
-                    o.table_no = checkObj.table_no;
-                    o.status = checkObj.status;
-                    o.no_of_customers = checkObj.no_of_customers;
-                    o.total = checkObj.total;
-                    o.transaction_created = checkObj.transaction_created;
-                    o.service_clerk = checkObj.service_clerk;
-                    o.service_clerk_displayname = checkObj.service_clerk_displayname;
-                    o.proceeds_clerk = checkObj.proceeds_clerk;
-                    o.proceeds_clerk_displayname = checkObj.proceeds_clerk_displayname;
-
-                    isNewCheck = false;
-                } else {
-
-                    newCheck = {};
-                    newCheck.id = checkObj.id;
-                    newCheck.sequence = checkObj.seq;
-                    newCheck.check_no = checkObj.check_no;
-                    newCheck.table_no = checkObj.table_no;
-                    newCheck.status = checkObj.status;
-                    newCheck.no_of_customers = checkObj.no_of_customers;
-                    newCheck.total = checkObj.total;
-                    newCheck.transaction_created = checkObj.transaction_created;
-                    newCheck.service_clerk = checkObj.service_clerk;
-                    newCheck.service_clerk_displayname = checkObj.service_clerk_displayname;
-                    newCheck.proceeds_clerk = checkObj.proceeds_clerk;
-                    newCheck.proceeds_clerk_displayname = checkObj.proceeds_clerk_displayname;
-
-                    isNewCheck = true;
-                }
-            });
-            if (isNewCheck && newCheck) {
-                this._checkList.push(newCheck);
-            }
-
-            if (checkObj.check_no) {
-                this._checkNoArray[checkObj.check_no] = 1;
-            }
-
-            if (checkObj.table_no) {
-                this._tableNoArray[checkObj.table_no] = 1;
-            }
-
-            GeckoJS.Session.set('vivipos_fec_guest_check_check_list', this._checkList);
+                table_object: this._tableList[checkObj.table_no - 1],
+                order_object: checkObj
+            };
+            this.setTableStatus( this.genTableStatusObj(tableObj));
 
             this.getTableStatusList(true);
         },
 
         removeCheck: function(checkObj) {
-        // @todo rack
-GREUtils.log("remove check...");
             var i = 0;
-            var idx = -1;
-            this._checkList.forEach(function(o){
-                if (checkObj.seq == o.sequence) {
-                    idx = i;
+            var order_id = checkObj.id;
+            var tableObj = {
+                order_id: order_id,
+                check_no: '',
+                table_no: '',
+                sequence: '',
+                guests: 0,
+                holdby: '',
+                clerk: '',
+                booking: 0,
+                lock: false,
+                status: 0,
+                terminal_no: '',
+
+                table_object: null,
+                order_object: null
+            };
+
+            // this.setTableStatus(tableObj.table_no, tableObj);
+            this.setTableStatus( this.genTableStatusObj( tableObj));
+            this.getTableStatusList(true);
+
+            return checkObj;
+
+        },
+
+        holdTable: function(table_no, holdby) {
+            // GREUtils.log("hold table...");
+            this._tableList.forEach(function(o){
+                if (o.table_no == table_no) {
+                    o.holdby = holdby;
                 }
-                i++;
             });
-            if (idx != -1) {
-                this._checkList.splice(idx, 1);
-                GeckoJS.Session.set('vivipos_fec_guest_check_check_list', this._checkList);
 
-                this.getTableStatusList(true);
-                
-                return checkObj;
+            GeckoJS.Session.set('vivipos_fec_guest_check_table_list', this._tableList);
+            var list = this.getTableStatusList(true);
+            return list;
+        },
+
+        getTableStatus: function(table_no) {
+            // @todo rack
+            return this._tableStatusList[table_no];
+        },
+
+        setTableStatus: function(tableStatusObj) {
+            // @todo rack
+            
+            var remoteUrl = this.getRemoteService('setTableStatus');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize(tableStatusObj));
+
+				return ;
             }
-            return null;
-        }
 
+            var tableStatusNewObj = {};
+            var order_id = tableStatusObj.order_id;
+            var conditions = "table_statuses.order_id='" + order_id + "'";
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions
+            });
+
+            // tableStatus record exist
+            if (tableStatusObjTmp) {
+
+                if (tableStatusObj.sequence == '') {
+                    // remove tableStatus record
+                    this.del(tableStatusObjTmp.id);
+                } else {
+                    // update tableStatus record
+                    this.id = tableStatusObjTmp.id;
+                    var retObj = this.save(tableStatusObj);
+                }
+            } else {
+                if (tableStatusObj.sequence != '') {
+                    // add new tableStatus record
+                    this.id = '';
+                    var retObj = this.save(tableStatusObj);
+                }
+            }
+        }
     };
 
     var TableStatusModel = window.TableStatusModel = GeckoJS.Model.extend(__model__);
