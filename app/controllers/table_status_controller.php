@@ -2,11 +2,11 @@
 
 App::import('Core', array('HttpSocket','CakeLog'));
 
-class SequencesController extends AppController {
+class TableStatusController extends AppController {
 
-    var $name = 'Sequences';
+    var $name = 'TableStatus';
 
-    var $uses = array('Sequence');
+    var $uses = array('Sequence','TableStatus');
 	
     var $components = array('SyncHandler', 'Security');
 
@@ -36,6 +36,12 @@ class SequencesController extends AppController {
 
     }
 
+function index() {
+
+	}
+
+
+
     /**
      * machine authorization with http basic authorization.
      *
@@ -56,12 +62,12 @@ class SequencesController extends AppController {
     }
 
 
-    function getSequence ($key) {
+    function getTableStatusList($condition="") {
 
-        $value = $this->Sequence->getSequence($key);
+        $tables = $this->TableStatus->getTableStatusList();
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $value
+            'value' => $tables
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -73,12 +79,22 @@ class SequencesController extends AppController {
 
     }
 
-    function setSequence ($key, $value) {
+    function setTableStatus() {
 
-        $value = $this->Sequence->resetSequence($key, $value);
+		$tableObject = array();
+		if($_REQUEST['request_data']) {
+			$tableObject = json_decode($_REQUEST['request_data'], true);
+			file_put_contents("/tmp/setTableStatus", serialize($tableObject));
+		}
+
+		if ($tableObject) {
+			$setResult = $this->TableStatus->setTableStatus($tableObject);
+		}else {
+			$setResult = false;
+		}
 
         $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $value
+            'value' => $setResult
         );
 
         $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
@@ -87,25 +103,7 @@ class SequencesController extends AppController {
 
         exit;
 
-
-    }
-
-
-    function resetSequence ($key, $value) {
-
-        $value = $this->Sequence->resetSequence($key, $value);
-
-        $result = array('status' => 'ok', 'code' => 200 ,
-            'value' => $value
-        );
-
-        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
-
-        echo $responseResult;
-
-        exit;
-
-
+        
     }
 
 }

@@ -7,29 +7,45 @@ class Sequence extends AppModel {
 
         $data = $this->findByKey($key);
 
-        $id = $data['Sequence']['id'];
-        $value = $data['Sequence']['value'];
-        $value++;
+        if ($data) {
+            $id = $data['Sequence']['id'];
+            $value = $data['Sequence']['value'];
+            $value++;
+            $this->id = $id;
+            $this->save(array('value'=>$value));
+        }else {
+            $value = 1;
+            $this->create();
+            $newData = array('id'=> String::uuid() , 'key'=> $key, 'value'=>$value);
+            $this->save($newData);
+        }
 
-        $this->id = $id;
-        $this->save(array('value'=>$value));
         return $value;
 
     }
 
     function setSequence() {
+        
+        $data = $this->findByKey($key);
+
+        if ($data) {
+            $id = $data['Sequence']['id'];
+            $this->id = $id;
+            $this->save(array('value'=>$value));
+
+        }else {
+            $this->create();
+            $newData = array('id'=> String::uuid() , 'key'=> $key, 'value'=>$value);
+            $this->save($newData);
+        }
+
+        return $value;
 
     }
 
     function resetSequence($key = 'default', $value = 0) {
 
-        $data = $this->findByKey($key);
-
-        $id = $data['Sequence']['id'];
-
-        $this->id = $id;
-        $this->save(array('value'=>$value));
-        return $value;
+        return $this->setSequence($key, $value);
         
     }
 }
