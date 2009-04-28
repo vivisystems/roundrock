@@ -101,7 +101,9 @@
                     }, 15000);
 
                     /* Start Request with http basic authorization */
-                    req.open('GET', url, true, username, password);
+                    req.open('GET', url, true /*, username, password*/);
+					req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
+
                     req.onreadystatechange = function (aEvt) {
                         if (req.readyState == 4) {
                             if(req.status == 200) {
@@ -112,6 +114,7 @@
                                     self.setStatus(false);
                                 }
                             }else {
+                                GREUtils.log('sync status  = ' + req.status);
                                 self.setStatus(false);
                             }
                             delete req;

@@ -21,7 +21,7 @@
   <!-- include startup script -->
   <script src="chrome://viviecr/content/controllers/hotkey_prefs_controller.js" type="text/javascript"/>
     
-    <box id="hotkey-container"  class="main-dialog" flex="1">
+    <vbox id="hotkey-container"  class="main-dialog" flex="1">
         <hbox flex="1" class="MainPnl" >
             <!-- vivifuncpanel -->
             <vbox class="MainL">
@@ -114,18 +114,18 @@
                                         oncommand="$do('linkFunction', null, 'HotkeyPrefs')"/>
                     </hbox>
                 </vbox>
-                    <hbox>
-                        <hbox class="ToolBar" flex="1">
-                            <button id="add_hotkey" label="&hotkey.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('addHotkey', null, 'HotkeyPrefs');" />
-                            <button id="modify_hotkey" label="&hotkey.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyHotkey', null, 'HotkeyPrefs');" />
-                            <button id="delete_hotkey" label="&hotkey.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('removeHotkey', null, 'HotkeyPrefs');" />
-                        </hbox>
-                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                            <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                            <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('cancelPreferences', null, 'HotkeyPrefs');"/>
-                        </hbox>
-                    </hbox>
             </vbox>
         </hbox>
-    </box>
+         <hbox>
+            <hbox class="ToolBar" flex="1">
+                <button id="add_hotkey" label="&hotkey.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('addHotkey', null, 'HotkeyPrefs');" />
+                <button id="modify_hotkey" label="&hotkey.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyHotkey', null, 'HotkeyPrefs');" />
+                <button id="delete_hotkey" label="&hotkey.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('removeHotkey', null, 'HotkeyPrefs');" />
+            </hbox>
+            <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('cancelPreferences', null, 'HotkeyPrefs');"/>
+            </hbox>
+        </hbox>
+    </vbox>
 </window>
