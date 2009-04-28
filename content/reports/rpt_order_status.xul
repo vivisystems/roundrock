@@ -68,13 +68,28 @@
 		                    </row>
 		                    <row>
 		                    	<vbox>
+		                    		<label value="&rptorderstatus.periodtype;" />
+					                <menulist id="period_type">
+					                    <menupopup id="period_type_menupopup">
+					                        <menuitem selected="true" label="&rptorderstatus.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptorderstatus.sale_period;" value="sale_period" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
+				                    <label value="&rptorderstatus.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
 				                	<label value="&rptorderstatus.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
 					                        <menuitem selected="true" label="&rptorderstatus.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptorderstatus.service_clerk;" value="service_clerk_displayname" />
 					                        <menuitem selected="false" label="&rptorderstatus.status;" value="status" />
-					                        <menuitem selected="false" label="&rptorderstatus.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptorderstatus.time;" value="'Order.time'" />
 					                        <menuitem selected="false" label="&rptorderstatus.sequence;" value="sequence" />
 					                        <menuitem selected="false" label="&rptorderstatus.invoice_no;" value="invoice_no" />
 					                        <menuitem selected="false" label="&rptorderstatus.item_subtotal;" value="item_subtotal" />

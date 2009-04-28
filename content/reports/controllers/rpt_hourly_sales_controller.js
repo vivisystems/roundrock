@@ -19,6 +19,7 @@
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
             var machineid = document.getElementById( 'machine_id' ).value;
+            var periodType = document.getElementById( 'period_type' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
@@ -26,19 +27,18 @@
             end = parseInt( end / 1000, 10 );
 
             var fields = [
-            				'orders.transaction_created',
+            				'orders.' + periodType,
                             'orders.terminal_no',
                             'orders.status',
                             'SUM("orders"."total") AS "Order.HourTotal"',
-                            // 'STRFTIME("%Y-%m-%d %H","orders"."transaction_created_format") AS "Order.Hour"',
-                            'STRFTIME("%Y-%m-%d %H",DATETIME("orders"."transaction_created", "unixepoch", "localtime")) AS "Order.Hour"',
+                            'STRFTIME("%Y-%m-%d %H",DATETIME("orders"."' + periodType + '", "unixepoch", "localtime")) AS "Order.Hour"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
                             'SUM("orders"."items_count") AS "Order.ItemsCount"'
                         ];
 
-            var conditions = "orders.transaction_created>='" + start +
-                            "' AND orders.transaction_created<='" + end +
+            var conditions = "orders." + periodType + ">='" + start +
+                            "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status='1'";
             if (machineid.length > 0) {
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
@@ -53,8 +53,8 @@
             var order = new OrderModel();
             var records = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1} );
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+            //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
             
             if ( sortby != 'all' ) {
             	records.sort(
@@ -91,12 +91,12 @@
                 Guests += o.Guests;
                 ItemsCount += o.ItemsCount;
 
-                o.HourTotal = GeckoJS.NumberHelper.round(o.HourTotal, precision_prices, rounding_prices) || 0;
-                o.HourTotal = o.HourTotal.toFixed(precision_prices);
+                //o.HourTotal = GeckoJS.NumberHelper.round(o.HourTotal, precision_prices, rounding_prices) || 0;
+                //o.HourTotal = o.HourTotal.toFixed(precision_prices);
             } );
 
-            HourTotal = GeckoJS.NumberHelper.round(HourTotal, precision_prices, rounding_prices) || 0;
-            HourTotal = HourTotal.toFixed(precision_prices);
+            //HourTotal = GeckoJS.NumberHelper.round(HourTotal, precision_prices, rounding_prices) || 0;
+            //HourTotal = HourTotal.toFixed(precision_prices);
 
 			this._reportRecords.head.title = _( 'Hourly Sales Report' );
 			this._reportRecords.head.start_time = start_str;
@@ -124,10 +124,6 @@
             document.getElementById('end_date').value = end;
 
             this._enableButton(false);
-            
         }
-
     });
-
-
 })();

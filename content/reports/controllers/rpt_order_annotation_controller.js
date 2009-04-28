@@ -21,6 +21,7 @@
             var machineid = document.getElementById('machine_id').value;
             
             var periodType = document.getElementById( 'period_type' ).value;
+            var shiftNo = document.getElementById( 'shift_no' );
             
             var annotationType = document.getElementById( 'annotation_type' ).value;
             
@@ -48,6 +49,9 @@
 
             if (machineid.length > 0)
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
+                
+            if ( shiftNo.length > 0 )
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
             
             if ( annotationType != 'all' )
             	conditions += " and order_annotations.type = '" + this._queryStringPreprocessor( annotationType ) + "'";

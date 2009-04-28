@@ -19,6 +19,8 @@
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             var machineid = document.getElementById('machine_id').value;
+            var periodType = document.getElementById( 'period_type' ).value;
+            var shiftNo = document.getElementById( 'shift_no' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
@@ -26,7 +28,7 @@
             end = parseInt(end / 1000, 10);
 
             var fields = [
-                            'orders.transaction_created',
+                            'orders.' + periodType + ' as "Order.time"',
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
@@ -49,8 +51,8 @@
                             'orders.terminal_no'
                          ];
 
-            var conditions = "orders.transaction_created>='" + start +
-                            "' AND orders.transaction_created<='" + end +
+            var conditions = "orders." + periodType + ">='" + start +
+                            "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status < 100";
                             
             var orderstatus = document.getElementById( 'orderstatus' ).value;
@@ -61,14 +63,14 @@
             if ( service_clerk != 'all' )
             	conditions += " AND orders.service_clerk_displayname = '" + this._queryStringPreprocessor( service_clerk ) + "'";
 
-            if (machineid.length > 0) {
+			if ( shiftNo.length > 0 )
+				conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+				
+            if (machineid.length > 0)
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
-                //var groupby = 'orders.terminal_no,"Order.Date"';
-            } else {
-                //var groupby = '"Order.Date"';
-            }
+                
             var groupby = '';
-            var orderby = 'orders.' + sortby + ', orders.status, orders.item_subtotal desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.terminal_no, orders.status, orders.item_subtotal desc';
             
             if ( sortby != 'all' ) {
 				var desc = '';
@@ -77,7 +79,7 @@
 					case 'terminal_no':
 					case 'service_clerk_displayname':
 					case 'status':
-					case 'transaction_created':
+					case 'time':
 					case 'discount_subtotal':
 					case 'promotion_subtotal':
 					case 'revalue_subtotal':
@@ -92,7 +94,7 @@
 						break;
 				}
 				
-            	orderby = 'orders.' + sortby + desc;
+            	orderby = sortby + desc;
             }
             
             var order = new OrderModel();
@@ -134,10 +136,10 @@
             	}
             });
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+            //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            var initZero = parseFloat(0).toFixed(precision_prices);
+            //var initZero = parseFloat(0).toFixed(precision_prices);
             var footRecords = {
             	tax_subtotal: tax_subtotal,
             	item_subtotal: item_subtotal,
