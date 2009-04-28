@@ -1741,8 +1741,8 @@ msgstr "Hourly Sales"
 msgid "(rpt)Top Product Sales"
 msgstr "Top Product Sales"
 
-msgid "(rpt)Tax summary"
-msgstr "Tax summary"
+msgid "(rpt)Tax Summary"
+msgstr "Tax Summary"
 
 msgid "(rpt)Rate"
 msgstr "Rate"

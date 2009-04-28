@@ -116,6 +116,7 @@
                 
                 // sync to media...
                 this.execute("/bin/sync", []);
+                GREUtils.File.run( "/bin/sync", [], false );
             } catch (e) {
 
             }
