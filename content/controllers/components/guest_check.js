@@ -201,6 +201,9 @@ this.log("evt.type:" + evt.type);
                             }
                             GeckoJS.Session.set('vivipos_fec_table_number', i);
                             curTransaction.data.table_no = "" + i;
+
+                            // set destination
+                            this.requestCommand('setDestination', 'OUT', 'Destinations');
                         }
                         break;
                     case 'ChangeClerk':
@@ -232,7 +235,7 @@ this.log("evt.type:" + evt.type);
                     case 'TransTable':
                         var targetTableNo = Math.round(parseInt(i));
                         var sourceTableNo = inputObj.sourceTableNo;
-this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
+
                         this.recallByTableNo(sourceTableNo);
                         var curTransaction = null;
                         curTransaction = this._controller._getTransaction();
@@ -281,8 +284,13 @@ this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
         },
 
         guest: function(num) {
-            // this.log("GuestCheck guest..." + num);
+            this.log("GuestCheck guest..." + num);
+            if (!num) {
+                num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
+                num = this.selGuestNum(num);
+            }
             GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
+            return num;
         },
 
 // @todo must be rewrite...

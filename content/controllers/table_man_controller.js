@@ -60,6 +60,8 @@
             this.getTableListObj().vivitree.selection.select(index);
             if (index > -1) {
                 var table = this._tableListDatas[index];
+this.log("table:");
+this.log(this.dump(table));
                 GeckoJS.FormHelper.unserializeFromObject('tableForm', table);
             }
 
@@ -154,7 +156,7 @@
         modifyTable: function() {
             var index = this.getTableListObj().selectedIndex;
             var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
-
+this.log(this.dump(inputObj));
             if (index > -1 && inputObj.id != '' && inputObj.table_no != '' && inputObj.table_name != '') {
 
                 var tableModel = new TableModel();
@@ -486,6 +488,7 @@ alert(table_no);
                             'tables.seats',
                             'tables.active',
                             'tables.tag',
+                            'tables.destination',
                             'table_regions.name AS "Table.region"',
                             'tables.table_region_id',
                             'table_regions.image AS "Table.image"'];
@@ -519,6 +522,34 @@ alert(table_no);
 
             document.getElementById('booking_count').value = this._bookingListDatas.length;
 
+        },
+
+        setDestinationMenuItem: function() {
+
+            // read destinations from configure
+            var destinations = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
+            if (destinations != null) destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
+            // this.log(this.dump(datas));
+            // return ;
+
+            var destinationObj = document.getElementById('table_destination_menupopup');
+
+            // remove all child...
+            while (destinationObj.firstChild) {
+                destinationObj.removeChild(destinationObj.firstChild);
+            }
+
+            var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+            menuitem.setAttribute('value', '');
+            menuitem.setAttribute('label', ' ');
+            destinationObj.appendChild(menuitem);
+
+            destinations.forEach(function(data){
+                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                menuitem.setAttribute('value', data.name);
+                menuitem.setAttribute('label', data.defaultMark + data.name);
+                destinationObj.appendChild(menuitem);
+            });
         },
 
         setRegionMenuItem: function() {
@@ -566,6 +597,8 @@ alert(table_no);
             var settings = this.readTableSettings();
             GeckoJS.FormHelper.unserializeFromObject('settingsForm', settings);
 
+
+            this.setDestinationMenuItem();
             this.setRegionMenuItem();
             this.loadRegions();
             this.selectRegion(0);
