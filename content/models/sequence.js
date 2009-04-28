@@ -51,15 +51,15 @@
             req.mozBackgroundRequest = true;
 
             /* Request Timeout guard */
-            /*
-                    var timeout = null;
-                    timeout = setTimeout(function() {
-                        clearTimeout(timeout);
-                        req.abort();
-                    }, 15000);
-                    */
+            var timeout = null;
+            timeout = setTimeout(function() {
+                clearTimeout(timeout);
+                req.abort();
+            }, 15000);
+
             /* Start Request with http basic authorization */
             var seq = -1;
+            alert(reqUrl);
             req.open('GET', reqUrl, false, username, password);
             var onstatechange = function (aEvt) {
                 if (req.readyState == 4) {
@@ -78,8 +78,14 @@
             };
 
             // req.onreadystatechange = onstatechange
-            req.send(null);
-            onstatechange();
+            try {
+                req.send(null);
+                onstatechange();
+            }catch(e) {
+                // services not exists
+                if(timeout) clearTimeout(timeout);
+            }
+            
             return seq;
         
         },

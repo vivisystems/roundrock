@@ -728,7 +728,7 @@
 
                 if (!cartEmpty) {
                     if (responseDiscardCart == 1) {
-                        $do('cancel', null, 'Cart');
+                        $do('cancel', true, 'Cart');
                     }
                     else {
                         $do('pushQueue', null, 'Cart');
@@ -744,7 +744,7 @@
             }
             else {
                 $do('clear', null, 'Cart');
-                if (!cartEmpty) $do('cancel', null, 'Cart');
+                if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
             if (!quickSignoff) {

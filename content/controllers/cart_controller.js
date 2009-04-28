@@ -303,7 +303,11 @@
         },
 
         _newTransaction: function() {
-            var curTransaction = new Transaction();
+            
+            try {
+                var curTransaction = new Transaction();
+            }catch(e) {}
+            
             this._setTransactionToView(curTransaction);
 
             // check pricelevel schedule
@@ -321,6 +325,7 @@
 
             var curTransaction = GeckoJS.Session.get('current_transaction');
 
+            
             // null 
             if (curTransaction == null){
                 if(autoCreate) return this._newTransaction();
@@ -2731,7 +2736,7 @@
 
         },
 
-        cancel: function() {
+        cancel: function(forceCancel) {
 
             this._getKeypadController().clearBuffer();
             this.cancelReturn(true);
@@ -2748,7 +2753,7 @@
 
             //  cancel requires confirmation with twice click
             var now  = (new Date()).getTime();
-            if( !this._lastCancelInvoke || ( (now - this._lastCancelInvoke) > 3000)) {
+            if( !forceCancel && (!this._lastCancelInvoke || ( (now - this._lastCancelInvoke) > 3000)) ) {
                 try{
                     GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
                     GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');

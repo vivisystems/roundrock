@@ -2328,7 +2328,7 @@
 
             // revalue
             if(this.data.autorevalue && this.data.revalueprices != 0) {
-                this.data.revalue_subtotal = 0 - parseFloat(total % this.data.revalueprices);
+                this.data.revalue_subtotal = this.getRoundedPrice(0 - parseFloat(total % this.data.revalueprices));
                 if(total>=0) {
                     total = total + this.data.revalue_subtotal;
                 }else {
