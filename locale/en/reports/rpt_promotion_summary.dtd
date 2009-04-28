@@ -20,7 +20,8 @@
 <!ENTITY promotionsummary.all "List All">
 <!ENTITY promotionsummary.wait "Waiting...">
 <!ENTITY promotionsummary.periodtype "Period Type:">
-<!ENTITY promotionsummary.created "Order Start Time">
+<!ENTITY promotionsummary.created "Order Opened Time">
+<!ENTITY promotionsummary.transaction_submitted "Order Finalized Time">
 <!ENTITY promotionsummary.saleperiod "Sale Period">
 <!ENTITY promotionsummary.shiftno "Shift No.:">
 <!ENTITY promotionsummary.promotion "Promotion:">

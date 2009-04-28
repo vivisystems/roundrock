@@ -16,3 +16,6 @@
 <!ENTITY rpthourlysales.ItemsCount "Items">
 <!ENTITY rpthourlysales.all "List All">
 <!ENTITY rpthourlysales.wait "Waiting...">
+<!ENTITY rpthourlysales.periodtype "Period Type:">
+<!ENTITY rpthourlysales.transaction_created "Order Opened Time">
+<!ENTITY rpthourlysales.transaction_submitted "Order Finalized Time">

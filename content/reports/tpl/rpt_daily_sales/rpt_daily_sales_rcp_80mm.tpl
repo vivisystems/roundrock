@@ -9,7 +9,7 @@ ${head.title|center:42}
 ${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Sequence' )|left:14}
 --------  ----------  --------------------
 {for detail in body}
-${detail.terminal_no|left:8}  ${detail.transaction_created|unixTimeToString|left:16}  ${detail.sequence|left:14}
+${detail.terminal_no|left:8}  ${detail.time|unixTimeToString|left:16}  ${detail.sequence|left:14}
 ${'    ' + _( '(rpt)Service' ) + ': '}${detail.service_clerk_displayname|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Proceeds' ) + ': '}${detail.proceeds_clerk_displayname|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Total' ) + ': '}${detail.item_subtotal|viviFormatPrices:true}

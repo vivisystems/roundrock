@@ -104,8 +104,12 @@
         
         load: function () {
 
+            var terminal_no = GeckoJS.Session.get('terminal_no');
+            
             var storeContactModel = new StoreContactModel();
-            var formObj = storeContactModel.findFirst();
+            var formObj = storeContactModel.findByIndex('first', {
+                                    index: 'terminal_no',
+                                    value: terminal_no});
 
             if (formObj != null) {
                 GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);

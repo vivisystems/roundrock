@@ -2226,7 +2226,7 @@
             for(var itemIndex in items ) {
                 var item = items[itemIndex];
 
-                /*
+            /*
             tax_name: item.rate,
             tax_rate: null,
             tax_type: null,
@@ -2334,12 +2334,14 @@
 
             // revalue
             if(this.data.autorevalue && this.data.revalueprices != 0) {
-                this.data.revalue_subtotal = this.getRoundedPrice(0 - parseFloat(total % this.data.revalueprices));
                 if(total>=0) {
-                    total = total + this.data.revalue_subtotal;
+                    this.data.revalue_subtotal = 0 - parseFloat(total % this.data.revalueprices);
                 }else {
-                    total = total - this.data.revalue_subtotal;
+                    this.data.revalue_subtotal = parseFloat((0 - total) % this.data.revalueprices);
+                    if (this.data.revalue_subtotal != 0)
+                        this.data.revalue_subtotal -= this.data.revalueprices;
                 }
+                total = total + this.data.revalue_subtotal;
                 remain = total - payment_subtotal;
             }
 

@@ -66,16 +66,32 @@
 		                    </row>
 		                    <row>
 		                    	<vbox>
+		                    		<label value="&rptdailysales.periodtype;" />
+					                <menulist id="period_type">
+					                    <menupopup id="period_type_menupopup">
+					                        <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="true" label="&rptdailysales.transaction_submitted;" value="transaction_submitted" />
+					                        <menuitem selected="false" label="&rptdailysales.sale_period;" value="sale_period" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
+				                    <label value="&rptdailysales.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
 				                	<label value="&rptdailysales.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="&rptdailysales.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="false" label="&rptdailysales.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptdailysales.service_clerk;" value="service_clerk_displayname" />
 					                        <menuitem selected="false" label="&rptdailysales.proceeds_clerk;" value="proceeds_clerk_displayname" />
-					                        <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptdailysales.time;" value="time" />
 					                        <menuitem selected="false" label="&rptdailysales.sequence;" value="sequence" />
 					                        <menuitem selected="false" label="&rptdailysales.invoice_no;" value="invoice_no" />
-					                        <menuitem selected="false" label="&rptdailysales.item_subtotal;" value="item_subtotal" />
+					                        <menuitem selected="true" label="&rptdailysales.item_subtotal;" value="item_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysales.tax_subtotal;" value="tax_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysales.surcharge_subtotal;" value="surcharge_subtotal" />
 					                        <menuitem selected="false" label="&rptdailysales.discount_subtotal;" value="discount_subtotal" />
@@ -142,5 +158,4 @@
         </groupbox>
         </vbox>
     </panel>
-
 </window>

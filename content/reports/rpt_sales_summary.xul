@@ -51,7 +51,8 @@
 		                    		<label value="&rptsalessummary.periodtype;" />
 					                <menulist id="period_type">
 					                    <menupopup id="periodtype_menupopup">
-					                        <menuitem selected="true" label="&rptsalessummary.starttime;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptsalessummary.starttime;" value="transaction_created" />
+					                        <menuitem selected="true" label="&rptsalessummary.transaction_submitted;" value="transaction_submitted" />
 					                        <menuitem selected="false" label="&rptsalessummary.saleperiod;" value="sale_period" />
 					                    </menupopup>
 					                </menulist>

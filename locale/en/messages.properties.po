@@ -2544,6 +2544,9 @@ msgstr ""
 msgid "Order is not queued because it is empty"
 msgstr ""
 
+msgid "This order must be store first"
+msgstr ""
+
 msgid "Not an open order; unable to store"
 msgstr ""
 
@@ -3446,22 +3449,88 @@ msgid ""
 "been modified successfully"
 msgstr ""
 
-msgid "Refund payment amount must be positive"
+msgid "Refund payment amount must be valid, positive number"
 msgstr ""
 
 msgid "Password and Verify Password not the same"
 msgstr ""
 
+msgid "B#"
+msgstr ""
+
+msgid "C#"
+msgstr ""
+
+msgid "T#"
+msgstr ""
+
+msgid "Host Table"
+msgstr ""
+
 msgid "Recall Check"
+msgstr ""
+
+msgid "Please Select a Table to recall..."
+msgstr ""
+
+msgid "Press CANCEL button to cancel function"
 msgstr ""
 
 msgid "Split Check"
 msgstr ""
 
+msgid "Please Select a Table to split..."
+msgstr ""
+
 msgid "Merge Check"
 msgstr ""
 
+msgid "Please Select a Table to merge..."
+msgstr ""
+
+msgid "Merge Table"
+msgstr ""
+
+msgid "Please Select the source table as master table..."
+msgstr ""
+
+msgid "Unmerge Table"
+msgstr ""
+
+msgid "Please Select the hold table to be unmerge..."
+msgstr ""
+
+msgid "Change Clerk"
+msgstr ""
+
+msgid "Select a table to change service clerk to [ %S ]..."
+msgstr ""
+
+msgid "Trans Table"
+msgstr ""
+
+msgid "Please Select the source table to translate..."
+msgstr ""
+
+msgid "Select Table"
+msgstr ""
+
+msgid "Please Select a Table..."
+msgstr ""
+
 msgid "Select Table No"
+msgstr ""
+
+msgid "This table is empty!!"
+msgstr ""
+
+msgid "Please Select the target table to translate..."
+msgstr ""
+
+msgid "Please Select a empty table to merge..."
+msgstr ""
+
+msgid "This table had not been hold!!"
 msgstr ""
 
 msgid "Invalid cash drawer change amount [%S]"
@@ -3785,9 +3854,6 @@ msgstr ""
 msgid "QTY"
 msgstr ""
 
-msgid "Change Clerk"
-msgstr ""
-
 msgid "Password"
 msgstr ""
 
@@ -3905,4 +3971,10 @@ msgid "Product Stock List"
 msgstr ""
 
 msgid "(view)customer"
+msgstr ""
+
+msgid "(view)Promotions"
+msgstr ""
+
+msgid "(view)Revalue"
 msgstr ""
