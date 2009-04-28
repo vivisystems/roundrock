@@ -434,13 +434,13 @@ GREUtils.log("add check...");
 
             // tableStatus record exist
             if (tableStatusObjTmp) {
-                
+
                 if (tableStatusObj.sequence == '') {
                     // remove tableStatus record
                     this.del(tableStatusObjTmp.id);
                 } else {
                     // update tableStatus record
-                    this.id = tableStatusObj.id;
+                    this.id = tableStatusObjTmp.id;
                     var retObj = this.save(tableStatusObj);
                 }
             } else {
