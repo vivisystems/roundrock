@@ -48,6 +48,7 @@
             this._originalPayments.forEach(function(p) {
                 p.seq = seq++;
                 p.amount = this.formatPrice(p.amount - p.change);
+                p.origin_amount = this.formatPrice(p.origin_amount);
             }, this);
             document.getElementById('paymentscrollablepanel').datasource = this._originalPayments;
             document.getElementById('paidTotal').value = this._paidTotal = this.formatPrice(data.paidTotal);

@@ -68,26 +68,34 @@
             this.dispatchEvent('afterInitial', null);
 
             // check transaction fail
+            var recovered = false;
             if(Transaction.isRecoveryFileExists()) {
 
                 var tranData = Transaction.unserializeFromRecoveryFile();
 
-                var serviceClerk = tranData.service_clerk;
-                // force login
-                this.Acl.securityCheck(serviceClerk, 'dummy', false, true);
+                if (tranData) {
+                    try {
+                        var serviceClerk = tranData.service_clerk;
+                        // force login
+                        this.Acl.securityCheck(serviceClerk, 'dummy', false, true);
 
-                // check if successfully logged in
-                if (this.Acl.getUserPrincipal()) {
-                    // prevent onSetClerk event dispatch
-                    this.dispatchedEvents['onSetClerk'] = true;
-                    this.requestCommand('setClerk', null, 'Main');
+                        // check if successfully logged in
+                        if (this.Acl.getUserPrincipal()) {
+                            // prevent onSetClerk event dispatch
+                            this.dispatchedEvents['onSetClerk'] = true;
+                            this.requestCommand('setClerk', null, 'Main');
+                        }
+
+                        this.dispatchEvent('onInitial', null);
+
+                        this.requestCommand('recovery', tranData, 'Cart');
+
+                        recovered = true;
+                    }
+                    catch(e) {}
                 }
-
-                this.dispatchEvent('onInitial', null);
-
-                this.requestCommand('recovery', tranData, 'Cart');
-
-            }else {
+            }
+            if (!recovered) {
                 this.requestCommand('initialLogin', null, 'Main');
             }
             
@@ -728,7 +736,7 @@
 
                 if (!cartEmpty) {
                     if (responseDiscardCart == 1) {
-                        $do('cancel', null, 'Cart');
+                        $do('cancel', true, 'Cart');
                     }
                     else {
                         $do('pushQueue', null, 'Cart');
@@ -744,7 +752,7 @@
             }
             else {
                 $do('clear', null, 'Cart');
-                if (!cartEmpty) $do('cancel', null, 'Cart');
+                if (!cartEmpty) $do('cancel', true, 'Cart');
             }
 
             if (!quickSignoff) {

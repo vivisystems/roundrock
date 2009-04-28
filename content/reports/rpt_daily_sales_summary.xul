@@ -50,7 +50,8 @@
 		                    		<label value="&rptdailysalessummary.periodtype;" />
 					                <menulist id="period_type">
 					                    <menupopup id="periodtype_menupopup">
-					                        <menuitem selected="true" label="&rptdailysalessummary.starttime;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptdailysalessummary.starttime;" value="transaction_created" />
+					                        <menuitem selected="true" label="&rptdailysalessummary.transaction_submitted;" value="transaction_submitted" />
 					                        <menuitem selected="false" label="&rptdailysalessummary.saleperiod;" value="sale_period" />
 					                    </menupopup>
 					                </menulist>
@@ -78,6 +79,10 @@
 			                    </vbox>
 		                    </row>
 		                    <row>
+		                    	<vbox>
+				                    <label value="&rptdailysalessummary.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
+				                </vbox>
 		                    	<vbox>
 				                    <label value="&rptdailysalessummary.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>

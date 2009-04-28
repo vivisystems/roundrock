@@ -61,6 +61,17 @@
 						            </menulist>
 						        </vbox>
 						        <vbox>
+		                    		<label value="&rpthourlysales.periodtype;" />
+					                <menulist id="period_type">
+					                    <menupopup id="period_type_menupopup">
+					                        <menuitem selected="false" label="&rpthourlysales.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="true" label="&rpthourlysales.transaction_submitted;" value="transaction_submitted" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
 				                    <label value="&rpthourlysales.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>
 				                </vbox>

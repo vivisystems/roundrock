@@ -51,21 +51,22 @@
             req.mozBackgroundRequest = true;
 
             /* Request Timeout guard */
-            /*
-                    var timeout = null;
-                    timeout = setTimeout(function() {
-                        clearTimeout(timeout);
-                        req.abort();
-                    }, 15000);
-                    */
+            var timeout = null;
+            timeout = setTimeout(function() {
+                clearTimeout(timeout);
+                req.abort();
+            }, 15000);
+
             /* Start Request with http basic authorization */
             var seq = -1;
-            req.open('GET', reqUrl, false, username, password);
+            req.open('GET', reqUrl, false/*, username, password*/);
+            req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
+
             var onstatechange = function (aEvt) {
                 if (req.readyState == 4) {
                     if(req.status == 200) {
                         var result = GeckoJS.BaseObject.unserialize(req.responseText);
-                        if (result.status == 'ok') {
+                                                if (result.status == 'ok') {
                             seq = result.value;
                         }else {
                             seq = -1;
@@ -73,13 +74,22 @@
                     }else {
                         seq = -1;
                     }
+                }else {
+
                 }
                 delete req;
             };
 
-            // req.onreadystatechange = onstatechange
-            req.send(null);
-            onstatechange();
+              // req.onreadystatechange = onstatechange
+            try {
+                req.send(null);
+                onstatechange();
+            }catch(e) {
+                // services not exists
+                //alert('get sequence exception ' + e );
+            }
+            if(timeout) clearTimeout(timeout);
+
             return seq;
         
         },
