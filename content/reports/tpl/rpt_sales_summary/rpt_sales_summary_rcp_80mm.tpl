@@ -42,7 +42,7 @@ ${'  ' + detail.destination + ' Times:'|left:20}${detail.num_trans|default:0|viv
 ${'  ' + detail.destination + ' Amount:'|left:20}${detail.total|default:0|viviFormatPrices:true|right:22}
 {/for}
 ------------------------------------------
-${_( '(rpt)Tax summary' )}
+${_( '(rpt)Tax Summary' )}
 {for detail in body.tax_summary.records}
 ${'  ' + _( '(rpt)Tax Name' ) + ':'|left:12}${detail.tax_name|right:30}
 ${'  ' + _( '(rpt)Tax Rate' ) + ':'|left:12}${detail.tax_rate|right:30}

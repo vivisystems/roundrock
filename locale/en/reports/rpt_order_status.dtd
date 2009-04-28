@@ -27,6 +27,7 @@
 <!ENTITY rptorderstatus.finalizedorder "Finalized Orders">
 <!ENTITY rptorderstatus.savedorder "Saved Orders">
 <!ENTITY rptorderstatus.canceledorder "Canceled Orders">
+<!ENTITY rptorderstatus.voidedorder "Voided Orders">
 <!ENTITY rptorderstatus.status "Status">
 <!ENTITY rptorderstatus.periodtype "Period Type:">
 <!ENTITY rptorderstatus.transaction_created "Order Opened Time">
