@@ -8,3 +8,5 @@
 <!ENTITY selecttable.mergetable  "Merge Table">
 <!ENTITY selecttable.unmergetable  "Unmerge Table">
 <!ENTITY selecttable.bookingtable  "Booking Table">
+<!ENTITY selecttable.changeclerk  "Change Clerk">
+<!ENTITY selecttable.transtable  "Trans Table">

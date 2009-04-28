@@ -40,7 +40,7 @@
             var cart = this._controller;
             if (cart) {
                 cart.addEventListener('newTransaction', this.handleNewTransaction, this);
-                cart.addEventListener('onSubmit', this.handleNewTransaction, this);
+                // cart.addEventListener('onSubmit', this.handleNewTransaction, this);
                 cart.addEventListener('onCancel', this.handleNewTransaction, this);
                 // cart.addEventListener('onClear', this.handleClear, this);
                 cart.addEventListener('onStore', this.handleNewTransaction, this);
@@ -65,28 +65,25 @@
 
             this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
             this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
+            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
+
 this.log("evt.type:" + evt.type);
 
             if ( evt.type == 'newTransaction') {
                 if (this._guestCheck.requireCheckNo) {
                     // if (!GeckoJS.Session.get('vivipos_fec_check_number'))
                         // var check_no = this.getNewCheckNo();
-                        this._controller.newCheck();
+                        this._controller.newCheck(true);
                 }
             }
             if (evt.type == 'onStartShift' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
                 if (evt.type == 'onStore') {
-this.log("in inStore..." + evt.type);
                     this._tableStatusModel.addCheck(evt.data.data);
                 }
                 if (evt.type == 'afterSubmit') {
-                //    this._tableStatusModel.removeCheck(evt.data.data);
-                    return;
-                }
-                if (evt.type == 'onSubmit') {
-this.log("in onSubmit..." + evt.type);
-                    this._tableStatusModel.removeCheck(evt.data.data);
-                    // return;
+                    try {
+                        this._tableStatusModel.removeCheck(evt.data.data);
+                    } catch(e) {}
                 }
                 if (this._guestCheck.requireTableNo) {
                     // if (!GeckoJS.Session.get('vivipos_fec_table_number') || evt.type == "onStore" || evt.type == 'onStartShift')
@@ -94,7 +91,30 @@ this.log("in onSubmit..." + evt.type);
                         this._controller.newTable();
                 }
 
+                if (this._guestCheck.requireGuestNum) {
+                    var num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
+                    num = this.selGuestNum(num);
+                    this.guest(num);
+                }
             }
+        },
+
+        selGuestNum: function (no){
+
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=400';
+            var inputObj = {
+                input0:no, require0:true, numpad:true
+            };
+
+            window.openDialog(aURL, _('Select Number of Customers'), features, _('Select Number of Customers'), '', _('Numbers'), '', inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }
+
+            return no;
+
         },
 
         getNewCheckNo: function() {
@@ -122,7 +142,7 @@ this.log("in onSubmit..." + evt.type);
 
             // get table status
             var tables = this._tableStatusModel.getTableStatusList();
-
+// GREUtils.log(GeckoJS.BaseObject.dump(tables));
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
@@ -146,14 +166,27 @@ this.log("in onSubmit..." + evt.type);
                         this.recallByTableNo(i);
                         break;
                     case 'SplitCheck':
+                        this.recallByTableNo(i);
+                        var curTransaction = null;
+                        curTransaction = this._controller._getTransaction();
+                        if (curTransaction) {
+                            this.splitOrder(id, curTransaction.data);
+                        }
+
                         // alert('SplitCheck...');
-                        var targetCheck = this.unserializeFromOrder(id);
-                        this.splitOrder(id, targetCheck);
+                        // var targetCheck = this.unserializeFromOrder(id);
+                        // this.splitOrder(id, targetCheck);
                         break;
                     case 'MergeCheck':
+                        this.recallByTableNo(i);
+                        var curTransaction = null;
+                        curTransaction = this._controller._getTransaction();
+                        if (curTransaction) {
+                            this.mergeOrder(id, curTransaction.data);
+                        }
                         // alert('MergeCheck...');
-                        var targetCheck = this.unserializeFromOrder(id);
-                        this.mergeOrder(id, targetCheck);
+                        // var targetCheck = this.unserializeFromOrder(id);
+                        // this.mergeOrder(id, targetCheck);
                         break;
                     case 'SelectTableNo':
                         if (i >= 0) {
@@ -170,6 +203,45 @@ this.log("in onSubmit..." + evt.type);
                             curTransaction.data.table_no = "" + i;
                         }
                         break;
+                    case 'ChangeClerk':
+                        this.recallByTableNo(i);
+                        var user = new GeckoJS.AclComponent().getUserPrincipal();
+                        var service_clerk;
+                        var service_clerk_displayname;
+                        if ( user != null ) {
+                            service_clerk = user.username;
+                            service_clerk_displayname = user.description;
+                        }
+
+                        var curTransaction = null;
+                        curTransaction = this._controller._getTransaction();
+                        if (curTransaction) {
+                            if (service_clerk) {
+                                curTransaction.data.service_clerk = service_clerk;
+                                curTransaction.data.service_clerk_displayname = service_clerk_displayname;
+                            }
+                        }
+                        this.store();
+                        this._controller.dispatchEvent('onStore', curTransaction);
+                        break;
+                    case 'MergeTable':
+                        // var holdby = inputObj.sourceTableNo;
+                        // alert(holdby);
+                        // this._tableStatusModel.holdTable(i, holdby);
+                        break;
+                    case 'TransTable':
+                        var targetTableNo = Math.round(parseInt(i));
+                        var sourceTableNo = inputObj.sourceTableNo;
+this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
+                        this.recallByTableNo(sourceTableNo);
+                        var curTransaction = null;
+                        curTransaction = this._controller._getTransaction();
+                        if (curTransaction) {
+                            this.table("" + targetTableNo);
+                        }
+                        this.store();
+                        this._controller.dispatchEvent('onStore', curTransaction);
+                        break;
                 }
             }else {
                 while (i <= 200) {
@@ -183,6 +255,25 @@ this.log("in onSubmit..." + evt.type);
 
             GeckoJS.Session.set('vivipos_fec_table_number', i);
             return "" + i;
+        },
+
+        table: function(table_no) {
+
+            var r = this._tableStatusModel.getTableNo(table_no);
+
+            if (r >= 0) {
+                var curTransaction = null;
+                curTransaction = this._controller._getTransaction();
+                if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                    curTransaction = this._controller._getTransaction(true);
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('fatal error!!'));
+                        return; // fatal error ?
+                    }
+                }
+                GeckoJS.Session.set('vivipos_fec_table_number', r);
+                curTransaction.data.table_no = r;
+            }
         },
 
         load: function () {
@@ -390,7 +481,11 @@ this.log("in onSubmit..." + evt.type);
                     }
                     break;
                 case 'TableNo':
-                    var ord = this._tableStatusModel.getCheckList('TableNo', no);
+                    var ordList = this._tableStatusModel.getCheckList('TableNo', no);
+                    var ord = [];
+                    ordList.forEach(function(o){
+                        ord.push(GeckoJS.BaseObject.unserialize(o.order_object));
+                    });
                     if (ord && ord.length > 1) {
                         //
                         // alert(this.dump(ord));
@@ -448,14 +543,8 @@ this.log("in onSubmit..." + evt.type);
                     break;
                 case 'AllCheck':
                     // @todo should be rewrite...
-                    
-                    var order = new OrderModel();
-                    var fields = ['orders.id', 'orders.sequence', 'orders.destination', 'orders.check_no',
-                                  'orders.table_no', 'orders.status', 'orders.total'];
 
-                    var conditions = "orders.status='2'";
-                    var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
-                    // var ord = order.find('all', {fields: fields, conditions: conditions});
+                    var ord = this._tableStatusModel.getCheckList('AllCheck', no);
 
                     if (ord && ord.length > 1) {
                         //
@@ -479,7 +568,10 @@ this.log("in onSubmit..." + evt.type);
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
                             // return queues[idx].key;
-                            var id = ord[idx].id;
+
+                            // AC 2009.04.27
+                            // var id = ord[idx].id;
+                            var id = ord[idx].order_id;
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
 

@@ -3735,13 +3735,15 @@
 
         },
 
-        newCheck: function() {
-            this.log("newCheck...");
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
+        newCheck: function(autoCheckNo) {
+this.log("newCheck...");
+            if (autoCheckNo)
+                var no = '';
+            else {
+                var no = this._getKeypadController().getBuffer();
+                this._getKeypadController().clearBuffer();
+                this.cancelReturn();
+            }
             var curTransaction = null;
 
             var r = -1;
@@ -3762,7 +3764,13 @@
 
             this.cancelReturn();
 
-            var curTransaction = null;
+            var curTransaction = this._getTransaction();
+            if (curTransaction) {
+                if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0 && curTransaction.data.recall !=2) {
+                    NotifyUtils.warn(_('This order must be store first'));
+                    return;
+                }
+            }
 
             var r = -1;
             if (no.length == 0) {
@@ -3780,7 +3788,7 @@
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
-            // recall order
+
             return this.GuestCheck.recallByOrderNo(no);
         },
 

@@ -13,7 +13,8 @@
 
         removeOldOrder: function(iid) {
             //
-            this.del(iid);
+
+            this.delAll("id='" + iid + "'");
 
             var cond = "order_id='" + iid + "'";
 
