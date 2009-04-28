@@ -13,7 +13,7 @@ ${head.title|center:24}
 ${_( '(rpt)Term_No.' ) + ':'}
 ${detail.terminal_no|right:24}
 ${_( '(rpt)Time' ) + ':'}
-${detail.transaction_created|unixTimeToString|right:24}
+${detail.time|unixTimeToString|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
 ${_( '(rpt)Service' ) + ':'}

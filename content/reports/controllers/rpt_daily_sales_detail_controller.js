@@ -28,6 +28,8 @@
             
             var machineid = document.getElementById( 'machine_id' ).value;
             var sequenceNo = document.getElementById( 'sequence_no' ).value;
+            var shiftNo = document.getElementById( 'shift_no' ).value;
+            var periodType = document.getElementById( 'period_type' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
@@ -35,7 +37,7 @@
             end = parseInt( end / 1000, 10 );
 
             var fields =	'orders.id, ' +
-            				'orders.transaction_created as time, ' +
+            				'orders.' + periodType + ' as time, ' +
                             'orders.sequence, ' +
                             'orders.total, ' +
                             'orders.tax_subtotal, ' +
@@ -58,24 +60,27 @@
                             
             var tables = 'orders left join order_items on orders.id = order_items.order_id';
 
-            var conditions = "orders.transaction_created >= '" + start +
-                            "' and orders.transaction_created <= '" + end +
+            var conditions = "orders." + periodType + " >= '" + start +
+                            "' and orders." + periodType + " <= '" + end +
                             "' and orders.status = '1'";
 
             if ( machineid.length > 0 )
                 conditions += " and orders.terminal_no like '" + this._queryStringPreprocessor( machineid ) + "%'";
+                
+            if ( shiftNo.length > 0 ) 
+            	conditions += " and orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
           
             if ( sequenceNo.length > 0 )
             	conditions += " and orders.sequence like '" + this._queryStringPreprocessor( sequenceNo ) + "%'";
 
-            var orderby = 'orders.' + sortby + ', orders.item_subtotal desc';//orders.transaction_created';
+            var orderby = 'orders.item_subtotal desc';//orders.transaction_created';
             
             if ( sortby != 'all' ) {
             	var desc = "";
             	
             	switch ( sortby ) {
             		case 'terminal_no':
-            		case 'transaction_created':
+            		case periodType:
             		case 'discount_subtotal':
             		case 'promotion_subtotal':
             		case 'revalue_subtotal':
@@ -89,7 +94,7 @@
             			desc = ' desc';
             	}
             	
-            	orderby = 'orders.' + sortby + desc;
+            	orderby = sortby + desc;
             }
             	
             var limit = this._recordLimit + ' offset ' + this._recordOffset;

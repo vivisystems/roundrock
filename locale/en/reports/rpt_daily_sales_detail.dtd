@@ -9,7 +9,7 @@
 <!ENTITY rptdailysalesdetail.machineid "Terminal No:">
 <!ENTITY rptdailysalesdetail.sortby "Sort By:">
 <!ENTITY rptdailysalesdetail.terminal_no "Terminal No.">
-<!ENTITY rptdailysalesdetail.transaction_created "Time">
+<!ENTITY rptdailysalesdetail.time "Time">
 <!ENTITY rptdailysalesdetail.sequence "Sequence">
 <!ENTITY rptdailysalesdetail.item_subtotal "Total">
 <!ENTITY rptdailysalesdetail.tax_subtotal "Add-on Tax">
@@ -25,3 +25,8 @@
 <!ENTITY rptdailysalesdetail.sequence_no "Sequence:">
 <!ENTITY rptdailysalesdetail.previouspage "Previous Page">
 <!ENTITY rptdailysalesdetail.nextpage "Next Page">
+<!ENTITY rptdailysalesdetail.periodtype "Period Type:">
+<!ENTITY rptdailysalesdetail.transaction_created "Order Opened Time">
+<!ENTITY rptdailysalesdetail.transaction_submitted "Order Finalized Time">
+<!ENTITY rptdailysalesdetail.sale_period "Sale Period">
+<!ENTITY rptdailysalesdetail.shiftno "Shift No.:">

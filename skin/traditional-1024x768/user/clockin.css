@@ -487,13 +487,13 @@ listbox {
 }
 
 .jobsummary .clockin_time {
-    min-width: 70px;
-    max-width: 70px;
+    min-width: 87px;
+    max-width: 87px;
 }
 
 .jobsummary .clockout_time {
-    min-width: 70px;
-    max-width: 70px;
+    min-width: 87px;
+    max-width: 87px;
 }
 
 	/* Attendance  Scorll bar  */

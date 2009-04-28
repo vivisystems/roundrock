@@ -24,6 +24,8 @@
 <!ENTITY rptdailysalessummary.all "List All">
 <!ENTITY rptdailysalessummary.wait "Waiting...">
 <!ENTITY rptdailysalessummary.periodtype "Period Type:">
-<!ENTITY rptdailysalessummary.starttime "Order Start Time">
+<!ENTITY rptdailysalessummary.transaction_submitted "Order Finalized time">
+<!ENTITY rptdailysalessummary.starttime "Order Opened Time">
 <!ENTITY rptdailysalessummary.saleperiod "Sale Period">
 <!ENTITY rptdailysalessummary.time "Time">
+<!ENTITY rptdailysalessummary.shiftno "Shift No.:">

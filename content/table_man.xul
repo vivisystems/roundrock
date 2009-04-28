@@ -292,7 +292,8 @@
                                         </hbox>
                                     </row>
                                     <row>
-                                        <checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/>
+                                        <!-- checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/ -->
+                                        <label value="" />
                                         <hbox>
                                             <label control="tablePeriodLimit" value="&tableman.tableoptions.maxcheckno;"/>
                                             <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>

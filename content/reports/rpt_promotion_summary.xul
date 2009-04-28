@@ -50,7 +50,8 @@
 		                    		<label value="&promotionsummary.periodtype;" />
 						            <menulist id="periodtype">
 						                <menupopup id="periodtype_menupopup">
-						                    <menuitem selected="true" label="&promotionsummary.created;" value="transaction_created" />
+						                    <menuitem selected="false" label="&promotionsummary.created;" value="transaction_created" />
+						                    <menuitem selected="true" label="&promotionsummary.transaction_submitted;" value="transaction_submitted" />
 						                    <menuitem selected="false" label="&promotionsummary.saleperiod;" value="sale_period" />
 						                </menupopup>
 						            </menulist>

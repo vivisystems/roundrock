@@ -21,6 +21,8 @@
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
             var machineid = document.getElementById( 'machine_id' ).value;
+            var shiftNo = document.getElementById( 'shift_no' ).value;
+            var periodType = document.getElementById( 'period_type' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
@@ -30,8 +32,8 @@
             var fields = [
                             'sum(order_payments.amount) as "Order.payment_subtotal"',
                             'order_payments.name as "Order.payment_name"',
-                            'orders.transaction_created',
-                            //'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
+                            'orders.' + periodType + ' as "Order.time"',
+                            //'DATETIME("orders"."' + periodType + '", "unixepoch", "localtime") AS "Order.Date"',
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
@@ -55,8 +57,8 @@
                             'orders.terminal_no'
                          ];
 
-            var conditions = "orders.transaction_created>='" + start +
-                            "' AND orders.transaction_created<='" + end +
+            var conditions = "orders." + periodType + ">='" + start +
+                            "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status=1";
                             
             var service_clerk = document.getElementById( 'service_clerk' ).value;
@@ -67,14 +69,14 @@
 			if ( proceeds_clerk != 'all' )
 				conditions += " AND orders.proceeds_clerk_displayname = '" + this._queryStringPreprocessor( proceeds_clerk ) + "'";
 
-            if (machineid.length > 0) {
+            if ( machineid.length > 0 ) 
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
-                //var groupby = 'orders.terminal_no,"Order.Date"';
-            } else {
-                //var groupby = '"Order.Date"';
-            }
+                
+            if ( shiftNo.length > 0 )
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+                
             var groupby = 'order_payments.order_id, order_payments.name';
-            var orderby = 'orders.' + sortby + ', orders.item_subtotal desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.item_subtotal desc';//orders.transaction_created, orders.id';
             
             //var order = new OrderModel();
 
@@ -83,13 +85,13 @@
             //var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 } );
             var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
 
-            var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
+            //var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
+            //var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
 
             //prepare reporting data
             var repDatas = {};
 
-            var initZero = parseFloat( 0 ).toFixed( precision_prices );
+            //var initZero = parseFloat( 0 ).toFixed( precision_prices );
 
             var footDatas = {
             	tax_subtotal: 0,
@@ -146,7 +148,7 @@
                 old_oid = oid;
             });
 
-            this._datas = GeckoJS.BaseObject.getValues(repDatas);
+            this._datas = GeckoJS.BaseObject.getValues( repDatas );
             
             if ( sortby != 'all' ) {
             	this._datas.sort(
@@ -158,7 +160,7 @@
             				case 'terminal_no':
             				case 'service_clerk_displayname':
             				case 'proceeds_clerk_displayname':
-            				case 'transaction_created':
+            				case 'time':
             				case 'discount_subtotal':
             				case 'promotion_subtotal':
             				case 'revalue_subtotal':
