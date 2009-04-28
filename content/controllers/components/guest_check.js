@@ -444,7 +444,7 @@ this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
                     var ord = this._tableStatusModel.getCheckList('OrderNo', no);
 
                     if (ord && ord.length > 0) {
-                        var id = ord[0].id;
+                        var id = ord[0].order_id;
                         var status = ord[0].status;
 
                         this._controller.unserializeFromOrder(id);
@@ -463,7 +463,7 @@ this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
                     var ord = this._tableStatusModel.getCheckList('CheckNo', no);
                     if (ord && ord.length > 0) {
 
-                        var id = ord[0].id;
+                        var id = ord[0].order_id;
                         var status = ord[0].status;
 
                         this._controller.unserializeFromOrder(id);
@@ -504,7 +504,7 @@ this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
                             // return queues[idx].key;
-                            var id = ord[idx].id;
+                            var id = ord[idx].order_id;
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
 
@@ -523,7 +523,7 @@ this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
                         }
 
                     } else if (ord && ord.length > 0) {
-                        var id = ord[0].id;
+                        var id = ord[0].order_id;
                         var status = ord[0].status;
                         var check_no = ord[0].check_no;
 
@@ -604,7 +604,7 @@ this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
                         }
 
                     } else if (ord && ord.length > 0) {
-                        var id = ord[0].id;
+                        var id = ord[0].order_id;
                         var status = ord[0].status;
                         var check_no = ord[0].check_no;
 

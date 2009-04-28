@@ -2792,6 +2792,8 @@
                         _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
+
+                    this.clear();
                 }
                 else {
                     this.dispatchEvent('onCancel', curTransaction);
