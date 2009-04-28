@@ -63,10 +63,10 @@
                             "' and orders.status = '1'";
 
             if ( machineid.length > 0 )
-                conditions += " and orders.terminal_no like '" + machineid + "%'";
+                conditions += " and orders.terminal_no like '" + this._queryStringPreprocessor( machineid ) + "%'";
           
             if ( sequenceNo.length > 0 )
-            	conditions += " and orders.sequence like '" + sequenceNo + "%'";
+            	conditions += " and orders.sequence like '" + this._queryStringPreprocessor( sequenceNo ) + "%'";
 
             var orderby = 'orders.' + sortby + ', orders.item_subtotal desc';//orders.transaction_created';
             

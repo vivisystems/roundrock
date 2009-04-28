@@ -83,7 +83,9 @@
         load: function(barcode) {
             
             var fields = [];
-            var conditions = "products.no like '%" + barcode + "%' or products.barcode like '%" + barcode + "%' or products.name like '%" + barcode + "%'";
+            var searchStr = barcode.replace('\'', '\'\'', 'g');
+
+            var conditions = "products.no like '%" + searchStr + "%' or products.barcode like '%" + searchStr + "%' or products.name like '%" + searchStr + "%'";
             var prodModel = new ProductModel();
             var datas = prodModel.find('all',{fields: fields, conditions: conditions});
             this._listDatas = datas;
@@ -117,8 +119,6 @@
         },
 
         searchPlu: function (barcode) {
-            $('#plu').val('').focus();
-
             barcode = barcode.replace(/[_\xa0]+$/, '');
             if (barcode == "") return;
 
@@ -139,7 +139,6 @@
             }else {
                 // reset?
             }
-
         }
     };
 

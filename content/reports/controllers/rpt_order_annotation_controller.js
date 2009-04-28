@@ -47,10 +47,10 @@
                             "' AND orders." + periodType + "<='" + end + "'";
 
             if (machineid.length > 0)
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
             
             if ( annotationType != 'all' )
-            	conditions += " and order_annotations.type = '" + annotationType + "'";
+            	conditions += " and order_annotations.type = '" + this._queryStringPreprocessor( annotationType ) + "'";
             
             if ( sortby != 'all' ) {
 		       switch ( sortby ) {
@@ -75,11 +75,11 @@
 			var sql = 'select ' + fields + ' from orders join order_annotations on orders.id = order_annotations.order_id where ' + conditions + ' order by ' + orderby + ';';
 			var orderRecords = order.getDataSource().fetchAll( sql );
 			
-			conditions = ' where created >= "' + start + '" and created <= "' + end + '"';
+			conditions = " where created >= '" + start + "' and created <= '" + end + "'";
 			if ( annotationType != 'all' )
-				conditions = ' and type = "' + annotationType + '"';
+				conditions += " and type = '" + this._queryStringPreprocessor( annotationType ) + "'";
 			var orderAnnotation = new OrderAnnotationModel();
-			sql = 'select distinct type from order_annotations' + conditions + ';';
+			sql = "select distinct type from order_annotations" + conditions + ";";
 			var orderAnnotationRecords = orderAnnotation.getDataSource().fetchAll( sql );
 			
 			var records = {};

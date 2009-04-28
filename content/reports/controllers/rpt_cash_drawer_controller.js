@@ -12,18 +12,18 @@
         _fileName: 'rpt_cash_drawer',
 
         _set_reportRecords: function() {
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
+            var start = document.getElementById( 'start_date' ).value;
+            var end = document.getElementById( 'end_date' ).value;
 
-			var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
-            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+			var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
             var machineid = document.getElementById( 'machine_id' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
-            start = parseInt(start / 1000, 10);
-            end = parseInt(end / 1000, 10);
+            start = parseInt( start / 1000, 10 );
+            end = parseInt( end / 1000, 10 );
             
             var cashDrawer = new CashdrawerRecordModel();
 
@@ -39,15 +39,15 @@
                             "' AND created<='" + end + "'";
             
             if ( machineid.length > 0 )
-                conditions += " AND terminal_no LIKE '" + machineid + "%'";
+                conditions += " AND terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
 
-            var groupby = '';
+            var groupby = "";
             var orderby = sortby;
             
             if ( sortby != 'all' )
             	var orderby = sortby;
 
-            var datas = cashDrawer.find( 'all', {fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby} );
+            var datas = cashDrawer.find( 'all', {fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby} );
             
             this._reportRecords.head.title = _( 'Cash Drawer Report' );
             this._reportRecords.head.start_time = start_str;
@@ -64,13 +64,13 @@
             var mm = today.getMonth();
             var dd = today.getDate();
 
-            var start = (new Date(yy,mm,dd,0,0,0)).getTime();
-            var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
+            var start = ( new Date( yy, mm, dd, 0, 0, 0 ) ).getTime();
+            var end = ( new Date( yy, mm, dd + 1, 0, 0, 0 ) ).getTime();
 
-            document.getElementById('start_date').value = start;
-            document.getElementById('end_date').value = end;
+            document.getElementById( 'start_date' ).value = start;
+            document.getElementById( 'end_date' ).value = end;
 
-            this._enableButton(false);
+            this._enableButton( false );
         }
     });
 })();

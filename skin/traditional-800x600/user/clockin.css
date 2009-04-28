@@ -484,14 +484,14 @@ listbox {
     -moz-appearance: none;
 }
 
-listbox #clockin_time {
-    min-width: 55px;
-    max-width: 55px;
+.jobsummary .clockin_time {
+    min-width: 68px;
+    max-width: 68px;
 }
 
-listbox #clockout_time {
-    min-width: 55px;
-    max-width: 55px;
+.jobsummary .clockout_time {
+    min-width: 68px;
+    max-width: 68px;
 }
 
 	/* Attendance �C�� Scorll bar �W�U���� */

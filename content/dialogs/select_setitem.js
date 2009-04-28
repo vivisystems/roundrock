@@ -25,6 +25,7 @@
         var selections = [];
         var opts;
         var hidden = false;
+        var mode = 'add';
 
         $.installPanel($panel[0], {
 
@@ -133,7 +134,7 @@
                 productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
 
                 $selectionPanel[0].vivibuttonpanel.resizeButtons();
-                
+                mode = evt.data.mode;
                 var pluset = evt.data.pluset;
                 
                 // convert pluset into array of products and linkgroups
@@ -298,7 +299,7 @@
                     $buttonPanel[0].invalidateRow(row);
                 }
 
-                opts.moveToNext();
+                if (mode == 'add') opts.moveToNext();
             },
 
             // Selection item selected
@@ -313,8 +314,7 @@
                     $buttonPanel[0].invalidateRow(plusetRow);
                 }
 
-                opts.moveToNext();
-
+                if (mode == 'add') opts.moveToNext();
             },
 
             moveToNext: function() {

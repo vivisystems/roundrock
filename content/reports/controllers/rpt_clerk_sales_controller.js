@@ -33,8 +33,8 @@
                             "' AND orders.transaction_created<='" + end +
                             "' AND orders.status=1";
 
-            if (machineid.length > 0)
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+            if ( machineid.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
             
             var clerks = orderModel.find( 'all', { fields: [ clerk_type + ' AS "Order.name"' ], conditions: conditions, group: [ clerk_type ] } );
             
@@ -80,7 +80,7 @@
             //prepare reporting data
             var repDatas = {};
 
-            var initZero = parseFloat(0).toFixed(precision_prices);
+            var initZero = parseFloat( 0 ).toFixed( precision_prices );
             //
             clerks.forEach( function( clerk ) {
             	delete clerk.Order;
@@ -222,8 +222,8 @@
             var mm = today.getMonth();
             var dd = today.getDate();
 
-            var start = (new Date(yy,mm,dd,0,0,0)).getTime();
-            var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
+            var start = ( new Date( yy, mm, dd, 0, 0, 0 ) ).getTime();
+            var end = ( new Date( yy, mm, dd + 1, 0, 0, 0 ) ).getTime();
 
             document.getElementById( 'start_date' ).value = start;
             document.getElementById ('end_date' ).value = end;

@@ -121,6 +121,7 @@
 		    </getter>
 		    <setter>
 		      <![CDATA[
+                this.input.value = val;
 		      ]]>
 		    </setter>
 		  </property>

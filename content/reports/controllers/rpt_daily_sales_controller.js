@@ -9,23 +9,23 @@
     RptBaseController.extend( {
         name: 'RptDailySales',
         
-        _fileName: "rpt_daily_sales",
+        _fileName: 'rpt_daily_sales',
 
         _set_reportRecords: function() {
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
+            var start = document.getElementById( 'start_date' ).value;
+            var end = document.getElementById( 'end_date' ).value;
 
-//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
-            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
-            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+//            var start_str = document.getElementById( 'start_date' ).datetimeValue.toLocaleString();
+//            var end_str = document.getElementById( 'end_date' ).datetimeValue.toLocaleString();
+            var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
-            var machineid = document.getElementById('machine_id').value;
+            var machineid = document.getElementById( 'machine_id' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
-            start = parseInt(start / 1000, 10);
-            end = parseInt(end / 1000, 10);
+            start = parseInt( start / 1000, 10 );
+            end = parseInt( end / 1000, 10 );
 
             var fields = [
                             'sum(order_payments.amount) as "Order.payment_subtotal"',
@@ -61,14 +61,14 @@
                             
             var service_clerk = document.getElementById( 'service_clerk' ).value;
             if ( service_clerk != 'all' )
-            	conditions += " AND orders.service_clerk_displayname = '" + service_clerk + "'";
+            	conditions += " AND orders.service_clerk_displayname = '" + this._queryStringPreprocessor( service_clerk ) + "'";
 
 			var proceeds_clerk = document.getElementById( 'proceeds_clerk' ).value;
 			if ( proceeds_clerk != 'all' )
-				conditions += " AND orders.proceeds_clerk_displayname = '" + proceeds_clerk + "'";
+				conditions += " AND orders.proceeds_clerk_displayname = '" + this._queryStringPreprocessor( proceeds_clerk ) + "'";
 
             if (machineid.length > 0) {
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
                 //var groupby = 'orders.terminal_no,"Order.Date"';
             } else {
                 //var groupby = '"Order.Date"';
@@ -80,16 +80,16 @@
 
             var orderPayment = new OrderPaymentModel();
             
-            //var datas = order.find('all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 });
+            //var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 } );
             var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
+            var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
 
             //prepare reporting data
             var repDatas = {};
 
-            var initZero = parseFloat(0).toFixed(precision_prices);
+            var initZero = parseFloat( 0 ).toFixed( precision_prices );
 
             var footDatas = {
             	tax_subtotal: 0,
@@ -108,14 +108,14 @@
             
             var old_oid;
 
-            datas.forEach(function(data){
+            datas.forEach( function( data ) {
 
                 var oid = data.Order.id;
                 var o = data.Order;
                 o.Order = o;
 
-                if (!repDatas[oid]) {
-                    repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
+                if ( !repDatas[ oid ] ) {
+                    repDatas[ oid ] = GREUtils.extend( {}, o ); // {cash:0, creditcard: 0, coupon: 0}, o);
                 }
 				
 				if ( old_oid != oid ) {
@@ -209,11 +209,11 @@
             var mm = today.getMonth();
             var dd = today.getDate();
 
-            var start = (new Date(yy,mm,dd,0,0,0)).getTime();
-            var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
+            var start = ( new Date( yy, mm, dd, 0, 0, 0 ) ).getTime();
+            var end = ( new Date( yy, mm, dd + 1, 0, 0, 0 ) ).getTime();
 
-            document.getElementById('start_date').value = start;
-            document.getElementById('end_date').value = end;
+            document.getElementById( 'start_date' ).value = start;
+            document.getElementById( 'end_date' ).value = end;
 		    	    
 		    this._addMenuitem( new OrderModel(), [ 'service_clerk_displayname' ], 'status = 1',
 		    			'service_clerk_displayname', 'service_clerk_displayname', 'service_clerk_menupopup', 'service_clerk_displayname', 'service_clerk_displayname' );
@@ -221,7 +221,7 @@
 		    this._addMenuitem( new OrderModel(), [ 'proceeds_clerk_displayname' ], 'status = 1',
 		    			'proceeds_clerk_displayname', 'proceeds_clerk_displayname', 'proceeds_clerk_menupopup', 'proceeds_clerk_displayname', 'proceeds_clerk_displayname' );
 
-            this._enableButton(false);
+            this._enableButton( false );
         }
     });
 })();

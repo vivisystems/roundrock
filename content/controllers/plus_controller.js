@@ -49,7 +49,6 @@
             var condGroupsById = {};
 
             condGroups.forEach(function(condGroup){
-
                 var cgId = condGroup.id;
 
                 var condimentGroup = condGroup['CondimentGroup'] || {};
@@ -62,7 +61,8 @@
                         condimentGroup['Condiment'].push(condiment);
                     });
                 }
-                condGroupsById[cgId] = condimentGroup;
+                //condGroupsById[cgId] = condimentGroup;
+                condGroupsById[cgId] = condGroup;
 
             });
 

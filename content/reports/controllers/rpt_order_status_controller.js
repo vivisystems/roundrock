@@ -59,10 +59,10 @@
                             
             var service_clerk = document.getElementById( 'service_clerk' ).value;
             if ( service_clerk != 'all' )
-            	conditions += " AND orders.service_clerk_displayname = '" + service_clerk + "'";
+            	conditions += " AND orders.service_clerk_displayname = '" + this._queryStringPreprocessor( service_clerk ) + "'";
 
             if (machineid.length > 0) {
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
                 //var groupby = 'orders.terminal_no,"Order.Date"';
             } else {
                 //var groupby = '"Order.Date"';
