@@ -174,6 +174,30 @@
     <tr>
         <td colspan="6"><hr/></td>
     </tr>
+{if order.OrderPromotion}
+    {for promotion in order.OrderPromotion}
+    <tr>
+        <td colspan="3">&nbsp;&nbsp;${promotion.name}</td>
+        <td style="width: 100px; text-align: right;">${promotion.discount_subtotal|viviFormatPrices:true}</td>
+    </tr>
+    {/for}
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
+    <tr>
+        <td colspan="4">${_('(view)Promotions')}</td>
+        <td style="width: 100px; text-align: right;">${order.promotion_subtotal|viviFormatPrices:true}</td>
+    </tr>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
+{/if}
+{if order.revalue_subtotal != 0}
+    <tr>
+        <td colspan="4">${_('(view)Revalue')}</td>
+        <td style="width: 100px; text-align: right;">${order.revalue_subtotal|viviFormatPrices:true}</td>
+    </tr>
+{/if}
     <tr>
         <td colspan="4">${_('(view)Total')}</td>
         <td style="width: 100px; text-align: right;">${order.total|viviFormatPrices:true}</td>

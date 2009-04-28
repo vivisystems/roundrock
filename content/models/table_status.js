@@ -9,7 +9,7 @@
 
         hasMany: ['TableBooking'],
 
-//        behaviors: ['Sync'],
+        //        behaviors: ['Sync'],
 
         _checkNoArray: [],
         _tableNoArray: [],
@@ -20,90 +20,96 @@
 
         initial: function (c) {
             // this._super(c);
-GREUtils.log("table status initialize...");
+            GREUtils.log("table status initialize...");
 
-//            this._checkList = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
-//            this._tableList = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
-//            this._tableStatusList = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
+            //            this._checkList = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
+            //            this._tableList = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
+            //            this._tableStatusList = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
             if (!this._tableStatusList) {
-GREUtils.log("in table status initialize...");
+                GREUtils.log("in table status initialize...");
                 this.getTableList();
                 this.getCheckList("AllCheck");
                 this.getTableStatusList();
             }
         },
 
-    getRemoteService: function(method) {
-        this.syncSettings = (new SyncSetting()).read();
+        getRemoteService: function(method) {
+            this.syncSettings = (new SyncSetting()).read();
 
-        if (this.syncSettings && this.syncSettings.active == 1) {
+            if (this.syncSettings && this.syncSettings.active == 1) {
 
-            //  http://localhost:3000/sequences/getSequence/check_no
-            // check connection status
-            this.url = this.syncSettings.protocol + '://' +
-                        this.syncSettings.hostname + ':' +
-                        this.syncSettings.port + '/' +
-                        'sequences/' + method;
+                //  http://localhost:3000/sequences/getSequence/check_no
+                // check connection status
+                this.url = this.syncSettings.protocol + '://' +
+                this.syncSettings.hostname + ':' +
+                this.syncSettings.port + '/' +
+                'table_status/' + method;
 
-            this.username = 'vivipos';
-            this.password = this.syncSettings.password ;
+                this.username = 'vivipos';
+                this.password = this.syncSettings.password ;
 
-            return this.url;
+                return this.url;
 
-        }else {
-            return false;
-        }
-    },
+            }else {
+                return false;
+            }
+        },
 
-    requestRemoteService: function(url, key, value) {
+        requestRemoteService: function(method, url, value) {
 
-                    var reqUrl = url + '/' + key;
+            var reqUrl = url ;
 
-                    if (value != null) reqUrl += '/' + value;
+            var username = this.username ;
+            var password = this.password ;
 
-                    var username = this.username ;
-                    var password = this.password ;
+            var req = new XMLHttpRequest();
 
-                    var req = new XMLHttpRequest();
+            req.mozBackgroundRequest = true;
 
-                    req.mozBackgroundRequest = true;
+            /* Request Timeout guard */
+            var timeout = null;
+            timeout = setTimeout(function() {
+                clearTimeout(timeout);
+                req.abort();
+            }, 15000);
 
-                    /* Request Timeout guard */
-                    /*
-                    var timeout = null;
-                    timeout = setTimeout(function() {
-                        clearTimeout(timeout);
-                        req.abort();
-                    }, 15000);
-                    */
-                    /* Start Request with http basic authorization */
-                    var seq = -1;
-                    req.open('GET', reqUrl, false, username, password);
-                    var onstatechange = function (aEvt) {
-                        if (req.readyState == 4) {
-                            if(req.status == 200) {
-                                var result = GeckoJS.BaseObject.unserialize(req.responseText);
-                                if (result.status == 'ok') {
-                                    seq = result.value;
-                                }else {
-                                    seq = -1;
-                                }
-                            }else {
-                                seq = -1;
-                            }
+            /* Start Request with http basic authorization */
+            var data = null;
+            req.open(method, reqUrl, false/*, username, password*/);
+            req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
+            var onstatechange = function (aEvt) {
+                if (req.readyState == 4) {
+                    if(req.status == 200) {
+                        var result = GeckoJS.BaseObject.unserialize(req.responseText);
+                        if (result.status == 'ok') {
+                            data = result.value;
+                        }else {
+                            data = false;
                         }
-                        delete req;
-                    };
+                    }else {
+                        data = false;
+                    }
+                }
+                delete req;
+            };
 
-                    // req.onreadystatechange = onstatechange
-                    req.send(null);
-                    onstatechange();
-                    return seq;
+            // req.onreadystatechange = onstatechange
+			if(method == 'POST') {
+				req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				req.setRequestHeader("Content-length", "request_data=".length + value.length);
+				req.setRequestHeader("Connection", "close");
+		        req.send("request_data="+value);
+			}else {
+	            req.send(null);
+			}
+	
+            onstatechange();
+            return data;
 
-    },
+        },
 
 
-/*
+        /*
         initial: function() {
 
             this.view = null,
@@ -149,8 +155,8 @@ GREUtils.log("in table status initialize...");
         },
 
         getNewCheckNo: function() {
-        //@todo rack
-GREUtils.log("getNewCheckNo...");
+            //@todo rack
+            GREUtils.log("getNewCheckNo...");
             this.resetCheckNoArray();
             var i = 1;
             var cnt = 0;
@@ -180,10 +186,21 @@ GREUtils.log("getNewCheckNo...");
         },
 
         getTableStatusList: function(reload) {
-        // @todo rack
 
-            // read all order status
-            var tableStatus = this.find('all', {});
+            var remoteUrl = this.getRemoteService('getTableStatusList');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                tableStatus = this.requestRemoteService('GET', remoteUrl, null);
+                // GREUtils.log(this.dump(tableStatus));
+
+
+            }else {
+                // read all order status
+                tableStatus = this.find('all', {});
+
+            }
             
             return this.genTablesArray(tableStatus);
         },
@@ -217,7 +234,7 @@ GREUtils.log("getNewCheckNo...");
                 } else {
                     if (o.table_no) {
                         tables[o.table_no] = GeckoJS.BaseObject.clone(o);
-                        // tables[o.table_no]
+                    // tables[o.table_no]
                     }
                 }
 
@@ -252,10 +269,12 @@ GREUtils.log("getNewCheckNo...");
             var start_time = Math.round(Date.now().addMinutes(-min) / 1000);
             var end_time = Math.round(Date.now().addMinutes(min) / 1000);
             var conditions = "table_bookings.booking>='" + start_time +
-                            "' AND table_bookings.booking<='" + end_time +
-                            "'";
+            "' AND table_bookings.booking<='" + end_time +
+            "'";
             var bookingModel = new TableBookingModel();
-            var bookings = bookingModel.find('all', {conditions: conditions});
+            var bookings = bookingModel.find('all', {
+                conditions: conditions
+            });
 
             bookings.forEach(function(o){
                 tables[o.table_no].booking = o;
@@ -267,7 +286,7 @@ GREUtils.log("getNewCheckNo...");
         },
 
         getCheckNo: function() {
-            //
+        //
 
         },
 
@@ -281,8 +300,8 @@ GREUtils.log("getNewCheckNo...");
         },
 
         getTableList: function(reload) {
-GREUtils.log("getTableList...");
-reload = true;
+            GREUtils.log("getTableList...");
+            reload = true;
             if (!reload) {
                 var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
                 if (tables) {
@@ -299,7 +318,7 @@ reload = true;
         },
 
         getCheckList: function(key, no, reload) {
-//            return this._checkList;
+            //            return this._checkList;
             var checks = this._checkList;
             if (checks) {
                 GREUtils.log("getCheckList from session...");
@@ -357,7 +376,7 @@ reload = true;
         },
 
         addCheck: function(checkObj) {
-GREUtils.log("add check...");
+            GREUtils.log("add check...");
             var tableObj = {
                 order_id: checkObj.id,
                 check_no: checkObj.check_no,
@@ -408,7 +427,7 @@ GREUtils.log("add check...");
         },
 
         holdTable: function(table_no, holdby) {
-// GREUtils.log("hold table...");
+            // GREUtils.log("hold table...");
             this._tableList.forEach(function(o){
                 if (o.table_no == table_no) {
                     o.holdby = holdby;
@@ -421,16 +440,29 @@ GREUtils.log("add check...");
         },
 
         getTableStatus: function(table_no) {
-        // @todo rack
+            // @todo rack
             return this._tableStatusList[table_no];
         },
 
         setTableStatus: function(tableStatusObj) {
-        // @todo rack
+            // @todo rack
+            
+            var remoteUrl = this.getRemoteService('setTableStatus');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize(tableStatusObj));
+
+				return ;
+            }
+
             var tableStatusNewObj = {};
             var order_id = tableStatusObj.order_id;
             var conditions = "table_statuses.order_id='" + order_id + "'";
-            var tableStatusObjTmp = this.find('first', {conditions: conditions});
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions
+            });
 
             // tableStatus record exist
             if (tableStatusObjTmp) {

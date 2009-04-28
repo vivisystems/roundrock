@@ -3972,3 +3972,9 @@ msgstr ""
 
 msgid "(view)customer"
 msgstr ""
+
+msgid "(view)Promotions"
+msgstr ""
+
+msgid "(view)Revalue"
+msgstr ""
