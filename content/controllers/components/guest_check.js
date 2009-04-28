@@ -65,6 +65,8 @@
 
             this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
             this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
+            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
+
 this.log("evt.type:" + evt.type);
 
             if ( evt.type == 'newTransaction') {
@@ -89,7 +91,30 @@ this.log("evt.type:" + evt.type);
                         this._controller.newTable();
                 }
 
+                if (this._guestCheck.requireGuestNum) {
+                    var num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
+                    num = this.selGuestNum(num);
+                    this.guest(num);
+                }
             }
+        },
+
+        selGuestNum: function (no){
+
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=400';
+            var inputObj = {
+                input0:no, require0:true, numpad:true
+            };
+
+            window.openDialog(aURL, _('Select Number of Customers'), features, _('Select Number of Customers'), '', _('Numbers'), '', inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }
+
+            return no;
+
         },
 
         getNewCheckNo: function() {
@@ -141,14 +166,27 @@ this.log("evt.type:" + evt.type);
                         this.recallByTableNo(i);
                         break;
                     case 'SplitCheck':
+                        this.recallByTableNo(i);
+                        var curTransaction = null;
+                        curTransaction = this._controller._getTransaction();
+                        if (curTransaction) {
+                            this.splitOrder(id, curTransaction.data);
+                        }
+
                         // alert('SplitCheck...');
-                        var targetCheck = this.unserializeFromOrder(id);
-                        this.splitOrder(id, targetCheck);
+                        // var targetCheck = this.unserializeFromOrder(id);
+                        // this.splitOrder(id, targetCheck);
                         break;
                     case 'MergeCheck':
+                        this.recallByTableNo(i);
+                        var curTransaction = null;
+                        curTransaction = this._controller._getTransaction();
+                        if (curTransaction) {
+                            this.mergeOrder(id, curTransaction.data);
+                        }
                         // alert('MergeCheck...');
-                        var targetCheck = this.unserializeFromOrder(id);
-                        this.mergeOrder(id, targetCheck);
+                        // var targetCheck = this.unserializeFromOrder(id);
+                        // this.mergeOrder(id, targetCheck);
                         break;
                     case 'SelectTableNo':
                         if (i >= 0) {
@@ -530,7 +568,10 @@ this.log("TransTable sourceTableNo:" + sourceTableNo + ",  index:" + i);
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
                             // return queues[idx].key;
-                            var id = ord[idx].id;
+
+                            // AC 2009.04.27
+                            // var id = ord[idx].id;
+                            var id = ord[idx].order_id;
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
 

@@ -440,7 +440,7 @@ GREUtils.log("add check...");
                     this.del(tableStatusObj.id);
                 } else {
                     // update tableStatus record
-                    this.id = tableStatusObj.id;
+                    this.id = tableStatusObjTmp.id;
                     var retObj = this.save(tableStatusObj);
                 }
             } else {
