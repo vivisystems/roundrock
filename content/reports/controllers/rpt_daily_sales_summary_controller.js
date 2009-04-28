@@ -58,7 +58,7 @@
                             "' AND orders.status='1'";
 
             if (machineid.length > 0) {
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
                 //var groupby = 'orders.terminal_no,"Order.Date"';
             } else {
                 //var groupby = '"Order.Date"';

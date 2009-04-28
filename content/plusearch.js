@@ -42,7 +42,7 @@
             $do('searchPlu', barcode, 'PluSearch');
             document.getElementById('plu').value = barcode;
         }
-        $('#plu')[0].select();
+        $('#plu')[0].textbox.select();
     };
 
     /**

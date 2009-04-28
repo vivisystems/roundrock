@@ -61,14 +61,14 @@
                             "' AND orders.status='1'";
                             
             if ( this._machineid.length > 0 ) {
-                conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
                 var groupby = 'orders.terminal_no,"Order.Hour"';
             } else {
                 var groupby = '"Order.Hour"';
             }
             
             if ( this._shiftno.length > 0 )
-            	conditions += " AND orders.shift_number = " + this._shiftno;
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var orderby = '"Order.Hour", orders.terminal_no, orders.' + this._periodtype;
             
@@ -114,10 +114,10 @@
                             "' AND orders.status='1'";
 
             if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
                 
             if ( this._shiftno.length > 0 )
-            	conditions += " AND orders.shift_number = " + this._shiftno;
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var groupby = 'order_items.cate_no';
             var orderby = '"OrderItem.qty" DESC';
@@ -172,10 +172,10 @@
                             "' AND orders.status='1'";
                             
             if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
                 
             if ( this._shiftno.length > 0 )
-            	conditions += " AND orders.shift_number = " + this._shiftno;
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var groupby = 'order_items.product_no';
             var orderby = '"OrderItem.qty" DESC';
@@ -213,7 +213,7 @@
                             "' AND orders.status='1'";
 
             if ( this._machineid.length > 0 ) {
-                conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
                 var groupby = 'orders.terminal_no, order_payments.name, order_payments.memo1';
                 var orderby = 'orders.terminal_no, order_payments.name';
             } else {
@@ -222,7 +222,7 @@
             }
             
             if ( this._shiftno.length > 0 )
-            	conditions += " AND orders.shift_number = " + this._shiftno;
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
             
             var data = {};
             var summary = {};
@@ -297,10 +297,10 @@
                             "' AND orders.status='1'";
                             
             if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
                 
             if ( this._shiftno.length > 0 )
-            	conditions += " AND orders.shift_number = " + this._shiftno;
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var groupby;
 
@@ -317,17 +317,17 @@
             orderRecords.ItemsCount = orderItemRecords[ 0 ].qty;
             
             // get the number of voided orders.
-            var where = 'status = -2';
+            var where = "status = -2";
             var periodType;
             if ( this._periodtype == 'sale_period' )
             	periodType = 'void_sale_period';
             else periodType = 'transaction_voided';
             	
-            where += ' and orders.' + periodType + ' >= "' + start +
-                            '" and orders.' + periodType + ' <= "' + end + '"';
+            where += " and orders." + periodType + " >= '" + start +
+                            "' and orders." + periodType + " <= '" + end + "'";
                             
             if ( this._shiftno.length > 0 )
-            	where += ' and orders.void_shift_number = ' + this._shiftno;
+            	where += " and orders.void_shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
             	
             var sql = 'select count( id ) as VoidedOrders from orders where ' + where;
             orderRecords.VoidedOrders = order.getDataSource().fetchAll( sql )[ 0 ].VoidedOrders;
@@ -353,10 +353,10 @@
                             "' AND orders.status='1'";
 
             if ( this._machineid.length > 0)
-                conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
                 
             if ( this._shiftno.length > 0 )
-            	conditions += " AND orders.shift_number = " + this._shiftno;
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 			
             var groupby = 'order_items.tax_name, order_items.tax_rate, order_items.tax_type';
             var orderby = 'tax_subtotal desc';
@@ -408,10 +408,10 @@
                             "' AND orders.status='1' AND orders.destination <> ''";
 
             if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
                 
             if ( this._shiftno.length > 0 )
-            	conditions += " AND orders.shift_number = " + this._shiftno;
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 			
             var groupby = 'orders.destination';
             var orderby = 'orders.destination';
@@ -443,10 +443,10 @@
                             ' and o.status = 1';
             
             if ( this._machineid.length > 0 )
-                conditions += " and o.terminal_no LIKE '" + this._machineid + "%'";
+                conditions += " and o.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
             
             if ( this._shiftno.length > 0 )
-            	conditions += " and o.shift_number = " + this._shiftno;
+            	conditions += " and o.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var groupby = 'op.promotion_id';
             var orderby = 'op.promotion_id';
@@ -519,10 +519,10 @@
                             "' AND orders.status='1' AND " + discountOrSurcharge + "_name <> ''";
 
             if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
                 
             if ( this._shiftno.length > 0 )
-            	conditions += " AND orders.shift_number = " + this._shiftno;
+            	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 			
             var groupby = discountOrSurcharge + '_name';
             var orderby = 'amount desc';

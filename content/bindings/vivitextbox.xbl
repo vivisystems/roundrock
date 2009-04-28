@@ -121,6 +121,7 @@
 		    </getter>
 		    <setter>
 		      <![CDATA[
+                this.input.value = val;
 		      ]]>
 		    </setter>
 		  </property>
@@ -172,7 +173,7 @@
               ]]>
             </handler>
             
-            <handler event="keypress" keycode="VK_RETURN" action = "eval( this.getAttribute( 'onenter' ) ); return false" />
+            <handler event="keypress" keycode="VK_RETURN" action = "eval( this.getAttribute( 'onenter' ) );" />
         </handlers>
     </binding>
 </bindings>

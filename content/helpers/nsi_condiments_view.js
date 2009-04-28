@@ -21,7 +21,6 @@
             var selectedItems = [];
 
             var dataIdIndex = GeckoJS.Array.objectExtract(this.data, '{n}.id');
-
             selectedItemsStr.forEach(function(id){
                 var index = GeckoJS.Array.inArray(id, dataIdIndex);
                 if (index != -1) selectedItems.push(index);
@@ -35,7 +34,7 @@
         },
 
         renderButton: function(row, btn) {
-            
+
             var buttonColor = this.getCellValue(row,{
                 id: 'button_color'
             });

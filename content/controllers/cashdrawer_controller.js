@@ -171,7 +171,7 @@
                     if (drawerNo == '') drawerNo = null;
                 }
             }
-
+            
             this.openDrawer(drawerNo, eventType, evt.data.name, evt.data.seq, evt.data.amount);
         },
 

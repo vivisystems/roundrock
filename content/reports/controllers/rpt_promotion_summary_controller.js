@@ -26,18 +26,17 @@
             				'sum( op.matched_items_qty ) as matched_items_qty, ' +
             				'sum( op.matched_items_subtotal ) as matched_items_subtotal';
                             
-            var conditions = 'o.' + periodType + '>="' + start +
-                            '" and o.' + periodType + '<="' + end + '"' +
-                            ' and o.status = 1';
+            var conditions = "o." + periodType + ">='" + start +
+                            "' and o." + periodType + "<='" + end + "' and o.status = 1";
             
             if (terminalNo.length > 0)
-                conditions += " and o.terminal_no LIKE '" + terminalNo + "%'";
+                conditions += " and o.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
             
             if ( shiftNo.length > 0 )
-            	conditions += " and o.shift_number = " + shiftNo;
+            	conditions += " and o.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
             	
             if ( promotion != 'all' )
-            	conditions += ' and op.promotion_id = "' + promotion + '"';
+            	conditions += " and op.promotion_id = '" + this._queryStringPreprocessor( promotion ) + "'";
 
             var groupby = 'date, op.promotion_id, op.order_id';
             var orderby = 'date, op.promotion_id, op.order_id';
