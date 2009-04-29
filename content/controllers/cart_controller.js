@@ -2766,7 +2766,7 @@
             if( !forceCancel && (!this._lastCancelInvoke || ( (now - this._lastCancelInvoke) > 3000)) ) {
                 try{
                     GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
-                    GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+                    //GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
                 }catch(e) {                  
                 }
                 // prevent onCancel event dispatch

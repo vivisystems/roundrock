@@ -3,14 +3,33 @@
     /**
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'LedgerRecords',
+
         scaffold: true,
+        
         uses: ['LedgerEntryType'],
 
         _listObj: null,
         _listDatas: null,
         _index: 0,
+
+        initial: function () {
+
+            // get handle to Main controller
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('afterClearOrderData', this.expireData, this);
+            }
+        },
+
+        expireData: function(evt) {
+            var model = new LedgerRecordModel();
+            var expireDate = parseInt(evt.data);
+            if (!isNaN(expireDate)) {
+                model.execute('delete from ledger_records where created <= ' + expireDate);
+            }
+        },
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -252,7 +271,18 @@
             delBtn.setAttribute('disabled', index == -1);
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
+
+    // register onload
+    window.addEventListener('load', function() {
+        var main = GeckoJS.Controller.getInstanceByName('Main');
+        if(main) main.addEventListener('afterInitial', function() {
+                                            main.requestCommand('initial', null, 'LedgerRecords');
+                                      });
+
+    }, false);
 
 
 })();
