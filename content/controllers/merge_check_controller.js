@@ -160,7 +160,7 @@
 
         },
 
-        conform: function() {
+        confirm: function() {
 
             var order = new OrderModel();
 

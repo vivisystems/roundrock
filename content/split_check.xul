@@ -51,7 +51,7 @@
                         <vbox style="width:200px;">
                             <vbox class="ToolBar">
                             <button id="btn_split" label="&splitcheck.button.action.split;" disabled="false" class="BtnAdd" oncommand="$do('splitItems', null, 'SplitCheck');" />
-                            <button id="btn_conform" label="&splitcheck.button.action.conform;" disabled="false" class="BtnMod" oncommand="$do('conform', null, 'SplitCheck');" />
+                            <button id="btn_confirm" label="&splitcheck.button.action.confirm;" disabled="false" class="BtnMod" oncommand="$do('confirm', null, 'SplitCheck');" />
                             <button id="btn_cancel" label="&splitcheck.button.action.cancel;" disabled="false" class="BtnDel" oncommand="$do('cancel', null, 'SplitCheck');" />
                             </vbox>
                         </vbox>

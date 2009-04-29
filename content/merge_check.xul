@@ -51,7 +51,7 @@
                         <vbox style="width:200px;">
                             <vbox class="ToolBar">
                             <button id="btn_merge" label="&mergecheck.button.action.merge;" disabled="false" class="BtnAdd" oncommand="$do('mergeItems', null, 'MergeCheck');" />
-                            <button id="btn_conform" label="&mergecheck.button.action.conform;" disabled="false" class="BtnMod" oncommand="$do('conform', null, 'MergeCheck');" />
+                            <button id="btn_confirm" label="&mergecheck.button.action.confirm;" disabled="false" class="BtnMod" oncommand="$do('confirm', null, 'MergeCheck');" />
                             <button id="btn_cancel" label="&mergecheck.button.action.cancel;" disabled="false" class="BtnDel" oncommand="$do('cancel', null, 'MergeCheck');" />
                             </vbox>
                         </vbox>

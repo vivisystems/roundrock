@@ -514,7 +514,6 @@
                             if (data.duplicate == null) {
                                 var receipts = self.isReceiptPrinted(data.order.id, data.order.batchCount, device.number);
                                 if (receipts != null) {
-
                                     // if auto-print, then we don't issue warning
                                     if (!autoPrint) NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device.number]));
                                     return;
@@ -909,7 +908,7 @@
                 }
             }
             //@debug
-            alert(GeckoJS.BaseObject.dump(result));
+            //alert(GeckoJS.BaseObject.dump(result));
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
@@ -942,7 +941,7 @@
                 run: function() {
                     try {
                         data = this.eventData.data;
-                        if (this.eventData.printed) {
+                        if (this.eventData.device > 0 && this.eventData.printed) {
                             self.receiptPrinted(data.order.id, data.order.seq, data.order.batchCount, this.eventData.device);
                             self.dispatchEvent('onReceiptPrinted', this.eventData);
                         }

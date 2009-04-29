@@ -104,7 +104,7 @@
             var refundList = document.getElementById('refundscrollablepanel');
 
             if (isNaN(inputObj.amount) || amount <= 0) {
-                NotifyUtils.warn(_('Refund payment amount must be valid, positive number'));
+                NotifyUtils.warn(_('Refund payment amount must be a valid, positive number'));
             }
             else {
                 amount = this.roundPrice(amount);

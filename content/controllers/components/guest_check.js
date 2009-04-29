@@ -634,7 +634,7 @@
 
                     } else if (ord && ord.length > 0) {
                         // AC 2009.04.29
-                        var id = ord[idx].id;
+                        var id = ord[0].id;
                         // var id = ord[idx].order_id;
 
                         var status = ord[0].status;

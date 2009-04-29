@@ -1259,7 +1259,7 @@ msgid "acl_split_check"
 msgstr "Split Stored Check"
 
 msgid "acl_transfer_table"
-msgstr "Transfer Table No"
+msgstr "Transfer Table"
 
 msgid "shutdown.desc"
 msgstr ""
@@ -1906,6 +1906,9 @@ msgstr "table #"
 msgid "(view)customer"
 msgstr "customer"
 
+msgid "(view)customers"
+msgstr "customers"
+
 msgid "(view)Item Subtotal"
 msgstr "Item Subtotal"
 
@@ -1926,6 +1929,9 @@ msgstr "Change"
 
 msgid "(view)Promotions"
 msgstr "Promotions"
+
+msgid "(view)Revalue"
+msgstr "Revalue"
 
 msgid "Order sequence [%S] does not exist"
 msgstr ""

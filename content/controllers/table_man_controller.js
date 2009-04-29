@@ -110,13 +110,13 @@ this.log(this.dump(table));
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
             var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true};
 
-            window.openDialog(aURL, _('Add Table'), features, _('New Table'), '', _('Table No'), _('Table Name'), inputObj);
+            window.openDialog(aURL, _('Add Table'), features, _('New Table'), '', _('Table Number'), _('Table Name'), inputObj);
             if (inputObj.ok && inputObj.input0) {
 
                 var table_no = inputObj.input0;
                 if (this.isDuplicate(table_no)) {
                     // @todo OSD
-                    NotifyUtils.warn(_('Table No [%S] has already been assigned exists', [table_no]));
+                    NotifyUtils.warn(_('Table Number [%S] has already been assigned exists', [table_no]));
                     return;
                 }
 

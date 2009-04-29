@@ -1267,7 +1267,7 @@ msgid "acl_split_check"
 msgstr "Split Stored Check"
 
 msgid "acl_transfer_table"
-msgstr "Transfer Table No"
+msgstr "Transfer Table"
 
 msgid "shutdown.desc"
 msgstr "This function shuts down the terminal. No parameter needed."
@@ -1912,6 +1912,9 @@ msgstr "check #"
 msgid "(view)table #"
 msgstr "table #"
 
+msgid "(view)customer"
+msgstr "customer"
+
 msgid "(view)customers"
 msgstr "customers"
 
@@ -1935,6 +1938,9 @@ msgstr "Change"
 
 msgid "(view)Promotions"
 msgstr "Promotions"
+
+msgid "(view)Revalue"
+msgstr "Revalue"
 
 msgid "Order sequence [%S] does not exist"
 msgstr ""
@@ -3443,7 +3449,7 @@ msgid "Promotion Rule [%S] removed successfully"
 msgstr ""
 
 msgid ""
-"An error occurred while removing Promotion Rule [%S]. The group may not have "
+"An error occurred while removing Promotion Rule [%S]. The rule may not have "
 "been removed successfully"
 msgstr ""
 
@@ -3451,11 +3457,11 @@ msgid "Promotion Rule [%S] modified successfully"
 msgstr ""
 
 msgid ""
-"An error occurred while removing Promotion Rule [%S]. The group may not have "
+"An error occurred while removing Promotion Rule [%S]. The rule may not have "
 "been modified successfully"
 msgstr ""
 
-msgid "Refund payment amount must be valid, positive number"
+msgid "Refund payment amount must be a valid, positive number"
 msgstr ""
 
 msgid "Password and Verify Password not the same"
@@ -3476,7 +3482,7 @@ msgstr ""
 msgid "Recall Check"
 msgstr ""
 
-msgid "Please Select a Table to recall..."
+msgid "Please select a table to recall..."
 msgstr ""
 
 msgid "Press CANCEL button to cancel function"
@@ -3485,25 +3491,25 @@ msgstr ""
 msgid "Split Check"
 msgstr ""
 
-msgid "Please Select a Table to split..."
+msgid "Please select a table to split..."
 msgstr ""
 
 msgid "Merge Check"
 msgstr ""
 
-msgid "Please Select a Table to merge..."
+msgid "Please select a table to merge..."
 msgstr ""
 
 msgid "Merge Table"
 msgstr ""
 
-msgid "Please Select the source table as master table..."
+msgid "Please select the master table..."
 msgstr ""
 
 msgid "Unmerge Table"
 msgstr ""
 
-msgid "Please Select the hold table to be unmerge..."
+msgid "Please select the table to unmerge..."
 msgstr ""
 
 msgid "Change Clerk"
@@ -3515,25 +3521,25 @@ msgstr ""
 msgid "Trans Table"
 msgstr ""
 
-msgid "Please Select the source table to translate..."
+msgid "Please select the table to be transfered..."
 msgstr ""
 
 msgid "Select Table"
 msgstr ""
 
-msgid "Please Select a Table..."
+msgid "Please select a table..."
 msgstr ""
 
-msgid "Select Table No"
+msgid "Select Table Number"
 msgstr ""
 
 msgid "This table is empty!!"
 msgstr ""
 
-msgid "Please Select the target table to translate..."
+msgid "Please select the table to transfer to..."
 msgstr ""
 
-msgid "Please Select a empty table to merge..."
+msgid "Please select an empty table to merge..."
 msgstr ""
 
 msgid "This table had not been hold!!"
@@ -3566,7 +3572,7 @@ msgstr ""
 msgid "Failed to set volume"
 msgstr ""
 
-msgid "The Check# %S has been splited to Check# %S!!"
+msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
 msgid "Stock level for [%S] modified successfully"
@@ -3628,13 +3634,13 @@ msgstr ""
 msgid "New Table"
 msgstr ""
 
-msgid "Table No"
+msgid "Table Number"
 msgstr ""
 
 msgid "Table Name"
 msgstr ""
 
-msgid "Table No [%S] has already been assigned exists"
+msgid "Table Number [%S] has already been assigned exists"
 msgstr ""
 
 msgid "Table [%S] added successfully"
@@ -3955,7 +3961,7 @@ msgstr ""
 msgid "Finalized"
 msgstr ""
 
-msgid "Saved"
+msgid "Stored"
 msgstr ""
 
 msgid "Canceled"
@@ -3974,10 +3980,4 @@ msgid "Sales Summary Report"
 msgstr ""
 
 msgid "Product Stock List"
-msgstr ""
-
-msgid "(view)customer"
-msgstr ""
-
-msgid "(view)Revalue"
 msgstr ""
