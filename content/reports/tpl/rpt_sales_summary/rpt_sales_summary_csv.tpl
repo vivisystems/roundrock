@@ -44,7 +44,7 @@
 "","${detail.destination} ${_( '(rpt)Amount' ) + ':'}","${detail.total|default:0|viviFormatPrices:true}"
 {/for}
 "",""
-"${_( '(rpt)Tax summary' )}"
+"${_( '(rpt)Tax Summary' )}"
 "","${_( '(rpt)Tax Name' )}","${_( '(rpt)Tax Rate' )}","${_( '(rpt)Tax Type' )}","${_( '(rpt)Total' )}"
 {for detail in body.tax_summary.records}
 "","${detail.tax_name}","${detail.tax_rate}","${detail.tax_type}","${detail.tax_subtotal|default:0|viviFormatPrices:true}"

@@ -7,9 +7,6 @@ msgstr "Currency Exchange"
 msgid "Departments"
 msgstr "Departments"
 
-msgid "Promotions"
-msgstr "Promotions (inactive)"
-
 msgid "Employees"
 msgstr "Employees"
 
@@ -69,6 +66,9 @@ msgstr "Store Contact"
 
 msgid "Devices"
 msgstr "Devices"
+
+msgid "Table Manager"
+msgstr "Table Manager"
 
 msgid "Accounting Report"
 msgstr "Accounting Report"
@@ -1259,7 +1259,7 @@ msgid "acl_split_check"
 msgstr "Split Stored Check"
 
 msgid "acl_transfer_table"
-msgstr "Transfer Table No"
+msgstr "Transfer Table"
 
 msgid "shutdown.desc"
 msgstr ""
@@ -1741,8 +1741,8 @@ msgstr "Hourly Sales"
 msgid "(rpt)Top Product Sales"
 msgstr "Top Product Sales"
 
-msgid "(rpt)Tax summary"
-msgstr "Tax summary"
+msgid "(rpt)Tax Summary"
+msgstr "Tax Summary"
 
 msgid "(rpt)Rate"
 msgstr "Rate"
@@ -1903,6 +1903,9 @@ msgstr "check #"
 msgid "(view)table #"
 msgstr "table #"
 
+msgid "(view)customer"
+msgstr "customer"
+
 msgid "(view)customers"
 msgstr "customers"
 
@@ -1923,6 +1926,12 @@ msgstr "Payment Subtotal"
 
 msgid "(view)Change"
 msgstr "Change"
+
+msgid "(view)Promotions"
+msgstr "Promotions"
+
+msgid "(view)Revalue"
+msgstr "Revalue"
 
 msgid "Order sequence [%S] does not exist"
 msgstr ""
@@ -1960,3 +1969,5 @@ msgstr "Close Sale Period"
 msgid "Your Saving"
 msgstr "** Your Saving **"
 
+msgid "acl_manage_tableman"
+msgstr "Table Manager"

@@ -20,6 +20,7 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/refund_payment.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/controllers/refund_payment_controller.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/libs/number.js" />
 
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
@@ -42,7 +43,7 @@
                     <row flex="1">
                         <viviscrollabletree id="paymentscrollablepanel" flex="1"
                                             headers="&refundpayment.sequence;,&refundpayment.type;,&refundpayment.amount;,&refundpayment.origin_amount;,&refundpayment.note1;,&refundpayment.note2;"
-                                            fields="seq,name,amount,origin_amount,memo1,memo2" hidecolumnpicker="true"
+                                            fields="seq,name,display_amount,display_origin_amount,memo1,memo2" hidecolumnpicker="true"
                                             class="paymentscrollablepanel" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                             <spacer flex="1"/>
                             <button flex="1" id="clone_payments" oncommand="$do('clonePayments', null, 'RefundPayment'); event.stopPropagation()" class="systoolbtn2 clonebtn"/>
@@ -59,7 +60,7 @@
                     <row flex="1">
                         <viviscrollabletree id="refundscrollablepanel" flex="1"
                                             headers="&refundpayment.sequence;,&refundpayment.amount;,&refundpayment.type;,&refundpayment.note1;,&refundpayment.note2;"
-                                            fields="seq,amount,name,memo1,memo2" hidecolumnpicker="true"
+                                            fields="seq,display_amount,name,memo1,memo2" hidecolumnpicker="true"
                                             class="paymentscrollablepanel" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                             <spacer flex="1" />
                             <button id="btnMinus" oncommand="$do('removePayment', null, 'RefundPayment');"  class="systoolbtn2 minusbtn"/>

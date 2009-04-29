@@ -24,17 +24,21 @@
 
         _thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',',
 
-        formatPrice: function(price) {
+        roundPrice: function(price) {
             var roundedPrice = GeckoJS.NumberHelper.round(Math.abs(price), this._precision, this._rounding);
             if (price < 0) roundedPrice = 0 - roundedPrice;
 
+            return roundedPrice;
+        },
+
+        formatPrice: function(price) {
             var options = {
                 decimals: this._decimals,
                 thousands: this._thousands,
                 places: ((this._precision>0)?this._precision:0)
             };
             // format display precision
-            return GeckoJS.NumberHelper.format(roundedPrice, options);
+            return GeckoJS.NumberHelper.format(price, options);
         },
 
         load: function(data) {
@@ -47,15 +51,19 @@
             var seq = 1;
             this._originalPayments.forEach(function(p) {
                 p.seq = seq++;
-                p.amount = this.formatPrice(p.amount - p.change);
-                p.origin_amount = this.formatPrice(p.origin_amount);
+                p.amount = p.amount - p.change;
+                p.display_amount = this.formatPrice(p.amount);
+                p.display_origin_amount = this.formatPrice(p.origin_amount);
             }, this);
+
+            this._paidTotal = data.paidTotal;
+
             document.getElementById('paymentscrollablepanel').datasource = this._originalPayments;
-            document.getElementById('paidTotal').value = this._paidTotal = this.formatPrice(data.paidTotal);
+            document.getElementById('paidTotal').value = this.formatPrice(this._paidTotal);
             
             document.getElementById('refundscrollablepanel').datasource = this._refundPayments;
 
-            document.getElementById('amount').textbox.value = this.formatPrice(this._paidTotal);
+            document.getElementById('amount').textbox.value = this.formatPrice(this.roundPrice(this._paidTotal));
             document.getElementById('amount').textbox.focus();
 
         },
@@ -67,8 +75,11 @@
         
         clonePayments: function() {
             var payments = [];
+            var self = this;
             this._originalPayments.forEach(function(p) {
                 var newPayment = GREUtils.extend({}, p);
+                newPayment.amount = self.roundPrice(newPayment.amount);
+                newPayment.display_amount = self.formatPrice(newPayment.amount);
                 payments.push(newPayment);
             });
 
@@ -76,7 +87,7 @@
             document.getElementById('refundscrollablepanel').datasource = this._refundPayments;
 
             this._refundTotal = this._paidTotal;
-            document.getElementById('refundTotal').value = this._refundTotal;
+            document.getElementById('refundTotal').value = this.formatPrice(this._refundTotal);
         },
 
         clearRefundPayments: function() {
@@ -93,13 +104,16 @@
             var refundList = document.getElementById('refundscrollablepanel');
 
             if (isNaN(inputObj.amount) || amount <= 0) {
-                NotifyUtils.warn(_('Refund payment amount must be valid, positive number'));
+                NotifyUtils.warn(_('Refund payment amount must be a valid, positive number'));
             }
             else {
+                amount = this.roundPrice(amount);
+
                 var newRefundPayment = {
                     seq: this._refundPayments.length + 1,
                     name: inputObj.type,
-                    amount: this.formatPrice(amount),
+                    amount: amount,
+                    display_amount: this.formatPrice(amount),
                     memo1: inputObj.memo1,
                     memo2: inputObj.memo2
                 };
@@ -109,8 +123,8 @@
 
                 refundList.selection.select(this._refundPayments.length - 1);
 
-                this._refundTotal = this.formatPrice(this._refundTotal - - newRefundPayment.amount);
-                document.getElementById('refundTotal').value = this._refundTotal;
+                this._refundTotal = this._refundTotal - - amount;
+                document.getElementById('refundTotal').value = this.formatPrice(this._refundTotal);
             }
         },
 
@@ -134,8 +148,8 @@
                 refundList.invalidate();
                 refundList.treeBoxObject.ensureRowIsVisible(selectedIndex);
                 refundList.selection.select(selectedIndex);
-                
-                document.getElementById('refundTotal').value = this._refundTotal;
+
+                document.getElementById('refundTotal').value = this.formatPrice(this._refundTotal);
             }
         }
     };

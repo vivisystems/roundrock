@@ -49,6 +49,6 @@
 <!ENTITY    promotions_detail.label.promotion_code     "Rule">
 <!ENTITY    promotions_detail.label.plu_name     "Product Name">
 <!ENTITY    promotions_detail.label.plu_no     "NO">
-<!ENTITY    promotions_detail.label.current_qty     "Quanity">
+<!ENTITY    promotions_detail.label.current_qty     "Quantity">
 <!ENTITY    promotions_detail.label.current_subtotal     "Subtotal">
 <!ENTITY    promotions_detail.label.discount_subtotal     "Discount">

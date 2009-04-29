@@ -54,7 +54,6 @@
 
             var itemlistObj = document.getElementById('itemlist');
             var data = window.viewHelper.getCurrentIndexData(index);
-            //GREUtils.log(GeckoJS.BaseObject.dump(data));
 
             var displayStr = "";
             displayStr += _("SEQ") + ": " + data.sequence + "\n\n";

@@ -20,13 +20,11 @@
 
         initial: function (c) {
             // this._super(c);
-            GREUtils.log("table status initialize...");
 
             //            this._checkList = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
             //            this._tableList = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
             //            this._tableStatusList = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
             if (!this._tableStatusList) {
-                GREUtils.log("in table status initialize...");
                 this.getTableList();
                 this.getCheckList("AllCheck");
                 this.getTableStatusList();
@@ -156,7 +154,6 @@
 
         getNewCheckNo: function() {
             //@todo rack
-            GREUtils.log("getNewCheckNo...");
             this.resetCheckNoArray();
             var i = 1;
             var cnt = 0;
@@ -193,7 +190,7 @@
             if (remoteUrl) {
 
                 tableStatus = this.requestRemoteService('GET', remoteUrl, null);
-                // GREUtils.log(this.dump(tableStatus));
+                // GREUtils.log("DEBUG", this.dump(tableStatus));
 
 
             }else {
@@ -300,12 +297,11 @@
         },
 
         getTableList: function(reload) {
-            GREUtils.log("getTableList...");
+            // GREUtils.log("DEBUG", "getTableList...");
             reload = true;
             if (!reload) {
                 var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
                 if (tables) {
-                    GREUtils.log("getTableList from session...");
                     return tables;
                 }
             }
@@ -321,7 +317,7 @@
             //            return this._checkList;
             var checks = this._checkList;
             if (checks) {
-                GREUtils.log("getCheckList from session...");
+                // GREUtils.log("DEBUG", "getCheckList from session...");
                 var orders = [];
                 switch (key) {
                     case 'OrderNo':
@@ -376,7 +372,7 @@
         },
 
         addCheck: function(checkObj) {
-            GREUtils.log("add check...");
+            // GREUtils.log("DEBUG", "add check...");
             var tableObj = {
                 order_id: checkObj.id,
                 check_no: checkObj.check_no,
@@ -427,7 +423,7 @@
         },
 
         holdTable: function(table_no, holdby) {
-            // GREUtils.log("hold table...");
+            // GREUtils.log("DEBUG", "hold table...");
             this._tableList.forEach(function(o){
                 if (o.table_no == table_no) {
                     o.holdby = holdby;

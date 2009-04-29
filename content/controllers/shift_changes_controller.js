@@ -474,6 +474,12 @@
             window.openDialog(aURL, _('Shift Change'), features, inputObj);
 
             if (inputObj.ok) {
+                // cancel current transaction
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                if (cart) {
+                    cart.cancel(true);
+                }
+
                 var currentShift = GeckoJS.Session.get('current_shift');
                 var amt;
 

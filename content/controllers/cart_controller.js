@@ -2787,11 +2787,13 @@
             if (curTransaction.data.recall == 2) {
                 
                 // determine if new items have been added
-                if (!curTransaction.isModified() ||
+                if (!curTransaction.isModified() || forceCancel ||
                     GREUtils.Dialog.confirm(null, _('confirm cancel'),
                         _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
+
+                    this.clear();
                 }
                 else {
                     this.dispatchEvent('onCancel', curTransaction);
@@ -3736,7 +3738,7 @@
         },
 
         newCheck: function(autoCheckNo) {
-this.log("newCheck...");
+
             if (autoCheckNo)
                 var no = '';
             else {
@@ -3752,25 +3754,27 @@ this.log("newCheck...");
             } else {
                 r = this.GuestCheck.check(no);
             }
-            this.log("after newCheck..." + r);
 
             this.subtotal();
         },
 
         newTable: function() {
-            this.log("newTable...");
+
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
 
             var curTransaction = this._getTransaction();
+
+            /*
             if (curTransaction) {
                 if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0 && curTransaction.data.recall !=2) {
                     NotifyUtils.warn(_('This order must be store first'));
                     return;
                 }
             }
+            */
 
             var r = -1;
             if (no.length == 0) {
@@ -3778,7 +3782,6 @@ this.log("newCheck...");
             } else {
                 r = this.GuestCheck.table(no);
             }
-            this.log("after newTable..." + r);
 
             this.subtotal();
         },
@@ -3825,14 +3828,17 @@ this.log("newCheck...");
                 NotifyUtils.warn(_('This order has been submitted'));
                 return;
             }
+
             if (curTransaction.data.closed) {
                 NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
                 return;
             }
+
             if (curTransaction.data.items_count == 0) {
                 NotifyUtils.warn(_('This order is empty'));
                 return;
             }
+
             var r = -1;
             var modified = curTransaction.isModified();
             if (modified) {

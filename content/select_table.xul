@@ -101,7 +101,7 @@
         </hbox>
     </panel>
 
-    <panel id="order_display_panel" position="after_start" class="PromptPnl">
+    <panel id="order_display_panel" position="after_start" noautohide="false" class="PromptPnl">
 
         <tabbox class="RightTabbox" flex="1">
         <tabs id="orders_tab" >
