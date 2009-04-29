@@ -25,7 +25,7 @@
 <!ENTITY rptorderstatus.service_clerk "Service Clerk">
 <!ENTITY rptorderstatus.orderstatus "Order Status:">
 <!ENTITY rptorderstatus.finalizedorder "Finalized Orders">
-<!ENTITY rptorderstatus.savedorder "Saved Orders">
+<!ENTITY rptorderstatus.savedorder "Stored Orders">
 <!ENTITY rptorderstatus.canceledorder "Canceled Orders">
 <!ENTITY rptorderstatus.voidedorder "Voided Orders">
 <!ENTITY rptorderstatus.status "Status">
