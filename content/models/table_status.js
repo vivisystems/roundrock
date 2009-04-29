@@ -36,6 +36,8 @@
 
             if (this.syncSettings && this.syncSettings.active == 1) {
 
+                if (this.syncSettings.hostname == 'localhost' || this.syncSettings.hostname == '127.0.0.1') return false;
+                
                 //  http://localhost:3000/sequences/getSequence/check_no
                 // check connection status
                 this.url = this.syncSettings.protocol + '://' +
@@ -72,7 +74,7 @@
             }, 15000);
 
             /* Start Request with http basic authorization */
-            var data = null;
+            var data = [];
             req.open(method, reqUrl, false/*, username, password*/);
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
             var onstatechange = function (aEvt) {
@@ -81,11 +83,7 @@
                         var result = GeckoJS.BaseObject.unserialize(req.responseText);
                         if (result.status == 'ok') {
                             data = result.value;
-                        }else {
-                            data = false;
                         }
-                    }else {
-                        data = false;
                     }
                 }
                 delete req;
@@ -197,9 +195,7 @@
                 try {
                     tableStatus = this.requestRemoteService('GET', remoteUrl, null);
                 }catch(e) {
-                    //GREUtils.log('eeeee ' + e );
                     tableStatus = [];
-
                 }
 
             }else {

@@ -51,8 +51,12 @@
                         this.username = 'vivipos';
                         this.password = this.syncSettings.password ;
 
-                        this.setStatus(false); // set offline default
-                        this._onTimer();
+                        if (this.syncSettings.hostname == 'localhost' || this.syncSettings.hostname == '127.0.0.1') {
+                            this.setStatus(true);
+                        }else {
+                            this.setStatus(false); // set offline default
+                            this._onTimer();
+                        }
                     }
 
                 ]]>

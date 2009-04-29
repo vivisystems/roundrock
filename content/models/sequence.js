@@ -20,6 +20,8 @@
 
             if (this.syncSettings && this.syncSettings.active == 1) {
 
+                if (this.syncSettings.hostname == 'localhost' || this.syncSettings.hostname == '127.0.0.1') return false;
+                
                 //  http://localhost:3000/sequences/getSequence/check_no
                 // check connection status
                 this.url = this.syncSettings.protocol + '://' +
