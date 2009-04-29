@@ -40,29 +40,30 @@
             if (isNaN(pulses) || pulses < 1) pulses = 1;
             pulses = Math.floor(pulses);
 
-            GREUtils.File.run("/usr/sbin/gpio_opendrawer", [pulses], false);
-            return 1;
+			if (GREUtils.File.exists("/usr/local/bin/gpio_opendrawer")) {
+		        GREUtils.File.run("/usr/local/bin/gpio_opendrawer", [pulses], false);
+		        return 1;
+			}else {
+		        ioService.iopl(3);
+		        ioService.outb(0x2e,0x87);
+		        ioService.outb(0x2e,0x87);
+		        ioService.outb(0x2e,0x07);
+		        ioService.outb(0x2f,0x07);
+		        ioService.outb(0x2e,0xf1);
 
-            /*
-            ioService.iopl(3);
-            ioService.outb(0x2e,0x87);
-            ioService.outb(0x2e,0x87);
-            ioService.outb(0x2e,0x07);
-            ioService.outb(0x2f,0x07);
-            ioService.outb(0x2e,0xf1);
+		        for (var i = 0; i < pulses; i++) {
+		            ioService.outb(0x2f,0x01);
+		            ioService.usleep(200000);
+		            ioService.outb(0x2f,0x00);
+		            ioService.usleep(200000);
+		        }
 
-            for (var i = 0; i < pulses; i++) {
-                ioService.outb(0x2f,0x01);
-                ioService.usleep(200000);
-                ioService.outb(0x2f,0x00);
-                ioService.usleep(200000);
-            }
+		        var status = ((ioService.inb(0x2f) & 0x10) >> 4);
 
-            var status = ((ioService.inb(0x2f) & 0x10) >> 4);
+		        //this.log('DEBUG', 'GPIO controller: triggered GPIO port [' + pulses + ']');
+		        return status;
+			}
 
-            //this.log('DEBUG', 'GPIO controller: triggered GPIO port [' + pulses + ']');
-            return status;
-            */
         }
 
 
