@@ -263,7 +263,6 @@
             // populate plugroup panel
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.find('all', {
-                conditions: 'visible = 1',
                 order: 'display_order, name'
             } );
 
