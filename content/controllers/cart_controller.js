@@ -3738,7 +3738,7 @@
         },
 
         newCheck: function(autoCheckNo) {
-// this.log("newCheck...");
+
             if (autoCheckNo)
                 var no = '';
             else {
@@ -3754,13 +3754,12 @@
             } else {
                 r = this.GuestCheck.check(no);
             }
-            this.log("after newCheck..." + r);
 
             this.subtotal();
         },
 
         newTable: function() {
-            // this.log("newTable...");
+
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
@@ -3783,7 +3782,6 @@
             } else {
                 r = this.GuestCheck.table(no);
             }
-            // this.log("after newTable..." + r);
 
             this.subtotal();
         },
