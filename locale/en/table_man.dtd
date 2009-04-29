@@ -1,4 +1,4 @@
-<!ENTITY tableman.title  "Table Manage">
+<!ENTITY tableman.title  "Table Manager">
 <!ENTITY tableman.tab.tables "Tables">
 <!ENTITY tableman.tab.regions "Regions">
 <!ENTITY tableman.tab.bookings "Bookings">
@@ -6,13 +6,13 @@
 <!ENTITY tableman.tab.tablemap "Table Map">
 
 <!ENTITY tableman.table.active "Active">
-<!ENTITY tableman.table.tableno "Table No">
+<!ENTITY tableman.table.tableno "Table No.">
 <!ENTITY tableman.table.tablename "Label">
 <!ENTITY tableman.table.seats "Seats">
 <!ENTITY tableman.table.region "Region">
 
 <!ENTITY tableman.region.name "Region Name">
-<!ENTITY tableman.region.bgimage "Background Image">
+<!ENTITY tableman.region.bgimage "Floor Plan Image">
 
 <!ENTITY tableman.region.count "Region Count:">
 <!ENTITY tableman.table.count "Table Count:">
@@ -41,23 +41,22 @@
 <!ENTITY tableman.address "Address:">
 
 <!ENTITY tableman.tableoptions.options "Options:">
-<!ENTITY tableman.tableoptions.tablewinasfirstwin "Table window as first window">
-<!ENTITY tableman.tableoptions.virtualtablemap "Use virtual table map as default table window">
-<!ENTITY tableman.tableoptions.requirecheckno "Require Check No">
-<!ENTITY tableman.tableoptions.requiretableno "Require Table No">
-<!ENTITY tableman.tableoptions.requireguestnum "Require guest number">
-<!ENTITY tableman.tableoptions.tableperiodlimit "Time limit for the use of table (Minutes):">
-<!ENTITY tableman.tableoptions.tablebookingtimeout "Booking time out (Minutes):">
-<!ENTITY tableman.tableoptions.tableremindtime "Remind before booking time (Minutes):">
-<!ENTITY tableman.tableoptions.maxcheckno "Max Check No:">
+<!ENTITY tableman.tableoptions.tablewinasfirstwin "Begin each order with table selection">
+<!ENTITY tableman.tableoptions.virtualtablemap "Use table map for table selection">
+<!ENTITY tableman.tableoptions.requirecheckno "Require check number">
+<!ENTITY tableman.tableoptions.requiretableno "Require table number">
+<!ENTITY tableman.tableoptions.requireguestnum "Require number of customers">
+<!ENTITY tableman.tableoptions.tableperiodlimit "Time limit for the use of table (minutes):">
+<!ENTITY tableman.tableoptions.tablebookingtimeout "Booking time out (minutes):">
+<!ENTITY tableman.tableoptions.tableremindtime "Remind before booking time (minutes):">
+<!ENTITY tableman.tableoptions.maxcheckno "Maximum check number:">
 
 <!ENTITY tableman.tableoptions.displayoptions "Display Elements:">
-<!ENTITY tableman.tableoptions.displaycheckno "Check No">
+<!ENTITY tableman.tableoptions.displaycheckno "Check Number">
 <!ENTITY tableman.tableoptions.displaytablelabel "Table Label">
-<!ENTITY tableman.tableoptions.displayseqno "Sequence No">
+<!ENTITY tableman.tableoptions.displayseqno "Sequence Number">
 <!ENTITY tableman.tableoptions.displaybooking "Booking">
-<!ENTITY tableman.tableoptions.displayperiod "Period">
-<!ENTITY tableman.tableoptions.displaytotal "Total">
-<!ENTITY tableman.tableoptions.displaycapacity "Capacity">
+<!ENTITY tableman.tableoptions.displayperiod "Time in use">
+<!ENTITY tableman.tableoptions.displaytotal "Check Total">
+<!ENTITY tableman.tableoptions.displaycapacity "Seats">
 <!ENTITY tableman.tableoptions.displayclerk "Service Clerk">
-

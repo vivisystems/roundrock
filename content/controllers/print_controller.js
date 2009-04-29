@@ -343,7 +343,7 @@
             //this.log('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
 
             // check if receipts need to be printed
-            if (txn.data.batchPaymentCount > 0)
+            if (txn.data.batchPaymentCount > 0 || txn.data.closed)
                 this.printReceipts(evt.data, null, 'store');
 
             // @hack
@@ -909,7 +909,7 @@
                 }
             }
             //@debug
-            //alert(GeckoJS.BaseObject.dump(result));
+            alert(GeckoJS.BaseObject.dump(result));
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
