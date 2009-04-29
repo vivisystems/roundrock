@@ -92,16 +92,22 @@
             };
 
             // req.onreadystatechange = onstatechange
-			if(method == 'POST') {
-				req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				req.setRequestHeader("Content-length", "request_data=".length + value.length);
-				req.setRequestHeader("Connection", "close");
-		        req.send("request_data="+value);
-			}else {
-	            req.send(null);
-			}
-	
-            onstatechange();
+            var request_data = null;
+            if(method == 'POST') {
+                req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                req.setRequestHeader("Content-length", "request_data=".length + value.length);
+                req.setRequestHeader("Connection", "close");
+                request_data = "request_data="+value;
+            }
+
+            try {
+                req.send(request_data);
+                onstatechange();
+            }catch(e) {
+                data = [];
+            }
+            if(timeout) clearTimeout(timeout);
+            
             return data;
 
         },
@@ -188,10 +194,13 @@
             var tableStatus = null;
 
             if (remoteUrl) {
+                try {
+                    tableStatus = this.requestRemoteService('GET', remoteUrl, null);
+                }catch(e) {
+                    //GREUtils.log('eeeee ' + e );
+                    tableStatus = [];
 
-                tableStatus = this.requestRemoteService('GET', remoteUrl, null);
-                // GREUtils.log("DEBUG", this.dump(tableStatus));
-
+                }
 
             }else {
                 // read all order status
@@ -450,7 +459,7 @@
 
                 tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize(tableStatusObj));
 
-				return ;
+                return ;
             }
 
             var tableStatusNewObj = {};
