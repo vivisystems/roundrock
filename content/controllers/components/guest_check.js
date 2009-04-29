@@ -67,7 +67,7 @@
             this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
             this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
 
-this.log("evt.type:" + evt.type);
+// this.log("evt.type:" + evt.type);
 
             if ( evt.type == 'newTransaction') {
                 if (this._guestCheck.requireCheckNo) {
