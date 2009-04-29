@@ -93,8 +93,9 @@ class SyncHandlerComponent extends Object {
      *
      * @param <type> $machine_id
      * @param <type> $dbConfig
+     * @param <type> $direction
      */
-    function getLastSynced($machine_id, $dbConfig) {
+    function getLastSynced($machine_id, $dbConfig, $direction) {
 
         $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
         $data = $syncRemoteMachine->find('first', array('conditions' => array('machine_id' => $machine_id)));
@@ -102,7 +103,20 @@ class SyncHandlerComponent extends Object {
         if($data) {
             $lastSynced = $data['SyncRemoteMachine']['last_synced'];
         }else {
-            $lastSynced = 0;
+            if ($direction == 'pull') {
+                // change cursor to last insert id
+                $sync = new Sync(false, null, $dbConfig); // id , table, ds
+                $lastSync = $sync->find('first', array('order' => array('Sync.id DESC')) );
+                $lastSynced = $lastSync['Sync']['id'];
+
+                // insert machine setting
+                $this->setLastSynced($machine_id, $dbConfig, $lastSynced);
+                //$syncRemoteMachine->create();
+                //$syncRemoteMachine->save(array('machine_id'=>$machine_id, 'last_synced'=>$lastSynced));
+
+            }else {
+                $lastSynced = 0;
+            }
         }
 
         return $lastSynced;
@@ -322,7 +336,7 @@ class SyncHandlerComponent extends Object {
  *
  * @param string $client_machine_id
  */
-    function getData($machine_id, $direction="pull") {
+    function getData($machine_id, $direction="pull", $client_settings=array()) {
 
         $my_machine_id = $this->syncSettings['machine_id'];
 
@@ -338,7 +352,7 @@ class SyncHandlerComponent extends Object {
             $data = array('datasource' => $dbConfig, 'count' => 0, 'last_synced' => 0, 'sql' => '');
 
             // force order only support push
-            if ($dbConfig == 'order' && $direction == 'pull') {
+            if ($dbConfig == 'order' && $direction == 'pull' && empty($client_settings['pull_order'])) {
                 $datas[$dbConfig] = $data;
                 continue;
             }
@@ -350,7 +364,7 @@ class SyncHandlerComponent extends Object {
             $this->Sync->useDbConfig = $dbConfig;
 
             // getLastSynced
-            $lastSynced = $this->getLastSynced($machine_id, $dbConfig);
+            $lastSynced = $this->getLastSynced($machine_id, $dbConfig, $direction);
 
             $sync = new Sync(false, null, $dbConfig); // id , table, ds
 
@@ -461,9 +475,9 @@ class SyncHandlerComponent extends Object {
  *
  * @param string $client_machine_id
  */
-    function getServerData($client_machine_id) {
+    function getServerData($client_machine_id, $client_settings) {
 
-        $datas = $this->getData($client_machine_id, "pull");
+        $datas = $this->getData($client_machine_id, "pull", $client_settings);
 
         return $datas;
 
@@ -636,10 +650,57 @@ class SyncHandlerComponent extends Object {
                 case 'delete':
                     return "DELETE FROM {$table} {$conditions}";
                     break;
-            }
         }
-
     }
 
+
+    /**
+     * Truncate Old Sync logs
+     *
+     * @return <type>
+     */
+    function truncateSync($retain_days=7) {
+
+        $datasources = $this->getSourceList();
+
+        $retain_time = time() - 86400*$retain_days;
+
+        $rowCount = 0 ;
+        foreach($datasources as $dbConfig ) {
+
+            // PDO Connection object
+            $datasource =& ConnectionManager::getDataSource($dbConfig);
+
+            // set model Sync 's useDbConfig
+            $sync = new Sync(false, null, $dbConfig); // id , table, ds
+            $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
+
+            // get maxId
+            $maxSync = $sync->find('first', array('fields'=>array('id'), 'order'=>array('Sync.id DESC')));
+            if($maxSync) {
+                $maxId = $maxSync['Sync']['id'];
+            }
+            $maxDelSync = $sync->find('first', array('fields'=>array('id'), 'order'=>array('Sync.id DESC'), 'conditions'=>array('Sync.created <'.$retain_time)));
+            if ($maxDelSync) {
+                $maxDelId = $maxDelSync['Sync']['id'];
+
+                // delete old syncs
+                $result = $datasource->execute("DELETE FROM syncs WHERE created < ". $retain_time);
+                $rowCount += $result->rowCount();
+
+                // update syncRemoteMachines
+                $datasource->execute("UPDATE sync_remote_machines SET last_synced=0 WHERE ( last_synced <= ". $maxDelId . " or last_synced > " . $maxId . ")");
+
+                // vacuum database
+                $datasource->execute("VACUUM");
+
+            }
+
+        }
+
+        return $rowCount;
+
+    }
+}
 
 ?>

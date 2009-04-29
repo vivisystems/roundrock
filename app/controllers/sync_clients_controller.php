@@ -78,7 +78,7 @@ class SyncClientsController extends AppController {
         // get data from server
         $http =& $this->getHttpSocket();
         
-        $responseData = $http->get($pull_url);
+        $responseData = $http->get($pull_url, $this->syncSettings);
 
         // save to database
         $pullResult = $this->SyncHandler->parseResponse($responseData, 'php');
@@ -96,9 +96,11 @@ class SyncClientsController extends AppController {
             $dbConfig = $data['datasource'];
             $lastSynced = $data['last_synced'];
             $count = $data['count'];
-            if ($count > 0) $lastSyncedData[$dbConfig] = array('datasource' => $dbConfig ,
+            if ($count > 0) {
+                $lastSyncedData[$dbConfig] = array('datasource' => $dbConfig ,
                                                                        'count' => $count,
                                                                        'last_synced' => $lastSynced );
+            }
         }
         
         // update pull commit

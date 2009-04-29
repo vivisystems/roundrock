@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+
+#
+# execute php sync tools
+#
+cmd=${1:-help}
+pid=$$
+dir=`dirname $0`
+
+cd $dir ;
+
+exec ${dir}/cake/console/cake -app ${dir}/app sync_tools ${cmd}
+

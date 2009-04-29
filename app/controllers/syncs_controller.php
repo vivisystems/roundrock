@@ -14,6 +14,8 @@ class SyncsController extends AppController {
 
     function beforeFilter() {
 
+        if ($this->action == 'truncate') return true;
+        
         $this->syncSettings =& Configure::read('sync_settings');
 
         $sync_settings =& $this->syncSettings;
@@ -89,7 +91,7 @@ class SyncsController extends AppController {
         try {
             set_time_limit(0);
 
-            $datas = $this->SyncHandler->getServerData($client_machine_id);
+            $datas = $this->SyncHandler->getServerData($client_machine_id, $_REQUEST);
 
             $result = array (
                    'success' => true,
@@ -196,6 +198,17 @@ class SyncsController extends AppController {
 
         exit;
 
+    }
+
+    function truncate($days=7) {
+
+        set_time_limit(0);
+
+        if ($days < 1) $days = 1;
+        
+        return $this->SyncHandler->truncateSync($days);
+
+        exit;
     }
 
 
