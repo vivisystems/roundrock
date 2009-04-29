@@ -297,7 +297,7 @@
         },
 
         getTableList: function(reload) {
-            GREUtils.log("getTableList...");
+            // GREUtils.log("getTableList...");
             reload = true;
             if (!reload) {
                 var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');

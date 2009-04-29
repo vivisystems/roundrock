@@ -3738,7 +3738,7 @@
         },
 
         newCheck: function(autoCheckNo) {
-this.log("newCheck...");
+// this.log("newCheck...");
             if (autoCheckNo)
                 var no = '';
             else {
@@ -3767,12 +3767,15 @@ this.log("newCheck...");
             this.cancelReturn();
 
             var curTransaction = this._getTransaction();
-            if (curTransaction && curTransaction.recall == 2) {
+
+            /*
+            if (curTransaction) {
                 if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0 && curTransaction.data.recall !=2) {
                     NotifyUtils.warn(_('This order must be store first'));
                     return;
                 }
             }
+            */
 
             var r = -1;
             if (no.length == 0) {
