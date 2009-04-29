@@ -62,6 +62,7 @@
 					                        <menuitem selected="false" label="&rptorderstatus.finalizedorder;" value="1" />
 					                        <menuitem selected="false" label="&rptorderstatus.savedorder;" value="2" />
 					                        <menuitem selected="false" label="&rptorderstatus.canceledorder;" value="-1" />
+					                        <menuitem selected="false" label="&rptorderstatus.voidedorder;" value="-2" />
 					                    </menupopup>
 					                </menulist>
 			                    </vbox>

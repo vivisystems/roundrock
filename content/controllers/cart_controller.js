@@ -2787,11 +2787,13 @@
             if (curTransaction.data.recall == 2) {
                 
                 // determine if new items have been added
-                if (!curTransaction.isModified() ||
+                if (!curTransaction.isModified() || forceCancel ||
                     GREUtils.Dialog.confirm(null, _('confirm cancel'),
                         _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
+
+                    this.clear();
                 }
                 else {
                     this.dispatchEvent('onCancel', curTransaction);

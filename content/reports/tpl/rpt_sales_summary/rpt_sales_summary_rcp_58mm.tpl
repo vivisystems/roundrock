@@ -63,7 +63,7 @@ ${detail.destination} ${_( '(rpt)Amount' ) + ':'}
 ${detail.total|default:0|viviFormatPrices:true|right:24}
 {/for}
 ------------------------
-${_( '(rpt)Tax summary' )}
+${_( '(rpt)Tax Summary' )}
 {for detail in body.tax_summary.records}
 ${_( '(rpt)Tax Name' ) + ':'}
 ${detail.tax_name|right:24}

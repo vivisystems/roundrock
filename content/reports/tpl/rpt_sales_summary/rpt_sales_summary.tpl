@@ -256,7 +256,7 @@
             <br />
             
             <table id="body-table">
-                <caption>${_( '(rpt)Tax summary' )}</caption>
+                <caption>${_( '(rpt)Tax Summary' )}</caption>
                 <thead>
                     <tr>
                         <th style="text-align: left;">${_( '(rpt)Name' )}</th>
