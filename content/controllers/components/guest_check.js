@@ -390,7 +390,7 @@ this.log("evt.type:" + evt.type);
             this._checkNoArray = [];
             this._tableNoArray = [];
 
-            var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 0});
+            var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
 
             ord.forEach(function(o){
                 var check_no = o.check_no;
