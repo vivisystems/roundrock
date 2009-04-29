@@ -67,7 +67,7 @@
             this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
             this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
 
-// this.log("evt.type:" + evt.type);
+// this.log("DEBUG", "evt.type:" + evt.type);
 
             if ( evt.type == 'newTransaction') {
                 if (this._guestCheck.requireCheckNo) {
@@ -159,6 +159,7 @@
                 var idx = inputObj.index;
                 i = tables[idx].table_no;
                 var id = tables[idx].order_id;
+                var destination = tables[idx].table.destination;
 
                 switch (inputObj.action) {
                     case 'RecallCheck':
@@ -203,7 +204,8 @@
                             curTransaction.data.table_no = "" + i;
 
                             // set destination
-                            this.requestCommand('setDestination', 'OUT', 'Destinations');
+                            if (destination)
+                                this.requestCommand('setDestination', destination, 'Destinations');
                         }
                         break;
                     case 'ChangeClerk':
@@ -276,6 +278,17 @@
                 }
                 GeckoJS.Session.set('vivipos_fec_table_number', r);
                 curTransaction.data.table_no = r;
+
+                // set destination
+                var tables = this._tableStatusModel.getTableStatusList();
+                var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + r + "'");
+                if (tableObj.length > 0) {
+
+                    var destination = tableObj[0].table.destination;
+                    if (destination)
+                        this.requestCommand('setDestination', destination, 'Destinations');
+                }
+
             }
         },
 
@@ -404,8 +417,6 @@
                     self._tableNoArray[table_no] = 1;
                 }
             });
-//this.log(this.dump(this._checkNoArray));
-//this.log(this.dump(this._tableNoArray));
             return ord;
         },
 
@@ -420,7 +431,7 @@
         },
 
         recallByOrderNo: function(no) {
-            // this.log("GuestCheck recall by order_no..." + no);
+            // this.log("DEBUG", "GuestCheck recall by order_no..." + no);
             if (no)
                 this.recall('OrderNo', no);
             else
@@ -428,7 +439,7 @@
         },
 
         recallByCheckNo: function(no) {
-            // this.log("GuestCheck recall by check_no..." + no);
+            // this.log("DEBUG", "GuestCheck recall by check_no..." + no);
             if (no)
                 this.recall('CheckNo', no);
             else
@@ -436,7 +447,7 @@
         },
 
         recallByTableNo: function(no) {
-            // this.log("GuestCheck recall by table_no..." + no);
+            // this.log("DEBUG", "GuestCheck recall by table_no..." + no);
             if (no)
                 this.recall('TableNo', no);
             else
@@ -444,12 +455,12 @@
         },
 
         recall: function(key, no, silence) {
-            // this.log("GuestCheck recall...key:" + key + ",  no:" + no);
+            // this.log("DEBUG", "GuestCheck recall...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
                     // @todo not implement...
                     // var ord = this._tableStatusModel.getCheckList('OrderNo', no);
-                    var ord = this.getCheckList('CheckNo', no);
+                    var ord = this.getCheckList('OrderNo', no);
 
                     if (ord && ord.length > 0) {
                         // AC 2009.04.29
@@ -504,7 +515,7 @@
                         ord.push(GeckoJS.BaseObject.unserialize(o.order_object));
                     });
                     */
-                    var ord = this.getCheckList('CheckNo', no);
+                    var ord = this.getCheckList('TableNo', no);
 
                     if (ord && ord.length > 1) {
                         //
@@ -671,7 +682,7 @@
         },
 
         transfer: function(key, no) {
-            //this.log("GuestCheck transfer...key:" + key + ",  no:" + no);
+            //this.log("DEBUG", "GuestCheck transfer...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
                     break;
@@ -692,7 +703,7 @@
 
         mergeOrder: function(no, data) {
 
-            //this.log("GuestCheck merge check...no:" + no);
+            //this.log("DEBUG", "GuestCheck merge check...no:" + no);
 
             var target_id = this.recall('AllCheck', 'CheckNo', true);
 
@@ -731,7 +742,7 @@
         },
 
         splitOrder: function(no, data) {
-            //this.log("GuestCheck split check...no:" + no);
+            //this.log("DEBUG", "GuestCheck split check...no:" + no);
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
             var aURL = "chrome://viviecr/content/split_check.xul";
