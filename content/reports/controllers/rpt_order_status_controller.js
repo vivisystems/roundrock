@@ -125,7 +125,7 @@
             			record.status = _( 'Finalized' );
             			break;
             		case 2:
-            			record.status = _( 'Saved' );
+            			record.status = _( 'Stored' );
             			break;
             		case -1:
             			record.status = _( 'Canceled' );
