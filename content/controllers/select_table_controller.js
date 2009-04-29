@@ -409,8 +409,6 @@
                     this._showOrderDisplayPanel('order_display_panel', this._tables[v], evt.originalTarget);
                     break;
             }
-this.log("this._inputObj...");
-this.log(this.dump(this._inputObj));
             this._hidePromptPanel('prompt_panel');
             // alert('doFunc...' + inputObj.action);
             
@@ -469,8 +467,6 @@ this.log(this.dump(this._inputObj));
             tableStatus._controller = this;
             document.getElementById('tableScrollablepanel').datasource = tableStatus ;
 
-// this.log("load tables...");
-// this.log(this.dump(tables));
         }
 
     };
