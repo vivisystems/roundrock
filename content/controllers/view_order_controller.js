@@ -102,8 +102,8 @@
 
             this._orderId = id;
 
-            // enable void sale button only if order has status of 1
-            voidBtn.setAttribute('disabled', !order || order.status != 1 || !this.Acl.isUserInRole('acl_void_transactions'));
+            // enable void sale button only if order has status of 1 or 2
+            voidBtn.setAttribute('disabled', !order || order.status < 1 || !this.Acl.isUserInRole('acl_void_transactions'));
         },
 
         voidSale: function() {

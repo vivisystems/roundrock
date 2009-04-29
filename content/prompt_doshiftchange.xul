@@ -49,6 +49,7 @@
                         <column flex="1"/>
                         <column flex="1"/>
                         <column flex="1"/>
+                        <column flex="1"/>
                     </columns>
                     <rows>
                         <row>
@@ -68,8 +69,20 @@
                                 <label value="&prompt.shiftchange.deposit;" class="SubTitle"/>
                                 <textbox id="deposit" flex="1" value="" readonly="true"/>
                             </vbox>
+                            <vbox>
+                                <label value="&prompt.shiftchange.refund;" class="SubTitle"/>
+                                <textbox id="refund" flex="1" value="" readonly="true"/>
+                            </vbox>
                         </row>
                         <row>
+                            <vbox>
+                                <label value="&prompt.shiftchange.credit;" class="SubTitle"/>
+                                <textbox id="credit" flex="1" value="" readonly="true"/>
+                            </vbox>
+                            <vbox>
+                                <label value="&prompt.shiftchange.excess;" class="SubTitle"/>
+                                <textbox id="excess" flex="1" value="" readonly="true"/>
+                            </vbox>
                             <vbox>
                                 <label value="&prompt.shiftchange.ledger.in;" class="SubTitle"/>
                                 <textbox id="ledger_in" flex="1" value="" readonly="true"/>
@@ -77,10 +90,6 @@
                             <vbox>
                                 <label value="&prompt.shiftchange.ledger.out;" class="SubTitle"/>
                                 <textbox id="ledger_out" flex="1" value="" readonly="true"/>
-                            </vbox>
-                            <vbox>
-                                <label value="&prompt.shiftchange.excess;" class="SubTitle"/>
-                                <textbox id="excess" flex="1" value="" readonly="true"/>
                             </vbox>
                         </row>
                     </rows>

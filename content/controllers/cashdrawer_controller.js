@@ -26,7 +26,6 @@
             // get handle to Main controller
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
-                alert('listener registered');
                 main.addEventListener('afterClearOrderData', this.expireData, this);
             }
         },
