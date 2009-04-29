@@ -103,12 +103,7 @@ pref("vivipos.fec.settings.controlpanels.product.reports.label", "Reports");
 pref("vivipos.fec.settings.controlpanels.product.reports.path", "chrome://viviecr/content/reportPanel.xul");
 pref("vivipos.fec.settings.controlpanels.product.reports.icon", "chrome://viviecr/skin/icons/icon_reports.png");
 pref("vivipos.fec.settings.controlpanels.product.reports.roles", "acl_manage_reports");
-/*
-pref("vivipos.fec.settings.controlpanels.activity.promotions.label", "Promotions");
-pref("vivipos.fec.settings.controlpanels.activity.promotions.path", "chrome://viviecr/content/promotions.xul");
-pref("vivipos.fec.settings.controlpanels.activity.promotions.icon", "chrome://viviecr/skin/icons/icon_discount.png");
-pref("vivipos.fec.settings.controlpanels.activity.promotions.roles", "acl_no_access");
-*/
+
 pref("vivipos.fec.settings.controlpanels.employee.jobs.label", "Jobs");
 pref("vivipos.fec.settings.controlpanels.employee.jobs.path", "chrome://viviecr/content/jobs.xul");
 pref("vivipos.fec.settings.controlpanels.employee.jobs.icon", "chrome://viviecr/skin/icons/icon_jobs.png");
@@ -144,7 +139,7 @@ pref("vivipos.fec.settings.controlpanels.product.imagemanager.path", "chrome://v
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.icon", "chrome://viviecr/skin/icons/icon_imgmanager.png");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.roles", "acl_manage_images");
 
-pref("vivipos.fec.settings.controlpanels.system.tableman.label", "Table Manage");
+pref("vivipos.fec.settings.controlpanels.system.tableman.label", "Table Manager");
 pref("vivipos.fec.settings.controlpanels.system.tableman.path", "chrome://viviecr/content/table_man.xul");
 pref("vivipos.fec.settings.controlpanels.system.tableman.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.system.tableman.roles", "acl_manage_tableman");

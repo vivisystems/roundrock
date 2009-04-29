@@ -3828,14 +3828,17 @@
                 NotifyUtils.warn(_('This order has been submitted'));
                 return;
             }
+
             if (curTransaction.data.closed) {
                 NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
                 return;
             }
+
             if (curTransaction.data.items_count == 0) {
                 NotifyUtils.warn(_('This order is empty'));
                 return;
             }
+
             var r = -1;
             var modified = curTransaction.isModified();
             if (modified) {

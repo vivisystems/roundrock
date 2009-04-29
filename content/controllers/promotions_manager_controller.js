@@ -390,7 +390,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    NotifyUtils.error(_('An error occurred while removing Promotion Rule [%S]. The group may not have been removed successfully', [selObj.name]));
+                    NotifyUtils.error(_('An error occurred while removing Promotion Rule [%S]. The rule may not have been removed successfully', [selObj.name]));
                 }
             }
             
@@ -431,7 +431,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    NotifyUtils.error(_('An error occurred while removing Promotion Rule [%S]. The group may not have been modified successfully', [formData.name]));
+                    NotifyUtils.error(_('An error occurred while removing Promotion Rule [%S]. The rule may not have been modified successfully', [formData.name]));
                 }
 
             

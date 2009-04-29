@@ -4,9 +4,8 @@
 <!ENTITY selecttable.mergecheck  "Merge Check">
 <!ENTITY selecttable.selectno  "Select Table">
 <!ENTITY selecttable.refreshtablestatus  "Refresh">
-<!ENTITY selecttable.transtable  "Trans Table">
+<!ENTITY selecttable.transtable  "Transfer Table">
 <!ENTITY selecttable.mergetable  "Merge Table">
 <!ENTITY selecttable.unmergetable  "Unmerge Table">
-<!ENTITY selecttable.bookingtable  "Booking Table">
+<!ENTITY selecttable.bookingtable  "Book Table">
 <!ENTITY selecttable.changeclerk  "Change Clerk">
-<!ENTITY selecttable.transtable  "Trans Table">

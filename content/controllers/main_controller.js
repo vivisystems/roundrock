@@ -39,11 +39,11 @@
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
             GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
 
-//            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
-//            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.TRACE;
+            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
+            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.TRACE;
 //
-//            GeckoJS.Log.getLoggerForClass('DatasourceSQL').level = GeckoJS.Log.TRACE;
-//            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.TRACE;
+            GeckoJS.Log.getLoggerForClass('DatasourceSQL').level = GeckoJS.Log.TRACE;
+            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.TRACE;
 
             var self = this;
             

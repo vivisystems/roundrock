@@ -225,7 +225,7 @@
         },
 
         doRecallCheck: function() {
-            this._setPromptLabel('*** ' + _('Recall Check') + ' ***', _('Please Select a Table to recall...'), '', _('Press CANCEL button to cancel function'), 2);
+            this._setPromptLabel('*** ' + _('Recall Check') + ' ***', _('Please select a table to recall...'), '', _('Press CANCEL button to cancel function'), 2);
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'RecallCheck';
@@ -233,7 +233,7 @@
         },
 
         doSplitCheck: function() {
-            this._setPromptLabel('*** ' + _('Split Check') + ' ***', _('Please Select a Table to split...'), '', _('Press CANCEL button to cancel function'), 2);
+            this._setPromptLabel('*** ' + _('Split Check') + ' ***', _('Please select a table to split...'), '', _('Press CANCEL button to cancel function'), 2);
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'SplitCheck';
@@ -241,7 +241,7 @@
         },
 
         doMergeCheck: function() {
-            this._setPromptLabel('*** ' + _('Merge Check') + ' ***', _('Please Select a Table to merge...'), '', _('Press CANCEL button to cancel function'), 2);
+            this._setPromptLabel('*** ' + _('Merge Check') + ' ***', _('Please select a table to merge...'), '', _('Press CANCEL button to cancel function'), 2);
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'MergeCheck';
@@ -249,14 +249,14 @@
         },
 
         doMergeTable: function() {
-            this._setPromptLabel('*** ' + _('Merge Table') + ' ***', _('Please Select the source table as master table...'), '', _('Press CANCEL button to cancel function'), 2);
+            this._setPromptLabel('*** ' + _('Merge Table') + ' ***', _('Please select the master table...'), '', _('Press CANCEL button to cancel function'), 2);
             
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'MergeTable';
         },
 
         doUnmergeTable: function() {
-            this._setPromptLabel('*** ' + _('Unmerge Table') + ' ***', _('Please Select the hold table to be unmerge...'), '', _('Press CANCEL button to cancel function'), 2);
+            this._setPromptLabel('*** ' + _('Unmerge Table') + ' ***', _('Please select the table to unmerge...'), '', _('Press CANCEL button to cancel function'), 2);
             
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'UnmergeTable';
@@ -280,18 +280,18 @@
         },
 
         doTransTable: function() {
-            this._setPromptLabel('*** ' + _('Trans Table') + ' ***', _('Please Select the source table to translate...'), '', _('Press CANCEL button to cancel function'), 2);
+            this._setPromptLabel('*** ' + _('Trans Table') + ' ***', _('Please select the table to be transfered...'), '', _('Press CANCEL button to cancel function'), 2);
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'TransTable';
         },
 
         doSelectTableNo: function() {
-            this._setPromptLabel('*** ' + _('Select Table') + ' ***', _('Please Select a Table...'), '', _('Press CANCEL button to cancel function'), 2);
+            this._setPromptLabel('*** ' + _('Select Table') + ' ***', _('Please select a table...'), '', _('Press CANCEL button to cancel function'), 2);
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'SelectTableNo';
-            // this._titleObj.setAttribute('label', this._org_title + " - " + _("Select Table No"));
+            // this._titleObj.setAttribute('label', this._org_title + " - " + _("Select Table Number"));
         },
 
         doRefreshTableStatus: function() {
@@ -336,7 +336,7 @@
                             NotifyUtils.error(_('This table is empty!!'));
                             return;
                         }
-                        this._setPromptLabel(null, null, _('Please Select the target table to translate...'), null, 3);
+                        this._setPromptLabel(null, null, _('Please select the table to transfer to...'), null, 3);
                         this._sourceTableNo = this._tables[v].table_no;
                         document.getElementById('tableScrollablepanel').invalidate();
                         return;
@@ -371,7 +371,7 @@
                             NotifyUtils.error(_('This table is empty!!'));
                             return;
                         }
-                        this._setPromptLabel(null, null, _('Please Select a empty table to merge...'), null, 3);
+                        this._setPromptLabel(null, null, _('Please select an empty table to merge...'), null, 3);
                         this._sourceTableNo = this._tables[v].table_no;
                         document.getElementById('tableScrollablepanel').invalidate();
                         return;

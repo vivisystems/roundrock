@@ -416,7 +416,7 @@
             
             
             // @todo OSD
-            NotifyUtils.warn(_('The Check# %S has been splited to Check# %S!!', [this._sourceCheck.check_no, check_no_list.join(',')]));
+            NotifyUtils.info(_('Check# %S has been successfully split to Check# %S', [this._sourceCheck.check_no, check_no_list.join(',')]));
 
             if (index >= 0)
                 return orders[this._splitedIndex];
@@ -424,7 +424,7 @@
                 return origData;
         },
 
-        conform: function() {
+        confirm: function() {
             var retOrder = this._saveOrders();
             var inputObj = window.arguments[0];
             inputObj.ok = true;
