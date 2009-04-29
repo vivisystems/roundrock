@@ -3780,7 +3780,7 @@ this.log("newCheck...");
             } else {
                 r = this.GuestCheck.table(no);
             }
-            this.log("after newTable..." + r);
+            // this.log("after newTable..." + r);
 
             this.subtotal();
         },
