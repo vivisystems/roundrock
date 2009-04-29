@@ -142,7 +142,7 @@ this.log("evt.type:" + evt.type);
 
             // get table status
             var tables = this._tableStatusModel.getTableStatusList();
-// GREUtils.log(GeckoJS.BaseObject.dump(tables));
+
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
@@ -284,7 +284,6 @@ this.log("evt.type:" + evt.type);
         },
 
         guest: function(num) {
-            this.log("GuestCheck guest..." + num);
             if (!num) {
                 num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
                 num = this.selGuestNum(num);
@@ -358,7 +357,7 @@ this.log("evt.type:" + evt.type);
                 NotifyUtils.warn(_('Check# %S is exist!!', [check_no]));
             }
         },
-
+*/
         getCheckList: function(key, no) {
             //
             var self = this;
@@ -409,7 +408,7 @@ this.log("evt.type:" + evt.type);
 //this.log(this.dump(this._tableNoArray));
             return ord;
         },
-*/
+
         store: function() {
 
             this._controller.submit(2);
@@ -445,14 +444,18 @@ this.log("evt.type:" + evt.type);
         },
 
         recall: function(key, no, silence) {
-            this.log("GuestCheck recall...key:" + key + ",  no:" + no);
+            // this.log("GuestCheck recall...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
                     // @todo not implement...
-                    var ord = this._tableStatusModel.getCheckList('OrderNo', no);
+                    // var ord = this._tableStatusModel.getCheckList('OrderNo', no);
+                    var ord = this.getCheckList('CheckNo', no);
 
                     if (ord && ord.length > 0) {
-                        var id = ord[0].order_id;
+                        // AC 2009.04.29
+                        var id = ord[idx].id;
+                        // var id = ord[idx].order_id;
+
                         var status = ord[0].status;
 
                         this._controller.unserializeFromOrder(id);
@@ -468,10 +471,15 @@ this.log("evt.type:" + evt.type);
                     }
                     break;
                 case 'CheckNo':
-                    var ord = this._tableStatusModel.getCheckList('CheckNo', no);
+                    // var ord = this._tableStatusModel.getCheckList('CheckNo', no);
+                    var ord = this.getCheckList('CheckNo', no);
+
                     if (ord && ord.length > 0) {
 
-                        var id = ord[0].order_id;
+                        // AC 2009.04.29
+                        var id = ord[idx].id;
+                        // var id = ord[idx].order_id;
+
                         var status = ord[0].status;
 
                         this._controller.unserializeFromOrder(id);
@@ -489,11 +497,15 @@ this.log("evt.type:" + evt.type);
                     }
                     break;
                 case 'TableNo':
+                    /*
                     var ordList = this._tableStatusModel.getCheckList('TableNo', no);
                     var ord = [];
                     ordList.forEach(function(o){
                         ord.push(GeckoJS.BaseObject.unserialize(o.order_object));
                     });
+                    */
+                    var ord = this.getCheckList('CheckNo', no);
+
                     if (ord && ord.length > 1) {
                         //
                         // alert(this.dump(ord));
@@ -512,7 +524,11 @@ this.log("evt.type:" + evt.type);
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
                             // return queues[idx].key;
-                            var id = ord[idx].order_id;
+                            
+                            // AC 2009.04.29
+                            var id = ord[idx].id;
+                            // var id = ord[idx].order_id;
+
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
 
@@ -531,7 +547,10 @@ this.log("evt.type:" + evt.type);
                         }
 
                     } else if (ord && ord.length > 0) {
-                        var id = ord[0].order_id;
+                        // AC 2009.04.29
+                        var id = ord[idx].id;
+                        // var id = ord[idx].order_id;
+
                         var status = ord[0].status;
                         var check_no = ord[0].check_no;
 
@@ -552,7 +571,8 @@ this.log("evt.type:" + evt.type);
                 case 'AllCheck':
                     // @todo should be rewrite...
 
-                    var ord = this._tableStatusModel.getCheckList('AllCheck', no);
+                    // var ord = this._tableStatusModel.getCheckList('AllCheck', no);
+                    var ord = this.getCheckList('AllCheck', no);
 
                     if (ord && ord.length > 1) {
                         //
@@ -577,9 +597,10 @@ this.log("evt.type:" + evt.type);
                             var idx = inputObj.index;
                             // return queues[idx].key;
 
-                            // AC 2009.04.27
-                            // var id = ord[idx].id;
-                            var id = ord[idx].order_id;
+                            // AC 2009.04.29
+                            var id = ord[idx].id;
+                            // var id = ord[idx].order_id;
+
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
 
@@ -612,7 +633,10 @@ this.log("evt.type:" + evt.type);
                         }
 
                     } else if (ord && ord.length > 0) {
-                        var id = ord[0].order_id;
+                        // AC 2009.04.29
+                        var id = ord[idx].id;
+                        // var id = ord[idx].order_id;
+
                         var status = ord[0].status;
                         var check_no = ord[0].check_no;
 
