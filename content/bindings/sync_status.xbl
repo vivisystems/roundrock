@@ -114,7 +114,6 @@
                                     self.setStatus(false);
                                 }
                             }else {
-                                GREUtils.log('sync status  = ' + req.status);
                                 self.setStatus(false);
                             }
                             delete req;
