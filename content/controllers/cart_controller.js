@@ -3760,14 +3760,14 @@ this.log("newCheck...");
         },
 
         newTable: function() {
-            this.log("newTable...");
+            // this.log("newTable...");
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
 
             var curTransaction = this._getTransaction();
-            if (curTransaction) {
+            if (curTransaction && curTransaction.recall == 2) {
                 if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0 && curTransaction.data.recall !=2) {
                     NotifyUtils.warn(_('This order must be store first'));
                     return;

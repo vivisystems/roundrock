@@ -167,7 +167,7 @@
             if (!sleepTime) {
               sleepTime = 1000;
             }
-            this.sleep(sleepTime);
+            // this.sleep(sleepTime);
 
             return promptPanel;
         },
@@ -250,14 +250,14 @@
 
         doMergeTable: function() {
             this._setPromptLabel('*** ' + _('Merge Table') + ' ***', _('Please Select the source table as master table...'), '', _('Press CANCEL button to cancel function'), 2);
-
+            
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'MergeTable';
         },
 
         doUnmergeTable: function() {
             this._setPromptLabel('*** ' + _('Unmerge Table') + ' ***', _('Please Select the hold table to be unmerge...'), '', _('Press CANCEL button to cancel function'), 2);
-
+            
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'UnmergeTable';
         },
@@ -467,8 +467,6 @@
             tableStatus._controller = this;
             document.getElementById('tableScrollablepanel').datasource = tableStatus ;
 
-// this.log("load tables...");
-// this.log(this.dump(tables));
         }
 
     };

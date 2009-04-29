@@ -10,6 +10,7 @@
 <!ENTITY tableman.table.tablename "Label">
 <!ENTITY tableman.table.seats "Seats">
 <!ENTITY tableman.table.region "Region">
+<!ENTITY tableman.table.destination "Destination">
 
 <!ENTITY tableman.region.name "Region Name">
 <!ENTITY tableman.region.bgimage "Floor Plan Image">
