@@ -162,7 +162,7 @@ SyncSetting.prototype.createSchema = function() {
                 var sql2 = 'CREATE TABLE IF NOT EXISTS "sync_remote_machines" ("id" INTEGER PRIMARY KEY NOT NULL, "machine_id" varchar(36) NOT NULL, "last_synced" int DEFAULT -1) ' ;
                 datasource.execute(sql2);
 
-                sql2 = 'CREATE INDEX IF NOT EXISTS "sync_remote_machines_machine_id" on "sync_remote_machines" ("machine_id")' ;
+                sql2 = 'CREATE UNIQUE INDEX IF NOT EXISTS "sync_remote_machines_machine_id" on "sync_remote_machines" ("machine_id")' ;
                 datasource.execute(sql2);
 
             }catch(e) {
