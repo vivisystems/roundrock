@@ -23,7 +23,7 @@ ${detail.items_count|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${detail.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
-${detail.tax_subtotal|default:0|viviFormatPrices:true|right:24}
+${detail.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
 ${_( '(rpt)Surcharge' ) + ':'}
 ${detail.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}

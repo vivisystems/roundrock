@@ -58,7 +58,7 @@
                     <td style="text-align: left;">${order.time|unixTimeToString}</td>
                     <td style="text-align: left;">${order.sequence}</td>
                     <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${order.tax_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.discount_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.promotion_subtotal|viviFormatPrices:true}</td>
@@ -78,7 +78,7 @@
                     <td></td>
                     <td colspan="2">${_( '(rpt)Summary' ) }:</td>
                     <td style="text-align: right;">${clerk.summary.item_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${clerk.summary.tax_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${clerk.summary.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.discount_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.promotion_subtotal|viviFormatPrices:true}</td>

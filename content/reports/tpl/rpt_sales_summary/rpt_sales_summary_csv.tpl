@@ -11,7 +11,7 @@
 "",""
 "${_( '(rpt)General Information' )}"
 "","${_( '(rpt)Total' )}","${body.sales_summary.ItemSubtotal|default:0|viviFormatPrices:true}"
-"","${_( '(rpt)Add-on Tax' )}","${body.sales_summary.TaxSubtotal|default:0|viviFormatPrices:true}"
+"","${_( '(rpt)Add-on Tax' )}","${body.sales_summary.TaxSubtotal|default:0|viviFormatTaxes:true}"
 "","${_( '(rpt)Surcharge' )}","${body.sales_summary.SurchargeSubtotal|default:0|viviFormatPrices:true}"
 "","${_( '(rpt)Discount' )}","${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true}"
 "","${_( '(rpt)Promotion' )}","${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true}"
@@ -47,9 +47,9 @@
 "${_( '(rpt)Tax Summary' )}"
 "","${_( '(rpt)Tax Name' )}","${_( '(rpt)Tax Rate' )}","${_( '(rpt)Tax Type' )}","${_( '(rpt)Total' )}"
 {for detail in body.tax_summary.records}
-"","${detail.tax_name}","${detail.tax_rate}","${detail.tax_type}","${detail.tax_subtotal|default:0|viviFormatPrices:true}"
+"","${detail.tax_name}","${detail.tax_rate}","${detail.tax_type}","${detail.tax_subtotal|default:0|viviFormatTaxes:true}"
 {/for}
-"${_( '(rpt)Summary' ) + ':'}","","","","${body.tax_summary.summary.tax_total|default:0|viviFormatPrices:true}"
+"${_( '(rpt)Summary' ) + ':'}","","","","${body.tax_summary.summary.tax_total|default:0|viviFormatTaxes:true}"
 "",""
 "${_( '(rpt)Top Department Sales' )}"
 "","${_( '(rpt)Department' )}","${_( '(rpt)Qty' )}","${_( '(rpt)Total' )}"

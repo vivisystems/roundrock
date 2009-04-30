@@ -24,7 +24,7 @@ ${orders.text|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${orders.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
-${orders.tax_subtotal|viviFormatPrices:true|right:24}
+${orders.tax_subtotal|viviFormatTaxes:true|right:24}
 ${_( '(rpt)Surcharge' ) + ':'}
 ${orders.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}
@@ -41,7 +41,7 @@ ${_( '(rpt)Summary' )}
 ${_( '(rpt)Total' ) + ':'}
 ${types.summary.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
-${types.summary.tax_subtotal|viviFormatPrices:true|right:24}
+${types.summary.tax_subtotal|viviFormatTaxes:true|right:24}
 ${_( '(rpt)Surcharge' ) + ':'}
 ${types.summary.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}

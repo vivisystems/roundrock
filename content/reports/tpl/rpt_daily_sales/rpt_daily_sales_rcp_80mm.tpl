@@ -13,7 +13,7 @@ ${detail.terminal_no|left:8}  ${detail.time|unixTimeToString|left:16}  ${detail.
 ${'    ' + _( '(rpt)Service' ) + ': '}${detail.service_clerk_displayname|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Proceeds' ) + ': '}${detail.proceeds_clerk_displayname|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Total' ) + ': '}${detail.item_subtotal|viviFormatPrices:true}
-${'    ' + _( '(rpt)Add-on Tax' ) + ': '}${detail.tax_subtotal|viviFormatPrices:true}
+${'    ' + _( '(rpt)Add-on Tax' ) + ': '}${detail.tax_subtotal|viviFormatTaxes:true}
 ${'    ' + _( '(rpt)Surcharge' ) + ': '}${detail.surcharge_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Discount' ) + ': '}${detail.discount_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Promotion' ) + ': '}${detail.promotion_subtotal|viviFormatPrices:true}
@@ -28,7 +28,7 @@ ${'    ' + _( '(rpt)Gift Card' ) + ': '}${detail.giftcard|viviFormatPrices:true}
 ------------------------------------------
 ${_( '(rpt)Summary' )}
 ${'    ' + _( '(rpt)Total' ) + ': '}${foot.foot_datas.item_subtotal|viviFormatPrices:true}
-${'    ' + _( '(rpt)Add-on Tax' ) + ': '}${foot.foot_datas.tax_subtotal|viviFormatPrices:true}
+${'    ' + _( '(rpt)Add-on Tax' ) + ': '}${foot.foot_datas.tax_subtotal|viviFormatTaxes:true}
 ${'    ' + _( '(rpt)Surcharge' ) + ': '}${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Discount' ) + ': ' }${foot.foot_datas.discount_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Promotion' ) + ': ' }${foot.foot_datas.promotion_subtotal|viviFormatPrices:true}

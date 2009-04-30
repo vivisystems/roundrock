@@ -12,7 +12,7 @@ ${_( '(rpt)Term_No.' )|left:8} ${_( '(rpt)Time' )|left:16} ${_( '(rpt)Sequence' 
 ${detail.terminal_no|left:8} ${detail.Order.time|unixTimeToString|left:16} ${detail.sequence|right:8} ${detail.no_of_customers|right:3} ${detail.items_count|right:3}
 ------------------------------------------
 ${_( '(rpt)Total' ) + ':'|left:15}${detail.item_subtotal|default:0|viviFormatPrices:true}
-${_( '(rpt)Add-on Tax' ) + ':'|left:15}${detail.tax_subtotal|default:0|viviFormatPrices:true}
+${_( '(rpt)Add-on Tax' ) + ':'|left:15}${detail.tax_subtotal|default:0|viviFormatTaxes:true}
 ${_( '(rpt)Surcharge' ) + ':'|left:15}${detail.surcharge_subtotal|default:0|viviFormatPrices:true}
 ${_( '(rpt)Discount' ) + ':'|left:15}${detail.discount_subtotal|default:0|viviFormatPrices:true}
 ${_( '(rpt)Promotion' ) + ':'|left:15}${detail.promotion_subtotal|default:0|viviFormatPrices:true}
