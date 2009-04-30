@@ -134,8 +134,7 @@
                     <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
                     <spacer flex="1"/>
                     <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" default="false"
-                                oncommand="if (confirmEndSalePeriod()) doOKButton('end');"
-                                roles="acl_close_sale_period" action="display"/>
+                                oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label="" oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

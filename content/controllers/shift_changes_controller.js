@@ -209,7 +209,8 @@
             // check if sale period leads calendar date by more than allowed number of days
             var today = Date.today();
             var salePeriodDate = new Date(salePeriod * 1000);
-            var canEndSalePeriod = ((salePeriodDate - today) / (24 * 60 * 60 * 1000) + 1) <= salePeriodLeadDays;
+            var canEndSalePeriod = this.Acl.isUserInRole('acl_close_sale_period') &&
+                                   ((salePeriodDate - today) / (24 * 60 * 60 * 1000) + 1) <= salePeriodLeadDays;
 
             // first, we collect payment totals for credit cards and coupons
             var fields = ['order_payments.memo1 as "OrderPayment.name"',
