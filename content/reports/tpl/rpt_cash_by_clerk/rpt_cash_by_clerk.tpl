@@ -33,6 +33,8 @@
                     <th style="text-align: right;">${_( '(rpt)Sales' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Excess' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Deposit' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Refund' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Credit' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Ledger In' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Ledger Out' )}</th>
                 </tr>
@@ -42,18 +44,20 @@
             </tfoot>
             <tbody>
                 <tr style="border-bottom: 2px solid #b5b093;">
-                	<td style="text-align: left;">${master.sale_period}</td>
+                	<td style="text-align: left;">${master.sale_period|unixTimeToString:'yyyy-MM-dd'}</td>
                 	<td style="text-align: right;">${master.shift_number}</td>
                 	<td style="text-align: right;">${master.balance|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.cash|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.sales|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.excess|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.deposit|default:0|viviFormatPrices:true}</td>
+                	<td style="text-align: right;">${master.refund|default:0|viviFormatPrices:true}</td>
+                	<td style="text-align: right;">${master.credit|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.ledger_in|default:0|viviFormatPrices:true}</td>
                 	<td style="text-align: right;">${master.ledger_out|default:0|viviFormatPrices:true}</td>
                 </tr>
                 <tr style="border-top: 1px solid #4ca;">
-                	<td colspan="5" style="vertical-align: top;">
+                	<td colspan="6" style="vertical-align: top;">
                 		<table style="width: 100%;">
                 			<tr style="color: gray; font-style: italic;">
                 				<th style="text-align: left;">${_( '(rpt)Type' )}</th>
@@ -71,7 +75,7 @@
 {/for}
 						</table>
 					</td>
-					<td colspan="4" style="vertical-align: top;">
+					<td colspan="5" style="vertical-align: top;">
 						<table style="width: 100%;">
 							<tr style="color: gray; font-style: italic;">
 								<th style="text-align: left;">${_( '(rpt)Destination' )}</th>
