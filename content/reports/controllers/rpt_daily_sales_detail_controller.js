@@ -107,7 +107,7 @@
 			
 			// prompt for the last data row.
 			if ( results.length == 0 )
-				alert( 'No datum!' );
+				alert( _( 'No datum!' ) );
 
 			var summary = {
 				item_subtotal: 0,
