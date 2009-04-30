@@ -17,5 +17,6 @@
 <!ENTITY prompt.shiftchange.heading.amount "Amount">
 <!ENTITY prompt.shiftchange.heading.change "Change">
 <!ENTITY prompt.shiftchange.heading.excess "Excess Payment">
-<!ENTITY prompt.end.sale.period "End Sale Period">
+<!ENTITY prompt.shiftchange.change.shift "Change Shift">
+<!ENTITY prompt.shiftchange.end.sale.period "End Sale Period">
 <!ENTITY prompt.shiftchange.open.drawer "Open Drawer">
