@@ -573,6 +573,7 @@
                     sales: inputObj.salesRevenue,
                     deposit: inputObj.deposit,
                     refund: inputObj.refund,
+                    credit: inputObj.credit,
                     ledger_out: inputObj.ledgerOutTotal - amt,
                     ledger_in: inputObj.ledgerInTotal,
                     excess: inputObj.giftcardExcess,
