@@ -258,7 +258,7 @@
                 }
             }
 
-            GeckoJS.Session.set('vivipos_fec_table_number', i);
+            // GeckoJS.Session.set('vivipos_fec_table_number', i);
             return "" + i;
         },
 
