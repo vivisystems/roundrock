@@ -1987,6 +1987,9 @@ msgstr "** Your Saving **"
 msgid "acl_manage_tableman"
 msgstr "Table Manager"
 
+msgid "ledger"
+msgstr ""
+
 msgid "confirm timezone change"
 msgstr ""
 
