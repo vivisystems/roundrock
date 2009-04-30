@@ -485,13 +485,13 @@ listbox {
 }
 
 .jobsummary .clockin_time {
-    min-width: 55px;
-    max-width: 55px;
+    min-width: 68px;
+    max-width: 68px;
 }
 
 .jobsummary .clockout_time {
-    min-width: 55px;
-    max-width: 55px;
+    min-width: 68px;
+    max-width: 68px;
 }
 
 	/* Attendance �C�� Scorll bar �W�U���� */

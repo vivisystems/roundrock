@@ -211,7 +211,8 @@
             var clockstamp = new ClockStampModel();
             var today = new Date();
             var stamps = clockstamp.find('all', {
-                conditions: "username='" + username + "' AND ( clockin_date='" + today.toString("yyyy-MM-dd") + "' OR clockout = 0 )",
+                conditions: "username='" + username + "' AND ( substr( clockout_time, 1, 10 ) ='" + today.toString("yyyy-MM-dd") + "' OR clockin_date='" +
+                			today.toString("yyyy-MM-dd") + "' OR clockout = 0 )",
                 order: "created"
             });
             if (username != this.lastUser) this.clearSummary();
