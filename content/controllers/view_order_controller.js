@@ -32,7 +32,7 @@
             var orders = orderModel.find('all', {
                 fields: ['id', 'sequence', 'terminal_no', 'branch', 'branch_id'],
                 conditions: conditions,
-                order: 'transaction_created desc, branch_id, terminal_no, sequence',
+                order: 'transaction_created desc, branch_id, terminal_no, sequence desc',
                 limit: 50,
                 recursive: 0
             });
