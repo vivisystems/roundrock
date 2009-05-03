@@ -95,7 +95,7 @@ pref("vivipos.fec.settings.controlpanels.product.plufilters.icon", "chrome://viv
 pref("vivipos.fec.settings.controlpanels.product.plufilters.roles", "acl_manage_plufilters");
 
 pref("vivipos.fec.settings.controlpanels.product.stocks.label", "Stock Control");
-pref("vivipos.fec.settings.controlpanels.product.stocks.path", "chrome://viviecr/content/stocks.xul");
+pref("vivipos.fec.settings.controlpanels.product.stocks.path", "chrome://viviecr/content/stock_records.xul");
 pref("vivipos.fec.settings.controlpanels.product.stocks.icon", "chrome://viviecr/skin/icons/icon_stocks.png");
 pref("vivipos.fec.settings.controlpanels.product.stocks.roles", "acl_manage_stock");
  
