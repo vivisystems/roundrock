@@ -10,6 +10,6 @@
 
  "${_( '(rpt)Clerk' )}","${_( '(rpt)Event' )}","${_( '(rpt)Number of Events' )}"
 {for item in body}
-"${item.clerk_displayname}","${item.event_type}","${item.num_events}"
+"${item.clerk_displayname}","${_( '(rpt)' + item.event_type )}","${item.num_events}"
 {/for}
 "${_( '(rpt)Summary' ) + ':'}","","${foot.foot_data.total_num_events}"

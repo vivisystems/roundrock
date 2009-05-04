@@ -159,6 +159,11 @@
             
             this._reportRecords.foot.foot_datas = footRecords;
         },
+        
+        execute: function() {
+        	this._super();
+        	this._registerOpenOrderDialog();
+        },
 
         load: function() {
             var today = new Date();

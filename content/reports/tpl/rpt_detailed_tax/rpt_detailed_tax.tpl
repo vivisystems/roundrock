@@ -38,7 +38,7 @@
         </thead>
         <tbody>
 {for item in body}
-            <tr>
+            <tr id="${item.order_id}">
                 <td style="text-align: left;">${item.Order.sequence}</td>
                 <td style="text-align: left;">${item.Order.time|unixTimeToString}</td>
                 <td style="text-align: right;">${item.Order.total|default:0|viviFormatPrices:true}</td>
