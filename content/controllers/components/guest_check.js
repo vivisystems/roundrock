@@ -102,7 +102,7 @@
         selGuestNum: function (no){
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=400';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=420,height=460';
             var inputObj = {
                 input0:no, require0:true, numpad:true
             };

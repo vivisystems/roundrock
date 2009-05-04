@@ -60,8 +60,6 @@
             this.getTableListObj().vivitree.selection.select(index);
             if (index > -1) {
                 var table = this._tableListDatas[index];
-this.log("table:");
-this.log(this.dump(table));
                 GeckoJS.FormHelper.unserializeFromObject('tableForm', table);
             }
 
