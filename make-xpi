@@ -13,5 +13,5 @@ fi
 
 find app/tmp -type f -exec rm -f {} \;
 
-zip -r ${filename} chrome.manifest install.rdf sync_client index.php app/ cake/ docs/ etc/ init.d/ vendors/
+zip -r ${filename} chrome.manifest install.rdf sync_client sync_tools clear_tmp index.php app/ cake/ docs/ etc/ init.d/ vendors/
 
