@@ -1855,6 +1855,18 @@ msgstr "canceled"
 msgid "(rpt)voided"
 msgstr "voided"
 
+msgid "(rpt)Revenue/Order"
+msgstr "Revenue/Order"
+
+msgid "(rpt)Revenue/Guest"
+msgstr "Revenue/Guest"
+
+msgid "(rpt)Guest/Order"
+msgstr "Guest/Order"
+
+msgid "(rpt)Item/Order"
+msgstr "Guest/Order"
+
 msgid "(view)completed"
 msgstr "completed"
 
