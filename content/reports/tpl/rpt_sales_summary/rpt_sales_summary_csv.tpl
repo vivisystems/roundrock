@@ -20,7 +20,7 @@
 "",""
 "${_( '(rpt)Sales Summary' )}"
 "","${_( '(rpt)Orders' ) + ':'}","${body.sales_summary.OrderNum|default:0}"
-"","${_( '(rpt)Total' ) + ':'}","${body.sales_summary.Total|default:0|viviFormatPrices:true}"
+"","${_( '(rpt)Revenue' ) + ':'}","${body.sales_summary.Total|default:0|viviFormatPrices:true}"
 "","${_( '(rpt)Guests' ) + ':'}","${body.sales_summary.Guests|default:0}"
 "","${_( '(rpt)Items' ) + ':'}","${body.sales_summary.ItemsCount|default:0}"
 "","${_( '(rpt)Voided Orders' ) + ':'}","${body.sales_summary.VoidedOrders|default:0}"

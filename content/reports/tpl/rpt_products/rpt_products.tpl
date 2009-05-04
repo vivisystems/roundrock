@@ -85,22 +85,22 @@
                             </tr>
                             <tr>
                                 <td>${_( '(rpt)Lalo' ) + ':'}</td>
-                                <td style="text-align: left;">${plu.price_lalo1|viviFormatPrices:true}</td>
-                                <td style="text-align: left;">${plu.price_lalo1|viviFormatPrices:true}</td>
-                                <td style="text-align: left;">${plu.price_lalo1|viviFormatPrices:true}</td>
-                                <td style="text-align: left;">${plu.price_lalo4|viviFormatPrices:true}</td>
-                                <td style="text-align: left;">${plu.price_lalo5|viviFormatPrices:true}</td>
-                                <td style="text-align: left;">${plu.price_lalo6|viviFormatPrices:true}</td>
-                                <td style="text-align: left;">${plu.price_lalo7|viviFormatPrices:true}</td>
-                                <td style="text-align: left;">${plu.price_lalo8|viviFormatPrices:true}</td>
-                                <td style="text-align: left;">${plu.price_lalo9|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${plu.price_lalo1|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${plu.price_lalo1|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${plu.price_lalo1|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${plu.price_lalo4|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${plu.price_lalo5|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${plu.price_lalo6|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${plu.price_lalo7|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${plu.price_lalo8|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${plu.price_lalo9|viviFormatPrices:true}</td>
                             </tr>
                             <tr>
-                                <td colspan="2">${_( '(rpt)Maintain_Stock' ) + ': '}${plu.auto_maintain_stock}</td>
-                                <td colspan="2">${_( '(rpt)Return_Stock' ) + ': '}${plu.return_stock}</td>
-                                <td colspan="2">${_( '(rpt)Single' ) + ': '}${plu.single}</td>
-                                <td colspan="2">${_( '(rpt)Age_Verification' ) + ': '}${plu.age_verification}</td>
-                                <td colspan="2">${_( '(rpt)Visible' ) + ': '}${plu.visible}</td>
+                                <td colspan="2">${_( '(rpt)Maintain_Stock' ) + ': '}${plu.auto_maintain_stock|boolToLetter}</td>
+                                <td colspan="2">${_( '(rpt)Return_Stock' ) + ': '}${plu.return_stock|boolToLetter}</td>
+                                <td colspan="2">${_( '(rpt)Single' ) + ': '}${plu.single|boolToLetter}</td>
+                                <td colspan="2">${_( '(rpt)Age_Verification' ) + ': '}${plu.age_verification|boolToLetter}</td>
+                                <td colspan="2">${_( '(rpt)Visible' ) + ': '}${plu.visible|boolToLetter}</td>
                             </tr>
                         </table>
                     </td>

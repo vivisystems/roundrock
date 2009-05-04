@@ -18,7 +18,7 @@ ${'  ' + _( '(rpt)Revenue' ) + ':'|left:13}${body.sales_summary.Total|default:0|
 ------------------------------------------
 ${_( '(rpt)Sales Summary' )}
 ${'  ' + _( '(rpt)Orders' ) + ':'|left:16}${body.sales_summary.OrderNum|default:0|right:26}
-${'  ' + _( '(rpt)Total' ) + ':'|left:16}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:26}
+${'  ' + _( '(rpt)Revenue' ) + ':'|left:16}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Guests' ) + ':'|left:16}${body.sales_summary.Guests|default:0|right:26}
 ${'  ' + _( '(rpt)Items' ) + ':'|left:16}${body.sales_summary.ItemsCount|default:0|right:26}
 ${'  ' + _( '(rpt)Voided Orders' ) + ':'|left:16}${body.sales_summary.VoidedOrders|default:0|right:26}

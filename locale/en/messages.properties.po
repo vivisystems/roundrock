@@ -1855,6 +1855,15 @@ msgstr "Refund"
 msgid "(rpt)Credit"
 msgstr "Credit"
 
+msgid "(rpt)discarded"
+msgstr "discarded"
+
+msgid "(rpt)canceled"
+msgstr "canceled"
+
+msgid "(rpt)voided"
+msgstr "voided"
+
 msgid "(view)completed"
 msgstr "completed"
 
