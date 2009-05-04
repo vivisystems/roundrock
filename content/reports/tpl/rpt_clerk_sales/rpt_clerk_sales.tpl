@@ -25,7 +25,7 @@
             		<td colspan="14" class="subtitle">${clerk.name}</td>
 				</tr>
                 <tr class="fields">
-                    <th style="text-align: left;">${_( '(rpt)Term_No.' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
                     <th style="text-align: left;">${_( clerk.associated_clerk )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>

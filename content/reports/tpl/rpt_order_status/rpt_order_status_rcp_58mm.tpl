@@ -10,7 +10,7 @@ ${head.end_time}
 ${head.title|center:24}
 {for detail in body}
 ------------------------
-${_( '(rpt)Term_No.' ) + ':'}
+${_( '(rpt)Terminal' ) + ':'}
 ${detail.terminal_no|right:24}
 ${_( '(rpt)Time' ) + ':'}
 ${detail.time|unixTimeToString|right:24}
@@ -32,8 +32,10 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${detail.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${detail.revalue_subtotal|viviFormatPrices:true|right:24}
-${_( '(rpt)Payment' ) + ':'}
+${_( '(rpt)Net Sales' ) + ':'}
 ${detail.total|viviFormatPrices:true|right:24}
+${_( '(rpt)Payment' ) + ':'}
+${detail.payment|viviFormatPrices:true|right:24}
 {/for}
 ------------------------
 ${_( '(rpt)Summary' )}
@@ -49,8 +51,10 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${foot.foot_datas.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${foot.foot_datas.revalue_subtotal|viviFormatPrices:true|right:24}
-${_( '(rpt)Payment' ) + ':'}
+${_( '(rpt)Net Sales' ) + ':'}
 ${foot.foot_datas.total|viviFormatPrices:true|right:24}
+${_( '(rpt)Payment' ) + ':'}
+${foot.foot_datas.payment_subtotal|viviFormatPrices:true|right:24}
 ------------------------
 ${foot.gen_time}
 [&CR]

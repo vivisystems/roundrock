@@ -90,7 +90,7 @@
             data.order = order;
             data.sequence = order.sequence;
 
-            this.log(this.dump(order));
+            this.log('DEBUG', this.dump(order));
             
             var result = tpl.process(data);
 

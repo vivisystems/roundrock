@@ -400,8 +400,8 @@
                 return;
             }
 
-            // if this is a stored order, check if the current batch contains any payment information
-            if (txn.data.status != 1 && !txn.hasPaymentsInBatch() && !txn.isClosed()) {
+            // if this is a stored order, check if the current batch contains any payment information or if this is a receipt copy
+            if (txn.data.status != 1 && !txn.hasPaymentsInBatch() && !txn.isClosed() && !duplicate) {
                 NotifyUtils.warn(_('No new payment made; cannot issue receipt'));
                 return;
             }
@@ -789,7 +789,7 @@
             }
 
             //@debug
-            // if (data.order) this.log(this.dump(data.order));
+            //if (data.order) this.log(this.dump(data.order));
             // if (data.customer) this.log(this.dump(data.customer));
             // if (data.store) this.log(this.dump(data.store));
             // if (data.annotations) this.log(this.dump(data.annotations));
@@ -908,7 +908,7 @@
                 }
             }
             //@debug
-            //alert(GeckoJS.BaseObject.dump(result));
+            alert(GeckoJS.BaseObject.dump(result));
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);

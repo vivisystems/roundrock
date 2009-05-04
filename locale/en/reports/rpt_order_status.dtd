@@ -6,12 +6,12 @@
 <!ENTITY rptorderstatus.exportcsv "Export to CSV">
 <!ENTITY rptorderstatus.exportrcp "Print">
 <!ENTITY rptorderstatus.togglezoom "Toggle Zoom">
-<!ENTITY rptorderstatus.machineid "Terminal No:">
+<!ENTITY rptorderstatus.machineid "Terminal Number:">
 <!ENTITY rptorderstatus.sortby "Sort By:">
-<!ENTITY rptorderstatus.terminal_no "Terminal No.">
+<!ENTITY rptorderstatus.terminal_no "Terminal Number">
 <!ENTITY rptorderstatus.time "Time">
 <!ENTITY rptorderstatus.sequence "Sequence">
-<!ENTITY rptorderstatus.invoice_no "Invoice No.">
+<!ENTITY rptorderstatus.invoice_no "Invoice Number">
 <!ENTITY rptorderstatus.tax_subtotal "Add-on Tax">
 <!ENTITY rptorderstatus.total "Payment">
 <!ENTITY rptorderstatus.item_subtotal "Total">
@@ -24,12 +24,12 @@
 <!ENTITY rptorderstatus.service_clerks "Service Clerks:">
 <!ENTITY rptorderstatus.service_clerk "Service Clerk">
 <!ENTITY rptorderstatus.orderstatus "Order Status:">
-<!ENTITY rptorderstatus.finalizedorder "Finalized Orders">
-<!ENTITY rptorderstatus.savedorder "Stored Orders">
-<!ENTITY rptorderstatus.canceledorder "Canceled Orders">
-<!ENTITY rptorderstatus.voidedorder "Voided Orders">
+<!ENTITY rptorderstatus.finalizedorder "Finalized">
+<!ENTITY rptorderstatus.savedorder "Stored">
+<!ENTITY rptorderstatus.canceledorder "Canceled">
+<!ENTITY rptorderstatus.voidedorder "Voided">
 <!ENTITY rptorderstatus.status "Status">
 <!ENTITY rptorderstatus.periodtype "Period Type:">
 <!ENTITY rptorderstatus.transaction_created "Order Opened Time">
 <!ENTITY rptorderstatus.sale_period "Sale Period">
-<!ENTITY rptorderstatus.shiftno "Shift No.:">
+<!ENTITY rptorderstatus.shiftno "Shift Number:">

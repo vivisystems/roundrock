@@ -43,6 +43,7 @@
                             'orders.discount_subtotal',
                             'orders.promotion_subtotal',
                             'orders.revalue_subtotal',
+                            'orders.payment_subtotal - orders.change as "Order.payment"',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -77,6 +78,8 @@
 				
 				switch ( sortby ) {
 					case 'terminal_no':
+					case 'sequence':
+					case 'invoice_no':
 					case 'service_clerk_displayname':
 					case 'status':
 					case 'time':
@@ -84,8 +87,6 @@
 					case 'promotion_subtotal':
 					case 'revalue_subtotal':
 						break;
-					case 'sequence':
-					case 'invoice_no':
 					case 'item_subtotal':
 					case 'tax_subtotal':
 					case 'surcharge_subtotal':
@@ -108,6 +109,7 @@
         	var discount_subtotal = 0;
         	var promotion_subtotal = 0;
         	var revalue_subtotal = 0;
+            var payment_subtotal = 0;
             
             records.forEach( function( record ) {
             	delete record.Order;
@@ -115,6 +117,7 @@
             	tax_subtotal += record.tax_subtotal;
 		    	item_subtotal += record.item_subtotal;
 		    	total += record.total;
+                payment_subtotal += record.payment;
 		    	surcharge_subtotal += record.surcharge_subtotal;
 		    	discount_subtotal += record.discount_subtotal;
 		    	promotion_subtotal += record.promotion_subtotal;
@@ -122,16 +125,16 @@
             	
             	switch ( parseInt( record.status, 10 ) ) {
             		case 1:
-            			record.status = _( 'Finalized' );
+            			record.status = _( '(rpt)finalized' );
             			break;
             		case 2:
-            			record.status = _( 'Stored' );
+            			record.status = _( '(rpt)stored' );
             			break;
             		case -1:
-            			record.status = _( 'Canceled' );
+            			record.status = _( '(rpt)canceled' );
             			break;
             		case -2:
-            			record.status = _( 'Voided' );
+            			record.status = _( '(rpt)voided' );
             			break;
             	}
             });
@@ -147,7 +150,8 @@
             	surcharge_subtotal: surcharge_subtotal,
             	discount_subtotal: discount_subtotal,
             	promotion_subtotal: promotion_subtotal,
-            	revalue_subtotal: revalue_subtotal
+            	revalue_subtotal: revalue_subtotal,
+                payment_subtotal: payment_subtotal
             };
             
             this._reportRecords.head.titile = _( 'Order Status Report' );
@@ -158,6 +162,12 @@
             this._reportRecords.body = records;
             
             this._reportRecords.foot.foot_datas = footRecords;
+        },
+
+        execute: function() {
+        	this._super();
+
+            this._registerOrderDialog();
         },
 
         load: function() {

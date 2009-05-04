@@ -9,7 +9,7 @@
 <!ENTITY rptproducts.department "Department:">
 <!ENTITY rptproducts.sortby "Sort by:">
 <!ENTITY rptproducts.all "List All">
-<!ENTITY rptproducts.no "No">
+<!ENTITY rptproducts.no "Product Number">
 <!ENTITY rptproducts.name "Name">
 <!ENTITY rptproducts.barcode "Barcode">
 <!ENTITY rptproducts.rate "Tax">

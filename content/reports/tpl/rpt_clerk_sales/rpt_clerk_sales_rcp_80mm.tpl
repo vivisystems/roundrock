@@ -9,7 +9,7 @@ ${head.title|center:42}
 {for clerk in body}
 Clerk:${clerk.name|right:36}
 ------------------------------------------
-${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Seq.' )|left:14}
+${_( '(rpt)Terminal' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Seq.' )|left:14}
 --------  ----------  --------------------
 {for order in clerk.orders}
 ${order.terminal_no|left:8}  ${order.time|unixTimeToString|left:16}  ${order.sequence|left:14}

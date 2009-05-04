@@ -1547,10 +1547,10 @@ msgid "(rpt)End Time"
 msgstr "End Time"
 
 msgid "(rpt)Terminal No."
-msgstr "Terminal No."
+msgstr "Terminal"
 
 msgid "(rpt)Drawer No."
-msgstr "Drawer No."
+msgstr "Drawer"
 
 msgid "(rpt)Time"
 msgstr "Time"
@@ -1560,9 +1560,6 @@ msgstr "Event"
 
 msgid "(rpt)Number of Events"
 msgstr "Number of Events"
-
-msgid "(rpt)Term_No."
-msgstr "Term_No."
 
 msgid "(rpt)Sequence"
 msgstr "Sequence"
@@ -1632,9 +1629,6 @@ msgstr "Price"
 
 msgid "(rpt)Quantity"
 msgstr "Quantity"
-
-msgid "(rpt)Termianl No"
-msgstr "Termianl No."
 
 msgid "(rpt)No."
 msgstr "No."
@@ -1846,14 +1840,17 @@ msgstr "Refund"
 msgid "(rpt)Credit"
 msgstr "Credit"
 
-msgid "(rpt)discarded"
-msgstr "discarded"
-
 msgid "(rpt)canceled"
 msgstr "canceled"
 
 msgid "(rpt)voided"
 msgstr "voided"
+
+msgid "(rpt)stored"
+msgstr "stored"
+
+msgid "(rpt)finalized"
+msgstr "finalized"
 
 msgid "(rpt)Revenue/Order"
 msgstr "Revenue/Order"
