@@ -191,14 +191,10 @@
             this.ready = function() {
                 if(!self.readyRuned) {
                     if (self._main_container.boxObject.width != 0) {
-                    // self._face_div.offsetWidth = self._main_container.boxObject.width;
                     self._face_div.setAttribute('style', "position: relative; width: " + self._main_container.boxObject.width + "px;");
-                    self._face_div.setAttribute('style', "position: relative; height: " + self._main_container.boxObject.height + "px;");
                     // self.resizeButtons();
                     self.readyRuned = true;
                     }
-                    dump("boxObject.width:::" + self._main_container.boxObject.width);
-                    dump("offetWidth:::" + self._face_div.offsetWidth);
                 }
             };
 
@@ -208,13 +204,6 @@
             // static .xul
             window.addEventListener('load', this.ready, true);
 
-/*
-            dump("boxObject.width:::" + this._main_container.boxObject.width);
-            this._face_div.setAttribute('style', "position: relative; width: 100%;");
-            this._face_div.offsetWidth = this._main_container.boxObject.width;
-            // GREUtils.log(this._face_div.offsetWidth);
-            dump("width:::" + this._face_div.width);
-*/
          ]]>
 	</xbl:constructor>
 
