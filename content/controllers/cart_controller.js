@@ -1287,6 +1287,10 @@
             var voidedItem = curTransaction.voidItemAt(index);
             this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
 
+            GeckoJS.Session.remove('cart_last_sell_item');
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
             this.subtotal();
 
 

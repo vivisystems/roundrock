@@ -1904,7 +1904,7 @@ msgid "(view)shift number"
 msgstr "shift number"
 
 msgid "(view)no_of_customers"
-msgstr "customers"
+msgstr "no. of customers"
 
 msgid "(view)contact"
 msgstr "contact"
@@ -1923,6 +1923,15 @@ msgstr "customer"
 
 msgid "(view)customers"
 msgstr "customers"
+
+msgid "(view)invoice number"
+msgstr "invoice number"
+
+msgid "(view)invoice count"
+msgstr "invoice count"
+
+msgid "(view)invoice title"
+msgstr "invoice title"
 
 msgid "(view)Item Subtotal"
 msgstr "Item Subtotal"
@@ -3953,6 +3962,9 @@ msgid "Cash Drawer Summary Report"
 msgstr ""
 
 msgid "Daily Sales Report"
+msgstr ""
+
+msgid "No datum!"
 msgstr ""
 
 msgid "Daily Sales Report - Detail"
