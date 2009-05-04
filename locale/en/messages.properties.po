@@ -1855,6 +1855,15 @@ msgstr "Refund"
 msgid "(rpt)Credit"
 msgstr "Credit"
 
+msgid "(rpt)discarded"
+msgstr "discarded"
+
+msgid "(rpt)canceled"
+msgstr "canceled"
+
+msgid "(rpt)voided"
+msgstr "voided"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -3953,6 +3962,9 @@ msgid "Cash Drawer Summary Report"
 msgstr ""
 
 msgid "Daily Sales Report"
+msgstr ""
+
+msgid "No datum!"
 msgstr ""
 
 msgid "Daily Sales Report - Detail"

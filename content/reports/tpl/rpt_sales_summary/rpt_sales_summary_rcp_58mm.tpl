@@ -28,7 +28,7 @@ ${body.sales_summary.Total|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Sales Summary' )}
 ${_( '(rpt)Orders' ) + ':'}
 ${body.sales_summary.OrderNum|default:0|right:24}
-${_( '(rpt)Total' ) + ':'}
+${_( '(rpt)Revenue' ) + ':'}
 ${body.sales_summary.Total|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Guests' ) + ':'}
 ${body.sales_summary.Guests|default:0|right:24}

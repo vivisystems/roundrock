@@ -200,7 +200,6 @@ if (typeof(TrimPath) != 'undefined') {
 
         };
 
-
         // unixTimeToLocale modifier
         $T.parseTemplate_etc.modifierDef['unixTimeToLocale'] = function ( time, type ) {
             type = type || 'datetime';
@@ -223,6 +222,11 @@ if (typeof(TrimPath) != 'undefined') {
             }
             return s;
 
+        };
+        
+        // Boolean to letter.
+        $T.parseTemplate_etc.modifierDef['boolToLetter'] = function ( boolValue ) {
+            return boolValue ? _( 'Y' ) : _( 'N' );
         };
     }) (TrimPath);
 // end closure

@@ -63,7 +63,7 @@
                     </tr>
 
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Total' ) + ':'}</td>
+                        <td style="text-align: left;">${_( '(rpt)Revenue' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.Total|default:0|viviFormatPrices:true}</td>
                     </tr>
                     <tr>
