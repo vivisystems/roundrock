@@ -2,10 +2,11 @@
 
 <!ENTITY sync_settings.tablabel.basic "Basic">
 <!ENTITY sync_settings.tablabel.advanced "Advanced">
+<!ENTITY sync_settings.tablabel.services "Local Services">
 
 <!ENTITY sync_settings.label.active "Active.">
 <!ENTITY sync_settings.label.protocol "Protocol.">
-<!ENTITY sync_settings.label.hostname "hostname.">
+<!ENTITY sync_settings.label.hostname "master hostname/ip.">
 <!ENTITY sync_settings.label.port "port.">
 
 <!ENTITY sync_settings.label.machine_id "Terminal No.">
@@ -26,3 +27,8 @@
 <!ENTITY sync_settings.label.retain_days "Number of days to retain sync log">
 <!ENTITY sync_settings.label.pull_order "Pull order datas from master">
 
+<!ENTITY sync_settings.label.sequence_hostname "order sequence/checkno hostname/ip.">
+<!ENTITY sync_settings.desc.sequence_hostname "Provide order sequence/checkno service's server. Local Network master or localhost">
+
+<!ENTITY sync_settings.label.table_hostname "table services server hostname/ip.">
+<!ENTITY sync_settings.desc.table_hostname "Provide table service's server. Local Network master or localhost">
