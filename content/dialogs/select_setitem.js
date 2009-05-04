@@ -69,6 +69,8 @@
                     this.log('DEBUG', 'value: ' +  sResult);
                     return sResult;
                 };
+                /*
+                 * @irving: too many colors 4/30/2009
 
                 plusetViewHelper.renderButton = function(row, btn) {
 
@@ -80,6 +82,7 @@
                     }
 
                     var data = plusetData[row];
+
                     var classStr = '';
                     if (!data.plugroup) {
                         classStr = buttonClass0;
@@ -94,7 +97,7 @@
                     else btn.removeAttribute('class');
                     this.log('DEBUG', 'in pluset renderButton: [' + classStr + ']');
                 };
-                
+                */
                 $buttonPanel[0].datasource = plusetViewHelper ;
 
                 var presetViewHelper = new NSIProductsView('presetbuttonpanel');

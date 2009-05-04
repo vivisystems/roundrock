@@ -46,10 +46,10 @@
                 <td style="text-align: right;">${item.Order.promotion_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.Order.revalue_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${item.Order.tax_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${item.Order.included_tax_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.Order.tax_subtotal|default:0|viviFormatTaxes:true}</td>
+                <td style="text-align: right;">${item.Order.included_tax_subtotal|default:0|viviFormatTaxes:true}</td>
 {for tax in taxList}
-                <td style="text-align: right;">${item[ tax.no ]|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item[ tax.no ]|viviFormatTaxes:true}</td>
 {/for}
             </tr>
 {/for}
@@ -62,10 +62,10 @@
 				<td style="text-align: right;">${foot.summary.promotion_subtotal|default:0|viviFormatPrices:true}</td>
 				<td style="text-align: right;">${foot.summary.revalue_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${foot.summary.tax_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${foot.summary.included_tax_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.tax_subtotal|default:0|viviFormatTaxes:true}</td>
+                <td style="text-align: right;">${foot.summary.included_tax_subtotal|default:0|viviFormatTaxes:true}</td>
 {for tax in taxList}
-                <td style="text-align: right;">${foot.summary[ tax.no ]|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary[ tax.no ]|viviFormatTaxes:true}</td>
 {/for}
             </tr>
         </tfoot>

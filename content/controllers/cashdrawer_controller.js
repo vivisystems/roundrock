@@ -23,6 +23,11 @@
             if(cart) {
                 cart.addEventListener('afterAddPayment', this.handleOpenDrawerEvent, this);
             }
+            // get handle to Main controller
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('afterClearOrderData', this.expireData, this);
+            }
         },
 
         getDeviceController: function () {
@@ -312,6 +317,14 @@
                 accessRecord.clerk_displayname = user.description;
             }
             drawerRecordModel.save(accessRecord);
+        },
+
+        expireData: function(evt) {
+            var model = new CashdrawerRecordModel();
+            var expireDate = parseInt(evt.data);
+            if (!isNaN(expireDate)) {
+                model.execute('delete from cashdrawer_records where created <= ' + expireDate);
+            }
         },
 
         // send open drawer commands to printer using the given parameters

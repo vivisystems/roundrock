@@ -25,7 +25,7 @@
 <!ENTITY sync_settings.label.notify_push "notify_push.">
 
 <!ENTITY sync_settings.label.retain_days "Number of days to retain sync log">
-<!ENTITY sync_settings.label.pull_order "Pull order datas from master">
+<!ENTITY sync_settings.label.pull_order "Pull order data from master">
 
 <!ENTITY sync_settings.label.sequence_hostname "order sequence/checkno hostname/ip.">
 <!ENTITY sync_settings.desc.sequence_hostname "Provide order sequence/checkno service's server. Local Network master or localhost">

@@ -137,7 +137,10 @@
                         break;
 
                     case 'remain':
-                        orderData['change'] = Math.abs(data[key]);
+                        if (data[key] < 0)
+                            orderData['change'] = Math.abs(data[key]);
+                        else
+                            orderData['change'] = 0;
                         break;
 
                     case 'created':

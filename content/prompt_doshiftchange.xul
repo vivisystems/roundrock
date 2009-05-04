@@ -49,6 +49,7 @@
                         <column flex="1"/>
                         <column flex="1"/>
                         <column flex="1"/>
+                        <column flex="1"/>
                     </columns>
                     <rows>
                         <row>
@@ -68,8 +69,20 @@
                                 <label value="&prompt.shiftchange.deposit;" class="SubTitle"/>
                                 <textbox id="deposit" flex="1" value="" readonly="true"/>
                             </vbox>
+                            <vbox>
+                                <label value="&prompt.shiftchange.refund;" class="SubTitle"/>
+                                <textbox id="refund" flex="1" value="" readonly="true"/>
+                            </vbox>
                         </row>
                         <row>
+                            <vbox>
+                                <label value="&prompt.shiftchange.credit;" class="SubTitle"/>
+                                <textbox id="credit" flex="1" value="" readonly="true"/>
+                            </vbox>
+                            <vbox>
+                                <label value="&prompt.shiftchange.excess;" class="SubTitle"/>
+                                <textbox id="excess" flex="1" value="" readonly="true"/>
+                            </vbox>
                             <vbox>
                                 <label value="&prompt.shiftchange.ledger.in;" class="SubTitle"/>
                                 <textbox id="ledger_in" flex="1" value="" readonly="true"/>
@@ -77,10 +90,6 @@
                             <vbox>
                                 <label value="&prompt.shiftchange.ledger.out;" class="SubTitle"/>
                                 <textbox id="ledger_out" flex="1" value="" readonly="true"/>
-                            </vbox>
-                            <vbox>
-                                <label value="&prompt.shiftchange.excess;" class="SubTitle"/>
-                                <textbox id="excess" flex="1" value="" readonly="true"/>
                             </vbox>
                         </row>
                     </rows>
@@ -94,8 +103,10 @@
 
             <hbox flex="1" align="center">
                 <caption label="&prompt.shiftchange.drawer.change;" class="SubTitle"/>
+                <spacer flex="1"/>
                 <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false" class="fixedbtn"
                             oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
+                <spacer width="10px"/>
             </hbox>
             <hbox class="AddAccount">
                 <vbox flex="1">
@@ -119,12 +130,11 @@
 
             <hbox>
                 <hbox id="dialogButtons" class="ToolBar" pack="start" flex="1">
-                    <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="if (confirmEndShift()) doOKButton();"/>
+                    <button id="ok" label="&prompt.shiftchange.change.shift;" default="true" oncommand="if (confirmEndShift()) doOKButton();"/>
                     <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
                     <spacer flex="1"/>
-                    <vivibutton id="close" label="&prompt.end.sale.period;" default="false"
-                                oncommand="if (confirmEndSalePeriod()) doOKButton('end');"
-                                roles="acl_close_sale_period" action="display"/>
+                    <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" default="false"
+                                oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label="" oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

@@ -23,7 +23,7 @@ ${detail.proceeds_clerk_displayname|viviFormatPrices:true|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${detail.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
-${detail.tax_subtotal|viviFormatPrices:true|right:24}
+${detail.tax_subtotal|viviFormatTaxes:true|right:24}
 ${_( '(rpt)Surcharge' ) + ':'}
 ${detail.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}
@@ -50,7 +50,7 @@ ${_( '(rpt)Summary' )}
 ${_( '(rpt)Total' ) + ':'}
 ${foot.foot_datas.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
-${foot.foot_datas.tax_subtotal|viviFormatPrices:true|right:24}
+${foot.foot_datas.tax_subtotal|viviFormatTaxes:true|right:24}
 ${_( '(rpt)Surcharge' ) + ':'}
 ${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'}

@@ -1,7 +1,9 @@
 <!ENTITY prompt.shiftchange.title  "Shift Change">
 <!ENTITY prompt.shiftchange.cash  "Net Cash">
 <!ENTITY prompt.shiftchange.balance  "Balance">
-<!ENTITY prompt.shiftchange.deposit  "Deposit/Credit">
+<!ENTITY prompt.shiftchange.deposit  "Deposit">
+<!ENTITY prompt.shiftchange.refund  "Refund">
+<!ENTITY prompt.shiftchange.credit  "Credit">
 <!ENTITY prompt.shiftchange.sales  "Sales Total">
 <!ENTITY prompt.shiftchange.ledger.in  "Non-sale In">
 <!ENTITY prompt.shiftchange.ledger.out  "Non-sale Out">
@@ -15,5 +17,6 @@
 <!ENTITY prompt.shiftchange.heading.amount "Amount">
 <!ENTITY prompt.shiftchange.heading.change "Change">
 <!ENTITY prompt.shiftchange.heading.excess "Excess Payment">
-<!ENTITY prompt.end.sale.period "End Sale Period">
+<!ENTITY prompt.shiftchange.change.shift "Change Shift">
+<!ENTITY prompt.shiftchange.end.sale.period "End Sale Period">
 <!ENTITY prompt.shiftchange.open.drawer "Open Drawer">

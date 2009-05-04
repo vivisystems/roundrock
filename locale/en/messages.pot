@@ -1840,6 +1840,12 @@ msgstr "Matched Items Subtotal"
 msgid "(rpt)Revalue"
 msgstr "Revalue"
 
+msgid "(rpt)Refund"
+msgstr "Refund"
+
+msgid "(rpt)Credit"
+msgstr "Credit"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -1971,3 +1977,6 @@ msgstr "** Your Saving **"
 
 msgid "acl_manage_tableman"
 msgstr "Table Manager"
+
+msgid "ledger"
+msgstr ""

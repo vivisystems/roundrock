@@ -26,7 +26,7 @@ if (typeof(TrimPath) != 'undefined') {
             switch(policy) {
 		
                 case 'to-nearest-precision':
-                    result = Math.round(result.toFixed(1));
+                    result = Math.round(result);
                     break;
 		    
                 case 'to-nearest-half':

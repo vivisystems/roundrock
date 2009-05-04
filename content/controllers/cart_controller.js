@@ -2766,7 +2766,7 @@
             if( !forceCancel && (!this._lastCancelInvoke || ( (now - this._lastCancelInvoke) > 3000)) ) {
                 try{
                     GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
-                    GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+                    //GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
                 }catch(e) {                  
                 }
                 // prevent onCancel event dispatch
@@ -3355,10 +3355,10 @@
                 return;
             }
 
-            if (order.status != 1) {
+            if (order.status < 1) {
                 GREUtils.Dialog.alert(window,
                     _('Void Sale'),
-                    _('Failed to void: the selected order is not/has been yet been completed'));
+                    _('Failed to void: the selected order is not stored or finalized'));
                 return;
             }
 
@@ -3370,7 +3370,7 @@
 
             inputObj = {
                 payments: order.OrderPayment,
-                paidTotal: order.total,
+                paidTotal: order.payment_subtotal - order.change,
                 sequence: order.sequence,
                 roundingPrices: order.rounding_prices,
                 precisionPrices: order.precision_prices

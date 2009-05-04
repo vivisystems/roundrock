@@ -209,7 +209,8 @@
             // check if sale period leads calendar date by more than allowed number of days
             var today = Date.today();
             var salePeriodDate = new Date(salePeriod * 1000);
-            var canEndSalePeriod = ((salePeriodDate - today) / (24 * 60 * 60 * 1000) + 1) <= salePeriodLeadDays;
+            var canEndSalePeriod = this.Acl.isUserInRole('acl_close_sale_period') &&
+                                   ((salePeriodDate - today) / (24 * 60 * 60 * 1000) + 1) <= salePeriodLeadDays;
 
             // first, we collect payment totals for credit cards and coupons
             var fields = ['order_payments.memo1 as "OrderPayment.name"',
@@ -400,6 +401,31 @@
                                                           });
             var paymentsReceived = (paymentTotal && paymentTotal.amount != null) ? paymentTotal.amount : 0;
 
+            // compute deposits (payments with order status of 2
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                         ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                         ' AND order_payments.name != "ledger"' +
+                         ' AND orders.status = 2';
+            var depositTotal = orderPayment.find('first', {fields: fields,
+                                                           conditions: conditions,
+                                                           recursive: 1
+                                                          });
+            var deposits = (depositTotal && depositTotal.amount != null) ? depositTotal.amount : 0;
+
+            // compute refunds (payments with order status of -2 and from previous sale period/shift
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                         ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                         ' AND order_payments.name != "ledger"' +
+                         ' AND orders.status = -2' + 
+                         ' AND (orders.sale_period != "' + salePeriod + '" OR orders.shift_number != "' + shiftNumber + '")';
+            var refundTotal = orderPayment.find('first', {fields: fields,
+                                                          conditions: conditions,
+                                                          recursive: 1
+                                                         });
+            var refunds = (refundTotal && refundTotal.amount != null) ? Math.abs(refundTotal.amount) : 0;
+            
             // compute total sales revenue
             fields = ['SUM(orders.total) as "Order.amount"'];
             conditions = 'orders.status = 1 ' +
@@ -412,7 +438,7 @@
                                                       });
 
             var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
-            var deposit = paymentsReceived - salesRevenue;
+            var credit = salesRevenue - (paymentsReceived - deposits + refunds);
 
             // compute ledger IN balance
             fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
@@ -462,9 +488,11 @@
             var inputObj = {
                 shiftChangeDetails: shiftChangeDetails,
                 cashNet: cashNet,
-                balance: salesRevenue + ledgerInTotal + ledgerOutTotal,
+                balance: salesRevenue + ledgerInTotal + ledgerOutTotal  + deposits - refunds - credit,
                 salesRevenue: salesRevenue,
-                deposit: deposit,
+                deposit: deposits,
+                refund: refunds,
+                credit: credit,
                 ledgerInTotal: ledgerInTotal,
                 ledgerOutTotal: ledgerOutTotal,
                 giftcardExcess: giftcardExcess,
@@ -545,6 +573,8 @@
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
                     deposit: inputObj.deposit,
+                    refund: inputObj.refund,
+                    credit: inputObj.credit,
                     ledger_out: inputObj.ledgerOutTotal - amt,
                     ledger_in: inputObj.ledgerInTotal,
                     excess: inputObj.giftcardExcess,

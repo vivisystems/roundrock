@@ -47,7 +47,7 @@
                     <td style="text-align: left;">${orders.sequence}</td>
                     <td style="text-align: left;">${orders.text}</td>
                     <td style="text-align: right;">${orders.item_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${orders.tax_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${orders.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${orders.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${orders.discount_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${orders.promotion_subtotal|viviFormatPrices:true}</td>
@@ -60,7 +60,7 @@
                 <tr>
                     <td colspan="4">${_( '(rpt)Summary' ) + ':'}</td>
                     <td style="text-align: right;">${types.summary.item_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${types.summary.tax_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${types.summary.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${types.summary.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${types.summary.discount_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${types.summary.promotion_subtotal|viviFormatPrices:true}</td>

@@ -39,28 +39,12 @@
             var shiftChange = new ShiftChangeModel();
             var records = shiftChange.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 } );
 
-            //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-
             records.forEach(function(o){
                 var d = new Date();
                 d.setTime( o.starttime * 1000 ); // multiplying one thousand so that the time can be in the millisecond scale.
                 o.starttime = d.toString('yy/MM/dd HH:mm');
                 d.setTime( o.endtime * 1000 );
                 o.endtime = d.toString('yy/MM/dd HH:mm');
-                
-                d.setTime( o.sale_period * 1000 );
-                o.sale_period = d.toString( 'yyyy-MM-dd HH:mm:ss' );
-
-                //o.balance = GeckoJS.NumberHelper.round(o.balance, precision_prices, rounding_prices) || 0;
-                //o.balance = o.balance.toFixed(precision_prices);
-
-				/*if ( o.ShiftChangeDetail ) {
-		            o.ShiftChangeDetail.forEach(function(k){
-		                k.amount = GeckoJS.NumberHelper.round(k.amount, precision_prices, rounding_prices) || 0;
-		                k.amount = k.amount.toFixed(precision_prices);
-               		 });
-               	}*/
             });
             
             this._reportRecords.head.title = _( 'Shift Change Report' );

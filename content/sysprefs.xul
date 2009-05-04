@@ -101,7 +101,7 @@
                     </vbox>
                     <vbox>
                         <label control="maxsaleperiodleaddays" value="&general.maxsaleperiodleaddays;"/>
-                        <textbox preference="pref_maxsaleperiodleaddays" id="maxsaleperiodleaddays" type="number" size="3" min="0"/>
+                        <textbox preference="pref_maxsaleperiodleaddays" id="maxsaleperiodleaddays" type="number" size="3" min="1"/>
                     </vbox>
                 </row>
             </rows>

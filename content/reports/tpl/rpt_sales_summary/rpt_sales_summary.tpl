@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td style="text-align: right;">${body.sales_summary.ItemSubtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${body.sales_summary.TaxSubtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${body.sales_summary.TaxSubtotal|default:0|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${body.sales_summary.SurchargeSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true}</td>
@@ -271,14 +271,14 @@
                         <td style="text-align: left;">${detail.tax_name}</td>
                         <td style="text-align: right;">${detail.tax_rate}</td>
                         <td style="text-align: left;">${detail.tax_type}</td>
-                        <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatTaxes:true}</td>
                     </tr>
 	{/for}
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="3">${_( '(rpt)Summary' ) + ':'}</td>
-                        <td style="text-align: right;">${body.tax_summary.summary.tax_total|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${body.tax_summary.summary.tax_total|default:0|viviFormatTaxes:true}</td>
                     </tr>
                 </tfoot>
             </table>
