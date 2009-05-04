@@ -40,6 +40,7 @@
                 <tabs>
                     <tab id="basic-tab" label="&sync_settings.tablabel.basic;"/>
                     <tab id="advanced-tab" label="&sync_settings.tablabel.advanced;"/>
+                    <tab id="services-tab" label="&sync_settings.tablabel.services;"/>
                 </tabs>
 
                 <tabpanels>
@@ -134,6 +135,35 @@
                                     <textbox form="syncSettingForm" name="retain_days" type="number" size="2" maxlength="2" min="1" max="15"/>
                                 </row>
 
+                            </rows>
+                        </grid>
+
+                    </tabpanel>
+
+                    <tabpanel id="services-panel" orient="horizontal">
+
+                        <grid class="DataForm" flex="1">
+                            <columns>
+                                <column  flex="1" />
+                                <column flex="2" />
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&sync_settings.label.sequence_hostname;" />
+                                        <textbox form="syncSettingForm" name="sequence_hostname" value="localhost"/>
+                                    </vbox>
+                                    <textbox class="descbox_keymap" id="sequence_hostname_desc" wrap="true"
+                                         readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.sequence_hostname;" />
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&sync_settings.label.table_hostname;" />
+                                        <textbox form="syncSettingForm" name="table_hostname" value="localhost"/>
+                                    </vbox>
+                                    <textbox class="descbox_keymap" id="table_hostname_desc" wrap="true"
+                                         readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.table_hostname;" />
+                                </row>
                             </rows>
                         </grid>
 

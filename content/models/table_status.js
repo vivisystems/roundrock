@@ -36,17 +36,20 @@
 
             if (this.syncSettings && this.syncSettings.active == 1) {
 
-                if (this.syncSettings.hostname == 'localhost' || this.syncSettings.hostname == '127.0.0.1') return false;
+                var hostname = this.syncSettings.table_hostname || 'localhost';
+                if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
                 
                 //  http://localhost:3000/sequences/getSequence/check_no
                 // check connection status
                 this.url = this.syncSettings.protocol + '://' +
-                this.syncSettings.hostname + ':' +
+                hostname + ':' +
                 this.syncSettings.port + '/' +
                 'table_status/' + method;
 
                 this.username = 'vivipos';
                 this.password = this.syncSettings.password ;
+
+                //dump('table services url ' + this.url + "\n");
 
                 return this.url;
 
@@ -62,6 +65,11 @@
             var username = this.username ;
             var password = this.password ;
 
+            // for use asynchronize mode like synchronize mode
+            // mozilla only
+            var reqStatus = {};
+            reqStatus.finish = false;
+
             var req = new XMLHttpRequest();
 
             req.mozBackgroundRequest = true;
@@ -69,16 +77,24 @@
             /* Request Timeout guard */
             var timeout = null;
             timeout = setTimeout(function() {
-                clearTimeout(timeout);
-                req.abort();
+                try {
+                    req.abort();
+					
+                }catch(e) {
+                    // dump('timeout exception ' + e + "\n");
+                }
             }, 15000);
 
             /* Start Request with http basic authorization */
             var data = [];
-            req.open(method, reqUrl, false/*, username, password*/);
+
+            req.open(method, reqUrl, true/*, username, password*/);
+            
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
-            var onstatechange = function (aEvt) {
+
+            req.onreadystatechange = function (aEvt) {
                 if (req.readyState == 4) {
+                    reqStatus.finish = true;
                     if(req.status == 200) {
                         var result = GeckoJS.BaseObject.unserialize(req.responseText);
                         if (result.status == 'ok') {
@@ -86,7 +102,6 @@
                         }
                     }
                 }
-                delete req;
             };
 
             // req.onreadystatechange = onstatechange
@@ -100,12 +115,22 @@
 
             try {
                 req.send(request_data);
-                onstatechange();
+                
+                // block ui until request finish or timeout
+                var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
+                while(!reqStatus.finish) {
+                    thread.processNextEvent(true);
+                }
+
+
             }catch(e) {
                 data = [];
+                // dump('send exception ' + e + "\n");
+            }finally {
+                if(timeout) clearTimeout(timeout);
+                if(req)                 delete req;
+                if (reqStatus) delete reqStatus;
             }
-            if(timeout) clearTimeout(timeout);
-            
             return data;
 
         },
