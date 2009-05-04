@@ -180,6 +180,19 @@
 	background: transparent url(images/icon_exportpdf-d.png) center center no-repeat !important;
 }
 
+.previousPage {
+	background: transparent url(images/go-previous.png) center center no-repeat !important;
+}
+.previousPage[disabled=true] {
+	background: transparent url(images/previous.png) center center no-repeat !important;
+}
+
+.nextPage {
+	background: transparent url(images/go-next.png) center center no-repeat !important;
+}
+.nextPage[disabled=true] {
+	background: transparent url(images/next.png) center center no-repeat !important;
+}
 
 /*Date Time*/
 .datepicker-mainbox {

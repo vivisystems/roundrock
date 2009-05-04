@@ -137,6 +137,11 @@
         },
 
         getNewTableNo: function() {
+            var tableModel = new TableModel;
+            var tablelist = tableModel.find("all", {});
+            if (tablelist.length <= 0) return '';
+            delete tableModel;
+
             var self = this;
             var i = 1;
 
