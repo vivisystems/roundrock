@@ -229,6 +229,45 @@
 
 	    	return s.replace( re, '\'\'' );
 	    },
+	    
+	    _openOrderDialogByOrderId: function( orderId ) {
+	        var aURL = 'chrome://viviecr/content/view_order.xul';
+	        var aName = _( 'Order Details' );
+	        var aArguments = { index: 'id', value: orderId };
+	        var posX = 0;
+	        var posY = 0;
+	        var width = GeckoJS.Session.get( 'screenwidth' );
+	        var height = GeckoJS.Session.get( 'screenheight' );
+	        
+	        GREUtils.Dialog.openWindow( window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments );
+		},
+		
+		/**
+		 * This method can be used to register OpenOrderDialog method for the data rows in a report relative to orders.
+		 * Doing so makes people convient to open a popup window to scrutize the detail of a certain order by just clicking the corresponding data row.
+		 * Be sure that the id attribue of <tr> indicating the order id is set to be somthing like <tr id="${orders.id}">.
+		 */
+		_registerOpenOrderDialog: function() {
+			var div = document.getElementById( 'preview_frame' ).contentWindow.document.getElementById( 'docbody' );
+        	
+        	var self = this;
+        	div.addEventListener( 'click', function( event ) {
+        		if ( event.originalTarget.parentNode.id && event.originalTarget.parentNode.tagName == 'TR' )
+					self._openOrderDialogByOrderId( event.originalTarget.parentNode.id );
+			}, true );
+        	
+        	/*if ( table.hasChildNodes ) {
+        		var children = table.getElementsByTagName( 'tr' );
+        		
+		    	for ( var i = 0; i < children.length; i++ ) {
+		    		if ( children[ i ].id ) {
+						children[ i ].addEventListener( 'click', function( event ) {
+							orderDialog( event.currentTarget.id );
+						}, true );
+					}
+		    	}
+		    }*/
+		},
 
         load: function() {
             this._enableButton( false );

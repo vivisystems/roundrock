@@ -48,16 +48,16 @@
                     <td colspan="5">
                         <table>
                             <tr>
-                                <td style="width: 10%;"></td>
-                                <td style="text-align: right; width: 10%;">Level1{if plu.level_enable1}*{/if}</td>
-                                <td style="text-align: right; width: 10%;">Level2{if plu.level_enable2}*{/if}</td>
-                                <td style="text-align: right; width: 10%;">Level3{if plu.level_enable3}*{/if}</td>
-                                <td style="text-align: right; width: 10%;">Level4{if plu.level_enable4}*{/if}</td>
-                                <td style="text-align: right; width: 10%;">Level5{if plu.level_enable5}*{/if}</td>
-                                <td style="text-align: right; width: 10%;">Level6{if plu.level_enable6}*{/if}</td>
-                                <td style="text-align: right; width: 10%;">Level7{if plu.level_enable7}*{/if}</td>
-                                <td style="text-align: right; width: 10%;">Level8{if plu.level_enable8}*{/if}</td>
-                                <td style="text-align: right; width: 10%;">Level9{if plu.level_enable9}*{/if}</td>
+                                <td style="width: 19%;"></td>
+                                <td style="text-align: right; width: 9%;">1{if plu.level_enable1}*{/if}</td>
+                                <td style="text-align: right; width: 9%;">2{if plu.level_enable2}*{/if}</td>
+                                <td style="text-align: right; width: 9%;">3{if plu.level_enable3}*{/if}</td>
+                                <td style="text-align: right; width: 9%;">4{if plu.level_enable4}*{/if}</td>
+                                <td style="text-align: right; width: 9%;">5{if plu.level_enable5}*{/if}</td>
+                                <td style="text-align: right; width: 9%;">6{if plu.level_enable6}*{/if}</td>
+                                <td style="text-align: right; width: 9%;">7{if plu.level_enable7}*{/if}</td>
+                                <td style="text-align: right; width: 9%;">8{if plu.level_enable8}*{/if}</td>
+                                <td style="text-align: right; width: 9%;">9{if plu.level_enable9}*{/if}</td>
                             </tr>
                             <tr>
                                 <td>${_( '(rpt)Price' ) + ':'}</td>

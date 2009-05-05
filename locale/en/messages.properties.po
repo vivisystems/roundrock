@@ -1876,6 +1876,18 @@ msgstr "Guest/Order"
 msgid "(rpt)Item/Order"
 msgstr "Guest/Order"
 
+msgid "(rpt)payment"
+msgstr "payment"
+
+msgid "(rpt)nosale"
+msgstr "nosale"
+
+msgid "(rpt)finalization"
+msgstr "finalization"
+
+msgid "(rpt)shift change"
+msgstr "shift change"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -4013,4 +4025,7 @@ msgid "Sales Summary Report"
 msgstr ""
 
 msgid "Product Stock List"
+msgstr ""
+
+msgid "(rpt)"
 msgstr ""

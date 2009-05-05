@@ -8,7 +8,7 @@ ${head.title|center:42}
 {for item in body}
 ------------------------------------------
 ${_( '(rpt)Clerk' ) + ':'|left:17}${item.clerk_displayname}
-${_( '(rpt)Event' ) + ':'|left:17}${item.event_type}
+${_( '(rpt)Event' ) + ':'|left:17}${_( '(rpt)' + item.event_type )}
 ${_( '(rpt)Number of Events' ) + ':'|left:17}${item.num_events}
 {/for}
 ------------------------------------------

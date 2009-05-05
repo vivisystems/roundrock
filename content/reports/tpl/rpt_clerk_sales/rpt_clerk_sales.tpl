@@ -45,7 +45,7 @@
             </thead>
             <tbody>
 {for order in clerk.orders}
-                <tr>
+                <tr id="${order.id}">
                     <td style="text-align: left;">${order.terminal_no}</td>
                     <td style="text-align: left;">
                     {if clerk.associated_clerk == 'Proceeds Clerk'}
