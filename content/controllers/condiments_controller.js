@@ -40,8 +40,11 @@
 
             var condGroups = GeckoJS.Session.get('condGroups');
 
+            var condCols = GeckoJS.Configure.read('vivipos.fec.settings.CondimentCols') || 4;
+
             var condGroupsById = {};
 
+            var self = this;
             condGroups.forEach(function(condGroup){
 
                 var cgId = condGroup.id;
@@ -66,6 +69,7 @@
             // preprocess condiments for faster
             var products = GeckoJS.Session.get('products');
             if (products) {
+
                 products.forEach(function(product) {
 
                     if(product['cond_group'].length == 0) return false;
@@ -76,12 +80,22 @@
 
                     var selectCondiments = [];
                     var selectedItems = [];
+                    var prevCondGroup = null;
 
                     itemCondGroups.forEach(function(itemCondGroup){
 
                         if(!condGroupsById[itemCondGroup]) return false;
 
-                        selectCondiments = selectCondiments.concat(condGroupsById[itemCondGroup]['Condiment']);
+                        // condiments group with newline 
+                        if (prevCondGroup && prevCondGroup.newline) {
+                            var numEmptyBtns = ((selectCondiments.length % condCols) >0) ? (condCols - (selectCondiments.length % condCols) ) : 0;
+                            for (var ii=0; ii < numEmptyBtns; ii++) {
+                                selectCondiments.push({id: ""});
+                            }                           
+                        }
+                        prevCondGroup = condGroupsById[itemCondGroup];
+                        selectCondiments = selectCondiments.concat(prevCondGroup['Condiment']);
+                        
 
                     });
 
@@ -97,8 +111,8 @@
                 }, this);
             }
             GeckoJS.Session.add('condGroupsByPLU', condGroupsByPLU);
-
-        // this.log('condGroupsByPLU ' + this.dump(condGroupsByPLU));
+            // self.log('condGroupsByPLU ' + self.dump(condGroupsByPLU));
+             
         },
 
 
@@ -320,11 +334,12 @@
                 }
 
                 try {
-                    var condgroup = condGroupModel.save(inputData);
+                    var condgroupSaved = condGroupModel.save(inputData);
+                    condgroupSaved['CondimentGroup'] = GREUtils.extend({}, condgroupSaved);
 
                     var condGroups = GeckoJS.Session.get('condGroups') || [];
 
-                    condGroups.push(condgroup);
+                    condGroups.push(condgroupSaved);
 
                     GeckoJS.Session.set('condGroups', condGroups);
 
@@ -373,9 +388,10 @@
                 try {
                     inputData.id = condGroup.id;
                     condGroupModel.id = condGroup.id;
-                    condGroupModel.save(inputData);
+                    var condgroupSaved = condGroupModel.save(inputData);
+                    condgroupSaved['CondimentGroup'] = GREUtils.extend({}, condgroupSaved);
 
-                    GREUtils.extend(condGroups[this._selectedIndex], inputData);
+                    GREUtils.extend(condGroups[this._selectedIndex], condgroupSaved);
                     GeckoJS.Session.set('condGroups', condGroups);
 
                     var view = this._condGroupscrollablepanel.datasource;
@@ -691,6 +707,9 @@
         var main = GeckoJS.Controller.getInstanceByName('Main');
         if(main) main.addEventListener('afterInitial', function() {
             main.requestCommand('initial', null, 'Condiments');
+        });
+        if(main) main.addEventListener('onUpdateOptions', function() {
+            main.requestCommand('updateCondimentsSession', null, 'Condiments');
         });
     }, false);
 
