@@ -56,6 +56,8 @@
             <preference id="pref_idletime" name="vivipos.fec.settings.idle.time" type="int" />
             <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool" />
             <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool" />
+            <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool" />
+
 
         </preferences>
 
@@ -93,6 +95,7 @@
                         <label control="idletime" value="&general.idletime;"/>
                         <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
                     </hbox>
+                    <checkbox preference="pref_quietcancel" id="quietcancel" label="&general.quietcancel;" />
                 </row>
                 <row>
                     <vbox>

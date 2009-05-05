@@ -1058,7 +1058,17 @@
                             indexCateAll[data.cate_no] = [];
                         }
                         indexCateAll[(data.cate_no+"")].push((data.id+""));
-                        if(GeckoJS.String.parseBoolean(data.visible)) indexCate[(data.cate_no+"")].push((data.id+""));
+                        if(GeckoJS.String.parseBoolean(data.visible)) {
+                            indexCate[(data.cate_no+"")].push((data.id+""));
+
+                            // if append_empty_btns
+                            if (data.append_empty_btns && data.append_empty_btns > 0) {
+                                for (var jj=0; jj<data.append_empty_btns; jj++ ) {
+                                    indexCate[(data.cate_no+"")].push("");
+                                }
+                            }
+
+                        }
                     }
                     
                     if (data.link_group && data.link_group.length > 0) {
@@ -1080,6 +1090,7 @@
                     break;
 
                 case 'modify':
+
                     // remove old barcode
                     var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
                     if (oldData.barcode.length > 0) {
@@ -1093,12 +1104,13 @@
 
                     var indexCate = GeckoJS.Session.get('productsIndexesByCate');
                     var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+
+                    var indexCateAllArray = indexCateAll[(oldData.cate_no+"")];
+                    var indexCateArray = indexCate[(oldData.cate_no+"")];
+
                     if (oldData.cate_no != data.cate_no || oldData.visible != data.visible) {
 
                         // remove old category
-
-                        var indexCateAllArray = indexCateAll[(oldData.cate_no+"")];
-                        var indexCateArray = indexCate[(oldData.cate_no+"")];
 
                         var index = -1;
                         for (var i = 0; i < indexCateAllArray.length; i++) {
@@ -1117,9 +1129,13 @@
                                 break;
                             }
                         }
-                        if (index > -1)
+                        if (index > -1) {
                             indexCateArray.splice(index, 1);
+                        }
 
+                        if (oldData.append_empty_btns && oldData.append_empty_btns > 0) {
+                            indexCateArray.splice(index, oldData.append_empty_btns);
+                        }
                         // add new category
                         if (data.cate_no.length > 0) {
                             if (typeof indexCate[data.cate_no] == 'undefined') {
@@ -1129,8 +1145,35 @@
                             indexCateAll[(data.cate_no+"")].push((data.id+""));
                             if(GeckoJS.String.parseBoolean(data.visible)) {
                                 indexCate[(data.cate_no+"")].push((data.id+""));
+
+                                // if append_empty_btns
+                                if (data.append_empty_btns && data.append_empty_btns > 0) {
+                                    for (var jj=0; jj<data.append_empty_btns; jj++ ) {
+                                        indexCate[(data.cate_no+"")].push("");
+                                    }
+                                }
                             }
                         }
+                    }
+
+                    // support append empty buttons
+                    if (oldData.append_empty_btns != data.append_empty_btns) {
+                        var index = -1;
+                        for (var i = 0; i < indexCateArray.length; i++) {
+                            if (indexCateArray[i] == oldData.id) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index > -1) {
+                            indexCateArray.splice(index+1, oldData.append_empty_btns);
+
+                            for(var kk = 0; kk < data.append_empty_btns; kk++) {
+                                indexCateArray.splice(index+1, 0, "");
+                            }
+
+                        }
+
                     }
 
                     // always remove old product group(s) first
@@ -1253,8 +1296,11 @@
                                 break;
                             }
                         }
-                        if (index > -1)
+                        if (index > -1) {
                             indexCateArray.splice(index, 1);
+                            indexCateArray.splice(index, data.append_empty_btns);
+                        }
+
                     }
                     // update product group cache
 

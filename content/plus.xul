@@ -363,7 +363,8 @@
                             <hbox flex="1">
                                 <vbox flex="1">
                                     <vbox class="ImgPnl" >
-                                        <label value="&plus.image;" class="SubTitle" />
+                                        <!--label value="&plus.image;" class="SubTitle" /-->
+                                        <spacer style="height: 6px;" />
                                         <hbox  flex="1">
                                             <hbox class="IconArea">
                                                 <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
@@ -393,7 +394,11 @@
                                                                    buttonClass="ItemButtonB" default="medium"/>
                                         </vbox>
                                     </hbox>
-                                   
+                                    <hbox>
+                                        <label value="&plus.append_empty_btns;" class="SubTitle"/>
+                                        <textbox id="append_empty_btns" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="append_empty_btns" size="4" class="geneditbox right"/>
+                                    </hbox>
+                                    
 
                                 </vbox>
                             </hbox>
