@@ -2251,8 +2251,8 @@
 
                     // rounding tax
                     // @don't round tax here - irving 4/28/2009
-                    //item.current_tax = this.getRoundedTax(item.current_tax);
-                    //item.included_tax = this.getRoundedTax(item.included_tax);
+                    item.current_tax = this.getRoundedTax(item.current_tax);
+                    item.included_tax = this.getRoundedTax(item.included_tax);
                     if (toTaxCharge < 0) item.current_tax = 0 - item.current_tax;
                 }
             }

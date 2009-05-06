@@ -6,7 +6,7 @@ ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no + ' '|left:11}${_( '(rpt)
 ${head.title|center:42}
 {for detail in body}
 ------------------------------------------
-${_( '(rpt)Term_No.' ) + ':'|left:9}{if head.machine_id}${detail.terminal_no}{/if}
+${_( '(rpt)Terminal' ) + ':'|left:9}{if head.machine_id}${detail.terminal_no}{/if}
  
 ${_( '(rpt)Time' ) + ':'|left:9}${detail.Hour}
 ${_( '(rpt)Total' ) + ':'|left:9}${detail.HourTotal}

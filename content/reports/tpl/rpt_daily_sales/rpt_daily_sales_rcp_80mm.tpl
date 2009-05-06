@@ -6,7 +6,7 @@ ${head.start_time} ~ ${head.end_time}
 
 ${head.title|center:42}
 ------------------------------------------
-${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Sequence' )|left:14}
+${_( '(rpt)Terminal' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Sequence' )|left:14}
 --------  ----------  --------------------
 {for detail in body}
 ${detail.terminal_no|left:8}  ${detail.time|unixTimeToString|left:16}  ${detail.sequence|left:14}

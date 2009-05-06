@@ -14,7 +14,7 @@ ${_( '(rpt)Clerk' ) + ':'}
 ${clerk.name|right:24}
 {for order in clerk.orders}
 ------------------------
-${_( '(rpt)Term_No.' ) + ':'}
+${_( '(rpt)Terminal' ) + ':'}
 ${order.terminal_no|right:24}
 ${_( clerk.associated_clerk )}:
 {if clerk.associated_clerk == 'Proceeds Clerk'}${order.proceeds_clerk_displayname|right:24}{/if}{if clerk.associated_clerk == 'Service Clerk'}${order.service_clerk_displayname|right:24}{/if}

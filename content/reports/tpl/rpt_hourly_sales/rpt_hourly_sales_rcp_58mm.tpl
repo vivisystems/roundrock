@@ -10,7 +10,7 @@ ${head.end_time}
 ${head.title|center:24}
 {for detail in body}
 ------------------------
-${_( '(rpt)Term_No.' ) + ':'}
+${_( '(rpt)Terminal' ) + ':'}
 {if head.machine_id}${detail.terminal_no|right:24}{/if}
 [&CR]
 ${_( '(rpt)Time' ) + ':'}

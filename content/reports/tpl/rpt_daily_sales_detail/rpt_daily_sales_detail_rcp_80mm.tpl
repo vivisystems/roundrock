@@ -7,7 +7,7 @@ ${head.start_time} ~ ${head.end_time}
 ${head.title|center:42}
 {for detail in body}
 ------------------------------------------
-${_( '(rpt)Term_No.' )|left:8} ${_( '(rpt)Time' )|left:16} ${_( '(rpt)Sequence' )|left:8} ${_( '(rpt)Guests' )|left:3} ${_( '(rpt)Items' )|left:3}
+${_( '(rpt)Terminal' )|left:8} ${_( '(rpt)Time' )|left:16} ${_( '(rpt)Sequence' )|left:8} ${_( '(rpt)Guests' )|left:3} ${_( '(rpt)Items' )|left:3}
 -------- ---------- -------- ------- -----
 ${detail.terminal_no|left:8} ${detail.Order.time|unixTimeToString|left:16} ${detail.sequence|right:8} ${detail.no_of_customers|right:3} ${detail.items_count|right:3}
 ------------------------------------------

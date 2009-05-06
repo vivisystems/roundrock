@@ -13,7 +13,7 @@ ${head.title|center:24}
 ${types_index}
 {for orders in types.orders}
 -----------------------
-${_( '(rpt)Term_No.' ) + ':'}
+${_( '(rpt)Terminal' ) + ':'}
 ${orders.terminal_no|right:24}
 ${_( '(rpt)Time' ) + ':'}
 ${orders.time|unixTimeToString|right:24}

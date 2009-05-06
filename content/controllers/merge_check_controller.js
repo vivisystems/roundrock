@@ -11,6 +11,7 @@
         _sourceItems: [],
         _targetItems: [],
         _mergedCheck: {},
+        _tableStatusModel: null,
 
         reverse: function() {
             
@@ -112,10 +113,12 @@
         mergeItems: function() {
 
             var self = this;
-            
             // clone targetCheck to mergedCheck...
             for (var key in self._targetCheck) {
-                if (typeof(self._targetCheck[key]) == 'object' && self._targetCheck[key].constructor.name == 'Array' ) {
+                if (self._targetCheck[key] == null) {
+                    self._mergedCheck[key] = self._targetCheck[key];
+                }
+                else if (typeof(self._targetCheck[key]) == 'object' && self._targetCheck[key].constructor.name == 'Array' ) {
                     self._mergedCheck[key] = [];
                     self._mergedCheck[key] = GeckoJS.Array.merge(self._mergedCheck[key], self._targetCheck[key]);
                 }
@@ -131,7 +134,10 @@
 
             // merge sourceCheck to mergedCheck...
             for (var key in this._sourceCheck) {
-                if (typeof(this._sourceCheck[key]) == 'object' && this._sourceCheck[key].constructor.name == 'Array' ) {
+                if (self._sourceCheck[key] == null) {
+                    self._mergedCheck[key] = self._sourceCheck[key];
+                }
+                else if (typeof(this._sourceCheck[key]) == 'object' && this._sourceCheck[key].constructor.name == 'Array' ) {
                     this._mergedCheck[key] = GeckoJS.Array.merge(this._mergedCheck[key], this._sourceCheck[key]);
                 }
                 else if (typeof(this._sourceCheck[key]) == "object") {
@@ -164,13 +170,29 @@
 
             var order = new OrderModel();
 
+            // add to table_status
+            if (this._tableStatusModel == null) {
+                this._tableStatusModel = new TableStatusModel;
+                this._tableStatusModel.initial();
+            }
+
+
+
+
             // save merged check...
             order.saveOrder(this._mergedCheck);
             order.serializeOrder(this._mergedCheck);
 
+            // update table status
+            this._tableStatusModel.addCheck(this._mergedCheck);
+
             // @todo set source check's status to -3 ==> transfered check'
             this._sourceCheck.status = -3;
             order.saveOrderMaster(this._sourceCheck);
+            
+            // remove source check table status
+            this._sourceCheck.seq = "";
+            this._tableStatusModel.addCheck(this._sourceCheck);
             
             // @todo OSD
             NotifyUtils.warn(_('The Check# %S has been merged to Check# %S!!', [this._sourceCheck.check_no, this._mergedCheck.check_no]));

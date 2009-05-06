@@ -11,7 +11,11 @@
         
         _fileName: "rpt_attendance_record",
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = 3000;
+
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
@@ -53,7 +57,18 @@
             var orderby = 'clock_stamps.username, "' + sortby + '"';
 
             var clockStamp = new ClockStampModel();
-            var datas = clockStamp.find( 'all', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1 } );
+            var datas = clockStamp.find( 'all', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1, limit: limit } );
+
+            // prepare report datas here so that all clock stamps are ordered by username first
+            var clockStamps = {};
+            datas.forEach(function(o){
+                if (!clockStamps[o.username]) {
+                    clockStamps[o.username] = {};
+                    clockStamps[o.username].username = o.displayname;
+                    clockStamps[o.username].total_spans = 0;
+                    clockStamps[o.username].clockStamps = [];
+                }
+            })
 
             if ( sortby != 'all' ) {
 		        datas.sort(
@@ -67,19 +82,7 @@
 		        );
 		    }
 
-            // prepare report datas
-            var clockStamps = {};
-            
-            var old_user;
-            var total_spans;
             datas.forEach(function(o){
-                if (!clockStamps[o.username]) {
-                    clockStamps[o.username] = {};
-                    clockStamps[o.username].username = o.displayname;
-                    clockStamps[o.username].total_spans = 0;
-                    clockStamps[o.username].clockStamps = [];
-                }
-                
                 // refine SpanTime by decreasing the day part by one.
                 var num_day = parseInt( o.SpanTime[ 0 ] + o.SpanTime[ 1 ], 10 );
                 num_day--;

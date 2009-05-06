@@ -26,7 +26,7 @@
 		        	<td colspan="9" class="subtitle">${types_index}</td>
 		        </tr>
                 <tr class="fields">
-                    <th style="text-align: left;">${_( '(rpt)Term_No.' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Annotation Text' )}</th>

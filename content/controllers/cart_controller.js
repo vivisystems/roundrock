@@ -480,7 +480,7 @@
                 this.dispatchEvent('afterTagItem', [taggedItem, itemDisplay]);
             }
         },
-
+        
         addItem: function(plu) {
 
             if (this._suspended) return;
@@ -1286,6 +1286,10 @@
             this.dispatchEvent('beforeVoidItem', itemTrans);
             var voidedItem = curTransaction.voidItemAt(index);
             this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
+
+            GeckoJS.Session.remove('cart_last_sell_item');
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
 
             this.subtotal();
 
@@ -2838,6 +2842,16 @@
             
             if(oldTransaction == null) return; // fatal error ?
 
+            // make sure the order has not yet been voided
+            var orderModel = new OrderModel();
+            var existingOrder = orderModel.findById(oldTransaction.data.id);
+            if (existingOrder && existingOrder.status != 2) {
+                oldTransaction.data.status = existingOrder.status;
+                GREUtils.Dialog.alert(window,
+                    _('Order Finalization'),
+                    _('Current order is no longer available for finalization (status = %S)', [existingOrder.status]));
+                return;
+            }
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
@@ -3393,6 +3407,7 @@
                     var terminalNo = GeckoJS.Session.get('terminal_no');
 
                     var paymentModel = new OrderPaymentModel();
+                    var refundTotal = 0;
 
                     // insert refund payments
                     inputObj.refunds.forEach(function(payment) {
@@ -3413,6 +3428,8 @@
                         payment.sale_period = salePeriod;
                         payment.shift_number = shiftNumber;
                         payment.terminal_no = terminalNo;
+
+                        refundTotal += payment.amount;
                     });
 
                     // begin transaction
@@ -3424,6 +3441,9 @@
                     // update order status to voided
                     order.status = -2;
 
+                    // update payment subtotal
+                    order.payment_subtotal += refundTotal;
+                    
                     // update void clerk, time, sale period and shift number
                     if (user) {
                         order.void_clerk = user.username;
@@ -3854,12 +3874,15 @@
             }
         },
 
-        guestNum: function() {
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
+        guestNum: function(num) {
+            if (num)
+                var no = num;
+            else {
+                var no = this._getKeypadController().getBuffer();
+                this._getKeypadController().clearBuffer();
+                this.cancelReturn();
+            }
+            
             var curTransaction = this._getTransaction();
             if (curTransaction == null) {
                 NotifyUtils.warn(_('Not an open order; unable to store'));
@@ -3875,7 +3898,7 @@
             }
 
             var r = this.GuestCheck.guest(no);
-            curTransaction.data.no_of_customers = no;
+            curTransaction.data.no_of_customers = r;
 
             this.subtotal();
         },

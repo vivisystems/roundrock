@@ -22,7 +22,7 @@
             <!--caption>${head.title}</caption-->
             <thead>
                 <tr>
-                    <th style="text-align: left;">${_( '(rpt)Term_No.' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Service Clerk' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Proceeds Clerk' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>

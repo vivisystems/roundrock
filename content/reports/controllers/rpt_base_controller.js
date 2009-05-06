@@ -11,6 +11,8 @@
         packageName: 'viviecr',
         _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
+        _csvLimit: 3000000,
+        _csvRecords: null,
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -144,7 +146,7 @@
             }
         },
 
-        exportCsv: function() {
+        exportCsv: function(controller) {
         	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
         		return;
         		
@@ -163,7 +165,20 @@
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 
-                this.CsvExport.printToFile( media_path + '/' + this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv', this._reportRecords, tpl );
+                // regenerate data if last limit isn't equal current limit
+                if (!this._csvRecords) {
+                    var tmpRecords = this._reportRecords;
+
+                    controller._set_reportRecords(this._csvLimit);
+                    this._csvRecords = this._reportRecords;
+
+                    this._reportRecords = tmpRecords;
+                }
+                this.CsvExport.printToFile( media_path + '/' + this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv', this._csvRecords, tpl );
+
+                // drop CSV data and garbage collect
+                delete this._csvRecords;
+                GREUtils.gc();
             } catch ( e ) {
             } finally {
                 this._enableButton( true );
@@ -215,7 +230,7 @@
 	        //set up the designated pop-up menulist.
 	        var records = dbModel.find( 'all', { fields: fields, conditions: conditions, order: order, group: group } );
 	        var menupopup = document.getElementById( menupopupId );
-
+            
 	        records.forEach( function( data ) {
 	            var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
 	            menuitem.setAttribute( 'value', data[ valueField ] );

@@ -1547,10 +1547,10 @@ msgid "(rpt)End Time"
 msgstr "End Time"
 
 msgid "(rpt)Terminal No."
-msgstr "Terminal No."
+msgstr "Terminal"
 
 msgid "(rpt)Drawer No."
-msgstr "Drawer No."
+msgstr "Drawer"
 
 msgid "(rpt)Time"
 msgstr "Time"
@@ -1560,9 +1560,6 @@ msgstr "Event"
 
 msgid "(rpt)Number of Events"
 msgstr "Number of Events"
-
-msgid "(rpt)Term_No."
-msgstr "Term_No."
 
 msgid "(rpt)Sequence"
 msgstr "Sequence"
@@ -1632,9 +1629,6 @@ msgstr "Price"
 
 msgid "(rpt)Quantity"
 msgstr "Quantity"
-
-msgid "(rpt)Termianl No"
-msgstr "Termianl No."
 
 msgid "(rpt)No."
 msgstr "No."
@@ -1846,14 +1840,17 @@ msgstr "Refund"
 msgid "(rpt)Credit"
 msgstr "Credit"
 
-msgid "(rpt)discarded"
-msgstr "discarded"
-
 msgid "(rpt)canceled"
 msgstr "canceled"
 
 msgid "(rpt)voided"
 msgstr "voided"
+
+msgid "(rpt)stored"
+msgstr "stored"
+
+msgid "(rpt)finalized"
+msgstr "finalized"
 
 msgid "(rpt)Revenue/Order"
 msgstr "Revenue/Order"
@@ -1878,6 +1875,9 @@ msgstr "finalization"
 
 msgid "(rpt)shift change"
 msgstr "shift change"
+
+msgid "(rpt)Net Sales"
+msgstr "Net Sales"
 
 msgid "(view)completed"
 msgstr "completed"
@@ -1928,7 +1928,7 @@ msgid "(view)shift number"
 msgstr "shift number"
 
 msgid "(view)no_of_customers"
-msgstr "customers"
+msgstr "no. of customers"
 
 msgid "(view)contact"
 msgstr "contact"
@@ -1947,6 +1947,15 @@ msgstr "customer"
 
 msgid "(view)customers"
 msgstr "customers"
+
+msgid "(view)invoice number"
+msgstr "invoice number"
+
+msgid "(view)invoice count"
+msgstr "invoice count"
+
+msgid "(view)invoice title"
+msgstr "invoice title"
 
 msgid "(view)Item Subtotal"
 msgstr "Item Subtotal"
@@ -2090,3 +2099,12 @@ msgid "restore_with_system.confirm_message"
 msgstr ""
 "Restore with System Settings will restore all systems settings including software activation code to this machine.\n"
 "Please MAKE SURE the backup files are from this machine otherwise a 'license error message' will pop up."
+
+msgid "(rpt)Invoice Number"
+msgstr "Invoice Number"
+
+msgid "(rpt)Invoice Count"
+msgstr "Invoice Count"
+
+msgid "(rpt)Records Found"
+msgstr "Records Found"

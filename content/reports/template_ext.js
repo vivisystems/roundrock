@@ -69,55 +69,54 @@ if (typeof(TrimPath) != 'undefined') {
         };
 
 
-	$T.parseTemplate_etc.modifierDef['viviRoundingPrices'] = function(number) {
+        $T.parseTemplate_etc.modifierDef['viviRoundingPrices'] = function(number) {
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            var rounding_prices = $T['RoundingPrices'] || GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+            var precision_prices = $T['PrecisionPrices'] || GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-	    return $T.parseTemplate_etc.modifierDef['round'](number, precision_prices, rounding_prices);
+            return $T.parseTemplate_etc.modifierDef['round'](number, precision_prices, rounding_prices);
 
-	};
+        };
 
-	$T.parseTemplate_etc.modifierDef['viviFormatPrices'] = function(number, auto_rounding) {
-
+        $T.parseTemplate_etc.modifierDef['viviFormatPrices'] = function(number, auto_rounding) {
             auto_rounding = auto_rounding || false;
 
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-	    var dec_point = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
-	    var thousands_sep = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
+            var precision_prices = $T['PrecisionPrices'] || GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            var dec_point = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
+            var thousands_sep = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
-	    if (auto_rounding) {
-		number = $T.parseTemplate_etc.modifierDef['viviRoundingPrices'](number);		
+            if (auto_rounding) {
+                number = $T.parseTemplate_etc.modifierDef['viviRoundingPrices'](number);
             }
 
             return $T.parseTemplate_etc.modifierDef['format'](number, precision_prices, dec_point, thousands_sep);
 
-	};
+        };
 
-	$T.parseTemplate_etc.modifierDef['viviRoundingTaxes'] = function(number) {
+        $T.parseTemplate_etc.modifierDef['viviRoundingTaxes'] = function(number) {
 
-            var rounding_taxes = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
-            var precision_taxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
+            var rounding_taxes = $T['RoundingTaxes'] || GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
+            var precision_taxes = $T['PrecisionTaxes'] || GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
 
-	    return $T.parseTemplate_etc.modifierDef['round'](number, precision_taxes, rounding_taxes);
+            return $T.parseTemplate_etc.modifierDef['round'](number, precision_taxes, rounding_taxes);
 
-	};
+        };
 
-	$T.parseTemplate_etc.modifierDef['viviFormatTaxes'] = function(number, auto_rounding) {
+        $T.parseTemplate_etc.modifierDef['viviFormatTaxes'] = function(number, auto_rounding) {
 
             auto_rounding = auto_rounding || false;
 
-            var precision_taxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
-	    var dec_point = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
-	    var thousands_sep = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
+            var precision_taxes = $T['PrecisionTaxes'] || GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
+            var dec_point = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
+            var thousands_sep = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
-	    if (auto_rounding) {
-		number = $T.parseTemplate_etc.modifierDef['viviRoundingTaxes'](number);
+            if (auto_rounding) {
+                number = $T.parseTemplate_etc.modifierDef['viviRoundingTaxes'](number);
             }
 
             return $T.parseTemplate_etc.modifierDef['format'](number, precision_taxes, dec_point, thousands_sep);
 
-	};
+        };
 
 
         $T.parseTemplate_etc.modifierDef['trim'] = function(str){

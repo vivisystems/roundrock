@@ -42,7 +42,7 @@
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
-            <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
+            <preference id="pref_clockinenabled" name="vivipos.fec.settings.ClockInEnabled" type="bool" />
 
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
@@ -67,7 +67,7 @@
             </columns>
             <rows>
                 <row>
-                    <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&general.privatequeue;" />
+                    <checkbox preference="pref_clockinenabled" id="pref_clockinenabledCtrl" label="&general.clockinenabled;" />
                     <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;" />
                 </row>
                 <row>

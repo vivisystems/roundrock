@@ -7,7 +7,7 @@
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
-"${_( '(rpt)Term_No.' )}","${_( '(rpt)Service Clerk' )}","${_( '(rpt)Proceeds Clerk' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Total' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Payment' )}","${_( '(rpt)Cash' )}","${_( '(rpt)Check' )}","${_( '(rpt)Credit Card' )}","${_( '(rpt)Coupon' )}","${_( '(rpt)Gift Card' )}"
+"${_( '(rpt)Terminal' )}","${_( '(rpt)Service Clerk' )}","${_( '(rpt)Proceeds Clerk' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Total' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Payment' )}","${_( '(rpt)Cash' )}","${_( '(rpt)Check' )}","${_( '(rpt)Credit Card' )}","${_( '(rpt)Coupon' )}","${_( '(rpt)Gift Card' )}"
 {for detail in body}
 "${detail.terminal_no}","${detail.service_clerk_displayname}","${detail.proceeds_clerk_displayname}","${detail.time|unixTimeToString}","${detail.sequence}","${detail.item_subtotal|viviFormatPrices:true}","${detail.tax_subtotal|viviFormatTaxes:true}","${detail.surcharge_subtotal|viviFormatPrices:true}","${detail.discount_subtotal|viviFormatPrices:true}","${detail.promotion_subtotal|viviFormatPrices:true}","${detail.revalue_subtotal|viviFormatPrices:true}","${detail.total|viviFormatPrices:true}","${detail.cash|default:0|viviFormatPrices:true}","${detail.check|default:0|viviFormatPrices:true}","${detail.creditcard|default:0|viviFormatPrices:true}","${detail.coupon|default:0|viviFormatPrices:true}","${detail.giftcard|default:0|viviFormatPrices:true}"
 {/for}
