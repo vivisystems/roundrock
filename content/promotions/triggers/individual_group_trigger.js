@@ -12,7 +12,7 @@
         startup: function() {
             var settings = this.getSettings();
             this.triggerGroups = settings.data.concat([]);
-            //this.log('statup ' + this.dump(this.triggerGroups));
+            // this.log('statup ' + this.dump(this.triggerGroups));
         },
 
         execute: function() {
@@ -39,7 +39,7 @@
 
             var condition = " link_group like '%"+productLinkGroupId+"%' ";
 
-            var sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition+" GROUP BY cate_no";
+            var sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition+" ";
 
             //this.log('execute ' + sql) ;
 
