@@ -480,7 +480,7 @@
                 this.dispatchEvent('afterTagItem', [taggedItem, itemDisplay]);
             }
         },
-
+        
         addItem: function(plu) {
 
             if (this._suspended) return;
@@ -3874,12 +3874,15 @@
             }
         },
 
-        guestNum: function() {
-            var no = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
+        guestNum: function(num) {
+            if (num)
+                var no = num;
+            else {
+                var no = this._getKeypadController().getBuffer();
+                this._getKeypadController().clearBuffer();
+                this.cancelReturn();
+            }
+            
             var curTransaction = this._getTransaction();
             if (curTransaction == null) {
                 NotifyUtils.warn(_('Not an open order; unable to store'));
@@ -3895,7 +3898,7 @@
             }
 
             var r = this.GuestCheck.guest(no);
-            curTransaction.data.no_of_customers = no;
+            curTransaction.data.no_of_customers = r;
 
             this.subtotal();
         },

@@ -264,6 +264,12 @@
 
         doBookingTable: function() {
             //
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
+            var curTransaction = null;
+            curTransaction = cart._getTransaction();
+this.log(this.dump(curTransaction));
         },
 
         doChangeClerk: function() {

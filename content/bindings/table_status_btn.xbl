@@ -181,7 +181,29 @@
     <property name="boxContainer" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'boxContainer');" readonly="true"/>
 
 	<xbl:constructor><![CDATA[
-            this._face_div.setAttribute('style', "position: relative; width: 160px;");
+
+            var self = this;
+
+            // resizeButton
+            this.ready = false;
+            this.readyRuned = false;
+
+            this.ready = function() {
+                if(!self.readyRuned) {
+                    if (self._main_container.boxObject.width != 0) {
+                    self._face_div.setAttribute('style', "position: relative; width: " + self._main_container.boxObject.width + "px;");
+                    // self.resizeButtons();
+                    self.readyRuned = true;
+                    }
+                }
+            };
+
+            // createElement
+            this.addEventListener('load', this.ready, true);
+
+            // static .xul
+            window.addEventListener('load', this.ready, true);
+
          ]]>
 	</xbl:constructor>
 
