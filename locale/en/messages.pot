@@ -2002,6 +2002,78 @@ msgstr "ByPass"
 msgid "type.bypass.desc"
 msgstr "ByPass Type always pass success."
 
+msgid "trigger.individual_plu.label"
+msgstr "Individual PLU"
+
+msgid "trigger.individual_plu.name"
+msgstr "Individual PLU"
+
+msgid "trigger.individual_plu.desc"
+msgstr "Individual PLU DESC, Chris Help!"
+
+msgid "trigger.individual_dept.label"
+msgstr "Individual Department"
+
+msgid "trigger.individual_dept.name"
+msgstr "Individual Department"
+
+msgid "trigger.individual_dept.desc"
+msgstr "Individual Department DESC, Chris Help!"
+
+msgid "trigger.individual_group.label"
+msgstr "Individual Group"
+
+msgid "trigger.individual_group.name"
+msgstr "Individual Group"
+
+msgid "trigger.individual_group.desc"
+msgstr "Individual Group DESC, Chris Help!"
+
+msgid "type.amount_off.label"
+msgstr "Amount Off"
+
+msgid "type.amount_off.name"
+msgstr "Amount Off"
+
+msgid "type.amount_off.desc"
+msgstr "Amount Off DESC, Chris Help!"
+
+msgid "type.percentage_off.label"
+msgstr "Percentage Off"
+
+msgid "type.percentage_off.name"
+msgstr "Percentage Off"
+
+msgid "type.percentage_off.desc"
+msgstr "Percentage Off DESC, Chris Help!"
+
+msgid "type.fixed_value.label"
+msgstr "Fixed Value"
+
+msgid "type.fixed_value.name"
+msgstr "Fixed Value"
+
+msgid "type.fixed_value.desc"
+msgstr "Fixed Value DESC, Chris Help!"
+
+msgid "type.cheapest_one_free.label"
+msgstr "Cheapest One Free"
+
+msgid "type.cheapest_one_free.name"
+msgstr "Cheapest One Free"
+
+msgid "type.cheapest_one_free.desc"
+msgstr "Cheapest One Free DESC, Chris Help!"
+
+msgid "type.multi_buy.label"
+msgstr "Multi Buy"
+
+msgid "type.multi_buy.name"
+msgstr "Multi Buy"
+
+msgid "type.multi_buy.desc"
+msgstr "Multi Buy DESC, Chris Help!"
+
 msgid "acl_close_sale_period"
 msgstr "Close Sale Period"
 
@@ -2013,3 +2085,8 @@ msgstr "Table Manager"
 
 msgid "ledger"
 msgstr ""
+
+msgid "restore_with_system.confirm_message"
+msgstr ""
+"Restore with System Settings will restore all systems settings including software activation code to this machine.\n"
+"Please MAKE SURE the backup files are from this machine otherwise a 'license error message' will pop up."

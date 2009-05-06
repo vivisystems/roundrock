@@ -51,6 +51,7 @@
                     <vivibutton id="restorefromlocal" label="&systembackup.restorefromlocal;"  oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
                     <vivibutton id="restorefromstick" label="&systembackup.restorefromstick;"  oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
                     <spacer flex="1" />
+                    <checkbox label="&systembackup.restorewithsystem;" id="restoreWithSystem"/>
                 </vbox>
 
                 <vbox flex="1">

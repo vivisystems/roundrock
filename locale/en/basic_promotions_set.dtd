@@ -1,0 +1,70 @@
+<!ENTITY    individual_plu.title                   "Individual PLU Setting">
+<!ENTITY    individual_plu.tab.basic               "Options">
+<!ENTITY    individual_plu.tab.plu                 "PLU">
+
+<!ENTITY    individual_plu.label.keyword                    "Keyword: ">
+<!ENTITY    individual_plu.label.search_product             "PLU Search">
+<!ENTITY    individual_plu.label.product_no                 "PLU NO">
+<!ENTITY    individual_plu.label.product_name               "PLU Name">
+<!ENTITY    individual_plu.label.product_barcode            "PLU Barcode">
+<!ENTITY    individual_plu.label.selected_product_info      "Selected PLU Information">
+
+<!ENTITY    individual_dept.title                   "Individual Department Setting">
+<!ENTITY    individual_dept.tab.basic               "Options">
+<!ENTITY    individual_dept.tab.dept                "Department">
+<!ENTITY    individual_dept.label.selected_depts    "Selected Departments">
+
+<!ENTITY    individual_group.title                   "Individual Group Setting">
+<!ENTITY    individual_group.tab.basic               "Options">
+<!ENTITY    individual_group.tab.group               "Product Group">
+<!ENTITY    individual_group.label.selected_groups   "Selected Groups">
+
+
+<!ENTITY    common.label.trigger_amount_type             "Trigger Amount Type">
+<!ENTITY    common.label.trigger_amount_type_by_qty      "By Quanity">
+<!ENTITY    common.label.trigger_amount_type_by_subtotal "By Subtotal">
+<!ENTITY    common.label.trigger_amount_value            "Trigger Amount Value">
+<!ENTITY    common.label.trigger_amount_mode             "Trigger Amount Mode">
+<!ENTITY    common.label.trigger_amount_mode_single      "Single">
+<!ENTITY    common.label.trigger_amount_mode_more        "More Than">
+<!ENTITY    common.label.trigger_amount_mode_multiple    "Multiple">
+
+<!ENTITY    amount_off.title                   "Amount Off Setting">
+<!ENTITY    amount_off.label.type              "Amount Off Type">
+<!ENTITY    amount_off.label.type_by_qty       "By Quanity">
+<!ENTITY    amount_off.label.type_by_subtotal  "By Subtotal">
+<!ENTITY    amount_off.label.value             "Enter Amount Off Value">
+
+<!ENTITY    percentage_off.title               "Percentage Off Setting">
+<!ENTITY    percentage_off.label.value         "Enter Percentage Off Value">
+
+<!ENTITY    fixed_value.title                  "Fixed Value Setting">
+<!ENTITY    fixed_value.label.type             "Fixed Value Type">
+<!ENTITY    fixed_value.label.type_by_qty      "By Quanity">
+<!ENTITY    fixed_value.label.type_by_subtotal "By Subtotal">
+
+<!ENTITY    fixed_value.label.value            "Enter Fixed Value">
+
+<!ENTITY    cheapest_one_free.title                   "Cheapest One Free Setting">
+<!ENTITY    cheapest_one_free.label.type             "Cheapest One Free Type">
+<!ENTITY    cheapest_one_free.label.type_by_fixed_value             "Fixed Value">
+<!ENTITY    cheapest_one_free.label.type_by_percentage_off             "Percentage Off">
+
+<!ENTITY    cheapest_one_free.label.maximum_qty       "Maximum Quanity">
+<!ENTITY    cheapest_one_free.label.value             "Set Free Price">
+
+<!ENTITY    multi_buy.title                   "MultiBuy Setting">
+
+<!ENTITY    button.action.down    "Down">
+<!ENTITY    button.action.modify  "Modify">
+<!ENTITY    button.action.delete  "Delete">
+
+<!ENTITY    label.repeatable     "Repeat Items for this rule">
+
+<!ENTITY    label.name     "Name">
+<!ENTITY    label.code     "Code">
+<!ENTITY    label.alt_name1     "Alternate Name1">
+<!ENTITY    label.alt_name2     "Alternate Name2">
+
+<!ENTITY    label.select_trigger  "Select Trigger:">
+<!ENTITY    label.select_type     "Select Type:">

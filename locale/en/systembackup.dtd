@@ -10,8 +10,8 @@
 <!ENTITY systembackup.restorefromlocal "Restore from Local">
 <!ENTITY systembackup.backupwait "Waitting for Backup Data...">
 <!ENTITY systembackup.restorewait "Waitting for Restore Data...">
-
-
+<!ENTITY systembackup.restorewithsystem "Restore With System Settings">
+ 
 <!ENTITY vivipos.fec.common.ok "Ok">
 <!ENTITY vivipos.fec.common.cancel "Cancel">
 <!ENTITY vivipos.fec.common.add "Add">
