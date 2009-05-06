@@ -44,7 +44,9 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">${_( '(rpt)Summary' ) + ':'}</td>
+                    <td>${_( '(rpt)Records Found' ) + ':'}</td>
+                    <td>${master.clockStamps.length|format:0}</td>
+                    <td>${_( '(rpt)Summary' ) + ':'}</td>
                     <td>${master.total_spantime}</td>
                 </tr>
             </tfoot>

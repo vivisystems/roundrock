@@ -14,7 +14,7 @@
         _set_reportRecords: function(limit) {
 
             limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = 3000;
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
@@ -96,11 +96,15 @@
                                                             GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans % 60),2);
             });
             
-            this._reportRecords.head.title = _( 'Attendance Record Report' );
+            this._reportRecords.head.title = _( 'Attendance Report' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             
             this._reportRecords.body = GeckoJS.BaseObject.getValues(clockStamps);
+        },
+
+        exportCsv: function() {
+            this._super(this);
         },
 
         load: function() {

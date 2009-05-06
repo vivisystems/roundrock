@@ -267,6 +267,12 @@
             var priceModifier = item.manual_adjustment_only ? 1 : this.data.price_modifier;
             var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice*priceModifier) || 0;
 
+            // retrieve category name from Session
+            var categoriesByNo = GeckoJS.Session.get('categoriesByNo');
+            if (categoriesByNo && categoriesByNo[item.cate_no]) {
+                item.cate_name = categoriesByNo[item.cate_no].name;
+            }
+           
             // name,current_qty,current_price,current_subtotal
             var item2 = {
                 type: 'item', // item or category
@@ -277,6 +283,7 @@
                 alt_name1: item.alt_name1,
                 alt_name2: item.alt_name2,
                 cate_no: item.cate_no,
+                cate_name: item.cate_name,
 
                 index: index,
                 stock_status: item.stock_status,

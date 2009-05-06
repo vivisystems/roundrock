@@ -60,12 +60,13 @@
 						                    <menuitem selected="false" label="&cashdrawer.clerk_displayname;" value="clerk_displayname" />
 						                    <menuitem selected="false" label="&cashdrawer.created;" value="created" />
 						                    <menuitem selected="false" label="&cashdrawer.event_type;" value="event_type" />
+						                    <menuitem selected="false" label="&cashdrawer.sequence;" value="sequence" />
 						                </menupopup>
 						            </menulist>
 						        </vbox>
 						        <vbox>
-				                    <label value="&cashdrawer.machineid;" />
-				                    <textbox id="machine_id" value='' width="300"/>
+				                    <label value="&cashdrawer.terminal_no;" />
+				                    <textbox id="terminal_no" value='' width="300"/>
 				                </vbox>
 		                    </row>
 		                </rows>

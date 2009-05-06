@@ -18,6 +18,7 @@
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             
+            var terminal_no = document.getElementById( 'terminal_no' ).value;
             var sortby = document.getElementById( 'sortby' ).value;
 
             start = parseInt( start / 1000, 10 );
@@ -27,14 +28,18 @@
 
             var fields = [
                             'clerk_displayname',
+                            'terminal_no',
                             'event_type',
-                            'count( event_type ) as num_events'
+                            'count( event_type ) as num_occurrences'
                          ];
                         
             var conditions = "created >= '" + start +
                             "' AND created <= '" + end + "'";
 
-            var groupby = "clerk_displayname, event_type";
+            if ( terminal_no.length > 0 )
+                conditions += " AND terminal_no LIKE '" + this._queryStringPreprocessor( terminal_no ) + "%'";
+
+            var groupby = "clerk_displayname, terminal_no, event_type";
             var orderby = sortby + " desc";
             
             if ( sortby != 'all' )
@@ -43,7 +48,7 @@
             var datas = cashDrawer.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby } );
             
             var footData = cashDrawer.find( 'first', {
-            											fields: 'count( event_type ) as total_num_events',
+            											fields: 'count( event_type ) as total_num_occurrences',
             											conditions: conditions,
             											recursive: -1
             										 } );
@@ -55,6 +60,10 @@
             this._reportRecords.body = datas;
             
             this._reportRecords.foot.foot_data = footData;
+        },
+
+        exportCsv: function() {
+            this._super(this);
         },
 
         load: function() {

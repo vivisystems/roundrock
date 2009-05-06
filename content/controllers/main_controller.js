@@ -305,7 +305,7 @@
         orderDialog: function () {
             var aURL = 'chrome://viviecr/content/view_order.xul';
             var aName = _('Order Details');
-            var aArguments = {index: 'sequence', value: this._getKeypadController().getBuffer()};
+            var aArguments = {index: 'sequence,table_no', value: this._getKeypadController().getBuffer()};
             var posX = 0;
             var posY = 0;
             var width = this.screenwidth;

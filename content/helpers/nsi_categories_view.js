@@ -55,12 +55,16 @@
                 if (categories && categories.length > 0) GeckoJS.Session.add('categories', categories);
 
             }
-            var byId ={}, indexCate = [], indexCateAll = [];
+            var byId ={}, byNo = {}, indexCate = [], indexCateAll = [];
 
             if (categories) categories.forEach(function(category) {
 
                 if (category.id.length > 0) {
                     byId[category.id] = category;
+                }
+
+                if (category.no.length > 0) {
+                    byNo[category.no] = category;
                 }
 
                 if(GeckoJS.String.parseBoolean(category.visible)) indexCate.push(category.id);
@@ -69,6 +73,7 @@
             });
 
             GeckoJS.Session.add('categoriesById', byId);
+            GeckoJS.Session.add('categoriesByNo', byNo);
             GeckoJS.Session.add('categoriesIndexes', indexCate);
             GeckoJS.Session.add('categoriesIndexesAll', indexCateAll);
 

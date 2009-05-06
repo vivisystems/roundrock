@@ -23,23 +23,26 @@
         <thead>
             <tr>
                 <th style="text-align: left;">${_( '(rpt)Clerk' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Terminal Number' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Event' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Number of Events' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Number of Occurrences' )}</th>
             </tr>
         </thead>
         <tbody>
 {for item in body}
             <tr>
                 <td style="text-align: left;">${item.clerk_displayname}</td>
+                <td style="text-align: left;">${item.terminal_no}</td>
                 <td style="text-align: left;">${_( '(rpt)' + item.event_type )}</td>
-                <td style="text-align: right;">${item.num_events}</td>
+                <td style="text-align: right;">${item.num_occurrences|default:0|format:0}</td>
             </tr>
 {/for}
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2">${_( '(rpt)Summary' ) + ':'}</td>
-                <td style="text-align: right;">${foot.foot_data.total_num_events}</td>
+                <td colspan="2">${_( '(rpt)Records Found' ) + ':'} ${body.length|default:0|format:0}</td>
+                <td>${_( '(rpt)Summary' ) + ':'}</td>
+                <td style="text-align: right;">${foot.foot_data.total_num_occurrences|default:0|format:0}</td>
             </tr>
         </tfoot>
     </table>

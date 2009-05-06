@@ -790,7 +790,7 @@
             }
 
             //@debug
-            //if (data.order) this.log(this.dump(data.order));
+            if (data.order) this.log(this.dump(data.order));
             // if (data.customer) this.log(this.dump(data.customer));
             // if (data.store) this.log(this.dump(data.store));
             // if (data.annotations) this.log(this.dump(data.annotations));
@@ -826,7 +826,7 @@
                             }
                         }
 
-                        if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group.indexOf(data.linkgroup) > -1) {
+                        if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group && item.link_group.indexOf(data.linkgroup) > -1) {
                             item.linked = true;
                             empty = false;
                         }
@@ -910,7 +910,7 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-            //this.log(GeckoJS.BaseObject.dump(result));
+            this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

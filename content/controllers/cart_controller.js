@@ -3805,7 +3805,7 @@
                 r = this.GuestCheck.table(no);
             }
 
-            this.subtotal();
+            //this.subtotal();
         },
 
         recallOrder: function() {
