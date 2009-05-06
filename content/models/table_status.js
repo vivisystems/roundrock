@@ -259,6 +259,7 @@
                         }
                         tables[o.table_no].table = GeckoJS.BaseObject.unserialize(tables[o.table_no].table_object);
                         // tables[o.table_no].order = GeckoJS.BaseObject.unserialize(tables[o.table_no].order_object);
+                        if (o.order_object)
                         tables[o.table_no].order.push( GeckoJS.BaseObject.unserialize(o.order_object));
                     }
                 } else {
@@ -395,7 +396,7 @@
                 clerk: tableObj.clerk,
                 booking: tableObj.booking,
                 lock: false,
-                status: 1,
+                status: tableObj.status,
                 terminal_no: tableObj.terminal_no,
                 table_object: table_obj,
                 order_object: order_obj
@@ -428,7 +429,6 @@
         },
 
         removeCheck: function(checkObj) {
-            var i = 0;
             var order_id = checkObj.id;
             var tableObj = {
                 order_id: order_id,
@@ -455,15 +455,42 @@
 
         },
 
-        holdTable: function(table_no, holdby) {
+        holdTable: function(table_no, holdTable) {
             // GREUtils.log("DEBUG", "hold table...");
+            /*
             this._tableList.forEach(function(o){
                 if (o.table_no == table_no) {
                     o.holdby = holdby;
                 }
             });
+            */
 
-            GeckoJS.Session.set('vivipos_fec_guest_check_table_list', this._tableList);
+            var sourceTable = holdTable || {};
+            var holdby = sourceTable.table_no;
+            if (sourceTable.status == -1) holdby = sourceTable.holdby;
+            var order_id = '';
+            var tableObj = {
+                order_id: sourceTable.order_id,
+                check_no: '',
+                table_no: table_no,
+                sequence: '',
+                guests: 0,
+                holdby: '' + holdby,
+                // holdby: '' + sourceTable.table_no,
+                clerk: sourceTable.clerk,
+                booking: 0,
+                lock: false,
+                status: sourceTable.status,
+                terminal_no: '',
+
+                table_object: null,
+                order_object: null
+            };
+            // this.setTableStatus(tableObj.table_no, tableObj);
+            this.setTableStatus( this.genTableStatusObj( tableObj));
+            // this.getTableStatusList(true);
+
+            // GeckoJS.Session.set('vivipos_fec_guest_check_table_list', this._tableList);
             var list = this.getTableStatusList(true);
             return list;
         },
@@ -486,26 +513,38 @@
                 return ;
             }
 
-            var tableStatusNewObj = {};
-            var order_id = tableStatusObj.order_id;
-            var conditions = "table_statuses.order_id='" + order_id + "'";
-            var tableStatusObjTmp = this.find('first', {
-                conditions: conditions
-            });
+
+            if (tableStatusObj.order_id && tableStatusObj.holdby) {
+                var order_id = tableStatusObj.order_id;
+                var conditions = "table_statuses.order_id='" + order_id + "' AND table_statuses.holdby='" + tableStatusObj.holdby + "' AND table_statuses.table_no='" + tableStatusObj.table_no + "'";
+                var tableStatusObjTmp = this.find('first', {
+                    conditions: conditions
+                });
+            }
+            else if (tableStatusObj.order_id) {
+                var order_id = tableStatusObj.order_id;
+                var conditions = "table_statuses.order_id='" + order_id + "'";
+                var tableStatusObjTmp = this.find('first', {
+                    conditions: conditions
+                });
+            }
 
             // tableStatus record exist
             if (tableStatusObjTmp) {
-
-                if (tableStatusObj.sequence == '') {
-                    // remove tableStatus record
+                if (tableStatusObj.status == -1) {
                     this.del(tableStatusObjTmp.id);
+                }
+                else if (tableStatusObj.sequence == '' && !tableStatusObj.holdby) {
+                    // remove tableStatus record
+                    // this.del(tableStatusObjTmp.id);
+                    this.delAll(conditions);
                 } else {
                     // update tableStatus record
                     this.id = tableStatusObjTmp.id;
                     var retObj = this.save(tableStatusObj);
                 }
             } else {
-                if (tableStatusObj.sequence != '') {
+                if (tableStatusObj.sequence != '' || tableStatusObj.holdby) {
                     // add new tableStatus record
                     this.id = '';
                     var retObj = this.save(tableStatusObj);
