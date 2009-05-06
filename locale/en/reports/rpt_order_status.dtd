@@ -13,7 +13,8 @@
 <!ENTITY rptorderstatus.sequence "Sequence">
 <!ENTITY rptorderstatus.invoice_no "Invoice Number">
 <!ENTITY rptorderstatus.tax_subtotal "Add-on Tax">
-<!ENTITY rptorderstatus.total "Payment">
+<!ENTITY rptorderstatus.total "Net Sales">
+<!ENTITY rptorderstatus.payment_subtotal "Payment">
 <!ENTITY rptorderstatus.item_subtotal "Total">
 <!ENTITY rptorderstatus.surcharge_subtotal "Surcharge">
 <!ENTITY rptorderstatus.discount_subtotal "Discount">

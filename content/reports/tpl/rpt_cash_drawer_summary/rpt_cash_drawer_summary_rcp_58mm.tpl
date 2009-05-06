@@ -13,7 +13,7 @@ ${head.title|center:24}
 ${_( '(rpt)Clerk' ) + ':'}
 ${item.clerk_displayname|right:24}
 ${_( '(rpt)Event' ) + ':'}
-${item.event_type|right:24}
+${_( '(rpt)' + item.event_type )|right:24}
 ${_( '(rpt)Number of Events' ) + ':'}
 ${item.num_events|right:24}
 {/for}

@@ -36,7 +36,7 @@
             </thead>
             <tbody>
 {for detail in body}
-                <tr>
+                <tr id="${detail.id}">
                     <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.Order.time|unixTimeToString}</td>
                     <td style="text-align: left;">${detail.sequence}</td>

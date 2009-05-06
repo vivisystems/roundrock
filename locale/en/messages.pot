@@ -1864,6 +1864,21 @@ msgstr "Guest/Order"
 msgid "(rpt)Item/Order"
 msgstr "Guest/Order"
 
+msgid "(rpt)payment"
+msgstr "payment"
+
+msgid "(rpt)nosale"
+msgstr "nosale"
+
+msgid "(rpt)finalization"
+msgstr "finalization"
+
+msgid "(rpt)shift change"
+msgstr "shift change"
+
+msgid "(rpt)Net Sales"
+msgstr "Net Sales"
+
 msgid "(view)completed"
 msgstr "completed"
 
@@ -2007,3 +2022,12 @@ msgstr "Table Manager"
 
 msgid "ledger"
 msgstr ""
+
+msgid "(rpt)Invoice Number"
+msgstr "Invoice Number"
+
+msgid "(rpt)Invoice Count"
+msgstr "Invoice Count"
+
+msgid "(rpt)Records Found"
+msgstr "Records Found"

@@ -35,7 +35,7 @@
                 <td style="text-align: left;">${item.drawer_no}</td>
                 <td style="text-align: left;">${item.clerk_displayname}</td>
                 <td style="text-align: left;">${item.created|unixTimeToString}</td>
-                <td style="text-align: left;">${item.event_type}</td>
+                <td style="text-align: left;">${_( '(rpt)' + item.event_type )}</td>
             </tr>
 {/for}
         </tbody>

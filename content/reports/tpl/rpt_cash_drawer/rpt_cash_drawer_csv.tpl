@@ -9,5 +9,5 @@
 
 "${_( '(rpt)Terminal No.' )}","${_( '(rpt)Drawer No.' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Time' )}","${_( '(rpt)Event' )}"
 {for item in body}
-"${item.terminal_no}","${item.drawer_no}","${item.clerk_displayname}","${item.created|unixTimeToString}","${item.event_type}"
+"${item.terminal_no}","${item.drawer_no}","${item.clerk_displayname}","${item.created|unixTimeToString}","${_( '(rpt)' + item.event_type )}"
 {/for}

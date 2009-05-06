@@ -11,7 +11,11 @@
         
         _fileName: "rpt_order_status",
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = 3000;
+            
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
             
@@ -49,7 +53,12 @@
                             'orders.table_no',
                             'orders.no_of_customers',
                             'orders.invoice_no',
-                            'orders.terminal_no'
+                            'orders.invoice_count',
+                            'orders.terminal_no',
+                            'orders.rounding_prices',
+                            'orders.precision_prices',
+                            'orders.rounding_taxes',
+                            'orders.precision_taxes'
                          ];
 
             var conditions = "orders." + periodType + ">='" + start +
@@ -83,11 +92,12 @@
 					case 'service_clerk_displayname':
 					case 'status':
 					case 'time':
+						break;
 					case 'discount_subtotal':
 					case 'promotion_subtotal':
 					case 'revalue_subtotal':
-						break;
 					case 'item_subtotal':
+					case 'payment_subtotal':
 					case 'tax_subtotal':
 					case 'surcharge_subtotal':
 					case 'total':
@@ -100,7 +110,7 @@
             
             var order = new OrderModel();
             
-            var records = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1 } );
+            var records = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: limit } );
             
             var tax_subtotal = 0;
         	var item_subtotal = 0;
@@ -163,13 +173,17 @@
             
             this._reportRecords.foot.foot_datas = footRecords;
         },
-
+        
         execute: function() {
         	this._super();
 
-            this._registerOrderDialog();
+            this._registerOpenOrderDialog();
         },
 
+        exportCsv: function() {
+            this._super(this);
+        },
+        
         load: function() {
             var today = new Date();
             var yy = today.getYear() + 1900;

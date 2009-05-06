@@ -309,7 +309,8 @@
             var txn = evt.data;
 
             //this.log('SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
-
+            if (txn.data.status < 0) return;
+            
             // don't print if order has been pre-finalized and the order is being submitted for completion
             // since receipts and checks would have already been printed
             if (txn.data.status != 1 || !txn.isClosed()) {
@@ -908,8 +909,8 @@
                 }
             }
             //@debug
-            alert(GeckoJS.BaseObject.dump(result));
-            //this.log(GeckoJS.BaseObject.dump(result));
+            //alert(GeckoJS.BaseObject.dump(result));
+            this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

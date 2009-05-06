@@ -146,6 +146,7 @@
 					record.items_count = result.items_count;
 					record.no_of_customers = result.no_of_customers;
 					record.terminal_no = result.terminal_no;
+					record.id = result.id;
 					
 					record.Order.time = result.time;
 					
@@ -184,6 +185,11 @@
 			this._reportRecords.body = records;
 			
 			this._reportRecords.foot.foot_datas = summary;
+        },
+        
+        execute: function() {
+        	this._super();
+        	this._registerOpenOrderDialog();
         },
         
         load: function() {

@@ -1,14 +1,20 @@
 [&QSON]${head.store.name|center:15}[&QSOFF]
 [&DWON]${head.store.branch|center:14}[&DWOFF]
 ${head.store.telephone1|center:24}
-
+[&CR]
 ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
 ${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.start_time} ~
 ${head.end_time}
-
+[&CR]
 ${head.title|center:24}
 {for detail in body}
+{eval}
+  TrimPath.RoundingPrices = detail.rounding_prices;
+  TrimPath.PrecisionPrices = detail.precision_prices;
+  TrimPath.RoundingTaxes = detail.rounding_taxes;
+  TrimPath.PrecisionTaxes = detail.precision_taxes;
+{/eval}
 ------------------------
 ${_( '(rpt)Terminal' ) + ':'}
 ${detail.terminal_no|right:24}
@@ -16,6 +22,10 @@ ${_( '(rpt)Time' ) + ':'}
 ${detail.time|unixTimeToString|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
+${_( '(rpt)Invoice Number' ) + ':'}
+${detail.invoice_no|right:24}
+${_( '(rpt)Invoice Count' ) + ':'}
+${detail.invoice_count|right:24}
 ${_( '(rpt)Service Clerk' ) + ':'}
 ${detail.service_clerk_displayname|right:24}
 ${_( '(rpt)Status' ) + ':'}
@@ -37,6 +47,14 @@ ${detail.total|viviFormatPrices:true|right:24}
 ${_( '(rpt)Payment' ) + ':'}
 ${detail.payment|viviFormatPrices:true|right:24}
 {/for}
+{eval}
+  delete TrimPath.RoundingPrices;
+  delete TrimPath.PrecisionPrices;
+  delete TrimPath.RoundingTaxes;
+  delete TrimPath.PrecisionTaxes;
+{/eval}
+------------------------
+${_( '(rpt)Records Found' ) + ': ' + body.length|left:24}
 ------------------------
 ${_( '(rpt)Summary' )}
 ${_( '(rpt)Total' ) + ':'}

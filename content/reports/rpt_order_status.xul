@@ -100,6 +100,7 @@
 					                        <menuitem selected="false" label="&rptorderstatus.promotion_subtotal;" value="promotion_subtotal" />
 					                        <menuitem selected="false" label="&rptorderstatus.revalue_subtotal;" value="revalue_subtotal" />
 					                        <menuitem selected="false" label="&rptorderstatus.total;" value="total" />
+					                        <menuitem selected="false" label="&rptorderstatus.payment_subtotal;" value="payment_subtotal" />
 					                    </menupopup>
 					                </menulist>
 			                    </vbox>
