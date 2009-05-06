@@ -102,6 +102,7 @@
         _org_title: '',
         _tableSettings: {},
         _tables: [],
+        _sourceTable: null,
         _sourceTableNo: null,
         _tableStatusModel: null,
 
@@ -269,7 +270,7 @@
             var cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
             var curTransaction = null;
             curTransaction = cart._getTransaction();
-this.log(this.dump(curTransaction));
+//this.log(this.dump(curTransaction));
         },
 
         doChangeClerk: function() {
@@ -303,6 +304,7 @@ this.log(this.dump(curTransaction));
         doRefreshTableStatus: function() {
             document.getElementById('tableScrollablepanel').invalidate();
             this._inputObj.action = '';
+            this._sourceTable = null;
             this._sourceTableNo = null;
             this._hidePromptPanel('prompt_panel');
             return;
@@ -312,6 +314,7 @@ this.log(this.dump(curTransaction));
             this._hidePromptPanel('prompt_panel');
             if (this._inputObj.action) {
                 this._inputObj.action = '';
+                this._sourceTable = null;
                 this._sourceTableNo = null;
             } else {
                 doCancelButton();
@@ -353,7 +356,8 @@ this.log(this.dump(curTransaction));
                     if (this._sourceTableNo) {
                         //
                         var i = this._tables[v].table_no;
-                        var holdby = this._sourceTableNo;
+                        var holdby = GeckoJS.BaseObject.clone(this._sourceTable);
+
                         this._tables = this._tableStatusModel.holdTable(i, holdby);
                         
                         var tables = [];
@@ -368,6 +372,7 @@ this.log(this.dump(curTransaction));
                         document.getElementById('tableScrollablepanel').datasource = tableStatus ;
 
                         this._inputObj.action = '';
+                        this._sourceTable = null;
                         this._sourceTableNo = null;
                         this._hidePromptPanel('prompt_panel');
                         return;
@@ -377,7 +382,9 @@ this.log(this.dump(curTransaction));
                             NotifyUtils.error(_('This table is empty!!'));
                             return;
                         }
+
                         this._setPromptLabel(null, null, _('Please select an empty table to merge...'), null, 3);
+                        this._sourceTable = this._tables[v];
                         this._sourceTableNo = this._tables[v].table_no;
                         document.getElementById('tableScrollablepanel').invalidate();
                         return;
@@ -392,7 +399,9 @@ this.log(this.dump(curTransaction));
                     }
 
                     var i = this._tables[v].table_no;
-                    var holdby = null;
+                    var holdby = GeckoJS.BaseObject.clone(this._tables[v]);
+                    holdby.status = -1;
+
                     this._tables = this._tableStatusModel.holdTable(i, holdby);
 
                     var tables = [];
