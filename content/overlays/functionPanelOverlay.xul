@@ -44,8 +44,10 @@
             <spacer flex="1"/>
             <vivibutton id="vkb" label=""  oncommand="VirtualKeyboard.toggle();"
                         class="systoolbtn button-vkb"/>
-            <vivibutton id="clockin" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
-                        class="systoolbtn clockinout"/>
+            <isoptionenabled option="vivipos.fec.settings.ClockInEnabled" action="display">
+                <vivibutton id="clockin" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
+                            class="systoolbtn clockinout"/>
+            </isoptionenabled>
             <vivibutton id="options" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
                         class="systoolbtn options"/>
             <spacer id="spacer" flex="1"/>
