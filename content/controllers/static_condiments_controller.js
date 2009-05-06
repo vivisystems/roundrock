@@ -292,11 +292,11 @@
             $('#relation_elment').val(relation_element);
             $('#relation_direction').val(relation_direction);
 
-            $('#hideScrollbar').attr('checked', panelHideScrollbar);
-            $('#reverseScrollbar').attr('checked', panelReverseScrollbar);
+            $('#hideScrollbar')[0].checked = panelHideScrollbar;
+            $('#reverseScrollbar')[0].checked = panelReverseScrollbar;
 
-            $('#supportSoldout').attr('checked', supportSoldout);
-            $('#linktoPlu').attr('checked', linktoPlu);
+            $('#supportSoldout')[0].checked = supportSoldout;
+            $('#linktoPlu')[0].checked = linktoPlu;
 
             condimentscrollablepanel.value = selectedCondGroup;
 
@@ -307,10 +307,10 @@
             var panelCols = $('#condcols').val();
             var panelRows = $('#condrows').val();
             var btnHeight = $('#btnheight').val();
-            var panelHideScrollbar = $('#hideScrollbar').attr('checked');
-            var panelReverseScrollbar = $('#reverseScrollbar').attr('checked');
-            var supportSoldout = $('#supportSoldout').attr('checked');
-            var linktoPlu = $('#linktoPlu').attr('checked');
+            var panelHideScrollbar = $('#hideScrollbar')[0].checked;
+            var panelReverseScrollbar = $('#reverseScrollbar')[0].checked;
+            var supportSoldout = $('#supportSoldout')[0].checked;
+            var linktoPlu = $('#linktoPlu')[0].checked;
 
             var relation_element = $('#relation_elment').val();
             var relation_direction = $('#relation_direction').val();
@@ -324,10 +324,23 @@
             GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.rows', panelRows);
             GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.btnheight', btnHeight);
             GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.condiment_group', selectedCondGroup);
-            GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.hideScrollbar', panelHideScrollbar);
-            GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.reverseScrollbar', panelReverseScrollbar);
-            GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.support_soldout', supportSoldout);
-            GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.linkto_plu', linktoPlu);
+            
+            try {
+                GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.hideScrollbar', panelHideScrollbar);
+                GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.reverseScrollbar', panelReverseScrollbar);
+                GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.support_soldout', supportSoldout);
+                GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.linkto_plu', linktoPlu);
+            }catch(e) {
+                // old string setting exists
+                GeckoJS.Configure.remove("vivipos.fec.settings.static_condiments.hideScrollbar");
+                GeckoJS.Configure.remove("vivipos.fec.settings.static_condiments.reverseScrollbar");
+                GeckoJS.Configure.remove("vivipos.fec.settings.static_condiments.support_soldout");
+                GeckoJS.Configure.remove("vivipos.fec.settings.static_condiments.linkto_plu");
+                GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.hideScrollbar', panelHideScrollbar);
+                GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.reverseScrollbar', panelReverseScrollbar);
+                GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.support_soldout', supportSoldout);
+                GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.linkto_plu', linktoPlu);
+            }
 
             GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.relation_element', relation_element);
             GeckoJS.Configure.write('vivipos.fec.settings.static_condiments.relation_direction', relation_direction);
