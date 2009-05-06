@@ -48,6 +48,7 @@
             if (buttonFontSize && btn) {
                 $(btn).addClass('font-' + buttonFontSize);
             }
+
         }
 
     });
@@ -73,6 +74,22 @@
 
         getCurrentIndexData: function (row) {
             return this.data[row];
+        },
+
+        getCellValue: function(row, col) {
+
+            var sResult;
+            var key;
+
+            try {
+                key = col.id;
+                sResult = this.data[row][key] || "";
+            }
+            catch (e) {
+                sResult =  "";
+            }
+            return sResult;
+
         },
 
 
@@ -101,6 +118,11 @@
         },
 
         renderButton: function(row, btn) {
+
+            if(!this.data[row]['id']) {
+                btn.disabled = true;
+                return;
+            }
 
             var buttonColor = this.getCellValue(row,{
                 id: 'button_color'

@@ -74,6 +74,7 @@
                                        <radio label="&condiments.group.single;" value="single" />
                                        <radio label="&condiments.group.multiple;" value="multiple" />
                                     </radiogroup>
+                                    <checkbox label="&condiments.group.newline;" form="condGroupForm" name="newline" value="false" default="0" />
                                 </hbox>
                             </row>
                         </rows>

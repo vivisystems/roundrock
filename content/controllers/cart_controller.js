@@ -2769,7 +2769,9 @@
             var now  = (new Date()).getTime();
             if( !forceCancel && (!this._lastCancelInvoke || ( (now - this._lastCancelInvoke) > 3000)) ) {
                 try{
-                    GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+
+                    var quiet = GeckoJS.Configure.read('vivipos.fec.settings.quietcancel') || false;
+                    if(!quiet) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
                     //GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
                 }catch(e) {                  
                 }
