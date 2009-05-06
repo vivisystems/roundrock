@@ -26,7 +26,6 @@
         var self = this;
 
         if (this.events) {
-            GREUtils.log('adding listeners');
             var changeHandler = function (evt) {
                 var key = evt.getData().key;
 
