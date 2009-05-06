@@ -291,7 +291,7 @@
                                         <checkbox id="requireTableNo" label="&tableman.tableoptions.requiretableno;" form="settingsForm" name="RequireTableNo"/>
                                         <hbox>
                                             <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
-                                            <textbox id="tableRemindTime" name="TableRemindTime" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                            <textbox id="tableRemindTime" name="TableRemindTime" form="settingsForm" type="Number" size="6" maxlength="3" min="10" max="999" onfocus="select()"/>
                                         </hbox>
                                     </row>
                                     <row>
@@ -306,7 +306,7 @@
                                         <label value="" />
                                         <hbox>
                                             <label control="tablePeriodLimit" value="&tableman.tableoptions.maxcheckno;"/>
-                                            <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                            <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="6" maxlength="3" min="30" max="999" onfocus="select()"/>
                                         </hbox>
                                     </row>
                                 </rows>

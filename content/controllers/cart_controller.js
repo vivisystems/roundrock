@@ -3804,8 +3804,8 @@
             } else {
                 r = this.GuestCheck.table(no);
             }
-
-            this.subtotal();
+            if (r > 0)
+                this.subtotal();
         },
 
         recallOrder: function() {
@@ -3898,7 +3898,7 @@
             }
 
             var r = this.GuestCheck.guest(no);
-            curTransaction.data.no_of_customers = r;
+            // curTransaction.data.no_of_customers = r;
 
             this.subtotal();
         },
