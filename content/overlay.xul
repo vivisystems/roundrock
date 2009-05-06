@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/bindings.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
 
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/layouts/test2.xul" ?>
 
 <?xul-overlay href="chrome://viviecr/content/dialogs/prompt_additem.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_condiments.xul" ?>
@@ -19,8 +11,6 @@
 <?xul-overlay href="chrome://viviecr/content/dialogs/payment_details.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/creditcard_remark.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/coupon_remark.xul" ?>
-
-<?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
 
 <overlay id="viviecrOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -89,35 +79,7 @@
 
         <hotkey-keyset id="hotkeySets" />
 
-        <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
-
-            <box id="leftPanel" flex="1" style="overflow: hidden" orient="vertical" class="leftPanel">
-                <box id="categoryPanelContainer" flex="0" class="categoryPanel" />
-                <box id="productPanelContainer" flex="1" class="productPanel" />
-            </box>
-
-            <spacer id="panelSpacer" width="0px" flex="0"/>
-
-            <box id="rightPanel" flex="1" class="rightPanel" orient="vertical">
-                <box id="vfdPanelContainer" flex="1"/>
-                <box id="cartlistPanelContainer" flex="1"/>
-                <box id="functionPanelContainer" flex="0"/>
-            </box>
-
-        </box>
-
         <popupset id="dialogs" />
-
-        <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
-            <vbox flex="1">
-            <groupbox flex="1">
-                <caption id="common_wait" label="Waiting..." class="PageTitle"/>
-                <spacer style="height: 20px;" />
-                <progressmeter id="progress" mode="undetermined" value="0" />
-                <spacer style="height: 20px;" />
-            </groupbox>
-            </vbox>
-        </panel>
 
     </box>
 

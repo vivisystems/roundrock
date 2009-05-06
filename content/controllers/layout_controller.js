@@ -284,8 +284,13 @@
 
     GeckoJS.Controller.extend(__controller__);
 
+    window.addEventListener('ViviposStartup', function() {
+        GREUtils.log('layout ViviposStartup ');
+    }, false);
+
     // register onload
     window.addEventListener('load', function() {
+        GREUtils.log('layout load ');
         var main = GeckoJS.Controller.getInstanceByName('Main');
         if(main) main.addEventListener('afterInitial', function() {
                                             main.requestCommand('initial', null, 'Layout');
