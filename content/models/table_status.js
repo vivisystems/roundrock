@@ -114,6 +114,9 @@
             }
 
             try {
+                // Bypassing the cache
+                req.channel.loadFlags |= Components.interfaces.nsIRequest.LOAD_BYPASS_CACHE;
+
                 req.send(request_data);
                 
                 // block ui until request finish or timeout
@@ -207,7 +210,7 @@
                     NotifyUtils.error(_('Can not get new check no!!'));
                     return "";
                     break;
-                } ;
+                }
             }
         },
 

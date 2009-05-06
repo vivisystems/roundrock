@@ -94,6 +94,8 @@
 
             var request_data = null;
             try {
+                // Bypassing the cache
+                req.channel.loadFlags |= Components.interfaces.nsIRequest.LOAD_BYPASS_CACHE;
                 req.send(request_data);
                 
                 // block ui until request finish or timeout

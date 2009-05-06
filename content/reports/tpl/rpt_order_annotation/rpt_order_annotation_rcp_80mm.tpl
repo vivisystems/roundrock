@@ -10,7 +10,7 @@ ${head.title|center:24}
 ${types_index}
 {for orders in types.orders}
 ------------------------------------------
-${'  ' + _( '(rpt)Term_No.' ) + ':'|left:18}${orders.terminal_no|right:24}
+${'  ' + _( '(rpt)Terminal' ) + ':'|left:18}${orders.terminal_no|right:24}
 ${'  ' + _( '(rpt)Time' ) + ':'|left:18}${orders.time|unixTimeToString|right:24}
 ${'  ' + _( '(rpt)Sequence' ) + ':'|left:18}${orders.sequence|right:24}
 ${'  ' + _( '(rpt)Annotation Text' ) + ':'|left:18}${orders.text|right:24}

@@ -21,28 +21,39 @@
             <!--caption>${head.title}</caption-->
             <thead>
                 <tr>
-                    <th style="text-align: left;">${_( '(rpt)Term_No.' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Service Clerk' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Status' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Invoice Number' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Invoice Count' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Promotion' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Revalue' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Net Sales' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Payment' )}</th>
                 </tr>
             </thead>
             <tbody>
 {for detail in body}
-                <tr>
+{eval}
+  TrimPath.RoundingPrices = detail.rounding_prices;
+  TrimPath.PrecisionPrices = detail.precision_prices;
+  TrimPath.RoundingTaxes = detail.rounding_taxes;
+  TrimPath.PrecisionTaxes = detail.precision_taxes;
+{/eval}
+                <tr id="${detail.id}">
                     <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.service_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.status}</td>
                     <td style="text-align: left;">${detail.time|unixTimeToString}</td>
                     <td style="text-align: left;">${detail.sequence}</td>
+                    <td style="text-align: left;">${detail.invoice_no}</td>
+                    <td style="text-align: left;">${detail.invoice_count}</td>
                     <td style="text-align: right;">${detail.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|viviFormatPrices:true}</td>
@@ -50,13 +61,20 @@
                     <td style="text-align: right;">${detail.promotion_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.revalue_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.total|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.payment|viviFormatPrices:true}</td>
                 </tr>
 {/for}
             </tbody>
+{eval}
+  delete TrimPath.RoundingPrices;
+  delete TrimPath.PrecisionPrices;
+  delete TrimPath.RoundingTaxes;
+  delete TrimPath.PrecisionTaxes;
+{/eval}
             <tfoot>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td colspan="3">${_( '(rpt)Records Found' ) + ':'}</td>
+                    <td style="text-align: left;">${body.length}</td>
                     <td colspan="3">${_( '(rpt)Summary' ) + ':'}</td>
                     <td style="text-align: right;">${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.tax_subtotal|viviFormatTaxes:true}</td>
@@ -65,6 +83,7 @@
                     <td style="text-align: right;">${foot.foot_datas.promotion_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.revalue_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.total|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.foot_datas.payment_subtotal|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>
         </table>

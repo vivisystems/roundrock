@@ -14,7 +14,7 @@
 "","","","","${_( '(rpt)Halo' ) + ':'}","${plu.price_halo1|viviFormatPrices:true}","${plu.price_halo1|viviFormatPrices:true}","${plu.price_halo1|viviFormatPrices:true}","${plu.price_halo4|viviFormatPrices:true}","${plu.price_halo5|viviFormatPrices:true}","${plu.price_halo6|viviFormatPrices:true}","${plu.price_halo7|viviFormatPrices:true}","${plu.price_halo8|viviFormatPrices:true}","${plu.price_halo9|viviFormatPrices:true}"
 "","","","","${_( '(rpt)Lalo' ) + ':'}","${plu.price_lalo1|viviFormatPrices:true}","${plu.price_lalo1|viviFormatPrices:true}","${plu.price_lalo1|viviFormatPrices:true}","${plu.price_lalo4|viviFormatPrices:true}","${plu.price_lalo5|viviFormatPrices:true}","${plu.price_lalo6|viviFormatPrices:true}","${plu.price_lalo7|viviFormatPrices:true}","${plu.price_lalo8|viviFormatPrices:true}","${plu.price_lalo9|viviFormatPrices:true}"
 "","","","","${_( '(rpt)Maintain_Stock' ) + ':'}","Return_Stock:","Single:","Age_Verification:","Visible:","","",
-"","","","","${plu.auto_maintain_stock}","${plu.return_stock}","${plu.single}","${plu.age_verification}","${plu.visible}","",""
+"","","","","${plu.auto_maintain_stock|boolToLetter}","${plu.return_stock|boolToLetter}","${plu.single|boolToLetter}","${plu.age_verification|boolToLetter}","${plu.visible|boolToLetter}","",""
 "",""
 {/for}
 {/for}

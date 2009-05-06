@@ -1287,6 +1287,10 @@
             var voidedItem = curTransaction.voidItemAt(index);
             this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
 
+            GeckoJS.Session.remove('cart_last_sell_item');
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
             this.subtotal();
 
 
@@ -2765,7 +2769,9 @@
             var now  = (new Date()).getTime();
             if( !forceCancel && (!this._lastCancelInvoke || ( (now - this._lastCancelInvoke) > 3000)) ) {
                 try{
-                    GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+
+                    var quiet = GeckoJS.Configure.read('vivipos.fec.settings.quietcancel') || false;
+                    if(!quiet) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
                     //GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
                 }catch(e) {                  
                 }
@@ -2836,6 +2842,16 @@
             
             if(oldTransaction == null) return; // fatal error ?
 
+            // make sure the order has not yet been voided
+            var orderModel = new OrderModel();
+            var existingOrder = orderModel.findById(oldTransaction.data.id);
+            if (existingOrder && existingOrder.status != 2) {
+                oldTransaction.data.status = existingOrder.status;
+                GREUtils.Dialog.alert(window,
+                    _('Order Finalization'),
+                    _('Current order is no longer available for finalization (status = %S)', [existingOrder.status]));
+                return;
+            }
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
@@ -3391,6 +3407,7 @@
                     var terminalNo = GeckoJS.Session.get('terminal_no');
 
                     var paymentModel = new OrderPaymentModel();
+                    var refundTotal = 0;
 
                     // insert refund payments
                     inputObj.refunds.forEach(function(payment) {
@@ -3411,6 +3428,8 @@
                         payment.sale_period = salePeriod;
                         payment.shift_number = shiftNumber;
                         payment.terminal_no = terminalNo;
+
+                        refundTotal += payment.amount;
                     });
 
                     // begin transaction
@@ -3422,6 +3441,9 @@
                     // update order status to voided
                     order.status = -2;
 
+                    // update payment subtotal
+                    order.payment_subtotal += refundTotal;
+                    
                     // update void clerk, time, sale period and shift number
                     if (user) {
                         order.void_clerk = user.username;

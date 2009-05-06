@@ -28,7 +28,7 @@ ${body.sales_summary.Total|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Sales Summary' )}
 ${_( '(rpt)Orders' ) + ':'}
 ${body.sales_summary.OrderNum|default:0|right:24}
-${_( '(rpt)Total' ) + ':'}
+${_( '(rpt)Revenue' ) + ':'}
 ${body.sales_summary.Total|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Guests' ) + ':'}
 ${body.sales_summary.Guests|default:0|right:24}
@@ -36,11 +36,13 @@ ${_( '(rpt)Items' ) + ':'}
 ${body.sales_summary.ItemsCount|default:0|right:24}
 ${_( '(rpt)Voided Orders' ) + ':'}
 ${body.sales_summary.VoidedOrders|default:0|right:24}
-${_( '(rpt)Average Total' ) + ':'}
+${_( '(rpt)Revenue/Order' ) + ':'}
 ${body.sales_summary.AvgTotal|default:0|format:2|right:24}
-${_( '(rpt)Average Guest' ) + ':'}
+${_( '(rpt)Revenue/Guest' ) + ':'}
+${body.sales_summary.AvgTotalPerGuest|default:0|format:2|right:24}
+${_( '(rpt)Guest/Order' ) + ':'}
 ${body.sales_summary.AvgGuests|default:0|format:2|right:24}
-${_( '(rpt)Average Items' ) + ':'}
+${_( '(rpt)Item/Order' ) + ':'}
 ${body.sales_summary.AvgItemsCount|default:0|format:2|right:24}
 ------------------------
 ${_( '(rpt)Payment List' )}

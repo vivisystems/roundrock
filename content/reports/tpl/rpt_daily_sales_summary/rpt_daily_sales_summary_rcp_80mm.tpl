@@ -7,7 +7,7 @@ ${head.start_time} ~ ${head.end_time}
 ${head.title|center:42}
 {for detail in body}
 ------------------------------------------
-${'    ' + _( '(rpt)Termianl No' ) + ':'|left:17}${detail.terminal_no}
+${'    ' + _( '(rpt)Terminal' ) + ':'|left:17}${detail.terminal_no}
 ${'    ' + _( '(rpt)Time' ) + ':'|left:17}${detail.date}
 ${'    ' + _( '(rpt)Total' ) + ':'|left:17}${detail.item_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ':'|left:17}${detail.tax_subtotal|viviFormatTaxes:true}

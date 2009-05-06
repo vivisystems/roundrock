@@ -309,7 +309,8 @@
             var txn = evt.data;
 
             //this.log('SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
-
+            if (txn.data.status < 0) return;
+            
             // don't print if order has been pre-finalized and the order is being submitted for completion
             // since receipts and checks would have already been printed
             if (txn.data.status != 1 || !txn.isClosed()) {
@@ -400,8 +401,8 @@
                 return;
             }
 
-            // if this is a stored order, check if the current batch contains any payment information
-            if (txn.data.status != 1 && !txn.hasPaymentsInBatch() && !txn.isClosed()) {
+            // if this is a stored order, check if the current batch contains any payment information or if this is a receipt copy
+            if (txn.data.status != 1 && !txn.hasPaymentsInBatch() && !txn.isClosed() && !duplicate) {
                 NotifyUtils.warn(_('No new payment made; cannot issue receipt'));
                 return;
             }
@@ -789,7 +790,7 @@
             }
 
             //@debug
-            // if (data.order) this.log(this.dump(data.order));
+            //if (data.order) this.log(this.dump(data.order));
             // if (data.customer) this.log(this.dump(data.customer));
             // if (data.store) this.log(this.dump(data.store));
             // if (data.annotations) this.log(this.dump(data.annotations));
@@ -909,7 +910,7 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-            //this.log(GeckoJS.BaseObject.dump(result));
+            this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

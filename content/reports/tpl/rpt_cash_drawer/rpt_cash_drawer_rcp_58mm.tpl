@@ -19,7 +19,7 @@ ${item.clerk_displayname|right:24}
 ${_( '(rpt)Time' ) + ':'}
 ${item.created|unixTimeToString|right:24}
 ${_( '(rpt)Event' ) + ':'}
-${item.event_type|right:24}
+${_( '(rpt)' + item.event_type )|right:24}
 {/for}
 ------------------------------------------
 ${foot.gen_time}

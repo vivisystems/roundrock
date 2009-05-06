@@ -11,6 +11,8 @@
         packageName: 'viviecr',
         _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
+        _csvLimit: 3000000,
+        _csvRecords: null,
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -144,7 +146,7 @@
             }
         },
 
-        exportCsv: function() {
+        exportCsv: function(controller) {
         	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
         		return;
         		
@@ -163,7 +165,20 @@
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 
-                this.CsvExport.printToFile( media_path + '/' + this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv', this._reportRecords, tpl );
+                // regenerate data if last limit isn't equal current limit
+                if (!this._csvRecords) {
+                    var tmpRecords = this._reportRecords;
+
+                    controller._set_reportRecords(this._csvLimit);
+                    this._csvRecords = this._reportRecords;
+
+                    this._reportRecords = tmpRecords;
+                }
+                this.CsvExport.printToFile( media_path + '/' + this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv', this._csvRecords, tpl );
+
+                // drop CSV data and garbage collect
+                delete this._csvRecords;
+                GREUtils.gc();
             } catch ( e ) {
             } finally {
                 this._enableButton( true );
@@ -215,7 +230,7 @@
 	        //set up the designated pop-up menulist.
 	        var records = dbModel.find( 'all', { fields: fields, conditions: conditions, order: order, group: group } );
 	        var menupopup = document.getElementById( menupopupId );
-
+            
 	        records.forEach( function( data ) {
 	            var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
 	            menuitem.setAttribute( 'value', data[ valueField ] );
@@ -229,6 +244,45 @@
 
 	    	return s.replace( re, '\'\'' );
 	    },
+	    
+	    _openOrderDialogByOrderId: function( orderId ) {
+	        var aURL = 'chrome://viviecr/content/view_order.xul';
+	        var aName = _( 'Order Details' );
+	        var aArguments = { index: 'id', value: orderId };
+	        var posX = 0;
+	        var posY = 0;
+	        var width = GeckoJS.Session.get( 'screenwidth' );
+	        var height = GeckoJS.Session.get( 'screenheight' );
+	        
+	        GREUtils.Dialog.openWindow( window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments );
+		},
+		
+		/**
+		 * This method can be used to register OpenOrderDialog method for the data rows in a report relative to orders.
+		 * Doing so makes people convient to open a popup window to scrutize the detail of a certain order by just clicking the corresponding data row.
+		 * Be sure that the id attribue of <tr> indicating the order id is set to be somthing like <tr id="${orders.id}">.
+		 */
+		_registerOpenOrderDialog: function() {
+			var div = document.getElementById( 'preview_frame' ).contentWindow.document.getElementById( 'docbody' );
+        	
+        	var self = this;
+        	div.addEventListener( 'click', function( event ) {
+        		if ( event.originalTarget.parentNode.id && event.originalTarget.parentNode.tagName == 'TR' )
+					self._openOrderDialogByOrderId( event.originalTarget.parentNode.id );
+			}, true );
+        	
+        	/*if ( table.hasChildNodes ) {
+        		var children = table.getElementsByTagName( 'tr' );
+        		
+		    	for ( var i = 0; i < children.length; i++ ) {
+		    		if ( children[ i ].id ) {
+						children[ i ].addEventListener( 'click', function( event ) {
+							orderDialog( event.currentTarget.id );
+						}, true );
+					}
+		    	}
+		    }*/
+		},
 
         load: function() {
             this._enableButton( false );

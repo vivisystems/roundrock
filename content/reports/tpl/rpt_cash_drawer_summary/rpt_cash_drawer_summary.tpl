@@ -31,7 +31,7 @@
 {for item in body}
             <tr>
                 <td style="text-align: left;">${item.clerk_displayname}</td>
-                <td style="text-align: left;">${item.event_type}</td>
+                <td style="text-align: left;">${_( '(rpt)' + item.event_type )}</td>
                 <td style="text-align: right;">${item.num_events}</td>
             </tr>
 {/for}

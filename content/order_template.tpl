@@ -65,6 +65,14 @@
         <td>${(new Date(order.transaction_voided * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</td>
     </tr>
 {/if}
+    <tr>
+        <td style="width: 90px">${_('(view)invoice number')+':'}</td>
+        <td> ${order.invoice_no}</td>
+        <td style="width: 90px">${_('(view)invoice count')+':'}</td>
+        <td>${order.invoice_count}</td>
+        <td style="width: 90px">${_('(view)invoice title')+':'}</td>
+        <td>${order.invoice_title}</td>
+    </tr>
 {if order.member}
     <tr>
         <td style="width: 90px">${_('(view)customer')+':'}</td>

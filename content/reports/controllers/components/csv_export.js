@@ -34,7 +34,6 @@
             }
 
             try {
-
                 var saveFile = new GeckoJS.File( csvFileName, true );
                 saveFile.open("w");
 

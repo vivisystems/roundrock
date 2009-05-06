@@ -12,6 +12,6 @@
 <!ENTITY rptattendancerecord.jobs "Jobs:">
 <!ENTITY rptattendancerecord.sortby "Sort By:">
 <!ENTITY rptattendancerecord.job "Job">
-<!ENTITY rptattendancerecord.intime "Check In">
-<!ENTITY rptattendancerecord.outtime "Check Out">
-<!ENTITY rptattendancerecord.spantime "Span Time">
+<!ENTITY rptattendancerecord.intime "Clock In">
+<!ENTITY rptattendancerecord.outtime "Clock Out">
+<!ENTITY rptattendancerecord.spantime "Span">

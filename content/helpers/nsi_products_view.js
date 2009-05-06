@@ -97,7 +97,22 @@
                         indexCateAll[product.cate_no] = [];
                     }
                     indexCateAll[(product.cate_no+"")].push((product.id+""));
-                    if(GeckoJS.String.parseBoolean(product.visible)) indexCate[(product.cate_no+"")].push((product.id+""));
+
+                    /* administractor dont display empty button
+                    if (product.append_empty_btns > 0) {
+                        for (var ii=0; ii<product.append_empty_btns; ii++ ) {
+                            indexCateAll[(product.cate_no+"")].push("");
+                        }
+                    }*/
+
+                    if(GeckoJS.String.parseBoolean(product.visible)) {
+                        indexCate[(product.cate_no+"")].push((product.id+""));
+                        if (product.append_empty_btns && product.append_empty_btns > 0) {
+                            for (var jj=0; jj<product.append_empty_btns; jj++ ) {
+                                indexCate[(product.cate_no+"")].push("");
+                            }
+                        }
+                    }
                 }
 
                 if (product.link_group && product.link_group.length > 0) {
@@ -179,13 +194,13 @@
                 productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
                 this._data = productsIndexesByCate[cate.no] || productsIndexesByCate[cate.id] || [];
                 */
-            }
 
+            }
             try {
                 this.tree.invalidate();
             }catch(e) {
                 
-                alert('error' + e);
+                // alert('error' + e);
             }
 
             
@@ -218,8 +233,9 @@
 
                 key = col.id;
                 id = this.data[row];
+                if (id == "") return "";
+                
                 sResult= products[id][key];
-
                 this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
             }
             catch (e) {

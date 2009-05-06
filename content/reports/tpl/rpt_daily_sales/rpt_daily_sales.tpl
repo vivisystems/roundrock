@@ -22,7 +22,7 @@
             <!--caption>${head.title}</caption-->
             <thead>
                 <tr>
-                    <th style="text-align: left;">${_( '(rpt)Term_No.' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Service Clerk' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Proceeds Clerk' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
@@ -43,7 +43,7 @@
             </thead>
             <tbody>
 {for detail in body}
-                <tr>
+                <tr id="${detail.id}">
                     <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.service_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.proceeds_clerk_displayname}</td>

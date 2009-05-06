@@ -146,6 +146,11 @@
 			this._setData( start, end, periodType, machineid );
         },
         
+        execute: function() {
+        	this._super();
+        	this._registerOpenOrderDialog();
+        },
+        
         /*exportPdf: function() {
         	this._super( {
         		paperSize: {
