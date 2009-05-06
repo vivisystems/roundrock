@@ -8,8 +8,9 @@
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
 
- "${_( '(rpt)Clerk' )}","${_( '(rpt)Event' )}","${_( '(rpt)Number of Occurrences' )}"
+ "${_( '(rpt)Clerk' )}","${_( '(rpt)Event' )}","${_( '(rpt)Occurrences' )}"
 {for item in body}
 "${item.clerk_displayname}","${_( '(rpt)' + item.event_type )}","${item.num_occurrences}"
 {/for}
+"${_( '(rpt)Records Found' ) + ':'}","${body.length|default:0}"
 "${_( '(rpt)Summary' ) + ':'}","","${foot.foot_data.total_num_occurrences}"

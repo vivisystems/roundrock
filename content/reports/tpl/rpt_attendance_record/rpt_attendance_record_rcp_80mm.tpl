@@ -21,6 +21,10 @@ ${_( '(rpt)Records Found' ) + ':'|left:15}${master.clockStamps.length|format:0|r
 ${_( '(rpt)Summary' ) + ':'|left:11}${master.total_spantime|default:''|right:31}
 ------------------------------------------
 {/for}
+[&CR]
+[&CR]
+${_( '(rpt)Total Work Time' ) + ':'|left:16}${foot.total_spantime|default:''|right:26}
+------------------------------------------
 ${foot.gen_time}
 [&CR]
 [&CR]

@@ -8,7 +8,10 @@
 <!ENTITY category.destinations "Destinations">
 <!ENTITY category.annotations "Annotations">
 <!ENTITY category.orderdata "Data Options">
-<!ENTITY general.clockinenabled "Enable clock-in feature">
+<!ENTITY general.showtoolbar "Show tool bar (requires restart)">
+<!ENTITY general.showclockinicon "Show clock-in icon">
+<!ENTITY general.showvirtualkeyboardicon "Show virtual keyboard icon">
+<!ENTITY general.showcontrolpanelicon "Show control panel icon">
 <!ENTITY general.publicattendance "Individual Time-and-Attendance visible to all">
 <!ENTITY general.defaultpricelevel "System default price level">
 <!ENTITY general.activepricelevelschedule "Activate price level schedule">

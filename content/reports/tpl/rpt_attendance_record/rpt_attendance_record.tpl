@@ -53,5 +53,13 @@
         </table>
         </br>
 {/for}
+<table width="98%">
+<thead>
+    <tr class="subtitle">
+        <td>${_( '(rpt)Total Work Time' ) + ':'}</td>
+        <td style="text-align: right;">${foot.total_spantime}</td>
+    </tr>
+</thead>
+</table>
 </div>
 <!--/div -->

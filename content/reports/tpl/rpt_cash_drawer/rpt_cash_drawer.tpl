@@ -43,8 +43,9 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5" style="text-align: right;">${_( '(rpt)Records Found' ) + ':'}</td>
-                <td style="text-align: left;">${body.length|format:0}</td>
+                <td colspan="6" style="text-align: left;">
+                    ${_( '(rpt)Records Found' ) + ':'} ${body.length|format:0}
+                </td>
             </tr>
         </tfoot>
     </table>

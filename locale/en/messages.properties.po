@@ -1486,6 +1486,50 @@ msgstr "View Order"
 msgid "vieworder.name"
 msgstr "View Order"
 
+msgid "controlpanel.desc"
+msgstr ""
+"This function allows the operator to bring up the configuration control "
+"panel. No parameter is needed."
+
+msgid "controlpanel.label"
+msgstr "Control Panel"
+
+msgid "controlpanel.name"
+msgstr "Control Panel"
+
+msgid "clockin.desc"
+msgstr ""
+"This function allows the operator to bring up the clock in/out screen. No "
+"parameter is needed."
+
+msgid "clockin.label"
+msgstr "Clock In"
+
+msgid "clockin.name"
+msgstr "Clock In"
+
+msgid "togglefunctionpanel.desc"
+msgstr ""
+"This function allows the operator to show/hide the function panel. No "
+"parameter is needed."
+
+msgid "togglefunctionpanel.label"
+msgstr "Toggle Function Panel"
+
+msgid "togglefunctionpanel.name"
+msgstr "Toggle Function Panel"
+
+msgid "togglevirtualkeyboard.desc"
+msgstr ""
+"This function allows the operator to show/hide the virtual keyboard. No "
+"parameter is needed."
+
+msgid "togglevirtualkeyboard.label"
+msgstr "Toggle Virtual Keyboard"
+
+msgid "togglevirtualkeyboard.name"
+msgstr "Toggle Virtual Keyboard"
+
 msgid "(rpt)Terminal"
 msgstr "Terminal"
 
@@ -2123,6 +2167,9 @@ msgstr "Invoice Count"
 
 msgid "(rpt)Records Found"
 msgstr "Records Found"
+
+msgid "(rpt)Occurrences"
+msgstr "Occurrences"
 
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
@@ -3786,7 +3833,7 @@ msgid "No order to add/view annotations"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:307
-#: ../..//content/reports/controllers/rpt_base_controller.js:250
+#: ../..//content/reports/controllers/rpt_base_controller.js:251
 msgid "Order Details"
 msgstr ""
 
@@ -3852,23 +3899,23 @@ msgstr ""
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:796
+#: ../..//content/controllers/main_controller.js:800
 msgid "Removing old data..."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:836
+#: ../..//content/controllers/main_controller.js:840
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:836
+#: ../..//content/controllers/main_controller.js:840
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:843
+#: ../..//content/controllers/main_controller.js:847
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:843
+#: ../..//content/controllers/main_controller.js:847
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
@@ -4475,8 +4522,8 @@ msgstr ""
 
 #: ../..//content/controllers/systembackup_controller.js:187
 #: ../..//content/controllers/systembackup_controller.js:257
-#: ../..//content/reports/controllers/rpt_base_controller.js:120
-#: ../..//content/reports/controllers/rpt_base_controller.js:157
+#: ../..//content/reports/controllers/rpt_base_controller.js:121
+#: ../..//content/reports/controllers/rpt_base_controller.js:158
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
@@ -4801,15 +4848,15 @@ msgstr ""
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:75
+#: ../..//content/controllers/view_order_controller.js:78
 msgid "No orders matching [%S] found"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:79
+#: ../..//content/controllers/view_order_controller.js:82
 msgid "[%S] orders matching [%S]"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:82
+#: ../..//content/controllers/view_order_controller.js:85
 msgid "[%S] orders returned"
 msgstr ""
 
@@ -4873,73 +4920,73 @@ msgstr ""
 msgid "Sale Completed"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1900
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1902
 msgid "Scroll Forward"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1901
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1903
 msgid "Next"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1902
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1904
 msgid "This function scrolls the function panel to the next page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1910
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1912
 msgid "Scroll Backward"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1911
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1913
 msgid "Back"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1912
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1914
 msgid "This function scrolls the function panel to the previous page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1920
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1922
 msgid "Home Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1921
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1923
 msgid "Home"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1922
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1924
 msgid "This function scrolls the function panel to the home page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1930
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1932
 msgid "Jump to Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1931
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1933
 msgid "Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1932
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1934
 msgid ""
 "This function scrolls the function panel to the page indicated in the "
 "parameter field"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_attendance_record_controller.js:99
-msgid "Attendance Record Report"
+#: ../..//content/reports/controllers/rpt_attendance_record_controller.js:101
+msgid "Attendance Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:82
+#: ../..//content/reports/controllers/rpt_base_controller.js:83
 msgid "We are now on the first page."
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:113
+#: ../..//content/reports/controllers/rpt_base_controller.js:114
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:150
+#: ../..//content/reports/controllers/rpt_base_controller.js:151
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:191
+#: ../..//content/reports/controllers/rpt_base_controller.js:192
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
@@ -4947,7 +4994,7 @@ msgstr ""
 msgid "Shift Change Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_cash_drawer_summary_controller.js:51
+#: ../..//content/reports/controllers/rpt_cash_drawer_summary_controller.js:67
 msgid "Cash Drawer Summary Report"
 msgstr ""
 
@@ -4975,7 +5022,7 @@ msgstr ""
 msgid "Order Annotation Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_product_sales_controller.js:138
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:148
 msgid "Product Sales Report"
 msgstr ""
 
@@ -4991,11 +5038,26 @@ msgstr ""
 msgid "Product Stock List"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:38
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:59
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:34
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:26
+msgid "(rpt)Total Work Time"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:29
+#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:23
+msgid "(rpt)Order Sequence"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:39
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:22
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_80mm.tpl:14
-#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:34
+#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:36
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
 msgid "(rpt)"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:26
+msgid "(rpt)Terminal Number"
 msgstr ""

@@ -11,7 +11,11 @@
         
         _fileName: 'rpt_cash_drawer_summary',
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
@@ -42,10 +46,17 @@
             var groupby = "clerk_displayname, terminal_no, event_type";
             var orderby = sortby + " desc";
             
-            if ( sortby != 'all' )
+            if ( sortby != 'all' ) {
             	var orderby = sortby;
-
-            var datas = cashDrawer.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby } );
+                
+                if (sortby == 'num_occurrences') {
+                    orderby += ' DESC';
+                }
+            }
+            else {
+                var orderby = 'clerk_displayname, terminal_no, event_type';
+            }
+            var datas = cashDrawer.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby, limit: limit } );
             
             var footData = cashDrawer.find( 'first', {
             											fields: 'count( event_type ) as total_num_occurrences',

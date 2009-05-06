@@ -761,6 +761,10 @@
             }
         },
 
+        toggleVirtualKeyboard: function() {
+            VirtualKeyboard.toggle();
+        },
+
         _showWaitPanel: function(panel, caption, title, sleepTime) {
             
             var waitPanel = document.getElementById(panel);

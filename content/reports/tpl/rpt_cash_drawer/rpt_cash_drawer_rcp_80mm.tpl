@@ -14,7 +14,7 @@ ${_( '(rpt)Time' ) + ': '}${item.created|unixTimeToString}
 ${_( '(rpt)Event' ) + ': '}${_( '(rpt)' + item.event_type )}
 {/for}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ':'|left:15}${body.length|format:0|right:27}
+${_( '(rpt)Records Found' ) + ':'|left:17}${body.length|format:0|right:25}
 ------------------------------------------
 ${foot.gen_time}
 [&CR]

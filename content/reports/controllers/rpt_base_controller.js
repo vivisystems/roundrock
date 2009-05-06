@@ -12,7 +12,7 @@
         _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
         _csvLimit: 3000000,
-        _stdLimit: 3000,
+        _stdLimit: 1000,
         _csvRecords: null,
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.

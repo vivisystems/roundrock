@@ -522,6 +522,26 @@ pref("vivipos.fec.registry.function.programmable.vieworder.command", "orderDialo
 pref("vivipos.fec.registry.function.programmable.vieworder.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.vieworder.data", "");
 
+pref("vivipos.fec.registry.function.programmable.clockin.access", "");
+pref("vivipos.fec.registry.function.programmable.clockin.command", "ClockInOutDialog");
+pref("vivipos.fec.registry.function.programmable.clockin.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.clockin.data", "");
+
+pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.access", "");
+pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.command", "toggleFunctionPanel");
+pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.controller", "Layout");
+pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.data", "");
+
+pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.access", "");
+pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.command", "toggleVirtualKeyboard");
+pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.data", "");
+
+pref("vivipos.fec.registry.function.programmable.controlpanel.access", "acl_open_control_panel");
+pref("vivipos.fec.registry.function.programmable.controlpanel.command", "ControlPanelDialog");
+pref("vivipos.fec.registry.function.programmable.controlpanel.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.controlpanel.data", "");
+
 pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
 pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
 pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");

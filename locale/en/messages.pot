@@ -1477,6 +1477,50 @@ msgstr "View Order"
 msgid "vieworder.name"
 msgstr "View Order"
 
+msgid "controlpanel.desc"
+msgstr ""
+"This function allows the operator to bring up the configuration control panel. "
+"No parameter is needed."
+
+msgid "controlpanel.label"
+msgstr "Control Panel"
+
+msgid "controlpanel.name"
+msgstr "Control Panel"
+
+msgid "clockin.desc"
+msgstr ""
+"This function allows the operator to bring up the clock in/out screen. "
+"No parameter is needed."
+
+msgid "clockin.label"
+msgstr "Clock In"
+
+msgid "clockin.name"
+msgstr "Clock In"
+
+msgid "togglefunctionpanel.desc"
+msgstr ""
+"This function allows the operator to show/hide the function panel. "
+"No parameter is needed."
+
+msgid "togglefunctionpanel.label"
+msgstr "Toggle Function Panel"
+
+msgid "togglefunctionpanel.name"
+msgstr "Toggle Function Panel"
+
+msgid "togglevirtualkeyboard.desc"
+msgstr ""
+"This function allows the operator to show/hide the virtual keyboard. "
+"No parameter is needed."
+
+msgid "togglevirtualkeyboard.label"
+msgstr "Toggle Virtual Keyboard"
+
+msgid "togglevirtualkeyboard.name"
+msgstr "Toggle Virtual Keyboard"
+
 msgid "(rpt)Terminal"
 msgstr "Terminal"
 
@@ -2108,3 +2152,6 @@ msgstr "Invoice Count"
 
 msgid "(rpt)Records Found"
 msgstr "Records Found"
+
+msgid "(rpt)Occurrences"
+msgstr "Occurrences"
