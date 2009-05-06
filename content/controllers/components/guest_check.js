@@ -186,7 +186,9 @@
         getNewTableNo: function() {
             var tableModel = new TableModel;
             var tablelist = tableModel.find("all", {});
-            if (tablelist.length <= 0) return '';
+            if (tablelist.length <= 0) {
+                return this.table(this.selTableNum(''));
+            }
             delete tableModel;
 
             var self = this;
