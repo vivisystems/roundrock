@@ -4304,104 +4304,104 @@ msgstr ""
 msgid "Host Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:228
-#: ../..//content/controllers/select_table_controller.js:232
+#: ../..//content/controllers/select_table_controller.js:229
+#: ../..//content/controllers/select_table_controller.js:233
 msgid "Recall Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:228
+#: ../..//content/controllers/select_table_controller.js:229
 msgid "Please select a table to recall..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:228
-#: ../..//content/controllers/select_table_controller.js:236
-#: ../..//content/controllers/select_table_controller.js:244
-#: ../..//content/controllers/select_table_controller.js:252
-#: ../..//content/controllers/select_table_controller.js:259
-#: ../..//content/controllers/select_table_controller.js:282
-#: ../..//content/controllers/select_table_controller.js:289
-#: ../..//content/controllers/select_table_controller.js:296
+#: ../..//content/controllers/select_table_controller.js:229
+#: ../..//content/controllers/select_table_controller.js:237
+#: ../..//content/controllers/select_table_controller.js:245
+#: ../..//content/controllers/select_table_controller.js:253
+#: ../..//content/controllers/select_table_controller.js:260
+#: ../..//content/controllers/select_table_controller.js:283
+#: ../..//content/controllers/select_table_controller.js:290
+#: ../..//content/controllers/select_table_controller.js:297
 msgid "Press CANCEL button to cancel function"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:236
-#: ../..//content/controllers/select_table_controller.js:240
+#: ../..//content/controllers/select_table_controller.js:237
+#: ../..//content/controllers/select_table_controller.js:241
 msgid "Split Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:236
+#: ../..//content/controllers/select_table_controller.js:237
 msgid "Please select a table to split..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:244
-#: ../..//content/controllers/select_table_controller.js:248
+#: ../..//content/controllers/select_table_controller.js:245
+#: ../..//content/controllers/select_table_controller.js:249
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:244
+#: ../..//content/controllers/select_table_controller.js:245
 msgid "Please select a table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:252
+#: ../..//content/controllers/select_table_controller.js:253
 msgid "Merge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:252
+#: ../..//content/controllers/select_table_controller.js:253
 msgid "Please select the master table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:259
+#: ../..//content/controllers/select_table_controller.js:260
 msgid "Unmerge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:259
+#: ../..//content/controllers/select_table_controller.js:260
 msgid "Please select the table to unmerge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:282
+#: ../..//content/controllers/select_table_controller.js:283
 #: ../..//content/bindings/onscreenvfd.xbl:92
 msgid "Change Clerk"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:282
+#: ../..//content/controllers/select_table_controller.js:283
 msgid "Select a table to change service clerk to [ %S ]..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:289
+#: ../..//content/controllers/select_table_controller.js:290
 msgid "Trans Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:289
+#: ../..//content/controllers/select_table_controller.js:290
 msgid "Please select the table to be transfered..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:296
+#: ../..//content/controllers/select_table_controller.js:297
 msgid "Select Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:296
+#: ../..//content/controllers/select_table_controller.js:297
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:300
+#: ../..//content/controllers/select_table_controller.js:301
 msgid "Select Table Number"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:330
-#: ../..//content/controllers/select_table_controller.js:342
-#: ../..//content/controllers/select_table_controller.js:377
+#: ../..//content/controllers/select_table_controller.js:333
+#: ../..//content/controllers/select_table_controller.js:345
+#: ../..//content/controllers/select_table_controller.js:382
 msgid "This table is empty!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:345
+#: ../..//content/controllers/select_table_controller.js:348
 msgid "Please select the table to transfer to..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:380
+#: ../..//content/controllers/select_table_controller.js:386
 msgid "Please select an empty table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:390
+#: ../..//content/controllers/select_table_controller.js:397
 msgid "This table had not been hold!!"
 msgstr ""
 

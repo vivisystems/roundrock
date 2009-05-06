@@ -824,3 +824,8 @@ pref("vivipos.fec.registry.promotion.type.cheapest_one_free.setting_uri", "chrom
 pref("vivipos.fec.registry.promotion.type.multi_buy.classname", "MultiBuy");
 pref("vivipos.fec.registry.promotion.type.multi_buy.class_uri", "chrome://viviecr/content/promotions/types/multi_buy_type.js");
 pref("vivipos.fec.registry.promotion.type.multi_buy.setting_uri", "chrome://viviecr/content/promotions/multi_buy_type_setting.xul");
+
+pref("vivipos.fec.settings.controlpanels.product.static_condiments.label", "Static Condiments");
+pref("vivipos.fec.settings.controlpanels.product.static_condiments.path", "chrome://viviecr/content/static_condiments_settings.xul");
+pref("vivipos.fec.settings.controlpanels.product.static_condiments.icon", "chrome://viviecr/skin/icons/icon_condiments.png");
+pref("vivipos.fec.settings.controlpanels.product.static_condiments.roles", "acl_manage_condiments");

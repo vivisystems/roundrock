@@ -413,7 +413,7 @@
 
                     var triggerSettings = this.getTriggerSettingsFromUI();
                     var typeSettings = this.getTypeSettingsFromUI();
-                    this.log(this.dump(triggerSettings) + this.dump(typeSettings));
+                    //this.log(this.dump(triggerSettings) + this.dump(typeSettings));
 
                     formData['trigger_data'] = GeckoJS.BaseObject.serialize(triggerSettings);
                     formData['type_data'] = GeckoJS.BaseObject.serialize(typeSettings);
