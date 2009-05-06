@@ -44,6 +44,9 @@
                 cart.addEventListener('onCancel', this.handleNewTransaction, this);
                 // cart.addEventListener('onClear', this.handleClear, this);
                 cart.addEventListener('onStore', this.handleNewTransaction, this);
+
+
+                cart.addEventListener('beforeSubmit', this.handleRequestTableNo, this);
                 
             }
 
@@ -61,8 +64,28 @@
             
         },
 
+        handleRequestTableNo: function(evt) {
+
+            this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
+            this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
+            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
+            if (this._guestCheck.requireTableNo && !evt.data.txn.data.table_no) {
+                // NotifyUtils.warn(_('Please set table no first!'));
+                // evt.preventDefault();
+                // this._controller.newTable();
+                this.table(this.selTableNum(''));
+            }
+
+            if (this._guestCheck.requireGuestNum && !evt.data.txn.data.no_of_customers) {
+                // NotifyUtils.warn(_('Please set table no first!'));
+                // evt.preventDefault();
+                this.guest('');
+            }
+        },
+
         handleNewTransaction: function(evt) {
 
+            this._guestCheck.tableWinAsFirstWin = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.TableWinAsFirstWin') || false;
             this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
             this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
             this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
@@ -87,7 +110,7 @@
                 }
                 GeckoJS.Session.set('vivipos_guest_check_action', '');
 
-                if (this._guestCheck.requireTableNo) {
+                if (this._guestCheck.tableWinAsFirstWin) {
                     // if (!GeckoJS.Session.get('vivipos_fec_table_number') || evt.type == "onStore" || evt.type == 'onStartShift')
                         // var table_no = this.getNewTableNo();
                         this._controller.newTable();
@@ -97,8 +120,8 @@
                     if (this._guestCheck.requireGuestNum) {
                         var num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
                         num = this.selGuestNum(num);
-
-                        this._controller.guestNum(num);
+                        this.guest(num);
+                        // this._controller.guestNum(num);
                     }
                 }
                 
@@ -114,6 +137,24 @@
             };
 
             window.openDialog(aURL, _('Select Number of Customers'), features, _('Select Number of Customers'), '', _('Numbers'), '', inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }
+
+            return no;
+
+        },
+
+        selTableNum: function (no){
+
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=420,height=460';
+            var inputObj = {
+                input0:no, require0:true, numpad:true, disablecancelbtn:true
+            };
+
+            window.openDialog(aURL, _('Select Table Number'), features, _('Select Table Number'), '', _('Numbers'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -145,11 +186,14 @@
         getNewTableNo: function() {
             var tableModel = new TableModel;
             var tablelist = tableModel.find("all", {});
-            if (tablelist.length <= 0) return '';
+            if (tablelist.length <= 0) {
+                return this.table(this.selTableNum(''));
+            }
             delete tableModel;
 
             var self = this;
             var i = 1;
+            var r = -1;
 
             // get table status
             var tables = this._tableStatusModel.getTableStatusList();
@@ -216,6 +260,7 @@
                             }
                             GeckoJS.Session.set('vivipos_fec_table_number', i);
                             curTransaction.data.table_no = "" + i;
+                            r = i;
 
                             // set destination
                             if (destination)
@@ -270,10 +315,11 @@
                     }
                     i++;
                 }
+                r = i;
             }
 
             // GeckoJS.Session.set('vivipos_fec_table_number', i);
-            return "" + i;
+            return "" + r;
         },
 
         table: function(table_no) {
@@ -315,7 +361,22 @@
                 num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
                 num = this.selGuestNum(num);
             }
-            GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
+
+            if (num >= 0) {
+                var curTransaction = null;
+                curTransaction = this._controller._getTransaction();
+                if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                    curTransaction = this._controller._getTransaction(true);
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('fatal error!!'));
+                        return; // fatal error ?
+                    }
+                }
+                GeckoJS.Session.set('vivipos_fec_number_of_customers', num);
+                curTransaction.data.no_of_customers = num;
+
+
+            }
             return num;
         },
 

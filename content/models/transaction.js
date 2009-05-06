@@ -73,7 +73,7 @@
                 table_no: '',
                 check_no: '',
 
-                no_of_customers: 1,
+                no_of_customers: 0,
 
                 terminal_no: '',
                 sale_period: '',

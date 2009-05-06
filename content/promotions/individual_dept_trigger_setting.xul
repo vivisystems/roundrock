@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Promotions SYSTEM "chrome://viviecr/locale/promotions_manager.dtd">
+  %Promotions;
+  <!ENTITY % BasicPromotionsSet SYSTEM "chrome://viviecr/locale/basic_promotions_set.dtd">
+  %BasicPromotionsSet;
+  ]>
+
+<page title="&promotions_manager.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
+    <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/promotions/controllers/individual_dept_trigger_setting_controller.js" />
+  
+    <vbox flex="1" class="pop-dialog">
+
+        <tabbox  flex="1" crop="right" class="RightTabbox">
+            <tabs id="tabs" >
+                <tab id="tabBasic" label="&individual_dept.tab.basic;" />
+                <tab id="tabPlu" label="&individual_dept.tab.dept;" />
+            </tabs>
+            <tabpanels id="tabpanels" flex="1" >
+                <!-- Basic -->
+                <tabpanel flex="1" >
+                    <vbox flex="1">
+                    <groupbox>
+                        <caption label="&common.label.trigger_amount_type;" />
+                        <radiogroup orient="horizontal" id="amount_type" name="amount_type" form="individualDeptForm">
+                            <radio label="&common.label.trigger_amount_type_by_qty;" selected="true" value="by_qty" />
+                            <radio label="&common.label.trigger_amount_type_by_subtotal;" value="by_subtotal" />
+                        </radiogroup>
+                    </groupbox>
+
+                    <spacer style="height: 5px" />
+                    <groupbox>
+                        <caption label="&common.label.trigger_amount_value;" />
+                        <textbox id="amount_value" name="amount_value" default="0" form="individualDeptForm" />
+                    </groupbox>
+
+                    <spacer style="height: 5px" />
+                    <groupbox>
+                        <caption label="&common.label.trigger_amount_mode;" />
+                        <radiogroup orient="horizontal" id="amount_mode" name="amount_mode" form="individualDeptForm">
+                            <radio label="&common.label.trigger_amount_mode_single;" selected="true" value="single" />
+                            <radio label="&common.label.trigger_amount_mode_more;" value="more" />
+                            <radio label="&common.label.trigger_amount_mode_multiple;" value="multiple" />
+                        </radiogroup>
+                    </groupbox>
+                    </vbox>
+                </tabpanel>
+
+                <!-- Dept Data -->
+                <tabpanel flex="1" >
+                    <vbox flex="1">
+
+                    <groupbox flex="1">
+                        <caption label="&individual_dept.label.selected_depts;" />
+                        
+                        <viviscrollablebuttonpanel id="deptscrollablepanel" flex="1" cols="3" rows="4" labelField="name"
+                                                   seltype="multiple"
+                                                   ensureVisible="true"
+                                                   class="ItemScrollablepanel"
+                                                   buttonClass="ItemButtonA noimagebtn"
+                                                   scrollUpClass="ScrollUp"
+                                                   scrollDownClass="ScrollDown" >
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+
+
+                    </groupbox>
+                    </vbox>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+
+    </vbox>
+</page>

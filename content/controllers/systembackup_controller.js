@@ -224,14 +224,20 @@
             var localObj = this.getListObjLocalBackup();
             var index = localObj.selectedIndex;
             var datas = localObj.datasource._data;
+            var withSystem = document.getElementById('restoreWithSystem').checked ;// with-system
+            var args = [];
 
             if (index >= 0) {
                 var dir = datas[index].dir;
+                args.push(this._localbackupDir + dir);
+                if (withSystem) args.push('with-system');
 
-                if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
-                        _("Do you want to restore (%S) from local backup?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen."))) {
+                var confirmMessage = _("Do you want to restore (%S) from local backup?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
+                if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
+
+                if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"), confirmMessage )) {
                     this.sleep(100);
-                    if (this.execute(this._scriptPath + "restore.sh", [this._localbackupDir + dir])) {
+                    if (this.execute(this._scriptPath + "restore.sh", args )) {
                         this._restart();
                         NotifyUtils.info(_('<Restore from Local backup> is done!!'));
                     }
@@ -259,15 +265,21 @@
             var stickObj = this.getListObjStickBackup();
             var index = stickObj.selectedIndex;
             var datas = stickObj.datasource._data;
+            var withSystem = document.getElementById('restoreWithSystem').checked ;// with-system
+            var args = [];
 
             if (index >= 0) {
                 var dir = datas[index].dir;
+                args.push(this._stickbackupDir + dir);
+                if (withSystem) args.push('with-system');
 
-                if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
-                        _("Do you want to restore (%S) from stick?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen."))) {
+                var confirmMessage = _("Do you want to restore (%S) from stick?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
+                if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
+                
+                if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"), confirmMessage)) {
 
                     this.sleep(100);
-                    if (this.execute(this._scriptPath + "restore.sh", [this._stickbackupDir + dir])){
+                    if (this.execute(this._scriptPath + "restore.sh", args)){
                         this._restart();
                         NotifyUtils.info(_('<Restore from Stick> is done!!'));
                     }
