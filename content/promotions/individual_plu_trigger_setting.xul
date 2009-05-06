@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Promotions SYSTEM "chrome://viviecr/locale/promotions_manager.dtd">
+  %Promotions;
+  <!ENTITY % BasicPromotionsSet SYSTEM "chrome://viviecr/locale/basic_promotions_set.dtd">
+  %BasicPromotionsSet;
+  ]>
+
+<page title="&promotions_manager.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/promotions/controllers/individual_plu_trigger_setting_controller.js" />
+  
+    <vbox flex="1" class="pop-dialog">
+
+        <tabbox  flex="1" crop="right" class="RightTabbox">
+            <tabs id="tabs" >
+                <tab id="tabBasic" label="&individual_plu.tab.basic;" />
+                <tab id="tabPlu" label="&individual_plu.tab.plu;" />
+            </tabs>
+            <tabpanels id="tabpanels" flex="1" >
+                <!-- Basic -->
+                <tabpanel flex="1" >
+                    <vbox flex="1">
+                        <groupbox>
+                            <caption label="&common.label.trigger_amount_type;" />
+                            <radiogroup orient="horizontal" id="amount_type" name="amount_type" form="individualPluForm">
+                                <radio label="&common.label.trigger_amount_type_by_qty;" selected="true" value="by_qty" />
+                                <radio label="&common.label.trigger_amount_type_by_subtotal;" value="by_subtotal" />
+                            </radiogroup>
+                        </groupbox>
+
+                        <spacer style="height: 5px" />
+                        <groupbox>
+                            <caption label="&common.label.trigger_amount_value;" />
+                            <textbox id="amount_value" name="amount_value" default="0" form="individualPluForm" />
+                        </groupbox>
+
+                        <spacer style="height: 5px" />
+                        <groupbox>
+                            <caption label="&common.label.trigger_amount_mode;" />
+                            <radiogroup orient="horizontal" id="amount_mode" name="amount_mode" form="individualPluForm">
+                                <radio label="&common.label.trigger_amount_mode_single;" selected="true" value="single" />
+                                <radio label="&common.label.trigger_amount_mode_more;" value="more" />
+                                <radio label="&common.label.trigger_amount_mode_multiple;" value="multiple" />
+                            </radiogroup>
+                        </groupbox>
+                    </vbox>
+                </tabpanel>
+
+                <!-- Plu Data -->
+                <tabpanel flex="1" >
+                    <vbox flex="1">
+
+                        <!--hbox>
+                            <label value="&individual_plu.label.keyword;" />
+                            <textbox id="keyword" name="keyword" value='' size="8" />
+                            <button label="&individual_plu.label.search_product;" oncommand="$do('searchDialog', null, 'IndividualPluTriggerSetting');" />
+                        </hbox-->
+
+                        <groupbox flex="1">
+                            <caption label="&individual_plu.label.selected_product_info;" />
+
+                            <!--textbox hidden="true" name="id" default="" form="individualPluForm" />
+                            <hbox-->
+                    <!-- label value="&individual_plu.label.product_no;" /-->
+                                <!--label readonly="true" id="no" name="no" default="" form="individualPluForm" /-->
+                    <!-- label value="&individual_plu.label.product_name;" /-->
+                                <!--label readonly="true" id="name" name="name" default="" form="individualPluForm" />
+                            </hbox>
+
+                            <hbox hidden="true">
+                                <label value="&individual_plu.label.product_barcode;" />
+                                <textbox readonly="true" id="barcode" name="barcode" default="" form="individualPluForm" />
+                            </hbox-->
+
+                            <viviscrollabletree id="pluTree"
+                                                class="promotions_plu_list"
+                                                headers="&individual_plu.label.product_no;,&individual_plu.label.product_name;"
+                                                fields="no,name"
+                                                seltype="single"
+                                                reverse="true"
+                                                flex="2"
+                                                hidevscroll="true"
+                                                hidecolumnpicker="true"
+                                                scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
+                                                onselect="">
+                                <vivibutton id="plusBtn" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('searchDialog', null, 'IndividualPluTriggerSetting');" />
+                                <vivibutton id="minusBtn" class="systoolbtn mediumimagebtn minusbtn" oncommand="$do('removePlu', null, 'IndividualPluTriggerSetting');"/>
+                            </viviscrollabletree>
+
+
+                        </groupbox>
+                    </vbox>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+
+    </vbox>
+</page>
