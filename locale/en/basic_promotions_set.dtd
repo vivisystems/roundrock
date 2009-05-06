@@ -42,14 +42,13 @@
 <!ENTITY    fixed_value.label.type             "Fixed Value Type">
 <!ENTITY    fixed_value.label.type_by_qty      "By Quanity">
 <!ENTITY    fixed_value.label.type_by_subtotal "By Subtotal">
-
 <!ENTITY    fixed_value.label.value            "Enter Fixed Value">
 
 <!ENTITY    cheapest_one_free.title                   "Cheapest One Free Setting">
 <!ENTITY    cheapest_one_free.label.type             "Cheapest One Free Type">
 <!ENTITY    cheapest_one_free.label.type_by_fixed_value             "Fixed Value">
+<!ENTITY    cheapest_one_free.label.type_by_amount_off             "Amount Off">
 <!ENTITY    cheapest_one_free.label.type_by_percentage_off             "Percentage Off">
-
 <!ENTITY    cheapest_one_free.label.maximum_qty       "Maximum Quanity">
 <!ENTITY    cheapest_one_free.label.value             "Set Free Price">
 
