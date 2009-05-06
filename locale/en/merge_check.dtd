@@ -2,7 +2,7 @@
 <!ENTITY mergecheck.button.action.merge "Merge">
 <!ENTITY mergecheck.button.action.reverse "Reverse">
 <!ENTITY mergecheck.button.action.cancel "Cancel">
-<!ENTITY mergecheck.button.action.conform "Confirm">
+<!ENTITY mergecheck.button.action.confirm "Confirm">
 <!ENTITY mergecheck.sourcecheck "Source Check">
 <!ENTITY mergecheck.sourcecheck.checkno "Check Number:">
 <!ENTITY mergecheck.sourcecheck.tableno "Table Number:">

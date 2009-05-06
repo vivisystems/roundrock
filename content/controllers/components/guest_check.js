@@ -85,17 +85,23 @@
                         this._tableStatusModel.removeCheck(evt.data.data);
                     } catch(e) {}
                 }
+                GeckoJS.Session.set('vivipos_guest_check_action', '');
+
                 if (this._guestCheck.requireTableNo) {
                     // if (!GeckoJS.Session.get('vivipos_fec_table_number') || evt.type == "onStore" || evt.type == 'onStartShift')
                         // var table_no = this.getNewTableNo();
                         this._controller.newTable();
                 }
+                var action = GeckoJS.Session.get('vivipos_guest_check_action');
+                if (action == 'SelectTableNo') {
+                    if (this._guestCheck.requireGuestNum) {
+                        var num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
+                        num = this.selGuestNum(num);
 
-                if (this._guestCheck.requireGuestNum) {
-                    var num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
-                    num = this.selGuestNum(num);
-                    this.guest(num);
+                        this._controller.guestNum(num);
+                    }
                 }
+                
             }
         },
 
@@ -165,6 +171,9 @@
                 i = tables[idx].table_no;
                 var id = tables[idx].order_id;
                 var destination = tables[idx].table.destination;
+
+                // set action tag to session
+                GeckoJS.Session.set('vivipos_guest_check_action', inputObj.action);
 
                 switch (inputObj.action) {
                     case 'RecallCheck':

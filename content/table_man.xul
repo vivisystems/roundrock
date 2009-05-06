@@ -66,6 +66,7 @@
                                         <column flex="1" />
                                         <column flex="1" />
                                         <column flex="1" />
+                                        <column flex="1" />
                                     </columns>
                                     <rows>
 
@@ -356,6 +357,7 @@
                         <textbox id="supplier_no" name="no" form="supplierForm" readonly="true" hidden="true"/>
 
                         <vbox flex="1">
+                            <spacer flex="1" />
 
                             <hbox>
                                 <hbox class="ToolBar" flex="1" oncommand="event.stopPropagation()">
