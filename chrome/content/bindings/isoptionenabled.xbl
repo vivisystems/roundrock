@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!DOCTYPE bindings PUBLIC "-//MOZILLA//DTD XBL V1.0//EN" "http://www.mozilla.org/xbl">
+
+<bindings
+    xmlns="http://www.mozilla.org/xbl"
+    xmlns:xbl="http://www.mozilla.org/xbl"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <binding id="isoptionenabled">
+    <content >
+      <xul:box anonid="checkoptionContainer" inherits="class,flex,pack,align,orient,collapsed,hidden">
+      <children/>
+      </xul:box>
+    </content>
+    
+    <implementation>
+
+    	<constructor><![CDATA[
+        
+        this.boxContainer = document.getAnonymousElementByAttribute(this, "anonid", "checkoptionContainer");
+      
+        this.events = GeckoJS.Configure.getInstance().events;
+        this.option = this.getAttribute('option') || '';
+
+        var self = this;
+
+        if (this.events) {
+            GREUtils.log('adding listeners');
+            var changeHandler = function (evt) {
+                var key = evt.getData().key;
+
+                if (key == self.option) {
+                    self.render();
+                }
+            }
+
+            var removeHandler = function (evt) {
+                var key = evt.getData();
+                if (key == self.option) {
+                    self.render();
+                }
+            }
+
+            var clearHandler = function (evt) {
+                self.render();
+            }
+
+            this.events.addListener('write', changeHandler, this);
+            this.events.addListener('remove', removeHandler, this);
+            this.events.addListener('clear', clearHandler, this);
+        }
+        
+        this.changeHandler = changeHandler;
+        this.removeHandler = removeHandler;
+        this.clearHandler = clearHandler;
+
+        this.ready = function() {
+            self.render();
+        };
+
+/*
+        this.observer = GeckoJS.Observer.newInstance({
+                topics: ['acl-session-change'],
+                observe: function(aSubject, aTopic, aData) {
+                    self.render();
+                }
+            }).register();
+*/
+//        window.addEventListener('DOMContentLoaded', this.ready, true);
+          window.addEventListener('load', this.ready, true);
+
+        ]]>
+        </constructor>
+
+        <destructor><![CDATA[
+        window.removeEventListener('DOMContentLoaded', this.ready, true);
+        window.removeEventListener('load', this.ready, true);
+        
+        if (this.events) {
+            this.events.removeListener('change', this.changeHandler);
+            this.events.removeListener('remove', this.removeHandler);
+            this.events.removeListener('clear', this.clearHandler);
+        }
+//          this.observer.unregister();
+        ]]>
+        </destructor>
+
+    <method name="render">
+      <body><![CDATA[
+
+        var option = this.getAttribute('option') || '';
+        var action = this.getAttribute('action') || 'display';
+
+        var value = GeckoJS.Configure.read(option);
+        var $box =  jQuery(this.boxContainer);
+
+        if (value) {
+            if(action =='display') $box.show();
+            else $box.hide();
+        }else {
+            if(action =='display') $box.hide();
+            else $box.show();
+        }
+            
+      ]]>
+      </body>
+    </method>
+
+    </implementation>
+
+    <handlers>
+        
+    </handlers>
+  </binding>
+
+</bindings>

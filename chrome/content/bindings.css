@@ -32,6 +32,10 @@ isuserinrole {
   -moz-binding: url("chrome://vivipos/content/bindings/isuserinrole.xbl#isuserinrole");
 }
 
+isoptionenabled {
+  -moz-binding: url("chrome://vivipos/content/bindings/isoptionenabled.xbl#isoptionenabled");
+}
+
 vivibutton {
   -moz-binding: url("chrome://vivipos/content/bindings/vivibutton.xbl#vivibutton");
 }
