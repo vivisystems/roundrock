@@ -98,8 +98,6 @@
         name: 'SelectTable',
 
         _inputObj: window.arguments[0],
-        _titleObj: null,
-        _org_title: '',
         _tableSettings: {},
         _tables: [],
         _sourceTable: null,
@@ -231,7 +229,7 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'RecallCheck';
-            // this._titleObj.setAttribute('label', this._org_title + " - " + _("Recall Check"));
+
         },
 
         doSplitCheck: function() {
@@ -239,7 +237,7 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'SplitCheck';
-            // this._titleObj.value = this._org_title + " - " + _("Split Check");
+
         },
 
         doMergeCheck: function() {
@@ -247,7 +245,7 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'MergeCheck';
-            // this._titleObj.setAttribute('label', this._org_title + " - " + _("Merge Check"));
+
         },
 
         doMergeTable: function() {
@@ -271,7 +269,7 @@
             var cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
             var curTransaction = null;
             curTransaction = cart._getTransaction();
-//this.log(this.dump(curTransaction));
+
         },
 
         doChangeClerk: function() {
@@ -299,7 +297,7 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'SelectTableNo';
-            // this._titleObj.setAttribute('label', this._org_title + " - " + _("Select Table Number"));
+
         },
 
         doRefreshTableStatus: function() {
@@ -438,38 +436,11 @@
             // alert('doFunc...' + inputObj.action);
             
             if (this._inputObj.action) {
-                inputObj.index = this._tables[v].table_no;
-                inputObj.tableObj = this._tables[v];
+                this._inputObj.index = this._tables[v].table_no;
+                this._inputObj.tableObj = this._tables[v];
                 doOKButton();
             }
                 
-        },
-
-        displayOrder: function (id) {
-
-            // get browser content body
-            // var bw = document.getElementById('preview_frame');
-            // var doc = bw.contentWindow.document.getElementById( 'abody' );
-
-            // load data
-            var orderModel = new OrderModel();
-            var order = orderModel.findById(id, 2);
-
-            // load template
-            // var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_template.tpl');
-            // var file = GREUtils.File.getFile(path);
-            // var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
-
-            var data = {};
-            data.order = order;
-            data.sequence = order.sequence;
-
-            // var result = tpl.process(data);
-            /*
-            if (doc) {
-                doc.innerHTML = result;
-            }
-            */
         },
 
         _enableFuncs: function(isNewOrder) {

@@ -1,19 +1,13 @@
-var inputObj = window.arguments[0];
-var titleObj = null;
-var org_title = '';
-var tableSettings = {};
-
 (function(){    
 
     // include controllers  and register itself
-    var selectFunc = null;
-
 
     /**
      * Controller Startup
      */
     function startup() {
-
+        var inputObj = window.arguments[0];
+        
         $do('load', null, 'SelectTable');
 
 

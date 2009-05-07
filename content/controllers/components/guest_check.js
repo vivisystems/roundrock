@@ -19,8 +19,6 @@
          */
 
         name: 'GuestCheck',
-        _checkNoArray: [],
-        _tableNoArray: [],
         _guestCheck: {},
         _tableStatusModel: null,
         _tableList: null,
@@ -141,7 +139,7 @@
             if(this._tableList == null) {
                 var tableModel = new TableModel;
                 var tablelist = tableModel.find("all", {});
-                // delete tableModel;
+                delete tableModel;
                 this._tableList = tablelist;
             }
 
@@ -207,15 +205,15 @@
         _isAllowMerge: function(data) {
             var r = true;
 
-            // not allow to split when transaction is closed
+            // not allow to Merge when transaction is closed
             if (data.isClosed()) {
-                NotifyUtils.warn(_('The order is already pre-finalized'));
+                NotifyUtils.warn(_('The order has been pre-finalized ; Can not be merged'));
                 r = false;
             }
 
             // not allow to split when transaction is prepaid
             if (data.data.payment_subtotal != 0) {
-                NotifyUtils.warn(_('The order is already prepaid'));
+                NotifyUtils.warn(_('The order has been prepaid ; Can not be merged'));
                 r = false;
             }
 
@@ -228,13 +226,13 @@
 
             // not allow to split when transaction is closed
             if (data.isClosed()) {
-                NotifyUtils.warn(_('The order is already pre-finalized'));
+                NotifyUtils.warn(_('The order has been pre-finalized ; Can not be split'));
                 r = false;
             }
             
             // not allow to split when transaction is prepaid
             if (data.data.payment_subtotal != 0) {
-                NotifyUtils.warn(_('The order is already prepaid'));
+                NotifyUtils.warn(_('The order has been prepaid ; Can not be split'));
                 r = false;
             }
 
@@ -242,14 +240,11 @@
         },
 
         getNewTableNo: function() {
-            // var tableModel = new TableModel;
-            // var tablelist = tableModel.find("all", {});
 
             var tablelist = this.getTableList();
             if (tablelist.length <= 0) {
                 return this.table(this.selTableNum(''));
             }
-            // delete tableModel;
 
             var self = this;
             var i = 1;
@@ -266,7 +261,7 @@
                 } else if (curTransaction.isModified()) {
 
                     // recalled check and is modified...
-                    NotifyUtils.warn(_('The order may be stored first'));
+                    NotifyUtils.warn(_('The order must be stored first!'));
 
                     return;
                 }
@@ -362,6 +357,8 @@
                         }
                         break;
                     case 'ChangeClerk':
+                        // @todo ChangeClerk must be rewrited...
+
                         this.recallByTableNo(i);
 
                         // get login user info...
@@ -393,6 +390,8 @@
                         
                         break;
                     case 'TransTable':
+                        // @todo TransTable must be rewrited...
+
                         var targetTableNo = Math.round(parseInt(i));
                         var sourceTableNo = inputObj.sourceTableNo;
 
@@ -460,6 +459,26 @@
             }
         },
 
+        check: function(check_no) {
+            var r = this._tableStatusModel.getNewCheckNo(check_no);
+
+            if (r >= 0) {
+                var curTransaction = null;
+                curTransaction = this._controller._getTransaction();
+                if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                    curTransaction = this._controller._getTransaction(true);
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('fatal error!!'));
+                        return; // fatal error ?
+                    }
+                }
+                GeckoJS.Session.set('vivipos_fec_check_number', r);
+                curTransaction.data.check_no = r;
+            } else {
+                NotifyUtils.warn(_('Check# %S is in use ; Please input another Check#', [check_no]));
+            }
+        },
+
         load: function () {
             // this.log("GuestCheck load...");
         },
@@ -488,72 +507,6 @@
             return num;
         },
 
-// @todo must be rewrite...
-/*
-        destination: function(dest) {
-            // this.log("GuestCheck guest..." + num);
-            GeckoJS.Session.set('vivipos_fec_order_destination', dest);
-        },
-
-        table: function(table_no) {
-            // this.log("GuestCheck table..." + table_no);
-            var r;
-            this.getCheckList('AllCheck', null);
-            var allowDupTableNo = true; // @todo for test...
-            if (!this._tableNoArray[table_no] || this._tableNoArray[table_no] == 0 || allowDupTableNo) {
-                this._tableNoArray[table_no] = 1;
-                GeckoJS.Session.set('vivipos_fec_table_number', table_no);
-                return table_no;
-            } else {
-                return -1;
-            }
-
-            if (r >= 0) {
-                var curTransaction = null;
-                curTransaction = this._controller._getTransaction();
-                if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-                    curTransaction = this._controller._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-                }
-                GeckoJS.Session.set('vivipos_fec_table_number', r);
-                curTransaction.data.table_no = r;
-            } else {
-                NotifyUtils.warn(_('Table# %S is exist!!', [table_no]));
-            }
-        },
-
-        check: function(check_no) {
-            // this.log("GuestCheck check..." + check_no);
-            var r;
-            this.getCheckList('AllCheck', null);
-            if (!this._checkNoArray[check_no] || this._checkNoArray[check_no] == 0) {
-                this._checkNoArray[check_no] = 1;
-                GeckoJS.Session.set('vivipos_fec_check_number', check_no);
-                r = check_no;
-            } else {
-                r = -1;
-            }
-
-            if (r >= 0) {
-                var curTransaction = null;
-                curTransaction = this._controller._getTransaction();
-                if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-                    curTransaction = this._controller._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-                }
-                GeckoJS.Session.set('vivipos_fec_check_number', r);
-                curTransaction.data.check_no = r;
-            } else {
-                NotifyUtils.warn(_('Check# %S is exist!!', [check_no]));
-            }
-        },
-*/
         getCheckList: function(key, no) {
             //
             var self = this;
@@ -586,23 +539,8 @@
                     break;
             }
             
-            this._checkNoArray = [];
-            this._tableNoArray = [];
-
             var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
 
-            ord.forEach(function(o){
-                var check_no = o.check_no;
-                var table_no = o.table_no;
-
-                if (check_no) {
-                    self._checkNoArray[check_no] = 1;
-                }
-
-                if (table_no) {
-                    self._tableNoArray[table_no] = 1;
-                }
-            });
             return ord;
         },
 
@@ -947,8 +885,7 @@
 
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
-                sourceCheck: data,
-                usedCheckNo: this._checkNoArray
+                sourceCheck: data
             };
 
             window.openDialog(aURL, 'split_checks', features, inputObj);

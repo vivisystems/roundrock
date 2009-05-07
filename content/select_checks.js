@@ -2,8 +2,6 @@
 
     var inputObj = window.arguments[0];
 
-    // include controllers  and register itself
-
     var CheckListView = window.CheckListView = GeckoJS.NSITreeViewArray.extend({
 
         renderButton: function(row, btn) {
@@ -90,28 +88,7 @@
         }
 
     });
-/*
-    function genCheckViewObj(checkObj) {
-            // var checkViewObj = {};
 
-            var checkViewObj = {
-                order_id: checkObj.id,
-                check_no: checkObj.check_no,
-                table_no: checkObj.table_no,
-                sequence: checkObj.seq,
-                guests: checkObj.no_of_customers,
-                holdby: '',
-                clerk: checkObj.service_clerk,
-                booking: 0,
-                lock: false,
-                status: 0,
-                terminal_no: checkObj.terminal_no,
-
-            };
-
-            return checkViewObj;
-    };
-*/
     /**
      * Controller Startup
      */
@@ -120,33 +97,6 @@
         var checks = inputObj.checks;
         var excludedOrderId = inputObj.excludedOrderId;
         var self = this;
-        /*
-        window.viewHelper = new opener.GeckoJS.NSITreeViewArray(checks);
-        window.viewHelper.getCurrentIndexData= function(row) {
-            // var text = row + ":" + col.check_no;
-            // GREUtils.log(GeckoJS.BaseObject.dump(row))
-            // GREUtils.log(row);
-
-            return this.data[row];
-
-        };
-
-        window.viewHelper.getCellValue= function(row, col) {
-            // var text = row + ":" + col.check_no;
-            var seq = this.data[row].sequence;
-            var check_no = this.data[row].check_no;
-            var table_no = this.data[row].table_no;
-            var destination = this.data[row].destination || '';
-            var total = this.data[row].total;
-            var book_time = '';
-            var text = _("Seq") + ": " + seq +
-                       "\n" + _("TAL") + ": " + total + ((destination == "") ? "" : " (" + destination + ")") +
-                       "\n" + (check_no ? _("Check#") + " " + check_no + " " : "") +
-                              (table_no ? _("Table#") + " " + table_no : "")
-            return text;
-
-        };
-        */
 
         var checkViews = [];
         checks.forEach(function(checkObj) {
@@ -176,7 +126,6 @@
         var checkList = new CheckListView(checkViews);
 
         document.getElementById('checkScrollablepanel').datasource = checkList ;
-        // document.getElementById('checkScrollablepanel').datasource = window.viewHelper ;
 
         document.getElementById('checkScrollablepanel').addEventListener('command', function(evt) {
             var index = evt.target.value;

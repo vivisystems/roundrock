@@ -184,7 +184,7 @@
             });
         },
 
-        getNewCheckNo: function() {
+        getNewCheckNo: function(no) {
             //@todo rack
             this.resetCheckNoArray();
             var i = 1;
@@ -192,24 +192,36 @@
             var maxCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.MaxCheckNo') || 999;
             // var ar = this.getCheckList('AllCheck', null);
             var ar = this._checkList;
-            while (true) {
-                i = SequenceModel.getSequence('check_no');
-
-                if (i > maxCheckNo) {
-                    i = 0;
-                    SequenceModel.resetSequence('check_no');
-                } else if (!this._checkNoArray[i] || this._checkNoArray[i] == 0) {
-                    this._checkNoArray[i] = 1;
-                    GeckoJS.Session.set('vivipos_fec_check_number', i);
-                    return "" + i;
-                    break;
-                }
-
-                if (cnt++ > maxCheckNo) {
+            if (no) {
+                if (!this._checkNoArray[no] || this._checkNoArray[no] == 0) {
+                    this._checkNoArray[no] = 1;
+                    // GeckoJS.Session.set('vivipos_fec_check_number', no);
+                    return "" + no;
+                } else {
                     // @todo OSD
-                    NotifyUtils.error(_('Can not get new check no!!'));
-                    return "";
-                    break;
+                    // NotifyUtils.error(_('Can not get new check no [%S]!!', [no]));
+                    return -1;
+                }
+            } else {
+                while (true) {
+                    i = SequenceModel.getSequence('check_no');
+
+                    if (i > maxCheckNo) {
+                        i = 0;
+                        SequenceModel.resetSequence('check_no');
+                    } else if (!this._checkNoArray[i] || this._checkNoArray[i] == 0) {
+                        this._checkNoArray[i] = 1;
+                        // GeckoJS.Session.set('vivipos_fec_check_number', i);
+                        return "" + i;
+                        break;
+                    }
+
+                    if (cnt++ > maxCheckNo) {
+                        // @todo OSD
+                        // NotifyUtils.error(_('Can not get new check no!!'));
+                        return -1;
+                        break;
+                    }
                 }
             }
         },

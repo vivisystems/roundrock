@@ -37,13 +37,6 @@
                 <caption label="&selectchecks.title;"  class="PageTitle"/>
                 <label id="queues" hidden="true" value="" />
                 <hbox class="LeftPnl" flex="1">
-                    <!-- viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="2" rows="5"  seltype="single" labelField="check_no"
-                                           class="ItemScrollablepanel"
-                                           buttonClass="ItemButtonA TableHeight"
-                                           scrollUpClass="ScrollUp"
-                                           scrollDownClass="ScrollDown">
-                        <spacer flex="1"/>
-                    </viviscrollablebuttonpanel -->
                     <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="2" rows="4"  seltype="single" labelField="table_no"
                                            class="ItemScrollablepanel"
                                            buttonClass="ItemButtonA TableHeight2"
