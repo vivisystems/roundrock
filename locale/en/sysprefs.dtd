@@ -8,8 +8,11 @@
 <!ENTITY category.destinations "Destinations">
 <!ENTITY category.annotations "Annotations">
 <!ENTITY category.orderdata "Data Options">
+<!ENTITY general.showtoolbar "Show tool bar (requires restart)">
+<!ENTITY general.showclockinicon "Show clock-in icon">
+<!ENTITY general.showvirtualkeyboardicon "Show virtual keyboard icon">
+<!ENTITY general.showcontrolpanelicon "Show control panel icon">
 <!ENTITY general.publicattendance "Individual Time-and-Attendance visible to all">
-<!ENTITY general.privatequeue "Private order queue">
 <!ENTITY general.defaultpricelevel "System default price level">
 <!ENTITY general.activepricelevelschedule "Activate price level schedule">
 <!ENTITY general.pricelevelrevert "Price level reverts to schedule after each order">
@@ -24,7 +27,7 @@
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY login.defaultlogin "Automatically log in default user">
-<!ENTITY general.quietcancel "Quiet Cancel Order">
+<!ENTITY general.quietcancel "Do not beep when cancelling orders">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">

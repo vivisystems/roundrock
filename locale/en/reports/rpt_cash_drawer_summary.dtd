@@ -1,4 +1,4 @@
-<!ENTITY cashdrawersummary.title "Cash Drawer Summary Report">
+<!ENTITY cashdrawersummary.title "Cash Drawer Summary">
 <!ENTITY cashdrawersummary.conditions "Conditions:">
 <!ENTITY cashdrawersummary.startdate "Start Date:">
 <!ENTITY cashdrawersummary.enddate "End Date:">
@@ -7,10 +7,10 @@
 <!ENTITY cashdrawersummary.exportcsv "Export to CSV">
 <!ENTITY cashdrawersummary.exportrcp "Print">
 <!ENTITY cashdrawersummary.togglezoom "Toggle Zoom">
-<!ENTITY cashdrawersummary.machineid "Terminal No:">
 <!ENTITY cashdrawersummary.sortby "Sort By:">
 <!ENTITY cashdrawersummary.clerk_displayname "Clerk">
 <!ENTITY cashdrawersummary.event_type "Event Type">
-<!ENTITY cashdrawersummary.num_events "Number of Events">
+<!ENTITY cashdrawersummary.num_occurrences "Number of Occurrences">
+<!ENTITY cashdrawersummary.terminal_no "Terminal Number">
 <!ENTITY cashdrawersummary.all "List All">
 <!ENTITY cashdrawersummary.wait "Waiting...">

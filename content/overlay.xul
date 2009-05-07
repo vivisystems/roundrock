@@ -20,6 +20,8 @@
 <?xul-overlay href="chrome://viviecr/content/dialogs/creditcard_remark.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/coupon_remark.xul" ?>
 
+<?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
+
 <overlay id="viviecrOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"

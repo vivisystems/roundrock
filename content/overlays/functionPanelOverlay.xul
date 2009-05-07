@@ -40,18 +40,26 @@
         <!-- End FuncBtns -->
 
         <!-- begin tools -->
+        <isoptionenabled id="toolbar-container" option="vivipos.fec.settings.ShowToolbar" action="display">
         <vbox id="toolbar">
             <spacer flex="1"/>
-            <vivibutton id="vkb" label=""  oncommand="VirtualKeyboard.toggle();"
-                        class="systoolbtn button-vkb"/>
-            <vivibutton id="clockin" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
-                        class="systoolbtn clockinout"/>
-            <vivibutton id="options" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
-                        class="systoolbtn options"/>
+            <!--isoptionenabled id="vkb" option="vivipos.fec.settings.ShowVKIcon" action="display"-->
+                <vivibutton id="vkb" label=""  oncommand="VirtualKeyboard.toggle();"
+                            class="systoolbtn button-vkb"/>
+            <!--/isoptionenabled-->
+            <!--isoptionenabled id="clockin" option="vivipos.fec.settings.ShowClockInIcon" action="display"-->
+                <vivibutton id="clockin" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
+                            class="systoolbtn clockinout"/>
+            <!--/isoptionenabled-->
+            <!--isoptionenabled id="options" option="vivipos.fec.settings.ShowOptionsIcon" action="display"-->
+                <vivibutton id="options" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
+                            class="systoolbtn options"/>
+            <!--/isoptionenabled-->
             <spacer id="spacer" flex="1"/>
             <vivibutton id="togglefunctionpanel"  disabled="false" state="false" suspendable="false" label="" action="display" oncommand="$do('toggleFunctionPanel', null, 'Layout');"
                         class="togglefunctionpanel" />
         </vbox>
+        </isoptionenabled>
         <!-- end tools -->
   </box>
 </overlay>

@@ -457,7 +457,8 @@
                         self._showHideScrollbar(true);
                     }
                 }
-                window.addEventListener('DOMContentLoaded', this.ready, true);
+                //window.addEventListener('DOMContentLoaded', this.ready, true);
+                window.addEventListener('load', this.ready, true);
 
                 // register listener for attribute modified events
                 this.addEventListener('DOMAttrModified', this._attrModified, true);
@@ -471,7 +472,8 @@
             <![CDATA[
                 this.observer.unregister();
                 this.removeEventListener('DOMAttrModified', this._attrModified, true);
-                window.removeEventListener('DOMContentLoaded', this.ready, true);
+                //window.removeEventListener('DOMContentLoaded', this.ready, true);
+                window.removeEventListener('load', this.ready, true);
             ]]>
             </destructor>
 

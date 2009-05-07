@@ -14,12 +14,14 @@ ${_( '(rpt)Clerk' ) + ':'}
 ${item.clerk_displayname|right:24}
 ${_( '(rpt)Event' ) + ':'}
 ${_( '(rpt)' + item.event_type )|right:24}
-${_( '(rpt)Number of Events' ) + ':'}
-${item.num_events|right:24}
+${_( '(rpt)Occurrences' ) + ':'}
+${item.num_occurrences|right:24}
 {/for}
 ------------------------
+${_( '(rpt)Records Found' ) + ':'|left:16}${body.length|format:0|right:8}
+------------------------
 ${_( '(rpt)Summary' ) + ':'}
-${foot.foot_data.total_num_events|right:24}
+${foot.foot_data.total_num_occurrences|default:0|format:0|right:24}
 ------------------------
 ${foot.gen_time}
 [&CR]

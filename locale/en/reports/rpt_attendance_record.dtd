@@ -1,4 +1,4 @@
-<!ENTITY rptattendancerecord.title "Attendance Record Report">
+<!ENTITY rptattendancerecord.title "Attendance Record">
 <!ENTITY rptattendancerecord.startdate "Start Date:">
 <!ENTITY rptattendancerecord.enddate "End Date:">
 <!ENTITY rptattendancerecord.execute "Execute">

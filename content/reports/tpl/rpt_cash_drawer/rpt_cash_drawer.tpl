@@ -26,6 +26,7 @@
                 <th style="text-align: left;">${_( '(rpt)Clerk' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Event' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Order Sequence' )}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,12 +37,15 @@
                 <td style="text-align: left;">${item.clerk_displayname}</td>
                 <td style="text-align: left;">${item.created|unixTimeToString}</td>
                 <td style="text-align: left;">${_( '(rpt)' + item.event_type )}</td>
+                <td style="text-align: left;">${item.sequence|default:''}</td>
             </tr>
 {/for}
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5"></td>
+                <td colspan="6" style="text-align: left;">
+                    ${_( '(rpt)Records Found' ) + ':'} ${body.length|format:0}
+                </td>
             </tr>
         </tfoot>
     </table>

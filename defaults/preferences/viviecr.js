@@ -522,6 +522,26 @@ pref("vivipos.fec.registry.function.programmable.vieworder.command", "orderDialo
 pref("vivipos.fec.registry.function.programmable.vieworder.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.vieworder.data", "");
 
+pref("vivipos.fec.registry.function.programmable.clockin.access", "");
+pref("vivipos.fec.registry.function.programmable.clockin.command", "ClockInOutDialog");
+pref("vivipos.fec.registry.function.programmable.clockin.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.clockin.data", "");
+
+pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.access", "");
+pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.command", "toggleFunctionPanel");
+pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.controller", "Layout");
+pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.data", "");
+
+pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.access", "");
+pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.command", "toggleVirtualKeyboard");
+pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.data", "");
+
+pref("vivipos.fec.registry.function.programmable.controlpanel.access", "acl_open_control_panel");
+pref("vivipos.fec.registry.function.programmable.controlpanel.command", "ControlPanelDialog");
+pref("vivipos.fec.registry.function.programmable.controlpanel.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.controlpanel.data", "");
+
 pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
 pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
 pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
@@ -793,3 +813,39 @@ pref("vivipos.fec.registry.promotion.type.bypass.classname", "Bypass");
 pref("vivipos.fec.registry.promotion.type.bypass.class_uri", "chrome://viviecr/content/promotions/types/bypass_type.js");
 pref("vivipos.fec.registry.promotion.type.bypass.setting_uri", "chrome://viviecr/content/promotions/bypass_type_setting.xul");
 
+pref("vivipos.fec.registry.promotion.trigger.individual_plu.classname", "IndividualPlu");
+pref("vivipos.fec.registry.promotion.trigger.individual_plu.class_uri", "chrome://viviecr/content/promotions/triggers/individual_plu_trigger.js");
+pref("vivipos.fec.registry.promotion.trigger.individual_plu.setting_uri", "chrome://viviecr/content/promotions/individual_plu_trigger_setting.xul");
+
+pref("vivipos.fec.registry.promotion.trigger.individual_dept.classname", "IndividualDept");
+pref("vivipos.fec.registry.promotion.trigger.individual_dept.class_uri", "chrome://viviecr/content/promotions/triggers/individual_dept_trigger.js");
+pref("vivipos.fec.registry.promotion.trigger.individual_dept.setting_uri", "chrome://viviecr/content/promotions/individual_dept_trigger_setting.xul");
+
+pref("vivipos.fec.registry.promotion.trigger.individual_group.classname", "IndividualGroup");
+pref("vivipos.fec.registry.promotion.trigger.individual_group.class_uri", "chrome://viviecr/content/promotions/triggers/individual_group_trigger.js");
+pref("vivipos.fec.registry.promotion.trigger.individual_group.setting_uri", "chrome://viviecr/content/promotions/individual_group_trigger_setting.xul");
+
+pref("vivipos.fec.registry.promotion.type.amount_off.classname", "AmountOff");
+pref("vivipos.fec.registry.promotion.type.amount_off.class_uri", "chrome://viviecr/content/promotions/types/amount_off_type.js");
+pref("vivipos.fec.registry.promotion.type.amount_off.setting_uri", "chrome://viviecr/content/promotions/amount_off_type_setting.xul");
+
+pref("vivipos.fec.registry.promotion.type.percentage_off.classname", "PercentageOff");
+pref("vivipos.fec.registry.promotion.type.percentage_off.class_uri", "chrome://viviecr/content/promotions/types/percentage_off_type.js");
+pref("vivipos.fec.registry.promotion.type.percentage_off.setting_uri", "chrome://viviecr/content/promotions/percentage_off_type_setting.xul");
+
+pref("vivipos.fec.registry.promotion.type.fixed_value.classname", "FixedValue");
+pref("vivipos.fec.registry.promotion.type.fixed_value.class_uri", "chrome://viviecr/content/promotions/types/fixed_value_type.js");
+pref("vivipos.fec.registry.promotion.type.fixed_value.setting_uri", "chrome://viviecr/content/promotions/fixed_value_type_setting.xul");
+
+pref("vivipos.fec.registry.promotion.type.cheapest_one_free.classname", "CheapestOneFree");
+pref("vivipos.fec.registry.promotion.type.cheapest_one_free.class_uri", "chrome://viviecr/content/promotions/types/cheapest_one_free_type.js");
+pref("vivipos.fec.registry.promotion.type.cheapest_one_free.setting_uri", "chrome://viviecr/content/promotions/cheapest_one_free_type_setting.xul");
+
+pref("vivipos.fec.registry.promotion.type.multi_buy.classname", "MultiBuy");
+pref("vivipos.fec.registry.promotion.type.multi_buy.class_uri", "chrome://viviecr/content/promotions/types/multi_buy_type.js");
+pref("vivipos.fec.registry.promotion.type.multi_buy.setting_uri", "chrome://viviecr/content/promotions/multi_buy_type_setting.xul");
+
+pref("vivipos.fec.settings.controlpanels.product.static_condiments.label", "Static Condiments");
+pref("vivipos.fec.settings.controlpanels.product.static_condiments.path", "chrome://viviecr/content/static_condiments_settings.xul");
+pref("vivipos.fec.settings.controlpanels.product.static_condiments.icon", "chrome://viviecr/skin/icons/icon_condiments.png");
+pref("vivipos.fec.settings.controlpanels.product.static_condiments.roles", "acl_manage_condiments");
