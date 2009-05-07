@@ -2518,7 +2518,7 @@
                 }
 
                 // payment refund
-                if (false && !err && amount > curTransaction.getPaymentSubtotal()) {
+                if (!err && amount > curTransaction.getPaymentSubtotal()) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
                         [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
                     err = true;
