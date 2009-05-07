@@ -37,7 +37,9 @@
                             'clerk_displayname',
                             'created',
                             'event_type',
-                            'sequence'
+                            'sequence',
+                            'payment_type',
+                            'amount'
                         ];
                         
             var conditions = "created>='" + start +
@@ -66,6 +68,12 @@
 
         exportCsv: function() {
             this._super(this);
+        },
+
+        execute: function() {
+        	this._super();
+
+            this._registerOpenOrderDialog('sequence');
         },
 
         load: function() {

@@ -1581,6 +1581,12 @@ msgstr "Ledger Out"
 msgid "(rpt)Type"
 msgstr "Type"
 
+msgid "(rpt)Payment Type"
+msgstr "Payment"
+
+msgid "(rpt)Order Sequence"
+msgstr "Sequence"
+
 msgid "(rpt)Amount"
 msgstr "Amount"
 
@@ -1928,6 +1934,9 @@ msgstr "finalization"
 
 msgid "(rpt)shift change"
 msgstr "shift change"
+
+msgid "(rpt)ledger"
+msgstr "ledger"
 
 msgid "(rpt)Net Sales"
 msgstr "Net Sales"
@@ -2857,7 +2866,7 @@ msgid "Add New Ledger Entry"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2472
-#: ../..//content/controllers/ledger_controller.js:140
+#: ../..//content/controllers/ledger_controller.js:147
 msgid "Transaction [%S] for amount of [%S] successfully logged to the ledger"
 msgstr ""
 
@@ -3069,8 +3078,8 @@ msgstr ""
 msgid "This order has been modified and must be stored first"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:194
-#: ../..//content/controllers/cashdrawer_controller.js:223
+#: ../..//content/controllers/cashdrawer_controller.js:219
+#: ../..//content/controllers/cashdrawer_controller.js:248
 #: ../..//content/controllers/print_controller.js:386
 #: ../..//content/controllers/print_controller.js:461
 #: ../..//content/controllers/print_controller.js:536
@@ -3081,25 +3090,25 @@ msgstr ""
 msgid "Error in device manager! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:232
-#: ../..//content/controllers/cashdrawer_controller.js:243
-#: ../..//content/controllers/cashdrawer_controller.js:256
+#: ../..//content/controllers/cashdrawer_controller.js:257
+#: ../..//content/controllers/cashdrawer_controller.js:268
+#: ../..//content/controllers/cashdrawer_controller.js:281
 msgid "Cash drawer [%S] is not enabled! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:283
+#: ../..//content/controllers/cashdrawer_controller.js:313
 msgid ""
 "Error detected while opening cash drawer [%S]; please check if cash drawer "
 "is connected and powered up"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:337
+#: ../..//content/controllers/cashdrawer_controller.js:367
 #: ../..//content/controllers/print_controller.js:764
 #: ../..//content/controllers/vfd_controller.js:258
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:401
+#: ../..//content/controllers/cashdrawer_controller.js:431
 #: ../..//content/controllers/print_controller.js:1000
 #: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
@@ -3372,23 +3381,23 @@ msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:50
 #: ../..//content/controllers/devices_controller.js:67
-#: ../..//content/controllers/devices_controller.js:1609
-#: ../..//content/controllers/devices_controller.js:1626
+#: ../..//content/controllers/devices_controller.js:1611
+#: ../..//content/controllers/devices_controller.js:1628
 msgid "Device Status"
 msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:51
-#: ../..//content/controllers/devices_controller.js:1610
+#: ../..//content/controllers/devices_controller.js:1612
 msgid "No device has been enabled for receipt and/or check printing!"
 msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:61
-#: ../..//content/controllers/devices_controller.js:1620
+#: ../..//content/controllers/devices_controller.js:1622
 msgid "Device"
 msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:61
-#: ../..//content/controllers/devices_controller.js:1620
+#: ../..//content/controllers/devices_controller.js:1622
 msgid "Port"
 msgstr ""
 
@@ -3449,7 +3458,7 @@ msgstr ""
 msgid "Cash Drawer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:1627
+#: ../..//content/controllers/devices_controller.js:1629
 msgid ""
 "The following enabled devices appear to be offline, do you still want to "
 "save the new configuration?"
@@ -3747,24 +3756,24 @@ msgstr ""
 msgid "Job [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:117
+#: ../..//content/controllers/ledger_controller.js:123
 msgid "Add Ledger Entry"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:155
+#: ../..//content/controllers/ledger_controller.js:165
 msgid "Transaction [%S] for amount of [%S] successfully updated"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:162
+#: ../..//content/controllers/ledger_controller.js:172
 msgid "confirm delete transaction %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:163
+#: ../..//content/controllers/ledger_controller.js:173
 msgid ""
 "Are you sure you want to delete transaction [%S] mode [%S] of amount [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:182
+#: ../..//content/controllers/ledger_controller.js:192
 msgid ""
 "Transaction [%S] for amount of [%S] successfully deleted from the ledger"
 msgstr ""
@@ -5044,12 +5053,7 @@ msgstr ""
 msgid "(rpt)Total Work Time"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:29
-#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:23
-msgid "(rpt)Order Sequence"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:39
+#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:41
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:22
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_80mm.tpl:14
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:36

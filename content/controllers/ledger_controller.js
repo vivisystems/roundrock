@@ -13,6 +13,7 @@
         _listObj: null,
         _listDatas: null,
         _index: 0,
+        _eventCancelled: false,
 
         initial: function () {
 
@@ -66,6 +67,8 @@
             // save ledger entry
             var ledgerRecordModel = new LedgerRecordModel();
             inputObj.id = ledgerRecordModel.save(inputObj);
+
+            this.dispatchEvent('afterLedgerEntry', inputObj);
         },
 
         savePaymentEntry: function(ledgerEntry) {
@@ -79,6 +82,7 @@
             }
 
             // basic bookkeeping data
+            data['payment_id'] = ledgerEntry.payment_id;
             data['amount'] = data.total;
             data['name'] = 'ledger'; // + payment type
             data['memo1'] = ledgerEntry.type; // ledger entry type
@@ -100,7 +104,7 @@
             var order = new OrderModel();
             order.deleteLedgerEntry(ledgerEntry.payment_id);
         },
-        
+
         /*
         beforeScaffold: function(evt) {
             
@@ -111,7 +115,9 @@
             var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
             var inputObj = {}
-            
+
+            this.eventCancelled = false;
+
             inputObj.entry_types = this.LedgerEntryType.find('all', {order: 'mode, type'});
             
             window.openDialog(aURL, _('Add Ledger Entry'), features, inputObj);
@@ -127,12 +133,13 @@
                 evt.data.payment_id = this.savePaymentEntry(evt.data).id;
             } else {
                 evt.preventDefault();
+                this.eventCancelled = true;
             }
             
         },
 
         afterScaffoldAdd: function(evt) {
-            if (evt.data.id != '') {
+            if (!this.eventCancelled && evt.data.id != '') {
                 this._index = 0;
                 this.load();
 
@@ -149,6 +156,9 @@
 
         afterScaffoldEdit: function(evt) {
             if (evt.data.id) {
+                // update corresponding payment
+                this.savePaymentEntry(evt.data);
+                
                 this.load();
 
                 //@todo OSD

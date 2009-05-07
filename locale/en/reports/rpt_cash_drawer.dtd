@@ -13,5 +13,6 @@
 <!ENTITY cashdrawer.created "Time">
 <!ENTITY cashdrawer.event_type "Event Type">
 <!ENTITY cashdrawer.sequence "Order Sequence">
+<!ENTITY cashdrawer.amount "Amount">
 <!ENTITY cashdrawer.all "List All">
 <!ENTITY cashdrawer.wait "Waiting...">

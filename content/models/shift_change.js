@@ -5,6 +5,8 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
 
     hasMany: ['ShiftChangeDetail'],
 
+    behaviors: ['Sync'],
+    
     saveShiftChange: function(data) {
         if(!data) return;
 

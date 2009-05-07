@@ -61,6 +61,7 @@
 						                    <menuitem selected="false" label="&cashdrawer.created;" value="created" />
 						                    <menuitem selected="false" label="&cashdrawer.event_type;" value="event_type" />
 						                    <menuitem selected="false" label="&cashdrawer.sequence;" value="sequence" />
+						                    <menuitem selected="false" label="&cashdrawer.amount;" value="amount" />
 						                </menupopup>
 						            </menulist>
 						        </vbox>

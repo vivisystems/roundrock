@@ -1572,6 +1572,12 @@ msgstr "Ledger Out"
 msgid "(rpt)Type"
 msgstr "Type"
 
+msgid "(rpt)Payment Type"
+msgstr "Payment"
+
+msgid "(rpt)Order Sequence"
+msgstr "Sequence"
+
 msgid "(rpt)Amount"
 msgstr "Amount"
 
@@ -1919,6 +1925,9 @@ msgstr "finalization"
 
 msgid "(rpt)shift change"
 msgstr "shift change"
+
+msgid "(rpt)ledger"
+msgstr "ledger"
 
 msgid "(rpt)Net Sales"
 msgstr "Net Sales"

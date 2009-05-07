@@ -47,6 +47,7 @@
 <!ENTITY devices.cashdrawer.payment.check.label "Check">
 <!ENTITY devices.cashdrawer.payment.coupon.label "Coupon">
 <!ENTITY devices.cashdrawer.payment.giftcard.label "Giftcard">
+<!ENTITY devices.cashdrawer.payment.ledger.label "Ledger Entry">
 <!ENTITY devices.cashdrawer.action.finalization.label "Finalization">
 <!ENTITY devices.cashdrawer.action.always.label "Always">
 <!ENTITY devices.cashdrawer.action.never.label "Never">

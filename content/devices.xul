@@ -880,6 +880,13 @@
                                                 <radio id="cashdrawer-1-giftcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                             </radiogroup>
                                         </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.ledger.label;"/>
+                                            <radiogroup id="cashdrawer-1-ledger-action" name="cashdrawer-1-ledger-action" form="deviceForm" default="always" orient="horizontal">
+                                                <radio id="cashdrawer-1-ledger-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-1-ledger-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
                                     </rows>
                                     </grid>
                                 </vbox>
@@ -1007,6 +1014,13 @@
                                                 <radio id="cashdrawer-2-giftcard-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
                                                 <radio id="cashdrawer-2-giftcard-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
                                                 <radio id="cashdrawer-2-giftcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.ledger.label;"/>
+                                            <radiogroup id="cashdrawer-2-ledger-action" name="cashdrawer-2-ledger-action" form="deviceForm" default="always" orient="horizontal">
+                                                <radio id="cashdrawer-2-ledger-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-2-ledger-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
                                             </radiogroup>
                                         </row>
                                     </rows>

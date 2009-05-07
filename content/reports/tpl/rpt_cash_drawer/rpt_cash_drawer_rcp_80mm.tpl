@@ -12,9 +12,11 @@ ${_( '(rpt)Drawer No.' ) + ': '}${item.drawer_no}
 ${_( '(rpt)Clerk' ) + ': '}${item.clerk_displayname|default:''}
 ${_( '(rpt)Time' ) + ': '}${item.created|unixTimeToString}
 ${_( '(rpt)Event' ) + ': '}${_( '(rpt)' + item.event_type )}
+${_( '(rpt)Order Sequence' ) + ': '}${item.sequence|default:''}
+${_( '(rpt)Amount' ) + ': '}${item.amount|default:''|viviFormatPrices:true}
 {/for}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ':'|left:17}${body.length|format:0|right:25}
+${_( '(rpt)Records Found' ) + ': '|left:17}${body.length|format:0|right:25}
 ------------------------------------------
 ${foot.gen_time}
 [&CR]
