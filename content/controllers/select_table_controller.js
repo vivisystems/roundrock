@@ -302,6 +302,7 @@
         },
 
         doRefreshTableStatus: function() {
+
             document.getElementById('tableScrollablepanel').invalidate();
             this._inputObj.action = '';
             this._sourceTable = null;
