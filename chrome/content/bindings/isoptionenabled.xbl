@@ -18,8 +18,6 @@
 
     	<constructor><![CDATA[
         
-        this.boxContainer = document.getAnonymousElementByAttribute(this, "anonid", "checkoptionContainer");
-      
         this.events = GeckoJS.Configure.getInstance().events;
         this.option = this.getAttribute('option') || '';
 
@@ -92,16 +90,22 @@
         var action = this.getAttribute('action') || 'display';
 
         var value = GeckoJS.Configure.read(option);
-        var $box =  jQuery(this.boxContainer);
 
         if (value) {
-            if(action =='display') $box.show();
-            else $box.hide();
+            if(action =='display') {
+                this.setAttribute('hidden', 'false');
+            }
+            else {
+                this.setAttribute('hidden', 'true');
+            }
         }else {
-            if(action =='display') $box.hide();
-            else $box.show();
+            if(action =='display') {
+                this.setAttribute('hidden', 'true');
+            }
+            else {
+                this.setAttribute('hidden', 'false');
+            }
         }
-            
       ]]>
       </body>
     </method>
