@@ -22,7 +22,7 @@
             else {
                 var indices = inputObj.index.split(',');
                 for (var i = 0; i < indices.length; i++) {
-                    conditions = (conditions == '' ? '' : ' AND ') + indices[i] + ' like "%' + inputObj.value + '%"';
+                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + ' like "%' + inputObj.value + '%")';
                 }
             }
             var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
