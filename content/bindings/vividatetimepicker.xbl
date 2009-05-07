@@ -1316,7 +1316,7 @@
         <body>
           <![CDATA[
             var monthLabel = this.monthField.firstChild;
-            var tempDate = new Date(2005, 0, 1);
+            var tempDate = new Date();
             for (var month = 0; month < 12; month++) {
               tempDate.setMonth(month);
               monthLabel.setAttribute("value", tempDate.toLocaleFormat("%B"));
