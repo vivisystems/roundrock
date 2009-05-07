@@ -118,6 +118,7 @@
     function startup() {
 
         var checks = inputObj.checks;
+        var excludedOrderId = inputObj.excludedOrderId;
         var self = this;
         /*
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(checks);
@@ -168,8 +169,8 @@
                 order: {}
 
             };
-
-            checkViews.push(checkViewObj);
+            if (!excludedOrderId || checkViewObj.order_id != excludedOrderId)
+                checkViews.push(checkViewObj);
         });
         
         var checkList = new CheckListView(checkViews);

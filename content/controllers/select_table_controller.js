@@ -105,6 +105,7 @@
         _sourceTable: null,
         _sourceTableNo: null,
         _tableStatusModel: null,
+        _isNewOrder: false,
 
         initial: function () {
             //
@@ -336,6 +337,14 @@
                     }
 
                     break;
+                case 'SplitCheck':
+                    if (!selTable.sequence) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is empty!!'));
+                        return;
+                    }
+
+                    break;
                 case 'TransTable':
                     if (this._sourceTableNo) {
                         //
@@ -463,11 +472,28 @@
             */
         },
 
+        _enableFuncs: function(isNewOrder) {
+
+            try {
+                document.getElementById('recall_check').setAttribute('hidden', isNewOrder);
+                document.getElementById('merge_table').setAttribute('hidden', isNewOrder);
+                document.getElementById('unmerge_table').setAttribute('hidden', isNewOrder);
+                document.getElementById('split_check').setAttribute('hidden', isNewOrder);
+                document.getElementById('merge_check').setAttribute('hidden', isNewOrder);
+                // document.getElementById('booking_table').setAttribute('hidden', isNewOrder);
+                document.getElementById('change_clerk').setAttribute('hidden', isNewOrder);
+                document.getElementById('trans_table').setAttribute('hidden', isNewOrder);
+            } catch (e) {}
+        },
+
         load: function() {
+            var inputObj = window.arguments[0];
+            
+            this._isNewOrder = inputObj.isNewOrder;
+            this._enableFuncs(this._isNewOrder);
+
             this.initial();
-            //
-            // this._titleObj = document.getElementById('main_title');
-            // this._org_title = this._titleObj.getAttribute('label');
+
 
             // var tables = inputObj.tables;
             var tables = [];
