@@ -57,9 +57,17 @@
             }
 
             // add listener for onStartShift event
+            /*
             var shiftchange = GeckoJS.Controller.getInstanceByName('ShiftChanges');
             if (shiftchange) {
                 shiftchange.addEventListener('onStartShift', this.handleNewTransaction, this);
+            }
+            */
+
+            // add listener for onStartShift event
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('onInitial', this.handleNewTransaction, this);
             }
             
         },
@@ -99,7 +107,7 @@
                         this._controller.newCheck(true);
                 }
             }
-            if (evt.type == 'onStartShift' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
+            if (evt.type == 'onInitial' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
                 if (evt.type == 'onStore') {
                     this._tableStatusModel.addCheck(evt.data.data);
                 }
