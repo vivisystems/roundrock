@@ -10,11 +10,11 @@ ${head.end_time}
 ${head.title|center:24}
 {for master in body}
 ========================
-${_( '(rpt)Terminal ID' ) + ':'|left:12}${master.terminal_no}
+${_( '(rpt)Terminal' ) + ':'|left:12}${master.terminal_no}
 ${_( '(rpt)Start Time' ) + ':'|left:12}${master.starttime|left:10}
 ${_( '(rpt)End Time' ) + ':'|left:12}${master.endtime|left:10}
 ${_( '(rpt)Sale Period' ) + ':'|left:12}${master.sale_period|unixTimeToString:'yyyy-MM-dd'}
-${_( '(rpt)Shift No.' ) + ':'|left:12}${master.shift_number}
+${_( '(rpt)Shift' ) + ':'|left:12}${master.shift_number}
 ${_( '(rpt)Balance' ) + ':'|left:12}${master.balance|default:0|viviFormatPrices:true}
 ${_( '(rpt)Cash' ) + ':'|left:12}${master.cash|default:0|viviFormatPrices:true}
 ${_( '(rpt)Sales' ) + ':'|left:12}${master.sales|default:0|viviFormatPrices:true}

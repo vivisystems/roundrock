@@ -21,12 +21,12 @@
         <!--caption>${head.title}</caption-->
         <thead>
             <tr>
-                <th style="text-align: left;">${_( '(rpt)Terminal No.' )}</th>
-                <th style="text-align: left;">${_( '(rpt)Drawer No.' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Drawer' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Clerk' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Event' )}</th>
-                <th style="text-align: left;">${_( '(rpt)Order Sequence' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Payment Type' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Amount' )}</th>
             </tr>

@@ -7,7 +7,7 @@
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
-"${_( '(rpt)Terminal Number' )}","${_( '(rpt)Drawer Number' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Time' )}","${_( '(rpt)Event' )}","${_( '(rpt)Order Sequence' )}","${_( '(rpt)Payment Type' )}","${_( '(rpt)Amount' )}"
+"${_( '(rpt)Terminal' )}","${_( '(rpt)Drawer' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Time' )}","${_( '(rpt)Event' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Payment Type' )}","${_( '(rpt)Amount' )}"
 {for item in body}
 "${item.terminal_no}","${item.drawer_no}","${item.clerk_displayname}","${item.created|unixTimeToString}","${_( '(rpt)' + item.event_type )}",${item.sequence},${item.payment_type},${item.amount}
 {/for}

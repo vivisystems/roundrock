@@ -7,12 +7,12 @@ ${head.start_time} ~ ${head.end_time}
 ${head.title|center:42}
 {for item in body}
 ------------------------------------------
-${_( '(rpt)Terminal No.' ) + ': '}${item.terminal_no}
-${_( '(rpt)Drawer No.' ) + ': '}${item.drawer_no}
+${_( '(rpt)Terminal' ) + ': '}${item.terminal_no}
+${_( '(rpt)Drawer' ) + ': '}${item.drawer_no}
 ${_( '(rpt)Clerk' ) + ': '}${item.clerk_displayname|default:''}
 ${_( '(rpt)Time' ) + ': '}${item.created|unixTimeToString}
 ${_( '(rpt)Event' ) + ': '}${_( '(rpt)' + item.event_type )}
-${_( '(rpt)Order Sequence' ) + ': '}${item.sequence|default:''}
+${_( '(rpt)Sequence' ) + ': '}${item.sequence|default:''}
 ${_( '(rpt)Amount' ) + ': '}${item.amount|default:''|viviFormatPrices:true}
 {/for}
 ------------------------------------------

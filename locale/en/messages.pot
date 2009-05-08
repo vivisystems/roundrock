@@ -1542,14 +1542,17 @@ msgstr "Clock Out"
 msgid "(rpt)Span Time"
 msgstr "Span Time"
 
+msgid "(rpt)Total Work Time"
+msgstr "Total Work Time"
+
 msgid "(rpt)Summary"
 msgstr "Summary"
 
 msgid "(rpt)Sale Period"
 msgstr "Sale Period"
 
-msgid "(rpt)Shift No."
-msgstr "Shift No."
+msgid "(rpt)Shift"
+msgstr "Shift"
 
 msgid "(rpt)Balance"
 msgstr "Balance"
@@ -1587,19 +1590,13 @@ msgstr "Count"
 msgid "(rpt)Destination"
 msgstr "Destination"
 
-msgid "(rpt)Terminal ID"
-msgstr "Terminal ID"
-
 msgid "(rpt)Start Time"
 msgstr "Start Time"
 
 msgid "(rpt)End Time"
 msgstr "End Time"
 
-msgid "(rpt)Terminal No."
-msgstr "Terminal"
-
-msgid "(rpt)Drawer No."
+msgid "(rpt)Drawer"
 msgstr "Drawer"
 
 msgid "(rpt)Time"
@@ -1640,9 +1637,6 @@ msgstr "Coupon"
 
 msgid "(rpt)Gift Card"
 msgstr "Gift Card"
-
-msgid "(rpt)Seq."
-msgstr "Seq."
 
 msgid "(rpt)Service Clerk"
 msgstr "Service Clerk"

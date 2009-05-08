@@ -21,7 +21,7 @@ ${_( clerk.associated_clerk )}:
 [&CR]
 ${_( '(rpt)Time' ) + ':'}
 ${order.time|unixTimeToString|right:24}
-${_( '(rpt)Seq.' ) + ':'}
+${_( '(rpt)Sequence' ) + ':'}
 ${order.sequence|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${order.item_subtotal|viviFormatPrices:true|right:24}

@@ -1551,14 +1551,17 @@ msgstr "Clock Out"
 msgid "(rpt)Span Time"
 msgstr "Span Time"
 
+msgid "(rpt)Total Work Time"
+msgstr "Total Work Time"
+
 msgid "(rpt)Summary"
 msgstr "Summary"
 
 msgid "(rpt)Sale Period"
 msgstr "Sale Period"
 
-msgid "(rpt)Shift No."
-msgstr "Shift No."
+msgid "(rpt)Shift"
+msgstr "Shift"
 
 msgid "(rpt)Balance"
 msgstr "Balance"
@@ -1596,19 +1599,13 @@ msgstr "Count"
 msgid "(rpt)Destination"
 msgstr "Destination"
 
-msgid "(rpt)Terminal ID"
-msgstr "Terminal ID"
-
 msgid "(rpt)Start Time"
 msgstr "Start Time"
 
 msgid "(rpt)End Time"
 msgstr "End Time"
 
-msgid "(rpt)Terminal No."
-msgstr "Terminal"
-
-msgid "(rpt)Drawer No."
+msgid "(rpt)Drawer"
 msgstr "Drawer"
 
 msgid "(rpt)Time"
@@ -1649,9 +1646,6 @@ msgstr "Coupon"
 
 msgid "(rpt)Gift Card"
 msgstr "Gift Card"
-
-msgid "(rpt)Seq."
-msgstr "Seq."
 
 msgid "(rpt)Service Clerk"
 msgstr "Service Clerk"
@@ -2248,11 +2242,34 @@ msgid ""
 "Are you sure you want to void transaction [%S] (payment [%S], refund [%S])?"
 msgstr ""
 
-#: ../..//content/select_checks.js:36
-msgid "Seq"
+#: ../..//content/select_checks.js:40
+#: ../..//content/controllers/select_table_controller.js:39
+msgid "B#"
 msgstr ""
 
-#: ../..//content/select_checks.js:37 ../..//content/select_checks.js:71
+#: ../..//content/select_checks.js:46
+msgid "G#"
+msgstr ""
+
+#: ../..//content/select_checks.js:48
+#: ../..//content/controllers/select_table_controller.js:46
+msgid "C#"
+msgstr ""
+
+#: ../..//content/select_checks.js:52
+msgid "S#"
+msgstr ""
+
+#: ../..//content/select_checks.js:53
+#: ../..//content/controllers/select_table_controller.js:50
+msgid "T#"
+msgstr ""
+
+#: ../..//content/select_checks.js:138 ../..//content/select_queues.js:28
+msgid "SEQ"
+msgstr ""
+
+#: ../..//content/select_checks.js:150
 #: ../..//content/bindings/onscreenvfd.xbl:62
 #: ../..//content/bindings/onscreenvfd.xbl:115
 #: ../..//content/bindings/onscreenvfd.xbl:137
@@ -2260,18 +2277,6 @@ msgstr ""
 #: ../..//content/bindings/onscreenvfd.xbl:162
 #: ../..//content/bindings/onscreenvfd.xbl:167
 msgid "TAL"
-msgstr ""
-
-#: ../..//content/select_checks.js:38
-msgid "Check#"
-msgstr ""
-
-#: ../..//content/select_checks.js:39
-msgid "Table#"
-msgstr ""
-
-#: ../..//content/select_checks.js:59 ../..//content/select_queues.js:28
-msgid "SEQ"
 msgstr ""
 
 #: ../..//content/sync_settings.js:19
@@ -3032,7 +3037,7 @@ msgid "Order is not queued because it is empty"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3795
-msgid "This order must be store first"
+msgid "This order must be stored first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3845
@@ -4344,120 +4349,102 @@ msgstr ""
 msgid "Password and Verify Password not the same"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:39
-msgid "B#"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:46
-msgid "C#"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:50
-msgid "T#"
-msgstr ""
-
 #: ../..//content/controllers/select_table_controller.js:88
 msgid "Host Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:229
-#: ../..//content/controllers/select_table_controller.js:233
+#: ../..//content/controllers/select_table_controller.js:228
 msgid "Recall Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:229
+#: ../..//content/controllers/select_table_controller.js:228
 msgid "Please select a table to recall..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:229
-#: ../..//content/controllers/select_table_controller.js:237
-#: ../..//content/controllers/select_table_controller.js:245
-#: ../..//content/controllers/select_table_controller.js:253
-#: ../..//content/controllers/select_table_controller.js:260
-#: ../..//content/controllers/select_table_controller.js:283
-#: ../..//content/controllers/select_table_controller.js:290
-#: ../..//content/controllers/select_table_controller.js:297
+#: ../..//content/controllers/select_table_controller.js:228
+#: ../..//content/controllers/select_table_controller.js:236
+#: ../..//content/controllers/select_table_controller.js:244
+#: ../..//content/controllers/select_table_controller.js:252
+#: ../..//content/controllers/select_table_controller.js:259
+#: ../..//content/controllers/select_table_controller.js:282
+#: ../..//content/controllers/select_table_controller.js:289
+#: ../..//content/controllers/select_table_controller.js:296
 msgid "Press CANCEL button to cancel function"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:237
-#: ../..//content/controllers/select_table_controller.js:241
+#: ../..//content/controllers/select_table_controller.js:236
 msgid "Split Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:237
+#: ../..//content/controllers/select_table_controller.js:236
 msgid "Please select a table to split..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:245
-#: ../..//content/controllers/select_table_controller.js:249
+#: ../..//content/controllers/select_table_controller.js:244
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:245
+#: ../..//content/controllers/select_table_controller.js:244
 msgid "Please select a table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:253
+#: ../..//content/controllers/select_table_controller.js:252
 msgid "Merge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:253
+#: ../..//content/controllers/select_table_controller.js:252
 msgid "Please select the master table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:260
+#: ../..//content/controllers/select_table_controller.js:259
 msgid "Unmerge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:260
+#: ../..//content/controllers/select_table_controller.js:259
 msgid "Please select the table to unmerge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:283
+#: ../..//content/controllers/select_table_controller.js:282
 #: ../..//content/bindings/onscreenvfd.xbl:92
 msgid "Change Clerk"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:283
+#: ../..//content/controllers/select_table_controller.js:282
 msgid "Select a table to change service clerk to [ %S ]..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:290
+#: ../..//content/controllers/select_table_controller.js:289
 msgid "Trans Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:290
+#: ../..//content/controllers/select_table_controller.js:289
 msgid "Please select the table to be transfered..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:297
+#: ../..//content/controllers/select_table_controller.js:296
 msgid "Select Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:297
+#: ../..//content/controllers/select_table_controller.js:296
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:301
-msgid "Select Table Number"
-msgstr ""
-
 #: ../..//content/controllers/select_table_controller.js:333
-#: ../..//content/controllers/select_table_controller.js:345
-#: ../..//content/controllers/select_table_controller.js:382
+#: ../..//content/controllers/select_table_controller.js:341
+#: ../..//content/controllers/select_table_controller.js:353
+#: ../..//content/controllers/select_table_controller.js:390
 msgid "This table is empty!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:348
+#: ../..//content/controllers/select_table_controller.js:356
 msgid "Please select the table to transfer to..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:386
+#: ../..//content/controllers/select_table_controller.js:394
 msgid "Please select an empty table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:397
+#: ../..//content/controllers/select_table_controller.js:405
 msgid "This table had not been hold!!"
 msgstr ""
 
@@ -5047,12 +5034,6 @@ msgstr ""
 msgid "Product Stock List"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:59
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:34
-#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:26
-msgid "(rpt)Total Work Time"
-msgstr ""
-
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:41
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:22
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_80mm.tpl:14
@@ -5060,8 +5041,4 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
 msgid "(rpt)"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:26
-msgid "(rpt)Terminal Number"
 msgstr ""
