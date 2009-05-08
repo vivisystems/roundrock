@@ -58,7 +58,7 @@
   <script src='chrome://viviecr/content/controllers/storecontact_controller.js'/>
   <script src='chrome://viviecr/content/controllers/annotation_controller.js'/>
   <script src='chrome://viviecr/content/controllers/shift_changes_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/stocks_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/stock_records_controller.js'/>
   <script src='chrome://viviecr/content/controllers/plus_controller.js'/>
   <script src='chrome://viviecr/content/controllers/ledger_controller.js'/>
   <script src='chrome://viviecr/content/controllers/ledger_entry_types_controller.js'/>

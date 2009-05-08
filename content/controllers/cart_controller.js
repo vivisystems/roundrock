@@ -76,14 +76,21 @@
             var diff = qty;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var min_stock = parseFloat(item.min_stock);
-            var stock = parseFloat(item.stock);
             var auto_maintain_stock = item.auto_maintain_stock;
+            
+            // get the stock quantity;
+            var stockRecordModel = new StockRecordModel();
+			var stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
+			var stock = parseFloat( stockRecord.quantity );
 
             if (action != "addItem") {
                 var productsById = GeckoJS.Session.get('productsById');
                 var product = productsById[item.id];
                 if (product) {
-                    stock = parseFloat(product.stock);
+                    // get the stock quantity;
+				    var stockRecordModel = new StockRecordModel();
+					var stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
+					
                     min_stock = parseFloat(product.min_stock);
                     auto_maintain_stock = product.auto_maintain_stock;
                     diff = qty - item.current_qty;
@@ -139,7 +146,6 @@
                 if (clearWarning != false) cart.dispatchEvent('onWarning', '');
             }
             return true;
-
         },
 
         clearWarning: function (evt) {
@@ -3449,8 +3455,8 @@
                     }
                     order.items = order.OrderItem;
 
-                    var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
-                    stockController.requestCommand('decStock', order, 'Stocks');
+                    var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
+                    stockController.requestCommand('decStock', order, 'StockRecords');
 
                     this.dispatchEvent('afterVoidSale', order);
 
