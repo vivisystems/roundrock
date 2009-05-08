@@ -88,8 +88,9 @@
                 var product = productsById[item.id];
                 if (product) {
                     // get the stock quantity;
-				    var stockRecordModel = new StockRecordModel();
-					var stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
+				    stockRecordModel = new StockRecordModel();
+					stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
+					stock = parseFloat( stockRecord.quantity );
 					
                     min_stock = parseFloat(product.min_stock);
                     auto_maintain_stock = product.auto_maintain_stock;
