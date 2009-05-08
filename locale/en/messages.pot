@@ -1417,13 +1417,13 @@ msgid "Factory"
 msgstr "Factory Dataset"
 
 msgid "Service Clerk Sales Report"
-msgstr "Service Clerk Sales Report"
+msgstr "Sales By Clerk (Open)"
 
 msgid "Training"
 msgstr "Training Dataset"
 
 msgid "Proceeds Clerk Sales Report"
-msgstr "Proceeds Clerk Sales Report"
+msgstr "Sales By Clerk (Close)"
 
 msgid "XTerm"
 msgstr "XTerm"
@@ -1639,22 +1639,16 @@ msgid "(rpt)Gift Card"
 msgstr "Gift Card"
 
 msgid "(rpt)Service Clerk"
-msgstr "Service Clerk"
+msgstr "Clerk (Open)"
 
 msgid "Service Clerk"
-msgstr "Service Clerk"
+msgstr "Clerk (Open)"
 
 msgid "(rpt)Proceeds Clerk"
-msgstr "Proceeds Clerk"
+msgstr "Clerk (Close)"
 
 msgid "Proceeds Clerk"
-msgstr "Proceeds Clerk"
-
-msgid "(rpt)Proceeds"
-msgstr "Proceeds"
-
-msgid "(rpt)Service"
-msgstr "Service"
+msgstr "Clerk (Close)"
 
 msgid "(rpt)Guests"
 msgstr "Guests"

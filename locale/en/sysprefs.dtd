@@ -8,7 +8,7 @@
 <!ENTITY category.destinations "Destinations">
 <!ENTITY category.annotations "Annotations">
 <!ENTITY category.orderdata "Data Options">
-<!ENTITY general.showtoolbar "Show tool bar (requires restart)">
+<!ENTITY general.showtoolbar "Show tool bar (may require restart)">
 <!ENTITY general.showclockinicon "Show clock-in icon">
 <!ENTITY general.showvirtualkeyboardicon "Show virtual keyboard icon">
 <!ENTITY general.showcontrolpanelicon "Show control panel icon">

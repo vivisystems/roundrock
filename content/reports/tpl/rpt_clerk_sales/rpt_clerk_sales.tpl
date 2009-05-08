@@ -26,7 +26,6 @@
 				</tr>
                 <tr class="fields">
                     <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
-                    <th style="text-align: left;">${_( clerk.associated_clerk )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Total' )}</th>
@@ -45,16 +44,14 @@
             </thead>
             <tbody>
 {for order in clerk.orders}
+{eval}
+  TrimPath.RoundingPrices = order.rounding_prices;
+  TrimPath.PrecisionPrices = order.precision_prices;
+  TrimPath.RoundingTaxes = order.rounding_taxes;
+  TrimPath.PrecisionTaxes = order.precision_taxes;
+{/eval}
                 <tr id="${order.id}">
                     <td style="text-align: left;">${order.terminal_no}</td>
-                    <td style="text-align: left;">
-                    {if clerk.associated_clerk == 'Proceeds Clerk'}
-                    	${order.proceeds_clerk_displayname}
-                    {/if}
-                    {if clerk.associated_clerk == 'Service Clerk'}
-                    	${order.service_clerk_displayname}
-                    {/if}
-                    </td>
                     <td style="text-align: left;">${order.time|unixTimeToString}</td>
                     <td style="text-align: left;">${order.sequence}</td>
                     <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
@@ -72,11 +69,16 @@
                 </tr>
 {/for}
             </tbody>
+{eval}
+  delete TrimPath.RoundingPrices;
+  delete TrimPath.PrecisionPrices;
+  delete TrimPath.RoundingTaxes;
+  delete TrimPath.PrecisionTaxes;
+{/eval}
             <tfoot>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2">${_( '(rpt)Summary' ) }:</td>
+                    <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' ) }: ${clerk.orders.length|default:0|format:0}</td>
+                    <td>${_( '(rpt)Summary' ) }:</td>
                     <td style="text-align: right;">${clerk.summary.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${clerk.summary.surcharge_subtotal|viviFormatPrices:true}</td>

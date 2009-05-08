@@ -43,6 +43,7 @@
     <prefpane id="displaySettingsPane" label="&category.general;" >
         <preferences>
 			
+            <preference id="pref_showtoolbar" name="vivipos.fec.settings.ShowToolbar" type="bool" />
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
             <preference id="pref_productpanelontop" name="vivipos.fec.settings.ProductPanelOnTop" type="bool"/>
             <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.HideTagColumn" type="bool"/>
@@ -92,6 +93,9 @@
                 <row>
                     <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
                     <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
+                </row>
+                <row>
+                    <checkbox preference="pref_showtoolbar" id="pref_showtoolbarCtrl" label="&general.showtoolbar;" />
                 </row>
             </rows>
         </grid>

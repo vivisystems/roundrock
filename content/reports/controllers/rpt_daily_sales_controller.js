@@ -20,7 +20,7 @@
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
-            var machineid = document.getElementById( 'machine_id' ).value;
+            var terminal_no = document.getElementById( 'terminal_no' ).value;
             var shiftNo = document.getElementById( 'shift_no' ).value;
             var periodType = document.getElementById( 'period_type' ).value;
             
@@ -69,8 +69,8 @@
 			if ( proceeds_clerk != 'all' )
 				conditions += " AND orders.proceeds_clerk_displayname = '" + this._queryStringPreprocessor( proceeds_clerk ) + "'";
 
-            if ( machineid.length > 0 ) 
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
+            if ( terminal_no.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminal_no ) + "%'";
                 
             if ( shiftNo.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
@@ -189,7 +189,7 @@
             this._reportRecords.head.title = _( 'Daily Sales Report' );
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
-			this._reportRecords.head.machine_id = machineid;
+			this._reportRecords.head.terminal_no = terminal_no;
 			
 			this._reportRecords.body = GeckoJS.BaseObject.getValues( this._datas );
 			

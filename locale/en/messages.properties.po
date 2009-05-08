@@ -1426,13 +1426,13 @@ msgid "Factory"
 msgstr "Factory Dataset"
 
 msgid "Service Clerk Sales Report"
-msgstr "Service Clerk Sales Report"
+msgstr "Sales By Clerk (Open)"
 
 msgid "Training"
 msgstr "Training Dataset"
 
 msgid "Proceeds Clerk Sales Report"
-msgstr "Proceeds Clerk Sales Report"
+msgstr "Sales By Clerk (Close)"
 
 msgid "XTerm"
 msgstr "XTerm"
@@ -1648,22 +1648,16 @@ msgid "(rpt)Gift Card"
 msgstr "Gift Card"
 
 msgid "(rpt)Service Clerk"
-msgstr "Service Clerk"
+msgstr "Clerk (Open)"
 
 msgid "Service Clerk"
-msgstr "Service Clerk"
+msgstr "Clerk (Open)"
 
 msgid "(rpt)Proceeds Clerk"
-msgstr "Proceeds Clerk"
+msgstr "Clerk (Close)"
 
 msgid "Proceeds Clerk"
-msgstr "Proceeds Clerk"
-
-msgid "(rpt)Proceeds"
-msgstr "Proceeds"
-
-msgid "(rpt)Service"
-msgstr "Service"
+msgstr "Clerk (Close)"
 
 msgid "(rpt)Guests"
 msgstr "Guests"
@@ -4944,51 +4938,51 @@ msgstr ""
 msgid "Sale Completed"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1902
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1903
 msgid "Scroll Forward"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1903
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1904
 msgid "Next"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1904
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1905
 msgid "This function scrolls the function panel to the next page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1912
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1913
 msgid "Scroll Backward"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1913
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1914
 msgid "Back"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1914
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1915
 msgid "This function scrolls the function panel to the previous page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1922
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1923
 msgid "Home Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1923
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1924
 msgid "Home"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1924
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1925
 msgid "This function scrolls the function panel to the home page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1932
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1933
 msgid "Jump to Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1933
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1934
 msgid "Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1934
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1935
 msgid ""
 "This function scrolls the function panel to the page indicated in the "
 "parameter field"
@@ -5069,4 +5063,14 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
 msgid "(rpt)"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_58mm.tpl:19
+#: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_80mm.tpl:13
+msgid "(rpt)Service"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_58mm.tpl:21
+#: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_80mm.tpl:14
+msgid "(rpt)Proceeds"
 msgstr ""

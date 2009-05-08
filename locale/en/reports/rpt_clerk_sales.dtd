@@ -6,32 +6,32 @@
 <!ENTITY rptclerksales.exportcsv "Export to CSV">
 <!ENTITY rptclerksales.exportrcp "Print">
 <!ENTITY rptclerksales.togglezoom "Toggle Zoom">
-<!ENTITY rptclerksales.machineid "Terminal No:">
+<!ENTITY rptclerksales.terminal_no "Terminal:">
 <!ENTITY rptclerksales.sortby "Sort By:">
-<!ENTITY rptclerksales.terminal_no "Terminal No.">
-<!ENTITY rptclerksales.time "Time">
-<!ENTITY rptclerksales.sequence "Sequence">
-<!ENTITY rptclerksales.invoice_no "Invoice No.">
-<!ENTITY rptclerksales.tax_subtotal "Add-on Tax">
-<!ENTITY rptclerksales.total "Payment">
-<!ENTITY rptclerksales.item_subtotal "Total">
-<!ENTITY rptclerksales.surcharge_subtotal "Surcharge">
-<!ENTITY rptclerksales.discount_subtotal "Discount">
-<!ENTITY rptclerksales.promotion_subtotal "Promotion">
-<!ENTITY rptclerksales.revalue_subtotal "Revalue">
-<!ENTITY rptclerksales.cash "Cash">
-<!ENTITY rptclerksales.check "Check">
-<!ENTITY rptclerksales.creditcard "Credit Card">
-<!ENTITY rptclerksales.coupon "Coupon">
-<!ENTITY rptclerksales.giftcard "Gift Card">
+<!ENTITY rptclerksales.sortby.time "Time">
+<!ENTITY rptclerksales.sortby.sequence "Sequence">
+<!ENTITY rptclerksales.sortby.terminal_no "Terminal">
+<!ENTITY rptclerksales.sortby.invoice_no "Invoice Number">
+<!ENTITY rptclerksales.sortby.tax_subtotal "Add-on Tax">
+<!ENTITY rptclerksales.sortby.total "Payment">
+<!ENTITY rptclerksales.sortby.item_subtotal "Total">
+<!ENTITY rptclerksales.sortby.surcharge_subtotal "Surcharge">
+<!ENTITY rptclerksales.sortby.discount_subtotal "Discount">
+<!ENTITY rptclerksales.sortby.promotion_subtotal "Promotion">
+<!ENTITY rptclerksales.sortby.revalue_subtotal "Revalue">
+<!ENTITY rptclerksales.sortby.cash "Cash">
+<!ENTITY rptclerksales.sortby.check "Check">
+<!ENTITY rptclerksales.sortby.creditcard "Credit Card">
+<!ENTITY rptclerksales.sortby.coupon "Coupon">
+<!ENTITY rptclerksales.sortby.giftcard "Gift Card">
+<!ENTITY rptclerksales.sortby.clerk "Clerk">
 <!ENTITY rptclerksales.all "List All">
 <!ENTITY rptclerksales.wait "Waiting...">
-<!ENTITY rptclerksales.associated_clerk "Associated Clerk">
-<!ENTITY rptclerksales.service_clerk "Service Clerk">
-<!ENTITY rptclerksales.proceeds_clerk "Proceeds Clerk">
+<!ENTITY rptclerksales.service_clerk "Open Order">
+<!ENTITY rptclerksales.proceeds_clerk "Close Order">
 <!ENTITY rptclerksales.clerk_type "Clerk Type:">
 <!ENTITY rptclerksales.periodtype "Period Type:">
-<!ENTITY rptclerksales.transaction_created "Order Opened Time">
-<!ENTITY rptclerksales.transaction_submitted "Order Finalized Time">
+<!ENTITY rptclerksales.transaction_created "Order Opened">
+<!ENTITY rptclerksales.transaction_submitted "Order Closed">
 <!ENTITY rptclerksales.sale_period "Sale Period">
-<!ENTITY rptclerksales.shiftno "Shift No.:">
+<!ENTITY rptclerksales.shiftno "Shift Number:">

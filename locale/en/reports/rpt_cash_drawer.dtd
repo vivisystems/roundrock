@@ -6,13 +6,14 @@
 <!ENTITY cashdrawer.exportcsv "Export to CSV">
 <!ENTITY cashdrawer.exportrcp "Print">
 <!ENTITY cashdrawer.togglezoom "Toggle Zoom">
+<!ENTITY cashdrawer.terminal_no "Terminal:">
 <!ENTITY cashdrawer.sortby "Sort By:">
-<!ENTITY cashdrawer.terminal_no "Terminal Number">
-<!ENTITY cashdrawer.drawer_no "Drawer Number">
-<!ENTITY cashdrawer.clerk_displayname "Clerk">
-<!ENTITY cashdrawer.created "Time">
-<!ENTITY cashdrawer.event_type "Event Type">
-<!ENTITY cashdrawer.sequence "Order Sequence">
-<!ENTITY cashdrawer.amount "Amount">
+<!ENTITY cashdrawer.sortby.terminal_no "Terminal">
+<!ENTITY cashdrawer.sortby.drawer_no "Drawer">
+<!ENTITY cashdrawer.sortby.clerk_displayname "Clerk">
+<!ENTITY cashdrawer.sortby.created "Time">
+<!ENTITY cashdrawer.sortby.event_type "Event Type">
+<!ENTITY cashdrawer.sortby.sequence "Sequence">
+<!ENTITY cashdrawer.sortby.amount "Amount">
 <!ENTITY cashdrawer.all "List All">
 <!ENTITY cashdrawer.wait "Waiting...">
