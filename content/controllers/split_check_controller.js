@@ -8,11 +8,11 @@
         name: 'SplitCheck',
         _sourceCheck: null,
         _sourceItems: [],
-        _usedCheckNo: null,
 
         _splitItems: [],
         _index: 0,
         _splitedIndex: 0,
+        _tableStatusModel: null,
         
         checkOrd: function() {
             alert('checkOrd');
@@ -21,23 +21,13 @@
         _getNewCheckNo: function() {
             var i = 1;
             var ar = [];
-            this._splitItems.forEach(function(o){
-                ar.push(o.check_no);
-            });
-
-            while (i <= 200) {
-
-                if(this._usedCheckNo["" + i] != 1) {
-
-                    if (GeckoJS.Array.inArray(""+i, ar) < 0) {
-                        break;
-                    }
-                }
-                
-                i++;
+            if (this._tableStatusModel == null) {
+                this._tableStatusModel = new TableStatusModel;
+                this._tableStatusModel.initial();
             }
+            var r = this._tableStatusModel.getNewCheckNo();
 
-            return "" + i;
+            return "" + r;
         },
 
         splitItems: function() {
@@ -59,7 +49,7 @@
             var check_no = checkNo;
             var table_no = this._sourceCheck.table_no;
             var cnt = this._splitItems.push({
-                name: 'Check ' + this._index,
+                name: (this._index + 1) + '.Check#' + check_no,
                 check_no: check_no,
                 table_no: table_no,
                 items:spliteditems
@@ -411,6 +401,17 @@
 
                 // save order object
                 order.serializeOrder(data);
+
+                // add to table_status
+                if (this._tableStatusModel == null) {
+                    this._tableStatusModel = new TableStatusModel;
+                    this._tableStatusModel.initial();
+                }
+
+                // update table status
+                this._tableStatusModel.addCheck(origData);
+                this._tableStatusModel.addCheck(data);
+
             });
             
             
@@ -453,8 +454,6 @@
         load: function() {
 
             var inputObj = window.arguments[0];
-
-            this._usedCheckNo = inputObj.usedCheckNo;
 
             this._sourceCheck = inputObj.sourceCheck;
 

@@ -284,6 +284,7 @@
                             'SUM( "orders"."tax_subtotal" ) AS "Order.TaxSubtotal"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
+                            'SUM( "orders"."total" ) / SUM( "orders"."no_of_customers" ) AS "Order.AvgTotalPerGuest"',
                             'SUM("orders"."items_count") AS "Order.ItemsCount"',
                             'CAST( AVG("orders"."total") AS INTEGER ) AS "Order.AvgTotal"',
                             'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
@@ -313,7 +314,7 @@
             var sql = "select sum( current_qty ) as qty from order_items join orders on orders.id = order_items.order_id where " + conditions;
             var orderItem = new OrderItemModel();
             var orderItemRecords = orderItem.getDataSource().fetchAll( sql );
-          
+            
             orderRecords.ItemsCount = orderItemRecords[ 0 ].qty;
             
             // get the number of voided orders.

@@ -1,34 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/product-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/product.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
 
 <!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/dialog.dtd" >
 
-<overlay id="catePanelOverlay"
+<overlay id="productPanelOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <box id="productPanelContainer">
     <box id="productPanel" flex="1" orient="vertical">
-        <!-- Begin Catalogs -->
-        <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="0" cols="3" rows="2" labelField="name" imageField="no"
-                                   oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
-                                   class="catescrollablepanel"
-                                   buttonClass="user-catbtn"
-                                   scrollUpClass="depart_scroll_up"
-                                   scrollDownClass="depart_scroll_down"
-                                   seltype="single" >
-            <spacer flex="1"/>
-            <vivibutton id="catescrollablepanel-top" class="gotopbtn" flex="0" hidden="true"
-                        oncommand="this.parentNode.datasource.navigateTop(); this.hidden = true; event.stopPropagation()"/>
-            <vivibutton id="catescrollablepanel-soldout" class="soldoutbtn" flex="0" type="checkbox" checkState="0" oncommand="event.stopPropagation()"/>
-            <spacer flex="1"/>
-        </viviscrollablebuttonpanel>
-        <!-- End Catalogs -->
 
         <!-- Begin PLUs -->
         <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="1" labelField="name" imageField="no"

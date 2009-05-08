@@ -65,13 +65,13 @@
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
             	
             var groupby = 'order_payments.order_id, order_payments.name';//order_payments.order_id';
-            var orderby = 'orders.' + sortby +', "Order.date", orders.item_subtotal desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.terminal_no, "Order.date", orders.item_subtotal desc';//orders.transaction_created, orders.id';
 
             // var order = new OrderModel();
 
             var orderPayment = new OrderPaymentModel();
             // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
-            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
+            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, limit: 30000000, recursive: 1});
 
             //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
@@ -177,7 +177,7 @@
            	for ( p in repDatas ) {
            		orderedData[ counter++ ] = GREUtils.extend( {}, repDatas[ p ] );
            	}
-
+           	
             if ( sortby != 'all' ) {
 		        function sortFunction( a, b ) {
 		        	a = a[ sortby ];
@@ -185,7 +185,7 @@
 		        	
 		        	switch ( sortby ) {
 		        		case 'terminal_no':
-		        		case 'time':
+		        		case 'date':
 		        		case 'discount_subtotal':
 		        		case 'promotion_subtotal':
 		        		case 'revalue_subtotal':

@@ -7,7 +7,7 @@
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
-"${_( '(rpt)Term_No.' )}","${_( '(rpt)Time' )}","${_( '(rpt)Total' )}","${_( '(rpt)Orders' )}","${_( '(rpt)Guests' )}","${_( '(rpt)Items' )}"
+"${_( '(rpt)Terminal' )}","${_( '(rpt)Time' )}","${_( '(rpt)Total' )}","${_( '(rpt)Orders' )}","${_( '(rpt)Guests' )}","${_( '(rpt)Items' )}"
 {for detail in body}
 "{if head.machine_id}${detail.terminal_no}{/if}","${detail.Hour}","${detail.HourTotal}","${detail.OrderNum}","${detail.Guests}","${detail.ItemsCount}"
 {/for}

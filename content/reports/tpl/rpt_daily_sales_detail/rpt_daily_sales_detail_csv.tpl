@@ -7,7 +7,7 @@
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
-"${_( '(rpt)Term_No.' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Total' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Payment' )}","${_( '(rpt)Guests' )}","${_( '(rpt)Items' )}"
+"${_( '(rpt)Terminal' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Total' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Payment' )}","${_( '(rpt)Guests' )}","${_( '(rpt)Items' )}"
 {for detail in body}
 "${detail.terminal_no}","${detail.Order.time|unixTimeToString}","${detail.sequence}","${detail.item_subtotal|default:0|viviFormatPrices:true}","${detail.tax_subtotal|default:0|viviFormatTaxes:true}","${detail.surcharge_subtotal|default:0|viviFormatPrices:true}","${detail.discount_subtotal|default:0|viviFormatPrices:true}","${detail.promotion_subtotal|default:0|viviFormatPrices:true}","${detail.revalue_subtotal|default:0|viviFormatPrices:true}","${detail.total|default:0|viviFormatPrices:true}","${detail.no_of_customers}","${detail.items_count}"
 "","","","","${_( '(rpt)Product No.' )}","${_( '(rpt)Product Name' )}","${_( '(rpt)Tax Name' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Price' )}","${_( '(rpt)Quantity' )}","${_( '(rpt)Subtotal' )}"

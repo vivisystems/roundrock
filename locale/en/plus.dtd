@@ -73,6 +73,7 @@
 <!ENTITY plus.image "Product Icon">
 <!ENTITY plus.button.color "Button Color">
 <!ENTITY plus.font.size "Font Size">
+<!ENTITY plus.append_empty_btns "Append Empty Buttons">
 
 <!ENTITY plus.level "Level">
 <!ENTITY plus.price "Price">
@@ -94,4 +95,3 @@
 <!ENTITY plus.button.numpad.advsearch "SEARCH">
 <!ENTITY plus.button.numpad.advclear "CLEAR">
 
-<!ENTITY plusearch.title     "Product Search">

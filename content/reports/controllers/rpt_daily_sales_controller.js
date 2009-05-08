@@ -196,6 +196,11 @@
 			this._reportRecords.foot.foot_datas = footDatas;
         },
         
+        execute: function() {
+        	this._super();
+        	this._registerOpenOrderDialog();
+        },
+        
         /*exportPdf: function() {
         	this._super( {
         		paperSize: {

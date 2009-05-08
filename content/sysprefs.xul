@@ -42,7 +42,7 @@
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
-            <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
+            <preference id="pref_showtoolbar" name="vivipos.fec.settings.ShowToolbar" type="bool" />
 
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
@@ -56,6 +56,8 @@
             <preference id="pref_idletime" name="vivipos.fec.settings.idle.time" type="int" />
             <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool" />
             <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool" />
+            <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool" />
+
 
         </preferences>
 
@@ -65,7 +67,7 @@
             </columns>
             <rows>
                 <row>
-                    <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&general.privatequeue;" />
+                    <checkbox preference="pref_showtoolbar" id="pref_showtoolbarCtrl" label="&general.showtoolbar;" />
                     <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;" />
                 </row>
                 <row>
@@ -93,6 +95,7 @@
                         <label control="idletime" value="&general.idletime;"/>
                         <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
                     </hbox>
+                    <checkbox preference="pref_quietcancel" id="quietcancel" label="&general.quietcancel;" />
                 </row>
                 <row>
                     <vbox>
@@ -281,7 +284,7 @@
 
     </prefpane>
 
-    <prefpane id="displaySettingsPane" label="&category.layout;" >
+    <!--prefpane id="displaySettingsPane" label="&category.layout;" >
         <preferences>
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
@@ -382,7 +385,7 @@
                 </row>
             </rows>
         </grid>
-    </prefpane>
+    </prefpane-->
 
     <prefpane id="orderDataSettingsPane" label="&category.orderdata;" >
         <preferences>

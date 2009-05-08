@@ -84,7 +84,8 @@ var options;
         document.getElementById('input1').setAttribute('value', inputObj.input1);
         document.getElementById('input1').value = inputObj.input1;
 
-        document.getElementById('cancel').setAttribute('disabled', false);
+        // document.getElementById('cancel').setAttribute('disabled', false);
+        document.getElementById('cancel').setAttribute('disabled', ('disablecancelbtn' in inputObj));
 
         doSetOKCancel(
             function(){

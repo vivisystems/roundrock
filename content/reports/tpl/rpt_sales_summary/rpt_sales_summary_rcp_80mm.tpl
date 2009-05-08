@@ -18,13 +18,14 @@ ${'  ' + _( '(rpt)Revenue' ) + ':'|left:13}${body.sales_summary.Total|default:0|
 ------------------------------------------
 ${_( '(rpt)Sales Summary' )}
 ${'  ' + _( '(rpt)Orders' ) + ':'|left:16}${body.sales_summary.OrderNum|default:0|right:26}
-${'  ' + _( '(rpt)Total' ) + ':'|left:16}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:26}
+${'  ' + _( '(rpt)Revenue' ) + ':'|left:16}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Guests' ) + ':'|left:16}${body.sales_summary.Guests|default:0|right:26}
 ${'  ' + _( '(rpt)Items' ) + ':'|left:16}${body.sales_summary.ItemsCount|default:0|right:26}
 ${'  ' + _( '(rpt)Voided Orders' ) + ':'|left:16}${body.sales_summary.VoidedOrders|default:0|right:26}
-${'  ' + _( '(rpt)Average Total' ) + ':'|left:16}${body.sales_summary.AvgTotal|default:0|format:2|right:26}
-${'  ' + _( '(rpt)Average Guest' ) + ':'|left:16}${body.sales_summary.AvgGuests|default:0|format:2|right:26}
-${'  ' + _( '(rpt)Average Items' ) + ':'|left:16}${body.sales_summary.AvgItemsCount|default:0|format:2|right:26}
+${'  ' + _( '(rpt)Revenue/Order' ) + ':'|left:16}${body.sales_summary.AvgTotal|default:0|format:2|right:26}
+${'  ' + _( '(rpt)Revenue/Guest' ) + ':'|left:16}${body.sales_summary.AvgTotalPerGuest|default:0|format:2|right:26}
+${'  ' + _( '(rpt)Guest/Order' ) + ':'|left:16}${body.sales_summary.AvgGuests|default:0|format:2|right:26}
+${'  ' + _( '(rpt)Item/Order' ) + ':'|left:16}${body.sales_summary.AvgItemsCount|default:0|format:2|right:26}
 ------------------------------------------
 ${_( '(rpt)Payment List' )}
 {for detail in body.payment_list.records}

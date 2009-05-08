@@ -98,12 +98,12 @@
         name: 'SelectTable',
 
         _inputObj: window.arguments[0],
-        _titleObj: null,
-        _org_title: '',
         _tableSettings: {},
         _tables: [],
+        _sourceTable: null,
         _sourceTableNo: null,
         _tableStatusModel: null,
+        _isNewOrder: false,
 
         initial: function () {
             //
@@ -229,7 +229,7 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'RecallCheck';
-            // this._titleObj.setAttribute('label', this._org_title + " - " + _("Recall Check"));
+
         },
 
         doSplitCheck: function() {
@@ -237,7 +237,7 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'SplitCheck';
-            // this._titleObj.value = this._org_title + " - " + _("Split Check");
+
         },
 
         doMergeCheck: function() {
@@ -245,7 +245,7 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'MergeCheck';
-            // this._titleObj.setAttribute('label', this._org_title + " - " + _("Merge Check"));
+
         },
 
         doMergeTable: function() {
@@ -264,6 +264,12 @@
 
         doBookingTable: function() {
             //
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
+            var curTransaction = null;
+            curTransaction = cart._getTransaction();
+
         },
 
         doChangeClerk: function() {
@@ -291,12 +297,14 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'SelectTableNo';
-            // this._titleObj.setAttribute('label', this._org_title + " - " + _("Select Table Number"));
+
         },
 
         doRefreshTableStatus: function() {
+
             document.getElementById('tableScrollablepanel').invalidate();
             this._inputObj.action = '';
+            this._sourceTable = null;
             this._sourceTableNo = null;
             this._hidePromptPanel('prompt_panel');
             return;
@@ -306,6 +314,7 @@
             this._hidePromptPanel('prompt_panel');
             if (this._inputObj.action) {
                 this._inputObj.action = '';
+                this._sourceTable = null;
                 this._sourceTableNo = null;
             } else {
                 doCancelButton();
@@ -319,6 +328,14 @@
             
             switch (this._inputObj.action) {
                 case 'RecallCheck':
+                    if (!selTable.sequence) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is empty!!'));
+                        return;
+                    }
+
+                    break;
+                case 'SplitCheck':
                     if (!selTable.sequence) {
                         // @todo OSD
                         NotifyUtils.error(_('This table is empty!!'));
@@ -347,7 +364,8 @@
                     if (this._sourceTableNo) {
                         //
                         var i = this._tables[v].table_no;
-                        var holdby = this._sourceTableNo;
+                        var holdby = GeckoJS.BaseObject.clone(this._sourceTable);
+
                         this._tables = this._tableStatusModel.holdTable(i, holdby);
                         
                         var tables = [];
@@ -362,6 +380,7 @@
                         document.getElementById('tableScrollablepanel').datasource = tableStatus ;
 
                         this._inputObj.action = '';
+                        this._sourceTable = null;
                         this._sourceTableNo = null;
                         this._hidePromptPanel('prompt_panel');
                         return;
@@ -371,7 +390,9 @@
                             NotifyUtils.error(_('This table is empty!!'));
                             return;
                         }
+
                         this._setPromptLabel(null, null, _('Please select an empty table to merge...'), null, 3);
+                        this._sourceTable = this._tables[v];
                         this._sourceTableNo = this._tables[v].table_no;
                         document.getElementById('tableScrollablepanel').invalidate();
                         return;
@@ -386,7 +407,9 @@
                     }
 
                     var i = this._tables[v].table_no;
-                    var holdby = null;
+                    var holdby = GeckoJS.BaseObject.clone(this._tables[v]);
+                    holdby.status = -1;
+
                     this._tables = this._tableStatusModel.holdTable(i, holdby);
 
                     var tables = [];
@@ -413,45 +436,35 @@
             // alert('doFunc...' + inputObj.action);
             
             if (this._inputObj.action) {
-                inputObj.index = this._tables[v].table_no;
-                inputObj.tableObj = this._tables[v];
+                this._inputObj.index = this._tables[v].table_no;
+                this._inputObj.tableObj = this._tables[v];
                 doOKButton();
             }
                 
         },
 
-        displayOrder: function (id) {
+        _enableFuncs: function(isNewOrder) {
 
-            // get browser content body
-            // var bw = document.getElementById('preview_frame');
-            // var doc = bw.contentWindow.document.getElementById( 'abody' );
-
-            // load data
-            var orderModel = new OrderModel();
-            var order = orderModel.findById(id, 2);
-
-            // load template
-            // var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_template.tpl');
-            // var file = GREUtils.File.getFile(path);
-            // var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
-
-            var data = {};
-            data.order = order;
-            data.sequence = order.sequence;
-
-            // var result = tpl.process(data);
-            /*
-            if (doc) {
-                doc.innerHTML = result;
-            }
-            */
+            try {
+                document.getElementById('recall_check').setAttribute('hidden', isNewOrder);
+                document.getElementById('merge_table').setAttribute('hidden', isNewOrder);
+                document.getElementById('unmerge_table').setAttribute('hidden', isNewOrder);
+                document.getElementById('split_check').setAttribute('hidden', isNewOrder);
+                document.getElementById('merge_check').setAttribute('hidden', isNewOrder);
+                // document.getElementById('booking_table').setAttribute('hidden', isNewOrder);
+                document.getElementById('change_clerk').setAttribute('hidden', isNewOrder);
+                document.getElementById('trans_table').setAttribute('hidden', isNewOrder);
+            } catch (e) {}
         },
 
         load: function() {
+            var inputObj = window.arguments[0];
+            
+            this._isNewOrder = inputObj.isNewOrder;
+            this._enableFuncs(this._isNewOrder);
+
             this.initial();
-            //
-            // this._titleObj = document.getElementById('main_title');
-            // this._org_title = this._titleObj.getAttribute('label');
+
 
             // var tables = inputObj.tables;
             var tables = [];

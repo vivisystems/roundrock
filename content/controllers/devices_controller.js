@@ -11,7 +11,7 @@
         _ports: null,
         _portspeeds: null,
         _devicemodels: null,
-        _selectedDevices: null,
+        _selectedDcevices: null,
         _sortedDevicemodels: {},
         _portControlService: null,
         _sortedPorts: [],
@@ -986,6 +986,7 @@
                         checkaction: selectedDevices[type + '-1-check-action'],
                         couponaction: selectedDevices[type + '-1-coupon-action'],
                         giftcardaction: selectedDevices[type + '-1-giftcard-action'],
+                        ledgeraction: selectedDevices[type + '-1-ledger-action'],
                         paperwidth: selectedDevices[type + '-1-paperwidth'],
                         number: 1
                     });
@@ -1010,6 +1011,7 @@
                         checkaction: selectedDevices[type + '-2-check-action'],
                         couponaction: selectedDevices[type + '-2-coupon-action'],
                         giftcardaction: selectedDevices[type + '-2-giftcard-action'],
+                        ledgeraction: selectedDevices[type + '-2-ledger-action'],
                         number: 2
                     });
                 }

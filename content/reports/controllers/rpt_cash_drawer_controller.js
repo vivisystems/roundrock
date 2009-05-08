@@ -11,14 +11,18 @@
         
         _fileName: 'rpt_cash_drawer',
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
 			var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
-            var machineid = document.getElementById( 'machine_id' ).value;
+            var terminal_no = document.getElementById( 'terminal_no' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
 
@@ -32,29 +36,44 @@
                     		'drawer_no',
                             'clerk_displayname',
                             'created',
-                            'event_type'
+                            'event_type',
+                            'sequence',
+                            'payment_type',
+                            'amount'
                         ];
                         
             var conditions = "created>='" + start +
                             "' AND created<='" + end + "'";
             
-            if ( machineid.length > 0 )
-                conditions += " AND terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
+            if ( terminal_no.length > 0 )
+                conditions += " AND terminal_no LIKE '" + this._queryStringPreprocessor( terminal_no ) + "%'";
 
             var groupby = "";
             var orderby = sortby;
             
             if ( sortby != 'all' )
-            	var orderby = sortby;
-
-            var datas = cashDrawer.find( 'all', {fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby} );
+            	var orderby = sortby + ', created';
+            else {
+                var orderby = 'terminal_no, created';
+            }
+            var datas = cashDrawer.find( 'all', {fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby, limit: limit} );
             
             this._reportRecords.head.title = _( 'Cash Drawer Report' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
-            this._reportRecords.head.machine_id = machineid;
+            this._reportRecords.head.terminal_no = terminal_no;
             
             this._reportRecords.body = datas;
+        },
+
+        exportCsv: function() {
+            this._super(this);
+        },
+
+        execute: function() {
+        	this._super();
+
+            this._registerOpenOrderDialog('sequence');
         },
 
         load: function() {

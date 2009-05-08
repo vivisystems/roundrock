@@ -20,7 +20,10 @@
                 conditions = 'id = "' + inputObj.value + '"';
             }
             else {
-                conditions = inputObj.index + ' like "%' + inputObj.value + '%"';
+                var indices = inputObj.index.split(',');
+                for (var i = 0; i < indices.length; i++) {
+                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + ' like "%' + inputObj.value + '%")';
+                }
             }
             var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
             
@@ -30,7 +33,7 @@
 
             var orderModel = new OrderModel();
             var orders = orderModel.find('all', {
-                fields: ['id', 'sequence', 'terminal_no', 'branch', 'branch_id'],
+                fields: ['id', 'sequence', 'terminal_no', 'branch', 'branch_id', 'status'],
                 conditions: conditions,
                 order: 'transaction_created desc, branch_id, terminal_no, sequence desc',
                 limit: 50,
@@ -43,7 +46,25 @@
                 var branch = (order.branch == null || order.branch == '') ? ((order.branch_id == null || order.branch_id == '') ? '' : order.branch_id)
                                                                           : order.branch + ((order.branch_id == null || order.branch_id == '') ? '' : ' (' + order.branch_id + ')');
                 var location = (branch == null || branch == '') ? order.terminal_no : (branch + ' [' + order.terminal_no + ']');
-                menulist.appendItem(order.sequence + ' ' + location, order.id, '');
+                var statusStr = '';
+                switch(parseInt(order.status)) {
+                    case -2:
+                        statusStr = _('(view)voided');
+                        break;
+
+                    case -1:
+                        statusStr = _('(view)cancelled');
+                        break;
+
+                    case 1:
+                        statusStr = _('(view)completed');
+                        break;
+
+                    case 2:
+                        statusStr = _('(view)stored');
+                        break;
+                }
+                menulist.appendItem(order.sequence + ' [' + statusStr + '] ' + location, order.id, '');
             });
 
             // disable void sale button initially
@@ -90,7 +111,7 @@
             data.order = order;
             data.sequence = order.sequence;
 
-            this.log(this.dump(order));
+            this.log('DEBUG', this.dump(order));
             
             var result = tpl.process(data);
 

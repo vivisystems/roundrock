@@ -36,17 +36,20 @@
 
             if (this.syncSettings && this.syncSettings.active == 1) {
 
-                if (this.syncSettings.hostname == 'localhost' || this.syncSettings.hostname == '127.0.0.1') return false;
+                var hostname = this.syncSettings.table_hostname || 'localhost';
+                if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
                 
                 //  http://localhost:3000/sequences/getSequence/check_no
                 // check connection status
                 this.url = this.syncSettings.protocol + '://' +
-                this.syncSettings.hostname + ':' +
+                hostname + ':' +
                 this.syncSettings.port + '/' +
                 'table_status/' + method;
 
                 this.username = 'vivipos';
                 this.password = this.syncSettings.password ;
+
+                //dump('table services url ' + this.url + "\n");
 
                 return this.url;
 
@@ -62,6 +65,11 @@
             var username = this.username ;
             var password = this.password ;
 
+            // for use asynchronize mode like synchronize mode
+            // mozilla only
+            var reqStatus = {};
+            reqStatus.finish = false;
+
             var req = new XMLHttpRequest();
 
             req.mozBackgroundRequest = true;
@@ -69,16 +77,24 @@
             /* Request Timeout guard */
             var timeout = null;
             timeout = setTimeout(function() {
-                clearTimeout(timeout);
-                req.abort();
+                try {
+                    req.abort();
+					
+                }catch(e) {
+                    // dump('timeout exception ' + e + "\n");
+                }
             }, 15000);
 
             /* Start Request with http basic authorization */
             var data = [];
-            req.open(method, reqUrl, false/*, username, password*/);
+
+            req.open(method, reqUrl, true/*, username, password*/);
+            
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
-            var onstatechange = function (aEvt) {
+
+            req.onreadystatechange = function (aEvt) {
                 if (req.readyState == 4) {
+                    reqStatus.finish = true;
                     if(req.status == 200) {
                         var result = GeckoJS.BaseObject.unserialize(req.responseText);
                         if (result.status == 'ok') {
@@ -86,7 +102,6 @@
                         }
                     }
                 }
-                delete req;
             };
 
             // req.onreadystatechange = onstatechange
@@ -99,13 +114,26 @@
             }
 
             try {
+                // Bypassing the cache
+                req.channel.loadFlags |= Components.interfaces.nsIRequest.LOAD_BYPASS_CACHE;
+
                 req.send(request_data);
-                onstatechange();
+                
+                // block ui until request finish or timeout
+                var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
+                while(!reqStatus.finish) {
+                    thread.processNextEvent(true);
+                }
+
+
             }catch(e) {
                 data = [];
+                // dump('send exception ' + e + "\n");
+            }finally {
+                if(timeout) clearTimeout(timeout);
+                if(req)                 delete req;
+                if (reqStatus) delete reqStatus;
             }
-            if(timeout) clearTimeout(timeout);
-            
             return data;
 
         },
@@ -156,7 +184,7 @@
             });
         },
 
-        getNewCheckNo: function() {
+        getNewCheckNo: function(no) {
             //@todo rack
             this.resetCheckNoArray();
             var i = 1;
@@ -164,25 +192,37 @@
             var maxCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.MaxCheckNo') || 999;
             // var ar = this.getCheckList('AllCheck', null);
             var ar = this._checkList;
-            while (true) {
-                i = SequenceModel.getSequence('check_no');
-
-                if (i > maxCheckNo) {
-                    i = 0;
-                    SequenceModel.resetSequence('check_no');
-                } else if (!this._checkNoArray[i] || this._checkNoArray[i] == 0) {
-                    this._checkNoArray[i] = 1;
-                    GeckoJS.Session.set('vivipos_fec_check_number', i);
-                    return "" + i;
-                    break;
-                }
-
-                if (cnt++ > maxCheckNo) {
+            if (no) {
+                if (!this._checkNoArray[no] || this._checkNoArray[no] == 0) {
+                    this._checkNoArray[no] = 1;
+                    // GeckoJS.Session.set('vivipos_fec_check_number', no);
+                    return "" + no;
+                } else {
                     // @todo OSD
-                    NotifyUtils.error(_('Can not get new check no!!'));
-                    return "";
-                    break;
-                } ;
+                    // NotifyUtils.error(_('Can not get new check no [%S]!!', [no]));
+                    return -1;
+                }
+            } else {
+                while (true) {
+                    i = SequenceModel.getSequence('check_no');
+
+                    if (i > maxCheckNo) {
+                        i = 0;
+                        SequenceModel.resetSequence('check_no');
+                    } else if (!this._checkNoArray[i] || this._checkNoArray[i] == 0) {
+                        this._checkNoArray[i] = 1;
+                        // GeckoJS.Session.set('vivipos_fec_check_number', i);
+                        return "" + i;
+                        break;
+                    }
+
+                    if (cnt++ > maxCheckNo) {
+                        // @todo OSD
+                        // NotifyUtils.error(_('Can not get new check no!!'));
+                        return -1;
+                        break;
+                    }
+                }
             }
         },
 
@@ -231,6 +271,7 @@
                         }
                         tables[o.table_no].table = GeckoJS.BaseObject.unserialize(tables[o.table_no].table_object);
                         // tables[o.table_no].order = GeckoJS.BaseObject.unserialize(tables[o.table_no].order_object);
+                        if (o.order_object)
                         tables[o.table_no].order.push( GeckoJS.BaseObject.unserialize(o.order_object));
                     }
                 } else {
@@ -367,7 +408,7 @@
                 clerk: tableObj.clerk,
                 booking: tableObj.booking,
                 lock: false,
-                status: 1,
+                status: tableObj.status,
                 terminal_no: tableObj.terminal_no,
                 table_object: table_obj,
                 order_object: order_obj
@@ -400,7 +441,6 @@
         },
 
         removeCheck: function(checkObj) {
-            var i = 0;
             var order_id = checkObj.id;
             var tableObj = {
                 order_id: order_id,
@@ -427,15 +467,42 @@
 
         },
 
-        holdTable: function(table_no, holdby) {
+        holdTable: function(table_no, holdTable) {
             // GREUtils.log("DEBUG", "hold table...");
+            /*
             this._tableList.forEach(function(o){
                 if (o.table_no == table_no) {
                     o.holdby = holdby;
                 }
             });
+            */
 
-            GeckoJS.Session.set('vivipos_fec_guest_check_table_list', this._tableList);
+            var sourceTable = holdTable || {};
+            var holdby = sourceTable.table_no;
+            if (sourceTable.status == -1) holdby = sourceTable.holdby;
+            var order_id = '';
+            var tableObj = {
+                order_id: sourceTable.order_id,
+                check_no: '',
+                table_no: table_no,
+                sequence: '',
+                guests: 0,
+                holdby: '' + holdby,
+                // holdby: '' + sourceTable.table_no,
+                clerk: sourceTable.clerk,
+                booking: 0,
+                lock: false,
+                status: sourceTable.status,
+                terminal_no: '',
+
+                table_object: null,
+                order_object: null
+            };
+            // this.setTableStatus(tableObj.table_no, tableObj);
+            this.setTableStatus( this.genTableStatusObj( tableObj));
+            // this.getTableStatusList(true);
+
+            // GeckoJS.Session.set('vivipos_fec_guest_check_table_list', this._tableList);
             var list = this.getTableStatusList(true);
             return list;
         },
@@ -458,26 +525,38 @@
                 return ;
             }
 
-            var tableStatusNewObj = {};
-            var order_id = tableStatusObj.order_id;
-            var conditions = "table_statuses.order_id='" + order_id + "'";
-            var tableStatusObjTmp = this.find('first', {
-                conditions: conditions
-            });
+
+            if (tableStatusObj.order_id && tableStatusObj.holdby) {
+                var order_id = tableStatusObj.order_id;
+                var conditions = "table_statuses.order_id='" + order_id + "' AND table_statuses.holdby='" + tableStatusObj.holdby + "' AND table_statuses.table_no='" + tableStatusObj.table_no + "'";
+                var tableStatusObjTmp = this.find('first', {
+                    conditions: conditions
+                });
+            }
+            else if (tableStatusObj.order_id) {
+                var order_id = tableStatusObj.order_id;
+                var conditions = "table_statuses.order_id='" + order_id + "'";
+                var tableStatusObjTmp = this.find('first', {
+                    conditions: conditions
+                });
+            }
 
             // tableStatus record exist
             if (tableStatusObjTmp) {
-
-                if (tableStatusObj.sequence == '') {
-                    // remove tableStatus record
+                if (tableStatusObj.status == -1) {
                     this.del(tableStatusObjTmp.id);
+                }
+                else if (tableStatusObj.sequence == '' && !tableStatusObj.holdby) {
+                    // remove tableStatus record
+                    // this.del(tableStatusObjTmp.id);
+                    this.delAll(conditions);
                 } else {
                     // update tableStatus record
                     this.id = tableStatusObjTmp.id;
                     var retObj = this.save(tableStatusObj);
                 }
             } else {
-                if (tableStatusObj.sequence != '') {
+                if (tableStatusObj.sequence != '' || tableStatusObj.holdby) {
                     // add new tableStatus record
                     this.id = '';
                     var retObj = this.save(tableStatusObj);

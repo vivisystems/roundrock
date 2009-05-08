@@ -60,8 +60,6 @@
             this.getTableListObj().vivitree.selection.select(index);
             if (index > -1) {
                 var table = this._tableListDatas[index];
-this.log("table:");
-this.log(this.dump(table));
                 GeckoJS.FormHelper.unserializeFromObject('tableForm', table);
             }
 
@@ -156,7 +154,7 @@ this.log(this.dump(table));
         modifyTable: function() {
             var index = this.getTableListObj().selectedIndex;
             var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
-this.log(this.dump(inputObj));
+
             if (index > -1 && inputObj.id != '' && inputObj.table_no != '' && inputObj.table_name != '') {
 
                 var tableModel = new TableModel();
@@ -373,7 +371,7 @@ this.log(this.dump(inputObj));
                 var booking_telephone = inputObj.input1;
                 var table_id = document.getElementById('table_id').value;
                 var table_no = document.getElementById('table_no').value;
-alert(table_no);
+
                 var newBooking = {table_id: table_id, booking: booking_time, contact: booking_contact, telephone: booking_telephone, table_no: table_no};
 
                 var bookingModel = new TableBookingModel();

@@ -21,7 +21,7 @@
             <!--caption>${head.title}</caption-->
             <thead>
                 <tr>
-                    <th style="text-align: left;">${_( '(rpt)Term_No.' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>

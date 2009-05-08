@@ -18,15 +18,6 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <!--
-    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js" />
-    <script type="application/x-javascript" src="chrome://vivipos/content/libs/date.js" />
-
-    <script type="application/x-javascript">
-        window['GeckoJS'] = opener.GeckoJS;
-        window['GREUtils'] = opener.GREUtils;
-    </script>
-    -->
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/order.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/order_item.js" />
@@ -57,15 +48,6 @@
             <spacer flex="1" />
             <hbox class="ToolBar" flex="1" pack="center">
                 <arrowscrollbox id="func_panel" orient="horizontal" flex="1" class="arrowScrollBox">
-                    <!-- button  id="ok" label="&selecttable.selectno;" default="true" type="radio" group="func" oncommand="doSelectTableNo();"/>
-                    <button id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="doRecallCheck();"/>
-                    <button id="unmerge_table" label="&selecttable.unmergetable;" type="radio" group="func" default="false" oncommand="doCancelFunc();"/>
-                    <button id="merge_table" label="&selecttable.mergetable;" type="radio" group="func" default="false" oncommand="doMergeCheck();"/>
-
-                    <button id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="doSplitCheck();"/>
-                    <button id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="doMergeCheck();"/>
-                    <button  id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="doSelectTableNo();"/ -->
-
                     <button id="ok" label="&selecttable.selectno;" default="true" type="radio" group="func" oncommand="$do('doSelectTableNo', null, 'SelectTable');"/>
                     <button id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
                     <button id="merge_table" label="&selecttable.mergetable;" type="radio" group="func" default="false" oncommand="$do('doMergeTable', null, 'SelectTable');"/>
@@ -73,7 +55,7 @@
 
                     <button id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
                     <button id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
-                    <button id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTableNo', null, 'SelectTable');"/>
+                    <button id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/>
                     <button id="change_clerk" label="&selecttable.changeclerk;" default="true" type="radio" group="func" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
                     <button id="trans_table" label="&selecttable.transtable;" default="true" type="radio" group="func" oncommand="$do('doTransTable', null, 'SelectTable');"/>
                 </arrowscrollbox>

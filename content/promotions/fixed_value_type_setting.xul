@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Promotions SYSTEM "chrome://viviecr/locale/promotions_manager.dtd">
+  %Promotions;
+  <!ENTITY % BasicPromotionsSet SYSTEM "chrome://viviecr/locale/basic_promotions_set.dtd">
+  %BasicPromotionsSet;
+  ]>
+
+<page title="&promotions_manager.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />   
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/promotions/controllers/fixed_value_type_setting_controller.js" />
+  
+    <vbox flex="1" class="pop-dialog">
+        <groupbox>
+            <caption label="&fixed_value.title;" />
+
+            <spacer style="height: 10px" />
+            <groupbox>
+                <caption label="&fixed_value.label.type;" />
+                <radiogroup orient="horizontal" id="type" name="type" form="fixedValueForm">
+                   <radio label="&fixed_value.label.type_by_qty;"  value="by_qty" />
+                   <radio label="&fixed_value.label.type_by_subtotal;" selected="true" value="by_subtotal" />
+                 </radiogroup>
+            </groupbox>
+
+            <spacer style="height: 5px" />
+            <groupbox>
+		    <label value="&fixed_value.label.value;" />
+		    <textbox id="value" name="value" form="fixedValueForm" value='0' />
+            </groupbox>
+			
+        </groupbox>
+    </vbox>
+</page>

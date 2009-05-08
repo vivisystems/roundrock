@@ -168,8 +168,8 @@
     <html:tr>
         <html:td colspan="6"><html:hr/></html:td>
     </html:tr>
-{if order.OrderPayment}
-{for payment in order.OrderPayment}
+{if order.trans_payments}
+{for payment in order.trans_payments}
     <html:tr>
         <html:td>${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : payment.name}</html:td>
         <html:td colspan="2">${(payment.memo1 != null && payment.memo1 != '') ? payment.name : ''}</html:td>

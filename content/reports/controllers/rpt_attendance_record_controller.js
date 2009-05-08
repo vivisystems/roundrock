@@ -11,7 +11,11 @@
         
         _fileName: "rpt_attendance_record",
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
@@ -53,7 +57,18 @@
             var orderby = 'clock_stamps.username, "' + sortby + '"';
 
             var clockStamp = new ClockStampModel();
-            var datas = clockStamp.find( 'all', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1 } );
+            var datas = clockStamp.find( 'all', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1, limit: limit } );
+
+            // prepare report datas here so that all clock stamps are ordered by username first
+            var clockStamps = {};
+            datas.forEach(function(o){
+                if (!clockStamps[o.username]) {
+                    clockStamps[o.username] = {};
+                    clockStamps[o.username].username = o.displayname;
+                    clockStamps[o.username].total_spans = 0;
+                    clockStamps[o.username].clockStamps = [];
+                }
+            })
 
             if ( sortby != 'all' ) {
 		        datas.sort(
@@ -67,19 +82,8 @@
 		        );
 		    }
 
-            // prepare report datas
-            var clockStamps = {};
-            
-            var old_user;
-            var total_spans;
+            var total_spans = 0;
             datas.forEach(function(o){
-                if (!clockStamps[o.username]) {
-                    clockStamps[o.username] = {};
-                    clockStamps[o.username].username = o.displayname;
-                    clockStamps[o.username].total_spans = 0;
-                    clockStamps[o.username].clockStamps = [];
-                }
-                
                 // refine SpanTime by decreasing the day part by one.
                 var num_day = parseInt( o.SpanTime[ 0 ] + o.SpanTime[ 1 ], 10 );
                 num_day--;
@@ -91,13 +95,23 @@
                 											GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans / 60 / 60) % 24,2) + ":" +
                                                             GeckoJS.String.padLeft(parseInt((clockStamps[o.username].total_spans / 60) % 60),2) + ":" +
                                                             GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans % 60),2);
+                total_spans += o.Spans;
             });
             
-            this._reportRecords.head.title = _( 'Attendance Record Report' );
+            this._reportRecords.head.title = _( 'Attendance Report' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             
             this._reportRecords.body = GeckoJS.BaseObject.getValues(clockStamps);
+            
+            this._reportRecords.foot.total_spantime = GeckoJS.String.padLeft(parseInt(total_spans / 24 / 60 / 60),2) + " " +
+                                                      GeckoJS.String.padLeft(parseInt(total_spans / 60 / 60) % 24,2) + ":" +
+                                                      GeckoJS.String.padLeft(parseInt((total_spans / 60) % 60),2) + ":" +
+                                                      GeckoJS.String.padLeft(parseInt(total_spans % 60),2);
+        },
+
+        exportCsv: function() {
+            this._super(this);
         },
 
         load: function() {

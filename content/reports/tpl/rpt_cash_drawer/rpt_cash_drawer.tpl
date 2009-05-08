@@ -26,22 +26,30 @@
                 <th style="text-align: left;">${_( '(rpt)Clerk' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Event' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Order Sequence' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Payment Type' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Amount' )}</th>
             </tr>
         </thead>
         <tbody>
 {for item in body}
-            <tr>
+            <tr id="${item.sequence}">
                 <td style="text-align: left;">${item.terminal_no}</td>
                 <td style="text-align: left;">${item.drawer_no}</td>
                 <td style="text-align: left;">${item.clerk_displayname}</td>
                 <td style="text-align: left;">${item.created|unixTimeToString}</td>
-                <td style="text-align: left;">${item.event_type}</td>
+                <td style="text-align: left;">${_( '(rpt)' + item.event_type )}</td>
+                <td style="text-align: left;">${item.sequence|default:''}</td>
+                <td style="text-align: left;">${item.payment_type}</td>
+                <td style="text-align: right;">${item.amount|default:''|viviFormatPrices:true}</td>
             </tr>
 {/for}
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5"></td>
+                <td colspan="8" style="text-align: left;">
+                    ${_( '(rpt)Records Found' ) + ':'} ${body.length|format:0}
+                </td>
             </tr>
         </tfoot>
     </table>

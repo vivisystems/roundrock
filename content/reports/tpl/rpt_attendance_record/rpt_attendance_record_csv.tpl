@@ -12,6 +12,8 @@
 {for stamp in master.clockStamps}
 "","${stamp.job}","${stamp.clockin_time}","${stamp.clockout_time}","${stamp.SpanTime}"
 {/for}
-"","","","${_( '(rpt)Summary' ) + ':'}","${master.total_spantime}"
+"${_( '(rpt)Records Found' ) + ':'}","${master.clockStamps.length}","","${_( '(rpt)Summary' ) + ':'}","${master.total_spantime}"
 "",""
 {/for}
+
+"${_( '(rpt)Total Work Time' ) + ':'}","${foot.total_spantime}"

@@ -9,7 +9,7 @@
 
 {for types in body}
 "${types_index}"
-"","${_( '(rpt)Term_No.' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Annotation Text' )}","${_( '(rpt)Total' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Payment' )}"
+"","${_( '(rpt)Terminal' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Annotation Text' )}","${_( '(rpt)Total' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Payment' )}"
 {for orders in types.orders}
 "","${orders.terminal_no}","${orders.time|unixTimeToString}","${orders.sequence}","${orders.text}","${orders.item_subtotal|viviFormatPrices:true}","${orders.tax_subtotal|viviFormatTaxes:true}","${orders.surcharge_subtotal|viviFormatPrices:true}","${orders.discount_subtotal|viviFormatPrices:true}","${orders.promotion_subtotal|viviFormatPrices:true}","${orders.revalue_subtotal|viviFormatPrices:true}","${orders.total|viviFormatPrices:true}"
 {/for}

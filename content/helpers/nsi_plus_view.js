@@ -71,8 +71,8 @@
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
                     this._data = productsIndexesByCate[cate.no] || [];
                 }
-                
             }else {
+
                 if(typeof cate['no'] == 'undefined') {
                     // group
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
@@ -120,6 +120,9 @@
             var unavailable = this.getCellValue(row,{
                 id: 'unavailable'
             });
+
+            // if empty buttons
+            if( this.data[row] == "") unavailable = true;
 
             if (unavailable) {
                 btn.disabled = true;

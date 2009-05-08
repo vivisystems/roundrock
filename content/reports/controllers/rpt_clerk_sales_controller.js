@@ -221,6 +221,11 @@
    			
    			this._reportRecords.body = clerks;
         },
+        
+        execute: function() {
+        	this._super();
+        	this._registerOpenOrderDialog();
+        },
 
         load: function() {
             var today = new Date();

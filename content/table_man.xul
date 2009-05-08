@@ -9,7 +9,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
-<!-- ?xml-stylesheet href="chrome://customers/skin/customers.css" type="text/css"? -->
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -62,6 +61,7 @@
                                 </vbox>
                                 <grid class="DataForm">
                                     <columns flex="1">
+                                        <column flex="1" />
                                         <column flex="1" />
                                         <column flex="1" />
                                         <column flex="1" />
@@ -290,7 +290,7 @@
                                         <checkbox id="requireTableNo" label="&tableman.tableoptions.requiretableno;" form="settingsForm" name="RequireTableNo"/>
                                         <hbox>
                                             <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
-                                            <textbox id="tableRemindTime" name="TableRemindTime" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                            <textbox id="tableRemindTime" name="TableRemindTime" form="settingsForm" type="Number" size="6" maxlength="3" min="10" max="999" onfocus="select()"/>
                                         </hbox>
                                     </row>
                                     <row>
@@ -305,7 +305,7 @@
                                         <label value="" />
                                         <hbox>
                                             <label control="tablePeriodLimit" value="&tableman.tableoptions.maxcheckno;"/>
-                                            <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                            <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="6" maxlength="3" min="30" max="999" onfocus="select()"/>
                                         </hbox>
                                     </row>
                                 </rows>
@@ -356,6 +356,7 @@
                         <textbox id="supplier_no" name="no" form="supplierForm" readonly="true" hidden="true"/>
 
                         <vbox flex="1">
+                            <spacer flex="1" />
 
                             <hbox>
                                 <hbox class="ToolBar" flex="1" oncommand="event.stopPropagation()">

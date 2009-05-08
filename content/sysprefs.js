@@ -95,8 +95,12 @@ function rebuildDatabases() {
 
 function closePreferences() {
     try {
+
+        // mainWindow register promotions rules
+        var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+
         // change button height
-        var main = opener.opener.GeckoJS.Controller.getInstanceByName('Main');
+        var main = mainWindow.GeckoJS.Controller.getInstanceByName('Main');
        	main.requestCommand('updateOptions', null, 'Main');
 
         $do('setDefaultUser', null, 'Users');

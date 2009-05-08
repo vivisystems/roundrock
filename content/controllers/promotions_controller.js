@@ -57,7 +57,7 @@
                         this._triggerPrefs[trigger_key] = triggerObj;
                        
                     }catch(e){
-                    // this.log('include trigger ' + e);
+                         // this.log('include trigger ' + e);
                     }
                 }
             }
@@ -81,7 +81,7 @@
                         this._typePrefs[type_key] = typeObj;
 
                     }catch(e){
-                    // this.log('include type ' + e);
+                        // this.log('include type ' + e);
                     }
                 }
             }
@@ -97,6 +97,7 @@
             if(Transaction) {
                 // on Transaction object created
                 Transaction.events.addListener('onCreate', function(evt) {
+                    GREUtils.log('Transaction onCreate');
                     self.prepareTransactionData(evt);
                     self.resetCurrentPromotions();
                 });
@@ -207,7 +208,9 @@
                                 triggerObj.setPrefs(self._triggerPrefs[promotion.trigger]);
                                 self._activedTriggers[Id] = triggerObj;
                             }
-                        }catch(e) {}
+                        }catch(e) {
+                            //self.log('new trigger exception ' + e);
+                        }
                     }
 
                     if (type_class) {
@@ -352,7 +355,7 @@
                     } while (triggerObj.isRepeatable() && recursiveCount < maxRecursiveCount) ;
 
                 }catch(e) {
-                  this.log('WARN', 'promotion process ' + promotion.name + ', ' + e.messages);
+                  this.log(/*'WARN', */'promotion process ' + promotion.name + ', ' + e.messages);
                 }
                 return true;
 
@@ -464,7 +467,7 @@
         window.addEventListener('load', function() {
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
-                main.addEventListener('onInitial', function() {
+                main.addEventListener('beforeInitial'/*'onInitial'*/, function() {
                     main.requestCommand('initial', null, 'Promotions');
                 });
             }

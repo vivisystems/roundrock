@@ -73,7 +73,7 @@
                 table_no: '',
                 check_no: '',
 
-                no_of_customers: 1,
+                no_of_customers: 0,
 
                 terminal_no: '',
                 sale_period: '',
@@ -266,6 +266,12 @@
             var priceModifier = item.manual_adjustment_only ? 1 : this.data.price_modifier;
             var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice*priceModifier) || 0;
 
+            // retrieve category name from Session
+            var categoriesByNo = GeckoJS.Session.get('categoriesByNo');
+            if (categoriesByNo && categoriesByNo[item.cate_no]) {
+                item.cate_name = categoriesByNo[item.cate_no].name;
+            }
+           
             // name,current_qty,current_price,current_subtotal
             var item2 = {
                 type: 'item', // item or category
@@ -276,6 +282,7 @@
                 alt_name1: item.alt_name1,
                 alt_name2: item.alt_name2,
                 cate_no: item.cate_no,
+                cate_name: item.cate_name,
 
                 index: index,
                 stock_status: item.stock_status,
@@ -2250,8 +2257,8 @@
 
                     // rounding tax
                     // @don't round tax here - irving 4/28/2009
-                    //item.current_tax = this.getRoundedTax(item.current_tax);
-                    //item.included_tax = this.getRoundedTax(item.included_tax);
+                    item.current_tax = this.getRoundedTax(item.current_tax);
+                    item.included_tax = this.getRoundedTax(item.included_tax);
                     if (toTaxCharge < 0) item.current_tax = 0 - item.current_tax;
                 }
             }
