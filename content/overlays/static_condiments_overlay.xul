@@ -9,8 +9,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="style.css" type="text/css"?>
-
 
 <overlay id="staticCondimentsOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"

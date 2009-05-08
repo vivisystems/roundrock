@@ -7,8 +7,52 @@
     var __controller__ = {
 
         name: 'Layout',
+
+        _layout: {},
+
+        _selectedLayout: '',
+
+
+        loadOverlay: function() {
+            var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
+            var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
+
+            var layoutOverlayUri = 'chrome://viviecr/content/layouts/traditional.xul';
+            
+
+            if (layouts[selectedLayout]) {
+                layoutOverlayUri = layouts[selectedLayout]['overlay_uri'] || layoutOverlayUri;
+            }
+
+            //layoutOverlayUri = 'chrome://viviecr/content/layouts/retail1.xul';
+
+            GREUtils.log('selectedLayout = ' + selectedLayout + ', overlay_uri = ' + layoutOverlayUri);
+
+            try {
+                document.loadOverlay(layoutOverlayUri, {
+                    observe : function (subject, topic, data) {
+                        if (topic == 'xul-overlay-merged') {
+                            // load functional panels;
+                            document.loadOverlay('chrome://viviecr/content/bootstrap_mainscreen_overlays.xul', null);
+                        }
+                    }
+                });
+            }catch(e) {
+                if (layoutOverlayUri != 'chrome://viviecr/content/layouts/traditional.xul') {
+                    // try load default
+                    document.loadOverlay('chrome://viviecr/content/layouts/traditional.xul', observer);
+                }
+            }
+            
+        },
     
         initial: function() {
+
+            var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
+            var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
+
+            this._selectedLayout = selectedLayout;
+            this._layout = layouts[selectedLayout];
 
             this.resetLayout(true);
 
@@ -212,14 +256,24 @@
                     fnPanelContainer.setAttribute('style', 'height: ' + fnHeight + 'px; max-height: ' + fnHeight + 'px; min-height: ' + fnHeight + 'px');
                     fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
                     fnPanel.setAttribute('height', fnHeight);
-                    //fnPanel.setAttribute('width', fnWidth);
+                //fnPanel.setAttribute('width', fnWidth);
                 }
             }
         },
         
         resetLayout: function (initial) {
+
+            var selectedLayout = this._selectedLayout;
+            var layout = this._layout ;
+            var disabled_features = (layout['disabled_features'] || "").split(",");
+
+            // not any layout templates support it
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
+            if (GeckoJS.Array.inArray("RegisterAtLeft", disabled_features) != -1) registerAtLeft = false;
+
             var productPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.ProductPanelOnTop') || false;
+            if (GeckoJS.Array.inArray("ProductPanelOnTop", disabled_features) != -1) productPanelOnTop = false;
+
             var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.CheckTrackingMode') || false;
             var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false;
             var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.HideTagColumn') || false;
@@ -237,6 +291,8 @@
             
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', productPanelOnTop ? 'reverse' : 'normal');
+
+            
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
@@ -285,16 +341,17 @@
     GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('ViviposStartup', function() {
-        GREUtils.log('layout ViviposStartup ');
+        // trip, invoke directly
+        __controller__.loadOverlay.apply(__controller__);
+
     }, false);
 
     // register onload
     window.addEventListener('load', function() {
-        GREUtils.log('layout load ');
         var main = GeckoJS.Controller.getInstanceByName('Main');
         if(main) main.addEventListener('afterInitial', function() {
-                                            main.requestCommand('initial', null, 'Layout');
-                                      });
+            main.requestCommand('initial', null, 'Layout');
+        });
 
     }, false);
 })();

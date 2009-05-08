@@ -829,3 +829,23 @@ pref("vivipos.fec.settings.controlpanels.product.static_condiments.label", "Stat
 pref("vivipos.fec.settings.controlpanels.product.static_condiments.path", "chrome://viviecr/content/static_condiments_settings.xul");
 pref("vivipos.fec.settings.controlpanels.product.static_condiments.icon", "chrome://viviecr/skin/icons/icon_condiments.png");
 pref("vivipos.fec.settings.controlpanels.product.static_condiments.roles", "acl_manage_condiments");
+
+
+pref("vivipos.fec.settings.controlpanels.config.layout.label", "Layout Manager");
+pref("vivipos.fec.settings.controlpanels.config.layout.path", "chrome://viviecr/content/layout_manager.xul");
+pref("vivipos.fec.settings.controlpanels.config.layout.icon", "chrome://viviecr/skin/icons/icon_layoutmanager.png");
+pref("vivipos.fec.settings.controlpanels.config.layout.roles", "acl_layout_manager");
+
+pref("vivipos.fec.general.layouts.selectedLayout", "traditional");
+
+pref("vivipos.fec.registry.layouts.traditional.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.layouts.traditional.desc", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.layouts.traditional.overlay_uri", "chrome://viviecr/content/layouts/traditional.xul");
+pref("vivipos.fec.registry.layouts.traditional.icon", "chrome://viviecr/content/layouts/traditional.png");
+pref("vivipos.fec.registry.layouts.traditional.disabled_features", "");
+
+pref("vivipos.fec.registry.layouts.retail.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.layouts.retail.desc", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.layouts.retail.overlay_uri", "chrome://viviecr/content/layouts/retail.xul");
+pref("vivipos.fec.registry.layouts.retail.icon", "chrome://viviecr/content/layouts/retail.png");
+pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft,ProductPanelOnTop");

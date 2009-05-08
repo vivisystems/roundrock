@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/bindings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
 
-<?xul-overlay href="chrome://viviecr/content/layouts/test2.xul" ?>
+<!-- layout -->
+<!--?xul-overlay href="chrome://viviecr/content/layouts/traditional.xul" ?-->
 
-<?xul-overlay href="chrome://viviecr/content/dialogs/prompt_additem.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/dialogs/select_condiments.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/dialogs/select_setitem.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/dialogs/select_queues.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/dialogs/payment_details.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/dialogs/creditcard_remark.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/dialogs/coupon_remark.xul" ?>
+<!-- dialog panel -->
+<?xul-overlay href="chrome://viviecr/content/bootstrap_mainscreen_dialogs.xul" ?>
 
 <overlay id="viviecrOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
