@@ -284,7 +284,7 @@
 
     </prefpane>
 
-    <prefpane id="displaySettingsPane" label="&category.layout;" >
+    <!--prefpane id="displaySettingsPane" label="&category.layout;" >
         <preferences>
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
@@ -385,7 +385,7 @@
                 </row>
             </rows>
         </grid>
-    </prefpane>
+    </prefpane-->
 
     <prefpane id="orderDataSettingsPane" label="&category.orderdata;" >
         <preferences>

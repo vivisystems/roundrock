@@ -2174,6 +2174,34 @@ msgstr "Records Found"
 msgid "(rpt)Occurrences"
 msgstr "Occurrences"
 
+msgid "acl_layout_manager"
+msgstr "Layout Manager"
+
+msgid "vivipos.fec.registry.layouts.traditional.label"
+msgstr "Traditional Layout"
+
+msgid "vivipos.fec.registry.layouts.traditional.desc"
+msgstr "Traditional Layout DESC. Chris Help!"
+
+msgid "vivipos.fec.registry.layouts.retail.label"
+msgstr "Retail Layout"
+
+msgid "vivipos.fec.registry.layouts.retail.desc"
+msgstr "Retail Layout DESC. Chris Help!"
+
+msgid "Confirm Change Layout"
+msgstr "Confirm Change Layout"
+
+msgid "Do you want to change layout"
+msgstr "Do you want to change layout"
+
+msgid ""
+"If you change layout now, the system will restart automatically after you "
+"return to the Main Screen."
+msgstr ""
+"If you change layout now, the system will restart automatically after you "
+"return to the Main Screen."
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""
@@ -2961,7 +2989,7 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2976
 #: ../..//content/controllers/cart_controller.js:3496
-#: ../..//content/controllers/main_controller.js:261
+#: ../..//content/controllers/main_controller.js:263
 msgid "Add Annotation"
 msgstr ""
 
@@ -3815,19 +3843,19 @@ msgstr ""
 msgid "Drawer Change OUT"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:115
+#: ../..//content/controllers/main_controller.js:117
 msgid "Control Panel"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:141
+#: ../..//content/controllers/main_controller.js:143
 msgid "Change User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:153
+#: ../..//content/controllers/main_controller.js:155
 msgid "Clock In/Out"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:177
+#: ../..//content/controllers/main_controller.js:179
 #: ../..//content/controllers/plus_controller.js:497
 #: ../..//content/controllers/plus_controller.js:988
 #: ../..//content/controllers/plusearch_controller.js:108
@@ -3837,99 +3865,99 @@ msgstr ""
 msgid "Product Search"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:200
+#: ../..//content/controllers/main_controller.js:202
 #: ../..//content/controllers/print_controller.js:1111
 msgid "Printer Dashboard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:210
+#: ../..//content/controllers/main_controller.js:212
 msgid "No order to add/view annotations"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:307
+#: ../..//content/controllers/main_controller.js:309
 #: ../..//content/reports/controllers/rpt_base_controller.js:251
 msgid "Order Details"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:551
-#: ../..//content/controllers/main_controller.js:636
+#: ../..//content/controllers/main_controller.js:553
+#: ../..//content/controllers/main_controller.js:638
 msgid " logged in"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:568
-#: ../..//content/controllers/main_controller.js:644
+#: ../..//content/controllers/main_controller.js:570
+#: ../..//content/controllers/main_controller.js:646
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:610
+#: ../..//content/controllers/main_controller.js:612
 msgid "User [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:649
+#: ../..//content/controllers/main_controller.js:651
 msgid "Please enter passcode first."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:673
-#: ../..//content/controllers/main_controller.js:685
-#: ../..//content/controllers/main_controller.js:698
-#: ../..//content/controllers/main_controller.js:711
+#: ../..//content/controllers/main_controller.js:675
+#: ../..//content/controllers/main_controller.js:687
+#: ../..//content/controllers/main_controller.js:700
+#: ../..//content/controllers/main_controller.js:713
 msgid "Sign Off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:673
+#: ../..//content/controllers/main_controller.js:675
 msgid "Discard items that have been registered?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:685
+#: ../..//content/controllers/main_controller.js:687
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:686
+#: ../..//content/controllers/main_controller.js:688
 msgid "Queue"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:686
-#: ../..//content/controllers/main_controller.js:712
+#: ../..//content/controllers/main_controller.js:688
+#: ../..//content/controllers/main_controller.js:714
 msgid "Discard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:698
+#: ../..//content/controllers/main_controller.js:700
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:711
+#: ../..//content/controllers/main_controller.js:713
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:712
+#: ../..//content/controllers/main_controller.js:714
 msgid "Keep"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:721
+#: ../..//content/controllers/main_controller.js:723
 msgid "confirm sign-off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:721
+#: ../..//content/controllers/main_controller.js:723
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:800
+#: ../..//content/controllers/main_controller.js:802
 msgid "Removing old data..."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:840
+#: ../..//content/controllers/main_controller.js:842
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:840
+#: ../..//content/controllers/main_controller.js:842
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:847
+#: ../..//content/controllers/main_controller.js:849
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:847
+#: ../..//content/controllers/main_controller.js:849
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 

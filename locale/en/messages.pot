@@ -2158,3 +2158,27 @@ msgstr "Records Found"
 
 msgid "(rpt)Occurrences"
 msgstr "Occurrences"
+
+msgid "acl_layout_manager"
+msgstr "Layout Manager"
+
+msgid "vivipos.fec.registry.layouts.traditional.label"
+msgstr "Traditional Layout"
+
+msgid "vivipos.fec.registry.layouts.traditional.desc"
+msgstr "Traditional Layout DESC. Chris Help!"
+
+msgid "vivipos.fec.registry.layouts.retail.label"
+msgstr "Retail Layout"
+
+msgid "vivipos.fec.registry.layouts.retail.desc"
+msgstr "Retail Layout DESC. Chris Help!"
+
+msgid "Confirm Change Layout"
+msgstr "Confirm Change Layout"
+
+msgid "Do you want to change layout"
+msgstr "Do you want to change layout"
+
+msgid "If you change layout now, the system will restart automatically after you return to the Main Screen."
+msgstr "If you change layout now, the system will restart automatically after you return to the Main Screen."

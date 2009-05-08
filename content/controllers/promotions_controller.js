@@ -97,6 +97,7 @@
             if(Transaction) {
                 // on Transaction object created
                 Transaction.events.addListener('onCreate', function(evt) {
+                    GREUtils.log('Transaction onCreate');
                     self.prepareTransactionData(evt);
                     self.resetCurrentPromotions();
                 });
@@ -354,7 +355,7 @@
                     } while (triggerObj.isRepeatable() && recursiveCount < maxRecursiveCount) ;
 
                 }catch(e) {
-                  this.log('WARN', 'promotion process ' + promotion.name + ', ' + e.messages);
+                  this.log(/*'WARN', */'promotion process ' + promotion.name + ', ' + e.messages);
                 }
                 return true;
 
@@ -466,7 +467,7 @@
         window.addEventListener('load', function() {
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
-                main.addEventListener('onInitial', function() {
+                main.addEventListener('beforeInitial'/*'onInitial'*/, function() {
                     main.requestCommand('initial', null, 'Promotions');
                 });
             }

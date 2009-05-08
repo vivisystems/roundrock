@@ -5,6 +5,7 @@
      */
     function startup() {
 
+        GREUtils.log('viviecr overlay.js startup ');
         var firstRun = GREUtils.Pref.getPref('vivipos.fec.firstrun');
 
         if(firstRun) {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/cart.dtd">
+
+<?xml-stylesheet href="chrome://viviecr/skin/user/promotions_status.css" type="text/css"?>
+
+<overlay id="promotionInfoPanelOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <box id="promotionsStatusPanelContainer" orient="vertical">
+        <promotions_status id="promotions_status" dir="reverse" autohide="true" type="summary" boxClass="vbox_promotions" labelClass="label_promotions" subtotalClass="subtotal_promotions" value="" />
+    </box>
+
+</overlay>
