@@ -90,7 +90,7 @@
                     self._render();
                 }
                 
-                window.addEventListener('DOMContentLoaded', this.ready, true);
+                window.addEventListener('load', this.ready, true);
 
                 // register listener for attribute modified events
                 this.addEventListener('DOMAttrModified', this._attrModified, true);
@@ -110,7 +110,7 @@
                     this.events.removeListener('clear', this.clearHandler);
                 }
 
-                window.removeEventListener('DOMContentLoaded', this.ready, true);
+                window.removeEventListener(/*'DOMContentLoaded'*/ 'load', this.ready, true);
                 this.removeEventListener('DOMAttrModified', this._attrModified, true);
                 //GREUtils.log('[DESTRUCTOR]: leaving');
             ]]>

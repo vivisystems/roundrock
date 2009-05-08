@@ -67,6 +67,15 @@
 
             GeckoJS.Log.getLoggerForClass('VIVIPOS').setLevel(GeckoJS.Log.ERROR).info('VIVIPOS STARTUP');
 
+            try {
+                // notify that vivipos STARTUP
+                var event = document.createEvent("Event");
+                event.initEvent("ViviposStartup", true, true);
+                window.dispatchEvent(event);
+            }catch(e) {
+            }
+
+
         },
     
         shutdown: function(){
@@ -80,7 +89,15 @@
             if(consoleErrors) consoleErrors.shutdown();
 
             // log close
-            GeckoJS.Log.getLoggerForClass('VIVIPOS').info('VIVIPOS CLOSE');
+            GeckoJS.Log.getLoggerForClass('VIVIPOS').info('VIVIPOS SHUTDOWN');
+
+            try {
+                // notify that vivipos STARTUP
+                var event = document.createEvent("Event");
+                event.initEvent("ViviposShutdown", true, true);
+                window.dispatchEvent(event);
+            }catch(e) {
+            }
 
         },
     
