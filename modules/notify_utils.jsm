@@ -92,9 +92,10 @@ try {
     }
 
     if(!NotifyUtils.nofityService) {
-        var dbus = Components.classes["@movial.fi/dbus/service;1"].getService().QueryInterface(Components.interfaces.IDBusService);
+        var dbus = Components.classes["@movial.com/dbus/service;1"].getService().QueryInterface(Components.interfaces.IDBusService);
         NotifyUtils.nofityService = dbus.getMethod(dbus.SESSION, 'org.freedesktop.Notifications', '/org/freedesktop/Notifications', 'Notify', 'org.freedesktop.Notifications', "susssasa{sv}i", null);
     }
 
 }catch(e) {
+    dump(e);
 }
