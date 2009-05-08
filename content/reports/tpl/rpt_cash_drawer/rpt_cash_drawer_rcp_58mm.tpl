@@ -20,8 +20,14 @@ ${_( '(rpt)Time' ) + ':'}
 ${item.created|unixTimeToString|right:24}
 ${_( '(rpt)Event' ) + ':'}
 ${_( '(rpt)' + item.event_type )|right:24}
+${_( '(rpt)Order Sequence' ) + ':'}
+${item.sequence|default:''|right:24}
+${_( '(rpt)Amount' ) + ':'}
+${item.amount|default:''|viviFormatPrices:true|right:24}
 {/for}
-------------------------------------------
+------------------------
+${_( '(rpt)Records Found' ) + ':'|left:14}${body.length|format:0|right:10}
+------------------------
 ${foot.gen_time}
 [&CR]
 [&CR]

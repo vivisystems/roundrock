@@ -79,6 +79,8 @@ if (typeof(TrimPath) != 'undefined') {
         };
 
         $T.parseTemplate_etc.modifierDef['viviFormatPrices'] = function(number, auto_rounding) {
+            if (number == null || number == '' || isNaN(number)) return number;
+            
             auto_rounding = auto_rounding || false;
 
             var precision_prices = $T['PrecisionPrices'] || GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;

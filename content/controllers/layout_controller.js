@@ -79,7 +79,7 @@
             var spacer = document.getElementById('spacer');
             var cartSidebar = document.getElementById('cartsidebar');
             var isHidden = fnPanel.getAttribute('hidden') || 'false';
-            var hidePanel = (state == null) ? (isHidden == 'false') : state;
+            var hidePanel = (state == null || state == '') ? (isHidden == 'false') : state;
 
             if (hidePanel) {
                 if (fnPanel && (isHidden != 'true')) {

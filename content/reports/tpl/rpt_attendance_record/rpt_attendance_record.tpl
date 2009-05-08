@@ -44,12 +44,22 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">${_( '(rpt)Summary' ) + ':'}</td>
+                    <td>${_( '(rpt)Records Found' ) + ':'}</td>
+                    <td>${master.clockStamps.length|format:0}</td>
+                    <td>${_( '(rpt)Summary' ) + ':'}</td>
                     <td>${master.total_spantime}</td>
                 </tr>
             </tfoot>
         </table>
         </br>
 {/for}
+<table width="98%">
+<thead>
+    <tr class="subtitle">
+        <td>${_( '(rpt)Total Work Time' ) + ':'}</td>
+        <td style="text-align: right;">${foot.total_spantime}</td>
+    </tr>
+</thead>
+</table>
 </div>
 <!--/div -->

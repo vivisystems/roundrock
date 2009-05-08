@@ -20,7 +20,10 @@
                 conditions = 'id = "' + inputObj.value + '"';
             }
             else {
-                conditions = inputObj.index + ' like "%' + inputObj.value + '%"';
+                var indices = inputObj.index.split(',');
+                for (var i = 0; i < indices.length; i++) {
+                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + ' like "%' + inputObj.value + '%")';
+                }
             }
             var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
             

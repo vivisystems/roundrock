@@ -12,6 +12,7 @@
         _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
         _csvLimit: 3000000,
+        _stdLimit: 1000,
         _csvRecords: null,
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
@@ -245,10 +246,10 @@
 	    	return s.replace( re, '\'\'' );
 	    },
 	    
-	    _openOrderDialogByOrderId: function( orderId ) {
+	    _openOrderDialogByKey: function( key, value ) {
 	        var aURL = 'chrome://viviecr/content/view_order.xul';
 	        var aName = _( 'Order Details' );
-	        var aArguments = { index: 'id', value: orderId };
+	        var aArguments = { index: key, value: value };
 	        var posX = 0;
 	        var posY = 0;
 	        var width = GeckoJS.Session.get( 'screenwidth' );
@@ -262,13 +263,14 @@
 		 * Doing so makes people convient to open a popup window to scrutize the detail of a certain order by just clicking the corresponding data row.
 		 * Be sure that the id attribue of <tr> indicating the order id is set to be somthing like <tr id="${orders.id}">.
 		 */
-		_registerOpenOrderDialog: function() {
+		_registerOpenOrderDialog: function(key) {
 			var div = document.getElementById( 'preview_frame' ).contentWindow.document.getElementById( 'docbody' );
         	
         	var self = this;
+            if (!key) key = 'id';
         	div.addEventListener( 'click', function( event ) {
         		if ( event.originalTarget.parentNode.id && event.originalTarget.parentNode.tagName == 'TR' )
-					self._openOrderDialogByOrderId( event.originalTarget.parentNode.id );
+					self._openOrderDialogByKey( key, event.originalTarget.parentNode.id );
 			}, true );
         	
         	/*if ( table.hasChildNodes ) {

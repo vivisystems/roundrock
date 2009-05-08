@@ -14,7 +14,7 @@
         _set_reportRecords: function(limit) {
 
             limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = 3000;
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
@@ -82,6 +82,7 @@
 		        );
 		    }
 
+            var total_spans = 0;
             datas.forEach(function(o){
                 // refine SpanTime by decreasing the day part by one.
                 var num_day = parseInt( o.SpanTime[ 0 ] + o.SpanTime[ 1 ], 10 );
@@ -94,13 +95,23 @@
                 											GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans / 60 / 60) % 24,2) + ":" +
                                                             GeckoJS.String.padLeft(parseInt((clockStamps[o.username].total_spans / 60) % 60),2) + ":" +
                                                             GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans % 60),2);
+                total_spans += o.Spans;
             });
             
-            this._reportRecords.head.title = _( 'Attendance Record Report' );
+            this._reportRecords.head.title = _( 'Attendance Report' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             
             this._reportRecords.body = GeckoJS.BaseObject.getValues(clockStamps);
+            
+            this._reportRecords.foot.total_spantime = GeckoJS.String.padLeft(parseInt(total_spans / 24 / 60 / 60),2) + " " +
+                                                      GeckoJS.String.padLeft(parseInt(total_spans / 60 / 60) % 24,2) + ":" +
+                                                      GeckoJS.String.padLeft(parseInt((total_spans / 60) % 60),2) + ":" +
+                                                      GeckoJS.String.padLeft(parseInt(total_spans % 60),2);
+        },
+
+        exportCsv: function() {
+            this._super(this);
         },
 
         load: function() {

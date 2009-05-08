@@ -2518,7 +2518,7 @@
                 }
 
                 // payment refund
-                if (false && !err && amount > curTransaction.getPaymentSubtotal()) {
+                if (!err && amount > curTransaction.getPaymentSubtotal()) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
                         [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
                     err = true;
@@ -3792,7 +3792,7 @@
             /*
             if (curTransaction) {
                 if (curTransaction.data.status == 0 && curTransaction.data.items_count != 0 && curTransaction.data.recall !=2) {
-                    NotifyUtils.warn(_('This order must be store first'));
+                    NotifyUtils.warn(_('This order must be stored first'));
                     return;
                 }
             }

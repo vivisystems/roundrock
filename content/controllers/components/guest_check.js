@@ -19,10 +19,9 @@
          */
 
         name: 'GuestCheck',
-        _checkNoArray: [],
-        _tableNoArray: [],
         _guestCheck: {},
         _tableStatusModel: null,
+        _tableList: null,
 
         init: function (c) {
             // inherit Cart controller constructor
@@ -57,9 +56,17 @@
             }
 
             // add listener for onStartShift event
+            /*
             var shiftchange = GeckoJS.Controller.getInstanceByName('ShiftChanges');
             if (shiftchange) {
                 shiftchange.addEventListener('onStartShift', this.handleNewTransaction, this);
+            }
+            */
+
+            // add listener for onStartShift event
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('onInitial', this.handleNewTransaction, this);
             }
             
         },
@@ -99,7 +106,7 @@
                         this._controller.newCheck(true);
                 }
             }
-            if (evt.type == 'onStartShift' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
+            if (evt.type == 'onInitial' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
                 if (evt.type == 'onStore') {
                     this._tableStatusModel.addCheck(evt.data.data);
                 }
@@ -126,6 +133,18 @@
                 }
                 
             }
+        },
+
+        getTableList: function() {
+            if(this._tableList == null) {
+                var tableModel = new TableModel;
+                var tablelist = tableModel.find("all", {});
+                delete tableModel;
+                this._tableList = tablelist;
+            }
+
+            return this._tableList;            
+
         },
 
         selGuestNum: function (no){
@@ -183,17 +202,70 @@
             return r;
         },
 
+        _isAllowMerge: function(data) {
+            var r = true;
+
+            // not allow to Merge when transaction is closed
+            if (data.isClosed()) {
+                NotifyUtils.warn(_('The order has been pre-finalized ; Can not be merged'));
+                r = false;
+            }
+
+            // not allow to split when transaction is prepaid
+            if (data.data.payment_subtotal != 0) {
+                NotifyUtils.warn(_('The order has been prepaid ; Can not be merged'));
+                r = false;
+            }
+
+            return r;
+        },
+
+        _isAllowSplit: function(data) {
+
+            var r = true;
+
+            // not allow to split when transaction is closed
+            if (data.isClosed()) {
+                NotifyUtils.warn(_('The order has been pre-finalized ; Can not be split'));
+                r = false;
+            }
+            
+            // not allow to split when transaction is prepaid
+            if (data.data.payment_subtotal != 0) {
+                NotifyUtils.warn(_('The order has been prepaid ; Can not be split'));
+                r = false;
+            }
+
+            return r;
+        },
+
         getNewTableNo: function() {
-            var tableModel = new TableModel;
-            var tablelist = tableModel.find("all", {});
+
+            var tablelist = this.getTableList();
             if (tablelist.length <= 0) {
                 return this.table(this.selTableNum(''));
             }
-            delete tableModel;
 
             var self = this;
             var i = 1;
             var r = -1;
+            var isNewOrder = false;
+            var curTransaction = null;
+            curTransaction = this._controller._getTransaction();
+
+            if (curTransaction != null)  {
+                if (curTransaction.isModified() && curTransaction.data.recall != 2) {
+
+                    isNewOrder = true;
+
+                } else if (curTransaction.isModified()) {
+
+                    // recalled check and is modified...
+                    NotifyUtils.warn(_('The order must be stored first!'));
+
+                    return;
+                }
+            }
 
             // get table status
             var tables = this._tableStatusModel.getTableStatusList();
@@ -204,6 +276,7 @@
             var aURL = 'chrome://viviecr/content/select_table.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
+                isNewOrder: isNewOrder,
                 tables: tables
             };
 
@@ -221,31 +294,47 @@
 
                 switch (inputObj.action) {
                     case 'RecallCheck':
-                        // alert('RecallCheck...');
+
                         this.recallByTableNo(i);
+
                         break;
                     case 'SplitCheck':
-                        this.recallByTableNo(i);
-                        var curTransaction = null;
-                        curTransaction = this._controller._getTransaction();
-                        if (curTransaction) {
-                            this.splitOrder(id, curTransaction.data);
+                        if (this.recallByTableNo(i) != -1) {
+
+                            var curTransaction = null;
+                            curTransaction = this._controller._getTransaction();
+                            if (curTransaction) {
+                                if (this._isAllowSplit(curTransaction)) {
+
+                                    if (this.splitOrder(id, curTransaction.data) == -1) {
+                                        // clear recall check from cart
+                                        this._controller.cancel(true);
+                                    };
+                                } else {
+                                    this._controller.cancel(true);
+                                }
+                            }
                         }
 
-                        // alert('SplitCheck...');
-                        // var targetCheck = this.unserializeFromOrder(id);
-                        // this.splitOrder(id, targetCheck);
                         break;
                     case 'MergeCheck':
-                        this.recallByTableNo(i);
-                        var curTransaction = null;
-                        curTransaction = this._controller._getTransaction();
-                        if (curTransaction) {
-                            this.mergeOrder(id, curTransaction.data);
+                        if (this.recallByTableNo(i) != -1) {
+
+                            var curTransaction = null;
+                            curTransaction = this._controller._getTransaction();
+                            if (curTransaction) {
+                                if (this._isAllowMerge(curTransaction)) {
+                                    
+                                    if (this.mergeOrder(id, curTransaction.data) == -1) {
+                                        // clear recall check from cart
+                                        this._controller.cancel(true);
+                                    };
+                                } else {
+                                    this._controller.cancel(true);
+                                }
+                            }
                         }
-                        // alert('MergeCheck...');
-                        // var targetCheck = this.unserializeFromOrder(id);
-                        // this.mergeOrder(id, targetCheck);
+                        
                         break;
                     case 'SelectTableNo':
                         if (i >= 0) {
@@ -268,7 +357,11 @@
                         }
                         break;
                     case 'ChangeClerk':
+                        // @todo ChangeClerk must be rewrited...
+
                         this.recallByTableNo(i);
+
+                        // get login user info...
                         var user = new GeckoJS.AclComponent().getUserPrincipal();
                         var service_clerk;
                         var service_clerk_displayname;
@@ -284,30 +377,42 @@
                                 curTransaction.data.service_clerk = service_clerk;
                                 curTransaction.data.service_clerk_displayname = service_clerk_displayname;
                             }
+                            this.store();
+
+                            // clear recall check from cart
+                            this._controller.cancel(true);
+
+                            this._controller.dispatchEvent('onStore', curTransaction);
                         }
-                        this.store();
-                        this._controller.dispatchEvent('onStore', curTransaction);
+                        
                         break;
                     case 'MergeTable':
-                        // var holdby = inputObj.sourceTableNo;
-                        // alert(holdby);
-                        // this._tableStatusModel.holdTable(i, holdby);
+                        
                         break;
                     case 'TransTable':
+                        // @todo TransTable must be rewrited...
+
                         var targetTableNo = Math.round(parseInt(i));
                         var sourceTableNo = inputObj.sourceTableNo;
 
-                        this.recallByTableNo(sourceTableNo);
-                        var curTransaction = null;
-                        curTransaction = this._controller._getTransaction();
-                        if (curTransaction) {
-                            this.table("" + targetTableNo);
+                        if (this.recallByTableNo(sourceTableNo) != -1) {
+                            var curTransaction = null;
+                            curTransaction = this._controller._getTransaction();
+                            if (curTransaction) {
+                                this.table("" + targetTableNo);
+                                this.store();
+                                
+                                // clear recall check from cart
+                                this._controller.cancel(true);
+                                
+                                this._controller.dispatchEvent('onStore', curTransaction);
+                            }
+                            
                         }
-                        this.store();
-                        this._controller.dispatchEvent('onStore', curTransaction);
                         break;
                 }
             }else {
+                /*
                 while (i <= 200) {
                     if (!this._tableNoArray[i] || this._tableNoArray[i] == 0) {
                         this._tableNoArray[i] = 1;
@@ -316,6 +421,8 @@
                     i++;
                 }
                 r = i;
+                */
+                return;
             }
 
             // GeckoJS.Session.set('vivipos_fec_table_number', i);
@@ -352,6 +459,26 @@
             }
         },
 
+        check: function(check_no) {
+            var r = this._tableStatusModel.getNewCheckNo(check_no);
+
+            if (r >= 0) {
+                var curTransaction = null;
+                curTransaction = this._controller._getTransaction();
+                if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                    curTransaction = this._controller._getTransaction(true);
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('fatal error!!'));
+                        return; // fatal error ?
+                    }
+                }
+                GeckoJS.Session.set('vivipos_fec_check_number', r);
+                curTransaction.data.check_no = r;
+            } else {
+                NotifyUtils.warn(_('Check# %S is in use ; Please input another Check#', [check_no]));
+            }
+        },
+
         load: function () {
             // this.log("GuestCheck load...");
         },
@@ -380,72 +507,6 @@
             return num;
         },
 
-// @todo must be rewrite...
-/*
-        destination: function(dest) {
-            // this.log("GuestCheck guest..." + num);
-            GeckoJS.Session.set('vivipos_fec_order_destination', dest);
-        },
-
-        table: function(table_no) {
-            // this.log("GuestCheck table..." + table_no);
-            var r;
-            this.getCheckList('AllCheck', null);
-            var allowDupTableNo = true; // @todo for test...
-            if (!this._tableNoArray[table_no] || this._tableNoArray[table_no] == 0 || allowDupTableNo) {
-                this._tableNoArray[table_no] = 1;
-                GeckoJS.Session.set('vivipos_fec_table_number', table_no);
-                return table_no;
-            } else {
-                return -1;
-            }
-
-            if (r >= 0) {
-                var curTransaction = null;
-                curTransaction = this._controller._getTransaction();
-                if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-                    curTransaction = this._controller._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-                }
-                GeckoJS.Session.set('vivipos_fec_table_number', r);
-                curTransaction.data.table_no = r;
-            } else {
-                NotifyUtils.warn(_('Table# %S is exist!!', [table_no]));
-            }
-        },
-
-        check: function(check_no) {
-            // this.log("GuestCheck check..." + check_no);
-            var r;
-            this.getCheckList('AllCheck', null);
-            if (!this._checkNoArray[check_no] || this._checkNoArray[check_no] == 0) {
-                this._checkNoArray[check_no] = 1;
-                GeckoJS.Session.set('vivipos_fec_check_number', check_no);
-                r = check_no;
-            } else {
-                r = -1;
-            }
-
-            if (r >= 0) {
-                var curTransaction = null;
-                curTransaction = this._controller._getTransaction();
-                if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-                    curTransaction = this._controller._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-                }
-                GeckoJS.Session.set('vivipos_fec_check_number', r);
-                curTransaction.data.check_no = r;
-            } else {
-                NotifyUtils.warn(_('Check# %S is exist!!', [check_no]));
-            }
-        },
-*/
         getCheckList: function(key, no) {
             //
             var self = this;
@@ -473,25 +534,13 @@
                 case 'AllCheck':
                     var conditions = "orders.status='2'";
                     break;
+                case 'OrderNo':
+                    var conditions = null;
+                    break;
             }
             
-            this._checkNoArray = [];
-            this._tableNoArray = [];
-
             var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
 
-            ord.forEach(function(o){
-                var check_no = o.check_no;
-                var table_no = o.table_no;
-
-                if (check_no) {
-                    self._checkNoArray[check_no] = 1;
-                }
-
-                if (table_no) {
-                    self._tableNoArray[table_no] = 1;
-                }
-            });
             return ord;
         },
 
@@ -508,28 +557,28 @@
         recallByOrderNo: function(no) {
             // this.log("DEBUG", "GuestCheck recall by order_no..." + no);
             if (no)
-                this.recall('OrderNo', no);
+                return this.recall('OrderNo', no);
             else
-                this.recall('AllCheck', 'OrderNo');
+                return this.recall('AllCheck', 'OrderNo');
         },
 
         recallByCheckNo: function(no) {
             // this.log("DEBUG", "GuestCheck recall by check_no..." + no);
             if (no)
-                this.recall('CheckNo', no);
+                return this.recall('CheckNo', no);
             else
-                this.recall('AllCheck', 'CheckNo');
+                return this.recall('AllCheck', 'CheckNo');
         },
 
         recallByTableNo: function(no) {
             // this.log("DEBUG", "GuestCheck recall by table_no..." + no);
             if (no)
-                this.recall('TableNo', no);
+                return this.recall('TableNo', no);
             else
-                this.recall('AllCheck', 'TableNo');
+                return this.recall('AllCheck', 'TableNo');
         },
 
-        recall: function(key, no, silence) {
+        recall: function(key, no, silence, excludedOrderId) {
             // this.log("DEBUG", "GuestCheck recall...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
@@ -602,7 +651,8 @@
                         var aURL = 'chrome://viviecr/content/select_checks.xul';
                         var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
                         var inputObj = {
-                            checks: ord
+                            checks: ord,
+                            excludedOrderId: excludedOrderId
                         };
 
                         window.openDialog(aURL, 'select_tables', features, inputObj);
@@ -629,7 +679,7 @@
                             }
 
                         }else {
-                            // return null;
+                            return -1;
                         }
 
                     } else if (ord && ord.length > 0) {
@@ -674,7 +724,8 @@
 
                         var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
                         var inputObj = {
-                            checks: ord
+                            checks: ord,
+                            excludedOrderId: excludedOrderId
                         };
 
                         window.openDialog(aURL, 'select_checks', features, inputObj);
@@ -715,7 +766,7 @@
                             return id;
 
                         }else {
-                            // return null;
+                            return -1
                         }
 
                     } else if (ord && ord.length > 0) {
@@ -780,9 +831,14 @@
 
             //this.log("DEBUG", "GuestCheck merge check...no:" + no);
 
-            var target_id = this.recall('AllCheck', 'CheckNo', true);
+            var target_id = this.recall('AllCheck', 'CheckNo', true, no);
+
+            if (target_id == -1) return -1;
 
             var targetCheck = this.unserializeFromOrder(target_id);
+
+            // check if target check allow to be merged...
+            if (!this._isAllowMerge(targetCheck)) return -1
 
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
@@ -813,6 +869,7 @@
 
             }else {
                 // return null;
+                return -1;
             }
         },
 
@@ -828,8 +885,7 @@
 
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
-                sourceCheck: data,
-                usedCheckNo: this._checkNoArray
+                sourceCheck: data
             };
 
             window.openDialog(aURL, 'split_checks', features, inputObj);
@@ -844,7 +900,7 @@
                 this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
 
             }else {
-                // return null;
+                return -1
             }
         },
 

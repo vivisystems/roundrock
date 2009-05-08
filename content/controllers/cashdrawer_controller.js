@@ -28,6 +28,11 @@
             if (main) {
                 main.addEventListener('afterClearOrderData', this.expireData, this);
             }
+            // add event listener for ledger events
+            var ledger = GeckoJS.Controller.getInstanceByName('LedgerRecords');
+            if(ledger) {
+                ledger.addEventListener('afterLedgerEntry', this.handleLedgerEntryEvent, this);
+            }
         },
 
         getDeviceController: function () {
@@ -180,6 +185,26 @@
             this.openDrawer(drawerNo, eventType, evt.data.name, evt.data.seq, evt.data.amount);
         },
 
+        // handles ledger entry events
+        handleLedgerEntryEvent: function(evt) {
+
+            var eventType = 'ledger';
+
+            // 1. get user's assigned drawer (or null)
+            // 2. pass drawer number to openDrawer()
+
+            var drawerNo = null;
+            var user = GeckoJS.Session.get('user');
+            if (user) {
+                if (user.drawer != null) {
+                    drawerNo = GeckoJS.String.trim(user.drawer);
+                    if (drawerNo == '') drawerNo = null;
+                }
+            }
+
+            this.openDrawer(drawerNo, eventType, evt.data.type, '', evt.data.amount);
+        },
+
         openDrawer1: function() {
             this.openDrawer(1, 'nosale');
         },
@@ -267,6 +292,11 @@
                     if ((drawer[paymentType + 'action'] != 'always') && (drawer[paymentType + 'action'] != 'finalization')) return;
                     break;
 
+                case 'ledger':
+                    alert(paymentType + 'action:' + drawer[paymentType + 'action'] + this.dump(drawer));
+                    if (drawer['ledgeraction'] != 'always') return;
+                    break;
+                    
                 case 'nosale':
                     break;
             }

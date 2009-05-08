@@ -826,7 +826,7 @@
                             }
                         }
 
-                        if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group.indexOf(data.linkgroup) > -1) {
+                        if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group && item.link_group.indexOf(data.linkgroup) > -1) {
                             item.linked = true;
                             empty = false;
                         }
@@ -910,7 +910,7 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-            //this.log(GeckoJS.BaseObject.dump(result));
+            this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

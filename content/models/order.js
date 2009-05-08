@@ -406,8 +406,8 @@
         r = this.save(data);
         this.commit();
         */
-            this.OrderPayment.id = '';
-            data.order_id = '';
+            this.OrderPayment.id = data.payment_id;
+            data.order_id = data.payment_id;
             this.OrderPayment.begin();
             r = this.OrderPayment.save(data);
             this.OrderPayment.commit();
@@ -419,6 +419,9 @@
             this.OrderPayment.del(iid);
         },
 
+        editLedgerEntry: function(data) {
+            this.OrderPayment.id = data.payment_id;
+        },
 
         beforeSave: function(evt) {
             return true;

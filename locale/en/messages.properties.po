@@ -1486,6 +1486,50 @@ msgstr "View Order"
 msgid "vieworder.name"
 msgstr "View Order"
 
+msgid "controlpanel.desc"
+msgstr ""
+"This function allows the operator to bring up the configuration control "
+"panel. No parameter is needed."
+
+msgid "controlpanel.label"
+msgstr "Control Panel"
+
+msgid "controlpanel.name"
+msgstr "Control Panel"
+
+msgid "clockin.desc"
+msgstr ""
+"This function allows the operator to bring up the clock in/out screen. No "
+"parameter is needed."
+
+msgid "clockin.label"
+msgstr "Clock In"
+
+msgid "clockin.name"
+msgstr "Clock In"
+
+msgid "togglefunctionpanel.desc"
+msgstr ""
+"This function allows the operator to show/hide the function panel. No "
+"parameter is needed."
+
+msgid "togglefunctionpanel.label"
+msgstr "Toggle Function Panel"
+
+msgid "togglefunctionpanel.name"
+msgstr "Toggle Function Panel"
+
+msgid "togglevirtualkeyboard.desc"
+msgstr ""
+"This function allows the operator to show/hide the virtual keyboard. No "
+"parameter is needed."
+
+msgid "togglevirtualkeyboard.label"
+msgstr "Toggle Virtual Keyboard"
+
+msgid "togglevirtualkeyboard.name"
+msgstr "Toggle Virtual Keyboard"
+
 msgid "(rpt)Terminal"
 msgstr "Terminal"
 
@@ -1536,6 +1580,12 @@ msgstr "Ledger Out"
 
 msgid "(rpt)Type"
 msgstr "Type"
+
+msgid "(rpt)Payment Type"
+msgstr "Payment"
+
+msgid "(rpt)Order Sequence"
+msgstr "Sequence"
 
 msgid "(rpt)Amount"
 msgstr "Amount"
@@ -1885,6 +1935,9 @@ msgstr "finalization"
 msgid "(rpt)shift change"
 msgstr "shift change"
 
+msgid "(rpt)ledger"
+msgstr "ledger"
+
 msgid "(rpt)Net Sales"
 msgstr "Net Sales"
 
@@ -2124,6 +2177,12 @@ msgstr "Invoice Count"
 msgid "(rpt)Records Found"
 msgstr "Records Found"
 
+msgid "(rpt)Occurrences"
+msgstr "Occurrences"
+
+msgid "acl_layout_manager"
+msgstr "Layout Manager"
+
 msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
 
@@ -2217,11 +2276,34 @@ msgid ""
 "Are you sure you want to void transaction [%S] (payment [%S], refund [%S])?"
 msgstr ""
 
-#: ../..//content/select_checks.js:36
-msgid "Seq"
+#: ../..//content/select_checks.js:40
+#: ../..//content/controllers/select_table_controller.js:39
+msgid "B#"
 msgstr ""
 
-#: ../..//content/select_checks.js:37 ../..//content/select_checks.js:71
+#: ../..//content/select_checks.js:46
+msgid "G#"
+msgstr ""
+
+#: ../..//content/select_checks.js:48
+#: ../..//content/controllers/select_table_controller.js:46
+msgid "C#"
+msgstr ""
+
+#: ../..//content/select_checks.js:52
+msgid "S#"
+msgstr ""
+
+#: ../..//content/select_checks.js:53
+#: ../..//content/controllers/select_table_controller.js:50
+msgid "T#"
+msgstr ""
+
+#: ../..//content/select_checks.js:138 ../..//content/select_queues.js:28
+msgid "SEQ"
+msgstr ""
+
+#: ../..//content/select_checks.js:150
 #: ../..//content/bindings/onscreenvfd.xbl:62
 #: ../..//content/bindings/onscreenvfd.xbl:115
 #: ../..//content/bindings/onscreenvfd.xbl:137
@@ -2229,18 +2311,6 @@ msgstr ""
 #: ../..//content/bindings/onscreenvfd.xbl:162
 #: ../..//content/bindings/onscreenvfd.xbl:167
 msgid "TAL"
-msgstr ""
-
-#: ../..//content/select_checks.js:38
-msgid "Check#"
-msgstr ""
-
-#: ../..//content/select_checks.js:39
-msgid "Table#"
-msgstr ""
-
-#: ../..//content/select_checks.js:59 ../..//content/select_queues.js:28
-msgid "SEQ"
 msgstr ""
 
 #: ../..//content/sync_settings.js:19
@@ -2835,7 +2905,7 @@ msgid "Add New Ledger Entry"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2472
-#: ../..//content/controllers/ledger_controller.js:140
+#: ../..//content/controllers/ledger_controller.js:147
 msgid "Transaction [%S] for amount of [%S] successfully logged to the ledger"
 msgstr ""
 
@@ -3001,7 +3071,7 @@ msgid "Order is not queued because it is empty"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3795
-msgid "This order must be store first"
+msgid "This order must be stored first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3845
@@ -3047,8 +3117,8 @@ msgstr ""
 msgid "This order has been modified and must be stored first"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:194
-#: ../..//content/controllers/cashdrawer_controller.js:223
+#: ../..//content/controllers/cashdrawer_controller.js:219
+#: ../..//content/controllers/cashdrawer_controller.js:248
 #: ../..//content/controllers/print_controller.js:386
 #: ../..//content/controllers/print_controller.js:461
 #: ../..//content/controllers/print_controller.js:536
@@ -3059,25 +3129,25 @@ msgstr ""
 msgid "Error in device manager! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:232
-#: ../..//content/controllers/cashdrawer_controller.js:243
-#: ../..//content/controllers/cashdrawer_controller.js:256
+#: ../..//content/controllers/cashdrawer_controller.js:257
+#: ../..//content/controllers/cashdrawer_controller.js:268
+#: ../..//content/controllers/cashdrawer_controller.js:281
 msgid "Cash drawer [%S] is not enabled! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:283
+#: ../..//content/controllers/cashdrawer_controller.js:313
 msgid ""
 "Error detected while opening cash drawer [%S]; please check if cash drawer "
 "is connected and powered up"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:337
+#: ../..//content/controllers/cashdrawer_controller.js:367
 #: ../..//content/controllers/print_controller.js:764
 #: ../..//content/controllers/vfd_controller.js:258
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:401
+#: ../..//content/controllers/cashdrawer_controller.js:431
 #: ../..//content/controllers/print_controller.js:1000
 #: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
@@ -3350,23 +3420,23 @@ msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:50
 #: ../..//content/controllers/devices_controller.js:67
-#: ../..//content/controllers/devices_controller.js:1609
-#: ../..//content/controllers/devices_controller.js:1626
+#: ../..//content/controllers/devices_controller.js:1611
+#: ../..//content/controllers/devices_controller.js:1628
 msgid "Device Status"
 msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:51
-#: ../..//content/controllers/devices_controller.js:1610
+#: ../..//content/controllers/devices_controller.js:1612
 msgid "No device has been enabled for receipt and/or check printing!"
 msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:61
-#: ../..//content/controllers/devices_controller.js:1620
+#: ../..//content/controllers/devices_controller.js:1622
 msgid "Device"
 msgstr ""
 
 #: ../..//content/controllers/devices_controller.js:61
-#: ../..//content/controllers/devices_controller.js:1620
+#: ../..//content/controllers/devices_controller.js:1622
 msgid "Port"
 msgstr ""
 
@@ -3427,7 +3497,7 @@ msgstr ""
 msgid "Cash Drawer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:1627
+#: ../..//content/controllers/devices_controller.js:1629
 msgid ""
 "The following enabled devices appear to be offline, do you still want to "
 "save the new configuration?"
@@ -3725,24 +3795,24 @@ msgstr ""
 msgid "Job [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:117
+#: ../..//content/controllers/ledger_controller.js:123
 msgid "Add Ledger Entry"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:155
+#: ../..//content/controllers/ledger_controller.js:165
 msgid "Transaction [%S] for amount of [%S] successfully updated"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:162
+#: ../..//content/controllers/ledger_controller.js:172
 msgid "confirm delete transaction %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:163
+#: ../..//content/controllers/ledger_controller.js:173
 msgid ""
 "Are you sure you want to delete transaction [%S] mode [%S] of amount [%S]?"
 msgstr ""
 
-#: ../..//content/controllers/ledger_controller.js:182
+#: ../..//content/controllers/ledger_controller.js:192
 msgid ""
 "Transaction [%S] for amount of [%S] successfully deleted from the ledger"
 msgstr ""
@@ -3811,7 +3881,7 @@ msgid "No order to add/view annotations"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:309
-#: ../..//content/reports/controllers/rpt_base_controller.js:250
+#: ../..//content/reports/controllers/rpt_base_controller.js:251
 msgid "Order Details"
 msgstr ""
 
@@ -3877,23 +3947,23 @@ msgstr ""
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:798
+#: ../..//content/controllers/main_controller.js:802
 msgid "Removing old data..."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:838
+#: ../..//content/controllers/main_controller.js:842
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:838
+#: ../..//content/controllers/main_controller.js:842
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:845
+#: ../..//content/controllers/main_controller.js:849
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:845
+#: ../..//content/controllers/main_controller.js:849
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
@@ -4313,120 +4383,102 @@ msgstr ""
 msgid "Password and Verify Password not the same"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:39
-msgid "B#"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:46
-msgid "C#"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:50
-msgid "T#"
-msgstr ""
-
 #: ../..//content/controllers/select_table_controller.js:88
 msgid "Host Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:229
-#: ../..//content/controllers/select_table_controller.js:233
+#: ../..//content/controllers/select_table_controller.js:228
 msgid "Recall Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:229
+#: ../..//content/controllers/select_table_controller.js:228
 msgid "Please select a table to recall..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:229
-#: ../..//content/controllers/select_table_controller.js:237
-#: ../..//content/controllers/select_table_controller.js:245
-#: ../..//content/controllers/select_table_controller.js:253
-#: ../..//content/controllers/select_table_controller.js:260
-#: ../..//content/controllers/select_table_controller.js:283
-#: ../..//content/controllers/select_table_controller.js:290
-#: ../..//content/controllers/select_table_controller.js:297
+#: ../..//content/controllers/select_table_controller.js:228
+#: ../..//content/controllers/select_table_controller.js:236
+#: ../..//content/controllers/select_table_controller.js:244
+#: ../..//content/controllers/select_table_controller.js:252
+#: ../..//content/controllers/select_table_controller.js:259
+#: ../..//content/controllers/select_table_controller.js:282
+#: ../..//content/controllers/select_table_controller.js:289
+#: ../..//content/controllers/select_table_controller.js:296
 msgid "Press CANCEL button to cancel function"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:237
-#: ../..//content/controllers/select_table_controller.js:241
+#: ../..//content/controllers/select_table_controller.js:236
 msgid "Split Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:237
+#: ../..//content/controllers/select_table_controller.js:236
 msgid "Please select a table to split..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:245
-#: ../..//content/controllers/select_table_controller.js:249
+#: ../..//content/controllers/select_table_controller.js:244
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:245
+#: ../..//content/controllers/select_table_controller.js:244
 msgid "Please select a table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:253
+#: ../..//content/controllers/select_table_controller.js:252
 msgid "Merge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:253
+#: ../..//content/controllers/select_table_controller.js:252
 msgid "Please select the master table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:260
+#: ../..//content/controllers/select_table_controller.js:259
 msgid "Unmerge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:260
+#: ../..//content/controllers/select_table_controller.js:259
 msgid "Please select the table to unmerge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:283
+#: ../..//content/controllers/select_table_controller.js:282
 #: ../..//content/bindings/onscreenvfd.xbl:92
 msgid "Change Clerk"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:283
+#: ../..//content/controllers/select_table_controller.js:282
 msgid "Select a table to change service clerk to [ %S ]..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:290
+#: ../..//content/controllers/select_table_controller.js:289
 msgid "Trans Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:290
+#: ../..//content/controllers/select_table_controller.js:289
 msgid "Please select the table to be transfered..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:297
+#: ../..//content/controllers/select_table_controller.js:296
 msgid "Select Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:297
+#: ../..//content/controllers/select_table_controller.js:296
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:301
-msgid "Select Table Number"
-msgstr ""
-
 #: ../..//content/controllers/select_table_controller.js:333
-#: ../..//content/controllers/select_table_controller.js:345
-#: ../..//content/controllers/select_table_controller.js:382
+#: ../..//content/controllers/select_table_controller.js:341
+#: ../..//content/controllers/select_table_controller.js:353
+#: ../..//content/controllers/select_table_controller.js:390
 msgid "This table is empty!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:348
+#: ../..//content/controllers/select_table_controller.js:356
 msgid "Please select the table to transfer to..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:386
+#: ../..//content/controllers/select_table_controller.js:394
 msgid "Please select an empty table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:397
+#: ../..//content/controllers/select_table_controller.js:405
 msgid "This table had not been hold!!"
 msgstr ""
 
@@ -4500,8 +4552,8 @@ msgstr ""
 
 #: ../..//content/controllers/systembackup_controller.js:187
 #: ../..//content/controllers/systembackup_controller.js:257
-#: ../..//content/reports/controllers/rpt_base_controller.js:120
-#: ../..//content/reports/controllers/rpt_base_controller.js:157
+#: ../..//content/reports/controllers/rpt_base_controller.js:121
+#: ../..//content/reports/controllers/rpt_base_controller.js:158
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
@@ -4826,15 +4878,15 @@ msgstr ""
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:75
+#: ../..//content/controllers/view_order_controller.js:78
 msgid "No orders matching [%S] found"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:79
+#: ../..//content/controllers/view_order_controller.js:82
 msgid "[%S] orders matching [%S]"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:82
+#: ../..//content/controllers/view_order_controller.js:85
 msgid "[%S] orders returned"
 msgstr ""
 
@@ -4948,23 +5000,23 @@ msgid ""
 "parameter field"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_attendance_record_controller.js:99
-msgid "Attendance Record Report"
+#: ../..//content/reports/controllers/rpt_attendance_record_controller.js:101
+msgid "Attendance Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:82
+#: ../..//content/reports/controllers/rpt_base_controller.js:83
 msgid "We are now on the first page."
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:113
+#: ../..//content/reports/controllers/rpt_base_controller.js:114
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:150
+#: ../..//content/reports/controllers/rpt_base_controller.js:151
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:191
+#: ../..//content/reports/controllers/rpt_base_controller.js:192
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
@@ -4972,7 +5024,7 @@ msgstr ""
 msgid "Shift Change Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_cash_drawer_summary_controller.js:51
+#: ../..//content/reports/controllers/rpt_cash_drawer_summary_controller.js:67
 msgid "Cash Drawer Summary Report"
 msgstr ""
 
@@ -5000,7 +5052,7 @@ msgstr ""
 msgid "Order Annotation Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_product_sales_controller.js:138
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:148
 msgid "Product Sales Report"
 msgstr ""
 
@@ -5016,11 +5068,21 @@ msgstr ""
 msgid "Product Stock List"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:38
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record.tpl:59
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_58mm.tpl:34
+#: ../..//content/reports/tpl/rpt_attendance_record/rpt_attendance_record_rcp_80mm.tpl:26
+msgid "(rpt)Total Work Time"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:41
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:22
 #: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_80mm.tpl:14
-#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:34
+#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:36
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
 msgid "(rpt)"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:26
+msgid "(rpt)Terminal Number"
 msgstr ""

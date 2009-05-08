@@ -25,7 +25,8 @@
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
                             'SUM("order_items"."current_subtotal") as "OrderItem.total"',
-                            'order_items.cate_no'
+                            'order_items.cate_no',
+                            'order_items.cate_name'
                          ];
                             
             var conditions = "orders." + periodType + ">='" + start +
@@ -68,16 +69,25 @@
 	        		}
 	        	}
 	        } );
-
             var orderItemRecords = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby } );
 
             orderItemRecords.forEach( function( record ) {
             	delete record.OrderItem;
 				record[ 'avg_price' ] = record[ 'total' ] / record[ 'qty' ];
-				
-                categories[ record.cate_no ].orderItems.push( record );
-                categories[ record.cate_no ].summary.qty += record.qty;
-                categories[ record.cate_no ].summary.total += record.total;
+
+                if (!(record.cate_no in categories)) {
+                    categories[ record.cate_no ] = {
+                        no: record.cate_no,
+                        name: record.cate_name,
+                        orderItems: [ record ],
+                        summary: {qty: record.qty, total: record.total}
+                    };
+                }
+                else {
+                    categories[ record.cate_no ].orderItems.push( record );
+                    categories[ record.cate_no ].summary.qty += record.qty;
+                    categories[ record.cate_no ].summary.total += record.total;
+                }
             } );
             
             // insert the zero sales products.
