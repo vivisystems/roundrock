@@ -42,7 +42,6 @@
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
-            <preference id="pref_showtoolbar" name="vivipos.fec.settings.ShowToolbar" type="bool" />
 
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
@@ -57,6 +56,7 @@
             <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool" />
             <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool" />
             <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool" />
+            <preference id="pref_clockinenabled" name="vivipos.fec.settings.ClockInEnabled" type="bool" />
 
 
         </preferences>
@@ -66,10 +66,6 @@
                 <column flex="1" /><column flex="1" />
             </columns>
             <rows>
-                <row>
-                    <checkbox preference="pref_showtoolbar" id="pref_showtoolbarCtrl" label="&general.showtoolbar;" />
-                    <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;" />
-                </row>
                 <row>
                     <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&general.activepricelevelschedule;" />
                     <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&general.pricelevelrevert;" />
@@ -89,6 +85,10 @@
                 <row>
                     <checkbox preference="pref_departmentpopstotop" id="pref_departmentpopstotopCtrl" label="&general.departmentpopstotop;" />
                     <checkbox preference="pref_collapsecondiments" id="pref_collapsecondimentsCtrl" label="&general.collapsecondiments;" />
+                </row>
+                <row>
+                    <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;" />
+                    <checkbox preference="pref_clockinenabled" id="pref_clockinenabledCtrl" label="&general.showclockinicon;" />
                 </row>
                 <row>
                     <hbox>

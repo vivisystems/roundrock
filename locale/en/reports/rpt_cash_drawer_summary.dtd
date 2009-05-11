@@ -7,10 +7,11 @@
 <!ENTITY cashdrawersummary.exportcsv "Export to CSV">
 <!ENTITY cashdrawersummary.exportrcp "Print">
 <!ENTITY cashdrawersummary.togglezoom "Toggle Zoom">
+<!ENTITY cashdrawersummary.terminal_no "Terminal:">
 <!ENTITY cashdrawersummary.sortby "Sort By:">
-<!ENTITY cashdrawersummary.clerk_displayname "Clerk">
-<!ENTITY cashdrawersummary.event_type "Event Type">
-<!ENTITY cashdrawersummary.num_occurrences "Number of Occurrences">
-<!ENTITY cashdrawersummary.terminal_no "Terminal Number">
+<!ENTITY cashdrawersummary.sortby.clerk_displayname "Clerk">
+<!ENTITY cashdrawersummary.sortby.event_type "Event Type">
+<!ENTITY cashdrawersummary.sortby.num_occurrences "Number of Occurrences">
+<!ENTITY cashdrawersummary.sortby.terminal_no "Terminal">
 <!ENTITY cashdrawersummary.all "List All">
 <!ENTITY cashdrawersummary.wait "Waiting...">

@@ -196,6 +196,9 @@ if (typeof(TrimPath) != 'undefined') {
                 case 'time':
                     s = d.toTimeString();
                     break;
+                case 'saleperiod':
+                    s = d.toLocaleDateString();
+                    break;
             }
             return s;
 

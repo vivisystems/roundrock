@@ -332,6 +332,7 @@
 
             // save cashdrawer access
             var drawerRecordModel = new CashdrawerRecordModel();
+            alert(sequence);
             var accessRecord = {
                 terminal_no: GeckoJS.Session.get('terminal_no'),
                 drawer_no: drawer.number,

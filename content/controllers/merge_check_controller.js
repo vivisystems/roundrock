@@ -13,6 +13,13 @@
         _mergedCheck: {},
         _tableStatusModel: null,
 
+        getCartController: function() {
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
+            return this._cart;
+        },
+
         reverse: function() {
             
             this.load();
@@ -182,6 +189,10 @@
             // save merged check...
             order.saveOrder(this._mergedCheck);
             order.serializeOrder(this._mergedCheck);
+
+            // dispatch mergecheck event
+            // this.getCartController().dispatchEvent('onStore', this._mergedCheck);
+            this.getCartController().dispatchEvent('onMergeCheck', this._mergedCheck);
 
             // update table status
             this._tableStatusModel.addCheck(this._mergedCheck);

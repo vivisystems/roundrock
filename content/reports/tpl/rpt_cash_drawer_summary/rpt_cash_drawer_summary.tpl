@@ -23,7 +23,7 @@
         <thead>
             <tr>
                 <th style="text-align: left;">${_( '(rpt)Clerk' )}</th>
-                <th style="text-align: left;">${_( '(rpt)Terminal Number' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Event' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Occurrences' )}</th>
             </tr>
