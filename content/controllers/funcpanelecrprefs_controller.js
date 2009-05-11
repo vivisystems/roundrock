@@ -336,7 +336,7 @@
             this.removedKeys.set(this.panel.currentPage, removedPageKeys);
         }
         
-        unlinkNode.disabled = true;
+        //unlinkNode.disabled = true;
 
         if (extent) {
             var btnid = this.extent.row1 + 'x' + this.extent.column1;

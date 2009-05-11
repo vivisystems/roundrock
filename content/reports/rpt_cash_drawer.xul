@@ -55,13 +55,13 @@
 				                	<label value="&cashdrawer.sortby;" />
 						            <menulist id="sortby">
 						                <menupopup id="sortby_menupopup">
-						                    <menuitem selected="true" label="&cashdrawer.terminal_no;" value="terminal_no" />
-						                    <menuitem selected="false" label="&cashdrawer.drawer_no;" value="drawer_no" />
-						                    <menuitem selected="false" label="&cashdrawer.clerk_displayname;" value="clerk_displayname" />
-						                    <menuitem selected="false" label="&cashdrawer.created;" value="created" />
-						                    <menuitem selected="false" label="&cashdrawer.event_type;" value="event_type" />
-						                    <menuitem selected="false" label="&cashdrawer.sequence;" value="sequence" />
-						                    <menuitem selected="false" label="&cashdrawer.amount;" value="amount" />
+						                    <menuitem selected="true" label="&cashdrawer.sortby.terminal_no;" value="terminal_no" />
+						                    <menuitem selected="false" label="&cashdrawer.sortby.drawer_no;" value="drawer_no" />
+						                    <menuitem selected="false" label="&cashdrawer.sortby.clerk_displayname;" value="clerk_displayname" />
+						                    <menuitem selected="false" label="&cashdrawer.sortby.created;" value="created" />
+						                    <menuitem selected="false" label="&cashdrawer.sortby.event_type;" value="event_type" />
+						                    <menuitem selected="false" label="&cashdrawer.sortby.sequence;" value="sequence" />
+						                    <menuitem selected="false" label="&cashdrawer.sortby.amount;" value="amount" />
 						                </menupopup>
 						            </menulist>
 						        </vbox>

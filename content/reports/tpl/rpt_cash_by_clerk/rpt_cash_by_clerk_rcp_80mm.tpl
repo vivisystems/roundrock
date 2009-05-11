@@ -11,8 +11,8 @@ ${_( '(rpt)Sale Period' )|left:11} ${_( '(rpt)Start Time' )|right:14}  ${_( '(rp
 ----------- --------------  --------------
 ${master.sale_period|unixTimeToString:'yyyy-MM-dd'|left:11} ${master.starttime|right:14}  ${master.endtime|right:14}
 ------------------------------------------
-${_( '(rpt)Terminal ID' ) + ':'|left:12}${master.terminal_no|right:30}
-${_( '(rpt)Shift No.' ) + ':'|left:12}${master.shift_number|right:30}
+${_( '(rpt)Terminal' ) + ':'|left:12}${master.terminal_no|right:30}
+${_( '(rpt)Shift' ) + ':'|left:12}${master.shift_number|right:30}
 ${_( '(rpt)Balance' ) + ':'|left:12}${master.balance|default:0|viviFormatPrices:true|right:30}
 ${_( '(rpt)Cash' ) + ':'|left:12}${master.cash|default:0|viviFormatPrices:true|right:30}
 ${_( '(rpt)Sales' ) + ':'|left:12}${master.sales|default:0|viviFormatPrices:true|right:30}

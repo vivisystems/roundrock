@@ -10,9 +10,9 @@ ${head.end_time}
 ${head.title|center:24}
 {for item in body}
 ------------------------
-${_( '(rpt)Terminal No.' ) + ':'}
+${_( '(rpt)Terminal' ) + ':'}
 ${item.terminal_no|right:24}
-${_( '(rpt)Drawer No.' ) + ':'}
+${_( '(rpt)Drawer' ) + ':'}
 ${item.drawer_no|right:24}
 ${_( '(rpt)Clerk' ) + ':'}
 ${item.clerk_displayname|right:24}
@@ -20,7 +20,7 @@ ${_( '(rpt)Time' ) + ':'}
 ${item.created|unixTimeToString|right:24}
 ${_( '(rpt)Event' ) + ':'}
 ${_( '(rpt)' + item.event_type )|right:24}
-${_( '(rpt)Order Sequence' ) + ':'}
+${_( '(rpt)Sequence' ) + ':'}
 ${item.sequence|default:''|right:24}
 ${_( '(rpt)Amount' ) + ':'}
 ${item.amount|default:''|viviFormatPrices:true|right:24}

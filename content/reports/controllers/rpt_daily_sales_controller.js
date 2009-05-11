@@ -11,7 +11,11 @@
         
         _fileName: 'rpt_daily_sales',
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
@@ -20,7 +24,7 @@
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
-            var machineid = document.getElementById( 'machine_id' ).value;
+            var terminal_no = document.getElementById( 'terminal_no' ).value;
             var shiftNo = document.getElementById( 'shift_no' ).value;
             var periodType = document.getElementById( 'period_type' ).value;
             
@@ -61,16 +65,8 @@
                             "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status=1";
                             
-            var service_clerk = document.getElementById( 'service_clerk' ).value;
-            if ( service_clerk != 'all' )
-            	conditions += " AND orders.service_clerk_displayname = '" + this._queryStringPreprocessor( service_clerk ) + "'";
-
-			var proceeds_clerk = document.getElementById( 'proceeds_clerk' ).value;
-			if ( proceeds_clerk != 'all' )
-				conditions += " AND orders.proceeds_clerk_displayname = '" + this._queryStringPreprocessor( proceeds_clerk ) + "'";
-
-            if ( machineid.length > 0 ) 
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
+            if ( terminal_no.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminal_no ) + "%'";
                 
             if ( shiftNo.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
@@ -83,7 +79,7 @@
             var orderPayment = new OrderPaymentModel();
             
             //var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 } );
-            var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: limit } );
 
             //var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
             //var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
@@ -189,13 +185,17 @@
             this._reportRecords.head.title = _( 'Daily Sales Report' );
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
-			this._reportRecords.head.machine_id = machineid;
+			this._reportRecords.head.terminal_no = terminal_no;
 			
 			this._reportRecords.body = GeckoJS.BaseObject.getValues( this._datas );
-			
+alert(this._reportRecords.body.length);
 			this._reportRecords.foot.foot_datas = footDatas;
         },
         
+        exportCsv: function() {
+            this._super(this);
+        },
+
         execute: function() {
         	this._super();
         	this._registerOpenOrderDialog();

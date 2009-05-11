@@ -208,6 +208,7 @@
                 
                 rcp.printReport( 'report', tpl, this._reportRecords );
             } catch ( e ) {
+                this.log(this.dump(e));
             } finally {
                 this._enableButton( true );
                 if ( waitPanel != undefined )

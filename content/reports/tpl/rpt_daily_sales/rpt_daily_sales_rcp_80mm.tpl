@@ -10,8 +10,8 @@ ${_( '(rpt)Terminal' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Sequence
 --------  ----------  --------------------
 {for detail in body}
 ${detail.terminal_no|left:8}  ${detail.time|unixTimeToString|left:16}  ${detail.sequence|left:14}
-${'    ' + _( '(rpt)Service' ) + ': '}${detail.service_clerk_displayname|viviFormatPrices:true}
-${'    ' + _( '(rpt)Proceeds' ) + ': '}${detail.proceeds_clerk_displayname|viviFormatPrices:true}
+${'    ' + _( '(rpt)Service Clerk' ) + ': '}${detail.service_clerk_displayname|viviFormatPrices:true}
+${'    ' + _( '(rpt)Proceeds Clerk' ) + ': '}${detail.proceeds_clerk_displayname|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Total' ) + ': '}${detail.item_subtotal|viviFormatPrices:true}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ': '}${detail.tax_subtotal|viviFormatTaxes:true}
 ${'    ' + _( '(rpt)Surcharge' ) + ': '}${detail.surcharge_subtotal|viviFormatPrices:true}
