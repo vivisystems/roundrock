@@ -182,8 +182,13 @@
                         if (plugroup) {
                             // filter set items out of selections
                             selections = selections.filter(function(val, index, obj) {
-                                                               var setItem = productsById[val].SetItem;
-                                                               return (setItem == null) || (setItem.length == 0);
+                                                               var prod = productsById[val];
+                                                               if (prod) {
+                                                                   return (prod.SetItem == null) || (prod.SetItem.length == 0);
+                                                               }
+                                                               else {
+                                                                   return false;
+                                                               }
                                                            });
                             newItem['plugroup'] = plugroup;
                             newItem['selections'] = selections;
