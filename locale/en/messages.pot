@@ -1417,13 +1417,13 @@ msgid "Factory"
 msgstr "Factory Dataset"
 
 msgid "Service Clerk Sales Report"
-msgstr "Sales By Clerk (Open)"
+msgstr "Sales By Clerk (Order Open)"
 
 msgid "Training"
 msgstr "Training Dataset"
 
 msgid "Proceeds Clerk Sales Report"
-msgstr "Sales By Clerk (Close)"
+msgstr "Sales By Clerk (Order Close)"
 
 msgid "XTerm"
 msgstr "XTerm"

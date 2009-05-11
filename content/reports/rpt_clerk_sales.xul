@@ -82,8 +82,7 @@
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
 					                        <menuitem selected="false" label="&rptclerksales.sortby.terminal_no;" value="terminal_no" />
-					                        <menuitem selected="true" label="&rptclerksales.sortby.clerk;" value="clerk_displayname" />
-					                        <menuitem selected="false" label="&rptclerksales.sortby.time;" value="time" />
+					                        <menuitem selected="true" label="&rptclerksales.sortby.time;" value="time" />
 					                        <menuitem selected="false" label="&rptclerksales.sortby.sequence;" value="sequence" />
 					                        <menuitem selected="false" label="&rptclerksales.sortby.invoice_no;" value="invoice_no" />
 					                        <menuitem selected="false" label="&rptclerksales.sortby.item_subtotal;" value="item_subtotal" />

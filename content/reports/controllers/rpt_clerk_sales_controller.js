@@ -77,11 +77,13 @@
                             'orders.table_no',
                             'ifnull(orders.no_of_customers, 0) as "Order.no_of_customers"',
                             'orders.invoice_no',
+                            'orders.sale_period',
+                            'orders.shift_number',
                             'orders.terminal_no'
                          ];
                 
             var groupby = 'order_payments.order_id, order_payments.name';
-            var orderby = 'orders.total desc';
+            var orderby = 'orders.' +  timeField;
 
             var orderPayment = new OrderPaymentModel();
 
@@ -139,11 +141,11 @@
             				case 'discount_subtotal':
 				    		case 'promotion_subtotal':
 				    		case 'revalue_subtotal':
+				    		case 'sequence':
+				    		case 'invoice_no':
             					if ( a > b ) return 1;
 				    			if ( a < b ) return -1;
 				    			return 0;
-				    		case 'sequence':
-				    		case 'invoice_no':
 				    		case 'item_subtotal':
 				    		case 'tax_subtotal':
 				    		case 'surcharge_subtotal':

@@ -16,9 +16,9 @@ ${_( '(rpt)Time' ) + ':'}
 ${detail.time|unixTimeToString|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
-${_( '(rpt)Service' ) + ':'}
+${_( '(rpt)Service Clerk' ) + ':'}
 ${detail.service_clerk_displayname|viviFormatPrices:true|right:24}
-${_( '(rpt)Proceeds' ) + ':'}
+${_( '(rpt)Proceeds Clerk' ) + ':'}
 ${detail.proceeds_clerk_displayname|viviFormatPrices:true|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${detail.item_subtotal|viviFormatPrices:true|right:24}

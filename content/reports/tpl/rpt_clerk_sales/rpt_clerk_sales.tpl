@@ -26,8 +26,11 @@
 				</tr>
                 <tr class="fields">
                     <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Sale Period' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Shift' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Invoice Number' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
@@ -52,8 +55,11 @@
 {/eval}
                 <tr id="${order.id}">
                     <td style="text-align: left;">${order.terminal_no}</td>
+                    <td style="text-align: left;">${order.sale_period|unixTimeToString:'saleperiod'}</td>
+                    <td style="text-align: left;">${order.shift_number}</td>
                     <td style="text-align: left;">${order.time|unixTimeToString}</td>
                     <td style="text-align: left;">${order.sequence}</td>
+                    <td style="text-align: left;">${order.invoice_no}</td>
                     <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>
@@ -77,8 +83,8 @@
 {/eval}
             <tfoot>
                 <tr>
-                    <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' ) }: ${clerk.orders.length|default:0|format:0}</td>
-                    <td>${_( '(rpt)Summary' ) }:</td>
+                    <td colspan="4" style="text-align: left;">${_( '(rpt)Records Found' ) }: ${clerk.orders.length|default:0|format:0}</td>
+                    <td colspan="2">${_( '(rpt)Summary' ) }:</td>
                     <td style="text-align: right;">${clerk.summary.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${clerk.summary.surcharge_subtotal|viviFormatPrices:true}</td>

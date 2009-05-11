@@ -1426,13 +1426,13 @@ msgid "Factory"
 msgstr "Factory Dataset"
 
 msgid "Service Clerk Sales Report"
-msgstr "Sales By Clerk (Open)"
+msgstr "Sales By Clerk (Order Open)"
 
 msgid "Training"
 msgstr "Training Dataset"
 
 msgid "Proceeds Clerk Sales Report"
-msgstr "Sales By Clerk (Close)"
+msgstr "Sales By Clerk (Order Close)"
 
 msgid "XTerm"
 msgstr "XTerm"
@@ -3129,13 +3129,13 @@ msgid ""
 "is connected and powered up"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:367
+#: ../..//content/controllers/cashdrawer_controller.js:368
 #: ../..//content/controllers/print_controller.js:764
 #: ../..//content/controllers/vfd_controller.js:258
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:431
+#: ../..//content/controllers/cashdrawer_controller.js:432
 #: ../..//content/controllers/print_controller.js:1000
 #: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
@@ -3869,7 +3869,7 @@ msgid "No order to add/view annotations"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:309
-#: ../..//content/reports/controllers/rpt_base_controller.js:251
+#: ../..//content/reports/controllers/rpt_base_controller.js:252
 msgid "Order Details"
 msgstr ""
 
@@ -5016,7 +5016,7 @@ msgstr ""
 msgid "Cash Drawer Summary Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_daily_sales_controller.js:189
+#: ../..//content/reports/controllers/rpt_daily_sales_controller.js:185
 msgid "Daily Sales Report"
 msgstr ""
 
@@ -5063,14 +5063,4 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
 msgid "(rpt)"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_58mm.tpl:19
-#: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_80mm.tpl:13
-msgid "(rpt)Service"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_58mm.tpl:21
-#: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_80mm.tpl:14
-msgid "(rpt)Proceeds"
 msgstr ""
