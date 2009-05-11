@@ -408,8 +408,10 @@
                                 
                                 // clear recall check from cart
                                 this._controller.cancel(true);
-                                
-                                this._controller.dispatchEvent('onStore', curTransaction);
+
+                                // dispatch changeclerk event
+                                // this._controller.dispatchEvent('onStore', curTransaction);
+                                this._controller.dispatchEvent('onTransTable', curTransaction);
                             }
                             
                         }
