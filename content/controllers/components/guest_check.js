@@ -47,6 +47,10 @@
                 // ChangeServiceClerk
                 cart.addEventListener('onChangeServiceClerk', this.handleNewTransaction, this);
 
+                // TransTable
+                cart.addEventListener('onTransTable', this.handleNewTransaction, this);
+
+
                 cart.addEventListener('beforeSubmit', this.handleRequestTableNo, this);
                 
             }
@@ -108,8 +112,8 @@
                         this._controller.newCheck(true);
                 }
             }
-            if (evt.type == 'onInitial' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit' || evt.type == 'onChangeServiceClerk') {
-                if (evt.type == 'onStore' || evt.type == 'onChangeServiceClerk') {
+            if (evt.type == 'onInitial' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit' || evt.type == 'onChangeServiceClerk' || evt.type == 'onTransTable') {
+                if (evt.type == 'onStore' || evt.type == 'onChangeServiceClerk' || evt.type == 'onTransTable') {
                     this._tableStatusModel.addCheck(evt.data.data);
                 }
                 if (evt.type == 'afterSubmit') {
