@@ -6,26 +6,26 @@
 <!ENTITY rptdailysalessummary.exportcsv "Export to CSV">
 <!ENTITY rptdailysalessummary.exportrcp "Print">
 <!ENTITY rptdailysalessummary.togglezoom "Toggle Zoom">
-<!ENTITY rptdailysalessummary.machineid "Terminal No:">
+<!ENTITY rptdailysalessummary.terminal_no "Terminal:">
 <!ENTITY rptdailysalessummary.sortby "Sort By:">
-<!ENTITY rptdailysalessummary.terminal_no "Terminal No.">
-<!ENTITY rptdailysalessummary.tax_subtotal "Add-on Tax">
-<!ENTITY rptdailysalessummary.total "Payment">
-<!ENTITY rptdailysalessummary.item_subtotal "Total">
-<!ENTITY rptdailysalessummary.surcharge_subtotal "Surcharge">
-<!ENTITY rptdailysalessummary.discount_subtotal "Discount">
-<!ENTITY rptdailysalessummary.promotion_subtotal "Promotion">
-<!ENTITY rptdailysalessummary.revalue_subtotal "Revalue">
-<!ENTITY rptdailysalessummary.cash "Cash">
-<!ENTITY rptdailysalessummary.check "Check">
-<!ENTITY rptdailysalessummary.creditcard "Credit Card">
-<!ENTITY rptdailysalessummary.coupon "Coupon">
-<!ENTITY rptdailysalessummary.giftcard "Gift Card">
+<!ENTITY rptdailysalessummary.sortby.time "Date">
+<!ENTITY rptdailysalessummary.sortby.terminal_no "Terminal">
+<!ENTITY rptdailysalessummary.sortby.tax_subtotal "Add-on Tax">
+<!ENTITY rptdailysalessummary.sortby.total "Payment">
+<!ENTITY rptdailysalessummary.sortby.item_subtotal "Total">
+<!ENTITY rptdailysalessummary.sortby.surcharge_subtotal "Surcharge">
+<!ENTITY rptdailysalessummary.sortby.discount_subtotal "Discount">
+<!ENTITY rptdailysalessummary.sortby.promotion_subtotal "Promotion">
+<!ENTITY rptdailysalessummary.sortby.revalue_subtotal "Revalue">
+<!ENTITY rptdailysalessummary.sortby.cash "Cash">
+<!ENTITY rptdailysalessummary.sortby.check "Check">
+<!ENTITY rptdailysalessummary.sortby.creditcard "Credit Card">
+<!ENTITY rptdailysalessummary.sortby.coupon "Coupon">
+<!ENTITY rptdailysalessummary.sortby.giftcard "Gift Card">
 <!ENTITY rptdailysalessummary.all "List All">
 <!ENTITY rptdailysalessummary.wait "Waiting...">
 <!ENTITY rptdailysalessummary.periodtype "Period Type:">
-<!ENTITY rptdailysalessummary.transaction_submitted "Order Finalized time">
-<!ENTITY rptdailysalessummary.starttime "Order Opened Time">
+<!ENTITY rptdailysalessummary.transaction_submitted "Order Closed">
+<!ENTITY rptdailysalessummary.starttime "Order Opened">
 <!ENTITY rptdailysalessummary.saleperiod "Sale Period">
-<!ENTITY rptdailysalessummary.time "Time">
-<!ENTITY rptdailysalessummary.shiftno "Shift No.:">
+<!ENTITY rptdailysalessummary.shiftno "Shift Number:">

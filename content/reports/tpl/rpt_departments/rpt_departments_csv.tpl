@@ -5,7 +5,9 @@
 "${_( '(rpt)Clerk' ) + ':'}","${head.clerk_displayname}"
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 
-"${_( '(rpt)No' )}","${_( '(rpt)Name' )}"
+"${_( '(rpt)Department Number' )}","${_( '(rpt)Department Name' )}"
 {for category in body}
-"${category.no}","${category.name}"
+"'${category.no}","'${category.name}"
 {/for}
+
+"${_( '(rpt)Records Found' ) + ': '}","${body.length|format:0}"

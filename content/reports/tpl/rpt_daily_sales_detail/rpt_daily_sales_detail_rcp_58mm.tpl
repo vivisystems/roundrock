@@ -9,15 +9,27 @@ ${head.end_time}
 
 ${head.title|center:24}
 {for detail in body}
+{eval}
+  TrimPath.RoundingPrices = detail.rounding_prices;
+  TrimPath.PrecisionPrices = detail.precision_prices;
+  TrimPath.RoundingTaxes = detail.rounding_taxes;
+  TrimPath.PrecisionTaxes = detail.precision_taxes;
+{/eval}
 ------------------------
 ${_( '(rpt)Terminal' )}:
 ${detail.terminal_no|right:24}
+${_( '(rpt)Sale Period' ) + ':'}
+${detail.sale_period|unixTimeToString:'saleperiod'|right:24}
+${_( '(rpt)Shift' ) + ':'}
+${detail.shift_number|right:24}
 ${_( '(rpt)Time' ) + ':'}
 ${detail.Order.time|unixTimeToString|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
+${_( '(rpt)Invoice Number' ) + ':'}
+${detail.invoice_no|default:''|right:24}
 ${_( '(rpt)Guests' ) + ':'}
-${detail.no_of_customers|right:24}
+${detail.no_of_customers|default:''|right:24}
 ${_( '(rpt)Items' ) + ':'}
 ${detail.items_count|right:24}
 ${_( '(rpt)Total' ) + ':'}
@@ -54,6 +66,35 @@ ${_( '(rpt)Subtotal' )}
 ${items.current_subtotal|default:0|viviFormatPrices:true|right:24}
 {/for}
 {/for}
+{eval}
+  delete TrimPath.RoundingPrices;
+  delete TrimPath.PrecisionPrices;
+  delete TrimPath.RoundingTaxes;
+  delete TrimPath.PrecisionTaxes;
+{/eval}
+------------------------
+${_( '(rpt)Records Found' ) + ': '|left:16}${body.length|default:0|format:0|right:8}
+[&CR]
+------------------------
+${_( '(rpt)Summary' )}
+${_( '(rpt)Guests' ) + ':'}
+${foot.foot_datas.guests|default:0|format:0|right:24}
+${_( '(rpt)Items' ) + ':'}
+${foot.foot_datas.items|default:0|format:0|right:24}
+${_( '(rpt)Total' ) + ':'}
+${foot.foot_datas.item_subtotal|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Add-on Tax' ) + ':'}
+${foot.foot_datas.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
+${_( '(rpt)Surcharge' ) + ':'}
+${foot.foot_datas.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Discount' ) + ':'}
+${foot.foot_datas.discount_subtotal|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Promotion' ) + ':'}
+${foot.foot_datas.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Revalue' ) + ':'}
+${foot.foot_datas.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Payment' ) + ':'}
+${foot.foot_datas.total|default:0|viviFormatPrices:true|right:24}
 ------------------------
 ${foot.gen_time}
 [&CR]

@@ -58,24 +58,24 @@
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
-                            'ifnull(orders.change, 0) as "Order.change"',
-                            'ifnull(orders.tax_subtotal, 0) as "Order.tax_subtotal"',
-                            'ifnull(orders.item_subtotal, 0) as "Order.item_subtotal"',
-                            'ifnull(orders.total, 0) as "Order.total"',
+                            'orders.change',
+                            'orders.tax_subtotal',
+                            'orders.item_subtotal',
+                            'orders.total',
                             'orders.service_clerk_displayname',
                             'orders.proceeds_clerk_displayname',
                             'orders.rounding_prices',
                             'orders.precision_prices',
                             'orders.rounding_taxes',
                             'orders.precision_taxes',
-                            'ifnull(orders.surcharge_subtotal, 0) as "Order.surcharge_subtotal"',
-                            'ifnull(orders.discount_subtotal, 0) as "Order.discount_subtotal"',
-                            'ifnull(orders.promotion_subtotal, 0) as "Order.promotion_subtotal"',
-                            'ifnull(orders.revalue_subtotal, 0) as "Order.revalue_subtotal"',
-                            'ifnull(orders.items_count, 0) as "Order.items_count"',
+                            'orders.surcharge_subtotal',
+                            'orders.discount_subtotal',
+                            'orders.promotion_subtotal',
+                            'orders.revalue_subtotal',
+                            'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
-                            'ifnull(orders.no_of_customers, 0) as "Order.no_of_customers"',
+                            'orders.no_of_customers',
                             'orders.invoice_no',
                             'orders.sale_period',
                             'orders.shift_number',
@@ -116,11 +116,7 @@
 					repDatas[ oid ][ 'giftcard' ] = 0.0;
 				}
 				
-				if ( o.payment_name == 'cash' ) {
-					repDatas[ oid ][o.payment_name] += o.payment_subtotal - o.change;
-				} else {
-		            repDatas[ oid ][ o.payment_name ] += o.payment_subtotal;
-				}
+                repDatas[ oid ][o.payment_name] += o.payment_subtotal - o.change;
 
                 old_oid = oid;
             });
@@ -187,7 +183,9 @@
                                 check: 0,
                                 creditcard: 0,
                                 coupon: 0,
-                                giftcard: 0
+                                giftcard: 0,
+                                guests: 0,
+                                items: 0
                             }
                         }
                     }
@@ -207,6 +205,8 @@
                     clerk.summary.creditcard += data[ 'creditcard' ];
                     clerk.summary.coupon += data[ 'coupon' ];
                     clerk.summary.giftcard += data[ 'giftcard' ];
+                    clerk.summary.guests += data['no_of_customers'];
+                    clerk.summary.items += data['items_count'];
            		};
            	});
 

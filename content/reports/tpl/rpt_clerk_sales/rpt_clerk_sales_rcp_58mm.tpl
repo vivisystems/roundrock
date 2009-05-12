@@ -31,6 +31,12 @@ ${_( '(rpt)Time' ) + ':'}
 ${order.time|unixTimeToString|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${order.sequence|right:24}
+${_( '(rpt)Invoice Number' ) + ':'}
+${order.invoice_no|default:''|right:24}
+${_( '(rpt)Guests' ) + ':'}
+${order.no_of_customers|format:0|right:24}
+${_( '(rpt)Items' ) + ':'}
+${order.items_count|format:0|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${order.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
@@ -64,10 +70,14 @@ ${order.giftcard|default:0|viviFormatPrices:true|right:24}
 {/eval}
 ------------------------
 ${_( '(rpt)Records Found' ) + ': '|left:16}${clerk.orders.length|default:0|format:0|right:8}
-
+[&CR]
 ------------------------
 ${_( '(rpt)Summary' )}
 ------------------------
+${_( '(rpt)Guests' ) + ':'}
+${clerk.summary.guests|format:0|right:24}
+${_( '(rpt)Items' ) + ':'}
+${clerk.summary.items|format:0|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${clerk.summary.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}

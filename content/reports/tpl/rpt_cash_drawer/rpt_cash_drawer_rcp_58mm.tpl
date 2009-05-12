@@ -15,7 +15,7 @@ ${item.terminal_no|right:24}
 ${_( '(rpt)Drawer' ) + ':'}
 ${item.drawer_no|right:24}
 ${_( '(rpt)Clerk' ) + ':'}
-${item.clerk_displayname|right:24}
+${item.clerk_displayname|default:''|right:24}
 ${_( '(rpt)Time' ) + ':'}
 ${item.created|unixTimeToString|right:24}
 ${_( '(rpt)Event' ) + ':'}

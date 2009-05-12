@@ -7,7 +7,7 @@
 <!ENTITY rptdepartments.exportrcp "Print">
 <!ENTITY rptdepartments.togglezoom "Toggle Zoom">
 <!ENTITY rptdepartments.all "List All">
-<!ENTITY rptdepartments.no "No">
-<!ENTITY rptdepartments.name "Name">
+<!ENTITY rptdepartments.sortby.no "Department Number">
+<!ENTITY rptdepartments.sortby.name "Department Name">
 <!ENTITY rptdepartments.sortby "Sort by:">
 <!ENTITY rptdepartments.wait "Waiting...">
