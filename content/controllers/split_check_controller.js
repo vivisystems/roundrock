@@ -13,6 +13,7 @@
         _index: 0,
         _splitedIndex: 0,
         _tableStatusModel: null,
+        _cart: null,
         
         checkOrd: function() {
             alert('checkOrd');
@@ -28,6 +29,13 @@
             var r = this._tableStatusModel.getNewCheckNo();
 
             return "" + r;
+        },
+
+        getCartController: function() {
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
+            return this._cart;
         },
 
         splitItems: function() {
@@ -374,6 +382,19 @@
             order.saveOrder(origData);
             order.serializeOrder(origData);
 
+            // dispatch changeclerk event
+            // this.getCartController().dispatchEvent('onStore', origData);
+            this.getCartController().dispatchEvent('onSplitCheck', origData);
+
+            // add to table_status
+            if (this._tableStatusModel == null) {
+                this._tableStatusModel = new TableStatusModel;
+                this._tableStatusModel.initial();
+            }
+
+            // update table status
+            this._tableStatusModel.addCheck(origData);
+
             var orders = this._genOrders();
 
             var check_no_list = [];
@@ -402,6 +423,10 @@
                 // save order object
                 order.serializeOrder(data);
 
+                // dispatch changeclerk event
+                // this.getCartController().dispatchEvent('onStore', origData);
+                this.getCartController().dispatchEvent('onSplitCheck', origData);
+
                 // add to table_status
                 if (this._tableStatusModel == null) {
                     this._tableStatusModel = new TableStatusModel;
@@ -409,7 +434,6 @@
                 }
 
                 // update table status
-                this._tableStatusModel.addCheck(origData);
                 this._tableStatusModel.addCheck(data);
 
             });
