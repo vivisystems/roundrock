@@ -34,7 +34,6 @@
     /**
      * SystemBackup Controller
      */
-
     var __controller__ = {
         name: 'SystemBackup',
 	
@@ -171,7 +170,7 @@
             this.setButtonState();
 
             if (this.execute(this._scriptPath + "backup.sh", '')) {
-                this.execute("/bin/sync", []);
+                this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
                 NotifyUtils.info(_('<Backup to Local> is done!!'));
             }
 
@@ -202,7 +201,7 @@
                 var param = ["-fr", this._localbackupDir + dir, this._stickbackupDir];
 
                 if (this.execute("/bin/cp", param)) {
-                    this.execute("/bin/sync", []);
+                    this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
                     NotifyUtils.info(_('<Copy Backup to Stick> is done!!'));
                 }
             } else {
@@ -321,4 +320,3 @@
     GeckoJS.Controller.extend(__controller__);
 
 })();
-

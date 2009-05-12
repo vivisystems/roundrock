@@ -44,8 +44,7 @@
                 saveFile.close();
                 
                 // sync to media...
-                this.execute("/bin/sync", []);
-                GREUtils.File.run( "/bin/sync", [], false );
+                this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
 
             }catch(e){
                 GREUtils.log('ERROR', 'exportCSV ' + e);

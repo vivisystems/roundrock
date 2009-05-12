@@ -281,7 +281,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 // reset max script run time...
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
 
-                this.execute("/bin/sync", []);
+                this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
 
                 // progmeter.value = 0;
                 this.setButtonDisable(false);
@@ -375,7 +375,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 // reset max script run time...
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
 
-                this.execute("/bin/sync", []);
+                this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
 
                 // progmeter.value = 0;
                 this.setButtonDisable(false);
