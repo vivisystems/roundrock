@@ -8,12 +8,14 @@ ${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.title|center:24}
 {for category in body}
 ------------------------
-${_( '(rpt)No.' ) + ':'}
+${_( '(rpt)Department Number' ) + ':'}
 ${category.no|right:24}
-${_( '(rpt)Name' ) + ':'}
+${_( '(rpt)Department Name' ) + ':'}
 ${category.name|right:24}
 {/for}
 ------------------------
+${_( '(rpt)Records Found' ) + ': '}${body.length|format:0}
+[&CR]
 ${foot.gen_time}
 [&CR]
 [&CR]

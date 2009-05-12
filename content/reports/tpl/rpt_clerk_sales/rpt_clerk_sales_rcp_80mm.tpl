@@ -21,20 +21,23 @@ ${_( '(rpt)Terminal' )|left:8}  ${_( '(rpt)Time' )|left:16}  ${_( '(rpt)Sequence
   TrimPath.PrecisionTaxes = order.precision_taxes;
 {/eval}
 ${order.terminal_no|left:8}  ${order.time|unixTimeToString|left:16}  ${order.sequence|left:14}
-${'    ' + _( '(rpt)Sale Period' ) + ': '|left:17}${order.sale_period|unixTimeToString:'saleperiod'|right:24}
-${'    ' + _( '(rpt)Shift' ) + ': '|left:17}${order.shift_number|right:24}
-${'    ' + _( '(rpt)Total' ) + ': '|left:17}${order.item_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:17}${order.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
-${'    ' + _( '(rpt)Surcharge' ) + ': '|left:17}${order.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Discount' ) + ': '|left:17}${order.discount_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Promotion' ) + ': '|left:17}${order.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Revalue' ) + ': '|left:17}${order.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Payment' ) + ': '|left:17}${order.total|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Cash' ) + ': '|left:17}${order.cash|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Check' ) + ': '|left:17}${order.check|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Credit Card' ) + ': '|left:17}${order.creditcard|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Coupon' ) + ': '|left:17}${order.coupon|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Gift Card' ) + ': '|left:17}${order.giftcard|default:0|viviFormatPrices:true|right:24}
+${'    ' + _( '(rpt)Sale Period' ) + ': '|left:19}${order.sale_period|unixTimeToString:'saleperiod'|right:22}
+${'    ' + _( '(rpt)Shift' ) + ': '|left:19}${order.shift_number|right:22}
+${'    ' + _( '(rpt)Invoice Number' ) + ': '|left:19}${order.invoice_no|default:''|right:22}
+${'    ' + _( '(rpt)Guests' ) + ': '|left:19}${order.no_of_customers|format:0|right:22}
+${'    ' + _( '(rpt)Items' ) + ': '|left:19}${order.items_count|format:0|right:22}
+${'    ' + _( '(rpt)Total' ) + ': '|left:19}${order.item_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:19}${order.tax_subtotal|default:0|viviFormatTaxes:true|right:22}
+${'    ' + _( '(rpt)Surcharge' ) + ': '|left:19}${order.surcharge_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Discount' ) + ': '|left:19}${order.discount_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Promotion' ) + ': '|left:19}${order.promotion_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Revalue' ) + ': '|left:19}${order.revalue_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Payment' ) + ': '|left:19}${order.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Cash' ) + ': '|left:19}${order.cash|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Check' ) + ': '|left:19}${order.check|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Credit Card' ) + ': '|left:19}${order.creditcard|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Coupon' ) + ': '|left:19}${order.coupon|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Gift Card' ) + ': '|left:19}${order.giftcard|default:0|viviFormatPrices:true|right:22}
 {/for}
 {eval}
   delete TrimPath.RoundingPrices;
@@ -43,22 +46,24 @@ ${'    ' + _( '(rpt)Gift Card' ) + ': '|left:17}${order.giftcard|default:0|viviF
   delete TrimPath.PrecisionTaxes;
 {/eval}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ': '|left:17}${clerk.orders.length|default:0|format:0|right:24}
+${_( '(rpt)Records Found' ) + ': '|left:19}${clerk.orders.length|default:0|format:0|right:22}
 [&CR]
 ------------------------------------------
 ${_( '(rpt)Summary' )}
-${'    ' + _( '(rpt)Total' ) + ': '|left:17}${clerk.summary.item_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:17}${clerk.summary.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
-${'    ' + _( '(rpt)Surcharge' ) + ': '|left:17}${clerk.summary.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Discount' ) + ': '|left:17}${clerk.summary.discount_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Promotion' ) + ': '|left:17}${clerk.summary.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Revalue' ) + ': '|left:17}${clerk.summary.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Payment' ) + ': '|left:17}${clerk.summary.total|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Cash' ) + ': '|left:17}${clerk.summary.cash|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Check' ) + ': '|left:17}${clerk.summary.check|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Credit Card' ) + ': '|left:17}${clerk.summary.creditcard|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Coupon' ) + ': '|left:17}${clerk.summary.coupon|default:0|viviFormatPrices:true|right:24}
-${'    ' + _( '(rpt)Gift Card' ) + ': '|left:17}${clerk.summary.giftcard|default:0|viviFormatPrices:true|right:24}
+${'    ' + _( '(rpt)Guests' ) + ': '|left:19}${clerk.summary.guests|format:0|right:22}
+${'    ' + _( '(rpt)Items' ) + ': '|left:19}${clerk.summary.items|format:0|right:22}
+${'    ' + _( '(rpt)Total' ) + ': '|left:19}${clerk.summary.item_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:19}${clerk.summary.tax_subtotal|default:0|viviFormatTaxes:true|right:22}
+${'    ' + _( '(rpt)Surcharge' ) + ': '|left:19}${clerk.summary.surcharge_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Discount' ) + ': '|left:19}${clerk.summary.discount_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Promotion' ) + ': '|left:19}${clerk.summary.promotion_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Revalue' ) + ': '|left:19}${clerk.summary.revalue_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Payment' ) + ': '|left:19}${clerk.summary.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Cash' ) + ': '|left:19}${clerk.summary.cash|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Check' ) + ': '|left:19}${clerk.summary.check|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Credit Card' ) + ': '|left:19}${clerk.summary.creditcard|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Coupon' ) + ': '|left:19}${clerk.summary.coupon|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Gift Card' ) + ': '|left:19}${clerk.summary.giftcard|default:0|viviFormatPrices:true|right:22}
 ------------------------------------------
 {/for}
 ${foot.gen_time}

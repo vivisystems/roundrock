@@ -31,7 +31,7 @@
         <tbody>
 {for item in body}
             <tr>
-                <td style="text-align: left;">${item.clerk_displayname}</td>
+                <td style="text-align: left;">${item.clerk_displayname|default:''}</td>
                 <td style="text-align: left;">${item.terminal_no}</td>
                 <td style="text-align: left;">${_( '(rpt)' + item.event_type )}</td>
                 <td style="text-align: right;">${item.num_occurrences|default:0|format:0}</td>

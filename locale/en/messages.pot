@@ -1618,10 +1618,10 @@ msgid "(rpt)Add-on Tax"
 msgstr "Add-on Tax"
 
 msgid "(rpt)Surcharge"
-msgstr "Surcharge"
+msgstr "+"
 
 msgid "(rpt)Discount"
-msgstr "Discount"
+msgstr "-"
 
 msgid "(rpt)Payment"
 msgstr "Payment"
@@ -1667,9 +1667,6 @@ msgstr "Price"
 
 msgid "(rpt)Quantity"
 msgstr "Quantity"
-
-msgid "(rpt)No."
-msgstr "No."
 
 msgid "(rpt)Name"
 msgstr "Name"
@@ -1725,8 +1722,8 @@ msgstr "Age_Verification"
 msgid "(rpt)Visible"
 msgstr "Visible"
 
-msgid "(rpt)Department No."
-msgstr "Department No."
+msgid "(rpt)Department Number"
+msgstr "Department Number"
 
 msgid "(rpt)Department Name"
 msgstr "Department Name"
@@ -1837,7 +1834,7 @@ msgid "(rpt)ITEM"
 msgstr "item"
 
 msgid "(rpt)Promotion"
-msgstr "Promotion"
+msgstr "Promotions"
 
 msgid "(rpt)Subtotal"
 msgstr "Subtotal"
@@ -2142,7 +2139,7 @@ msgstr ""
 "Please MAKE SURE the backup files are from this machine otherwise a 'license error message' will pop up."
 
 msgid "(rpt)Invoice Number"
-msgstr "Invoice Number"
+msgstr "Invoice"
 
 msgid "(rpt)Invoice Count"
 msgstr "Invoice Count"

@@ -6,12 +6,12 @@
 <!ENTITY rptdailysales.exportcsv "Export to CSV">
 <!ENTITY rptdailysales.exportrcp "Print">
 <!ENTITY rptdailysales.togglezoom "Toggle Zoom">
-<!ENTITY rptdailysales.terminal_no "Terminal">
+<!ENTITY rptdailysales.terminal_no "Terminal:">
 <!ENTITY rptdailysales.sortby "Sort By:">
 <!ENTITY rptdailysales.sortby.terminal_no "Terminal">
 <!ENTITY rptdailysales.sortby.time "Time">
 <!ENTITY rptdailysales.sortby.sequence "Sequence">
-<!ENTITY rptdailysales.sortby.invoice_no "Invoice No.">
+<!ENTITY rptdailysales.sortby.invoice_no "Invoice Number">
 <!ENTITY rptdailysales.sortby.tax_subtotal "Add-on Tax">
 <!ENTITY rptdailysales.sortby.total "Payment">
 <!ENTITY rptdailysales.sortby.item_subtotal "Total">

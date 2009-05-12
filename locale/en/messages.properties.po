@@ -1627,10 +1627,10 @@ msgid "(rpt)Add-on Tax"
 msgstr "Add-on Tax"
 
 msgid "(rpt)Surcharge"
-msgstr "Surcharge"
+msgstr "+"
 
 msgid "(rpt)Discount"
-msgstr "Discount"
+msgstr "-"
 
 msgid "(rpt)Payment"
 msgstr "Payment"
@@ -1676,9 +1676,6 @@ msgstr "Price"
 
 msgid "(rpt)Quantity"
 msgstr "Quantity"
-
-msgid "(rpt)No."
-msgstr "No."
 
 msgid "(rpt)Name"
 msgstr "Name"
@@ -1734,8 +1731,8 @@ msgstr "Age_Verification"
 msgid "(rpt)Visible"
 msgstr "Visible"
 
-msgid "(rpt)Department No."
-msgstr "Department No."
+msgid "(rpt)Department Number"
+msgstr "Department Number"
 
 msgid "(rpt)Department Name"
 msgstr "Department Name"
@@ -1846,7 +1843,7 @@ msgid "(rpt)ITEM"
 msgstr "item"
 
 msgid "(rpt)Promotion"
-msgstr "Promotion"
+msgstr "Promotions"
 
 msgid "(rpt)Subtotal"
 msgstr "Subtotal"
@@ -2157,7 +2154,7 @@ msgstr ""
 "error message' will pop up."
 
 msgid "(rpt)Invoice Number"
-msgstr "Invoice Number"
+msgstr "Invoice"
 
 msgid "(rpt)Invoice Count"
 msgstr "Invoice Count"
@@ -3123,19 +3120,19 @@ msgstr ""
 msgid "Cash drawer [%S] is not enabled! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:313
+#: ../..//content/controllers/cashdrawer_controller.js:312
 msgid ""
 "Error detected while opening cash drawer [%S]; please check if cash drawer "
 "is connected and powered up"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:368
+#: ../..//content/controllers/cashdrawer_controller.js:366
 #: ../..//content/controllers/print_controller.js:764
 #: ../..//content/controllers/vfd_controller.js:258
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:432
+#: ../..//content/controllers/cashdrawer_controller.js:430
 #: ../..//content/controllers/print_controller.js:1000
 #: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
@@ -3869,7 +3866,7 @@ msgid "No order to add/view annotations"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:309
-#: ../..//content/reports/controllers/rpt_base_controller.js:252
+#: ../..//content/reports/controllers/rpt_base_controller.js:256
 msgid "Order Details"
 msgstr ""
 
@@ -4540,8 +4537,8 @@ msgstr ""
 
 #: ../..//content/controllers/systembackup_controller.js:187
 #: ../..//content/controllers/systembackup_controller.js:257
-#: ../..//content/reports/controllers/rpt_base_controller.js:121
-#: ../..//content/reports/controllers/rpt_base_controller.js:158
+#: ../..//content/reports/controllers/rpt_base_controller.js:125
+#: ../..//content/reports/controllers/rpt_base_controller.js:162
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
@@ -4992,19 +4989,19 @@ msgstr ""
 msgid "Attendance Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:83
+#: ../..//content/reports/controllers/rpt_base_controller.js:86
 msgid "We are now on the first page."
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:114
+#: ../..//content/reports/controllers/rpt_base_controller.js:118
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:151
+#: ../..//content/reports/controllers/rpt_base_controller.js:155
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:192
+#: ../..//content/reports/controllers/rpt_base_controller.js:196
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
@@ -5016,19 +5013,19 @@ msgstr ""
 msgid "Cash Drawer Summary Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_daily_sales_controller.js:185
+#: ../..//content/reports/controllers/rpt_daily_sales_controller.js:191
 msgid "Daily Sales Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_daily_sales_detail_controller.js:110
+#: ../..//content/reports/controllers/rpt_daily_sales_detail_controller.js:127
 msgid "No datum!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_daily_sales_detail_controller.js:180
+#: ../..//content/reports/controllers/rpt_daily_sales_detail_controller.js:205
 msgid "Daily Sales Report - Detail"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_daily_sales_summary_controller.js:212
+#: ../..//content/reports/controllers/rpt_daily_sales_summary_controller.js:216
 msgid "Daily Sales Summary Report"
 msgstr ""
 
@@ -5063,4 +5060,19 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
 msgid "(rpt)"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_58mm.tpl:11
+#: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_80mm.tpl:8
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:29
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:16
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:13
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:28
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:27
+msgid "(rpt)No."
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:11
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:11
+msgid "(rpt)Department No."
 msgstr ""

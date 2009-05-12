@@ -10,7 +10,7 @@
 
  "${_( '(rpt)Clerk' )}","${_( '(rpt)Event' )}","${_( '(rpt)Occurrences' )}"
 {for item in body}
-"${item.clerk_displayname}","${_( '(rpt)' + item.event_type )}","${item.num_occurrences}"
+"'${item.clerk_displayname|default:''}","${_( '(rpt)' + item.event_type )}","${item.num_occurrences|default:0}"
 {/for}
 "${_( '(rpt)Records Found' ) + ':'}","${body.length|default:0}"
-"${_( '(rpt)Summary' ) + ':'}","","${foot.foot_data.total_num_occurrences}"
+"${_( '(rpt)Summary' ) + ':'}","","${foot.foot_data.total_num_occurrences|default:0}"

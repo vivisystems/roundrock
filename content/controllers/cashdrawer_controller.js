@@ -293,7 +293,6 @@
                     break;
 
                 case 'ledger':
-                    alert(paymentType + 'action:' + drawer[paymentType + 'action'] + this.dump(drawer));
                     if (drawer['ledgeraction'] != 'always') return;
                     break;
                     
@@ -332,7 +331,6 @@
 
             // save cashdrawer access
             var drawerRecordModel = new CashdrawerRecordModel();
-            alert(sequence);
             var accessRecord = {
                 terminal_no: GeckoJS.Session.get('terminal_no'),
                 drawer_no: drawer.number,

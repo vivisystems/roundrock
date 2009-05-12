@@ -11,14 +11,18 @@
         
         _fileName: 'rpt_daily_sales_summary',
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
             var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
-            var machineid = document.getElementById('machine_id').value;
+            var terminalNo = document.getElementById('terminal_no').value;
             
             var periodType = document.getElementById( 'period_type' ).value;
             var shiftNo = document.getElementById( 'shift_no' ).value;
@@ -58,8 +62,8 @@
                             "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status='1'";
 
-            if ( machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
+            if ( terminalNo.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
                 
             if ( shiftNo.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
@@ -71,7 +75,7 @@
 
             var orderPayment = new OrderPaymentModel();
             // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
-            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, limit: 30000000, recursive: 1});
+            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, limit: this._csvLimit, recursive: 1});
 
             //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
@@ -93,7 +97,9 @@
             	check: 0,
             	creditcard: 0,
             	coupon: 0,
-            	giftcard: 0
+            	giftcard: 0,
+                items: 0,
+                guests: 0
             };
             
             var old_oid;
@@ -130,18 +136,16 @@
 		                repDatas[ oid ][ 'giftcard' ] = 0.0;
 		            }
 		           
-		            if ( o.payment_name == 'cash' )
-	                	repDatas[ oid ][ o.payment_name ] += o.payment_subtotal - o.change;
-	                else repDatas[ oid ][ o.payment_name ] += o.payment_subtotal;
+                    repDatas[ oid ][ o.payment_name ] += o.payment_subtotal - o.change;
 
                     tmp_oid = oid;
                 } else {
                 
-                	if ( o.payment_name == 'cash' )
-	                	repDatas[ tmp_oid ][ o.payment_name ] += o.payment_subtotal - o.change;
-	                else repDatas[ tmp_oid ][ o.payment_name ] += o.payment_subtotal;
+                    repDatas[ tmp_oid ][ o.payment_name ] += o.payment_subtotal - o.change;
                     
                     if ( old_oid != oid ) {
+		                repDatas[ tmp_oid ][ 'no_of_customers' ] += o.no_of_customers;
+		                repDatas[ tmp_oid ][ 'items_count' ] += o.items_count;
 		                repDatas[ tmp_oid ][ 'total' ] += o.total;
 		                repDatas[ tmp_oid ][ 'surcharge_subtotal' ] += o.surcharge_subtotal;
 		                repDatas[ tmp_oid ][ 'discount_subtotal' ] += o.discount_subtotal;
@@ -160,11 +164,11 @@
 		            footDatas.revalue_subtotal += o.revalue_subtotal;
 		            footDatas.tax_subtotal += o.tax_subtotal;
 		            footDatas.item_subtotal += o.item_subtotal;
+                    footDatas.items += o.items_count;
+                    footDatas.guests += o.no_of_customers;
 		        }
 		        
-		        if ( o.payment_name == 'cash' )
-                	footDatas[ o.payment_name ] += o.payment_subtotal - o.change;
-                else footDatas[ o.payment_name ] += o.payment_subtotal;
+                footDatas[ o.payment_name ] += o.payment_subtotal - o.change;
               
                 old_oid = oid;
                 old_terminal = terminal;
@@ -212,11 +216,15 @@
             this._reportRecords.head.title = _( 'Daily Sales Summary Report' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
-            this._reportRecords.head.machine_id = machineid;
+            this._reportRecords.head.terminal_no = terminalNo;
             
             this._reportRecords.body = GeckoJS.BaseObject.getValues( orderedData );
             
             this._reportRecords.foot.foot_datas = footDatas;
+        },
+
+        exportCsv: function() {
+            this._super(this);
         },
 
         load: function() {
