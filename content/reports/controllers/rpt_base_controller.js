@@ -10,7 +10,7 @@
         components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
         packageName: 'viviecr',
         _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
-        _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
+        _recordLimit: 100, // this attribute indicates upper bound of the number of rwos we are going to take.
         _csvLimit: 3000000,
         _stdLimit: 1000,
         _csvRecords: null,

@@ -14,7 +14,7 @@
 		
 		setAll: function( inventoryRecords ) {
 			if ( inventoryRecords.length > 0 ) {
-				var timestamp = parseInt( ( new Date() ) / 1000 , 10 )
+				var timestamp = Math.round( ( new Date() ) / 1000 , 10 );
 				this.begin();
 				for ( inventoryRecord in inventoryRecords ) {
 					inventoryRecords[ inventoryRecord ].timestamp = timestamp;

@@ -3,7 +3,7 @@
     var CsvExportComponent = window.CsvExportComponent = GeckoJS.Component.extend({
 
     /**
-     * Component BrowserPrint
+     * Component CsvExport
      */
 
         name: 'CsvExport',
