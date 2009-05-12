@@ -263,7 +263,27 @@
         },
 
         doBookingTable: function() {
-            //
+            this._setPromptLabel('*** ' + _('Book Table') + ' ***', _('Please select a table to book...'), '', _('Press CANCEL button to cancel function'), 2);
+
+            var pnl = this._showPromptPanel('prompt_panel');
+            this._inputObj.action = 'BookTable';
+
+            return;
+
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
+
+            var aURL = 'chrome://viviecr/content/table_book.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var inputObj = {
+                isNewOrder: null,
+                tables: null
+            };
+
+            window.openDialog(aURL, 'table_book', features, inputObj);
+
+            return;
+
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                 .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
             var cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
@@ -426,6 +446,31 @@
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
                     this._hidePromptPanel('prompt_panel');
+                    return;
+                    break;
+
+                case 'BookTable':
+                    var table_id = this._tables[v].table.id;
+                    var table_no = this._tables[v].table_no;
+                    var table_name = this._tables[v].table.table_name;
+                    var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+                    var screenheight = GeckoJS.Session.get('screenheight') || '600';
+
+                    var aURL = 'chrome://viviecr/content/table_book.xul';
+                    var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+                    var inputObj = {
+                        table_no: table_no,
+                        table_id: table_id,
+                        table_name: table_name,
+                        tables: null
+                    };
+
+                    window.openDialog(aURL, 'table_book', features, inputObj);
+
+                    this._inputObj.action = '';
+                    this._sourceTableNo = null;
+                    this._hidePromptPanel('prompt_panel');
+                    
                     return;
                     break;
                 default:

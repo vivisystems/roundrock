@@ -26,8 +26,10 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table_region.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/models/table_booking.js" />
+    
     <script type="application/x-javascript" src="chrome://viviecr/content/select_table.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/controllers/select_table_controller.js" />
+    <!-- script type="application/x-javascript" src="chrome://viviecr/content/table_book.js" / -->
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
