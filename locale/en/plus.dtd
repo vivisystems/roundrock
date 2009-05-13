@@ -74,6 +74,7 @@
 <!ENTITY plus.button.color "Button Color">
 <!ENTITY plus.font.size "Font Size">
 <!ENTITY plus.append_empty_btns "Append Empty Buttons">
+<!ENTITY plus.display_order "Display Order">
 
 <!ENTITY plus.level "Level">
 <!ENTITY plus.price "Price">

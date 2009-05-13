@@ -25,7 +25,7 @@
                     <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Guests' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Items' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Total' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Gross' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Discount' )}</th>

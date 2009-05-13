@@ -64,7 +64,7 @@
         	this._reportRecords.foot.gen_time = ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' );
 		},
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
         },
         
         _exploit_reportRecords: function() {

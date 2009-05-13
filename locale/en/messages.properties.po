@@ -1620,11 +1620,32 @@ msgstr "Number of Events"
 msgid "(rpt)Sequence"
 msgstr "Sequence"
 
+msgid "(rpt)Hour"
+msgstr "Hour"
+
+msgid "(rpt)Net"
+msgstr "Net"
+
+msgid "(rpt)Net Per Order"
+msgstr "Net Per Order"
+
+msgid "(rpt)Net Per Guest"
+msgstr "Net Per Guest"
+
+msgid "(rpt)Gross"
+msgstr "Gross"
+
 msgid "(rpt)Total"
 msgstr "Total"
 
 msgid "(rpt)Add-on Tax"
 msgstr "Add-on Tax"
+
+msgid "(rpt)Order Surcharge"
+msgstr "Order+"
+
+msgid "(rpt)Order Discount"
+msgstr "Order-"
 
 msgid "(rpt)Surcharge"
 msgstr "+"
@@ -1818,8 +1839,8 @@ msgstr "Display Name"
 msgid "(rpt)Access Group"
 msgstr "Access Group"
 
-msgid "(rpt)Telphone"
-msgstr "Telphone"
+msgid "(rpt)Telephone"
+msgstr "Telephone"
 
 msgid "(rpt)Start"
 msgstr "Start"
@@ -3952,7 +3973,7 @@ msgstr ""
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/merge_check_controller.js:198
+#: ../..//content/controllers/merge_check_controller.js:209
 msgid "The Check# %S has been merged to Check# %S!!"
 msgstr ""
 
@@ -4503,7 +4524,7 @@ msgstr ""
 msgid "Failed to set volume"
 msgstr ""
 
-#: ../..//content/controllers/split_check_controller.js:420
+#: ../..//content/controllers/split_check_controller.js:444
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
@@ -5029,7 +5050,7 @@ msgstr ""
 msgid "Daily Sales Summary Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_hourly_sales_controller.js:101
+#: ../..//content/reports/controllers/rpt_hourly_sales_controller.js:117
 msgid "Hourly Sales Report"
 msgstr ""
 
@@ -5062,8 +5083,6 @@ msgstr ""
 msgid "(rpt)"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_58mm.tpl:11
-#: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_80mm.tpl:8
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:29
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:13

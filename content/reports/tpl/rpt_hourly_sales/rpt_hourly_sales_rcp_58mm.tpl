@@ -10,30 +10,44 @@ ${head.end_time}
 ${head.title|center:24}
 {for detail in body}
 ------------------------
+{if head.terminal_no}
 ${_( '(rpt)Terminal' ) + ':'}
-{if head.machine_id}${detail.terminal_no|right:24}{/if}
-[&CR]
-${_( '(rpt)Time' ) + ':'}
+${detail.terminal_no|right:24}
+{/if}
+${_( '(rpt)Date' ) + ':'}
+${detail.Date|right:24}
+${_( '(rpt)Hour' ) + ':'}
 ${detail.Hour|right:24}
 ${_( '(rpt)Total' ) + ':'}
-${detail.HourTotal|right:24}
+${detail.HourTotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Orders' ) + ':'}
-${detail.OrderNum|right:24}
+${detail.OrderNum|default:0|format:0|right:24}
 ${_( '(rpt)Guests' ) + ':'}
-${detail.Guests|right:24}
+${detail.Guests|default:0|format:0|right:24}
 ${_( '(rpt)Items' ) + ':'}
-${detail.ItemsCount|right:24}
+${detail.ItemsCount|default:0|format:0|right:24}
+${_( '(rpt)Net Per Guest' ) + ':'}
+${detail.NetPerGuest|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Net Per Order' ) + ':'}
+${detail.NetPerOrder|default:0|viviFormatPrices:true|right:24}
 {/for}
+------------------------
+${_( '(rpt)Records Found' ) + ': '|left:16}${body.length|default:0|format:0|right:8}
+[&CR]
 ------------------------
 ${_( '(rpt)Summary' )}
 ${_( '(rpt)Total' ) + ':'}
-${foot.HourTotal|right:24}
+${foot.HourTotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Orders' ) + ':'}
-${foot.OrderNum|right:24}
+${foot.OrderNum|default:0|format:0|right:24}
 ${_( '(rpt)Guests' ) + ':'}
-${foot.Guests|right:24}
+${foot.Guests|default:0|format:0|right:24}
 ${_( '(rpt)Items' ) + ':'}
-${foot.ItemsCount|right:24}
+${foot.ItemsCount|default:0|format:0|right:24}
+${_( '(rpt)Net Per Guest' ) + ':'}
+${foot.NetPerGuest|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Net Per Order' ) + ':'}
+${foot.NetPerOrder|default:0|viviFormatPrices:true|right:24}
 ------------------------
 ${foot.gen_time}
 [&CR]

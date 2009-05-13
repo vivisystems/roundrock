@@ -11,7 +11,7 @@
         
         _fileName: "rpt_detailed_tax",
         
-        _setData: function( start, end, periodType, terminalNo ) {
+        _setData: function( start, end, periodType, terminalNo, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
 			var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
@@ -20,20 +20,33 @@
             
             var orderItem = new OrderItemModel();
 
+            var timeField = periodType;
+            if (periodType == 'sale_period') {
+                timeField = 'transaction_submitted';
+            }
             var fields = [
-            				'orders.' + periodType + ' as "Order.time"',
+            				'orders.' + timeField + ' as "Order.time"',
+                            'orders.terminal_no',
             				'orders.sequence',
+                            'orders.sale_period',
+                            'orders.shift_number',
             				'orders.total',
+                            'orders.invoice_no',
             				'orders.tax_subtotal',
             				'orders.included_tax_subtotal',
             				'orders.promotion_subtotal',
             				'orders.revalue_subtotal',
+                            'orders.precision_prices',
+                            'orders.rounding_prices',
+                            'orders.precision_taxes',
+                            'orders.rounding_taxes',
             				'order_items.order_id',
             				'order_items.tax_name',
             				'order_items.tax_type',
             				'order_items.current_subtotal',
             				'order_items.current_qty',
             				'order_items.current_price',
+                            'SUM("order_items"."current_subtotal" + "order_items"."current_discount" + "order_items"."current_surcharge") as "OrderItem.current_subtotal"',
                             'SUM("order_items"."current_tax") + SUM("order_items"."included_tax") as "OrderItem.tax"'
                          ];
                             
@@ -45,10 +58,10 @@
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
 
             var groupby = 'order_items.order_id, order_items.tax_name, order_items.tax_type';
-            var orderby = 'orders.sequence';
+            var orderby = 'orders.' + timeField + ', orders.sequence';
 
-            var datas = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby } );
-            
+            var datas = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: limit } );
+
             var orderAdditions = new OrderAdditionModel();
             
             var orderAdditionRecords = orderAdditions.find( 'all',
@@ -56,10 +69,15 @@
 
 			var typeCombineTax = 'COMBINE';
 			var taxList = [];
+            var taxesByName = {};
+            /*
 			TaxComponent.prototype.getTaxList().forEach( function( tax ) {
-				if ( tax.type != typeCombineTax )
+				if ( tax.type != typeCombineTax ) {
 					taxList.push( tax );
+                    taxesByName[tax.name] = tax;
+                }
 			} );
+            */
 
 			var summary = {
 				total: 0,
@@ -70,26 +88,35 @@
 				promotion_subtotal: 0,
 				revalue_subtotal: 0
 			};
-			
+			/*
 			taxList.forEach( function( tax ) {
 				if ( tax.type != typeCombineTax )
-					summary[ tax.no ] = 0;
+					summary[ tax.no ] = {
+                        tax_subtotal: 0,
+                        item_subtotal: 0
+                    }
 			} );
-
+            */
+           
 			var oid;
-			records = {};
+			var records = {};
 			datas.forEach( function( data ) {
-				if ( data.order_id != oid ) {
+				if (!( data.order_id in records )) {
 					oid = data.order_id;
 					records[ oid ] = GREUtils.extend( {}, data );
 					records[ oid ][ 'surcharge_subtotal' ] = 0;
 					records[ oid ][ 'discount_subtotal' ] = 0;
 
+                    /*
 					taxList.forEach( function( tax ) {
 						if ( tax.type != typeCombineTax )
-							records[ oid ][ tax.no ] = 0;
+							records[ oid ][ tax.no ] = {
+                                tax_subtotal: 0,
+                                item_subtotal: 0
+                            }
 					} );
-					
+					*/
+
 					orderAdditionRecords.forEach( function( orderAdditionRecord ) {
 						if ( orderAdditionRecord.order_id == data.order_id ) {
 							records[ oid ][ 'surcharge_subtotal' ] += orderAdditionRecord.surcharge_subtotal;
@@ -105,18 +132,62 @@
 					summary.promotion_subtotal += data.Order.promotion_subtotal;
 					summary.revalue_subtotal += data.Order.revalue_subtotal;
 				}
-				
+
+
+                // need to push tax into tax list if data.tax_name not in taxList
+                if (!(data.tax_name in taxesByName)) {
+                    taxList.push({no: data.tax_name, name: data.tax_name});
+                    taxesByName[data.tax_name] = 1;
+                }
 				var taxObject = TaxComponent.prototype.getTax( data.tax_name );
 				
-				if ( taxObject.type != typeCombineTax ) {
-					records[ oid ][ data.tax_name ] += data.tax;
-					summary[ data.tax_name ] += data.tax;
+				if (!taxObject || taxObject.type != typeCombineTax ) {
+                    if (records[ oid ]) {
+                        if (data.tax_name in records[oid]) {
+                            records[ oid ][ data.tax_name ].tax_subtotal += data.tax;
+                            records[ oid ][ data.tax_name ].item_subtotal += data.current_subtotal;
+                        }
+                        else {
+                            records[ oid ][ data.tax_name ] = {
+                                tax_subtotal: data.tax,
+                                item_subtotal: data.current_subtotal
+                            }
+                        }
+                    }
+                    if (data.tax_name in summary) {
+                        summary[ data.tax_name ].tax_subtotal += data.tax;
+                        summary[ data.tax_name ].item_subtotal += data.current_subtotal;
+                    }
+                    else {
+                        summary[ data.tax_name ] = {
+                            tax_subtotal: data.tax,
+                            item_subtotal: data.current_subtotal
+                        }
+                    }
 				} else {// break down the combined tax.
 					taxObject.CombineTax.forEach( function( cTax ) {
-						taxAmountObject = TaxComponent.prototype.calcTaxAmount( cTax.no, data.current_subtotal, data.current_price, data.current_qty );
-						taxAmount = taxAmountObject[ cTax.no ].charge + taxAmountObject[ cTax.no ].included;
-						records[ oid ][ cTax.no ] += taxAmount;
-						summary[ cTax.no ] += taxAmount;
+						var taxAmountObject = TaxComponent.prototype.calcTaxAmount( cTax.no, data.current_subtotal, data.current_price, data.current_qty );
+						var taxAmount = taxAmountObject[ cTax.no ].charge + taxAmountObject[ cTax.no ].included;
+                        if (cTax.no in records[ oid ] ) {
+                            records[ oid ][ cTax.no ].tax_subtotal += taxAmount;
+                            records[ oid ][ cTax.no ].item_subtotal += data.current_subtotal;
+                        }
+                        else {
+                            records[ oid ][ cTax.no ] = {
+                                tax_subtotal: taxAmount,
+                                item_subtotal: data.current_subtotal
+                            }
+                        }
+                        if (cTax.no in summary) {
+                            summary[ cTax.no ].tax_subtotal += taxAmount;
+                            summary[ cTax.no ].item_subtotal += data.current_subtotal;
+                        }
+                        else {
+                            summary[ cTax.no ] = {
+                                tax_subtotal: taxAmount,
+                                item_subtotal: data.current_subtotal
+                            }
+                        }
 					} );
 				}
 			} );
@@ -124,7 +195,7 @@
 			this._reportRecords.head.title = _( 'Detailed Tax Report' );
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
-			this._reportRecords.head.machine_id = terminalNo;
+			this._reportRecords.head.terminal_no = terminalNo;
 			
 			this._reportRecords.body = records;
 			
@@ -133,19 +204,27 @@
 			this._reportRecords.foot.summary = summary;
 		},
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var waitPanel = this._showWaitPanel('wait_panel');
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var machineid = document.getElementById('machine_id').value;
+            var terminalNo = document.getElementById('terminal_no').value;
             
             var periodType = document.getElementById( 'periodtype' ).value;
 
-			this._setData( start, end, periodType, machineid );
+			this._setData( start, end, periodType, terminalNo, limit );
         },
         
+        exportCsv: function() {
+            this._super(this);
+        },
+
         execute: function() {
         	this._super();
         	this._registerOpenOrderDialog();

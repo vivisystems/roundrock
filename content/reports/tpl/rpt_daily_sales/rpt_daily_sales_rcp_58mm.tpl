@@ -36,7 +36,7 @@ ${_( '(rpt)Guests' ) + ':'}
 ${detail.no_of_customers|format:0|right:24}
 ${_( '(rpt)Items' ) + ':'}
 ${detail.items_count|format:0|right:24}
-${_( '(rpt)Total' ) + ':'}
+${_( '(rpt)Gross' ) + ':'}
 ${detail.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
 ${detail.tax_subtotal|default:0|viviFormatTaxes:true|right:24}

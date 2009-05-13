@@ -11,7 +11,7 @@ ${ _( '(rpt)Terminal' ) + ':'|left:17}${detail.terminal_no|right:24}
 ${ _( '(rpt)Time' ) + ':'|left:17}${detail.date|right:24}
 ${'    ' + _( '(rpt)Guests' ) + ':'|left:17}${detail.no_of_customers|default:0|format:0|right:24}
 ${'    ' + _( '(rpt)Items' ) + ':'|left:17}${detail.items_count|default:0|format:0|right:24}
-${'    ' + _( '(rpt)Total' ) + ':'|left:17}${detail.item_subtotal|default:0|viviFormatPrices:true|right:24}
+${'    ' + _( '(rpt)Gross' ) + ':'|left:17}${detail.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ':'|left:17}${detail.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
 ${'    ' + _( '(rpt)Surcharge' ) + ':'|left:17}${detail.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
 ${'    ' + _( '(rpt)Discount' ) + ':'|left:17}${detail.discount_subtotal|default:0|viviFormatPrices:true|right:24}
@@ -31,7 +31,7 @@ ${_( '(rpt)Records Found' ) + ': '|left:17}${body.length|default:0|format:0|righ
 ${_( '(rpt)Summary' )}
 ${'    ' + _( '(rpt)Guests' ) + ':'|left:17}${foot.foot_datas.guests|default:0|format:0|right:24}
 ${'    ' + _( '(rpt)Items' ) + ':'|left:17}${foot.foot_datas.items|default:0|format:0|right:24}
-${'    ' + _( '(rpt)Total' ) + ':'|left:17}${foot.foot_datas.item_subtotal|default:0|viviFormatPrices:true|right:24}
+${'    ' + _( '(rpt)Gross' ) + ':'|left:17}${foot.foot_datas.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ':'|left:17}${foot.foot_datas.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
 ${'    ' + _( '(rpt)Surcharge' ) + ':'|left:17}${foot.foot_datas.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
 ${'    ' + _( '(rpt)Discount' ) + ':'|left:17}${foot.foot_datas.discount_subtotal|default:0|viviFormatPrices:true|right:24}
