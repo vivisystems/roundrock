@@ -27,6 +27,7 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
                 main.addEventListener('afterClearOrderData', this.expireData, this);
+                main.addEventListener('afterTruncateTxnRecords', this.truncateData, this);
             }
             // add event listener for ledger events
             var ledger = GeckoJS.Controller.getInstanceByName('LedgerRecords');
@@ -354,6 +355,11 @@
             if (!isNaN(expireDate)) {
                 model.execute('delete from cashdrawer_records where created <= ' + expireDate);
             }
+        },
+
+        truncateData: function(evt) {
+            var model = new CashdrawerRecordModel();
+            model.execute('delete from cashdrawer_records');
         },
 
         // send open drawer commands to printer using the given parameters

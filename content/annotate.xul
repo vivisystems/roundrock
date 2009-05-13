@@ -35,7 +35,10 @@
     <vbox class="main-dialog" flex="1">
         <vbox flex="1" class="MainPnl">
             <vbox flex="2" pack="start" class="MainL">
-                <caption label="&annotations.view;"  class="PageTitle"/>
+                <hbox>
+                    <caption label="&annotations.view;"  class="PageTitle"/>
+                    <label id="sequence" value=""  class="PageTitle"/>
+                </hbox>
                 <hbox pack="start" flex="1" class="LeftPnl">
                     <viviscrollabletree id="viewscrollablepanel" flex="1"
                                     headers="&annotations.type;,&annotations.text;"

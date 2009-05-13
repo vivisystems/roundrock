@@ -772,6 +772,9 @@ msgstr ""
 msgid "acl_user_dummy"
 msgstr "dummy"
 
+msgid "acl_truncate_transaction_records"
+msgstr "Truncate Transaction Records"
+
 msgid "acl_override_default_price_level"
 msgstr "Override Default Price Level"
 
@@ -1476,6 +1479,16 @@ msgstr "View Order"
 
 msgid "vieworder.name"
 msgstr "View Order"
+
+msgid "truncatetxnrecords.desc"
+msgstr ""
+"This function removes all transactional data from the terminal. This feature should be used with extreme care, and it is strongly recommeded that the system be backed up before truncating transaction records. No parameter is needed."
+
+msgid "truncatetxnrecords.label"
+msgstr "Truncate Transaction Records"
+
+msgid "truncatetxnrecords.name"
+msgstr "Truncate Transaction Records"
 
 msgid "controlpanel.desc"
 msgstr ""
