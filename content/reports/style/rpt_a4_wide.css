@@ -191,7 +191,7 @@ text-align: center;
 	  background-color: #f5f2ec;
 	}
 	
-	// Mickey adds those below.
+	/* Mickey adds those below. */
 	#body-table > thead > tr:first-child > th {
 	  text-align: center;
 	  color: #56523a;
@@ -217,3 +217,15 @@ text-align: center;
 	}
 	
 }
+
+.hyperlink {
+    color: blue !important;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.hyperlink:hover {
+    cursor: pointer;
+}
+

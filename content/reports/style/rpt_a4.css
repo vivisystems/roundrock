@@ -239,3 +239,13 @@ text-align: center;
 	
 }
 
+td.hyperlink {
+    color: blue !important;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+td.hyperlink:hover {
+    cursor: pointer;
+}

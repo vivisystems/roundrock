@@ -60,7 +60,7 @@
                     <td style="text-align: left;">${order.sale_period|unixTimeToString:'saleperiod'}</td>
                     <td style="text-align: left;">${order.shift_number}</td>
                     <td style="text-align: left;">${order.time|unixTimeToString}</td>
-                    <td style="text-align: left;">${order.sequence}</td>
+                    <td style="text-align: left;" class="hyperlink">${order.sequence}</td>
                     <td style="text-align: left;">${order.invoice_no|default:''}</td>
                     <td style="text-align: right;">${order.no_of_customers|default:1|format:0}</td>
                     <td style="text-align: right;">${order.items_count|format:0}</td>

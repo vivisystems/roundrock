@@ -14,29 +14,29 @@
 
 
         loadOverlay: function() {
+
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
 
             var layoutOverlayUri = 'chrome://viviecr/content/layouts/traditional.xul';
-            
 
             if (layouts[selectedLayout]) {
                 layoutOverlayUri = layouts[selectedLayout]['overlay_uri'] || layoutOverlayUri;
             }
 
-            //layoutOverlayUri = 'chrome://viviecr/content/layouts/retail1.xul';
+            //GREUtils.log('selectedLayout = ' + selectedLayout + ', overlay_uri = ' + layoutOverlayUri);
 
-            GREUtils.log('selectedLayout = ' + selectedLayout + ', overlay_uri = ' + layoutOverlayUri);
+            var observer = {
+                observe : function (subject, topic, data) {
+                    if (topic == 'xul-overlay-merged') {
+                        // load functional panels;
+                        document.loadOverlay('chrome://viviecr/content/bootstrap_mainscreen_overlays.xul', null);
+                    }
+                }
+            };
 
             try {
-                document.loadOverlay(layoutOverlayUri, {
-                    observe : function (subject, topic, data) {
-                        if (topic == 'xul-overlay-merged') {
-                            // load functional panels;
-                            document.loadOverlay('chrome://viviecr/content/bootstrap_mainscreen_overlays.xul', null);
-                        }
-                    }
-                });
+                document.loadOverlay(layoutOverlayUri, observer);
             }catch(e) {
                 if (layoutOverlayUri != 'chrome://viviecr/content/layouts/traditional.xul') {
                     // try load default
