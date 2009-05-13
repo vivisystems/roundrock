@@ -41,14 +41,17 @@
                 <caption label="&stockrecords.title;"  class="PageTitle" />
                 <vbox pack="start" flex="1" class="LeftPnl">
                     <viviscrollabletree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true"
-                                        headers="&stockrecords.header.no;,&stockrecords.header.product;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.memo;"
-                                        fields="product_no,product_name,quantity,new_quantity,memo"
+                                        headers="&stockrecords.header.no;,&stockrecords.header.product;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.qtydifference;,&stockrecords.header.minstock;,&stockrecords.header.memo;"
+                                        fields="product_no,product_name,quantity,new_quantity,qty_difference,min_stock,memo"
                                         onclick="$do('select',this.selectedIndex, 'StockRecords');"
                                         class="plupnl" dir="reverse"
                                         scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                         <spacer flex="1" />
                     </viviscrollabletree>
-                    <checkbox id="show_low_stock" value="false" label="&stockrecords.show.low.only;" oncommand="$do('clickLowStock', null, 'StockRecords');" />
+                    <hbox>
+		                <checkbox id="show_low_stock" value="false" label="&stockrecords.show.low.only;" oncommand="$do('clickLowStock', null, 'StockRecords');" />
+		                <checkbox id="show_qty_diff" value="false" label="&stockrecords.show.qty.different;" oncommand="$do('clickQtyDiff', null, 'StockRecords');" />
+		            </hbox>
                 </vbox>
                 <vbox>
                     <label id="plu_id" hidden="true" form="productForm" name="product_id" value="" />
@@ -97,6 +100,7 @@
 		            <hbox class="ToolBar" flex="1">
 	                    <hbox flex="1">
 	                    	<button id="modify_stock" label="&stockrecords.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyStock', null, 'StockRecords');" />
+	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" class="BtnMod" oncommand="$do('importRecords', null, 'StockRecords');" />
 	                    </hbox>
 	                    <hbox flex="0">
 	                    	<button id="commitchanges" label="&stockrecords.button.action.commitchanges;" disabled="false" class="BtnMod" oncommand="$do('commitChanges', null, 'StockRecords');" />

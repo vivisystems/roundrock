@@ -3,13 +3,17 @@
 <!ENTITY stockrecords.header.product "Product Name">
 <!ENTITY stockrecords.header.quantity "Qty.">
 <!ENTITY stockrecords.header.newquantity "New Qty.">
+<!ENTITY stockrecords.header.minstock "Min. Stock">
+<!ENTITY stockrecords.header.qtydifference "Qty. Diff.">
 <!ENTITY stockrecords.header.memo "Memo">
-<!ENTITY stockrecords.show.low.only "Filter for Products below Threshold">
+<!ENTITY stockrecords.show.low.only "Filter the stock-lacking products">
+<!ENTITY stockrecords.show.qty.different "Filter products bearing non-zero stock diff.">
 <!ENTITY stockrecords.label.no "No.">
 <!ENTITY stockrecords.label.name "Name">
 <!ENTITY stockrecords.label.newquantity "New Qty.">
 <!ENTITY stockrecords.label.memo "Memo">
 <!ENTITY stockrecords.search.label "Search">
 <!ENTITY stockrecords.button.action.modify "Modify">
+<!ENTITY stockrecords.button.action.importrecords "Import">
 <!ENTITY stockrecords.button.action.reset "Reset All">
 <!ENTITY stockrecords.button.action.commitchanges "Commit Changes">

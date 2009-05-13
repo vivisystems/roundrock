@@ -3,6 +3,9 @@
     /**
      * Class ViviPOS.StockRecordsController
      */
+    
+    // for using the checkMedia method.
+    include( 'chrome://viviecr/content/reports/controllers/components/check_media.js' );
 
     var __controller__ = {
         name: 'StockRecords',
@@ -16,6 +19,8 @@
         _stockRecordsByProductNo: null,
         _barcodesIndexes: null,
         _records: null,
+        _folderName: 'vivipos_stock',
+        _fileName: 'stock.csv',
 
         getListObj: function() {
             if( this._listObj == null ) {
@@ -30,7 +35,7 @@
             var stockRecordModel = new StockRecordModel();
             
             var sql =
-            	"select s.*, p.no as product_no, p.name as product_name " +
+            	"select s.*, p.no as product_no, p.name as product_name, p.min_stock as min_stock " +
             	"from stock_records s join products p on s.product_no = p.no " +
             	"order by product_no;"; // the result must be sorted by product_no for the use of binary search in locateIndex method.
             	
@@ -43,6 +48,7 @@
             stockRecordsByProductNo = this._stockRecordsByProductNo;
             stockRecords.forEach( function( stockRecord ) {
             	stockRecord.new_quantity = stockRecord.quantity;
+            	stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
             	stockRecord.memo = '';
             	stockRecordsByProductNo[ stockRecord.product_no ] = stockRecord;
             } );
@@ -106,11 +112,19 @@
 
         updateStock: function ( reset ) {
             var lowstock = document.getElementById( 'show_low_stock' ).checked;
+            var qtyDiff = document.getElementById( 'show_qty_diff' ).checked;
 
             if ( lowstock ) {
                 var oldlength = this._records.length;
                 this._records = this._listData.filter( function( d ) {
-                    return parseInt( d.stock, 10 ) >= parseInt( d.min_stock, 10 );
+                    return parseInt( d.quantity, 10 ) < parseInt( d.min_stock, 10 );
+                } );
+                if ( oldlength != this._records.length )
+                	reset = true;
+            } else if ( qtyDiff ) {
+            	var oldlength = this._records.length;
+                this._records = this._listData.filter( function( d ) {
+                    return parseInt( d.qty_difference, 10 ) > 0;
                 } );
                 if ( oldlength != this._records.length )
                 	reset = true;
@@ -133,6 +147,11 @@
         clickLowStock: function () {
             this._selectedIndex = -1;
             this.updateStock( true );
+        },
+        
+        clickQtyDiff: function() {
+        	this._selectedIndex = -1;
+        	this.updateStock( true );
         },
 
         locateIndex: function ( product, list ) {
@@ -247,22 +266,15 @@
         modifyStock: function() {
         	//var product_id = document.getElementById( 'plu_id' ).value;
         	var product_no = document.getElementById( 'product_no' ).value;
-        	var product_name = document.getElementById( 'product_name' ).value;
         	var newQuantity = document.getElementById( 'new_quantity' ).value;
         	var memo = document.getElementById( 'memo' ).value;
         	
         	var stockRecord = this._stockRecordsByProductNo[ product_no ];
         	stockRecord.new_quantity = newQuantity;
+        	stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
         	stockRecord.memo = memo;
         	
-        	/*var stockRecordModel = new StockRecordModel();
-        	stockRecordModel.id = stockRecord.id;
-        	stockRecordModel.save( stockRecord );*/
-        	
         	this.updateStock();
-        	
-        	// @todo OSD
-            //OsdUtils.info( _( 'Stock level for [%S] modified successfully', [ product_name ] ) );
         },
         
         commitChanges: function() {
@@ -288,7 +300,99 @@
         	inventoryRecordModel.setAll( records );
         	
         	this.load();
-        }
+        },
+
+		importRecords: function() {      
+			/*      
+            // pop up a file chooser.
+  			var nsIFilePicker = Components.interfaces.nsIFilePicker;
+			var fileChooser = Components.classes[ "@mozilla.org/filepicker;1" ].createInstance( nsIFilePicker );
+			fileChooser.init( window, "Select a File to import", nsIFilePicker.modeOpen );
+			
+			// set up the default path for our file picker.
+			var nsILocalFile = Components.interfaces.nsILocalFile;
+			var localFile = Components.classes[ "@mozilla.org/file/local;1" ].createInstance( nsILocalFile );
+			
+			var initPath = "~/";
+			
+			// check if there is a usb thumb driver.
+			var checkMedia = new CheckMediaComponent();
+			var media = checkMedia.checkMedia();
+			if ( media ) {
+				// the media carrying the path. However, it's dedicated to the use of report. Accordingly, we have to truncate it to be /media/drive name/
+				media = media.match( /^\/[^\/]+\/[^\/]+\// );
+				initPath = media;
+			}
+			
+			localFile.initWithPath( initPath );
+			
+			fileChooser.displayDirectory = localFile;
+			fileChooser.appendFilter( "filterCSV", "*.csv" );
+			var fileChooserReturnValue = fileChooser.show();
+			
+			var filePath;
+			if ( fileChooserReturnValue == fileChooser.returnOK )
+				filePath = fileChooser.file.path;
+				
+			if ( !filePath ) {
+				alert( _( 'User canceled or errors occured.' ) );
+				return;
+			}
+			*/
+			
+			// the stubstitution for the file picker.
+			// check if there is a usb thumb driver.
+			var filePath;
+			var checkMedia = new CheckMediaComponent();
+			var media = checkMedia.checkMedia();
+			if ( media ) {
+				// the media carrying the path. However, it's dedicated to the use of report. Accordingly, we have to truncate it to be /media/drive name/
+				media = media.match( /^\/[^\/]+\/[^\/]+\// );
+				filePath = media + this._folderName + '/' + this._fileName;
+			}
+			
+			if ( !filePath )
+				return;
+            
+            // Retrieve the content of the comma separated values.
+	        var file = 	GREUtils.Charset.convertToUnicode( 
+	        			GREUtils.File.readAllBytes( 
+	        			GREUtils.File.getFile( filePath ) ) );
+	    
+	        var re = /[^\x0A]+/g;
+	        var lines = file.match( re );
+	        
+	        // the question mark in the RE makes .* matches non-greedly.
+	        re = /".*?"/g;
+	        
+	        var self = this;
+	        var unmatchableRecords = [];
+	        
+	        lines.forEach( function( line ) {
+	        	var values = line.match( re );
+	        	
+	        	// strip off the enclosing double quotes in a stupid way.
+	        	var product_no = values[ 0 ].substr( 1, values[ 0 ].length - 2 );
+	        	var quantity = parseInt( values[ 1 ].substr( 1, values[ 1 ].length - 2 ), 10 );
+	        	var memo = values[ 2 ].substr( 1, values[ 2 ].length - 2 );
+	        	
+	        	var stockRecord = self._stockRecordsByProductNo[ product_no ];
+	        	if ( stockRecord ) {
+			    	stockRecord.new_quantity = quantity;
+			    	stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+			    	stockRecord.memo = memo;
+			    } else {
+			    	unmatchableRecords.push( product_no );
+			    }
+	        } );
+	        
+	        if ( unmatchableRecords.length > 0 ) {
+	        	alert( _( 'The following product numbers do not exist.' ) + '\n' + unmatchableRecords );
+	        }
+        	
+        	// renew the content of the tree.
+        	this.updateStock();
+		}
     };
     
     GeckoJS.Controller.extend( __controller__ );
