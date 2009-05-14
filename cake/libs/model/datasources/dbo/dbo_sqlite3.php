@@ -106,7 +106,7 @@ class DboSqlite3 extends DboSource {
 			$this->connected = is_object($this->connection);
 
                         if ($this->connected) {
-                            $this->connection->query("PRAGMA synchronous =  2");
+                            $this->connection->exec("PRAGMA synchronous =  2");
                         }
 		}
 		catch(PDOException $e) {
