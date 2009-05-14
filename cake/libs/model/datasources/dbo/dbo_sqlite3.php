@@ -104,6 +104,10 @@ class DboSqlite3 extends DboSource {
 			$this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			#$this->connected = is_resource($this->connection);
 			$this->connected = is_object($this->connection);
+
+                        if ($this->connected) {
+                            $this->connection->query("PRAGMA synchronous =  2");
+                        }
 		}
 		catch(PDOException $e) {
 			$this->last_error = array('Error connecting to database.',$e->getMessage());
@@ -132,7 +136,7 @@ class DboSqlite3 extends DboSource {
 		#echo "runs execute\n";
 		#return sqlite3_query($this->connection, $sql);
 
-		for ($i = 0; $i < 2; $i++) {
+		for ($i = 0; $i < 20; $i++) {
 			try {
 				$this->last_error = NULL;
 				$this->pdo_statement = $this->connection->query($sql);
@@ -143,8 +147,15 @@ class DboSqlite3 extends DboSource {
 				}
 	  		}
 	  		catch(PDOException $e) {
-	  			// Schema change; re-run query
-				if ($e->errorInfo[1] === 17) continue;
+	  			// Schema change; re-run query 3 times
+				if ($e->errorInfo[1] === 17 && $i < 4) {
+                                    usleep(250000);
+                                    continue;
+                                }else if ($e->errorInfo[1] === 5) {
+                                    // database is locked
+                                    usleep(250000);
+                                    continue;
+                                }
 				$this->last_error = $e->getMessage();
 	  		}
 		}
