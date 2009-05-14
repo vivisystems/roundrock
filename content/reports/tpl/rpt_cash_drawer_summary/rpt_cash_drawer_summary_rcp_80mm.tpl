@@ -7,9 +7,9 @@ ${head.start_time} ~ ${head.end_time}
 ${head.title|center:42}
 {for item in body}
 ------------------------------------------
-${_( '(rpt)Clerk' ) + ':'|left:17}${item.clerk_displayname}
+${_( '(rpt)Clerk' ) + ':'|left:17}${item.clerk_displayname|default:''}
 ${_( '(rpt)Event' ) + ':'|left:17}${_( '(rpt)' + item.event_type )}
-${_( '(rpt)Occurrences' ) + ':'|left:17}${item.num_occurrences}
+${_( '(rpt)Occurrences' ) + ':'|left:17}${item.num_occurrences|default:0|format:0}
 {/for}
 ------------------------------------------
 ${_( '(rpt)Records Found' ) + ':'|left:17}${body.length|format:0|right:25}

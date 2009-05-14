@@ -1364,7 +1364,7 @@
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
 
-                c      // @todo OSD
+                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
 
                 this.subtotal();
@@ -2116,6 +2116,7 @@
                     }
                 });
             }
+            return;
 
         },
 
@@ -2760,6 +2761,9 @@
             if(curTransaction == null) {
                 
                 this.clear();
+
+                // let dispatcher don't auto dispatch onCancel
+                this.dispatchedEvents['onCancel'] = true;
                 //@todo OSD - don't notify'
                 //NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?

@@ -23,7 +23,14 @@
          * initial promotions rules for register
          */
         initial: function() {
-         
+
+
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            document.getElementById('prefwin').width=width;
+            document.getElementById('prefwin').height=height;
+            document.getElementById('prefwin').dlgbuttons="accept,help";
+
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
 

@@ -22,34 +22,49 @@
             <!--caption>${head.title}</caption-->
             <thead>
                 <tr>
-                    <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)Time' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Total' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Orders' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Guests' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Items' )}</th>
+{if head.terminal_no}
+                    <th style="text-align: center;">${_( '(rpt)Terminal' )}</th>
+{/if}
+                    <th style="text-align: center;">${_( '(rpt)Date' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Hour' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Total' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Orders' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Guests' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Items' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Net Per Guest' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Net Per Order' )}</th>
                 </tr>
             </thead>
             <tbody>
 {for detail in body}
                 <tr>
-                    <td style="text-align: left;">{if head.machine_id} ${detail.terminal_no} {/if}</td>
+{if head.terminal_no}
+                    <td style="text-align: left;">${detail.terminal_no}</td>
+{/if}
+                    <td style="text-align: left;">${detail.Date}</td>
                     <td style="text-align: left;">${detail.Hour}</td>
                     <td style="text-align: right;">${detail.HourTotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${detail.OrderNum}</td>
-                    <td style="text-align: right;">${detail.Guests}</td>
-                    <td style="text-align: right;">${detail.ItemsCount}</td>
+                    <td style="text-align: right;">${detail.OrderNum|default:0|format:0}</td>
+                    <td style="text-align: right;">${detail.Guests|default:0|format:0}</td>
+                    <td style="text-align: right;">${detail.ItemsCount|default:0|format:0}</td>
+                    <td style="text-align: right;">${detail.NetPerGuest|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.NetPerOrder|default:0|viviFormatPrices:true}</td>
                 </tr>
 {/for}
             </tbody>
             <tfoot>
                 <tr>
-                    <td></td>
+                    <td style="text-align: left;">${_( '(rpt)Records Found' ) + ': '}${body.length|format:0}</td>
+{if head.terminal_no}
+<td/>
+{/if}
                     <td>${_( '(rpt)Summary' ) + ':'}</td>
                     <td style="text-align: right;">${foot.HourTotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${foot.OrderNum}</td>
-                    <td style="text-align: right;">${foot.Guests}</td>
-                    <td style="text-align: right;">${foot.ItemsCount}</td>
+                    <td style="text-align: right;">${foot.OrderNum|default:0|format:0}</td>
+                    <td style="text-align: right;">${foot.Guests|default:0|format:0}</td>
+                    <td style="text-align: right;">${foot.ItemsCount|default:0|format:0}</td>
+                    <td style="text-align: right;">${foot.NetPerGuest|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.NetPerOrder|default:0|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>
         </table>

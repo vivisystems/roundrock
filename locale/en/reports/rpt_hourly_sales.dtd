@@ -6,16 +6,18 @@
 <!ENTITY rpthourlysales.exportcsv "Export to CSV">
 <!ENTITY rpthourlysales.exportrcp "Print">
 <!ENTITY rpthourlysales.togglezoom "Toggle Zoom">
-<!ENTITY rpthourlysales.machineid "Terminal No:">
+<!ENTITY rpthourlysales.terminal_no "Terminal:">
 <!ENTITY rpthourlysales.sortby "Sort By:">
-<!ENTITY rpthourlysales.terminal_no "Term_No.">
-<!ENTITY rpthourlysales.Hour "Time">
-<!ENTITY rpthourlysales.HourTotal "Total">
-<!ENTITY rpthourlysales.OrderNum "Orders">
-<!ENTITY rpthourlysales.Guests "Guests">
-<!ENTITY rpthourlysales.ItemsCount "Items">
+<!ENTITY rpthourlysales.sortby.terminal_no "Terminal">
+<!ENTITY rpthourlysales.sortby.hour "Hour">
+<!ENTITY rpthourlysales.sortby.date "Date">
+<!ENTITY rpthourlysales.sortby.hourtotal "Total">
+<!ENTITY rpthourlysales.sortby.orders "Orders">
+<!ENTITY rpthourlysales.sortby.guests "Guests">
+<!ENTITY rpthourlysales.sortby.items "Items">
 <!ENTITY rpthourlysales.all "List All">
 <!ENTITY rpthourlysales.wait "Waiting...">
 <!ENTITY rpthourlysales.periodtype "Period Type:">
-<!ENTITY rpthourlysales.transaction_created "Order Opened Time">
-<!ENTITY rpthourlysales.transaction_submitted "Order Finalized Time">
+<!ENTITY rpthourlysales.transaction_created "Order Opened">
+<!ENTITY rpthourlysales.transaction_submitted "Order Closed">
+<!ENTITY rpthourlysales.sale_period "Sale Period">

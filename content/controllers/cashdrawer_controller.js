@@ -27,6 +27,7 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
                 main.addEventListener('afterClearOrderData', this.expireData, this);
+                main.addEventListener('afterTruncateTxnRecords', this.truncateData, this);
             }
             // add event listener for ledger events
             var ledger = GeckoJS.Controller.getInstanceByName('LedgerRecords');
@@ -293,7 +294,6 @@
                     break;
 
                 case 'ledger':
-                    alert(paymentType + 'action:' + drawer[paymentType + 'action'] + this.dump(drawer));
                     if (drawer['ledgeraction'] != 'always') return;
                     break;
                     
@@ -332,7 +332,6 @@
 
             // save cashdrawer access
             var drawerRecordModel = new CashdrawerRecordModel();
-            alert(sequence);
             var accessRecord = {
                 terminal_no: GeckoJS.Session.get('terminal_no'),
                 drawer_no: drawer.number,
@@ -356,6 +355,11 @@
             if (!isNaN(expireDate)) {
                 model.execute('delete from cashdrawer_records where created <= ' + expireDate);
             }
+        },
+
+        truncateData: function(evt) {
+            var model = new CashdrawerRecordModel();
+            model.execute('delete from cashdrawer_records');
         },
 
         // send open drawer commands to printer using the given parameters

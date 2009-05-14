@@ -21,6 +21,7 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
                 main.addEventListener('afterClearOrderData', this.expireData, this);
+                main.addEventListener('afterTruncateTxnRecords', this.truncateData, this);
             }
         },
 
@@ -30,6 +31,11 @@
             if (!isNaN(expireDate)) {
                 model.execute('delete from ledger_records where created <= ' + expireDate);
             }
+        },
+
+        truncateData: function(evt) {
+            var model = new LedgerRecordModel();
+            model.execute('delete from ledger_records');
         },
 
         getListObj: function() {

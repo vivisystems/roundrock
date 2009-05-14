@@ -36,7 +36,7 @@
             <tr id="${item.sequence}">
                 <td style="text-align: left;">${item.terminal_no}</td>
                 <td style="text-align: left;">${item.drawer_no}</td>
-                <td style="text-align: left;">${item.clerk_displayname}</td>
+                <td style="text-align: left;">${item.clerk_displayname|default:''}</td>
                 <td style="text-align: left;">${item.created|unixTimeToString}</td>
                 <td style="text-align: left;">${_( '(rpt)' + item.event_type )}</td>
                 <td style="text-align: left;">${item.sequence|default:''}</td>
@@ -48,7 +48,7 @@
         <tfoot>
             <tr>
                 <td colspan="8" style="text-align: left;">
-                    ${_( '(rpt)Records Found' ) + ':'} ${body.length|format:0}
+                    ${_( '(rpt)Records Found' ) + ':'} ${body.length|default:0|format:0}
                 </td>
             </tr>
         </tfoot>

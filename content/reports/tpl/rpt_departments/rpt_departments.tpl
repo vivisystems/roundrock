@@ -22,8 +22,8 @@
             <!--caption>${head.title}</caption-->
             <thead>
                 <tr>
-                    <th style="text-align: left;">${_( '(rpt)No.' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)Name' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Department Number' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Department Name' )}</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                <td colspan="2"><td></td>
+                    <td colspan="2" style="text-align:left;">${_( '(rpt)Records Found' ) + ': '}${body.length|format:0}</td>
                 </tr>
             </tfoot>
         </table>

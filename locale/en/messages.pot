@@ -772,6 +772,9 @@ msgstr ""
 msgid "acl_user_dummy"
 msgstr "dummy"
 
+msgid "acl_truncate_transaction_records"
+msgstr "Truncate Transaction Records"
+
 msgid "acl_override_default_price_level"
 msgstr "Override Default Price Level"
 
@@ -1477,6 +1480,16 @@ msgstr "View Order"
 msgid "vieworder.name"
 msgstr "View Order"
 
+msgid "truncatetxnrecords.desc"
+msgstr ""
+"This function removes all transactional data from the terminal. This feature should be used with extreme care, and it is strongly recommeded that the system be backed up before truncating transaction records. No parameter is needed."
+
+msgid "truncatetxnrecords.label"
+msgstr "Truncate Transaction Records"
+
+msgid "truncatetxnrecords.name"
+msgstr "Truncate Transaction Records"
+
 msgid "controlpanel.desc"
 msgstr ""
 "This function allows the operator to bring up the configuration control panel. "
@@ -1611,17 +1624,38 @@ msgstr "Number of Events"
 msgid "(rpt)Sequence"
 msgstr "Sequence"
 
+msgid "(rpt)Hour"
+msgstr "Hour"
+
+msgid "(rpt)Net"
+msgstr "Net"
+
+msgid "(rpt)Net Per Order"
+msgstr "Net Per Order"
+
+msgid "(rpt)Net Per Guest"
+msgstr "Net Per Guest"
+
+msgid "(rpt)Gross"
+msgstr "Gross"
+
 msgid "(rpt)Total"
 msgstr "Total"
 
 msgid "(rpt)Add-on Tax"
 msgstr "Add-on Tax"
 
+msgid "(rpt)Order Surcharge"
+msgstr "Order+"
+
+msgid "(rpt)Order Discount"
+msgstr "Order-"
+
 msgid "(rpt)Surcharge"
-msgstr "Surcharge"
+msgstr "+"
 
 msgid "(rpt)Discount"
-msgstr "Discount"
+msgstr "-"
 
 msgid "(rpt)Payment"
 msgstr "Payment"
@@ -1667,9 +1701,6 @@ msgstr "Price"
 
 msgid "(rpt)Quantity"
 msgstr "Quantity"
-
-msgid "(rpt)No."
-msgstr "No."
 
 msgid "(rpt)Name"
 msgstr "Name"
@@ -1725,8 +1756,8 @@ msgstr "Age_Verification"
 msgid "(rpt)Visible"
 msgstr "Visible"
 
-msgid "(rpt)Department No."
-msgstr "Department No."
+msgid "(rpt)Department Number"
+msgstr "Department Number"
 
 msgid "(rpt)Department Name"
 msgstr "Department Name"
@@ -1812,8 +1843,8 @@ msgstr "Display Name"
 msgid "(rpt)Access Group"
 msgstr "Access Group"
 
-msgid "(rpt)Telphone"
-msgstr "Telphone"
+msgid "(rpt)Telephone"
+msgstr "Telephone"
 
 msgid "(rpt)Start"
 msgstr "Start"
@@ -1837,7 +1868,7 @@ msgid "(rpt)ITEM"
 msgstr "item"
 
 msgid "(rpt)Promotion"
-msgstr "Promotion"
+msgstr "Promotions"
 
 msgid "(rpt)Subtotal"
 msgstr "Subtotal"
@@ -2142,7 +2173,7 @@ msgstr ""
 "Please MAKE SURE the backup files are from this machine otherwise a 'license error message' will pop up."
 
 msgid "(rpt)Invoice Number"
-msgstr "Invoice Number"
+msgstr "Invoice"
 
 msgid "(rpt)Invoice Count"
 msgstr "Invoice Count"

@@ -11,14 +11,18 @@
         
         _fileName: "rpt_hourly_sales",
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
-            var machineid = document.getElementById( 'machine_id' ).value;
+            var terminalNo = document.getElementById( 'terminal_no' ).value;
             var periodType = document.getElementById( 'period_type' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
@@ -26,12 +30,17 @@
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
 
+            var timeField = periodType;
+            if (periodType == 'sale_period') {
+                timeField = 'transaction_submitted';
+            }
             var fields = [
-            				'orders.' + periodType,
+            				'orders.' + timeField,
                             'orders.terminal_no',
                             'orders.status',
                             'SUM("orders"."total") AS "Order.HourTotal"',
-                            'STRFTIME("%Y-%m-%d %H",DATETIME("orders"."' + periodType + '", "unixepoch", "localtime")) AS "Order.Hour"',
+                            'STRFTIME("%Y-%m-%d",DATETIME("orders"."' + timeField + '", "unixepoch", "localtime")) AS "Order.Date"',
+                            'STRFTIME("%H",DATETIME("orders"."' + timeField + '", "unixepoch", "localtime")) AS "Order.Hour"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
                             'SUM("orders"."items_count") AS "Order.ItemsCount"'
@@ -40,18 +49,20 @@
             var conditions = "orders." + periodType + ">='" + start +
                             "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status='1'";
-            if (machineid.length > 0) {
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
-                var groupby = 'orders.terminal_no,"Order.Hour"';
+
+            var groupby;
+            if (terminalNo.length > 0) {
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
+                groupby = 'orders.terminal_no,"Order.Date", "Order.Hour"';
             } else {
-                var groupby = '"Order.Hour"';
+                groupby = '"Order.Date", "Order.Hour"';
             }
 
             
-            var orderby = '"' + sortby + '" desc';//orders.transaction_created';
+            var orderby = '"Order.Date", "Order.Hour"';
 
             var order = new OrderModel();
-            var records = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1} );
+            var records = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: limit} );
 
             //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
@@ -65,11 +76,12 @@
             			switch ( sortby ) {
             				case 'terminal_no':
             				case 'Hour':
+                            case 'Date':
             					if ( a > b ) return 1;
 				    			if ( a < b ) return -1;
 				    			return 0;
-            				case 'HourTotal':
             				case 'OrderNum':
+            				case 'HourTotal':
             				case 'Guests':
             				case 'ItemsCount':
             					if ( a < b ) return 1;
@@ -86,6 +98,11 @@
             var ItemsCount = 0;
 
             records.forEach( function(o) {
+                // compute hourly averages
+                o.NetPerOrder = (o.OrderNum > 0) ? o.HourTotal / o.OrderNum : 0;
+                o.NetPerGuest = (o.Guests > 0) ? o.HourTotal / o.Guests : 0;
+
+                // sum
                 HourTotal += o.HourTotal;
                 OrderNum += o.OrderNum;
                 Guests += o.Guests;
@@ -101,7 +118,7 @@
 			this._reportRecords.head.title = _( 'Hourly Sales Report' );
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
-			this._reportRecords.head.machine_id = machineid;
+			this._reportRecords.head.terminal_no = terminalNo;
 			
 			this._reportRecords.body = records;
 			
@@ -109,6 +126,12 @@
 			this._reportRecords.foot.OrderNum = OrderNum;
 			this._reportRecords.foot.Guests = Guests;
 			this._reportRecords.foot.ItemsCount = ItemsCount;
+			this._reportRecords.foot.NetPerOrder = (OrderNum > 0) ? HourTotal / OrderNum : 0;
+			this._reportRecords.foot.NetPerGuest = (Guests > 0) ? HourTotal / Guests : 0;
+        },
+
+        exportCsv: function() {
+            this._super(this);
         },
 
         load: function() {

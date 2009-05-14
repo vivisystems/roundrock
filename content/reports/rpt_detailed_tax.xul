@@ -58,8 +58,8 @@
 						            </menulist>
 						        </vbox>
 						        <vbox>
-				                    <label value="&rptdetailedtax.machineid;" />
-				                    <textbox id="machine_id" value='' width="300"/>
+				                    <label value="&rptdetailedtax.terminal_no;" />
+				                    <textbox id="terminal_no" value='' width="300"/>
 				                </vbox>
 				            </row>
 		                </rows>
@@ -90,7 +90,7 @@
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" flex="1">
-                        <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
+                        <browser type="content" id="preview_frame" src="rpt_template4.html" flex="1"/>
                     </box>
 
                 </groupbox>

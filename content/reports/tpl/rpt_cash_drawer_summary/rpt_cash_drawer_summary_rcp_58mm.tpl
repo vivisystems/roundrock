@@ -11,11 +11,11 @@ ${head.title|center:24}
 {for item in body}
 ------------------------
 ${_( '(rpt)Clerk' ) + ':'}
-${item.clerk_displayname|right:24}
+${item.clerk_displayname|default:''|right:24}
 ${_( '(rpt)Event' ) + ':'}
 ${_( '(rpt)' + item.event_type )|right:24}
 ${_( '(rpt)Occurrences' ) + ':'}
-${item.num_occurrences|right:24}
+${item.num_occurrences|default:0|format:0|right:24}
 {/for}
 ------------------------
 ${_( '(rpt)Records Found' ) + ':'|left:16}${body.length|format:0|right:8}
