@@ -358,7 +358,8 @@
                     // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
-                        this._inputObj.index = this._tables[v].table_no;
+                        // this._inputObj.index = this._tables[v].table_no;
+                        this._inputObj.index = v;
                         this._inputObj.tableObj = this._tables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
@@ -393,7 +394,8 @@
                     // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
-                        this._inputObj.index = this._tables[v].table_no;
+                        // this._inputObj.index = this._tables[v].table_no;
+                        this._inputObj.index = v;
                         this._inputObj.tableObj = this._tables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
@@ -413,7 +415,8 @@
                         // alert('doFunc...' + inputObj.action);
 
                         if (this._inputObj.action) {
-                            this._inputObj.index = this._tables[v].table_no;
+                            // this._inputObj.index = this._tables[v].table_no;
+                            this._inputObj.index = v;
                             this._inputObj.tableObj = this._tables[v];
                             this._inputObj.ok = true;
                             // doOKButton();
@@ -541,7 +544,8 @@
             // alert('doFunc...' + inputObj.action);
             
             if (this._inputObj.action) {
-                this._inputObj.index = this._tables[v].table_no;
+                // this._inputObj.index = this._tables[v].table_no;
+                this._inputObj.index = v;
                 this._inputObj.tableObj = this._tables[v];
                 this._inputObj.ok = true;
                 // doOKButton();
