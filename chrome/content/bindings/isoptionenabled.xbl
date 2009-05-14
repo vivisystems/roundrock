@@ -64,14 +64,14 @@
                 }
             }).register();
 */
-//        window.addEventListener('DOMContentLoaded', this.ready, true);
-          window.addEventListener('load', this.ready, true);
+        //window.addEventListener('DOMContentLoaded', this.ready, true);
+        window.addEventListener('load', this.ready, true);
 
         ]]>
         </constructor>
 
         <destructor><![CDATA[
-        window.removeEventListener('DOMContentLoaded', this.ready, true);
+        //window.removeEventListener('DOMContentLoaded', this.ready, true);
         window.removeEventListener('load', this.ready, true);
         
         if (this.events) {
