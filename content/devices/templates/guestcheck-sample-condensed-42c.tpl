@@ -2,7 +2,7 @@
 [&DHON]${store.name|center:42}[&DHOFF]
 [&DHON]${store.branch|center:42}[&DHOFF]
 ${store.telephone1|center:42}
-Opened:   ${(new Date(order.created)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Opened:   ${(new Date(order.created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Printed:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
 {if order.table_no != null || order.no_of_customers != null}
@@ -24,6 +24,10 @@ ${item.current_qty|right:4} ${item.name|left:12} ${item.current_price|left:7} ${
 {if order.trans_discount_subtotal != 0}Order Discount:  ${txn.formatPrice(order.trans_discount_subtotal)|right:24}
 {/if}
 {if order.trans_surcharge_subtotal != 0}Order Surcharge: ${txn.formatPrice(order.trans_surcharge_subtotal)|right:24}
+{/if}
+{if order.revalue_subtotal != 0}Order Revalue:   ${txn.formatPrice(order.revalue_subtotal)|right:24}
+{/if}
+{if order.promotion_subtotal != 0}Promotion:       ${txn.formatPrice(order.revalue_subtotal)|right:24}
 {/if}
 Tax:       ${txn.formatPrice(order.tax_subtotal)|right:30}
 Total:     ${txn.formatPrice(order.total)|right:30}

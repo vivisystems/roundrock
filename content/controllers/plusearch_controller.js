@@ -96,26 +96,30 @@
             //
             var data = this._listDatas[index];
             if (data) {
-                var barcode = data.no;
-                var productsById = GeckoJS.Session.get('productsById');
-                var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-                var product;
-
-                if (!barcodesIndexes[barcode]) {
-                    // barcode notfound
-                    // @todo OSD?
-                    GREUtils.Dialog.alert(window,
-                                          _('Product Search'),
-                                          _('Product [%S] Not Found!', [barcode]));
-                }else {
-                    var id = barcodesIndexes[barcode];
-                    product = productsById[id];
-                    GeckoJS.FormHelper.unserializeFromObject('productForm', product);
-                    // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
-                    var inputObj = window.arguments[0];
-                    inputObj.item = product;
-                }
+                GeckoJS.FormHelper.unserializeFromObject('productForm', data);
+                // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
+                var inputObj = window.arguments[0];
+                inputObj.item = data;
             }
+        },
+
+        setSelections: function() {
+            //
+            var selections = [];
+            var tree = this.getListObj();
+            var self = this;
+            if (this._listDatas && tree) {
+                var selectedItems = tree.selectedItems;
+
+                selectedItems.forEach(function(index) {
+                    var product = self._listDatas[index];
+                    if (product) {
+                        selections.push(product);
+                    }
+                });
+            }
+            var inputObj = window.arguments[0];
+            inputObj.selections = selections;
         },
 
         searchPlu: function (barcode) {

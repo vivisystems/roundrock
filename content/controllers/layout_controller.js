@@ -74,7 +74,7 @@
             var toolbar = document.getElementById('toolbar');
             var toggleBtn = document.getElementById('togglefunctionpanel');
             var clockinBtn = document.getElementById('clockin');
-            var optionsBtn = document.getElementById('options');
+            var configBtn = document.getElementById('config');
             var vkbBtn = document.getElementById('vkb');
             var spacer = document.getElementById('spacer');
             var cartSidebar = document.getElementById('cartsidebar');
@@ -89,7 +89,7 @@
                         if (showToolbar) {
                             cartSidebar.appendChild(vkbBtn);
                             cartSidebar.appendChild(clockinBtn);
-                            cartSidebar.appendChild(optionsBtn);
+                            cartSidebar.appendChild(configBtn);
                         }
                         cartSidebar.appendChild(spacer);
                         cartSidebar.appendChild(toggleBtn);
@@ -108,7 +108,7 @@
                         if (showToolbar) {
                             if (vkbBtn) toolbar.appendChild(vkbBtn);
                             if (clockinBtn) toolbar.appendChild(clockinBtn);
-                            if (optionsBtn) toolbar.appendChild(optionsBtn);
+                            if (configBtn) toolbar.appendChild(configBtn);
                         }
                         if (spacer) toolbar.appendChild(spacer);
                         if (toggleBtn) toolbar.appendChild(toggleBtn);

@@ -13,6 +13,8 @@
             function(){
                 // inputObj.condiments = document.getElementById('condiments').value;
                 //inputObj.index = document.getElementById('queueScrollablepanel').value;
+
+                $do('setSelections', null, 'PluSearch');
                 inputObj.ok = true;
                 
                 return true;
@@ -27,7 +29,12 @@
         // parse windows.arguments to get initial search parameters
         if (window.arguments && (window.arguments.length > 0)) {
             var inputObj = window.arguments[0];
-
+            
+            if ('seltype' in inputObj) {
+                var tree = document.getElementById('plusearchscrollablepanel');
+                if (tree) tree.setAttribute('seltype', inputObj.seltype);
+            }
+            
             var buf = inputObj.buffer;
             var item = inputObj.item;
             var barcode;

@@ -9,9 +9,9 @@
 {/if}
 Printed: ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${order.terminal_no|left:10} Clerk:     ${order.proceeds_clerk_displayname|left:10}
-Check:    ${order.check_no|left:10} Seq:       ${order.seq|tail:3}
+Check:    ${order.check_no|format:0|left:10} Seq:       ${order.seq|tail:3}
 {if order.table_no != null || order.no_of_customers != null}
-Table:    ${order.table_no|default:''|left:10} Customers: ${order.no_of_customers|default:''|left:10}
+Table:    ${order.table_no|default:''|format:0|left:10} Customers: ${order.no_of_customers|default:''|format:0|left:10}
 {/if}
 ------------------------------------------
 {for item in order.display_sequences}

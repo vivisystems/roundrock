@@ -56,12 +56,11 @@
             <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool" />
             <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool" />
             <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool" />
-            <preference id="pref_clockinenabled" name="vivipos.fec.settings.ClockInEnabled" type="bool" />
 
 
         </preferences>
 
-        <grid class="DataForm">
+        <grid class="DataFormC">
             <columns>
                 <column flex="1" /><column flex="1" />
             </columns>
@@ -88,20 +87,19 @@
                 </row>
                 <row>
                     <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;" />
-                    <checkbox preference="pref_clockinenabled" id="pref_clockinenabledCtrl" label="&general.showclockinicon;" />
-                </row>
-                <row>
-                    <hbox>
-                        <label control="idletime" value="&general.idletime;"/>
-                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
-                    </hbox>
                     <checkbox preference="pref_quietcancel" id="quietcancel" label="&general.quietcancel;" />
                 </row>
                 <row>
                     <vbox>
+                        <label control="idletime" value="&general.idletime;"/>
+                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
+                    </vbox>
+                    <vbox>
                         <label control="defaultpricelevel" value="&general.defaultpricelevel;"/>
                         <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>
                     </vbox>
+                </row>
+                <row>
                     <vbox>
                         <label control="maxsaleperiodleaddays" value="&general.maxsaleperiodleaddays;"/>
                         <textbox preference="pref_maxsaleperiodleaddays" id="maxsaleperiodleaddays" type="number" size="3" min="1"/>

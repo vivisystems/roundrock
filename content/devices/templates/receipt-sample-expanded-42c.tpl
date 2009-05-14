@@ -4,7 +4,7 @@
 [&QSON]${store.name|center:21}[&QSOFF]
 [&DWON]${store.branch|center:21}[&DWOFF]
 ${store.telephone1|center:42}
-Opened:   ${(new Date(order.created)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Opened:   ${(new Date(order.created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
 ------------------------------------------
