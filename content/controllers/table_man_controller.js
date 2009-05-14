@@ -396,12 +396,14 @@
             menuitem.setAttribute('label', ' ');
             destinationObj.appendChild(menuitem);
 
-            destinations.forEach(function(data){
-                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-                menuitem.setAttribute('value', data.name);
-                menuitem.setAttribute('label', data.defaultMark + data.name);
-                destinationObj.appendChild(menuitem);
-            });
+            if (destinations.length > 0) {
+                destinations.forEach(function(data){
+                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                    menuitem.setAttribute('value', data.name);
+                    menuitem.setAttribute('label', data.defaultMark + data.name);
+                    destinationObj.appendChild(menuitem);
+                });
+            }
         },
 
         setRegionMenuItem: function() {

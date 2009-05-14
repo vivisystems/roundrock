@@ -97,7 +97,8 @@
     var __controller__ = {
         name: 'SelectTable',
 
-        _inputObj: window.arguments[0],
+        // _inputObj: window.arguments[0],
+        _inputObj: {},
         _tableSettings: {},
         _tables: [],
         _sourceTable: null,
@@ -152,13 +153,16 @@
 
             var promptPanel = document.getElementById(panel);
             var funcPanel = document.getElementById('func_panel');
-            var w = funcPanel.boxObject.width + 32;
-            var h = funcPanel.boxObject.height + 48;
-            var x = funcPanel.boxObject.screenX - 32;
-            var y = funcPanel.boxObject.screenY - 18;
 
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            var w = funcPanel.boxObject.width + 32;
+            var h = funcPanel.boxObject.height + 0;
+            var x = funcPanel.boxObject.screenX - 32;
+            // var y = funcPanel.boxObject.screenY - 18;
+            var y = height - h - 8;
+
+            
             promptPanel.sizeTo(w, h);
 
             promptPanel.openPopupAtScreen(x, y);
@@ -332,12 +336,14 @@
 
         doCancelFunc: function() {
             this._hidePromptPanel('prompt_panel');
+
             if (this._inputObj.action) {
                 this._inputObj.action = '';
                 this._sourceTable = null;
                 this._sourceTableNo = null;
             } else {
-                doCancelButton();
+                // doCancelButton();
+                $.hidePanel('selectTablePanel', false);
             }
         },
 
@@ -347,6 +353,23 @@
             var selTable = this._tables[v];
             
             switch (this._inputObj.action) {
+                case 'SelectTableNo':
+                    this._hidePromptPanel('prompt_panel');
+                    // alert('doFunc...' + inputObj.action);
+
+                    if (this._inputObj.action) {
+                        this._inputObj.index = this._tables[v].table_no;
+                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.ok = true;
+                        // doOKButton();
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        
+                        cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                        
+                        $.hidePanel('selectTablePanel', true);
+                        return;
+                    }
+                    break;
                 case 'RecallCheck':
                     if (!selTable.sequence) {
                         // @todo OSD
@@ -363,10 +386,44 @@
                     }
 
                     break;
+                case 'ChangeClerk':
+                    this._inputObj.sourceTableNo = this._sourceTableNo;
+
+                    this._hidePromptPanel('prompt_panel');
+                    // alert('doFunc...' + inputObj.action);
+
+                    if (this._inputObj.action) {
+                        this._inputObj.index = this._tables[v].table_no;
+                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.ok = true;
+                        // doOKButton();
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                        // $.hidePanel('selectTablePanel', true);
+                        cart.GuestCheck.getNewTableNo();
+                        return;
+                    }
+                    break;
                 case 'TransTable':
                     if (this._sourceTableNo) {
                         //
                         this._inputObj.sourceTableNo = this._sourceTableNo;
+
+                        this._hidePromptPanel('prompt_panel');
+                        // alert('doFunc...' + inputObj.action);
+
+                        if (this._inputObj.action) {
+                            this._inputObj.index = this._tables[v].table_no;
+                            this._inputObj.tableObj = this._tables[v];
+                            this._inputObj.ok = true;
+                            // doOKButton();
+                            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                            cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                            // $.hidePanel('selectTablePanel', true);
+                            cart.GuestCheck.getNewTableNo();
+                            return;
+                        }
+
                     } else {
                         if (!selTable.sequence) {
                             // @todo OSD
@@ -471,6 +528,9 @@
                     this._sourceTableNo = null;
                     this._hidePromptPanel('prompt_panel');
                     
+                    var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                    cart.GuestCheck.getNewTableNo();
+
                     return;
                     break;
                 default:
@@ -483,7 +543,11 @@
             if (this._inputObj.action) {
                 this._inputObj.index = this._tables[v].table_no;
                 this._inputObj.tableObj = this._tables[v];
-                doOKButton();
+                this._inputObj.ok = true;
+                // doOKButton();
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                $.hidePanel('selectTablePanel', true)
             }
                 
         },
@@ -502,26 +566,88 @@
             } catch (e) {}
         },
 
-        load: function() {
+        load: function(evt) {
             var inputObj = window.arguments[0];
-            
+            var self = this;
+
+            // init popupPanel...
+            var $panel = $('#selectTablePanel');
+            // var $buttonPanel = $('#paymentscrollablepanel');
+
+            var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+            var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
+            $.installPanel($panel[0], {
+
+                css: {
+                    top: 0,
+                    left: 0,
+
+                    width: screenwidth,
+                    height: screenheight
+                },
+
+                init: function(evt) {
+
+                },
+
+                load: function(evt) {
+
+                    inputObj = evt.data[0];
+
+                    self.load2(inputObj);
+
+                },
+
+                showing: function(evt) {
+
+                },
+
+                shown: function(evt) {
+
+                },
+
+                hide: function (evt) {
+                    
+                }
+
+            });
+            var main = mainWindow.GeckoJS.Controller.getInstanceByName( 'Main' );
+            main.dispatchEvent('onFirstLoad', null);
+
+        },
+
+        load2: function(inputObj) {
+
+            this._inputObj = inputObj;
             this._isNewOrder = inputObj.isNewOrder;
             this._enableFuncs(this._isNewOrder);
 
             this.initial();
 
-
             // var tables = inputObj.tables;
+            var tables2 = this._tableStatusModel.getTableStatusList();
+            
             var tables = [];
-            
-            inputObj.tables.forEach(function(o){
-                // if (o.active || o.sequence)
-                tables.push(o);
-            });
-            
+            /*
+            if (inputObj.tables) {
+                inputObj.tables.forEach(function(o){
+                    // if (o.active || o.sequence)
+                    tables.push(o);
+                });
+            }
+            */
+            if (tables2) {
+                tables2.forEach(function(o){
+                    // if (o.active || o.sequence)
+                    tables.push(o);
+                });
+            }
+
             // tables = inputObj.tables;
             this._tables = tables;
-            var tableStatus = new TableStatusView(tables);
+            this._inputObj.tables = tables;
+            var tableStatus = new TableStatusView(this._tables);
             tableStatus._controller = this;
             document.getElementById('tableScrollablepanel').datasource = tableStatus ;
 

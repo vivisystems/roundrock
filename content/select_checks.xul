@@ -22,6 +22,7 @@
     <script type="application/x-javascript">
         window['GeckoJS'] = opener.GeckoJS;
         window['GREUtils'] = opener.GREUtils;
+        window['NotifyUtils'] = opener.NotifyUtils;
         window['_'] = opener._;
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/select_checks.js" />

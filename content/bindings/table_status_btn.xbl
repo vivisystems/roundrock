@@ -22,9 +22,9 @@
   </resources>
 
   <content>
-    <xul:hbox flex="1" xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
+    <xul:hbox xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
     <html:div anonid="face_div" style="position: relative;">
-        <html:div anonid="div" style="position: absolute; top: 10px; width: 100%; text-align: center;">
+        <html:div anonid="bg_div" style="position: absolute; top: 10px; width: 100%; text-align: center;">
             <html:span anonid="bg_table_no" class="bgtext">12</html:span>
         </html:div>
         <html:div anonid="div" style="position: absolute; top: 0px; width: 100%;">
@@ -75,6 +75,9 @@
     </field>
     <field name="_face_div">
         document.getAnonymousElementByAttribute(this, "anonid", "face_div");
+    </field>
+    <field name="_bg_div">
+        document.getAnonymousElementByAttribute(this, "anonid", "bg_div");
     </field>
     <field name="_table_no">
         document.getAnonymousElementByAttribute(this, "anonid", "table_no");
@@ -183,6 +186,9 @@
 	<xbl:constructor><![CDATA[
 
             var self = this;
+            if (self._main_container.boxObject.width != 0) {
+                    self._face_div.setAttribute('style', "position: relative; width: " + self._main_container.boxObject.width + "px;");
+            }
 
             // resizeButton
             this.ready = false;

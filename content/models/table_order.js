@@ -1,11 +1,11 @@
 (function() {
 
     /**
-     * TableStatusOrder Model
+     * TableOrder Model
      */
     var __model__ = {
 
-        name: 'TableStatusOrder',
+        name: 'TableOrder',
 
         useDbConfig: 'table',
         
@@ -15,6 +15,6 @@
 
     };
 
-    var TableStatusOrderModel = window.TableStatusOrderModel = GeckoJS.Model.extend(__model__);
+    var TableOrderModel = window.TableOrderModel = GeckoJS.Model.extend(__model__);
 
 })();

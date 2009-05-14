@@ -384,7 +384,7 @@
 
             // dispatch changeclerk event
             // this.getCartController().dispatchEvent('onStore', origData);
-            this.getCartController().dispatchEvent('onSplitCheck', origData);
+            // this.getCartController().dispatchEvent('onSplitCheck', origData);
 
             // add to table_status
             if (this._tableStatusModel == null) {
@@ -425,7 +425,7 @@
 
                 // dispatch changeclerk event
                 // this.getCartController().dispatchEvent('onStore', origData);
-                this.getCartController().dispatchEvent('onSplitCheck', origData);
+                // this.getCartController().dispatchEvent('onSplitCheck', origData);
 
                 // add to table_status
                 if (this._tableStatusModel == null) {
