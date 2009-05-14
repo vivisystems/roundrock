@@ -909,7 +909,7 @@
                 }
             }
             //@debug
-            alert(GeckoJS.BaseObject.dump(result));
+            //alert(GeckoJS.BaseObject.dump(result));
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
@@ -987,6 +987,8 @@
                                     }
                                 }
                                 self.closeSerialPort(portPath);
+                                if (data && data.order) {
+                                }
                             }
                         }
                         if (printed == 0) {
