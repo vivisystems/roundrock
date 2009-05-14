@@ -139,6 +139,17 @@ msgstr "** TRAY"
 msgid "House Bon"
 msgstr "BON"
 
+msgid "stockAdjustment.label"
+msgstr "Stock Adj."
+
+msgid "stockAdjustment.name"
+msgstr "Stock Adjustment"
+
+msgid "stockAdjustment.desc"
+msgstr ""
+"By using this function, the quantity of stock can be adjusted."
+"Meanwhile, a memo of the adjustment can be recorded."
+
 msgid "annotate.desc"
 msgstr ""
 "This function is used to add and/or view annotations. Annotations are "

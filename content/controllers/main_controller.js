@@ -837,6 +837,14 @@
 
             }
         },
+        
+        stockAdjustment: function () {
+            var aURL = 'chrome://viviecr/content/stock_adjustments.xul';
+            var width = this.screenwidth;
+            var height = this.screenheight;
+
+            GREUtils.Dialog.openWindow( window, aURL, _( 'Adjust Stock' ), 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height );
+        },
 
         reboot: function() {
             if (GREUtils.Dialog.confirm(null, _('Reboot'), _('Please confirm to reboot the terminal')) == false) {

@@ -355,9 +355,14 @@
 				return;
             
             // Retrieve the content of the comma separated values.
-	        var file = 	GREUtils.Charset.convertToUnicode( 
-	        			GREUtils.File.readAllBytes( 
-	        			GREUtils.File.getFile( filePath ) ) );
+            var file = GREUtils.File.getFile( filePath );
+            
+            if ( !file ) {
+            	alert( filePath + _( ' does not exist.' ) );
+            	return;
+            }
+            
+	        file = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 	    
 	        var re = /[^\x0A]+/g;
 	        var lines = file.match( re );
