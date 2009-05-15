@@ -3170,7 +3170,7 @@ msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:436
-#: ../..//content/controllers/print_controller.js:1000
+#: ../..//content/controllers/print_controller.js:1002
 #: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
@@ -3894,7 +3894,7 @@ msgid "Product Search"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:202
-#: ../..//content/controllers/print_controller.js:1111
+#: ../..//content/controllers/print_controller.js:1113
 msgid "Printer Dashboard"
 msgstr ""
 

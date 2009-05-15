@@ -772,17 +772,17 @@
 
             if (waitCaption) waitCaption.setAttribute("label", title);
 
-            //waitPanel.sizeTo(600, 120);
+            waitPanel.sizeTo(600, 120);
             var x = (width - 600) / 2;
             var y = (height - 240) / 2;
-            //waitPanel.openPopupAtScreen(x, y);
+            waitPanel.openPopupAtScreen(x, y);
 
             // release CPU for progressbar ...
             if (!sleepTime) {
               sleepTime = 1000;
             }
             this.sleep(sleepTime);
-            //return waitPanel;
+            return waitPanel;
         },
 
         truncateTxnRecords: function() {
@@ -793,27 +793,37 @@
                                             _('Remove All Transaction Records'),
                                             _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
-                    // dispatch beforeTruncateTxnRecords event
-                    this.dispatchEvent('beforeTruncateTxnRecords', null);
+                    var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing all transaction records'), 1000);
+                    var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                    GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
-                    // truncate order related tables
-                    var orderModel = new OrderModel();
-                    orderModel.execute('delete from orders');
-                    orderModel.execute('delete from order_receipts');
-                    orderModel.execute('delete from order_promotions');
-                    orderModel.execute('delete from order_payments');
-                    orderModel.execute('delete from order_objects');
-                    orderModel.execute('delete from order_items');
-                    orderModel.execute('delete from order_item_condiments');
-                    orderModel.execute('delete from order_annotations');
-                    orderModel.execute('delete from order_additions');
+                    try {
+                        // dispatch beforeTruncateTxnRecords event
+                        this.dispatchEvent('beforeTruncateTxnRecords', null);
 
-                    // truncate sync tables
-                    orderModel.execute('delete from syncs');
-                    orderModel.execute('delete from sync_remote_machines');
-                    
-                    // dispatch afterTruncateTxnRecords event
-                    this.dispatchEvent('afterTruncateTxnRecords', null);
+                        // truncate order related tables
+                        var orderModel = new OrderModel();
+                        orderModel.execute('delete from orders');
+                        orderModel.execute('delete from order_receipts');
+                        orderModel.execute('delete from order_promotions');
+                        orderModel.execute('delete from order_payments');
+                        orderModel.execute('delete from order_objects');
+                        orderModel.execute('delete from order_items');
+                        orderModel.execute('delete from order_item_condiments');
+                        orderModel.execute('delete from order_annotations');
+                        orderModel.execute('delete from order_additions');
+
+                        // truncate sync tables
+                        orderModel.execute('delete from syncs');
+                        orderModel.execute('delete from sync_remote_machines');
+
+                        // dispatch afterTruncateTxnRecords event
+                        this.dispatchEvent('afterTruncateTxnRecords', null);
+                    } catch (e) {}
+                    finally {
+                        GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                        waitPanel.hidePopup();
+                    }
 
                     GREUtils.Dialog.alert(window, _('Remove All Transaction Records'),
                                                   _('Removal completed. Application will now restart'));
@@ -869,7 +879,7 @@
                 } catch (e) {}
                 finally {
                     GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
-                    //waitPanel.hidePopup();
+                    waitPanel.hidePopup();
                 }
 
 

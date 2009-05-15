@@ -790,7 +790,7 @@
             }
 
             //@debug
-            //if (data.order) this.log(this.dump(data.order));
+            //if (data && data.order) this.log('duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
             // if (data.customer) this.log(this.dump(data.customer));
             // if (data.store) this.log(this.dump(data.store));
             // if (data.annotations) this.log(this.dump(data.annotations));
@@ -805,7 +805,7 @@
                 //this.log('routingGroups: ' + GeckoJS.BaseObject.dump(data.routingGroups));
                 for (var i in data.order.items) {
                     var item = data.order.items[i];
-                    if (data.printAllRouting) {
+                    if (data.printAllRouting && (data.duplicate || item.batch == data.order.batchCount)) {
                         item.linked = true;
                         empty = false;
                     }
@@ -822,13 +822,11 @@
                         if (device.printNoRouting) {
                             if (item.link_group == null || item.link_group == '') {
                                 item.linked = true;
-                                empty = false;
                             }
                         }
 
                         if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group && item.link_group.indexOf(data.linkgroup) > -1) {
                             item.linked = true;
-                            empty = false;
                         }
 
                         if (!item.linked && data.printNoRouting) {
@@ -849,9 +847,11 @@
 
                             if (noRoutingGroups) {
                                 item.linked = true;
-                                empty = false;
                             }
                         }
+
+                        item.linked = item.linked && (data.duplicate || item.batch == data.order.batchCount);
+                        if (item.linked) empty = false;
                     }
                     //this.log('item linked: ' + item.linked);
                 }
@@ -909,7 +909,7 @@
                 }
             }
             //@debug
-            alert(GeckoJS.BaseObject.dump(result));
+            //alert(GeckoJS.BaseObject.dump(result));
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
@@ -987,6 +987,8 @@
                                     }
                                 }
                                 self.closeSerialPort(portPath);
+                                if (data && data.order) {
+                                }
                             }
                         }
                         if (printed == 0) {

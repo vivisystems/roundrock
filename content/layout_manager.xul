@@ -29,7 +29,7 @@
 
   <!-- include startup scripts -->
 
-    <prefpane id="layoutSettingsPane" label="&category.layout;" >
+    <prefpane id="layoutSettingsPane" label="&category.layout.top;" >
         <preferences>
             <preference id="pref_selectedLayout" name="vivipos.fec.general.layouts.selectedLayout" type="unichar"/>
         </preferences>
@@ -40,10 +40,14 @@
         </hbox>
     </prefpane>
 
-    <prefpane id="displaySettingsPane" label="&category.general;" >
+    <prefpane id="displaySettingsPane" label="&category.layout.general;" >
         <preferences>
 			
             <preference id="pref_showtoolbar" name="vivipos.fec.settings.ShowToolbar" type="bool" />
+            <preference id="pref_clockinenabled" name="vivipos.fec.settings.ClockInEnabled" type="bool" />
+            <preference id="pref_showvirtualkeyboardicon" name="vivipos.fec.settings.ShowVKIcon" type="bool" />
+            <preference id="pref_showconfigicon" name="vivipos.fec.settings.ShowConfigIcon" type="bool" />
+
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
             <preference id="pref_productpanelontop" name="vivipos.fec.settings.ProductPanelOnTop" type="bool"/>
             <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.HideTagColumn" type="bool"/>
@@ -55,17 +59,6 @@
 
             <preference id="pref_crop_dept_label" name="vivipos.fec.settings.CropDeptLabel" type="bool"/>
             <preference id="pref_crop_plu_label" name="vivipos.fec.settings.CropPLULabel" type="bool"/>
-
-            <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
-            <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
-            <preference id="pref_depbtnheight" name="vivipos.fec.settings.DepartmentButtonHeight" type="int"/>
-            <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
-            <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
-            <preference id="pref_condrows" name="vivipos.fec.settings.CondimentRows" type="int"/>
-            <preference id="pref_condcols" name="vivipos.fec.settings.CondimentCols" type="int"/>
-            <preference id="pref_fnrows" name="vivipos.fec.settings.functionpanel.rows" type="int"/>
-            <preference id="pref_fncols" name="vivipos.fec.settings.functionpanel.columns" type="int"/>
-            <preference id="pref_fnheight" name="vivipos.fec.settings.functionpanel.height" type="int"/>
 
         </preferences>
         <grid class="DataForm">
@@ -95,53 +88,92 @@
                     <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
                 </row>
                 <row>
-                    <checkbox preference="pref_showtoolbar" id="pref_showtoolbarCtrl" label="&general.showtoolbar;" />
+                    <checkbox preference="pref_showtoolbar" id="pref_showtoolbarCtrl" label="&layout.showtoolbar;" />
+                    <checkbox preference="pref_clockinenabled" id="pref_clockinenabledCtrl" label="&layout.showclockinicon;" />
+                </row>
+                <row>
+                    <checkbox preference="pref_showvirtualkeyboardicon" id="pref_showvirtualkeyboardiconCtrl" label="&layout.showvirtualkeyboardicon;" />
+                    <checkbox preference="pref_showconfigicon" id="pref_showconfigiconCtrl" label="&layout.showconfigicon;" />
                 </row>
             </rows>
         </grid>
+    </prefpane>
+
+    <prefpane id="panelSettingsPane" label="&category.layout.panels;" >
+        <preferences>
+
+            <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
+            <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
+            <preference id="pref_depbtnheight" name="vivipos.fec.settings.DepartmentButtonHeight" type="int"/>
+            <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
+            <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
+            <preference id="pref_condrows" name="vivipos.fec.settings.CondimentRows" type="int"/>
+            <preference id="pref_condcols" name="vivipos.fec.settings.CondimentCols" type="int"/>
+            <preference id="pref_fnrows" name="vivipos.fec.settings.functionpanel.rows" type="int"/>
+            <preference id="pref_fncols" name="vivipos.fec.settings.functionpanel.columns" type="int"/>
+            <preference id="pref_fnheight" name="vivipos.fec.settings.functionpanel.height" type="int"/>
+
+        </preferences>
         
-        <grid class="DataFormC">
+        <grid class="DataForm">
             <columns>
                 <column/>
-                <column/>
-                <column/>
-                <column/>
-                <column/>
-                <column/>
-                <column/>
+                <column flex="1"/>
+                <column flex="1"/>
+                <column flex="1"/>
             </columns>
             <rows>
                 <row>
-                    <label control="deprows" value="&layout.department.label;"/>
-                    <label control="deprows" value="&layout.department.rows;"/>
-                    <textbox preference="pref_deprows" id="deprows" type="number" size="2" maxlength="1"/>
-                    <label control="depcols" value="&layout.department.cols;"/>
-                    <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
-                    <label control="depbtnheight" value="&layout.department.button.height;"/>
-                    <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
+                    <label value="&layout.department.label;"/>
+                    <vbox>
+                        <label control="deprows" value="&layout.department.rows;"/>
+                        <textbox preference="pref_deprows" id="deprows" type="number" size="2" maxlength="1"/>
+                    </vbox>
+                    <vbox>
+                        <label control="depcols" value="&layout.department.cols;"/>
+                        <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
+                    </vbox>
+                    <vbox>
+                        <label control="depbtnheight" value="&layout.department.button.height;"/>
+                        <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
+                    </vbox>
                 </row>
                 <row>
-                    <label control="plurows" value="&layout.plu.label;"/>
-                    <label control="plurows" value="&layout.plu.rows;"/>
-                    <textbox preference="pref_plurows" id="plurows" type="number" size="2" maxlength="1"/>
-                    <label control="plucols" value="&layout.plu.cols;"/>
-                    <textbox preference="pref_plucols" id="plucols" type="number" size="2" maxlength="1"/>
+                    <label value="&layout.plu.label;"/>
+                    <vbox>
+                        <label control="plurows" value="&layout.plu.rows;"/>
+                        <textbox preference="pref_plurows" id="plurows" type="number" size="2" maxlength="1"/>
+                    </vbox>
+                    <vbox>
+                        <label control="plucols" value="&layout.plu.cols;"/>
+                        <textbox preference="pref_plucols" id="plucols" type="number" size="2" maxlength="1"/>
+                    </vbox>
                 </row>
                 <row>
-                    <label control="condrows" value="&layout.condiment.label;"/>
-                    <label control="condrows" value="&layout.condiment.rows;"/>
-                    <textbox preference="pref_condrows" id="condrows" type="number" size="2" maxlength="1" min="1"/>
-                    <label control="condcols" value="&layout.condiment.cols;"/>
-                    <textbox preference="pref_condcols" id="condcols" type="number" size="2" maxlength="1" min="1"/>
+                    <label value="&layout.condiment.label;"/>
+                    <vbox>
+                        <label control="condrows" value="&layout.condiment.rows;"/>
+                        <textbox preference="pref_condrows" id="condrows" type="number" size="2" maxlength="1" min="1"/>
+                    </vbox>
+                    <vbox>
+                        <label control="condcols" value="&layout.condiment.cols;"/>
+                        <textbox preference="pref_condcols" id="condcols" type="number" size="2" maxlength="1" min="1"/>
+                    </vbox>
                 </row>
                 <row>
-                    <label control="deprows" value="&layout.functionpanel.label;"/>
-                    <label control="pref_fnrows" value="&layout.functionpanel.rows;"/>
-                    <textbox preference="pref_fnrows" id="pref_fnrows" type="number" size="2" maxlength="1" min="1" max="9"/>
-                    <label control="pref_fncols" value="&layout.functionpanel.cols;"/>
-                    <textbox preference="pref_fncols" id="pref_fncols" type="number" size="2" maxlength="1" min="1" max="9"/>
-                    <label control="pref_fncols" value="&layout.functionpanel.height;"/>
-                    <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="300"  size="3" maxlength="3"/>
+                    <label value="&layout.functionpanel.label;"/>
+                    <vbox>
+                        <label control="pref_fnrows" value="&layout.functionpanel.rows;"/>
+                        <textbox preference="pref_fnrows" id="pref_fnrows" type="number" size="2" maxlength="1" min="1" max="9"/>
+                    </vbox>
+                    <vbox>
+                        <label control="pref_fncols" value="&layout.functionpanel.cols;"/>
+                        <textbox preference="pref_fncols" id="pref_fncols" type="number" size="2" maxlength="1" min="1" max="9"/>
+                    </vbox>
+                    <vbox>
+                        <label control="pref_fncols" value="&layout.functionpanel.height;"/>
+                        <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="300"  size="3" maxlength="3"/>
+                    </vbox>
                 </row>
             </rows>
         </grid>

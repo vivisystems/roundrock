@@ -2846,7 +2846,7 @@
             
             if(oldTransaction == null) return; // fatal error ?
 
-            // make sure the order has not yet been voided
+            // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
             var existingOrder = orderModel.findById(oldTransaction.data.id);
             if (existingOrder && existingOrder.status != 2) {
