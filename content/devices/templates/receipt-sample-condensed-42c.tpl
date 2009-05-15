@@ -42,3 +42,6 @@ ${'Thank you for shopping at ' + store.name +'!'|center:42}
 [&CR]
 [&CR]
 [&PC]
+[&CR]
+[&CR]
+[&CR]
