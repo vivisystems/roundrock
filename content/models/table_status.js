@@ -194,6 +194,10 @@
             var i = 1;
             var cnt = 0;
             var maxCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.MaxCheckNo') || 999;
+
+            // minimize maxCheckNo is 30
+            maxCheckNo = Math.max(maxCheckNo, 30);
+
             // var ar = this.getCheckList('AllCheck', null);
             var ar = this._checkList;
             if (no) {
