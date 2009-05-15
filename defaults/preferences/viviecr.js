@@ -1,3 +1,8 @@
+/* vivipos database setting */
+pref("DATABASE_CONFIG.table.classname", 'SQLite');
+pref("DATABASE_CONFIG.table.path", '/data/databases');
+pref("DATABASE_CONFIG.table.database", 'vivipos_table.sqlite');
+
 /* extension vivipos */
 pref("vivipos.fec.firstrun", false);
 pref("vivipos.fec.settings.DateFormatStr", "yyyy-mm-dd");

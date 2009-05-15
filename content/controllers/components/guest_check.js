@@ -158,7 +158,7 @@
         selGuestNum: function (no){
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=420,height=460';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
                 input0:no, require0:true, numpad:true
             };
@@ -176,7 +176,7 @@
         selTableNum: function (no){
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=420,height=460';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
                 input0:no, require0:true, numpad:true, disablecancelbtn:true
             };
@@ -737,6 +737,11 @@
             // @todo OSD
             NotifyUtils.warn(_('This order has been stored!!'));
      
+        },
+
+        removeTableStatus: function(checkObj) {
+            //
+            this._tableStatusModel.removeCheck(checkObj);
         },
 
         recallByOrderNo: function(no) {
