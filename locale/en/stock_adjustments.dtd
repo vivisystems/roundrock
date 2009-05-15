@@ -1,0 +1,11 @@
+<!ENTITY stockadjustments.title "Stock Adjustment">
+<!ENTITY stockadjustments.header.no "Product No.">
+<!ENTITY stockadjustments.header.product "Product Name">
+<!ENTITY stockadjustments.header.quantity "Qty.">
+<!ENTITY stockadjustments.header.memo "Memo">
+<!ENTITY stockadjustments.label.no "No.">
+<!ENTITY stockadjustments.label.name "Name">
+<!ENTITY stockadjustments.label.quantity "Qty.">
+<!ENTITY stockadjustments.label.memo "Memo">
+<!ENTITY stockadjustments.search.label "Search">
+<!ENTITY stockadjustments.button.action.modify "Modify">
