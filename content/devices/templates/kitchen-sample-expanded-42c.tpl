@@ -7,11 +7,11 @@
 {else}
 [&DWON]${'Kitchen Check'|center:21}[&DWOFF]
 {/if}
-Printed: ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Terminal: ${order.terminal_no|left:10} Clerk:     ${order.proceeds_clerk_displayname|left:10}
-Check:    ${order.check_no|format:0|left:10} Seq:       ${order.seq|tail:3}
+${'Printed:'|left:10} ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+${'Terminal:'|left:10} ${order.terminal_no|left:9} ${'Clerk:'|left:6} ${order.proceeds_clerk_displayname|default:''|left:14}
+${'Check:'|left:10} ${order.check_no|default:''|format:0|left:9} ${'Seq:'|left:6} ${order.seq|tail:3}
 {if order.table_no != null || order.no_of_customers != null}
-Table:    ${order.table_no|default:''|format:0|left:10} Customers: ${order.no_of_customers|default:''|format:0|left:10}
+${'Table:'|left:10} ${order.table_no|default:''|format:0|left:9} ${'#Cust:'|left:6} ${order.no_of_customers|default:''|format:0|left:14}
 {/if}
 ------------------------------------------
 {for item in order.display_sequences}
@@ -43,3 +43,6 @@ ${memo|left:42}
 [&CR]
 [&PC]
 {/if}
+[&CR]
+[&CR]
+[&CR]

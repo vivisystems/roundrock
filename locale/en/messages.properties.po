@@ -2321,11 +2321,11 @@ msgstr ""
 msgid "T#"
 msgstr ""
 
-#: ../..//content/select_checks.js:138 ../..//content/select_queues.js:28
+#: ../..//content/select_checks.js:148 ../..//content/select_queues.js:28
 msgid "SEQ"
 msgstr ""
 
-#: ../..//content/select_checks.js:150
+#: ../..//content/select_checks.js:159
 #: ../..//content/bindings/onscreenvfd.xbl:62
 #: ../..//content/bindings/onscreenvfd.xbl:115
 #: ../..//content/bindings/onscreenvfd.xbl:137
@@ -2333,6 +2333,10 @@ msgstr ""
 #: ../..//content/bindings/onscreenvfd.xbl:162
 #: ../..//content/bindings/onscreenvfd.xbl:167
 msgid "TAL"
+msgstr ""
+
+#: ../..//content/select_checks.js:173
+msgid "Can not select this order!!"
 msgstr ""
 
 #: ../..//content/sync_settings.js:19
@@ -3157,19 +3161,19 @@ msgstr ""
 msgid "Cash drawer [%S] is not enabled! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:313
+#: ../..//content/controllers/cashdrawer_controller.js:314
 msgid ""
 "Error detected while opening cash drawer [%S]; please check if cash drawer "
 "is connected and powered up"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:372
+#: ../..//content/controllers/cashdrawer_controller.js:373
 #: ../..//content/controllers/print_controller.js:764
 #: ../..//content/controllers/vfd_controller.js:258
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:436
+#: ../..//content/controllers/cashdrawer_controller.js:437
 #: ../..//content/controllers/print_controller.js:1002
 #: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
@@ -3886,8 +3890,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:179
 #: ../..//content/controllers/plus_controller.js:497
 #: ../..//content/controllers/plus_controller.js:988
-#: ../..//content/controllers/plusearch_controller.js:108
-#: ../..//content/controllers/plusearch_controller.js:131
+#: ../..//content/controllers/plusearch_controller.js:135
 #: ../..//content/controllers/stocks_controller.js:118
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:73
 msgid "Product Search"
@@ -3971,7 +3974,7 @@ msgstr ""
 
 #: ../..//content/controllers/main_controller.js:790
 #: ../..//content/controllers/main_controller.js:793
-#: ../..//content/controllers/main_controller.js:818
+#: ../..//content/controllers/main_controller.js:828
 msgid "Remove All Transaction Records"
 msgstr ""
 
@@ -3988,27 +3991,31 @@ msgid ""
 "data removal?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:819
+#: ../..//content/controllers/main_controller.js:796
+msgid "Removing all transaction records"
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:829
 msgid "Removal completed. Application will now restart"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:840
+#: ../..//content/controllers/main_controller.js:850
 msgid "Removing old data..."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:880
+#: ../..//content/controllers/main_controller.js:890
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:880
+#: ../..//content/controllers/main_controller.js:890
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:887
+#: ../..//content/controllers/main_controller.js:897
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:887
+#: ../..//content/controllers/main_controller.js:897
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
@@ -4208,36 +4215,35 @@ msgid ""
 "removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1000
+#: ../..//content/controllers/plus_controller.js:1001
 msgid "Product [%S] already linked to to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1013
-msgid "Product [%S] successfully linked to product group [%S]"
+#: ../..//content/controllers/plus_controller.js:1016
+msgid "Selected products successfully linked to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1417
+#: ../..//content/controllers/plus_controller.js:1419
 msgid "Product Group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1425
+#: ../..//content/controllers/plus_controller.js:1427
 msgid "Department [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1441
+#: ../..//content/controllers/plus_controller.js:1443
 msgid "Product to Clone"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1446
+#: ../..//content/controllers/plus_controller.js:1448
 msgid "Clone Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1510
+#: ../..//content/controllers/plus_controller.js:1512
 msgid "Product [%S] cloned successfully"
 msgstr ""
 
-#: ../..//content/controllers/plusearch_controller.js:109
-#: ../..//content/controllers/plusearch_controller.js:132
+#: ../..//content/controllers/plusearch_controller.js:136
 msgid "Product [%S] Not Found!"
 msgstr ""
 
@@ -4432,98 +4438,107 @@ msgstr ""
 msgid "Host Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:228
+#: ../..//content/controllers/select_table_controller.js:232
 msgid "Recall Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:228
+#: ../..//content/controllers/select_table_controller.js:232
 msgid "Please select a table to recall..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:228
-#: ../..//content/controllers/select_table_controller.js:236
-#: ../..//content/controllers/select_table_controller.js:244
-#: ../..//content/controllers/select_table_controller.js:252
-#: ../..//content/controllers/select_table_controller.js:259
-#: ../..//content/controllers/select_table_controller.js:282
-#: ../..//content/controllers/select_table_controller.js:289
-#: ../..//content/controllers/select_table_controller.js:296
+#: ../..//content/controllers/select_table_controller.js:232
+#: ../..//content/controllers/select_table_controller.js:240
+#: ../..//content/controllers/select_table_controller.js:248
+#: ../..//content/controllers/select_table_controller.js:256
+#: ../..//content/controllers/select_table_controller.js:263
+#: ../..//content/controllers/select_table_controller.js:270
+#: ../..//content/controllers/select_table_controller.js:306
+#: ../..//content/controllers/select_table_controller.js:313
+#: ../..//content/controllers/select_table_controller.js:320
 msgid "Press CANCEL button to cancel function"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:236
+#: ../..//content/controllers/select_table_controller.js:240
 msgid "Split Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:236
+#: ../..//content/controllers/select_table_controller.js:240
 msgid "Please select a table to split..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:244
+#: ../..//content/controllers/select_table_controller.js:248
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:244
+#: ../..//content/controllers/select_table_controller.js:248
 msgid "Please select a table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:252
+#: ../..//content/controllers/select_table_controller.js:256
 msgid "Merge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:252
+#: ../..//content/controllers/select_table_controller.js:256
 msgid "Please select the master table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:259
+#: ../..//content/controllers/select_table_controller.js:263
 msgid "Unmerge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:259
+#: ../..//content/controllers/select_table_controller.js:263
 msgid "Please select the table to unmerge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:282
+#: ../..//content/controllers/select_table_controller.js:270
+msgid "Book Table"
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:270
+msgid "Please select a table to book..."
+msgstr ""
+
+#: ../..//content/controllers/select_table_controller.js:306
 #: ../..//content/bindings/onscreenvfd.xbl:92
 msgid "Change Clerk"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:282
+#: ../..//content/controllers/select_table_controller.js:306
 msgid "Select a table to change service clerk to [ %S ]..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:289
+#: ../..//content/controllers/select_table_controller.js:313
 msgid "Trans Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:289
+#: ../..//content/controllers/select_table_controller.js:313
 msgid "Please select the table to be transfered..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:296
+#: ../..//content/controllers/select_table_controller.js:320
 msgid "Select Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:296
+#: ../..//content/controllers/select_table_controller.js:320
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:333
-#: ../..//content/controllers/select_table_controller.js:341
-#: ../..//content/controllers/select_table_controller.js:353
-#: ../..//content/controllers/select_table_controller.js:390
+#: ../..//content/controllers/select_table_controller.js:377
+#: ../..//content/controllers/select_table_controller.js:385
+#: ../..//content/controllers/select_table_controller.js:433
+#: ../..//content/controllers/select_table_controller.js:470
 msgid "This table is empty!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:356
+#: ../..//content/controllers/select_table_controller.js:436
 msgid "Please select the table to transfer to..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:394
+#: ../..//content/controllers/select_table_controller.js:474
 msgid "Please select an empty table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:405
+#: ../..//content/controllers/select_table_controller.js:485
 msgid "This table had not been hold!!"
 msgstr ""
 
@@ -4563,7 +4578,7 @@ msgstr ""
 msgid "Failed to set volume"
 msgstr ""
 
-#: ../..//content/controllers/split_check_controller.js:444
+#: ../..//content/controllers/split_check_controller.js:447
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
@@ -4643,107 +4658,111 @@ msgstr ""
 msgid "Must select a item from stick list."
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:111
-msgid "Add Table"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:111
-msgid "New Table"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:111
-msgid "Table Number"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:111
-msgid "Table Name"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:117
-msgid "Table Number [%S] has already been assigned exists"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:150
-msgid "Table [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:182
-#: ../..//content/controllers/table_man_controller.js:248
-msgid "Table [%S (%S)] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:191
-msgid "confirm delete table [%S (%S)]"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:192
-msgid "Are you sure you want to delete table [%S (%S)]?"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:212
-msgid "Table [%S (%S)] deleted successfully"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:257
-msgid "Add Region"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:257
-msgid "New Region"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:257
-msgid "Region Name"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:291
-msgid "Region [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:325
-msgid "Region [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:334
-#: ../..//content/controllers/table_man_controller.js:444
-msgid "confirm delete region [%S (%S)]"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:335
-#: ../..//content/controllers/table_man_controller.js:445
-msgid "Are you sure you want to delete region [%S]?"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:356
-#: ../..//content/controllers/table_man_controller.js:466
-msgid "Region [%S] deleted successfully"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:365
+#: ../..//content/controllers/table_book_controller.js:49
 msgid "Add Booking"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:365
+#: ../..//content/controllers/table_book_controller.js:49
 msgid "New Booking"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:365
+#: ../..//content/controllers/table_book_controller.js:49
 msgid "Contact"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:365
+#: ../..//content/controllers/table_book_controller.js:49
 msgid "Telephone"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:402
+#: ../..//content/controllers/table_book_controller.js:93
 msgid "Booking added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:435
+#: ../..//content/controllers/table_book_controller.js:126
 msgid "Booking [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:590
+#: ../..//content/controllers/table_book_controller.js:135
+#: ../..//content/controllers/table_man_controller.js:317
+msgid "confirm delete region [%S (%S)]"
+msgstr ""
+
+#: ../..//content/controllers/table_book_controller.js:136
+#: ../..//content/controllers/table_man_controller.js:318
+msgid "Are you sure you want to delete region [%S]?"
+msgstr ""
+
+#: ../..//content/controllers/table_book_controller.js:157
+#: ../..//content/controllers/table_man_controller.js:339
+msgid "Region [%S] deleted successfully"
+msgstr ""
+
+#: ../..//content/controllers/table_book_controller.js:228
+msgid "Book Table# %S : %S"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:94
+msgid "Add Table"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:94
+msgid "New Table"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:94
+msgid "Table Number"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:94
+msgid "Table Name"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:100
+msgid "Table Number [%S] has already been assigned exists"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:133
+msgid "Table [%S] added successfully"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:165
+#: ../..//content/controllers/table_man_controller.js:231
+msgid "Table [%S (%S)] modified successfully"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:174
+msgid "confirm delete table [%S (%S)]"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:175
+msgid "Are you sure you want to delete table [%S (%S)]?"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:195
+msgid "Table [%S (%S)] deleted successfully"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:240
+msgid "Add Region"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:240
+msgid "New Region"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:240
+msgid "Region Name"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:274
+msgid "Region [%S] added successfully"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:308
+msgid "Region [%S] modified successfully"
+msgstr ""
+
+#: ../..//content/controllers/table_man_controller.js:446
 msgid "Options saved successfully"
 msgstr ""
 

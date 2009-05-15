@@ -78,8 +78,11 @@
                 }
                 this._box = document.getAnonymousElementByAttribute(this, "anonid", "box");
                 this._title = document.getAnonymousElementByAttribute(this, "anonid", "title_label");
+
+                this._num_items = 0;
                 this._subtotal = document.getAnonymousElementByAttribute(this, "anonid", "subtotal_label");
                 this._applies = document.getAnonymousElementByAttribute(this, "anonid", "applies_label");
+
                 this._type = this.getAttribute("type") || 'summary' ;
                 this._tree = document.getAnonymousElementByAttribute(this, "anonid", "promotions_tree");
                 this._tree_detail = document.getAnonymousElementByAttribute(this, "anonid", "promotions_tree_detail");
@@ -114,12 +117,14 @@
                 this._title.value = _('Your Saving');
                 this._subtotal.value = this.format(0);
                 this._applies.value = '#0';
+                this._num_items = 0 ;
 
                 this.cartevents = GeckoJS.Controller.getInstanceByName('Cart').events;
 
                 var self = this;
 
                 this.onGetSubtotal = function(evt) {
+
                     var transaction = evt ? evt.data : null;
 
                     if(transaction) {
@@ -193,9 +198,10 @@
                 <![CDATA[
 
                     if (transaction) {
-                        var num_items = transaction.data['promotion_apply_items'] ? transaction.data['promotion_apply_items'].length : 0;
+                        this._num_items = transaction.data['promotion_apply_items'] ? transaction.data['promotion_apply_items'].length : 0;
                         this._subtotal.value = this.format(transaction.data['promotion_subtotal']);
-                        this._applies.value = '#' + num_items;
+                        this._applies.value = '#' + this._num_items;
+
                     }else if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
                         isReset = true;
                     }
@@ -203,6 +209,7 @@
                     if(isReset){
                         this._subtotal.value = this.format(0);
                         this._applies.value = '#0';
+                        this._num_items = 0 ;
                     }
 
                 ]]>
@@ -236,7 +243,7 @@
                 <xbl:body>
                 <![CDATA[
 
-                    if (parseFloat(this._subtotal.value)>0) {
+                    if (this._num_items>0) {
                         if(this._autohide) this._box.removeAttribute('hidden');
                     }else {
                         if(this._autohide) this._box.setAttribute('hidden', true);

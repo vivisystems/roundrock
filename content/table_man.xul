@@ -21,6 +21,7 @@
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/table_man.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/libs/jquery.flow.ex.1.2.js" />
 
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('search_ok').click()" />
@@ -284,6 +285,10 @@
                         <textbox id="supplier_no" name="no" form="supplierForm" readonly="true" hidden="true"/>
 
                         <vbox flex="1">
+                            <vivi_tables_map id="tablesMap" />
+
+                            <button oncommand="document.getElementById('tablesMap').slideTo(0)" label="0" />
+                            <button oncommand="document.getElementById('tablesMap').slideTo(1)" label="1" />
                             <spacer flex="1" />
 
                             <hbox>
@@ -303,7 +308,6 @@
                     
 
                 </tabpanels>
-
 
             </tabbox>
         </vbox>

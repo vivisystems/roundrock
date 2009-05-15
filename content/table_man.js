@@ -23,6 +23,8 @@
         $('#imageBrowseBtn')[0].addEventListener('command', selectImages, false);
         $('#imageRemoveBtn')[0].addEventListener('command', RemoveImage, false);
 
+        //document.getElementById('tablesMap').initSlides();
+
     };
 
 
