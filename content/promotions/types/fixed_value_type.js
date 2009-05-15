@@ -24,12 +24,12 @@
                 case "by_qty":
                     subtotal = trigger.getMatchedItemsSubtotal();
                     qty = trigger.getMatchedItemsQty();
-                    discount = parseFloat(subtotal - qty*value);
+                    discount = (0 - parseFloat(subtotal - qty*value));
                     break;
 
                 case "by_subtotal":
                     subtotal = trigger.getMatchedItemsSubtotal();
-                    discount = parseFloat(subtotal - value);
+                    discount = (0 - parseFloat(subtotal - value));
                     break;
             }
 

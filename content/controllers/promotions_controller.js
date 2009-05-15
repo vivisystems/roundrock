@@ -97,7 +97,6 @@
             if(Transaction) {
                 // on Transaction object created
                 Transaction.events.addListener('onCreate', function(evt) {
-                    GREUtils.log('Transaction onCreate');
                     self.prepareTransactionData(evt);
                     self.resetCurrentPromotions();
                 });
@@ -342,6 +341,7 @@
                                 }
 
                                 // save promotion rule to in-memory table
+                                //this.log('appendItem ' + typeObj.getDiscountSubtobal());
                                 applyModel.appendItem(promotion, triggerObj, typeObj);
                                 promotionMatchedItems.push(triggerObj.getMatchedItems());
                                 
@@ -453,7 +453,8 @@
             this._transaction['data']['promotion_subtotal'] = totalPromotionDiscount;
             this._transaction['data']['promotion_apply_items'] = applyItems;
             this._transaction['data']['promotion_matched_items'] = promotionMatchedItems;
-//            this.log('updateTransaction' +  this.dump(applyItems) + this.dump(promotionMatchedItems));
+
+            //this.log('updateTransaction' +  this.dump(applyItems) + this.dump(promotionMatchedItems));
         }
 
     };

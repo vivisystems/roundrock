@@ -85,7 +85,7 @@ var __klass__ = {
      * Type must implement this method
      */
     setDiscountSubtobal: function(discountSubtobal) {
-        discountSubtobal = discountSubtobal < 0 ? 0 : discountSubtobal;
+        discountSubtobal = discountSubtobal || 0 ;
         this._discountSubtobal = discountSubtobal;
     },
 
