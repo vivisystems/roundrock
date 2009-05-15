@@ -35,6 +35,9 @@
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                 .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
             this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
+
+            // this._cart.dispatchEvent('onSplitCheck', null);
+
             return this._cart;
         },
 
@@ -425,16 +428,16 @@
 
                 // dispatch changeclerk event
                 // this.getCartController().dispatchEvent('onStore', origData);
-                this.getCartController().dispatchEvent('onSplitCheck', origData);
+                self.getCartController().dispatchEvent('onSplitCheck', origData);
 
                 // add to table_status
-                if (this._tableStatusModel == null) {
-                    this._tableStatusModel = new TableStatusModel;
-                    this._tableStatusModel.initial();
+                if (self._tableStatusModel == null) {
+                    self._tableStatusModel = new TableStatusModel;
+                    self._tableStatusModel.initial();
                 }
 
                 // update table status
-                this._tableStatusModel.addCheck(data);
+                self._tableStatusModel.addCheck(data);
 
             });
             

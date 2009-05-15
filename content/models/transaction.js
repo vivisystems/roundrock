@@ -73,7 +73,7 @@
                 table_no: '',
                 check_no: '',
 
-                no_of_customers: 0,
+                no_of_customers: '',
 
                 terminal_no: '',
                 sale_period: '',
@@ -175,6 +175,9 @@
 
                 // order save in main thread
                 var order = new OrderModel();
+                if (this.data.status == 1 || this.data.no_of_customers == '') {
+                    this.data.no_of_customers = '1';
+                }
                 order.saveOrder(this.data);
 
                 if (this.data.status == 2) {

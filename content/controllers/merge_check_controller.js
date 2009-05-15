@@ -159,7 +159,9 @@
             this.calcTotal(this._mergedCheck);
 
             // misc
-            this._mergedCheck.no_of_customers += this._sourceCheck.no_of_customers;
+            var mergedGuestNo = this._mergedCheck.no_of_customers;
+            var sourcGuestNo = this._sourceCheck.no_of_customers;
+            this._mergedCheck.no_of_customers = Math.round(parseInt(mergedGuestNo) + parseInt(sourcGuestNo));
 
 
             var panelView = new GeckoJS.NSITreeViewArray([]);
@@ -183,9 +185,6 @@
                 this._tableStatusModel.initial();
             }
 
-
-
-
             // save merged check...
             order.saveOrder(this._mergedCheck);
             order.serializeOrder(this._mergedCheck);
@@ -199,6 +198,7 @@
 
             // @todo set source check's status to -3 ==> transfered check'
             this._sourceCheck.status = -3;
+            order.removeOldOrder(this._sourceCheck.id);
             order.saveOrderMaster(this._sourceCheck);
             
             // remove source check table status

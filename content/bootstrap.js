@@ -47,5 +47,6 @@ include('chrome://viviecr/content/models/table.js');
 include('chrome://viviecr/content/models/table_region.js');
 include('chrome://viviecr/content/models/table_booking.js');
 include('chrome://viviecr/content/models/table_status.js');
+include('chrome://viviecr/content/models/table_order.js');
 
 })();
