@@ -11,7 +11,7 @@ ${'Table:'|left:10} ${order.table_no|default:''|left:9} ${'#Cust:'|left:6} ${ord
 ------------------------------------------
 {for item in order.display_sequences}
 {if item.type == 'item'}
-${item.current_qty|right:4} ${item.name|left:12} ${item.current_price|left:7} ${item.current_subtotal|right:15}
+${item.current_qty|right:4} ${item.name|left:16} ${item.current_price|right:6} ${item.current_subtotal|right:12}
 {/if}
 {if item.type == 'discount' || item.type == 'surcharge'}
     ${item.name|left:24} ${item.current_subtotal|right:12}
