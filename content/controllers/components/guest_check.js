@@ -72,7 +72,7 @@
             // add listener for onStartShift event
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
-                main.addEventListener('onInitial', this.handleNewTransaction, this);
+                main.addEventListener('onFirstLoad', this.handleNewTransaction, this);
             }
             
         },
@@ -112,7 +112,7 @@
                         this._controller.newCheck(true);
                 }
             }
-            if (evt.type == 'onInitial' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit' || evt.type == 'onChangeServiceClerk' || evt.type == 'onTransTable') {
+            if (evt.type == 'onFirstLoad' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit' || evt.type == 'onChangeServiceClerk' || evt.type == 'onTransTable') {
                 if (evt.type == 'onStore' || evt.type == 'onChangeServiceClerk' || evt.type == 'onTransTable') {
                     this._tableStatusModel.addCheck(evt.data.data);
                 }
@@ -128,6 +128,8 @@
                         // var table_no = this.getNewTableNo();
                         this._controller.newTable();
                 }
+
+                /*
                 var action = GeckoJS.Session.get('vivipos_guest_check_action');
                 if (action == 'SelectTableNo') {
                     if (this._guestCheck.requireGuestNum) {
@@ -137,7 +139,7 @@
                         // this._controller.guestNum(num);
                     }
                 }
-                
+                */
             }
         },
 
@@ -156,7 +158,7 @@
         selGuestNum: function (no){
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=420,height=460';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
                 input0:no, require0:true, numpad:true
             };
@@ -174,7 +176,7 @@
         selTableNum: function (no){
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=420,height=460';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
                 input0:no, require0:true, numpad:true, disablecancelbtn:true
             };
@@ -210,9 +212,9 @@
 
         _isAllowMerge: function(data) {
             var r = true;
-
             // not allow to Merge when transaction is closed
             if (data.isClosed()) {
+            // if (data.closed) {
                 NotifyUtils.warn(_('The order has been pre-finalized ; Can not be merged'));
                 r = false;
             }
@@ -229,9 +231,9 @@
         _isAllowSplit: function(data) {
 
             var r = true;
-
             // not allow to split when transaction is closed
             if (data.isClosed()) {
+            // if (data.closed) {
                 NotifyUtils.warn(_('The order has been pre-finalized ; Can not be split'));
                 r = false;
             }
@@ -274,7 +276,7 @@
             }
 
             // get table status
-            var tables = this._tableStatusModel.getTableStatusList();
+            // var tables = this._tableStatusModel.getTableStatusList();
 
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
@@ -283,8 +285,22 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 isNewOrder: isNewOrder,
-                tables: tables
+                // tables: tables
+                tables: null
             };
+
+
+            var dialog_data = [
+                inputObj
+            ];
+            var self = this;
+
+            try {
+                var r = $.popupPanel('selectTablePanel', dialog_data);
+            } catch (e) {}
+
+            return;
+
 
             window.openDialog(aURL, 'select_table', features, inputObj);
 
@@ -439,6 +455,165 @@
             return "" + r;
         },
 
+        doSelectTableFuncs: function(inputObj) {
+
+            if (inputObj.ok && inputObj.index) {
+                var tables = inputObj.tables;
+                var idx = inputObj.index;
+                var i = tables[idx].table_no;
+                var id = tables[idx].order_id;
+                var destination = tables[idx].table.destination;
+
+                // set action tag to session
+                GeckoJS.Session.set('vivipos_guest_check_action', inputObj.action);
+
+                switch (inputObj.action) {
+                    case 'RecallCheck':
+
+                        this.recallByTableNo(i);
+
+                        break;
+                    case 'SplitCheck':
+                        if (this.recallByTableNo(i) != -1) {
+
+                            var curTransaction = null;
+                            curTransaction = this._controller._getTransaction();
+                            if (curTransaction) {
+                                if (this._isAllowSplit(curTransaction)) {
+
+                                    if (this.splitOrder(id, curTransaction.data) == -1) {
+                                        // clear recall check from cart
+                                        this._controller.cancel(true);
+                                    };
+                                } else {
+                                    this._controller.cancel(true);
+                                }
+                            }
+                        }
+                        // this._controller.GuestCheck.getNewTableNo();
+
+                        break;
+                    case 'MergeCheck':
+                        if (this.recallByTableNo(i) != -1) {
+
+                            var curTransaction = null;
+                            curTransaction = this._controller._getTransaction();
+                            if (curTransaction) {
+                                if (this._isAllowMerge(curTransaction)) {
+
+                                    if (this.mergeOrder(id, curTransaction.data) == -1) {
+                                        // clear recall check from cart
+                                        this._controller.cancel(true);
+                                    };
+                                } else {
+                                    this._controller.cancel(true);
+                                }
+                            }
+                        }
+                        // this._controller.GuestCheck.getNewTableNo();
+                        
+                        break;
+                    case 'SelectTableNo':
+
+                        if (i >= 0) {
+
+                            var curTransaction = null;
+                            curTransaction = this._controller._getTransaction();
+                            if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel() || curTransaction.isStored()) {
+
+                                this._controller.cancel(true);
+                                curTransaction = this._controller._getTransaction(true);
+                                if (curTransaction == null) {
+                                    NotifyUtils.warn(_('fatal error!!'));
+                                    return; // fatal error ?
+                                }
+                            }
+                            GeckoJS.Session.set('vivipos_fec_table_number', i);
+                            curTransaction.data.table_no = "" + i;
+                            r = i;
+
+                            // set destination
+                            if (destination)
+                                this.requestCommand('setDestination', destination, 'Destinations');
+                        }
+                        break;
+                    case 'ChangeClerk':
+                        // @todo ChangeClerk must be rewrited...
+
+                        this.recallByTableNo(i);
+
+                        // get login user info...
+                        var user = new GeckoJS.AclComponent().getUserPrincipal();
+                        var service_clerk;
+                        var service_clerk_displayname;
+                        if ( user != null ) {
+                            service_clerk = user.username;
+                            service_clerk_displayname = user.description;
+                        }
+
+                        var curTransaction = null;
+                        curTransaction = this._controller._getTransaction();
+                        if (curTransaction) {
+                            if (service_clerk) {
+                                curTransaction.data.service_clerk = service_clerk;
+                                curTransaction.data.service_clerk_displayname = service_clerk_displayname;
+                            }
+                            this.store();
+
+                            // clear recall check from cart
+                            this._controller.cancel(true);
+
+                            // dispatch changeclerk event
+                            // this._controller.dispatchEvent('onStore', curTransaction);
+                            this._controller.dispatchEvent('onChangeServiceClerk', curTransaction);
+                        }
+
+                        break;
+                    case 'MergeTable':
+
+                        break;
+                    case 'TransTable':
+                        // @todo TransTable must be rewrited...
+
+                        var targetTableNo = Math.round(parseInt(i));
+                        var sourceTableNo = inputObj.sourceTableNo;
+
+                        if (this.recallByTableNo(sourceTableNo) != -1) {
+                            var curTransaction = null;
+                            curTransaction = this._controller._getTransaction();
+                            if (curTransaction) {
+                                this.table("" + targetTableNo);
+                                this.store();
+
+                                // clear recall check from cart
+                                this._controller.cancel(true);
+
+                                // dispatch changeclerk event
+                                // this._controller.dispatchEvent('onStore', curTransaction);
+                                this._controller.dispatchEvent('onTransTable', curTransaction);
+                            }
+
+                        }
+                        break;
+                }
+            }else {
+                /*
+                while (i <= 200) {
+                    if (!this._tableNoArray[i] || this._tableNoArray[i] == 0) {
+                        this._tableNoArray[i] = 1;
+                        break;
+                    }
+                    i++;
+                }
+                r = i;
+                */
+                return;
+            }
+
+            // GeckoJS.Session.set('vivipos_fec_table_number', i);
+            return "";
+        },
+
         table: function(table_no) {
 
             var r = this._tableStatusModel.getTableNo(table_no);
@@ -562,6 +737,11 @@
             // @todo OSD
             NotifyUtils.warn(_('This order has been stored!!'));
      
+        },
+
+        removeTableStatus: function(checkObj) {
+            //
+            this._tableStatusModel.removeCheck(checkObj);
         },
 
         recallByOrderNo: function(no) {
@@ -745,7 +925,8 @@
                             // return queues[idx].key;
 
                             // AC 2009.04.29
-                            var id = ord[idx].id;
+                            // var id = ord[idx].id;
+                            var id = inputObj.order_id;
                             // var id = ord[idx].order_id;
 
                             var status = ord[idx].status;
@@ -753,7 +934,7 @@
 
                             if (silence) {
                                 //
-
+                                // return this._controller.unserializeFromOrder(id);
 
                             } else {
                                 this._controller.unserializeFromOrder(id);
@@ -833,6 +1014,11 @@
         },
 
         unserializeFromOrder: function(order_id) {
+
+            var curTransaction = new Transaction();
+            curTransaction.unserializeFromOrder(order_id);
+            return curTransaction;
+
             var order = new OrderModel();
             return order.unserializeOrder(order_id);
         },
@@ -846,6 +1032,7 @@
             if (target_id == -1) return -1;
 
             var targetCheck = this.unserializeFromOrder(target_id);
+            // var targetCheck = this._controller._getTransaction();
 
             // check if target check allow to be merged...
             if (!this._isAllowMerge(targetCheck)) return -1
@@ -860,7 +1047,7 @@
 
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
-                targetCheck: targetCheck,
+                targetCheck: targetCheck.data,
                 sourceCheck: data
             };
 

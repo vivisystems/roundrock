@@ -51,7 +51,10 @@
             if (seq != "") {
                 seq = _("S#") + seq;
                 subtotal = _("T#") + subtotal;
-                btn.setTableStatus(1);
+                if (this.data[row].block_item)
+                    btn.setTableStatus(2);
+                else
+                    btn.setTableStatus(1);
 
                 if (period_time < tableSettings.TablePeriodLimit * 60 * 1000)
                     btn.setPeriodStatus(1);
@@ -115,12 +118,15 @@
                 terminal_no: checkObj.terminal_no,
                 total: checkObj.total,
                 created: checkObj.transaction_created,
+                block_item: false,
                 table: {},
                 order: {}
 
             };
-            if (!excludedOrderId || checkViewObj.order_id != excludedOrderId)
-                checkViews.push(checkViewObj);
+            if (excludedOrderId && checkViewObj.order_id == excludedOrderId) {
+                checkViewObj.block_item = true;
+            }
+            checkViews.push(checkViewObj);
         });
         
         var checkList = new CheckListView(checkViews);
@@ -135,13 +141,16 @@
             var data = checks[index];
 
             var displayStr = "";
+            if (checkViews[index].block_item) {
+                displayStr = "*";
+            }
+
             displayStr += _("SEQ") + ": " + data.sequence + "\n\n";
             var limit = 10, cc= 0;
             data.OrderItem.forEach(function(item){
                 if (cc<=limit) {
                     displayStr += item.product_name + ' x ' + item.current_qty + '\n';
                 }
-
             });
 
             if (cc>limit) displayStr += "   ......   \n" ;
@@ -155,8 +164,18 @@
 
         doSetOKCancel(
             function(){
+
                 // inputObj.condiments = document.getElementById('condiments').value;
                 inputObj.index = document.getElementById('checkScrollablepanel').value;
+
+                if (checkViews[inputObj.index].block_item) {
+                    // @todo OSD
+                    NotifyUtils.warn(_('Can not select this order!!'));
+
+                    return false;
+                }
+
+                inputObj.order_id = checkViews[inputObj.index].order_id;
                 inputObj.ok = true;
 
                 delete window.viewHelper;
