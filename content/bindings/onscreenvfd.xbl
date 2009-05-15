@@ -26,7 +26,6 @@
                     </xul:rows>
                 </xul:grid>
             </xul:hbox>
-
         </content>
   
         <xbl:implementation>
@@ -299,7 +298,6 @@
                     if(val.length > this._maxlen) {
                         val = val.substr(0,this._maxlen-4) + "..." + val.substr(val.length-1,1);
                     }
-
                     this._label1_1.value = val;
                 ]]>
                 </xbl:body>

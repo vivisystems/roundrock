@@ -24,7 +24,7 @@
         <content>
             <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer" allowevents="true">
                 <xul:label xbl:inherits="value=label"/>
-                <xul:textbox anonid="input" decimalplaces="Infinity" flex="1" xbl:inherits="class=textboxClass,type,hidespinbuttons,min,max,readonly"/>
+                <xul:textbox anonid="input" decimalplaces="Infinity" flex="1" xbl:inherits="class=textboxClass,type,hidespinbuttons,min,max,size,readonly"/>
                 
                 <xul:panel anonid="numpad_panel" position="after_start" noautohide="false" noautofocus="true">
 					<xul:hbox anonid="numpad" pack="center">
@@ -153,7 +153,7 @@
             
             <handler event="click">
               <![CDATA[
-              	if ( this.getAttribute( 'popupKeypad' ) == 'true' && this.isKeypadOpened == false ) {
+              	if ( event.originalTarget.tagName == 'div' && this.getAttribute( 'popupKeypad' ) == 'true' && this.isKeypadOpened == false ) {
 	        		this[ this.getAttribute( 'keypad' ) + '_panel' ].openPopup( this, 'after_start' );
 	        		// before_start, before_end, after_start, after_end, start_before, start_after, end_before, end_after, overlap, after_pointer
             	}
