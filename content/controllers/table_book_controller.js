@@ -237,8 +237,8 @@
 
         validateForm: function() {
             var index = this.getBookingListObj().selectedIndex;
-            var modBtn = document.getElementById('modify_table');
-            var delBtn = document.getElementById('delete_table');
+            var modBtn = document.getElementById('modify_book');
+            var delBtn = document.getElementById('delete_book');
 
             if (this._bookingListDatas.length <= 0) {
                 index = -1;
