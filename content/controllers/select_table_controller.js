@@ -108,6 +108,12 @@
 
         initial: function () {
             //
+//            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+//            if (screenwidth > 1000) {
+//                document.getElementById('tableScrollablepanel').rows = 5;
+//                document.getElementById('tableScrollablepanel').cols = 5;
+//            }
+            
             // this.readTableConfig();
             if (this._tableStatusModel == null) {
                 this._tableStatusModel = new TableStatusModel;
@@ -331,6 +337,10 @@
             this._sourceTable = null;
             this._sourceTableNo = null;
             this._hidePromptPanel('prompt_panel');
+
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            cart.GuestCheck.getNewTableNo();
+            
             return;
         },
 

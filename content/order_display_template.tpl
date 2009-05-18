@@ -28,9 +28,10 @@
   }
 */
 {/eval}
-<html:div>
-<html:hr/>
-<html:pre><html:table style="width: 720px">
+<html:div class="paper">
+
+<html:div class="ReportDate">
+<html:table width="90%">
     <html:tr>
         <html:td style="width: 80px">${_('(view)order sequence')+':'}</html:td>
         <html:td> ${order.sequence}</html:td>
@@ -75,16 +76,29 @@
         <html:td style="width: 80px">${_('(view)customers')+':'}</html:td>
         <html:td>${order.no_of_customers}</html:td>
     </html:tr>
-</html:table></html:pre><html:hr/>
+</html:table>
+</html:div>
 
-<html:pre><html:table style="width: 720px">
+<html:div class="tableTitle">
+<html:table id="body-table" width="100%">
+	    <html:thead>
+                <html:tr>
+                    <html:th style="text-align: left;">${_('Item')}</html:th>
+                    <html:th style="text-align: left;"> </html:th>
+                    <html:th style="text-align: center;">${_('Qty')}</html:th>
+                    <html:th style="text-align: center;"> </html:th>
+                    <html:th style="text-align: right;">${_('Price')}</html:th>
+                    <html:th style="text-align: left;">${_('Tax')}</html:th>
+                </html:tr>
+            </html:thead>
+            <html:tbody>
 {for item in order.items}
 {eval}
     prodName = item.name;
     if (item.destination != null && item.destination != '') prodName = '(' + item.destination + ') ' + prodName;
 {/eval}
     <html:tr>
-        <html:td style="width: 400px">${prodName}</html:td>
+        <html:td style="width: 400px; text-align: left;">${prodName}</html:td>
         <html:td/>
         <html:td style="width: 70px; text-align: right">${item.current_qty} X</html:td>
         <html:td style="width: 100px; text-align: right;">${item.current_price}</html:td>
@@ -120,16 +134,16 @@
     </html:tr>
 {/if}
 {/for}
+
+</html:tbody>
+            <html:tfoot>
+            
     <html:tr>
-        <html:td colspan="6"><html:hr/></html:td>
-    </html:tr>
-    <html:tr>
-        <html:td colspan="4">${_('(view)Item Subtotal')}</html:td>
+        <html:td colspan="4" style="text-align: left;">${_('(view)Item Subtotal')}</html:td>
         <html:td style="width: 100px; text-align: right;">${order.item_subtotal|viviFormatPrices:true}</html:td>
+        <html:td />
     </html:tr>
-    <html:tr>
-        <html:td colspan="6"><html:hr/></html:td>
-    </html:tr>
+    
 {if order.OrderAddition}
     {for adjustment in order.OrderAddition}
     <html:tr>
@@ -143,36 +157,25 @@
         {/if}
     {/for}
     <html:tr>
-        <html:td colspan="6"><html:hr/></html:td>
-    </html:tr>
-    <html:tr>
-        <html:td>${_('(view)Adjustments')}</html:td>
+        <html:td style="text-align: left;">${_('(view)Adjustments')}</html:td>
         <html:td style="text-align: right;">${item_adjustments|viviFormatPrices:true}</html:td>
         <html:td colspan="3" style="text-align: right;">${order.surcharge_subtotal + order.discount_subtotal|viviFormatPrices:true}</html:td>
     </html:tr>
-    <html:tr>
-        <html:td colspan="6"><html:hr/></html:td>
-    </html:tr>
+
 {/if}
     <html:tr>
-        <html:td colspan="4">${_('(view)Add-on Taxes')}</html:td>
+        <html:td colspan="4" style="text-align: left;">${_('(view)Add-on Taxes')}</html:td>
         <html:td style="width: 100px; text-align: right;">${order.tax_subtotal|viviFormatTaxes:true}</html:td>
     </html:tr>
     <html:tr>
-        <html:td colspan="6"><html:hr/></html:td>
-    </html:tr>
-    <html:tr>
-        <html:td colspan="4">${_('(view)Total')}</html:td>
+        <html:td colspan="4" style="text-align: left;">${_('(view)Total')}</html:td>
         <html:td style="width: 100px; text-align: right;">${order.total|viviFormatPrices:true}</html:td>
-    </html:tr>
-    <html:tr>
-        <html:td colspan="6"><html:hr/></html:td>
     </html:tr>
 {if order.trans_payments}
 {for payment in order.trans_payments}
     <html:tr>
-        <html:td>${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : payment.name}</html:td>
-        <html:td colspan="2">${(payment.memo1 != null && payment.memo1 != '') ? payment.name : ''}</html:td>
+        <html:td style="text-align: left;">${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : payment.name}</html:td>
+        <html:td colspan="2" style="text-align: left;">${(payment.memo1 != null && payment.memo1 != '') ? payment.name : ''}</html:td>
         <html:td style="text-align: right;">${payment.origin_amount}</html:td>
         <html:td style="text-align: right;">${payment.amount|viviFormatPrices:true}</html:td>
     </html:tr>
@@ -183,26 +186,22 @@
     {/if}
 {/for}
     <html:tr>
-        <html:td colspan="6"><html:hr/></html:td>
-    </html:tr>
-    <html:tr>
-        <html:td colspan="4">${_('(view)Payment Subtotal')}</html:td>
+        <html:td colspan="4" style="text-align: left;">${_('(view)Payment Subtotal')}</html:td>
         <html:td style="width: 100px; text-align: right;">${order.payment_subtotal|viviFormatPrices:true}</html:td>
-    </html:tr>
-    <html:tr>
-        <html:td colspan="6"><html:hr/></html:td>
     </html:tr>
 {/if}
 
 {if order.OrderAnnotation}
-    <html:tr>
-        <html:td colspan="6"><html:hr/></html:td>
-    </html:tr>
     {for note in order.OrderAnnotation}
         <html:tr><html:td>${note.type}</html:td><html:td colspan="5">${note.text}</html:td></html:tr>
     {/for}
 {/if}
-</html:table></html:pre><html:hr/>
+
+            </html:tfoot>
+</html:table>
+<html:br />
+</html:div>
+
 {elseif sequence}
 <html:H2>${_('Order sequence [%S] does not exist', [sequence])}</html:H2>
 {else}
