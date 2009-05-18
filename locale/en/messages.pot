@@ -2206,4 +2206,10 @@ msgid "Do you want to change layout"
 msgstr "Do you want to change layout"
 
 msgid "If you change layout now, the system will restart automatically after you return to the Main Screen."
-msgstr "If you change layout now, the system will restart automatically after you return to the Main Screen."
+msgstr "If you changelayout now, the system will restart automatically after you return to the Main Screen."
+
+msgid "INCLUDED"
+msgstr "INCLUDED"
+
+msgid "ADDON"
+msgstr "ADDON"
