@@ -1,3 +1,8 @@
+/* vivipos database setting */
+pref("DATABASE_CONFIG.table.classname", 'SQLite');
+pref("DATABASE_CONFIG.table.path", '/data/databases');
+pref("DATABASE_CONFIG.table.database", 'vivipos_table.sqlite');
+
 /* extension vivipos */
 pref("vivipos.fec.firstrun", false);
 pref("vivipos.fec.settings.DateFormatStr", "yyyy-mm-dd");
@@ -547,6 +552,11 @@ pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinal
 pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
 
+pref("vivipos.fec.registry.function.programmable.truncatetxnrecords.access", "acl_truncate_transaction_records");
+pref("vivipos.fec.registry.function.programmable.truncatetxnrecords.command", "truncateTxnRecords");
+pref("vivipos.fec.registry.function.programmable.truncatetxnrecords.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.truncatetxnrecords.data", "");
+
 pref("vivipos.fec.registry.function.programmable.printerDashboard.access", "acl_printer_dashboard");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.command", "printerDashboard");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.controller", "Main");
@@ -781,7 +791,7 @@ pref("vivipos.fec.registry.devicemodels.epson-rp-u420.encodings", "English=US-AS
 pref("vivipos.fec.registry.devicemodels.argox-os-203.label", "Argox OS-203");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.type", "receipt,check");
 pref("vivipos.fec.registry.devicemodels.argox-os-203.path", "chrome://viviecr/content/devices/commands/argox-os-203.cmd");
-pref("vivipos.fec.registry.devicemodels.argox-os-203.encodings", "English=US-ASCII,Western=ISO-8859-1,Traditional Chinese=Big5");
+pref("vivipos.fec.registry.devicemodels.argox-os-203.encodings", "English=US-ASCII,Western=ISO-8859-1,Traditional Chinese=Big5,Simplified Chinese=GB18030,Simplified Chinese=GB2312");
 
 pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");
 pref("vivipos.fec.registry.devicemodels.vfdfec.type", "vfd");

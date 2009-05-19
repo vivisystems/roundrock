@@ -21,8 +21,26 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
                 main.addEventListener('onSetClerk', this.startShift, this);
+                main.addEventListener('afterClearOrderData', this.expireData, this);
+                main.addEventListener('afterTruncateTxnRecords', this.truncateData, this);
             }
 
+        },
+
+        expireData: function(evt) {
+            var model = new ShiftChangeModel();
+            var expireDate = parseInt(evt.data);
+            if (!isNaN(expireDate)) {
+                model.execute('delete from shift_changes where created <= ' + expireDate);
+                model.execute('delete from shift_change_details where not exists (select 1 from shift_changes where shift_changes.id == shift_change_details.shift_change_id)');
+            }
+        },
+
+        truncateData: function(evt) {
+            var model = new ShiftChangeModel();
+            model.execute('delete from shift_changes');
+            model.execute('delete from shift_change_details');
+            model.execute('delete from shift_markers');
         },
 
         load: function() {

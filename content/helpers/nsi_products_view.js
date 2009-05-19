@@ -56,7 +56,7 @@
                 // find all product and update session.
                 var prodModel = new ProductModel();
                 products = prodModel.find('all', {
-                    order: "cate_no"
+                    order: "cate_no, display_order,name,no"
                 });
 
                 if (products && products.length > 0) GeckoJS.Session.add('products', products);

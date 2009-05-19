@@ -108,6 +108,8 @@ var promptAdditem_options;
                     document.getElementById('promptAdditem-input0').setAttribute('readonly', true);
                 }
                 try {
+                    // hide numberpad
+                    //document.getElementById('promptAdditem-numpad').setAttribute('hidden', !('numpad' in inputObj));
                     
                     document.getElementById('promptAdditem-dialog-caption').setAttribute("label", caption0);
                     document.getElementById('promptAdditem-text0').value = text0;
@@ -173,6 +175,10 @@ var promptAdditem_options;
 
 })();
 
+function promptAdditem_clearFocusedElement() {
+    var focused = document.commandDispatcher.focusedElement;
+    if (focused.tagName == 'html:input' || focused.tagName == 'html:textarea') focused.value = '';
+}
 
 // global promptAdditem_validateInput function
 function promptAdditem_validateInput() {

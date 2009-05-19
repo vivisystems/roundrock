@@ -13,7 +13,6 @@
         _recordLimit: 100, // this attribute indicates upper bound of the number of rwos we are going to take.
         _csvLimit: 3000000,
         _stdLimit: 1000,
-        _csvRecords: null,
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -61,7 +60,11 @@
 	            this._reportRecords.head.clerk_displayname = user.description;
 		},
         
-        _set_reportRecords: function() {
+        _setTemplateDataFoot: function() {
+        	this._reportRecords.foot.gen_time = ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' );
+		},
+
+        _set_reportRecords: function(limit) {
         },
         
         _exploit_reportRecords: function() {
@@ -95,6 +98,7 @@
 
 		        this._setTemplateDataHead();
 		        this._set_reportRecords();
+		        this._setTemplateDataFoot();
 				this._exploit_reportRecords();
 		    } catch ( e ) {
             } finally {
@@ -166,19 +170,19 @@
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 
-                // regenerate data if last limit isn't equal current limit
-                if (!this._csvRecords) {
-                    var tmpRecords = this._reportRecords;
+                var tmpRecords = {};
+                tmpRecords.head = GREUtils.extend({}, this._reportRecords.head);
+                tmpRecords.body = this._reportRecords.body;
+                tmpRecords.foot = GREUtils.extend({}, this._reportRecords.foot);
 
-                    controller._set_reportRecords(this._csvLimit);
-                    this._csvRecords = this._reportRecords;
+                controller._set_reportRecords(this._csvLimit);
+		    	this._reportRecords.foot.gen_time = ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' );
 
-                    this._reportRecords = tmpRecords;
-                }
-                this.CsvExport.printToFile( media_path + '/' + this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv', this._csvRecords, tpl );
+                this.CsvExport.printToFile( media_path + '/' + this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv', this._reportRecords, tpl );
 
                 // drop CSV data and garbage collect
-                delete this._csvRecords;
+                this._reportRecords = tmpRecords;
+
                 GREUtils.gc();
             } catch ( e ) {
             } finally {
@@ -208,6 +212,7 @@
                 
                 rcp.printReport( 'report', tpl, this._reportRecords );
             } catch ( e ) {
+                this.log(this.dump(e));
             } finally {
                 this._enableButton( true );
                 if ( waitPanel != undefined )

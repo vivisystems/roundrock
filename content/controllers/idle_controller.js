@@ -1,5 +1,6 @@
 (function(){
 
+    var window = this;
 
     /**
      * IdleController
@@ -12,9 +13,18 @@
         observe: function(subject, topic, data) {
 
             if (topic == 'idle') {
-                
+
                 // gc force
-                GREUtils.gc();
+                try {
+
+                    GREUtils.gc();
+
+                    window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                          .getInterface(Components.interfaces.nsIDOMWindowUtils)
+                          .garbageCollect();
+                }catch(e) {
+                    
+                }
 
                 // notification-daemon has memory leak restart it.
                 GREUtils.File.run('/etc/X11/Xsession.d/70notification-daemon', [], true);
@@ -82,7 +92,6 @@
     .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
 
     if (mainWindow === window) {
-
         window.addEventListener('load', startup, false);
         window.addEventListener('unload', destroy, false);
     }

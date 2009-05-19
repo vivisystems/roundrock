@@ -11,7 +11,11 @@
         
         _fileName: 'rpt_daily_sales',
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
@@ -20,7 +24,7 @@
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
-            var machineid = document.getElementById( 'machine_id' ).value;
+            var terminal_no = document.getElementById( 'terminal_no' ).value;
             var shiftNo = document.getElementById( 'shift_no' ).value;
             var periodType = document.getElementById( 'period_type' ).value;
             
@@ -29,11 +33,14 @@
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
 
+            var timeField = periodType;
+            if (periodType == 'sale_period') {
+                timeField = 'transaction_submitted';
+            }
             var fields = [
                             'sum(order_payments.amount) as "Order.payment_subtotal"',
                             'order_payments.name as "Order.payment_name"',
-                            'orders.' + periodType + ' as "Order.time"',
-                            //'DATETIME("orders"."' + periodType + '", "unixepoch", "localtime") AS "Order.Date"',
+                            'orders.' + timeField + ' as "Order.time"',
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
@@ -45,6 +52,8 @@
                             'orders.proceeds_clerk_displayname',
                             'orders.rounding_prices',
                             'orders.precision_prices',
+                            'orders.rounding_taxes',
+                            'orders.precision_taxes',
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
                             'orders.promotion_subtotal',
@@ -54,6 +63,8 @@
                             'orders.table_no',
                             'orders.no_of_customers',
                             'orders.invoice_no',
+                            'orders.sale_period',
+                            'orders.shift_number',
                             'orders.terminal_no'
                          ];
 
@@ -61,29 +72,21 @@
                             "' AND orders." + periodType + "<='" + end +
                             "' AND orders.status=1";
                             
-            var service_clerk = document.getElementById( 'service_clerk' ).value;
-            if ( service_clerk != 'all' )
-            	conditions += " AND orders.service_clerk_displayname = '" + this._queryStringPreprocessor( service_clerk ) + "'";
-
-			var proceeds_clerk = document.getElementById( 'proceeds_clerk' ).value;
-			if ( proceeds_clerk != 'all' )
-				conditions += " AND orders.proceeds_clerk_displayname = '" + this._queryStringPreprocessor( proceeds_clerk ) + "'";
-
-            if ( machineid.length > 0 ) 
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( machineid ) + "%'";
+            if ( terminal_no.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminal_no ) + "%'";
                 
             if ( shiftNo.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
                 
             var groupby = 'order_payments.order_id, order_payments.name';
-            var orderby = 'orders.item_subtotal desc';//orders.transaction_created, orders.id';
+            var orderby = 'orders.' +  timeField;
             
             //var order = new OrderModel();
 
             var orderPayment = new OrderPaymentModel();
             
             //var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 } );
-            var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: limit } );
 
             //var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
             //var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
@@ -105,7 +108,9 @@
             	check: 0,
             	creditcard: 0,
             	coupon: 0,
-            	giftcard: 0
+            	giftcard: 0,
+                guests: 0,
+                items: 0
             };
             
             var old_oid;
@@ -135,15 +140,12 @@
 		            footDatas.revalue_subtotal += o.revalue_subtotal;
 		            footDatas.tax_subtotal += o.tax_subtotal;
 		            footDatas.item_subtotal += o.item_subtotal;
+                    footDatas.items += o.items_count;
+                    footDatas.guests += o.no_of_customers;
 				}
 				
-				if ( o.payment_name == 'cash' ) {
-					repDatas[ oid ][o.payment_name] += o.payment_subtotal - o.change;
-					footDatas[ o.payment_name ] += o.payment_subtotal - o.change;
-				} else {
-		            repDatas[ oid ][ o.payment_name ] += o.payment_subtotal;
-					footDatas[ o.payment_name ] += o.payment_subtotal;
-				}
+                repDatas[ oid ][o.payment_name] += o.payment_subtotal - o.change;
+                footDatas[ o.payment_name ] += o.payment_subtotal - o.change;
 
                 old_oid = oid;
             });
@@ -164,11 +166,11 @@
             				case 'discount_subtotal':
             				case 'promotion_subtotal':
             				case 'revalue_subtotal':
+            				case 'sequence':
+            				case 'invoice_no':
             					if ( a > b ) return 1;
 				    			if ( a < b ) return -1;
 				    			return 0;
-            				case 'sequence':
-            				case 'invoice_no':
             				case 'item_subtotal':
             				case 'tax_subtotal':
             				case 'surcharge_subtotal':
@@ -189,13 +191,16 @@
             this._reportRecords.head.title = _( 'Daily Sales Report' );
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
-			this._reportRecords.head.machine_id = machineid;
+			this._reportRecords.head.terminal_no = terminal_no;
 			
 			this._reportRecords.body = GeckoJS.BaseObject.getValues( this._datas );
-			
 			this._reportRecords.foot.foot_datas = footDatas;
         },
         
+        exportCsv: function() {
+            this._super(this);
+        },
+
         execute: function() {
         	this._super();
         	this._registerOpenOrderDialog();
@@ -222,12 +227,6 @@
             document.getElementById( 'start_date' ).value = start;
             document.getElementById( 'end_date' ).value = end;
 		    	    
-		    this._addMenuitem( new OrderModel(), [ 'service_clerk_displayname' ], 'status = 1',
-		    			'service_clerk_displayname', 'service_clerk_displayname', 'service_clerk_menupopup', 'service_clerk_displayname', 'service_clerk_displayname' );
-		    			
-		    this._addMenuitem( new OrderModel(), [ 'proceeds_clerk_displayname' ], 'status = 1',
-		    			'proceeds_clerk_displayname', 'proceeds_clerk_displayname', 'proceeds_clerk_menupopup', 'proceeds_clerk_displayname', 'proceeds_clerk_displayname' );
-
             this._enableButton( false );
         }
     });

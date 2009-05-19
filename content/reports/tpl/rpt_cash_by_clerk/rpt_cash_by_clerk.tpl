@@ -27,7 +27,7 @@
             	</tr>
                 <tr class="fields">
                     <th style="text-align: left;">${_( '(rpt)Sale Period' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Shift No.' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Shift' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Balance' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Cash' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Sales' )}</th>

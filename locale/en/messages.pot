@@ -783,6 +783,9 @@ msgstr ""
 msgid "acl_user_dummy"
 msgstr "dummy"
 
+msgid "acl_truncate_transaction_records"
+msgstr "Truncate Transaction Records"
+
 msgid "acl_override_default_price_level"
 msgstr "Override Default Price Level"
 
@@ -1428,13 +1431,13 @@ msgid "Factory"
 msgstr "Factory Dataset"
 
 msgid "Service Clerk Sales Report"
-msgstr "Service Clerk Sales Report"
+msgstr "Sales By Clerk (Order Open)"
 
 msgid "Training"
 msgstr "Training Dataset"
 
 msgid "Proceeds Clerk Sales Report"
-msgstr "Proceeds Clerk Sales Report"
+msgstr "Sales By Clerk (Order Close)"
 
 msgid "XTerm"
 msgstr "XTerm"
@@ -1487,6 +1490,16 @@ msgstr "View Order"
 
 msgid "vieworder.name"
 msgstr "View Order"
+
+msgid "truncatetxnrecords.desc"
+msgstr ""
+"This function removes all transactional data from the terminal. This feature should be used with extreme care, and it is strongly recommeded that the system be backed up before truncating transaction records. No parameter is needed."
+
+msgid "truncatetxnrecords.label"
+msgstr "Truncate Transaction Records"
+
+msgid "truncatetxnrecords.name"
+msgstr "Truncate Transaction Records"
 
 msgid "controlpanel.desc"
 msgstr ""
@@ -1553,14 +1566,17 @@ msgstr "Clock Out"
 msgid "(rpt)Span Time"
 msgstr "Span Time"
 
+msgid "(rpt)Total Work Time"
+msgstr "Total Work Time"
+
 msgid "(rpt)Summary"
 msgstr "Summary"
 
 msgid "(rpt)Sale Period"
 msgstr "Sale Period"
 
-msgid "(rpt)Shift No."
-msgstr "Shift No."
+msgid "(rpt)Shift"
+msgstr "Shift"
 
 msgid "(rpt)Balance"
 msgstr "Balance"
@@ -1598,19 +1614,13 @@ msgstr "Count"
 msgid "(rpt)Destination"
 msgstr "Destination"
 
-msgid "(rpt)Terminal ID"
-msgstr "Terminal ID"
-
 msgid "(rpt)Start Time"
 msgstr "Start Time"
 
 msgid "(rpt)End Time"
 msgstr "End Time"
 
-msgid "(rpt)Terminal No."
-msgstr "Terminal"
-
-msgid "(rpt)Drawer No."
+msgid "(rpt)Drawer"
 msgstr "Drawer"
 
 msgid "(rpt)Time"
@@ -1625,17 +1635,38 @@ msgstr "Number of Events"
 msgid "(rpt)Sequence"
 msgstr "Sequence"
 
+msgid "(rpt)Hour"
+msgstr "Hour"
+
+msgid "(rpt)Net"
+msgstr "Net"
+
+msgid "(rpt)Net Per Order"
+msgstr "Net Per Order"
+
+msgid "(rpt)Net Per Guest"
+msgstr "Net Per Guest"
+
+msgid "(rpt)Gross"
+msgstr "Gross"
+
 msgid "(rpt)Total"
 msgstr "Total"
 
 msgid "(rpt)Add-on Tax"
 msgstr "Add-on Tax"
 
+msgid "(rpt)Order Surcharge"
+msgstr "Order+"
+
+msgid "(rpt)Order Discount"
+msgstr "Order-"
+
 msgid "(rpt)Surcharge"
-msgstr "Surcharge"
+msgstr "+"
 
 msgid "(rpt)Discount"
-msgstr "Discount"
+msgstr "-"
 
 msgid "(rpt)Payment"
 msgstr "Payment"
@@ -1652,26 +1683,17 @@ msgstr "Coupon"
 msgid "(rpt)Gift Card"
 msgstr "Gift Card"
 
-msgid "(rpt)Seq."
-msgstr "Seq."
-
 msgid "(rpt)Service Clerk"
-msgstr "Service Clerk"
+msgstr "Clerk (Open)"
 
 msgid "Service Clerk"
-msgstr "Service Clerk"
+msgstr "Clerk (Open)"
 
 msgid "(rpt)Proceeds Clerk"
-msgstr "Proceeds Clerk"
+msgstr "Clerk (Close)"
 
 msgid "Proceeds Clerk"
-msgstr "Proceeds Clerk"
-
-msgid "(rpt)Proceeds"
-msgstr "Proceeds"
-
-msgid "(rpt)Service"
-msgstr "Service"
+msgstr "Clerk (Close)"
 
 msgid "(rpt)Guests"
 msgstr "Guests"
@@ -1690,9 +1712,6 @@ msgstr "Price"
 
 msgid "(rpt)Quantity"
 msgstr "Quantity"
-
-msgid "(rpt)No."
-msgstr "No."
 
 msgid "(rpt)Name"
 msgstr "Name"
@@ -1748,8 +1767,8 @@ msgstr "Age_Verification"
 msgid "(rpt)Visible"
 msgstr "Visible"
 
-msgid "(rpt)Department No."
-msgstr "Department No."
+msgid "(rpt)Department Number"
+msgstr "Department Number"
 
 msgid "(rpt)Department Name"
 msgstr "Department Name"
@@ -1835,8 +1854,8 @@ msgstr "Display Name"
 msgid "(rpt)Access Group"
 msgstr "Access Group"
 
-msgid "(rpt)Telphone"
-msgstr "Telphone"
+msgid "(rpt)Telephone"
+msgstr "Telephone"
 
 msgid "(rpt)Start"
 msgstr "Start"
@@ -1860,7 +1879,7 @@ msgid "(rpt)ITEM"
 msgstr "item"
 
 msgid "(rpt)Promotion"
-msgstr "Promotion"
+msgstr "Promotions"
 
 msgid "(rpt)Subtotal"
 msgstr "Subtotal"
@@ -2165,7 +2184,7 @@ msgstr ""
 "Please MAKE SURE the backup files are from this machine otherwise a 'license error message' will pop up."
 
 msgid "(rpt)Invoice Number"
-msgstr "Invoice Number"
+msgstr "Invoice"
 
 msgid "(rpt)Invoice Count"
 msgstr "Invoice Count"
@@ -2198,4 +2217,10 @@ msgid "Do you want to change layout"
 msgstr "Do you want to change layout"
 
 msgid "If you change layout now, the system will restart automatically after you return to the Main Screen."
-msgstr "If you change layout now, the system will restart automatically after you return to the Main Screen."
+msgstr "If you changelayout now, the system will restart automatically after you return to the Main Screen."
+
+msgid "INCLUDED"
+msgstr "INCLUDED"
+
+msgid "ADDON"
+msgstr "ADDON"

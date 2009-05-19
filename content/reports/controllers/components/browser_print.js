@@ -115,8 +115,7 @@
                 this._webBrowserPrint.print(this._printSettings, null);
                 
                 // sync to media...
-                this.execute("/bin/sync", []);
-                GREUtils.File.run( "/bin/sync", [], false );
+                this.execute("/bin/sh", ["-c", "/bin/sync; sleep 1; /bin/sync;"]);
             } catch (e) {
 
             }

@@ -27,6 +27,7 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
                 main.addEventListener('afterClearOrderData', this.expireData, this);
+                main.addEventListener('afterTruncateTxnRecords', this.truncateData, this);
             }
             // add event listener for ledger events
             var ledger = GeckoJS.Controller.getInstanceByName('LedgerRecords');
@@ -293,7 +294,6 @@
                     break;
 
                 case 'ledger':
-                    alert(paymentType + 'action:' + drawer[paymentType + 'action'] + this.dump(drawer));
                     if (drawer['ledgeraction'] != 'always') return;
                     break;
                     
@@ -302,7 +302,8 @@
             }
 
             // allow UI to catch up before triggering drawer
-            this.sleep(100);
+            // @irving 5/14/2009 - sleeping may allow unwanted/unexpected user events to occur before they are meant to
+            //this.sleep(100);
 
             var status = 0;
             switch (drawer.type) {
@@ -355,6 +356,11 @@
             if (!isNaN(expireDate)) {
                 model.execute('delete from cashdrawer_records where created <= ' + expireDate);
             }
+        },
+
+        truncateData: function(evt) {
+            var model = new CashdrawerRecordModel();
+            model.execute('delete from cashdrawer_records');
         },
 
         // send open drawer commands to printer using the given parameters

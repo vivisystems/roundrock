@@ -2,6 +2,8 @@
 <!DOCTYPE overlay [
   <!ENTITY % DialogOverlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %DialogOverlay;
+  <!ENTITY % Numberpad SYSTEM "chrome://viviecr/locale/numberpad.dtd">
+  %Numberpad;
 ]>
 
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
@@ -45,6 +47,14 @@
                             </rows>
                         </grid>
                     </groupbox>
+
+                    <hbox id="promptAdditem-numpad" pack="center">
+                        <numberpad id="promptAdditem-multinumberpad" class="numpad" target="plu"/>
+                        <vbox>
+                            <sendkeybutton id="promptAdditem-bkeyBtn"  label="&numberpad.keylabel.del;" keyCode='0x08' class="fixedbtn"  />
+                            <sendkeybutton id="promptAdditem-clearBtn"  label="&numberpad.keylabel.clear;" oncommand="alert(1); promptAdditem_clearFocusedElement()" class="fixedbtn"/>
+                        </vbox>
+                    </hbox>
 
                     <spacer flex="1"/>
 

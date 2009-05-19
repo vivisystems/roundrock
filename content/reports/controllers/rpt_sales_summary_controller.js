@@ -386,6 +386,8 @@
             	if ( rate_type == '%' )
             		record.tax_rate += rate_type;
             	else record.tax_rate = rate_type + record.tax_rate;
+            	
+            	record.tax_type = _( record.tax_type );
             });
 			
 			data.summary = summary;

@@ -1371,7 +1371,7 @@
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
 
-                c      // @todo OSD
+                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
 
                 this.subtotal();
@@ -2123,6 +2123,7 @@
                     }
                 });
             }
+            return;
 
         },
 
@@ -2767,6 +2768,9 @@
             if(curTransaction == null) {
                 
                 this.clear();
+
+                // let dispatcher don't auto dispatch onCancel
+                this.dispatchedEvents['onCancel'] = true;
                 //@todo OSD - don't notify'
                 //NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?
@@ -2849,7 +2853,7 @@
             
             if(oldTransaction == null) return; // fatal error ?
 
-            // make sure the order has not yet been voided
+            // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
             var existingOrder = orderModel.findById(oldTransaction.data.id);
             if (existingOrder && existingOrder.status != 2) {

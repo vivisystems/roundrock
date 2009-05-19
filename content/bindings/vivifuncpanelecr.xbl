@@ -1099,6 +1099,8 @@
                     var w = keypad.clientWidth;
                     var h = keypad.clientHeight;
                     -->
+                    //GREUtils.log('[RENDER]: w <' + this.keypadWidth + '> h <' + this.keypadHeight + '> (' + this.keypad.boxObject.width + 'x' + this.keypad.boxObject.height + ') r <' + r + '> c <' + c + '> hs <' + hs + '> vs <' + vs + '>');
+
                     var w = this.keypadWidth || this.keypad.boxObject.width;
                     var h = this.keypadHeight || this.keypad.boxObject.height;
                     
@@ -1558,7 +1560,6 @@
                     //GREUtils.log('[KEYMAP]: entering page <' + page + '>');
 
                     // global keymap has priority over local keymap
-                    //alert('entering renderKeymap: ' + this.getAttribute('height'));
                     var r = this.row;
                     var c = this.column;
                     var id = this.getAttribute('id');
@@ -1955,8 +1956,8 @@
 
                     // clear selection on a layout change
                     if (currentStack) {
-                        //if (layout == null) layout = 'global';
-                        this.setSelection(false, currentStack, 'global');
+                        if (existingLayout == null) existingLayout = 'global';
+                        this.setSelection(false, currentStack, existingLayout);
                     }
                     this._selectedNode1 = null;
                     this.selectedNode2 = null; // this triggers the selection changed event

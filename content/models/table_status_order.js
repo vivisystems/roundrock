@@ -6,10 +6,12 @@
     var __model__ = {
 
         name: 'TableStatusOrder',
-        
-        belongsTo: ['Table']
 
-//        behaviors: ['Sync'],
+        useDbConfig: 'table',
+        
+        belongsTo: ['Table'],
+
+        behaviors: ['Sync']
 
     };
 

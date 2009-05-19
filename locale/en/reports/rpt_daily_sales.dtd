@@ -6,32 +6,28 @@
 <!ENTITY rptdailysales.exportcsv "Export to CSV">
 <!ENTITY rptdailysales.exportrcp "Print">
 <!ENTITY rptdailysales.togglezoom "Toggle Zoom">
-<!ENTITY rptdailysales.machineid "Terminal No:">
+<!ENTITY rptdailysales.terminal_no "Terminal:">
 <!ENTITY rptdailysales.sortby "Sort By:">
-<!ENTITY rptdailysales.terminal_no "Terminal No.">
-<!ENTITY rptdailysales.time "Time">
-<!ENTITY rptdailysales.sequence "Sequence">
-<!ENTITY rptdailysales.invoice_no "Invoice No.">
-<!ENTITY rptdailysales.tax_subtotal "Add-on Tax">
-<!ENTITY rptdailysales.total "Payment">
-<!ENTITY rptdailysales.item_subtotal "Total">
-<!ENTITY rptdailysales.surcharge_subtotal "Surcharge">
-<!ENTITY rptdailysales.discount_subtotal "Discount">
-<!ENTITY rptdailysales.promotion_subtotal "Promotion">
-<!ENTITY rptdailysales.revalue_subtotal "Revalue">
-<!ENTITY rptdailysales.cash "Cash">
-<!ENTITY rptdailysales.check "Check">
-<!ENTITY rptdailysales.creditcard "Credit Card">
-<!ENTITY rptdailysales.coupon "Coupon">
-<!ENTITY rptdailysales.giftcard "Gift Card">
+<!ENTITY rptdailysales.sortby.terminal_no "Terminal">
+<!ENTITY rptdailysales.sortby.time "Time">
+<!ENTITY rptdailysales.sortby.sequence "Sequence">
+<!ENTITY rptdailysales.sortby.invoice_no "Invoice Number">
+<!ENTITY rptdailysales.sortby.tax_subtotal "Add-on Tax">
+<!ENTITY rptdailysales.sortby.total "Payment">
+<!ENTITY rptdailysales.sortby.item_subtotal "Total">
+<!ENTITY rptdailysales.sortby.surcharge_subtotal "Surcharge">
+<!ENTITY rptdailysales.sortby.discount_subtotal "Discount">
+<!ENTITY rptdailysales.sortby.promotion_subtotal "Promotion">
+<!ENTITY rptdailysales.sortby.revalue_subtotal "Revalue">
+<!ENTITY rptdailysales.sortby.cash "Cash">
+<!ENTITY rptdailysales.sortby.check "Check">
+<!ENTITY rptdailysales.sortby.creditcard "Credit Card">
+<!ENTITY rptdailysales.sortby.coupon "Coupon">
+<!ENTITY rptdailysales.sortby.giftcard "Gift Card">
 <!ENTITY rptdailysales.all "List All">
 <!ENTITY rptdailysales.wait "Waiting...">
-<!ENTITY rptdailysales.service_clerks "Service Clerks:">
-<!ENTITY rptdailysales.proceeds_clerks "Proceeds Clerks:">
-<!ENTITY rptdailysales.service_clerk "Service Clerk">
-<!ENTITY rptdailysales.proceeds_clerk "Proceeds Clerk">
 <!ENTITY rptdailysales.periodtype "Period Type:">
-<!ENTITY rptdailysales.transaction_created "Order Opened Time">
-<!ENTITY rptdailysales.transaction_submitted "Order Finalized Time">
+<!ENTITY rptdailysales.transaction_created "Order Opened">
+<!ENTITY rptdailysales.transaction_submitted "Order Closed">
 <!ENTITY rptdailysales.sale_period "Sale Period">
-<!ENTITY rptdailysales.shiftno "Shift No.:">
+<!ENTITY rptdailysales.shiftno "Shift:">

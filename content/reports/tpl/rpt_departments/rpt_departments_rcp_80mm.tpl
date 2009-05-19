@@ -5,12 +5,14 @@ ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no + ' '|left:11}${_( '(rpt)
 
 ${head.title|center:42}
 ------------------------------------------
-${_( '(rpt)No.' )|left:14}  ${_( '(rpt)Name' )|left:26}
+${_( '(rpt)Department Number' )|left:18}  ${_( '(rpt)Department Name' )|left:22}
 --------------  --------------------------
 {for category in body}
-${category.no|left:14}  ${category.name|left:26}
+${category.no|left:18}  ${category.name|left:22}
 {/for}
 ------------------------------------------
+${_( '(rpt)Records Found' ) + ': '}${body.length|format:0}
+[&CR]
 ${foot.gen_time}
 [&CR]
 [&CR]

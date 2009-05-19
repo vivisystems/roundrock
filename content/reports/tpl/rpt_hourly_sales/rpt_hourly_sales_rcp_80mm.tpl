@@ -6,20 +6,29 @@ ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no + ' '|left:11}${_( '(rpt)
 ${head.title|center:42}
 {for detail in body}
 ------------------------------------------
-${_( '(rpt)Terminal' ) + ':'|left:9}{if head.machine_id}${detail.terminal_no}{/if}
- 
-${_( '(rpt)Time' ) + ':'|left:9}${detail.Hour}
-${_( '(rpt)Total' ) + ':'|left:9}${detail.HourTotal}
-${_( '(rpt)Orders' ) + ':'|left:9}${detail.OrderNum}
-${_( '(rpt)Guests' ) + ':'|left:9}${detail.Guests}
-${_( '(rpt)Items' ) + ':'|left:9}${detail.ItemsCount}
+{if head.terminal_no}
+${_( '(rpt)Terminal' ) + ':'|left:16}${detail.terminal_no|right:26}
+{/if}
+${_( '(rpt)Date' ) + ':'|left:16}${detail.Date|right:26}
+${_( '(rpt)Hour' ) + ':'|left:16}${detail.Hour|right:26}
+${_( '(rpt)Total' ) + ':'|left:16}${detail.HourTotal|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Orders' ) + ':'|left:16}${detail.OrderNum|default:0|format:0|right:26}
+${_( '(rpt)Guests' ) + ':'|left:16}${detail.Guests|default:0|format:0|right:26}
+${_( '(rpt)Items' ) + ':'|left:16}${detail.ItemsCount|default:0|format:0|right:26}
+${_( '(rpt)Net Per Guest' ) + ':'|left:16}${detail.NetPerGuest|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Per Order' ) + ':'|left:16}${detail.NetPerOrder|default:0|viviFormatPrices:true|right:26}
 {/for}
 ------------------------------------------
+${_( '(rpt)Records Found' ) + ': '|left:19}${body.length|default:0|format:0|right:22}
+[&CR]
+------------------------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Total' ) + ':'|left:9}${foot.HourTotal}
-${_( '(rpt)Orders' ) + ':'|left:9}${foot.OrderNum}
-${_( '(rpt)Guests' ) + ':'|left:9}${foot.Guests}
-${_( '(rpt)Items' ) + ':'|left:9}${foot.ItemsCount}
+${_( '(rpt)Total' ) + ':'|left:16}${foot.HourTotal|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Orders' ) + ':'|left:16}${foot.OrderNum|default:0|format:0|right:26}
+${_( '(rpt)Guests' ) + ':'|left:16}${foot.Guests|default:0|format:0|right:26}
+${_( '(rpt)Items' ) + ':'|left:16}${foot.ItemsCount|default:0|format:0|right:26}
+${_( '(rpt)Net Per Guest' ) + ':'|left:16}${foot.NetPerGuest|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Per Order' ) + ':'|left:16}${foot.NetPerOrder|default:0|viviFormatPrices:true|right:26}
 ------------------------------------------
 ${foot.gen_time}
 [&CR]

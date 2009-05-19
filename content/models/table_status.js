@@ -7,9 +7,13 @@
 
         name: 'TableStatus',
 
-        hasMany: ['TableBooking'],
+        useDbConfig: 'table',
 
-        //        behaviors: ['Sync'],
+        belongsTo: ['Table'],
+
+        hasMany: ['TableBooking', 'TableOrder'],
+
+        behaviors: ['Sync'], // for local use when connect master fail...
 
         _checkNoArray: [],
         _tableNoArray: [],
@@ -190,6 +194,10 @@
             var i = 1;
             var cnt = 0;
             var maxCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.MaxCheckNo') || 999;
+
+            // minimize maxCheckNo is 30
+            maxCheckNo = Math.max(maxCheckNo, 30);
+
             // var ar = this.getCheckList('AllCheck', null);
             var ar = this._checkList;
             if (no) {
@@ -241,7 +249,7 @@
             }else {
                 // read all order status
                 tableStatus = this.find('all', {});
-
+                
             }
             
             return this.genTablesArray(tableStatus);
@@ -284,6 +292,7 @@
             });
 
             // add empty tables...
+            self.getTableList();
             self._tableList.forEach(function(o){
                 if (tables[o.table_no] == null && o.active) {
                     tables[o.table_no] = {
@@ -419,6 +428,7 @@
 
         addCheck: function(checkObj) {
             // GREUtils.log("DEBUG", "add check...");
+            this.getTableList();
             var tableObj = {
                 order_id: checkObj.id,
                 check_no: checkObj.check_no,

@@ -75,13 +75,13 @@
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.newquantity;" control="newquantity"/>
-                                    <vivitextbox id="new_quantity" value="" form="productForm" name="new_quantity" size="6" maxsize="6"
+                                    <vivitextbox id="new_quantity" value="" form="productForm" name="new_quantity" maxsize="6"
                                          oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
                                          numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.memo;" control="memo"/>
-                                    <vivitextbox id="memo" value="" form="productForm" name="memo" size="6" maxsize="6"
+                                    <vivitextbox id="memo" value="" form="productForm" name="memo" maxsize="6"
                                          oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
                                          numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
                                 </vbox>

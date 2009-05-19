@@ -13,8 +13,6 @@
         _regionListObj: null,
         _tableListDatas: null,
         _tableListObj: null,
-        _bookingListDatas: null,
-        _bookingListObj: null,
 
         _tableSettings: null,
 
@@ -37,19 +35,16 @@
             return this._regionListObj;
         },
 
-        getBookingListObj: function() {
-            if(this._bookingListObj == null) {
-                this._bookingListObj = document.getElementById('bookingscrollabletree');
-            }
-            return this._bookingListObj;
-        },
-
         switchTab: function(index) {
-            //
-            // this.log('switchTab:' + index);
-            if (index == 2) {
-                this.loadBookings();
-                this.selectBooking(0);
+
+            switch (index) {
+                case 0:
+                    break;
+                case 2:
+                    var table_no = document.getElementById('table_id').value;
+                    this.requestCommand('loadBookings', table_no, 'TableBook');
+                    this.requestCommand('selectBooking', 0, 'TableBook');
+                    break;
             }
         },
 
@@ -61,9 +56,17 @@
             if (index > -1) {
                 var table = this._tableListDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('tableForm', table);
+
+                /*
+                var table_id = document.getElementById('table_id').value;
+                var table_no = document.getElementById('table_no').value;
+                this.requestCommand('setTableId', table_id, 'TableBook');
+                this.requestCommand('setTableNo', table_no, 'TableBook');
+                */
+                this.requestCommand('load', null, 'TableBook');
             }
 
-            // this.validateForm();
+            this.validateForm();
         },
 
         selectRegion: function(index) {
@@ -74,20 +77,6 @@
             if (index > -1) {
                 var region = this._regionListDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('regionForm', region);
-            }
-        },
-
-        selectBooking: function(index) {
-            // clear form
-            GeckoJS.FormHelper.reset('bookingForm');
-
-            this.getBookingListObj().vivitree.selection.select(index);
-            if (index > -1) {
-                var booking = this._bookingListDatas[index];
-                if (booking) {
-                    GeckoJS.FormHelper.unserializeFromObject('bookingForm', booking);
-                    document.getElementById('booking_time_tmp').value = parseInt(booking.booking) * 1000;
-                }
             }
         },
 
@@ -357,116 +346,6 @@
             }
         },
 
-        addBooking: function() {
-            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
-            var inputObj = {input0:null, require0:true, input1:null, require1:false, numpad:true};
-
-            window.openDialog(aURL, _('Add Booking'), features, _('New Booking'), '', _('Contact'), _('Telephone'), inputObj);
-            if (inputObj.ok && inputObj.input0) {
-
-                // var booking_time = Math.round((new Date()).getTime() / 1000);
-                var booking_time = Math.round(Date.now().addHours(2) / 1000);
-                var booking_contact = inputObj.input0;
-                var booking_telephone = inputObj.input1;
-                var table_id = document.getElementById('table_id').value;
-                var table_no = document.getElementById('table_no').value;
-
-                var newBooking = {table_id: table_id, booking: booking_time, contact: booking_contact, telephone: booking_telephone, table_no: table_no};
-
-                var bookingModel = new TableBookingModel();
-                newBooking = bookingModel.save(newBooking);
-
-                this._bookingListDatas.push(newBooking);
-                this._bookingListDatas = new GeckoJS.ArrayQuery(this._bookingListDatas).orderBy('booking asc');
-
-                // loop through this._listDatas to find the newly added destination
-                var index
-                for (index = 0; index < this._bookingListDatas.length; index++) {
-                    if (this._bookingListDatas[index].id == newBooking.id) {
-                        break;
-                    }
-                }
-                this.getBookingListObj().treeBoxObject.rowCountChanged(index, 1);
-
-                // make sure row is visible
-                this.getBookingListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                // select the new Table
-                this.selectBooking(index);
-
-                // switch to edit mode
-                // this.editMode();
-
-                // @todo OSD
-                OsdUtils.info(_('Booking added successfully'));
-            }
-        },
-
-        modifyBooking: function() {
-            var index = this.getRegionListObj().selectedIndex;
-            var inputObj = GeckoJS.FormHelper.serializeToObject('bookingForm');
-            inputObj.booking = Math.round(document.getElementById('booking_time_tmp').value / 1000);
-
-            if (index > -1 && inputObj.id != '') {
-
-                var bookingModel = new TableBookingModel();
-                bookingModel.id = inputObj.id;
-                var booking = bookingModel.save(inputObj);
-
-                this.loadBookings();
-
-                // loop through this._listDatas to find the newly modified destination
-                var newIndex;
-                for (newIndex = 0; newIndex < this._bookingListDatas.length; newIndex++) {
-                    if (this._bookingListDatas[newIndex].id == booking.id) {
-                        break;
-                    }
-                }
-                this.getBookingListObj().treeBoxObject.invalidate();
-
-                // make sure row is visible
-                this.getBookingListObj().treeBoxObject.ensureRowIsVisible(newIndex);
-
-                // select the new customer
-                this.selectBooking(newIndex);
-
-                // @todo OSD
-                OsdUtils.info(_('Booking [%S] modified successfully', [inputObj.name]));
-            }
-        },
-
-        deleteBooking: function() {
-            var index = this.getRegionListObj().selectedIndex;
-            if (index >= 0) {
-                var region = this._regionListDatas[index];
-
-                if (!GREUtils.Dialog.confirm(null, _('confirm delete region [%S (%S)]', [region.name]),
-                                             _('Are you sure you want to delete region [%S]?', [region.name]))) {
-                    return;
-                }
-
-                var regionModel = new TableRegionModel();
-                regionModel.del(region.id);
-
-                this._regionListDatas.splice(index, 1);
-
-                this.getRegionListObj().treeBoxObject.rowCountChanged(index, -1);
-
-                if (index >= this._regionListDatas.length) index = this._regionListDatas.length - 1;
-                this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                this.selectRegion(index);
-
-                // this.searchMode();
-
-                this.setRegionMenuItem();
-
-                // @todo OSD
-                OsdUtils.info(_('Region [%S] deleted successfully', [region.name]));
-            }
-        },
-
         loadRegions: function() {
             //
             var regionModel = new TableRegionModel();
@@ -503,25 +382,6 @@
 
         },
 
-        loadBookings: function() {
-            //
-            var now = Math.round((new Date()).getTime() / 1000);
-            var table_id = document.getElementById('table_id').value;
-            var conditions = "table_bookings.booking>='" + now +
-                            "' AND table_bookings.table_id='" + table_id +
-                            "'";
-            var bookingModel = new TableBookingModel();
-            var bookings = bookingModel.find('all', {conditions: conditions});
-            // var bookings = bookingModel.find('all', {});
-// this.log(this.dump(bookings));
-            this._bookingListDatas = bookings;
-            var bookingView =  new GeckoJS.NSITreeViewArray(this._bookingListDatas);
-            this.getBookingListObj().datasource = bookingView;
-
-            document.getElementById('booking_count').value = this._bookingListDatas.length;
-
-        },
-
         setDestinationMenuItem: function() {
 
             // read destinations from configure
@@ -542,12 +402,14 @@
             menuitem.setAttribute('label', ' ');
             destinationObj.appendChild(menuitem);
 
-            destinations.forEach(function(data){
-                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-                menuitem.setAttribute('value', data.name);
-                menuitem.setAttribute('label', data.defaultMark + data.name);
-                destinationObj.appendChild(menuitem);
-            });
+            if (destinations.length > 0) {
+                destinations.forEach(function(data){
+                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                    menuitem.setAttribute('value', data.name);
+                    menuitem.setAttribute('label', data.defaultMark + data.name);
+                    destinationObj.appendChild(menuitem);
+                });
+            }
         },
 
         setRegionMenuItem: function() {
@@ -595,15 +457,24 @@
             var settings = this.readTableSettings();
             GeckoJS.FormHelper.unserializeFromObject('settingsForm', settings);
 
-
             this.setDestinationMenuItem();
             this.setRegionMenuItem();
             this.loadRegions();
             this.selectRegion(0);
             this.loadTables();
             this.selectTable(0);
-            this.loadBookings();
-            this.selectBooking(0);
+        },
+
+        validateForm: function() {
+            var index = this.getTableListObj().selectedIndex;
+            var modBtn = document.getElementById('modify_table');
+            var delBtn = document.getElementById('delete_table');
+
+            if (this._tableListDatas.length <= 0) {
+                index = -1;
+            }
+            modBtn.setAttribute('disabled', index == -1);
+            delBtn.setAttribute('disabled', index == -1);
         }
 
     };

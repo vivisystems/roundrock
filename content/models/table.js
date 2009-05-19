@@ -1,11 +1,11 @@
 var TableModel = window.TableModel = GeckoJS.Model.extend({
     name: 'Table',
 
-    // useDbConfig: 'default',
+    useDbConfig: 'table',
 
     belongsTo: ['TableRegion'],
     
-    hasMany: ['TableBooking'],
+    hasMany: ['TableBooking', 'TableOrder'],
 
     behaviors: ['Sync']
 /*

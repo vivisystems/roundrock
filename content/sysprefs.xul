@@ -42,7 +42,6 @@
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
-            <preference id="pref_showtoolbar" name="vivipos.fec.settings.ShowToolbar" type="bool" />
 
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
@@ -61,15 +60,11 @@
 
         </preferences>
 
-        <grid class="DataForm">
+        <grid class="DataFormC">
             <columns>
                 <column flex="1" /><column flex="1" />
             </columns>
             <rows>
-                <row>
-                    <checkbox preference="pref_showtoolbar" id="pref_showtoolbarCtrl" label="&general.showtoolbar;" />
-                    <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;" />
-                </row>
                 <row>
                     <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&general.activepricelevelschedule;" />
                     <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&general.pricelevelrevert;" />
@@ -91,17 +86,20 @@
                     <checkbox preference="pref_collapsecondiments" id="pref_collapsecondimentsCtrl" label="&general.collapsecondiments;" />
                 </row>
                 <row>
-                    <hbox>
-                        <label control="idletime" value="&general.idletime;"/>
-                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
-                    </hbox>
+                    <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;" />
                     <checkbox preference="pref_quietcancel" id="quietcancel" label="&general.quietcancel;" />
                 </row>
                 <row>
                     <vbox>
+                        <label control="idletime" value="&general.idletime;"/>
+                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
+                    </vbox>
+                    <vbox>
                         <label control="defaultpricelevel" value="&general.defaultpricelevel;"/>
                         <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>
                     </vbox>
+                </row>
+                <row>
                     <vbox>
                         <label control="maxsaleperiodleaddays" value="&general.maxsaleperiodleaddays;"/>
                         <textbox preference="pref_maxsaleperiodleaddays" id="maxsaleperiodleaddays" type="number" size="3" min="1"/>

@@ -205,7 +205,6 @@
         AnnotateDialog: function (codes) {
 
             var buf = this._getKeypadController().getBuffer();
-            this.requestCommand('clear', null, 'Cart');
 
             var txn = GeckoJS.Session.get('current_transaction');
             if (txn == null || txn.data == null || txn.data.id == null || txn.data.id == '') {
@@ -216,11 +215,6 @@
             // retrieve annotation type if a single code is given
             var codeList = [];
             if (codes != null && codes != '') {
-
-                if (txn.isSubmit() || txn.isCancel()) {
-                    NotifyUtils.warn('Order is not open; annotations may not be added');
-                    return;
-                }
 
                 codeList = codes.split(',');
 
@@ -256,11 +250,13 @@
                     input0: text,
                     require0: false,
                     multiline0: true,
-                    readonly0: readonly
+                    readonly0: readonly,
+                    sequence: txn.data.seq,
+                    numpad: true
                 };
                 
                 var data = [
-                    _('Add Annotation'),
+                    _('Add Annotation') + ' [' + txn.data.seq + ']',
                     '',
                     _(annotationType),
                     '',
@@ -286,7 +282,7 @@
             else {
                 var aURL = "chrome://viviecr/content/annotate.xul";
                 var aName = "Annotate";
-                var aArguments = {order_id: txn.data.id, codes: codeList};
+                var aArguments = {order_id: txn.data.id, codes: codeList, sequence: txn.data.seq};
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
                 window.openDialog(aURL, aName, aFeatures, aArguments);
@@ -789,6 +785,58 @@
             return waitPanel;
         },
 
+        truncateTxnRecords: function() {
+            if (GREUtils.Dialog.confirm(window,
+                                        _('Remove All Transaction Records'),
+                                        _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
+                if (GREUtils.Dialog.confirm(window,
+                                            _('Remove All Transaction Records'),
+                                            _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
+
+                    var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing all transaction records'), 1000);
+                    var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                    GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
+
+                    try {
+                        // dispatch beforeTruncateTxnRecords event
+                        this.dispatchEvent('beforeTruncateTxnRecords', null);
+
+                        // truncate order related tables
+                        var orderModel = new OrderModel();
+                        orderModel.execute('delete from orders');
+                        orderModel.execute('delete from order_receipts');
+                        orderModel.execute('delete from order_promotions');
+                        orderModel.execute('delete from order_payments');
+                        orderModel.execute('delete from order_objects');
+                        orderModel.execute('delete from order_items');
+                        orderModel.execute('delete from order_item_condiments');
+                        orderModel.execute('delete from order_annotations');
+                        orderModel.execute('delete from order_additions');
+
+                        // truncate sync tables
+                        orderModel.execute('delete from syncs');
+                        orderModel.execute('delete from sync_remote_machines');
+
+                        // dispatch afterTruncateTxnRecords event
+                        this.dispatchEvent('afterTruncateTxnRecords', null);
+                    } catch (e) {}
+                    finally {
+                        GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                        waitPanel.hidePopup();
+                    }
+
+                    GREUtils.Dialog.alert(window, _('Remove All Transaction Records'),
+                                                  _('Removal completed. Application will now restart'));
+
+                    try {
+                        GREUtils.restartApplication();
+                    } catch(err) {
+                    }
+
+                }
+            }
+        },
+
         clearOrderData: function(days, pack) {
             // the number of days to retain
 
@@ -813,7 +861,7 @@
 
                     order.removeOrders(conditions);
 
-                    // dispatch beforeClearOrderData event
+                    // dispatch afterClearOrderData event
                     this.dispatchEvent('afterClearOrderData', retainDate);
 
                     // if pack order data...
