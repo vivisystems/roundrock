@@ -6,7 +6,8 @@
      
      include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-     RptBaseController.extend( {
+    var __controller__ = {
+        
         name: 'RptCashByClerk',
         
         _fileName: 'rpt_cash_by_clerk',
@@ -118,5 +119,7 @@
 
             this._enableButton( false );
         }
-    });
+    };
+
+    RptBaseController.extend(__controller__);
 })();

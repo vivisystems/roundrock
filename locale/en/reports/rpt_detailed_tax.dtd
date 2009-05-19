@@ -8,6 +8,12 @@
 <!ENTITY rptdetailedtax.exportrcp "Print">
 <!ENTITY rptdetailedtax.togglezoom "Toggle Zoom">
 <!ENTITY rptdetailedtax.terminal_no "Terminal:">
+<!ENTITY rptdetailedtax.sortby "Sort By:">
+<!ENTITY rptdetailedtax.sortby.terminal_no "Terminal">
+<!ENTITY rptdetailedtax.sortby.time "Time">
+<!ENTITY rptdetailedtax.sortby.sequence "Sequence">
+<!ENTITY rptdetailedtax.sortby.invoice_no "Invoice Number">
+<!ENTITY rptdetailedtax.sortby.total "Net">
 <!ENTITY rptdetailedtax.all "List All">
 <!ENTITY rptdetailedtax.wait "Waiting...">
 <!ENTITY rptdetailedtax.periodtype "Period Type:">

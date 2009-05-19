@@ -1060,6 +1060,7 @@
                             indexCateAll[data.cate_no] = [];
                         }
                         indexCateAll[(data.cate_no+"")].push((data.id+""));
+
                         if(GeckoJS.String.parseBoolean(data.visible)) {
                             indexCate[(data.cate_no+"")].push((data.id+""));
 
@@ -1347,7 +1348,7 @@
             GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
         },
 
-        // modified to handle the case where
+        // locate where a new element should be inserted into a sorted list
         locateIndex: function (elem, list, path) {
 
             // locate elem in list using binary search
@@ -1362,7 +1363,7 @@
             if ((low < N) && (list[low][path] == elem))
                 return low // found
             else
-                return -1 // not found             },
+                return -low // not found             },
         },
 
         selectPlu: function(index) {

@@ -1420,13 +1420,13 @@ msgid "Factory"
 msgstr "Factory Dataset"
 
 msgid "Service Clerk Sales Report"
-msgstr "Sales By Clerk (Order Open)"
+msgstr "Sales By Clerk (Service)"
 
 msgid "Training"
 msgstr "Training Dataset"
 
 msgid "Proceeds Clerk Sales Report"
-msgstr "Sales By Clerk (Order Close)"
+msgstr "Sales By Clerk (Close)"
 
 msgid "XTerm"
 msgstr "XTerm"
@@ -1646,16 +1646,16 @@ msgid "(rpt)Add-on Tax"
 msgstr "Add-on Tax"
 
 msgid "(rpt)Order Surcharge"
-msgstr "Order+"
+msgstr "Order Surcharge"
 
 msgid "(rpt)Order Discount"
-msgstr "Order-"
+msgstr "Order Discount"
 
 msgid "(rpt)Surcharge"
-msgstr "+"
+msgstr "Surcharge"
 
 msgid "(rpt)Discount"
-msgstr "-"
+msgstr "Discount"
 
 msgid "(rpt)Payment"
 msgstr "Payment"
@@ -1690,11 +1690,20 @@ msgstr "Guests"
 msgid "(rpt)Items"
 msgstr "Items"
 
-msgid "(rpt)Product No."
-msgstr "Product No."
+msgid "(rpt)Product Number"
+msgstr "Product Number"
 
 msgid "(rpt)Product Name"
 msgstr "Product Name"
+
+msgid "(rpt)Alt Name1"
+msgstr "Alt. Name 1"
+
+msgid "(rpt)Alt Name2"
+msgstr "Alt. Name 2"
+
+msgid "(rpt)Price Level"
+msgstr "Price Level"
 
 msgid "(rpt)Price"
 msgstr "Price"
@@ -1726,35 +1735,47 @@ msgstr "Qty."
 msgid "(rpt)Barcode"
 msgstr "Barcode"
 
-msgid "(rpt)Tax"
-msgstr "Tax"
+msgid "(rpt)Tax Code"
+msgstr "Tax Code"
 
-msgid "(rpt)Stock"
-msgstr "Stock"
+msgid "(rpt)Stock Level"
+msgstr "Stock Level"
 
-msgid "(rpt)Safe_Stock"
-msgstr "Safe_Stock"
+msgid "(rpt)Low Threshold"
+msgstr "Low Threshold"
 
 msgid "(rpt)Halo"
-msgstr "Halo"
+msgstr "HALO"
 
 msgid "(rpt)Lalo"
-msgstr "Lalo"
+msgstr "LALO"
 
-msgid "(rpt)Maintain_Stock"
-msgstr "Maintain_Stock"
+msgid "(rpt)auto_maintain_stock"
+msgstr "Track stock"
 
-msgid "(rpt)Return_Stock"
-msgstr "Return_Stock"
+msgid "(rpt)return_stock"
+msgstr "Returns can be restocked"
 
-msgid "(rpt)Single"
-msgstr "Single"
+msgid "(rpt)single"
+msgstr "Single Item Sale"
 
-msgid "(rpt)Age_Verification"
-msgstr "Age_Verification"
+msgid "(rpt)age_verification"
+msgstr "Require age verification"
 
-msgid "(rpt)Visible"
-msgstr "Visible"
+msgid "(rpt)visible"
+msgstr "Show on menu"
+
+msgid "(rpt)force_memo"
+msgstr "Memo required"
+
+msgid "(rpt)force_condiment"
+msgstr "Condiments required"
+
+msgid "(rpt)icon_only"
+msgstr "Only display product icon"
+
+msgid "(rpt)manual_adjustment_only"
+msgstr "Manual price adjustment only"
 
 msgid "(rpt)Department Number"
 msgstr "Department Number"
@@ -1918,8 +1939,8 @@ msgstr "voided"
 msgid "(rpt)stored"
 msgstr "stored"
 
-msgid "(rpt)finalized"
-msgstr "finalized"
+msgid "(rpt)completed"
+msgstr "completed"
 
 msgid "(rpt)Revenue/Order"
 msgstr "Revenue/Order"
@@ -1981,17 +2002,17 @@ msgstr "terminal"
 msgid "(view)opened"
 msgstr "opened"
 
-msgid "(view)open clerk"
-msgstr "open clerk"
+msgid "(view)service clerk"
+msgstr "serviced by"
 
 msgid "(view)submitted"
 msgstr "submitted"
 
-msgid "(view)close clerk"
-msgstr "close clerk"
+msgid "(view)proceeds clerk"
+msgstr "closed by"
 
 msgid "(view)void clerk"
-msgstr "void clerk"
+msgstr "voided by"
 
 msgid "(view)sale period"
 msgstr "sale period"
@@ -2032,8 +2053,8 @@ msgstr "invoice title"
 msgid "(view)Item Subtotal"
 msgstr "Item Subtotal"
 
-msgid "(view)Adjustments"
-msgstr "Adjustments"
+msgid "(view)Item Adjustments"
+msgstr "Item Adjustments"
 
 msgid "(view)Add-on Taxes"
 msgstr "Add-on Taxes"

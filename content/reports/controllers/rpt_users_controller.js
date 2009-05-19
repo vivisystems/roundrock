@@ -6,7 +6,8 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-    RptBaseController.extend( {
+    var __controller__ = {
+
         name: 'RptUsers',
         
         _fileName: "rpt_users",
@@ -23,5 +24,7 @@
 			this._reportRecords.head.title = _( 'User List' );
 			this._reportRecords.body = userRecords;
         }
-    });
+    };
+
+    RptBaseController.extend(__controller__);
 })();

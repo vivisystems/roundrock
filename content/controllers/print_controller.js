@@ -470,6 +470,7 @@
                 order: order
             };
 
+/*
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
                 var user = new GeckoJS.AclComponent().getUserPrincipal();
                 if ( user != null ) {
@@ -477,6 +478,7 @@
                     order.proceeds_clerk_displayname = user.description;
                 }
             }
+*/
 
             //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
             //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
@@ -623,6 +625,7 @@
                 order: order
             };
 
+/*
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
                 var user = new GeckoJS.AclComponent().getUserPrincipal();
                 if ( user != null ) {
@@ -630,6 +633,7 @@
                     order.proceeds_clerk_displayname = user.description;
                 }
             }
+*/
 /*
             //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
             //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
@@ -791,9 +795,9 @@
 
             //@debug
             //if (data && data.order) this.log('duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
-            // if (data.customer) this.log(this.dump(data.customer));
-            // if (data.store) this.log(this.dump(data.store));
-            // if (data.annotations) this.log(this.dump(data.annotations));
+            //if (data.customer) this.log(this.dump(data.customer));
+            //if (data.store) this.log(this.dump(data.store));
+            //if (data.annotations) this.log(this.dump(data.annotations));
 
             // check if item is linked to this printer and set 'linked' accordingly
             if (data != null) {
@@ -910,8 +914,7 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-            //this.log(GeckoJS.BaseObject.dump(result));
-            //return;
+            this.log(GeckoJS.BaseObject.dump(result));
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values

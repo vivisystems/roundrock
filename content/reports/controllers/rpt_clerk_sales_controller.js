@@ -6,7 +6,8 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-    RptBaseController.extend( {
+    var __controller__ = {
+
         name: 'RptClerkSales',
         
         _fileName: "rpt_clerk_sales",
@@ -246,5 +247,7 @@
         
             this._enableButton( false );
         }
-    });
+    };
+
+    RptBaseController.extend(__controller__);
 })();

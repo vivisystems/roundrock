@@ -7,6 +7,7 @@
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     var __controller__ = {
+        
         name: 'RptPromotionSummary',
         
         _fileName: "rpt_promotion_summary",
