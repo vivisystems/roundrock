@@ -68,7 +68,7 @@
                     <td colspan="14">
                         <table width="100%">
                         	<tr style="color: gray; font-style: italic; font-size: 8pt;">
-                        		<th style="text-align: left;">${_( '(rpt)Product No.' )}</th>
+                        		<th style="text-align: left;">${_( '(rpt)Product Number' )}</th>
                         		<th style="text-align: left;">${_( '(rpt)Product Name' )}</th>
                         		<th style="text-align: left;">${_( '(rpt)Tax Name' )}</th>
                         		<th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>

@@ -11,7 +11,7 @@ ${_( '(rpt)Terminal' ) + ':'|left:16}${detail.terminal_no|right:26}
 {/if}
 ${_( '(rpt)Date' ) + ':'|left:16}${detail.Date|right:26}
 ${_( '(rpt)Hour' ) + ':'|left:16}${detail.Hour|right:26}
-${_( '(rpt)Total' ) + ':'|left:16}${detail.HourTotal|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Sales' ) + ':'|left:16}${detail.HourTotal|default:0|viviFormatPrices:true|right:26}
 ${_( '(rpt)Orders' ) + ':'|left:16}${detail.OrderNum|default:0|format:0|right:26}
 ${_( '(rpt)Guests' ) + ':'|left:16}${detail.Guests|default:0|format:0|right:26}
 ${_( '(rpt)Items' ) + ':'|left:16}${detail.ItemsCount|default:0|format:0|right:26}
@@ -23,7 +23,7 @@ ${_( '(rpt)Records Found' ) + ': '|left:19}${body.length|default:0|format:0|righ
 [&CR]
 ------------------------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Total' ) + ':'|left:16}${foot.HourTotal|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Sales' ) + ':'|left:16}${foot.HourTotal|default:0|viviFormatPrices:true|right:26}
 ${_( '(rpt)Orders' ) + ':'|left:16}${foot.OrderNum|default:0|format:0|right:26}
 ${_( '(rpt)Guests' ) + ':'|left:16}${foot.Guests|default:0|format:0|right:26}
 ${_( '(rpt)Items' ) + ':'|left:16}${foot.ItemsCount|default:0|format:0|right:26}

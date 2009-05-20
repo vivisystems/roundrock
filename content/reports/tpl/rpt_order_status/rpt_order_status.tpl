@@ -48,15 +48,15 @@
   TrimPath.PrecisionTaxes = detail.precision_taxes;
 {/eval}
                 <tr id="${detail.id}">
-                    <td style="text-align: left;">${detail.terminal_no}</td>
-                    <td style="text-align: left;">${detail.service_clerk_displayname|default:''}/${detail.proceeds_clerk_displayname|default:''}</td>
-                    <td style="text-align: left;">${detail.sale_period|unixTimeToString:'saleperiod'}</td>
-                    <td style="text-align: left;">${detail.shift_number|default:''}</td>
-                    <td style="text-align: left;">${detail.time|unixTimeToString}</td>
-                    <td style="text-align: left;">${detail.sequence}</td>
-                    <td style="text-align: left;">${detail.status}</td>
-                    <td style="text-align: left;">${detail.invoice_no|default:''}</td>
-                    <td style="text-align: left;">${detail.invoice_count|default:''}</td>
+                    <td style="text-align: center;">${detail.terminal_no}</td>
+                    <td style="text-align: center;">${detail.service_clerk_displayname|default:''}/${detail.proceeds_clerk_displayname|default:''}</td>
+                    <td style="text-align: center;">${detail.sale_period|unixTimeToString:'saleperiod'}</td>
+                    <td style="text-align: center;">${detail.shift_number|default:''}</td>
+                    <td style="text-align: center;">${detail.time|unixTimeToString}</td>
+                    <td style="text-align: center;">${detail.sequence}</td>
+                    <td style="text-align: center;">${detail.status}</td>
+                    <td style="text-align: center;">${detail.invoice_no|default:''}</td>
+                    <td style="text-align: center;">${detail.invoice_count|default:''}</td>
                     <td style="text-align: right;">${detail.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.discount_subtotal|viviFormatPrices:true}</td>

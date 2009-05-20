@@ -27,7 +27,7 @@
 {/if}
                     <th style="text-align: center;">${_( '(rpt)Date' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Hour' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Total' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Orders' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Guests' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Items' )}</th>

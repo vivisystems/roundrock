@@ -1,4 +1,4 @@
-<!ENTITY productsales.title "Product Sales Report">
+<!ENTITY productsales.title "Product Sales">
 <!ENTITY productsales.conditions "Conditions:">
 <!ENTITY productsales.startdate "Start Date:">
 <!ENTITY productsales.enddate "End Date:">
@@ -7,22 +7,23 @@
 <!ENTITY productsales.exportcsv "Export to CSV">
 <!ENTITY productsales.exportrcp "Print">
 <!ENTITY productsales.togglezoom "Toggle Zoom">
-<!ENTITY productsales.machineid "Terminal No:">
+<!ENTITY productsales.terminal_no "Terminal:">
 <!ENTITY productsales.sortby "Sort By:">
-<!ENTITY productsales.product_no "No.">
-<!ENTITY productsales.product_name "Name">
-<!ENTITY productsales.avg_price "Avg. Price">
-<!ENTITY productsales.qty "Qty">
-<!ENTITY productsales.total "Total">
+<!ENTITY productsales.sortby.product_no "Product Number">
+<!ENTITY productsales.sortby.product_name "Product Name">
+<!ENTITY productsales.sortby.avg_price "Average Price">
+<!ENTITY productsales.sortby.qty "Quantities Sold">
+<!ENTITY productsales.sortby.gross "Gross Sales">
+<!ENTITY productsales.sortby.net "Net Sales">
 <!ENTITY productsales.all "List All">
 <!ENTITY productsales.wait "Waiting...">
 <!ENTITY productsales.periodtype "Period Type:">
-<!ENTITY productsales.created "Order Opened Time">
-<!ENTITY productsales.transaction_submitted "Order Finalized Time">
+<!ENTITY productsales.transaction_created "Order Opened">
+<!ENTITY productsales.transaction_submitted "Order Closed">
 <!ENTITY productsales.saleperiod "Sale Period">
-<!ENTITY productsales.shiftno "Shift No.:">
+<!ENTITY productsales.shiftno "Shift:">
 <!ENTITY productsales.department "Department:">
 <!ENTITY productsales.empty_department "Empty Department:">
 <!ENTITY productsales.show "Show">
 <!ENTITY productsales.hide "Hide">
-<!ENTITY productsales.no_sales_product "Zero Sales Product:">
+<!ENTITY productsales.no_sales_product "Products with No Sales:">

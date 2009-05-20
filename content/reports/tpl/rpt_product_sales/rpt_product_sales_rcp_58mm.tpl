@@ -13,23 +13,29 @@ ${head.title|center:24}
 ${category.no} - ${category.name}
 {for item in category.orderItems}
 ------------------------
-${_( '(rpt)No.' ) + ':'}
+${_( '(rpt)Product Number' ) + ':'|left:24}
 ${item.product_no|right:24}
-${_( '(rpt)Name' ) + ':'}
+${_( '(rpt)Product Name' ) + ':'|left:24}
 ${item.product_name|right:24}
-${_( '(rpt)Avg. Price' ) + ':'}
-${item.avg_price|right:24}
-${_( '(rpt)Qty.' ) + ':'}
-${item.qty|right:24}
-${_( '(rpt)Total' ) + ':'}
-${item.total|right:24}
+${_( '(rpt)Average Price' ) + ':'|left:24}
+${item.avg_price|viviFormatPrices:true|right:24}
+${_( '(rpt)Quantities Sold' ) + ':'|left:24}
+${item.qty|format:0|right:24}
+${_( '(rpt)Gross Sales' ) + ':'}
+${item.gross|viviFormatPrices:true|right:24}
+${_( '(rpt)Net Sales' ) + ':'}
+${item.net|viviFormatPrices:true|right:24}
 {/for}
 ------------------------
+${_( '(rpt)Records Found' ) + ': '}${category.orderItems.length|format:0}
+------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Qty.' ) + ':'}
-${category.summary.qty|default:0|right:24}
-${_( '(rpt)Total' ) + ':'}
-${category.summary.total|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Quantities Sold' ) + ':'}
+${category.summary.qty|format:0|right:24}
+${_( '(rpt)Gross Sales' ) + ':'}
+${category.summary.gross|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Net Sales' ) + ':'}
+${category.summary.net|default:0|viviFormatPrices:true|right:24}
 {/for}
 ------------------------
 ${foot.gen_time}

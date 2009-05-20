@@ -53,14 +53,14 @@
 "${_( '(rpt)Summary' ) + ':'}","","","","${body.tax_summary.summary.tax_total|default:0|viviFormatTaxes:true}"
 "",""
 "${_( '(rpt)Top Department Sales' )}"
-"","${_( '(rpt)Department' )}","${_( '(rpt)Qty' )}","${_( '(rpt)Total' )}"
+"","${_( '(rpt)Department' )}","${_( '(rpt)Quantity' )}","${_( '(rpt)Total' )}"
 {for detail in body.dept_sales.records}
 "","${detail.cate_no}-${detail.cate_name}","${detail.qty|default:0}","${detail.total|default:0|viviFormatPrices:true}"
 {/for}
 "${_( '(rpt)Summary' ) + ':'}","","${body.dept_sales.summary.qty|default:0}","${body.dept_sales.summary.total|default:0|viviFormatPrices:true}"
 "",""
 "${_( '(rpt)Top Product Sales' )}"
-"","${_( '(rpt)Product' )}","${_( '(rpt)Qty' )}","${_( '(rpt)Total' )}"
+"","${_( '(rpt)Product' )}","${_( '(rpt)Quantity' )}","${_( '(rpt)Total' )}"
 {for detail in body.prod_sales.records}
 "","${detail.product_name}","${detail.qty|default:0}","${detail.total|default:0|viviFormatPrices:true}"
 {/for}

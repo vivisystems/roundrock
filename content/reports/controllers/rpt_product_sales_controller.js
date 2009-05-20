@@ -12,7 +12,7 @@
         
         _fileName: "rpt_product_sales",
         
-        _setData: function( start, end, periodType, shiftNo, sortBy, terminalNo, department, empty_department, noSalesProduct ) {
+        _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
 			var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
@@ -25,7 +25,8 @@
                             'order_items.product_no',
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
-                            'SUM("order_items"."current_subtotal") as "OrderItem.total"',
+                            'SUM("order_items"."current_subtotal") as "OrderItem.gross"',
+                            'SUM("order_items"."current_subtotal" + "order_items"."current_discount" + "order_items"."current_surcharge") as "OrderItem.net"',
                             'order_items.cate_no',
                             'order_items.cate_name'
                          ];
@@ -41,7 +42,22 @@
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
 
             var groupby = "order_items.product_no";
-            var orderby = sortBy + " desc";
+
+            var orderby = '';
+
+            switch(sortby) {
+                case 'product_no':
+                case 'product_name':
+                    orderby = sortby;
+                    break;
+
+                case 'avg_price':
+                case 'qty':
+                case 'gross':
+                case 'net':
+                    orderby = '"OrderItem.' + sortby + '" desc';
+                    break;
+            }
             
             // prepare category stuff.
             var deptCondition = '';
@@ -64,81 +80,98 @@
 	        		no: categoryRecord.no,
 	        		name: categoryRecord.name,
 	        		orderItems: [],
+                    prodByNo: {},
 	        		summary: {
-	        			qty: 0.0,
-	        			total: 0.0
+	        			qty: 0,
+	        			gross: 0.0,
+	        			net: 0.0
 	        		}
 	        	}
 	        } );
-            var orderItemRecords = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby } );
+            var orderItemRecords = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby, limit: limit } );
 
             orderItemRecords.forEach( function( record ) {
             	delete record.OrderItem;
-				record[ 'avg_price' ] = record[ 'total' ] / record[ 'qty' ];
+                if (record['qty'] > 0)
+                    record[ 'avg_price' ] = record[ 'gross' ] / record[ 'qty' ];
+                else
+                    record[ 'avg_price' ] = 0.0;
 
                 if (!(record.cate_no in categories)) {
                     categories[ record.cate_no ] = {
                         no: record.cate_no,
                         name: record.cate_name,
                         orderItems: [ record ],
-                        summary: {qty: record.qty, total: record.total}
+                        summary: {qty: record.qty, gross: record.gross, net: record.net},
+                        prodByNo: {}
                     };
                 }
                 else {
                     categories[ record.cate_no ].orderItems.push( record );
                     categories[ record.cate_no ].summary.qty += record.qty;
-                    categories[ record.cate_no ].summary.total += record.total;
+                    categories[ record.cate_no ].summary.gross += record.gross;
+                    categories[ record.cate_no ].summary.net += record.net;
                 }
+                categories[ record.cate_no ].prodByNo[ record.product_no ] = 1;
             } );
             
             // insert the zero sales products.
             if ( noSalesProduct == 'show' ) {
 		        var productModel = new ProductModel();
-		        var sql = 'attach database "/data/databases/vivipos_order.sqlite" as vivipos_order;';
-		        productModel.execute( sql );
-		        sql = 'select no, name, cate_no from products where no not in ( select distinct product_no from vivipos_order.order_items ) order by no;';
-		        var zeroSalesProducts = productModel.getDataSource().fetchAll( sql );
-		        sql = 'detach database vivipos_order;';
-		        productModel.execute( sql );
+		        var allProducts = productModel.find('all', {limit: 3000000});
 		        
-		        zeroSalesProducts.forEach( function( zeroSalesProducts ) {
-		        	categories[ zeroSalesProducts.cate_no ].orderItems.push( {
-		        		product_no: zeroSalesProducts.no,
-		        		product_name: zeroSalesProducts.name,
-		        		avg_price: 0,
-		        		qty: 0,
-		        		total: 0
-		        	} );
-		        } );
+		        allProducts.forEach( function( p ) {
+                    if (!(p.cate_no in categories)) {
+                        categories[ p.cate_no ] = {
+                            no: p.cate_no,
+                            name: p.cate_no + ' - ' + _('Obsolete'),
+                            orderItems: [ p ],
+                            summary: {qty: 0, gross: 0.0, net: 0.0},
+                            prodByNo: {}
+                        };
+                        categories[ p.cate_no ].prodByNo[ p.no ] = 1;
+                    }
+                    else if (!(p.no in categories[ p.cate_no ].prodByNo)) {
+                        categories[ p.cate_no ].orderItems.push( {
+                            product_no: p.no,
+                            product_name: p.name,
+                            avg_price: 0.0,
+                            qty: 0,
+                            gross: 0.0,
+                            net: 0.0
+                        } );
+                    }
+                });
 		    }
             
             // hide the no sales department if users want it that way.
             if ( empty_department == 'hide' ) {
 		        for ( var category in categories ) {
-		        	if ( categories[ category ].orderItems.length == 0 )
+		        	if ( categories[ category ].summary.qty == 0 )
 		        		delete categories[ category ];
 		        }
 		    }
 		    
 		    // for sorting.
-		    if ( sortBy != 'all' ) {
+		    if ( sortby != 'all' ) {
 		    	for ( var category in categories ) {
 		    		categories[ category ].orderItems.sort(
 						function ( a, b ) {
-							a = a[ sortBy ];
-							b = b[ sortBy ];
-						
-							switch ( sortBy ) {
+							a = a[ sortby ];
+							b = b[ sortby ];
+
+							switch ( sortby ) {
+								case 'avg_price':
+								case 'qty':
+								case 'gross':
+                                case 'net':
+									if ( a < b ) return 1;
+									if ( a > b ) return -1;
+									return 0;
 								case 'product_no':
 								case 'product_name':
 									if ( a > b ) return 1;
 									if ( a < b ) return -1;
-									return 0;
-								case 'avg_price':
-								case 'qty':
-								case 'total':
-									if ( a < b ) return 1;
-									if ( a > b ) return -1;
 									return 0;
 							}
 						}
@@ -149,18 +182,22 @@
 		    this._reportRecords.head.title = _( 'Product Sales Report' );
 		    this._reportRecords.head.start_time = start_str;
 		    this._reportRecords.head.end_time = end_str;
-		    this._reportRecords.head.machine_id = terminalNo;
+		    this._reportRecords.head.terminal_no = terminalNo;
 		    
 		    this._reportRecords.body = categories;
 		},
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var waitPanel = this._showWaitPanel( 'wait_panel' );
 
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
-            var machineid = document.getElementById( 'machine_id' ).value;
+            var terminalNo = document.getElementById( 'terminal_no' ).value;
             
             var periodType = document.getElementById( 'periodtype' ).value;
             var shiftNo = document.getElementById( 'shiftno' ).value;
@@ -170,9 +207,13 @@
             var empty_department = document.getElementById( 'empty_department' ).value;
             var noSalesProduct = document.getElementById( 'no_sales_product' ).value;
 
-			this._setData( start, end, periodType, shiftNo, sortby, machineid, department, empty_department, noSalesProduct );
+			this._setData( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, limit );
         },
         
+        exportCsv: function() {
+            this._super(this);
+        },
+
         load: function() {
             var today = new Date();
             var yy = today.getYear() + 1900;

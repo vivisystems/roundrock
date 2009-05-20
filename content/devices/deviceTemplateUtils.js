@@ -235,8 +235,8 @@
 
                 width = Math.floor(Math.abs(width));
                 index = Math.floor(Math.abs(index));
-                str = subStr(str, index, width);
-                return str;
+                var substr = subStr(str, index, width);
+                return substr;
             }
         };
 }) ();

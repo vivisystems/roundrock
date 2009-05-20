@@ -31,7 +31,7 @@ ${_( '(rpt)Revalue' ) + ':'|left:15}${detail.revalue_subtotal|default:0|viviForm
 ${_( '(rpt)Payment' ) + ':'|left:15}${detail.total|default:0|viviFormatPrices:true|right:26}
 {for items in detail.OrderItem}
 ------------------------------------------
-${'  ' + _( '(rpt)Product No.' ) + ':'|left:15}${items.product_no|right:26}
+${'  ' + _( '(rpt)Product Number' ) + ':'|left:15}${items.product_no|right:26}
 ${'  ' + _( '(rpt)Product Name' ) + ':'|left:15}${items.product_name|default:''|right:26}
 ${'  ' + _( '(rpt)Tax Name' ) + ':'|left:15}${items.tax_name|default:''|right:26}
 ${'  ' + _( '(rpt)Discount' ) + ':'|left:15}${items.current_discount|default:0|viviFormatPrices:true|right:26}

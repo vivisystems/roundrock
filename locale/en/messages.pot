@@ -91,8 +91,8 @@ msgstr "Print Label"
 msgid "Product List"
 msgstr "Product List"
 
-msgid "Product Sales"
-msgstr "Sales Report"
+msgid "Product Sales Report"
+msgstr "Product Sales"
 
 msgid "Taxes Report"
 msgstr "Tax Report"
@@ -1627,9 +1627,6 @@ msgstr "Sequence"
 msgid "(rpt)Hour"
 msgstr "Hour"
 
-msgid "(rpt)Net"
-msgstr "Net"
-
 msgid "(rpt)Net Per Order"
 msgstr "Net Per Order"
 
@@ -1723,14 +1720,11 @@ msgstr "Orders"
 msgid "(rpt)Status"
 msgstr "Status"
 
-msgid "(rpt)Avg. Price"
-msgstr "Avg. Price"
+msgid "(rpt)Average Price"
+msgstr "Average Price"
 
-msgid "(rpt)Qty"
-msgstr "Qty"
-
-msgid "(rpt)Qty."
-msgstr "Qty."
+msgid "(rpt)Quantities Sold"
+msgstr "Quantities Sold"
 
 msgid "(rpt)Barcode"
 msgstr "Barcode"
@@ -1968,6 +1962,9 @@ msgstr "shift change"
 
 msgid "(rpt)ledger"
 msgstr "ledger"
+
+msgid "(rpt)Gross Sales"
+msgstr "Gross Sales"
 
 msgid "(rpt)Net Sales"
 msgstr "Net Sales"

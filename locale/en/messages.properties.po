@@ -91,8 +91,8 @@ msgstr "Print Label"
 msgid "Product List"
 msgstr "Product List"
 
-msgid "Product Sales"
-msgstr "Sales Report"
+msgid "Product Sales Report"
+msgstr "Product Sales"
 
 msgid "Taxes Report"
 msgstr "Tax Report"
@@ -1639,9 +1639,6 @@ msgstr "Sequence"
 msgid "(rpt)Hour"
 msgstr "Hour"
 
-msgid "(rpt)Net"
-msgstr "Net"
-
 msgid "(rpt)Net Per Order"
 msgstr "Net Per Order"
 
@@ -1735,14 +1732,11 @@ msgstr "Orders"
 msgid "(rpt)Status"
 msgstr "Status"
 
-msgid "(rpt)Avg. Price"
-msgstr "Avg. Price"
+msgid "(rpt)Average Price"
+msgstr "Average Price"
 
-msgid "(rpt)Qty"
-msgstr "Qty"
-
-msgid "(rpt)Qty."
-msgstr "Qty."
+msgid "(rpt)Quantities Sold"
+msgstr "Quantities Sold"
 
 msgid "(rpt)Barcode"
 msgstr "Barcode"
@@ -1981,6 +1975,9 @@ msgstr "shift change"
 msgid "(rpt)ledger"
 msgstr "ledger"
 
+msgid "(rpt)Gross Sales"
+msgstr "Gross Sales"
+
 msgid "(rpt)Net Sales"
 msgstr "Net Sales"
 
@@ -2086,12 +2083,12 @@ msgstr "Promotions"
 msgid "(view)Revalue"
 msgstr "Revalue"
 
-#: ../..//content/order_display_template.tpl:207
+#: ../..//content/order_display_template.tpl:206
 #: ../..//content/order_template.tpl:268
 msgid "Order sequence [%S] does not exist"
 msgstr ""
 
-#: ../..//content/order_display_template.tpl:209
+#: ../..//content/order_display_template.tpl:208
 #: ../..//content/order_template.tpl:270
 msgid "Unable to display order; no order sequence given"
 msgstr ""
@@ -2248,8 +2245,14 @@ msgid ""
 "If you change layout now, the system will restart automatically after you "
 "return to the Main Screen."
 msgstr ""
-"If you change layout now, the system will restart automatically after you "
+"If you changelayout now, the system will restart automatically after you "
 "return to the Main Screen."
+
+msgid "INCLUDED"
+msgstr "INCLUDED"
+
+msgid "ADDON"
+msgstr "ADDON"
 
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
@@ -4459,107 +4462,107 @@ msgstr ""
 msgid "Host Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:232
+#: ../..//content/controllers/select_table_controller.js:238
 msgid "Recall Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:232
+#: ../..//content/controllers/select_table_controller.js:238
 msgid "Please select a table to recall..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:232
-#: ../..//content/controllers/select_table_controller.js:240
-#: ../..//content/controllers/select_table_controller.js:248
-#: ../..//content/controllers/select_table_controller.js:256
-#: ../..//content/controllers/select_table_controller.js:263
-#: ../..//content/controllers/select_table_controller.js:270
-#: ../..//content/controllers/select_table_controller.js:306
-#: ../..//content/controllers/select_table_controller.js:313
-#: ../..//content/controllers/select_table_controller.js:320
+#: ../..//content/controllers/select_table_controller.js:238
+#: ../..//content/controllers/select_table_controller.js:246
+#: ../..//content/controllers/select_table_controller.js:254
+#: ../..//content/controllers/select_table_controller.js:262
+#: ../..//content/controllers/select_table_controller.js:269
+#: ../..//content/controllers/select_table_controller.js:276
+#: ../..//content/controllers/select_table_controller.js:312
+#: ../..//content/controllers/select_table_controller.js:319
+#: ../..//content/controllers/select_table_controller.js:326
 msgid "Press CANCEL button to cancel function"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:240
+#: ../..//content/controllers/select_table_controller.js:246
 msgid "Split Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:240
+#: ../..//content/controllers/select_table_controller.js:246
 msgid "Please select a table to split..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:248
+#: ../..//content/controllers/select_table_controller.js:254
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:248
+#: ../..//content/controllers/select_table_controller.js:254
 msgid "Please select a table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:256
+#: ../..//content/controllers/select_table_controller.js:262
 msgid "Merge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:256
+#: ../..//content/controllers/select_table_controller.js:262
 msgid "Please select the master table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:263
+#: ../..//content/controllers/select_table_controller.js:269
 msgid "Unmerge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:263
+#: ../..//content/controllers/select_table_controller.js:269
 msgid "Please select the table to unmerge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:270
+#: ../..//content/controllers/select_table_controller.js:276
 msgid "Book Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:270
+#: ../..//content/controllers/select_table_controller.js:276
 msgid "Please select a table to book..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:306
+#: ../..//content/controllers/select_table_controller.js:312
 #: ../..//content/bindings/onscreenvfd.xbl:92
 msgid "Change Clerk"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:306
+#: ../..//content/controllers/select_table_controller.js:312
 msgid "Select a table to change service clerk to [ %S ]..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:313
+#: ../..//content/controllers/select_table_controller.js:319
 msgid "Trans Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:313
+#: ../..//content/controllers/select_table_controller.js:319
 msgid "Please select the table to be transfered..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:320
+#: ../..//content/controllers/select_table_controller.js:326
 msgid "Select Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:320
+#: ../..//content/controllers/select_table_controller.js:326
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:377
-#: ../..//content/controllers/select_table_controller.js:385
-#: ../..//content/controllers/select_table_controller.js:433
-#: ../..//content/controllers/select_table_controller.js:470
+#: ../..//content/controllers/select_table_controller.js:387
+#: ../..//content/controllers/select_table_controller.js:395
+#: ../..//content/controllers/select_table_controller.js:443
+#: ../..//content/controllers/select_table_controller.js:480
 msgid "This table is empty!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:436
+#: ../..//content/controllers/select_table_controller.js:446
 msgid "Please select the table to transfer to..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:474
+#: ../..//content/controllers/select_table_controller.js:484
 msgid "Please select an empty table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:485
+#: ../..//content/controllers/select_table_controller.js:495
 msgid "This table had not been hold!!"
 msgstr ""
 
@@ -4704,17 +4707,17 @@ msgid "Booking [%S] modified successfully"
 msgstr ""
 
 #: ../..//content/controllers/table_book_controller.js:135
-#: ../..//content/controllers/table_man_controller.js:317
+#: ../..//content/controllers/table_man_controller.js:323
 msgid "confirm delete region [%S (%S)]"
 msgstr ""
 
 #: ../..//content/controllers/table_book_controller.js:136
-#: ../..//content/controllers/table_man_controller.js:318
+#: ../..//content/controllers/table_man_controller.js:324
 msgid "Are you sure you want to delete region [%S]?"
 msgstr ""
 
 #: ../..//content/controllers/table_book_controller.js:157
-#: ../..//content/controllers/table_man_controller.js:339
+#: ../..//content/controllers/table_man_controller.js:345
 msgid "Region [%S] deleted successfully"
 msgstr ""
 
@@ -4722,68 +4725,68 @@ msgstr ""
 msgid "Book Table# %S : %S"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:94
+#: ../..//content/controllers/table_man_controller.js:100
 msgid "Add Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:94
+#: ../..//content/controllers/table_man_controller.js:100
 msgid "New Table"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:94
+#: ../..//content/controllers/table_man_controller.js:100
 msgid "Table Number"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:94
+#: ../..//content/controllers/table_man_controller.js:100
 msgid "Table Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:100
+#: ../..//content/controllers/table_man_controller.js:106
 msgid "Table Number [%S] has already been assigned exists"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:133
+#: ../..//content/controllers/table_man_controller.js:139
 msgid "Table [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:165
-#: ../..//content/controllers/table_man_controller.js:231
+#: ../..//content/controllers/table_man_controller.js:171
+#: ../..//content/controllers/table_man_controller.js:237
 msgid "Table [%S (%S)] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:174
+#: ../..//content/controllers/table_man_controller.js:180
 msgid "confirm delete table [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:175
+#: ../..//content/controllers/table_man_controller.js:181
 msgid "Are you sure you want to delete table [%S (%S)]?"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:195
+#: ../..//content/controllers/table_man_controller.js:201
 msgid "Table [%S (%S)] deleted successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:240
+#: ../..//content/controllers/table_man_controller.js:246
 msgid "Add Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:240
+#: ../..//content/controllers/table_man_controller.js:246
 msgid "New Region"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:240
+#: ../..//content/controllers/table_man_controller.js:246
 msgid "Region Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:274
+#: ../..//content/controllers/table_man_controller.js:280
 msgid "Region [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:308
+#: ../..//content/controllers/table_man_controller.js:314
 msgid "Region [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:446
+#: ../..//content/controllers/table_man_controller.js:452
 msgid "Options saved successfully"
 msgstr ""
 
@@ -5137,12 +5140,12 @@ msgstr ""
 msgid "Hourly Sales Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_order_annotation_controller.js:118
+#: ../..//content/reports/controllers/rpt_order_annotation_controller.js:161
 msgid "Order Annotation Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_product_sales_controller.js:149
-msgid "Product Sales Report"
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:127
+msgid "Obsolete"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_products_controller.js:63
@@ -5153,7 +5156,7 @@ msgstr ""
 msgid "Promotion Summary Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:587
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:589
 msgid "Sales Summary Report"
 msgstr ""
 
@@ -5170,26 +5173,24 @@ msgstr ""
 msgid "(rpt)"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl:71
-#: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_58mm.tpl:51
-#: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_80mm.tpl:34
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:12
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:17
-msgid "(rpt)Product No."
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:29
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:13
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:27
 msgid "(rpt)No."
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:15
-msgid "(rpt)Tax"
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:20
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:15
+msgid "(rpt)Avg. Price"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:16
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:22
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:29
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:16
+#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:21
+msgid "(rpt)Qty."
+msgstr ""
+
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:29
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:23
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:13
@@ -5198,4 +5199,28 @@ msgstr ""
 
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:11
 msgid "(rpt)Department No."
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:17
+msgid "(rpt)Product No."
+msgstr ""
+
+#: ../..//content/order_display_template.tpl:86
+msgid "Item"
+msgstr ""
+
+#: ../..//content/order_display_template.tpl:88
+msgid "Qty"
+msgstr ""
+
+#: ../..//content/order_display_template.tpl:90
+msgid "Price"
+msgstr ""
+
+#: ../..//content/order_display_template.tpl:91
+msgid "Tax"
+msgstr ""
+
+#: ../..//content/order_display_template.tpl:160
+msgid "(view)Adjustments"
 msgstr ""
