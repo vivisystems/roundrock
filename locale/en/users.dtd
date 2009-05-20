@@ -5,7 +5,7 @@
 <!ENTITY users.username "User Name (a..z,0..9)">
 <!ENTITY users.password "Password">
 <!ENTITY users.displayname "Display Name">
-<!ENTITY users.accesslevel "Access Level">
+<!ENTITY users.accesslevel "Access Group">
 <!ENTITY users.pricelevel "Default Price Level">
 <!ENTITY users.job "Default Job">
 <!ENTITY users.drawer "Assigned Drawer">

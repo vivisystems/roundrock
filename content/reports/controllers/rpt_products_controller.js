@@ -84,7 +84,8 @@
         load: function() {
             var cate = new CategoryModel();
             var cateRecords = cate.find('all', {
-                fields: ['no','name']
+                fields: ['no','name'],
+                order: 'no, name'
                 });
             var dpt = document.getElementById('department_menupopup');
 

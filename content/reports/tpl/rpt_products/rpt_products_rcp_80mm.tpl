@@ -16,7 +16,7 @@ ${_( '(rpt)Alt Name2' ) + ':'|left:14}${plu.alt_name2|default:''|right:28}
 ${_( '(rpt)Barcode' ) + ':'|left:14}${plu.barcode|default:''|right:28}
 ${_( '(rpt)Tax Code' ) + ':'|left:14}${plu.rate|default:''|right:28}
 ${_( '(rpt)Stock Level' ) + ':'|left:14}${plu.stock|format:0|right:28}
-${_( '(rpt)Low Threshold' ) + ':'|left:14}${plu.min_stock|format:0|right:28}
+${_( '(rpt)Low Stock Threshold' ) + ':'|left:14}${plu.min_stock|format:0|right:28}
 
 ${_( '(rpt)Price Level' )}1 {if plu.level_enable1}*
 {else} 
@@ -65,8 +65,10 @@ ${_( '(rpt)single' ) + ': '|left:30}${plu.single|boolToLetter|right:12}
 ${_( '(rpt)visible' ) + ': '|left:30}${plu.visible|boolToLetter|right:12}
 ${_( '(rpt)icon_only' ) + ': '|left:30}${plu.icon_only|boolToLetter|right:12}
 {/for}
-{/for}
 ------------------------------------------
+${_( '(rpt)Records Found' ) + ': '|left:16}${category.plu.length|format:0|left: 26}
+------------------------------------------
+{/for}
 ${foot.gen_time}
 [&CR]
 [&CR]

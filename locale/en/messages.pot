@@ -1228,6 +1228,21 @@ msgstr "giftcard"
 msgid "check"
 msgstr "check"
 
+msgid "(rpt)cash"
+msgstr "cash"
+
+msgid "(rpt)creditcard"
+msgstr "creditcard"
+
+msgid "(rpt)coupon"
+msgstr "coupon"
+
+msgid "(rpt)giftcard"
+msgstr "giftcard"
+
+msgid "(rpt)check"
+msgstr "check"
+
 msgid "acl_touch_settings"
 msgstr "Touch Screen Settings"
 
@@ -1576,7 +1591,7 @@ msgstr "Cash"
 msgid "(rpt)Sales"
 msgstr "Sales"
 
-msgid "(rpt)Excess"
+msgid "(rpt)Giftcard Excess"
 msgstr "Excess"
 
 msgid "(rpt)Ledger In"
@@ -1594,14 +1609,20 @@ msgstr "Payment"
 msgid "(rpt)Order Sequence"
 msgstr "Sequence"
 
-msgid "(rpt)Amount"
+msgid "(rpt)Payment Amount"
 msgstr "Amount"
 
-msgid "(rpt)Count"
+msgid "(rpt)Payment Count"
 msgstr "Count"
 
 msgid "(rpt)Destination"
 msgstr "Destination"
+
+msgid "(rpt)Destination Amount"
+msgstr "Amount"
+
+msgid "(rpt)Destination Count"
+msgstr "Count"
 
 msgid "(rpt)Start Time"
 msgstr "Start Time"
@@ -1735,7 +1756,7 @@ msgstr "Tax Code"
 msgid "(rpt)Stock Level"
 msgstr "Stock Level"
 
-msgid "(rpt)Low Threshold"
+msgid "(rpt)Low Stock Threshold"
 msgstr "Low Threshold"
 
 msgid "(rpt)Halo"
@@ -2231,3 +2252,6 @@ msgstr "INCLUDED"
 
 msgid "ADDON"
 msgstr "ADDON"
+
+msgid "(rpt)Obsolete Department"
+msgstr "Obsolete Department"

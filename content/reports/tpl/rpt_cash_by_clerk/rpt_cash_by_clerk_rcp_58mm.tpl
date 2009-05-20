@@ -10,20 +10,23 @@ ${head.end_time}
 ${head.title|center:24}
 {for master in body}
 ========================
-${_( '(rpt)Terminal' ) + ':'|left:12}${master.terminal_no}
-${_( '(rpt)Start Time' ) + ':'|left:12}${master.starttime|left:10}
-${_( '(rpt)End Time' ) + ':'|left:12}${master.endtime|left:10}
-${_( '(rpt)Sale Period' ) + ':'|left:12}${master.sale_period|unixTimeToString:'yyyy-MM-dd'}
-${_( '(rpt)Shift' ) + ':'|left:12}${master.shift_number}
-${_( '(rpt)Balance' ) + ':'|left:12}${master.balance|default:0|viviFormatPrices:true}
-${_( '(rpt)Cash' ) + ':'|left:12}${master.cash|default:0|viviFormatPrices:true}
-${_( '(rpt)Sales' ) + ':'|left:12}${master.sales|default:0|viviFormatPrices:true}
-${_( '(rpt)Excess' ) + ':'|left:12}${master.excess|default:0|viviFormatPrices:true}
-${_( '(rpt)Deposit' ) + ':'|left:12}${master.deposit|default:0|viviFormatPrices:true}
-${_( '(rpt)Refund' ) + ':'|left:12}${master.refund|default:0|viviFormatPrices:true}
-${_( '(rpt)Credit' ) + ':'|left:12}${master.credit|default:0|viviFormatPrices:true}
-${_( '(rpt)Ledger In' ) + ':'|left:12}${master.ledger_in|default:0|viviFormatPrices:true}
-${_( '(rpt)Ledger Out' ) + ':'|left:12}${master.ledger_out|default:0|viviFormatPrices:true}
+${_( '(rpt)Terminal' ) + ':'|left:12}${master.terminal_no|right:12}
+${_( '(rpt)Start Time' ) + ':'|left:12}
+${master.starttime|right:24}
+${_( '(rpt)End Time' ) + ':'|left:12}
+${master.endtime|right:24}
+${_( '(rpt)Sale Period' ) + ':'|left:12}
+${master.sale_period|unixTimeToString:'yyyy-MM-dd'|right:24}
+${_( '(rpt)Shift' ) + ':'|left:12}${master.shift_number|right:12}
+${_( '(rpt)Balance' ) + ':'|left:12}${master.balance|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Cash' ) + ':'|left:12}${master.cash|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Net Sales' ) + ':'|left:12}${master.sales|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Giftcard Excess' ) + ':'|left:12}${master.excess|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Deposit' ) + ':'|left:12}${master.deposit|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Refund' ) + ':'|left:12}${master.refund|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Credit' ) + ':'|left:12}${master.credit|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Ledger In' ) + ':'|left:12}${master.ledger_in|default:0|viviFormatPrices:true|right:12}
+${_( '(rpt)Ledger Out' ) + ':'|left:12}${master.ledger_out|default:0|viviFormatPrices:true|right:12}
 ------------------------
 {eval}
   destDetails = [];
@@ -34,16 +37,16 @@ ${_( '(rpt)Ledger Out' ) + ':'|left:12}${master.ledger_out|default:0|viviFormatP
   destDetails.push(detail);
 {/eval}
 {else}
-{if detail.name.length > 0}${detail.name + ':'|left:11}{else}${detail.type + ':'|left:11}{/if}
-${detail.amount|default:0|viviFormatPrices:true|right:13}
-${_( '(rpt)Count' ) + ':'|left:12}${detail.count|default:0|right:12}
+{if detail.name.length > 0}${detail.name + ':'|left:12}{else}${_('(rpt)' + detail.type) + ':'|left:12}{/if}
+${detail.amount|default:0|viviFormatPrices:true|right:12}
+${'  ' + _( '(rpt)Payment Count' ) + ':'|left:12}${detail.count|format:0|right:12}
 {/if}
 {/for}
 {if destDetails.length > 0}
 ------------------------
 {for dest in destDetails}
-${dest.name + ':'|left:12}${dest.amount|default:0|viviFormatPrices:true|right:13}
-${_( '(rpt)Count' ) + ':'|left:12}${dest.count|default:0|right:12}
+${dest.name + ':'|left:12}${dest.amount|default:0|viviFormatPrices:true|right:12}
+${'  ' + _( '(rpt)Destination Count' ) + ':'|left:12}${dest.count|default:0|right:12}
 {/for}
 {/if}
 {/for}

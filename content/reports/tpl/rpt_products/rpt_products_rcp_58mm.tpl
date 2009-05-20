@@ -28,7 +28,7 @@ ${_( '(rpt)Tax Code' ) + ':'}
 ${plu.rate|right:24}
 ${_( '(rpt)Stock Level' ) + ':'}
 ${plu.stock|right:24}
-${_( '(rpt)Low Threshold' ) + ':'}
+${_( '(rpt)Low Stock Threshold' ) + ':'}
 ${plu.min_stock|right:24}
 
 ${_( '(rpt)Price Level' )}1 {if plu.level_enable1}*
@@ -105,8 +105,10 @@ ${plu.visible|boolToLetter|right:24}
 ${_( '(rpt)icon_only' ) + ': '}
 ${plu.icon_only|boolToLetter|right:24}
 {/for}
-{/for}
 ------------------------
+${_( '(rpt)Records Found' ) + ':'|left:16}${category.plu.length|format:0|right:8}
+------------------------
+{/for}
 ${foot.gen_time}
 [&CR]
 [&CR]

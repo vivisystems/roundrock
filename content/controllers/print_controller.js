@@ -298,7 +298,7 @@
                 order_id: orderid,
                 batch: batch,
                 sequence: orderseq,
-                device: device
+                device: device,
             };
 
             orderReceiptModel.save(orderReceipt);

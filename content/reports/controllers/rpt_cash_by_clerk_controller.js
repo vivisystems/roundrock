@@ -12,7 +12,7 @@
         
         _fileName: 'rpt_cash_by_clerk',
         
-        _set_reportData: function( start, end, shiftNo, terminalNo ) {            
+        _set_reportData: function( start, end, shiftNo, terminalNo, limit ) {
         	var d = new Date();
             d.setTime( start );
             var start_str = d.toString( 'yyyy/MM/dd HH:mm' );
@@ -35,10 +35,10 @@
 
             var groupby;
 
-            var orderby = 'shift_changes.terminal_no, shift_changes.sale_period';
+            var orderby = 'shift_changes.sale_period, shift_changes.terminal_no';
 
             var shiftChange = new ShiftChangeModel();
-            var records = shiftChange.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 } );
+            var records = shiftChange.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2, limit: this._csvLimit } );
 
             records.forEach(function(o){
                 var d = new Date();
@@ -51,12 +51,16 @@
             this._reportRecords.head.title = _( 'Shift Change Report' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
-            this._reportRecords.head.machine_id = terminalNo;
+            this._reportRecords.head.terminal_id = terminalNo;
             
             this._reportRecords.body = records;
         },
         
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
         	var waitPanel = this._showWaitPanel( 'wait_panel' );
 
             var start = document.getElementById( 'start_date' ).value;
@@ -64,9 +68,9 @@
             
             var shiftNo = document.getElementById( 'shift_no' ).value;
 
-            var machineid = document.getElementById( 'machine_id' ).value;
+            var terminalNo = document.getElementById( 'terminal_no' ).value;
             
-            this._set_reportData( start, end, shiftNo, machineid );
+            this._set_reportData( start, end, shiftNo, terminalNo );
         },
         
         set_reportRecords: function( parameters ) { // used while doing shift change.
@@ -103,6 +107,10 @@
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
             
 			return tpl.process( this._reportRecords );
+        },
+
+        exportCsv: function() {
+            this._super(this, true);
         },
 
         load: function() {

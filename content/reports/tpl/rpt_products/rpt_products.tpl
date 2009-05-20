@@ -32,7 +32,7 @@
                     <th style="text-align: left;">${_( '(rpt)Barcode' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Tax Code' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Stock Level' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Low Threshold' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Low Stock Threshold' )}</th>
                 </tr>
             </thead>
             <tbody>
@@ -125,7 +125,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                <td colspan="4"></td>
+                    <td colspan="4" style="text-align: left;">${_('(rpt)Records Found') + ': '}${category.plu.length|format:0}</td>
                 </tr>
             </tfoot>
         </table>
