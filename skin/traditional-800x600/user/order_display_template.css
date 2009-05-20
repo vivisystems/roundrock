@@ -25,8 +25,8 @@
 
 .paper {
 	width: 640px;
-	min-height: 300px;
-	max-height: 320px;
+	min-height: 360px;
+	max-height: 400px;
 	overflow-y:auto;
 	margin: 0px auto;
   padding: 10px;

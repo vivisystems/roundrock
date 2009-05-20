@@ -87,7 +87,7 @@
 //                index: 'table_no',
 //                value: table_no
 //            });
-            var table = tableModel.find('first', {conditions: "table_no='" + table_no + "'"});
+            var table = tableModel.find('first', {conditions: "table_no='" + table_no + "'", recursive: 0});
 
             return (table != null);
         },
@@ -114,8 +114,15 @@
                 var tableModel = new TableModel();
                 newTable = tableModel.save(newTable);
 
-                this._tableListDatas.push(newTable);
-                this._tableListDatas = new GeckoJS.ArrayQuery(this._tableListDatas).orderBy('name asc');
+                // add table_status
+                var newTableMap = {table_id:newTable.id, table_no: table_no};
+                var tableMapModel = new TableMapModel();
+                newTableMap = tableMapModel.save(newTableMap);
+
+                this.loadTables();
+
+//                this._tableListDatas.push(newTable);
+//                this._tableListDatas = new GeckoJS.ArrayQuery(this._tableListDatas).orderBy('name asc');
 
                 // loop through this._listDatas to find the newly added destination
                 var index
@@ -124,7 +131,8 @@
                         break;
                     }
                 }
-                this.getTableListObj().treeBoxObject.rowCountChanged(index, 1);
+
+//                this.getTableListObj().treeBoxObject.rowCountChanged(index, 1);
 
                 // make sure row is visible
                 this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
@@ -149,6 +157,13 @@
                 var tableModel = new TableModel();
                 tableModel.id = inputObj.id;
                 var table = tableModel.save(inputObj);
+
+                // update table_status
+                var newTableMap = {id: inputObj.map_id, table_id: table.id, table_no: table.table_no};
+
+                var tableMapModel = new TableMapModel();
+                tableMapModel.id = newTableMap.id;
+                var newTableMap2 = tableMapModel.save(newTableMap);
 
                 this.loadTables();
 
@@ -185,6 +200,10 @@
                 var tableModel = new TableModel();
                 tableModel.del(table.id);
 
+                // delete table_status
+                var tableMapModel = new TableMapModel();
+                tableMapModel.del(table.map_id);
+
 
                 this._tableListDatas.splice(index, 1);
 
@@ -203,6 +222,32 @@
         },
 
         toggleTable: function() {
+
+            
+            var fields = ['tables.table_no',
+                            'tables.table_name',
+                            'tables.seats',
+                            'tables.active',
+                            'tables.tag',
+                            'tables.destination',
+                            'table_regions.name AS "Table.region"',
+                            'tables.table_region_id',
+                            'table_regions.image AS "Table.image"'
+                        ];
+            var tableModel = new TableModel();
+            // var tables = tableModel.find('all', {fields: fields, recursive: -2});
+            var tables = tableModel.find('all', {recursive: 2});
+            this.log("dump tables:::");
+            this.log(this.dump(tables));
+                        
+            var mapModel = new TableStatusModel();
+            var maps = mapModel.find('all', {recursive: 2});
+            this.log("dump status:::");
+            this.log(this.dump(maps));
+            return;
+
+
+
             var index = this.getTableListObj().selectedIndex;
             var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
 
@@ -368,7 +413,9 @@
                             'tables.destination',
                             'table_regions.name AS "Table.region"',
                             'tables.table_region_id',
-                            'table_regions.image AS "Table.image"'];
+                            'table_regions.image AS "Table.image"'
+//                            'table_maps.id AS "Table.map_id"'
+                        ];
             var orderby = 'tables.table_no ASC';
             
             var tableModel = new TableModel();
@@ -387,8 +434,6 @@
             // read destinations from configure
             var destinations = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
             if (destinations != null) destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
-            // this.log(this.dump(datas));
-            // return ;
 
             var destinationObj = document.getElementById('table_destination_menupopup');
 

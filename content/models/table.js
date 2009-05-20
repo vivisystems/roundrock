@@ -4,6 +4,9 @@ var TableModel = window.TableModel = GeckoJS.Model.extend({
     useDbConfig: 'table',
 
     belongsTo: ['TableRegion'],
+
+    // hasOne: [{name: 'TableStatus', 'primaryKey': 'table_no', 'foreignKey': 'table_no'}, 'TableMap'],
+    hasOne: ['TableStatus'],
     
     hasMany: ['TableBooking', 'TableOrder'],
 

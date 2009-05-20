@@ -189,6 +189,10 @@
 
         _showOrderDisplayPanel: function(panel, tableObj, obj) {
             var self = this;
+
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+
             var promptPanel = document.getElementById(panel);
             var doc = document.getElementById('order_display_div');
 
@@ -225,7 +229,12 @@
                 doc.innerHTML = result;
             }
 
-            promptPanel.openPopup(obj, "after_start", 0, 0, false, false);
+            // after_start
+            var x = (width - promptPanel.boxObject.width) / 2;
+            var y = (height - promptPanel.boxObject.height) / 2;
+            // alert("x, y:" + x + "," + y);
+            // promptPanel.openPopup(obj, "overlay", x, y, false, false);
+            promptPanel.openPopupAtScreen(x, y, false);
 
             return promptPanel;
         },
@@ -340,7 +349,23 @@
 
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             cart.GuestCheck.getNewTableNo();
-            
+
+
+            ///
+            var fields = ['tables.table_no',
+                            'tables.table_name',
+                            'tables.seats',
+//                            'table_statuses.clerk AS "Table.clerk"'
+//                            'table_statuses.clerk',
+                            'table_maps.id AS "Table.map_id"'
+                      ];
+// var fields = null;
+            // var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
+            var conditions = null;
+            var tableModel = new TableModel;
+            var tables = tableModel.find('all', {fields: fields, conditions: conditions, recursive: 2});
+this.log('Tables:::');
+this.log(this.dump(tables));
             return;
         },
 

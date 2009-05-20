@@ -249,100 +249,14 @@ GREUtils.log('tableStatus:' + tableStatus);
 
             }else {
                 // read all order status
-                /*
-                var fields = ['tables.table_no',
-                            'tables.table_name',
-                            'tables.seats',
-                            'tables.active',
-                            'tables.tag',
-                            'tables.destination',
-                            'table_regions.name AS "Table.region"',
-                            'tables.table_region_id',
-                            'table_regions.image AS "Table.image"',
-                            'table_maps.id AS "Table.map_id"'
-                        ];
-                */
-                var fields = null;
-                tableStatus = this.find('all', {fields: fields, recursive: 2});
-GREUtils.log("getTableStatusList...");
-GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
+                tableStatus = this.find('all', {});
+                
             }
             
             return this.genTablesArray(tableStatus);
         },
 
         genTablesArray: function(tableStatus) {
-            var self = this;
-            // set checklist
-            this._checkList = tableStatus.concat([]);
-
-            // gen tables status
-            var tables = [];
-            tableStatus.forEach(function(o) {
-                o.guests = 0;
-                o.checks = o.TableOrder ? o.TableOrder.length : 0;
-                if (o.checks > 0) {
-                    o.TableOrder.forEach(function(orderObj){
-                        o.guests = o.guests + Math.round(parseInt(orderObj.guests));
-                    });
-                    o.clerk = 
-                };
-
-                if (o.TableBooking && o.TableBooking.length > 0) {
-                    o.booking = o.TableBooking[0].booking;
-                }
-
-                tables.push(o);
-            });
-
-            return tables;
-
-            // add empty tables...
-            self.getTableList();
-            self._tableList.forEach(function(o){
-                if (tables[o.table_no] == null && o.active) {
-                    tables[o.table_no] = {
-                        order_id: '',
-                        check_no: '',
-                        table_no: o.table_no,
-                        sequence: '',
-                        guests: 0,
-                        holdby: o.holdby,
-                        clerk: '',
-                        booking: 0,
-                        lock: false,
-                        status: 0,
-                        terminal_no: '',
-
-                        table_object: null,
-                        order_object: null
-                    };
-                    tables[o.table_no].table = GeckoJS.BaseObject.clone(o);
-                }
-            });
-
-            // read booking info,
-            var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-            var min = tableSettings.TableRemindTime || 120;
-            var start_time = Math.round(Date.now().addMinutes(-min) / 1000);
-            var end_time = Math.round(Date.now().addMinutes(min) / 1000);
-            var conditions = "table_bookings.booking>='" + start_time +
-            "' AND table_bookings.booking<='" + end_time +
-            "'";
-            var bookingModel = new TableBookingModel();
-            var bookings = bookingModel.find('all', {
-                conditions: conditions
-            });
-
-            bookings.forEach(function(o){
-                tables[o.table_no].booking = o;
-            });
-
-            this._tableStatusList = tables;
-            return tables;
-        },
-
-        genTablesArray2: function(tableStatus) {
 
             var self = this;
             // set checklist
@@ -611,7 +525,7 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
 
         setTableStatus: function(tableStatusObj) {
 
-            // this.setTableMap(tableStatusObj);
+            this.setTableMap(tableStatusObj);
 
             // @todo rack
             

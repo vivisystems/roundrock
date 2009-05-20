@@ -74,7 +74,7 @@
         
     </vbox>
 
-    <panel id="prompt_panel" position="overlap" noautohide="true" class="PromptPnl">
+    <panel id="prompt_panel" position="after_start" noautohide="true" class="PromptPnl">
         <hbox flex="1" class="PromptBox">
             <vbox flex="1">
                 <label id="prompt_1" value="prompt 1" class="PromptLabel1" />

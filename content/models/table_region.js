@@ -3,7 +3,7 @@ var TableRegionModel = window.TableRegionModel = GeckoJS.Model.extend({
 
     useDbConfig: 'table',
 
-    hasMany: ['Table'],
+//    hasMany: ['Table'],
 
     behaviors: ['Sync']
 });
