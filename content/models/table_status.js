@@ -265,7 +265,7 @@ GREUtils.log('tableStatus:' + tableStatus);
                 var fields = null;
                 tableStatus = this.find('all', {fields: fields, recursive: 2});
 GREUtils.log("getTableStatusList...");
-GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
+// GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
             }
             
             return this.genTablesArray(tableStatus);
@@ -275,17 +275,26 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
             var self = this;
             // set checklist
             this._checkList = tableStatus.concat([]);
-
+GREUtils.log("genTablesArray:::");
             // gen tables status
             var tables = [];
             tableStatus.forEach(function(o) {
+                o.seats = o.Table.seats;
+                o.table_name = o.Table.table_name;
                 o.guests = 0;
                 o.checks = o.TableOrder ? o.TableOrder.length : 0;
                 if (o.checks > 0) {
                     o.TableOrder.forEach(function(orderObj){
-                        o.guests = o.guests + Math.round(parseInt(orderObj.guests));
+                        var guests = Math.round(parseInt(orderObj.guests)) || 0;
+GREUtils.log("guests:::" + guests);
+                        o.guests = o.guests + guests;
                     });
-                    o.clerk = 
+                    o.clerk = o.TableOrder[0].clerk;
+                    o.total = o.TableOrder[0].total;
+                    o.check_no = o.TableOrder[0].check_no;
+                    o.sequence = o.TableOrder[0].sequence;
+GREUtils.log("dump o:::");
+GREUtils.log(GeckoJS.BaseObject.dump(o));
                 };
 
                 if (o.TableBooking && o.TableBooking.length > 0) {
@@ -294,7 +303,8 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
 
                 tables.push(o);
             });
-
+GREUtils.log("dump tables:::");
+GREUtils.log(GeckoJS.BaseObject.dump(tables));
             return tables;
 
             // add empty tables...
@@ -491,8 +501,9 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
         genTableStatusObj: function(tableObj) {
             var tableStatusObj = {};
 
-            var table_obj = GeckoJS.BaseObject.serialize(tableObj.table_object);
-            var order_obj = GeckoJS.BaseObject.serialize(tableObj.order_object);
+//            var table_obj = GeckoJS.BaseObject.serialize(tableObj.table_object);
+//            var order_obj = GeckoJS.BaseObject.serialize(tableObj.order_object);
+
             tableStatusObj = {
                 id: tableObj.id,
                 order_id: tableObj.order_id,
@@ -506,8 +517,13 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
                 lock: false,
                 status: tableObj.status,
                 terminal_no: tableObj.terminal_no,
-                table_object: table_obj,
-                order_object: order_obj
+
+                table_id: tableObj.table_id,
+                total: tableObj.total,
+                table_status_id: tableObj.table_status_id
+
+//                table_object: table_obj,
+//                order_object: order_obj
             };
 
             return tableStatusObj;
@@ -516,11 +532,20 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
         addCheck: function(checkObj) {
             // GREUtils.log("DEBUG", "add check...");
             this.getTableList();
+            var index = -1;
+            var i = 0;
+            this._tableList.forEach(function(o){
+                //
+                if (o.table_no == checkObj.table_no) {
+                    index = i;
+                }
+                i++;
+            })
             var tableObj = {
                 order_id: checkObj.id,
                 check_no: checkObj.check_no,
                 table_no: checkObj.table_no,
-                sequence: checkObj.seq,
+                sequence: "" + checkObj.seq,
                 guests: checkObj.no_of_customers,
                 holdby: '',
                 clerk: checkObj.service_clerk,
@@ -529,8 +554,13 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
                 status: 0,
                 terminal_no: checkObj.terminal_no,
 
-                table_object: this._tableList[checkObj.table_no - 1],
-                order_object: checkObj
+                total: checkObj.total,
+
+                table_id: (index > -1) ? this._tableList[index].id : '',
+                table_status_id: (index > -1) ? this._tableList[index].TableStatus.id : '',
+
+//                table_object: this._tableList[checkObj.table_no - 1],
+//                order_object: checkObj
             };
             this.setTableStatus( this.genTableStatusObj(tableObj));
 
@@ -627,15 +657,15 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
 
 
             if (tableStatusObj.order_id && tableStatusObj.holdby) {
-                var order_id = tableStatusObj.order_id;
-                var conditions = "table_statuses.order_id='" + order_id + "' AND table_statuses.holdby='" + tableStatusObj.holdby + "' AND table_statuses.table_no='" + tableStatusObj.table_no + "'";
+                var table_no = tableStatusObj.table_no;
+                var conditions = "table_statuses.table_no='" + table_no + "' AND table_statuses.holdby='" + tableStatusObj.holdby + "' AND table_statuses.table_no='" + tableStatusObj.table_no + "'";
                 var tableStatusObjTmp = this.find('first', {
                     conditions: conditions
                 });
             }
             else if (tableStatusObj.order_id) {
-                var order_id = tableStatusObj.order_id;
-                var conditions = "table_statuses.order_id='" + order_id + "'";
+                var table_no = tableStatusObj.table_no;
+                var conditions = "table_statuses.table_no='" + table_no + "'";
                 var tableStatusObjTmp = this.find('first', {
                     conditions: conditions
                 });
@@ -652,16 +682,34 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
                     this.delAll(conditions);
                 } else {
                     // update tableStatus record
+GREUtils.log("status_id update:::" + this.id);
                     this.id = tableStatusObjTmp.id;
-                    var retObj = this.save(tableStatusObj);
+                    var retObj = this.saveStatus(tableStatusObj);
                 }
             } else {
                 if (tableStatusObj.sequence != '' || tableStatusObj.holdby) {
                     // add new tableStatus record
+GREUtils.log("status_id new:::" + this.id);
                     this.id = '';
-                    var retObj = this.save(tableStatusObj);
+                    var retObj = this.saveStatus(tableStatusObj);
+
                 }
             }
+
+
+        },
+
+        saveStatus: function(statusObj) {
+GREUtils.log("statusObj:::");
+GREUtils.log(GeckoJS.BaseObject.dump(statusObj));
+            var tableOrderObj = this.save(statusObj);
+
+GREUtils.log("tableOrderObj:::");
+GREUtils.log(GeckoJS.BaseObject.dump(tableOrderObj));
+            var tableOrderModel = new TableOrderModel();
+            var statusOrderObj = tableOrderModel.save(statusObj);
+GREUtils.log("statusOrderObj:::");
+GREUtils.log(GeckoJS.BaseObject.dump(statusOrderObj));
         },
 
         setTableMap: function (tableStatusObj) {
@@ -677,7 +725,7 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
             }
             else if (tableStatusObj.order_id) {
                 var table_no = tableStatusObj.table_no;
-                var conditions = "table_maps.table_no='" + table_no + "'";
+                var conditions = "table_statuses.table_no='" + table_no + "'";
                 var tableStatusObjTmp = tableMapModel.find('first', {
                     conditions: conditions,
                     recursive: -2

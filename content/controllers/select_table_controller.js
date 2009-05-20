@@ -18,23 +18,29 @@
             var check_no = this.data[row].check_no || '';
             var checks = this.data[row].checks || '';
             var table_no = this.data[row].table_no || '';
-            var table_label = this.data[row].table.table_name || '';
+//            var table_label = this.data[row].table.table_name || '';
+            var table_label = this.data[row].table_name || '';
             // var guest_num = this.data[row].order.no_of_customers || '0';
             var guest_num = this.data[row].guests || '0';
 
-            var seats = this.data[row].table.seats || '0';
+            // var seats = this.data[row].table.seats || '0';
+            var seats = this.data[row].seats || '0';
 
+            /*
             if (this.data[row].order.length > 0)
             var subtotal = this.data[row].order[0].total || '0';
             else var subtotal = '';
-
+            */
+            
+            var subtotal = this.data[row].total || '';
 
             var clerk = this.data[row].clerk || '';
             var now = Math.round(new Date().getTime());
             var holdby = this.data[row].holdby || '';
             // var transaction_created = this.data[row].order.transaction_created * 1000 || now;
             var transaction_created = this.data[row].created * 1000 || now;
-            var booking_time = Math.round((this.data[row].booking ? this.data[row].booking.booking : 0) || 0) * 1000;
+//            var booking_time = Math.round((this.data[row].booking ? this.data[row].booking.booking : 0) || 0) * 1000;
+            var booking_time = Math.round((this.data[row].booking ? this.data[row].booking : 0) || 0) * 1000;
 
             var book_time = (booking_time > 100) ? _("B#") + (new Date(booking_time)).toString("HH:mm") : '';
 
@@ -350,7 +356,7 @@
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             cart.GuestCheck.getNewTableNo();
 
-
+/*
             ///
             var fields = ['tables.table_no',
                             'tables.table_name',
@@ -366,6 +372,7 @@
             var tables = tableModel.find('all', {fields: fields, conditions: conditions, recursive: 2});
 this.log('Tables:::');
 this.log(this.dump(tables));
+*/
             return;
         },
 
