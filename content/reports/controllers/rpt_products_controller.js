@@ -29,13 +29,15 @@
                 var cateRecords = cate.find('all', {
                     fields: ['no','name'],
                     conditions: "categories.no LIKE '" + this._queryStringPreprocessor( department ) + "%'",
-                    order: 'no'
+                    order: 'no',
+                    limit: this._csvLimit
                     });
             } else {
                 var cate = new CategoryModel();
                 var cateRecords = cate.find('all', {
                     fields: ['no','name'],
-                    order: 'no'
+                    order: 'no',
+                    limit: this._csvLimit
                     });
             }
 
@@ -53,7 +55,7 @@
             	orderby = 'products.cate_no, products.' + sortby;
 
             var prod = new ProductModel();
-            var prodRecords = prod.find('all', { fields: fields, conditions: conditions, order: orderby, limit: limit });
+            var prodRecords = prod.find('all', { fields: fields, conditions: conditions, order: orderby, limit: this._csvLimit });
 
             prodRecords.forEach(function(o){
                 // does category exist?
@@ -76,7 +78,7 @@
         },
 
         exportCsv: function() {
-            this._super(this);
+            this._super(this, true);
         },
 
         load: function() {

@@ -70,7 +70,8 @@
 	        var categoryRecords = categoryModel.find( 'all', {
 	            fields: [ 'no', 'name' ],
 	            conditions: deptCondition,
-	            order: 'no'
+	            order: 'no',
+                limit: this._csvLimit
 	        } );
 	        
 	        var categories = {};
@@ -88,7 +89,7 @@
 	        		}
 	        	}
 	        } );
-            var orderItemRecords = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby, limit: limit } );
+            var orderItemRecords = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby, limit: this._csvLimit } );
 
             orderItemRecords.forEach( function( record ) {
             	delete record.OrderItem;
@@ -211,7 +212,7 @@
         },
         
         exportCsv: function() {
-            this._super(this);
+            this._super(this, true);
         },
 
         load: function() {

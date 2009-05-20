@@ -573,7 +573,7 @@ pref('vivipos.fec.ui.condiment.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.plugroup.button.defaultcolor', 'plugroup-button-color-default');
 pref('vivipos.fec.ui.plugroup.button.defaultfontsize', 'medium');
  
-pref("vivipos.fec.reportpanels.productsales.label", "Product Sales Report");
+pref("vivipos.fec.reportpanels.productsales.label", "Product Sales");
 pref("vivipos.fec.reportpanels.productsales.path", "chrome://viviecr/content/reports/rpt_product_sales.xul");
 pref("vivipos.fec.reportpanels.productsales.icon", "chrome://viviecr/content/skin/icons/reporticon_sale.png");
 pref("vivipos.fec.reportpanels.productsales.roles", "acl_run_report");
@@ -684,7 +684,7 @@ pref("vivipos.fec.reportpanels.orderannotation.path", "chrome://viviecr/content/
 pref("vivipos.fec.reportpanels.orderannotation.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.orderannotation.roles", "acl_run_report");
  
-pref("vivipos.fec.reportpanels.promotionsummary.label", "Promotion Summary Report");
+pref("vivipos.fec.reportpanels.promotionsummary.label", "Daily Promotion Summary");
 pref("vivipos.fec.reportpanels.promotionsummary.path", "chrome://viviecr/content/reports/rpt_promotion_summary.xul");
 pref("vivipos.fec.reportpanels.promotionsummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.promotionsummary.roles", "acl_run_report");

@@ -108,7 +108,7 @@
             }
             
             var order = new OrderModel();
-			var sql = 'select ' + fields + ' from orders join order_annotations on orders.id = order_annotations.order_id where ' + conditions + ' order by ' + orderby + ';';
+			var sql = 'select ' + fields + ' from orders join order_annotations on orders.id = order_annotations.order_id where ' + conditions + ' order by ' + orderby + ' limit ' + limit + ';';
 			var orderRecords = order.getDataSource().fetchAll( sql );
 			
 			var records = {};

@@ -12,7 +12,7 @@
         
         _fileName: "rpt_promotion_summary",
         
-        _setData: function( start, end, periodType, shiftNo, sortBy, terminalNo, promotion, emptyPromotion ) {
+        _setData: function( start, end, periodType, shiftNo, sortBy, terminalNo, promotion, emptyPromotion, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
 			var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
@@ -20,9 +20,11 @@
             end = parseInt( end / 1000, 10 );
 
             var fields = 	'strftime( "%Y-%m-%d", o.' + periodType + ', "unixepoch", "localtime" ) as date, ' +
-            				'sum( o.total ) as total, ' +
+            				'sum( o.item_subtotal ) as gross, ' +
             				'sum( op.discount_subtotal ) as promotion_subtotal, ' +
             				'op.promotion_id as promotion_id, ' +
+            				'op.name as promotion_name, ' +
+            				'op.code as promotion_code, ' +
             				'count( op.id ) as matched_count, ' +
             				'sum( op.matched_items_qty ) as matched_items_qty, ' +
             				'sum( op.matched_items_subtotal ) as matched_items_subtotal';
@@ -43,12 +45,14 @@
             var orderby = 'date, op.promotion_id, op.order_id';
 			
 			var subquery = 	'select ' + fields + ' from order_promotions op join orders o on op.order_id = o.id' +
-            				' where ' + conditions + ' group by ' + groupby + ' order by ' + orderby;
+            				' where ' + conditions + ' group by ' + groupby + ' order by ' + orderby + ' limit -1';
             				
             var s_fields =  's.date as date, ' +
-            				'sum( s.total ) as total, ' +
+            				'sum( s.gross ) as gross, ' +
             				'sum( s.promotion_subtotal ) as promotion_subtotal, ' +
             				's.promotion_id as promotion_id, ' +
+            				's.promotion_name as promotion_name, ' +
+            				's.promotion_code as promotion_code, ' +
             				'sum( s.matched_count ) as matched_count, ' +
             				'sum( s.matched_items_qty ) as matched_items_qty, ' +
             				'sum( s.matched_items_subtotal ) as matched_items_subtotal, ' +
@@ -58,24 +62,31 @@
             // for sorting.
 		    if ( sortBy != 'all' && sortBy != 'date' ) {
 		    	switch ( sortBy ) {
-					case 'total':
+					case 'gross':
 					case 'order_count':
-					case 'promotion_subtotal':
 					case 'matched_count':
 					case 'matched_items_qty':
 					case 'matched_items_subtotal':
 						s_orderby += ' desc';
+                        break;
+					case 'promotion_subtotal':
+                        break;
 				}
 			}
             				
-            var sql = 'select ' + s_fields + ' from ( ' + subquery + ' ) as s group by s.date, s.promotion_id order by ' + s_orderby + ';';
+            var sql = 'select ' + s_fields + ' from ( ' + subquery + ' ) as s group by s.date, s.promotion_id order by ' + s_orderby + ' limit -1;';
            	
             var orderModel = new OrderModel();
   			var records = orderModel.getDataSource().fetchAll( sql );
   			
   			var promotionModel = new PromotionModel();
-  			sql = 'select id, name, code from promotions group by id;';
-  			var promotionIds = promotionModel.getDataSource().fetchAll( sql );
+  			//sql = 'select id, name, code from promotions group by id order by name limit -1;';
+  			var promotionIds = promotionModel.find('all', {
+                fields: ['id', 'name', 'code'],
+                order: 'name, code',
+                group: 'id',
+                limit: this._csvLimit
+            });
   			var results = {};
   			promotionIds.forEach( function( promotionId ) {
   				results[ promotionId.id ] = {
@@ -83,7 +94,7 @@
   					code: promotionId.code,
   					entries: [],
   					summary: {
-  						total: 0,
+  						gross: 0,
   						order_count: 0,
   						promotion_subtotal: 0,
   						matched_count: 0,
@@ -100,25 +111,28 @@
   			records.forEach( function( record ) {
   				//record.order_count = 1;
   				
-  				//if ( record.date != old_date || record.promotion_id != old_promotion_id ) {
-  				results[ record.promotion_id ].entries.push( record );
-  				/*} else {
-	  				var index = results[ record.promotion_id ].entries.length - 1;
-	  				var entry = results[ record.promotion_id ].entries[ index ];
-	  				
-	  				entry[ 'order_count' ]++;
-	  				
-	  				for ( r in entry ) {
-	  					if ( r != 'date' && r !='order_count' )
-	  						entry[ r ] += record[ r ];
-	  				}
-	  			}*/
+                if ( record.promotion_id in results) {
+                    results[ record.promotion_id ].entries.push( record );
+                }
+                else {
+                    results[ record.promotion_id ] = {
+                        name: record.promotion_name + ' - ' + _('Obsolete'),
+                        code: record.promotion_code + ' - ' + _('Obsolete'),
+                        entries: [ record ],
+                        summary: {
+                            gross: 0,
+                            order_count: 0,
+                            promotion_subtotal: 0,
+                            matched_count: 0,
+                            matched_amount: 0,
+                            matched_items_qty: 0,
+                            matched_items_subtotal: 0
+                        }
+                    }
+                }
   				
   				for ( s in results[ record.promotion_id ].summary )
   					results[ record.promotion_id ].summary[ s ] += record[ s ];
-  					
-  				//old_date = record.date;
-  				//old_promotion_id = record.promotion_id;
   			} );
   			
   			if ( emptyPromotion == 'hide' ) {
@@ -128,21 +142,25 @@
   				}
   			}
 
-		    this._reportRecords.head.title = _( 'Promotion Summary Report' );
+		    this._reportRecords.head.title = _( 'Daily Promotion Summary' );
 		    this._reportRecords.head.start_time = start_str;
 		    this._reportRecords.head.end_time = end_str;
-		    this._reportRecords.head.machine_id = terminalNo;
+		    this._reportRecords.head.terminal_no = terminalNo;
 		    
 		    this._reportRecords.body = results;
 		},
 
-        _set_reportRecords: function() {
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
             var waitPanel = this._showWaitPanel('wait_panel');
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var machineid = document.getElementById('machine_id').value;
+            var terminalNo = document.getElementById('terminal_no').value;
             
             var periodType = document.getElementById( 'periodtype' ).value;
             var shiftNo = document.getElementById( 'shiftno' ).value;
@@ -151,9 +169,13 @@
             var promotion = document.getElementById( 'promotion' ).value;
             var empty_promotion = document.getElementById( 'empty_promotion' ).value;
 
-			this._setData( start, end, periodType, shiftNo, sortby, machineid, promotion, empty_promotion );
+			this._setData( start, end, periodType, shiftNo, sortby, terminalNo, promotion, empty_promotion );
         },
         
+        exportCsv: function() {
+            this._super(this, true);
+        },
+
         load: function() {
             var today = new Date();
             var yy = today.getYear() + 1900;

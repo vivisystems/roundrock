@@ -1076,13 +1076,13 @@ msgid "acl_view_ledger_entry"
 msgstr "View Ledger Entries"
 
 msgid "Daily Sales"
-msgstr "Daily Sales Report"
+msgstr ""
 
 msgid "acl_add_ledger_entry"
 msgstr "Add Ledger Entries"
 
 msgid "Daily Sales - Detail"
-msgstr "Daily Sales Report - Detail"
+msgstr ""
 
 msgid "acl_modify_ledger_entry"
 msgstr "Modify Ledger Entries"
@@ -1916,13 +1916,13 @@ msgid "(rpt)Order Count"
 msgstr "Order Count"
 
 msgid "(rpt)Promotion Subtotal"
-msgstr "Promotion Subtotal"
+msgstr "Customer Savings"
 
 msgid "(rpt)Matched Count"
 msgstr "Matched Count"
 
-msgid "(rpt)Matched Items Qty."
-msgstr "Matched Items Qty."
+msgid "(rpt)Matched Items Quantity"
+msgstr "Matched Items Quantity"
 
 msgid "(rpt)Matched Items Subtotal"
 msgstr "Matched Items Subtotal"
@@ -3930,7 +3930,7 @@ msgid "No order to add/view annotations"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:305
-#: ../..//content/reports/controllers/rpt_base_controller.js:256
+#: ../..//content/reports/controllers/rpt_base_controller.js:259
 msgid "Order Details"
 msgstr ""
 
@@ -5108,7 +5108,7 @@ msgstr ""
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:196
+#: ../..//content/reports/controllers/rpt_base_controller.js:199
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
@@ -5144,16 +5144,18 @@ msgstr ""
 msgid "Order Annotation Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_product_sales_controller.js:127
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:128
+#: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:119
+#: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:120
 msgid "Obsolete"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_products_controller.js:63
+#: ../..//content/reports/controllers/rpt_products_controller.js:65
 msgid "(rpt)Obsolete Department"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:131
-msgid "Promotion Summary Report"
+#: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:145
+msgid "Daily Promotion Summary"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_sales_summary_controller.js:589
@@ -5173,22 +5175,15 @@ msgstr ""
 msgid "(rpt)"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:16
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:13
+#: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_58mm.tpl:26
+#: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_58mm.tpl:41
+#: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_80mm.tpl:18
+#: ../..//content/reports/tpl/rpt_promotion_summary/rpt_promotion_summary_rcp_80mm.tpl:26
+msgid "(rpt)Matched Items Qty."
+msgstr ""
+
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:27
 msgid "(rpt)No."
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:20
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:15
-msgid "(rpt)Avg. Price"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:22
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:29
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:16
-#: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:21
-msgid "(rpt)Qty."
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:29

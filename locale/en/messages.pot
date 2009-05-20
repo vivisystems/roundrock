@@ -1070,13 +1070,13 @@ msgid "acl_view_ledger_entry"
 msgstr "View Ledger Entries"
 
 msgid "Daily Sales"
-msgstr "Daily Sales Report"
+msgstr ""
 
 msgid "acl_add_ledger_entry"
 msgstr "Add Ledger Entries"
 
 msgid "Daily Sales - Detail"
-msgstr "Daily Sales Report - Detail"
+msgstr ""
 
 msgid "acl_modify_ledger_entry"
 msgstr "Modify Ledger Entries"
@@ -1904,13 +1904,13 @@ msgid "(rpt)Order Count"
 msgstr "Order Count"
 
 msgid "(rpt)Promotion Subtotal"
-msgstr "Promotion Subtotal"
+msgstr "Customer Savings"
 
 msgid "(rpt)Matched Count"
 msgstr "Matched Count"
 
-msgid "(rpt)Matched Items Qty."
-msgstr "Matched Items Qty."
+msgid "(rpt)Matched Items Quantity"
+msgstr "Matched Items Quantity"
 
 msgid "(rpt)Matched Items Subtotal"
 msgstr "Matched Items Subtotal"
