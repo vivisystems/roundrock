@@ -20,15 +20,15 @@ ${detail.terminal_no|left:14} ${detail.Order.time|unixTimeToString|left:16} ${de
 ${_( '(rpt)Sale Period' ) + ':'|left:15}${detail.sale_period|unixTimeToString:'saleperiod'|right:26}
 ${_( '(rpt)Shift' ) + ':'|left:15}${detail.shift_number|right:26}
 ${_( '(rpt)Invoice Number' ) + ':'|left:15}${detail.invoice_no|default:''|right:26}
-${_( '(rpt)Guests' ) + ':'|left:15}${detail.no_of_customers|right:26}
-${_( '(rpt)Items' ) + ':'|left:15}${detail.items_count|right:26}
-${_( '(rpt)Gross' ) + ':'|left:15}${detail.item_subtotal|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Number of Guests' ) + ':'|left:15}${detail.no_of_customers|right:26}
+${_( '(rpt)Number of Items' ) + ':'|left:15}${detail.qty_subtotal|right:26}
+${_( '(rpt)Gross Sales' ) + ':'|left:15}${detail.item_subtotal|default:0|viviFormatPrices:true|right:26}
 ${_( '(rpt)Add-on Tax' ) + ':'|left:15}${detail.tax_subtotal|default:0|viviFormatTaxes:true|right:26}
 ${_( '(rpt)Surcharge' ) + ':'|left:15}${detail.surcharge_subtotal|default:0|viviFormatPrices:true|right:26}
 ${_( '(rpt)Discount' ) + ':'|left:15}${detail.discount_subtotal|default:0|viviFormatPrices:true|right:26}
 ${_( '(rpt)Promotion' ) + ':'|left:15}${detail.promotion_subtotal|default:0|viviFormatPrices:true|right:26}
 ${_( '(rpt)Revalue' ) + ':'|left:15}${detail.revalue_subtotal|default:0|viviFormatPrices:true|right:26}
-${_( '(rpt)Payment' ) + ':'|left:15}${detail.total|default:0|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Sales' ) + ':'|left:15}${detail.total|default:0|viviFormatPrices:true|right:26}
 {for items in detail.OrderItem}
 ------------------------------------------
 ${'  ' + _( '(rpt)Product Number' ) + ':'|left:15}${items.product_no|right:26}
@@ -52,15 +52,15 @@ ${_( '(rpt)Records Found' ) + ': '|left:19}${body.length|default:0|format:0|righ
 [&CR]
 ------------------------------------------
 ${_( '(rpt)Summary' )}
-${'    ' + _( '(rpt)Guests' ) + ': '|left:19}${foot.foot_datas.guests|default:0|format:0|right:22}
-${'    ' + _( '(rpt)Items' ) + ': '|left:19}${foot.foot_datas.items|default:0|format:0|right:22}
-${'    ' + _( '(rpt)Total' ) + ': '|left:19}${foot.foot_datas.item_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Number of Guests' ) + ': '|left:19}${foot.foot_datas.guests|default:0|format:0|right:22}
+${'    ' + _( '(rpt)Number of Items' ) + ': '|left:19}${foot.foot_datas.items|default:0|format:0|right:22}
+${'    ' + _( '(rpt)Gross Sales' ) + ': '|left:19}${foot.foot_datas.item_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:19}${foot.foot_datas.tax_subtotal|default:0|viviFormatTaxes:true|right:22}
 ${'    ' + _( '(rpt)Surcharge' ) + ': '|left:19}${foot.foot_datas.surcharge_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Discount' ) + ': '|left:19}${foot.foot_datas.discount_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Promotion' ) + ': '|left:19}${foot.foot_datas.promotion_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Revalue' ) + ': '|left:19}${foot.foot_datas.revalue_subtotal|default:0|viviFormatPrices:true|right:22}
-${'    ' + _( '(rpt)Payment' ) + ': '|left:19}${foot.foot_datas.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Net Sales' ) + ': '|left:19}${foot.foot_datas.total|default:0|viviFormatPrices:true|right:22}
 ------------------------------------------
 ${foot.gen_time}
 [&CR]

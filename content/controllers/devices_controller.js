@@ -739,7 +739,7 @@
                 else {
                     var CTS = status & 0x20 ? 1 : 0;
                     var DSR = status & 0x0100 ? 1 : 0;
-                    status = CTS & DSR;
+                    status = CTS || DSR;
                 }
             }
             return status;

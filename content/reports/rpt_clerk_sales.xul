@@ -57,8 +57,8 @@
 					                </menulist>
 		                    	</vbox>
 		                    	<vbox>
-				                    <label value="&rptclerksales.terminal_no;" />
-				                    <textbox id="terminal_no" value='' width="300"/>
+				                    <label value="&rptclerksales.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
 				                </vbox>
 		                    </row>
 		                    <row>
@@ -72,8 +72,8 @@
 					                </menulist>
 		                    	</vbox>
 		                    	<vbox>
-				                    <label value="&rptclerksales.shiftno;" />
-				                    <textbox id="shift_no" value='' width="300"/>
+				                    <label value="&rptclerksales.terminal_no;" />
+				                    <textbox id="terminal_no" value='' width="300"/>
 				                </vbox>
 		                    </row>
 		                    <row>
@@ -91,7 +91,8 @@
 					                        <menuitem selected="false" label="&rptclerksales.sortby.discount_subtotal;" value="discount_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.sortby.promotion_subtotal;" value="promotion_subtotal" />
 					                        <menuitem selected="false" label="&rptclerksales.sortby.revalue_subtotal;" value="revalue_subtotal" />
-					                        <menuitem selected="false" label="&rptclerksales.sortby.total;" value="total" />
+					                        <menuitem selected="false" label="&rptclerksales.sortby.netsales;" value="total" />
+					                        <menuitem selected="false" label="&rptclerksales.sortby.payment;" value="payment" />
 					                        <menuitem selected="false" label="&rptclerksales.sortby.cash;" value="cash" />
 					                        <menuitem selected="false" label="&rptclerksales.sortby.check;" value="check" />
 					                        <menuitem selected="false" label="&rptclerksales.sortby.creditcard;" value="creditcard" />

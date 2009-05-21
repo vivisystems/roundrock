@@ -18,21 +18,23 @@
 		<p class="caption">${head.start_time} - ${head.end_time}</p>
 	</div>
 
-<table style="width: 720px;">
+<table style="width: 100%;">
     <!--caption>${head.title}&nbsp;${head.subtitle}<br />${head.start_time} - ${head.end_time}</caption-->
 
     <tr>
         <td colspan="3">
-            <table id="body-table">
-                <tr>
-                    <td style="text-align: right;">${_( '(rpt)Total' )}</td>
-                    <td style="text-align: right;">${_( '(rpt)Add-on Tax' )}</td>
-                    <td style="text-align: right;">${_( '(rpt)Surcharge' )}</td>
-                    <td style="text-align: right;">${_( '(rpt)Discount' )}</td>
-                    <td style="text-align: right;">${_( '(rpt)Promotion' )}</td>
-                    <td style="text-align: right;">${_( '(rpt)Revalue' )}</td>
-                    <td style="text-align: right;">${_( '(rpt)Revenue' )}</td>
-                </tr>
+            <table id="body-table" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</td>
+                        <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</td>
+                        <th style="text-align: right;">${_( '(rpt)Surcharge' )}</td>
+                        <th style="text-align: right;">${_( '(rpt)Discount' )}</td>
+                        <th style="text-align: right;">${_( '(rpt)Promotion' )}</td>
+                        <th style="text-align: right;">${_( '(rpt)Revalue' )}</td>
+                        <th style="text-align: right;">${_( '(rpt)Net Sales' )}</td>
+                    </tr>
+                </thead>
                 <tr>
                     <td style="text-align: right;">${body.sales_summary.ItemSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.TaxSubtotal|default:0|viviFormatTaxes:true}</td>
@@ -40,12 +42,14 @@
                     <td style="text-align: right;">${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${body.sales_summary.RevalueSubtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${body.sales_summary.Total|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${body.sales_summary.NetSales|default:0|viviFormatPrices:true}</td>
                 </tr>
             </table>
         </td>
     </tr>
-
+    <tr>
+        <td colspan="7"><br/></td>
+    </tr>
     <tr>
         <td valign="top">
             <table id="body-table">
@@ -58,41 +62,41 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Orders' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.OrderNum|default:0}</td>
+                        <td style="text-align: left;">${_( '(rpt)Number of Orders' ) + ':'}</td>
+                        <td style="text-align: right;">${body.sales_summary.OrderNum|default:0|format:0}</td>
                     </tr>
 
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Revenue' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.Total|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: left;">${_( '(rpt)Net Sales' ) + ':'}</td>
+                        <td style="text-align: right;">${body.sales_summary.NetSales|default:0|viviFormatPrices:true}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Guests' ) + ':'}</td>
+                        <td style="text-align: left;">${_( '(rpt)Number of Guests' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.Guests|default:0}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Items' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.ItemsCount|default:0}</td>
+                        <td style="text-align: left;">${_( '(rpt)Number of Items' ) + ':'}</td>
+                        <td style="text-align: right;">${body.sales_summary.QtySubtotal|default:0}</td>
                     </tr>
 					<tr>
-                        <td style="text-align: left;">${_( '(rpt)Voided Orders' ) + ':'}</td>
+                        <td style="text-align: left;">${_( '(rpt)Number of Voided Orders' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.VoidedOrders|default:0}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Revenue/Order' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.AvgTotal|default:0|format:2}</td>
+                        <td style="text-align: left;">${_( '(rpt)Net Sales/Order' ) + ':'}</td>
+                        <td style="text-align: right;">${body.sales_summary.AvgNetSales|default:0|viviFormatPrices:true}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Revenue/Guest' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.AvgTotalPerGuest|default:0|format:2}</td>
+                        <td style="text-align: left;">${_( '(rpt)Net Sales/Guest' ) + ':'}</td>
+                        <td style="text-align: right;">${body.sales_summary.AvgNetSalesPerGuest|default:0|viviFormatPrices:true}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Guest/Order' ) + ':'}</td>
+                        <td style="text-align: left;">${_( '(rpt)Number of Guests/Order' ) + ':'}</td>
                         <td style="text-align: right;">${body.sales_summary.AvgGuests|default:0|format:2}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">${_( '(rpt)Item/Order' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.AvgItemsCount|default:0|format:2}</td>
+                        <td style="text-align: left;">${_( '(rpt)Number of Items/Order' ) + ':'}</td>
+                        <td style="text-align: right;">${body.sales_summary.AvgQtySubtotal|default:0|format:2}</td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -109,7 +113,7 @@
                 <thead>
                     <tr>
                         <th style="text-align: left;">${_( '(rpt)Payment' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Total' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Payment Amount' )}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,7 +125,7 @@
     {for payment in detail.detail}
     				<tr>
     					<td style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;${payment.memo1}</td>
-                        <td style="text-align: right;">${payment.amount - payment.change|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${payment.amount|default:0|viviFormatPrices:true}</td>
                     </tr>
    	{/for}
     {/for}
@@ -129,7 +133,69 @@
                 <tfoot>
                     <tr>
                         <td>${_( '(rpt)Summary' ) + ':'}</td>
-                        <td style="text-align: right;">${body.payment_list.summary.payment_total - body.payment_list.summary.change_total|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${body.payment_list.summary.payment_total|default:0|viviFormatPrices:true}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <br />
+
+        </td>
+        
+        <td valign="top">
+        	<table id="body-table">
+                <caption>${_( '(rpt)Top Department Sales' )}</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">${_( '(rpt)Department' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
+                    </tr>
+                </thead>
+                <tbody>
+    {for detail in body.dept_sales.records}
+                    <tr>
+                        <td style="text-align: left;">${detail.cate_no}-${detail.cate_name}</td>
+                        <td style="text-align: right;">${detail.qty|default:0}</td>
+                        <td style="text-align: right;">${detail.gross|default:0|viviFormatPrices:true}</td>
+                    </tr>
+    {/for}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>${_( '(rpt)Summary' ) + ':'}</td>
+                        <td style="text-align: right;">${body.dept_sales.summary.qty|default:0}</td>
+                        <td style="text-align: right;">${body.dept_sales.summary.gross|default:0|viviFormatPrices:true}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <br />
+
+        	<table id="body-table">
+                <caption>${_( '(rpt)Hourly Sales' )}</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">${_( '(rpt)Time' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Number of Guests' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Number of Orders' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
+                    </tr>
+                </thead>
+                <tbody>
+    {for detail in body.hourly_sales.records}
+                    <tr>
+                        <td style="text-align: left;">${detail.Hour}</td>
+                        <td style="text-align: right;">${detail.Guests|default:0|format:0}</td>
+                        <td style="text-align: right;">${detail.OrderNum|default:0|format:0}</td>
+                        <td style="text-align: right;">${detail.HourGrossSales|default:0|viviFormatPrices:true}</td>
+                    </tr>
+    {/for}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>${_( '(rpt)Summary' ) + ':'}</td>
+                        <td style="text-align: right;">${body.hourly_sales.summary.Guests|default:0|format:0}</td>
+                        <td style="text-align: right;">${body.hourly_sales.summary.OrderNum|default:0|format:0}</td>
+                        <td style="text-align: right;">${body.hourly_sales.summary.HourGrossSales|default:0|viviFormatPrices:true}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -139,23 +205,19 @@
                 <caption>${_( '(rpt)Destination Summary' )}</caption>
                 <thead>
                     <tr>
-                        <th></th>
-                        <th></th>
+                        <th style="text-align: left;">${_('(rpt)Destination')}</th>
+                        <th style="text-align: center;">${_('(rpt)Destination Count')}</th>
+                        <th style="text-align: right;">${_('(rpt)Destination Amount')}</th>
+                        <th style="text-align: right;">${_('(rpt)Destination Average')}</th>
                     </tr>
                 </thead>
                 <tbody>
-                	<!--tr>
-                		<td style="text-align: left;">Total Orders:</td>
-                		<td style="text-align: right;">${body.destination_summary.total_trans }</td>
-                	</tr-->
 	{for detail in body.destination_summary.data}
                     <tr>
-                        <td style="text-align: left;">${detail.destination}&nbsp;${_( '(rpt)Times' ) + ':'}</td>
-                        <td style="text-align: right;">${detail.num_trans|default:0}</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">${detail.destination}&nbsp;${_( '(rpt)Amount' ) + ':'}</td>
-                        <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: left;">${detail.destination}</td>
+                        <td style="text-align: center;">${detail.num_trans|default:0|format:0}</td>
+                        <td style="text-align: right;">${detail.net|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${detail.net_per_trans|default:0|viviFormatPrices:true}</td>
                     </tr>
 	{/for}
                 </tbody>
@@ -167,68 +229,7 @@
                 </tfoot>
             </table>
             <br />
-            
-        </td>
-        
-        <td valign="top">
-        	<table id="body-table">
-                <caption>${_( '(rpt)Top Department Sales' )}</caption>
-                <thead>
-                    <tr>
-                        <th style="text-align: left;">${_( '(rpt)Department' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Total' )}</th>
-                    </tr>
-                </thead>
-                <tbody>
-    {for detail in body.dept_sales.records}
-                    <tr>
-                        <td style="text-align: left;">${detail.cate_no}-${detail.cate_name}</td>
-                        <td style="text-align: right;">${detail.qty|default:0}</td>
-                        <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
-                    </tr>
-    {/for}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>${_( '(rpt)Summary' ) + ':'}</td>
-                        <td style="text-align: right;">${body.dept_sales.summary.qty|default:0}</td>
-                        <td style="text-align: right;">${body.dept_sales.summary.total|default:0|viviFormatPrices:true}</td>
-                    </tr>
-                </tfoot>
-            </table>
-            <br />
 
-        	<table id="body-table">
-                <caption>${_( '(rpt)Hourly Sales' )}</caption>
-                <thead>
-                    <tr>
-                        <th style="text-align: left;">${_( '(rpt)Time' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Guests' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Orders' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Total' )}</th>
-                    </tr>
-                </thead>
-                <tbody>
-    {for detail in body.hourly_sales.records}
-                    <tr>
-                        <td style="text-align: left;">${detail.Hour}</td>
-                        <td style="text-align: right;">${detail.Guests|default:0}</td>
-                        <td style="text-align: right;">${detail.OrderNum|default:0}</td>
-                        <td style="text-align: right;">${detail.HourTotal|default:0|viviFormatPrices:true}</td>
-                    </tr>
-    {/for}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>${_( '(rpt)Summary' ) + ':'}</td>
-                        <td style="text-align: right;">${body.hourly_sales.summary.Guests|default:0}</td>
-                        <td style="text-align: right;">${body.hourly_sales.summary.OrderNum|default:0}</td>
-                        <td style="text-align: right;">${body.hourly_sales.summary.HourTotal|default:0|viviFormatPrices:true}</td>
-                    </tr>
-                </tfoot>
-            </table>
-            <br />
         </td>
         <td valign="top">
             <table id="body-table">
@@ -237,14 +238,14 @@
                     <tr>
                         <th style="text-align: left;">${_( '(rpt)Product' )}</th>
                         <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Total' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
                     </tr>
                 </thead>
                 <tbody>
     {for detail in body.prod_sales.records}
                     <tr>
                         <td style="text-align: left;">${detail.product_name}</td>
-                        <td style="text-align: right;">${detail.qty|default:0}</td>
+                        <td style="text-align: right;">${detail.qty|default:0|format:0}</td>
                         <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
                     </tr>
     {/for}
@@ -263,18 +264,18 @@
                 <caption>${_( '(rpt)Tax Summary' )}</caption>
                 <thead>
                     <tr>
-                        <th style="text-align: left;">${_( '(rpt)Name' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Rate' )}</th>
-                        <th style="text-align: left;">${_( '(rpt)Type' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Total' )}</th>
+                        <th style="text-align: left;">${_( '(rpt)Tax Name' )}</th>
+                        <th style="text-align: left;">${_( '(rpt)Tax Type' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Tax Rate' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Tax Total' )}</th>
                     </tr>
                 </thead>
                 <tbody>
 	{for detail in body.tax_summary.records}
                     <tr>
                         <td style="text-align: left;">${detail.tax_name}</td>
-                        <td style="text-align: right;">${detail.tax_rate}</td>
                         <td style="text-align: left;">${detail.tax_type}</td>
+                        <td style="text-align: right;">${detail.tax_rate}</td>
                         <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatTaxes:true}</td>
                     </tr>
 	{/for}

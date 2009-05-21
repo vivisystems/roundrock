@@ -31,14 +31,15 @@
                     <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Invoice Number' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Guests' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Items' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Gross' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Number of Guests' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Number of Items' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Discount' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Revalue' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Payment' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Cash' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Check' )}</th>
@@ -63,7 +64,7 @@
                     <td style="text-align: left;" class="hyperlink">${order.sequence}</td>
                     <td style="text-align: left;">${order.invoice_no|default:''}</td>
                     <td style="text-align: right;">${order.no_of_customers|default:1|format:0}</td>
-                    <td style="text-align: right;">${order.items_count|format:0}</td>
+                    <td style="text-align: right;">${order.qty_subtotal|format:0}</td>
                     <td style="text-align: right;">${order.item_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.tax_subtotal|default:0|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${order.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
@@ -71,6 +72,7 @@
                     <td style="text-align: right;">${order.promotion_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.revalue_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.total|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.payment|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.cash|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.check|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.creditcard|default:0|viviFormatPrices:true}</td>
@@ -98,6 +100,7 @@
                     <td style="text-align: right;">${clerk.summary.promotion_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.revalue_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.total|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.payment|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.cash|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.check|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.creditcard|default:0|viviFormatPrices:true}</td>

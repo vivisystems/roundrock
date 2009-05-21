@@ -1,4 +1,4 @@
-<!ENTITY rptdailysalesdetail.title "Daily Sales Report - Detail">
+<!ENTITY rptdailysalesdetail.title "Sales Report - Detailed">
 <!ENTITY rptdailysalesdetail.startdate "Start Date:">
 <!ENTITY rptdailysalesdetail.enddate "End Date:">
 <!ENTITY rptdailysalesdetail.execute "Execute">
@@ -11,13 +11,13 @@
 <!ENTITY rptdailysalesdetail.sortby.terminal_no "Terminal">
 <!ENTITY rptdailysalesdetail.sortby.time "Time">
 <!ENTITY rptdailysalesdetail.sortby.sequence "Sequence">
-<!ENTITY rptdailysalesdetail.sortby.item_subtotal "Total">
+<!ENTITY rptdailysalesdetail.sortby.item_subtotal "Gross Sales">
 <!ENTITY rptdailysalesdetail.sortby.tax_subtotal "Add-on Tax">
 <!ENTITY rptdailysalesdetail.sortby.surcharge_subtotal "Surcharge">
 <!ENTITY rptdailysalesdetail.sortby.discount_subtotal "Discount">
 <!ENTITY rptdailysalesdetail.sortby.promotion_subtotal "Promotion">
 <!ENTITY rptdailysalesdetail.sortby.revalue_subtotal "Revalue">
-<!ENTITY rptdailysalesdetail.sortby.total "Payment">
+<!ENTITY rptdailysalesdetail.sortby.total "Net Sales">
 <!ENTITY rptdailysalesdetail.sortby.guests "Guests">
 <!ENTITY rptdailysalesdetail.sortby.items "Items">
 <!ENTITY rptdailysalesdetail.all "List All">
@@ -28,5 +28,5 @@
 <!ENTITY rptdailysalesdetail.periodtype "Period Type:">
 <!ENTITY rptdailysalesdetail.transaction_created "Order Opened">
 <!ENTITY rptdailysalesdetail.transaction_submitted "Order Closed">
-<!ENTITY rptdailysalesdetail.sale_period "Sale Period:">
-<!ENTITY rptdailysalesdetail.shiftno "Shift Number:">
+<!ENTITY rptdailysalesdetail.sale_period "Sale Period">
+<!ENTITY rptdailysalesdetail.shiftno "Shift:">

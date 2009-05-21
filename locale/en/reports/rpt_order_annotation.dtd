@@ -10,8 +10,8 @@
 <!ENTITY rptorderannotation.sortby "Sort By:">
 <!ENTITY rptorderannotation.sortby.terminal_no "Terminal">
 <!ENTITY rptorderannotation.sortby.tax_subtotal "Add-on Tax">
-<!ENTITY rptorderannotation.sortby.total "Net Sale">
-<!ENTITY rptorderannotation.sortby.item_subtotal "Gross">
+<!ENTITY rptorderannotation.sortby.total "Net Sales">
+<!ENTITY rptorderannotation.sortby.item_subtotal "Gross Sales">
 <!ENTITY rptorderannotation.sortby.surcharge_subtotal "Surcharge">
 <!ENTITY rptorderannotation.sortby.discount_subtotal "Discount">
 <!ENTITY rptorderannotation.sortby.promotion_subtotal "Promotion">

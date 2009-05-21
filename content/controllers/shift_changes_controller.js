@@ -255,7 +255,8 @@
             fields = ['order_payments.memo1 as "OrderPayment.name"',
                       'order_payments.name as "OrderPayment.type"',
                       'COUNT(order_payments.name) as "OrderPayment.count"',
-                      'SUM(order_payments.origin_amount) as "OrderPayment.amount"',
+                      'SUM(order_payments.amount) as "OrderPayment.amount"',
+                      'SUM(order_payments.origin_amount) as "OrderPayment.origin_amount"',
                       'SUM(order_payments.origin_amount - order_payments.amount) as "OrderPayment.excess_amount"'];  // used to store excess giftcard payment amount
             conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                          ' AND order_payments.shift_number = "' + shiftNumber + '"' +
@@ -276,7 +277,7 @@
             fields = ['order_payments.memo1 as "OrderPayment.name"',
                       'order_payments.name as "OrderPayment.type"',
                       'COUNT(order_payments.name) as "OrderPayment.count"',
-                      'SUM(order_payments.origin_amount) as "OrderPayment.amount"',
+                      'SUM(order_payments.origin) as "OrderPayment.amount"',
                       'SUM(order_payments.change) as "OrderPayment.change"'];
             conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                          ' AND order_payments.shift_number = "' + shiftNumber + '"' +
@@ -319,7 +320,8 @@
             fields = ['order_payments.memo1 as "OrderPayment.name"',
                       'order_payments.name as "OrderPayment.type"',
                       'COUNT(order_payments.name) as "OrderPayment.count"',
-                      'SUM(order_payments.origin_amount) as "OrderPayment.amount"',
+                      'SUM(order_payments.amount) as "OrderPayment.amount"',
+                      'SUM(order_payments.origin_amount) as "OrderPayment.origin_amount"',
                       'SUM(order_payments.change) as "OrderPayment.change"'];
             conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                          ' AND order_payments.shift_number = "' + shiftNumber + '"' +
@@ -506,7 +508,7 @@
             var inputObj = {
                 shiftChangeDetails: shiftChangeDetails,
                 cashNet: cashNet,
-                balance: salesRevenue + ledgerInTotal + ledgerOutTotal  + deposits - refunds - credit,
+                balance: salesRevenue + ledgerInTotal + ledgerOutTotal  + deposits - refunds - credit + giftcardExcess,
                 salesRevenue: salesRevenue,
                 deposit: deposits,
                 refund: refunds,

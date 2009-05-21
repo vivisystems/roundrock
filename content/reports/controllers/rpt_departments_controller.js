@@ -27,7 +27,7 @@
                 fields: [ 'no', 'name' ], order: orderby, limit: limit
             });
 
-            this._reportRecords.head.title = _( 'Department List' );
+            this._reportRecords.head.title = _( 'Department Report' );
             this._reportRecords.body = cateRecords;
         },
 

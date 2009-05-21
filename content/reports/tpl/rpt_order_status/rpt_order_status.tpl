@@ -29,7 +29,7 @@
                     <th style="text-align: center;">${_( '(rpt)Status' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Invoice Number' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Invoice Count' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Gross' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Discount' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>

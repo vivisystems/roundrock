@@ -52,14 +52,13 @@
                 timeField = 'transaction_submitted';
             }
             var fields = [
-                            'sum(order_payments.amount) as "Order.payment_subtotal"',
+                            'sum(order_payments.amount - order_payments.change) as "Order.payment_subtotal"',
                             'order_payments.name as "Order.payment_name"',
                             'orders.' + timeField + ' as "Order.time"',
                             //'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
-                            'orders.change',
                             'orders.tax_subtotal',
                             'orders.item_subtotal',
                             'orders.total',
@@ -73,7 +72,7 @@
                             'orders.discount_subtotal',
                             'orders.promotion_subtotal',
                             'orders.revalue_subtotal',
-                            'orders.items_count',
+                            'orders.qty_subtotal',
                             'orders.check_no',
                             'orders.table_no',
                             'orders.no_of_customers',
@@ -110,6 +109,7 @@
                 }
 				
 				if ( old_oid != oid ) {
+                    repDatas[ oid ][ 'payment' ] = 0.0;
 					repDatas[ oid ][ 'cash' ] = 0.0;
 					repDatas[ oid ][ 'check' ] = 0.0;
 					repDatas[ oid ][ 'creditcard' ] = 0.0;
@@ -117,7 +117,8 @@
 					repDatas[ oid ][ 'giftcard' ] = 0.0;
 				}
 				
-                repDatas[ oid ][o.payment_name] += o.payment_subtotal - o.change;
+                repDatas[ oid ][o.payment_name] += o.payment_subtotal;
+                repDatas[ oid ][ 'payment' ] += o.payment_subtotal;
 
                 old_oid = oid;
             });
@@ -180,6 +181,7 @@
                                 discount_subtotal: 0,
                                 promotion_subtotal: 0,
                                 revalue_subtotal: 0,
+                                payment: 0,
                                 cash: 0,
                                 check: 0,
                                 creditcard: 0,
@@ -201,13 +203,14 @@
                     clerk.summary.discount_subtotal += data[ 'discount_subtotal' ];
                     clerk.summary.promotion_subtotal += data[ 'promotion_subtotal' ];
                     clerk.summary.revalue_subtotal += data[ 'revalue_subtotal' ];
+                    clerk.summary.payment += data[ 'payment' ];
                     clerk.summary.cash += data[ 'cash' ];
                     clerk.summary.check += data[ 'check' ];
                     clerk.summary.creditcard += data[ 'creditcard' ];
                     clerk.summary.coupon += data[ 'coupon' ];
                     clerk.summary.giftcard += data[ 'giftcard' ];
                     clerk.summary.guests += data['no_of_customers'];
-                    clerk.summary.items += data['items_count'];
+                    clerk.summary.items += data['qty_subtotal'];
            		};
            	});
 

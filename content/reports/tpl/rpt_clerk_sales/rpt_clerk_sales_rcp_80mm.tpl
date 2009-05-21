@@ -24,15 +24,16 @@ ${order.terminal_no|left:8}  ${order.time|unixTimeToString|left:16}  ${order.seq
 ${'    ' + _( '(rpt)Sale Period' ) + ': '|left:19}${order.sale_period|unixTimeToString:'saleperiod'|right:22}
 ${'    ' + _( '(rpt)Shift' ) + ': '|left:19}${order.shift_number|right:22}
 ${'    ' + _( '(rpt)Invoice Number' ) + ': '|left:19}${order.invoice_no|default:''|right:22}
-${'    ' + _( '(rpt)Guests' ) + ': '|left:19}${order.no_of_customers|format:0|right:22}
-${'    ' + _( '(rpt)Items' ) + ': '|left:19}${order.items_count|format:0|right:22}
-${'    ' + _( '(rpt)Gross' ) + ': '|left:19}${order.item_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Number of Guests' ) + ': '|left:19}${order.no_of_customers|format:0|right:22}
+${'    ' + _( '(rpt)Number of Items' ) + ': '|left:19}${order.qty_subtotal|format:0|right:22}
+${'    ' + _( '(rpt)Gross Sales' ) + ': '|left:19}${order.item_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:19}${order.tax_subtotal|default:0|viviFormatTaxes:true|right:22}
 ${'    ' + _( '(rpt)Surcharge' ) + ': '|left:19}${order.surcharge_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Discount' ) + ': '|left:19}${order.discount_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Promotion' ) + ': '|left:19}${order.promotion_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Revalue' ) + ': '|left:19}${order.revalue_subtotal|default:0|viviFormatPrices:true|right:22}
-${'    ' + _( '(rpt)Payment' ) + ': '|left:19}${order.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Net Sales' ) + ': '|left:19}${order.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Payment' ) + ': '|left:19}${order.payment|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Cash' ) + ': '|left:19}${order.cash|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Check' ) + ': '|left:19}${order.check|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Credit Card' ) + ': '|left:19}${order.creditcard|default:0|viviFormatPrices:true|right:22}
@@ -50,15 +51,16 @@ ${_( '(rpt)Records Found' ) + ': '|left:19}${clerk.orders.length|default:0|forma
 [&CR]
 ------------------------------------------
 ${_( '(rpt)Summary' )}
-${'    ' + _( '(rpt)Guests' ) + ': '|left:19}${clerk.summary.guests|format:0|right:22}
-${'    ' + _( '(rpt)Items' ) + ': '|left:19}${clerk.summary.items|format:0|right:22}
-${'    ' + _( '(rpt)Total' ) + ': '|left:19}${clerk.summary.item_subtotal|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Number of Guests' ) + ': '|left:19}${clerk.summary.guests|format:0|right:22}
+${'    ' + _( '(rpt)Number of Items' ) + ': '|left:19}${clerk.summary.items|format:0|right:22}
+${'    ' + _( '(rpt)Gross Sales' ) + ': '|left:19}${clerk.summary.item_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:19}${clerk.summary.tax_subtotal|default:0|viviFormatTaxes:true|right:22}
 ${'    ' + _( '(rpt)Surcharge' ) + ': '|left:19}${clerk.summary.surcharge_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Discount' ) + ': '|left:19}${clerk.summary.discount_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Promotion' ) + ': '|left:19}${clerk.summary.promotion_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Revalue' ) + ': '|left:19}${clerk.summary.revalue_subtotal|default:0|viviFormatPrices:true|right:22}
-${'    ' + _( '(rpt)Payment' ) + ': '|left:19}${clerk.summary.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Net Sales' ) + ': '|left:19}${clerk.summary.total|default:0|viviFormatPrices:true|right:22}
+${'    ' + _( '(rpt)Payment' ) + ': '|left:19}${clerk.summary.payment|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Cash' ) + ': '|left:19}${clerk.summary.cash|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Check' ) + ': '|left:19}${clerk.summary.check|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Credit Card' ) + ': '|left:19}${clerk.summary.creditcard|default:0|viviFormatPrices:true|right:22}

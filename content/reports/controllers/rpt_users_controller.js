@@ -21,7 +21,7 @@
             var users = new UserModel();
             var userRecords = users.find( 'all', { order: orderby, limit: limit } );
 
-			this._reportRecords.head.title = _( 'Employee List' );
+			this._reportRecords.head.title = _( 'Employee Report' );
 			this._reportRecords.body = userRecords;
         },
 

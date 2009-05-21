@@ -70,35 +70,68 @@ msgstr "Devices"
 msgid "Table Manager"
 msgstr "Table Manager"
 
-msgid "Accounting Report"
-msgstr "Accounting Report"
-
-msgid "Attendance Record"
-msgstr "Attendance Record"
-
-msgid "Cash by Clerk"
-msgstr "Cash Report"
-
-msgid "Department List"
-msgstr "Department List"
-
-msgid "Inventory Report"
-msgstr "Stock Report"
-
 msgid "Print Label"
 msgstr "Print Label"
 
-msgid "Product List"
+msgid "Accounting Report"
+msgstr "Accounting Report"
+
+msgid "Attendance Report"
+msgstr "Attendance Record"
+
+msgid "Department Report"
+msgstr "Department List"
+
+msgid "Cash Drawer Report"
+msgstr "Cash Drawer Report"
+
+msgid "Cash Drawer Summary Report"
+msgstr "Cash Drawer Summary"
+
+msgid "Order Status Report"
+msgstr "Order Status Report"
+
+msgid "Product Report"
 msgstr "Product List"
 
 msgid "Product Sales Report"
 msgstr "Product Sales"
 
-msgid "Taxes Report"
-msgstr "Tax Report"
+msgid "Employee Report"
+msgstr "Employee List"
 
-msgid "User List"
-msgstr "User List"
+msgid "Product Stock Report"
+msgstr "Stock Report"
+
+msgid "Hourly Sales Report"
+msgstr "Hourly Sales"
+
+msgid "Shift Change Report"
+msgstr "Shift Change Report"
+
+msgid "Sales Report"
+msgstr "Sales Report"
+
+msgid "Sales Report - Detailed"
+msgstr "Sales - Detailed"
+
+msgid "Daily Sales Summary Report"
+msgstr "Daily Sales Summary"
+
+msgid "Daily Promotion Summary Report"
+msgstr "Daily Promotion Summary"
+
+msgid "Sales Summary Report"
+msgstr "Sales Summary"
+
+msgid "Clerk Sales Report"
+msgstr "Clerk Sales"
+
+msgid "Service Clerk Sales Report"
+msgstr "Clerk Sales (Service)"
+
+msgid "Proceeds Clerk Sales Report"
+msgstr "Clerk Sales (Close)"
 
 msgid "Product Filters"
 msgstr "Product Filters"
@@ -1057,54 +1090,24 @@ msgstr "Modify Annotations"
 msgid "acl_delete_annotations"
 msgstr "Delete Annotations"
 
-msgid "Stocks Report"
-msgstr "Stock Report"
-
 msgid "acl_manage_ledger"
 msgstr "Manage Ledger"
-
-msgid "Hourly Sales"
-msgstr "Hourly Sales"
 
 msgid "acl_view_ledger_entry"
 msgstr "View Ledger Entries"
 
-msgid "Daily Sales"
-msgstr ""
-
 msgid "acl_add_ledger_entry"
 msgstr "Add Ledger Entries"
-
-msgid "Daily Sales - Detail"
-msgstr ""
 
 msgid "acl_modify_ledger_entry"
 msgstr "Modify Ledger Entries"
 
-msgid "Sales Summary"
-msgstr "Sales Summary"
-
-msgid "Daily Sales Summary"
-msgstr "Daily Sales Summary"
-
 msgid "acl_delete_ledger_entry"
 msgstr "Delete Ledger Entries"
-
-msgid "Cash Drawer Report"
-msgstr "Cash Drawer Report"
-
-msgid "Cash Drawer Summary"
-msgstr "Cash Drawer Summary"
-
-msgid "Order Status Report"
-msgstr "Order Status Report"
 
 msgid "togglereceipt.desc"
 msgstr ""
 "This function is used to toggle receipt printing on/off. No parameter is needed."
-
-msgid "Clerk Sales Report"
-msgstr "Clerk Sales Report"
 
 msgid "togglereceipt.label"
 msgstr "Receipt On/Off"
@@ -1130,9 +1133,6 @@ msgstr ""
 
 msgid "Sample Kitchen 42c expanded"
 msgstr "Sample Kitchen 42c expanded"
-
-msgid "Shift Change"
-msgstr "Shift Change"
 
 msgid "Sample Guest Check 42c condensed"
 msgstr "Sample Guest Check 42c condensed"
@@ -1434,14 +1434,8 @@ msgstr "Detailed Tax Report"
 msgid "Factory"
 msgstr "Factory Dataset"
 
-msgid "Service Clerk Sales Report"
-msgstr "Sales By Clerk (Service)"
-
 msgid "Training"
 msgstr "Training Dataset"
-
-msgid "Proceeds Clerk Sales Report"
-msgstr "Sales By Clerk (Close)"
 
 msgid "XTerm"
 msgstr "XTerm"
@@ -1603,6 +1597,9 @@ msgstr "Ledger Out"
 msgid "(rpt)Type"
 msgstr "Type"
 
+msgid "(rpt)Amount"
+msgstr "Amount"
+
 msgid "(rpt)Payment Type"
 msgstr "Payment"
 
@@ -1623,6 +1620,9 @@ msgstr "Amount"
 
 msgid "(rpt)Destination Count"
 msgstr "Count"
+
+msgid "(rpt)Destination Average"
+msgstr "Average"
 
 msgid "(rpt)Start Time"
 msgstr "Start Time"
@@ -1648,17 +1648,17 @@ msgstr "Sequence"
 msgid "(rpt)Hour"
 msgstr "Hour"
 
-msgid "(rpt)Net Per Order"
-msgstr "Net Per Order"
+msgid "(rpt)Net Sales/Order"
+msgstr "Net Sales/Order"
 
-msgid "(rpt)Net Per Guest"
-msgstr "Net Per Guest"
+msgid "(rpt)Net Sales/Guest"
+msgstr "Net Sales/Guest"
 
-msgid "(rpt)Gross"
-msgstr "Gross"
+msgid "(rpt)Number of Guests/Order"
+msgstr "Guests/Order"
 
-msgid "(rpt)Total"
-msgstr "Total"
+msgid "(rpt)Number of Items/Order"
+msgstr "Items/Order"
 
 msgid "(rpt)Add-on Tax"
 msgstr "Add-on Tax"
@@ -1684,11 +1684,11 @@ msgstr "Check"
 msgid "(rpt)Credit Card"
 msgstr "Credit Card"
 
-msgid "(rpt)Coupon"
-msgstr "Coupon"
-
 msgid "(rpt)Gift Card"
 msgstr "Gift Card"
+
+msgid "(rpt)Coupon"
+msgstr "Coupon"
 
 msgid "(rpt)Service Clerk"
 msgstr "Clerk (Open)"
@@ -1701,12 +1701,6 @@ msgstr "Clerk (Close)"
 
 msgid "Proceeds Clerk"
 msgstr "Clerk (Close)"
-
-msgid "(rpt)Guests"
-msgstr "Guests"
-
-msgid "(rpt)Items"
-msgstr "Items"
 
 msgid "(rpt)Product Number"
 msgstr "Product Number"
@@ -1735,8 +1729,14 @@ msgstr "Name"
 msgid "(rpt)Included Tax"
 msgstr "Included Tax"
 
-msgid "(rpt)Orders"
+msgid "(rpt)Number of Guests"
+msgstr "Guests"
+
+msgid "(rpt)Number of Orders"
 msgstr "Orders"
+
+msgid "(rpt)Number of Items"
+msgstr "Items"
 
 msgid "(rpt)Status"
 msgstr "Status"
@@ -1803,9 +1803,6 @@ msgstr "Product"
 
 msgid "(rpt)Safe Stock"
 msgstr "Safe Stock"
-
-msgid "(rpt)Revenue"
-msgstr "Revenue"
 
 msgid "(rpt)Sales Summary"
 msgstr "Sales Summary"
@@ -1915,7 +1912,7 @@ msgstr "Promotion Summary"
 msgid "(rpt)Code"
 msgstr "Code"
 
-msgid "(rpt)Voided Orders"
+msgid "(rpt)Number of Voided Orders"
 msgstr "Voided Orders"
 
 msgid "(rpt)Date"
@@ -1942,6 +1939,18 @@ msgstr "Revalue"
 msgid "(rpt)Refund"
 msgstr "Refund"
 
+msgid "(rpt)(based on %S)"
+msgstr "(based on %S)"
+
+msgid "(rpt)transaction_created"
+msgstr "when orders were opened"
+
+msgid "(rpt)transaction_submitted"
+msgstr "when orders were closed"
+
+msgid "(rpt)sale_period"
+msgstr "sale period"
+
 msgid "(rpt)Credit"
 msgstr "Credit"
 
@@ -1956,18 +1965,6 @@ msgstr "stored"
 
 msgid "(rpt)completed"
 msgstr "completed"
-
-msgid "(rpt)Revenue/Order"
-msgstr "Revenue/Order"
-
-msgid "(rpt)Revenue/Guest"
-msgstr "Revenue/Guest"
-
-msgid "(rpt)Guest/Order"
-msgstr "Guest/Order"
-
-msgid "(rpt)Item/Order"
-msgstr "Guest/Order"
 
 msgid "(rpt)payment"
 msgstr "payment"

@@ -33,11 +33,11 @@ ${_( '(rpt)Sequence' ) + ':'}
 ${order.sequence|right:24}
 ${_( '(rpt)Invoice Number' ) + ':'}
 ${order.invoice_no|default:''|right:24}
-${_( '(rpt)Guests' ) + ':'}
+${_( '(rpt)Number of Guests' ) + ':'}
 ${order.no_of_customers|format:0|right:24}
-${_( '(rpt)Items' ) + ':'}
-${order.items_count|format:0|right:24}
-${_( '(rpt)Gross' ) + ':'}
+${_( '(rpt)Number of Items' ) + ':'}
+${order.qty_subtotal|format:0|right:24}
+${_( '(rpt)Gross Sales' ) + ':'}
 ${order.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
 ${order.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
@@ -49,8 +49,10 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${order.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${order.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Payment' ) + ':'}
+${_( '(rpt)Net Sales' ) + ':'}
 ${order.total|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Payment' ) + ':'}
+${order.payment|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}
 ${order.cash|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Check' ) + ':'}
@@ -74,11 +76,11 @@ ${_( '(rpt)Records Found' ) + ': '|left:16}${clerk.orders.length|default:0|forma
 ------------------------
 ${_( '(rpt)Summary' )}
 ------------------------
-${_( '(rpt)Guests' ) + ':'}
+${_( '(rpt)Number of Guests' ) + ':'}
 ${clerk.summary.guests|format:0|right:24}
-${_( '(rpt)Items' ) + ':'}
+${_( '(rpt)Number of Items' ) + ':'}
 ${clerk.summary.items|format:0|right:24}
-${_( '(rpt)Total' ) + ':'}
+${_( '(rpt)Gross Sales' ) + ':'}
 ${clerk.summary.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
 ${clerk.summary.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
@@ -90,8 +92,10 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${clerk.summary.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${clerk.summary.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Payment' ) + ':'}
+${_( '(rpt)Net Sales' ) + ':'}
 ${clerk.summary.total|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Payment' ) + ':'}
+${clerk.summary.payment|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}
 ${clerk.summary.cash|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Check' ) + ':'}

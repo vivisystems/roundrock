@@ -10,7 +10,7 @@ ${head.end_time}
 ${head.title|center:24}
 ------------------------
 ${_( '(rpt)General Information' )}
-${_( '(rpt)Total' ) + ':'}
+${_( '(rpt)Gross Sales' ) + ':'}
 ${body.sales_summary.ItemSubtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
 ${body.sales_summary.TaxSubtotal|default:0|viviFormatTaxes:true|right:24}
@@ -22,27 +22,27 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${body.sales_summary.RevalueSubtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Revenue' ) + ':'}
-${body.sales_summary.Total|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Net Sales' ) + ':'}
+${body.sales_summary.NetSales|default:0|viviFormatPrices:true|right:24}
 ------------------------
 ${_( '(rpt)Sales Summary' )}
-${_( '(rpt)Orders' ) + ':'}
-${body.sales_summary.OrderNum|default:0|right:24}
-${_( '(rpt)Revenue' ) + ':'}
-${body.sales_summary.Total|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Guests' ) + ':'}
+${_( '(rpt)Number of Orders' ) + ':'}
+${body.sales_summary.OrderNum|default:0|format:0|right:24}
+${_( '(rpt)Net Sales' ) + ':'}
+${body.sales_summary.NetSales|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Number of Guests' ) + ':'}
 ${body.sales_summary.Guests|default:0|right:24}
-${_( '(rpt)Items' ) + ':'}
+${_( '(rpt)Number of Items' ) + ':'}
 ${body.sales_summary.ItemsCount|default:0|right:24}
-${_( '(rpt)Voided Orders' ) + ':'}
+${_( '(rpt)Number of Voided Orders' ) + ':'}
 ${body.sales_summary.VoidedOrders|default:0|right:24}
-${_( '(rpt)Revenue/Order' ) + ':'}
+${_( '(rpt)Net Sales/Order' ) + ':'}
 ${body.sales_summary.AvgTotal|default:0|format:2|right:24}
-${_( '(rpt)Revenue/Guest' ) + ':'}
+${_( '(rpt)Net Sales/Guest' ) + ':'}
 ${body.sales_summary.AvgTotalPerGuest|default:0|format:2|right:24}
-${_( '(rpt)Guest/Order' ) + ':'}
+${_( '(rpt)Number of Guests/Order' ) + ':'}
 ${body.sales_summary.AvgGuests|default:0|format:2|right:24}
-${_( '(rpt)Item/Order' ) + ':'}
+${_( '(rpt)Number of Items/Order' ) + ':'}
 ${body.sales_summary.AvgItemsCount|default:0|format:2|right:24}
 ------------------------
 ${_( '(rpt)Payment List' )}
@@ -116,20 +116,20 @@ ${_( '(rpt)Hourly Sales' )}
 {for detail in body.hourly_sales.records}
 ${_( '(rpt)Time' ) + ':'}
 ${detail.Hour|right:24}
-${_( '(rpt)Guests' ) + ':'}
+${_( '(rpt)Number of Guests' ) + ':'}
 ${detail.Guests|default:0|right:24}
-${_( '(rpt)Orders' ) + ':'}
+${_( '(rpt)Number of Orders' ) + ':'}
 ${detail.OrderNum|default:0|right:24}
-${_( '(rpt)Total' ) + ':'}
+${_( '(rpt)Gross Sales' ) + ':'}
 ${detail.HourTotal|default:0|viviFormatPrices:true|right:24}
   
 {/for}
 ${_( '(rpt)Summary' ) + ':'}
-${_( '(rpt)Guests' ) + ':'}
+${_( '(rpt)Number of Guests' ) + ':'}
 ${body.hourly_sales.summary.Guests|default:0|right:24}
-${_( '(rpt)Orders' ) + ':'}
+${_( '(rpt)Number of Orders' ) + ':'}
 ${body.hourly_sales.summary.OrderNum|default:0|right:24}
-${_( '(rpt)Total' ) + ':'}
+${_( '(rpt)Gross Sales' ) + ':'}
 ${body.hourly_sales.summary.HourTotal|default:0|viviFormatPrices:true|right:24}
 ------------------------
 ${_( '(rpt)Discount Summary' )}

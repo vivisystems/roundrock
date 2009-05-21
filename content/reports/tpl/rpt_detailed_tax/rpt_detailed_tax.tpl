@@ -36,7 +36,7 @@
                 <th style="text-align: center;">${_( '(rpt)Add-on Tax' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Included Tax' )}</th>
 {for tax in taxList}
-                <th style="text-align: center;">${tax.no} ${ _('(rpt)Gross') }</th>
+                <th style="text-align: center;">${tax.no} ${ _('(rpt)Gross Sales') }</th>
                 <th style="text-align: center;">${tax.no}</th>
 {/for}
             </tr>
