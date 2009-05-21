@@ -24,10 +24,10 @@
             		<td colspan="4" class="subtitle">${category.no} - ${category.name}</td>
             	</tr>
                 <tr class="fields">
-                    <th style="text-align: left;">${_( '(rpt)No.' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)Name' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Stock' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Min Stock' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Product Number' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Product Name' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Stock Level' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Low Stock Threshold' )}</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,7 +42,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                <td colspan="4"></td>
+                    <td colspan="4" style="text-align: left;">${_('(rpt)Records Found') + ': '}${category.plu.length|format:0}</td>
                 </tr>
             </tfoot>
         </table>

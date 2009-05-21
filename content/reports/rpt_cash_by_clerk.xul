@@ -48,13 +48,13 @@
 		                    </row>
 		                    <row>
 		                        <vbox>
+				                    <label value="&rptcashbyclerk.terminal_no;" />
+				                    <textbox id="terminal_no" value='' width="300"/>
+				                </vbox>
+		                        <vbox>
 		                            <label value="&rptcashbyclerk.shiftno;" />
 				                    <textbox id="shift_no" value='' width="300"/>
 		                        </vbox>
-		                        <vbox>
-				                    <label value="&rptcashbyclerk.machineid;" />
-				                    <textbox id="machine_id" value='' width="300"/>
-				                </vbox>
 		                    </row>
 		                </rows>
 		            </grid>

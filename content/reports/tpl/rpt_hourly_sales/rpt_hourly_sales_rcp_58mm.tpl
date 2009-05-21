@@ -18,7 +18,7 @@ ${_( '(rpt)Date' ) + ':'}
 ${detail.Date|right:24}
 ${_( '(rpt)Hour' ) + ':'}
 ${detail.Hour|right:24}
-${_( '(rpt)Total' ) + ':'}
+${_( '(rpt)Net Sales' ) + ':'}
 ${detail.HourTotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Orders' ) + ':'}
 ${detail.OrderNum|default:0|format:0|right:24}

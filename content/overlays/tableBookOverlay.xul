@@ -79,10 +79,10 @@
             </vbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <button id="add_table"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addBooking', null, 'TableBook');"/>
-                    <button id="modify_table"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyBooking', null, 'TableBook');"/>
+                    <button id="add_book"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addBooking', null, 'TableBook');"/>
+                    <button id="modify_book"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyBooking', null, 'TableBook');"/>
                     <spacer flex="1"/>
-                    <button id="delete_table"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteBooking', null, 'TableBook');"/>
+                    <button id="delete_book"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteBooking', null, 'TableBook');"/>
                 </hbox>
                 <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
                     <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

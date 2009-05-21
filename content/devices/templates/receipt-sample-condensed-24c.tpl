@@ -7,7 +7,7 @@ ${store.telephone1|center:24}[&CR]
 ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')|center:24}[&CR]
 ${'Terminal:'|left:10} ${order.terminal_no|left:13}[&CR]
 ${'Clerk:'|left:10} ${order.proceeds_clerk_displayname|left:13}[&CR]
------------------------[&CR]
+------------------------[&CR]
 {for item in order.items_summary}
 ${item.qty_subtotal|right:3} X ${item.name|left:18}[&CR]
   ${item.subtotal|viviFormatPrices:true|right:22}[&CR]
@@ -16,7 +16,7 @@ ${item.qty_subtotal|right:3} X ${item.name|left:18}[&CR]
 {if item.surcharge_subtotal != 0}${'+' + item.surcharge_subtotal|viviFormatPrices:true|right:24}[&CR]
 {/if}
 {/for}
------------------------[&CR]
+------------------------[&CR]
 {if order.trans_discount_subtotal != 0}${'Order Discount:'|left:15} ${order.trans_discount_subtotal|viviFormatPrices:true|right:8}[&CR]
 {/if}
 {if order.trans_surcharge_subtotal != 0}${'Order Surcharge:'|left:15} ${order.trans_surcharge_subtotal|viviFormatPrices:true|right:8}[&CR]
@@ -34,7 +34,7 @@ ${'BALANCE:'|left:15} ${order.remain|viviFormatPrices:true|right:8}[&CR]
 {else}
 ${'CHANGE:'|left:15} ${(0 - order.remain)|viviFormatPrices:true|right:8}[&CR]
 {/if}
------------------------[&CR]
+------------------------[&CR]
 [&CR]
 ${'Thank you for shopping at'|center:24}[&CR]
 [&QSON]${store.name|center:12}[&QSOFF][&CR]
@@ -47,3 +47,6 @@ ${'Thank you for shopping at'|center:24}[&CR]
 [&CR]
 [&CR]
 [&PC]
+[&CR]
+[&CR]
+[&CR]

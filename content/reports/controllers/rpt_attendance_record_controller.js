@@ -6,7 +6,8 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-    RptBaseController.extend( {
+    var __controller__ = {
+        
         name: 'RptAttendanceRecord',
         
         _fileName: "rpt_attendance_record",
@@ -132,5 +133,7 @@
 
             this._enableButton(false);
         }
-    });
+    };
+    
+    RptBaseController.extend(__controller__);
 })();

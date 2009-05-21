@@ -10,8 +10,10 @@ ${category.no|left:14}  ${category.name|left:26}
 --------------  --------------------------
 {for plu in category.plu}
 ${plu.no|left:14}      ${plu.name|left:22}
-${_( '(rpt)Min.Stock' ) + ':'}${plu.min_stock|right:4}      ${_( '(rpt)Stock' ) + ':'}${plu.stock|right:10}
+${_( '(rpt)Stock Level' ) + ':'|left:14}${plu.stock|format:0|right:6}  ${_( '(rpt)Low Stock Threshold' ) + ':'|left:14}${plu.min_stock|format:0|right:6}
 {/for}
+------------------------------------------
+${_( '(rpt)Records Found' ) + ': '|left:16}${category.plu.length|format:0|left: 26}
 ------------------------------------------
 {/for}
 ${foot.gen_time}

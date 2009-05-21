@@ -34,6 +34,14 @@
   margin: 8px;
 }
 
+.PageTitle {
+  font-size: 14pt;
+  color: #534741;
+  margin: 5px 8px;
+  font-weight: bold;
+  background-color: #f49b1d;
+}
+
 
 /* ���䪩���϶� */
 .LeftPnl {

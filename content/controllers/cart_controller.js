@@ -3436,9 +3436,6 @@
                         refundTotal += payment.amount;
                     });
 
-                    // begin transaction
-                    orderModel.begin();
-
                     // save payment record
                     paymentModel.saveAll(inputObj.refunds);
 
@@ -3459,9 +3456,6 @@
 
                     orderModel.id = order.id;
                     orderModel.save(order);
-
-                    // end transaction
-                    orderModel.commit();
 
                     // restore stock
                     for (var o in order.OrderItem) {

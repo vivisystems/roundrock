@@ -6,7 +6,8 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-    RptBaseController.extend( {
+    var __controller__ = {
+
         name: 'RptHourlySales',
         
         _fileName: "rpt_hourly_sales",
@@ -148,5 +149,7 @@
 
             this._enableButton(false);
         }
-    });
+    };
+
+    RptBaseController.extend(__controller__);
 })();

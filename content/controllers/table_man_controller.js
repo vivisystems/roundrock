@@ -37,12 +37,15 @@
 
         switchTab: function(index) {
 
-            if (index == 2) {
-                var table_no = document.getElementById('table_id').value;
-                $do('loadBookings', table_no, 'TableBook');
-                $do('selectBooking', 0, 'TableBook');
+            switch (index) {
+                case 0:
+                    break;
+                case 2:
+                    var table_no = document.getElementById('table_id').value;
+                    this.requestCommand('loadBookings', table_no, 'TableBook');
+                    this.requestCommand('selectBooking', 0, 'TableBook');
+                    break;
             }
-            
         },
 
         selectTable: function(index) {
@@ -54,13 +57,16 @@
                 var table = this._tableListDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('tableForm', table);
 
+                /*
                 var table_id = document.getElementById('table_id').value;
                 var table_no = document.getElementById('table_no').value;
-                $do('setTableId', table_id, 'TableBook');
-                $do('setTableNo', table_no, 'TableBook');
+                this.requestCommand('setTableId', table_id, 'TableBook');
+                this.requestCommand('setTableNo', table_no, 'TableBook');
+                */
+                this.requestCommand('load', null, 'TableBook');
             }
 
-            // this.validateForm();
+            this.validateForm();
         },
 
         selectRegion: function(index) {
@@ -457,6 +463,18 @@
             this.selectRegion(0);
             this.loadTables();
             this.selectTable(0);
+        },
+
+        validateForm: function() {
+            var index = this.getTableListObj().selectedIndex;
+            var modBtn = document.getElementById('modify_table');
+            var delBtn = document.getElementById('delete_table');
+
+            if (this._tableListDatas.length <= 0) {
+                index = -1;
+            }
+            modBtn.setAttribute('disabled', index == -1);
+            delBtn.setAttribute('disabled', index == -1);
         }
 
     };

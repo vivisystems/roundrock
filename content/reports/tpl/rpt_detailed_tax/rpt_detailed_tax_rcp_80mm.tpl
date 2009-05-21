@@ -19,7 +19,7 @@ ${_( '(rpt)Shift' ) + ':'|left:14}${item.Order.shift_number|right:28}
 ${_( '(rpt)Time' ) + ':'|left:14}${item.Order.time|unixTimeToString|right:28}
 ${_( '(rpt)Sequence' ) + ':'|left:14}${item.Order.sequence|right:28}
 ${_( '(rpt)Invoice Number' ) + ':'|left:14}${item.Order.invoice_no|default:''|right:28}
-${_( '(rpt)Net' ) + ':'|left:14}${item.Order.total|default:0|viviFormatPrices:true|right:28}
+${_( '(rpt)Net Sales' ) + ':'|left:14}${item.Order.total|default:0|viviFormatPrices:true|right:28}
 ${_( '(rpt)Order Surcharge' ) + ':'|left:14}${item.surcharge_subtotal|default:0|viviFormatPrices:true|right:28}
 ${_( '(rpt)Order Discount' ) + ':'|left:14}${item.discount_subtotal|default:0|viviFormatPrices:true|right:28}
 ${_( '(rpt)Promotion' ) + ':'|left:14}${item.Order.promotion_subtotal|default:0|viviFormatPrices:true|right:28}
@@ -46,7 +46,7 @@ ${_( '(rpt)Records Found' ) + ': '|left:19}${GeckoJS.BaseObject.getKeys(body).le
 [&CR]
 ------------------------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Net' ) + ':'|left:14}${foot.summary.total|default:0|viviFormatPrices:true|right:28}
+${_( '(rpt)Net Sales' ) + ':'|left:14}${foot.summary.total|default:0|viviFormatPrices:true|right:28}
 ${_( '(rpt)Order Surcharge' ) + ':'|left:14}${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true|right:28}
 ${_( '(rpt)Order Discount' ) + ':'|left:14}${foot.summary.discount_subtotal|default:0|viviFormatPrices:true|right:28}
 ${_( '(rpt)Promotion' ) + ':'|left:14}${foot.summary.promotion_subtotal|default:0|viviFormatPrices:true|right:28}

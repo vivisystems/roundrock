@@ -27,8 +27,8 @@
 <!ENTITY rptclerksales.sortby.clerk "Clerk">
 <!ENTITY rptclerksales.all "List All">
 <!ENTITY rptclerksales.wait "Waiting...">
-<!ENTITY rptclerksales.service_clerk "Open Order">
-<!ENTITY rptclerksales.proceeds_clerk "Close Order">
+<!ENTITY rptclerksales.service_clerk "Last Modified Order">
+<!ENTITY rptclerksales.proceeds_clerk "Completed Order">
 <!ENTITY rptclerksales.clerk_type "Clerk Type:">
 <!ENTITY rptclerksales.periodtype "Period Type:">
 <!ENTITY rptclerksales.transaction_created "Order Opened">

@@ -1,4 +1,4 @@
-<!ENTITY promotionsummary.title "Promotion Summary Report">
+<!ENTITY promotionsummary.title "Daily Promotion Summary">
 <!ENTITY promotionsummary.conditions "Conditions:">
 <!ENTITY promotionsummary.startdate "Start Date:">
 <!ENTITY promotionsummary.enddate "End Date:">
@@ -7,23 +7,23 @@
 <!ENTITY promotionsummary.exportcsv "Export to CSV">
 <!ENTITY promotionsummary.exportrcp "Print">
 <!ENTITY promotionsummary.togglezoom "Toggle Zoom">
-<!ENTITY promotionsummary.machineid "Terminal No:">
+<!ENTITY promotionsummary.terminal_no "Terminal:">
 <!ENTITY promotionsummary.sortby "Sort By:">
-<!ENTITY promotionsummary.date "Date">
-<!ENTITY promotionsummary.total "Total">
-<!ENTITY promotionsummary.promotion_subtotal "Promotion Subtotal">
-<!ENTITY promotionsummary.matched_count "Matched Count">
-<!ENTITY promotionsummary.order_count "Order Count">
-<!ENTITY promotionsummary.matched_amount "Matched Amount">
-<!ENTITY promotionsummary.matched_items_qty "Matched Items Qty.">
-<!ENTITY promotionsummary.matched_items_subtotal "Matched Items Subtotal">
+<!ENTITY promotionsummary.sortby.date "Date">
+<!ENTITY promotionsummary.sortby.gross "Gross Sales">
+<!ENTITY promotionsummary.sortby.promotion_subtotal "Promotion Amount">
+<!ENTITY promotionsummary.sortby.matched_count "Matched Count">
+<!ENTITY promotionsummary.sortby.order_count "Order Count">
+<!ENTITY promotionsummary.sortby.matched_amount "Matched Amount">
+<!ENTITY promotionsummary.sortby.matched_items_qty "Matched Item Quantity">
+<!ENTITY promotionsummary.sortby.matched_items_subtotal "Matched Item Amount">
 <!ENTITY promotionsummary.all "List All">
 <!ENTITY promotionsummary.wait "Waiting...">
 <!ENTITY promotionsummary.periodtype "Period Type:">
-<!ENTITY promotionsummary.created "Order Opened Time">
-<!ENTITY promotionsummary.transaction_submitted "Order Finalized Time">
+<!ENTITY promotionsummary.created "Order Opened">
+<!ENTITY promotionsummary.transaction_submitted "Order Closed">
 <!ENTITY promotionsummary.saleperiod "Sale Period">
-<!ENTITY promotionsummary.shiftno "Shift No.:">
+<!ENTITY promotionsummary.shiftno "Shift:">
 <!ENTITY promotionsummary.promotion "Promotion:">
 <!ENTITY promotionsummary.empty_promotion "Not Applied Promotion Rules:">
 <!ENTITY promotionsummary.show "Show">

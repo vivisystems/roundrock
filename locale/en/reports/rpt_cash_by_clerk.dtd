@@ -6,6 +6,6 @@
 <!ENTITY rptcashbyclerk.exportcsv "Export to CSV">
 <!ENTITY rptcashbyclerk.exportrcp "Print">
 <!ENTITY rptcashbyclerk.togglezoom "Toggle Zoom">
-<!ENTITY rptcashbyclerk.machineid "Terminal No:">
+<!ENTITY rptcashbyclerk.terminal_no "Terminal:">
 <!ENTITY rptcashbyclerk.wait "Waiting...">
-<!ENTITY rptcashbyclerk.shiftno "Shift No.:">
+<!ENTITY rptcashbyclerk.shiftno "Shift:">

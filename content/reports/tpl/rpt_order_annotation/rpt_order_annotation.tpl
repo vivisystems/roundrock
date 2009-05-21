@@ -23,49 +23,75 @@
             <!--caption>${head.title}</caption-->
             <thead>
             	<tr>
-		        	<td colspan="9" class="subtitle">${types_index}</td>
+		        	<td colspan="15" class="subtitle">${types_index}</td>
 		        </tr>
                 <tr class="fields">
                     <th style="text-align: left;">${_( '(rpt)Terminal' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)Time' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)Annotation Text' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Total' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Promotion' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Revalue' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Payment' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Clerk' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Sale Period' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Shift' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Time' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Status' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Gross' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Surcharge' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Discount' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Revalue' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Add-on Tax' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Payment' )}</th>
                 </tr>
             </thead>
             <tbody>
-{for orders in types.orders}
-                <tr id="${orders.id}">
-                    <td style="text-align: left;">${orders.terminal_no}</td>
-                    <td style="text-align: left;">${orders.time|unixTimeToString}</td>
-                    <td style="text-align: left;">${orders.sequence}</td>
-                    <td style="text-align: left;">${orders.text}</td>
-                    <td style="text-align: right;">${orders.item_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${orders.tax_subtotal|viviFormatTaxes:true}</td>
-                    <td style="text-align: right;">${orders.surcharge_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${orders.discount_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${orders.promotion_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${orders.revalue_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${orders.total|viviFormatPrices:true}</td>
+{for order in types.orders}
+{eval}
+  TrimPath.RoundingPrices = order.rounding_prices;
+  TrimPath.PrecisionPrices = order.precision_prices;
+  TrimPath.RoundingTaxes = order.rounding_taxes;
+  TrimPath.PrecisionTaxes = order.precision_taxes;
+{/eval}
+                <tr id="${order.id}">
+                    <td style="text-align: left;">${order.terminal_no}</td>
+                    <td style="text-align: left;">${order.service_clerk_displayname|default:''}/${order.proceeds_clerk_displayname|default:''}</td>
+                    <td style="text-align: center;">${order.sale_period|unixTimeToString:'saleperiod'}</td>
+                    <td style="text-align: center;">${order.shift_number}</td>
+                    <td style="text-align: center;">${order.time|unixTimeToString}</td>
+                    <td style="text-align: center;">${order.sequence}</td>
+                    <td style="text-align: center;">${order.status}</td>
+                    <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.discount_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.promotion_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.revalue_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.tax_subtotal|viviFormatTaxes:true}</td>
+                    <td style="text-align: right;">${order.total|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.payment|viviFormatPrices:true}</td>
+                </tr>
+                <tr>
+                    <td/>
+                    <td colspan="14" style="text-align: left;">${order.text|default:''}</td>
                 </tr>
 {/for}
+{eval}
+  delete TrimPath.RoundingPrices;
+  delete TrimPath.PrecisionPrices;
+  delete TrimPath.RoundingTaxes;
+  delete TrimPath.PrecisionTaxes;
+{/eval}
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4">${_( '(rpt)Summary' ) + ':'}</td>
+                    <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' )}: ${types.orders.length|format:0}</td>
+                    <td colspan="5" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
                     <td style="text-align: right;">${types.summary.item_subtotal|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${types.summary.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${types.summary.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${types.summary.discount_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${types.summary.promotion_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${types.summary.revalue_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${types.summary.tax_subtotal|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${types.summary.total|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${types.summary.payment|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>
         </table>
