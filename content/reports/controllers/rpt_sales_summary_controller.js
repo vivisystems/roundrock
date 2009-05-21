@@ -173,8 +173,7 @@
                             'order_items.product_no',
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
-                            'SUM("order_items"."current_subtotal") as "OrderItem.gross"',
-                            'order_items.current_tax'
+                            'SUM("order_items"."current_subtotal") as "OrderItem.gross"'
                          ];
                             
              var conditions = "orders." + this._periodtype + ">='" + start +
@@ -294,15 +293,15 @@
 
             var fields = [
                             'SUM("orders"."total") AS "Order.NetSales"',
-                            'SUM( "orders"."item_subtotal" ) AS "Order.ItemSubtotal"',
+                            'SUM( "orders"."item_subtotal" ) AS "Order.GrossSales"',
+                            'CAST( AVG("orders"."total") AS INTEGER ) AS "Order.AvgNetSales"',
+                            'CAST( AVG("orders"."item_subtotal") AS INTEGER ) AS "Order.AvgGrossSales"',
                             'SUM( "orders"."discount_subtotal" ) AS "Order.DiscountSubtotal"',
                             'SUM( "orders"."surcharge_subtotal" ) AS "Order.SurchargeSubtotal"',
                             'SUM( "orders"."tax_subtotal" ) AS "Order.TaxSubtotal"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
-                            'SUM( "orders"."total" ) / SUM( "orders"."no_of_customers" ) AS "Order.AvgNetSalesPerGuest"',
                             'SUM("orders"."qty_subtotal") AS "Order.QtySubtotal"',
-                            'CAST( AVG("orders"."total") AS INTEGER ) AS "Order.AvgNetSales"',
                             'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
                             'AVG("orders"."qty_subtotal") AS "Order.AvgQtySubtotal"',
                             'SUM( "orders"."promotion_subtotal" ) AS "Order.PromotionSubtotal"',
@@ -324,16 +323,18 @@
             var orderby = 'orders.terminal_no,orders.' + this._periodtype;
 
             var order = new OrderModel();
-            var orderRecords = order.find( 'first', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 0, limit: this._csvLimit } );
-
-            // get the number of sold items.
-            /*
-            var sql = "select sum( current_qty ) as qty from order_items join orders on orders.id = order_items.order_id where " + conditions;
-            var orderItem = new OrderItemModel();
-            var orderItemRecords = orderItem.getDataSource().fetchAll( sql );
-            
-            orderRecords.ItemsCount = orderItemRecords[ 0 ].qty;
-            */
+            var orderRecord = order.find( 'first', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 0, limit: this._csvLimit } );
+//this.alert(this.dump(orderRecord));
+            if (orderRecord) {
+                if (orderRecord.Guests > 0) {
+                    orderRecord.AvgNetSalesPerGuest = orderRecord.NetSales / orderRecord.Guests;
+                    orderRecord.AvgGrossSalesPerGuest = orderRecord.GrossSales / orderRecord.Guests;
+                }
+                else {
+                    orderRecord.AvgNetSalesPerGuest = 0;
+                    orderRecord.AvgGrossSalesPerGuest = 0;
+                }
+            }
             // get the number of voided orders.
             var where = "status = -2";
             var periodType;
@@ -348,20 +349,18 @@
             	where += " and orders.void_shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
             	
             var sql = 'select count( id ) as VoidedOrders from orders where ' + where;
-            orderRecords.VoidedOrders = order.getDataSource().fetchAll( sql )[ 0 ].VoidedOrders;
+            orderRecord.VoidedOrders = order.getDataSource().fetchAll( sql )[ 0 ].VoidedOrders;
             
-            return orderRecords;
+            return orderRecord;
         },
         
         _taxSummary: function() {
         	// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
             
             var fields = [
                             'order_items.tax_name',
-                            'order_items.tax_rate',
-                            'order_items.tax_type',
                             'sum( order_items.included_tax ) as "included_tax"',
                             'sum( order_items.current_tax ) as "tax_subtotal"'
                         ];
@@ -376,35 +375,19 @@
             if ( this._shiftno.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 			
-            var groupby = 'order_items.tax_name, order_items.tax_rate, order_items.tax_type';
-            var orderby = 'tax_subtotal desc';
+            var groupby = 'order_items.tax_name';
+            var orderby = 'order_items.tax_name desc';
             
             var data = {};
             var summary = {};
-            summary.tax_total = 0;
-            
+            summary.addon_tax_total = 0;
+            summary.included_tax_total = 0;
             var orderItem = new OrderItemModel();
             data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
 
             data.records.forEach( function( record ) {
-            	summary.tax_total += record.tax_subtotal;
-            	
-            	if ( record.included_tax )
-            		record.tax_subtotal += record.included_tax;
-            	
-            	var rate_type = TaxComponent.prototype.getTax( record.tax_name ).rate_type;
-            	
-            	if ( !record.tax_rate || record.tax_rate == '' ) 
-            		record.tax_rate = 0;
-            		
-            	if ( record.tax_rate == 0 )
-            		rate_type = '';
-            	
-            	if ( rate_type == '%' )
-            		record.tax_rate += rate_type;
-            	else record.tax_rate = rate_type + record.tax_rate;
-            	
-            	record.tax_type = _( record.tax_type );
+            	summary.addon_tax_total += record.tax_subtotal;
+            	summary.included_tax_total += record.included_tax;
             });
 			
 			data.summary = summary;
@@ -420,7 +403,7 @@
             var fields = [
                             'orders.destination as "Order.destination"',
                             'count( orders.id ) as "Order.num_trans"',
-                            'sum( orders.total ) as "Order.net"'
+                            'sum( orders.item_subtotal ) as "Order.gross"'
                          ];
 
             var conditions = "orders." + this._periodtype + ">='" + start +
@@ -441,9 +424,12 @@
 
             datas.forEach(function(o) {
                 if (o.num_trans > 0) {
-                    o.net_per_trans = o.net / o.num_trans;
+                    o.gross_per_trans = o.gross / o.num_trans;
                 }
-            })
+                else {
+                    o.gross_per_trans = 0.0;
+                }
+            });
             
             var records = {};
             records.data = datas;
@@ -453,62 +439,53 @@
 		
 		_promotionSummary: function() {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
             
-            var fields = 	'sum( op.discount_subtotal ) as discount_subtotal, ' +
-            				'op.promotion_id as promotion_id, ' +
-            				'count( op.id ) as matched_count';
-
-            var conditions = 'o.' + this._periodtype + '>="' + start +
-                            '" and o.' + this._periodtype + '<="' + end + '"' +
-                            ' and o.status = 1';
+            var fields = 	'promotion_id,' +
+                            'name,' +
+                            'discount_subtotal';
+                        
+            var conditions = 'orders.' + this._periodtype + '>="' + start +
+                            '" and orders.' + this._periodtype + '<="' + end + '"' +
+                            ' and orders.status = 1';
             
             if ( this._terminalNo.length > 0 )
-                conditions += " and o.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
+                conditions += " and orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
             
             if ( this._shiftno.length > 0 )
-            	conditions += " and o.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
-
-            var groupby = 'op.promotion_id';
-            var orderby = 'op.promotion_id';
-			
-			var sql = 	'select ' + fields + ' from order_promotions op join orders o on op.order_id = o.id' +
-            			' where ' + conditions + ' group by ' + groupby + ' order by ' + orderby + ';';
-           	
-            var orderModel = new OrderModel();
-  			var records = orderModel.getDataSource().fetchAll( sql );
-  			
-  			var promotionModel = new PromotionModel();
-  			sql = 'select id, name, code from promotions group by id;';
-  			var promotionIds = promotionModel.getDataSource().fetchAll( sql );
+            	conditions += " and orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
+            
+            var orderPromotionModel = new OrderPromotionModel();
+  			var records = orderPromotionModel.find('all', {
+                fields: fields,
+                conditions: conditions,
+                recursive:1,
+                limit: this._csvLimit
+            });
   			
   			var results = {};
   			var summary = {
-  				matched_count: 0,
+  				matched_count: records.length,
   				discount_subtotal: 0
   			};
   			
-  			promotionIds.forEach( function( promotionId ) {
-  				results[ promotionId.id ] = {
-  					name: promotionId.name,
-  					code: promotionId.code,
-  					discount_subtotal: 0,
-  					matched_count: 0
-  				}
-  			} );
-  			
   			records.forEach( function( record ) {
-  				results[ record.promotion_id ].discount_subtotal += record.discount_subtotal;
-  				results[ record.promotion_id ].matched_count += record.matched_count;
-  				
-  				summary.matched_count += record.matched_count;
-  				summary.discount_subtotal += record.discount_subtotal;
+                if (!( record.promotion_id in results )) {
+                    results[ record.promotion_id ] = {
+                        name: record.name,
+                        discount_subtotal: record.discount_subtotal,
+                        matched_count: 1
+                    }
+  				}
+                else {
+                    results[record.promotion_id].discount_subtotal += record.discount_subtotal;
+                    results[record.promotion_id].matched_count++;
+                }
+                summary.discount_subtotal += record.discount_subtotal;
   			} );
-  			
-  			// for sorting.
-  			results = GeckoJS.BaseObject.getValues( results );
-  			
+
+            results = GeckoJS.BaseObject.getValues(results);
   			results.sort( function( a, b ) {
   				a = a.discount_subtotal;
   				b = b.discount_subtotal;
@@ -517,7 +494,7 @@
   				if ( a < b ) return -1;
   				return 0;
   			} );
-  			
+
   			var data = {};
   			data.results = results;
   			data.summary = summary;
@@ -550,7 +527,7 @@
             var orderby = 'amount desc';
             
             var orderItem = new OrderItemModel();
-            var results = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            var results = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
             
             var summary = {
             	num_rows: 0,
@@ -562,7 +539,7 @@
             results.forEach( function( result ) {
             	summary.num_rows += result.num_rows;
             	summary.amount += result.amount;
-            	result.itemOrAddition = _( '(rpt)ITEM' );
+            	result.itemOrAddition = _( '(rpt)Item Discount/Surcharge' );
             	
             	data.push( result );
             } );
@@ -574,12 +551,12 @@
                          ];
             
             var orderAddition = new OrderAdditionModel();
-            results = orderAddition.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            results = orderAddition.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
             
             results.forEach( function( result ) {
             	summary.num_rows += result.num_rows;
             	summary.amount += result.amount;
-            	result.itemOrAddition = _( '(rpt)ORDER' );
+            	result.itemOrAddition = _( '(rpt)Order Discount/Surcharge' );
             	
             	data.push( result );
             } );

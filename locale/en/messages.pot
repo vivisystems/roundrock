@@ -1615,14 +1615,23 @@ msgstr "Count"
 msgid "(rpt)Destination"
 msgstr "Destination"
 
+msgid "(rpt)Destination Gross Sales"
+msgstr "Gross Sales"
+
 msgid "(rpt)Destination Amount"
 msgstr "Amount"
 
 msgid "(rpt)Destination Count"
 msgstr "Count"
 
-msgid "(rpt)Destination Average"
-msgstr "Average"
+msgid "(rpt)Destination Average Gross Sales"
+msgstr "Average Gross Sales"
+
+msgid "(rpt)Add-On Tax Amount"
+msgstr "Add-On Tax"
+
+msgid "(rpt)Included Tax Amount"
+msgstr "Included Tax"
 
 msgid "(rpt)Start Time"
 msgstr "Start Time"
@@ -1647,6 +1656,12 @@ msgstr "Sequence"
 
 msgid "(rpt)Hour"
 msgstr "Hour"
+
+msgid "(rpt)Gross Sales/Order"
+msgstr "Gross Sales/Order"
+
+msgid "(rpt)Gross Sales/Guest"
+msgstr "Gross Sales/Guest"
 
 msgid "(rpt)Net Sales/Order"
 msgstr "Net Sales/Order"
@@ -1840,14 +1855,44 @@ msgstr "Top Product Sales"
 msgid "(rpt)Tax Summary"
 msgstr "Tax Summary"
 
-msgid "(rpt)Rate"
-msgstr "Rate"
+msgid "(rpt)Discount Name"
+msgstr "Name"
+
+msgid "(rpt)Discount Type"
+msgstr "Type"
+
+msgid "(rpt)Discount Count"
+msgstr "Count"
+
+msgid "(rpt)Discount Amount"
+msgstr "Amount"
+
+msgid "(rpt)Surcharge Name"
+msgstr "Name"
+
+msgid "(rpt)Surcharge Type"
+msgstr "Type"
+
+msgid "(rpt)Surcharge Count"
+msgstr "Count"
+
+msgid "(rpt)Surcharge Amount"
+msgstr "Amount"
 
 msgid "(rpt)Discount Summary"
 msgstr "Discount Summary"
 
 msgid "(rpt)Surcharge Summary"
 msgstr "Surcharge Summary"
+
+msgid "(rpt)Promotion Name"
+msgstr "Promotion"
+
+msgid "(rpt)Promotion Count"
+msgstr "Count"
+
+msgid "(rpt)Promotion Amount"
+msgstr "Amount"
 
 msgid "(rpt)General Information"
 msgstr "General Information"
@@ -1857,9 +1902,6 @@ msgstr "Tax Name"
 
 msgid "(rpt)Tax Rate"
 msgstr "Tax Rate"
-
-msgid "(rpt)Tax Type"
-msgstr "Tax Type"
 
 msgid "(rpt)Min Stock"
 msgstr "Min Stock"
@@ -1891,13 +1933,10 @@ msgstr "Annotation Text"
 msgid "(rpt)Deposit"
 msgstr "Deposit"
 
-msgid "(rpt)TYPE"
-msgstr "type"
-
-msgid "(rpt)ORDER"
+msgid "(rpt)Order Discount/Surcharge"
 msgstr "order"
 
-msgid "(rpt)ITEM"
+msgid "(rpt)Item Discount/Surcharge"
 msgstr "item"
 
 msgid "(rpt)Promotion"
@@ -2245,10 +2284,13 @@ msgid "If you change layout now, the system will restart automatically after you
 msgstr "If you changelayout now, the system will restart automatically after you return to the Main Screen."
 
 msgid "INCLUDED"
-msgstr "INCLUDED"
+msgstr "included"
 
 msgid "ADDON"
-msgstr "ADDON"
+msgstr "add-on"
+
+msgid "COMBINED"
+msgstr "combined"
 
 msgid "(rpt)Obsolete Department"
 msgstr "Obsolete Department"
