@@ -24,10 +24,32 @@ do_vacuum()
 }
 
 
+#
+# do sqlite integrity check
+#
+do_integrity_check()
+{
+
+    for i in $DATABASE/*.sqlite; do
+		result=`$SQLITE3 $i "PRAGMA integrity_check"`
+		if [ "$result" != "ok" ]; then
+                    /usr/bin/aosd_cat -y -120 -d 4000 "Rebuilding ..." &
+			$SQLITE3 $i ".dump" | $SQLITE3 $i.tmp
+                        cp $i.tmp $i
+                        rm -f $i.tmp
+		fi
+    done
+
+}
+
+
 while [ $RETVAL != 0 ]; do
     /usr/bin/aosd_cat -d 8000 "Starting VIVIPOS ......" &
 
     # do_vacuum
+
+	# do_integrity_check
+	do_integrity_check
 
     ${DIR}/vivipos
     RETVAL=$?
