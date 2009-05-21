@@ -54,29 +54,27 @@
             // this.id = orderData.id;  // remove id , this will to cause model.exists finding data exists.
             this.create();
             this.begin();
+
             r = this.save(orderData);
-            this.commit();
 
             if (!r) {
                 // save failure try again
                 //GREUtils.log('save failure')
                 this.log('WARN', 'saveOrderMaster error, Try again (id='+orderData.id+')');
-                this.create();
-                this.begin();
                 r = this.save(orderData);
-                this.commit();
             }
 
-            // find by order_id
-            var c = this.findCount("id='"+orderData.id+"'");
-            if (c <= 0) {
-                // save failure try again
-                this.log('ERROR', 'saveOrderMaster error (not exists) , Try again (id='+orderData.id+')');
-                this.create();
-                this.begin();
-                r = this.save(orderData);
-                this.commit();
+            if (!r) {
+                // find by order_id
+                var c = this.findCount("id='"+orderData.id+"'");
+                if (c <= 0) {
+                    // save failure try again
+                    this.log('ERROR', 'saveOrderMaster error (not exists) , Try again (id='+orderData.id+')');
+                    r = this.save(orderData);
+                }
             }
+            // always close open transaction
+            this.commit();
             return r;
         },
 
