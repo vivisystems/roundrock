@@ -30,8 +30,8 @@
                     <th style="text-align: right;">${_( '(rpt)Shift' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Balance' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Cash' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Sales' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Excess' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Net Sales' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Giftcard Excess' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Deposit' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Refund' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Credit' )}</th>
@@ -59,17 +59,17 @@
                 <tr style="border-top: 1px solid #4ca;">
                 	<td colspan="6" style="vertical-align: top;">
                 		<table style="width: 100%;">
-                			<tr style="color: gray; font-style: italic;">
-                				<th style="text-align: left;">${_( '(rpt)Type' )}</th>
-                				<th style="text-align: right;">${_( '(rpt)Amount' )}</th>
-                				<th style="text-align: right;">${_( '(rpt)Count' )}</th>
+                			<tr class="fields" style="color: gray; font-style: italic;">
+                				<th style="text-align: left;">${_( '(rpt)Payment Type' )}</th>
+                				<th style="text-align: right;">${_( '(rpt)Payment Amount' )}</th>
+                				<th style="text-align: right;">${_( '(rpt)Payment Count' )}</th>
                 			</tr>
 {for detail in master.ShiftChangeDetail}
 {if detail.type != 'destination'}
 						    <tr>
-						        <td style="text-align: left;">${detail.type}{if detail.name.length > 0}&nbsp;( ${detail.name} ){/if}</td>
+						        <td style="text-align: left;">${_('(rpt)' + detail.type)}{if detail.name.length > 0}&nbsp;( ${detail.name} ){/if}</td>
 						        <td style="text-align: right;">${detail.amount|default:0|viviFormatPrices:true}</td>
-						        <td style="text-align: right;">${detail.count|default:0}</td>
+						        <td style="text-align: right;">${detail.count|format:0}</td>
 						    </tr>
 {/if}
 {/for}
@@ -77,10 +77,10 @@
 					</td>
 					<td colspan="5" style="vertical-align: top;">
 						<table style="width: 100%;">
-							<tr style="color: gray; font-style: italic;">
+							<tr class="fields" style="color: gray; font-style: italic;">
 								<th style="text-align: left;">${_( '(rpt)Destination' )}</th>
-								<th style="text-align: right;">${_( '(rpt)Amount' )}</th>
-								<th style="text-align: right;">${_( '(rpt)Count' )}</th>
+								<th style="text-align: right;">${_( '(rpt)Destination Amount' )}</th>
+								<th style="text-align: right;">${_( '(rpt)Destination Count' )}</th>
 							</tr>
 {for detail in master.ShiftChangeDetail}
 {if detail.type == 'destination'}

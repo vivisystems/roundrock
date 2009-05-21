@@ -16,7 +16,7 @@
 
             var subtotal = trigger.getMatchedItemsSubtotal();
 
-            var discount =  parseFloat(subtotal * value / 100);
+            var discount =  (0 - parseFloat(subtotal * value / 100));
 
             this.setDiscountSubtobal(discount);
 

@@ -13,8 +13,8 @@
 <!ENTITY rptdailysales.sortby.sequence "Sequence">
 <!ENTITY rptdailysales.sortby.invoice_no "Invoice Number">
 <!ENTITY rptdailysales.sortby.tax_subtotal "Add-on Tax">
-<!ENTITY rptdailysales.sortby.total "Payment">
-<!ENTITY rptdailysales.sortby.item_subtotal "Total">
+<!ENTITY rptdailysales.sortby.total "Net">
+<!ENTITY rptdailysales.sortby.item_subtotal "Gross">
 <!ENTITY rptdailysales.sortby.surcharge_subtotal "Surcharge">
 <!ENTITY rptdailysales.sortby.discount_subtotal "Discount">
 <!ENTITY rptdailysales.sortby.promotion_subtotal "Promotion">

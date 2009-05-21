@@ -1,14 +1,14 @@
 /* sycn_settings */
 .bgtext {
     color: #ddd;
-    font-size: 128px;
+    font-size: 80px;
     font-style: italic;
     font-weight: bold;
     text-align: center;
 }
 .tablebox td {
   empty-cells: show;
-  height: 24px;
+  height: 18px;
 }
 
 .tdb_green {
@@ -33,10 +33,10 @@
     */
 
     color: #eef;
-    font-size: 28px;
+    font-size: 18px;
     font-style: italic;
     font-weight: bold;
-    width: 64px;
+    width: 40px;
     text-align: center;
     float: left;
 }
@@ -48,10 +48,10 @@
 .checks {
     background-color: none;
     color: #f33;
-    font-size: 24px;
+    font-size: 16px;
     text-align: right;
     float: right;
-    margin-top: 12px;
+    margin-top: 6px;
 }
 .check_no {
     background-color: none;

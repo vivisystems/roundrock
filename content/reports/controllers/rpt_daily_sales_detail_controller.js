@@ -6,7 +6,8 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-    RptBaseController.extend( {
+    var __controller__ = {
+
         name: 'RptDailySalesDetail',
         
         _fileName: 'rpt_daily_sales_detail',
@@ -235,5 +236,7 @@
 
             this._enableButton(false);            
         }
-    });
+    };
+
+    RptBaseController.extend(__controller__);
 })();

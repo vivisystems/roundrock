@@ -298,7 +298,7 @@
                 order_id: orderid,
                 batch: batch,
                 sequence: orderseq,
-                device: device
+                device: device,
             };
 
             orderReceiptModel.save(orderReceipt);
@@ -470,6 +470,7 @@
                 order: order
             };
 
+/*
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
                 var user = new GeckoJS.AclComponent().getUserPrincipal();
                 if ( user != null ) {
@@ -477,6 +478,7 @@
                     order.proceeds_clerk_displayname = user.description;
                 }
             }
+*/
 
             //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
             //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
@@ -623,6 +625,7 @@
                 order: order
             };
 
+/*
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
                 var user = new GeckoJS.AclComponent().getUserPrincipal();
                 if ( user != null ) {
@@ -630,6 +633,7 @@
                     order.proceeds_clerk_displayname = user.description;
                 }
             }
+*/
 /*
             //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
             //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
@@ -790,10 +794,10 @@
             }
 
             //@debug
-            //if (data.order) this.log(this.dump(data.order));
-            // if (data.customer) this.log(this.dump(data.customer));
-            // if (data.store) this.log(this.dump(data.store));
-            // if (data.annotations) this.log(this.dump(data.annotations));
+            //if (data && data.order) this.log('duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
+            //if (data.customer) this.log(this.dump(data.customer));
+            //if (data.store) this.log(this.dump(data.store));
+            //if (data.annotations) this.log(this.dump(data.annotations));
 
             // check if item is linked to this printer and set 'linked' accordingly
             if (data != null) {
@@ -805,7 +809,7 @@
                 //this.log('routingGroups: ' + GeckoJS.BaseObject.dump(data.routingGroups));
                 for (var i in data.order.items) {
                     var item = data.order.items[i];
-                    if (data.printAllRouting) {
+                    if (data.printAllRouting && (data.duplicate || item.batch == data.order.batchCount)) {
                         item.linked = true;
                         empty = false;
                     }
@@ -822,13 +826,11 @@
                         if (device.printNoRouting) {
                             if (item.link_group == null || item.link_group == '') {
                                 item.linked = true;
-                                empty = false;
                             }
                         }
 
                         if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group && item.link_group.indexOf(data.linkgroup) > -1) {
                             item.linked = true;
-                            empty = false;
                         }
 
                         if (!item.linked && data.printNoRouting) {
@@ -849,9 +851,11 @@
 
                             if (noRoutingGroups) {
                                 item.linked = true;
-                                empty = false;
                             }
                         }
+
+                        item.linked = item.linked && (data.duplicate || item.batch == data.order.batchCount);
+                        if (item.linked) empty = false;
                     }
                     //this.log('item linked: ' + item.linked);
                 }
@@ -910,8 +914,12 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
+<<<<<<< HEAD:content/controllers/print_controller.js
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
+=======
+            this.log(GeckoJS.BaseObject.dump(result));
+>>>>>>> fe87691fd01e68785e890e319b32be986c67d971:content/controllers/print_controller.js
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values
@@ -987,6 +995,8 @@
                                     }
                                 }
                                 self.closeSerialPort(portPath);
+                                if (data && data.order) {
+                                }
                             }
                         }
                         if (printed == 0) {

@@ -86,6 +86,9 @@
 
                 if (width < convertedLength) {
                     str = subStr(str, 0, width);
+
+                    // subStr might have left the string shorter than desired width, so we still need to pad
+                    str = GeckoJS.String.padRight(str, str.length + width - strLen(str), ' ');
                 }
                 else {
                     var leftPaddingWidth = Math.floor((width - convertedLength) / 2);
@@ -122,6 +125,9 @@
 
                 if (width < convertedLength) {
                     str = subStr(str, 0, width);
+
+                    // subStr might have left the string shorter than desired width, so we still need to pad
+                    str = GeckoJS.String.padRight(str, str.length + width - strLen(str), ' ');
                 }
                 else {
                     var rightPaddingWidth = width - convertedLength;
@@ -156,6 +162,9 @@
 
                 if (width < convertedLength) {
                     str = subStr(str, 0, width);
+
+                    // subStr might have left the string shorter than desired width, so we still need to pad
+                    str = GeckoJS.String.padLeft(str, str.length + width - strLen(str), ' ');
                 }
                 else {
                     var leftPaddingWidth = width - convertedLength;
@@ -187,6 +196,9 @@
 
                 if (width < len) {
                     str = subStr(str, 0, width);
+
+                    // subStr might have left the string shorter than desired width, so we still need to pad
+                    str = GeckoJS.String.padRight(str, str.length + width - strLen(str), ' ');
                 }
                 return str;
             },
@@ -223,8 +235,8 @@
 
                 width = Math.floor(Math.abs(width));
                 index = Math.floor(Math.abs(index));
-                str = subStr(str, index, width);
-                return str;
+                var substr = subStr(str, index, width);
+                return substr;
             }
         };
 }) ();

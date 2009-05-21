@@ -26,37 +26,37 @@
             	<td colspan="5" class="subtitle">${result.name} - ${result.code}</td>
             </tr>
             <tr class="fields">
-                <th style="text-align: left;">${_( '(rpt)Date' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Total' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Order Count' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Promotion Subtotal' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Matched Count' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Matched Items Qty.' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Matched Items Subtotal' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Date' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Order Count' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Promotion Subtotal' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Matched Count' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Matched Items Quantity' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Matched Items Subtotal' )}</th>
             </tr>
         </thead>
         <tbody>
 {for entry in result.entries}
             <tr>
-                <td style="text-align: left;">${entry.date}</td>
-                <td style="text-align: right;">${entry.total|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${entry.order_count|default:0}</td>
-                <td style="text-align: right;">${entry.promotion_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${entry.matched_count|default:0}</td>
-                <td style="text-align: right;">${entry.matched_items_qty|default:0}</td>
-                <td style="text-align: right;">${entry.matched_items_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: center;">${entry.date}</td>
+                <td style="text-align: right;">${entry.gross|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${entry.order_count|format:0}</td>
+                <td style="text-align: right;">${entry.promotion_subtotal|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${entry.matched_count|format:0}</td>
+                <td style="text-align: right;">${entry.matched_items_qty|format:0}</td>
+                <td style="text-align: right;">${entry.matched_items_subtotal|viviFormatPrices:true}</td>
             </tr>
 {/for}
         </tbody>
         <tfoot>
             <tr>
                 <td>${_( '(rpt)Summary' ) + ':'}</td>
-                <td style="text-align: left;">${result.summary.total|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${result.summary.order_count|default:0}</td>
-                <td style="text-align: right;">${result.summary.promotion_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${result.summary.matched_count|default:0}</td>
-                <td style="text-align: right;">${result.summary.matched_items_qty|default:0}</td>
-                <td style="text-align: right;">${result.summary.matched_items_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: center;">${result.summary.gross|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${result.summary.order_count|format:0}</td>
+                <td style="text-align: right;">${result.summary.promotion_subtotal|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${result.summary.matched_count|format:0}</td>
+                <td style="text-align: right;">${result.summary.matched_items_qty|format:0}</td>
+                <td style="text-align: right;">${result.summary.matched_items_subtotal|viviFormatPrices:true}</td>
             </tr>
         </tfoot>
     </table>

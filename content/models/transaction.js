@@ -73,7 +73,7 @@
                 table_no: '',
                 check_no: '',
 
-                no_of_customers: 0,
+                no_of_customers: '',
 
                 terminal_no: '',
                 sale_period: '',
@@ -153,14 +153,26 @@
         process: function(status, discard) {
             this.data.status = status;
 
-            this.data.terminal_no = GeckoJS.Session.get('terminal_no');
-            this.data.modified = Math.round(new Date().getTime() / 1000 );
+            // set sale period and shift number
+            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
+            var salePeriod = (shiftController) ? shiftController.getSalePeriod() : '';
+            var shiftNumber = (shiftController) ? shiftController.getShiftNumber() : '';
+
+            this.data.sale_period = salePeriod;
+            this.data.shift_number = shiftNumber;
+
+            // set branch and terminal info
+            var terminalNo = GeckoJS.Session.get('terminal_no') || '';
+            this.data.terminal_no = terminalNo;
 
             var store = GeckoJS.Session.get('storeContact');
+
             if (store) {
                 this.data.branch = store.branch;
                 this.data.branch_id = store.branch_id;
             }
+
+            this.data.modified = Math.round(new Date().getTime() / 1000 );
             
             var self = this;
             // maintain stock...
@@ -175,6 +187,9 @@
 
                 // order save in main thread
                 var order = new OrderModel();
+                if (this.data.status == 1 || this.data.no_of_customers == '') {
+                    this.data.no_of_customers = '1';
+                }
                 order.saveOrder(this.data);
 
                 if (this.data.status == 2) {
@@ -208,24 +223,6 @@
                     this.data.proceeds_clerk = user.username;
                     this.data.proceeds_clerk_displayname = user.description;
                 }
-            }
-
-            // set sale period and shift number
-            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
-            var salePeriod = (shiftController) ? shiftController.getSalePeriod() : '';
-            var shiftNumber = (shiftController) ? shiftController.getShiftNumber() : '';
-
-            this.data.sale_period = salePeriod;
-            this.data.shift_number = shiftNumber;
-
-            // set branch and terminal info
-            var terminalNo = GeckoJS.Session.get('terminal_no') || '';
-            var store = GeckoJS.Session.get('storeContact');
-
-            this.data.terminal_no = terminalNo;
-            if (store) {
-                this.data.branch = store.branch;
-                this.data.branch_id = store.branch_id;
             }
 
             this.process(status);
@@ -2337,7 +2334,7 @@
 
             promotion_subtotal = this.data.promotion_subtotal ;
 
-            total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal - promotion_subtotal;
+            total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal + promotion_subtotal;
             remain = total - payment_subtotal;
 
             // revalue

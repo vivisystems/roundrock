@@ -196,6 +196,20 @@
                 return;
             }
 
+            // check if tax is part of a combined tax
+            var taxList = this.Tax.getTaxList('COMBINE');
+            for (var i = 0; i < taxList.length; i++) {
+                var cTax = taxList[i];
+                if (cTax.CombineTax) {
+                    for (var j = 0; j < cTax.CombineTax.length; j++) {
+                       if (cTax.CombineTax[j].combine_tax_id == tax.id) {
+                            NotifyUtils.warn(_('[%S] is part of combined tax [%S] and may not be deleted', [tax.name, cTax.name]));
+                            return;
+                       }
+                    }
+                }
+            }
+            
             if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [tax.name]), _('Are you sure?')) == false) {
                 return;
             }

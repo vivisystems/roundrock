@@ -19,12 +19,13 @@
     <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
     <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
     <stylesheet src="chrome://viviecr/skin/user/table_status_btn.css" />
+    <stylesheet src="chrome://viviecr/skin/user/TableStyle.css" />
   </resources>
 
   <content>
-    <xul:hbox flex="1" xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
-    <html:div anonid="face_div" style="position: relative;">
-        <html:div anonid="div" style="position: absolute; top: 10px; width: 100%; text-align: center;">
+    <xul:hbox xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
+    <!-- html:div anonid="face_div" style="position: relative;">
+        <html:div anonid="bg_div" style="position: absolute; top: 10px; width: 100%; text-align: center;">
             <html:span anonid="bg_table_no" class="bgtext">12</html:span>
         </html:div>
         <html:div anonid="div" style="position: absolute; top: 0px; width: 100%;">
@@ -56,7 +57,51 @@
                 </html:tr>
             </html:table>
         </html:div>
-    </html:div>
+    </html:div -->
+
+        <html:div anonid="face_div" class="style02">
+            
+			<html:div anonid="table_status" class="greentable">
+				<html:div class="topItem">
+					<html:div class="tableData">
+						<html:div class="tableName">
+							<html:div class="checkNum">
+                                <html:span anonid="checks"></html:span>
+                                
+                            </html:div>
+							<html:span anonid="table_label"></html:span><html:br />
+						</html:div>
+						<html:div class="tableInfo">
+							<html:div class="remark">
+                                <html:span anonid="seq_no" class="seq_no">S#200903212324</html:span><html:br />
+                                
+                                <html:span anonid="booking" class="booking">B#17:30</html:span><html:br />
+                                
+                                <html:span anonid="caption" class="tdb_green"></html:span><html:br />
+
+							</html:div>
+                            <html:span anonid="check_no" class="check_no">C#36</html:span><html:br />
+                            <html:span anonid="subtotal" class="subtotal">T#785</html:span><html:br />
+						</html:div>
+					</html:div>
+					<html:div class="tableNo">
+						<html:span anonid="table_no"></html:span>
+						<html:div class="time">
+							<html:span anonid="period">12:00</html:span>
+						</html:div>
+					</html:div>
+				</html:div>
+				<html:div class="bgItem">
+					<html:span anonid="bg_table_no">12</html:span>
+				</html:div>
+				<html:div class="bottomItem">
+					<html:div class="people">
+							<html:span anonid="capacity"></html:span>
+					</html:div>
+				</html:div>
+			</html:div>
+		</html:div>
+
   </xul:hbox>
 
   </content>
@@ -67,6 +112,9 @@
     <field name="_main_container">
         document.getAnonymousElementByAttribute(this, "anonid", "boxContainer");
     </field>
+    <field name="_table_status">
+        document.getAnonymousElementByAttribute(this, "anonid", "table_status");
+    </field>
     <field name="_caption">
         document.getAnonymousElementByAttribute(this, "anonid", "caption");
     </field>
@@ -76,6 +124,9 @@
     <field name="_face_div">
         document.getAnonymousElementByAttribute(this, "anonid", "face_div");
     </field>
+    <!-- field name="_bg_div">
+        document.getAnonymousElementByAttribute(this, "anonid", "bg_div");
+    </field -->
     <field name="_table_no">
         document.getAnonymousElementByAttribute(this, "anonid", "table_no");
     </field>
@@ -183,6 +234,9 @@
 	<xbl:constructor><![CDATA[
 
             var self = this;
+            if (self._main_container.boxObject.width != 0) {
+                    self._face_div.setAttribute('style', "position: relative; width: " + self._main_container.boxObject.width + "px;");
+            }
 
             // resizeButton
             this.ready = false;
@@ -268,7 +322,18 @@
     <method name="setTableStatus">
         <parameter name="status"/>
         <body><![CDATA[
-
+        switch (status) {
+        case 0:
+            this._table_status.className = "greentable";
+            break;
+        case 1:
+            this._table_status.className = "redtable";
+            break;
+        case 2:
+            this._table_status.className = "bluetable";
+            break;
+        }
+        return;
         switch (status) {
         case 0:
             this._table_no.className = "table_no table_green";
@@ -290,7 +355,7 @@
     <method name="setPeriodStatus">
         <parameter name="status"/>
         <body><![CDATA[
-
+        return;
         switch (status) {
         case 0:
             this._period.className = "period";
@@ -309,7 +374,7 @@
     <method name="setCapacityStatus">
         <parameter name="status"/>
         <body><![CDATA[
-
+        return;
         switch (status) {
         case 0:
             this._capacity.className = "capacity";

@@ -6,31 +6,32 @@
 <!ENTITY rptorderstatus.exportcsv "Export to CSV">
 <!ENTITY rptorderstatus.exportrcp "Print">
 <!ENTITY rptorderstatus.togglezoom "Toggle Zoom">
-<!ENTITY rptorderstatus.machineid "Terminal Number:">
+<!ENTITY rptorderstatus.terminal_no "Terminal:">
 <!ENTITY rptorderstatus.sortby "Sort By:">
-<!ENTITY rptorderstatus.terminal_no "Terminal Number">
-<!ENTITY rptorderstatus.time "Time">
-<!ENTITY rptorderstatus.sequence "Sequence">
-<!ENTITY rptorderstatus.invoice_no "Invoice Number">
-<!ENTITY rptorderstatus.tax_subtotal "Add-on Tax">
-<!ENTITY rptorderstatus.total "Net Sales">
-<!ENTITY rptorderstatus.payment_subtotal "Payment">
-<!ENTITY rptorderstatus.item_subtotal "Total">
-<!ENTITY rptorderstatus.surcharge_subtotal "Surcharge">
-<!ENTITY rptorderstatus.discount_subtotal "Discount">
-<!ENTITY rptorderstatus.promotion_subtotal "Promotion">
-<!ENTITY rptorderstatus.revalue_subtotal "Revalue">
+<!ENTITY rptorderstatus.sortby.terminal_no "Terminal">
+<!ENTITY rptorderstatus.sortby.time "Time">
+<!ENTITY rptorderstatus.sortby.sequence "Sequence">
+<!ENTITY rptorderstatus.sortby.invoice_no "Invoice Number">
+<!ENTITY rptorderstatus.sortby.tax_subtotal "Add-on Tax">
+<!ENTITY rptorderstatus.sortby.status "Order Status">
+<!ENTITY rptorderstatus.sortby.total "Net Sales">
+<!ENTITY rptorderstatus.sortby.annotation_type "Annotation Type">
+<!ENTITY rptorderstatus.sortby.payment_subtotal "Payment">
+<!ENTITY rptorderstatus.sortby.item_subtotal "Gross">
+<!ENTITY rptorderstatus.sortby.surcharge_subtotal "Surcharge">
+<!ENTITY rptorderstatus.sortby.discount_subtotal "Discount">
+<!ENTITY rptorderstatus.sortby.promotion_subtotal "Promotion">
+<!ENTITY rptorderstatus.sortby.revalue_subtotal "Revalue">
 <!ENTITY rptorderstatus.all "List All">
 <!ENTITY rptorderstatus.wait "Waiting...">
-<!ENTITY rptorderstatus.service_clerks "Service Clerks:">
-<!ENTITY rptorderstatus.service_clerk "Service Clerk">
 <!ENTITY rptorderstatus.orderstatus "Order Status:">
-<!ENTITY rptorderstatus.finalizedorder "Finalized">
+<!ENTITY rptorderstatus.finalizedorder "Completed">
 <!ENTITY rptorderstatus.savedorder "Stored">
 <!ENTITY rptorderstatus.canceledorder "Canceled">
 <!ENTITY rptorderstatus.voidedorder "Voided">
-<!ENTITY rptorderstatus.status "Status">
 <!ENTITY rptorderstatus.periodtype "Period Type:">
-<!ENTITY rptorderstatus.transaction_created "Order Opened Time">
+<!ENTITY rptorderstatus.annotationtype "Annotation Type:">
+<!ENTITY rptorderstatus.transaction_created "Order Opened">
+<!ENTITY rptorderstatus.transaction_submitted "Last Modified">
 <!ENTITY rptorderstatus.sale_period "Sale Period">
-<!ENTITY rptorderstatus.shiftno "Shift Number:">
+<!ENTITY rptorderstatus.shiftno "Shift:">

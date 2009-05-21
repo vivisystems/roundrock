@@ -1,5 +1,8 @@
 <!ENTITY preferences.title "General Options">
-<!ENTITY category.layout "Layout">
+<!ENTITY category.layout.top "Layout">
+<!ENTITY category.layout.general "General">
+<!ENTITY category.layout.panels "Panels">
+<!ENTITY category.layout.toolbar "Toolbar">
 <!ENTITY category.general "General">
 <!ENTITY category.formats "Numbers &amp; Formats">
 <!ENTITY category.login "Sign In/Out">
@@ -8,10 +11,6 @@
 <!ENTITY category.destinations "Destinations">
 <!ENTITY category.annotations "Annotations">
 <!ENTITY category.orderdata "Data Options">
-<!ENTITY general.showtoolbar "Show tool bar (may require restart)">
-<!ENTITY general.showclockinicon "Show clock-in icon">
-<!ENTITY general.showvirtualkeyboardicon "Show virtual keyboard icon">
-<!ENTITY general.showcontrolpanelicon "Show control panel icon">
 <!ENTITY general.publicattendance "Individual Time-and-Attendance visible to all">
 <!ENTITY general.defaultpricelevel "System default price level">
 <!ENTITY general.activepricelevelschedule "Activate price level schedule">
@@ -56,6 +55,10 @@
 <!ENTITY layout.functionpanel.rows "rows">
 <!ENTITY layout.functionpanel.cols "columns">
 <!ENTITY layout.functionpanel.height "panel height">
+<!ENTITY layout.showtoolbar "Show tool bar (may require restart)">
+<!ENTITY layout.showclockinicon "Show clock-in icon">
+<!ENTITY layout.showvirtualkeyboardicon "Show virtual keyboard icon">
+<!ENTITY layout.showconfigicon "Show control panel icon">
 <!ENTITY tax.defaulttaxstatus "System default tax status">
 <!ENTITY plufilter.filtername "Filter Name">
 <!ENTITY plufilter.index "Index">

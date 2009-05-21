@@ -6,7 +6,8 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-    RptBaseController.extend( {
+    var __controller__ = {
+
         name: 'RptCashDrawerSummary',
         
         _fileName: 'rpt_cash_drawer_summary',
@@ -92,5 +93,7 @@
 
             this._enableButton( false );
         }
-    });
+    };
+
+    RptBaseController.extend(__controller__);
 })();

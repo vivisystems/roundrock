@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/product.css" type="text/css"?>
+
+<!DOCTYPE overlay [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % TableMan SYSTEM "chrome://viviecr/locale/table_man.dtd">
+  %TableMan;
+  ]>
+
+<overlay id="tableBookOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <box id="tableBookContainer">
+        <textbox id="booking_id" name="id" form="bookingForm" readonly="true" hidden="true"/>
+        <textbox id="booking_table_id" name="table_id" form="bookingForm" readonly="true" hidden="true"/>
+        <textbox id="booking_table_no" name="table_no" form="bookingForm" readonly="true" hidden="true"/>
+        <vbox flex="1">
+            <caption id="booking_table_title" label="" />
+            <vbox flex="1">
+                <vbox pack="start" flex="1" class="LeftPnl">
+                    <viviscrollabletree id="bookingscrollabletree" flex="1"
+                                    headers="&tableman.booking.booking;,&tableman.booking.contact;,&tableman.booking.telephone;"
+                                    fields="booking,contact,telephone"
+                                    onclick="$do('selectBooking',this.selectedIndex, 'TableBook');"
+                                    class="ListPnl" hidecolumnpicker="true"
+                                    scrollUpClass="ScrollUp" dir="normal"
+                                    scrollDownClass="ScrollDown">
+                        <spacer flex="1" />
+                    </viviscrollabletree>
+                    <hbox>
+                        <label value="&tableman.booking.count;"/><label id="booking_count"/>
+                    </hbox>
+                </vbox>
+                <grid class="DataForm">
+                    <columns flex="1">
+                        <column flex="1" />
+                        <column flex="1" />
+                    </columns>
+                    <rows>
+
+                        <!-- row one -->
+                        <row>
+                            <vbox flex="1">
+                                <label control="booking_time" value="&tableman.booking.booking;"/>
+                                <textbox id="booking_time" hidden="true" name="booking" form="bookingForm" default="" onfocus="select()"/>
+                                <!-- vividatetimepicker id="booking_time" name="booking" form="bookingForm" type="popup"/ -->
+                                <vividatetimepicker id="booking_time_tmp" type="popup"/>
+                            </vbox>
+                            <vbox flex="1">
+                                <label control="booking_contact" value="&tableman.booking.contact;"/>
+                                <textbox id="booking_contact" name="contact" form="bookingForm" default=""  onfocus="select()"
+                                         oninput="$do('validateForm', null, 'TableMan');"/>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox flex="1">
+                                <label control="booking_address" value="&tableman.booking.address;"/>
+                                <textbox id="booking_address" name="address" form="bookingForm" default="" onfocus="select()"/>
+                            </vbox>
+                            <vbox flex="1">
+                                <label control="booking_telephone" value="&tableman.booking.telephone;"/>
+                                <textbox id="booking_telephone" name="telephone" form="bookingForm" default="" onfocus="select()"/>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox flex="1">
+                                <label control="booking_note" value="&tableman.booking.note;"/>
+                                <textbox id="booking_note" name="note" form="bookingForm" default=""  onfocus="select()"
+                                         oninput="$do('validateForm', null, 'TableMan');"/>
+                            </vbox>
+
+                        </row>
+                    </rows>
+                </grid>
+            </vbox>
+            <hbox>
+                <hbox class="ToolBar" flex="1">
+                    <button id="add_book"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addBooking', null, 'TableBook');"/>
+                    <button id="modify_book"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyBooking', null, 'TableBook');"/>
+                    <spacer flex="1"/>
+                    <button id="delete_book"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteBooking', null, 'TableBook');"/>
+                </hbox>
+                <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
+                    <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </box>
+</overlay>

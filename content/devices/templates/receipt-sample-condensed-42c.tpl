@@ -4,27 +4,35 @@
 [&QSON]${store.name|center:21}[&QSOFF]
 [&DWON]${store.branch|center:21}[&DWOFF]
 ${store.telephone1|center:42}
-Opened:   ${(new Date(order.created)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
+${'Opened:'|left:10}${(new Date(order.created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+${'Printed:'|left:10}${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+${'Terminal:'|left:10}${order.terminal_no|left:10} ${'Clerk:'|left:6}${order.proceeds_clerk_displayname|left:15}
 ------------------------------------------
 {for item in order.items_summary}
- ${item.qty_subtotal|right:3} X ${item.name|left:23} ${txn.formatPrice(item.subtotal)|right:10}
-{if item.discount_subtotal != 0}${txn.formatPrice(item.discount_subtotal)|right:41}
+ ${item.qty_subtotal|right:3} X ${item.name|left:23} ${item.subtotal|viviFormatPrices:true|right:10}
+{if item.discount_subtotal != 0}${item.discount_subtotal|viviFormatPrices:true|right:41}
 {/if}
-{if item.surcharge_subtotal != 0}${'+' + txn.formatPrice(item.surcharge_subtotal)|right:41}
+{if item.surcharge_subtotal != 0}${'+' + item.surcharge_subtotal|viviFormatPrices:true|right:41}
 {/if}
 {/for}
 ------------------------------------------
-{if order.trans_discount_subtotal != 0}Order Discount:  ${txn.formatPrice(order.trans_discount_subtotal)|right:24}
+{if order.trans_discount_subtotal != 0}${'Order Discount:'|left:15} ${order.trans_discount_subtotal|viviFormatPrices:true|right:26}
 {/if}
-{if order.trans_surcharge_subtotal != 0}Order Surcharge: ${txn.formatPrice(order.trans_surcharge_subtotal)|right:24}
+{if order.trans_surcharge_subtotal != 0}${'Order Surcharge:'|left:15} ${order.trans_surcharge_subtotal|viviFormatPrices:true|right:26}
 {/if}
-Tax:       ${txn.formatPrice(order.tax_subtotal)|right:30}
-Total:     ${txn.formatPrice(order.total)|right:30}
+{if order.revalue_subtotal != 0}${'Order Revalue:'|left:15} ${order.revalue_subtotal|viviFormatPrices:true|right:26}
+{/if}
+{if order.promotion_subtotal != 0}${'Promotion:'|left:15} ${order.promotion_subtotal|viviFormatPrices:true|right:26}
+{/if}
+${'Tax:'|left:15} ${order.tax_subtotal|viviFormatPrices:true|right:26}
+${'Total:'|left:15} ${order.total|viviFormatPrices:true|right:26}
 [&CR]
-Received:  ${txn.formatPrice(order.payment_subtotal)|right:30}
-CHANGE:    ${txn.formatPrice(0 - order.remain)|right:30}
+${'Received:'|left:15} ${order.payment_subtotal|viviFormatPrices:true|right:26}
+{if order.remain > 0}
+${'BALANCE:'|left:15} ${order.remain|viviFormatPrices:true|right:26}
+{else}
+${'CHANGE:'|left:15} ${(0 - order.remain)|viviFormatPrices:true|right:26}
+{/if}
 ------------------------------------------
 [&CR]
 ${'Thank you for shopping at ' + store.name +'!'|center:42}
@@ -34,3 +42,6 @@ ${'Thank you for shopping at ' + store.name +'!'|center:42}
 [&CR]
 [&CR]
 [&PC]
+[&CR]
+[&CR]
+[&CR]

@@ -45,13 +45,13 @@
 
                 switch(type) {
                     case 'by_fixed_value':
-                        discount = parseFloat((cheapest_price-value)*qty);
+                        discount = (0 - parseFloat((cheapest_price-value)*qty));
                         break;
                     case 'by_amount_off':
-                        discount = parseFloat(value*qty);
+                        discount = (0 - parseFloat(value*qty));
                         break;
                     case 'by_percentage_off':
-                        discount = parseFloat((cheapest_price * value / 100)*qty);
+                        discount = (0 - parseFloat((cheapest_price * value / 100)*qty));
                         break;
                 }
                 

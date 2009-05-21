@@ -42,10 +42,6 @@
                 r = this.saveOrderPayments(data);
                 r = this.saveOrderItemCondiments(data);
                 r = this.saveOrderPromotions(data);
-
-            // serialize to database
-            // serialize must call serializeOrder by your self
-            // r = this.serializeOrder(data);
             }
 
         },
@@ -58,7 +54,26 @@
             // this.id = orderData.id;  // remove id , this will to cause model.exists finding data exists.
             this.create();
             this.begin();
+
             r = this.save(orderData);
+
+            if (!r) {
+                // save failure try again
+                //GREUtils.log('save failure')
+                this.log('WARN', 'saveOrderMaster error, Try again (id='+orderData.id+')');
+                r = this.save(orderData);
+            }
+
+            if (!r) {
+                // find by order_id
+                var c = this.findCount("id='"+orderData.id+"'");
+                if (c <= 0) {
+                    // save failure try again
+                    this.log('ERROR', 'saveOrderMaster error (not exists) , Try again (id='+orderData.id+')');
+                    r = this.save(orderData);
+                }
+            }
+            // always close open transaction
             this.commit();
             return r;
         },
@@ -158,10 +173,6 @@
                     case 'trans_surcharges':
                     case 'trans_payments':
                     case 'markers':
-                        break;
-
-                    case 'promotion_subtotal':
-                        orderData['promotion_subtotal'] = parseFloat(0-data['promotion_subtotal']);
                         break;
                     default:
                         orderData[key] = data[key];
@@ -316,7 +327,7 @@
 
                 applyItem['order_id'] = data.id;
                 applyItem['promotion_id'] = applyItem['id'];
-                applyItem['discount_subtotal'] = parseFloat(0 - applyItem['discount_subtotal']);
+                applyItem['discount_subtotal'] = applyItem['discount_subtotal'];
                 delete (applyItem['id']);
 
                 orderPromotions.push(applyItem);

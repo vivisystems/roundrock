@@ -12,7 +12,7 @@
         startup: function() {
             var settings = this.getSettings();
             this.triggerPlus = settings.data.concat([]);
-            // this.log('statup ' + this.dump(this.triggerPlus));
+             //this.log('statup ' + this.dump(this.triggerPlus));
         },
 
         execute: function() {
@@ -41,7 +41,7 @@
 
             var sql = "SELECT SUM(current_qty) AS qty, SUM(current_qty*current_price) AS subtotal FROM promotion_cart_items WHERE "+condition+" GROUP BY id";
 
-            // this.log('execute ' + sql) ;
+             //this.log('execute ' + sql) ;
             
             var result = cartItemModel.getDataSource().fetchAll(sql);
           

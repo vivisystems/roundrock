@@ -1,5 +1,6 @@
 (function(){
     include('chrome://viviecr/content/models/order.js');
+    include('chrome://viviecr/content/models/order_annotation.js');
 
     // include controllers  and register itself
     include('chrome://viviecr/content/reports/controllers/rpt_order_status_controller.js');

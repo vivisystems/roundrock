@@ -176,7 +176,7 @@
                 <thead>
                     <tr>
                         <th style="text-align: left;">${_( '(rpt)Department' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Qty' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
                         <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     </tr>
                 </thead>
@@ -236,7 +236,7 @@
                 <thead>
                     <tr>
                         <th style="text-align: left;">${_( '(rpt)Product' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Qty' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
                         <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     </tr>
                 </thead>

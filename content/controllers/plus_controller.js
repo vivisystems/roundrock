@@ -988,31 +988,33 @@
             var aName = _('Product Search');
             var width = this.screenwidth;
             var height = this.screenheight;
-            var inputObj = {buffer: ''};
+            var inputObj = {buffer: '', seltype: 'multiple'};
 
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
             if (inputObj.ok) {
-                if (inputObj.item) {
-                    var product = inputObj.item;
+                if (inputObj.selections && inputObj.selections.length > 0) {
+                    var self = this;
+                    inputObj.selections.forEach(function(product) {
+                        alert(product.name + ': ' + product.link_group + ': ' + plugroup.id);
+                        if (product.link_group.indexOf(plugroup.id) > -1) {
+                            // @todo OSD
+                            NotifyUtils.warn(_('Product [%S] already linked to to product group [%S]',
+                                               [product.name, plugroup.name]));
+                        }
+                        else {
+                            product.link_group += ((product.link_group) ? ',' : '') + plugroup.id;
 
-                    if (product.link_group.indexOf(plugroup.id) > -1) {
-                        // @todo OSD
-                        NotifyUtils.warn(_('Product [%S] already linked to to product group [%S]',
-                                           [product.name, plugroup.name]));
-                    }
-                    else {
-                        product.link_group += ((product.link_group) ? ',' : '') + plugroup.id;
+                            var productModel = new ProductModel();
+                            productModel.id = product.id;
+                            productModel.save(product);
 
-                        var productModel = new ProductModel();
-                        productModel.id = product.id;
-                        productModel.save(product);
-                        
-                        this.updateSession('modify', product, product);
+                            self.updateSession('modify', product, product);
+                        }
+                    });
 
-                        // @todo OSD
-                        OsdUtils.info(_('Product [%S] successfully linked to product group [%S]',
-                                        [product.name, plugroup.name]));
-                    }
+                    // @todo OSD
+                    OsdUtils.info(_('Selected products successfully linked to product group [%S]',
+                                    [plugroup.name]));
                 }
             }
             this.validateForm();
@@ -1058,6 +1060,7 @@
                             indexCateAll[data.cate_no] = [];
                         }
                         indexCateAll[(data.cate_no+"")].push((data.id+""));
+
                         if(GeckoJS.String.parseBoolean(data.visible)) {
                             indexCate[(data.cate_no+"")].push((data.id+""));
 
@@ -1345,7 +1348,7 @@
             GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
         },
 
-        // modified to handle the case where
+        // locate where a new element should be inserted into a sorted list
         locateIndex: function (elem, list, path) {
 
             // locate elem in list using binary search
@@ -1360,7 +1363,7 @@
             if ((low < N) && (list[low][path] == elem))
                 return low // found
             else
-                return -1 // not found             },
+                return -low // not found             },
         },
 
         selectPlu: function(index) {

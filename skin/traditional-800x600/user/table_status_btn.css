@@ -1,14 +1,14 @@
 /* sycn_settings */
 .bgtext {
     color: #ddd;
-    font-size: 96px;
+    font-size: 80px;
     font-style: italic;
     font-weight: bold;
     text-align: center;
 }
 .tablebox td {
   empty-cells: show;
-  height: 16px;
+  height: 18px;
 }
 
 .tdb_green {
@@ -33,7 +33,7 @@
     */
 
     color: #eef;
-    font-size: 24px;
+    font-size: 18px;
     font-style: italic;
     font-weight: bold;
     width: 40px;
@@ -48,7 +48,7 @@
 .checks {
     background-color: none;
     color: #f33;
-    font-size: 18px;
+    font-size: 16px;
     text-align: right;
     float: right;
     margin-top: 6px;

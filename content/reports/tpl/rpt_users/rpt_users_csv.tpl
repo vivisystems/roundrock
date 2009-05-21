@@ -7,5 +7,5 @@
 
 "${_( '(rpt)User Name' )}","${_( '(rpt)Display Name' )}","${_( '(rpt)Access Group' )}"
 {for user in body}
-"${user.username}","${user.displayname}","${user.group}"
+"'${user.username}","'${user.displayname}","'${user.group}"
 {/for}

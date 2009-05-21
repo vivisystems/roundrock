@@ -21,14 +21,16 @@
 
                 case "by_qty":
                     var qty = trigger.getMatchedItemsQty();
-                    discount = parseFloat(qty*value);
+                    discount = (0 - parseFloat(qty*value));
                     break;
 
                 case "by_subtotal":
                     var amount = trigger.getMatchedAmount();
-                    discount = parseFloat(amount*value);
+                    discount = (0 - parseFloat(amount*value));
                     break;
             }
+
+            //this.log('amount off discount = ' + discount);
 
             this.setDiscountSubtobal(discount);
             

@@ -22,6 +22,11 @@
     default:
       status = order.status;
   }
+
+  TrimPath.RoundingPrices = order.rounding_prices;
+  TrimPath.PrecisionPrices = order.precision_prices;
+  TrimPath.RoundingTaxes = order.rounding_taxes;
+  TrimPath.PrecisionTaxes = order.precision_taxes;
 {/eval}
 <hr/>
 <pre><table style="width: 720px">
@@ -46,13 +51,13 @@
         <td>${order.shift_number}</td>
     </tr>
     <tr>
-        <td style="width: 90px">${_('(view)open clerk')+':'}</td>
+        <td style="width: 90px">${_('(view)service clerk')+':'}</td>
         <td>${order.service_clerk_displayname}</td>
         <td style="width: 90px">${_('(view)opened')+':'}</td>
         <td>${(new Date(order.transaction_created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</td>
     </tr>
     <tr>
-        <td style="width: 90px">${_('(view)close clerk')+':'}</td>
+        <td style="width: 90px">${_('(view)proceeds clerk')+':'}</td>
         <td>${order.proceeds_clerk_displayname}</td>
         <td style="width: 90px">${_('(view)submitted')+':'}</td>
         <td>${(new Date(order.transaction_submitted * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</td>
@@ -151,6 +156,16 @@
     <tr>
         <td colspan="6"><hr/></td>
     </tr>
+{if item_adjustments != 0}
+    <tr>
+        <td>${_('(view)Item Adjustments')}</td>
+        <td style="text-align: right;">${item_adjustments|viviFormatPrices:true}</td>
+        <td colspan="3" style="text-align: right;">${item_adjustments|viviFormatPrices:true}</td>
+    </tr>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
+{/if}
 {if order.OrderAddition}
     {for adjustment in order.OrderAddition}
     <tr>
@@ -163,14 +178,6 @@
     </tr>
         {/if}
     {/for}
-    <tr>
-        <td colspan="6"><hr/></td>
-    </tr>
-    <tr>
-        <td>${_('(view)Adjustments')}</td>
-        <td style="text-align: right;">${item_adjustments|viviFormatPrices:true}</td>
-        <td colspan="3" style="text-align: right;">${order.surcharge_subtotal + order.discount_subtotal|viviFormatPrices:true}</td>
-    </tr>
     <tr>
         <td colspan="6"><hr/></td>
     </tr>
@@ -251,6 +258,12 @@
     {/for}
 {/if}
 </table></pre><hr/>
+{eval}
+  delete TrimPath.RoundingPrices;
+  delete TrimPath.PrecisionPrices;
+  delete TrimPath.RoundingTaxes;
+  delete TrimPath.PrecisionTaxes;
+{/eval}
 {elseif sequence}
 <H2>${_('Order sequence [%S] does not exist', [sequence])}</H2>
 {else}

@@ -28,7 +28,7 @@
                 <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Invoice Number' )}</th>
-                <th style="text-align: center;">${_( '(rpt)Net' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Order Surcharge' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Order Discount' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>

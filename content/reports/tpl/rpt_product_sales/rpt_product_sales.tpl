@@ -20,17 +20,17 @@
 
 {for category in body}
     <table id="body-table">
-        <!--caption>${head.title}</caption-->
         <thead>
         	<tr>
             	<td colspan="5" class="subtitle">${category.no} - ${category.name}</td>
             </tr>
             <tr class="fields">
-                <th style="text-align: left;">${_( '(rpt)No.' )}</th>
-                <th style="text-align: left;">${_( '(rpt)Name' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Avg. Price' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Qty' )}</th>
-                <th style="text-align: right;">${_( '(rpt)Total' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Product Number' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Product Name' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Average Price' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Quantities Sold' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Net Sales' )}</th>
             </tr>
         </thead>
         <tbody>
@@ -39,16 +39,19 @@
                 <td style="text-align: left;">${item.product_no}</td>
                 <td style="text-align: left;">${item.product_name}</td>
                 <td style="text-align: right;">${item.avg_price|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: right;">${item.qty}</td>
-                <td style="text-align: right;">${item.total|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.qty|format:0}</td>
+                <td style="text-align: right;">${item.gross|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.net|default:0|viviFormatPrices:true}</td>
             </tr>
 {/for}
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3">${_( '(rpt)Summary' ) + ':'}</td>
-                <td style="text-align: right;">${category.summary.qty|default:0}</td>
-                <td style="text-align: right;">${category.summary.total|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: left;">${_( '(rpt)Records Found' ) + ': '}${category.orderItems.length|format:0}</td>
+                <td colspan="2" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
+                <td style="text-align: right;">${category.summary.qty|format:0}</td>
+                <td style="text-align: right;">${category.summary.gross|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${category.summary.net|default:0|viviFormatPrices:true}</td>
             </tr>
         </tfoot>
     </table>
