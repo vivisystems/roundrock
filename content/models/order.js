@@ -32,6 +32,7 @@
             // remove old order data if exist...
             this.removeOldOrder(data.id);
 
+            //this.begin();
             var r;
             r = this.saveOrderMaster(data);
 
@@ -43,7 +44,9 @@
                 r = this.saveOrderItemCondiments(data);
                 r = this.saveOrderPromotions(data);
             }
-
+            //dump("before commit \n");
+            //var result = this.commit();
+            //dump("commit result = " + result + "\n" );
         },
 
         saveOrderMaster: function(data) {
@@ -53,10 +56,11 @@
 
             // this.id = orderData.id;  // remove id , this will to cause model.exists finding data exists.
             this.create();
-            this.begin();
+            //this.begin();
 
             r = this.save(orderData);
-
+            dump('svae master = ' + r + "\n");
+            /*
             if (!r) {
                 // save failure try again
                 //GREUtils.log('save failure')
@@ -74,7 +78,8 @@
                 }
             }
             // always close open transaction
-            this.commit();
+            //this.commit();
+            */
             return r;
         },
 
@@ -84,9 +89,9 @@
             var orderItems  = this.mappingTranToOrderItemsFields(data);
             var r;
 
-            this.OrderItem.begin();
+            //this.OrderItem.begin();
             r = this.OrderItem.saveAll(orderItems);
-            this.OrderItem.commit();
+            //this.OrderItem.commit();
             return r;
 
         },
@@ -96,9 +101,9 @@
             var orderAdditions  = this.mappingTranToOrderAdditionsFields(data);
             var r;
 
-            this.OrderAddition.begin();
+            //this.OrderAddition.begin();
             r = this.OrderAddition.saveAll(orderAdditions);
-            this.OrderAddition.commit();
+            //this.OrderAddition.commit();
             return r;
 
         },
@@ -106,9 +111,9 @@
         saveOrderItemCondiments: function(data) {
             var orderItemCondiments = this.mappingTranToOrderItemCondimentsFields(data);
             var r;
-            this.OrderItemCondiment.begin();
+            //this.OrderItemCondiment.begin();
             r = this.OrderItemCondiment.saveAll(orderItemCondiments);
-            this.OrderItemCondiment.commit();
+            //this.OrderItemCondiment.commit();
             return r;
         },
 
@@ -117,9 +122,9 @@
             var orderPayments  = this.mappingTranToOrderPaymentsFields(data);
             var r;
 
-            this.OrderPayment.begin();
+            //this.OrderPayment.begin();
             r = this.OrderPayment.saveAll(orderPayments);
-            this.OrderPayment.commit();
+            //this.OrderPayment.commit();
             return r;
 
         },
@@ -132,9 +137,9 @@
 
             // this.log('saveOrderPromotions ' + this.dump(orderPromotions));
 
-            this.OrderPromotion.begin();
+            //this.OrderPromotion.begin();
             r = this.OrderPromotion.saveAll(orderPromotions);
-            this.OrderPromotion.commit();
+            //this.OrderPromotion.commit();
             return r;
 
         },

@@ -38,6 +38,8 @@
                 <![CDATA[
 
                     this.syncSettings = (new SyncSetting()).read();
+                    this._online  = true;
+                    this._process  = false;
 
                     if (this.syncSettings && this.syncSettings.active == 1) {
 
@@ -58,6 +60,26 @@
                             this._onTimer();
                         }
                     }
+                    var self = this;
+
+                    this.observer = GeckoJS.Observer.newInstance({
+                        topics: ['sync_client_starting', 'sync_client_finished'],
+                        observe: function(aSubject, aTopic, aData) {
+
+                            switch(aTopic) {
+                                case 'sync_client_starting':
+                                    GeckoJS.Session.set('sync_client_status', 'starting');
+                                    self.setProcess(true);
+                                    break;
+
+                                case 'sync_client_finished':
+                                    GeckoJS.Session.set('sync_client_status', 'finished');
+                                    self.setProcess(false);
+                                    break;
+                            }
+                        }
+                    }).register();
+
 
                 ]]>
             </xbl:constructor>
@@ -65,6 +87,7 @@
             <xbl:destructor>
                 <![CDATA[
                 if(this.timerId) clearTimeout(this.timerId);
+                this.observer.unregister();
                 ]]>
             </xbl:destructor>
 
@@ -135,10 +158,15 @@
                 <body>
                     <![CDATA[
 
+                    this._online = isOnline;
+                    var isProcess = this._process ;
+
                     var image = this.image ;
 
                     if (isOnline) {
-                        if (image.src != 'chrome://viviecr/skin/icons/sync_online.png') {
+                        if (isProcess) {
+                            image.src = "chrome://viviecr/skin/icons/sync_process.png";
+                        }else {
                             image.src = "chrome://viviecr/skin/icons/sync_online.png";
                         }
                     }else {
@@ -150,6 +178,22 @@
                     ]]>
                 </body>
             </method>
+
+            <method name="setProcess">
+                <parameter name="isProcess" />
+                <body>
+                    <![CDATA[
+
+                    this._process = isProcess;
+
+                    var isOnline = this._online;
+
+                    this.setStatus(isOnline);
+
+                    ]]>
+                </body>
+            </method>
+
 
             <method name="showStatusPanel">
                 <parameter name="event" />

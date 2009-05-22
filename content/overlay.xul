@@ -32,7 +32,7 @@
   <script src='chrome://viviecr/content/controllers/components/tax.js'/>
   <script src='chrome://viviecr/content/controllers/components/guest_check.js'/>
 
-  <!-- front-end UI controllers -->
+    <!-- front-end UI controllers -->
   <script src='chrome://viviecr/content/controllers/main_controller.js'/>
   <script src='chrome://viviecr/content/controllers/cart_controller.js' type='application/x-javascript;version=1.7'/>
   <script src='chrome://viviecr/content/controllers/keypad_controller.js'/>
@@ -65,7 +65,7 @@
   <script src='chrome://viviecr/content/controllers/cashdrawer_controller.js'/>
   <script src='chrome://viviecr/content/controllers/gpio_controller.js'/>
 
-  <!-- idle controller -->
+  <!-- services controller -->
   <script src='chrome://viviecr/content/controllers/idle_controller.js'/>
 
   <!-- promotions controller -->
