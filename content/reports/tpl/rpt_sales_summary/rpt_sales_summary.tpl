@@ -154,34 +154,6 @@
         
         <td valign="top">
         	<table id="body-table">
-                <caption>${_( '(rpt)Top Department Sales' )}</caption>
-                <thead>
-                    <tr>
-                        <th style="text-align: left;">${_( '(rpt)Department' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
-                    </tr>
-                </thead>
-                <tbody>
-    {for detail in body.dept_sales.records}
-                    <tr>
-                        <td style="text-align: left;">${detail.cate_no}-${detail.cate_name}</td>
-                        <td style="text-align: right;">${detail.qty|default:0|format:0}</td>
-                        <td style="text-align: right;">${detail.gross|default:0|viviFormatPrices:true}</td>
-                    </tr>
-    {/for}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>${_( '(rpt)Summary' ) + ':'}</td>
-                        <td style="text-align: right;">${body.dept_sales.summary.qty|default:0|format:0}</td>
-                        <td style="text-align: right;">${body.dept_sales.summary.gross|default:0|viviFormatPrices:true}</td>
-                    </tr>
-                </tfoot>
-            </table>
-            <br />
-
-        	<table id="body-table">
                 <caption>${_( '(rpt)Hourly Sales' )}</caption>
                 <thead>
                     <tr>
@@ -211,8 +183,66 @@
                 </tfoot>
             </table>
             <br />
+            
+        	<table id="body-table">
+                <caption>${_( '(rpt)Top Department Sales' )}</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">${_( '(rpt)Department' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
+                    </tr>
+                </thead>
+                <tbody>
+    {for detail in body.dept_sales.records}
+                    <tr>
+                        <td style="text-align: left;">${detail.cate_no}-${detail.cate_name}</td>
+                        <td style="text-align: right;">${detail.qty|default:0|format:0}</td>
+                        <td style="text-align: right;">${detail.gross|default:0|viviFormatPrices:true}</td>
+                    </tr>
+    {/for}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>${_( '(rpt)Summary' ) + ':'}</td>
+                        <td style="text-align: right;">${body.dept_sales.summary.qty|default:0|format:0}</td>
+                        <td style="text-align: right;">${body.dept_sales.summary.gross|default:0|viviFormatPrices:true}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <br />
 
-            <table id="body-table">
+        	<table id="body-table">
+                <caption>${_( '(rpt)Top Product Sales' )}</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">${_( '(rpt)Product' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
+                        <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
+                    </tr>
+                </thead>
+                <tbody>
+    {for detail in body.prod_sales.records}
+                    <tr>
+                        <td style="text-align: left;">${detail.product_name}</td>
+                        <td style="text-align: right;">${detail.qty|default:0|format:0}</td>
+                        <td style="text-align: right;">${detail.gross|default:0|viviFormatPrices:true}</td>
+                    </tr>
+    {/for}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>${_( '(rpt)Summary' ) + ':'}</td>
+                        <td style="text-align: right;">${body.prod_sales.summary.qty|default:0|format:0}</td>
+                        <td style="text-align: right;">${body.prod_sales.summary.gross|default:0|viviFormatPrices:true}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <br />
+
+        </td>
+        <td valign="top">
+        	<table id="body-table">
                 <caption>${_( '(rpt)Destination Summary' )}</caption>
                 <thead>
                     <tr>
@@ -236,36 +266,6 @@
                     <tr>
                         <td></td>
                         <td></td>
-                    </tr>
-                </tfoot>
-            </table>
-            <br />
-
-        </td>
-        <td valign="top">
-            <table id="body-table">
-                <caption>${_( '(rpt)Top Product Sales' )}</caption>
-                <thead>
-                    <tr>
-                        <th style="text-align: left;">${_( '(rpt)Product' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
-                        <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>
-                    </tr>
-                </thead>
-                <tbody>
-    {for detail in body.prod_sales.records}
-                    <tr>
-                        <td style="text-align: left;">${detail.product_name}</td>
-                        <td style="text-align: right;">${detail.qty|default:0|format:0}</td>
-                        <td style="text-align: right;">${detail.gross|default:0|viviFormatPrices:true}</td>
-                    </tr>
-    {/for}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>${_( '(rpt)Summary' ) + ':'}</td>
-                        <td style="text-align: right;">${body.prod_sales.summary.qty|default:0|format:0}</td>
-                        <td style="text-align: right;">${body.prod_sales.summary.gross|default:0|viviFormatPrices:true}</td>
                     </tr>
                 </tfoot>
             </table>
