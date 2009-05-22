@@ -1428,7 +1428,7 @@ RequestReader.prototype =
         if (colon < 0)
         {
           host = hostPort;
-          port = "";
+          port = identity._defaultPort || ""; // by racklin 
         }
         else
         {
@@ -1451,7 +1451,7 @@ RequestReader.prototype =
         // the HTTPS case requires a tunnel/proxy and thus requires that the
         // requested URI be absolute (and thus contain the necessary
         // information), let's assume HTTP will prevail and use that.
-        port = +port || 80;
+        port = +port || this._port;
 
         var scheme = identity.getScheme(host, port);
         if (!scheme)
