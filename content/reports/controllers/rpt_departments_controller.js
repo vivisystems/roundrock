@@ -6,7 +6,8 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-    RptBaseController.extend( {
+    var __controller__ = {
+
         name: 'RptDepartments',
         
         _fileName: 'rpt_departments',
@@ -26,7 +27,7 @@
                 fields: [ 'no', 'name' ], order: orderby, limit: limit
             });
 
-            this._reportRecords.head.title = _( 'Department List' );
+            this._reportRecords.head.title = _( 'Department Report' );
             this._reportRecords.body = cateRecords;
         },
 
@@ -34,5 +35,7 @@
             this._super(this);
         }
 
-    } );
+    };
+
+    RptBaseController.extend(__controller__);
 })();

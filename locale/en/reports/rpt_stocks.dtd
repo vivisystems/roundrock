@@ -8,9 +8,9 @@
 <!ENTITY rptstocks.togglezoom "Toggle Zoom">
 <!ENTITY rptstocks.department "Department:">
 <!ENTITY rptstocks.sortby "Sort By:">
-<!ENTITY rptstocks.no "No.">
-<!ENTITY rptstocks.name "Name">
-<!ENTITY rptstocks.stock "Stock">
-<!ENTITY rptstocks.min_stock "Min. Stock">
+<!ENTITY rptstocks.sortby.no "Product Number">
+<!ENTITY rptstocks.sortby.name "Product Name">
+<!ENTITY rptstocks.sortby.stock "Stock Level">
+<!ENTITY rptstocks.sortby.min_stock "Low Stock Threshold">
 <!ENTITY rptstocks.all "List All">
 <!ENTITY rptstocks.wait "Waiting...">

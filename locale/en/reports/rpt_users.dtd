@@ -1,4 +1,4 @@
-<!ENTITY rptusers.title "User List">
+<!ENTITY rptusers.title "Employee List">
 <!ENTITY rptusers.conditions "Conditions:">
 <!ENTITY rptusers.startdate "Start Date:">
 <!ENTITY rptusers.enddate "End Date:">

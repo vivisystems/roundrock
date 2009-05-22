@@ -14,34 +14,34 @@ ${result.name} - ${result.code}
 {for entry in result.entries}
 ------------------------
 ${_( '(rpt)Date' ) + ':'}
-${entry.total|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Total' ) + ':'}
-${entry.total|default:0|viviFormatPrices:true|right:24}
+${entry.date|right:24}
+${_( '(rpt)Gross Sales' ) + ':'}
+${entry.gross|viviFormatPrices:true|right:24}
 ${_( '(rpt)Order Count' ) + ':'}
-${entry.order_count|default:0|right:24}
+${entry.order_count|format:0|right:24}
 ${_( '(rpt)Promotion Subtotal' ) + ':'}
-${entry.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
+${entry.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Matched Count' ) + ':'}
-${entry.matched_count|default:0|right:24}
-${_( '(rpt)Matched Items Qty.' ) + ':'}
-${entry.matched_items_qty|default:0|right:24}
+${entry.matched_count|format:0|right:24}
+${_( '(rpt)Matched Items Quantity' ) + ':'}
+${entry.matched_items_qty|format:0|right:24}
 ${_( '(rpt)Matched Items Subtotal' ) + ':'}
-${entry.matched_items_subtotal|default:0|viviFormatPrices:true|right:24}
+${entry.matched_items_subtotal|viviFormatPrices:true|right:24}
 {/for}
 ------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Total' ) + ':'}
-${result.summary.total|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Gross Sales' ) + ':'}
+${result.summary.gross|viviFormatPrices:true|right:24}
 ${_( '(rpt)Order Count' ) + ':'}
-${result.summary.order_count|default:0|right:24}
+${result.summary.order_count|format:0|right:24}
 ${_( '(rpt)Promotion Subtotal' ) + ':'}
-${result.summary.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
+${result.summary.promotion_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Matched Count' ) + ':'}
-${result.summary.matched_count|default:0|right:24}
-${_( '(rpt)Matched Items Qty.' ) + ':'}
-${result.summary.matched_items_qty|default:0|right:24}
+${result.summary.matched_count|format:0|right:24}
+${_( '(rpt)Matched Items Quantity' ) + ':'}
+${result.summary.matched_items_qty|format:0|right:24}
 ${_( '(rpt)Matched Items Subtotal' ) + ':'}
-${result.summary.matched_items_subtotal|default:0|viviFormatPrices:true|right:24}
+${result.summary.matched_items_subtotal|viviFormatPrices:true|right:24}
 {/for}
 ------------------------
 ${foot.gen_time}

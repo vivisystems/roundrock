@@ -7,7 +7,7 @@
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
-"${_( '(rpt)Terminal' )}","${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Net' )}","${_( '(rpt)Order Surcharge' )}","${_( '(rpt)Order Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Included Tax' )}"{for tax in taxList},"${tax.no + ' ' + _( '(rpt)Gross' )}","${tax.no}"{/for}
+"${_( '(rpt)Terminal' )}","${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Net Sales' )}","${_( '(rpt)Order Surcharge' )}","${_( '(rpt)Order Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Included Tax' )}"{for tax in taxList},"${tax.no + ' ' + _( '(rpt)Gross Sales' )}","${tax.no}"{/for}
 {for item in body}
 {eval}
   TrimPath.RoundingPrices = item.Order.rounding_prices;

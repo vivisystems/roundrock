@@ -36,6 +36,14 @@
   margin: 8px;
 }
 
+.AlertText {
+  font-size: 14pt;
+  color: #534741;
+  background-color: #f49b1d;
+  margin: 5px 8px;
+  font-weight: bold;
+}
+
 
 /*  */
 .LeftPnl {

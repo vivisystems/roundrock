@@ -28,7 +28,7 @@ ${_( '(rpt)Sequence' ) + ':'|left:24}
 ${item.Order.sequence|right:24}
 ${_( '(rpt)Invoice Number' ) + ':'|left:24}
 ${item.Order.invoice_no|default:''|right:24}
-${_( '(rpt)Net' ) + ':'|left:24}
+${_( '(rpt)Net Sales' ) + ':'|left:24}
 ${item.Order.total|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Order Surcharge' ) + ':'|left:24}
 ${item.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
@@ -53,7 +53,7 @@ else {
    tax_subtotal = 0;
 }
 {/eval}
-${tax.no + ' ' + _( '(rpt)Gross' ) + ':'|left:24}
+${tax.no + ' ' + _( '(rpt)Gross Sales' ) + ':'|left:24}
 ${item_subtotal|viviFormatPrices:true|right:24}
 ${tax.no + ':'|left:24}
 ${tax_subtotal|viviFormatTaxes:true|right:24}
@@ -70,7 +70,7 @@ ${_( '(rpt)Records Found' ) + ': '|left:16}${GeckoJS.BaseObject.getKeys(body).le
   delete TrimPath.PrecisionTaxes;
 {/eval}
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Total' ) + ':'|left:24}
+${_( '(rpt)Net Sales' ) + ':'|left:24}
 ${foot.summary.total|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Order Surcharge' ) + ':'|left:24}
 ${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
@@ -95,7 +95,7 @@ else {
    tax_subtotal = 0;
 }
 {/eval}
-${tax.no + ' ' + _( '(rpt)Gross' ) + ':'|left:24}
+${tax.no + ' ' + _( '(rpt)Gross Sales' ) + ':'|left:24}
 ${item_subtotal|viviFormatPrices:true|right:24}
 ${tax.no + ':'|left:24}
 ${tax_subtotal|viviFormatTaxes:true|right:24}

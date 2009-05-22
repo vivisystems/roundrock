@@ -739,7 +739,9 @@
                 else {
                     var CTS = status & 0x20 ? 1 : 0;
                     var DSR = status & 0x0100 ? 1 : 0;
-                    status = CTS & DSR;
+
+                    // RTS/CTS or DTR/DSR hardware handshaking.
+                    status = CTS || DSR;
                 }
             }
             return status;

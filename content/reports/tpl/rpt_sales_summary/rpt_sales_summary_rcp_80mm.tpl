@@ -8,24 +8,24 @@ ${head.title|center:42}
 ${head.subtitle|center:42}
 ------------------------------------------
 ${_( '(rpt)General Information' )}
-${'  ' + _( '(rpt)Total' ) + ':'|left:13}${body.sales_summary.ItemSubtotal|default:0|viviFormatPrices:true|right:29}
+${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:13}${body.sales_summary.ItemSubtotal|default:0|viviFormatPrices:true|right:29}
 ${'  ' + _( '(rpt)Add-on Tax' ) + ':'|left:13}${body.sales_summary.TaxSubtotal|default:0|viviFormatTaxes:true|right:29}
 ${'  ' + _( '(rpt)Surcharge' ) + ':'|left:13}${body.sales_summary.SurchargeSubtotal|default:0|viviFormatPrices:true|right:29}
 ${'  ' + _( '(rpt)Discount' ) + ':'|left:13}${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true|right:29}
 ${'  ' + _( '(rpt)Promotion' ) + ':'|left:13}${body.sales_summary.PromotionSubtotal|default:0|viviFormatPrices:true|right:29}
 ${'  ' + _( '(rpt)Revalue' ) + ':'|left:13}${body.sales_summary.RevalueSubtotal|default:0|viviFormatPrices:true|right:29}
-${'  ' + _( '(rpt)Revenue' ) + ':'|left:13}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:29}
+${'  ' + _( '(rpt)Net Sales' ) + ':'|left:13}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:29}
 ------------------------------------------
 ${_( '(rpt)Sales Summary' )}
-${'  ' + _( '(rpt)Orders' ) + ':'|left:16}${body.sales_summary.OrderNum|default:0|right:26}
-${'  ' + _( '(rpt)Revenue' ) + ':'|left:16}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:26}
-${'  ' + _( '(rpt)Guests' ) + ':'|left:16}${body.sales_summary.Guests|default:0|right:26}
-${'  ' + _( '(rpt)Items' ) + ':'|left:16}${body.sales_summary.ItemsCount|default:0|right:26}
-${'  ' + _( '(rpt)Voided Orders' ) + ':'|left:16}${body.sales_summary.VoidedOrders|default:0|right:26}
-${'  ' + _( '(rpt)Revenue/Order' ) + ':'|left:16}${body.sales_summary.AvgTotal|default:0|format:2|right:26}
-${'  ' + _( '(rpt)Revenue/Guest' ) + ':'|left:16}${body.sales_summary.AvgTotalPerGuest|default:0|format:2|right:26}
-${'  ' + _( '(rpt)Guest/Order' ) + ':'|left:16}${body.sales_summary.AvgGuests|default:0|format:2|right:26}
-${'  ' + _( '(rpt)Item/Order' ) + ':'|left:16}${body.sales_summary.AvgItemsCount|default:0|format:2|right:26}
+${'  ' + _( '(rpt)Number of Orders' ) + ':'|left:16}${body.sales_summary.OrderNum|default:0|right:26}
+${'  ' + _( '(rpt)Net Sales' ) + ':'|left:16}${body.sales_summary.Total|default:0|viviFormatPrices:true|right:26}
+${'  ' + _( '(rpt)Number of Guests' ) + ':'|left:16}${body.sales_summary.Guests|default:0|right:26}
+${'  ' + _( '(rpt)Number of Items' ) + ':'|left:16}${body.sales_summary.ItemsCount|default:0|right:26}
+${'  ' + _( '(rpt)Number of Voided Orders' ) + ':'|left:16}${body.sales_summary.VoidedOrders|default:0|right:26}
+${'  ' + _( '(rpt)Net Sales/Order' ) + ':'|left:16}${body.sales_summary.AvgTotal|default:0|format:2|right:26}
+${'  ' + _( '(rpt)Net Sales/Guest' ) + ':'|left:16}${body.sales_summary.AvgTotalPerGuest|default:0|format:2|right:26}
+${'  ' + _( '(rpt)Number of Guests/Order' ) + ':'|left:16}${body.sales_summary.AvgGuests|default:0|format:2|right:26}
+${'  ' + _( '(rpt)Number of Items/Order' ) + ':'|left:16}${body.sales_summary.AvgItemsCount|default:0|format:2|right:26}
 ------------------------------------------
 ${_( '(rpt)Payment List' )}
 {for detail in body.payment_list.records}
@@ -57,36 +57,36 @@ ${_( '(rpt)Top Department Sales' )}
 {for detail in body.dept_sales.records}
 ${'  ' + _( '(rpt)Department' ) + ':'|left:13}${detail.cate_no + '-' + detail.cate_name|right:29}
 ${'  ' + _( '(rpt)Quantity' ) + ':'|left:13}${detail.qty|default:0|right:29}
-${'  ' + _( '(rpt)Total' ) + ':'|left:13}${detail.total|default:0|viviFormatPrices:true|right:29}
+${'  ' + _( '(rpt)Net Sales' ) + ':'|left:13}${detail.total|default:0|viviFormatPrices:true|right:29}
   
 {/for}
 ${_( '(rpt)Summary' ) + ':'}
 ${'  ' + _( '(rpt)Quantity' ) + ':'|left:11}${body.dept_sales.summary.qty|default:0|right:31}
-${'  ' + _( '(rpt)Total' ) + ':'|left:11}${body.dept_sales.summary.total|default:0|viviFormatPrices:true|right:31}
+${'  ' + _( '(rpt)Net Sales' ) + ':'|left:11}${body.dept_sales.summary.total|default:0|viviFormatPrices:true|right:31}
 ------------------------------------------
 ${_( '(rpt)Top Product Sales' )}
 {for detail in body.prod_sales.records}
 ${'  ' + _( '(rpt)Product' ) + ': '|left:11}${detail.product_name|right:31}
 ${'  ' + _( '(rpt)Quantity' ) + ':'|left:11}${detail.qty|default:0|right:31}
-${'  ' + _( '(rpt)Total' ) + ':'|left:11}${detail.total|default:0|viviFormatPrices:true|right:31}
+${'  ' + _( '(rpt)Net Sales' ) + ':'|left:11}${detail.total|default:0|viviFormatPrices:true|right:31}
   
 {/for}
 ${_( '(rpt)Summary' ) + ':'}
 ${'  ' + _( '(rpt)Quantity' ) + ':'|left:11}${body.prod_sales.summary.qty|default:0|right:31}
-${'  ' + _( '(rpt)Total' ) + ':'|left:11}${body.prod_sales.summary.total|default:0|viviFormatPrices:true|right:31}
+${'  ' + _( '(rpt)Net Sales' ) + ':'|left:11}${body.prod_sales.summary.total|default:0|viviFormatPrices:true|right:31}
 ------------------------------------------
 ${_( '(rpt)Hourly Sales' )}
 {for detail in body.hourly_sales.records}
 ${'  ' + _( '(rpt)Time' ) + ':'|left:9}${detail.Hour|right:33}
-${'  ' + _( '(rpt)Guests' ) + ':'|left:9}${detail.Guests|default:0|right:33}
-${'  ' + _( '(rpt)Orders' ) + ':'|left:9}${detail.OrderNum|default:0|right:33}
-${'  ' + _( '(rpt)Total' ) + ':'|left:9}${detail.HourTotal|default:0|viviFormatPrices:true|right:33}
+${'  ' + _( '(rpt)Number of Guests' ) + ':'|left:9}${detail.Guests|default:0|right:33}
+${'  ' + _( '(rpt)Number of Orders' ) + ':'|left:9}${detail.OrderNum|default:0|right:33}
+${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:9}${detail.HourTotal|default:0|viviFormatPrices:true|right:33}
   
 {/for}
 ${_( '(rpt)Summary' ) + ':'}
-${'  ' + _( '(rpt)Guests' ) + ':'|left:9}${body.hourly_sales.summary.Guests|default:0|right:33}
-${'  ' + _( '(rpt)Orders' ) + ':'|left:9}${body.hourly_sales.summary.OrderNum|default:0|right:33}
-${'  ' + _( '(rpt)Total' ) + ':'|left:9}${body.hourly_sales.summary.HourTotal|default:0|viviFormatPrices:true|right:33}
+${'  ' + _( '(rpt)Number of Guests' ) + ':'|left:9}${body.hourly_sales.summary.Guests|default:0|right:33}
+${'  ' + _( '(rpt)Number of Orders' ) + ':'|left:9}${body.hourly_sales.summary.OrderNum|default:0|right:33}
+${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:9}${body.hourly_sales.summary.HourTotal|default:0|viviFormatPrices:true|right:33}
 ------------------------------------------
 ${_( '(rpt)Discount Summary' )}
 {for detail in body.discount_summary.data}

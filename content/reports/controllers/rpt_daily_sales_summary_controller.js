@@ -6,7 +6,8 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-    RptBaseController.extend( {
+    var __controller__ = {
+
         name: 'RptDailySalesSummary',
         
         _fileName: 'rpt_daily_sales_summary',
@@ -33,14 +34,13 @@
             end = parseInt(end / 1000, 10);
 
             var fields = [
-                            'sum(order_payments.amount) as "Order.payment_subtotal"',
+                            'sum(order_payments.amount - order_payments.change) as "Order.payment_subtotal"',
                             'order_payments.name as "Order.payment_name"',
                             'orders.transaction_created',
                             'strftime( "%Y-%m-%d", "orders"."' + periodType + '", "unixepoch", "localtime" ) AS "Order.date"',
                             'orders.id',
                             //'orders.sequence',
                             'orders.status',
-                            'orders.change',
                             'orders.tax_subtotal',
                             'orders.item_subtotal',
                             'orders.total',
@@ -50,7 +50,7 @@
                             'orders.discount_subtotal',
                             'orders.promotion_subtotal',
                             'orders.revalue_subtotal',
-                            'orders.items_count',
+                            'orders.qty_subtotal',
                             'orders.check_no',
                             'orders.table_no',
                             'orders.no_of_customers',
@@ -93,6 +93,7 @@
             	discount_subtotal: 0,
             	promotion_subtotal: 0,
             	revalue_subtotal: 0,
+                payment: 0,
             	cash: 0,
             	check: 0,
             	creditcard: 0,
@@ -129,6 +130,7 @@
                     }
 					
 					if ( old_oid != oid ) {
+		                repDatas[ oid ][ 'payment' ] = 0.0;
 		                repDatas[ oid ][ 'cash' ] = 0.0;
 		                repDatas[ oid ][ 'check' ] = 0.0;
 		                repDatas[ oid ][ 'creditcard' ] = 0.0;
@@ -136,16 +138,18 @@
 		                repDatas[ oid ][ 'giftcard' ] = 0.0;
 		            }
 		           
-                    repDatas[ oid ][ o.payment_name ] += o.payment_subtotal - o.change;
+                    repDatas[ oid ][ o.payment_name ] += o.payment_subtotal;
+                    repDatas[ oid ][ 'payment' ] += o.payment_subtotal;
 
                     tmp_oid = oid;
                 } else {
                 
-                    repDatas[ tmp_oid ][ o.payment_name ] += o.payment_subtotal - o.change;
+                    repDatas[ tmp_oid ][ o.payment_name ] += o.payment_subtotal;
+                    repDatas[ tmp_oid ][ 'payment' ] += o.payment_subtotal;
                     
                     if ( old_oid != oid ) {
 		                repDatas[ tmp_oid ][ 'no_of_customers' ] += o.no_of_customers;
-		                repDatas[ tmp_oid ][ 'items_count' ] += o.items_count;
+		                repDatas[ tmp_oid ][ 'qty_subtotal' ] += o.qty_subtotal;
 		                repDatas[ tmp_oid ][ 'total' ] += o.total;
 		                repDatas[ tmp_oid ][ 'surcharge_subtotal' ] += o.surcharge_subtotal;
 		                repDatas[ tmp_oid ][ 'discount_subtotal' ] += o.discount_subtotal;
@@ -164,11 +168,12 @@
 		            footDatas.revalue_subtotal += o.revalue_subtotal;
 		            footDatas.tax_subtotal += o.tax_subtotal;
 		            footDatas.item_subtotal += o.item_subtotal;
-                    footDatas.items += o.items_count;
+                    footDatas.items += o.qty_subtotal;
                     footDatas.guests += o.no_of_customers;
 		        }
 		        
-                footDatas[ o.payment_name ] += o.payment_subtotal - o.change;
+                footDatas[ o.payment_name ] += o.payment_subtotal;
+                footDatas[ 'payment' ] += o.payment_subtotal;
               
                 old_oid = oid;
                 old_terminal = terminal;
@@ -241,5 +246,7 @@
 
             this._enableButton(false);
         }
-    });
+    };
+
+    RptBaseController.extend(__controller__);
 })();

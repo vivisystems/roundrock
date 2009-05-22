@@ -1,4 +1,4 @@
-<!ENTITY rptorderannotation.title "Daily Sales Summary Report">
+<!ENTITY rptorderannotation.title "Order Annotation Report">
 <!ENTITY rptorderannotation.startdate "Start Date:">
 <!ENTITY rptorderannotation.enddate "End Date:">
 <!ENTITY rptorderannotation.execute "Execute">
@@ -6,24 +6,25 @@
 <!ENTITY rptorderannotation.exportcsv "Export to CSV">
 <!ENTITY rptorderannotation.exportrcp "Print">
 <!ENTITY rptorderannotation.togglezoom "Toggle Zoom">
-<!ENTITY rptorderannotation.machineid "Terminal No:">
+<!ENTITY rptorderannotation.terminal_no "Terminal:">
 <!ENTITY rptorderannotation.sortby "Sort By:">
-<!ENTITY rptorderannotation.terminal_no "Terminal No.">
-<!ENTITY rptorderannotation.tax_subtotal "Add-on Tax">
-<!ENTITY rptorderannotation.total "Payment">
-<!ENTITY rptorderannotation.item_subtotal "Total">
-<!ENTITY rptorderannotation.surcharge_subtotal "Surcharge">
-<!ENTITY rptorderannotation.discount_subtotal "Discount">
-<!ENTITY rptorderannotation.promotion_subtotal "Promotion">
-<!ENTITY rptorderannotation.revalue_subtotal "Revalue">
-<!ENTITY rptorderannotation.sequence "Sequence">
-<!ENTITY rptorderannotation.annotationtext "Annotation Text">
+<!ENTITY rptorderannotation.sortby.terminal_no "Terminal">
+<!ENTITY rptorderannotation.sortby.tax_subtotal "Add-on Tax">
+<!ENTITY rptorderannotation.sortby.total "Net Sales">
+<!ENTITY rptorderannotation.sortby.item_subtotal "Gross Sales">
+<!ENTITY rptorderannotation.sortby.surcharge_subtotal "Surcharge">
+<!ENTITY rptorderannotation.sortby.discount_subtotal "Discount">
+<!ENTITY rptorderannotation.sortby.promotion_subtotal "Promotion">
+<!ENTITY rptorderannotation.sortby.revalue_subtotal "Revalue">
+<!ENTITY rptorderannotation.sortby.sequence "Sequence">
+<!ENTITY rptorderannotation.sortby.time "Time">
+<!ENTITY rptorderannotation.sortby.orderstatus "Order Status">
+<!ENTITY rptorderannotation.sortby.annotationtext "Annotation Text">
 <!ENTITY rptorderannotation.all "List All">
 <!ENTITY rptorderannotation.wait "Waiting...">
 <!ENTITY rptorderannotation.periodtype "Period Type:">
-<!ENTITY rptorderannotation.starttime "Order Opened Time">
-<!ENTITY rptorderannotation.transaction_submitted "Order Finalized Time">
+<!ENTITY rptorderannotation.transaction_created "Order Opened">
+<!ENTITY rptorderannotation.transaction_submitted "Order Closed">
 <!ENTITY rptorderannotation.saleperiod "Sale Period">
-<!ENTITY rptorderannotation.time "Time">
 <!ENTITY rptorderannotation.annotationtype "Annotation Type:">
-<!ENTITY rptorderannotation.shiftno "Shift No.:">
+<!ENTITY rptorderannotation.shiftno "Shift:">

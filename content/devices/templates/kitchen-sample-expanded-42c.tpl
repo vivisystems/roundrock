@@ -9,9 +9,9 @@
 {/if}
 ${'Printed:'|left:10} ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 ${'Terminal:'|left:10} ${order.terminal_no|left:9} ${'Clerk:'|left:6} ${order.proceeds_clerk_displayname|default:''|left:14}
-${'Check:'|left:10} ${order.check_no|default:''|format:0|left:9} ${'Seq:'|left:6} ${order.seq|tail:3}
+${'Check:'|left:10} ${order.check_no|default:''|left:9} ${'Seq:'|left:6} ${order.seq|tail:3}
 {if order.table_no != null || order.no_of_customers != null}
-${'Table:'|left:10} ${order.table_no|default:''|format:0|left:9} ${'#Cust:'|left:6} ${order.no_of_customers|default:''|format:0|left:14}
+${'Table:'|left:10} ${order.table_no|default:''|left:9} ${'#Cust:'|left:6} ${order.no_of_customers|default:''|left:14}
 {/if}
 ------------------------------------------
 {for item in order.display_sequences}

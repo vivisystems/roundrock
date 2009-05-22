@@ -47,13 +47,13 @@
         <html:td>${order.branch + ' (' + order.branch_id + ')'}</html:td>
     </html:tr>
     <html:tr>
-        <html:td style="width: 80px">${_('(view)open clerk')+':'}</html:td>
+        <html:td style="width: 80px">${_('(view)service clerk')+':'}</html:td>
         <html:td>${order.service_clerk_displayname}</html:td>
         <html:td style="width: 80px">${_('(view)opened')+':'}</html:td>
         <html:td>${(new Date(order.created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</html:td>
     </html:tr>
     <html:tr>
-        <html:td style="width: 80px">${_('(view)open clerk')+':'}</html:td>
+        <html:td style="width: 80px">${_('(view)proceeds clerk')+':'}</html:td>
         <html:td>${order.proceeds_clerk_displayname}</html:td>
         <html:td style="width: 80px">${_('(view)submitted')+':'}</html:td>
         <html:td>${(new Date(order.transaction_submitted * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</html:td>

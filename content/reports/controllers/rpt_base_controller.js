@@ -12,7 +12,7 @@
         _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
         _csvLimit: 3000000,
-        _stdLimit: 1000,
+        _stdLimit: 3000,
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -151,7 +151,7 @@
             }
         },
 
-        exportCsv: function(controller) {
+        exportCsv: function(controller, noReload) {
         	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
         		return;
         		
@@ -171,19 +171,22 @@
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 
                 var tmpRecords = {};
-                tmpRecords.head = GREUtils.extend({}, this._reportRecords.head);
-                tmpRecords.body = this._reportRecords.body;
-                tmpRecords.foot = GREUtils.extend({}, this._reportRecords.foot);
+                if (!noReload) {
+                    tmpRecords.head = GREUtils.extend({}, this._reportRecords.head);
+                    tmpRecords.body = this._reportRecords.body;
+                    tmpRecords.foot = GREUtils.extend({}, this._reportRecords.foot);
 
-                controller._set_reportRecords(this._csvLimit);
-		    	this._reportRecords.foot.gen_time = ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' );
-
+                    controller._set_reportRecords(this._csvLimit);
+                    this._reportRecords.foot.gen_time = ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' );
+                }
                 this.CsvExport.printToFile( media_path + '/' + this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv', this._reportRecords, tpl );
 
-                // drop CSV data and garbage collect
-                this._reportRecords = tmpRecords;
+                if (!noReload) {
+                    // drop CSV data and garbage collect
+                    this._reportRecords = tmpRecords;
 
-                GREUtils.gc();
+                    GREUtils.gc();
+                }
             } catch ( e ) {
             } finally {
                 this._enableButton( true );

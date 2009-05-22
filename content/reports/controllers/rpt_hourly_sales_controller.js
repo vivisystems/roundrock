@@ -6,7 +6,8 @@
      
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
-    RptBaseController.extend( {
+    var __controller__ = {
+
         name: 'RptHourlySales',
         
         _fileName: "rpt_hourly_sales",
@@ -43,7 +44,7 @@
                             'STRFTIME("%H",DATETIME("orders"."' + timeField + '", "unixepoch", "localtime")) AS "Order.Hour"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
-                            'SUM("orders"."items_count") AS "Order.ItemsCount"'
+                            'SUM("orders"."qty_subtotal") AS "Order.ItemsCount"'
                         ];
 
             var conditions = "orders." + periodType + ">='" + start +
@@ -148,5 +149,7 @@
 
             this._enableButton(false);
         }
-    });
+    };
+
+    RptBaseController.extend(__controller__);
 })();

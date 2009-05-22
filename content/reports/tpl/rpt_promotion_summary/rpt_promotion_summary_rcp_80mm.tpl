@@ -10,21 +10,21 @@ ${head.title|center:42}
 ${result.name} - ${result.code}
 {for entry in result.entries}
 ------------------------------------------
-${_( '(rpt)Date' ) + ':'}${entry.total|default:0|viviFormatPrices:true}
-${_( '(rpt)Total' ) + ':'}${entry.total|default:0|viviFormatPrices:true}
-${_( '(rpt)Order Count' ) + ':'}${entry.order_count|default:0}
-${_( '(rpt)Promotion Subtotal' ) + ':'}${entry.promotion_subtotal|default:0|viviFormatPrices:true}
-${_( '(rpt)Matched Count' ) + ':'}${entry.matched_count|default:0}
-${_( '(rpt)Matched Items Qty.' ) + ':'}${entry.matched_items_qty|default:0}
-${_( '(rpt)Matched Items Subtotal' ) + ':'}${entry.matched_items_subtotal|default:0|viviFormatPrices:true}
+${_( '(rpt)Date' ) + ':'|left:24}${entry.date|right:18}
+${_( '(rpt)Gross Sales' ) + ':'|left:24}${entry.gross|viviFormatPrices:true|right:18}
+${_( '(rpt)Order Count' ) + ':'|left:24}${entry.order_count|format:0|right:18}
+${_( '(rpt)Promotion Subtotal' ) + ':'|left:24}${entry.promotion_subtotal|viviFormatPrices:true|right:18}
+${_( '(rpt)Matched Count' ) + ':'|left:24}${entry.matched_count|default:0|right:18}
+${_( '(rpt)Matched Items Quantity' ) + ':'|left:24}${entry.matched_items_qty|format:0|right:18}
+${_( '(rpt)Matched Items Subtotal' ) + ':'|left:24}${entry.matched_items_subtotal|viviFormatPrices:true|right:18}
 {/for}
 ------------------------------------------
-${_( '(rpt)Total' ) + ':'}${result.summary.total|default:0|viviFormatPrices:true}
-${_( '(rpt)Order Count' ) + ':'}${result.summary.order_count|default:0}
-${_( '(rpt)Promotion Subtotal' ) + ':'}${result.summary.promotion_subtotal|default:0|viviFormatPrices:true}
-${_( '(rpt)Matched Count' ) + ':'}${result.summary.matched_count|default:0}
-${_( '(rpt)Matched Items Qty.' ) + ':'}${result.summary.matched_items_qty|default:0}
-${_( '(rpt)Matched Items Subtotal' ) + ':'}${result.summary.matched_items_subtotal|default:0|viviFormatPrices:true}
+${_( '(rpt)Gross Sales' ) + ':'|left:24}${result.summary.gross|viviFormatPrices:true|right:18}
+${_( '(rpt)Order Count' ) + ':'|left:24}${result.summary.order_count|format:0|right:18}
+${_( '(rpt)Promotion Subtotal' ) + ':'|left:24}${result.summary.promotion_subtotal|viviFormatPrices:true|right:18}
+${_( '(rpt)Matched Count' ) + ':'|left:24}${result.summary.matched_count|format:0|right:18}
+${_( '(rpt)Matched Items Quantity' ) + ':'|left:24}${result.summary.matched_items_qty|format:0|right:18}
+${_( '(rpt)Matched Items Subtotal' ) + ':'|left:24}${result.summary.matched_items_subtotal|viviFormatPrices:true|right:18}
 {/for}
 ------------------------------------------
 ${foot.gen_time}

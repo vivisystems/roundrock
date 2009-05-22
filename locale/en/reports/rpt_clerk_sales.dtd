@@ -1,4 +1,4 @@
-<!ENTITY rptclerksales.title "Clerk Sales Report">
+<!ENTITY rptclerksales.title "Clerk Sales">
 <!ENTITY rptclerksales.startdate "Start Date:">
 <!ENTITY rptclerksales.enddate "End Date:">
 <!ENTITY rptclerksales.execute "Execute">
@@ -13,8 +13,9 @@
 <!ENTITY rptclerksales.sortby.terminal_no "Terminal">
 <!ENTITY rptclerksales.sortby.invoice_no "Invoice Number">
 <!ENTITY rptclerksales.sortby.tax_subtotal "Add-on Tax">
-<!ENTITY rptclerksales.sortby.total "Payment">
-<!ENTITY rptclerksales.sortby.item_subtotal "Total">
+<!ENTITY rptclerksales.sortby.netsales "Net Sales">
+<!ENTITY rptclerksales.sortby.payment "Payment">
+<!ENTITY rptclerksales.sortby.item_subtotal "Gross Sales">
 <!ENTITY rptclerksales.sortby.surcharge_subtotal "Surcharge">
 <!ENTITY rptclerksales.sortby.discount_subtotal "Discount">
 <!ENTITY rptclerksales.sortby.promotion_subtotal "Promotion">
@@ -27,11 +28,11 @@
 <!ENTITY rptclerksales.sortby.clerk "Clerk">
 <!ENTITY rptclerksales.all "List All">
 <!ENTITY rptclerksales.wait "Waiting...">
-<!ENTITY rptclerksales.service_clerk "Open Order">
-<!ENTITY rptclerksales.proceeds_clerk "Close Order">
+<!ENTITY rptclerksales.service_clerk "Last Modified Order">
+<!ENTITY rptclerksales.proceeds_clerk "Completed Order">
 <!ENTITY rptclerksales.clerk_type "Clerk Type:">
 <!ENTITY rptclerksales.periodtype "Period Type:">
 <!ENTITY rptclerksales.transaction_created "Order Opened">
 <!ENTITY rptclerksales.transaction_submitted "Order Closed">
 <!ENTITY rptclerksales.sale_period "Sale Period">
-<!ENTITY rptclerksales.shiftno "Shift Number:">
+<!ENTITY rptclerksales.shiftno "Shift:">

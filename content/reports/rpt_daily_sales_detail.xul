@@ -62,6 +62,16 @@
 				                </vbox>
 		                    </row>
 							<row>
+					            <vbox>
+				                    <label value="&rptdailysalesdetail.sequence_no;" />
+				                    <textbox id="sequence_no" value='' width="300"/>
+		                        </vbox>
+		                    	<vbox>
+				                    <label value="&rptdailysalesdetail.terminal_no;" />
+				                    <textbox id="terminal_no" value='' width="300" />
+		                        </vbox>
+		                    </row>
+		                    <row>
 								<vbox>
 		                    		<label value="&rptdailysalesdetail.sortby;" />
 					                <menulist id="sortby">
@@ -80,16 +90,6 @@
 					                    </menupopup>
 					                </menulist>
 					            </vbox>
-					            <vbox>
-				                    <label value="&rptdailysalesdetail.sequence_no;" />
-				                    <textbox id="sequence_no" value='' width="300"/>
-		                        </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-				                    <label value="&rptdailysalesdetail.terminal_no;" />
-				                    <textbox id="terminal_no" value='' width="300" />
-		                        </vbox>
 		                    </row>
 		                </rows>
 		            </grid>

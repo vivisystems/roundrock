@@ -31,7 +31,7 @@
     <vbox class="pop-dialog" flex="1">
         <vbox class="MainPnl" flex="1">
             <caption id="dialog-caption" label=""  class="PageTitle"/>
-            <label id="text0" value="" class="SubTitle" />
+            <label id="text0" value="" class="AlertText" />
             <grid class="DataForm">
                 <columns>
                     <column flex="1"/>

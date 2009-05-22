@@ -11,8 +11,10 @@
 <!ENTITY rptproducts.all "List All">
 <!ENTITY rptproducts.no "Product Number">
 <!ENTITY rptproducts.name "Name">
+<!ENTITY rptproducts.alt.name1 "Name 1">
+<!ENTITY rptproducts.alt.name2 "Name 2">
 <!ENTITY rptproducts.barcode "Barcode">
 <!ENTITY rptproducts.rate "Tax">
 <!ENTITY rptproducts.stock "Stock">
-<!ENTITY rptproducts.min_stock "Safe Stock">
+<!ENTITY rptproducts.min_stock "Low Threshold">
 <!ENTITY rptproducts.wait "Waiting...">

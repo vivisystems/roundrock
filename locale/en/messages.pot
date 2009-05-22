@@ -70,35 +70,68 @@ msgstr "Devices"
 msgid "Table Manager"
 msgstr "Table Manager"
 
-msgid "Accounting Report"
-msgstr "Accounting Report"
-
-msgid "Attendance Record"
-msgstr "Attendance Record"
-
-msgid "Cash by Clerk"
-msgstr "Cash Report"
-
-msgid "Department List"
-msgstr "Department List"
-
-msgid "Inventory Report"
-msgstr "Stock Report"
-
 msgid "Print Label"
 msgstr "Print Label"
 
-msgid "Product List"
+msgid "Accounting Report"
+msgstr "Accounting Report"
+
+msgid "Attendance Report"
+msgstr "Attendance Record"
+
+msgid "Department Report"
+msgstr "Department List"
+
+msgid "Cash Drawer Report"
+msgstr "Cash Drawer Report"
+
+msgid "Cash Drawer Summary Report"
+msgstr "Cash Drawer Summary"
+
+msgid "Order Status Report"
+msgstr "Order Status Report"
+
+msgid "Product Report"
 msgstr "Product List"
 
-msgid "Product Sales"
+msgid "Product Sales Report"
+msgstr "Product Sales"
+
+msgid "Employee Report"
+msgstr "Employee List"
+
+msgid "Product Stock Report"
+msgstr "Stock Report"
+
+msgid "Hourly Sales Report"
+msgstr "Hourly Sales"
+
+msgid "Shift Change Report"
+msgstr "Shift Change Report"
+
+msgid "Sales Report"
 msgstr "Sales Report"
 
-msgid "Taxes Report"
-msgstr "Tax Report"
+msgid "Sales Report - Detailed"
+msgstr "Sales - Detailed"
 
-msgid "User List"
-msgstr "User List"
+msgid "Daily Sales Summary Report"
+msgstr "Daily Sales Summary"
+
+msgid "Daily Promotion Summary Report"
+msgstr "Daily Promotion Summary"
+
+msgid "Sales Summary Report"
+msgstr "Sales Summary"
+
+msgid "Clerk Sales Report"
+msgstr "Clerk Sales"
+
+msgid "Service Clerk Sales Report"
+msgstr "Clerk Sales (Service)"
+
+msgid "Proceeds Clerk Sales Report"
+msgstr "Clerk Sales (Close)"
 
 msgid "Product Filters"
 msgstr "Product Filters"
@@ -1057,54 +1090,24 @@ msgstr "Modify Annotations"
 msgid "acl_delete_annotations"
 msgstr "Delete Annotations"
 
-msgid "Stocks Report"
-msgstr "Stock Report"
-
 msgid "acl_manage_ledger"
 msgstr "Manage Ledger"
-
-msgid "Hourly Sales"
-msgstr "Hourly Sales"
 
 msgid "acl_view_ledger_entry"
 msgstr "View Ledger Entries"
 
-msgid "Daily Sales"
-msgstr "Daily Sales Report"
-
 msgid "acl_add_ledger_entry"
 msgstr "Add Ledger Entries"
-
-msgid "Daily Sales - Detail"
-msgstr "Daily Sales Report - Detail"
 
 msgid "acl_modify_ledger_entry"
 msgstr "Modify Ledger Entries"
 
-msgid "Sales Summary"
-msgstr "Sales Summary"
-
-msgid "Daily Sales Summary"
-msgstr "Daily Sales Summary"
-
 msgid "acl_delete_ledger_entry"
 msgstr "Delete Ledger Entries"
-
-msgid "Cash Drawer Report"
-msgstr "Cash Drawer Report"
-
-msgid "Cash Drawer Summary"
-msgstr "Cash Drawer Summary"
-
-msgid "Order Status Report"
-msgstr "Order Status Report"
 
 msgid "togglereceipt.desc"
 msgstr ""
 "This function is used to toggle receipt printing on/off. No parameter is needed."
-
-msgid "Clerk Sales Report"
-msgstr "Clerk Sales Report"
 
 msgid "togglereceipt.label"
 msgstr "Receipt On/Off"
@@ -1130,9 +1133,6 @@ msgstr ""
 
 msgid "Sample Kitchen 42c expanded"
 msgstr "Sample Kitchen 42c expanded"
-
-msgid "Shift Change"
-msgstr "Shift Change"
 
 msgid "Sample Guest Check 42c condensed"
 msgstr "Sample Guest Check 42c condensed"
@@ -1226,6 +1226,21 @@ msgid "giftcard"
 msgstr "giftcard"
 
 msgid "check"
+msgstr "check"
+
+msgid "(rpt)cash"
+msgstr "cash"
+
+msgid "(rpt)creditcard"
+msgstr "creditcard"
+
+msgid "(rpt)coupon"
+msgstr "coupon"
+
+msgid "(rpt)giftcard"
+msgstr "giftcard"
+
+msgid "(rpt)check"
 msgstr "check"
 
 msgid "acl_touch_settings"
@@ -1419,14 +1434,8 @@ msgstr "Detailed Tax Report"
 msgid "Factory"
 msgstr "Factory Dataset"
 
-msgid "Service Clerk Sales Report"
-msgstr "Sales By Clerk (Order Open)"
-
 msgid "Training"
 msgstr "Training Dataset"
-
-msgid "Proceeds Clerk Sales Report"
-msgstr "Sales By Clerk (Order Close)"
 
 msgid "XTerm"
 msgstr "XTerm"
@@ -1576,7 +1585,7 @@ msgstr "Cash"
 msgid "(rpt)Sales"
 msgstr "Sales"
 
-msgid "(rpt)Excess"
+msgid "(rpt)Giftcard Excess"
 msgstr "Excess"
 
 msgid "(rpt)Ledger In"
@@ -1588,20 +1597,41 @@ msgstr "Ledger Out"
 msgid "(rpt)Type"
 msgstr "Type"
 
+msgid "(rpt)Amount"
+msgstr "Amount"
+
 msgid "(rpt)Payment Type"
 msgstr "Payment"
 
 msgid "(rpt)Order Sequence"
 msgstr "Sequence"
 
-msgid "(rpt)Amount"
+msgid "(rpt)Payment Amount"
 msgstr "Amount"
 
-msgid "(rpt)Count"
+msgid "(rpt)Payment Count"
 msgstr "Count"
 
 msgid "(rpt)Destination"
 msgstr "Destination"
+
+msgid "(rpt)Destination Gross Sales"
+msgstr "Gross Sales"
+
+msgid "(rpt)Destination Amount"
+msgstr "Amount"
+
+msgid "(rpt)Destination Count"
+msgstr "Count"
+
+msgid "(rpt)Destination Average Gross Sales"
+msgstr "Average Gross Sales"
+
+msgid "(rpt)Add-On Tax Amount"
+msgstr "Add-On Tax"
+
+msgid "(rpt)Included Tax Amount"
+msgstr "Included Tax"
 
 msgid "(rpt)Start Time"
 msgstr "Start Time"
@@ -1627,35 +1657,38 @@ msgstr "Sequence"
 msgid "(rpt)Hour"
 msgstr "Hour"
 
-msgid "(rpt)Net"
-msgstr "Net"
+msgid "(rpt)Gross Sales/Order"
+msgstr "Gross Sales/Order"
 
-msgid "(rpt)Net Per Order"
-msgstr "Net Per Order"
+msgid "(rpt)Gross Sales/Guest"
+msgstr "Gross Sales/Guest"
 
-msgid "(rpt)Net Per Guest"
-msgstr "Net Per Guest"
+msgid "(rpt)Net Sales/Order"
+msgstr "Net Sales/Order"
 
-msgid "(rpt)Gross"
-msgstr "Gross"
+msgid "(rpt)Net Sales/Guest"
+msgstr "Net Sales/Guest"
 
-msgid "(rpt)Total"
-msgstr "Total"
+msgid "(rpt)Number of Guests/Order"
+msgstr "Guests/Order"
+
+msgid "(rpt)Number of Items/Order"
+msgstr "Items/Order"
 
 msgid "(rpt)Add-on Tax"
 msgstr "Add-on Tax"
 
 msgid "(rpt)Order Surcharge"
-msgstr "Order+"
+msgstr "Order Surcharge"
 
 msgid "(rpt)Order Discount"
-msgstr "Order-"
+msgstr "Order Discount"
 
 msgid "(rpt)Surcharge"
-msgstr "+"
+msgstr "Surcharge"
 
 msgid "(rpt)Discount"
-msgstr "-"
+msgstr "Discount"
 
 msgid "(rpt)Payment"
 msgstr "Payment"
@@ -1666,11 +1699,11 @@ msgstr "Check"
 msgid "(rpt)Credit Card"
 msgstr "Credit Card"
 
-msgid "(rpt)Coupon"
-msgstr "Coupon"
-
 msgid "(rpt)Gift Card"
 msgstr "Gift Card"
+
+msgid "(rpt)Coupon"
+msgstr "Coupon"
 
 msgid "(rpt)Service Clerk"
 msgstr "Clerk (Open)"
@@ -1684,17 +1717,20 @@ msgstr "Clerk (Close)"
 msgid "Proceeds Clerk"
 msgstr "Clerk (Close)"
 
-msgid "(rpt)Guests"
-msgstr "Guests"
-
-msgid "(rpt)Items"
-msgstr "Items"
-
-msgid "(rpt)Product No."
-msgstr "Product No."
+msgid "(rpt)Product Number"
+msgstr "Product Number"
 
 msgid "(rpt)Product Name"
 msgstr "Product Name"
+
+msgid "(rpt)Alt Name1"
+msgstr "Alt. Name 1"
+
+msgid "(rpt)Alt Name2"
+msgstr "Alt. Name 2"
+
+msgid "(rpt)Price Level"
+msgstr "Price Level"
 
 msgid "(rpt)Price"
 msgstr "Price"
@@ -1708,53 +1744,68 @@ msgstr "Name"
 msgid "(rpt)Included Tax"
 msgstr "Included Tax"
 
-msgid "(rpt)Orders"
+msgid "(rpt)Number of Guests"
+msgstr "Guests"
+
+msgid "(rpt)Number of Orders"
 msgstr "Orders"
+
+msgid "(rpt)Number of Items"
+msgstr "Items"
 
 msgid "(rpt)Status"
 msgstr "Status"
 
-msgid "(rpt)Avg. Price"
-msgstr "Avg. Price"
+msgid "(rpt)Average Price"
+msgstr "Average Price"
 
-msgid "(rpt)Qty"
-msgstr "Qty"
-
-msgid "(rpt)Qty."
-msgstr "Qty."
+msgid "(rpt)Quantities Sold"
+msgstr "Quantities Sold"
 
 msgid "(rpt)Barcode"
 msgstr "Barcode"
 
-msgid "(rpt)Tax"
-msgstr "Tax"
+msgid "(rpt)Tax Code"
+msgstr "Tax Code"
 
-msgid "(rpt)Stock"
-msgstr "Stock"
+msgid "(rpt)Stock Level"
+msgstr "Stock Level"
 
-msgid "(rpt)Safe_Stock"
-msgstr "Safe_Stock"
+msgid "(rpt)Low Stock Threshold"
+msgstr "Low Threshold"
 
 msgid "(rpt)Halo"
-msgstr "Halo"
+msgstr "HALO"
 
 msgid "(rpt)Lalo"
-msgstr "Lalo"
+msgstr "LALO"
 
-msgid "(rpt)Maintain_Stock"
-msgstr "Maintain_Stock"
+msgid "(rpt)auto_maintain_stock"
+msgstr "Track stock"
 
-msgid "(rpt)Return_Stock"
-msgstr "Return_Stock"
+msgid "(rpt)return_stock"
+msgstr "Returns can be restocked"
 
-msgid "(rpt)Single"
-msgstr "Single"
+msgid "(rpt)single"
+msgstr "Single Item Sale"
 
-msgid "(rpt)Age_Verification"
-msgstr "Age_Verification"
+msgid "(rpt)age_verification"
+msgstr "Require age verification"
 
-msgid "(rpt)Visible"
-msgstr "Visible"
+msgid "(rpt)visible"
+msgstr "Show on menu"
+
+msgid "(rpt)force_memo"
+msgstr "Memo required"
+
+msgid "(rpt)force_condiment"
+msgstr "Condiments required"
+
+msgid "(rpt)icon_only"
+msgstr "Only display product icon"
+
+msgid "(rpt)manual_adjustment_only"
+msgstr "Manual price adjustment only"
 
 msgid "(rpt)Department Number"
 msgstr "Department Number"
@@ -1767,9 +1818,6 @@ msgstr "Product"
 
 msgid "(rpt)Safe Stock"
 msgstr "Safe Stock"
-
-msgid "(rpt)Revenue"
-msgstr "Revenue"
 
 msgid "(rpt)Sales Summary"
 msgstr "Sales Summary"
@@ -1807,14 +1855,44 @@ msgstr "Top Product Sales"
 msgid "(rpt)Tax Summary"
 msgstr "Tax Summary"
 
-msgid "(rpt)Rate"
-msgstr "Rate"
+msgid "(rpt)Discount Name"
+msgstr "Name"
+
+msgid "(rpt)Discount Type"
+msgstr "Type"
+
+msgid "(rpt)Discount Count"
+msgstr "Count"
+
+msgid "(rpt)Discount Amount"
+msgstr "Amount"
+
+msgid "(rpt)Surcharge Name"
+msgstr "Name"
+
+msgid "(rpt)Surcharge Type"
+msgstr "Type"
+
+msgid "(rpt)Surcharge Count"
+msgstr "Count"
+
+msgid "(rpt)Surcharge Amount"
+msgstr "Amount"
 
 msgid "(rpt)Discount Summary"
 msgstr "Discount Summary"
 
 msgid "(rpt)Surcharge Summary"
 msgstr "Surcharge Summary"
+
+msgid "(rpt)Promotion Name"
+msgstr "Promotion"
+
+msgid "(rpt)Promotion Count"
+msgstr "Count"
+
+msgid "(rpt)Promotion Amount"
+msgstr "Amount"
 
 msgid "(rpt)General Information"
 msgstr "General Information"
@@ -1824,9 +1902,6 @@ msgstr "Tax Name"
 
 msgid "(rpt)Tax Rate"
 msgstr "Tax Rate"
-
-msgid "(rpt)Tax Type"
-msgstr "Tax Type"
 
 msgid "(rpt)Min Stock"
 msgstr "Min Stock"
@@ -1858,13 +1933,10 @@ msgstr "Annotation Text"
 msgid "(rpt)Deposit"
 msgstr "Deposit"
 
-msgid "(rpt)TYPE"
-msgstr "type"
-
-msgid "(rpt)ORDER"
+msgid "(rpt)Order Discount/Surcharge"
 msgstr "order"
 
-msgid "(rpt)ITEM"
+msgid "(rpt)Item Discount/Surcharge"
 msgstr "item"
 
 msgid "(rpt)Promotion"
@@ -1879,7 +1951,7 @@ msgstr "Promotion Summary"
 msgid "(rpt)Code"
 msgstr "Code"
 
-msgid "(rpt)Voided Orders"
+msgid "(rpt)Number of Voided Orders"
 msgstr "Voided Orders"
 
 msgid "(rpt)Date"
@@ -1889,13 +1961,13 @@ msgid "(rpt)Order Count"
 msgstr "Order Count"
 
 msgid "(rpt)Promotion Subtotal"
-msgstr "Promotion Subtotal"
+msgstr "Customer Savings"
 
 msgid "(rpt)Matched Count"
 msgstr "Matched Count"
 
-msgid "(rpt)Matched Items Qty."
-msgstr "Matched Items Qty."
+msgid "(rpt)Matched Items Quantity"
+msgstr "Matched Items Quantity"
 
 msgid "(rpt)Matched Items Subtotal"
 msgstr "Matched Items Subtotal"
@@ -1905,6 +1977,18 @@ msgstr "Revalue"
 
 msgid "(rpt)Refund"
 msgstr "Refund"
+
+msgid "(rpt)(based on %S)"
+msgstr "(based on %S)"
+
+msgid "(rpt)transaction_created"
+msgstr "when orders were opened"
+
+msgid "(rpt)transaction_submitted"
+msgstr "when orders were closed"
+
+msgid "(rpt)sale_period"
+msgstr "sale period"
 
 msgid "(rpt)Credit"
 msgstr "Credit"
@@ -1918,20 +2002,8 @@ msgstr "voided"
 msgid "(rpt)stored"
 msgstr "stored"
 
-msgid "(rpt)finalized"
-msgstr "finalized"
-
-msgid "(rpt)Revenue/Order"
-msgstr "Revenue/Order"
-
-msgid "(rpt)Revenue/Guest"
-msgstr "Revenue/Guest"
-
-msgid "(rpt)Guest/Order"
-msgstr "Guest/Order"
-
-msgid "(rpt)Item/Order"
-msgstr "Guest/Order"
+msgid "(rpt)completed"
+msgstr "completed"
 
 msgid "(rpt)payment"
 msgstr "payment"
@@ -1947,6 +2019,9 @@ msgstr "shift change"
 
 msgid "(rpt)ledger"
 msgstr "ledger"
+
+msgid "(rpt)Gross Sales"
+msgstr "Gross Sales"
 
 msgid "(rpt)Net Sales"
 msgstr "Net Sales"
@@ -1981,17 +2056,17 @@ msgstr "terminal"
 msgid "(view)opened"
 msgstr "opened"
 
-msgid "(view)open clerk"
-msgstr "open clerk"
+msgid "(view)service clerk"
+msgstr "serviced by"
 
 msgid "(view)submitted"
 msgstr "submitted"
 
-msgid "(view)close clerk"
-msgstr "close clerk"
+msgid "(view)proceeds clerk"
+msgstr "closed by"
 
 msgid "(view)void clerk"
-msgstr "void clerk"
+msgstr "voided by"
 
 msgid "(view)sale period"
 msgstr "sale period"
@@ -2032,8 +2107,8 @@ msgstr "invoice title"
 msgid "(view)Item Subtotal"
 msgstr "Item Subtotal"
 
-msgid "(view)Adjustments"
-msgstr "Adjustments"
+msgid "(view)Item Adjustments"
+msgstr "Item Adjustments"
 
 msgid "(view)Add-on Taxes"
 msgstr "Add-on Taxes"
@@ -2206,4 +2281,16 @@ msgid "Do you want to change layout"
 msgstr "Do you want to change layout"
 
 msgid "If you change layout now, the system will restart automatically after you return to the Main Screen."
-msgstr "If you change layout now, the system will restart automatically after you return to the Main Screen."
+msgstr "If you changelayout now, the system will restart automatically after you return to the Main Screen."
+
+msgid "INCLUDED"
+msgstr "included"
+
+msgid "ADDON"
+msgstr "add-on"
+
+msgid "COMBINED"
+msgstr "combined"
+
+msgid "(rpt)Obsolete Department"
+msgstr "Obsolete Department"

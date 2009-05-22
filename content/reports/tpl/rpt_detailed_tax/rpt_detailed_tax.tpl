@@ -28,7 +28,7 @@
                 <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Invoice Number' )}</th>
-                <th style="text-align: center;">${_( '(rpt)Net' )}</th>
+                <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Order Surcharge' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Order Discount' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>
@@ -36,7 +36,7 @@
                 <th style="text-align: center;">${_( '(rpt)Add-on Tax' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Included Tax' )}</th>
 {for tax in taxList}
-                <th style="text-align: center;">${tax.no} ${ _('(rpt)Gross') }</th>
+                <th style="text-align: center;">${tax.no} ${ _('(rpt)Gross Sales') }</th>
                 <th style="text-align: center;">${tax.no}</th>
 {/for}
             </tr>

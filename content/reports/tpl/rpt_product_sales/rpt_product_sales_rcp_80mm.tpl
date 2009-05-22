@@ -10,16 +10,20 @@ ${head.title|center:42}
 ${category.no} - ${category.name}
 {for item in category.orderItems}
 ------------------------------------------
-${_( '(rpt)No.' ) + ':'}${item.product_no}
-${_( '(rpt)Name' ) + ':'}${item.product_name}
-${_( '(rpt)Avg. Price' ) + ':'}${item.avg_price}
-${_( '(rpt)Qty.' ) + ':'}${item.qty}
-${_( '(rpt)Total' ) + ':'}${item.total}
+${_( '(rpt)Product Number' ) + ':'|left:16}${item.product_no|right:26}
+${_( '(rpt)Product Name' ) + ':'|left:16}${item.product_name|right:26}
+${_( '(rpt)Average Price' ) + ':'|left:16}${item.avg_price|viviFormatPrices:true|right:26}
+${_( '(rpt)Quantities Sold' ) + ':'|left:16}${item.qty|format:0|right:26}
+${_( '(rpt)Gross Sales' ) + ':'|left:16}${item.gross|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Sales' ) + ':'|left:16}${item.net|viviFormatPrices:true|right:26}
 {/for}
 ------------------------------------------
+${_( '(rpt)Records Found' ) + ': '|left:16}${category.orderItems.length|format:0|right:26}
+------------------------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Qty.' ) + ':'|left:12}${category.summary.qty|default:0|right:30}
-${_( '(rpt)Total' ) + ':'|left:12}${category.summary.total|default:0|viviFormatPrices:true|right:30}
+${_( '(rpt)Quantities Sold' ) + ':'|left:16}${category.summary.qty|format:0|right:26}
+${_( '(rpt)Gross Sales' ) + ':'|left:16}${category.summary.gross|viviFormatPrices:true|right:26}
+${_( '(rpt)Net Sales' ) + ':'|left:16}${category.summary.net|viviFormatPrices:true|right:26}
 {/for}
 ------------------------------------------
 ${foot.gen_time}

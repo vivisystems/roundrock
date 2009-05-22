@@ -62,6 +62,20 @@
 				                    <textbox id="terminal_no" value='' width="300"/>
 				                </vbox>
 				            </row>
+		                    <row>
+		                    	<vbox>
+				                	<label value="&rptdetailedtax.sortby;" />
+					                <menulist id="sortby">
+					                    <menupopup id="sortby_menupopup">
+					                        <menuitem selected="false" label="&rptdetailedtax.sortby.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="true" label="&rptdetailedtax.sortby.time;" value="time" />
+					                        <menuitem selected="false" label="&rptdetailedtax.sortby.sequence;" value="sequence" />
+					                        <menuitem selected="false" label="&rptdetailedtax.sortby.invoice_no;" value="invoice_no" />
+					                        <menuitem selected="false" label="&rptdetailedtax.sortby.total;" value="total" />
+					                    </menupopup>
+					                </menulist>
+			                    </vbox>
+		                    </row>
 		                </rows>
 		            </grid>
 		            </hbox>

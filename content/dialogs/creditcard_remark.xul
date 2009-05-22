@@ -25,7 +25,7 @@
                 <vbox class="MainPnl" flex="1">
 
                     <caption id="creditcardRemark-dialog-caption" label="" class="PageTitle" />
-                    <label id="creditcardRemark-text0" value="" class="SubTitle" />
+                    <label id="creditcardRemark-text0" value="" class="AlertText" />
                     <grid class="DataForm">
                         <columns>
                             <column flex="1"/>
