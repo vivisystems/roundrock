@@ -11,6 +11,7 @@
         _table_id: null,
         _table_no: null,
         _table_name: null,
+        _table_status_id: null,
 
         initial: function () {
             //
@@ -62,8 +63,9 @@
                 // var table_no = document.getElementById('table_no').value;
                 var table_id = this._table_id;
                 var table_no = this._table_no;
+                var table_status_id = this._table_status_id;
 
-                var newBooking = {table_id: table_id, booking: booking_time, contact: booking_contact, telephone: booking_telephone, table_no: table_no};
+                var newBooking = {table_id: table_id, booking: booking_time, contact: booking_contact, telephone: booking_telephone, table_no: table_no, table_status_id: table_status_id};
 
                 var bookingModel = new TableBookingModel();
                 newBooking = bookingModel.save(newBooking);
@@ -197,6 +199,7 @@
 
         setTableId: function(table_id) {
             this._table_id = table_id;
+this.log(this._table_id);
         },
 
         setTableNo: function(table_no) {
@@ -205,6 +208,11 @@
 
         setTableName: function(table_name) {
             this._table_name = table_name;
+        },
+
+        setTableStatusId: function(table_status_id) {
+            this._table_status_id = table_status_id;
+this.log(this._table_status_id);
         },
 
         load: function() {
@@ -216,6 +224,7 @@
                     table_id: document.getElementById('table_id').value,
                     table_no: document.getElementById('table_no').value,
                     table_name: document.getElementById('table_name').value,
+                    table_status_id: document.getElementById('table_status_id').value
                 }
             }
 
@@ -224,6 +233,7 @@
             this.setTableId(inputObj.table_id);
             this.setTableNo(inputObj.table_no);
             this.setTableName(inputObj.table_name);
+            this.setTableStatusId(inputObj.table_status_id);
 
             document.getElementById('booking_table_title').setAttribute('label', _('Book Table# %S : %S', [this._table_no, this._table_name]));
 

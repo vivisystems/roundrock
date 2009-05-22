@@ -26,6 +26,13 @@
         init: function (c) {
             // inherit Cart controller constructor
             this._super(c);
+
+            // read switch
+            this._guestCheck.tableWinAsFirstWin = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.TableWinAsFirstWin') || false;
+            this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
+            this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
+            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
+
             // @todo : check orders first and set _checkNoArray, _tableNoArray...
 
             this._tableStatusModel = new TableStatusModel;
@@ -45,12 +52,12 @@
                 cart.addEventListener('onStore', this.handleNewTransaction, this);
 
                 // ChangeServiceClerk
-                cart.addEventListener('onChangeServiceClerk', this.handleNewTransaction, this);
+                cart.addEventListener('onChangeServiceClerk', this.handleChangeServiceClerk, this);
 
                 // TransTable
-                cart.addEventListener('onTransTable', this.handleNewTransaction, this);
+                cart.addEventListener('onTransTable', this.handleTransTable, this);
 
-
+                // check table no and guests before submit...
                 cart.addEventListener('beforeSubmit', this.handleRequestTableNo, this);
                 
             }
@@ -58,7 +65,7 @@
             // add listener for afterSubmit event
             var print = GeckoJS.Controller.getInstanceByName('Print');
             if (print) {
-                print.addEventListener('afterSubmit', this.handleNewTransaction, this);
+                print.addEventListener('afterSubmit', this.handleAfterSubmit, this);
             }
 
             // add listener for onStartShift event
@@ -79,9 +86,6 @@
 
         handleRequestTableNo: function(evt) {
 
-            this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
-            this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
-            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
             if (this._guestCheck.requireTableNo && !evt.data.txn.data.table_no) {
                 // NotifyUtils.warn(_('Please set table no first!'));
                 // evt.preventDefault();
@@ -94,6 +98,54 @@
                 // evt.preventDefault();
                 this.guest('');
             }
+        },
+
+        handleTransTable: function(evt) {
+            //
+            this._tableStatusModel.addCheck(evt.data.data);
+
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+            }
+        },
+
+        handleChangeServiceClerk: function(evt) {
+            //
+            this._tableStatusModel.addCheck(evt.data.data);
+
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+            }
+        },
+
+        handleStore: function(evt) {
+            //
+            this._tableStatusModel.addCheck(evt.data.data);
+
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+            }
+        },
+
+        handleAfterSubmit: function(evt) {
+            //
+            this._tableStatusModel.removeCheck(evt.data.data);
+
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+            }
+        },
+
+        handleCancel: function(evt) {
+            //
         },
 
         handleNewTransaction: function(evt) {
@@ -636,7 +688,7 @@
                 var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + r + "'");
                 if (tableObj.length > 0) {
 
-                    var destination = tableObj[0].table.destination;
+                    var destination = tableObj[0].Table.destination;
                     if (destination)
                         this.requestCommand('setDestination', destination, 'Destinations');
                 }

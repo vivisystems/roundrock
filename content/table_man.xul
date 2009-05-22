@@ -45,6 +45,7 @@
                         <textbox id="table_id" name="id" form="tableForm" readonly="true" hidden="true"/>
                         <textbox id="table_active" name="active" form="tableForm" readonly="true" hidden="true"/>
                         <textbox id="table_map_id" name="map_id" form="tableForm" readonly="true" hidden="true"/>
+                        <textbox id="table_status_id" name="table_status_id" form="tableForm" readonly="true" hidden="true"/>
 
                         <vbox flex="1">
                             <vbox flex="1">

@@ -115,9 +115,9 @@
                 newTable = tableModel.save(newTable);
 
                 // add table_status
-                var newTableMap = {table_id:newTable.id, table_no: table_no};
-                var tableMapModel = new TableMapModel();
-                newTableMap = tableMapModel.save(newTableMap);
+                var newTableStatus = {table_id:newTable.id, table_no: table_no};
+                var tableStatusModel = new TableStatusModel();
+                newTableStatus = tableStatusModel.save(newTableStatus);
 
                 this.loadTables();
 
@@ -237,13 +237,10 @@
             var tableModel = new TableModel();
             // var tables = tableModel.find('all', {fields: fields, recursive: -2});
             var tables = tableModel.find('all', {recursive: 2});
-            this.log("dump tables:::");
-            this.log(this.dump(tables));
                         
             var mapModel = new TableStatusModel();
             var maps = mapModel.find('all', {recursive: 2});
-            this.log("dump status:::");
-            this.log(this.dump(maps));
+
             return;
 
 
@@ -413,7 +410,8 @@
                             'tables.destination',
                             'table_regions.name AS "Table.region"',
                             'tables.table_region_id',
-                            'table_regions.image AS "Table.image"'
+                            'table_regions.image AS "Table.image"',
+                            'table_statuses.id AS "Table.table_status_id"'
 //                            'table_maps.id AS "Table.map_id"'
                         ];
             var orderby = 'tables.table_no ASC';

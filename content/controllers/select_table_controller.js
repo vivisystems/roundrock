@@ -36,7 +36,8 @@
 
             var clerk = this.data[row].clerk || '';
             var now = Math.round(new Date().getTime());
-            var holdby = this.data[row].holdby || '';
+//            var holdby = this.data[row].holdby || '';
+            var holdby = this.data[row].hostby || '';
             // var transaction_created = this.data[row].order.transaction_created * 1000 || now;
             var transaction_created = this.data[row].created * 1000 || now;
 //            var booking_time = Math.round((this.data[row].booking ? this.data[row].booking.booking : 0) || 0) * 1000;
@@ -396,6 +397,13 @@ this.log(this.dump(tables));
             
             switch (this._inputObj.action) {
                 case 'SelectTableNo':
+
+                    if (selTable.hostby) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is host by Table#%S !!', [selTable.hostby]));
+                        return;
+                    }
+
                     this._hidePromptPanel('prompt_panel');
                     // alert('doFunc...' + inputObj.action);
 
@@ -488,7 +496,7 @@ this.log(this.dump(tables));
                         var i = this._tables[v].table_no;
                         var holdby = GeckoJS.BaseObject.clone(this._sourceTable);
 
-                        this._tables = this._tableStatusModel.holdTable(i, holdby);
+                        this._tables = this._tableStatusModel.holdTable(i, holdby.table_no);
                         
                         var tables = [];
                         this._tables.forEach(function(o){
@@ -516,13 +524,15 @@ this.log(this.dump(tables));
                         this._setPromptLabel(null, null, _('Please select an empty table to merge...'), null, 3);
                         this._sourceTable = this._tables[v];
                         this._sourceTableNo = this._tables[v].table_no;
+
                         document.getElementById('tableScrollablepanel').invalidate();
                         return;
                     }
                     break;
                 case 'UnmergeTable':
 
-                    if (!selTable.holdby) {
+                    // if (!selTable.holdby) {
+                    if (!selTable.hostby) {
                         // @todo OSD
                         NotifyUtils.error(_('This table had not been hold!!'));
                         return;
@@ -532,7 +542,8 @@ this.log(this.dump(tables));
                     var holdby = GeckoJS.BaseObject.clone(this._tables[v]);
                     holdby.status = -1;
 
-                    this._tables = this._tableStatusModel.holdTable(i, holdby);
+                    // this._tables = this._tableStatusModel.holdTable(i, holdby);
+                    this._tables = this._tableStatusModel.holdTable(i, i);
 
                     var tables = [];
                     this._tables.forEach(function(o){
@@ -552,9 +563,11 @@ this.log(this.dump(tables));
                     break;
 
                 case 'BookTable':
-                    var table_id = this._tables[v].table.id;
+
+                    var table_status_id = this._tables[v].id
+                    var table_id = this._tables[v].Table.id;
                     var table_no = this._tables[v].table_no;
-                    var table_name = this._tables[v].table.table_name;
+                    var table_name = this._tables[v].Table.table_name;
                     var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
                     var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
@@ -564,6 +577,7 @@ this.log(this.dump(tables));
                         table_no: table_no,
                         table_id: table_id,
                         table_name: table_name,
+                        table_status_id: table_status_id,
                         tables: null
                     };
 
@@ -673,7 +687,8 @@ this.log(this.dump(tables));
 
             // var tables = inputObj.tables;
             var tables2 = this._tableStatusModel.getTableStatusList();
-            
+this.log("dump tables2");
+this.log(this.dump(tables2));
             var tables = [];
             /*
             if (inputObj.tables) {
