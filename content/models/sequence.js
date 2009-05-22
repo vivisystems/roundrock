@@ -4,10 +4,16 @@
     {
     
         getSequence: function(key) {
+        	var isTraining = GeckoJS.Session.get( "isTraining" );
+        	if (isTraining) return;
+        	
             return (new this).getSequence(key);
         },
 
         resetSequence: function(key, value) {
+        	var isTraining = GeckoJS.Session.get( "isTraining" );
+        	if (isTraining) return;
+        	
             return (new this).resetSequence(key, value);
         }
     }

@@ -9,6 +9,11 @@
     border-bottom: 7px solid #f39a1c;
 }
 
+.vfdPadOnTraining {
+    background-color: red;
+    border-bottom: 7px solid #f39a1c;
+}
+
 .vbox_vfd {
     padding: 3px;
     margin-left: 0px;

@@ -9,9 +9,12 @@
         hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'],
         hasOne: ['OrderObject'],
 
-        behaviors: ['Sync'],
+        behaviors: ['Sync', 'Training'],
 
         removeOldOrder: function(iid) {
+        
+        	var isTraining = GeckoJS.Session.get( "isTraining" );
+        	if (isTraining) return;
             //
 
             this.delAll("id='" + iid + "'");
@@ -27,7 +30,9 @@
         },
 
         saveOrder: function(data) {
-            if(!data) return;
+           	var isTraining = GeckoJS.Session.get( "isTraining" );
+           	
+            if(!data || isTraining) return;
 
             // remove old order data if exist...
             this.removeOldOrder(data.id);
