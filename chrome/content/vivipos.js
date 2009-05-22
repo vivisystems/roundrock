@@ -10,6 +10,8 @@
 
         suspendSavePreference: false,
 
+        _httpdServer: null,
+
         closeObserve: null,
 
         _handleWindowClose: function(event){
@@ -68,6 +70,149 @@
             GeckoJS.Log.getLoggerForClass('VIVIPOS').setLevel(GeckoJS.Log.WARN).warn('VIVIPOS STARTUP');
 
             try {
+                var server = Components.classes["@mozilla.org/server/jshttp;1"]
+                             .getService(Components.interfaces.nsIHttpServer);
+
+                var port  = GeckoJS.Configure.read("vivipos.fec.simplehttpd.port") || 8080;
+
+
+                server.registerPathHandler("/", function(metadata, response) {
+
+                    var appInfo = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
+                    var body = "";
+                    body += "name: " + appInfo.name + "\n";
+                    body += "ID: " + appInfo.ID + "\n";
+                    body += "appBuildID: " + appInfo.appBuildID + "\n";
+
+                    response.setStatusLine(metadata.httpVersion, 200, "OK");
+                    response.setHeader("Content-Type", "text/plain", false);
+                    response.bodyOutputStream.write(body, body.length);
+
+                });
+
+                server.registerPathHandler("/observer", function(metadata, response) {
+
+                    var queryData = GeckoJS.String.parseStr(metadata.queryString);
+                    
+                    var topic = queryData['topic'] || "" ;
+                    var data = queryData['data'] || "" ;
+                    var body = "" ;
+
+                    try {
+                        if (topic.length > 0) {
+                            body = "observer notify: \n";
+                            body += "  topic: " + topic + "\n";
+                            body += "  data: " + data + "\n";
+
+                            GeckoJS.Observer.notify(null, topic, data);
+                        }
+                    }catch(e) {
+                        dump(e);
+                    }
+                   
+                    response.setStatusLine(metadata.httpVersion, 200, "OK");
+                    response.setHeader("Content-Type", "text/plain", false);
+                    response.bodyOutputStream.write(body, body.length);
+
+                });
+
+
+                server.registerPathHandler("/dispatch", function(metadata, response) {
+
+                    var queryData = GeckoJS.String.parseStr(metadata.queryString);
+
+                    var command = queryData['command'] || "" ;
+                    var data = queryData['data'] || "" ;
+                    var controller = queryData['controller'] || "" ;
+                    var body = "" ;
+
+                    try {
+                        if (command.length > 0 && controller.length > 0) {
+
+                           // mainWindow only
+                            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+
+                            body = "dispatch: \n";
+                            body += "  controller: " + controller + "\n";
+                            body += "  command: " + command + "\n";
+
+                            GeckoJS.Dispatcher.dispatch(mainWindow, command, data, controller);
+                        }
+                    }catch(e){
+                        dump(e);
+                    }
+
+                    response.setStatusLine(metadata.httpVersion, 200, "OK");
+                    response.setHeader("Content-Type", "text/plain", false);
+                    response.bodyOutputStream.write(body, body.length);
+
+                });
+
+                server.registerPathHandler("/session", function(metadata, response) {
+
+                    var queryData = GeckoJS.String.parseStr(metadata.queryString);
+
+                    var action = queryData['action'] || "" ;
+                    var key = queryData['key'] || "" ;
+                    var value = queryData['value'] || null ;
+                    var body = "" ;
+
+                    try {
+                        if (action.length > 0 && key.length > 0) {
+
+                            switch(action) {
+                                case "add":
+
+                                    body = "session added: \n";
+                                    body += "  key: " + key + "\n";
+
+                                    GeckoJS.Session.add(key, value);
+
+                                case "set":
+
+                                    body = "session updated: \n";
+                                    body += "  key: " + key + "\n";
+
+                                    GeckoJS.Session.set(key, value);
+
+                                    break;
+
+                                case "remove":
+                                    body = "session removed: \n";
+                                    body += "  key: " + key + "\n";
+
+                                    GeckoJS.Session.remove(key);
+                                    break;
+
+                                case "get":
+                                    body = (GeckoJS.Session.get(key) || "") + "";
+                                    break;
+                            }
+                        }
+
+                    }catch(e) {
+                        dump(e);
+                    }
+
+                    response.setStatusLine(metadata.httpVersion, 200, "OK");
+                    response.setHeader("Content-Type", "text/plain", false);
+                    response.bodyOutputStream.write(body, body.length);
+
+                });
+
+                server.start(port);
+
+                GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SIMPLE HTTPD STARTUP (8080)');
+
+                this._httpdServer = server;
+
+            }catch(e) {
+
+
+            }
+
+
+            try {
                 // notify that vivipos STARTUP
                 var event = document.createEvent("Event");
                 event.initEvent("ViviposStartup", true, true);
@@ -90,6 +235,21 @@
 
             // log close
             GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SHUTDOWN');
+
+            try {
+                if (this._httpdServer) {
+                    this._httpdServer.stop( {
+                        onStopped: function() {
+                            // not things to do
+                        }
+                    });
+
+                    GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SIMPLE HTTPD SHUTDOWN');
+                }
+
+            }catch(e) {
+                
+            }
 
             try {
                 // notify that vivipos STARTUP
