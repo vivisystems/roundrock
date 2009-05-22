@@ -187,7 +187,7 @@
 
                 // order save in main thread
                 var order = new OrderModel();
-                if (this.data.status == 1 || this.data.no_of_customers == '') {
+                if (this.data.status == 1 && this.data.no_of_customers == '') {
                     this.data.no_of_customers = '1';
                 }
                 order.saveOrder(this.data);
@@ -224,7 +224,6 @@
                     this.data.proceeds_clerk_displayname = user.description;
                 }
             }
-
             this.process(status);
 
         },

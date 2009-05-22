@@ -44,7 +44,7 @@
                             'STRFTIME("%H",DATETIME("orders"."' + timeField + '", "unixepoch", "localtime")) AS "Order.Hour"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
-                            'SUM("orders"."items_count") AS "Order.ItemsCount"'
+                            'SUM("orders"."qty_subtotal") AS "Order.ItemsCount"'
                         ];
 
             var conditions = "orders." + periodType + ">='" + start +

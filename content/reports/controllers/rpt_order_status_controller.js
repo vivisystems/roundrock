@@ -52,7 +52,6 @@
                             'orders.promotion_subtotal',
                             'orders.revalue_subtotal',
                             'orders.payment_subtotal - orders.change as "Order.payment"',
-                            'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
                             'orders.no_of_customers',

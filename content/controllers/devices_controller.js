@@ -741,7 +741,7 @@
                     var DSR = status & 0x0100 ? 1 : 0;
 
                     // RTS/CTS or DTR/DSR hardware handshaking.
-                    status = CTS | DSR;
+                    status = CTS || DSR;
                 }
             }
             return status;

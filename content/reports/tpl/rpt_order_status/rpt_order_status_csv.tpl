@@ -7,7 +7,7 @@
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
-"${_( '(rpt)Terminal' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Sale Period')}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Status' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Invoice Count' )}","${_( '(rpt)Gross' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Net Sales' )}","${_( '(rpt)Payment' )}"
+"${_( '(rpt)Terminal' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Sale Period')}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Status' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Invoice Count' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Net Sales' )}","${_( '(rpt)Payment' )}"
 {for detail in body}
 {eval}
   TrimPath.RoundingPrices = detail.rounding_prices;

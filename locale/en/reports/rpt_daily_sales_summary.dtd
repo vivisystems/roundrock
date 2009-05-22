@@ -1,4 +1,4 @@
-<!ENTITY rptdailysalessummary.title "Daily Sales Summary Report">
+<!ENTITY rptdailysalessummary.title "Daily Sales Summary">
 <!ENTITY rptdailysalessummary.startdate "Start Date:">
 <!ENTITY rptdailysalessummary.enddate "End Date:">
 <!ENTITY rptdailysalessummary.execute "Execute">
@@ -11,8 +11,8 @@
 <!ENTITY rptdailysalessummary.sortby.time "Date">
 <!ENTITY rptdailysalessummary.sortby.terminal_no "Terminal">
 <!ENTITY rptdailysalessummary.sortby.tax_subtotal "Add-on Tax">
-<!ENTITY rptdailysalessummary.sortby.total "Payment">
-<!ENTITY rptdailysalessummary.sortby.item_subtotal "Total">
+<!ENTITY rptdailysalessummary.sortby.total "Net Sales">
+<!ENTITY rptdailysalessummary.sortby.item_subtotal "Gross Sales">
 <!ENTITY rptdailysalessummary.sortby.surcharge_subtotal "Surcharge">
 <!ENTITY rptdailysalessummary.sortby.discount_subtotal "Discount">
 <!ENTITY rptdailysalessummary.sortby.promotion_subtotal "Promotion">
@@ -28,4 +28,4 @@
 <!ENTITY rptdailysalessummary.transaction_submitted "Order Closed">
 <!ENTITY rptdailysalessummary.starttime "Order Opened">
 <!ENTITY rptdailysalessummary.saleperiod "Sale Period">
-<!ENTITY rptdailysalessummary.shiftno "Shift Number:">
+<!ENTITY rptdailysalessummary.shiftno "Shift:">

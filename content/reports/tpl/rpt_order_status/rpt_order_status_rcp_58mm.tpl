@@ -35,7 +35,7 @@ ${_( '(rpt)Invoice Number' ) + ':'}
 ${detail.invoice_no|right:24}
 ${_( '(rpt)Invoice Count' ) + ':'}
 ${detail.invoice_count|right:24}
-${_( '(rpt)Gross' ) + ':'}
+${_( '(rpt)Gross Sales' ) + ':'}
 ${detail.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Surcharge' ) + ':'}
 ${detail.surcharge_subtotal|viviFormatPrices:true|right:24}
@@ -62,7 +62,7 @@ ${detail.payment|viviFormatPrices:true|right:24}
 ${_( '(rpt)Records Found' ) + ': ' + body.length|left:24}
 ------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Gross' ) + ':'}
+${_( '(rpt)Gross Sales' ) + ':'}
 ${foot.foot_datas.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Surcharge' ) + ':'}
 ${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true|right:24}

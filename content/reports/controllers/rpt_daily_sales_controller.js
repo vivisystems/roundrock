@@ -39,13 +39,12 @@
                 timeField = 'transaction_submitted';
             }
             var fields = [
-                            'sum(order_payments.amount) as "Order.payment_subtotal"',
+                            'sum(order_payments.amount - order_payments.change) as "Order.payment_subtotal"',
                             'order_payments.name as "Order.payment_name"',
                             'orders.' + timeField + ' as "Order.time"',
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
-                            'orders.change',
                             'orders.tax_subtotal',
                             'orders.item_subtotal',
                             'orders.total',
@@ -59,7 +58,7 @@
                             'orders.discount_subtotal',
                             'orders.promotion_subtotal',
                             'orders.revalue_subtotal',
-                            'orders.items_count',
+                            'orders.qty_subtotal',
                             'orders.check_no',
                             'orders.table_no',
                             'orders.no_of_customers',
@@ -105,6 +104,7 @@
             	discount_subtotal: 0,
             	promotion_subtotal: 0,
             	revalue_subtotal: 0,
+                payment: 0,
             	cash: 0,
             	check: 0,
             	creditcard: 0,
@@ -127,6 +127,7 @@
                 }
 				
 				if ( old_oid != oid ) {
+					repDatas[ oid ][ 'payment' ] = 0.0;
 					repDatas[ oid ][ 'cash' ] = 0.0;
 					repDatas[ oid ][ 'check' ] = 0.0;
 					repDatas[ oid ][ 'creditcard' ] = 0.0;
@@ -141,12 +142,14 @@
 		            footDatas.revalue_subtotal += o.revalue_subtotal;
 		            footDatas.tax_subtotal += o.tax_subtotal;
 		            footDatas.item_subtotal += o.item_subtotal;
-                    footDatas.items += o.items_count;
+                    footDatas.items += o.qty_subtotal;
                     footDatas.guests += o.no_of_customers;
 				}
 				
-                repDatas[ oid ][o.payment_name] += o.payment_subtotal - o.change;
-                footDatas[ o.payment_name ] += o.payment_subtotal - o.change;
+                repDatas[ oid ][o.payment_name] += o.payment_subtotal;
+                repDatas[ oid ][ 'payment' ] += o.payment_subtotal;
+                footDatas[ o.payment_name ] += o.payment_subtotal;
+                footDatas[ 'payment' ] += o.payment_subtotal;
 
                 old_oid = oid;
             });
@@ -189,7 +192,7 @@
             	);
             }
             
-            this._reportRecords.head.title = _( 'Daily Sales Report' );
+            this._reportRecords.head.title = _( 'Sales Report' );
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
 			this._reportRecords.head.terminal_no = terminal_no;

@@ -73,7 +73,7 @@
                 }
             });
 
-            this._reportRecords.head.title = _( 'Product List' );
+            this._reportRecords.head.title = _( 'Product Report' );
             this._reportRecords.body = records;
         },
 

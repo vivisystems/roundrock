@@ -26,15 +26,15 @@
                     <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Invoice Number' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Guests' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Items' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Gross' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Number of Guests' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Number of Items' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Discount' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Revalue' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Payment' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +53,7 @@
                     <td style="text-align: left;">${detail.sequence}</td>
                     <td style="text-align: left;">${detail.invoice_no|default:''}</td>
                     <td style="text-align: right;">${detail.no_of_customers|default:''|format:0}</td>
-                    <td style="text-align: right;">${detail.items_count|default:0|format:0}</td>
+                    <td style="text-align: right;">${detail.qty_subtotal|default:0|format:0}</td>
                     <td style="text-align: right;">${detail.item_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatTaxes:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|default:0|viviFormatPrices:true}</td>

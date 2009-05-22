@@ -51,21 +51,21 @@
 		                    		<label value="&rptsalessummary.periodtype;" />
 					                <menulist id="period_type">
 					                    <menupopup id="periodtype_menupopup">
-					                        <menuitem selected="false" label="&rptsalessummary.starttime;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptsalessummary.transaction_created;" value="transaction_created" />
 					                        <menuitem selected="true" label="&rptsalessummary.transaction_submitted;" value="transaction_submitted" />
 					                        <menuitem selected="false" label="&rptsalessummary.saleperiod;" value="sale_period" />
 					                    </menupopup>
 					                </menulist>
 		                    	</vbox>
 		                    	<vbox>
-				                    <label value="&rptsalessummary.machineid;" />
-				                    <textbox id="machine_id" value='' width="300"/>
+				                    <label value="&rptsalessummary.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
 				                </vbox>
 		                    </row>
 		                    <row>
 		                    	<vbox>
-				                    <label value="&rptsalessummary.shiftno;" />
-				                    <textbox id="shift_no" value='' width="300"/>
+				                    <label value="&rptsalessummary.terminal_no;" />
+				                    <textbox id="terminal_no" value='' width="300"/>
 				                </vbox>
 				            </row>
 		                </rows>
