@@ -79,3 +79,4 @@ pref("intl.locale.matchOS", "false");
 pref("general.useragent.locale", "en-US");
 pref("intl.charset.default", "UTF-8");
 
+pref("vivipos.fec.simplehttpd.port", 8888);
