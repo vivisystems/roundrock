@@ -212,7 +212,8 @@
             var fields = [
                             'order_payments.name',
                             'order_payments.memo1',
-                            'sum( order_payments.amount - order_payments.change) as "OrderPayment.amount"',
+                            'sum( order_payments.change) as "OrderPayment.change"',
+                            'sum( order_payments.amount) as "OrderPayment.amount"',
                             'sum( order_payments.origin_amount ) as "OrderPayment.origin_amount"'
                        	 ];
 
@@ -239,7 +240,17 @@
             var orderPayment = new OrderPaymentModel();
             
             var records = orderPayment.find( 'all',{ fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
+            
             var paymentList = {};
+            var giftcardExcess;
+            var cashChange = 0;
+            var cashRecord;
+
+            var Currencies = GeckoJS.Session.get('Currencies');
+            var localCurrencySymbol = '';
+            if (Currencies && Currencies.length > 0) {
+                localCurrencySymbol = Currencies[0].currency_symbol;
+            }
             records.forEach( function( record ) {
 
                 var payment;
@@ -254,10 +265,27 @@
 
                 payment = paymentList[ record.name ];
 
-                if (record.name == 'giftcard') record.amount = record.origin_amount;
+                if (record.name == 'giftcard') {
+                    // check if we need to update giftcard excess record
+                    if (record.amount != record.origin_amount) {
+                        var excess = record.amount - record.origin_amount;
+                        if (!giftcardExcess) {
+                            giftcardExcess = {
+                                name: 'giftcard',
+                                memo1: _('(rpt)giftcard excess amount'),
+                                amount: excess
+                            };
+                        }
+                        else {
+                            giftcardExcess.amount += excess;
+                        }
+                    }
+                    record.amount = record.origin_amount;
+                }
 
             	payment.total += record.amount;
             	payment.detail.push( record );
+                cashChange += record.change;
             	            	
             	summary.payment_total += record.amount;
 
@@ -266,12 +294,48 @@
                         record.amount = record.origin_amount;
                     }
                     else {
-                        var Currencies = GeckoJS.Session.get('Currencies');
-                        if (Currencies && Currencies.length > 0) {
-                            record.memo1 = Currencies[0].currency_symbol;
-                        }
+                        record.memo1 = localCurrencySymbol;
+                        cashRecord = record;
                     }
                 }
+            });
+
+            if (giftcardExcess && paymentList[ 'giftcard' ]) {
+                paymentList[ 'giftcard' ].detail.push(giftcardExcess);
+                /*
+                paymentList[ 'giftcard' ].total += giftcardExcess.amount;
+                summary.payment_total += giftcardExcess.amount;
+                */
+            }
+
+            // subtract cashChange from cashRecord, cash payment totals, and summary totals
+            if (cashChange != 0) {
+                if (!cashRecord) {
+                    if (!('cash' in paymentList)) {
+                        paymentList[ 'cash' ] = {
+                            name: 'cash',
+                            total: 0,
+                            detail: []
+                        };
+                    }
+
+                    // insert a detail record for local cash
+                    cashRecord = {name: 'cash', memo1: localCurrencySymbol, amount: 0, change: 0};
+                    paymentList[ 'cash' ].detail.push(cashRecord);
+                }
+                // subtract cashChange from cashRecord
+                cashRecord.amount -= cashChange;
+
+                // subtract cashChange from cash payment totals
+                paymentList[ 'cash' ].total -= cashChange;
+
+                // subtract cashChange from summary totals
+                summary.payment_total -= cashChange;
+            }
+
+            paymentList = GeckoJS.BaseObject.getValues(paymentList);
+            paymentList.sort(function(a, b) {
+                return a['name'] > b['name'];
             });
             /*
             for (p in paymentList) {
@@ -324,7 +388,7 @@
 
             var order = new OrderModel();
             var orderRecord = order.find( 'first', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 0, limit: this._csvLimit } );
-//this.alert(this.dump(orderRecord));
+
             if (orderRecord) {
                 if (orderRecord.Guests > 0) {
                     orderRecord.AvgNetSalesPerGuest = orderRecord.NetSales / orderRecord.Guests;

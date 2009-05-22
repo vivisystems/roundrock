@@ -130,12 +130,12 @@
                 <tbody>
     {for detail in body.payment_list.records}
                     <tr>
-                        <td style="text-align: left;">${detail.name}</td>
+                        <td style="text-align: left;">${detail.name|default:''}</td>
                         <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
                     </tr>
     {for payment in detail.detail}
     				<tr>
-    					<td style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;${payment.memo1}</td>
+    					<td style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;${payment.memo1|default:''}</td>
                         <td style="text-align: right;">${payment.amount|default:0|viviFormatPrices:true}</td>
                     </tr>
    	{/for}
@@ -185,7 +185,7 @@
                 <caption>${_( '(rpt)Hourly Sales' )}</caption>
                 <thead>
                     <tr>
-                        <th style="text-align: left;">${_( '(rpt)Time' )}</th>
+                        <th style="text-align: left;">${_( '(rpt)Hour' )}</th>
                         <th style="text-align: right;">${_( '(rpt)Number of Guests' )}</th>
                         <th style="text-align: right;">${_( '(rpt)Number of Orders' )}</th>
                         <th style="text-align: right;">${_( '(rpt)Gross Sales' )}</th>

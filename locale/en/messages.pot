@@ -1243,6 +1243,9 @@ msgstr "giftcard"
 msgid "(rpt)check"
 msgstr "check"
 
+msgid "(rpt)giftcard excess amount"
+msgstr "(excess)"
+
 msgid "acl_touch_settings"
 msgstr "Touch Screen Settings"
 
@@ -1894,8 +1897,8 @@ msgstr "Count"
 msgid "(rpt)Promotion Amount"
 msgstr "Amount"
 
-msgid "(rpt)General Information"
-msgstr "General Information"
+msgid "(rpt)Sales Overview"
+msgstr "Sales Overview"
 
 msgid "(rpt)Tax Name"
 msgstr "Tax Name"
