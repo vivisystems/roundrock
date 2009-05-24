@@ -91,7 +91,7 @@
 
                     var annotationCode = this._codeDatas[index].code;
                     this.getCodeListObj().treeBoxObject.ensureRowIsVisible(index);
-                    
+
                     OsdUtils.info(_('Annotation code [%S] modified successfully', [annotationCode]));
                 }
                 else {
@@ -112,7 +112,7 @@
                 }
 
                 this._codeDatas.splice(index, 1);
-
+                
                 this.saveAnnotationCodes();
 
                 // @todo OSD
@@ -261,40 +261,50 @@
             var text = textBox.value;
 
             var orderId = this.getOrderId();
+            var r;
 
             if (typeIndex > -1 && text.length > 0) {
                 var annotationType = this._typeDatas[typeIndex].type;
 
                 if (this.Acl.isUserInRole('acl_modify_annotations')) {
-                    this.annotate(orderId, annotationType, text);
+                    r = this.annotate(orderId, annotationType, text);
                 }
                 else {
                     // no privilege to modify annotation, we must make sure we don't
                     // overwrite existing annotation of the same type
                     var existingAnnotation = this.retrieveAnnotation(orderId, annotationType);
-                    if (existingAnnotation == '') {
-                        this.annotate(orderId, annotationType, text);
+                    if (!existingAnnotation && typeof existingAnnotation != 'string') {
+                        NotifyUtils.error(_('Failed to retrieve annotation [%s]', [annotationType]));
+                        return;
+                    }
+                    else if (existingAnnotation == '') {
+                        r = this.annotate(orderId, annotationType, text);
                     }
                     else {
                         NotifyUtils.warn(_('You are not authorized to modify annotations'));
                         return;
                     }
                 }
+                if (r) {
+                    // drop annotation data and reload
+                    this._annotationDatas = [];
+                    this.loadAnnotations();
 
-                // drop annotation data and reload
-                this._annotationDatas = [];
-                this.loadAnnotations();
-
-                // loop through this._annotationDatas to find the newly added annotation and select it
-                for (var index = 0; index < this._annotationDatas.length; index++) {
-                    if (this._annotationDatas[index].type == annotationType) {
-                        this.selectView(index);
-                        break;
+                    // loop through this._annotationDatas to find the newly added annotation and select it
+                    for (var index = 0; index < this._annotationDatas.length; index++) {
+                        if (this._annotationDatas[index].type == annotationType) {
+                            this.selectView(index);
+                            break;
+                        }
                     }
-                }
 
-                // @todo OSD
-                OsdUtils.info(_('Annotation [%S] added successfully', [annotationType]));
+                    // @todo OSD
+                    OsdUtils.info(_('Annotation [%S] added successfully', [annotationType]));
+                }
+                else {
+                    // @todo OSD
+                    NotifyUtils.error(_('Failed to add annotation [%S]', [annotationType]));
+                }
             }
         },
 
@@ -308,14 +318,20 @@
 
             if (index > -1 && text.length > 0) {
                 var type = this._annotationDatas[index].type;
-                this.annotate(orderId, type, text);
+                var r = this.annotate(orderId, type, text);
 
-                // drop annotation data and reload
-                this._annotationDatas[index].text = text;
-                this.loadAnnotations();
+                if (r) {
+                    // drop annotation data and reload
+                    this._annotationDatas[index].text = text;
+                    this.loadAnnotations();
 
-                // @todo OSD
-                OsdUtils.info(_('Annotation [%S] modified successfully', [type]));
+                    // @todo OSD
+                    OsdUtils.info(_('Annotation [%S] modified successfully', [type]));
+                }
+                else {
+                    // @todo OSD
+                    NotifyUtils.error(_('Failed to modify annotation [%S]', [type]));
+                }
             }
         },
 
@@ -330,19 +346,25 @@
                 }
 
                 var annotationModel = new OrderAnnotationModel();
-                annotationModel.del(this._annotationDatas[index].id);
+                var r = annotationModel.del(this._annotationDatas[index].id);
 
-                this._annotationDatas.splice(index, 1);
-                this.loadAnnotations();
+                if (r) {
+                    this._annotationDatas.splice(index, 1);
+                    this.loadAnnotations();
 
-                this.getTextboxObj().value = '';
+                    this.getTextboxObj().value = '';
 
-                // @todo OSD
-                OsdUtils.info(_('Annotation [%S] deleted successfully', [annotationType]));
+                    // @todo OSD
+                    OsdUtils.info(_('Annotation [%S] deleted successfully', [annotationType]));
 
-                index = this.getViewListObj().selectedIndex;
-                if (index >= this._annotationDatas.length) index = this._annotationDatas.length - 1;
-                this.selectView(index);
+                    index = this.getViewListObj().selectedIndex;
+                    if (index >= this._annotationDatas.length) index = this._annotationDatas.length - 1;
+                    this.selectView(index);
+                }
+                else {
+                    // @todo OSD
+                    NotifyUtils.error(_('Failed to delete annotation [%S]', [annotationType]));
+                }
             }
         },
 
@@ -451,6 +473,14 @@
                                                     conditions: 'order_id = \'' + order_id + '\' AND type = \'' + type + '\'',
                                                     recursive: 0
                                                   });
+
+            // check if find() was successful
+            if (annotationModel.lastError) {
+                this.dbError(annotationModel,
+                             _('An error was encountered while retrieving order annotation [%S] (error code %S)', [type, annotationModel.lastError]));
+                return false;
+            }
+
             if (annotation != null) {
                 annotation.text = text;
                 annotationModel.id = annotation.id;
@@ -460,7 +490,12 @@
                               type: type,
                               text: text};
             }
-            annotationModel.save(annotation);
+            if (!annotationModel.save(annotation)) {
+                this.dbError(annotationModel,
+                             _('An error was encountered while annotating order (error code %S)', [annotationModel.lastError]));
+                return false;
+            }
+            return true;
         },
 	
         retrieveAnnotation: function(order_id, type) {
@@ -469,6 +504,12 @@
                                                     conditions: 'order_id = \'' + order_id + '\' AND type = \'' + type + '\'',
                                                     recursive: 0
                                                   });
+            if (annotationModel.lastError) {
+                this.dbError(annotationModel,
+                             _('An error was encountered while retrieving order annotation [%S] (error code %S)', [type, annotationModel.lastError]));
+                return '';
+            }
+
             if (annotation != null) {
                 return annotation.text;
             }
@@ -477,9 +518,23 @@
 
         retrieveAnnotations: function(order_id) {
             var annotationModel = new OrderAnnotationModel();
-            return annotationModel.findByIndex('all', {index: 'order_id', value: order_id, order: 'type', recursive: 0});
-        }
+            var r = annotationModel.findByIndex('all', {index: 'order_id', value: order_id, order: 'type', recursive: 0});
+            
+            if (annotationModel.lastError) {
+                this.dbError(annotationModel,
+                             _('An error was encountered while retrieving order annotations (error code %S)', [annotationModel.lastError]));
+                return [];
+            }
+            return r;
+        },
 
+
+        dbError: function(model, alertStr) {
+            this.log('WARN', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
+            GREUtils.Dialog.alert(window,
+                                  _('Data Operation Error'),
+                                  alertStr);
+        }
     };
 
     GeckoJS.Controller.extend(__controller__);

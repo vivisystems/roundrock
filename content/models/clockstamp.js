@@ -1,12 +1,18 @@
 var ClockStampModel = GeckoJS.Model.extend({
     name: 'ClockStamp',
+
     indexes: ['username', 'job', 'created', 'clockin_date'],
+
+    useDbConfig: 'order',
+    
     behaviors: ['Sync'],
 
     saveStamp: function(type, username, job, displayname) {
 
         var data = {};
         var today = new Date();
+        var last;
+        var r;
 
         if (!displayname) displayname = username;
         data['username'] = username;
@@ -14,14 +20,22 @@ var ClockStampModel = GeckoJS.Model.extend({
         
         switch (type) {
             case "clockin":
-                var last = this.findLastStamp(username);
+                last = this.findLastStamp(username);
+                // check for db error
+                if (this.lastError) {
+                    return false;
+                }
+                
                 // automatically clocks out last job if necessary
                 if (last && !last['clockout']) {
                     // clock out previous job first
                     last['clockout'] = 1;
                     last['clockout_time'] = today.toString("yyyy-MM-dd HH:mm:ss");
                     this.id = last.id;
-                    this.save(last);
+                    r = this.save(last);
+                    if (!r) {
+                        return false;
+                    }
                 }
                 // clock in a new job
                 data['clockin'] = 1;
@@ -33,8 +47,12 @@ var ClockStampModel = GeckoJS.Model.extend({
                 break;
                 
             case "clockout":
-                var last = this.findLastStamp(username);
+                last = this.findLastStamp(username);
 
+                if (this.lastError) {
+                    return false;
+                }
+                
                 if (last && last['clockout'] == false) {
                     data['clockin'] = 1;
                     data['clockout'] = 1;
@@ -44,7 +62,7 @@ var ClockStampModel = GeckoJS.Model.extend({
                 break;
         }
 
-        this.save(data);
+        return this.save(data);
     },
 
     findLastStamp: function(username) {

@@ -21,6 +21,12 @@
             var users = userModel.find('all', {
                 order: "username"
             });
+
+            if (userModel.lastError) {
+                this.dbError(userModel,
+                             _('An error was encountered while retrieving employee records (error code %S)', [userModel.lastError]));
+            }
+
             var userpanel = document.getElementById('userscrollablepanel');
             if (userpanel) {
                 userpanel.datasource = users;
@@ -37,6 +43,11 @@
                 order: "jobname"
             });
             
+            if (jobModel.lastError) {
+                this.dbError(jobModel,
+                             _('An error was encountered while retrieving jobs (error code %S)', [jobModel.lastError]));
+            }
+
             if (jobs) {
                 jobs.sort(function(a, b) {
                     if (a.jobname < b.jobname) return -1;
@@ -139,10 +150,18 @@
                         return;
                     }
                     var clockstamp = new ClockStampModel();
-                    clockstamp.saveStamp('clockin', username, jobname, displayname);
+                    var r = clockstamp.saveStamp('clockin', username, jobname, displayname);
+                    if (r) {
+                        this.listSummary(username);
+                        $('#user_password').val('');
+                    }
+                    else {
+                        //@db
+                        //clockstamp.saveToBackup('clockin', username, jobname, displayname);
 
-                    this.listSummary(username);
-                    $('#user_password').val('');
+                        this.dbError(clockstamp,
+                                     _('An error was encountered while clocking employee [%S] in (error code %S)', [displayname, clockstamp.lastError]));
+                    }
                 } else {
                     if (userpass == '')
                         //@todo OSD
@@ -159,11 +178,13 @@
         clockOut: function () {
             var username;
             var userpass = $('#user_password').val();
+            var displayname;
 
             if (this.userpanel && this.users) {
                 var index = this.userpanel.selectedIndex;
                 if (index > -1 && index < this.users.length) {
                     username = this.users[index].username;
+                    displayname = this.users[index].displayname;
                 }
             }
             if (username == null) {
@@ -178,8 +199,19 @@
                     var clockstamp = new ClockStampModel();
                     var last = clockstamp.findLastStamp(username);
 
-                    if (last && !last.clockout) {
-                        clockstamp.saveStamp('clockout', username);
+                    if (clockstamp.lastError) {
+                        this.dbError(clockstamp,
+                                     _('An error was encountered while retrieving employee attendance record (error code %S)', [clockstamp.lastError]));
+                    }
+                    else if (last && !last.clockout) {
+                        var r = clockstamp.saveStamp('clockout', username);
+                        if (!r) {
+                            //@db
+                            //clockstamp.saveToBackup('clockout', username);
+
+                            this.dbError(clockstamp,
+                                         _('An error was encountered while clocking employee [%S] out (error code %S)', [displayname, clockstamp.lastError]));
+                        }
                     }
                     else {
                         //@todo OSD
@@ -215,6 +247,12 @@
                 			today.toString("yyyy-MM-dd") + "' OR clockout = 0 )",
                 order: "created"
             });
+            if (clockstamp.lastError) {
+                this.dbError(clockstamp,
+                             _('An error was encountered while retrieving employee attendance record (error code %S)', [clockstamp.lastError]));
+                return;
+            }
+alert('records found: ' + stamps.length);
             if (username != this.lastUser) this.clearSummary();
             this.lastUser = username;
 
@@ -270,6 +308,14 @@
 
         validateForm: function () {
 
+        },
+
+
+        dbError: function(model, alertStr) {
+            this.log('WARN', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
+            GREUtils.Dialog.alert(window,
+                                  _('Data Operation Error'),
+                                  alertStr);
         }
     };
 

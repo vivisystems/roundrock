@@ -5188,7 +5188,7 @@ msgstr ""
 msgid "Obsolete"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:609
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:649
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:70
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:40
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:37
@@ -5199,47 +5199,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
 msgid "(rpt)"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:12
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:10
-msgid "(rpt)General Information"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:74
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:50
-msgid "(rpt)Tax Type"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:76
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:89
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:96
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:105
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:112
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:51
-msgid "(rpt)Total"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:139
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:157
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:94
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:106
-msgid "(rpt)TYPE"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:141
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:148
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:159
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:166
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:177
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:184
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:95
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:100
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:107
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:112
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:119
-#: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:124
-msgid "(rpt)Count"
 msgstr ""
 
 #: ../..//content/order_display_template.tpl:86

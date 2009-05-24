@@ -484,7 +484,7 @@
             var orderby = 'orders.destination';
             
             var order = new OrderModel();
-            var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
+            var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 0, limit: this._csvLimit } );
 
             datas.forEach(function(o) {
                 if (o.num_trans > 0) {

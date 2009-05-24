@@ -229,6 +229,12 @@
             // only one annotationType is specified and is not null, use memo-style UI
             if (codeList.length == 1 && annotationType != null && annotationType != '') {
                 var existingAnnotation = annotationController.retrieveAnnotation(txn.data.id, annotationType);
+                // check if annotation was successfully retrieved
+                if (!existingAnnotation && typeof existingAnnotation != 'string') {
+                    NotifyUtils.error(_('Failed to retrieve annotation [%S]', [annotationType]));
+                    return;
+                }
+
                 var readonly = false;
                 if (!this.Acl.isUserInRole('acl_modify_annotations')) {
                     // no privilege to modify annotation, we must make sure we don't
@@ -275,7 +281,14 @@
                         }
 
                         // save annotation in db
-                        annotationController.annotate(txn.data.id, annotationType, result.input0);
+                        if (annotationController.annotate(txn.data.id, annotationType, result.input0)) {
+                            // @todo OSD
+                            OsdUtils.info(_('Annotation [%S] added successfully', [annotationType]));
+                        }
+                        else {
+                            // @todo OSD
+                            NotifyUtils.error(_('Failed to add annotation [%S]', [annotationType]));
+                        }
                     }
                 });
             }
