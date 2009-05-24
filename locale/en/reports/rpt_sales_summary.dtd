@@ -13,3 +13,5 @@
 <!ENTITY rptsalessummary.transaction_submitted "Order Closed">
 <!ENTITY rptsalessummary.saleperiod "Sale Period">
 <!ENTITY rptsalessummary.shiftno "Shift:">
+<!ENTITY rptsalessummary.numdept "Number of rows in top dept. sales.:">
+<!ENTITY rptsalessummary.numproduct "Number of rows in top product sales:">

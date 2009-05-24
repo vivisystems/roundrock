@@ -64,6 +64,16 @@
 		                    </row>
 		                    <row>
 		                    	<vbox>
+				                    <label value="&rptsalessummary.numdept;" />
+				                    <textbox id="num_dept" value='' width="300"/>
+				                </vbox>
+		                    	<vbox>
+				                    <label value="&rptsalessummary.numproduct;" />
+				                    <textbox id="num_product" value='' width="300"/>
+				                </vbox>
+				            </row>
+		                    <row>
+		                    	<vbox>
 				                    <label value="&rptsalessummary.terminal_no;" />
 				                    <textbox id="terminal_no" value='' width="300"/>
 				                </vbox>
