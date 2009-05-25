@@ -352,9 +352,10 @@
                 //@db save record to backup
                 //drawerRecordModel.saveToBackup(accessRecord);
 
-                // log error and notify user
-                this.dbError(drawerRecordModel,
-                             _('An error was encountered while logging cashdrawer activity (error code %S)', [drawerRecordModel.lastError]));
+                // log error
+                this.log('ERROR',
+                         _('An error was encountered while logging cashdrawer activity (error code %S); record saved to backup %S',
+                           [drawerRecordModel.lastError, '\n' + this.dump(accessRecord)]));
             }
         },
 
@@ -435,7 +436,7 @@
                     printed = true;
                 }
                 else {
-                    this.log('WARN', 'CASHDRAWER command length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                    this.log('ERROR', 'CASHDRAWER command length: [' + encodedResult.length + '], printed length: [' + len + ']');
                 }
                 this.closeSerialPort(portPath);
             }
@@ -458,7 +459,7 @@
         },
 
         dbError: function(model, alertStr) {
-            this.log('WARN', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
+            this.log('ERROR', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
             GREUtils.Dialog.alert(window,
                                   _('Data Operation Error'),
                                   alertStr);

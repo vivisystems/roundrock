@@ -774,10 +774,11 @@
                 data.customer = GeckoJS.Session.get('current_customer');
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
-                
-                // expand data with annotations
-                var annotationModel = new OrderAnnotationModel();
-                data.annotations = annotationModel.findByIndex('all', {index: 'order_id', value: data.order.id, order: 'type', recursive: 0});
+
+                // for backward compatibility
+                if (data.order) {
+                    data.annotations = data.order.annotations;
+                }
 	        }
 
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
