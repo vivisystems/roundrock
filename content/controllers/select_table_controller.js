@@ -39,7 +39,8 @@
 //            var holdby = this.data[row].holdby || '';
             var holdby = this.data[row].hostby || '';
             // var transaction_created = this.data[row].order.transaction_created * 1000 || now;
-            var transaction_created = this.data[row].created * 1000 || now;
+            // var transaction_created = this.data[row].created * 1000 || now;
+            var transaction_created = this.data[row].start_time * 1000 || now;
 //            var booking_time = Math.round((this.data[row].booking ? this.data[row].booking.booking : 0) || 0) * 1000;
             var booking_time = Math.round((this.data[row].booking ? this.data[row].booking : 0) || 0) * 1000;
 
@@ -107,11 +108,12 @@
         // _inputObj: window.arguments[0],
         _inputObj: {},
         _tableSettings: {},
-        _tables: [],
+        _tables: null,
         _sourceTable: null,
         _sourceTableNo: null,
         _tableStatusModel: null,
         _isNewOrder: false,
+        _cartController: null,
 
         initial: function () {
             //
@@ -120,12 +122,18 @@
 //                document.getElementById('tableScrollablepanel').rows = 5;
 //                document.getElementById('tableScrollablepanel').cols = 5;
 //            }
-            
+
+            if (this._cartController == null) {
+                this._cartController = GeckoJS.Controller.getInstanceByName('Cart');
+            };
+
             // this.readTableConfig();
             if (this._tableStatusModel == null) {
-                this._tableStatusModel = new TableStatusModel;
-                this._tableStatusModel.initial();
+                // this._tableStatusModel = new TableStatusModel;
+                // this._tableStatusModel.initial();
+                this._tableStatusModel = this._cartController.GuestCheck._tableStatusModel;
             }
+
         },
 
         getTableListObj: function() {
@@ -165,15 +173,15 @@
         _showPromptPanel: function(panel, sleepTime) {
 
             var promptPanel = document.getElementById(panel);
-            var funcPanel = document.getElementById('func_panel');
+            //var funcPanel = document.getElementById('func_panel');
 
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            var w = funcPanel.boxObject.width + 32;
-            var h = funcPanel.boxObject.height + 0;
-            var x = funcPanel.boxObject.screenX - 32;
+            var w = 671;//funcPanel.boxObject.width + 32;
+            var h = 160;//funcPanel.boxObject.height + 0;
+            var x = 10;//funcPanel.boxObject.screenX - 32;
             // var y = funcPanel.boxObject.screenY - 18;
-            var y = height - h - 8;
+            var y = height - h - 5;
 
             
             promptPanel.sizeTo(w, h);
@@ -205,7 +213,8 @@
 
             var id = tableObj.order_id || '';
 
-            if (!id) return;
+            // if (!id) return;
+            if (tableObj.checks <= 0) return;
             
             var order = tableObj.order[0];
 
@@ -228,6 +237,8 @@
                 tab.setAttribute('label', 'C#' + o.check_no);
                 tabs.appendChild(tab);
             })
+
+
             data.sequence = order.seq;
 
             var result = tpl.process(data);
@@ -237,6 +248,9 @@
             }
 
             // after_start
+            // promptPanel.boxObject.width = 707;
+            // promptPanel.boxObject.height = 534;
+            // promptPanel.sizeTo(707, 534);
             var x = (width - promptPanel.boxObject.width) / 2;
             var y = (height - promptPanel.boxObject.height) / 2;
             // alert("x, y:" + x + "," + y);
@@ -248,6 +262,16 @@
 
         readTableConfig: function() {
             this._tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+        },
+
+        doCloseOrderPanel: function() {
+            //
+            this._hidePromptPanel('order_display_panel');
+        },
+
+        doClosePromptPanel: function() {
+            //
+            this.doCancelFunc();
         },
 
         doRecallCheck: function() {
@@ -354,26 +378,8 @@
             this._sourceTableNo = null;
             this._hidePromptPanel('prompt_panel');
 
-            var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            cart.GuestCheck.getNewTableNo();
+            this._tableStatusModel.getTableStatusList();
 
-/*
-            ///
-            var fields = ['tables.table_no',
-                            'tables.table_name',
-                            'tables.seats',
-//                            'table_statuses.clerk AS "Table.clerk"'
-//                            'table_statuses.clerk',
-                            'table_maps.id AS "Table.map_id"'
-                      ];
-// var fields = null;
-            // var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
-            var conditions = null;
-            var tableModel = new TableModel;
-            var tables = tableModel.find('all', {fields: fields, conditions: conditions, recursive: 2});
-this.log('Tables:::');
-this.log(this.dump(tables));
-*/
             return;
         },
 
@@ -416,6 +422,9 @@ this.log(this.dump(tables));
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
                         
                         cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                        this._inputObj.action = '';
+                        this._sourceTableNo = null;
                         
                         $.hidePanel('selectTablePanel', true);
                         return;
@@ -451,6 +460,10 @@ this.log(this.dump(tables));
                         // doOKButton();
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
                         cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                        this._inputObj.action = '';
+                        this._sourceTableNo = null;
+
                         // $.hidePanel('selectTablePanel', true);
                         cart.GuestCheck.getNewTableNo();
                         return;
@@ -472,6 +485,10 @@ this.log(this.dump(tables));
                             // doOKButton();
                             var cart = GeckoJS.Controller.getInstanceByName('Cart');
                             cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                            this._inputObj.action = '';
+                            this._sourceTableNo = null;
+
                             // $.hidePanel('selectTablePanel', true);
                             cart.GuestCheck.getNewTableNo();
                             return;
@@ -496,18 +513,10 @@ this.log(this.dump(tables));
                         var i = this._tables[v].table_no;
                         var holdby = GeckoJS.BaseObject.clone(this._sourceTable);
 
-                        this._tables = this._tableStatusModel.holdTable(i, holdby.table_no);
-                        
-                        var tables = [];
-                        this._tables.forEach(function(o){
-                            // if (o.active || o.sequence)
-                            tables.push(o);
-                        });
-                        this._tables = tables;
-                        
-                        var tableStatus = new TableStatusView(this._tables);
-                        tableStatus._controller = this;
-                        document.getElementById('tableScrollablepanel').datasource = tableStatus ;
+                        // this._tables = this._tableStatusModel.holdTable(i, holdby.table_no);
+                        this._tableStatusModel.holdTable(i, holdby.table_no);
+
+                        document.getElementById('tableScrollablepanel').invalidate();
 
                         this._inputObj.action = '';
                         this._sourceTable = null;
@@ -515,12 +524,14 @@ this.log(this.dump(tables));
                         this._hidePromptPanel('prompt_panel');
                         return;
                     } else {
+                        // allow empty table as host table
+                        /*
                         if (!selTable.sequence) {
                             // @todo OSD
                             NotifyUtils.error(_('This table is empty!!'));
                             return;
                         }
-
+                        */
                         this._setPromptLabel(null, null, _('Please select an empty table to merge...'), null, 3);
                         this._sourceTable = this._tables[v];
                         this._sourceTableNo = this._tables[v].table_no;
@@ -543,19 +554,11 @@ this.log(this.dump(tables));
                     holdby.status = -1;
 
                     // this._tables = this._tableStatusModel.holdTable(i, holdby);
-                    this._tables = this._tableStatusModel.holdTable(i, i);
+                    // this._tables = this._tableStatusModel.holdTable(i, i);
+                    this._tableStatusModel.holdTable(i, i);
 
-                    var tables = [];
-                    this._tables.forEach(function(o){
-                        // if (o.active || o.sequence)
-                        tables.push(o);
-                    });
-                    this._tables = tables;
-
-                    var tableStatus = new TableStatusView(this._tables);
-                    tableStatus._controller = this;
-                    document.getElementById('tableScrollablepanel').datasource = tableStatus ;
-
+                    document.getElementById('tableScrollablepanel').invalidate();
+                    
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
                     this._hidePromptPanel('prompt_panel');
@@ -593,6 +596,9 @@ this.log(this.dump(tables));
                     return;
                     break;
                 default:
+
+                    var orders = this._cartController.GuestCheck.getCheckList("TableNo", this._tables[v].table_no);
+                    this._tables[v].order = orders.concat([]);
                     this._showOrderDisplayPanel('order_display_panel', this._tables[v], evt.originalTarget);
                     break;
             }
@@ -607,6 +613,8 @@ this.log(this.dump(tables));
                 // doOKButton();
                 var cart = GeckoJS.Controller.getInstanceByName('Cart');
                 cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                this._inputObj.action = '';
+                this._sourceTableNo = null;
                 $.hidePanel('selectTablePanel', true)
             }
                 
@@ -664,7 +672,7 @@ this.log(this.dump(tables));
                 },
 
                 shown: function(evt) {
-
+                    document.getElementById('tableScrollablepanel').invalidate();
                 },
 
                 hide: function (evt) {
@@ -686,10 +694,10 @@ this.log(this.dump(tables));
             this.initial();
 
             // var tables = inputObj.tables;
-            var tables2 = this._tableStatusModel.getTableStatusList();
-this.log("dump tables2");
-this.log(this.dump(tables2));
-            var tables = [];
+            var tables = this._tableStatusModel.getTableStatusList();
+this.log("load2 tables2:::");
+
+            // var tables = [];
             /*
             if (inputObj.tables) {
                 inputObj.tables.forEach(function(o){
@@ -698,20 +706,28 @@ this.log(this.dump(tables2));
                 });
             }
             */
+
+            /*
             if (tables2) {
                 tables2.forEach(function(o){
                     // if (o.active || o.sequence)
                     tables.push(o);
                 });
             }
-
+            */
+if (this._tables == null) {
             // tables = inputObj.tables;
+
             this._tables = tables;
             this._inputObj.tables = tables;
             var tableStatus = new TableStatusView(this._tables);
             tableStatus._controller = this;
             document.getElementById('tableScrollablepanel').datasource = tableStatus ;
-
+} else {
+            this._inputObj.tables = this._tables;
+            tableStatus._controller = this;
+            // document.getElementById('tableScrollablepanel').invalidate();
+}
         }
 
     };

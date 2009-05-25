@@ -70,6 +70,13 @@
                 var bookingModel = new TableBookingModel();
                 newBooking = bookingModel.save(newBooking);
 
+                // touch TableStatusModel
+                var tableStatusModel = new TableStatusModel();
+                var tableStatusObj = tableStatusModel.find("first", {conditions: "table_statuses.id='" + table_status_id + "'"});
+                tableStatusModel.id = table_status_id;
+                tableStatusModel.save(tableStatusModel);
+                delete tableStatusModel;
+
                 this._bookingListDatas.push(newBooking);
                 this._bookingListDatas = new GeckoJS.ArrayQuery(this._bookingListDatas).orderBy('booking asc');
 
@@ -199,7 +206,7 @@
 
         setTableId: function(table_id) {
             this._table_id = table_id;
-this.log(this._table_id);
+
         },
 
         setTableNo: function(table_no) {
@@ -212,7 +219,7 @@ this.log(this._table_id);
 
         setTableStatusId: function(table_status_id) {
             this._table_status_id = table_status_id;
-this.log(this._table_status_id);
+
         },
 
         load: function() {

@@ -47,6 +47,13 @@
             // this._splitItems = [];
             var selectedItems = document.getElementById('sourcecheckscrollablepanel').vivitree.selectedItems;
 
+            //
+            if (selectedItems.length == this._sourceItems.length) {
+                // @todo OSD
+                NotifyUtils.warn(_('Can not split all items'));
+                return;
+            }
+
             var spliteditems = [];
             var d = 0;
             selectedItems.forEach(function(o){

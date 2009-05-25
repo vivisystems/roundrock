@@ -17,24 +17,20 @@
 	min-height: 1px;
   padding: 7px;
 	margin: 0px;
-	background: #f7f4ed url(images/report_bg.gif) repeat-x top center;
+	
 }
 .size {
 
 }
 
 .paper {
-	width: 640px;
-	min-height: 360px;
-	max-height: 400px;
+	width: 590px;
+    max-width: 590px;
+	min-height: 420px;
+	max-height: 450px;
 	overflow-y:auto;
 	margin: 0px auto;
   padding: 10px;
-	background: #fff;
-	border: solid #655e4c;
-	border-width: 1px;
-	border-right-width: 3px;
-	border-bottom-width: 3px;
 }
 
 .PageTitle  {

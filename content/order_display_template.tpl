@@ -92,7 +92,7 @@
                 </html:tr>
             </html:thead>
             <html:tbody>
-{for item in order.items}
+{for item in order.OrderItem}
 {eval}
     prodName = item.name;
     if (item.destination != null && item.destination != '') prodName = '(' + item.destination + ') ' + prodName;
