@@ -15,7 +15,6 @@
         
         	var isTraining = GeckoJS.Session.get( "isTraining" );
         	if (isTraining) return;
-            //
 
             this.delAll("id='" + iid + "'");
 

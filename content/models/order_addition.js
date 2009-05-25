@@ -5,6 +5,6 @@ var OrderAdditionModel = window.OrderAdditionModel =  GeckoJS.Model.extend({
 
     belongsTo: ['Order'],
 
-    behaviors: ['Sync']
+    behaviors: ['Sync', 'Training']
     
 });

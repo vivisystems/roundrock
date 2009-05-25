@@ -5,7 +5,7 @@ var OrderItemCondimentModel = window.OrderItemCondimentModel =  GeckoJS.Model.ex
 
     belongsTo: ['Order'],
     
-    behaviors: ['Sync']
+    behaviors: ['Sync', 'Training']
 
     
 });

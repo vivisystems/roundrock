@@ -5,6 +5,6 @@ var OrderReceiptModel = window.OrderReceiptModel =  GeckoJS.Model.extend({
 
     belongsTo: ['Order'],
 
-    behaviors: ['Sync']
+    behaviors: ['Sync', 'Training']
     
 });
