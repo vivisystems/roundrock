@@ -119,11 +119,6 @@
                                 <hbox class="ToolBar" flex="1">
                                     <vivibutton id="add_entry" label="&ledger.button.action.add;" disabled="false" class="BtnAdd"
                                                 roles="acl_add_ledger_entry" oncommand="$do('add', null, 'LedgerRecords');" />
-                                    <spacer flex="1" />
-                                    <vivibutton id="modify_entry" label="&ledger.button.action.modify;" disabled="false" class="BtnMod"
-                                                roles="acl_modify_ledger_entry" oncommand="$do('update', null, 'LedgerRecords');" />
-                                    <vivibutton id="delete_entry" label="&ledger.button.action.delete;" disabled="false" class="BtnDel"
-                                                roles="acl_delete_ledger_entry" oncommand="$do('delete', null, 'LedgerRecords');" />
                                 </hbox>
                                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

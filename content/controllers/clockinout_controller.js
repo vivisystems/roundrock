@@ -11,7 +11,6 @@
         jobpanel: null,
         jobs: null,
         joblist: null,
-        jobtimes: null,
         lastUser: null,
         publicAttendance: false,
         
@@ -21,6 +20,12 @@
             var users = userModel.find('all', {
                 order: "username"
             });
+
+            if (userModel.lastError) {
+                this.dbError(userModel,
+                             _('An error was encountered while retrieving employee records (error code %S)', [userModel.lastError]));
+            }
+
             var userpanel = document.getElementById('userscrollablepanel');
             if (userpanel) {
                 userpanel.datasource = users;
@@ -37,6 +42,11 @@
                 order: "jobname"
             });
             
+            if (jobModel.lastError) {
+                this.dbError(jobModel,
+                             _('An error was encountered while retrieving jobs (error code %S)', [jobModel.lastError]));
+            }
+
             if (jobs) {
                 jobs.sort(function(a, b) {
                     if (a.jobname < b.jobname) return -1;
@@ -139,10 +149,18 @@
                         return;
                     }
                     var clockstamp = new ClockStampModel();
-                    clockstamp.saveStamp('clockin', username, jobname, displayname);
+                    var r = clockstamp.saveStamp('clockin', username, jobname, displayname);
+                    if (r) {
+                        this.listSummary(username);
+                        $('#user_password').val('');
+                    }
+                    else {
+                        //@db
+                        //clockstamp.saveToBackup('clockin', username, jobname, displayname);
 
-                    this.listSummary(username);
-                    $('#user_password').val('');
+                        this.dbError(clockstamp,
+                                     _('An error was encountered while clocking employee [%S] in (error code %S)', [displayname, clockstamp.lastError]));
+                    }
                 } else {
                     if (userpass == '')
                         //@todo OSD
@@ -159,11 +177,13 @@
         clockOut: function () {
             var username;
             var userpass = $('#user_password').val();
+            var displayname;
 
             if (this.userpanel && this.users) {
                 var index = this.userpanel.selectedIndex;
                 if (index > -1 && index < this.users.length) {
                     username = this.users[index].username;
+                    displayname = this.users[index].displayname;
                 }
             }
             if (username == null) {
@@ -178,8 +198,21 @@
                     var clockstamp = new ClockStampModel();
                     var last = clockstamp.findLastStamp(username);
 
-                    if (last && !last.clockout) {
-                        clockstamp.saveStamp('clockout', username);
+                    if (clockstamp.lastError) {
+                        this.dbError(clockstamp,
+                                     _('An error was encountered while retrieving employee attendance record (error code %S)', [clockstamp.lastError]));
+                        return;
+                    }
+                    else if (last && !last.clockout) {
+                        var r = clockstamp.saveStamp('clockout', username);
+                        if (!r) {
+                            //@db
+                            //clockstamp.saveToBackup('clockout', username);
+
+                            this.dbError(clockstamp,
+                                         _('An error was encountered while clocking employee [%S] out (error code %S)', [displayname, clockstamp.lastError]));
+                            return;
+                        }
                     }
                     else {
                         //@todo OSD
@@ -202,7 +235,6 @@
 
         clearSummary: function () {
             if (this.joblist) this.joblist.resetData();
-            this.jobtimes = null;
         },
         
         listSummary: function (username) {
@@ -211,53 +243,42 @@
             var clockstamp = new ClockStampModel();
             var today = new Date();
             var stamps = clockstamp.find('all', {
-                conditions: "username='" + username + "' AND ( substr( clockout_time, 1, 10 ) ='" + today.toString("yyyy-MM-dd") + "' OR clockin_date='" +
-                			today.toString("yyyy-MM-dd") + "' OR clockout = 0 )",
+                conditions: "username='" + username + "'" +
+                            " AND ( substr( clockout_time, 1, 10 ) ='" + today.toString("yyyy-MM-dd") + "'" +
+                                   " OR substr(clockin_time, 1, 10) ='" + today.toString("yyyy-MM-dd") + "'" +
+                                   " OR clockout = 0 )",
                 order: "created"
             });
+            if (clockstamp.lastError) {
+                this.dbError(clockstamp,
+                             _('An error was encountered while retrieving employee attendance record (error code %S)', [clockstamp.lastError]));
+                return;
+            }
             if (username != this.lastUser) this.clearSummary();
             this.lastUser = username;
-
-            var oldTimes = this.jobtimes;
-            this.jobtimes = stamps;
 
             if (stamps && stamps.length > 0) {
                 stamps.forEach(function(o){
                     o.clockin_time = o.clockin_time ? o.clockin_time.substring(5, 16) : '';
                     o.clockout_time = o.clockout_time ? o.clockout_time.substring(5, 16) : '';
                 });
-                if (oldTimes) {
-                
-                	/** 
-                	 * Enter this block only if former attendence record exists.
-                	 *
-                	 * If the difference between former record and current record is produced by checking out,
-                	 * then the difference will be in the last row since we now have the user's checking-out record.
-                	 * However, if the user tries to check in a new job without checking out of his/her previoius job,
-                	 * in this sort of cases, first, the user will be checked out automatically, and then check in the
-                	 * new job. This makes two differences to original record. First, the last row of the original record
-                	 * is now completed as the user was checked out automatically. Second, we now have a new entry indicating that the
-                	 * user has checked in a new job. And that's the reason why the code below always renews the last row of
-                	 * the original data first, and then check if there is any need to insert the new entry.
-                	 */
-                	 
-                    var lastIndex = oldTimes.length - 1;
-                    joblist.updateItemAt(lastIndex, stamps[lastIndex] );
-                    if (stamps.length > oldTimes.length) {
-                        joblist.insertItemAt(lastIndex + 1, stamps[lastIndex + 1] );
-                    }
-                }
-                else {
-                    joblist.loadData(stamps);
-                }
+                joblist.loadData(stamps);
                 joblist.selectedIndex = stamps.length - 1;
                 if (joblist.selectedIndex > -1) joblist.ensureIndexIsVisible(joblist.selectedIndex);
+            }
+            else {
+                this.clearSummary();
             }
            
             // bring summary list to front
             var deck = document.getElementById('deck');
             deck.selectedIndex = 1;
 
+            var stamps = clockstamp.find('all', {
+                conditions: "username='" + username + "' AND ( substr( clockout_time, 1, 10 ) ='" + today.toString("yyyy-MM-dd") + "' OR clockin_date='" +
+                			today.toString("yyyy-MM-dd") + "' OR clockout = 0 )",
+                order: "created"
+            });
         },
 
         showJobList: function () {
@@ -270,6 +291,14 @@
 
         validateForm: function () {
 
+        },
+
+
+        dbError: function(model, alertStr) {
+            this.log('WARN', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
+            GREUtils.Dialog.alert(window,
+                                  _('Data Operation Error'),
+                                  alertStr);
         }
     };
 

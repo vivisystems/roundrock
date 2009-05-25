@@ -53,7 +53,6 @@
             </vbox>
 
             <hbox flex="1" class="MainL">
-                <textbox id="order_id" name="type" form="annotateForm" default="" hidden="true"/>
                 <viviscrollabletree id="typescrollablepanel" flex="1"
                                 headers="&annotations.type;"
                                 fields="type"

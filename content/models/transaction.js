@@ -112,6 +112,9 @@
 
             this.data.terminal_no = GeckoJS.Session.get('terminal_no');
 
+            // SequenceModel will always return a value; even if an error occurred (return value of -1), we
+            // should still allow create to proceed; it's up to the upper layer to decide how to handle
+            // this error condition
             this.data.seq = SequenceModel.getSequence('order_no');
             // this.data.check_no = SequenceModel.getSequence('check_no');
 
@@ -187,7 +190,7 @@
 
                 // order save in main thread
                 var order = new OrderModel();
-                if (this.data.status == 1 || this.data.no_of_customers == '') {
+                if (this.data.status == 1 && this.data.no_of_customers == '') {
                     this.data.no_of_customers = '1';
                 }
                 order.saveOrder(this.data);
@@ -224,7 +227,6 @@
                     this.data.proceeds_clerk_displayname = user.description;
                 }
             }
-
             this.process(status);
 
         },

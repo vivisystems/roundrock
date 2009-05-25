@@ -13,7 +13,6 @@
         _listObj: null,
         _listDatas: null,
         _index: 0,
-        _eventCancelled: false,
 
         initial: function () {
 
@@ -29,13 +28,23 @@
             var model = new LedgerRecordModel();
             var expireDate = parseInt(evt.data);
             if (!isNaN(expireDate)) {
-                model.execute('delete from ledger_records where created <= ' + expireDate);
+                var r = model.execute('delete from ledger_records where created <= ' + expireDate);
+                if (!r) {
+                    // log error and notify user
+                    this.dbError(model,
+                                 _('An error was encountered while expiring ledger activity logs (error code %S)', [model.lastError]));
+                }
             }
         },
 
         truncateData: function(evt) {
             var model = new LedgerRecordModel();
-            model.execute('delete from ledger_records');
+            var r = model.execute('delete from ledger_records');
+            if (!r) {
+                // log error and notify user
+                this.dbError(model,
+                             _('An error was encountered while expiring ledger activity logs (error code %S)', [model.lastError]));
+            }
         },
 
         getListObj: function() {
@@ -67,16 +76,24 @@
             // create ledger entry object
             this.setLedgerEntry(inputObj);
 
-            // save payment entry
-            inputObj.payment_id = this.savePaymentEntry(inputObj).id;
-            
             // save ledger entry
             var ledgerRecordModel = new LedgerRecordModel();
-            inputObj.id = ledgerRecordModel.save(inputObj);
+            inputObj = ledgerRecordModel.save(inputObj);
+            if (!inputObj) {
+                // log error and alert user
+                this.dbError(ledgerRecordModel,
+                             _('An error was encountered while logging ledger activity (error code %S)', [ledgerRecordModel.lastError]));
+                return false;
+            }
+
+            // save payment entry
+            this.savePaymentEntry(inputObj);
 
             this.dispatchEvent('afterLedgerEntry', inputObj);
+            return true;
         },
 
+        // save ledger payment record to db
         savePaymentEntry: function(ledgerEntry) {
 
             var data = {};
@@ -88,7 +105,7 @@
             }
 
             // basic bookkeeping data
-            data['payment_id'] = ledgerEntry.payment_id;
+            data['order_id'] = ledgerEntry.id;
             data['amount'] = data.total;
             data['name'] = 'ledger'; // + payment type
             data['memo1'] = ledgerEntry.type; // ledger entry type
@@ -102,13 +119,22 @@
             data['shift_number'] = ledgerEntry.shift_number;
             data['terminal_no'] = ledgerEntry.terminal_no;
 
-            var order = new OrderModel();
-            return order.saveLedgerEntry(data);
-        },
-
-        deletePaymentEntry: function(ledgerEntry) {
-            var order = new OrderModel();
-            order.deleteLedgerEntry(ledgerEntry.payment_id);
+            var orderPaymentModel = new OrderPaymentModel();
+            if (ledgerEntry.id) {
+                var paymentEntry = orderPaymentModel.find('first', {
+                    conditions: 'order_id = "' + ledgerEntry.id + '"'
+                })
+            }
+            var r = orderPaymentModel.save(data);
+            if (!r) {
+                //@db saveToBackup
+                //orderPaymentModel.saveToBackup(data);
+                
+                // log error
+                this.log('ERROR',
+                         _('An error was encountered while logging ledger payment (error code %S) - %S',
+                           [orderPaymentModel.lastError, orderPaymentModel.lastErrorString]));
+            }
         },
 
         /*
@@ -122,8 +148,6 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
             var inputObj = {}
 
-            this.eventCancelled = false;
-
             inputObj.entry_types = this.LedgerEntryType.find('all', {order: 'mode, type'});
             
             window.openDialog(aURL, _('Add Ledger Entry'), features, inputObj);
@@ -135,17 +159,24 @@
                 GREUtils.extend(evt.data, inputObj);
                 this.setLedgerEntry(evt.data);
 
-                // add payment record
-                evt.data.payment_id = this.savePaymentEntry(evt.data).id;
             } else {
                 evt.preventDefault();
-                this.eventCancelled = true;
             }
             
         },
 
         afterScaffoldAdd: function(evt) {
-            if (!this.eventCancelled && evt.data.id != '') {
+            // check if db error
+            var model = this.Scaffold.ScaffoldModel;
+            if (model.lastError) {
+                this.dbError(model,
+                             _('An error was encountered while logging ledger entry (error code %S)', [model.lastError]));
+                NotifyUtils.error(_('Failed to add ledger entry'));
+            }
+            else {
+                // add payment record
+                this.savePaymentEntry(evt.data);
+                
                 this._index = 0;
                 this.load();
 
@@ -155,89 +186,52 @@
             }
         },
 
-        beforeScaffoldEdit: function(evt) {
-            //alert(this.dump(evt));
-
-        },
-
-        afterScaffoldEdit: function(evt) {
-            if (evt.data.id) {
-                // update corresponding payment
-                this.savePaymentEntry(evt.data);
-                
-                this.load();
-
-                //@todo OSD
-                OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully updated',
-                               [evt.data.type + (evt.data.description ? ' (' + evt.data.description + ')' : ''), evt.data.amount]))
-            }
-        },
-
-        beforeScaffoldDelete: function(evt) {
-            if (evt.data.id) {
-                if (GREUtils.Dialog.confirm(null, _('confirm delete transaction %S (%S)', [evt.data.type, _(evt.data.mode)]),
-                                            _('Are you sure you want to delete transaction [%S] mode [%S] of amount [%S]?', [evt.data.type, _(evt.data.mode), evt.data.amount])) == false) {
-                    evt.preventDefault();
-                }
-                else {
-                    this.deletePaymentEntry(evt.data);
-                }
-            }
-            else {
-                evt.preventDefault();
-            }
-        },
-
-        afterScaffoldDelete: function(evt) {
-            if (this._index == this._listDatas.length - 1) {
-                this._index--;
-            }
-            this.load();
-
-            //@todo OSD
-            OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully deleted from the ledger',
-                           [evt.data.type + (evt.data.description ? ' (' + evt.data.description + ')' : ''), evt.data.amount]))
-        },
-
-
         afterScaffoldIndex: function(evt) {
-            this._listDatas = evt.data;
-            var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
-            panelView.getCellValue= function(row, col) {
 
-                var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-                var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-                var text;
-                if (col.id == 'amount') {
-
-                    // text = this.data[row].amount;
-                    text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
-
-                }
-                else if (col.id == 'created') {
-                    var date = new Date(this.data[row].created * 1000)
-                    text = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-                }
-                else if (col.id == 'mode') {
-                    text = _(this.data[row][col.id]);
-                }
-                else {
-                    text = this.data[row][col.id];
-                }
-                return text;
-            };
-
-            this.getListObj().datasource = panelView;
-
-            if (this._listDatas.length > 0) {
-                this.getListObj().selection.select(this._index);
-                this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
+            // check db error
+            var model = this.Scaffold.ScaffoldModel;
+            if (model.lastError) {
+                this.dbError(model,
+                             _('An error was encountered while retrieving ledger records (error code %S)', [model.lastError]));
+                NotifyUtils.error(_('Failed to retrieve ledger records'));
             }
             else {
-                this.getListObj().selection.select(-1);
-            }
+                this._listDatas = evt.data;
+                var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
+                panelView.getCellValue= function(row, col) {
 
-            this.validateForm();
+                    var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+                    var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+                    var text;
+                    if (col.id == 'amount') {
+
+                        // text = this.data[row].amount;
+                        text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
+
+                    }
+                    else if (col.id == 'created') {
+                        var date = new Date(this.data[row].created * 1000)
+                        text = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+                    }
+                    else if (col.id == 'mode') {
+                        text = _(this.data[row][col.id]);
+                    }
+                    else {
+                        text = this.data[row][col.id];
+                    }
+                    return text;
+                };
+
+                this.getListObj().datasource = panelView;
+
+                if (this._listDatas.length > 0) {
+                    this.getListObj().selection.select(this._index);
+                    this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
+                }
+                else {
+                    this.getListObj().selection.select(-1);
+                }
+            }
         },
 
         load: function() {
@@ -274,18 +268,15 @@
             this.getListObj().selection.select(index);
             this.getListObj().treeBoxObject.ensureRowIsVisible(index);
             this._index = index;
-
-            this.validateForm();
         },
 
-        validateForm: function() {
-            var index = this.getListObj().selectedIndex;
-            var modBtn = document.getElementById('modify_entry');
-            var delBtn = document.getElementById('delete_entry');
-
-            modBtn.setAttribute('disabled', index == -1);
-            delBtn.setAttribute('disabled', index == -1);
+        dbError: function(model, alertStr) {
+            this.log('ERROR', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
+            GREUtils.Dialog.alert(window,
+                                  _('Data Operation Error'),
+                                  alertStr);
         }
+
 
     };
 

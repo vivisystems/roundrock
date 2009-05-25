@@ -22,6 +22,7 @@
             this.OrderAddition.delAll(cond);
             // this.OrderPayment.delAll(cond);
             this.OrderObject.delAll(cond);
+            this.OrderAnnotation.delAll(cond);
             this.OrderItemCondiment.delAll(cond);
             this.OrderPromotion.delAll(cond);
         },
@@ -40,6 +41,7 @@
                 r = this.saveOrderItems(data);
                 r = this.saveOrderAdditions(data);
                 r = this.saveOrderPayments(data);
+                r = this.saveOrderAnnotations(data);
                 r = this.saveOrderItemCondiments(data);
                 r = this.saveOrderPromotions(data);
             }
@@ -122,6 +124,16 @@
             this.OrderPayment.commit();
             return r;
 
+        },
+
+        saveOrderAnnotations: function(data) {
+            var orderAnnotations = this.mappingTranToOrderAnnotationsFields(data);
+            var r;
+            
+            this.OrderAnnotation.begin();
+            r = this.OrderAnnotation.saveAll(orderAnnotations);
+            this.OrderAnnotation.commit();
+            return r;
         },
 
         saveOrderPromotions: function(data) {
@@ -337,6 +349,26 @@
 
         },
 
+        mappingTranToOrderAnnotationsFields: function(data) {
+
+            var orderAnnotations = [];
+
+            for (var idx in data.annotations) {
+
+                var annotationItem = {};
+
+                annotationItem['order_id'] = data.id;
+                annotationItem['type'] = idx;
+                annotationItem['text'] = data.annotations[idx];
+                delete (annotationItem['id']);
+                
+                orderAnnotations.push(annotationItem);
+            }
+
+            return orderAnnotations;
+
+        },
+
         mappingTranToOrderPaymentsFields: function(data) {
 
             var orderPayments = [];
@@ -404,34 +436,6 @@
             }
 
             return null;
-        },
-
-        saveLedgerEntry: function(data) {
-
-            // don't create orders just for tracking ledger payments
-
-            var r;
-            /*
-        this.id = '';
-        this.begin();
-        r = this.save(data);
-        this.commit();
-        */
-            this.OrderPayment.id = data.payment_id;
-            data.order_id = data.payment_id;
-            this.OrderPayment.begin();
-            r = this.OrderPayment.save(data);
-            this.OrderPayment.commit();
-            return r;
-
-        },
-
-        deleteLedgerEntry: function(iid) {
-            this.OrderPayment.del(iid);
-        },
-
-        editLedgerEntry: function(data) {
-            this.OrderPayment.id = data.payment_id;
         },
 
         beforeSave: function(evt) {

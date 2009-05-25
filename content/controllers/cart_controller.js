@@ -2460,6 +2460,12 @@
                     order: 'mode, type'
                 });
 
+                if (ledgerEntryTypeModel.lastError) {
+                    this.dbAlert(ledgerEntryTypeModel,
+                                 _('An error was encountered while retrieving ledger entry types'));
+                    return;
+                }
+
                 window.openDialog(aURL, _('Add New Ledger Entry'), features, inputObj);
             }
 
@@ -2467,11 +2473,16 @@
                 return;
             }
             var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
-            ledgerController.saveLedgerEntry(inputObj);
+            var r = ledgerController.saveLedgerEntry(inputObj);
 
-            // @todo OSD
-            OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
-                [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+            if (r) {
+                // @todo OSD
+                OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
+                    [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+            }
+            else {
+                NotifyUtils.error('Failed to save ledger entry');
+            }
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -2849,11 +2860,39 @@
             // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
             var existingOrder = orderModel.findById(oldTransaction.data.id);
+            if (this.lastError) {
+                this.dbError(orderModel,
+                             _('An error was encountered while retrieving transaction record'));
+                return;
+            }
+
             if (existingOrder && existingOrder.status != 2) {
                 oldTransaction.data.status = existingOrder.status;
+                var status;
+                switch(parseInt(existingOrder.status)) {
+                    case 1:
+                        status = _('completed');
+                        break;
+
+                    case 2:
+                        status = _('stored');
+                        break;
+
+                    case -1:
+                        status = _('cancelled');
+                        break;
+
+                    case -2:
+                        status = _('voided');
+                        break;
+
+                    default:
+                        status = existingOrder.status;
+                        break;
+                }
                 GREUtils.Dialog.alert(window,
                     _('Order Finalization'),
-                    _('Current order is no longer available for finalization (status = %S)', [existingOrder.status]));
+                    _('Current order is no longer available for finalization (status = %S)', [status]));
                 return;
             }
             if (status == null) status = 1;
@@ -2989,21 +3028,10 @@
                             var result = evt.data;
 
                             if (result.ok && result.input0) {
-                                if ('annotations' in curTransaction.data) {
-                                    curTransaction.data.annotations.push({
-                                        type: annotationType,
-                                        text: result.input0
-                                    });
+                                if (!('annotations' in curTransaction.data)) {
+                                    curTransaction.data.annotations = {};
                                 }
-                                else {
-                                    curTransaction.data.annotations = [{
-                                        type: annotationType,
-                                        text: result.input0
-                                    }];
-                                }
-
-                                // save annotation in db
-                                annotationController.annotate(curTransaction.data.id, annotationType, result.input0);
+                                curTransaction.data.annotations[ annotationType ] = result.input0;
                             }
 
                             curTransaction.close();
@@ -4025,7 +4053,15 @@
                 this.unserializeQueueFromRecoveryFile();
                 this.subtotal();
             }
+        },
+
+        dbError: function(model, alertStr) {
+            this.log('WARN', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
+            GREUtils.Dialog.alert(window,
+                                  _('Data Operation Error'),
+                                  alertStr);
         }
+
         
     };
 

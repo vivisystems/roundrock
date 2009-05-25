@@ -205,9 +205,10 @@
         AnnotateDialog: function (codes) {
 
             var buf = this._getKeypadController().getBuffer();
+            this.requestCommand('clearBuffer', null, 'Keypad');
 
             var txn = GeckoJS.Session.get('current_transaction');
-            if (txn == null || txn.data == null || txn.data.id == null || txn.data.id == '') {
+            if (txn == null || txn.isCancel() || txn.isSubmit()) {
                 NotifyUtils.warn(_('No order to add/view annotations'));
                 return;
             }
@@ -228,7 +229,8 @@
 
             // only one annotationType is specified and is not null, use memo-style UI
             if (codeList.length == 1 && annotationType != null && annotationType != '') {
-                var existingAnnotation = annotationController.retrieveAnnotation(txn.data.id, annotationType);
+                var existingAnnotation = ('annotations' in txn.data) ? txn.data.annotations [ annotationType ] : '';
+
                 var readonly = false;
                 if (!this.Acl.isUserInRole('acl_modify_annotations')) {
                     // no privilege to modify annotation, we must make sure we don't
@@ -267,22 +269,17 @@
                     var result = evt.data;
 
                     if (result.ok && result.input0) {
-                        if ('annotations' in txn.data) {
-                            txn.data.annotations.push({type: annotationType, text: result.input0});
+                        if (!('annotations' in txn.data)) {
+                            txn.data.annotations = {};
                         }
-                        else {
-                            txn.data.annotations = [{type: annotationType, text: result.input0}];
-                        }
-
-                        // save annotation in db
-                        annotationController.annotate(txn.data.id, annotationType, result.input0);
+                        txn.data.annotations[ annotationType ] = result.input0;
                     }
                 });
             }
             else {
                 var aURL = "chrome://viviecr/content/annotate.xul";
                 var aName = "Annotate";
-                var aArguments = {order_id: txn.data.id, codes: codeList, sequence: txn.data.seq};
+                var aArguments = {order: txn.data, codes: codeList, sequence: txn.data.seq};
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
                 window.openDialog(aURL, aName, aFeatures, aArguments);
@@ -364,9 +361,16 @@
                     if (typeof dep.no != 'undefined' && dep.cansale)  {
                         // department not group
                         var buf = this._getKeypadController().getBuffer();
-                        if(GeckoJS.Session.get('cart_set_qty_value') != null || buf.length > 0  ) {
+                        var price = parseFloat(buf);
+
+                        // make sure we have a price
+                        if(!isNaN(price)) {
                             dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
+                        }
+                        else {
+                            NotifyUtils.error(_('Price must be given to register sale of department [%S]', [dep.name]));
+                            return;
                         }
                     }
 

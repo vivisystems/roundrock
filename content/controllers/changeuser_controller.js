@@ -17,11 +17,16 @@
             // turn quicklogin indicator on/off
             var quickLogin = document.getElementById('quickLogin');
             if (quickLogin) quickLogin.setAttribute('disabled', !allowQuickLogin);
-            
+
             var userModel = new UserModel();
             var users = userModel.find('all', {
                 order: 'username'
             });
+
+            if (userModel.lastError) {
+                this.dbError(userModel,
+                             _('An error was encountered while retrieving employee records (error code %S)', [userModel.lastError]));
+            }
 
             for (var i = 0; i < users.length; i++) {
                 if (users[i].displayname == null || users[i].displayname.length == 0) {
@@ -98,6 +103,13 @@
             else {
                 document.getElementById('signinBtn').setAttribute('disabled', password.length == 0 || index == null || index == -1);
             }
+        },
+
+        dbError: function(model, alertStr) {
+            this.log('WARN', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
+            GREUtils.Dialog.alert(window,
+                                  _('Data Operation Error'),
+                                  alertStr);
         }
 
     };
