@@ -695,7 +695,7 @@
 
             // var tables = inputObj.tables;
             var tables = this._tableStatusModel.getTableStatusList();
-this.log("load2 tables2:::");
+// this.log("load2 tables2:::");
 
             // var tables = [];
             /*
