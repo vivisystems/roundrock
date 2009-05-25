@@ -11,7 +11,7 @@
 .report {
 	height: 1px;
 	min-height: 1px;
-  padding: 7px;
+  	padding: 7px;
 	margin: 0px;
 	background: #f7f4ed url(chrome://viviecr/content/skin/images/report_bg.gif) repeat-x top center;
 }
@@ -164,6 +164,18 @@ font-size: 9pt;
 text-align: center;
 }
 
+
+td.hyperlink {
+    color: blue !important;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+td.hyperlink:hover {
+    cursor: pointer;
+}
+
 /** for print use **/
 @media print {
 	.report {
@@ -187,45 +199,43 @@ text-align: center;
 		display: table-header-group;
 	}
 
-	#body-table > thead > tr:first-child > th {
+	#body-table > thead > tr:first-child > th, .fields {
 	  background-color: #f5f2ec;
 	}
 	
 	/* Mickey adds those below. */
-	#body-table > thead > tr:first-child > th {
+	#body-table > thead > tr:first-child > th, .fields {
 	  text-align: center;
 	  color: #56523a;
 	  border-top: 2px solid #b5b093;
 	  border-bottom: 1px solid #b5b093;
 	  background-color: #f5f2ec;
-	  font-size: 8pt;
+	  font-size: 6pt;
 	  padding: 4px;
-		}
+	}
 
 	/* body */
 	#body-table td {
 	  padding:4px 8px;
-	  font-size: 8pt;
+	  font-size: 6pt;
 	  color: #484848;
 	}
 
 	#body-table > tfoot > tr:first-child td {
 	  border-top: 2pt solid #c3c3c3;
-	  padding: 4px;
+	  padding: 6px;
 	  border-bottom: none;
-	  font-size: 8pt;
+	  font-size: 6pt;
 	}
 	
-}
+	td.hyperlink {
+		color: black !important;
+		font-style: normal;
+		font-weight: normal;
+		text-decoration: none;
+	}
 
-.hyperlink {
-    color: blue !important;
-    font-style: normal;
-    font-weight: bold;
-    text-decoration: underline;
+	td.hyperlink:hover {
+		cursor: pointer;
+	}
 }
-
-.hyperlink:hover {
-    cursor: pointer;
-}
-

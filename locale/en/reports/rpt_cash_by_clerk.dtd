@@ -1,6 +1,6 @@
 <!ENTITY rptcashbyclerk.title "Shift Change Report">
-<!ENTITY rptcashbyclerk.startdate "Start Date:">
-<!ENTITY rptcashbyclerk.enddate "End Date:">
+<!ENTITY rptcashbyclerk.startdate "Start Date ( Sale Period ):">
+<!ENTITY rptcashbyclerk.enddate "End Date ( Sale Period ):">
 <!ENTITY rptcashbyclerk.execute "Execute">
 <!ENTITY rptcashbyclerk.exportpdf "Export to PDF">
 <!ENTITY rptcashbyclerk.exportcsv "Export to CSV">

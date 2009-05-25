@@ -227,6 +227,15 @@
             
             this._reportRecords.foot.foot_datas = footDatas;
         },
+        
+        exportPdf: function() {
+        	this._super( {
+        		paperSize: {
+        			width: 297,
+        			height: 210
+        		}
+        	} );
+        },
 
         exportCsv: function() {
             this._super(this);

@@ -98,8 +98,9 @@
         _deptSalesBillboard: function(rows) {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
 			
-            rows = parseInt(rows);
-            if (isNaN(rows) || rows < 10) rows = 10;
+            rows = parseInt( rows );
+            if ( isNaN( rows ) )
+            	rows = 10;
             
             var start = parseInt( this._start / 1000, 10 );
             var end = parseInt( this._end / 1000, 10 );
@@ -176,8 +177,9 @@
         _prodSalesBillboard: function(rows) {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
 			
-            rows = parseInt(rows);
-            if (isNaN(rows) || rows < 10) rows = 10;
+            rows = parseInt( rows );
+            if ( isNaN( rows ) )
+            	rows = 10;
             
             var start = parseInt( this._start / 1000, 10 );
             var end = parseInt( this._end / 1000, 10 );
