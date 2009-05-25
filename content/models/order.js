@@ -129,7 +129,7 @@
         saveOrderAnnotations: function(data) {
             var orderAnnotations = this.mappingTranToOrderAnnotationsFields(data);
             var r;
-alert(this.dump(orderAnnotations));
+            
             this.OrderAnnotation.begin();
             r = this.OrderAnnotation.saveAll(orderAnnotations);
             this.OrderAnnotation.commit();
