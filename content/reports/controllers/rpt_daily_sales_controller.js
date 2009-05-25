@@ -210,14 +210,14 @@
         	this._registerOpenOrderDialog();
         },
         
-        /*exportPdf: function() {
+        exportPdf: function() {
         	this._super( {
         		paperSize: {
         			width: 297,
         			height: 210
         		}
         	} );
-        },*/
+        },
 
         load: function() {
             var today = new Date();
