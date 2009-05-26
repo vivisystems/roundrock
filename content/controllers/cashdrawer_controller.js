@@ -347,20 +347,39 @@
                 accessRecord.clerk = user.username;
                 accessRecord.clerk_displayname = user.description;
             }
-            drawerRecordModel.save(accessRecord);
+            var r = drawerRecordModel.save(accessRecord);
+            if (!r) {
+                //@db saveToBackup
+                drawerRecordModel.saveToBackup(accessRecord);
+
+                // log error
+                this.log('ERROR',
+                         _('An error was encountered while logging cashdrawer activity (error code %S); record saved to backup %S',
+                           [drawerRecordModel.lastError, '\n' + this.dump(accessRecord)]));
+            }
         },
 
         expireData: function(evt) {
             var model = new CashdrawerRecordModel();
             var expireDate = parseInt(evt.data);
             if (!isNaN(expireDate)) {
-                model.execute('delete from cashdrawer_records where created <= ' + expireDate);
+                var r = model.execute('delete from cashdrawer_records where created <= ' + expireDate);
+                if (!r) {
+                    // log error and notify user
+                    this.dbError(model.lastError, model.lastErrorString,
+                                 _('An error was encountered while expiring cashdrawer activity logs (error code %S).', [model.lastError]));
+                }
             }
         },
 
         truncateData: function(evt) {
             var model = new CashdrawerRecordModel();
-            model.execute('delete from cashdrawer_records');
+            var r = model.execute('delete from cashdrawer_records');
+            if (!r) {
+                // log error and notify user
+                this.dbError(model.lastError, model.lastErrorString,
+                             _('An error was encountered while removing all cashdrawer activity logs (error code %S).', [model.lastError]));
+            }
         },
 
         // send open drawer commands to printer using the given parameters
@@ -417,7 +436,7 @@
                     printed = true;
                 }
                 else {
-                    this.log('CASHDRAWER command length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                    this.log('ERROR', 'CASHDRAWER command length: [' + encodedResult.length + '], printed length: [' + len + ']');
                 }
                 this.closeSerialPort(portPath);
             }
@@ -437,6 +456,13 @@
                 NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
             }
             return printed;
+        },
+
+        dbError: function(errNo, errMsg, alertStr) {
+            this.log('ERROR', 'Database exception: ' + errMsg + ' [' + errNo + ']');
+            GREUtils.Dialog.alert(null,
+                                  _('Data Operation Error'),
+                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
     };

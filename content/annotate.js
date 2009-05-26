@@ -17,9 +17,8 @@
             );
 
         // store order id in form
-        document.getElementById('order_id').value = window.arguments[0].order_id;
         document.getElementById('sequence').value = '[' + window.arguments[0].sequence + ']';
-        $do('loadViews', window.arguments[0].codes, 'Annotations');
+        $do('loadViews', window.arguments[0], 'Annotations');
     };
 
     window.addEventListener('load', startup, false);

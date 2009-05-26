@@ -1099,12 +1099,6 @@ msgstr "View Ledger Entries"
 msgid "acl_add_ledger_entry"
 msgstr "Add Ledger Entries"
 
-msgid "acl_modify_ledger_entry"
-msgstr "Modify Ledger Entries"
-
-msgid "acl_delete_ledger_entry"
-msgstr "Delete Ledger Entries"
-
 msgid "togglereceipt.desc"
 msgstr ""
 "This function is used to toggle receipt printing on/off. No parameter is needed."

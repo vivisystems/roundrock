@@ -112,6 +112,9 @@
 
             this.data.terminal_no = GeckoJS.Session.get('terminal_no');
 
+            // SequenceModel will always return a value; even if an error occurred (return value of -1), we
+            // should still allow create to proceed; it's up to the upper layer to decide how to handle
+            // this error condition
             this.data.seq = SequenceModel.getSequence('order_no');
             // this.data.check_no = SequenceModel.getSequence('check_no');
 

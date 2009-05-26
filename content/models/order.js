@@ -26,6 +26,7 @@
                 this.OrderAddition.delAll(cond);
                 // this.OrderPayment.delAll(cond);
                 this.OrderObject.delAll(cond);
+                this.OrderAnnotation.delAll(cond);
                 this.OrderItemCondiment.delAll(cond);
                 this.OrderPromotion.delAll(cond);
 
@@ -51,6 +52,7 @@
                     this.saveOrderItems(data);
                     this.saveOrderAdditions(data);
                     this.saveOrderPayments(data);
+                    this.saveOrderAnnotations(data);
                     this.saveOrderItemCondiments(data);
                     this.saveOrderPromotions(data);
                 }
@@ -67,9 +69,11 @@
                 this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
                 this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
                 this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
+                this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
                 this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
                 this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
             }else {
+                // success 
             }
 
         },
@@ -113,6 +117,14 @@
 
         },
 
+        saveOrderAnnotations: function(data) {
+
+            var orderAnnotations = this.mappingTranToOrderAnnotationsFields(data);
+
+            this.OrderAnnotation.saveAll(orderAnnotations);
+
+            return orderAnnotations;
+        },
 
         saveOrderItemCondiments: function(data) {
 
@@ -333,6 +345,26 @@
 
         },
 
+        mappingTranToOrderAnnotationsFields: function(data) {
+
+            var orderAnnotations = [];
+
+            for (var idx in data.annotations) {
+
+                var annotationItem = {};
+
+                annotationItem['order_id'] = data.id;
+                annotationItem['type'] = idx;
+                annotationItem['text'] = data.annotations[idx];
+                delete (annotationItem['id']);
+                
+                orderAnnotations.push(annotationItem);
+            }
+
+            return orderAnnotations;
+
+        },
+
         mappingTranToOrderPaymentsFields: function(data) {
 
             var orderPayments = [];
@@ -400,34 +432,6 @@
             }
 
             return null;
-        },
-
-        saveLedgerEntry: function(data) {
-
-            // don't create orders just for tracking ledger payments
-
-            var r;
-            /*
-        this.id = '';
-        this.begin();
-        r = this.save(data);
-        this.commit();
-        */
-            this.OrderPayment.id = data.payment_id;
-            data.order_id = data.payment_id;
-            this.OrderPayment.begin();
-            r = this.OrderPayment.save(data);
-            this.OrderPayment.commit();
-            return r;
-
-        },
-
-        deleteLedgerEntry: function(iid) {
-            this.OrderPayment.del(iid);
-        },
-
-        editLedgerEntry: function(data) {
-            this.OrderPayment.id = data.payment_id;
         },
 
         beforeSave: function(evt) {

@@ -191,7 +191,7 @@ text-align: center;
 		display: table-header-group;
 	}
 
-	#body-table > thead > tr:first-child > th {
+	#body-table > thead > tr:first-child > th, .fields {
 	  background-color: #f5f2ec;
 	}
 	
@@ -200,4 +200,3 @@ text-align: center;
   }
 	
 }
-

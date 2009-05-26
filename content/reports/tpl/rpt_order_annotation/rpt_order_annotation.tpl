@@ -57,7 +57,7 @@
                     <td style="text-align: center;">${order.sale_period|unixTimeToString:'saleperiod'}</td>
                     <td style="text-align: center;">${order.shift_number}</td>
                     <td style="text-align: center;">${order.time|unixTimeToString}</td>
-                    <td style="text-align: center;">${order.sequence}</td>
+                    <td style="text-align: center;" class="hyperlink">${order.sequence}</td>
                     <td style="text-align: center;">${order.status}</td>
                     <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>

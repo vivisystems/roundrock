@@ -25,18 +25,22 @@
             this._terminalNo = document.getElementById( 'terminal_no' ).value;
             this._periodtype = document.getElementById( 'period_type' ).value;
             this._shiftno = document.getElementById( 'shift_no' ).value;
+            this._num_dept = document.getElementById( 'num_dept' ).value;
+            this._num_product = document.getElementById( 'num_product' ).value;
         },
         
-        _setConditions: function( start, end, terminalNo, periodtype, shiftno ) {
+        _setConditions: function( start, end, terminalNo, periodtype, shiftno, num_dept, num_product ) {
         	this._start = start;
         	this._end = end;
         	this._terminalNo = terminalNo;
             this._periodtype = periodtype;
             this._shiftno = shiftno;
+            this._num_dept = num_dept;
+            this._num_product = num_product;
         },
         
         setConditionsAnd_reportRecords: function( parameters ) {
-        	this._setConditions( parameters.start, parameters.end, parameters.terminalNo, parameters.periodtype, parameters.shiftno );
+        	this._setConditions( parameters.start, parameters.end, parameters.terminalNo, parameters.periodtype, parameters.shiftno, parameters.num_dept || 10, parameters.num_product || 10 );
         	this._set_reportData();
         },
 
@@ -92,11 +96,12 @@
         },
 
         _deptSalesBillboard: function(rows) {
-
-            rows = parseInt(rows);
-            if (isNaN(rows) || rows < 10) rows = 10;
-
-            // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+			
+            rows = parseInt( rows );
+            if ( isNaN( rows ) )
+            	rows = 10;
+            
             var start = parseInt( this._start / 1000, 10 );
             var end = parseInt( this._end / 1000, 10 );
 
@@ -125,7 +130,7 @@
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var groupby = 'order_items.cate_no';
-            var orderby = '"OrderItem.qty" DESC';
+            var orderby = '"OrderItem.gross" DESC, "OrderItem.qty" DESC';
             
             var data = {};
             var summary = {};
@@ -134,34 +139,48 @@
 			
             data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: rows } );
             
-            var cate = new CategoryModel();
-            var cate_records = cate.find( 'all', { fields: [ 'no', 'name' ] } );
-            
+            var data_obj = {};
             data.records.forEach( function( record ) {
             	summary.qty += record.qty;
             	summary.gross += record.gross;
-
-                /*
-            	cate_records.forEach( function ( cate_record ) {
-            		if ( record.cate_no == cate_record.no ) {
-            			record.cate_name = cate_record.name;
-            			return;
-            		}
-            	} );
-                */
+            	
+            	data_obj[ record.cate_no ] = record;
             } );
             
+            if ( data.records.length < rows ) {
+		        // append the depts without any transaction record.
+		        var cate = new CategoryModel();
+		        var cate_records = cate.find( 'all', { fields: [ 'no', 'name' ], order: 'no' } );
+		        
+		        for ( var i = 0; i < rows - data.records.length; i++ ) {
+		        	var record = cate_records[ i ];
+		        	if ( !record )
+		        		break;
+		     
+		        	if ( !( record.no in data_obj ) ) {
+		        		data_obj[ record.no ] = {
+		        			cate_no: record.no,
+		        			cate_name: record.name,
+		        			qty: 0,
+		        			gross:0
+		        		};
+		        	}
+		        }
+		    }
+            
+            data.records = data_obj;
             data.summary = summary;
-
+            
             return data;
         },
 
         _prodSalesBillboard: function(rows) {
-
-            rows = parseInt(rows);
-            if (isNaN(rows) || rows < 10) rows = 10;
-
-            // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+			
+            rows = parseInt( rows );
+            if ( isNaN( rows ) )
+            	rows = 10;
+            
             var start = parseInt( this._start / 1000, 10 );
             var end = parseInt( this._end / 1000, 10 );
 
@@ -187,7 +206,7 @@
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var groupby = 'order_items.product_no';
-            var orderby = '"OrderItem.qty" DESC';
+            var orderby = '"OrderItem.gross" DESC, "OrderItem.qty" DESC';
             
             var data = {};
             data.summary = {};
@@ -196,11 +215,36 @@
 			
             data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: rows } );
             
+            var data_obj = {};
             data.records.forEach( function( record ) {
             	data.summary.qty += record.qty;
             	data.summary.gross += record.gross;
+            	
+            	data_obj[ record.product_no ] = record;
             } );
-
+            
+            if ( data.records.length < rows ) {
+		        // append the products without any transaction record.
+		        var product = new ProductModel();
+		        var product_records = product.find( 'all', { fields: [ 'no', 'name' ], order: 'no' } );
+		        
+		        for ( var i = 0; i < rows - data.records.length; i++ ) {
+		        	var record = product_records[ i ];
+		        	if ( !record )
+		        		break;
+		        		
+		        	if ( !( record.no in data_obj ) ) {
+		        		data_obj[ record.no ] = {
+		        			product_no: record.no,
+		        			product_name: record.name,
+		        			qty: 0,
+		        			gross:0
+		        		};
+		        	}
+		        }
+		    }
+            
+            data.records = data_obj;
             return data;
         },
 
@@ -484,7 +528,7 @@
             var orderby = 'orders.destination';
             
             var order = new OrderModel();
-            var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
+            var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 0, limit: this._csvLimit } );
 
             datas.forEach(function(o) {
                 if (o.num_trans > 0) {
@@ -651,8 +695,8 @@
 			this._reportRecords.head.end_time = end_str;
 			
 			this._reportRecords.body.hourly_sales = this._hourlySales();
-			this._reportRecords.body.dept_sales = this._deptSalesBillboard();
-			this._reportRecords.body.prod_sales = this._prodSalesBillboard();
+			this._reportRecords.body.dept_sales = this._deptSalesBillboard( this._num_dept || 10 );
+			this._reportRecords.body.prod_sales = this._prodSalesBillboard( this._num_product || 10 );
 			this._reportRecords.body.payment_list = this._paymentList();
 			this._reportRecords.body.sales_summary = this._salesSummary();
 			this._reportRecords.body.destination_summary = this._destinationSummary();
@@ -662,8 +706,8 @@
 			this._reportRecords.body.promotion_summary = this._promotionSummary();
 		},
 		
-		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo ) {
-			this._setConditions( start, end, terminalNo, periodType, shiftNo );
+		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo, num_dept, num_product ) {
+			this._setConditions( start, end, terminalNo, periodType, shiftNo, num_dept, num_product );
 			this._set_reportData();
 			this._setTemplateDataHead();
 			

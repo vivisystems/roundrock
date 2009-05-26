@@ -205,9 +205,10 @@
         AnnotateDialog: function (codes) {
 
             var buf = this._getKeypadController().getBuffer();
+            this.requestCommand('clearBuffer', null, 'Keypad');
 
             var txn = GeckoJS.Session.get('current_transaction');
-            if (txn == null || txn.data == null || txn.data.id == null || txn.data.id == '') {
+            if (txn == null || txn.isCancel() || txn.isSubmit()) {
                 NotifyUtils.warn(_('No order to add/view annotations'));
                 return;
             }
@@ -228,7 +229,8 @@
 
             // only one annotationType is specified and is not null, use memo-style UI
             if (codeList.length == 1 && annotationType != null && annotationType != '') {
-                var existingAnnotation = annotationController.retrieveAnnotation(txn.data.id, annotationType);
+                var existingAnnotation = ('annotations' in txn.data) ? txn.data.annotations [ annotationType ] : '';
+
                 var readonly = false;
                 if (!this.Acl.isUserInRole('acl_modify_annotations')) {
                     // no privilege to modify annotation, we must make sure we don't
@@ -267,22 +269,17 @@
                     var result = evt.data;
 
                     if (result.ok && result.input0) {
-                        if ('annotations' in txn.data) {
-                            txn.data.annotations.push({type: annotationType, text: result.input0});
+                        if (!('annotations' in txn.data)) {
+                            txn.data.annotations = {};
                         }
-                        else {
-                            txn.data.annotations = [{type: annotationType, text: result.input0}];
-                        }
-
-                        // save annotation in db
-                        annotationController.annotate(txn.data.id, annotationType, result.input0);
+                        txn.data.annotations[ annotationType ] = result.input0;
                     }
                 });
             }
             else {
                 var aURL = "chrome://viviecr/content/annotate.xul";
                 var aName = "Annotate";
-                var aArguments = {order_id: txn.data.id, codes: codeList, sequence: txn.data.seq};
+                var aArguments = {order: txn.data, codes: codeList, sequence: txn.data.seq};
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
                 window.openDialog(aURL, aName, aFeatures, aArguments);
@@ -364,9 +361,16 @@
                     if (typeof dep.no != 'undefined' && dep.cansale)  {
                         // department not group
                         var buf = this._getKeypadController().getBuffer();
-                        if(GeckoJS.Session.get('cart_set_qty_value') != null || buf.length > 0  ) {
+                        var price = parseFloat(buf);
+
+                        // make sure we have a price
+                        if(!isNaN(price)) {
                             dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
+                        }
+                        else {
+                            NotifyUtils.error(_('Price must be given to register sale of department [%S]', [dep.name]));
+                            return;
                         }
                     }
 
@@ -443,6 +447,12 @@
                     index: "username",
                     value: user.username
                 });
+
+                if (parseInt(userModel.lastError) != 0) {
+                    this.dbError(userModel.lastError, userModel.lastErrorString,
+                                 _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                    return;
+                }
 
                 var priceLevelSet = false;
 
@@ -596,12 +606,25 @@
                 index: 'username',
                 value: newUser
             });
+
+            if (parseInt(userModel.lastError) != 0) {
+                this.dbError(userModel.lastError, userModel.lastErrorString,
+                             _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                return;
+            }
+            
             if (users == null || users.length == 0) {
                 // no match found by username, let's try display name
                 users = userModel.findByIndex('all', {
                     index: 'displayname',
                     value: newUser
                 });
+
+                if (parseInt(userModel.lastError) != 0) {
+                    this.dbError(userModel.lastError, userModel.lastErrorString,
+                                 _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                    return;
+                }
 
                 if (users == null || users.length == 0) {
                     //@todo silent user switch successful
@@ -797,28 +820,47 @@
                     var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                     GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
-                    try {
-                        // dispatch beforeTruncateTxnRecords event
-                        this.dispatchEvent('beforeTruncateTxnRecords', null);
+                    // dispatch beforeTruncateTxnRecords event
+                    this.dispatchEvent('beforeTruncateTxnRecords', null);
 
+                    try {
                         // truncate order related tables
                         var orderModel = new OrderModel();
-                        orderModel.execute('delete from orders');
-                        orderModel.execute('delete from order_receipts');
-                        orderModel.execute('delete from order_promotions');
-                        orderModel.execute('delete from order_payments');
-                        orderModel.execute('delete from order_objects');
-                        orderModel.execute('delete from order_items');
-                        orderModel.execute('delete from order_item_condiments');
-                        orderModel.execute('delete from order_annotations');
-                        orderModel.execute('delete from order_additions');
+                        var r = orderModel.begin();
+                        if (r) {
+                            r = orderModel.execute('delete from orders');
+                            if (r) r = orderModel.execute('delete from order_receipts');
+                            if (r) r = orderModel.execute('delete from order_promotions');
+                            if (r) r = orderModel.execute('delete from order_payments');
+                            if (r) r = orderModel.execute('delete from order_objects');
+                            if (r) r = orderModel.execute('delete from order_items');
+                            if (r) r = orderModel.execute('delete from order_item_condiments');
+                            if (r) r = orderModel.execute('delete from order_annotations');
+                            if (r) r = orderModel.execute('delete from order_additions');
 
-                        // truncate sync tables
-                        orderModel.execute('delete from syncs');
-                        orderModel.execute('delete from sync_remote_machines');
+                            // truncate sync tables
+                            if (r) r = orderModel.execute('delete from syncs');
+                            if (r) r = orderModel.execute('delete from sync_remote_machines');
 
-                        // dispatch afterTruncateTxnRecords event
-                        this.dispatchEvent('afterTruncateTxnRecords', null);
+                            if (r) r = orderModel.commit();
+                            if (!r) {
+                                var errNo = orderModel.lastError;
+                                var errMsg = orderModel.lastErrorString;
+
+                                orderModel.rollback();
+
+                                this.dbError(errNo, errMsg,
+                                             _('An error was encountered while attempting to remove all transaction records (error code %S).', [errNo]));
+                            }
+                            else {
+                                // dispatch afterTruncateTxnRecords event
+                                this.dispatchEvent('afterTruncateTxnRecords', null);
+                            }
+                        }
+                        else {
+                            this.dbError(orderModel.lastError, orderModel.lastErrorString,
+                                         _('An error was encountered while attempting to remove all transaction records (error code %S).', orderModel.lastError));
+                        }
                     } catch (e) {}
                     finally {
                         GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
@@ -1015,7 +1057,15 @@
 
             waitPanel.hidePopup();
             progressBar.mode = 'undetermined';
+        },
+
+        dbError: function(errNo, errMsg, alertStr) {
+            this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
+            GREUtils.Dialog.alert(null,
+                                  _('Data Operation Error'),
+                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
+
     };
 
     GeckoJS.Controller.extend(__controller__);
