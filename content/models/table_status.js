@@ -241,7 +241,7 @@
 
         getTableStatuses: function(lastModified) {
 // GREUtils.log("getTableStatuses..." + lastModified );
-
+            var self = this;
             // var remoteUrl = this.getRemoteService('getTableStatusList');
             var remoteUrl = this.getRemoteService('getTableStatuses');
             var tableStatus = null;
@@ -250,10 +250,11 @@
                 try {
 // GREUtils.log("remoteUrl:::" + remoteUrl);
                     tableStatus = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
-// GREUtils.log("DEBUG", "getTableStatuses:::" + lastModified + " , length:" + tableStatus.length);
-// GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
+GREUtils.log("getTableStatuses:::" + lastModified + " , length:" + tableStatus.length);
+GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
                     // do not need
                     tableStatus.forEach(function(o){
+
                         var item = GREUtils.extend({}, o.TableStatus);
                         for (var key in item) {
                             o[key] = item[key];
@@ -290,9 +291,20 @@
             if (this._tableStatusList && this._tableStatusList.length > 0) {
                 //
                 tableStatus.forEach(function(o){
+
+                    // @todo do not work!!!
                     var index = self._tableStatusIdxById[o.id];
-                    if (self._tableStatusList[index]) {
-                        self._tableStatusList[index] = o;
+GREUtils.log("getTableStatusList:::" + index + " , id:::" + o.id);
+// GREUtils.log(GeckoJS.BaseObject.dump(o));
+                    if (typeof index == "undefined") {
+// GREUtils.log("getTableStatusList2:::" + index + " , id:::" + o.id);
+                        self._tableStatusLastTime = 0;
+                        self._tableStatusList = null;
+                    } else {
+
+                        if (self._tableStatusList[index]) {
+                            self._tableStatusList[index] = o;
+                        }
                     }
                 });
 
