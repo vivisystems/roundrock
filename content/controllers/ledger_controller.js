@@ -31,8 +31,8 @@
                 var r = model.execute('delete from ledger_records where created <= ' + expireDate);
                 if (!r) {
                     // log error and notify user
-                    this.dbError(model,
-                                 _('An error was encountered while expiring ledger activity logs (error code %S)', [model.lastError]));
+                    this.dbError(model.lastError, model.lastErrorString,
+                                 _('An error was encountered while expiring ledger activity logs (error code %S).', [model.lastError]));
                 }
             }
         },
@@ -42,8 +42,8 @@
             var r = model.execute('delete from ledger_records');
             if (!r) {
                 // log error and notify user
-                this.dbError(model,
-                             _('An error was encountered while expiring ledger activity logs (error code %S)', [model.lastError]));
+                this.dbError(model.lastError, model.lastErrorString,
+                             _('An error was encountered while removing all ledger activity logs (error code %S).', [model.lastError]));
             }
         },
 
@@ -71,29 +71,45 @@
             data.shift_number = shiftNumber;
         },
 
-        saveLedgerEntry: function(inputObj) {
+        saveLedgerEntry: function(inputObj, nonAtomic) {
 
             // create ledger entry object
             this.setLedgerEntry(inputObj);
 
             // save ledger entry
             var ledgerRecordModel = new LedgerRecordModel();
-            inputObj = ledgerRecordModel.save(inputObj);
-            if (!inputObj) {
-                // log error and alert user
-                this.dbError(ledgerRecordModel,
-                             _('An error was encountered while logging ledger activity (error code %S)', [ledgerRecordModel.lastError]));
-                return false;
+
+            if (!nonAtomic) {
+                ledgerRecordModel.begin();
+            }
+            var r = ledgerRecordModel.save(inputObj);
+            if (r) {
+                r =  this.savePaymentEntry(inputObj);
             }
 
-            // save payment entry
-            this.savePaymentEntry(inputObj);
+            if (r && !nonAtomic) {
+                r = ledgerRecordModel.commit();
+            }
 
-            this.dispatchEvent('afterLedgerEntry', inputObj);
-            return true;
+            if (!r) {
+                // log error and alert user
+                var errNo = ledgerRecordModel.lastError;
+                var errMsg = ledgerRecordModel.lastErrorString;
+
+                if (!nonAtomic) ledgerRecordModel.rollback();
+
+                this.dbError(errNo, errMsg,
+                             _('An error was encountered while logging ledger activity (error code %S).', [errNo]));
+
+
+                return false;
+            }
+            else {
+                this.dispatchEvent('afterLedgerEntry', inputObj);
+                return true;
+            }
         },
 
-        // save ledger payment record to db
         savePaymentEntry: function(ledgerEntry) {
 
             var data = {};
@@ -120,21 +136,13 @@
             data['terminal_no'] = ledgerEntry.terminal_no;
 
             var orderPaymentModel = new OrderPaymentModel();
-            if (ledgerEntry.id) {
-                var paymentEntry = orderPaymentModel.find('first', {
-                    conditions: 'order_id = "' + ledgerEntry.id + '"'
-                })
-            }
             var r = orderPaymentModel.save(data);
             if (!r) {
-                //@db saveToBackup
-                //orderPaymentModel.saveToBackup(data);
-                
                 // log error
-                this.log('ERROR',
-                         _('An error was encountered while logging ledger payment (error code %S) - %S',
-                           [orderPaymentModel.lastError, orderPaymentModel.lastErrorString]));
+                this.dbError(orderPaymentModel.lastError, orderPaymentModel.lastErrorString,
+                             _('An error was encountered while logging ledger payment (error code %S).', [orderPaymentModel.lastError]));
             }
+            return r;
         },
 
         /*
@@ -159,6 +167,8 @@
                 GREUtils.extend(evt.data, inputObj);
                 this.setLedgerEntry(evt.data);
 
+                this.Scaffold.ScaffoldModel.begin();
+
             } else {
                 evt.preventDefault();
             }
@@ -168,15 +178,27 @@
         afterScaffoldAdd: function(evt) {
             // check if db error
             var model = this.Scaffold.ScaffoldModel;
-            if (model.lastError) {
-                this.dbError(model,
-                             _('An error was encountered while logging ledger entry (error code %S)', [model.lastError]));
-                NotifyUtils.error(_('Failed to add ledger entry'));
+            var r = !(parseInt(model.lastError) != 0);
+
+            if (r) {
+                // add payment record
+                r = this.savePaymentEntry(evt.data);
+            }
+
+            if (r) {
+                r = model.commit();
+            }
+
+            if (!r) {
+                var errNo = model.lastError;
+                var errMsg = model.lastErrorString;
+
+                model.rollback();
+
+                this.dbError(errNo, errMsg,
+                             _('An error was encountered while logging ledger payment (error code %S).', [errNo]));
             }
             else {
-                // add payment record
-                this.savePaymentEntry(evt.data);
-                
                 this._index = 0;
                 this.load();
 
@@ -190,10 +212,9 @@
 
             // check db error
             var model = this.Scaffold.ScaffoldModel;
-            if (model.lastError) {
+            if (parseInt(model.lastError) != 0) {
                 this.dbError(model,
-                             _('An error was encountered while retrieving ledger records (error code %S)', [model.lastError]));
-                NotifyUtils.error(_('Failed to retrieve ledger records'));
+                             _('An error was encountered while retrieving ledger records (error code %S).', [model.lastError]));
             }
             else {
                 this._listDatas = evt.data;
@@ -270,11 +291,11 @@
             this._index = index;
         },
 
-        dbError: function(model, alertStr) {
-            this.log('ERROR', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
-            GREUtils.Dialog.alert(window,
+        dbError: function(errNo, errMsg, alertStr) {
+            this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
+            GREUtils.Dialog.alert(null,
                                   _('Data Operation Error'),
-                                  alertStr);
+                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
 

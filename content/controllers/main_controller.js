@@ -448,6 +448,12 @@
                     value: user.username
                 });
 
+                if (parseInt(userModel.lastError) != 0) {
+                    this.dbError(userModel.lastError, userModel.lastErrorString,
+                                 _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                    return;
+                }
+
                 var priceLevelSet = false;
 
                 if (userRecord) {
@@ -600,12 +606,25 @@
                 index: 'username',
                 value: newUser
             });
+
+            if (parseInt(userModel.lastError) != 0) {
+                this.dbError(userModel.lastError, userModel.lastErrorString,
+                             _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                return;
+            }
+            
             if (users == null || users.length == 0) {
                 // no match found by username, let's try display name
                 users = userModel.findByIndex('all', {
                     index: 'displayname',
                     value: newUser
                 });
+
+                if (parseInt(userModel.lastError) != 0) {
+                    this.dbError(userModel.lastError, userModel.lastErrorString,
+                                 _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                    return;
+                }
 
                 if (users == null || users.length == 0) {
                     //@todo silent user switch successful
@@ -801,28 +820,47 @@
                     var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                     GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
-                    try {
-                        // dispatch beforeTruncateTxnRecords event
-                        this.dispatchEvent('beforeTruncateTxnRecords', null);
+                    // dispatch beforeTruncateTxnRecords event
+                    this.dispatchEvent('beforeTruncateTxnRecords', null);
 
+                    try {
                         // truncate order related tables
                         var orderModel = new OrderModel();
-                        orderModel.execute('delete from orders');
-                        orderModel.execute('delete from order_receipts');
-                        orderModel.execute('delete from order_promotions');
-                        orderModel.execute('delete from order_payments');
-                        orderModel.execute('delete from order_objects');
-                        orderModel.execute('delete from order_items');
-                        orderModel.execute('delete from order_item_condiments');
-                        orderModel.execute('delete from order_annotations');
-                        orderModel.execute('delete from order_additions');
+                        var r = orderModel.begin();
+                        if (r) {
+                            r = orderModel.execute('delete from orders');
+                            if (r) r = orderModel.execute('delete from order_receipts');
+                            if (r) r = orderModel.execute('delete from order_promotions');
+                            if (r) r = orderModel.execute('delete from order_payments');
+                            if (r) r = orderModel.execute('delete from order_objects');
+                            if (r) r = orderModel.execute('delete from order_items');
+                            if (r) r = orderModel.execute('delete from order_item_condiments');
+                            if (r) r = orderModel.execute('delete from order_annotations');
+                            if (r) r = orderModel.execute('delete from order_additions');
 
-                        // truncate sync tables
-                        orderModel.execute('delete from syncs');
-                        orderModel.execute('delete from sync_remote_machines');
+                            // truncate sync tables
+                            if (r) r = orderModel.execute('delete from syncs');
+                            if (r) r = orderModel.execute('delete from sync_remote_machines');
 
-                        // dispatch afterTruncateTxnRecords event
-                        this.dispatchEvent('afterTruncateTxnRecords', null);
+                            if (r) r = orderModel.commit();
+                            if (!r) {
+                                var errNo = orderModel.lastError;
+                                var errMsg = orderModel.lastErrorString;
+
+                                orderModel.rollback();
+
+                                this.dbError(errNo, errMsg,
+                                             _('An error was encountered while attempting to remove all transaction records (error code %S).', [errNo]));
+                            }
+                            else {
+                                // dispatch afterTruncateTxnRecords event
+                                this.dispatchEvent('afterTruncateTxnRecords', null);
+                            }
+                        }
+                        else {
+                            this.dbError(orderModel.lastError, orderModel.lastErrorString,
+                                         _('An error was encountered while attempting to remove all transaction records (error code %S).', orderModel.lastError));
+                        }
                     } catch (e) {}
                     finally {
                         GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
@@ -1019,7 +1057,15 @@
 
             waitPanel.hidePopup();
             progressBar.mode = 'undetermined';
+        },
+
+        dbError: function(errNo, errMsg, alertStr) {
+            this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
+            GREUtils.Dialog.alert(null,
+                                  _('Data Operation Error'),
+                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
+
     };
 
     GeckoJS.Controller.extend(__controller__);

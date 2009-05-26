@@ -349,8 +349,8 @@
             }
             var r = drawerRecordModel.save(accessRecord);
             if (!r) {
-                //@db save record to backup
-                //drawerRecordModel.saveToBackup(accessRecord);
+                //@db saveToBackup
+                drawerRecordModel.saveToBackup(accessRecord);
 
                 // log error
                 this.log('ERROR',
@@ -366,8 +366,8 @@
                 var r = model.execute('delete from cashdrawer_records where created <= ' + expireDate);
                 if (!r) {
                     // log error and notify user
-                    this.dbError(model,
-                                 _('An error was encountered while expiring cashdrawer activity logs (error code %S)', [model.lastError]));
+                    this.dbError(model.lastError, model.lastErrorString,
+                                 _('An error was encountered while expiring cashdrawer activity logs (error code %S).', [model.lastError]));
                 }
             }
         },
@@ -377,8 +377,8 @@
             var r = model.execute('delete from cashdrawer_records');
             if (!r) {
                 // log error and notify user
-                this.dbError(model,
-                             _('An error was encountered while removing all cashdrawer activity logs (error code %S)', [model.lastError]));
+                this.dbError(model.lastError, model.lastErrorString,
+                             _('An error was encountered while removing all cashdrawer activity logs (error code %S).', [model.lastError]));
             }
         },
 
@@ -458,11 +458,11 @@
             return printed;
         },
 
-        dbError: function(model, alertStr) {
-            this.log('ERROR', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
-            GREUtils.Dialog.alert(window,
+        dbError: function(errNo, errMsg, alertStr) {
+            this.log('ERROR', 'Database exception: ' + errMsg + ' [' + errNo + ']');
+            GREUtils.Dialog.alert(null,
                                   _('Data Operation Error'),
-                                  alertStr);
+                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
     };

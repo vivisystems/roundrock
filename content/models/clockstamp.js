@@ -20,8 +20,6 @@ var ClockStampModel = GeckoJS.Model.extend({
 
         // first let's try to get a lock on the database
         r = this.begin();
-        this.log('begin (' + r + ') errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')');
-        //r = this.execute('BEGIN EXCLUSIVE');
 
         // if we got the lock
         if (r) {
@@ -30,9 +28,9 @@ var ClockStampModel = GeckoJS.Model.extend({
                 switch (type) {
                     case "clockin":
                         last = this.findLastStamp(username);
-                        this.log('clockin findLastStamp errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')');
-                        if (this.lastError)
-                            throw new Exception();
+                        if (parseInt(this.lastError) != 0) {
+                            throw 'clockin findLastStamp errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')';
+                        }
 
                         // automatically clocks out last job if necessary
                         if (last && !last['clockout']) {
@@ -43,9 +41,8 @@ var ClockStampModel = GeckoJS.Model.extend({
                             // update last time stamp
                             this.id = last.id;
                             r = this.save(last);
-                            this.log('clockin saveLastStamp (' + r + ') errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')');
                             if (!r) {
-                                throw new Exception();
+                                throw 'clockin saveLastStamp (' + r + ') errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')';
                             }
                         }
 
@@ -59,9 +56,9 @@ var ClockStampModel = GeckoJS.Model.extend({
 
                     case "clockout":
                         last = this.findLastStamp(username);
-                        this.log('clockout findLastStamp errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')');
-                        if (this.lastError)
-                            throw new Exception();
+                        if (parseInt(this.lastError) != 0) {
+                            throw 'clockout findLastStamp errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')';
+                        }
 
                         if (last && !last['clockout']) {
                             data['clockin'] = 1;
@@ -73,27 +70,24 @@ var ClockStampModel = GeckoJS.Model.extend({
                 }
 
                 r = this.save(data);
-                this.log('clockin/out save Stamp (' + r + ') errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')');
                 if (!r)
-                    throw new Exception();
+                    throw 'clockin/out save Stamp (' + r + ') errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')';
 
                 r = this.commit();
-                this.log('clockin/out commit (' + r + ') errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')');
                 if (!r)
-                    throw new Exception();
+                    throw 'clockin/out commit (' + r + ') errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')';
                 return r;
             }
-            catch(e) {
-                var errNo = this.lastError;
-                var errMsg = this.lastErrorString;
+            catch(errMsg) {
+                this.rollback();
 
-                r = this.rollback();
-                this.log('rollback (' + r + ') errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')');
+                this.log('ERROR', errMsg);
 
                 return false;
             }
         }
         else {
+            this.log('ERROR', 'saveStamp unable to obtain database lock (' + r + ') errNo (' + this.lastError + ') errMsg (' + this.lastErrorString + ')');
             // unable to begin transaction
             return false;
         }

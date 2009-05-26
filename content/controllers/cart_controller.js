@@ -2752,7 +2752,6 @@
                 this.dispatchEvent('onClear', null);
                 return; // fatal error ?
             }
-
             this.dispatchEvent('onClear', curTransaction);
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
@@ -2855,48 +2854,53 @@
 
             var oldTransaction = this._getTransaction();
             
-            if(oldTransaction == null) return; // fatal error ?
+            if(oldTransaction == null) return false; // fatal error ?
 
             // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
             var existingOrder = orderModel.findById(oldTransaction.data.id);
-            if (this.lastError) {
-                this.dbError(orderModel,
-                             _('An error was encountered while retrieving transaction record'));
-                return;
+            if (parseInt(orderModel.lastError) != 0) {
+                this.dbError(orderModel.lastError, orderModel.lastErrorString,
+                             _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
+                return false;
             }
 
             if (existingOrder && existingOrder.status != 2) {
                 oldTransaction.data.status = existingOrder.status;
-                var status;
+                var statusStr;
                 switch(parseInt(existingOrder.status)) {
                     case 1:
-                        status = _('completed');
+                        statusStr = _('completed');
                         break;
 
                     case 2:
-                        status = _('stored');
+                        statusStr = _('stored');
                         break;
 
                     case -1:
-                        status = _('cancelled');
+                        statusStr = _('cancelled');
                         break;
 
                     case -2:
-                        status = _('voided');
+                        statusStr = _('voided');
                         break;
 
                     default:
-                        status = existingOrder.status;
+                        statusStr = existingOrder.status;
                         break;
                 }
                 GREUtils.Dialog.alert(window,
-                    _('Order Finalization'),
-                    _('Current order is no longer available for finalization (status = %S)', [status]));
-                return;
+                                      _('Order Finalization'),
+                                      _('Current order is no longer available for finalization (status = %S)', [statusStr]));
+                return false;
             }
             if (status == null) status = 1;
-            if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
+            if (status == 1 && oldTransaction.getRemainTotal() > 0) {
+                GREUtils.Dialog.alert(window,
+                                      _('Order Finalization'),
+                                      _('Current order has non-zero balance and may not be closed'));
+                return false;
+            }
 
             if (this.dispatchEvent('beforeSubmit', {
                 status: status,
@@ -2937,6 +2941,7 @@
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
             }
+            return true;
         },
 
 
@@ -3395,6 +3400,11 @@
             // load data
             var orderModel = new OrderModel();
             var order = orderModel.findById(id, 2);
+            if (parseInt(orderModel.lastError) != 0) {
+                this.dbError(orderModel.lastError, orderModel.lastErrorString,
+                             _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
+                return;
+            }
 
             if (!order) {
                 GREUtils.Dialog.alert(window,
@@ -3442,69 +3452,112 @@
                     var refundTotal = 0;
 
                     // insert refund payments
-                    inputObj.refunds.forEach(function(payment) {
+                    var lastModel = paymentModel;
+                    var r = paymentModel.begin();
+                    if (r) {
+                        inputObj.refunds.forEach(function(payment) {
 
-                        // reverse amount, origin_amount, change
-                        payment.id = '';
-                        payment.order_id = order.id;
-                        payment.amount = - payment.amount;
-                        payment.origin_amount = payment.amount;
-                        payment.change = 0;
+                            // reverse amount, origin_amount, change
+                            payment.id = '';
+                            payment.order_id = order.id;
+                            payment.amount = - payment.amount;
+                            payment.origin_amount = payment.amount;
+                            payment.change = 0;
 
-                        // update proceeds_clerk
-                        if (user != null) {
-                            payment.proceeds_clerk = user.username;
-                            payment.proceeds_clerk_displayname = user.description;
+                            // update proceeds_clerk
+                            if (user != null) {
+                                payment.proceeds_clerk = user.username;
+                                payment.proceeds_clerk_displayname = user.description;
+                            }
+
+                            payment.sale_period = salePeriod;
+                            payment.shift_number = shiftNumber;
+                            payment.terminal_no = terminalNo;
+
+                            // save payment record
+                            if (r) r = paymentModel.save(payment);
+
+                            refundTotal += payment.amount;
+                        });
+
+                        if (r) {
+
+                            // update order status to voided
+                            order.status = -2;
+
+                            // update payment subtotal
+                            order.payment_subtotal += refundTotal;
+
+                            // update void clerk, time, sale period and shift number
+                            if (user) {
+                                order.void_clerk = user.username;
+                                order.void_clerk_displayname = user.description;
+                            }
+                            order.transaction_voided = (new Date()).getTime() / 1000;
+                            order.void_sale_period = salePeriod;
+                            order.void_shift_number = shiftNumber;
+
+                            lastModel = orderModel;
+
+                            orderModel.id = order.id;
+                            r = orderModel.save(order);
                         }
 
-                        payment.sale_period = salePeriod;
-                        payment.shift_number = shiftNumber;
-                        payment.terminal_no = terminalNo;
+                        if (r) {
+                            // restore stock
+                            for (var o in order.OrderItem) {
 
-                        refundTotal += payment.amount;
-                    });
+                                // look up corresponding product and set the product id into the item; also reverse quantity
+                                var item = order.OrderItem[o];
+                                var productId = barcodesIndexes[item.product_no];
 
-                    // save payment record
-                    paymentModel.saveAll(inputObj.refunds);
+                                item.current_qty = - item.current_qty;
+                                item.id = productId;
+                            }
+                            order.items = order.OrderItem;
 
-                    // update order status to voided
-                    order.status = -2;
+                            lastModel = null;
 
-                    // update payment subtotal
-                    order.payment_subtotal += refundTotal;
-                    
-                    // update void clerk, time, sale period and shift number
-                    if (user) {
-                        order.void_clerk = user.username;
-                        order.void_clerk_displayname = user.description;
+                            var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
+                            r = stockController.decStock(order);
+                        }
+
+                        if (r) {
+                            r = this.dispatchEvent('afterVoidSale', order);
+                        }
+
+                        if (r) {
+                            r = paymentModel.commit();
+                        }
+
+                        if (r) {
+                            GREUtils.Dialog.alert(window,
+                                _('Void Sale'),
+                                _('Transaction [%S] successfully voided', [order.sequence]));
+                        }
+                        else {
+                            if (lastModel) {
+                                var errNo = lastModel.lastError;
+                                var errMsg = lastModel.lastErrorString;
+                            }
+
+                            paymentModel.rollback();
+
+                            if (lastModel) {
+                                this.dbError(lastModel.lastError, lastModel.lastErrorString,
+                                             _('An error was encountered while voiding sale (error code %S).', [lastModel.lastError]));
+                            }
+                            else {
+                                GREUtils.Dialog.alert(window,
+                                    _('Void Sale'),
+                                    _('Errors were encountered while void order; order was not voided'));
+                            }
+                        }
                     }
-                    order.transaction_voided = (new Date()).getTime() / 1000;
-                    order.void_sale_period = salePeriod;
-                    order.void_shift_number = shiftNumber;
-
-                    orderModel.id = order.id;
-                    orderModel.save(order);
-
-                    // restore stock
-                    for (var o in order.OrderItem) {
-
-                        // look up corresponding product and set the product id into the item; also reverse quantity
-                        var item = order.OrderItem[o];
-                        var productId = barcodesIndexes[item.product_no];
-
-                        item.current_qty = - item.current_qty;
-                        item.id = productId;
+                    else {
+                        this.dbError(paymentModel.lastError, paymentModel.lastErrorString,
+                                     _('An error was encountered while voiding sale (error code %S).', [paymentModel.lastError]));
                     }
-                    order.items = order.OrderItem;
-
-                    var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
-                    stockController.requestCommand('decStock', order, 'Stocks');
-
-                    this.dispatchEvent('afterVoidSale', order);
-
-                    GREUtils.Dialog.alert(window,
-                        _('Void Sale'),
-                        _('Transaction [%S] successfully voided', [order.sequence]));
                 }
             }
         },
@@ -4055,11 +4108,11 @@
             }
         },
 
-        dbError: function(model, alertStr) {
-            this.log('WARN', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
-            GREUtils.Dialog.alert(window,
+        dbError: function(errNo, errMsg, alertStr) {
+            this.log('WARN', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
+            GREUtils.Dialog.alert(null,
                                   _('Data Operation Error'),
-                                  alertStr);
+                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
         
