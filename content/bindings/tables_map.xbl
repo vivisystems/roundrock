@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+  <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
+  %bindingsDTD;
+]>
+
+<xbl:bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <xbl:binding id="vivi_table_status">
+        <xbl:content>
+            <html:div anonid="table_wrap" class="table_wrap" style="position: absolute; border: 1px solid red; width: 100px; height: 100px; top: 40px; left: 40px;" xbl:inherits="class=wrapClass,width,height,style">
+
+                <html:div class="handle" style="position: absolute; top: 0px; left:0px;">d</html:div>
+                <html:div class="resize" style="position: absolute; bottom: -10px; right:-10px;">r</html:div>
+                <html:img anonid="bg_image" src="chrome://viviecr/skin/images/table_round_m.png" style="position: absolute; top: 0px; left:0px; width: 100px; height: 100px;"/>
+                <html:p style="position: relative; top: 40%; left: 40%;">tbs</html:p>
+
+            </html:div>
+        </xbl:content>
+
+        <xbl:implementation>
+        </xbl:implementation>
+
+    </xbl:binding>
+
+
+    <xbl:binding id="vivi_tables_map">
+        <xbl:content>
+            <html:div anonid="map_wrap" class="map_wrap" style=" width: 400px; height: 350px; border: 1px solid red;" xbl:inherits="class=wrapClass,width,height,style">
+
+                <html:div anonid="controller" xbl:inherits="class=controllerClass">
+                    <html:span class="jFlowControl">區域 1</html:span>
+                    <html:span class="jFlowControl">區域 2</html:span>
+                </html:div>
+
+                <html:div anonid="slides">
+                    <html:div class="jFlowSlideContent" ><html:p>This is photo number one. Neato!</html:p></html:div>
+                    <html:div class="jFlowSlideContent" ><html:p>This is photo number two. Neato!</html:p>
+                    <xul:vivi_table_status />
+                    </html:div>
+                </html:div>
+                
+            </html:div>
+        </xbl:content>
+
+        <xbl:implementation>
+
+            <xbl:constructor>
+                <![CDATA[
+
+                    this._controller = document.getAnonymousElementByAttribute( this, 'anonid', 'controller' );
+                    this._slides = document.getAnonymousElementByAttribute( this, 'anonid', 'slides' );
+
+                    var self = this;
+                    setTimeout(function() {
+                        self.initSlides();
+                    }, 500);
+
+                ]]>
+            </xbl:constructor>
+
+            <xbl:destructor>
+                <![CDATA[
+
+                ]]>
+            </xbl:destructor>
+
+            <xbl:method name="initSlides">
+                <xbl:body><![CDATA[
+
+	$(this._controller).jFlow({
+		slides: this._slides,
+		controller: ".jFlowControl", // must be class, use . sign
+		slideWrapper : "#jFlowSlide", // must be id, use # sign
+		selectedWrapper: "jFlowSelected",  // just pure text, no sign
+		width: "400px",
+		height: "200px",
+		duration: 100,
+		prev: ".jFlowPrev", // must be class, use . sign
+		next: ".jFlowNext" // must be class, use . sign
+	});
+
+                this._controllers = $(this._controller).find(".jFlowControl");
+
+              ]]>
+              </xbl:body>
+            </xbl:method>
+
+
+            <xbl:method name="slideTo">
+                <xbl:parameter name="idx" />
+                <xbl:body><![CDATA[
+
+                    var maxControllers = this._controllers;
+
+                    idx = idx < 0 ? 0 : (idx >= maxControllers.length) ? maxControllers.length-1 : idx;
+
+                    $(maxControllers[idx]).click();
+
+              ]]>
+              </xbl:body>
+            </xbl:method>
+
+        </xbl:implementation>
+
+    </xbl:binding>
+</xbl:bindings>

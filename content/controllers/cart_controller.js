@@ -2858,7 +2858,7 @@
 
             // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
-            var existingOrder = orderModel.findById(oldTransaction.data.id);
+            var existingOrder = orderModel.findById(oldTransaction.data.id, 0, "id,status");
             if (parseInt(orderModel.lastError) != 0) {
                 this.dbError(orderModel.lastError, orderModel.lastErrorString,
                              _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
@@ -3504,7 +3504,12 @@
                         }
 
                         if (r) {
-                            // restore stock
+                            lastModel = paymentModel;
+
+                            r = paymentModel.commit();
+                        }
+
+                        if (r) {
                             for (var o in order.OrderItem) {
 
                                 // look up corresponding product and set the product id into the item; also reverse quantity
@@ -3516,21 +3521,12 @@
                             }
                             order.items = order.OrderItem;
 
-                            lastModel = null;
-
+                            // restore stock
                             var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
-                            r = stockController.decStock(order);
-                        }
+                            stockController.decStock(order);
 
-                        if (r) {
-                            r = this.dispatchEvent('afterVoidSale', order);
-                        }
-
-                        if (r) {
-                            r = paymentModel.commit();
-                        }
-
-                        if (r) {
+                            this.dispatchEvent('afterVoidSale', order);
+                            
                             GREUtils.Dialog.alert(window,
                                 _('Void Sale'),
                                 _('Transaction [%S] successfully voided', [order.sequence]));

@@ -4,20 +4,12 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>viviecr@firich.com.tw</em:id>
         <em:name>VIVIECR</em:name>
-<<<<<<< HEAD:install.rdf
-        <em:version>1.1.0.20090521112625</em:version>
-=======
-        <em:version>1.1.0.20090521112625</em:version>
->>>>>>> 8fee73f62083ef8f20ebeb26c68c4d69c984be2a:install.rdf
+        <em:version>1.1.0.20090526185319</em:version>
         <em:description></em:description>
         <em:creator>FIRICH VIVIPOS TEAM</em:creator>
         <em:homepageURL>http://www.firich.com.tw/</em:homepageURL>
         <em:type>2</em:type> <!-- type=extension --> 
-<<<<<<< HEAD:install.rdf
-	<em:extensionHash>sha1:9cc4144dc31661f5a05dffc3dfa2bd38a6a1c813</em:extensionHash>
-=======
-	<em:extensionHash>sha1:9cc4144dc31661f5a05dffc3dfa2bd38a6a1c813</em:extensionHash>
->>>>>>> 8fee73f62083ef8f20ebeb26c68c4d69c984be2a:install.rdf
+	<em:extensionHash>sha1:4b8e446aaf9ca5e69ed46dacac3e08d85190f27f</em:extensionHash>
 
         <em:targetApplication>
           <!-- Toolkit -->
