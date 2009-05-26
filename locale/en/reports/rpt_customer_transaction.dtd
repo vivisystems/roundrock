@@ -1,0 +1,35 @@
+<!ENTITY rptcustomertransaction.title "Customer Transaction Report">
+<!ENTITY rptcustomertransaction.startdate "Start Date:">
+<!ENTITY rptcustomertransaction.enddate "End Date:">
+<!ENTITY rptcustomertransaction.execute "Execute">
+<!ENTITY rptcustomertransaction.exportpdf "Export to PDF">
+<!ENTITY rptcustomertransaction.exportcsv "Export to CSV">
+<!ENTITY rptcustomertransaction.exportrcp "Print">
+<!ENTITY rptcustomertransaction.togglezoom "Toggle Zoom">
+<!ENTITY rptcustomertransaction.terminal_no "Terminal:">
+<!ENTITY rptcustomertransaction.sortby "Sort By:">
+<!ENTITY rptcustomertransaction.sortby.terminal_no "Terminal">
+<!ENTITY rptcustomertransaction.sortby.time "Time">
+<!ENTITY rptcustomertransaction.sortby.sequence "Sequence">
+<!ENTITY rptcustomertransaction.sortby.invoice_no "Invoice Number">
+<!ENTITY rptcustomertransaction.sortby.tax_subtotal "Add-on Tax">
+<!ENTITY rptcustomertransaction.sortby.total "Net Sales">
+<!ENTITY rptcustomertransaction.sortby.item_subtotal "Gross Sales">
+<!ENTITY rptcustomertransaction.sortby.surcharge_subtotal "Surcharge">
+<!ENTITY rptcustomertransaction.sortby.discount_subtotal "Discount">
+<!ENTITY rptcustomertransaction.sortby.promotion_subtotal "Promotion">
+<!ENTITY rptcustomertransaction.sortby.revalue_subtotal "Revalue">
+<!ENTITY rptcustomertransaction.sortby.cash "Cash">
+<!ENTITY rptcustomertransaction.sortby.check "Check">
+<!ENTITY rptcustomertransaction.sortby.creditcard "Credit Card">
+<!ENTITY rptcustomertransaction.sortby.coupon "Coupon">
+<!ENTITY rptcustomertransaction.sortby.giftcard "Gift Card">
+<!ENTITY rptcustomertransaction.all "List All">
+<!ENTITY rptcustomertransaction.wait "Waiting...">
+<!ENTITY rptcustomertransaction.periodtype "Period Type:">
+<!ENTITY rptcustomertransaction.transaction_created "Order Opened">
+<!ENTITY rptcustomertransaction.transaction_submitted "Order Closed">
+<!ENTITY rptcustomertransaction.sale_period "Sale Period">
+<!ENTITY rptcustomertransaction.shiftno "Shift:">
+<!ENTITY rptcustomertransaction.customer_id_start "Customer Id ( start ):">
+<!ENTITY rptcustomertransaction.customer_id_end "Customer Id ( end ):">
