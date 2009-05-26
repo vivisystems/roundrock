@@ -17,6 +17,7 @@
 
         _checkNoArray: [],
         _tableNoArray: [],
+        _connected: false,
         _guestCheck: null,
         _checkList: null,
         _tableList: null,
@@ -239,7 +240,7 @@
         },
 
         getTableStatuses: function(lastModified) {
-// GREUtils.log("getTableStatuses...");
+// GREUtils.log("getTableStatuses..." + lastModified );
 
             // var remoteUrl = this.getRemoteService('getTableStatusList');
             var remoteUrl = this.getRemoteService('getTableStatuses');
@@ -247,7 +248,7 @@
 
             if (remoteUrl) {
                 try {
-
+// GREUtils.log("remoteUrl:::" + remoteUrl);
                     tableStatus = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
 // GREUtils.log("DEBUG", "getTableStatuses:::" + lastModified + " , length:" + tableStatus.length);
 // GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
@@ -259,12 +260,17 @@
                         }
                     });
 
+                    this._connected = true;
                 }catch(e) {
                     tableStatus = [];
+                    this._connected = false;
+// GREUtils.log("remoteUrl except false:::" + remoteUrl);
                 }
 
             }else {
+// GREUtils.log("remoteUrl local:::" + remoteUrl);
                 // read all order status
+                this._connected = true;
                 var fields = null;
                 var conditions = "table_statuses.modified > '" + lastModified + "'";
 
@@ -281,7 +287,7 @@
 
             var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
 
-            if (this._tableStatusList) {
+            if (this._tableStatusList && this._tableStatusList.length > 0) {
                 //
                 tableStatus.forEach(function(o){
                     var index = self._tableStatusIdxById[o.id];
@@ -291,6 +297,7 @@
                 });
 
             } else {
+
                 this._tableStatusList = tableStatus.concat([]);
 
                 for (var i = 0; i < tableStatus.length; i++) {
@@ -328,6 +335,7 @@
                     };
 
                     if (o.TableBooking && o.TableBooking.length > 0) {
+
                         o.booking = o.TableBooking[0].booking;
                     }
 
@@ -336,7 +344,6 @@
                         self._tableStatusLastTime = o.modified;
                     }
                     // this._tableStatusLastTime = this._tableStatusLastTime < o.modified ? o.modified : this._tableStatusLastTime;
-
 
                 });
             }

@@ -37,7 +37,7 @@
 
     <vbox flex="1" class="maindialog">
         <hbox class="EmptyArea" ></hbox>
-        <hbox flex="1" class="MainPanel">
+        <stack flex="1" class="MainPanel">
             
             <label id="queues" hidden="true" value="" />
             <hbox >
@@ -52,32 +52,37 @@
                     
                 </viviscrollablebuttonpanel>
             </hbox>
-            <vbox>
-                <spacer flex="1" />
-                <button id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
-                <button id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                <button id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
-                <button id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/>
-
-                <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" default="true" type="radio" group="func" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
-                <spacer class="space" />
-            </vbox>
-            <!-- spacer flex="1" / -->
-            
-        </hbox>
-        <hbox>
-            <hbox class="TableBtns" flex="1">
+            <vbox class="TableBtns" flex="1">
                 <button class="selectBtn" id="ok" label="&selecttable.selectno;" default="true" type="radio" group="func" oncommand="$do('doSelectTableNo', null, 'SelectTable');"/>
                 <button class="mergeBtn" id="merge_table" label="&selecttable.mergetable;" type="radio" group="func" default="false" oncommand="$do('doMergeTable', null, 'SelectTable');"/>
                 <button class="unmergeBtn" id="unmerge_table" label="&selecttable.unmergetable;" type="radio" group="func" default="false" oncommand="$do('doUnmergeTable', null, 'SelectTable');"/>
                 <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" default="true" type="radio" group="func" oncommand="$do('doTransTable', null, 'SelectTable');"/>
-                <sapcer flex="1" />
-            </hbox>
-            <hbox class="dialogbtn">
-                <button class="RefrashBtn" id="refresh_table_status" label="&selecttable.refreshtablestatus;" default="true" type="radio" group="func" oncommand="$do('doRefreshTableStatus', null, 'SelectTable');"/>
-                <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="$do('doCancelFunc', null, 'SelectTable');"/>
-                 <spacer width="10px" />
-            </hbox>
+                <!-- button class="bookcBtn2" / -->
+            </vbox>
+            <vbox class="RightBtns">
+                <!--button class="selectcBtn2" />
+                <button class="mergecBtn2" />
+                <button class="splitcBtn2" />
+                <button class="mergecBtn2" / -->
+
+                <button class="selectcBtn2" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
+                <button class="splitcBtn2" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
+                <button class="mergecBtn2" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
+                <button class="bookcBtn2" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/>
+
+                <spacer class="space" />
+                <hbox>
+                    <spacer class="space2" />
+                <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" default="true" type="radio" group="func" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>                
+                </hbox>
+            </vbox>
+            <!-- spacer flex="1" / -->
+            
+        </stack>
+        <hbox class="dialogbtn">
+            <button class="RefrashBtn" id="refresh_table_status" label="&selecttable.refreshtablestatus;" default="true" type="radio" group="func" oncommand="$do('doRefreshTableStatus', null, 'SelectTable');"/>
+            <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="$do('doCancelFunc', null, 'SelectTable');"/>
+             <spacer width="10px" />
         </hbox>
     </vbox>
 
@@ -91,13 +96,13 @@
                 <label id="prompt_4" value="prompt 4" class="PromptLabel3" />
             </vbox>
             <vbox pack="end">
-                <button class="CancelBtn" label="Cancel" oncommand="$do('doClosePromptPanel', null, 'SelectTable');" />
+                <button class="CancelBtn" label="Cancel" oncommand="$do('doClosePromptPanel', null, 'SelectTable');"/>
             </vbox>
         </hbox>
     </panel>
 
     <panel id="order_display_panel" position="after_start" noautohide="false" class="PromptPnl">
-    	<hbox>
+        <hbox>
             <tabbox class="CheckTabbox" flex="1">
             <tabs id="orders_tab" >
                 <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
@@ -111,40 +116,16 @@
 
             </tabbox>
             <vbox flex="1" class="CheckBtns">
-                <button class="closecBtn" id="trans_table" oncommand="$do('doCloseOrderPanel', null, 'SelectTable');"/>
+                <button class="closecBtn" oncommand="$do('doCloseOrderPanel', null, 'SelectTable');"/>
                 <spacer height="30px" />
                 <button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
-                <button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
                 <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
+                <button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
                 <button class="bookcBtn" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/>
+                <spacer height="80px" />
+                <button class="clerkBtn" />
             </vbox>
         </hbox>
-        
-            <!-- hbox class="ToolBar" flex="1" pack="center">
-                <arrowscrollbox id="func_panel" orient="horizontal" flex="1" class="arrowScrollBox">
-                    <button id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>                    
-                    <button id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                    <button id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
-                    <button id="change_clerk" label="&selecttable.changeclerk;" default="true" type="radio" group="func" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
-                    <button id="trans_table" label="&selecttable.transtable;" default="true" type="radio" group="func" oncommand="$do('doTransTable', null, 'SelectTable');"/>
-                    <spacer flex="1" />
-                    <button class="ExitBtn" id="close_order_panel" label="&dialog.cancelButton.label;" default="false" oncommand="$do('doCloseOrderPanel', null, 'SelectTable');"/>
-                </arrowscrollbox>
-                
-            </hbox>
-        <tabbox class="RightTabbox" flex="1">
-        <tabs id="orders_tab" >
-            <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
-            <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
-            <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
-        </tabs>
-
-        <html:div id="order_display_div" style="background: #fed;">
-
-        </html:div>
-
-        </tabbox -->
-
     </panel>
 
         </vivipanel>

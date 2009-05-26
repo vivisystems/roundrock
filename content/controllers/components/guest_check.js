@@ -22,6 +22,7 @@
         _guestCheck: {},
         _tableStatusModel: null,
         _tableList: null,
+        _printController: null,
 
         init: function (c) {
             // inherit Cart controller constructor
@@ -64,12 +65,19 @@
 
                 // check table no and guests before submit...
                 cart.addEventListener('beforeSubmit', this.handleRequestTableNo, this);
+
+                // SplitCheck
+                cart.addEventListener('onSplitCheck', this.handleSplitCheck, this);
+
+                // MergeCheck
+                cart.addEventListener('onMergeCheck', this.handleSplitCheck, this);
                 
             }
 
             // add listener for afterSubmit event
             var print = GeckoJS.Controller.getInstanceByName('Print');
             if (print) {
+                this._printController = print;
                 print.addEventListener('afterSubmit', this.handleAfterSubmit, this);
             }
 
@@ -87,6 +95,15 @@
                 main.addEventListener('onFirstLoad', this.handleNewTransaction, this);
             }
             
+        },
+
+        printChecks: function(txn) {
+            // var txn = evt.data;
+            var printer = 1;
+            var autoPrint = false;
+            var duplicate = 1;
+            // print check
+            this._printController.printChecks(txn, printer, autoPrint, duplicate);
         },
 
         handleRequestTableNo: function(evt) {
@@ -147,6 +164,24 @@
             if (this._guestCheck.tableWinAsFirstWin) {
                     this._controller.newTable();
             }
+        },
+
+        handleSplitCheck: function(evt) {
+            //
+            // this._tableStatusModel.addCheck(evt.data.data);
+
+            // print check
+            this.printChecks(evt.data);
+
+        },
+
+        handleMergeCheck: function(evt) {
+            //
+            // this._tableStatusModel.addCheck(evt.data.data);
+
+            // print check
+            this.printChecks(evt.data);
+
         },
 
         handleCancel: function(evt) {
@@ -320,7 +355,12 @@
             */
             // if (this._tableStatusModel.getTableStatusList().length <=0) {
             if (this._tableStatusModel._tableStatusList.length <=0) {
-                return this.table(this.selTableNum(''));
+                // if (this._tableStatusModel._connected) {
+                //    return this.table(this.selTableNum(''));
+                // } else {
+                    this._tableStatusModel.getTableStatusList();
+                    return;
+                // }
             }
 
             var self = this;
@@ -366,7 +406,7 @@
 
             try {
                 var r = $.popupPanel('selectTablePanel', dialog_data);
-            } catch (e) {}
+            } catch (e) {this.log("except:::");}
 
             return;
 
@@ -402,11 +442,17 @@
                                     if (this.splitOrder(id, curTransaction.data) == -1) {
                                         // clear recall check from cart
                                         this._controller.cancel(true);
+
+                                        return false;
                                     };
                                 } else {
                                     this._controller.cancel(true);
+                                    return false;
                                 }
                             }
+                        } else {
+                            
+                            return false;
                         }
                         // this._controller.GuestCheck.getNewTableNo();
 
@@ -422,11 +468,16 @@
                                     if (this.mergeOrder(id, curTransaction.data) == -1) {
                                         // clear recall check from cart
                                         this._controller.cancel(true);
+                                        return false;
                                     };
                                 } else {
                                     this._controller.cancel(true);
+                                    return false;
                                 }
                             }
+                        } else {
+
+                            return false;
                         }
                         // this._controller.GuestCheck.getNewTableNo();
                         
@@ -529,11 +580,11 @@
                 }
                 r = i;
                 */
-                return;
+                return false;
             }
 
             // GeckoJS.Session.set('vivipos_fec_table_number', i);
-            return "";
+            return true;
         },
 
         table: function(table_no) {
@@ -988,6 +1039,9 @@
 
             }else {
                 // return null;
+                if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+                }
                 return -1;
             }
         },
@@ -1019,6 +1073,7 @@
                 this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
 
             }else {
+                
                 return -1
             }
         },

@@ -435,7 +435,7 @@
 
                 // dispatch changeclerk event
                 // this.getCartController().dispatchEvent('onStore', origData);
-                self.getCartController().dispatchEvent('onSplitCheck', origData);
+                self.getCartController().dispatchEvent('onSplitCheck', data);
 
                 // add to table_status
                 if (self._tableStatusModel == null) {

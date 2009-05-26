@@ -12,9 +12,21 @@
         _table_no: null,
         _table_name: null,
         _table_status_id: null,
+        _tableStatusModel: null,
+        _cart: null,
 
         initial: function () {
             //
+        },
+
+        getCartController: function() {
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
+
+            // this._cart.dispatchEvent('onSplitCheck', null);
+
+            return this._cart;
         },
 
         getBookingListObj: function() {
@@ -71,11 +83,7 @@
                 newBooking = bookingModel.save(newBooking);
 
                 // touch TableStatusModel
-                var tableStatusModel = new TableStatusModel();
-                var tableStatusObj = tableStatusModel.find("first", {conditions: "table_statuses.id='" + table_status_id + "'"});
-                tableStatusModel.id = table_status_id;
-                tableStatusModel.save(tableStatusModel);
-                delete tableStatusModel;
+                this.getCartController().GuestCheck._tableStatusModel.touchTableStatus(table_no);
 
                 this._bookingListDatas.push(newBooking);
                 this._bookingListDatas = new GeckoJS.ArrayQuery(this._bookingListDatas).orderBy('booking asc');
@@ -114,6 +122,12 @@
                 bookingModel.id = inputObj.id;
                 var booking = bookingModel.save(inputObj);
 
+                // touch TableStatusModel
+                var table_id = this._table_id;
+                var table_no = this._table_no;
+                var table_status_id = this._table_status_id;
+                this.getCartController().GuestCheck._tableStatusModel.touchTableStatus(table_no);
+
                 this.loadBookings(booking.table_id);
 
                 // loop through this._listDatas to find the newly modified destination
@@ -137,34 +151,47 @@
         },
 
         deleteBooking: function() {
-            var index = this.getRegionListObj().selectedIndex;
-            if (index >= 0) {
-                var region = this._regionListDatas[index];
+            var index = this.getBookingListObj().selectedIndex;
+            var inputObj = GeckoJS.FormHelper.serializeToObject('bookingForm');
 
-                if (!GREUtils.Dialog.confirm(null, _('confirm delete region [%S (%S)]', [region.name]),
-                                             _('Are you sure you want to delete region [%S]?', [region.name]))) {
+            if (index >= 0) {
+
+                var region = this._bookingListDatas[index];
+
+                if (!GREUtils.Dialog.confirm(null, _('confirm delete booking [%S (%S)]', [inputObj.contact, inputObj.table_no]),
+                                             _('Are you sure you want to delete booking [%S (%S)]?', [inputObj.contact, inputObj.table_no]))) {
                     return;
                 }
 
-                var regionModel = new TableRegionModel();
-                regionModel.del(region.id);
+                var bookingModel = new TableBookingModel();
+                bookingModel.del(inputObj.id);
+                delete bookingModel;
 
-                this._regionListDatas.splice(index, 1);
+                // touch TableStatusModel
+                var table_id = this._table_id;
+                var table_no = this._table_no;
+                var table_status_id = this._table_status_id;
+                this.getCartController().GuestCheck._tableStatusModel.touchTableStatus(table_no);
 
-                this.getRegionListObj().treeBoxObject.rowCountChanged(index, -1);
+                this.loadBookings();
 
-                if (index >= this._regionListDatas.length) index = this._regionListDatas.length - 1;
-                this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                this.selectRegion(index);
-
-                // this.searchMode();
-
-                this.setRegionMenuItem();
+                this.getBookingListObj().treeBoxObject.invalidate();
 
                 // @todo OSD
-                OsdUtils.info(_('Region [%S] deleted successfully', [region.name]));
+                OsdUtils.info(_('Booking [%S (%S)] deleted successfully', [inputObj.contact, inputObj.table_no]));
+
             }
+        },
+
+        removeOldBooking: function() {
+            //
+            var now = Math.round((new Date()).getTime() / 1000);
+            var rmTime = now - 86400; // one day ago...
+            var cond = "booking<'" + rmTime + "'";
+
+            var bookingModel = new TableBookingModel();
+            bookingModel.delAll(cond);
+            delete bookingModel;
         },
 
         loadBookings: function(table_no) {
@@ -247,8 +274,12 @@
             var settings = this.readTableSettings();
             GeckoJS.FormHelper.unserializeFromObject('settingsForm', settings);
 
+            // remove old booking
+            this.removeOldBooking();
+
             this.loadBookings(this._table_id);
             this.selectBooking(0);
+
 
         },
 

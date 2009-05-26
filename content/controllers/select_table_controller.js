@@ -10,7 +10,7 @@
             if (this.data[row].table_no <= 0) return;
             // if (!this.data[row].check_no) return;
             var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-
+// GREUtils.log(GeckoJS.BaseObject.dump(tableSettings));
             if (this.data[row].order == null) this.data[row].order = {};
             if (this.data[row].table == null) this.data[row].table = {};
 
@@ -41,10 +41,35 @@
             // var transaction_created = this.data[row].order.transaction_created * 1000 || now;
             // var transaction_created = this.data[row].created * 1000 || now;
             var transaction_created = this.data[row].start_time * 1000 || now;
-//            var booking_time = Math.round((this.data[row].booking ? this.data[row].booking.booking : 0) || 0) * 1000;
-            var booking_time = Math.round((this.data[row].booking ? this.data[row].booking : 0) || 0) * 1000;
 
-            var book_time = (booking_time > 100) ? _("B#") + (new Date(booking_time)).toString("HH:mm") : '';
+            // display booking...
+            var book_time = '';
+            if (this.data[row].TableBooking && this.data[row].TableBooking.length > 0) {
+                var remindTime = now - tableSettings.TableRemindTime * 60 *1000;
+                var bookTimeOut = tableSettings.TableBookingTimeout * 60 *1000;
+                
+
+                for (var key in this.data[row].TableBooking) {
+                    var bookTime = this.data[row].TableBooking[key];
+                    // var booking_time = Math.round((this.data[row].booking ? this.data[row].booking : 0) || 0) * 1000;
+                    var booking_time = Math.round((bookTime.booking ? bookTime.booking : 0) || 0) * 1000;
+        // GREUtils.log("TableNo:" + bookTime.table_no + " , remindTime:" + remindTime + " , TimeOut:" + bookTimeOut + " , now:" + now + " , book:" + booking_time);
+        // GREUtils.log(GeckoJS.BaseObject.dump(this.data[row].TableBooking));
+        // GREUtils.log(GeckoJS.BaseObject.dump(bookTime));
+                    if (booking_time < remindTime) {
+                        booking_time = 0;
+                    } else if (now  > booking_time + bookTimeOut) {
+                        booking_time = 0;
+                    }
+
+                    if (booking_time > 100) {
+                        book_time = _("B#") + (new Date(booking_time)).toString("HH:mm");
+                        break;
+                    }
+
+                }
+
+            }
 
             var period_time = Math.round((now - transaction_created) + 1);
             var period = Date.today().addMilliseconds(period_time).toString("HH:mm");
@@ -177,13 +202,19 @@
 
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            var w = 671;//funcPanel.boxObject.width + 32;
-            var h = 160;//funcPanel.boxObject.height + 0;
+            var w = 850;//funcPanel.boxObject.width + 32;
+            var h = 132;//funcPanel.boxObject.height + 0;
+            var y = height - h - 3 +51;
+            if (height == 600){
+                w = 708;
+                h = 116;
+                y = height - h + 6;
+            }
             var x = 10;//funcPanel.boxObject.screenX - 32;
             // var y = funcPanel.boxObject.screenY - 18;
-            var y = height - h - 5;
 
-            
+
+
             promptPanel.sizeTo(w, h);
 
             promptPanel.openPopupAtScreen(x, y);
@@ -446,6 +477,14 @@
                     }
 
                     break;
+                case 'MergeCheck':
+                    if (!selTable.sequence) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is empty!!'));
+                        return;
+                    }
+
+                    break;
                 case 'ChangeClerk':
                     this._inputObj.sourceTableNo = this._sourceTableNo;
 
@@ -612,10 +651,15 @@
                 this._inputObj.ok = true;
                 // doOKButton();
                 var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                if (r) {
+                
+                    $.hidePanel('selectTablePanel', true)
+                }
                 this._inputObj.action = '';
                 this._sourceTableNo = null;
-                $.hidePanel('selectTablePanel', true)
+                
             }
                 
         },
@@ -695,39 +739,20 @@
 
             // var tables = inputObj.tables;
             var tables = this._tableStatusModel.getTableStatusList();
-// this.log("load2 tables2:::");
 
-            // var tables = [];
-            /*
-            if (inputObj.tables) {
-                inputObj.tables.forEach(function(o){
-                    // if (o.active || o.sequence)
-                    tables.push(o);
-                });
+            if (this._tables == null) {
+                    // tables = inputObj.tables;
+
+                    this._tables = tables;
+                    this._inputObj.tables = tables;
+                    var tableStatus = new TableStatusView(this._tables);
+                    tableStatus._controller = this;
+                    document.getElementById('tableScrollablepanel').datasource = tableStatus ;
+            } else {
+                    this._inputObj.tables = this._tables;
+                    tableStatus._controller = this;
+                    // document.getElementById('tableScrollablepanel').invalidate();
             }
-            */
-
-            /*
-            if (tables2) {
-                tables2.forEach(function(o){
-                    // if (o.active || o.sequence)
-                    tables.push(o);
-                });
-            }
-            */
-if (this._tables == null) {
-            // tables = inputObj.tables;
-
-            this._tables = tables;
-            this._inputObj.tables = tables;
-            var tableStatus = new TableStatusView(this._tables);
-            tableStatus._controller = this;
-            document.getElementById('tableScrollablepanel').datasource = tableStatus ;
-} else {
-            this._inputObj.tables = this._tables;
-            tableStatus._controller = this;
-            // document.getElementById('tableScrollablepanel').invalidate();
-}
         }
 
     };
