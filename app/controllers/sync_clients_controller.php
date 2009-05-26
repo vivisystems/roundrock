@@ -60,6 +60,9 @@ class SyncClientsController extends AppController {
 
     function client_pull() {
 
+        // set php time limit to unlimimted
+        set_time_limit(0);
+
         $auth_url = $this->authURL ;
         $pull_url = $this->pullURL;
         $pull_commit_url = $this->pullCommitURL;
@@ -71,8 +74,12 @@ class SyncClientsController extends AppController {
         $server_machine_id = $http->get($auth_url);
 
         // maybe timeout or localhost
-        if (empty($server_machine_id) || ($server_machine_id == $my_machine_id) ) {
+        if (empty($server_machine_id)) {
             return false;
+        }
+
+        if ($server_machine_id == $my_machine_id) {
+            return true;
         }
 
         // get data from server
@@ -126,6 +133,9 @@ class SyncClientsController extends AppController {
 
     function client_push() {
 
+        // set php time limit to unlimimted
+        set_time_limit(0);
+
         $auth_url = $this->authURL ;
         $push_url = $this->pushURL;
 
@@ -136,8 +146,12 @@ class SyncClientsController extends AppController {
         $server_machine_id = $http->get($auth_url);
 
         // maybe timeout or localhost
-        if (empty($server_machine_id) || ($server_machine_id == $my_machine_id) ) {
+        if (empty($server_machine_id)) {
             return false;
+        }
+
+        if ($server_machine_id == $my_machine_id) {
+            return true;
         }
 
         $datas = $this->SyncHandler->getClientData($server_machine_id);
@@ -183,6 +197,9 @@ class SyncClientsController extends AppController {
 
 
     function perform_sync() {
+
+        // set php time limit to unlimimted
+        set_time_limit(0);
 
         $pull_result = $this->client_pull();
         $push_result = $this->client_push();

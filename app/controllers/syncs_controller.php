@@ -89,6 +89,8 @@ class SyncsController extends AppController {
     function pull($client_machine_id="") {
 
         try {
+
+            // set php time limit to unlimimted
             set_time_limit(0);
 
             $datas = $this->SyncHandler->getServerData($client_machine_id, $_REQUEST);
@@ -122,6 +124,10 @@ class SyncsController extends AppController {
     function pull_commit($client_machine_id="") {
 
         try {
+
+            // set php time limit to unlimimted
+            set_time_limit(0);
+
             // from POST method
             $requestData = $_REQUEST['request_data'];
 
@@ -166,8 +172,9 @@ class SyncsController extends AppController {
 
         try {
 
+            // set php time limit to unlimimted
             set_time_limit(0);
-            
+
             // from POST method
             $requestData = $_REQUEST['request_data'];
 
@@ -202,6 +209,7 @@ class SyncsController extends AppController {
 
     function truncate($days=7) {
 
+        // set php time limit to unlimimted
         set_time_limit(0);
 
         if ($days < 1) $days = 1;
