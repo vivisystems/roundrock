@@ -8903,6 +8903,14 @@ GeckoJS.BaseModel.prototype.findFirst = function(conditions, group, order, limit
  */
 GeckoJS.BaseModel.prototype.find = function(type, params) {
 
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'find > ') ;
+    /* endif DEBUG */
+
+    if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
+        if(!this.restoreFromBackup()) return false;
+    }
+
     type = type || 'all';
     params = params || {};
 
@@ -8943,10 +8951,6 @@ GeckoJS.BaseModel.prototype.find = function(type, params) {
             var ds = this.datasource;
 
             if (!ds) return null;
-
-            if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
-                if (!this.restoreFromBackup()) return null;
-            }
 
             // result = null;
 			
@@ -9196,6 +9200,10 @@ GeckoJS.BaseModel.prototype.save = function(data){
     this.log('DEBUG', 'save > ') ;
     /* endif DEBUG */
 
+    if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
+        if(!this.restoreFromBackup()) return false;
+    }
+
     if (typeof data != 'undefined' ) {
         if(this.data == null) this.data = {};
         this.data = GREUtils.extend(this.data, data);
@@ -9248,10 +9256,6 @@ GeckoJS.BaseModel.prototype.save = function(data){
             var ds = this.datasource;
 
             if (!ds) return false;
-
-            if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
-                if(!this.restoreFromBackup()) return false;
-            }
 
             var created = false, success = false;
 
@@ -9341,6 +9345,10 @@ GeckoJS.BaseModel.prototype.save = function(data){
  */
 GeckoJS.BaseModel.prototype.saveAll = function(data) {
 
+    if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
+        if(!this.restoreFromBackup()) return false;
+    }
+
     var self = this;
     if(typeof data == 'object' && data.constructor.name == 'Array') {
         data.forEach(function(d) {
@@ -9384,13 +9392,17 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
         this.useDbConfig = backupDbConfig;
 
         /* ifdef DEBUG 
-        this.log('DEBUG', 'saveToBackup > call save method with backup datasource ') ;
+        this.log('DEBUG', 'saveToBackup > call save method to datasource: ' + this.useDbConfig ) ;
         /* endif DEBUG */
 
         var result ;
 
         var self = this;
         if(typeof data == 'object' && data.constructor.name == 'Array') {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'saveToBackup > save datas, length: ' + data.length ) ;
+            /* endif DEBUG */
 
             data.forEach(function(d) {
                 self.create();
@@ -9399,11 +9411,21 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
             
         }else if(typeof data == 'object') {
 
-            result = this.save(data);
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'saveToBackup > save data, object' ) ;
+            /* endif DEBUG */
+
+            result = self.save(data);
 
         }else {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'saveToBackup > save data, others' ) ;
+            /* endif DEBUG */
+
             // nothings to do!!
-            // XXXX 
+            // XXXX
+            result = self.save(data);
         }
 
         /* ifdef DEBUG 
@@ -9446,6 +9468,11 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
 
     // no backup datas
     if (!backupDatas || backupDatas.length == 0) {
+
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'restoreFromBackup > ' + this.name + ', useDbConfig ' + this.useDbConfig + ',, backupDatas = 0 ') ;
+        /* endif DEBUG */
+
         this._restoreFromBackupInProcess = false;
         return true ;
     }
@@ -9474,7 +9501,7 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
             /* endif DEBUG */
 
             var self = this;
-            
+
             backupDatas.forEach(function(oldData) {
 
                 self.id = oldData[self.primaryKey];
@@ -9488,7 +9515,7 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
 
             this.id = false;
             this.data = null;
-            this.__exists = null;
+            this.__exists = false;
 
         }else {
             /* ifdef DEBUG 
@@ -9499,6 +9526,12 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
             
             r = this.rollback(true);
         }
+    }else {
+
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'restoreFromBackup > ' + this.name + ', useDbConfig ' + this.useDbConfig + ',, begin transaction false') ;
+        /* endif DEBUG */
+
     }
 
     this._restoreFromBackupInProcess = false;
@@ -9531,12 +9564,16 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
  */
 GeckoJS.BaseModel.prototype.del = function(id, cascade){
 
-    cascade = typeof cascade == 'undefined' ? true : cascade;
-    id = id || this.id;
-
     /* ifdef DEBUG 
     this.log('DEBUG', 'del > ' + id);
     /* endif DEBUG */
+
+    if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
+        if(!this.restoreFromBackup()) return false;
+    }
+
+    cascade = typeof cascade == 'undefined' ? true : cascade;
+    id = id || this.id;
 
     // table not exists 
     if (!this.getFieldsInfo()) return false;
@@ -9556,10 +9593,6 @@ GeckoJS.BaseModel.prototype.del = function(id, cascade){
             var ds = this.datasource;
 
             if (!ds) return false;
-
-            if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
-                if(!this.restoreFromBackup()) return false;
-            }
 
             result = ds.executeDelete(this);
 
@@ -9635,6 +9668,10 @@ GeckoJS.BaseModel.prototype.remove = function(id, cascade){
  * @param {Boolean} cascade Set to true to delete records that depend on this record
  */
 GeckoJS.BaseModel.prototype.delAll = function(ids, cascade){
+
+    if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
+        if(!this.restoreFromBackup()) return false;
+    }
 
     var result = true;
 
@@ -9836,6 +9873,10 @@ GeckoJS.BaseModel.prototype.exists = function(reset) {
  */
 GeckoJS.BaseModel.prototype.truncate = function() {
 
+    if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
+        if(!this.restoreFromBackup()) return false;
+    }
+
     try {
         var beforeResult = this.dispatchEvent('beforeTruncate');
         var result = false;
@@ -9846,10 +9887,6 @@ GeckoJS.BaseModel.prototype.truncate = function() {
             var ds = this.datasource;
 
             if (!ds) return false;
-
-            if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
-                if(!this.restoreFromBackup()) return false;
-            }
 
             result = ds.truncate(this.table);
 
@@ -13955,8 +13992,12 @@ GeckoJS.DatasourceSQLite.prototype.begin = function(waiting)	{
     var numTries = 0;
 
     if(this.transactionInProgress) {
-        // dump('begin skip > ' + this.transactionInProgress + ' \n');
-        return false;
+        
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'beginTransaction transactionInProgress, return true'  );
+        /* endif DEBUG */
+
+        return this.transactionInProgress;
     }
 
     while (numTries < maxTries) {
@@ -14011,7 +14052,12 @@ GeckoJS.DatasourceSQLite.prototype.commit = function(waiting) {
     var delay = 250; // this.delayTries
 
     if(!this.transactionInProgress) {
-        return false;
+
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'commitTransaction !transactionInProgress, return true'  );
+        /* endif DEBUG */
+
+        return true;
     }
 
     if (this._statement) {
@@ -14072,7 +14118,12 @@ GeckoJS.DatasourceSQLite.prototype.rollback = function(waiting) {
     var numTries = 0;
 
     if(!this.transactionInProgress) {
-        return false;
+
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'rollbackTransaction !transactionInProgress, return true'  );
+        /* endif DEBUG */
+
+        return true;
     }
 
     while (numTries < maxTries) {
