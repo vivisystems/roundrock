@@ -1,6 +1,6 @@
 <?php
 /* SVN FILE: $Id$ */
-
+App::import('Core', array('CakeLog'));
 /**
  * SQLite3 layer for DBO
  *
@@ -63,6 +63,7 @@ class DboSqlite3 extends DboSource {
 	var $_baseConfig = array(
 		'persistent' => false,
 		'database' => null,
+                'timeout' => 60,
 		'connect' => 'sqlite' //sqlite3 in pdo_sqlite is sqlite. sqlite2 is sqlite2
 	);
 /**
@@ -102,6 +103,7 @@ class DboSqlite3 extends DboSource {
 		try {
 			$this->connection = new PDO($config['connect'].':'.$config['database']);
 			$this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->connection->setAttribute(PDO::ATTR_TIMEOUT, $config['timeout']);
 			#$this->connected = is_resource($this->connection);
 			$this->connected = is_object($this->connection);
 
@@ -136,7 +138,9 @@ class DboSqlite3 extends DboSource {
 		#echo "runs execute\n";
 		#return sqlite3_query($this->connection, $sql);
 
-		for ($i = 0; $i < 20; $i++) {
+                CakeLog::write('debug', 'execute $sql') ;
+                
+		for ($i = 0; $i < 3; $i++) {
 			try {
 				$this->last_error = NULL;
 				$this->pdo_statement = $this->connection->query($sql);
@@ -147,9 +151,12 @@ class DboSqlite3 extends DboSource {
 				}
 	  		}
 	  		catch(PDOException $e) {
+
+                                CakeLog::write('warning', 'error execute SQL: ' . $sql . "\n Exception: " .  $e->getMessage());
+
 	  			// Schema change; re-run query 3 times
-				if ($e->errorInfo[1] === 17 && $i < 4) {
-                                    usleep(250000);
+				if ($e->errorInfo[1] === 17) {
+                                    //usleep(250000);
                                     continue;
                                 }else if ($e->errorInfo[1] === 5) {
                                     // database is locked
@@ -289,7 +296,7 @@ class DboSqlite3 extends DboSource {
  * @return boolean True on success, false on fail
  * (i.e. if the database/model does not support transactions).
  */
-	function begin (&$model) {
+	function begin_ (&$model) {
 		if (parent::begin($model)) {
 			if ($this->pdo_statement->beginTransaction()) {
 				$this->_transactionStarted = true;
@@ -306,7 +313,7 @@ class DboSqlite3 extends DboSource {
  * (i.e. if the database/model does not support transactions,
  * or a transaction has not started).
  */
-	function commit (&$model) {
+	function commit_ (&$model) {
 		if (parent::commit($model)) {
 			$this->_transactionStarted = false;
 			return $this->pdo_statement->commit();
@@ -321,7 +328,7 @@ class DboSqlite3 extends DboSource {
  * (i.e. if the database/model does not support transactions,
  * or a transaction has not started).
  */
-	function rollback (&$model) {
+	function rollback_ (&$model) {
 		if (parent::rollback($model)) {
 			return $this->pdo_statement->rollBack();
 		}

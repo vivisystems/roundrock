@@ -135,6 +135,9 @@ class SyncHandlerComponent extends Object {
 
         if(!is_numeric($last_synced)) $last_synced = 0;
 
+        // write debug
+        CakeLog::write('debug', 'setLastSynced machine_id: ' . $machine_id . ' , dbConfig: ' . $dbConfig . ' , lastSynced: ' . $last_synced);
+
         $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
         $data = $syncRemoteMachine->find('first', array('conditions' => array('machine_id' => $machine_id)));
 
@@ -340,6 +343,9 @@ class SyncHandlerComponent extends Object {
  */
     function getData($machine_id, $direction="pull", $client_settings=array()) {
 
+        // set php time limit to unlimimted
+        set_time_limit(0);
+
         $my_machine_id = $this->syncSettings['machine_id'];
 
         $datas = array();
@@ -427,6 +433,9 @@ class SyncHandlerComponent extends Object {
  */
     function saveData($machine_id, &$datas) {
 
+        // set php time limit to unlimimted
+        set_time_limit(0);
+
         $my_machine_id = $this->syncSettings['machine_id'];
 
         $result = array();
@@ -440,48 +449,26 @@ class SyncHandlerComponent extends Object {
             // PDO Connection object
             $datasource =& ConnectionManager::getDataSource($dbConfig);
 
-            // prepare statment
-            $stmt = $datasource->connection->prepare($data['sql']);
-            $waiting = true; // Set a loop condition to test for
-            $maxTries = 20;
-            $tries = 0;
+            // write debug
+            CakeLog::write('debug', 'saveData to ' . $dbConfig . "\n" . "  SQL: ". $data['sql']);
 
-            while($waiting) {
+            try {
 
-                try {
+                $datasource->connection->beginTransaction();
+                $datasource->connection->exec($data['sql']);
+                $datasource->connection->commit();
 
-                    $datasource->connection->beginTransaction();
-                    $stmt->execute();
-                    usleep(250000);
-                    $datasource->connection->commit();
+                // setting result array
+                $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => $data['count'], 'last_synced' => $data['last_synced']);
 
-                    // success
-                    $waiting = false;
+            }  catch(Exception $e) {
 
-                    // setting result array
-                    $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => $data['count'], 'last_synced' => $data['last_synced']);
+                    CakeLog::write('warning', 'Exception saveData to ' . $dbConfig . "\n" .
+                                          '  Exception: ' . $e->getMessage() );
 
-                } catch(PDOException $e) {
-                    CakeLog::write('warning', 'Error saveData to ' . $dbConfig . "\n" .
-                        '  Exception: ' . $e->getMessage() );
-
-                    if(stripos($e->getMessage(), 'DATABASE IS LOCKED') !== false) {
-                    // We do have to commit the open transaction first though
-                        $datasource->connection->commit();
-                        ++$tries;
-                        if($tries > $maxTries) {
-                            $waiting = false;
-                        }else {
-                        // This should be specific to SQLite, sleep for 0.25 seconds and try again.
-                            usleep(250000);
-                        }
-
-                    }else {
-                        $datasource->connection->rollBack();
-                        $waiting = false;
-                    }
+                    // always rollback
+                    $datasource->connection->rollback();
                     $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => 0 , 'last_synced' => 0);
-                }
 
             }
 
@@ -517,7 +504,10 @@ class SyncHandlerComponent extends Object {
      */
     function saveServerData($server_machine_id, &$datas) {
 
-        $my_machine_id = $this->syncSettings['machine_id'];
+        //$my_machine_id = $this->syncSettings['machine_id'];
+
+        // write debug
+        CakeLog::write('debug', 'saveServerData from ' . $server_machine_id );
 
         $result = $this->saveData($server_machine_id, $datas);
 
@@ -534,6 +524,9 @@ class SyncHandlerComponent extends Object {
      * @param string $server_machine_id
      */
     function getClientData($server_machine_id) {
+
+        // write debug
+        CakeLog::write('debug', 'getClientData for ' . $server_machine_id );
 
         $datas = $this->getData($server_machine_id, "push");
 
@@ -716,7 +709,7 @@ class SyncHandlerComponent extends Object {
                 $datasource->execute("UPDATE sync_remote_machines SET last_synced=0 WHERE ( last_synced <= ". $maxDelId . " or last_synced > " . $maxId . ")");
 
                 // vacuum database
-                $datasource->execute("VACUUM");
+                //$datasource->execute("VACUUM");
 
             }
 

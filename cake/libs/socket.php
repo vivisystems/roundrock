@@ -117,7 +117,7 @@ class CakeSocket extends Object {
 		}
 
 		if (!empty($errNum) || !empty($errStr)) {
-			$this->setLastError($errStr, $errNum);
+			$this->setLastError($errNum, $errStr);
 		}
 
 		return $this->connected = is_resource($this->connection);
