@@ -51,7 +51,7 @@ while [ $RETVAL != 0 ]; do
 	# do_integrity_check
 	do_integrity_check
 
-    ${DIR}/vivipos
+    ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
     RETVAL=$?
 
 done

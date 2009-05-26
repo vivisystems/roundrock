@@ -1,8 +1,8 @@
 /* vivipos database setting */
 pref("DATABASE_CONFIG.useDbConfig", "default");
 
-pref("DATABASE_CONFIG.json.classname", 'JsonFile');
-pref("DATABASE_CONFIG.json.path", '/var/tmp');
+pref("DATABASE_CONFIG.backup.classname", 'JsonFile');
+pref("DATABASE_CONFIG.backup.path", '/data/databases/backup');
 
 pref("DATABASE_CONFIG.default.classname", 'SQLite');
 pref("DATABASE_CONFIG.default.path", '/data/databases');
@@ -17,7 +17,7 @@ pref("DATABASE_CONFIG.acl.timeout", '30');
 pref("DATABASE_CONFIG.order.classname", 'SQLite');
 pref("DATABASE_CONFIG.order.path", '/data/databases');
 pref("DATABASE_CONFIG.order.database", 'vivipos_order.sqlite');
-pref("DATABASE_CONFIG.order.timeout", '30');
+pref("DATABASE_CONFIG.order.timeout", '3');
 
 pref("DATABASE_CONFIG.extension.classname", 'SQLite');
 pref("DATABASE_CONFIG.extension.path", '/data/databases');

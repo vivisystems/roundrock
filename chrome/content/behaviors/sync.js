@@ -12,11 +12,16 @@ var SyncBehavior = window.SyncBehavior = GeckoJS.Behavior.extend({
 SyncBehavior.syncSetting = null;
 
 SyncBehavior.prototype.getSync = function() {
-    if (this.syncModel) return this.syncModel;
-
-    this.syncModel = new Sync(null, -1);
-    this.syncModel.useDbConfig = this.config;
     
+    if (!this.syncModel) {
+        this.syncModel = new Sync(null, -1);
+    }
+
+    this.syncModel.useDbConfig = this.model.useDbConfig ;
+    /* ifdef DEBUG */
+    this.log('DEBUG', 'sync useDbconfig: ' + this.syncModel.useDbConfig );
+    /* endif DEBUG */
+   
     return this.syncModel;
 };
 
@@ -32,6 +37,8 @@ SyncBehavior.prototype.getSyncSetting = function() {
 SyncBehavior.prototype.isActive = function() {
 
     var active = (this.getSyncSetting().active == 1);
+
+    if (this.model.useDbConfig == 'backup' || this.model.useDbConfig == 'memory') return 0;
 
     return active;
 
