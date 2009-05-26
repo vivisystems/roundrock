@@ -1479,10 +1479,13 @@ Installer.prototype = {
         }
       }
 
+      var conv = Cc["@mozilla.org/intl/scriptableunicodeconverter"].getService(Ci.nsIScriptableUnicodeConverter);
+      conv.charset = "UTF-8";
+
       entries = zipReader.findEntries(null);
       while (entries.hasMore()) {
-        var entryName = entries.getNext();
-        target = installLocation.getItemFile(extensionID, entryName);
+        var entryName = conv.ConvertFromUnicode(entries.getNext()); // if utf8 filename or chinese filename by racklin
+        target = installLocation.getItemFile(extensionID, conv.ConvertToUnicode(entryName)); // if utf8 filename or chinese filename by racklin
         if (target.exists())
           continue;
 
@@ -1493,7 +1496,9 @@ Installer.prototype = {
           ERROR("extractExtensionsFiles: failed to create target file for extraction " +
                 " file = " + target.path + ", exception = " + e + "\n");
         }
+
         zipReader.extract(entryName, target);
+        
       }
       zipReader.close();
     }
