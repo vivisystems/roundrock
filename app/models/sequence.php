@@ -1,4 +1,5 @@
 <?php
+App::import('Core', array('CakeLog'));
 
 class Sequence extends AppModel {
     var $name = 'Sequence';
@@ -12,12 +13,23 @@ class Sequence extends AppModel {
             $value = $data['Sequence']['value'];
             $value++;
             $this->id = $id;
-            $this->save(array('value'=>$value));
+            $success = $this->save(array('value'=>$value));
+            if(!$success) {
+                // try again
+                CakeLog::write('warning', 'Error update sequence to ' . $value );
+                $this->save(array('value'=>$value));
+            }
         }else {
             $value = 1;
             $this->create();
             $newData = array('id'=> String::uuid() , 'key'=> $key, 'value'=>$value);
-            $this->save($newData);
+            $success = $this->save($newData);
+            if(!$success) {
+                // try again
+                CakeLog::write('warning', 'Error update sequence to ' . $value );
+                $this->save($newData);
+            }
+
         }
 
         return $value;

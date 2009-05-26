@@ -93,8 +93,9 @@ class SyncHandlerComponent extends Object {
      *
      * @param <type> $machine_id
      * @param <type> $dbConfig
+     * @param <type> $direction
      */
-    function getLastSynced($machine_id, $dbConfig) {
+    function getLastSynced($machine_id, $dbConfig, $direction) {
 
         $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
         $data = $syncRemoteMachine->find('first', array('conditions' => array('machine_id' => $machine_id)));
@@ -102,7 +103,20 @@ class SyncHandlerComponent extends Object {
         if($data) {
             $lastSynced = $data['SyncRemoteMachine']['last_synced'];
         }else {
-            $lastSynced = 0;
+            if ($direction == 'pull') {
+            // change cursor to last insert id
+                $sync = new Sync(false, null, $dbConfig); // id , table, ds
+                $lastSync = $sync->find('first', array('order' => array('Sync.id DESC')) );
+                $lastSynced = ($lastSync) ? $lastSync['Sync']['id'] : 0;
+
+                // insert machine setting
+                $this->setLastSynced($machine_id, $dbConfig, $lastSynced);
+            //$syncRemoteMachine->create();
+            //$syncRemoteMachine->save(array('machine_id'=>$machine_id, 'last_synced'=>$lastSynced));
+
+            }else {
+                $lastSynced = 0;
+            }
         }
 
         return $lastSynced;
@@ -117,7 +131,9 @@ class SyncHandlerComponent extends Object {
      * @param <type> $dbConfig
      * @param <type> $last_synced
      */
-    function setLastSynced($machine_id, $dbConfig, $last_synced) {
+    function setLastSynced($machine_id, $dbConfig, $last_synced=0) {
+
+        if(!is_numeric($last_synced)) $last_synced = 0;
 
         $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
         $data = $syncRemoteMachine->find('first', array('conditions' => array('machine_id' => $machine_id)));
@@ -198,9 +214,9 @@ class SyncHandlerComponent extends Object {
             }
 
             $newSync_sql = $this->renderStatement('create', array(
-                                                                'table' => "syncs",
-                                                                'fields'=>join(', ',$newSync_fields),
-                                                                'values'=>join(', ',$newSync_valuesInsert)
+                'table' => "syncs",
+                'fields'=>join(', ',$newSync_fields),
+                'values'=>join(', ',$newSync_valuesInsert)
                 )
             );
 
@@ -217,8 +233,8 @@ class SyncHandlerComponent extends Object {
                 case 'delete':
 
                     $sql = $this->renderStatement('delete', array(
-                                                                        'table' => $table,
-                                                                        'conditions' => $defaultCondition
+                        'table' => $table,
+                        'conditions' => $defaultCondition
                         )
                     );
 
@@ -229,8 +245,8 @@ class SyncHandlerComponent extends Object {
                 case 'truncate':
 
                     $sql = $this->renderStatement('delete', array(
-                                                                        'table' => $table,
-                                                                        'conditions' => ''
+                        'table' => $table,
+                        'conditions' => ''
                         )
                     );
 
@@ -240,7 +256,7 @@ class SyncHandlerComponent extends Object {
 
                 case 'create':
 
-                    // use native PDO Query
+                // use native PDO Query
                     $stmt = $datasource->connection->query("SELECT * FROM {$method_table} WHERE id='{$method_id}'");
                     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -257,9 +273,9 @@ class SyncHandlerComponent extends Object {
                     }
 
                     $sql = $this->renderStatement('create', array(
-                                                                        'table' => $table,
-                                                                        'fields'=>join(', ',$fields),
-                                                                        'values'=>join(', ',$valuesInsert)
+                        'table' => $table,
+                        'fields'=>join(', ',$fields),
+                        'values'=>join(', ',$valuesInsert)
                         )
                     );
 
@@ -269,7 +285,7 @@ class SyncHandlerComponent extends Object {
 
                 case 'update':
 
-                    // use native PDO Query
+                // use native PDO Query
                     $stmt = $datasource->connection->query("SELECT * FROM {$method_table} WHERE id='{$method_id}'");
                     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -286,9 +302,9 @@ class SyncHandlerComponent extends Object {
                     }
 
                     $sql = $this->renderStatement('update', array(
-                                                                        'table' => $table,
-                                                                        'fields' => join(', ', $valuesUpdate),
-                                                                        'conditions'=> $defaultCondition
+                        'table' => $table,
+                        'fields' => join(', ', $valuesUpdate),
+                        'conditions'=> $defaultCondition
                         )
                     );
 
@@ -322,7 +338,7 @@ class SyncHandlerComponent extends Object {
  *
  * @param string $client_machine_id
  */
-    function getData($machine_id, $direction="pull") {
+    function getData($machine_id, $direction="pull", $client_settings=array()) {
 
         $my_machine_id = $this->syncSettings['machine_id'];
 
@@ -334,11 +350,11 @@ class SyncHandlerComponent extends Object {
 
         foreach($datasources as $dbConfig ) {
 
-            // ini data structure
+        // ini data structure
             $data = array('datasource' => $dbConfig, 'count' => 0, 'last_synced' => 0, 'sql' => '');
 
             // force order only support push
-            if ($dbConfig == 'order' && $direction == 'pull') {
+            if ($dbConfig == 'order' && $direction == 'pull' && empty($client_settings['pull_order'])) {
                 $datas[$dbConfig] = $data;
                 continue;
             }
@@ -350,17 +366,17 @@ class SyncHandlerComponent extends Object {
             $this->Sync->useDbConfig = $dbConfig;
 
             // getLastSynced
-            $lastSynced = $this->getLastSynced($machine_id, $dbConfig);
+            $lastSynced = $this->getLastSynced($machine_id, $dbConfig, $direction);
 
             $sync = new Sync(false, null, $dbConfig); // id , table, ds
 
             $results = $sync->find('all', array(
-                            'limit'=> $batch_limit,
-                            'conditions' => array(
-                                    'from_machine_id !=' => $machine_id,
-                                    'id >' => $lastSynced
-                    ),
-                            'order' => 'id asc'
+                'limit'=> $batch_limit,
+                'conditions' => array(
+                'from_machine_id !=' => $machine_id,
+                'id >' => $lastSynced
+                ),
+                'order' => 'id asc'
                 )
             );
             $syncs = Set::classicExtract($results, '{n}.Sync');
@@ -418,32 +434,54 @@ class SyncHandlerComponent extends Object {
         foreach($datas as $data ) {
 
             if ($data['count'] <= 0) continue ;
-            
+
             $dbConfig = $data['datasource'];
 
             // PDO Connection object
             $datasource =& ConnectionManager::getDataSource($dbConfig);
 
-            /* Begin a transaction, turning off autocommit */
-            $datasource->connection->beginTransaction();
+            // prepare statment
+            $stmt = $datasource->connection->prepare($data['sql']);
+            $waiting = true; // Set a loop condition to test for
+            $maxTries = 20;
+            $tries = 0;
 
-            try {
+            while($waiting) {
 
-                $datasource->connection->exec($data['sql']);
+                try {
 
-                $datasource->connection->commit();
+                    $datasource->connection->beginTransaction();
+                    $stmt->execute();
+                    usleep(250000);
+                    $datasource->connection->commit();
 
-                $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => $data['count'], 'last_synced' => $data['last_synced']);
+                    // success
+                    $waiting = false;
 
-            }catch(Exception $e) {
+                    // setting result array
+                    $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => $data['count'], 'last_synced' => $data['last_synced']);
 
-                CakeLog::write('warning', 'Error saveData to ' . $dbConfig . "\n" .
-                                          '  Exception: ' . $e->getMessage() );
+                } catch(PDOException $e) {
+                    CakeLog::write('warning', 'Error saveData to ' . $dbConfig . "\n" .
+                        '  Exception: ' . $e->getMessage() );
 
-                
-                $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => 0 , 'last_synced' => 0);
+                    if(stripos($e->getMessage(), 'DATABASE IS LOCKED') !== false) {
+                    // We do have to commit the open transaction first though
+                        $datasource->connection->commit();
+                        ++$tries;
+                        if($tries > $maxTries) {
+                            $waiting = false;
+                        }else {
+                        // This should be specific to SQLite, sleep for 0.25 seconds and try again.
+                            usleep(250000);
+                        }
 
-                $datasource->connection->rollBack();
+                    }else {
+                        $datasource->connection->rollBack();
+                        $waiting = false;
+                    }
+                    $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => 0 , 'last_synced' => 0);
+                }
 
             }
 
@@ -461,9 +499,9 @@ class SyncHandlerComponent extends Object {
  *
  * @param string $client_machine_id
  */
-    function getServerData($client_machine_id) {
+    function getServerData($client_machine_id, $client_settings) {
 
-        $datas = $this->getData($client_machine_id, "pull");
+        $datas = $this->getData($client_machine_id, "pull", $client_settings);
 
         return $datas;
 
@@ -629,17 +667,64 @@ class SyncHandlerComponent extends Object {
                 return "INSERT OR REPLACE INTO {$table} ({$fields}) VALUES ({$values})";
                 break;
 
-                case 'update':
-                    return "UPDATE {$table} SET {$fields} {$conditions}";
-                    break;
+            case 'update':
+                return "UPDATE {$table} SET {$fields} {$conditions}";
+                break;
 
-                case 'delete':
-                    return "DELETE FROM {$table} {$conditions}";
-                    break;
-            }
+            case 'delete':
+                return "DELETE FROM {$table} {$conditions}";
+                break;
         }
-
     }
 
+
+    /**
+     * Truncate Old Sync logs
+     *
+     * @return <type>
+     */
+    function truncateSync($retain_days=7) {
+
+        $datasources = $this->getSourceList();
+
+        $retain_time = time() - 86400*$retain_days;
+
+        $rowCount = 0 ;
+        foreach($datasources as $dbConfig ) {
+
+        // PDO Connection object
+            $datasource =& ConnectionManager::getDataSource($dbConfig);
+
+            // set model Sync 's useDbConfig
+            $sync = new Sync(false, null, $dbConfig); // id , table, ds
+            $syncRemoteMachine = new SyncRemoteMachine(false, null, $dbConfig); // id , table, ds
+
+            // get maxId
+            $maxSync = $sync->find('first', array('fields'=>array('id'), 'order'=>array('Sync.id DESC')));
+            if($maxSync) {
+                $maxId = $maxSync['Sync']['id'];
+            }
+            $maxDelSync = $sync->find('first', array('fields'=>array('id'), 'order'=>array('Sync.id DESC'), 'conditions'=>array('Sync.created <'.$retain_time)));
+            if ($maxDelSync) {
+                $maxDelId = $maxDelSync['Sync']['id'];
+
+                // delete old syncs
+                $result = $datasource->execute("DELETE FROM syncs WHERE created < ". $retain_time);
+                $rowCount += $result->rowCount();
+
+                // update syncRemoteMachines
+                $datasource->execute("UPDATE sync_remote_machines SET last_synced=0 WHERE ( last_synced <= ". $maxDelId . " or last_synced > " . $maxId . ")");
+
+                // vacuum database
+                $datasource->execute("VACUUM");
+
+            }
+
+        }
+
+        return $rowCount;
+
+    }
+}
 
 ?>
