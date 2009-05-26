@@ -5,6 +5,8 @@ var OrderPaymentModel = window.OrderPaymentModel =  GeckoJS.Model.extend({
     
     belongsTo: ['Order'],
 
-    behaviors: ['Sync']
+    behaviors: ['Sync'],
+    
+    autoRestoreFromBackup: true
     
 });

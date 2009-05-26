@@ -2848,7 +2848,7 @@
 
             // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
-            var existingOrder = orderModel.findById(oldTransaction.data.id);
+            var existingOrder = orderModel.findById(oldTransaction.data.id, 0, "id,status");
             if (existingOrder && existingOrder.status != 2) {
                 oldTransaction.data.status = existingOrder.status;
                 GREUtils.Dialog.alert(window,
