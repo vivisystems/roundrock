@@ -2858,7 +2858,7 @@
 
             // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
-            var existingOrder = orderModel.findById(oldTransaction.data.id);
+            var existingOrder = orderModel.findById(oldTransaction.data.id, 0, "id,status");
             if (parseInt(orderModel.lastError) != 0) {
                 this.dbError(orderModel.lastError, orderModel.lastErrorString,
                              _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
