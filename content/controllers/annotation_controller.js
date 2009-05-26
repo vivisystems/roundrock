@@ -256,14 +256,17 @@
 
             var order = this._order;
 
-            if (typeIndex > -1 && text.length > 0) {
+            if (typeIndex > -1) {
                 var annotationType = this._typeDatas[typeIndex].type;
 
                 if (this.Acl.isUserInRole('acl_modify_annotations')) {
                     if (!order.annotations) {
                         this._order.annotations = {};
                     }
-                    order.annotations[ annotationType ] = text;
+                    if (text.length > 0)
+                        order.annotations[ annotationType ] = text;
+                    else
+                        delete order.annotations[ annotationType ];
                 }
                 else {
                     // no privilege to modify annotation, we must make sure we don't
@@ -302,12 +305,15 @@
 
             var order = this._order;
 
-            if (index > -1 && text.length > 0) {
+            if (index > -1) {
                 var type = this._annotationDatas[index].type;
                 if (!order.annotations) {
                     order.annotations = {};
                 }
-                order.annotations[ type ] = text;
+                if (text.length > 0)
+                    order.annotations[ type ] = text;
+                else
+                    delete order.annotations[ type ];
 
                 // drop annotation data and reload
                 this._annotationDatas[index].text = text;

@@ -231,6 +231,9 @@
             if (codeList.length == 1 && annotationType != null && annotationType != '') {
                 var existingAnnotation = ('annotations' in txn.data) ? txn.data.annotations [ annotationType ] : '';
 
+                if (existingAnnotation == undefined) {
+                    existingAnnotation = '';
+                }
                 var readonly = false;
                 if (!this.Acl.isUserInRole('acl_modify_annotations')) {
                     // no privilege to modify annotation, we must make sure we don't
@@ -247,7 +250,6 @@
                 else {
                     text = existingAnnotation;
                 }
-
                 var inputObj = {
                     input0: text,
                     require0: false,
@@ -268,11 +270,14 @@
                 return $.popupPanel('promptAdditemPanel', data).next( function(evt){
                     var result = evt.data;
 
-                    if (result.ok && result.input0) {
+                    if (result.ok) {
                         if (!('annotations' in txn.data)) {
                             txn.data.annotations = {};
                         }
-                        txn.data.annotations[ annotationType ] = result.input0;
+                        if (result.input0.length > 0)
+                            txn.data.annotations[ annotationType ] = result.input0;
+                        else
+                            delete txn.data.annotations[ annotationType ];
                     }
                 });
             }

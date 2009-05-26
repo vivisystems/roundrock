@@ -774,9 +774,10 @@
                 data.customer = GeckoJS.Session.get('current_customer');
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
-
-                // for backward compatibility
                 if (data.order) {
+                    if (!('annotations' in data.order)) data.order.annotations = {};
+
+                    // for backward compatibility
                     data.annotations = data.order.annotations;
                 }
 	        }
