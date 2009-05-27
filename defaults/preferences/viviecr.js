@@ -678,10 +678,12 @@ pref("vivipos.fec.reportpanels.promotionsummary.path", "chrome://viviecr/content
 pref("vivipos.fec.reportpanels.promotionsummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.promotionsummary.roles", "acl_run_report");
 
+/*
 pref("vivipos.fec.reportpanels.customertransaction.label", "Customer Transaction Report");
 pref("vivipos.fec.reportpanels.customertransaction.path", "chrome://viviecr/content/reports/rpt_customer_transaction.xul");
 pref("vivipos.fec.reportpanels.customertransaction.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.customertransaction.roles", "acl_run_report");
+*/
 
 pref("vivipos.fec.reportpanels.detailedcustomertransaction.label", "Detailed Customer Transaction Report");
 pref("vivipos.fec.reportpanels.detailedcustomertransaction.path", "chrome://viviecr/content/reports/rpt_detailed_customer_transaction.xul");

@@ -9,7 +9,7 @@
 
         useDbConfig: 'table',
         
-        belongsTo: ['Table'],
+        belongsTo: ['TableStatus'],
 
         behaviors: ['Sync']
 

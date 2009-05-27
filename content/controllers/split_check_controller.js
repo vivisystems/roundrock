@@ -47,6 +47,13 @@
             // this._splitItems = [];
             var selectedItems = document.getElementById('sourcecheckscrollablepanel').vivitree.selectedItems;
 
+            //
+            if (selectedItems.length == this._sourceItems.length) {
+                // @todo OSD
+                NotifyUtils.warn(_('Can not split all items'));
+                return;
+            }
+
             var spliteditems = [];
             var d = 0;
             selectedItems.forEach(function(o){
@@ -428,7 +435,7 @@
 
                 // dispatch changeclerk event
                 // this.getCartController().dispatchEvent('onStore', origData);
-                self.getCartController().dispatchEvent('onSplitCheck', origData);
+                self.getCartController().dispatchEvent('onSplitCheck', data);
 
                 // add to table_status
                 if (self._tableStatusModel == null) {

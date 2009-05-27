@@ -11,9 +11,22 @@
         _table_id: null,
         _table_no: null,
         _table_name: null,
+        _table_status_id: null,
+        _tableStatusModel: null,
+        _cart: null,
 
         initial: function () {
             //
+        },
+
+        getCartController: function() {
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
+
+            // this._cart.dispatchEvent('onSplitCheck', null);
+
+            return this._cart;
         },
 
         getBookingListObj: function() {
@@ -62,11 +75,15 @@
                 // var table_no = document.getElementById('table_no').value;
                 var table_id = this._table_id;
                 var table_no = this._table_no;
+                var table_status_id = this._table_status_id;
 
-                var newBooking = {table_id: table_id, booking: booking_time, contact: booking_contact, telephone: booking_telephone, table_no: table_no};
+                var newBooking = {table_id: table_id, booking: booking_time, contact: booking_contact, telephone: booking_telephone, table_no: table_no, table_status_id: table_status_id};
 
                 var bookingModel = new TableBookingModel();
                 newBooking = bookingModel.save(newBooking);
+
+                // touch TableStatusModel
+                this.getCartController().GuestCheck._tableStatusModel.touchTableStatus(table_no);
 
                 this._bookingListDatas.push(newBooking);
                 this._bookingListDatas = new GeckoJS.ArrayQuery(this._bookingListDatas).orderBy('booking asc');
@@ -105,6 +122,12 @@
                 bookingModel.id = inputObj.id;
                 var booking = bookingModel.save(inputObj);
 
+                // touch TableStatusModel
+                var table_id = this._table_id;
+                var table_no = this._table_no;
+                var table_status_id = this._table_status_id;
+                this.getCartController().GuestCheck._tableStatusModel.touchTableStatus(table_no);
+
                 this.loadBookings(booking.table_id);
 
                 // loop through this._listDatas to find the newly modified destination
@@ -128,34 +151,47 @@
         },
 
         deleteBooking: function() {
-            var index = this.getRegionListObj().selectedIndex;
-            if (index >= 0) {
-                var region = this._regionListDatas[index];
+            var index = this.getBookingListObj().selectedIndex;
+            var inputObj = GeckoJS.FormHelper.serializeToObject('bookingForm');
 
-                if (!GREUtils.Dialog.confirm(null, _('confirm delete region [%S (%S)]', [region.name]),
-                                             _('Are you sure you want to delete region [%S]?', [region.name]))) {
+            if (index >= 0) {
+
+                var region = this._bookingListDatas[index];
+
+                if (!GREUtils.Dialog.confirm(null, _('confirm delete booking [%S (%S)]', [inputObj.contact, inputObj.table_no]),
+                                             _('Are you sure you want to delete booking [%S (%S)]?', [inputObj.contact, inputObj.table_no]))) {
                     return;
                 }
 
-                var regionModel = new TableRegionModel();
-                regionModel.del(region.id);
+                var bookingModel = new TableBookingModel();
+                bookingModel.del(inputObj.id);
+                delete bookingModel;
 
-                this._regionListDatas.splice(index, 1);
+                // touch TableStatusModel
+                var table_id = this._table_id;
+                var table_no = this._table_no;
+                var table_status_id = this._table_status_id;
+                this.getCartController().GuestCheck._tableStatusModel.touchTableStatus(table_no);
 
-                this.getRegionListObj().treeBoxObject.rowCountChanged(index, -1);
+                this.loadBookings();
 
-                if (index >= this._regionListDatas.length) index = this._regionListDatas.length - 1;
-                this.getRegionListObj().treeBoxObject.ensureRowIsVisible(index);
-
-                this.selectRegion(index);
-
-                // this.searchMode();
-
-                this.setRegionMenuItem();
+                this.getBookingListObj().treeBoxObject.invalidate();
 
                 // @todo OSD
-                OsdUtils.info(_('Region [%S] deleted successfully', [region.name]));
+                OsdUtils.info(_('Booking [%S (%S)] deleted successfully', [inputObj.contact, inputObj.table_no]));
+
             }
+        },
+
+        removeOldBooking: function() {
+            //
+            var now = Math.round((new Date()).getTime() / 1000);
+            var rmTime = now - 86400; // one day ago...
+            var cond = "booking<'" + rmTime + "'";
+
+            var bookingModel = new TableBookingModel();
+            bookingModel.delAll(cond);
+            delete bookingModel;
         },
 
         loadBookings: function(table_no) {
@@ -197,6 +233,7 @@
 
         setTableId: function(table_id) {
             this._table_id = table_id;
+
         },
 
         setTableNo: function(table_no) {
@@ -205,6 +242,11 @@
 
         setTableName: function(table_name) {
             this._table_name = table_name;
+        },
+
+        setTableStatusId: function(table_status_id) {
+            this._table_status_id = table_status_id;
+
         },
 
         load: function() {
@@ -216,6 +258,7 @@
                     table_id: document.getElementById('table_id').value,
                     table_no: document.getElementById('table_no').value,
                     table_name: document.getElementById('table_name').value,
+                    table_status_id: document.getElementById('table_status_id').value
                 }
             }
 
@@ -224,14 +267,19 @@
             this.setTableId(inputObj.table_id);
             this.setTableNo(inputObj.table_no);
             this.setTableName(inputObj.table_name);
+            this.setTableStatusId(inputObj.table_status_id);
 
             document.getElementById('booking_table_title').setAttribute('label', _('Book Table# %S : %S', [this._table_no, this._table_name]));
 
             var settings = this.readTableSettings();
             GeckoJS.FormHelper.unserializeFromObject('settingsForm', settings);
 
+            // remove old booking
+            this.removeOldBooking();
+
             this.loadBookings(this._table_id);
             this.selectBooking(0);
+
 
         },
 
