@@ -18,6 +18,7 @@
         <textbox id="booking_id" name="id" form="bookingForm" readonly="true" hidden="true"/>
         <textbox id="booking_table_id" name="table_id" form="bookingForm" readonly="true" hidden="true"/>
         <textbox id="booking_table_no" name="table_no" form="bookingForm" readonly="true" hidden="true"/>
+        <textbox id="booking_table_status_id" name="table_status_id" form="bookingForm" readonly="true" hidden="true"/>
         <vbox flex="1">
             <caption id="booking_table_title" label="" />
             <vbox flex="1">
@@ -69,8 +70,7 @@
                         <row>
                             <vbox flex="1">
                                 <label control="booking_note" value="&tableman.booking.note;"/>
-                                <textbox id="booking_note" name="note" form="bookingForm" default=""  onfocus="select()"
-                                         oninput="$do('validateForm', null, 'TableMan');"/>
+                                <textbox id="booking_note" name="note" form="bookingForm" default=""  onfocus="select()"/>
                             </vbox>
 
                         </row>

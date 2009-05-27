@@ -17,20 +17,25 @@
 
         _checkNoArray: [],
         _tableNoArray: [],
+        _connected: false,
         _guestCheck: null,
         _checkList: null,
         _tableList: null,
         _tableStatusList: null,
+        _tableStatusLastTime: 0,
+        _tableStatusArray: [],
+        _tableStatusIdxById: {},
 
         initial: function (c) {
             // this._super(c);
-
+// GREUtils.log("initial...");
             //            this._checkList = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
             //            this._tableList = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
             //            this._tableStatusList = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
             if (!this._tableStatusList) {
-                this.getTableList();
-                this.getCheckList("AllCheck");
+//                 this.getTableList();
+//                this.getCheckList("AllCheck");
+// GREUtils.log("initial list...");
                 this.getTableStatusList();
             }
         },
@@ -234,106 +239,118 @@
             }
         },
 
-        getTableStatusList: function(reload) {
-
-            var remoteUrl = this.getRemoteService('getTableStatusList');
+        getTableStatuses: function(lastModified) {
+// GREUtils.log("getTableStatuses..." + lastModified );
+            var self = this;
+            // var remoteUrl = this.getRemoteService('getTableStatusList');
+            var remoteUrl = this.getRemoteService('getTableStatuses');
             var tableStatus = null;
 
             if (remoteUrl) {
                 try {
-                    tableStatus = this.requestRemoteService('GET', remoteUrl, null);
+                    tableStatus = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
+
+                    // do not need
+                    tableStatus.forEach(function(o){
+
+                        var item = GREUtils.extend({}, o.TableStatus);
+                        for (var key in item) {
+                            o[key] = item[key];
+                        }
+                    });
+
+                    this._connected = true;
                 }catch(e) {
                     tableStatus = [];
+                    this._connected = false;
+
                 }
 
             }else {
                 // read all order status
-                tableStatus = this.find('all', {});
-                
+                this._connected = true;
+                var fields = null;
+                var conditions = "table_statuses.modified > '" + lastModified + "'";
+
+                tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 2});
+
             }
             
-            return this.genTablesArray(tableStatus);
+            return tableStatus;
+        },
+
+        getTableStatusList: function(reload) {
+
+            var self = this;
+
+            var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
+
+            if (this._tableStatusList && this._tableStatusList.length > 0) {
+                //
+                tableStatus.forEach(function(o){
+
+                    // @todo not update when add or delete table...
+                    var index = self._tableStatusIdxById[o.id];
+
+                    if (self._tableStatusList[index]) {
+                        self._tableStatusList[index] = o;
+                    }
+
+                });
+
+            } else {
+
+                this._tableStatusList = tableStatus.concat([]);
+
+                for (var i = 0; i < tableStatus.length; i++) {
+                    this._tableStatusIdxById['' + tableStatus[i].id] = i;
+                };
+            }
+
+            return this.genTablesArray(this._tableStatusList);
         },
 
         genTablesArray: function(tableStatus) {
-
             var self = this;
             // set checklist
             this._checkList = tableStatus.concat([]);
 
             // gen tables status
-            var tables = [];
-            tableStatus.forEach(function(o) {
-                if (o.order_id) {
-                    if (o.table_no) {
-                        if (tables[o.table_no]) {
-                            //
-                            tables[o.table_no].checks += 1;
-                            tables[o.table_no].guests += Math.round(parseInt(o.guests));
 
-                        } else {
-                            tables[o.table_no] = GeckoJS.BaseObject.clone(o);
-                            tables[o.table_no].checks = 1;
-                            tables[o.table_no].guests = Math.round(parseInt(o.guests));
-                            tables[o.table_no].order = [];
-                        }
-                        tables[o.table_no].table = GeckoJS.BaseObject.unserialize(tables[o.table_no].table_object);
-                        // tables[o.table_no].order = GeckoJS.BaseObject.unserialize(tables[o.table_no].order_object);
-                        if (o.order_object)
-                        tables[o.table_no].order.push( GeckoJS.BaseObject.unserialize(o.order_object));
-                    }
-                } else {
-                    if (o.table_no) {
-                        tables[o.table_no] = GeckoJS.BaseObject.clone(o);
-                    // tables[o.table_no]
-                    }
-                }
-
-            });
-
-            // add empty tables...
-            self.getTableList();
-            self._tableList.forEach(function(o){
-                if (tables[o.table_no] == null && o.active) {
-                    tables[o.table_no] = {
-                        order_id: '',
-                        check_no: '',
-                        table_no: o.table_no,
-                        sequence: '',
-                        guests: 0,
-                        holdby: o.holdby,
-                        clerk: '',
-                        booking: 0,
-                        lock: false,
-                        status: 0,
-                        terminal_no: '',
-
-                        table_object: null,
-                        order_object: null
+            // var tables = [];
+            if (tableStatus) {
+                tableStatus.forEach(function(o) {
+                    o.seats = o.Table.seats;
+                    o.table_name = o.Table.table_name;
+                    o.guests = 0;
+                    o.checks = o.TableOrder ? o.TableOrder.length : 0;
+                    if (o.checks > 0) {
+                        o.TableOrder.forEach(function(orderObj){
+                            var guests = Math.round(parseInt(orderObj.guests)) || 0;
+                            o.guests = o.guests + guests;
+                        });
+                        o.clerk = o.TableOrder[0].clerk;
+                        o.total = o.TableOrder[0].total;
+                        o.check_no = o.TableOrder[0].check_no;
+                        o.sequence = o.TableOrder[0].sequence;
+                        o.start_time = o.TableOrder[0].transaction_created;
                     };
-                    tables[o.table_no].table = GeckoJS.BaseObject.clone(o);
-                }
-            });
 
-            // read booking info,
-            var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-            var min = tableSettings.TableRemindTime || 120;
-            var start_time = Math.round(Date.now().addMinutes(-min) / 1000);
-            var end_time = Math.round(Date.now().addMinutes(min) / 1000);
-            var conditions = "table_bookings.booking>='" + start_time +
-            "' AND table_bookings.booking<='" + end_time +
-            "'";
-            var bookingModel = new TableBookingModel();
-            var bookings = bookingModel.find('all', {
-                conditions: conditions
-            });
+                    if (o.TableBooking && o.TableBooking.length > 0) {
 
-            bookings.forEach(function(o){
-                tables[o.table_no].booking = o;
-            });
+                        o.booking = o.TableBooking[0].booking;
+                    }
 
-            this._tableStatusList = tables;
-            return tables;
+                    // set last status modify time
+                    if (o.modified > self._tableStatusLastTime) {
+                        self._tableStatusLastTime = o.modified;
+                    }
+                    // this._tableStatusLastTime = this._tableStatusLastTime < o.modified ? o.modified : this._tableStatusLastTime;
+
+                });
+            }
+
+            return tableStatus;
 
         },
 
@@ -361,51 +378,16 @@
                 }
             }
             var tableModel = new TableModel();
-            var tableList = tableModel.find('all', {});
+            var tableList = tableModel.find('all', {recursive: 2});
 
             GeckoJS.Session.set('vivipos_fec_guest_check_table_list', tableList);
 
             return this._tableList = tableList;
         },
 
-        getCheckList: function(key, no, reload) {
-            //            return this._checkList;
-            var checks = this._checkList;
-            if (checks) {
-                // GREUtils.log("DEBUG", "getCheckList from session...");
-                var orders = [];
-                switch (key) {
-                    case 'OrderNo':
-                    case 'AllCheck':
-                        // @todo
-                        checks.forEach(function(o){
-                            orders.push(o);
-                        });
-                        return orders;
-                        break;
-                    case 'CheckNo':
-                        checks.forEach(function(o){
-                            if (o.check_no == no) orders.push(o);
-                        });
-                        return orders;
-                        break;
-                    case 'TableNo':
-                        checks.forEach(function(o){
-                            if (o.table_no == no) orders.push(o);
-                        });
-                        return orders;
-                        break;
-                }
-                return checks;
-            }
-            return this._checkList;
-        },
-
         genTableStatusObj: function(tableObj) {
             var tableStatusObj = {};
 
-            var table_obj = GeckoJS.BaseObject.serialize(tableObj.table_object);
-            var order_obj = GeckoJS.BaseObject.serialize(tableObj.order_object);
             tableStatusObj = {
                 id: tableObj.id,
                 order_id: tableObj.order_id,
@@ -419,8 +401,12 @@
                 lock: false,
                 status: tableObj.status,
                 terminal_no: tableObj.terminal_no,
-                table_object: table_obj,
-                order_object: order_obj
+                transaction_created: tableObj.transaction_created,
+
+                table_id: tableObj.table_id,
+                total: tableObj.total,
+                table_status_id: tableObj.table_status_id
+
             };
 
             return tableStatusObj;
@@ -428,12 +414,23 @@
 
         addCheck: function(checkObj) {
             // GREUtils.log("DEBUG", "add check...");
-            this.getTableList();
+
+            var index = -1;
+            var i = 0;
+
+            this._tableStatusList.forEach(function(o){
+                //
+                if (o.table_no == checkObj.table_no) {
+                    index = i;
+                }
+                i++;
+            })
+            
             var tableObj = {
                 order_id: checkObj.id,
                 check_no: checkObj.check_no,
                 table_no: checkObj.table_no,
-                sequence: checkObj.seq,
+                sequence: "" + checkObj.seq,
                 guests: checkObj.no_of_customers,
                 holdby: '',
                 clerk: checkObj.service_clerk,
@@ -441,37 +438,52 @@
                 lock: false,
                 status: 0,
                 terminal_no: checkObj.terminal_no,
+                transaction_created: checkObj.created,
 
-                table_object: this._tableList[checkObj.table_no - 1],
-                order_object: checkObj
+                total: checkObj.total,
+
+                table_id: (index > -1) ? this._tableStatusList[index].table_id : '',
+                table_status_id: (index > -1) ? this._tableStatusList[index].id : ''
+
             };
+
             this.setTableStatus( this.genTableStatusObj(tableObj));
 
-            this.getTableStatusList(true);
+        },
+
+        touchTableStatus: function(table_no) {
+            // touch modified time...
+            var conditions = "table_statuses.table_no='" + table_no + "'";
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions,
+                recursive: 0
+            });
+
+            // @todo maintain status field...
+            if (tableStatusObjTmp) {
+                this.id = tableStatusObjTmp.id;
+
+                var tableStatus = this.save(tableStatusObjTmp);
+                
+            }
         },
 
         removeCheck: function(checkObj) {
-            var order_id = checkObj.id;
-            var tableObj = {
-                order_id: order_id,
-                check_no: '',
-                table_no: '',
-                sequence: '',
-                guests: 0,
-                holdby: '',
-                clerk: '',
-                booking: 0,
-                lock: false,
-                status: 0,
-                terminal_no: '',
 
-                table_object: null,
-                order_object: null
-            };
+            var remoteUrl = this.getRemoteService('removeCheck');
+            var tableStatus = null;
 
-            // this.setTableStatus(tableObj.table_no, tableObj);
-            this.setTableStatus( this.genTableStatusObj( tableObj));
-            this.getTableStatusList(true);
+            if (remoteUrl) {
+
+                // tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({table_no: table_no, holdTable: holdTable}));
+                tableStatus = this.requestRemoteService('GET', remoteUrl + '/' + checkObj.table_no + '/' + checkObj.id, null);
+
+                return ;
+            }
+
+            this.TableOrder.delAll("order_id='" + checkObj.id + "'");
+
+            this.touchTableStatus(checkObj.table_no);
 
             return checkObj;
 
@@ -479,41 +491,11 @@
 
         holdTable: function(table_no, holdTable) {
             // GREUtils.log("DEBUG", "hold table...");
-            /*
-            this._tableList.forEach(function(o){
-                if (o.table_no == table_no) {
-                    o.holdby = holdby;
-                }
-            });
-            */
 
-            var sourceTable = holdTable || {};
-            var holdby = sourceTable.table_no;
-            if (sourceTable.status == -1) holdby = sourceTable.holdby;
-            var order_id = '';
-            var tableObj = {
-                order_id: sourceTable.order_id,
-                check_no: '',
-                table_no: table_no,
-                sequence: '',
-                guests: 0,
-                holdby: '' + holdby,
-                // holdby: '' + sourceTable.table_no,
-                clerk: sourceTable.clerk,
-                booking: 0,
-                lock: false,
-                status: sourceTable.status,
-                terminal_no: '',
+            this.setTableHostBy(table_no, holdTable);
 
-                table_object: null,
-                order_object: null
-            };
-            // this.setTableStatus(tableObj.table_no, tableObj);
-            this.setTableStatus( this.genTableStatusObj( tableObj));
-            // this.getTableStatusList(true);
-
-            // GeckoJS.Session.set('vivipos_fec_guest_check_table_list', this._tableList);
-            var list = this.getTableStatusList(true);
+            // return;
+            var list = this.getTableStatusList(this._tableStatusLastTime);
             return list;
         },
 
@@ -522,7 +504,45 @@
             return this._tableStatusList[table_no];
         },
 
+        setTableHostBy: function(table_no, holdTable) {
+            var hostTableNo = holdTable;
+
+            var remoteUrl = this.getRemoteService('setTableHostBy');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                // tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({table_no: table_no, holdTable: holdTable}));
+                tableStatus = this.requestRemoteService('GET', remoteUrl + '/' + table_no + '/' + holdTable, null);
+
+                return ;
+            }
+
+            var conditions = "table_statuses.table_no='" + table_no + "'";
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions
+            });
+
+            var hostbyObj = null;
+            if (hostTableNo == table_no) {
+                hostbyObj = {hostby: ''};
+            }
+            else {
+                hostbyObj = {hostby: hostTableNo};
+            }
+
+            // tableStatus record exist
+            if (tableStatusObjTmp) {
+
+                this.id = tableStatusObjTmp.id;
+                this.save( hostbyObj );
+            }
+        },
+
         setTableStatus: function(tableStatusObj) {
+
+            // this.setTableMap(tableStatusObj);
+
             // @todo rack
             
             var remoteUrl = this.getRemoteService('setTableStatus');
@@ -535,44 +555,34 @@
                 return ;
             }
 
-
-            if (tableStatusObj.order_id && tableStatusObj.holdby) {
-                var order_id = tableStatusObj.order_id;
-                var conditions = "table_statuses.order_id='" + order_id + "' AND table_statuses.holdby='" + tableStatusObj.holdby + "' AND table_statuses.table_no='" + tableStatusObj.table_no + "'";
-                var tableStatusObjTmp = this.find('first', {
-                    conditions: conditions
-                });
-            }
-            else if (tableStatusObj.order_id) {
-                var order_id = tableStatusObj.order_id;
-                var conditions = "table_statuses.order_id='" + order_id + "'";
-                var tableStatusObjTmp = this.find('first', {
-                    conditions: conditions
-                });
-            }
+            var table_no = tableStatusObj.table_no;
+            var conditions = "table_statuses.table_no='" + table_no + "'";
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions
+            });
 
             // tableStatus record exist
             if (tableStatusObjTmp) {
-                if (tableStatusObj.status == -1) {
-                    this.del(tableStatusObjTmp.id);
-                }
-                else if (tableStatusObj.sequence == '' && !tableStatusObj.holdby) {
-                    // remove tableStatus record
-                    // this.del(tableStatusObjTmp.id);
-                    this.delAll(conditions);
-                } else {
+                
                     // update tableStatus record
                     this.id = tableStatusObjTmp.id;
-                    var retObj = this.save(tableStatusObj);
-                }
-            } else {
-                if (tableStatusObj.sequence != '' || tableStatusObj.holdby) {
-                    // add new tableStatus record
-                    this.id = '';
-                    var retObj = this.save(tableStatusObj);
-                }
+                    // var retObj = this.saveStatus(tableStatusObj);
+                    var tableOrderObj = this.save(tableStatusObj);
+
+                    // save TableOrder...
+                    var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.order_id='" + tableStatusObj.order_id + "'"});
+
+                    if (tableOrderObj) {
+                        this.TableOrder.id = tableOrderObj.id;
+                    } else {
+                        this.TableOrder.id = ''; // append table order
+                    }
+                    var statusOrderObj = this.TableOrder.save(tableStatusObj);
+                
             }
+
         }
+
     };
 
     var TableStatusModel = window.TableStatusModel = GeckoJS.Model.extend(__model__);

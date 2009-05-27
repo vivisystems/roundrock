@@ -83,14 +83,14 @@
 	margin-top: 10px;
 }
 
-/* ¶W¹L®É¶¡ */
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
 .style01 .overtime {
 	background: #9e0b0f;
 	
 	color: yellow;
 	font-weight: bold;
 }
-/* ¶W¹L¤H¼Æ */
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
 .style01 .overpeople {
 	color: #9e0b0f;
 	font-weight: bold;
@@ -127,8 +127,8 @@
 	font-size: 10pt;
 }
 .style02 > div {
-	width: 200px;
-	height: 140px;
+	width: 160px;
+	height: 100px;
 	position:relative; 
 }
 .style02 .topItem {
@@ -136,17 +136,17 @@
 	top: 0;
 	left: 0;
 	z-index: 100;
-	width: 198px;
-	height: 138px;
+	width: 158px;
+	height: 98px;
 }
 .style02 .bgItem {
-	height: 100px;
+	height: 84px;
 	text-align: right;
 	color: #ebebeb;
-	font-size: 64pt;
+	font-size: 48pt;
 	padding: 12px 0px 0 0;
 	font-family: 'Arial Black';
-	width: 198px;
+	width: 158px;
 	position:absolute;
 	top: 0;
 	left: 0;
@@ -166,7 +166,7 @@
 }
 .style02 .tableData {
 	float: right;
-	width: 146px;
+	width: 116px;
 	margin: 0 2px;
 }
 .style02 .tableInfo {
@@ -188,30 +188,30 @@
 }
 .style02 .time{
 	color: white;
-	font-size: 10pt;
+	font-size: 8pt;
 	margin-top: 3px;
 	font-family: Arial;
 }
 .style02 .tableNo {
 	width: 32px;
-	height: 120px;
+	height: 90px;
 	margin: 4px 6px;
 	text-align: center;
-	font-size: 16pt;
+	font-size: 14pt;
 	font-family: 'Arial Black';
 }
 .style02 .remark{
 	margin-top: 10px;
 }
 
-/* ¶W¹L®É¶¡ */
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
 .style02 .overtime {
 	background: #9e0b0f;
 	
 	color: yellow;
 	font-weight: bold;
 }
-/* ¶W¹L¤H¼Æ */
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
 .style02 .overpeople {
 	color: #9e0b0f;
 	font-weight: bold;
@@ -320,14 +320,14 @@
 	margin-top: 10px;
 }
 
-/* ¶W¹L®É¶¡ */
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
 .style03 .overtime {
 	background: #9e0b0f;
 	
 	color: yellow;
 	font-weight: bold;
 }
-/* ¶W¹L¤H¼Æ */
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
 .style03 .overpeople {
 	color: #9e0b0f;
 	font-weight: bold;
@@ -445,12 +445,12 @@
 	margin-top: 20px;
 }
 
-/* ¶W¹L®É¶¡ */
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
 .style04 .overtime {
 	color: #9e0b0f;
 	font-weight: bold;
 }
-/* ¶W¹L¤H¼Æ */
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
 .style04 .overpeople {
 	color: white;
 	font-weight: bold;
@@ -487,4 +487,180 @@
 }
 .style04 .yellowtable {
 	border: 1px solid #f2c54e;
+}
+
+
+
+/****************** style 05 **********************/
+
+.style05 {
+	-moz-appearance: none;
+    width: 172px;
+	max-height: 126px;
+    height: 126px !important;
+}
+.style05 > div {
+	font-size: 10pt;
+    width: 172px;
+	height: 126px;
+	position:relative; 
+	background: transparent url(images/paper.png) no-repeat center bottom;
+}
+.style05 .topItem {
+	position:absolute;
+	top: 12px;
+	left: 12px;
+	z-index: 100;
+	width: 160px;
+	height: 91px;
+}
+.style05 .bgItem {
+	text-align: right;
+	color: #e8e8e8;
+	font-size: 48pt;
+	font-weight: bold;
+	position:absolute;
+	bottom: 10px;
+	right: 10px;
+    width: 120px;
+    height: 65px;
+	z-index: 40;
+}
+.style05 .bottomItem {
+  position:absolute;
+  bottom: 8px;
+  right: 10px;
+	height: 16px;
+	padding: 0px;
+	text-align:right;
+	width: 60px;
+	z-index: 50;
+	font-size: 12pt;
+}
+.style05 .tableData {
+	width: 146px;
+	margin-left: 10px;
+}
+.style05 .tableInfo {
+	padding: 4px;
+    margin-left: 4px;
+}
+.style05 .tableInfo .cneckNo,
+.style05 .tableInfo .clerk,
+.style05 .tableInfo .total,
+.style05 .remark {
+	margin-top: 2px;
+	overflow: hidden;
+}
+.style05 .tableName {
+	color: #372213;
+	padding: 2px;
+	margin-left: 4px;
+	margin-top: 2px;
+	word-wrap: break-word;
+	word-break:break-all;
+}
+.style05 .checkNum{
+	position:absolute;
+	top: 36px;
+	right: 16px;
+	z-index: 130;
+	color: #9e0b0f;
+	font-weight: bold;
+}
+.style05 .clerk{
+	float: right;
+	text-align: right;
+	width: 70px;
+}
+.style05 .time{
+	position:absolute;
+	top: 11px;
+	right: 38px;
+	z-index: 120;
+	text-align: right;
+	background: transparent url(images/time.png) no-repeat 0px center;
+	font-size: 9pt;
+	width: 52px;
+	color: black;
+}
+.style05 .tableNo {
+	font-size: 20pt;
+	font-weight: bold;
+    margin: 2px 2px 0 2px;
+	padding: 9px 18px 0 2px;
+	line-height: 18px;
+}
+
+
+.style05 .thumbtack {
+	position:absolute;
+	top: 0;
+	right: 10px;
+	z-index: 110;
+	width: 24px;
+	height: 35px;
+}
+
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
+.style05 .overtime {
+	background: #9e0b0f;
+	color: yellow;
+	font-weight: bold;
+}
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
+.style05 .overpeople {
+	background: #9e0b0f;
+	color: yellow;
+	font-weight: bold;
+}
+
+
+.style05 .redtable .tableNo {
+	color: #9e0b0f;
+	border-bottom: 1px solid #9e0b0f;	
+}
+.style05 .redtable .thumbtack {
+	background: transparent url(images/thumbtack_red.png) no-repeat 0px center;	
+}
+
+.style05 .bluetable .tableNo {
+	color: #354f66;
+	border-bottom: 1px solid #354f66;	
+}
+.style05 .bluetable .thumbtack {
+	background: transparent url(images/thumbtack_blue.png) no-repeat 0px center;	
+}
+.style05 .bluetable .time {
+	background: none;
+}
+
+.style05 .greentable .tableNo {
+	color: #a2a70f;
+	border-bottom: 1px solid #a2a70f;	
+}
+.style05 .greentable .thumbtack {
+	background: transparent url(images/thumbtack_green.png) no-repeat 0px center;	
+}
+.style05 .greentable .people{
+	font-weight: bold;
+	font-size: 16pt;
+	color:  #ed145b;	
+}
+.style05 .greentable .bottomItem{
+	bottom: 12px;
+}
+.style05 .greentable .time {
+	background: none;
+}
+
+.style05 .yellowtable .tableNo {
+	color: #f2c54e;
+	border-bottom: 1px solid #f2c54e;	
+}
+.style05 .yellowtable .thumbtack {
+	background: transparent url(images/thumbtack_yellow.png) no-repeat 0px center;	
+}
+.style05 .yellowtable .time {
+	background: none;
 }

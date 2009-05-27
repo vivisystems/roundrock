@@ -216,7 +216,8 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
   min-height: 60px;
   margin: 0px 2px 2px 2px;
 }
-.ToolBar button, .ToolBar vivibutton {
+.ToolBar button, .ToolBar vivibutton,
+.ToolBar2 button{
   background-color: white ;
   background-image: none;
   border: 1px solid;
@@ -227,13 +228,15 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
   -moz-appearance: none;
   color: #4d4234;
   font-size: 12pt;
-  margin: 0 5px;
+  margin: 0px 5px;
   -moz-border-radius: 6px;
   min-width: 80px;
   padding: 0 8px;
+  min-height: 40px;
 }
 
-.ToolBar button:active, .ToolBar vivibutton:active {
+.ToolBar button:active, .ToolBar vivibutton:active,
+.ToolBar2 button:active{
   border: 2px solid;
   -moz-border-top-colors: gray black;
   -moz-border-left-colors: gray black;
@@ -241,18 +244,31 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
   -moz-border-bottom-colors: gray #918570;
 }
 
-.ToolBar button[disabled=true]:active, .ToolBar vivibutton[disabled=true]:active {
+.ToolBar button[disabled=true]:active, .ToolBar vivibutton[disabled=true]:active,
+.ToolBar2 button[disabled=true]:active{
   border: 0 !important;
 }
 
-.ToolBar button[disabled=true], .ToolBar vivibutton[disabled=true] {
+.ToolBar button[disabled=true], .ToolBar vivibutton[disabled=true],
+.ToolBar2 button[disabled=true]{
   background-color: #fff6e8 ;
 }
 
-.ToolBar button[disabled=false]:hover, .ToolBar vivibutton[disabled=false]:hover {
+.ToolBar button[disabled=false]:hover, .ToolBar vivibutton[disabled=false]:hover,
+.ToolBar2 button[disabled=false]:hover{
     color: #148c9c;
     text-decoration: underline;
     -moz-appearance: none;
+}
+
+.ToolBar2 {
+  background: #e8d1b1;
+  -moz-border-radius: 8px;
+  padding: 10px 5px;
+  margin: 0px 2px 2px 2px;
+}
+.ToolBar2 button{
+    margin: 5px;
 }
 
 .BtnDel {
