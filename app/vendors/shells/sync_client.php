@@ -47,31 +47,46 @@ class SyncClientShell extends SyncBaseShell {
 
         set_time_limit(0);
 
-        $this->out("sync_client usage: ", true);
-        $this->hr(false);
+        $syncSettings =& Configure::read('sync_settings');
 
         $shell =& $this;
 
         if ($this->isSyncing()) {
-            $this->out("other process issyncing..", true);
-            return;
+            CakeLog::write('info', "other process issyncing.. sleep to next interval");
+            return ;
         }
 
-        $this->observerNotify('starting');
+        $successed = false;
 
-        sleep(1);
+        try {
+            CakeLog::write('debug', "observerNotify starting");
+            $this->observerNotify('starting');
 
-        $syncResult = $shell->requestAction("/sync_clients/perform_sync");
+            CakeLog::write('info', "requestAction perform_sync");
 
-        $this->observerNotify('finished', json_encode($syncResult));
+            $syncResult = $shell->requestAction("/sync_clients/perform_sync");
 
-        $this->hr(false);
+            CakeLog::write('info', "requestAction perform_sync result: " . $syncResult['pull_result'] . "," . $syncResult['push_result']);
 
-        print_r($syncResult);
+            CakeLog::write('debug', "observerNotify finished");
 
-        $this->hr(false);
+            $this->observerNotify('finished', json_encode($syncResult));
 
-        $this->out("sync_client usage: ok", true);
+            $successed = $syncResult['pull_result'] && $syncResult['push_result'];
+
+        }catch(Exception $e) {
+            $successed = false;
+        }
+
+        if($successed) {
+            CakeLog::write('info', "requestAction perform_sync success");
+            $this->syncStatus('success');
+        }else {
+            $this->syncStatus('finished');
+        }
+
+        $this->out('syncing finished');
+        
     }
 
 /**
@@ -86,6 +101,9 @@ class SyncClientShell extends SyncBaseShell {
         $syncSettings =& Configure::read('sync_settings');
 
         $shell =& $this;
+
+        // use shell script, so we don't need db connection
+        $this->closeAll();
 
         System_Daemon::start();
 
@@ -106,13 +124,16 @@ class SyncClientShell extends SyncBaseShell {
 
         $timeout = $syncSettings['timeout'];
 
-
         // While checks on 2 things in this case:
         // - That the Daemon Class hasn't reported it's dying
         // - That your own code has been running Okay
         while (!System_Daemon::isDying()/* && $runningOkay*/) {
 
-        // is ok?
+
+            // remove syncStatus
+            $this->syncStatus('');
+            //
+            // is ok?
             $nowHour = date("H") + 0;
 
             // check starting / ending hour
@@ -123,27 +144,17 @@ class SyncClientShell extends SyncBaseShell {
 
             while ( $runningOkay && ($tries < $error_retry)) {
 
-
                 System_Daemon::log(System_Daemon::LOG_INFO, "requestAction perform_syncs, retries = " . $tries );
 
-                if ($this->isSyncing()) {
-                    System_Daemon::log(System_Daemon::LOG_INFO, "other process issyncing.. sleep to next interval");
-                    break;
+                $successed = false;
+                
+                // use shellexec to prevent db locked.
+                $shell = ROOT.DS."sync_client";
+                if (file_exists($shell)) {
+                    $output = shell_exec ($shell . " sync");
+                    echo $output;
+                    $successed = $this->isSyncingSuccess();
                 }
-
-                $this->observerNotify('starting');
-
-                // before starting sync , opening all connection
-                $this->connectAll();
-
-                $syncResult = $shell->requestAction("/sync_clients/perform_sync");
-
-                // after finished sync , closing all connection
-                $this->closeAll();
-
-                $this->observerNotify('finished', json_encode($syncResult));
-
-                $successed = $syncResult['pull_result'] && $syncResult['push_result'];
 
                 if ($successed) break;
 

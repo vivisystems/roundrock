@@ -21,7 +21,8 @@ class SyncBaseShell extends Shell {
      *
      */
     function startup() {
-
+        
+        // load dbConfig
         $this->_loadDbConfig();
 
         $this->syncSettings =& Configure::read('sync_settings');
@@ -62,39 +63,27 @@ class SyncBaseShell extends Shell {
 
     }
 
-    /**
-     *
-     */
     function connectAll() {
 
         $datasources = ConnectionManager::sourceList();
 
         foreach($datasources as $ds ) {
-
             $datasource =& ConnectionManager::getDataSource($ds);
             if(!$datasource->connected) $datasource->connect();
-
         }
-
 
     }
 
-    /**
-     * 
-     */
     function closeAll() {
-
         $datasources = ConnectionManager::sourceList();
 
         foreach($datasources as $ds ) {
-
             $datasource =& ConnectionManager::getDataSource($ds);
             if($datasource->connected) $datasource->disconnect();
-
         }
-
+        
     }
-    
+
     /**
      *
      * @param <type> $status 
@@ -112,10 +101,27 @@ class SyncBaseShell extends Shell {
      */
     function isSyncing() {
 
+        if(!file_exists($this->statusFile)) return false;
+        
         $status = file_get_contents($this->statusFile);
 
         return (strcmp($status, "starting")==0);
     }
+
+
+    /**
+     *
+     * @return <type>
+     */
+    function isSyncingSuccess() {
+
+        if(!file_exists($this->statusFile)) return false;
+
+        $status = file_get_contents($this->statusFile);
+
+        return (strcmp($status, "success")==0);
+    }
+
 
 }
 ?>

@@ -84,10 +84,10 @@ class DboSqlite3 extends DboSource {
 		'binary' => array('name' => 'blob'),
 		'boolean' => array('name' => 'boolean')
 	);
-	var $last_error = NULL;
-	var $pdo_statement = NULL;
-	var $rows = NULL;
-	var $row_count = NULL;
+	var $last_error = null;
+	var $pdo_statement = null;
+	var $rows = null;
+	var $row_count = null;
 
 /**
  * Connects to the database using config['database'] as a filename.
@@ -124,8 +124,9 @@ class DboSqlite3 extends DboSource {
 	function disconnect() {
 		#echo "runs disconnect\n";
 		#@sqlite3_close($this->connection);
-		$this->connection = NULL;
+		$this->connection = null;
 		$this->connected = false;
+                unset($this->connection);
 		return $this->connected;
 	}
 /**
@@ -138,11 +139,9 @@ class DboSqlite3 extends DboSource {
 		#echo "runs execute\n";
 		#return sqlite3_query($this->connection, $sql);
 
-                CakeLog::write('debug', 'execute $sql') ;
-                
 		for ($i = 0; $i < 3; $i++) {
 			try {
-				$this->last_error = NULL;
+				$this->last_error = null;
 				$this->pdo_statement = $this->connection->query($sql);
 				if (is_object($this->pdo_statement)) {
 					$this->rows = $this->pdo_statement->fetchAll(PDO::FETCH_NUM);

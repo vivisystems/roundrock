@@ -11,4 +11,3 @@ dir=`dirname $0`
 cd $dir ;
 
 exec ${dir}/cake/console/cake -app ${dir}/app sync_tools ${cmd}
-
