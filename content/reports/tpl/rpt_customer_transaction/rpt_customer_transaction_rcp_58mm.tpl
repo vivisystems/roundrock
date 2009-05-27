@@ -78,9 +78,9 @@ ${_( '(rpt)Records Found' ) + ': '|left:16}${detail.orders.length|default:0|form
 ------------------------
 ${_( '(rpt)Summary' )}
 ${_( '(rpt)Number of Guests' ) + ':'}
-${detail.summary.guests|format:0|right:24}
+${detail.summary.no_of_customers|format:0|right:24}
 ${_( '(rpt)Number of Items' ) + ':'}
-${detail.summary.items|format:0|right:24}
+${detail.summary.qty_subtotal|format:0|right:24}
 ${_( '(rpt)Gross Sales' ) + ':'}
 ${detail.summary.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}

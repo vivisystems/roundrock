@@ -101,7 +101,6 @@
 
                 var oid = data.Order.id;
                 var o = data.Order;
-                o.Order = o;
 
                 if ( !repDatas[ oid ] ) {
                     repDatas[ oid ] = GREUtils.extend( {}, o );
@@ -120,7 +119,7 @@
                 repDatas[ oid ][ 'payment' ] += o.payment_subtotal;
 
                 old_oid = oid;
-            });
+            } );
 
             this._datas = GeckoJS.BaseObject.getValues( repDatas );
             
@@ -207,6 +206,7 @@
             
             customers = {};
             consumers.forEach( function( consumer ) {
+            	delete consumer.Customer;
             	customers[ consumer.customer_id ] = consumer;
             } );
             

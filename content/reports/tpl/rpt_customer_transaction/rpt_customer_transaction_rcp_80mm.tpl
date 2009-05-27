@@ -51,8 +51,8 @@ ${_( '(rpt)Records Found' ) + ': '|left:19}${detail.orders.length|default:0|form
 [&CR]
 ------------------------------------------
 ${_( '(rpt)Summary' )}
-${'    ' + _( '(rpt)Number of Guests' ) + ': '|left:19}${detail.summary.guests|format:0|right:22}
-${'    ' + _( '(rpt)Number of Items' ) + ': '|left:19}${detail.summary.items|format:0|right:22}
+${'    ' + _( '(rpt)Number of Guests' ) + ': '|left:19}${detail.summary.no_of_customers|format:0|right:22}
+${'    ' + _( '(rpt)Number of Items' ) + ': '|left:19}${detail.summary.qty_subtotal|format:0|right:22}
 ${'    ' + _( '(rpt)Gross Sales' ) + ': '|left:19}${detail.summary.item_subtotal|default:0|viviFormatPrices:true|right:22}
 ${'    ' + _( '(rpt)Add-on Tax' ) + ': '|left:19}${detail.summary.tax_subtotal|default:0|viviFormatTaxes:true|right:22}
 ${'    ' + _( '(rpt)Surcharge' ) + ': '|left:19}${detail.summary.surcharge_subtotal|default:0|viviFormatPrices:true|right:22}

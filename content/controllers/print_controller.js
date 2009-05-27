@@ -1,4 +1,4 @@
-(function(){
+function(){
 
      include('chrome://viviecr/content/devices/deviceTemplate.js');
      include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
