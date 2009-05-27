@@ -212,8 +212,6 @@
             var x = 10;//funcPanel.boxObject.screenX - 32;
             // var y = funcPanel.boxObject.screenY - 18;
 
-
-
             promptPanel.sizeTo(w, h);
 
             promptPanel.openPopupAtScreen(x, y);
@@ -244,7 +242,7 @@
             var id = tableObj.order_id || '';
 
             // if (!id) return;
-            if (tableObj.checks <= 0) return;
+            if (tableObj.checks <= 0 || tableObj.order == null || tableObj.order.length == 0) return;
             
             var order = tableObj.order[0];
 

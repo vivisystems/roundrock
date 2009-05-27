@@ -433,7 +433,7 @@
                 var idx = inputObj.index;
                 var i = tables[idx].table_no;
                 var id = tables[idx].order_id;
-                var destination = tables[idx].table.destination;
+                var destination = tables[idx].Table.destination;
 
                 // set action tag to session
                 GeckoJS.Session.set('vivipos_guest_check_action', inputObj.action);
