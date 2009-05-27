@@ -1,0 +1,290 @@
+(function(){
+
+    /**
+     * RptDetailedCustomerTransaction Controller
+     */
+     
+    include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
+
+    var __controller__ = {
+
+        name: 'RptDetailedCustomerTransaction',
+        
+        _fileName: 'rpt_detailed_customer_transaction',
+        
+        _enableButton: function( enable ) {
+        	this._super( enable );
+        	
+            var disabled = !enable;
+            $( '#previous_page' ).attr( 'disabled', disabled );
+            $( '#next_page' ).attr( 'disabled', disabled );
+        },
+
+        _set_reportRecords: function(limit) {
+
+            limit = parseInt(limit);
+            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+
+            var start = document.getElementById( 'start_date' ).value;
+            var end = document.getElementById( 'end_date' ).value;
+            
+            var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+            
+            var terminalNo = document.getElementById( 'terminal_no' ).value;
+            var sequenceNo = document.getElementById( 'sequence_no' ).value;
+            var shiftNo = document.getElementById( 'shift_no' ).value;
+            var periodType = document.getElementById( 'period_type' ).value;
+            
+            var customer_id_start = document.getElementById( 'customer_id_start' ).value;
+            var customer_id_end = document.getElementById( 'customer_id_end' ).value;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+
+            start = parseInt( start / 1000, 10 );
+            end = parseInt( end / 1000, 10 );
+
+            var timeField = periodType;
+            if (periodType == 'sale_period') {
+                timeField = 'transaction_submitted';
+            }
+            var fields =	'orders.id, ' +
+            				'orders.' + timeField + ' as time, ' +
+                            'orders.sequence, ' +
+                            'orders.total, ' +
+                            'orders.tax_subtotal, ' +
+                            'orders.item_subtotal, ' +
+                            'orders.discount_subtotal, ' +
+                            'orders.promotion_subtotal, ' +
+                            'orders.revalue_subtotal, ' +
+                            'orders.surcharge_subtotal, ' +
+                            'orders.qty_subtotal, ' +
+                            'orders.no_of_customers, ' +
+                            'orders.invoice_no, ' +
+                            'orders.sale_period, ' +
+                            'orders.shift_number, ' +
+                            'orders.rounding_prices, ' +
+                            'orders.precision_prices, ' +
+                            'orders.rounding_taxes, ' +
+                            'orders.precision_taxes, ' +
+                            'orders.surcharge_subtotal, ' +
+                            'orders.terminal_no, ' +
+                            'orders.member, ' +
+                            'order_items.product_no, ' +
+                            'order_items.product_name, ' +
+                            'order_items.current_qty, ' +
+                            'order_items.current_price, ' +
+                            'order_items.current_subtotal, ' +
+                            'order_items.current_discount, ' +
+                            'order_items.current_surcharge, ' +
+                            'order_items.tax_name';
+                            
+            var tables = 'orders left join order_items on orders.id = order_items.order_id';
+
+            var conditions = "orders." + periodType + " >= '" + start +
+                            "' and orders." + periodType + " <= '" + end +
+                            "' and orders.status = '1' AND member <> ''";
+
+            if ( terminalNo.length > 0 )
+                conditions += " and orders.terminal_no like '" + this._queryStringPreprocessor( terminalNo ) + "%'";
+                
+            if ( shiftNo.length > 0 ) 
+            	conditions += " and orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+          
+            if ( sequenceNo.length > 0 )
+            	conditions += " and orders.sequence like '" + this._queryStringPreprocessor( sequenceNo ) + "%'";
+            	
+            if ( customer_id_start.length > 0 )
+            	conditions += " AND orders.member >= '" + this._queryStringPreprocessor( customer_id_start ) + "'";
+            	
+            if ( customer_id_end.length > 0 )
+            	conditions += " AND orders.member <= '" + this._queryStringPreprocessor( customer_id_end ) + "'";
+
+            var orderby = 'orders.' +  timeField;
+            
+            if ( sortby != 'all' ) {
+            	var desc = "";
+            	
+            	switch ( sortby ) {
+            		case 'terminal_no':
+            		case periodType:
+            		case 'discount_subtotal':
+            		case 'promotion_subtotal':
+            		case 'revalue_subtotal':
+                        orderby = sortby + ', ' + periodType;
+            			break;
+            		case 'item_subtotal':
+            		case 'tax_subtotal':
+            		case 'surcharge_subtotal':
+            		case 'total':
+            		case 'no_of_customers':
+            		case 'qty_subtotal':
+                        orderby = sortby + ' desc';
+                        break;
+            	}
+            }
+            	
+            //var limit = this._recordLimit + ' offset ' + this._recordOffset;
+            	
+            var sql = 'select ' + fields + ' from ' + tables + ' where ' + conditions + ' order by ' + orderby + ' limit ' + limit + ';';
+
+            var order = new OrderModel();
+
+			var results = order.getDataSource().fetchAll( sql );
+
+			// re-synthesis the data retrieved from DB to fit the structure that .tpl files use.
+			var records = [];
+			var oid;
+			var record;
+			var isFirstRow = true;
+			
+			results.forEach( function( result ) {
+			
+				if ( oid != result.id ) {
+					if ( isFirstRow ) isFirstRow = false;
+					else records.push( record );
+					
+					record = {};
+					record.OrderItem = [];
+					record.Order = {};
+				
+					record.total = result.total;
+					record.sequence = result.sequence;
+					record.tax_subtotal = result.tax_subtotal;
+					record.item_subtotal = result.item_subtotal;
+					record.discount_subtotal = result.discount_subtotal;
+					record.promotion_subtotal = result.promotion_subtotal;
+					record.revalue_subtotal = result.revalue_subtotal;
+					record.surcharge_subtotal = result.surcharge_subtotal;
+                    record.invoice_no = result.invoice_no;
+					record.qty_subtotal = result.qty_subtotal;
+					record.no_of_customers = result.no_of_customers;
+					record.terminal_no = result.terminal_no;
+                    record.sale_period = result.sale_period;
+                    record.shift_number = result.shift_number;
+					record.id = result.id;
+					record.member = result.member;
+					
+					record.Order.time = result.time;
+				}
+				
+				var item = {};
+
+				item.product_no = result.product_no;
+				item.product_name = result.product_name;
+				item.current_qty = result.current_qty;
+				item.current_price = result.current_price;
+				item.current_subtotal = result.current_subtotal;
+				item.current_discount = result.current_discount;
+				item.current_surcharge = result.current_surcharge;
+				item.tax_name = result.tax_name;
+					
+				record.OrderItem.push( item );
+				
+				oid = result.id;
+			} );
+			// trap the last order.	
+			if ( record ) records.push( record );
+			
+			// classify the order records according to member info.
+            var customerModel = new CustomerModel();
+            var customers = customerModel.find( "all", {
+            	fields: [ 'customer_id', 'name' ], group: "customer_id", order: "customer_id desc", recursive: 0
+            } );
+            
+            var orderModel = new OrderModel();
+            var members = orderModel.find( "all", {
+            	fields: [ 'member as "Order.customer_id"', 'member_displayname as "Order.name"' ], conditions: conditions, group: "member", order: "member desc", recursive: 0
+            } );
+            
+            var consumers = [];
+            while ( customers.length || members.length ) {
+            	var customer = customers[ 0 ] ? customers[ 0 ].customer_id : "";
+            	var member = members[ 0 ] ? members[ 0 ].customer_id : "";
+            	
+            	if ( customer > member ) {
+            		consumers.unshift( customers.shift() );
+            	} else if ( customer == member ) {
+            		consumers.unshift( customers.shift() );
+            		members.shift();
+            	} else {
+            		consumers.unshift( members.shift() );
+            	}
+            	
+            	consumers[ 0 ].orders = [];
+            	consumers[ 0 ].summary = {
+		        	item_subtotal: 0,
+					tax_subtotal: 0,
+					surcharge_subtotal: 0,
+					discount_subtotal: 0,
+					promotion_subtotal: 0,
+					revalue_subtotal: 0,
+					payment: 0,
+		            guests: 0,
+		            items: 0
+		        };
+            }
+            
+					summary.payment += result.total;
+                    summary.guests += result.no_of_customers;
+                    summary.items += result.qty_subtotal;
+            customers = {};
+            consumers.forEach( function( consumer ) {
+            	delete consumer.Customer;
+            	customers[ consumer.customer_id ] = consumer;
+            } );
+            
+            records.forEach( function( d ) {
+            	customers[ d.member ].orders.push( d );
+            	
+            	for ( attr in customers[ d.member ].summary ) {
+            		customers[ d.member ].summary[ attr ] += d[ attr ];
+            	}
+            } );
+            this.log( this.dump( customers ) );
+			this._reportRecords.head.title = _( 'Sales Report - Detailed' );
+			this._reportRecords.head.start_time = start_str;
+			this._reportRecords.head.end_time = end_str;
+			this._reportRecords.head.terminal_no = terminalNo;
+			
+			this._reportRecords.body = customers;
+			
+			this._reportRecords.foot.foot_datas = summary;
+        },
+        
+        exportPdf: function() {
+        	this._super( {
+        		paperSize: {
+        			width: 297,
+        			height: 210
+        		}
+        	} );
+        },
+        
+        exportCsv: function() {
+            this._super(this);
+        },
+
+        execute: function() {
+        	this._super();
+        	this._registerOpenOrderDialog();
+        },
+        
+        load: function() {
+            var today = new Date();
+            var yy = today.getYear() + 1900;
+            var mm = today.getMonth();
+            var dd = today.getDate();
+
+            var start = (new Date(yy,mm,dd,0,0,0)).getTime();
+            var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
+
+            document.getElementById('start_date').value = start;
+            document.getElementById('end_date').value = end;
+
+            this._enableButton(false);            
+        }
+    };
+
+    RptBaseController.extend(__controller__);
+})();
