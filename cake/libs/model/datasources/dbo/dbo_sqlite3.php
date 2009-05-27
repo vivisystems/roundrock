@@ -158,7 +158,7 @@ class DboSqlite3 extends DboSource {
 				if ($e->errorInfo[1] === 17) {
                                     //usleep(250000);
                                     continue;
-                                }else if ($e->errorInfo[1] === 5) {
+                                }else if ($e->errorInfo[1] === 5 || $e->errorInfo[1] === 6) {
                                     // database is locked
                                     usleep(250000);
                                     continue;

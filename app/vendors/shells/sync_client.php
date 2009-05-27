@@ -1,5 +1,5 @@
 <?php
-App::import('Core', array('HttpSocket','CakeLog'));
+require_once "sync_base.php";
 
 require_once "System/Daemon.php";
 
@@ -16,83 +16,63 @@ System_Daemon::setOption("sysMaxExecutionTime", "0");
 System_Daemon::setOption("sysMaxInputTime", "0");
 System_Daemon::setOption("logVerbosity", System_Daemon::LOG_INFO);
 
-class SyncClientShell extends Shell {
-/**
- * List of tasks for this shell
- *
- * @var array
- */
-    var $tasks = array();
+class SyncClientShell extends SyncBaseShell {
 
-/**
- * syncSettings
- *
- * @var syncSettings
- */
-    var $syncSettings = array();
-
-/**
- * Startup method for the shell
- *
- */
+    /**
+     * Startup method for the shell
+     */
     function startup() {
 
-        $this->_loadDbConfig();
-
-        $this->syncSettings =& Configure::read('sync_settings');
-
-		$this->http = new HttpSocket(array('timeout'=> 5));
-
+        parent::startup();
     }
 
+    /**
+     * 
+     */
     function help() {
 
         $this->out("sync_client usage: ", true);
         $this->hr(false);
-    	print_r($this->syncSettings);
-        
+        $this->out(" start: start daemon ", true);
+        $this->out(" sync: sync once", true);
+        $this->hr(false);
+        print_r($this->syncSettings);
+
     }
 
-	function observerNotify($action="starting", $data="") {
-
-		// notify vivipos client we are now syncing...
-		switch($action) {
-			case "starting":
-			$url = "http://localhost:8888/observer?topic=sync_client_starting&data=".$data;
-			break;
-
-			case "finished":
-			$url = "http://localhost:8888/observer?topic=sync_client_finished&data=".$data;
-			break;
-		}
-
-		$result = $this->http->get($url);
-
-	}
-
+    /**
+     * 
+     */
     function sync() {
+
+        set_time_limit(0);
 
         $this->out("sync_client usage: ", true);
         $this->hr(false);
 
         $shell =& $this;
 
-		$this->observerNotify('starting');
+        if ($this->isSyncing()) {
+            $this->out("other process issyncing..", true);
+            return;
+        }
 
-		sleep(1);
+        $this->observerNotify('starting');
+
+        sleep(1);
+
         $syncResult = $shell->requestAction("/sync_clients/perform_sync");
 
-		$this->observerNotify('finished', json_encode($syncResult));
+        $this->observerNotify('finished', json_encode($syncResult));
 
         $this->hr(false);
-        
+
         print_r($syncResult);
-        
+
         $this->hr(false);
 
         $this->out("sync_client usage: ok", true);
     }
-
 
 /**
  * start as daemon
@@ -100,7 +80,7 @@ class SyncClientShell extends Shell {
  */
     function start() {
 
-        // set php time limit to unlimimted
+    // set php time limit to unlimimted
         set_time_limit(0);
 
         $syncSettings =& Configure::read('sync_settings');
@@ -132,7 +112,7 @@ class SyncClientShell extends Shell {
         // - That your own code has been running Okay
         while (!System_Daemon::isDying()/* && $runningOkay*/) {
 
-            // is ok?
+        // is ok?
             $nowHour = date("H") + 0;
 
             // check starting / ending hour
@@ -145,45 +125,56 @@ class SyncClientShell extends Shell {
 
 
                 System_Daemon::log(System_Daemon::LOG_INFO, "requestAction perform_syncs, retries = " . $tries );
-                
-				$this->observerNotify('starting');			
+
+                if ($this->isSyncing()) {
+                    System_Daemon::log(System_Daemon::LOG_INFO, "other process issyncing.. sleep to next interval");
+                    break;
+                }
+
+                $this->observerNotify('starting');
+
+                // before starting sync , opening all connection
+                $this->connectAll();
 
                 $syncResult = $shell->requestAction("/sync_clients/perform_sync");
 
-				$this->observerNotify('finished', json_encode($syncResult));
+                // after finished sync , closing all connection
+                $this->closeAll();
+
+                $this->observerNotify('finished', json_encode($syncResult));
 
                 $successed = $syncResult['pull_result'] && $syncResult['push_result'];
-                
+
                 if ($successed) break;
 
-                System_Daemon::log(System_Daemon::LOG_WARNING, "perform_sync not successed, retries = " . $tries );
+                System_Daemon::log(System_Daemon::LOG_WARNING, "perform_sync not successed, retries = " . $tries . ", sleep (" . $timeout . " secs)" );
 
                 $tries++;
 
                 // if error sleeping for a little bit and retry
                 sleep($timeout);
-                
+
             }
 
             // Relax the system by sleeping for a little bit
             if($runningOkay) {
                 sleep($interval);
             }else {
-                // if not runningOkay sleeping next day start_time
+            // if not runningOkay sleeping next day start_time
                 $now = time();
                 $nowStarTime = strtotime(date("Y-m-d H") . ":00:00");
 
                 if ($nowHour < $startHour) {
                     $nextStartTime = strtotime(date("Y-m-d ") . "$startHour:00:00");
-                }else if ($nowHour > $endHour){
+                }else if ($nowHour > $endHour) {
                     // next day
-                    $nextStartTime = $nowStarTime + 3600 * (24 - $nowHour + $startHour);
-                }
+                        $nextStartTime = $nowStarTime + 3600 * (24 - $nowHour + $startHour);
+                    }
 
                 System_Daemon::log(System_Daemon::LOG_INFO, "not runningOkay in time, sleep " . ($nextStartTime - $now) );
                 sleep($nextStartTime - $now);
             }
-            
+
         }
 
         // Log something using the Daemon class's logging facility
