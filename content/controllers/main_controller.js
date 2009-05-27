@@ -846,6 +846,7 @@
                             // truncate sync tables
                             if (r) r = orderModel.execute('delete from syncs');
                             if (r) r = orderModel.execute('delete from sync_remote_machines');
+                            if (r) r = orderModel.execute('delete from clock_stamps');
 
                             if (r) r = orderModel.commit();
                             if (!r) {
@@ -907,6 +908,15 @@
                                      "' AND orders.status<='1'";
 
                     order.removeOrders(conditions);
+
+                    // remove clock stamps
+                    var clockstamp = new ClockStampModel();
+                    var r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
+                    if (!r) {
+                        // log error and notify user
+                        this.dbError(clockstamp.lastError, clockstamp.lastErrorString,
+                                     _('An error was encountered while expiring employee attendance records (error code %S).', [clockstamp.lastError]));
+                    }
 
                     // dispatch afterClearOrderData event
                     this.dispatchEvent('afterClearOrderData', retainDate);
@@ -1057,7 +1067,7 @@
 
                 // GC & delay
                 GREUtils.gc();
-                this.sleep(300 + 100 * Math.random());
+                this.sleep(3000 + 5000 * Math.random());
             }
 
             waitPanel.hidePopup();
