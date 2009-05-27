@@ -3,7 +3,7 @@
 <tabpanel id="panel_${order.check_no}">
 {if order}
 {eval}
-/*
+
   item_adjustments = 0;
   status = '';
   switch(parseInt(order.status)) {
@@ -26,7 +26,7 @@
     default:
       status = order.status;
   }
-*/
+
 {/eval}
 <html:div class="paper">
 
@@ -92,10 +92,15 @@
                 </html:tr>
             </html:thead>
             <html:tbody>
-{for item in order.items}
+{for item in order.OrderItem}
 {eval}
-    prodName = item.name;
-    if (item.destination != null && item.destination != '') prodName = '(' + item.destination + ') ' + prodName;
+    prodName = item.product_name;
+    indent = (item.parent_no != null && item.parent_no != '') ? ' ' : '';
+    if (item.destination != null && item.destination != '' && indent == '') prodName = '(' + item.destination + ') ' + prodName;
+    itemCondiments = [];
+    if (order.OrderItemCondiment && order.OrderItemCondiment.length > 0) {
+        itemCondiments = order.OrderItemCondiment.filter(function(c) {return c.item_id == item.id});
+    }
 {/eval}
     <html:tr>
         <html:td style="width: 400px; text-align: left;">${prodName}</html:td>
@@ -103,14 +108,14 @@
         <html:td style="width: 70px; text-align: right">${item.current_qty} X</html:td>
         <html:td style="width: 100px; text-align: right;">${item.current_price}</html:td>
         <html:td style="width: 100px; text-align: right;">${item.current_subtotal|viviFormatPrices:true}</html:td>
-        <html:td>${item.tax_name}</html:td>
+        <html:td>{if indent == ''}${item.tax_name}{/if}</html:td>
     </html:tr>
-{if item.condiments != null && item.condiments != ''}
+{for condiment in itemCondiments}
     <html:tr>
-        <html:td colspan="3">${item.condiments}</html:td>
-        <html:td style="width: 100px; text-align: right;">${item.current_condiment|viviFormatPrices:true}</html:td>
+        <html:td colspan="3">${indent + condiment.name}</html:td>
+        <html:td style="width: 100px; text-align: right;">${condiment.price|viviFormatPrices:true}</html:td>
     </html:tr>
-{/if}
+{/for}
 {if item.memo != null && item.memo != ''}
     <html:tr>
         <html:td colspan="6">${item.memo}</html:td>
@@ -137,13 +142,23 @@
 
 </html:tbody>
             <html:tfoot>
-            
     <html:tr>
         <html:td colspan="4" style="text-align: left;">${_('(view)Item Subtotal')}</html:td>
         <html:td style="width: 100px; text-align: right;">${order.item_subtotal|viviFormatPrices:true}</html:td>
-        <html:td />
     </html:tr>
-    
+    <html:tr>
+        <html:td colspan="6"></html:td>
+    </html:tr>
+{if item_adjustments != 0}
+    <html:tr>
+        <html:td style="text-align: left;">${_('(view)Adjustments')}</html:td>
+        <html:td style="text-align: right;">${item_adjustments|viviFormatPrices:true}</html:td>
+        <html:td colspan="3" style="text-align: right;">${order.surcharge_subtotal + order.discount_subtotal|viviFormatPrices:true}</html:td>
+    </html:tr>
+    <html:tr>
+        <html:td colspan="6"></html:td>
+    </html:tr>
+{/if}
 {if order.OrderAddition}
     {for adjustment in order.OrderAddition}
     <html:tr>
@@ -156,17 +171,39 @@
     </html:tr>
         {/if}
     {/for}
-    <html:tr>
-        <html:td style="text-align: left;">${_('(view)Adjustments')}</html:td>
-        <html:td style="text-align: right;">${item_adjustments|viviFormatPrices:true}</html:td>
-        <html:td colspan="3" style="text-align: right;">${order.surcharge_subtotal + order.discount_subtotal|viviFormatPrices:true}</html:td>
-    </html:tr>
-
 {/if}
+    <html:tr>
+        <html:td colspan="6"></html:td>
+    </html:tr>
+    
     <html:tr>
         <html:td colspan="4" style="text-align: left;">${_('(view)Add-on Taxes')}</html:td>
         <html:td style="width: 100px; text-align: right;">${order.tax_subtotal|viviFormatTaxes:true}</html:td>
     </html:tr>
+{if order.OrderPromotion}
+    {for promotion in order.OrderPromotion}
+    <html:tr>
+        <html:td colspan="3">${promotion.name}</html:td>
+        <html:td style="width: 100px; text-align: right;">${promotion.discount_subtotal|viviFormatPrices:true}</html:td>
+    </html:tr>
+    {/for}
+    <html:tr>
+        <html:td colspan="6"></html:td>
+    </html:tr>
+    <html:tr>
+        <html:td colspan="4" style="text-align: left;">${_('(view)Promotions')}</html:td>
+        <html:td style="width: 100px; text-align: right;">${order.promotion_subtotal|viviFormatPrices:true}</html:td>
+    </html:tr>
+    <html:tr>
+        <html:td colspan="6"></html:td>
+    </html:tr>
+{/if}
+{if order.revalue_subtotal != 0}
+    <html:tr>
+        <html:td colspan="4" style="text-align: left;">${_('(view)Revalue')}</html:td>
+        <html:td style="width: 100px; text-align: right;">${order.revalue_subtotal|viviFormatPrices:true}</html:td>
+    </html:tr>
+{/if}
     <html:tr>
         <html:td colspan="4" style="text-align: left;">${_('(view)Total')}</html:td>
         <html:td style="width: 100px; text-align: right;">${order.total|viviFormatPrices:true}</html:td>
