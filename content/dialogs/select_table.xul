@@ -28,7 +28,7 @@
 
     <vbox flex="1" class="maindialog">
         <hbox class="EmptyArea" >
-            <viviclock showdate="true"/>
+            
         </hbox>
         <stack flex="1" class="MainPanel">
             
@@ -69,6 +69,11 @@
             
         </stack>
         <hbox class="dialogbtn">
+            <vbox>
+                <spacer flex="1" />
+                <viviclock showdate="true"/>
+            </vbox>
+            <spacer flex="1" />
             <button class="RefrashBtn" id="refresh_table_status" label="&selecttable.refreshtablestatus;" default="true" type="radio" group="func" oncommand="$do('doRefreshTableStatus', null, 'SelectTable');"/>
             <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="$do('doCancelFunc', null, 'SelectTable');"/>
              <spacer width="10px" />

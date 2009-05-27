@@ -137,6 +137,7 @@
         _isNewOrder: false,
         _cartController: null,
         _autoRefresh: false,
+        _mainController: null,
 
         initial: function () {
             //
@@ -202,11 +203,11 @@
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
             var w = 850;//funcPanel.boxObject.width + 32;
             var h = 132;//funcPanel.boxObject.height + 0;
-            var y = height - h - 3 +51;
+            var y = height - h - 20; // +51;
             if (height == 600){
                 w = 708;
                 h = 116;
-                y = height - h + 6;
+                y = height - h - 20; // + 6;
             }
             var x = 10;//funcPanel.boxObject.screenX - 32;
             // var y = funcPanel.boxObject.screenY - 18;
@@ -403,12 +404,14 @@
             //
 
             try {
+                this._tableStatusModel.getTableStatusList();
+
                 document.getElementById('tableScrollablepanel').invalidate();
                 // if (this._autoRefresh)
                 // GREUtils.log("refreshTableStatusLight:::");
             } catch(e) {}
 
-            var timeout = setTimeout('RefreshTableStatusLight()', 15000);
+            var timeout = setTimeout('RefreshTableStatusLight()', 60000);
 
             return;
 
@@ -416,14 +419,31 @@
 
         doRefreshTableStatus: function() {
 
+            this._tableStatusModel.getTableStatusList();
+
             document.getElementById('tableScrollablepanel').invalidate();
             this._inputObj.action = '';
             this._sourceTable = null;
             this._sourceTableNo = null;
             this._hidePromptPanel('prompt_panel');
 
-            this._tableStatusModel.getTableStatusList();
-
+            if (this._mainController == null) {
+                this._mainController = GeckoJS.Controller.getInstanceByName('Main');
+            }
+            var waitPanel = this._mainController._showWaitPanel('wait_panel', 'common_wait', _('Data synchronizing, please wait...'), 1000);
+            // sync data
+            try {
+                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
+                var r = exec.run(["sync"], false);
+                exec.close();
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
+                return false;
+            }
+            finally {
+                waitPanel.hidePopup();
+            }
             return;
         },
 

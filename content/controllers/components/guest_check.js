@@ -148,6 +148,18 @@
             //
             this._tableStatusModel.addCheck(evt.data.data);
 
+            // sync data
+            try {
+                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
+                var r = exec.run(["sync"], false);
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
+                return false;
+            }
+           
             GeckoJS.Session.set('vivipos_guest_check_action', '');
 
             if (this._guestCheck.tableWinAsFirstWin) {
