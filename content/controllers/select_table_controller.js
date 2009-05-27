@@ -8,9 +8,9 @@
             // GREUtils.log('renderButton...');
             if (!this.data[row]) return;
             if (this.data[row].table_no <= 0) return;
-            // if (!this.data[row].check_no) return;
+
             var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-// GREUtils.log(GeckoJS.BaseObject.dump(tableSettings));
+
             if (this.data[row].order == null) this.data[row].order = {};
             if (this.data[row].table == null) this.data[row].table = {};
 
@@ -18,13 +18,12 @@
             var check_no = this.data[row].check_no || '';
             var checks = this.data[row].checks || '';
             var table_no = this.data[row].table_no || '';
-//            var table_label = this.data[row].table.table_name || '';
-            var table_label = this.data[row].table_name || '';
+            var table_label = this.data[row].Table.table_name || '';
+            var seats = this.data[row].Table.seats || '0';
             // var guest_num = this.data[row].order.no_of_customers || '0';
             var guest_num = this.data[row].guests || '0';
 
-            // var seats = this.data[row].table.seats || '0';
-            var seats = this.data[row].seats || '0';
+            
 
             /*
             if (this.data[row].order.length > 0)
@@ -53,9 +52,7 @@
                     var bookTime = this.data[row].TableBooking[key];
                     // var booking_time = Math.round((this.data[row].booking ? this.data[row].booking : 0) || 0) * 1000;
                     var booking_time = Math.round((bookTime.booking ? bookTime.booking : 0) || 0) * 1000;
-        // GREUtils.log("TableNo:" + bookTime.table_no + " , remindTime:" + remindTime + " , TimeOut:" + bookTimeOut + " , now:" + now + " , book:" + booking_time);
-        // GREUtils.log(GeckoJS.BaseObject.dump(this.data[row].TableBooking));
-        // GREUtils.log(GeckoJS.BaseObject.dump(bookTime));
+
                     if (booking_time < remindTime) {
                         booking_time = 0;
                     } else if (now  > booking_time + bookTimeOut) {
@@ -139,6 +136,7 @@
         _tableStatusModel: null,
         _isNewOrder: false,
         _cartController: null,
+        _autoRefresh: false,
 
         initial: function () {
             //
@@ -398,6 +396,21 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'SelectTableNo';
+
+        },
+
+        doRefreshTableStatusLight: function() {
+            //
+
+            try {
+                document.getElementById('tableScrollablepanel').invalidate();
+                // if (this._autoRefresh)
+                // GREUtils.log("refreshTableStatusLight:::");
+            } catch(e) {}
+
+            var timeout = setTimeout('RefreshTableStatusLight()', 15000);
+
+            return;
 
         },
 
@@ -716,11 +729,12 @@
                 },
 
                 shown: function(evt) {
+                    self._autoRefresh = true;
                     document.getElementById('tableScrollablepanel').invalidate();
                 },
 
                 hide: function (evt) {
-                    
+                    self._autoRefresh = false;
                 }
 
             });
@@ -731,10 +745,12 @@
 
         load2: function(inputObj) {
 
+            if (inputObj) {
             this._inputObj = inputObj;
             this._isNewOrder = inputObj.isNewOrder;
             this._enableFuncs(this._isNewOrder);
-
+            }
+            
             this.initial();
 
             // var tables = inputObj.tables;
@@ -753,10 +769,14 @@
                     tableStatus._controller = this;
                     // document.getElementById('tableScrollablepanel').invalidate();
             }
+
+            window.RefreshTableStatusLight = this.doRefreshTableStatusLight;
+            this.doRefreshTableStatusLight();
         }
 
     };
     
     GeckoJS.Controller.extend(__controller__);
+
 
 })();

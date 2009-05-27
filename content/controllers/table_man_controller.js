@@ -153,17 +153,19 @@
             var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');
 
             if (index > -1 && inputObj.id != '' && inputObj.table_no != '' && inputObj.table_name != '') {
+                // var table = this._tableListDatas[index];
+                var table = inputObj;
 
                 var tableModel = new TableModel();
                 tableModel.id = inputObj.id;
-                var table = tableModel.save(inputObj);
+                var tables = tableModel.save(inputObj);
 
                 // update table_status
-                var newTableMap = {id: inputObj.map_id, table_id: table.id, table_no: table.table_no};
-
-                var tableMapModel = new TableMapModel();
-                tableMapModel.id = newTableMap.id;
-                var newTableMap2 = tableMapModel.save(newTableMap);
+                var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
+                var tableStatusModel = new TableStatusModel();
+                tableStatusModel.id = table.table_status_id;
+                newTableStatus = tableStatusModel.save(newTableStatus);
+                delete tableStatusModel;
 
                 this.loadTables();
 
@@ -196,13 +198,16 @@
                                              _('Are you sure you want to delete table [%S (%S)]?', [table.table_no, table.table_name]))) {
                     return;
                 }
-
+                
                 var tableModel = new TableModel();
                 tableModel.del(table.id);
+                delete tableModel;
 
-                // delete table_status
-                var tableMapModel = new TableMapModel();
-                tableMapModel.del(table.map_id);
+
+                // update table_status
+                var tableStatusModel = new TableStatusModel();
+                tableStatusModel.del(table.table_status_id);
+                delete tableStatusModel;
 
 
                 this._tableListDatas.splice(index, 1);
@@ -222,28 +227,6 @@
         },
 
         toggleTable: function() {
-
-            
-            var fields = ['tables.table_no',
-                            'tables.table_name',
-                            'tables.seats',
-                            'tables.active',
-                            'tables.tag',
-                            'tables.destination',
-                            'table_regions.name AS "Table.region"',
-                            'tables.table_region_id',
-                            'table_regions.image AS "Table.image"'
-                        ];
-            var tableModel = new TableModel();
-            // var tables = tableModel.find('all', {fields: fields, recursive: -2});
-            var tables = tableModel.find('all', {recursive: 2});
-                        
-            var mapModel = new TableStatusModel();
-            var maps = mapModel.find('all', {recursive: 2});
-
-            return;
-
-
 
             var index = this.getTableListObj().selectedIndex;
             var inputObj = GeckoJS.FormHelper.serializeToObject('tableForm');

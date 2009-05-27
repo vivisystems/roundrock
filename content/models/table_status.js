@@ -248,10 +248,8 @@
 
             if (remoteUrl) {
                 try {
-// GREUtils.log("remoteUrl:::" + remoteUrl);
                     tableStatus = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
-GREUtils.log("getTableStatuses:::" + lastModified + " , length:" + tableStatus.length);
-GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
+
                     // do not need
                     tableStatus.forEach(function(o){
 
@@ -265,11 +263,10 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
                 }catch(e) {
                     tableStatus = [];
                     this._connected = false;
-// GREUtils.log("remoteUrl except false:::" + remoteUrl);
+
                 }
 
             }else {
-// GREUtils.log("remoteUrl local:::" + remoteUrl);
                 // read all order status
                 this._connected = true;
                 var fields = null;
@@ -292,20 +289,13 @@ GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
                 //
                 tableStatus.forEach(function(o){
 
-                    // @todo do not work!!!
+                    // @todo not update when add or delete table...
                     var index = self._tableStatusIdxById[o.id];
-GREUtils.log("getTableStatusList:::" + index + " , id:::" + o.id);
-// GREUtils.log(GeckoJS.BaseObject.dump(o));
-                    if (typeof index == "undefined") {
-// GREUtils.log("getTableStatusList2:::" + index + " , id:::" + o.id);
-                        self._tableStatusLastTime = 0;
-                        self._tableStatusList = null;
-                    } else {
 
-                        if (self._tableStatusList[index]) {
-                            self._tableStatusList[index] = o;
-                        }
+                    if (self._tableStatusList[index]) {
+                        self._tableStatusList[index] = o;
                     }
+
                 });
 
             } else {

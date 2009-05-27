@@ -669,19 +669,23 @@
             //
             var self = this;
             var order = new OrderModel();
-            var fields = ['orders.id', 
-                          'orders.sequence',
-                          'orders.check_no',
-                          'orders.table_no',
-                          'orders.status',
-                          'orders.no_of_customers',
-                          'orders.total',
-                          'orders.transaction_created',
-                          'orders.service_clerk',
-                          'orders.service_clerk_displayname',
-                          'orders.proceeds_clerk',
-                          'orders.proceeds_clerk_displayname'
-                      ];
+//            var fields = ['orders.id',
+//                          'orders.sequence',
+//                          'orders.check_no',
+//                          'orders.table_no',
+//                          'orders.status',
+//                          'orders.no_of_customers',
+//                          'orders.total',
+//                          'orders.transaction_created',
+//                          'orders.service_clerk',
+//                          'orders.service_clerk_displayname',
+//                          'orders.proceeds_clerk',
+//                          'orders.proceeds_clerk_displayname',
+//                          'orders.terminal_no',
+//                          'orders.branch_id'
+//                      ];
+            var fields = null;
+            
             switch (key) {
                 case 'CheckNo':
                     var conditions = "orders.check_no='" + no + "' AND orders.status='2'";

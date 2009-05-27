@@ -16,15 +16,6 @@
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-
-    <!-- script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/models/order.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/models/order_item.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/models/order_payment.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/models/table_status.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/models/table.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/models/table_region.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/models/table_booking.js" / -->
     
     <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_table.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/controllers/select_table_controller.js" />
@@ -36,7 +27,9 @@
 
 
     <vbox flex="1" class="maindialog">
-        <hbox class="EmptyArea" ></hbox>
+        <hbox class="EmptyArea" >
+            <viviclock showdate="true"/>
+        </hbox>
         <stack flex="1" class="MainPanel">
             
             <label id="queues" hidden="true" value="" />
@@ -60,10 +53,6 @@
                 <!-- button class="bookcBtn2" / -->
             </vbox>
             <vbox class="RightBtns">
-                <!--button class="selectcBtn2" />
-                <button class="mergecBtn2" />
-                <button class="splitcBtn2" />
-                <button class="mergecBtn2" / -->
 
                 <button class="selectcBtn2" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
                 <button class="splitcBtn2" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
@@ -118,10 +107,14 @@
             <vbox flex="1" class="CheckBtns">
                 <button class="closecBtn" oncommand="$do('doCloseOrderPanel', null, 'SelectTable');"/>
                 <spacer height="30px" />
-                <button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
+                <!-- button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
                 <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
                 <button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                <button class="bookcBtn" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/>
+                <button class="bookcBtn" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/ -->
+                <button class="selectcBtn"/>
+                <button class="mergecBtn" />
+                <button class="splitcBtn" />
+                <button class="bookcBtn" />
                 <spacer height="80px" />
                 <button class="clerkBtn" />
             </vbox>
