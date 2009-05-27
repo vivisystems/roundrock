@@ -202,11 +202,11 @@
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
             var w = 850;//funcPanel.boxObject.width + 32;
             var h = 132;//funcPanel.boxObject.height + 0;
-            var y = height - h - 3 +51;
+            var y = height - h - 3; // +51;
             if (height == 600){
                 w = 708;
                 h = 116;
-                y = height - h + 6;
+                y = height - h - 2; // + 6;
             }
             var x = 10;//funcPanel.boxObject.screenX - 32;
             // var y = funcPanel.boxObject.screenY - 18;
@@ -423,6 +423,18 @@
             this._hidePromptPanel('prompt_panel');
 
             this._tableStatusModel.getTableStatusList();
+
+            // sync data
+            try {
+                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
+                var r = exec.run(["sync"], true);
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
+                return false;
+            }
 
             return;
         },
