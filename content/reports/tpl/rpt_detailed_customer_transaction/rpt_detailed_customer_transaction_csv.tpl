@@ -6,18 +6,20 @@
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
-
-"${_( '(rpt)Terminal' )}","${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Number of Guests' )}","${_( '(rpt)Number of Items' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Net Sales' )}"
 {for detail in body}
+""
+"${detail.customer_id} - ${detail.name}"
+"${_( '(rpt)Terminal' )}","${_( '(rpt)Sale Period' )}","${_( '(rpt)Shift' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Invoice Number' )}","${_( '(rpt)Number of Guests' )}","${_( '(rpt)Number of Items' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Promotion' )}","${_( '(rpt)Revalue' )}","${_( '(rpt)Net Sales' )}"
 {eval}
   TrimPath.RoundingPrices = detail.rounding_prices;
   TrimPath.PrecisionPrices = detail.precision_prices;
   TrimPath.RoundingTaxes = detail.rounding_taxes;
   TrimPath.PrecisionTaxes = detail.precision_taxes;
 {/eval}
-"'${detail.terminal_no}","${detail.sale_period|unixTimeToString:'saleperiod'}","${detail.shift_number}","${detail.Order.time|unixTimeToString}","'${detail.sequence}","'${detail.invoice_no|default:''}","${detail.no_of_customers|format:0}","${detail.qty_subtotal|format:0}","${detail.item_subtotal|default:0|viviFormatPrices:true}","${detail.tax_subtotal|default:0|viviFormatTaxes:true}","${detail.surcharge_subtotal|default:0|viviFormatPrices:true}","${detail.discount_subtotal|default:0|viviFormatPrices:true}","${detail.promotion_subtotal|default:0|viviFormatPrices:true}","${detail.revalue_subtotal|default:0|viviFormatPrices:true}","${detail.total|default:0|viviFormatPrices:true}"
+{for order in detail.orders}
+"'${order.terminal_no}","${order.sale_period|unixTimeToString:'saleperiod'}","${order.shift_number}","${order.Order.time|unixTimeToString}","'${order.sequence}","'${order.invoice_no|default:''}","${order.no_of_customers|format:0}","${order.qty_subtotal|format:0}","${order.item_subtotal|default:0|viviFormatPrices:true}","${order.tax_subtotal|default:0|viviFormatTaxes:true}","${order.surcharge_subtotal|default:0|viviFormatPrices:true}","${order.discount_subtotal|default:0|viviFormatPrices:true}","${order.promotion_subtotal|default:0|viviFormatPrices:true}","${order.revalue_subtotal|default:0|viviFormatPrices:true}","${order.total|default:0|viviFormatPrices:true}"
 "","","","","${_( '(rpt)Product Number' )}","${_( '(rpt)Product Name' )}","${_( '(rpt)Tax Name' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Price' )}","${_( '(rpt)Quantity' )}","${_( '(rpt)Subtotal' )}"
-{for items in detail.OrderItem}
+{for items in order.OrderItem}
 "","","","","'${items.product_no}","'${items.product_name|default:''}","'${items.tax_name|default:''}","${items.current_discount|default:0|viviFormatPrices:true}","${items.current_surcharge|default:0|viviFormatPrices:true}","${items.current_price|default:0|viviFormatPrices:true}","${items.current_qty|default:0}","${items.current_subtotal|default:0|viviFormatPrices:true}"
 {/for}
 {/for}
@@ -27,4 +29,5 @@
   delete TrimPath.RoundingTaxes;
   delete TrimPath.PrecisionTaxes;
 {/eval}
-"${_( '(rpt)Records Found' ) + ':'}","${body.length|default:0}","","","","${_( '(rpt)Summary' ) + ':'}","${foot.foot_datas.guests|default:0|format:0}","${foot.foot_datas.items|default:0|format:0}","${foot.foot_datas.item_subtotal|viviFormatPrices:true}","${foot.foot_datas.tax_subtotal|viviFormatTaxes:true}","${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}","${foot.foot_datas.discount_subtotal|viviFormatPrices:true}","${foot.foot_datas.promotion_subtotal|viviFormatPrices:true}","${foot.foot_datas.revalue_subtotal|viviFormatPrices:true}","${foot.foot_datas.payment|viviFormatPrices:true}"
+"${_( '(rpt)Records Found' ) + ':'}","${detail.orders.length|default:0}","","","","${_( '(rpt)Summary' ) + ':'}","${detail.summary.no_of_customers|default:0|format:0}","${detail.summary.qty_subtotal|default:0|format:0}","${detail.summary.item_subtotal|viviFormatPrices:true}","${detail.summary.tax_subtotal|viviFormatTaxes:true}","${detail.summary.surcharge_subtotal|viviFormatPrices:true}","${detail.summary.discount_subtotal|viviFormatPrices:true}","${detail.summary.promotion_subtotal|viviFormatPrices:true}","${detail.summary.revalue_subtotal|viviFormatPrices:true}","${detail.summary.total|viviFormatPrices:true}"
+{/for}

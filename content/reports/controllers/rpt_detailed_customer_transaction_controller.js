@@ -219,15 +219,12 @@
 					discount_subtotal: 0,
 					promotion_subtotal: 0,
 					revalue_subtotal: 0,
-					payment: 0,
-		            guests: 0,
-		            items: 0
+					total: 0,
+		            no_of_customers: 0,
+		            qty_subtotal: 0
 		        };
             }
             
-					summary.payment += result.total;
-                    summary.guests += result.no_of_customers;
-                    summary.items += result.qty_subtotal;
             customers = {};
             consumers.forEach( function( consumer ) {
             	delete consumer.Customer;
@@ -241,15 +238,13 @@
             		customers[ d.member ].summary[ attr ] += d[ attr ];
             	}
             } );
-            this.log( this.dump( customers ) );
-			this._reportRecords.head.title = _( 'Sales Report - Detailed' );
+            
+			this._reportRecords.head.title = _( 'Detailed Customer Transaction Report' );
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
 			this._reportRecords.head.terminal_no = terminalNo;
 			
 			this._reportRecords.body = customers;
-			
-			this._reportRecords.foot.foot_datas = summary;
         },
         
         exportPdf: function() {

@@ -17,9 +17,13 @@
 		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
 		<p class="caption">${head.start_time} - ${head.end_time}</p>
 	</div>
+{for detail in body}
         <table id="body-table">
             <thead>
-                <tr>
+            	<tr>
+		        	<td colspan="15" class="subtitle">${detail.customer_id} - ${detail.name}</td>
+		        </tr>
+                <tr class="fields">
                     <th style="text-align: center;">${_( '(rpt)Terminal' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Sale Period' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Shift' )}</th>
@@ -38,29 +42,29 @@
                 </tr>
             </thead>
             <tbody>
-{for detail in body}
 {eval}
   TrimPath.RoundingPrices = detail.rounding_prices;
   TrimPath.PrecisionPrices = detail.precision_prices;
   TrimPath.RoundingTaxes = detail.rounding_taxes;
   TrimPath.PrecisionTaxes = detail.precision_taxes;
 {/eval}
-                <tr id="${detail.id}">
-                    <td style="text-align: left;">${detail.terminal_no}</td>
-                    <td style="text-align: left;">${detail.sale_period|unixTimeToString:'saleperiod'}</td>
-                    <td style="text-align: left;">${detail.shift_number}</td>
-                    <td style="text-align: left;">${detail.Order.time|unixTimeToString}</td>
-                    <td style="text-align: left;" class="hyperlink">${detail.sequence}</td>
-                    <td style="text-align: left;">${detail.invoice_no|default:''}</td>
-                    <td style="text-align: right;">${detail.no_of_customers|default:''|format:0}</td>
-                    <td style="text-align: right;">${detail.qty_subtotal|default:0|format:0}</td>
-                    <td style="text-align: right;">${detail.item_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatTaxes:true}</td>
-                    <td style="text-align: right;">${detail.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${detail.discount_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${detail.promotion_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${detail.revalue_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
+{for order in detail.orders}
+                <tr id="${order.id}">
+                    <td style="text-align: left;">${order.terminal_no}</td>
+                    <td style="text-align: left;">${order.sale_period|unixTimeToString:'saleperiod'}</td>
+                    <td style="text-align: left;">${order.shift_number}</td>
+                    <td style="text-align: left;">${order.Order.time|unixTimeToString}</td>
+                    <td style="text-align: left;" class="hyperlink">${order.sequence}</td>
+                    <td style="text-align: left;">${order.invoice_no|default:''}</td>
+                    <td style="text-align: right;">${order.no_of_customers|default:''|format:0}</td>
+                    <td style="text-align: right;">${order.qty_subtotal|default:0|format:0}</td>
+                    <td style="text-align: right;">${order.item_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.tax_subtotal|default:0|viviFormatTaxes:true}</td>
+                    <td style="text-align: right;">${order.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.promotion_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.revalue_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.total|default:0|viviFormatPrices:true}</td>
                 </tr>
 
                 <tr>
@@ -77,7 +81,7 @@
                         		<th style="text-align: right; width: 12%;">${_( '(rpt)Quantity' )}</th>
                         		<th style="text-align: right; width: 12%;">${_( '(rpt)Subtotal' )}</th>
                         	</tr>
-{for items in detail.OrderItem}
+{for items in order.OrderItem}
                             <tr>
                                 <td style="text-align: left;">${items.product_no}</td>
                                 <td style="text-align: left;">${items.product_name|default:''}</td>
@@ -102,20 +106,21 @@
 {/eval}
             <tfoot>
                 <tr>
-                    <td colspan="4" style="text-align: left;">${_( '(rpt)Records Found' ) }: ${body.length|default:0|format:0}</td>
+                    <td colspan="4" style="text-align: left;">${_( '(rpt)Records Found' ) }: ${detail.orders.length|default:0|format:0}</td>
                     <td colspan="2">${_( '(rpt)Summary' ) + ':'}</td>
-                    <td style="text-align: right;">${foot.foot_datas.guests|format:0}</td>
-                    <td style="text-align: right;">${foot.foot_datas.items|format:0}</td>
-                    <td style="text-align: right;">${foot.foot_datas.item_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${foot.foot_datas.tax_subtotal|default:0|viviFormatTaxes:true}</td>
-                    <td style="text-align: right;">${foot.foot_datas.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${foot.foot_datas.discount_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${foot.foot_datas.promotion_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${foot.foot_datas.revalue_subtotal|default:0|viviFormatPrices:true}</td>
-                    <td style="text-align: right;">${foot.foot_datas.payment|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.summary.no_of_customers|format:0}</td>
+                    <td style="text-align: right;">${detail.summary.qty_subtotal|format:0}</td>
+                    <td style="text-align: right;">${detail.summary.item_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.summary.tax_subtotal|default:0|viviFormatTaxes:true}</td>
+                    <td style="text-align: right;">${detail.summary.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.summary.promotion_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.summary.revalue_subtotal|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${detail.summary.total|default:0|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>
         </table>
         </br>
+{/for}
 </div>
 <!--/div -->
