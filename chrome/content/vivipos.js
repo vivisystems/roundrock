@@ -31,6 +31,14 @@
 
             GeckoJS.Configure.loadPreferences('vivipos');
 
+            // set log level
+            var logLevel = GeckoJS.Configure.read('vivipos.fec.debug.log_level') || 'ERROR';
+
+            GeckoJS.Log.defaultClassLevel = GeckoJS.Log[logLevel];
+            GeckoJS.Log.getAppender('console').level = GeckoJS.Log[logLevel];
+            GeckoJS.Log.getLoggerForClass('DatasourceSQL').level = GeckoJS.Log[logLevel];
+            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log[logLevel];
+
             // set main screen
             var mainscreenSettings = GeckoJS.Configure.read('vivipos.fec.mainscreen');
 
@@ -202,7 +210,7 @@
 
                 server.start(port);
 
-                GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SIMPLE HTTPD STARTUP (8080)');
+                GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS SIMPLE HTTPD STARTUP (' + port + ')');
 
                 this._httpdServer = server;
 
