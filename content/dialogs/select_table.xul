@@ -69,7 +69,10 @@
             
         </stack>
         <hbox class="dialogbtn">
-            <viviclock showdate="true" class="tableClock"/>
+            <vbox>
+                <spacer flex="1" />
+                <viviclock showdate="true"/>
+            </vbox>
             <spacer flex="1" />
             <button class="RefrashBtn" id="refresh_table_status" label="&selecttable.refreshtablestatus;" default="true" type="radio" group="func" oncommand="$do('doRefreshTableStatus', null, 'SelectTable');"/>
             <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="$do('doCancelFunc', null, 'SelectTable');"/>
