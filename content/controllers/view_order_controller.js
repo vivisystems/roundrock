@@ -10,7 +10,11 @@
 
         name: 'ViewOrder',
 
+        template: 'order_template',
+
         _orderId: null,
+
+        _data: null,
 
         load: function(inputObj) {
 
@@ -103,7 +107,7 @@
             var order = orderModel.findById(id, 2);
 
             // load template
-            var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_template.tpl');
+            var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
@@ -111,7 +115,8 @@
             data.order = order;
             data.sequence = order.sequence;
 
-            this.log('DEBUG', this.dump(order));
+            this._data = data;
+            //this.log('DEBUG', this.dump(order));
             
             var result = tpl.process(data);
 
@@ -125,6 +130,23 @@
 
             // enable void sale button only if order has status of 1 or 2
             voidBtn.setAttribute('disabled', !order || order.status < 1 || !this.Acl.isUserInRole('acl_void_transactions'));
+        },
+
+        exportRcp: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this order?' ) ) )
+        		return;
+
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+
+            var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+            var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '_' + paperSize + '.tpl');
+alert(path);
+            var file = GREUtils.File.getFile( path );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+
+            rcp.printReport( 'report', tpl, this._data );
         },
 
         voidSale: function() {

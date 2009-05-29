@@ -42,7 +42,7 @@
             </hbox>
             <hbox flex="1">
                 <box class="reportbox" flex="1">
-                    <browser type="content" id="preview_frame" src="order_template.html" flex="1"/>
+                    <browser type="content" id="preview_frame" src="tpl/order_template.html" flex="1"/>
                 </box>
             </hbox>
             <hbox flex="1">

@@ -278,13 +278,15 @@
                             txn.data.annotations[ annotationType ] = result.input0;
                         else
                             delete txn.data.annotations[ annotationType ];
+
+                        Transaction.serializeToRecoveryFile(txn);
                     }
                 });
             }
             else {
                 var aURL = "chrome://viviecr/content/annotate.xul";
                 var aName = "Annotate";
-                var aArguments = {order: txn.data, codes: codeList, sequence: txn.data.seq};
+                var aArguments = {order: txn.data, codes: codeList, sequence: txn.data.seq, txn:txn};
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
                 window.openDialog(aURL, aName, aFeatures, aArguments);

@@ -34,13 +34,47 @@
             this.addEventListener('beforeVoidItem', self.clearWarning);
             this.addEventListener('beforeModifyItem', self.beforeModifyItem);
 
-
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
+            // catch changes to price level and store it in txn.data
+            var events = GeckoJS.Session.getInstance().events;
+            if (events) {
+                events.addListener('change', this.sessionHandler, this);
+                events.addListener('remove', this.sessionHandler, this);
+                events.addListener('clear', this.sessionHandler, this);
+            }
+        },
+
+        sessionHandler: function(evt) {
+            var txn = this._getTransaction();
+            if (txn == null || txn.data == null || txn.isSubmit() || txn.isCancel())
+                return;
+
+            var key;
+            switch(evt.type) {
+                case 'change':
+                    key = evt.getData().key;
+                    if (key == 'vivipos_fec_price_level') {
+                        txn.data.price_level = evt.getData().value;
+                        Transaction.serializeToRecoveryFile(txn);
+                    }
+                    break;
+
+                case 'remove':
+                    key = evt.getData().key;
+                    if (key == 'vivipos_fec_price_level') {
+                        delete txn.data.price_level;
+                    }
+                    break;
+
+                case 'remove':
+                    delete txn.data.price_level;
+                    break;
+            }
         },
 
         suspend: function () {
@@ -2845,6 +2879,7 @@
                 this.dispatchEvent('onGetSubtotal', null);
             }
             else {
+                Transaction.serializeToRecoveryFile(oldTransaction);
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
             }
         },
@@ -3379,13 +3414,13 @@
 
             var memo;
             if (typeof plu == 'object' || plu == null || plu == '') {
-                return this.getMemoDialog(memoItem ? memoItem.memo : '');
+                this.getMemoDialog(memoItem ? memoItem.memo : '');
             }
             else {
                 memo = GeckoJS.String.trim(plu);
-                if (memo) curTransaction.appendMemo(index, memo);
+                curTransaction.appendMemo(index, memo);
+                this.subtotal();
             }           
-
             return d;
 
         },
@@ -3618,6 +3653,7 @@
                     if(curTransaction != null && index >=0) {
 
                         curTransaction.appendMemo(index, result.input0);
+                        self.subtotal();
                     }
 
                 }
@@ -3879,8 +3915,9 @@
             } else {
                 r = this.GuestCheck.table(no);
             }
-            if (r > 0)
+            if (r > 0) {
                 this.subtotal();
+            }
         },
 
         recallOrder: function() {
@@ -4080,7 +4117,7 @@
                 return;
             }
             var modified = curTransaction.isModified();
-            if (modified) {
+            if (modified) {rec
                 NotifyUtils.warn(_('This order has been modified and must be stored first'));
             // r = this.GuestCheck.store();
             // this.dispatchEvent('onStore', curTransaction);
@@ -4095,10 +4132,16 @@
             if(data) {
                 var transaction = new Transaction();
                 transaction.data = data ;
-
+                
                 this._setTransactionToView(transaction);
                 transaction.updateCartView(-1, -1);
 
+                // restore price level
+                var priceLevel = data.price_level;
+                if (priceLevel) {
+                    $do('change', priceLevel, 'Pricelevel');
+                }
+                
                 this.unserializeQueueFromRecoveryFile();
                 this.subtotal();
             }
