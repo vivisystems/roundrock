@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+<?xml-stylesheet href="chrome://viviecr/skin/user/numberpad.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/layout.css" type="text/css"?>
+
 <overlay id="retailLayoutOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -8,25 +11,28 @@
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="mainpanel" orient="vertical">
+        <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
 
-            <box id="topPanel" orient="horizontal" class="block-gb" flex="1" >
-
-                <box flex="1" style="overflow: hidden" orient="vertical" class="block-u first">
+            <box id="leftPanel" orient="vertical" class="block-gf" flex="1" >
+                <box flex="1" style="overflow: hidden" orient="vertical" class="block-u">
                     <box id="categoryPanelContainer" flex="0" class="categoryPanel" />
                     <box id="productPanelContainer" flex="1" class="productPanel" />
                 </box>
+            </box>
+            <box id="centerPanel" orient="vertical" class="block-ge" flex="1" >
                 <box orient="vertical" class="block-u" flex="1">
                     <box id="vfdPanelContainer" flex="0"/>
                     <box id="cartlistPanelContainer" flex="1"/>
-                    <box id="promotionsStatusPanelContainer" flex="0"/>
+                    <box id="visiblePromotionsStatusPanelContainer" flex="0"/>
                 </box>
             </box>
 
-            <spacer id="panelSpacer" width="0px" flex="0"/>
-
-            <box id="bottomPanel" class="bottomPanel" orient="vertical">
-                <box id="functionPanelContainer" flex="1" />
+            <box id="rightPanel" class="block-gd" orient="vertical" flex="1">
+                <box orient="vertical" class="block-u" flex="1">
+                    <numberpad id="multinumberpad" class="fe-numberpad" target="null" onkeypress="$do('keypress', event, 'Keypad');" />
+                    <spacer flex="1"/>
+                    <box id="functionPanelContainer" flex="1" />
+                </box>
             </box>
 
         </box>

@@ -14,7 +14,7 @@
 
         _orderId: null,
 
-        _data: null,
+        _orderData: null,
 
         load: function(inputObj) {
 
@@ -115,8 +115,7 @@
             data.order = order;
             data.sequence = order.sequence;
 
-            this._data = data;
-            //this.log('DEBUG', this.dump(order));
+            this._orderData = data;
             
             var result = tpl.process(data);
 
@@ -142,11 +141,11 @@
 
             var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
             var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '_' + paperSize + '.tpl');
-alert(path);
+
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 
-            rcp.printReport( 'report', tpl, this._data );
+            rcp.printReport( 'report', tpl, this._orderData );
         },
 
         voidSale: function() {

@@ -43,11 +43,23 @@
     max-width: 256px;
 }
 
+.block-ge .block-u {
+    /* 55% */
+    width: 563px;
+    min-width: 563px;
+    max-width: 563px;
+}
+
+.block-gf .block-u {
+    /* 20% */
+    width: 205px;
+    min-width: 205px;
+    max-width: 205px;
+}
+
 .block-r .block-u  {
     /* 49% */
     height: 380px;
     min-height: 380px;
     max-height: 380px;
 }
-
-

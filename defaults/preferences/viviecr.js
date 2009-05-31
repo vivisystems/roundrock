@@ -867,4 +867,4 @@ pref("vivipos.fec.registry.layouts.retail.label", "chrome://viviecr/locale/messa
 pref("vivipos.fec.registry.layouts.retail.desc", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.retail.overlay_uri", "chrome://viviecr/content/layouts/retail.xul");
 pref("vivipos.fec.registry.layouts.retail.icon", "chrome://viviecr/content/layouts/retail.png");
-pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft,ProductPanelOnTop");
+pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft");

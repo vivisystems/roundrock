@@ -3208,7 +3208,7 @@
                     NotifyUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
                     return;
                 }
-                /*
+/*
                 if (cartItem.current_qty < 0) {
                     var displayItem = curTransaction.getDisplaySeqAt(index);
                     //@todo OSD

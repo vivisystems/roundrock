@@ -51,7 +51,8 @@
                                 oncommand="$do('voidSale', null, 'ViewOrder')" />
                 </hbox>
                 <hbox class="ReportTool">
-                    <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="document.getElementById('preview_frame').contentWindow.print();" />
+                    <!--vivibutton id="print" disabled="true" class="PrintBtn" oncommand="document.getElementById('preview_frame').contentWindow.print();" /-->
+                    <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="$do('exportRcp', null, 'ViewOrder')" />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns">
                     <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->
