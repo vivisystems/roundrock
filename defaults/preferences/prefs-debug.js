@@ -12,3 +12,4 @@ pref("vivipos.fec.debug.disable_inspector", false);
 pref("vivipos.fec.debug.disable_debugger", false);
 pref("vivipos.fec.debug.disable_sqlitemanager", false);
 
+pref("vivipos.fec.debug.log_level", "TRACE");
