@@ -37,7 +37,7 @@ else {
    tax_subtotal = 0;
 }
 {/eval}
-${tax.no + ' ' + _( '(rpt)Gross') + ':'|left:14}${item_subtotal|viviFormatPrices:true|right:28}
+${tax.no + ' ' + _( '(rpt)Gross Sales') + ':'|left:14}${item_subtotal|viviFormatPrices:true|right:28}
 ${tax.no + ':'|left:14}${tax_subtotal|viviFormatTaxes:true|right:28}
 {/for}
 {/for}
@@ -64,7 +64,7 @@ else {
    tax_subtotal = 0;
 }
 {/eval}
-${tax.no + ' ' + _( '(rpt)Gross') + ':'|left:14}${item_subtotal|viviFormatPrices:true|right:28}
+${tax.no + ' ' + _( '(rpt)Gross Sales') + ':'|left:14}${item_subtotal|viviFormatPrices:true|right:28}
 ${tax.no + ':'|left:14}${tax_subtotal|viviFormatTaxes:true|right:28}
 {/for}
 ------------------------------------------

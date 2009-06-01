@@ -17,7 +17,7 @@
 <!ENTITY rptorderstatus.sortby.total "Net Sales">
 <!ENTITY rptorderstatus.sortby.annotation_type "Annotation Type">
 <!ENTITY rptorderstatus.sortby.payment_subtotal "Payment">
-<!ENTITY rptorderstatus.sortby.item_subtotal "Gross">
+<!ENTITY rptorderstatus.sortby.item_subtotal "Gross Sales">
 <!ENTITY rptorderstatus.sortby.surcharge_subtotal "Surcharge">
 <!ENTITY rptorderstatus.sortby.discount_subtotal "Discount">
 <!ENTITY rptorderstatus.sortby.promotion_subtotal "Promotion">

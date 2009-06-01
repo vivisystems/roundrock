@@ -55,7 +55,7 @@
                             'orders.promotion_subtotal, ' +
                             'orders.revalue_subtotal, ' +
                             'orders.surcharge_subtotal, ' +
-                            'orders.items_count, ' +
+                            'orders.qty_subtotal, ' +
                             'orders.no_of_customers, ' +
                             'orders.invoice_no, ' +
                             'orders.sale_period, ' +
@@ -108,7 +108,7 @@
             		case 'surcharge_subtotal':
             		case 'total':
             		case 'no_of_customers':
-            		case 'items_count':
+            		case 'qty_subtotal':
                         orderby = sortby + ' desc';
                         break;
             	}
@@ -122,12 +122,6 @@
 
 			var results = order.getDataSource().fetchAll( sql );
 			
-			// prompt for the last data row.
-            /*
-			if ( results.length == 0 )
-				alert( _( 'No datum!' ) );
-            */
-           
 			var summary = {
 				item_subtotal: 0,
 				tax_subtotal: 0,
@@ -165,7 +159,7 @@
 					record.revalue_subtotal = result.revalue_subtotal;
 					record.surcharge_subtotal = result.surcharge_subtotal;
                     record.invoice_no = result.invoice_no;
-					record.items_count = result.items_count;
+					record.qty_subtotal = result.qty_subtotal;
 					record.no_of_customers = result.no_of_customers;
 					record.terminal_no = result.terminal_no;
                     record.sale_period = result.sale_period;
@@ -182,7 +176,7 @@
 					summary.revalue_subtotal += result.revalue_subtotal;
 					summary.payment += result.total;
                     summary.guests += result.no_of_customers;
-                    summary.items += result.items_count;
+                    summary.items += result.qty_subtotal;
 				}
 				
 				var item = {};
@@ -203,7 +197,7 @@
 			// trap the last order.	
 			if ( record ) records.push( record );
 			
-			this._reportRecords.head.title = _( 'Daily Sales Report - Detail' );
+			this._reportRecords.head.title = _( 'Sales Report - Detailed' );
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
 			this._reportRecords.head.terminal_no = terminalNo;
@@ -211,6 +205,15 @@
 			this._reportRecords.body = records;
 			
 			this._reportRecords.foot.foot_datas = summary;
+        },
+        
+        exportPdf: function() {
+        	this._super( {
+        		paperSize: {
+        			width: 297,
+        			height: 210
+        		}
+        	} );
         },
         
         exportCsv: function() {

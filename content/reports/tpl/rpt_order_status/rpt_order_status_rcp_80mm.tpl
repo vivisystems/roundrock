@@ -23,7 +23,7 @@ ${'  ' + _( '(rpt)Shift' ) + ':'|left:16}${detail.shift_number|default:''|right:
 ${'  ' + _( '(rpt)Status' ) + ':'|left:16}${detail.status|right:26}
 ${'  ' + _( '(rpt)Invoice Number' ) + ':'|left:16}${detail.invoice_no|default:''|right:26}
 ${'  ' + _( '(rpt)Invoice Count' ) + ':'|left:16}${detail.invoice_count|default:''|right:26}
-${'  ' + _( '(rpt)Gross' ) + ':'|left:16}${detail.item_subtotal|viviFormatPrices:true|right:26}
+${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:16}${detail.item_subtotal|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Surcharge' ) + ':'|left:16}${detail.surcharge_subtotal|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Discount' ) + ':'|left:16}${detail.discount_subtotal|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Promotion' ) + ':'|left:16}${detail.promotion_subtotal|viviFormatPrices:true|right:26}
@@ -42,7 +42,7 @@ ${'  ' + _( '(rpt)Payment' ) + ':'|left:16}${detail.payment|viviFormatPrices:tru
 ${_( '(rpt)Records Found' ) + ': ' + body.length|left:42}
 ------------------------------------------
 ${_( '(rpt)Summary' )}
-${'  ' + _( '(rpt)Gross' ) + ':'|left:16}${foot.foot_datas.item_subtotal|viviFormatPrices:true|right:26}
+${'  ' + _( '(rpt)Gross Sales' ) + ':'|left:16}${foot.foot_datas.item_subtotal|viviFormatPrices:true|right:26}
 ${'  '+ _( '(rpt)Surcharge' ) + ':'|left:16}${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Discount' ) + ':'|left:16}${foot.foot_datas.discount_subtotal|viviFormatPrices:true|right:26}
 ${'  ' + _( '(rpt)Promotion' ) + ':'|left:16}${foot.foot_datas.promotion_subtotal|viviFormatPrices:true|right:26}

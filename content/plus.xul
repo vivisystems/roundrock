@@ -315,19 +315,19 @@
                                                     <label value="&plus.setitem.label;" control="setitem_label"/>
                                                     <textbox id="setitem_label" value="" size="15"
                                                              form="setitemForm" name="label" default=""
-                                                             onfocus="this.select()" oninput="$do('validatesetitemForm', null, 'Plus')"/>
+                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
                                                 </vbox>
                                                 <vbox>
                                                     <label value="&plus.setitem.base.price;" control="setitem_baseprice"/>
                                                     <textbox id="setitem_baseprice" size="3" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" class="geneditbox right"
                                                              form="setitemForm" name="baseprice" default="0"
-                                                             onfocus="this.select()" oninput="$do('validateSetItemForm', null, 'Plus')"/>
+                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
                                                 </vbox>
                                                 <vbox>
                                                     <label value="&plus.setitem.quantity;" control="setitem_quantity"/>
                                                     <textbox id="setitem_quantity" size="3" type="number" value="1" decimalplaces="0" min="1" hidespinbuttons="true" class="geneditbox right"
                                                              form="setitemForm" name="quantity" default="1"
-                                                             onfocus="this.select()" oninput="$do('validateSetItemForm', null, 'Plus')"/>
+                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
                                                 </vbox>
                                             </row>
                                             <row>
@@ -340,7 +340,7 @@
                                                     <textbox id="setitem_preset" size="3" readonly="true" value=""
                                                              form="setitemForm" name="preset"
                                                              onclick="$do('selectProduct', null, 'Plus')"
-                                                             onfocus="this.select()" oninput="$do('validateSetItemForm', null, 'Plus')"/>
+                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
                                                 </vbox>
                                                 <vbox>
                                                     <label value="&plus.setitem.linkgroup;" control="setitem_linkgroup"/>
@@ -348,7 +348,7 @@
                                                     <textbox id="setitem_linkgroup" size="3" readonly="true" value=""
                                                              form="setitemForm" name="linkgroup"
                                                              onclick="$do('selectProductGroup', null, 'Plus')"
-                                                             onfocus="this.select()" oninput="$do('validateSetItemForm', null, 'Plus')"/>
+                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
                                                 </vbox>
                                             </row>
                                         </rows>

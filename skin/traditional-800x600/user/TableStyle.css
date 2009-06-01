@@ -83,14 +83,14 @@
 	margin-top: 10px;
 }
 
-/* ¶W¹L®É¶¡ */
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
 .style01 .overtime {
 	background: #9e0b0f;
 	
 	color: yellow;
 	font-weight: bold;
 }
-/* ¶W¹L¤H¼Æ */
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
 .style01 .overpeople {
 	color: #9e0b0f;
 	font-weight: bold;
@@ -204,14 +204,14 @@
 	margin-top: 10px;
 }
 
-/* ¶W¹L®É¶¡ */
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
 .style02 .overtime {
 	background: #9e0b0f;
 	
 	color: yellow;
 	font-weight: bold;
 }
-/* ¶W¹L¤H¼Æ */
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
 .style02 .overpeople {
 	color: #9e0b0f;
 	font-weight: bold;
@@ -320,14 +320,14 @@
 	margin-top: 10px;
 }
 
-/* ¶W¹L®É¶¡ */
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
 .style03 .overtime {
 	background: #9e0b0f;
 	
 	color: yellow;
 	font-weight: bold;
 }
-/* ¶W¹L¤H¼Æ */
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
 .style03 .overpeople {
 	color: #9e0b0f;
 	font-weight: bold;
@@ -445,12 +445,12 @@
 	margin-top: 20px;
 }
 
-/* ¶W¹L®É¶¡ */
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
 .style04 .overtime {
 	color: #9e0b0f;
 	font-weight: bold;
 }
-/* ¶W¹L¤H¼Æ */
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
 .style04 .overpeople {
 	color: white;
 	font-weight: bold;
@@ -487,4 +487,179 @@
 }
 .style04 .yellowtable {
 	border: 1px solid #f2c54e;
+}
+
+
+
+/****************** style 05 **********************/
+
+.style05 {
+	font-size: 9pt;
+    width: 138px;
+	max-height: 100px;
+        height: 95px;
+}
+.style05 > div {
+	width: 138px;
+	height: 100px;
+	position:relative; 
+	background: transparent url(images/paper.png) no-repeat center bottom;
+}
+.style05 .topItem {
+	position:absolute;
+	top: 8px;
+	left: 8px;
+	z-index: 100;
+	width: 126px;
+	height: 91px;
+}
+.style05 .bgItem {
+	text-align: right;
+	color: #e8e8e8;
+	font-size: 44pt;
+	font-weight: bold;
+	position:absolute;
+	bottom: 10px;
+	right: 10px;
+    width: 100px;
+    height: 55px;
+	z-index: 40;
+}
+.style05 .bottomItem {
+  position:absolute;
+  bottom: 4px;
+  right: 8px;
+	height: 16px;
+	padding: 0px;
+	text-align:right;
+	width: 60px;
+	z-index: 50;
+	font-size: 12pt;
+}
+.style05 .tableData {
+	width: 120px;
+	margin-left: 10px;
+}
+.style05 .tableInfo {
+	padding: 4px;
+    margin-left: 4px;
+}
+.style05 .tableInfo .cneckNo,
+.style05 .tableInfo .clerk,
+.style05 .tableInfo .total,
+.style05 .remark {
+	margin-top: 2px;
+	overflow: hidden;
+}
+.style05 .tableName {
+	color: #372213;
+	padding: 2px;
+	margin-left: 4px;
+	margin-top: 2px;
+	word-wrap: break-word;
+	word-break:break-all;
+}
+.style05 .checkNum{
+	position:absolute;
+	top: 30px;
+	right: 12px;
+	z-index: 130;
+	color: #9e0b0f;
+	font-weight: bold;
+}
+.style05 .clerk{
+	float: right;
+	text-align: right;
+	width: 70px;
+}
+.style05 .time{
+	position:absolute;
+	top: 9px;
+	right: 28px;
+	z-index: 120;
+	text-align: right;
+	background: transparent url(images/time.png) no-repeat 0px center;
+	font-size: 8pt;
+	width: 49px;
+	color: black;
+}
+.style05 .tableNo {
+	font-size: 16pt;
+	font-weight: bold;
+    margin: 2px 2px 0 2px;
+	padding: 9px 18px 0 2px;
+	line-height: 16px;
+}
+
+
+.style05 .thumbtack {
+	position:absolute;
+	top: 0;
+	right: 8px;
+	z-index: 110;
+	width: 18px;
+	height: 28px;
+}
+
+/* ï¿½Wï¿½Lï¿½É¶ï¿½ */
+.style05 .overtime {
+	background: #9e0b0f;
+	
+	color: yellow;
+	font-weight: bold;
+}
+/* ï¿½Wï¿½Lï¿½Hï¿½ï¿½ */
+.style05 .overpeople {
+	color: #9e0b0f;
+	font-weight: bold;
+}
+
+
+.style05 .redtable .tableNo {
+	color: #9e0b0f;
+	border-bottom: 1px solid #9e0b0f;	
+}
+.style05 .redtable .thumbtack {
+	background: transparent url(images/thumbtack_red.png) no-repeat 0px center;	
+}
+
+.style05 .bluetable .tableNo {
+	color: #354f66;
+	border-bottom: 1px solid #354f66;	
+}
+.style05 .bluetable .thumbtack {
+	background: transparent url(images/thumbtack_blue.png) no-repeat 0px center;	
+}
+.style05 .bluetable .time {
+	background: none;
+}
+
+.style05 .greentable .tableNo {
+	color: #a2a70f;
+	border-bottom: 1px solid #a2a70f;	
+}
+.style05 .greentable .thumbtack {
+	background: transparent url(images/thumbtack_green.png) no-repeat 0px center;	
+}
+.style05 .greentable .people{
+	font-weight: bold;
+	font-size: 16pt;
+	color:  #ed145b;	
+}
+.style05 .greentable .bottomItem{
+	bottom: 10px;
+}
+.style05 .greentable .time {
+	background: none;
+}
+
+.style05 .yellowtable .tableNo {
+	color: #f2c54e;
+	border-bottom: 1px solid #f2c54e;	
+}
+.style05 .yellowtable .thumbtack {
+	background: transparent url(images/thumbtack_yellow.png) no-repeat 0px center;	
+}
+.style05 .yellowtable .time {
+	background: none;
 }

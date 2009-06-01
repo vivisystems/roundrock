@@ -13,7 +13,7 @@
         _datas: null,
         _start: null,
         _end: null,
-        _machineid: null,
+        _terminalNo: null,
         _periodtype: null,
         _shiftno: null,
         
@@ -22,47 +22,51 @@
         _getConditions: function() {
             this._start = document.getElementById( 'start_date' ).value;
             this._end = document.getElementById( 'end_date' ).value;
-            this._machineid = document.getElementById( 'machine_id' ).value;
+            this._terminalNo = document.getElementById( 'terminal_no' ).value;
             this._periodtype = document.getElementById( 'period_type' ).value;
             this._shiftno = document.getElementById( 'shift_no' ).value;
+            this._num_dept = document.getElementById( 'num_dept' ).value;
+            this._num_product = document.getElementById( 'num_product' ).value;
         },
         
-        _setConditions: function( start, end, machineid, periodtype, shiftno ) {
+        _setConditions: function( start, end, terminalNo, periodtype, shiftno, num_dept, num_product ) {
         	this._start = start;
         	this._end = end;
-        	this._machineid = machineid;
+        	this._terminalNo = terminalNo;
             this._periodtype = periodtype;
             this._shiftno = shiftno;
+            this._num_dept = num_dept;
+            this._num_product = num_product;
         },
         
         setConditionsAnd_reportRecords: function( parameters ) {
-        	this._setConditions( parameters.start, parameters.end, parameters.machineid, parameters.periodtype, parameters.shiftno );
+        	this._setConditions( parameters.start, parameters.end, parameters.terminalNo, parameters.periodtype, parameters.shiftno, parameters.num_dept || 10, parameters.num_product || 10 );
         	this._set_reportData();
         },
 
         _hourlySales: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
 
             var fields = [
             				'orders.transaction_created',
                             'orders.terminal_no',
                             'orders.status',
-                            'SUM("orders"."total") AS "Order.HourTotal"',
+                            'SUM("orders"."item_subtotal") AS "Order.HourGrossSales"',
                             // 'STRFTIME("%Y-%m-%d %H","orders"."transaction_created_format") AS "Order.Hour"',
                             'STRFTIME("%H",DATETIME("orders"."transaction_created", "unixepoch", "localtime")) AS "Order.Hour"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
-                            'SUM("orders"."items_count") AS "Order.ItemsCount"'
+                            'SUM("orders"."qty_subtotal") AS "Order.QtySubtotal"'
                         ];
 
              var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end +
                             "' AND orders.status='1'";
                             
-            if ( this._machineid.length > 0 ) {
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
+            if ( this._terminalNo.length > 0 ) {
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
                 var groupby = 'orders.terminal_no,"Order.Hour"';
             } else {
                 var groupby = '"Order.Hour"';
@@ -77,24 +81,29 @@
             data.summary = {};
             data.summary.Guests = 0;
             data.summary.OrderNum = 0;
-            data.summary.HourTotal = 0.0;
+            data.summary.HourGrossSales = 0.0;
             
             var order = new OrderModel();
-            data.records = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1 } );
+            data.records = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1, limit: this._csvLimit } );
 
 			data.records.forEach( function( record ) {
 				data.summary.Guests += record.Guests;
 				data.summary.OrderNum += record.OrderNum;
-				data.summary.HourTotal += record.HourTotal;
+				data.summary.HourGrossSales += record.HourGrossSales;
 			} );			
 			
             return data;
         },
 
-        _deptSalesBillboard: function() {
-            // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+        _deptSalesBillboard: function(rows) {
+			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+			
+            rows = parseInt( rows );
+            if ( isNaN( rows ) )
+            	rows = 10;
+            
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
 
             var orderItem = new OrderItemModel();
 
@@ -106,7 +115,7 @@
                             'order_items.product_no',
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
-                            'SUM("order_items"."current_subtotal") as "OrderItem.total"',
+                            'SUM("order_items"."current_subtotal") as "OrderItem.gross"',
                             'order_items.current_tax'
                         ];
                             
@@ -114,47 +123,66 @@
                             "' AND orders." + this._periodtype + "<='" + end +
                             "' AND orders.status='1'";
 
-            if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
+            if ( this._terminalNo.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
                 
             if ( this._shiftno.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var groupby = 'order_items.cate_no';
-            var orderby = '"OrderItem.qty" DESC';
+            var orderby = '"OrderItem.gross" DESC, "OrderItem.qty" DESC';
             
             var data = {};
             var summary = {};
             summary.qty = 0;
-            summary.total = 0.0;
+            summary.gross = 0.0;
 			
-			var num_rows_to_get = data.num_rows_to_get = 10;
-            data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: num_rows_to_get } );
+            data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: rows } );
             
-            var cate = new CategoryModel();
-            var cate_records = cate.find( 'all', { fields: [ 'no', 'name' ] } );
-            
+            var data_obj = {};
             data.records.forEach( function( record ) {
             	summary.qty += record.qty;
-            	summary.total += record.total;
+            	summary.gross += record.gross;
             	
-            	cate_records.forEach( function ( cate_record ) {
-            		if ( record.cate_no == cate_record.no ) {
-            			record.cate_name = cate_record.name;
-            			return;
-            		}
-            	} );
+            	data_obj[ record.cate_no ] = record;
             } );
             
+            if ( data.records.length < rows ) {
+		        // append the depts without any transaction record.
+		        var cate = new CategoryModel();
+		        var cate_records = cate.find( 'all', { fields: [ 'no', 'name' ], order: 'no' } );
+		        
+		        for ( var i = 0; i < rows - data.records.length; i++ ) {
+		        	var record = cate_records[ i ];
+		        	if ( !record )
+		        		break;
+		     
+		        	if ( !( record.no in data_obj ) ) {
+		        		data_obj[ record.no ] = {
+		        			cate_no: record.no,
+		        			cate_name: record.name,
+		        			qty: 0,
+		        			gross:0
+		        		};
+		        	}
+		        }
+		    }
+            
+            data.records = data_obj;
             data.summary = summary;
-
+            
             return data;
         },
 
-        _prodSalesBillboard: function() {
-            // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+        _prodSalesBillboard: function(rows) {
+			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+			
+            rows = parseInt( rows );
+            if ( isNaN( rows ) )
+            	rows = 10;
+            
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
 
             var orderItem = new OrderItemModel();
 
@@ -164,57 +192,81 @@
                             'order_items.product_no',
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
-                            'SUM("order_items"."current_subtotal") as "OrderItem.total"',
-                            'order_items.current_tax'
+                            'SUM("order_items"."current_subtotal") as "OrderItem.gross"'
                          ];
                             
              var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end +
                             "' AND orders.status='1'";
                             
-            if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
+            if ( this._terminalNo.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
                 
             if ( this._shiftno.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 
             var groupby = 'order_items.product_no';
-            var orderby = '"OrderItem.qty" DESC';
+            var orderby = '"OrderItem.gross" DESC, "OrderItem.qty" DESC';
             
             var data = {};
             data.summary = {};
             data.summary.qty = 0;
-            data.summary.total = 0.0;
+            data.summary.gross = 0.0;
 			
-			var num_rows_to_get = data.num_rows_to_get = 10;
-            data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: num_rows_to_get } );
+            data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: rows } );
             
+            var data_obj = {};
             data.records.forEach( function( record ) {
             	data.summary.qty += record.qty;
-            	data.summary.total += record.total;
+            	data.summary.gross += record.gross;
+            	
+            	data_obj[ record.product_no ] = record;
             } );
-
+            
+            if ( data.records.length < rows ) {
+		        // append the products without any transaction record.
+		        var product = new ProductModel();
+		        var product_records = product.find( 'all', { fields: [ 'no', 'name' ], order: 'no' } );
+		        
+		        for ( var i = 0; i < rows - data.records.length; i++ ) {
+		        	var record = product_records[ i ];
+		        	if ( !record )
+		        		break;
+		        		
+		        	if ( !( record.no in data_obj ) ) {
+		        		data_obj[ record.no ] = {
+		        			product_no: record.no,
+		        			product_name: record.name,
+		        			qty: 0,
+		        			gross:0
+		        		};
+		        	}
+		        }
+		    }
+            
+            data.records = data_obj;
             return data;
         },
 
         _paymentList: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
 
             var fields = [
                             'order_payments.name',
                             'order_payments.memo1',
-                            'sum( order_payments.amount ) as "OrderPayment.amount"',
-                            'sum( order_payments.change ) as "OrderPayment.change"'
+                            'sum( order_payments.change) as "OrderPayment.change"',
+                            'sum( order_payments.amount) as "OrderPayment.amount"',
+                            'sum( order_payments.origin_amount ) as "OrderPayment.origin_amount"'
                        	 ];
 
              var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end +
                             "' AND orders.status='1'";
 
-            if ( this._machineid.length > 0 ) {
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
+            if ( this._terminalNo.length > 0 ) {
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
                 var groupby = 'orders.terminal_no, order_payments.name, order_payments.memo1';
                 var orderby = 'orders.terminal_no, order_payments.name';
             } else {
@@ -228,44 +280,114 @@
             var data = {};
             var summary = {};
             summary.payment_total = 0;
-            summary.change_total = 0;
 
             var orderPayment = new OrderPaymentModel();
             
-            var records = orderPayment.find( 'all',{ fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            var records = orderPayment.find( 'all',{ fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
             
-            var paymentList = [];
-            var name;
-            var payment;
+            var paymentList = {};
+            var giftcardExcess;
+            var cashChange = 0;
+            var cashRecord;
+
+            var Currencies = GeckoJS.Session.get('Currencies');
+            var localCurrencySymbol = '';
+            if (Currencies && Currencies.length > 0) {
+                localCurrencySymbol = Currencies[0].currency_symbol;
+            }
             records.forEach( function( record ) {
-            	if ( record.name != name ) {
-            		if ( payment )
-            			paymentList.push( payment );
-            		
+
+                var payment;
+                if (!(record.name in paymentList)) {
             		payment = {
             			name: record.name,
-            			total: 0,
+            			total: 0.0,
             			detail: []
             		}
-            		
-            		name = record.name;
-            	} 
-            	
-            	payment.total += record.amount - record.change;
+                    paymentList[ record.name ] = payment;
+            	}
+
+                payment = paymentList[ record.name ];
+
+                if (record.name == 'giftcard') {
+                    // check if we need to update giftcard excess record
+                    if (record.amount != record.origin_amount) {
+                        var excess = record.amount - record.origin_amount;
+                        if (!giftcardExcess) {
+                            giftcardExcess = {
+                                name: 'giftcard',
+                                memo1: _('(rpt)giftcard excess amount'),
+                                amount: excess
+                            };
+                        }
+                        else {
+                            giftcardExcess.amount += excess;
+                        }
+                    }
+                    record.amount = record.origin_amount;
+                }
+
+            	payment.total += record.amount;
             	payment.detail.push( record );
+                cashChange += record.change;
             	            	
             	summary.payment_total += record.amount;
-            	summary.change_total += record.change;
+
+                if (record.name == 'cash') {
+                    if (record.memo1) {
+                        record.amount = record.origin_amount;
+                    }
+                    else {
+                        record.memo1 = localCurrencySymbol;
+                        cashRecord = record;
+                    }
+                }
             });
-            
-            if ( payment )
-            	paymentList.push( payment );
-            	
-            paymentList.forEach( function( payment ) {
+
+            if (giftcardExcess && paymentList[ 'giftcard' ]) {
+                paymentList[ 'giftcard' ].detail.push(giftcardExcess);
+                /*
+                paymentList[ 'giftcard' ].total += giftcardExcess.amount;
+                summary.payment_total += giftcardExcess.amount;
+                */
+            }
+
+            // subtract cashChange from cashRecord, cash payment totals, and summary totals
+            if (cashChange != 0) {
+                if (!cashRecord) {
+                    if (!('cash' in paymentList)) {
+                        paymentList[ 'cash' ] = {
+                            name: 'cash',
+                            total: 0,
+                            detail: []
+                        };
+                    }
+
+                    // insert a detail record for local cash
+                    cashRecord = {name: 'cash', memo1: localCurrencySymbol, amount: 0, change: 0};
+                    paymentList[ 'cash' ].detail.push(cashRecord);
+                }
+                // subtract cashChange from cashRecord
+                cashRecord.amount -= cashChange;
+
+                // subtract cashChange from cash payment totals
+                paymentList[ 'cash' ].total -= cashChange;
+
+                // subtract cashChange from summary totals
+                summary.payment_total -= cashChange;
+            }
+
+            paymentList = GeckoJS.BaseObject.getValues(paymentList);
+            paymentList.sort(function(a, b) {
+                return a['name'] > b['name'];
+            });
+            /*
+            for (p in paymentList) {
+                var payment = paymentList[p];
             	if ( payment.detail.length == 1 )
             		delete( payment.detail );
-            } );
-            
+            }
+            */
             data.records = paymentList;
             data.summary = summary;
 
@@ -278,18 +400,18 @@
             end = parseInt( this._end / 1000, 10 );
 
             var fields = [
-                            'SUM("orders"."total") AS "Order.Total"',
-                            'SUM( "orders"."item_subtotal" ) AS "Order.ItemSubtotal"',
+                            'SUM("orders"."total") AS "Order.NetSales"',
+                            'SUM( "orders"."item_subtotal" ) AS "Order.GrossSales"',
+                            'CAST( AVG("orders"."total") AS INTEGER ) AS "Order.AvgNetSales"',
+                            'CAST( AVG("orders"."item_subtotal") AS INTEGER ) AS "Order.AvgGrossSales"',
                             'SUM( "orders"."discount_subtotal" ) AS "Order.DiscountSubtotal"',
                             'SUM( "orders"."surcharge_subtotal" ) AS "Order.SurchargeSubtotal"',
                             'SUM( "orders"."tax_subtotal" ) AS "Order.TaxSubtotal"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
-                            'SUM( "orders"."total" ) / SUM( "orders"."no_of_customers" ) AS "Order.AvgTotalPerGuest"',
-                            'SUM("orders"."items_count") AS "Order.ItemsCount"',
-                            'CAST( AVG("orders"."total") AS INTEGER ) AS "Order.AvgTotal"',
+                            'SUM("orders"."qty_subtotal") AS "Order.QtySubtotal"',
                             'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
-                            'AVG("orders"."items_count") AS "Order.AvgItemsCount"',
+                            'AVG("orders"."qty_subtotal") AS "Order.AvgQtySubtotal"',
                             'SUM( "orders"."promotion_subtotal" ) AS "Order.PromotionSubtotal"',
                             'SUM( "orders"."revalue_subtotal" ) AS "Order.RevalueSubtotal"'
                         ];
@@ -298,8 +420,8 @@
                             "' AND orders." + this._periodtype + "<='" + end +
                             "' AND orders.status='1'";
                             
-            if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
+            if ( this._terminalNo.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
                 
             if ( this._shiftno.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
@@ -309,15 +431,18 @@
             var orderby = 'orders.terminal_no,orders.' + this._periodtype;
 
             var order = new OrderModel();
-            var orderRecords = order.find( 'first', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 0 } );
-            
-            // get the number of sold items.
-            var sql = "select sum( current_qty ) as qty from order_items join orders on orders.id = order_items.order_id where " + conditions;
-            var orderItem = new OrderItemModel();
-            var orderItemRecords = orderItem.getDataSource().fetchAll( sql );
-            
-            orderRecords.ItemsCount = orderItemRecords[ 0 ].qty;
-            
+            var orderRecord = order.find( 'first', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 0, limit: this._csvLimit } );
+
+            if (orderRecord) {
+                if (orderRecord.Guests > 0) {
+                    orderRecord.AvgNetSalesPerGuest = orderRecord.NetSales / orderRecord.Guests;
+                    orderRecord.AvgGrossSalesPerGuest = orderRecord.GrossSales / orderRecord.Guests;
+                }
+                else {
+                    orderRecord.AvgNetSalesPerGuest = 0;
+                    orderRecord.AvgGrossSalesPerGuest = 0;
+                }
+            }
             // get the number of voided orders.
             var where = "status = -2";
             var periodType;
@@ -332,20 +457,18 @@
             	where += " and orders.void_shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
             	
             var sql = 'select count( id ) as VoidedOrders from orders where ' + where;
-            orderRecords.VoidedOrders = order.getDataSource().fetchAll( sql )[ 0 ].VoidedOrders;
+            orderRecord.VoidedOrders = order.getDataSource().fetchAll( sql )[ 0 ].VoidedOrders;
             
-            return orderRecords;
+            return orderRecord;
         },
         
         _taxSummary: function() {
         	// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
             
             var fields = [
                             'order_items.tax_name',
-                            'order_items.tax_rate',
-                            'order_items.tax_type',
                             'sum( order_items.included_tax ) as "included_tax"',
                             'sum( order_items.current_tax ) as "tax_subtotal"'
                         ];
@@ -354,41 +477,25 @@
                             "' AND orders." + this._periodtype + "<='" + end +
                             "' AND orders.status='1'";
 
-            if ( this._machineid.length > 0)
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
+            if ( this._terminalNo.length > 0)
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
                 
             if ( this._shiftno.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
 			
-            var groupby = 'order_items.tax_name, order_items.tax_rate, order_items.tax_type';
-            var orderby = 'tax_subtotal desc';
+            var groupby = 'order_items.tax_name';
+            var orderby = 'order_items.tax_name desc';
             
             var data = {};
             var summary = {};
-            summary.tax_total = 0;
-            
+            summary.addon_tax_total = 0;
+            summary.included_tax_total = 0;
             var orderItem = new OrderItemModel();
-            data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
 
             data.records.forEach( function( record ) {
-            	summary.tax_total += record.tax_subtotal;
-            	
-            	if ( record.included_tax )
-            		record.tax_subtotal += record.included_tax;
-            	
-            	var rate_type = TaxComponent.prototype.getTax( record.tax_name ).rate_type;
-            	
-            	if ( !record.tax_rate || record.tax_rate == '' ) 
-            		record.tax_rate = 0;
-            		
-            	if ( record.tax_rate == 0 )
-            		rate_type = '';
-            	
-            	if ( rate_type == '%' )
-            		record.tax_rate += rate_type;
-            	else record.tax_rate = rate_type + record.tax_rate;
-            	
-            	record.tax_type = _( record.tax_type );
+            	summary.addon_tax_total += record.tax_subtotal;
+            	summary.included_tax_total += record.included_tax;
             });
 			
 			data.summary = summary;
@@ -398,21 +505,21 @@
 
 		_destinationSummary: function() {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
             
             var fields = [
                             'orders.destination as "Order.destination"',
                             'count( orders.id ) as "Order.num_trans"',
-                            'sum( orders.total ) as "Order.total"'
+                            'sum( orders.item_subtotal ) as "Order.gross"'
                          ];
 
             var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end +
                             "' AND orders.status='1' AND orders.destination <> ''";
 
-            if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
+            if ( this._terminalNo.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
                 
             if ( this._shiftno.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
@@ -421,13 +528,18 @@
             var orderby = 'orders.destination';
             
             var order = new OrderModel();
-            var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
-            
-            // calculate the number of the transaction.
-            var total_trans = order.find( 'first', { fields: 'count( orders.id ) as num', conditions: conditions, recursive: 1 } ).num;
+            var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 0, limit: this._csvLimit } );
+
+            datas.forEach(function(o) {
+                if (o.num_trans > 0) {
+                    o.gross_per_trans = o.gross / o.num_trans;
+                }
+                else {
+                    o.gross_per_trans = 0.0;
+                }
+            });
             
             var records = {};
-            records.total_trans = total_trans;
             records.data = datas;
 
 			return records;
@@ -435,62 +547,53 @@
 		
 		_promotionSummary: function() {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
             
-            var fields = 	'sum( op.discount_subtotal ) as discount_subtotal, ' +
-            				'op.promotion_id as promotion_id, ' +
-            				'count( op.id ) as matched_count';
-
-            var conditions = 'o.' + this._periodtype + '>="' + start +
-                            '" and o.' + this._periodtype + '<="' + end + '"' +
-                            ' and o.status = 1';
+            var fields = 	'promotion_id,' +
+                            'name,' +
+                            'discount_subtotal';
+                        
+            var conditions = 'orders.' + this._periodtype + '>="' + start +
+                            '" and orders.' + this._periodtype + '<="' + end + '"' +
+                            ' and orders.status = 1';
             
-            if ( this._machineid.length > 0 )
-                conditions += " and o.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
+            if ( this._terminalNo.length > 0 )
+                conditions += " and orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
             
             if ( this._shiftno.length > 0 )
-            	conditions += " and o.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
-
-            var groupby = 'op.promotion_id';
-            var orderby = 'op.promotion_id';
-			
-			var sql = 	'select ' + fields + ' from order_promotions op join orders o on op.order_id = o.id' +
-            			' where ' + conditions + ' group by ' + groupby + ' order by ' + orderby + ';';
-           	
-            var orderModel = new OrderModel();
-  			var records = orderModel.getDataSource().fetchAll( sql );
-  			
-  			var promotionModel = new PromotionModel();
-  			sql = 'select id, name, code from promotions group by id;';
-  			var promotionIds = promotionModel.getDataSource().fetchAll( sql );
+            	conditions += " and orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
+            
+            var orderPromotionModel = new OrderPromotionModel();
+  			var records = orderPromotionModel.find('all', {
+                fields: fields,
+                conditions: conditions,
+                recursive:1,
+                limit: this._csvLimit
+            });
   			
   			var results = {};
   			var summary = {
-  				matched_count: 0,
+  				matched_count: records.length,
   				discount_subtotal: 0
   			};
   			
-  			promotionIds.forEach( function( promotionId ) {
-  				results[ promotionId.id ] = {
-  					name: promotionId.name,
-  					code: promotionId.code,
-  					discount_subtotal: 0,
-  					matched_count: 0
-  				}
-  			} );
-  			
   			records.forEach( function( record ) {
-  				results[ record.promotion_id ].discount_subtotal += record.discount_subtotal;
-  				results[ record.promotion_id ].matched_count += record.matched_count;
-  				
-  				summary.matched_count += record.matched_count;
-  				summary.discount_subtotal += record.discount_subtotal;
+                if (!( record.promotion_id in results )) {
+                    results[ record.promotion_id ] = {
+                        name: record.name,
+                        discount_subtotal: record.discount_subtotal,
+                        matched_count: 1
+                    }
+  				}
+                else {
+                    results[record.promotion_id].discount_subtotal += record.discount_subtotal;
+                    results[record.promotion_id].matched_count++;
+                }
+                summary.discount_subtotal += record.discount_subtotal;
   			} );
-  			
-  			// for sorting.
-  			results = GeckoJS.BaseObject.getValues( results );
-  			
+
+            results = GeckoJS.BaseObject.getValues(results);
   			results.sort( function( a, b ) {
   				a = a.discount_subtotal;
   				b = b.discount_subtotal;
@@ -499,7 +602,7 @@
   				if ( a < b ) return -1;
   				return 0;
   			} );
-  			
+
   			var data = {};
   			data.results = results;
   			data.summary = summary;
@@ -509,8 +612,8 @@
 		
 		_discountSurchargeSummary: function( discountOrSurcharge ) {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000, 10 );
-            end = parseInt( this._end / 1000, 10 );
+            var start = parseInt( this._start / 1000, 10 );
+            var end = parseInt( this._end / 1000, 10 );
             
             var fields = [
                             discountOrSurcharge + '_name',
@@ -522,8 +625,8 @@
                             "' AND orders." + this._periodtype + "<='" + end +
                             "' AND orders.status='1' AND " + discountOrSurcharge + "_name <> ''";
 
-            if ( this._machineid.length > 0 )
-                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._machineid ) + "%'";
+            if ( this._terminalNo.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( this._terminalNo ) + "%'";
                 
             if ( this._shiftno.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( this._shiftno ) + "'";
@@ -532,7 +635,7 @@
             var orderby = 'amount desc';
             
             var orderItem = new OrderItemModel();
-            var results = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            var results = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
             
             var summary = {
             	num_rows: 0,
@@ -544,7 +647,7 @@
             results.forEach( function( result ) {
             	summary.num_rows += result.num_rows;
             	summary.amount += result.amount;
-            	result.itemOrAddition = _( '(rpt)ITEM' );
+            	result.itemOrAddition = _( '(rpt)Item Discount/Surcharge' );
             	
             	data.push( result );
             } );
@@ -556,12 +659,12 @@
                          ];
             
             var orderAddition = new OrderAdditionModel();
-            results = orderAddition.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            results = orderAddition.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: this._csvLimit } );
             
             results.forEach( function( result ) {
             	summary.num_rows += result.num_rows;
             	summary.amount += result.amount;
-            	result.itemOrAddition = _( '(rpt)ORDER' );
+            	result.itemOrAddition = _( '(rpt)Order Discount/Surcharge' );
             	
             	data.push( result );
             } );
@@ -587,13 +690,13 @@
             var end_str = ( new Date( this._end ) ).toString( 'yyyy/MM/dd HH:mm' );
 
 			this._reportRecords.head.title = _( 'Sales Summary Report' );
-			this._reportRecords.head.subtitle = '( based on ' + _( this._periodtype ) + ' )';
+			this._reportRecords.head.subtitle = _( '(rpt)(based on %S)', [_( '(rpt)' + this._periodtype ) ]);
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
 			
 			this._reportRecords.body.hourly_sales = this._hourlySales();
-			this._reportRecords.body.dept_sales = this._deptSalesBillboard();
-			this._reportRecords.body.prod_sales = this._prodSalesBillboard();
+			this._reportRecords.body.dept_sales = this._deptSalesBillboard( this._num_dept || 10 );
+			this._reportRecords.body.prod_sales = this._prodSalesBillboard( this._num_product || 10 );
 			this._reportRecords.body.payment_list = this._paymentList();
 			this._reportRecords.body.sales_summary = this._salesSummary();
 			this._reportRecords.body.destination_summary = this._destinationSummary();
@@ -603,8 +706,8 @@
 			this._reportRecords.body.promotion_summary = this._promotionSummary();
 		},
 		
-		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo ) {
-			this._setConditions( start, end, terminalNo, periodType, shiftNo );
+		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo, num_dept, num_product ) {
+			this._setConditions( start, end, terminalNo, periodType, shiftNo, num_dept, num_product );
 			this._set_reportData();
 			this._setTemplateDataHead();
 			
@@ -633,6 +736,10 @@
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 			
 			return tpl.process( this._reportRecords );
+        },
+
+        exportCsv: function() {
+            this._super(this, true);
         },
 
         load: function() {

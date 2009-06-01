@@ -1,3 +1,4 @@
+<!-- for the coloring of the gedit! -->
 <div id="printhead">
 	<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
 </div>
@@ -28,7 +29,7 @@
                 <th style="text-align: left;">${_( '(rpt)Event' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Payment Type' )}</th>
-                <th style="text-align: left;">${_( '(rpt)Amount' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Amount' )}</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +40,7 @@
                 <td style="text-align: left;">${item.clerk_displayname|default:''}</td>
                 <td style="text-align: left;">${item.created|unixTimeToString}</td>
                 <td style="text-align: left;">${_( '(rpt)' + item.event_type )}</td>
-                <td style="text-align: left;">${item.sequence|default:''}</td>
+                <td style="text-align: left;" class="hyperlink">${item.sequence|default:''}</td>
                 <td style="text-align: left;">${item.payment_type}</td>
                 <td style="text-align: right;">${item.amount|default:''|viviFormatPrices:true}</td>
             </tr>

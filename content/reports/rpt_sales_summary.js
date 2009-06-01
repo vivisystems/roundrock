@@ -9,6 +9,7 @@
     include( 'chrome://viviecr/content/controllers/components/tax.js' );
     include( 'chrome://viviecr/content/models/order_promotion.js' );
     include( 'chrome://viviecr/content/models/promotion.js' );
+    include( 'chrome://viviecr/content/models/product.js' );
 
     // include controllers  and register itself
 	include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );

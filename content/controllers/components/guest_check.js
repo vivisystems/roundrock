@@ -6,7 +6,7 @@
          * Component GuestCheck
          */
 
-        /*
+        /*t
             // Session
             vivipos_fec_price_level,
             vivipos_fec_tax_total,
@@ -22,10 +22,18 @@
         _guestCheck: {},
         _tableStatusModel: null,
         _tableList: null,
+        _printController: null,
 
         init: function (c) {
             // inherit Cart controller constructor
             this._super(c);
+
+            // read switch
+            this._guestCheck.tableWinAsFirstWin = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.TableWinAsFirstWin') || false;
+            this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
+            this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
+            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
+
             // @todo : check orders first and set _checkNoArray, _tableNoArray...
 
             this._tableStatusModel = new TableStatusModel;
@@ -40,25 +48,37 @@
             if (cart) {
                 cart.addEventListener('newTransaction', this.handleNewTransaction, this);
                 // cart.addEventListener('onSubmit', this.handleNewTransaction, this);
-                cart.addEventListener('onCancel', this.handleNewTransaction, this);
+
+                // Cancel
+                cart.addEventListener('onCancel', this.handleCancel, this);
+
                 // cart.addEventListener('onClear', this.handleClear, this);
+
+                // Store
                 cart.addEventListener('onStore', this.handleNewTransaction, this);
 
                 // ChangeServiceClerk
-                cart.addEventListener('onChangeServiceClerk', this.handleNewTransaction, this);
+                cart.addEventListener('onChangeServiceClerk', this.handleChangeServiceClerk, this);
 
                 // TransTable
-                cart.addEventListener('onTransTable', this.handleNewTransaction, this);
+                cart.addEventListener('onTransTable', this.handleTransTable, this);
 
-
+                // check table no and guests before submit...
                 cart.addEventListener('beforeSubmit', this.handleRequestTableNo, this);
+
+                // SplitCheck
+                cart.addEventListener('onSplitCheck', this.handleSplitCheck, this);
+
+                // MergeCheck
+                cart.addEventListener('onMergeCheck', this.handleSplitCheck, this);
                 
             }
 
             // add listener for afterSubmit event
             var print = GeckoJS.Controller.getInstanceByName('Print');
             if (print) {
-                print.addEventListener('afterSubmit', this.handleNewTransaction, this);
+                this._printController = print;
+                print.addEventListener('afterSubmit', this.handleAfterSubmit, this);
             }
 
             // add listener for onStartShift event
@@ -77,11 +97,17 @@
             
         },
 
+        printChecks: function(txn) {
+            // var txn = evt.data;
+            var printer = 1;
+            var autoPrint = false;
+            var duplicate = 1;
+            // print check
+            this._printController.printChecks(txn, printer, autoPrint, duplicate);
+        },
+
         handleRequestTableNo: function(evt) {
 
-            this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
-            this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
-            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
             if (this._guestCheck.requireTableNo && !evt.data.txn.data.table_no) {
                 // NotifyUtils.warn(_('Please set table no first!'));
                 // evt.preventDefault();
@@ -93,6 +119,89 @@
                 // NotifyUtils.warn(_('Please set table no first!'));
                 // evt.preventDefault();
                 this.guest('');
+            }
+        },
+
+        handleTransTable: function(evt) {
+            //
+            this._tableStatusModel.addCheck(evt.data.data);
+
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+            }
+        },
+
+        handleChangeServiceClerk: function(evt) {
+            //
+            this._tableStatusModel.addCheck(evt.data.data);
+
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+            }
+        },
+
+        handleStore: function(evt) {
+            //
+            this._tableStatusModel.addCheck(evt.data.data);
+
+            // sync data
+            try {
+                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
+                var r = exec.run(["sync"], false);
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
+                return false;
+            }
+           
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+            }
+        },
+
+        handleAfterSubmit: function(evt) {
+            //
+            this._tableStatusModel.removeCheck(evt.data.data);
+
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+            }
+        },
+
+        handleSplitCheck: function(evt) {
+            //
+            // this._tableStatusModel.addCheck(evt.data.data);
+
+            // print check
+            this.printChecks(evt.data);
+
+        },
+
+        handleMergeCheck: function(evt) {
+            //
+            // this._tableStatusModel.addCheck(evt.data.data);
+
+            // print check
+            this.printChecks(evt.data);
+
+        },
+
+        handleCancel: function(evt) {
+            //
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
             }
         },
 
@@ -144,12 +253,12 @@
         },
 
         getTableList: function() {
-            if(this._tableList == null) {
+            // if(this._tableList == null) {
                 var tableModel = new TableModel;
-                var tablelist = tableModel.find("all", {});
-                delete tableModel;
+                var tablelist = tableModel.find("all", {recursive: 0});
                 this._tableList = tablelist;
-            }
+                delete tableModel;
+            // }
 
             return this._tableList;            
 
@@ -198,6 +307,7 @@
                 var curTransaction = null;
                 curTransaction = this._controller._getTransaction();
                 if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+
                     curTransaction = this._controller._getTransaction(true);
                     if (curTransaction == null) {
                         NotifyUtils.warn(_('fatal error!!'));
@@ -249,9 +359,21 @@
 
         getNewTableNo: function() {
 
+//            this._tableList = null;
+            /*
             var tablelist = this.getTableList();
             if (tablelist.length <= 0) {
                 return this.table(this.selTableNum(''));
+            }
+            */
+            // if (this._tableStatusModel.getTableStatusList().length <=0) {
+            if (this._tableStatusModel._tableStatusList.length <=0) {
+                // if (this._tableStatusModel._connected) {
+                //    return this.table(this.selTableNum(''));
+                // } else {
+                    this._tableStatusModel.getTableStatusList();
+                    return;
+                // }
             }
 
             var self = this;
@@ -299,159 +421,8 @@
                 var r = $.popupPanel('selectTablePanel', dialog_data);
             } catch (e) {}
 
-            return;
+            //return;
 
-
-            window.openDialog(aURL, 'select_table', features, inputObj);
-
-
-            if (inputObj.ok && inputObj.index) {
-                var idx = inputObj.index;
-                i = tables[idx].table_no;
-                var id = tables[idx].order_id;
-                var destination = tables[idx].table.destination;
-
-                // set action tag to session
-                GeckoJS.Session.set('vivipos_guest_check_action', inputObj.action);
-
-                switch (inputObj.action) {
-                    case 'RecallCheck':
-
-                        this.recallByTableNo(i);
-
-                        break;
-                    case 'SplitCheck':
-                        if (this.recallByTableNo(i) != -1) {
-
-                            var curTransaction = null;
-                            curTransaction = this._controller._getTransaction();
-                            if (curTransaction) {
-                                if (this._isAllowSplit(curTransaction)) {
-
-                                    if (this.splitOrder(id, curTransaction.data) == -1) {
-                                        // clear recall check from cart
-                                        this._controller.cancel(true);
-                                    };
-                                } else {
-                                    this._controller.cancel(true);
-                                }
-                            }
-                        }
-
-                        break;
-                    case 'MergeCheck':
-                        if (this.recallByTableNo(i) != -1) {
-
-                            var curTransaction = null;
-                            curTransaction = this._controller._getTransaction();
-                            if (curTransaction) {
-                                if (this._isAllowMerge(curTransaction)) {
-                                    
-                                    if (this.mergeOrder(id, curTransaction.data) == -1) {
-                                        // clear recall check from cart
-                                        this._controller.cancel(true);
-                                    };
-                                } else {
-                                    this._controller.cancel(true);
-                                }
-                            }
-                        }
-                        
-                        break;
-                    case 'SelectTableNo':
-                        if (i >= 0) {
-                            var curTransaction = null;
-                            curTransaction = this._controller._getTransaction();
-                            if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-                                curTransaction = this._controller._getTransaction(true);
-                                if (curTransaction == null) {
-                                    NotifyUtils.warn(_('fatal error!!'));
-                                    return; // fatal error ?
-                                }
-                            }
-                            GeckoJS.Session.set('vivipos_fec_table_number', i);
-                            curTransaction.data.table_no = "" + i;
-                            r = i;
-
-                            // set destination
-                            if (destination)
-                                this.requestCommand('setDestination', destination, 'Destinations');
-                        }
-                        break;
-                    case 'ChangeClerk':
-                        // @todo ChangeClerk must be rewrited...
-
-                        this.recallByTableNo(i);
-
-                        // get login user info...
-                        var user = new GeckoJS.AclComponent().getUserPrincipal();
-                        var service_clerk;
-                        var service_clerk_displayname;
-                        if ( user != null ) {
-                            service_clerk = user.username;
-                            service_clerk_displayname = user.description;
-                        }
-
-                        var curTransaction = null;
-                        curTransaction = this._controller._getTransaction();
-                        if (curTransaction) {
-                            if (service_clerk) {
-                                curTransaction.data.service_clerk = service_clerk;
-                                curTransaction.data.service_clerk_displayname = service_clerk_displayname;
-                            }
-                            this.store();
-
-                            // clear recall check from cart
-                            this._controller.cancel(true);
-
-                            // dispatch changeclerk event
-                            // this._controller.dispatchEvent('onStore', curTransaction);
-                            this._controller.dispatchEvent('onChangeServiceClerk', curTransaction);
-                        }
-                        
-                        break;
-                    case 'MergeTable':
-                        
-                        break;
-                    case 'TransTable':
-                        // @todo TransTable must be rewrited...
-
-                        var targetTableNo = Math.round(parseInt(i));
-                        var sourceTableNo = inputObj.sourceTableNo;
-
-                        if (this.recallByTableNo(sourceTableNo) != -1) {
-                            var curTransaction = null;
-                            curTransaction = this._controller._getTransaction();
-                            if (curTransaction) {
-                                this.table("" + targetTableNo);
-                                this.store();
-                                
-                                // clear recall check from cart
-                                this._controller.cancel(true);
-
-                                // dispatch changeclerk event
-                                // this._controller.dispatchEvent('onStore', curTransaction);
-                                this._controller.dispatchEvent('onTransTable', curTransaction);
-                            }
-                            
-                        }
-                        break;
-                }
-            }else {
-                /*
-                while (i <= 200) {
-                    if (!this._tableNoArray[i] || this._tableNoArray[i] == 0) {
-                        this._tableNoArray[i] = 1;
-                        break;
-                    }
-                    i++;
-                }
-                r = i;
-                */
-                return;
-            }
-
-            // GeckoJS.Session.set('vivipos_fec_table_number', i);
             return "" + r;
         },
 
@@ -484,11 +455,17 @@
                                     if (this.splitOrder(id, curTransaction.data) == -1) {
                                         // clear recall check from cart
                                         this._controller.cancel(true);
+
+                                        return false;
                                     };
                                 } else {
                                     this._controller.cancel(true);
+                                    return false;
                                 }
                             }
+                        } else {
+                            
+                            return false;
                         }
                         // this._controller.GuestCheck.getNewTableNo();
 
@@ -504,11 +481,16 @@
                                     if (this.mergeOrder(id, curTransaction.data) == -1) {
                                         // clear recall check from cart
                                         this._controller.cancel(true);
+                                        return false;
                                     };
                                 } else {
                                     this._controller.cancel(true);
+                                    return false;
                                 }
                             }
+                        } else {
+
+                            return false;
                         }
                         // this._controller.GuestCheck.getNewTableNo();
                         
@@ -522,6 +504,7 @@
                             if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel() || curTransaction.isStored()) {
 
                                 this._controller.cancel(true);
+
                                 curTransaction = this._controller._getTransaction(true);
                                 if (curTransaction == null) {
                                     NotifyUtils.warn(_('fatal error!!'));
@@ -583,6 +566,10 @@
                             curTransaction = this._controller._getTransaction();
                             if (curTransaction) {
                                 this.table("" + targetTableNo);
+
+                                // update modified time of source table status
+                                this._tableStatusModel.touchTableStatus(sourceTableNo);
+
                                 this.store();
 
                                 // clear recall check from cart
@@ -607,11 +594,11 @@
                 }
                 r = i;
                 */
-                return;
+                return false;
             }
 
             // GeckoJS.Session.set('vivipos_fec_table_number', i);
-            return "";
+            return true;
         },
 
         table: function(table_no) {
@@ -622,10 +609,11 @@
                 var curTransaction = null;
                 curTransaction = this._controller._getTransaction();
                 if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+
                     curTransaction = this._controller._getTransaction(true);
                     if (curTransaction == null) {
                         NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
+                        return -1; // fatal error ?
                     }
                 }
                 GeckoJS.Session.set('vivipos_fec_table_number', r);
@@ -636,12 +624,13 @@
                 var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + r + "'");
                 if (tableObj.length > 0) {
 
-                    var destination = tableObj[0].table.destination;
+                    var destination = tableObj[0].Table.destination;
                     if (destination)
                         this.requestCommand('setDestination', destination, 'Destinations');
                 }
 
             }
+            return r;
         },
 
         check: function(check_no) {
@@ -651,6 +640,7 @@
                 var curTransaction = null;
                 curTransaction = this._controller._getTransaction();
                 if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+
                     curTransaction = this._controller._getTransaction(true);
                     if (curTransaction == null) {
                         NotifyUtils.warn(_('fatal error!!'));
@@ -678,6 +668,7 @@
                 var curTransaction = null;
                 curTransaction = this._controller._getTransaction();
                 if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+
                     curTransaction = this._controller._getTransaction(true);
                     if (curTransaction == null) {
                         NotifyUtils.warn(_('fatal error!!'));
@@ -696,19 +687,23 @@
             //
             var self = this;
             var order = new OrderModel();
-            var fields = ['orders.id', 
-                          'orders.sequence',
-                          'orders.check_no',
-                          'orders.table_no',
-                          'orders.status',
-                          'orders.no_of_customers',
-                          'orders.total',
-                          'orders.transaction_created',
-                          'orders.service_clerk',
-                          'orders.service_clerk_displayname',
-                          'orders.proceeds_clerk',
-                          'orders.proceeds_clerk_displayname'
-                      ];
+//            var fields = ['orders.id',
+//                          'orders.sequence',
+//                          'orders.check_no',
+//                          'orders.table_no',
+//                          'orders.status',
+//                          'orders.no_of_customers',
+//                          'orders.total',
+//                          'orders.transaction_created',
+//                          'orders.service_clerk',
+//                          'orders.service_clerk_displayname',
+//                          'orders.proceeds_clerk',
+//                          'orders.proceeds_clerk_displayname',
+//                          'orders.terminal_no',
+//                          'orders.branch_id'
+//                      ];
+            var fields = null;
+            
             switch (key) {
                 case 'CheckNo':
                     var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
@@ -1066,6 +1061,9 @@
 
             }else {
                 // return null;
+                if (this._guestCheck.tableWinAsFirstWin) {
+                    this._controller.newTable();
+                }
                 return -1;
             }
         },
@@ -1097,6 +1095,7 @@
                 this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
 
             }else {
+                
                 return -1
             }
         },

@@ -29,7 +29,7 @@
                     <th style="text-align: center;">${_( '(rpt)Status' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Invoice Number' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Invoice Count' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Gross' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Discount' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>
@@ -53,7 +53,7 @@
                     <td style="text-align: center;">${detail.sale_period|unixTimeToString:'saleperiod'}</td>
                     <td style="text-align: center;">${detail.shift_number|default:''}</td>
                     <td style="text-align: center;">${detail.time|unixTimeToString}</td>
-                    <td style="text-align: center;">${detail.sequence}</td>
+                    <td style="text-align: center;" class="hyperlink">${detail.sequence}</td>
                     <td style="text-align: center;">${detail.status}</td>
                     <td style="text-align: center;">${detail.invoice_no|default:''}</td>
                     <td style="text-align: center;">${detail.invoice_count|default:''}</td>

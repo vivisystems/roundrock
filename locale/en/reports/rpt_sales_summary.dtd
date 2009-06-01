@@ -1,4 +1,4 @@
-<!ENTITY rptsalessummary.title "Sales Summary Report">
+<!ENTITY rptsalessummary.title "Sales Summary">
 <!ENTITY rptsalessummary.startdate "Start Date:">
 <!ENTITY rptsalessummary.enddate "End Date:">
 <!ENTITY rptsalessummary.execute "Execute">
@@ -6,10 +6,12 @@
 <!ENTITY rptsalessummary.exportcsv "Export to CSV">
 <!ENTITY rptsalessummary.exportrcp "Print">
 <!ENTITY rptsalessummary.togglezoom "Toggle Zoom">
-<!ENTITY rptsalessummary.machineid "Terminal No:">
+<!ENTITY rptsalessummary.terminal_no "Terminal:">
 <!ENTITY rptsalessummary.wait "Waiting...">
 <!ENTITY rptsalessummary.periodtype "Period Type:">
-<!ENTITY rptsalessummary.starttime "Order Opened Time">
-<!ENTITY rptsalessummary.transaction_submitted "Order Finalized Time">
+<!ENTITY rptsalessummary.transaction_created "Order Opened">
+<!ENTITY rptsalessummary.transaction_submitted "Order Closed">
 <!ENTITY rptsalessummary.saleperiod "Sale Period">
-<!ENTITY rptsalessummary.shiftno "Shift No.:">
+<!ENTITY rptsalessummary.shiftno "Shift:">
+<!ENTITY rptsalessummary.numdept "Number of departments:">
+<!ENTITY rptsalessummary.numproduct "Number of products:">

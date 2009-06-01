@@ -196,7 +196,15 @@
                     var product = new ProductModel();
 
                     product.id = item.id;
-                    product.save(item);
+                    if (!product.save(item)) {
+                        //@db saveToBackup
+                        product.saveToBackup(item);
+
+                        // log db error
+                        this.log('ERROR',
+                                 _('An error was encountered while logging stock activity (error code %S); record saved to backup %S',
+                                   [product.lastError, '\n' + this.dump(product)]));
+                    }
                     delete product;
 
                     // fire onLowStock event...

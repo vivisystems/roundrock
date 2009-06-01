@@ -17,11 +17,16 @@
             // turn quicklogin indicator on/off
             var quickLogin = document.getElementById('quickLogin');
             if (quickLogin) quickLogin.setAttribute('disabled', !allowQuickLogin);
-            
+
             var userModel = new UserModel();
             var users = userModel.find('all', {
                 order: 'username'
             });
+
+            if (parseInt(userModel.lastError) != 0) {
+                this.dbError(userModel.lastError, userModel.lastErrorString,
+                             _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
+            }
 
             for (var i = 0; i < users.length; i++) {
                 if (users[i].displayname == null || users[i].displayname.length == 0) {
@@ -64,19 +69,19 @@
                     if (allowQuickLogin) {
                         if (!this.Acl.securityCheckByPassword(userpass, false)) {
                             // @todo OSD
-                            NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
+                            NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                         }
                     }
                     else {
                         // @todo OSD
                         // we shouldn't be here if validateForm works correctly, but will display warning just in case
-                        NotifyUtils.error(_('Authentication failed!. Please select a user'));
+                        NotifyUtils.error(_('Authentication failed! Please select a user'));
                     }
                 }
                 else {
                     if (!this.Acl.securityCheck(username, userpass)) {
                         // @todo OSD
-                        NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
+                        NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                     }
                 }
 
@@ -98,6 +103,13 @@
             else {
                 document.getElementById('signinBtn').setAttribute('disabled', password.length == 0 || index == null || index == -1);
             }
+        },
+
+        dbError: function(errNo, errMsg, alertStr) {
+            this.log('WARN', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
+            GREUtils.Dialog.alert(null,
+                                  _('Data Operation Error'),
+                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
     };

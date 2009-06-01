@@ -32,11 +32,11 @@ ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
 ${_( '(rpt)Invoice Number' ) + ':'}
 ${detail.invoice_no|default:''|right:24}
-${_( '(rpt)Guests' ) + ':'}
+${_( '(rpt)Number of Guests' ) + ':'}
 ${detail.no_of_customers|format:0|right:24}
-${_( '(rpt)Items' ) + ':'}
-${detail.items_count|format:0|right:24}
-${_( '(rpt)Gross' ) + ':'}
+${_( '(rpt)Number of Items' ) + ':'}
+${detail.qty_subtotal|format:0|right:24}
+${_( '(rpt)Gross Sales' ) + ':'}
 ${detail.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
 ${detail.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
@@ -48,8 +48,10 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${detail.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${detail.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Payment' ) + ':'}
+${_( '(rpt)Net Sales' ) + ':'}
 ${detail.total|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Payment' ) + ':'}
+${detail.payment|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}
 ${detail.cash|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Check' ) + ':'}
@@ -72,11 +74,11 @@ ${_( '(rpt)Records Found' ) + ': '|left:16}${body.length|default:0|format:0|righ
 [&CR]
 ------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Guests' ) + ':'}
+${_( '(rpt)Number of Guests' ) + ':'}
 ${foot.foot_datas.guests|format:0|right:24}
-${_( '(rpt)Items' ) + ':'}
+${_( '(rpt)Number of Items' ) + ':'}
 ${foot.foot_datas.items|format:0|right:24}
-${_( '(rpt)Total' ) + ':'}
+${_( '(rpt)Gross Sales' ) + ':'}
 ${foot.foot_datas.item_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}
 ${foot.foot_datas.tax_subtotal|default:0|viviFormatTaxes:true|right:24}
@@ -88,8 +90,10 @@ ${_( '(rpt)Promotion' ) + ':'}
 ${foot.foot_datas.promotion_subtotal|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Revalue' ) + ':'}
 ${foot.foot_datas.revalue_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Payment' ) + ':'}
+${_( '(rpt)Net Sales' ) + ':'}
 ${foot.foot_datas.total|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Payment' ) + ':'}
+${foot.foot_datas.payment|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}
 ${foot.foot_datas.cash|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Check' ) + ':'}

@@ -34,13 +34,47 @@
             this.addEventListener('beforeVoidItem', self.clearWarning);
             this.addEventListener('beforeModifyItem', self.beforeModifyItem);
 
-
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
+            // catch changes to price level and store it in txn.data
+            var events = GeckoJS.Session.getInstance().events;
+            if (events) {
+                events.addListener('change', this.sessionHandler, this);
+                events.addListener('remove', this.sessionHandler, this);
+                events.addListener('clear', this.sessionHandler, this);
+            }
+        },
+
+        sessionHandler: function(evt) {
+            var txn = this._getTransaction();
+            if (txn == null || txn.data == null || txn.isSubmit() || txn.isCancel())
+                return;
+
+            var key;
+            switch(evt.type) {
+                case 'change':
+                    key = evt.getData().key;
+                    if (key == 'vivipos_fec_price_level') {
+                        txn.data.price_level = evt.getData().value;
+                        Transaction.serializeToRecoveryFile(txn);
+                    }
+                    break;
+
+                case 'remove':
+                    key = evt.getData().key;
+                    if (key == 'vivipos_fec_price_level') {
+                        delete txn.data.price_level;
+                    }
+                    break;
+
+                case 'remove':
+                    delete txn.data.price_level;
+                    break;
+            }
         },
 
         suspend: function () {
@@ -2460,6 +2494,12 @@
                     order: 'mode, type'
                 });
 
+                if (ledgerEntryTypeModel.lastError) {
+                    this.dbAlert(ledgerEntryTypeModel,
+                                 _('An error was encountered while retrieving ledger entry types'));
+                    return;
+                }
+
                 window.openDialog(aURL, _('Add New Ledger Entry'), features, inputObj);
             }
 
@@ -2467,11 +2507,16 @@
                 return;
             }
             var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
-            ledgerController.saveLedgerEntry(inputObj);
+            var r = ledgerController.saveLedgerEntry(inputObj);
 
-            // @todo OSD
-            OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
-                [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+            if (r) {
+                // @todo OSD
+                OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
+                    [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+            }
+            else {
+                NotifyUtils.error('Failed to save ledger entry');
+            }
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -2741,7 +2786,6 @@
                 this.dispatchEvent('onClear', null);
                 return; // fatal error ?
             }
-
             this.dispatchEvent('onClear', curTransaction);
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
@@ -2835,6 +2879,7 @@
                 this.dispatchEvent('onGetSubtotal', null);
             }
             else {
+                Transaction.serializeToRecoveryFile(oldTransaction);
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
             }
         },
@@ -2844,20 +2889,53 @@
 
             var oldTransaction = this._getTransaction();
             
-            if(oldTransaction == null) return; // fatal error ?
+            if(oldTransaction == null) return false; // fatal error ?
 
             // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
-            var existingOrder = orderModel.findById(oldTransaction.data.id);
+            var existingOrder = orderModel.findById(oldTransaction.data.id, 0, "id,status");
+            if (parseInt(orderModel.lastError) != 0) {
+                this.dbError(orderModel.lastError, orderModel.lastErrorString,
+                             _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
+                return false;
+            }
+
             if (existingOrder && existingOrder.status != 2) {
                 oldTransaction.data.status = existingOrder.status;
+                var statusStr;
+                switch(parseInt(existingOrder.status)) {
+                    case 1:
+                        statusStr = _('completed');
+                        break;
+
+                    case 2:
+                        statusStr = _('stored');
+                        break;
+
+                    case -1:
+                        statusStr = _('cancelled');
+                        break;
+
+                    case -2:
+                        statusStr = _('voided');
+                        break;
+
+                    default:
+                        statusStr = existingOrder.status;
+                        break;
+                }
                 GREUtils.Dialog.alert(window,
-                    _('Order Finalization'),
-                    _('Current order is no longer available for finalization (status = %S)', [existingOrder.status]));
-                return;
+                                      _('Order Finalization'),
+                                      _('Current order is no longer available for finalization (status = %S)', [statusStr]));
+                return false;
             }
             if (status == null) status = 1;
-            if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
+            if (status == 1 && oldTransaction.getRemainTotal() > 0) {
+                GREUtils.Dialog.alert(window,
+                                      _('Order Finalization'),
+                                      _('Current order has non-zero balance and may not be closed'));
+                return false;
+            }
 
             if (this.dispatchEvent('beforeSubmit', {
                 status: status,
@@ -2898,6 +2976,7 @@
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
             }
+            return true;
         },
 
 
@@ -2989,21 +3068,10 @@
                             var result = evt.data;
 
                             if (result.ok && result.input0) {
-                                if ('annotations' in curTransaction.data) {
-                                    curTransaction.data.annotations.push({
-                                        type: annotationType,
-                                        text: result.input0
-                                    });
+                                if (!('annotations' in curTransaction.data)) {
+                                    curTransaction.data.annotations = {};
                                 }
-                                else {
-                                    curTransaction.data.annotations = [{
-                                        type: annotationType,
-                                        text: result.input0
-                                    }];
-                                }
-
-                                // save annotation in db
-                                annotationController.annotate(curTransaction.data.id, annotationType, result.input0);
+                                curTransaction.data.annotations[ annotationType ] = result.input0;
                             }
 
                             curTransaction.close();
@@ -3140,7 +3208,7 @@
                     NotifyUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
                     return;
                 }
-                /*
+/*
                 if (cartItem.current_qty < 0) {
                     var displayItem = curTransaction.getDisplaySeqAt(index);
                     //@todo OSD
@@ -3346,13 +3414,13 @@
 
             var memo;
             if (typeof plu == 'object' || plu == null || plu == '') {
-                return this.getMemoDialog(memoItem ? memoItem.memo : '');
+                this.getMemoDialog(memoItem ? memoItem.memo : '');
             }
             else {
                 memo = GeckoJS.String.trim(plu);
-                if (memo) curTransaction.appendMemo(index, memo);
+                curTransaction.appendMemo(index, memo);
+                this.subtotal();
             }           
-
             return d;
 
         },
@@ -3367,6 +3435,11 @@
             // load data
             var orderModel = new OrderModel();
             var order = orderModel.findById(id, 2);
+            if (parseInt(orderModel.lastError) != 0) {
+                this.dbError(orderModel.lastError, orderModel.lastErrorString,
+                             _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
+                return;
+            }
 
             if (!order) {
                 GREUtils.Dialog.alert(window,
@@ -3414,69 +3487,108 @@
                     var refundTotal = 0;
 
                     // insert refund payments
-                    inputObj.refunds.forEach(function(payment) {
+                    var lastModel = paymentModel;
+                    var r = paymentModel.begin();
+                    if (r) {
+                        inputObj.refunds.forEach(function(payment) {
 
-                        // reverse amount, origin_amount, change
-                        payment.id = '';
-                        payment.order_id = order.id;
-                        payment.amount = - payment.amount;
-                        payment.origin_amount = payment.amount;
-                        payment.change = 0;
+                            // reverse amount, origin_amount, change
+                            payment.id = '';
+                            payment.order_id = order.id;
+                            payment.amount = - payment.amount;
+                            payment.origin_amount = payment.amount;
+                            payment.change = 0;
 
-                        // update proceeds_clerk
-                        if (user != null) {
-                            payment.proceeds_clerk = user.username;
-                            payment.proceeds_clerk_displayname = user.description;
+                            // update proceeds_clerk
+                            if (user != null) {
+                                payment.proceeds_clerk = user.username;
+                                payment.proceeds_clerk_displayname = user.description;
+                            }
+
+                            payment.sale_period = salePeriod;
+                            payment.shift_number = shiftNumber;
+                            payment.terminal_no = terminalNo;
+
+                            // save payment record
+                            if (r) r = paymentModel.save(payment);
+
+                            refundTotal += payment.amount;
+                        });
+
+                        if (r) {
+
+                            // update order status to voided
+                            order.status = -2;
+
+                            // update payment subtotal
+                            order.payment_subtotal += refundTotal;
+
+                            // update void clerk, time, sale period and shift number
+                            if (user) {
+                                order.void_clerk = user.username;
+                                order.void_clerk_displayname = user.description;
+                            }
+                            order.transaction_voided = (new Date()).getTime() / 1000;
+                            order.void_sale_period = salePeriod;
+                            order.void_shift_number = shiftNumber;
+
+                            lastModel = orderModel;
+
+                            orderModel.id = order.id;
+                            r = orderModel.save(order);
                         }
 
-                        payment.sale_period = salePeriod;
-                        payment.shift_number = shiftNumber;
-                        payment.terminal_no = terminalNo;
+                        if (r) {
+                            lastModel = paymentModel;
 
-                        refundTotal += payment.amount;
-                    });
+                            r = paymentModel.commit();
+                        }
 
-                    // save payment record
-                    paymentModel.saveAll(inputObj.refunds);
+                        if (r) {
+                            for (var o in order.OrderItem) {
 
-                    // update order status to voided
-                    order.status = -2;
+                                // look up corresponding product and set the product id into the item; also reverse quantity
+                                var item = order.OrderItem[o];
+                                var productId = barcodesIndexes[item.product_no];
 
-                    // update payment subtotal
-                    order.payment_subtotal += refundTotal;
-                    
-                    // update void clerk, time, sale period and shift number
-                    if (user) {
-                        order.void_clerk = user.username;
-                        order.void_clerk_displayname = user.description;
+                                item.current_qty = - item.current_qty;
+                                item.id = productId;
+                            }
+                            order.items = order.OrderItem;
+
+                            // restore stock
+                            var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
+                            stockController.decStock(order);
+
+                            this.dispatchEvent('afterVoidSale', order);
+                            
+                            GREUtils.Dialog.alert(window,
+                                _('Void Sale'),
+                                _('Transaction [%S] successfully voided', [order.sequence]));
+                        }
+                        else {
+                            if (lastModel) {
+                                var errNo = lastModel.lastError;
+                                var errMsg = lastModel.lastErrorString;
+                            }
+
+                            paymentModel.rollback();
+
+                            if (lastModel) {
+                                this.dbError(lastModel.lastError, lastModel.lastErrorString,
+                                             _('An error was encountered while voiding sale (error code %S).', [lastModel.lastError]));
+                            }
+                            else {
+                                GREUtils.Dialog.alert(window,
+                                    _('Void Sale'),
+                                    _('Errors were encountered while void order; order was not voided'));
+                            }
+                        }
                     }
-                    order.transaction_voided = (new Date()).getTime() / 1000;
-                    order.void_sale_period = salePeriod;
-                    order.void_shift_number = shiftNumber;
-
-                    orderModel.id = order.id;
-                    orderModel.save(order);
-
-                    // restore stock
-                    for (var o in order.OrderItem) {
-
-                        // look up corresponding product and set the product id into the item; also reverse quantity
-                        var item = order.OrderItem[o];
-                        var productId = barcodesIndexes[item.product_no];
-
-                        item.current_qty = - item.current_qty;
-                        item.id = productId;
+                    else {
+                        this.dbError(paymentModel.lastError, paymentModel.lastErrorString,
+                                     _('An error was encountered while voiding sale (error code %S).', [paymentModel.lastError]));
                     }
-                    order.items = order.OrderItem;
-
-                    var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
-                    stockController.requestCommand('decStock', order, 'Stocks');
-
-                    this.dispatchEvent('afterVoidSale', order);
-
-                    GREUtils.Dialog.alert(window,
-                        _('Void Sale'),
-                        _('Transaction [%S] successfully voided', [order.sequence]));
                 }
             }
         },
@@ -3541,6 +3653,7 @@
                     if(curTransaction != null && index >=0) {
 
                         curTransaction.appendMemo(index, result.input0);
+                        self.subtotal();
                     }
 
                 }
@@ -3802,8 +3915,9 @@
             } else {
                 r = this.GuestCheck.table(no);
             }
-            if (r > 0)
+            if (r > 0) {
                 this.subtotal();
+            }
         },
 
         recallOrder: function() {
@@ -4003,7 +4117,7 @@
                 return;
             }
             var modified = curTransaction.isModified();
-            if (modified) {
+            if (modified) {rec
                 NotifyUtils.warn(_('This order has been modified and must be stored first'));
             // r = this.GuestCheck.store();
             // this.dispatchEvent('onStore', curTransaction);
@@ -4018,14 +4132,28 @@
             if(data) {
                 var transaction = new Transaction();
                 transaction.data = data ;
-
+                
                 this._setTransactionToView(transaction);
                 transaction.updateCartView(-1, -1);
 
+                // restore price level
+                var priceLevel = data.price_level;
+                if (priceLevel) {
+                    $do('change', priceLevel, 'Pricelevel');
+                }
+                
                 this.unserializeQueueFromRecoveryFile();
                 this.subtotal();
             }
+        },
+
+        dbError: function(errNo, errMsg, alertStr) {
+            this.log('WARN', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
+            GREUtils.Dialog.alert(null,
+                                  _('Data Operation Error'),
+                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
+
         
     };
 

@@ -1,4 +1,4 @@
-<!ENTITY rpthourlysales.title "Hourly Sales Report">
+<!ENTITY rpthourlysales.title "Hourly Sales">
 <!ENTITY rpthourlysales.startdate "Start Date:">
 <!ENTITY rpthourlysales.enddate "End Date:">
 <!ENTITY rpthourlysales.execute "Execute">

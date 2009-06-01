@@ -33,7 +33,7 @@
                     <th style="text-align: center;">${_( '(rpt)Time' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Status' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Gross' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Gross Sales' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Surcharge' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Discount' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Promotion' )}</th>
@@ -57,7 +57,7 @@
                     <td style="text-align: center;">${order.sale_period|unixTimeToString:'saleperiod'}</td>
                     <td style="text-align: center;">${order.shift_number}</td>
                     <td style="text-align: center;">${order.time|unixTimeToString}</td>
-                    <td style="text-align: center;">${order.sequence}</td>
+                    <td style="text-align: center;" class="hyperlink">${order.sequence}</td>
                     <td style="text-align: center;">${order.status}</td>
                     <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>

@@ -271,7 +271,7 @@
 
             // send beforeSetDestination event
             if (this.dispatchEvent('beforeSetDestination', txn)) {
-
+                
                 // set current destination
                 GeckoJS.Session.set('vivipos_fec_order_destination', dest.name);
 
@@ -295,6 +295,9 @@
 
                 // store destination prefix in transaction
                 txn.data.destination_prefix = (dest.prefix == null) ? '' : dest.prefix + ' ';
+
+                // save transaction for failure recovery
+                cart.subtotal();
 
                 // send afterSetDestination event to signal success
                 this.dispatchEvent('afterSetDestination', {transaction: txn, destination: dest});

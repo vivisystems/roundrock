@@ -47,6 +47,22 @@
 		                    </row>
 		                    <row>
 		                    	<vbox>
+		                    		<label value="&rptorderstatus.periodtype;" />
+					                <menulist id="period_type">
+					                    <menupopup id="period_type_menupopup">
+					                        <menuitem selected="true" label="&rptorderstatus.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptorderstatus.transaction_submitted;" value="transaction_submitted" />
+					                        <menuitem selected="false" label="&rptorderstatus.sale_period;" value="sale_period" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
+				                    <label value="&rptorderstatus.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
 				                	<label value="&rptorderstatus.orderstatus;" />
 					                <menulist id="orderstatus">
 					                    <menupopup id="orderstatus_menupopup">
@@ -61,22 +77,6 @@
 		                    	<vbox>
 				                    <label value="&rptorderstatus.terminal_no;" />
 				                    <textbox id="terminal_no" value='' width="300"/>
-				                </vbox>
-		                    </row>
-		                    <row>
-		                    	<vbox>
-		                    		<label value="&rptorderstatus.periodtype;" />
-					                <menulist id="period_type">
-					                    <menupopup id="period_type_menupopup">
-					                        <menuitem selected="true" label="&rptorderstatus.transaction_created;" value="transaction_created" />
-					                        <menuitem selected="false" label="&rptorderstatus.transaction_submitted;" value="transaction_submitted" />
-					                        <menuitem selected="false" label="&rptorderstatus.sale_period;" value="sale_period" />
-					                    </menupopup>
-					                </menulist>
-		                    	</vbox>
-		                    	<vbox>
-				                    <label value="&rptorderstatus.shiftno;" />
-				                    <textbox id="shift_no" value='' width="300"/>
 				                </vbox>
 		                    </row>
 		                    <row>

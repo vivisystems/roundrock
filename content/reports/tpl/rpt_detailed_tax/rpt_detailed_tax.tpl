@@ -36,7 +36,7 @@
                 <th style="text-align: center;">${_( '(rpt)Add-on Tax' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Included Tax' )}</th>
 {for tax in taxList}
-                <th style="text-align: center;">${tax.no} ${ _('(rpt)Gross') }</th>
+                <th style="text-align: center;">${tax.no} ${ _('(rpt)Gross Sales') }</th>
                 <th style="text-align: center;">${tax.no}</th>
 {/for}
             </tr>
@@ -54,7 +54,7 @@
                 <td style="text-align: left;">${item.Order.sale_period|unixTimeToString:'saleperiod'}</td>
                 <td style="text-align: left;">${item.Order.shift_number}</td>
                 <td style="text-align: left;">${item.Order.time|unixTimeToString}</td>
-                <td style="text-align: left;">${item.Order.sequence}</td>
+                <td style="text-align: left;" class="hyperlink">${item.Order.sequence}</td>
                 <td style="text-align: left;">${item.Order.invoice_no|default:''}</td>
                 <td style="text-align: right;">${item.Order.total|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.surcharge_subtotal|default:0|viviFormatPrices:true}</td>

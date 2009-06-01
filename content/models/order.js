@@ -11,37 +11,69 @@
 
         behaviors: ['Sync'],
 
+        autoRestoreFromBackup: true,
+
         removeOldOrder: function(iid) {
             //
+            var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
+            if (r) {
 
-            this.delAll("id='" + iid + "'");
+                this.delAll("id='" + iid + "'");
 
-            var cond = "order_id='" + iid + "'";
+                var cond = "order_id='" + iid + "'";
 
-            this.OrderItem.delAll(cond);
-            this.OrderAddition.delAll(cond);
-            // this.OrderPayment.delAll(cond);
-            this.OrderObject.delAll(cond);
-            this.OrderItemCondiment.delAll(cond);
-            this.OrderPromotion.delAll(cond);
+                this.OrderItem.delAll(cond);
+                this.OrderAddition.delAll(cond);
+                // this.OrderPayment.delAll(cond);
+                this.OrderObject.delAll(cond);
+                this.OrderAnnotation.delAll(cond);
+                this.OrderItemCondiment.delAll(cond);
+                this.OrderPromotion.delAll(cond);
+
+            }
+
         },
 
         saveOrder: function(data) {
+            
             if(!data) return;
 
-            // remove old order data if exist...
-            this.removeOldOrder(data.id);
-
             var r;
-            r = this.saveOrderMaster(data);
+            r = this.begin();
+            if (r) {
 
-            if (data.status >= 0) {
-                // ignore cancel or fail order
-                r = this.saveOrderItems(data);
-                r = this.saveOrderAdditions(data);
-                r = this.saveOrderPayments(data);
-                r = this.saveOrderItemCondiments(data);
-                r = this.saveOrderPromotions(data);
+                // remove old order data if exist...
+                this.removeOldOrder(data.id);
+
+                this.saveOrderMaster(data);
+
+                if (data.status >= 0) {
+                    // ignore cancel or fail order
+                    this.saveOrderItems(data);
+                    this.saveOrderAdditions(data);
+                    this.saveOrderPayments(data);
+                    this.saveOrderAnnotations(data);
+                    this.saveOrderItemCondiments(data);
+                    this.saveOrderPromotions(data);
+                }
+
+                r = this.commit();
+            }
+
+            if(!r) {
+                this.log('ERROR', 'save order to backup , notify user ???');
+                this.rollback();
+                
+                //return; // debug
+                this.saveToBackup(this.mappingTranToOrderFields(data));
+                this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
+                this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
+                this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
+                this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
+                this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
+                this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
+            }else {
+                // success 
             }
 
         },
@@ -49,93 +81,69 @@
         saveOrderMaster: function(data) {
 
             var orderData  = this.mappingTranToOrderFields(data);
-            var r;
-
             // this.id = orderData.id;  // remove id , this will to cause model.exists finding data exists.
             this.create();
-            this.begin();
+            this.save(orderData);
 
-            r = this.save(orderData);
-
-            if (!r) {
-                // save failure try again
-                //GREUtils.log('save failure')
-                this.log('WARN', 'saveOrderMaster error, Try again (id='+orderData.id+')');
-                r = this.save(orderData);
-            }
-
-            if (!r) {
-                // find by order_id
-                var c = this.findCount("id='"+orderData.id+"'");
-                if (c <= 0) {
-                    // save failure try again
-                    this.log('ERROR', 'saveOrderMaster error (not exists) , Try again (id='+orderData.id+')');
-                    r = this.save(orderData);
-                }
-            }
-            // always close open transaction
-            this.commit();
-            return r;
+            return orderData;
+            
         },
 
 
         saveOrderItems: function(data) {
 
-            var orderItems  = this.mappingTranToOrderItemsFields(data);
-            var r;
-
-            this.OrderItem.begin();
-            r = this.OrderItem.saveAll(orderItems);
-            this.OrderItem.commit();
-            return r;
+            return this.OrderItem.saveAll(this.mappingTranToOrderItemsFields(data));
 
         },
 
         saveOrderAdditions: function(data) {
 
             var orderAdditions  = this.mappingTranToOrderAdditionsFields(data);
-            var r;
 
-            this.OrderAddition.begin();
-            r = this.OrderAddition.saveAll(orderAdditions);
-            this.OrderAddition.commit();
-            return r;
+            this.OrderAddition.saveAll(orderAdditions);
+            
+            return orderAdditions;
 
         },
 
-        saveOrderItemCondiments: function(data) {
-            var orderItemCondiments = this.mappingTranToOrderItemCondimentsFields(data);
-            var r;
-            this.OrderItemCondiment.begin();
-            r = this.OrderItemCondiment.saveAll(orderItemCondiments);
-            this.OrderItemCondiment.commit();
-            return r;
-        },
 
         saveOrderPayments: function(data) {
 
             var orderPayments  = this.mappingTranToOrderPaymentsFields(data);
-            var r;
 
-            this.OrderPayment.begin();
-            r = this.OrderPayment.saveAll(orderPayments);
-            this.OrderPayment.commit();
-            return r;
+            this.OrderPayment.saveAll(orderPayments);
+
+            return orderPayments;
 
         },
 
+        saveOrderAnnotations: function(data) {
+
+            var orderAnnotations = this.mappingTranToOrderAnnotationsFields(data);
+
+            this.OrderAnnotation.saveAll(orderAnnotations);
+
+            return orderAnnotations;
+        },
+
+        saveOrderItemCondiments: function(data) {
+
+            var orderItemCondiments = this.mappingTranToOrderItemCondimentsFields(data);
+
+            this.OrderItemCondiment.saveAll(orderItemCondiments);
+
+            return orderItemCondiments;
+            
+        },
+
+
         saveOrderPromotions: function(data) {
 
-
             var orderPromotions  = this.mappingTranToOrderPromotionsFields(data);
-            var r;
 
-            // this.log('saveOrderPromotions ' + this.dump(orderPromotions));
+            this.OrderPromotion.saveAll(orderPromotions);
 
-            this.OrderPromotion.begin();
-            r = this.OrderPromotion.saveAll(orderPromotions);
-            this.OrderPromotion.commit();
-            return r;
+            return orderPromotions;
 
         },
 
@@ -337,6 +345,26 @@
 
         },
 
+        mappingTranToOrderAnnotationsFields: function(data) {
+
+            var orderAnnotations = [];
+
+            for (var idx in data.annotations) {
+
+                var annotationItem = {};
+
+                annotationItem['order_id'] = data.id;
+                annotationItem['type'] = idx;
+                annotationItem['text'] = data.annotations[idx];
+                delete (annotationItem['id']);
+                
+                orderAnnotations.push(annotationItem);
+            }
+
+            return orderAnnotations;
+
+        },
+
         mappingTranToOrderPaymentsFields: function(data) {
 
             var orderPayments = [];
@@ -404,34 +432,6 @@
             }
 
             return null;
-        },
-
-        saveLedgerEntry: function(data) {
-
-            // don't create orders just for tracking ledger payments
-
-            var r;
-            /*
-        this.id = '';
-        this.begin();
-        r = this.save(data);
-        this.commit();
-        */
-            this.OrderPayment.id = data.payment_id;
-            data.order_id = data.payment_id;
-            this.OrderPayment.begin();
-            r = this.OrderPayment.save(data);
-            this.OrderPayment.commit();
-            return r;
-
-        },
-
-        deleteLedgerEntry: function(iid) {
-            this.OrderPayment.del(iid);
-        },
-
-        editLedgerEntry: function(data) {
-            this.OrderPayment.id = data.payment_id;
         },
 
         beforeSave: function(evt) {

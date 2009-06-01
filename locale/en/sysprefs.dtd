@@ -11,7 +11,7 @@
 <!ENTITY category.destinations "Destinations">
 <!ENTITY category.annotations "Annotations">
 <!ENTITY category.orderdata "Data Options">
-<!ENTITY general.publicattendance "Individual Time-and-Attendance visible to all">
+<!ENTITY general.publicattendance "Individual attendance record visible to all">
 <!ENTITY general.defaultpricelevel "System default price level">
 <!ENTITY general.activepricelevelschedule "Activate price level schedule">
 <!ENTITY general.pricelevelrevert "Price level reverts to schedule after each order">
@@ -19,6 +19,7 @@
 <!ENTITY general.clearcartafterfinalization "Clear register screen after order is finalized">
 <!ENTITY general.allowoverstock "Allow negative stock">
 <!ENTITY general.viewlocalordersonly "View orders from this terminal only">
+<!ENTITY general.searchorderbytableno "Search orders by table number">
 <!ENTITY general.collapsecondiments "Collapse condiments into a single line">
 <!ENTITY general.departmentpopstotop "Always return to top level departments">
 <!ENTITY general.idletime "System idle time (seconds)">

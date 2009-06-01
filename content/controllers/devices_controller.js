@@ -741,7 +741,7 @@
                     var DSR = status & 0x0100 ? 1 : 0;
 
                     // RTS/CTS or DTR/DSR hardware handshaking.
-                    status = CTS | DSR;
+                    status = CTS || DSR;
                 }
             }
             return status;
@@ -788,11 +788,23 @@
         },
 
         // return template registry objects
-        getTemplates: function () {
+        getTemplates: function (type) {
             if (this._templates == null) {
                 this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
             }
-            return this._templates;
+            if (!type) {
+                return this._templates;
+            }
+            else {
+                var templates = {};
+                for (var tmpl in this._templates) {
+                    var tpl = this._templates[tmpl];
+                    if (tpl.type && tpl.type.indexOf(type) > -1) {
+                        templates[tmpl] = tpl;
+                    }
+                }
+                return templates;
+            }
         },
 
 	// get System Printers from xprint / cups system
@@ -1164,15 +1176,15 @@
 
                 var tmplmenu1 = document.getElementById('receipt-1-template');
                 var tmplmenu2 = document.getElementById('receipt-2-template');
-                var templates = this.getTemplates();
+                var templates = this.getTemplates('receipt');
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('receipt') > -1) {
+//                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('receipt') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
                         newTemplate.name = tmpl;
                         sortedTemplates.push(newTemplate);
-                    }
+//                    }
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
@@ -1253,15 +1265,15 @@
                 var tmplmenu2 = document.getElementById('check-2-template');
                 var tmplmenu3 = document.getElementById('check-3-template');
                 var tmplmenu4 = document.getElementById('check-4-template');
-                var templates = this.getTemplates();
+                var templates = this.getTemplates('check');
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('check') > -1) {
+//                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('check') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
                         newTemplate.name = tmpl;
                         sortedTemplates.push(newTemplate);
-                    }
+//                    }
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
@@ -1444,15 +1456,15 @@
 
                 var tmplmenu1 = document.getElementById('vfd-1-template');
                 var tmplmenu2 = document.getElementById('vfd-2-template');
-                var templates = this.getTemplates();
+                var templates = this.getTemplates('vfd');
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('vfd') > -1) {
+//                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('vfd') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
                         newTemplate.name = tmpl;
                         sortedTemplates.push(newTemplate);
-                    }
+//                    }
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 

@@ -52,7 +52,7 @@
                         <numberpad id="promptAdditem-multinumberpad" class="numpad" target="plu"/>
                         <vbox>
                             <sendkeybutton id="promptAdditem-bkeyBtn"  label="&numberpad.keylabel.del;" keyCode='0x08' class="fixedbtn"  />
-                            <sendkeybutton id="promptAdditem-clearBtn"  label="&numberpad.keylabel.clear;" oncommand="alert(1); promptAdditem_clearFocusedElement()" class="fixedbtn"/>
+                            <sendkeybutton id="promptAdditem-clearBtn"  label="&numberpad.keylabel.clear;" oncommand="promptAdditem_clearFocusedElement()" class="fixedbtn"/>
                         </vbox>
                     </hbox>
 

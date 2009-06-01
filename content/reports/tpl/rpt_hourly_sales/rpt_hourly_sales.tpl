@@ -28,11 +28,11 @@
                     <th style="text-align: center;">${_( '(rpt)Date' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Hour' )}</th>
                     <th style="text-align: center;">${_( '(rpt)Net Sales' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Orders' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Guests' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Items' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Net Per Guest' )}</th>
-                    <th style="text-align: center;">${_( '(rpt)Net Per Order' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Number of Orders' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Number of Guests' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Number of Items' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Net Sales/Guest' )}</th>
+                    <th style="text-align: center;">${_( '(rpt)Net Sales/Order' )}</th>
                 </tr>
             </thead>
             <tbody>

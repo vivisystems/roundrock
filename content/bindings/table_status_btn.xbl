@@ -59,35 +59,39 @@
         </html:div>
     </html:div -->
 
-        <html:div anonid="face_div" class="style02">
-            
+        <html:div anonid="face_div" class="style05">
 			<html:div anonid="table_status" class="greentable">
+                <html:div class="thumbtack"></html:div>
+                <html:div class="time">
+                    <html:span anonid="period">12:00</html:span>
+                </html:div>
+                <html:div class="checkNum">
+                    <html:span anonid="checks"></html:span>
+                </html:div>
 				<html:div class="topItem">
 					<html:div class="tableData">
+                        <html:div class="tableNo">
+                            <html:span anonid="table_no"></html:span>
+                        </html:div>
 						<html:div class="tableName">
-							<html:div class="checkNum">
-                                <html:span anonid="checks"></html:span>
-                                
-                            </html:div>
 							<html:span anonid="table_label"></html:span><html:br />
 						</html:div>
 						<html:div class="tableInfo">
-							<html:div class="remark">
-                                <html:span anonid="seq_no" class="seq_no">S#200903212324</html:span><html:br />
-                                
-                                <html:span anonid="booking" class="booking">B#17:30</html:span><html:br />
-                                
-                                <html:span anonid="caption" class="tdb_green"></html:span><html:br />
-
+							<html:div class="cneckNo">	
+                                <html:span anonid="check_no" class="check_no">C#36</html:span>
 							</html:div>
-                            <html:span anonid="check_no" class="check_no">C#36</html:span><html:br />
-                            <html:span anonid="subtotal" class="subtotal">T#785</html:span><html:br />
-						</html:div>
-					</html:div>
-					<html:div class="tableNo">
-						<html:span anonid="table_no"></html:span>
-						<html:div class="time">
-							<html:span anonid="period">12:00</html:span>
+                            <html:div class="total">
+								<html:span anonid="subtotal" class="subtotal">T#785</html:span>
+							</html:div>
+                            <html:div class="remark">
+                                <html:span anonid="seq_no" class="seq_no">S#200903212324</html:span>
+							</html:div>
+                            <html:div class="remark">
+                                <html:span anonid="booking" class="booking">B#17:30</html:span>
+							</html:div>
+                            <html:div class="remark">
+                                <html:span anonid="caption" class="tdb_green"></html:span>
+							</html:div>
 						</html:div>
 					</html:div>
 				</html:div>
@@ -355,16 +359,16 @@
     <method name="setPeriodStatus">
         <parameter name="status"/>
         <body><![CDATA[
-        return;
+        
         switch (status) {
         case 0:
             this._period.className = "period";
             break;
         case 1:
-            this._period.className = "period green";
+            this._period.className = "period";
             break;
         case 2:
-            this._period.className = "period red";
+            this._period.className = "period overtime";
             break;
         }
         ]]>
@@ -374,16 +378,16 @@
     <method name="setCapacityStatus">
         <parameter name="status"/>
         <body><![CDATA[
-        return;
+        
         switch (status) {
         case 0:
             this._capacity.className = "capacity";
             break;
         case 1:
-            this._capacity.className = "capacity green";
+            this._capacity.className = "capacity";
             break;
         case 2:
-            this._capacity.className = "capacity red";
+            this._capacity.className = "capacity overpeople";
             break;
         }
         ]]>

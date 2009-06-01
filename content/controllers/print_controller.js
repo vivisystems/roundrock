@@ -774,10 +774,12 @@
                 data.customer = GeckoJS.Session.get('current_customer');
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
-                
-                // expand data with annotations
-                var annotationModel = new OrderAnnotationModel();
-                data.annotations = annotationModel.findByIndex('all', {index: 'order_id', value: data.order.id, order: 'type', recursive: 0});
+                if (data.order) {
+                    if (!('annotations' in data.order)) data.order.annotations = {};
+
+                    // for backward compatibility
+                    data.annotations = data.order.annotations;
+                }
 	        }
 
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
@@ -914,12 +916,8 @@
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-<<<<<<< HEAD:content/controllers/print_controller.js
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
-=======
-            this.log(GeckoJS.BaseObject.dump(result));
->>>>>>> fe87691fd01e68785e890e319b32be986c67d971:content/controllers/print_controller.js
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values

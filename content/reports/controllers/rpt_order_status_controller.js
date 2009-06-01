@@ -52,7 +52,6 @@
                             'orders.promotion_subtotal',
                             'orders.revalue_subtotal',
                             'orders.payment_subtotal - orders.change as "Order.payment"',
-                            'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
                             'orders.no_of_customers',
@@ -171,6 +170,15 @@
         	this._super();
 
             this._registerOpenOrderDialog();
+        },
+        
+        exportPdf: function() {
+        	this._super( {
+        		paperSize: {
+        			width: 297,
+        			height: 210
+        		}
+        	} );
         },
 
         exportCsv: function() {
