@@ -67,12 +67,24 @@
 	padding: 27px 10px 10px 5px;
 }
 
+.nopad {
+    background: transparent url(images/numberpad.png) center center no-repeat;
+    max-height: 241px;
+    min-height: 241px;
+    max-width: 184px;
+    min-width: 184px;
+    padding: 16px 0 0 4px;
+    margin-top: 15px;
+}
+
 .fe-numberpad sendkeybutton{
-    min-width:77px;
-    max-width:77px;
-    width: 77px;
-    height: 42px;
-    margin: 2px 0px 0px 3px;
+    min-width:58px;
+    max-width:58px;
+    width: 58px;
+    height: 53px;
+    max-height: 53px;
+    min-height: 53px;
+    margin: 1px 0px 0px 1px;
     padding: 0px;
     list-style-type: none;
     font-weight: bold !important;
@@ -81,13 +93,15 @@
     border: 0px solid;
     -moz-appearance: none;
     -moz-user-focus: ignore;
-    /* background: white; */
-    background: transparent url(images/m_numbtn.png) center center no-repeat;
-    color: #284057;
+    background: transparent;
 }
 
 .fe-numberpad sendkeybutton:active{
-	background: transparent url(images/m_numbtn_a.png) center center no-repeat;
+	background: transparent url(images/numberclick.png) center center no-repeat;
+}
+
+.fe-numberpad sendkeybutton description {
+    display: none;
 }
 
 /*-----------------------------------------------------------------------------

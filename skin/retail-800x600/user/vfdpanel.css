@@ -5,8 +5,7 @@
 @namespace html url("http://www.w3.org/1999/xhtml");
 
 .vfdPad {
-    background-color: #1e1b14;
-    border-bottom: 7px solid #f39a1c;
+    background: none;
 }
 
 .vbox_vfd {
@@ -16,7 +15,7 @@
 }
 
 .label_vfd {
-    color: #f49b1d;
+    color: red;
     background-color: transparent;
     border-width: 0px;
     font-size: 15pt;

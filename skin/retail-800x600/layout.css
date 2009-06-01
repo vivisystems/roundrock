@@ -45,16 +45,18 @@
 
 .block-ge .block-u {
     /* 55% */
-    width: 440px;
-    min-width: 440px;
-    max-width: 440px;
+    width: 430px;
+    min-width: 430px;
+    max-width: 430px;
+    margin: 30px 14px 0 0;
 }
 
 .block-gf .block-u {
     /* 20% */
-    width: 160px;
-    min-width: 160px;
-    max-width: 160px;
+    width: 155px;
+    min-width: 155px;
+    max-width: 155px;
+    margin-right: 17px;
 }
 
 .block-r .block-u  {

@@ -26,11 +26,12 @@ textbox:not([onclick]) *[readonly] {
 .user-catbtn {
     min-height:50px;
     min-width: 50px;
-    border: 2px solid;
-    -moz-border-top-colors: #848388 #bebebe;
-    -moz-border-right-colors: #848388 #bebebe;
-    -moz-border-bottom-colors: #848388 #bebebe;
-    -moz-border-left-colors: #848388 #bebebe;
+    border: 2px solid !important;
+    -moz-border-top-colors: #a08871 #ffffff !important;
+    -moz-border-right-colors: #a08871 #ffffff !important;
+    -moz-border-bottom-colors: #a08871 #ffffff !important;
+    -moz-border-left-colors: #a08871 #ffffff !important;
+    color: #42422f;
     -moz-appearance: none;
     margin: 2px 2px 2px 2px;
     padding: 0px;
@@ -62,7 +63,8 @@ textbox:not([onclick]) *[readonly] {
 }
 
 .user-catbtn .button-text{
-	
+	text-align: left;
+	padding-left: 20px;
 }
 
 .user-catbtn description, .user-plubtn description {
@@ -76,14 +78,15 @@ textbox:not([onclick]) *[readonly] {
     -moz-appearance: none;
     margin: 0 0 4px 2px;
     padding: 0px;
-    -moz-border-top-colors: #424851 #fff;
-    -moz-border-right-colors: #424851 #fff;
-    -moz-border-bottom-colors: #424851 #fff;
-    -moz-border-left-colors: #424851 #fff;
+    -moz-border-top-colors: #b5b0a7 #fff;
+    -moz-border-right-colors: #b5b0a7 #fff;
+    -moz-border-bottom-colors: #b5b0a7 #fff;
+    -moz-border-left-colors: #b5b0a7 #fff;
     -moz-box-pack: center;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    background-color: transparent;
+    background-color: #fff;
+    color: #4b443f;
 }
 
 .user-plubtn[disabled=true] {
@@ -427,7 +430,7 @@ textbox:not([onclick]) *[readonly] {
     max-width: 32px;
     -moz-user-focus: ignore;
     -moz-appearance: none;
-    border: 2px solid black !important;
+    border: none;
     background: transparent url(images/prohibitsale.png) center center no-repeat;
 }
 

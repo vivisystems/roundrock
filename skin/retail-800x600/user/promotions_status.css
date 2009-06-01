@@ -3,6 +3,13 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 @namespace html url("http://www.w3.org/1999/xhtml");
 
+.promotionpanel {
+    background: white url(images/promotionbg.png) 0 0 no-repeat;
+    min-height: 137px;
+    max-height: 137px;
+    padding: 2px 12px 0 15px;
+}
+
 promotions_status textbox {
     -moz-user-focus: ignore;
     -moz-user-select: none;
@@ -10,11 +17,11 @@ promotions_status textbox {
 }
 
 .vbox_promotions {
-    background-color: #1e1b14;
+    background: none;
 }
 
 .label_promotions {
-    color: #f49b1d;
+    color: #8b2718;
     background-color: transparent;
     border-width: 0px;
     font-size: 15pt;
@@ -39,18 +46,68 @@ promotions_status textbox {
     -moz-user-input: none;
 }
 
+.promotionIcon {
+    max-height: 36px;
+    min-height: 36px;
+    max-width: 36px;
+    min-width: 36px;
+    background: transparent url(images/icon_list.png) center center no-repeat;
+}
+.promotionIcon image{
+    display: none;
+}
+
+.promotionpanel .cartScrollUp {
+    border: 0px solid;
+    background: transparent url(images/proup.png) 0 0 no-repeat;
+    max-height: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    min-width: 32px;
+    height: 32px;
+    width: 32px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+}
+
+.promotionpanel .cartScrollDown {
+    border: 0px solid;
+    background: transparent url(images/prodown.png) 0 0 no-repeat;
+    max-height: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    min-width: 32px;
+    height: 32px;
+    width: 32px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+}
+
+.promotionpanel .cartScrollUp[disabled=false]:active,
+.promotionpanel .cartScrollDown[disabled=false]:active{
+    background-position: -32px 0;
+}
+
+.promotionpanel .cartScrollUp description,
+.promotionpanel .cartScrollDown description {
+    display: none;
+}
+
 .tree_promotions tree {
-    margin: 0px;
+    margin: 0px 4px 0 0;
     border: none;
-    color: #f4f4f4;
-    background-color: #1e1b14;
+    color: #333;
+    background: none;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-user-select: none;
     -moz-user-input: none;
 }
 
-.tree_promotions treechildren::-moz-tree-row(selected) { background-color: #1e1b14; }
+.tree_promotions treechildren::-moz-tree-row(selected) { 
+        background-color: #8bad5e;
+        font-weight: bold !important;
+    }
 
 .tree_promotions .tree-scrollable-columns {
     max-height: 0px;

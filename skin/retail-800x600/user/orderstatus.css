@@ -1,6 +1,6 @@
 .orderstatus {
     -moz-appearance: none;
-    background: #555940;
+    background: #c5d4eb;
 }
 .orderstatus .orderstatus {
   border: none;
@@ -14,7 +14,7 @@
 }
 
 .orderstatus_field_label {
-    color: #fff;
+    color: #000;
     max-width: 35px;
     margin: 0px 5px 0px 2px;
     padding: 0px 0px 0px 0px;
@@ -25,7 +25,7 @@
 }
 
 .orderstatus_field_value {
-    color: #fff;
+    color: #000;
     margin: 0px 2px 0px 0px;
     padding: 0px 0px 0px 0px;
     background-color: transparent;
@@ -35,7 +35,7 @@
 }
 
 .pricelevel_tax_field_label {
-    color: #fff;
+    color: #000;
     max-width: 50px;
     margin: 0px 5px 0px 2px;
     padding: 0px 0px 0px 0px;
@@ -46,7 +46,7 @@
 }
 
 .pricelevel_tax_field_value {
-    color: #fff;
+    color: #000;
     margin: 0px 2px 0px 0px;
     padding: 0px 0px 0px 0px;
     background-color: transparent;

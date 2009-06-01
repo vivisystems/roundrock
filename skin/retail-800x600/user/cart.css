@@ -7,14 +7,10 @@
 
 .cartList {
     font-size: 13px;
-    border: 2px solid ;
-    -moz-border-top-colors: #ecf7ff #ecf7ff;
-    -moz-border-right-colors: #ecf7ff #ebebeb;
-    -moz-border-bottom-colors: #d6d6d6 #f2f2f2;
-    -moz-border-left-colors: #f1f1f1 #fff;
+    border: none;
     margin: 0px 0px 2px 0px;
     padding: 0px;
-    background: transparent;
+    background: #fff;
 }
 
 .cartList > .cartList {
@@ -108,7 +104,7 @@
 .cartList tree {
     margin: 0px;
     border: none;
-    background: #ecf7ff;
+    background: none;
     -moz-appearance: none;
 }
 
@@ -131,7 +127,7 @@
 
 .cartList treechildren::-moz-tree-row {
     height: 28px;
-    border-bottom: 1px solid #818085;
+    border-bottom: 1px dotted #b9b9b9;
 }
 
 .cartList treechildren::-moz-tree-cell-text(batchMarker) {font-size: 16px; font-style: italic; font-weight: bolder; color: black;}
