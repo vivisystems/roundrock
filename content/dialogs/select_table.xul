@@ -95,33 +95,29 @@
         </hbox>
     </panel>
 
-    <panel id="order_display_panel" position="after_start" noautohide="false" class="PromptPnl">
+    <panel id="order_display_panel" position="after_start" noautohide="false" class="PromptPnl"
+            onpopupshown="$do('popupOrderPanel', null, 'SelectTable');"
+            onpopuphidden="$do('hideOrderPanel', null, 'SelectTable');">
         <hbox>
             <tabbox class="CheckTabbox" flex="1">
-            <tabs id="orders_tab" >
+            <tabs id="orders_tab">
                 <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
                 <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
                 <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
             </tabs>
 
-            <html:div id="order_display_div" >
-
-            </html:div>
+            <html:div id="order_display_div" />
 
             </tabbox>
             <vbox flex="1" class="CheckBtns">
                 <button class="closecBtn" oncommand="$do('doCloseOrderPanel', null, 'SelectTable');"/>
                 <spacer height="30px" />
-                <!-- button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
+                <button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
                 <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
                 <button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                <button class="bookcBtn" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/ -->
-                <button class="selectcBtn"/>
-                <button class="mergecBtn" />
-                <button class="splitcBtn" />
-                <button class="bookcBtn" />
+                <!-- button class="bookcBtn" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/ -->
                 <spacer height="80px" />
-                <button class="clerkBtn" />
+                <!-- button class="clerkBtn" / -->
             </vbox>
         </hbox>
     </panel>

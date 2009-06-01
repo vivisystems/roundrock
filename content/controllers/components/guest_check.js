@@ -430,9 +430,12 @@
 
             if (inputObj.ok && inputObj.index) {
                 var tables = inputObj.tables;
+                var id = inputObj.order_id;
+                var check_no = inputObj.check_no;
+                
                 var idx = inputObj.index;
                 var i = tables[idx].table_no;
-                var id = tables[idx].order_id;
+                // var id = tables[idx].order_id;
                 var destination = tables[idx].Table.destination;
 
                 // set action tag to session
@@ -440,12 +443,21 @@
 
                 switch (inputObj.action) {
                     case 'RecallCheck':
-
-                        this.recallByTableNo(i);
+                        if (check_no) {
+                            this.recallByCheckNo(check_no);
+                        } else {
+                            this.recallByTableNo(i);
+                        }
 
                         break;
                     case 'SplitCheck':
-                        if (this.recallByTableNo(i) != -1) {
+                        var r = -1;
+                        if (check_no) {
+                            r = this.recallByCheckNo(check_no);
+                        } else {
+                            r = this.recallByTableNo(i);
+                        }
+                        if (r != -1) {
 
                             var curTransaction = null;
                             curTransaction = this._controller._getTransaction();
@@ -471,14 +483,20 @@
 
                         break;
                     case 'MergeCheck':
-                        if (this.recallByTableNo(i) != -1) {
+                        var r = -1;
+                        if (check_no) {
+                            r = this.recallByCheckNo(check_no);
+                        } else {
+                            r = this.recallByTableNo(i);
+                        }
+                        if (r != -1) {
 
                             var curTransaction = null;
                             curTransaction = this._controller._getTransaction();
                             if (curTransaction) {
                                 if (this._isAllowMerge(curTransaction)) {
 
-                                    if (this.mergeOrder(id, curTransaction.data) == -1) {
+                                    if (this.mergeOrder(curTransaction.data.id, curTransaction.data) == -1) {
                                         // clear recall check from cart
                                         this._controller.cancel(true);
                                         return false;
@@ -764,7 +782,7 @@
         },
 
         recall: function(key, no, silence, excludedOrderId) {
-            // this.log("DEBUG", "GuestCheck recall...key:" + key + ",  no:" + no);
+            // this.log("DEBUG", "GuestCheck recall...key:" + key + ",  no:" + no + " , excludedOrderId:" + excludedOrderId);
             switch(key) {
                 case 'OrderNo':
                     // @todo not implement...

@@ -136,8 +136,8 @@
         _tableStatusModel: null,
         _isNewOrder: false,
         _cartController: null,
-        _autoRefresh: false,
         _mainController: null,
+        _selectedCheckNo: null,
 
         initial: function () {
             //
@@ -263,6 +263,7 @@
                 data.orders.push(o);
                 var tab = document.createElement("tab");
                 tab.setAttribute('label', 'C#' + o.check_no);
+                tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
                 tabs.appendChild(tab);
             })
 
@@ -275,21 +276,45 @@
                 doc.innerHTML = result;
             }
 
-            // after_start
-            // promptPanel.boxObject.width = 707;
-            // promptPanel.boxObject.height = 534;
-            // promptPanel.sizeTo(707, 534);
+            // first popup...
+            if (promptPanel.boxObject.width == 0) {
+                
+                promptPanel.openPopupAtScreen(0, 0, false);
+                this.sleep(100);
+                promptPanel.hidePopup();
+            }
+
             var x = (width - promptPanel.boxObject.width) / 2;
             var y = (height - promptPanel.boxObject.height) / 2;
-            // alert("x, y:" + x + "," + y);
-            // promptPanel.openPopup(obj, "overlay", x, y, false, false);
+            
             promptPanel.openPopupAtScreen(x, y, false);
+
+            // select first order
+            tabs.selectedIndex = 0;
+            tabs.selectedItem.doCommand();
+
 
             return promptPanel;
         },
 
         readTableConfig: function() {
             this._tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+        },
+
+        popupOrderPanel: function() {
+            //
+            // this.log("popupOrderPanel:::");
+            // this._selectedCheckNo =
+        },
+
+        hideOrderPanel: function() {
+            //
+            this._selectedCheckNo = null;
+        },
+
+        selectOrderTab: function(evt) {
+            //
+            this._selectedCheckNo = evt;
         },
 
         doCloseOrderPanel: function() {
@@ -303,26 +328,56 @@
         },
 
         doRecallCheck: function() {
-            this._setPromptLabel('*** ' + _('Recall Check') + ' ***', _('Please select a table to recall...'), '', _('Press CANCEL button to cancel function'), 2);
+            if (this._selectedCheckNo) {
+                
+                this._inputObj.action = 'RecallCheck';
+                this._inputObj.check_no = this._selectedCheckNo;
 
-            var pnl = this._showPromptPanel('prompt_panel');
-            this._inputObj.action = 'RecallCheck';
+                this.doCloseOrderPanel();
+                this.doFunc();
+                
+            } else {
+                this._setPromptLabel('*** ' + _('Recall Check') + ' ***', _('Please select a table to recall...'), '', _('Press CANCEL button to cancel function'), 2);
 
+                var pnl = this._showPromptPanel('prompt_panel');
+                this._inputObj.action = 'RecallCheck';
+            }
         },
 
         doSplitCheck: function() {
-            this._setPromptLabel('*** ' + _('Split Check') + ' ***', _('Please select a table to split...'), '', _('Press CANCEL button to cancel function'), 2);
+            if (this._selectedCheckNo) {
+                
+                this._inputObj.action = 'SplitCheck';
+                this._inputObj.check_no = this._selectedCheckNo;
 
-            var pnl = this._showPromptPanel('prompt_panel');
-            this._inputObj.action = 'SplitCheck';
+                this.doCloseOrderPanel();
+                this.doFunc();
+
+            } else {
+                this._setPromptLabel('*** ' + _('Split Check') + ' ***', _('Please select a table to split...'), '', _('Press CANCEL button to cancel function'), 2);
+
+                var pnl = this._showPromptPanel('prompt_panel');
+                this._inputObj.action = 'SplitCheck';
+            }
 
         },
 
         doMergeCheck: function() {
-            this._setPromptLabel('*** ' + _('Merge Check') + ' ***', _('Please select a table to merge...'), '', _('Press CANCEL button to cancel function'), 2);
+            if (this._selectedCheckNo) {
+                
+                this._inputObj.action = 'MergeCheck';
+                this._inputObj.check_no = this._selectedCheckNo;
 
-            var pnl = this._showPromptPanel('prompt_panel');
-            this._inputObj.action = 'MergeCheck';
+                this.doCloseOrderPanel();
+                this.doFunc();
+
+            } else {
+
+                this._setPromptLabel('*** ' + _('Merge Check') + ' ***', _('Please select a table to merge...'), '', _('Press CANCEL button to cancel function'), 2);
+
+                var pnl = this._showPromptPanel('prompt_panel');
+                this._inputObj.action = 'MergeCheck';
+            }
 
         },
 
@@ -402,17 +457,15 @@
             //
 
             try {
-                this._tableStatusModel.getTableStatusList();
+
+                window._tableStatusModel.getTableStatusList();
 
                 document.getElementById('tableScrollablepanel').invalidate();
-                // if (this._autoRefresh)
                 // GREUtils.log("refreshTableStatusLight:::");
+
             } catch(e) {}
 
-            var timeout = setTimeout('RefreshTableStatusLight()', 60000);
-
             return;
-
         },
 
         doRefreshTableStatus: function() {
@@ -681,6 +734,7 @@
                 this._inputObj.tableObj = this._tables[v];
                 this._inputObj.ok = true;
                 // doOKButton();
+
                 var cart = GeckoJS.Controller.getInstanceByName('Cart');
                 var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
 
@@ -731,6 +785,9 @@
                 },
 
                 init: function(evt) {
+                    self.initial();
+                    window.RefreshTableStatusLight = self.doRefreshTableStatusLight;
+                    window._tableStatusModel = self._tableStatusModel;
 
                 },
 
@@ -747,12 +804,17 @@
                 },
 
                 shown: function(evt) {
-                    self._autoRefresh = true;
+
                     document.getElementById('tableScrollablepanel').invalidate();
+
+                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 15000);
+
                 },
 
                 hide: function (evt) {
-                    self._autoRefresh = false;
+
+                    clearInterval(window.tableStatusRefreshInterval);
+
                 }
 
             });
@@ -769,7 +831,7 @@
             this._enableFuncs(this._isNewOrder);
             }
             
-            this.initial();
+            // this.initial();
 
             // var tables = inputObj.tables;
             var tables = this._tableStatusModel.getTableStatusList();
@@ -788,8 +850,6 @@
                     // document.getElementById('tableScrollablepanel').invalidate();
             }
 
-            window.RefreshTableStatusLight = this.doRefreshTableStatusLight;
-            this.doRefreshTableStatusLight();
         }
 
     };
