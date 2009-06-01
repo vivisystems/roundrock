@@ -152,10 +152,10 @@
                 this.dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
                              _('An error was encountered while updating shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
             }
-
-            // update shift
-            this.updateSession(newShiftMarker);
-
+            else {
+                // update shift
+                this.updateSession(r);
+            }
             return true;
         },
 
@@ -170,6 +170,7 @@
             var endOfShift = this.getEndOfShift();
             var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
             var isNewSalePeriod = false;
+            var updateShiftMarker = true;
 
             // no last shift?
             if (lastSalePeriod == '') {
@@ -207,21 +208,25 @@
             else {
                 newSalePeriod = lastSalePeriod;
                 newShiftNumber = lastShiftNumber;
+
+                updateShiftMarker = false;
             }
 
             // need to catch db exceptions thrown by setShift()
             try {
-                this.setShift(newSalePeriod, newShiftNumber, false, false);
+                if (updateShiftMarker) {
+                    this.setShift(newSalePeriod, newShiftNumber, false, false);
 
-                // reset sequence if necessary
-                if (resetSequence && isNewSalePeriod) {
-                    
-                    // get sequence format and length
-                    var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
-                    var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') +
-                                      GeckoJS.String.padLeft('0', sequenceNumberLength, '0');
-                                  
-                    SequenceModel.resetSequence('order_no', parseInt(newSequence));
+                    // reset sequence if necessary
+                    if (resetSequence && isNewSalePeriod) {
+
+                        // get sequence format and length
+                        var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
+                        var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') +
+                                          GeckoJS.String.padLeft('0', sequenceNumberLength, '0');
+
+                        SequenceModel.resetSequence('order_no', parseInt(newSequence));
+                    }
                 }
 
                 // display current shift / last shift information
@@ -231,6 +236,7 @@
                 this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
             }
             catch(e) {
+                // catch exception thrown by setShift()
                 return;
             }
         },

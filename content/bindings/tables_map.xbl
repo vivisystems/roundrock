@@ -35,8 +35,8 @@
             <html:div anonid="map_wrap" class="map_wrap" style=" width: 400px; height: 350px; border: 1px solid red;" xbl:inherits="class=wrapClass,width,height,style">
 
                 <html:div anonid="controller" xbl:inherits="class=controllerClass">
-                    <html:span class="jFlowControl">區域 1</html:span>
-                    <html:span class="jFlowControl">區域 2</html:span>
+                    <html:span class="jFlowControl">Region 1</html:span>
+                    <html:span class="jFlowControl">Region 2</html:span>
                 </html:div>
 
                 <html:div anonid="slides">

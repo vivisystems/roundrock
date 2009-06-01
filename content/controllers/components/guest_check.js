@@ -6,7 +6,7 @@
          * Component GuestCheck
          */
 
-        /*
+        /*t
             // Session
             vivipos_fec_price_level,
             vivipos_fec_tax_total,
@@ -421,7 +421,7 @@
                 var r = $.popupPanel('selectTablePanel', dialog_data);
             } catch (e) {}
 
-            return;
+            //return;
 
             return "" + r;
         },
@@ -613,7 +613,7 @@
                     curTransaction = this._controller._getTransaction(true);
                     if (curTransaction == null) {
                         NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
+                        return -1; // fatal error ?
                     }
                 }
                 GeckoJS.Session.set('vivipos_fec_table_number', r);
@@ -630,6 +630,7 @@
                 }
 
             }
+            return r;
         },
 
         check: function(check_no) {

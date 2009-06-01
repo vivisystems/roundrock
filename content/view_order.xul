@@ -42,7 +42,7 @@
             </hbox>
             <hbox flex="1">
                 <box class="reportbox" flex="1">
-                    <browser type="content" id="preview_frame" src="order_template.html" flex="1"/>
+                    <browser type="content" id="preview_frame" src="tpl/order_template.html" flex="1"/>
                 </box>
             </hbox>
             <hbox flex="1">
@@ -51,7 +51,8 @@
                                 oncommand="$do('voidSale', null, 'ViewOrder')" />
                 </hbox>
                 <hbox class="ReportTool">
-                    <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="document.getElementById('preview_frame').contentWindow.print();" />
+                    <!--vivibutton id="print" disabled="true" class="PrintBtn" oncommand="document.getElementById('preview_frame').contentWindow.print();" /-->
+                    <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="$do('exportRcp', null, 'ViewOrder')" />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns">
                     <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->

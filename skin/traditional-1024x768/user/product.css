@@ -7,9 +7,11 @@
 
 .catescrollablepanel{
     background: none;
+    /*
     width: 502px;
     max-width: 502px;
     min-width: 502px;
+    */
     margin: 0px;
 }
 
