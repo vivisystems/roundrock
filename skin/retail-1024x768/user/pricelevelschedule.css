@@ -1,0 +1,118 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.MainL {
+    border-right: 1px solid #a98f6e;
+    padding: 0 8px 5px 4px;
+}
+
+.ToolBar {
+    margin-left: 4px;
+}
+
+.PLbox {
+    background: #ecebe2;
+    margin: 5px 10px 5px 10px;
+    padding: 8px;
+}
+
+.RightPnlB {
+    margin: 0px 10px 5px 10px;
+    background: #ede7dc;
+    padding: 8px;
+}
+
+.ItemButtonA {
+    min-height: 45px;
+}
+
+.RightPnlB button {
+    border: 3px solid;
+    -moz-border-top-colors: #ede7dc #e6e0d5 #d7d1c7;
+  -moz-border-right-colors: #d7d1c7 #c0bcb3 #a39f97;
+  -moz-border-bottom-colors: #d7d1c7 #c0bcb3 #a39f97;
+  -moz-border-left-colors: #ede7dc #e6e0d5 #d7d1c7;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 45px;
+    color: #372213;
+}
+.RightPnlB button:hover {
+    border: 3px solid;
+    -moz-border-top-colors: #ede7dc #e6e0d5 #ed145b;
+  -moz-border-right-colors: #d7d1c7 #c0bcb3 #ed145b;
+  -moz-border-bottom-colors: #d7d1c7 #c0bcb3 #ed145b;
+  -moz-border-left-colors: #ede7dc #e6e0d5 #ed145b;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 45px;
+    color: #372213;
+}
+.RightPnlB button:active {
+    border: 2px solid;
+    -moz-border-top-colors: #ede7dc #e6e0d5 #ed145b;
+  -moz-border-right-colors: #d7d1c7 #c0bcb3 #ed145b;
+  -moz-border-bottom-colors: #d7d1c7 #c0bcb3 #ed145b;
+  -moz-border-left-colors: #ede7dc #e6e0d5 #ed145b;
+    background: white url(../images/itembtnB_sel.png) left center repeat-x;
+    -moz-appearance: none;
+    color: #32787a;
+}
+
+.BtnAdd {
+    margin: 0 20px;
+    min-height: 50px;
+    -moz-border-radius: 6px;
+    border: 3px solid;
+    -moz-border-top-colors: #ecebe2 #e5e4db #d6d5cd;
+	  -moz-border-right-colors: #d6d5cd #c0bfb7 #a2a19b;
+	  -moz-border-bottom-colors: #d6d5cd #c0bfb7 #a2a19b;
+	  -moz-border-left-colors: #ecebe2 #e5e4db #d6d5cd;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    color: #6c6050;
+    font-size: 12pt;
+    padding: 0 8px;
+}
+.BtnAdd[disabled=false]:hover {
+    border: 3px solid;
+    -moz-border-top-colors: #ecebe2 #e5e4db #ed145b;
+	  -moz-border-right-colors: #d6d5cd #c0bfb7 #ed145b;
+	  -moz-border-bottom-colors: #d6d5cd #c0bfb7 #ed145b;
+	  -moz-border-left-colors: #ecebe2 #e5e4db #ed145b;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+}
+
+.BtnAdd[disabled=false]:active {
+    border: 2px solid;
+  -moz-border-top-colors: #ee9400 #ee9400;
+  -moz-border-right-colors: #ee9400 #ee9400;
+  -moz-border-bottom-colors: #ee9400 #ee9400;
+  -moz-border-left-colors: #ee9400 #ee9400;
+  -moz-appearance: none;
+  color: #603913;
+}
+.BtnAdd[disabled=true] {
+  color: #999 ;
+  border: 1px solid;
+  -moz-border-top-colors: #999;
+  -moz-border-right-colors: #999;
+  -moz-border-bottom-colors: #999;
+  -moz-border-left-colors: #999;
+  list-style-image: none;
+}
+
+.SubTitle {
+    margin-top: 0px;
+}
+
+.ScrollUp {
+    margin-right: 2px;
+}
+
+.ScrollDown {
+    margin-right: 2px;
+}
+

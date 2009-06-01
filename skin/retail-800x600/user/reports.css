@@ -1,0 +1,276 @@
+.MainPnl {
+    margin: 6px;
+}
+
+.ExeBtn {
+    -moz-appearance: none;
+    color: #6c6050;
+    font-size: 12pt;
+    margin: 0 5px;
+    -moz-border-radius: 6px;
+    border: 3px solid;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    max-height: 70px;
+    min-height: 50px;
+    margin-bottom: 4px;
+}
+.ExeBtn:hover {
+		border: 3px solid;
+	  -moz-border-top-colors: #f0efe8 #e8e8e1 #00aeef;
+	  -moz-border-right-colors: #d9d9d2 #c3c2bc #00aeef;
+	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #00aeef;
+	  -moz-border-left-colors: #f0efe8 #e8e8e1 #00aeef;
+	  background: white url(images/tboxbg_readonly.png) left center repeat-x;
+  	-moz-appearance: none;
+}
+
+.ExeBtn:active {
+    border: 2px solid;
+  -moz-border-top-colors: #ee9400 #ee9400;
+  -moz-border-right-colors: #ee9400 #ee9400;
+  -moz-border-bottom-colors: #ee9400 #ee9400;
+  -moz-border-left-colors: #ee9400 #ee9400;
+  -moz-appearance: none;
+  color: #603913;
+}
+
+.TopPnl {
+    border-bottom: 1px solid #c1ab8e;
+    padding-bottom: 4px;
+}
+
+.DataForm row {
+    -moz-box-align: center;
+}
+
+.dialogbtns {
+    margin-left: 5px;
+}
+
+.LoadingPnl {
+    border: 10px solid;
+    -moz-border-top-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    -moz-border-left-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    -moz-border-right-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    -moz-border-bottom-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    background: white;
+    -moz-border-radius: 8px;
+    padding: 30px;
+    width:450px;
+    height:160px;
+    -moz-box-align: center;
+    left: 140px;
+    top: 200px;
+}
+
+.LoadingPnl label {
+    font-size: 14pt;
+    color: #534741;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.ItemScrollablepanel {
+    margin: 10px;
+}
+.ReportButton image {
+    
+}
+.ReportButton hbox {
+    -moz-box-orient: vertical;
+}
+.ReportButton {
+    font-size: 11pt;
+    border: 3px solid;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    background: white url(images/tboxbg_readonly.png) left center repeat-x;
+    -moz-border-radius: 8px;
+    -moz-appearance: none;
+    min-height: 36px;
+    color: #372213;
+}
+.ReportButton[disabled="true"] {
+  -moz-appearance: none;
+  border: none;
+  background: #ececec;
+}
+.ReportButton:active {
+    border: 2px solid;
+    -moz-border-top-colors: #ee9400 #ee9400 !important;
+    -moz-border-right-colors: #ee9400 #ee9400 !important;
+    -moz-border-bottom-colors: #ee9400 #ee9400 !important;
+    -moz-border-left-colors: #ee9400 #ee9400 !important;
+    -moz-appearance: none;
+    color: #603913 !important;
+}
+.ReportButton[disabled="false"]:hover {
+    border: 3px solid;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #00aeef;
+	  -moz-border-right-colors: #d9d9d2 #c3c2bc #00aeef;
+	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #00aeef;
+	  -moz-border-left-colors: #f0efe8 #e8e8e1 #00aeef;
+    background: white url(images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+}
+
+/* Tool Bar's Button */
+.ReportTool {
+  background: #e8d1b1;
+  -moz-border-radius: 8px;
+  padding: 10px 5px;
+  height: 60px;
+  max-height: 60px;
+  min-height: 60px;
+  margin: 0px 2px 2px 2px;
+}
+.ReportTool vivibutton{
+	-moz-appearance: none;
+  background: none;
+  border: none;
+  max-height: 42px;
+  max-width: 58px;
+  min-height: 42px;
+  min-width: 58px;
+  border-right: solid 1px white;
+  -moz-border-right-colors: white;
+}
+.ReportTool vivibutton[disabled="false"]:hover{
+	-moz-appearance: none;
+  background-color: white !important;
+}
+.ReportTool vivibutton description, .ReportTool vivibutton label{
+	display: none;
+}
+.PrintBtn {
+	height: 60px;
+	padding-left: 58px;
+	-moz-appearance: none;
+	background: transparent url(images/icon_print.png) center left no-repeat !important;
+}
+.PrintBtn[disabled=true] {
+	background: transparent url(images/icon_print-d.png) center center no-repeat !important;
+}
+.ZoomBtn {
+	height: 60px;
+	padding-left: 58px;
+	-moz-appearance: none;
+	background: transparent url(images/icon_zoom.png) center left no-repeat !important;
+}
+.ZoomBtn[disabled=true] {
+	background: transparent url(images/icon_zoom-d.png) center center no-repeat !important;
+}
+.CsvBtn {
+	background: transparent url(images/icon_exportcsv.png) center center no-repeat !important;
+}
+.CsvBtn[disabled=true] {
+	background: transparent url(images/icon_exportcsv-d.png) center center no-repeat !important;
+}
+.PdfBtn {
+	background: transparent url(images/icon_exportpdf.png) center center no-repeat !important;
+}
+.PdfBtn[disabled=true] {
+	background: transparent url(images/icon_exportpdf-d.png) center center no-repeat !important;
+}
+
+.previousPage {
+	background: transparent url(images/go-previous.png) center center no-repeat !important;
+}
+.previousPage[disabled=true] {
+	background: transparent url(images/previous.png) center center no-repeat !important;
+}
+
+.nextPage {
+	background: transparent url(images/go-next.png) center center no-repeat !important;
+}
+.nextPage[disabled=true] {
+	background: transparent url(images/next.png) center center no-repeat !important;
+}
+
+/* datetime */
+.datepicker-mainbox {
+    /*background: ;*/
+    font-size: 11pt;
+}
+.datepicker-monthbox {
+    font-size: 12pt;
+    background: #f1ede5;
+    padding: 5px;
+    margin-top: 5px;
+}
+.datepicker-mainbox grid row {
+    padding: 3px;
+    border: 1px solid #f1ede5;
+}
+.datepicker-mainbox grid column {
+    padding: 3px;
+    border: 1px solid #f1ede5;
+}
+
+vividatetimepicker button {
+    border: 3px solid;
+    -moz-border-top-colors: #f1ede5 #f2efeb #e6e3df;
+    -moz-border-right-colors: #e6e3df #d3d0cd #bab8b5;
+    -moz-border-bottom-colors: #e6e3df #d3d0cd #bab8b5;
+    -moz-border-left-colors: #f1ede5 #f2efeb #e6e3df;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 36px;
+    color: #736357;
+    margin: 3px;
+    cursor: pointer;
+    -moz-border-radius: 6px;
+}
+vividatetimepicker button:active {
+    border: 2px solid;
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+    background: white url(../images/itembtnB_sel.png) left center repeat-x;
+    -moz-appearance: none;
+    color: #32787a;
+}
+
+vividatetimepicker panel {
+    -moz-appearance: none;
+    background: white;
+    border: 1px solid #999;
+    padding: 4px;
+}
+
+vividatetimepicker .datetimepicker-input-box{
+    min-width: 250px;
+    border: 1px solid #d0cfcb;
+    -moz-border-top-colors: #d0cfcb;
+    -moz-border-left-colors: #d0cfcb;
+    -moz-border-right-colors: #d0cfcb;
+    -moz-border-bottom-colors: #d0cfcb;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 36px;
+    padding-right: 4px;
+}
+vividatetimepicker .datetimepicker-input-box input {
+    background: none;
+    -moz-appearance: none;
+}
+vividatetimepicker dropmarker {
+    border: 3px solid;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+	  -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+	  -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 36px;
+    width: 36px;
+    color: #534741;
+    list-style-image: url(../images/dropdown.png);
+}

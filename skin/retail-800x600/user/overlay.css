@@ -1,0 +1,55 @@
+/*  skin for main screen ------------------------------------------------------------- */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+
+.mainpanel  {
+    width: 800px;
+    height: 600px;
+    background-color: #f2faff;
+    border: 0px solid red;
+}
+
+.leftPanel {
+    width: 360px;
+    min-width: 360px;
+    max-width: 360px;
+}
+
+.rightPanel {
+    width: 440px;
+    min-width: 440px;
+    max-width: 440px;
+}
+
+.panelSpacer {
+    width: 4px;
+    min-width: 4px;
+    max-width: 4px;
+}
+
+.productPanel {
+
+    border: 0px solid blue;
+    overflow: hidden;
+    
+    margin-right: 0px;
+    margin-bottom: 0px;
+
+}
+
+.functionPanel {
+
+    border: 0px solid blue;
+    overflow: hidden;
+    
+    margin-right: 0px;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+#staticCondimentsPanel vivibutton image {
+    display: none;
+}
