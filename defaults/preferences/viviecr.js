@@ -874,4 +874,5 @@ pref("vivipos.fec.registry.layouts.retail.overlay_uri", "chrome://viviecr/conten
 pref("vivipos.fec.registry.layouts.retail.icon", "chrome://viviecr/content/layouts/retail.png");
 pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft");
 
-pref("vivipos.fec.registry.localization.package.viviecr", "en");
+pref("vivipos.fec.registry.localization.package.viviecr.base", "en");
+pref("vivipos.fec.registry.localization.package.viviecr.ext", "dtd,properties");

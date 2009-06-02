@@ -14,7 +14,8 @@
             // retrieve list of packages requesting localization editor support
             var packages = GeckoJS.Configure.read('vivipos.fec.registry.localization.package');
 
-            var selectedLocale = GeckoJS.Configure.read('general.useragent.locale');
+            var selectedLocale = GeckoJS.Configure.read('general.useragent.local');
+            //var selectedLocale = xulChromeReg.getSelectedLocale('viviecr');
             alert('current locale: ' + selectedLocale);
 
             // retrieve file system paths to base locale
@@ -29,7 +30,7 @@
 
                 GeckoJS.Configure.write('general.useragent.locale', selectedLocale);
 
-                alert('current locale: ' + selectedFilePath + ', base locale: ' + baseFilePath);
+                alert('pkg [' + pkg + '] current locale: ' + selectedFilePath + ', base locale: ' + baseFilePath);
                 
                 // make sure filePath exists and is a directory
                 if (!GREUtils.File.exists(selectedFilePath) || !GREUtils.File.isDir(selectedFilePath)) {
