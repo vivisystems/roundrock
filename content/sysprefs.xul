@@ -48,6 +48,7 @@
             <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool" />
             <preference id="pref_allowoverstock" name="vivipos.fec.settings.AllowOverStock" type="bool" />
             <preference id="pref_viewlocalordersonly" name="vivipos.fec.settings.ViewLocalOrdersOnly" type="bool" />
+            <preference id="pref_searchorderbytableno" name="vivipos.fec.settings.SearchOrderByTableNo" type="bool" />
             <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool" />
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
             <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool" />
@@ -78,7 +79,7 @@
                     <checkbox preference="pref_positivepricerequired" id="pref_positivepricerequiredCtrl" label="&general.positivepricerequired;" />
                 </row>
                 <row>
-                    <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
+                    <checkbox preference="pref_searchorderbytableno" id="pref_searchorderbytablenoCtrl" label="&general.searchorderbytableno;" />
                     <checkbox preference="pref_viewlocalordersonly" id="pref_viewlocalordersonlyCtrl" label="&general.viewlocalordersonly;" />
                 </row>
                 <row>
@@ -88,6 +89,9 @@
                 <row>
                     <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;" />
                     <checkbox preference="pref_quietcancel" id="quietcancel" label="&general.quietcancel;" />
+                </row>
+                <row>
+                    <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
                 </row>
                 <row>
                     <vbox>

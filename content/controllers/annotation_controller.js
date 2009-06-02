@@ -4,6 +4,7 @@
         name: 'Annotations',
 
         _order: null,
+        _txn: null,
         _codeObj: null,
         _viewObj: null,
         _typeObj: null,
@@ -202,6 +203,7 @@
 
             var codes = args.codes;
             this._order = args.order;
+            this._txn = args.txn;
             
             this.loadAnnotations();
 
@@ -283,6 +285,9 @@
                         return;
                     }
                 }
+                // update transaction for failure recovery
+                Transaction.serializeToRecoveryFile(this._txn);
+
                 // drop annotation data and reload
                 this._annotationDatas = [];
                 this.loadAnnotations();
@@ -315,6 +320,9 @@
                 else
                     delete order.annotations[ type ];
 
+                // update transaction for failure recovery
+                Transaction.serializeToRecoveryFile(this._txn);
+
                 // drop annotation data and reload
                 this._annotationDatas[index].text = text;
                 this.loadAnnotations();
@@ -335,6 +343,9 @@
 
                 if (order.annotations) {
                     delete order.annotations[ annotationType ];
+
+                    // update transaction for failure recovery
+                    Transaction.serializeToRecoveryFile(this._txn);
                 }
                 this._annotationDatas.splice(index, 1);
                 this.loadAnnotations();

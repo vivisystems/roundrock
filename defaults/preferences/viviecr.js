@@ -302,7 +302,7 @@ pref("vivipos.fec.registry.function.programmable.keypress.command", "sendCharcod
 pref("vivipos.fec.registry.function.programmable.keypress.controller", "Keypad");
 pref("vivipos.fec.registry.function.programmable.keypress.data", "");
  
-pref("vivipos.fec.registry.function.programmable.clear.access", "acl_register");
+pref("vivipos.fec.registry.function.programmable.clear.access", "");
 pref("vivipos.fec.registry.function.programmable.clear.command", "sendKeycode");
 pref("vivipos.fec.registry.function.programmable.clear.controller", "Keypad");
 pref("vivipos.fec.registry.function.programmable.clear.data", "27");
@@ -678,23 +678,6 @@ pref("vivipos.fec.reportpanels.promotionsummary.path", "chrome://viviecr/content
 pref("vivipos.fec.reportpanels.promotionsummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.promotionsummary.roles", "acl_run_report");
 
-/*
-pref("vivipos.fec.reportpanels.customertransaction.label", "Customer Transaction Report");
-pref("vivipos.fec.reportpanels.customertransaction.path", "chrome://viviecr/content/reports/rpt_customer_transaction.xul");
-pref("vivipos.fec.reportpanels.customertransaction.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
-pref("vivipos.fec.reportpanels.customertransaction.roles", "acl_run_report");
-
-pref("vivipos.fec.reportpanels.detailedcustomertransaction.label", "Detailed Customer Transaction Report");
-pref("vivipos.fec.reportpanels.detailedcustomertransaction.path", "chrome://viviecr/content/reports/rpt_detailed_customer_transaction.xul");
-pref("vivipos.fec.reportpanels.detailedcustomertransaction.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
-pref("vivipos.fec.reportpanels.detailedcustomertransaction.roles", "acl_run_report");
-
-pref("vivipos.fec.reportpanels.customers.label", "Customers");
-pref("vivipos.fec.reportpanels.customers.path", "chrome://viviecr/content/reports/rpt_customers.xul");
-pref("vivipos.fec.reportpanels.customers.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
-pref("vivipos.fec.reportpanels.customers.roles", "acl_run_report");
-*/
-
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");
@@ -884,4 +867,4 @@ pref("vivipos.fec.registry.layouts.retail.label", "chrome://viviecr/locale/messa
 pref("vivipos.fec.registry.layouts.retail.desc", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.retail.overlay_uri", "chrome://viviecr/content/layouts/retail.xul");
 pref("vivipos.fec.registry.layouts.retail.icon", "chrome://viviecr/content/layouts/retail.png");
-pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft,ProductPanelOnTop");
+pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft");

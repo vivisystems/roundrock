@@ -2507,7 +2507,7 @@
     Transaction.serializeToRecoveryFile = function(transaction) {
 
             var filename = "/var/tmp/cart_transaction.txt";
-            
+
             // save serialize to fail recovery file
             var file = new GeckoJS.File(filename);
             file.open("w");

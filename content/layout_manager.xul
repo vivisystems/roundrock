@@ -172,7 +172,7 @@
                     </vbox>
                     <vbox>
                         <label control="pref_fncols" value="&layout.functionpanel.height;"/>
-                        <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="300"  size="3" maxlength="3"/>
+                        <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="999"  size="3" maxlength="3"/>
                     </vbox>
                 </row>
             </rows>
