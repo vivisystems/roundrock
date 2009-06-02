@@ -2089,6 +2089,9 @@ msgstr "table #"
 msgid "(view)customer"
 msgstr "customer"
 
+msgid "(view)customer id"
+msgstr "customer id"
+
 msgid "(view)customers"
 msgstr "customers"
 

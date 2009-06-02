@@ -268,13 +268,15 @@
                             txn.data.annotations[ annotationType ] = result.input0;
                         else
                             delete txn.data.annotations[ annotationType ];
+
+                        Transaction.serializeToRecoveryFile(txn);
                     }
                 });
             }
             else {
                 var aURL = "chrome://viviecr/content/annotate.xul";
                 var aName = "Annotate";
-                var aArguments = {order: txn.data, codes: codeList, sequence: txn.data.seq};
+                var aArguments = {order: txn.data, codes: codeList, sequence: txn.data.seq, txn:txn};
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
                 window.openDialog(aURL, aName, aFeatures, aArguments);
@@ -295,12 +297,20 @@
         orderDialog: function () {
             var aURL = 'chrome://viviecr/content/view_order.xul';
             var aName = _('Order Details');
-            var aArguments = {index: 'sequence,table_no', value: this._getKeypadController().getBuffer()};
+            var aArguments = {value: this._getKeypadController().getBuffer()};
             var posX = 0;
             var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-            
+
+            var searchByTableNo = GeckoJS.Configure.read('vivipos.fec.settings.SearchOrderByTableNo');
+
+            if (searchByTableNo) {
+                aArguments.index = 'table_no';
+            }
+            else {
+                aArguments.index = 'sequence';
+            }
             //this._getKeypadController().clearBuffer();
             this.requestCommand('clearBuffer', null, 'Keypad');
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
