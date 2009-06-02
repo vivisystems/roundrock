@@ -263,9 +263,11 @@
                     var hspacing = fnPanel.hspacing;
                     var vspacing = fnPanel.vspacing;
 
-                    fnPanelContainer.setAttribute('style', 'height: ' + fnHeight + 'px; max-height: ' + fnHeight + 'px; min-height: ' + fnHeight + 'px');
-                    fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
-                    fnPanel.setAttribute('height', fnHeight);
+                    if (fnPanelContainer) {
+                        fnPanelContainer.setAttribute('style', 'height: ' + fnHeight + 'px; max-height: ' + fnHeight + 'px; min-height: ' + fnHeight + 'px');
+                        fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
+                        fnPanel.setAttribute('height', fnHeight);
+                    }
                     //fnPanel.setAttribute('width', fnWidth);
                 }
             }
@@ -352,7 +354,6 @@
         },
 
         handleUpdateOptions: function(evt) {
-            alert('handle update options');
             this.resetLayout(false);
         }
 

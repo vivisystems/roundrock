@@ -69,6 +69,9 @@
 
             this.dispatchEvent('afterInitial', null);
 
+            // recover queued orders
+            this.requestCommand('unserializeQueueFromRecoveryFile', null, 'Cart');
+
             // check transaction fail
             var recovered = false;
             if(Transaction.isRecoveryFileExists()) {
@@ -97,6 +100,7 @@
                     catch(e) {}
                 }
             }
+
             if (!recovered) {
                 this.requestCommand('initialLogin', null, 'Main');
             }

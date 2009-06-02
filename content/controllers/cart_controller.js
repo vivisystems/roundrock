@@ -3771,6 +3771,7 @@
 
                 this.serializeQueueToRecoveryFile(queuePool);
 
+                Transaction.removeRecoveryFile();
             }
             else {
                 if (!nowarning) NotifyUtils.warn(_('Order is not queued because it is empty'));
@@ -4140,8 +4141,6 @@
                 if (priceLevel) {
                     $do('change', priceLevel, 'Pricelevel');
                 }
-                
-                this.unserializeQueueFromRecoveryFile();
                 this.subtotal();
             }
         },
