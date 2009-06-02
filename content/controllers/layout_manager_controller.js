@@ -129,10 +129,11 @@
 
             var disabled_features = (layout['disabled_features'] || "").split(",");
             $("*[feature]").each(function(i) {
+                var action = this.getAttribute('feature');
                 if(GeckoJS.Array.inArray(this.id, disabled_features) != -1) {
-                    this.setAttribute('disabled', true) ;
+                    this.setAttribute(action, true) ;
                 }else {
-                    this.setAttribute('disabled', false) ;
+                    this.setAttribute(action, false) ;
                 }
 
             });

@@ -120,7 +120,7 @@
             }
         },
 
-        resizePanels: function (initial) {
+        resizePanels: function (disabled_features, initial) {
             // resizing product/function panels
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
@@ -160,7 +160,10 @@
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
+
+            // not all layout supports fnHeight
             var fnHeight = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.height') || 200;
+            if (GeckoJS.Array.inArray("fnheightFeature", disabled_features) != -1) fnHeight = 0;
 
             if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
@@ -263,11 +266,11 @@
                     var hspacing = fnPanel.hspacing;
                     var vspacing = fnPanel.vspacing;
 
-                    if (fnPanelContainer) {
+                    if (fnHeight && fnPanelContainer) {
                         fnPanelContainer.setAttribute('style', 'height: ' + fnHeight + 'px; max-height: ' + fnHeight + 'px; min-height: ' + fnHeight + 'px');
-                        fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
                         fnPanel.setAttribute('height', fnHeight);
                     }
+                    fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
                     //fnPanel.setAttribute('width', fnWidth);
                 }
             }
@@ -350,7 +353,7 @@
             if (soldOutCategory) soldOutCategory.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
 
-            this.resizePanels(initial);
+            this.resizePanels(disabled_features, initial);
         },
 
         handleUpdateOptions: function(evt) {

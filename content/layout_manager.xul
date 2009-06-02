@@ -69,8 +69,8 @@
             </columns>
             <rows>
                 <row>
-                    <checkbox id="RegisterAtLeft" label="&layout.registeratleft;" feature="true" preference="pref_registeratleft"/>
-                    <checkbox id="ProductPanelOnTop" label="&layout.productpanelontop;" feature="true" preference="pref_productpanelontop"/>
+                    <checkbox id="RegisterAtLeft" label="&layout.registeratleft;" feature="disabled" preference="pref_registeratleft"/>
+                    <checkbox id="ProductPanelOnTop" label="&layout.productpanelontop;" feature="disabled" preference="pref_productpanelontop"/>
                 </row>
                 <row>
                     <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>            
@@ -174,7 +174,7 @@
                         <label control="pref_fncols" value="&layout.functionpanel.cols;"/>
                         <textbox preference="pref_fncols" id="pref_fncols" type="number" size="2" maxlength="1" min="1" max="9"/>
                     </vbox>
-                    <vbox>
+                    <vbox id="fnheightFeature" feature="hidden">
                         <label control="pref_fncols" value="&layout.functionpanel.height;"/>
                         <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="999"  size="3" maxlength="3"/>
                     </vbox>
