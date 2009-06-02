@@ -14,8 +14,27 @@
             this.target = target;
         },
 
-        getBuffer: function() {
-            return this.buf;
+        getBuffer: function(formatted) {
+            if (!formatted)
+                return this.buf;
+
+            if (this.buf == '' || this.buf.indexOf('.') != -1) return this.buf;
+            
+            if (GeckoJS.Configure.read('vivipos.fec.settings.AutoSetDecimalPoint')) {
+                var decimalPlaces = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices');
+                if (decimalPlaces > 0) {
+                    if (this.buf.length > decimalPlaces) {
+                        var index = this.buf.length - decimalPlaces;
+                        return this.buf.substr(0, index) + '.' + this.buf.substr(index, decimalPlaces);
+                    }
+                    else if (this.buf.length == decimalPlaces) {
+                        return '0.' + this.buf;
+                    }
+                    else {
+                        return '0.' + GeckoJS.String.padLeft(this.buf, decimalPlaces, '0');
+                    }
+                }
+            }
         },
 	
         clearBuffer: function() {
@@ -129,7 +148,7 @@
                 case 13:
                     if (this.target == 'Cart') {
                         var cart = this.getCartController();
-                        cart.data = this.getBuffer();
+                        cart.data = this.getBuffer(true);
                         this.clearBuffer();
                         this.getCartController().addItemByBarcode(cart.data);
                     }

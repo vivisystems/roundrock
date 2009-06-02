@@ -285,8 +285,10 @@
             var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false;
             var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.HideTagColumn') || false;
             var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.ShowToolbar') || false;
+            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.HideBottomBox') || false;
             
             var hbox = document.getElementById('mainPanel');
+            var bottombox = document.getElementById('vivipos-bottombox');
             var productPanel = document.getElementById('productPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
@@ -297,6 +299,9 @@
             var checkTrackingStatus = document.getElementById('vivipos_fec_check_tracking_status');
             var soldOutCategory = document.getElementById('catescrollablepanel-soldout');
             var soldOutProduct = document.getElementById('prodscrollablepanel-soldout');
+
+            if (hideBottomBox) bottombox.setAttribute('hidden', 'true');
+            else bottombox.removeAttribute('hidden');
             
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', productPanelOnTop ? 'reverse' : 'normal');

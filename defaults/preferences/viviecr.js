@@ -18,6 +18,11 @@ pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
  
 pref("vivipos.fec.settings.image.disklimit", 52428800);
 
+pref("vivipos.fec.settings.controlpanels.system.localization.label", "Localization Editor");
+pref("vivipos.fec.settings.controlpanels.system.localization.path", "chrome://viviecr/content/localization_editor.xul");
+pref("vivipos.fec.settings.controlpanels.system.localization.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.system.localization.roles", "acl_localization_editor");
+
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.label", "Store Contact");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.path", "chrome://viviecr/content/storecontact.xul");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_store.png");
@@ -868,3 +873,5 @@ pref("vivipos.fec.registry.layouts.retail.desc", "chrome://viviecr/locale/messag
 pref("vivipos.fec.registry.layouts.retail.overlay_uri", "chrome://viviecr/content/layouts/retail.xul");
 pref("vivipos.fec.registry.layouts.retail.icon", "chrome://viviecr/content/layouts/retail.png");
 pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft");
+
+pref("vivipos.fec.registry.localization.package.viviecr", "en");

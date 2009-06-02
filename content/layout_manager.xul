@@ -43,6 +43,7 @@
     <prefpane id="displaySettingsPane" label="&category.layout.general;" >
         <preferences>
 			
+            <preference id="pref_hidebottombox" name="vivipos.fec.settings.HideBottomBox" type="bool" />
             <preference id="pref_showtoolbar" name="vivipos.fec.settings.ShowToolbar" type="bool" />
             <preference id="pref_clockinenabled" name="vivipos.fec.settings.ClockInEnabled" type="bool" />
             <preference id="pref_showvirtualkeyboardicon" name="vivipos.fec.settings.ShowVKIcon" type="bool" />
@@ -94,6 +95,9 @@
                 <row>
                     <checkbox preference="pref_showvirtualkeyboardicon" id="pref_showvirtualkeyboardiconCtrl" label="&layout.showvirtualkeyboardicon;" />
                     <checkbox preference="pref_showconfigicon" id="pref_showconfigiconCtrl" label="&layout.showconfigicon;" />
+                </row>
+                <row>
+                    <checkbox preference="pref_hidebottombox" id="pref_hidebottomboxCtrl" label="&layout.hidebottombox;" />
                 </row>
             </rows>
         </grid>

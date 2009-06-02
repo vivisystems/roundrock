@@ -446,7 +446,6 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
@@ -547,7 +546,7 @@
             }
             
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             if (buf.length>0) {
                 this.setPrice(buf);
                 this._getKeypadController().clearBuffer();
@@ -892,7 +891,7 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             // check if has buffer
@@ -1889,7 +1888,7 @@
         currencyConvert: function(convertCode) {
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             var currencies = GeckoJS.Session.get('Currencies');
@@ -2055,7 +2054,7 @@
             if (type == null) type = '';
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             GeckoJS.Session.remove('cart_set_price_value');
@@ -2169,7 +2168,7 @@
             }
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             // check if order is open
@@ -2270,7 +2269,7 @@
             }
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             // check if order is open
@@ -2374,7 +2373,7 @@
         check: function(type) {
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             // check if order is open
@@ -3113,7 +3112,7 @@
         cash: function(amount) {
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
             
             if (buf.length>0) {
