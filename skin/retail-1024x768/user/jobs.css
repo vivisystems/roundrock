@@ -1,0 +1,21 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.MainL {
+    border-right: 1px solid #a98f6e;
+}
+
+.ToolBar {
+    margin-left: 4px;
+}
+
+.JobForm {
+    padding: 8px;
+    background: #ecebe2;
+    margin: 33px 10px 10px 10px;
+}
+
+.SubTitle {
+    margin: 4px;
+}

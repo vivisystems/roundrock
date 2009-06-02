@@ -1,0 +1,167 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Number Pad
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+#numberpadPanelContainer {
+    margin: 0px 0px 2px 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Number Pad function buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.fixedbtn {
+    min-width:77px;
+    max-width:77px;
+    width: 77px;
+    min-height:42px;
+    max-height:42px;
+    height: 42px;
+    margin:  2px 0px 0px 3px;
+    padding: 0px;
+    list-style-type: none;
+    color: #203347;
+    font-weight: bold !important;
+    font-size: 12px;
+    overflow: hidden;
+    text-wrap: normal;
+    word-wrap: break-word;
+    border: 0px solid;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-box-align:center;
+    -moz-box-pack:center;
+
+    background: transparent url(images/funBtn.png) center center no-repeat;
+}
+
+.fixedbtn:active {
+    background: transparent url(images/funBtn_a.png) center center no-repeat;
+}
+
+.fixedbtn[disabled=true] {
+    background: transparent url(images/funBtn_disabled.png) center center no-repeat;
+}
+
+/* adjustments to make fixed function buttons line up */
+
+.fixedbtnrow {
+    width: 397px;
+    max-width: 397px;
+    min-width: 397px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Front End Number Pad numeric keypad
+ *-----------------------------------------------------------------------------
+ */
+
+.numpad {
+	background: none;
+	border: none;
+	-moz-background-clip: border;
+	padding: 27px 10px 10px 5px;
+}
+
+.nopad {
+    background: transparent url(images/numberpad.png) center center no-repeat;
+    max-height: 241px;
+    min-height: 241px;
+    max-width: 184px;
+    min-width: 184px;
+    padding: 16px 0 0 4px;
+    margin-top: 15px;
+}
+
+.fe-numberpad sendkeybutton{
+    min-width:58px;
+    max-width:58px;
+    width: 58px;
+    height: 53px;
+    max-height: 53px;
+    min-height: 53px;
+    margin: 1px 0px 0px 1px;
+    padding: 0px;
+    list-style-type: none;
+    font-weight: bold !important;
+    font-size: 30px;
+    overflow: hidden;
+    border: 0px solid;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background: transparent;
+}
+
+.fe-numberpad sendkeybutton:active{
+	background: transparent url(images/numberclick.png) center center no-repeat;
+}
+
+.fe-numberpad sendkeybutton description {
+    display: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Number Pad toolbar
+ *-----------------------------------------------------------------------------
+ */
+
+#toolbar {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+/* Number Pad toggle button */
+
+.togglenumpad {
+  border: 0px solid;
+  background: transparent url(images/maximize.png) 0 0 no-repeat;
+  max-height: 32px;
+  min-height: 32px;
+  max-width: 32px;
+  min-width: 32px;
+  height: 32px;
+  width: 32px;
+  margin: 2px;
+  -moz-user-focus: ignore;
+  -moz-appearance: none;
+}
+
+.togglenumpad[state=true] {
+  border: 0px solid;
+  background: transparent url(images/maximize.png) 0 0 no-repeat;
+  max-height: 32px;
+  min-height: 32px;
+  max-width: 32px;
+  min-width: 32px;
+  height: 32px;
+  width: 32px;
+  margin: 2px;
+  -moz-user-focus: ignore;
+  -moz-appearance: none;
+}
+
+.togglenumpad[state=true]:active {
+	background-position:-32px 0;
+}
+
+.togglenumpad[state=false] {
+    background: transparent url(images/minimize.png) 0 0 no-repeat;
+}
+
+.togglenumpad[state=false]:active {
+	background-position:-32px 0;
+}
+
+/* Number Pad clockin/out button */
+
+.clockinout {
+    background: transparent url(images/clock.png) center center no-repeat;
+}
+
+.options {
+    background: transparent url(images/option.png) center center no-repeat;
+}

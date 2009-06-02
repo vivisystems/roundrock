@@ -25,7 +25,9 @@
                             <xul:textbox anonid="title_label" disabled="true" class="label_promotions" xbl:inherits="class=labelClass,value"></xul:textbox>
                             <xul:textbox anonid="subtotal_label" disabled="true" class="subtotal_promotions" xbl:inherits="class=subtotalClass,value"></xul:textbox>
                             <xul:textbox anonid="applies_label" disabled="true" class="label_promotions" xbl:inherits="class=labelClass,value"></xul:textbox>
-                            <xul:image style="width:36px; height:36px;" xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/icon_list.png" onclick="popupDetailPanel()"/>
+                            <xul:box class="promotionIcon" onclick="popupDetailPanel()">
+                            <xul:image style="width:36px; height:36px;" xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/icon_list.png"/>
+                            </xul:box>
                         </xul:row>
                     </xul:rows>
                 </xul:grid>

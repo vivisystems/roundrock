@@ -24,14 +24,16 @@
                     <box id="vfdPanelContainer" flex="0"/>
                     <box id="cartlistPanelContainer" flex="1"/>
                     <box id="visiblePromotionsStatusPanelContainer" flex="0"/>
+                    <box id="RetailToolbarContainer" flex="0"/>
                 </box>
             </box>
 
             <box id="rightPanel" class="block-gd" orient="vertical" flex="1">
                 <box orient="vertical" class="block-u" flex="1">
+                    <box class="nopad">
                     <numberpad id="multinumberpad" class="fe-numberpad" target="null" onkeypress="$do('keypress', event, 'Keypad');" />
-                    <spacer flex="1"/>
-                    <box id="functionPanelContainer" flex="1" />
+                    </box>
+                    <box id="RetailfunctionPanelContainer" flex="1" />
                 </box>
             </box>
 
