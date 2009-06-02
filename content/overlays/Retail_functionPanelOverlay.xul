@@ -9,7 +9,7 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <box id="RetailfunctionPanelContainer" orient="horizontal" class="RetailFunctionPnl">
+  <box id="retailFunctionPanelContainer" orient="horizontal" class="RetailFunctionPnl">
         <spacer class="fspacer" />
         <!-- Begin FuncBtns -->
         <vivifuncpanelecr

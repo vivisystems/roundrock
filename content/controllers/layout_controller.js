@@ -47,7 +47,7 @@
         },
     
         initial: function() {
-
+            
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
 
@@ -164,9 +164,10 @@
 
             if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
-            if (initial ||
-                (condPanel.vivibuttonpanel.getAttribute('rows') != condRows) ||
-                (condPanel.vivibuttonpanel.getAttribute('cols') != condCols)) {
+            if (condPanel &&
+                (initial ||
+                 (condPanel.vivibuttonpanel.getAttribute('rows') != condRows) ||
+                 (condPanel.vivibuttonpanel.getAttribute('cols') != condCols))) {
                 condPanel.vivibuttonpanel.rows = condRows;
                 condPanel.vivibuttonpanel.cols = condCols;
 
@@ -181,13 +182,14 @@
                 }
             }
             
-            if (initial ||
-                (deptPanel.getAttribute('rows') != departmentRows) ||
-                (deptPanel.getAttribute('cols') != departmentCols) ||
-                (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
-                (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
-                (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
-                (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar)) {
+            if (deptPanel &&
+                (initial ||
+                 (deptPanel.getAttribute('rows') != departmentRows) ||
+                 (deptPanel.getAttribute('cols') != departmentCols) ||
+                 (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
+                 (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
+                 (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
+                 (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar))) {
 
                 deptPanel.setAttribute('rows', departmentRows);
                 deptPanel.setAttribute('cols', departmentCols);
@@ -211,12 +213,13 @@
                 }
             }
 
-            if (initial ||
-                (pluPanel.getAttribute('rows') != pluRows) ||
-                (pluPanel.getAttribute('cols') != pluCols) ||
-                (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
-                (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
-                (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar)) {
+            if (pluPanel &&
+                (initial ||
+                 (pluPanel.getAttribute('rows') != pluRows) ||
+                 (pluPanel.getAttribute('cols') != pluCols) ||
+                 (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
+                 (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
+                 (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar))) {
 
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
@@ -269,8 +272,6 @@
         },
         
         resetLayout: function (initial) {
-
-            var selectedLayout = this._selectedLayout;
             var layout = this._layout ;
             var disabled_features = layout ? (layout['disabled_features'] || "").split(",") : [];
 
@@ -351,6 +352,7 @@
         },
 
         handleUpdateOptions: function(evt) {
+            alert('handle update options');
             this.resetLayout(false);
         }
 

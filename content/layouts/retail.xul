@@ -24,7 +24,7 @@
                     <box id="vfdPanelContainer" flex="0"/>
                     <box id="cartlistPanelContainer" flex="1"/>
                     <box id="visiblePromotionsStatusPanelContainer" flex="0"/>
-                    <box id="RetailToolbarContainer" flex="0"/>
+                    <box id="retailToolbarContainer" flex="0"/>
                 </box>
             </box>
 
@@ -33,7 +33,7 @@
                     <box class="nopad">
                     <numberpad id="multinumberpad" class="fe-numberpad" target="null" onkeypress="$do('keypress', event, 'Keypad');" />
                     </box>
-                    <box id="RetailfunctionPanelContainer" flex="1" />
+                    <box id="retailFunctionPanelContainer" flex="1" />
                 </box>
             </box>
 

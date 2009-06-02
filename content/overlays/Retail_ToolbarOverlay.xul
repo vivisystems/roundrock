@@ -9,10 +9,10 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <box id="RetailToolbarContainer" orient="horizontal" pack="end">
+  <box id="retailToolbarContainer" orient="horizontal" pack="end">
 
         <!-- begin tools -->
-        <hbox id="toolbar">
+        <hbox id="toolbar" flex="1" pack="center">
             <isoptionenabled id="vkb" option="vivipos.fec.settings.ShowVKIcon" action="display">
                 <vivibutton id="vkb-icon" label=""  oncommand="VirtualKeyboard.toggle();"
                             class="button-vkb"/>
@@ -25,8 +25,6 @@
                 <vivibutton id="config-icon" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
                             class="options"/>
             </isoptionenabled>
-            <vivibutton id="togglefunctionpanel"  disabled="false" state="false" suspendable="false" label="" action="display" oncommand="$do('toggleFunctionPanel', null, 'Layout');"
-                        class="togglefunctionpanel" />
         </hbox>
         <!-- end tools -->
   </box>

@@ -130,9 +130,9 @@
             var disabled_features = (layout['disabled_features'] || "").split(",");
             $("*[feature]").each(function(i) {
                 if(GeckoJS.Array.inArray(this.id, disabled_features) != -1) {
-                    this.setAttribute('hidden', true) ;
+                    this.setAttribute('disabled', true) ;
                 }else {
-                    this.setAttribute('hidden', false) ;
+                    this.setAttribute('disabled', false) ;
                 }
 
             });
