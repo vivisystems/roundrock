@@ -50,10 +50,9 @@ textbox:not([onclick]) *[readonly] {
 }
 
 .user-catbtn[disabled=true] {
-    -moz-border-top-colors: #848388 #bebebe !important;
-    -moz-border-right-colors: #848388 #bebebe !important;
-    -moz-border-bottom-colors: #848388 #bebebe !important;
-    -moz-border-left-colors: #848388 #bebebe !important;
+    background: #d8d7d3;
+    -moz-appearance: none;
+    border: none;
 }
 
 .user-catbtn hbox {
@@ -90,10 +89,12 @@ textbox:not([onclick]) *[readonly] {
 }
 
 .user-plubtn[disabled=true] {
-    -moz-border-top-colors: #424851 #dfe1e4 !important;
-    -moz-border-right-colors: #424851 #dfe1e4 !important;
-    -moz-border-bottom-colors: #424851 #dfe1e4 !important;
-    -moz-border-left-colors: #424851 #dfe1e4 !important;
+    border: 2px solid;
+    -moz-appearance: none;
+    -moz-border-top-colors: #b5b0a7 #fff !important;
+    -moz-border-right-colors: #b5b0a7 #fff !important;
+    -moz-border-bottom-colors: #b5b0a7 #fff !important;
+    -moz-border-left-colors: #b5b0a7 #fff !important;
     background-color: transparent;
 }
 
@@ -120,7 +121,7 @@ textbox:not([onclick]) *[readonly] {
 .catbtn, .plubtn {
     min-height:40px;
     min-width: 40px;
-    border: 1px solid;
+    border: 2px solid;
     -moz-appearance: none;
     margin: 2px 2px 2px 2px;
     padding: 0px;
@@ -128,10 +129,10 @@ textbox:not([onclick]) *[readonly] {
     -moz-box-pack: center;
     -moz-user-focus: ignore;
 
-    -moz-border-top-colors: #444;
-    -moz-border-right-colors: #444;
-    -moz-border-bottom-colors: #444;
-    -moz-border-left-colors: #444;
+    -moz-border-top-colors: #b5b0a7 #fff;
+    -moz-border-right-colors: #b5b0a7 #fff;
+    -moz-border-bottom-colors: #b5b0a7 #fff;
+    -moz-border-left-colors: #b5b0a7 #fff;
 }
 
 .catbtn[disabled=false]:active, .plubtn[disabled=false]:active {
@@ -143,9 +144,9 @@ textbox:not([onclick]) *[readonly] {
     -moz-border-left-colors: #444 #222;
 }
 .catbtn[disabled=true], .plubtn[disabled=true] {
+    background: #d8d7d3;
     -moz-appearance: none;
     border: none;
-    background: #e1dfdb;
 }
 
 .catbtn hbox, .plubtn hbox {

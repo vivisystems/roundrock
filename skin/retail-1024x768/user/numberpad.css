@@ -59,13 +59,24 @@
 	padding: 27px 10px 10px 5px;
 }
 
+.nopad {
+    background: transparent url(images/numberpad.png) center center no-repeat;
+    max-height: 314px;
+    min-height: 314px;
+    max-width: 221px;
+    min-width: 221px;
+    padding: 34px 0 0 6px;
+    margin-top: 15px;
+}
+
+
 .fe-numberpad sendkeybutton{
-    min-width:92px;
-    max-width:92px;
-    width: 92px;
-    min-height:55px;
-    max-height:55px;
-    margin: 2px 0px 0px 3px;
+    min-width:70px;
+    max-width:70px;
+    width: 70px;
+    min-height:64px;
+    max-height:64px;
+    margin: 1px 0px 0px 1px;
     padding: 0px;
     list-style-type: none;
     font-weight: bold !important;
@@ -75,14 +86,17 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     /* background: white; */
-    background: transparent url(images/m_numbtn.png) center center no-repeat;
+    background: none;
     color: #132c46;
 }
 
 .fe-numberpad sendkeybutton:active{
-	background: transparent url(images/m_numbtn_a.png) center center no-repeat;
+	background: transparent url(images/numberclick.png) center center no-repeat;
 }
 
+.fe-numberpad sendkeybutton description {
+    display: none;
+}
 /*-----------------------------------------------------------------------------
  * Number Pad toolbar
  *-----------------------------------------------------------------------------

@@ -8,7 +8,7 @@
 .mainpanel  {
     width: 1024px;
     height: 768px;
-    background: #f1faff;
+    background: #fff url(images/mainbg.jpg) 0 0 no-repeat;
     border: 0px solid red;
 }
 

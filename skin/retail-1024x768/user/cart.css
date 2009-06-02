@@ -7,14 +7,10 @@
 
 .cartList {
     font-size: 14px;
-    border: 2px solid ;
-    -moz-border-top-colors: #e6f4ff #e6f4ff;
-    -moz-border-right-colors: #e6f4ff #e4e4e4;
-    -moz-border-bottom-colors: #c9c9c9 #f1f1f1;
-    -moz-border-left-colors: #ececec #fff;
-    margin: 0px 0px 2px 0px;
+    border: none;
+    margin: 3px 1px 3px 1px;
     padding: 0px;
-    background: transparent;
+    background: #fff;
 }
 
 .cartList > .cartList {
@@ -27,7 +23,9 @@
  */
 
 .cartList .scrollablepanel-scrollbar {
-    width: 50px;
+    width: 54px;
+    min-width: 42px;
+    -moz-box-align: center;
 }
 
 .cartList scrollbar {
@@ -106,7 +104,7 @@
 .cartList tree {
     margin: 0px;
     border: none;
-    background: #e6f4ff;
+    background: none;
     -moz-appearance: none;
 }
 
@@ -129,7 +127,7 @@
 
 .cartList treechildren::-moz-tree-row {
     height: 28px;
-    border-bottom: 1px solid #818085;
+    border-bottom: 1px dotted #b9b9b9;
 }
 
 .cartList treechildren::-moz-tree-cell-text(batchMarker) {font-size: 18px; font-style: italic; font-weight: bolder; color: black;}

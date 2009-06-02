@@ -6,15 +6,42 @@
  */
 
 .catescrollablepanel{
-    background: none;
-    /*
-    width: 502px;
-    max-width: 502px;
-    min-width: 502px;
-    */
+    background: transparent url(images/departbg.png) 1px top repeat-y;
     margin: 0px;
+    padding: 3px;
+}
+.catescrollablepanel > hbox {
+    -moz-box-orient: vertical;
+    -moz-box-direction: reverse;
 }
 
+.catescrollablepanel .catescrollablepanel{
+    border: none;
+    -moz-appearance: none;
+    background: none;
+}
+
+.catescrollablepanel .scrollablepanel-scrollbar{
+    -moz-box-orient: horizontal;
+}
+.categoryPanel {
+    margin: 10px 1px 0 3px;
+}
+
+.DepartTop {
+    background: transparent url(images/departTop.png) 0 0 no-repeat;
+    min-height: 25px;
+    max-height: 25px;
+    min-width: 185px;
+    max-width: 185px;
+}
+.DepartBottom {
+    background: transparent url(images/departBottom.png) 1px 0 no-repeat;
+    min-height: 70px;
+    max-height: 70px;
+    min-width: 185px;
+    max-width: 185px;
+}
 
 /*--------------------------------------------------------------------------
  * SCROLLBAR
@@ -28,7 +55,7 @@
     min-width: 40px;
     margin: 2px 0px 0px 0px;
     padding: 0px;
-    background: transparent url(images/departUp.png) 0 0 no-repeat;
+    background: transparent url(images/scrollup.png) 0 0 no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
@@ -54,7 +81,7 @@
     min-width: 40px;
     margin: 0px 0px 2px 0px;
     padding: 0px;
-    background: transparent url(images/departDown.png) 0 0 no-repeat;
+    background: transparent url(images/scrolldown.png) 0 0 no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
@@ -82,9 +109,15 @@
 .prodscrollablepanel {
 	-moz-appearance: none;
 	-moz-background-clip: border;
-	margin: 1px 2px 1px 0px;
-	background: #556171;
+	margin: 1px 2px 30px 2px;
+	background: none;
 	padding: 0px 0 0 2px;
+    -moz-box-orient: horizontal;
+}
+
+.prodscrollablepanel > hbox {
+    -moz-box-orient: vertical;
+    -moz-box-direction: reverse;
 }
 
 .prodscrollablepanel vivibuttonpanel {
@@ -98,6 +131,7 @@
 
 .prodscrollablepanel .scrollablepanel-scrollbar {
 	margin: 2px 0 2px 2px;
+    -moz-box-orient: horizontal;
 }
 
 .prodscrollablepanel image {

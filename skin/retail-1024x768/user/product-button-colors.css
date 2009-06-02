@@ -6,149 +6,149 @@
  */
 
 .product-button-color-default {
-    background: transparent url(images/pluBtn1.png) center center repeat-x !important;
-    color: #3b556c !important;
+    background: #fff !important;
+    color: #4b443f !important;
 }
 .product-button-color-default[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #3a3a3b #3d3e3f #737678 #afb4b7 !important;
-    -moz-border-bottom-colors: #f1f2f3 #eff0f1 #ebecee #e6e7e9 !important;
-    -moz-border-left-colors: #555658 #76777a #9b9ea0 #cacccf !important;
-    -moz-border-right-colors: #dde0e3 #e0e2e5 #dee0e4 #dbdee1 !important;
+    -moz-border-top-colors: #8b2718 #a6a6a6 #ababab #cbcbcb #eeeeee !important;
+    -moz-border-bottom-colors: #8b2718 #fff #fff #fff #fff !important;
+    -moz-border-left-colors: #8b2718 #b7b7b7 #c9c9c9 #dfdfdf #f5f5f5 !important;
+    -moz-border-right-colors: #8b2718 #fff #fff #fff #dbdee1 !important;
 }
 
 .product-button-color-1 {
-    background: transparent url(images/pluBtn2.png) center center repeat-x !important;
-    color: #fff !important;
+    background: #faf1af !important;
+    color: #4b443f !important;
 }
 .product-button-color-1[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #25290a #2a2e0b #40470c #636d14 !important;
-    -moz-border-bottom-colors: #dde4a0 #d7e092 #ced979 #c0ce52 !important;
-    -moz-border-left-colors: #2f340a #40470d #576012 #6f7b18 !important;
-    -moz-border-right-colors: #c7d466 #c7d364 #c3d05a #bccb47 !important;
+    -moz-border-top-colors: #8b2718 #a39d72 #a8a275 #c7c08b #e9e1a3 !important;
+    -moz-border-bottom-colors: #8b2718 #fdf9dc #fcf8d6 #fcf6cb #fbf3ba !important;
+    -moz-border-left-colors: #8b2718 #b3ad7e #c5be8a #dbd399 #f0e8a8 !important;
+    -moz-border-right-colors: #8b2718 #fdf9dc #fcf8d6 #fcf6cb #fbf3ba !important;
 }
 
 .product-button-color-2 {
-    background: transparent url(images/pluBtn3.png) center center repeat-x !important;
-    color: #534741 !important;
+    background: #ecc9cf !important;
+    color: #7f4868 !important;
 }
 .product-button-color-2[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #3f3415 #493b17 #8b6601 #d49c03 !important;
-    -moz-border-bottom-colors: #fdf1cf #fdefc8 #fcebbb #fce5a7 !important;
-    -moz-border-left-colors: #614907 #876405 #b4870e #e3ac16 !important;
-    -moz-border-right-colors: #fce8b1 #fce7b0 #fbe096 #fbe3a1 !important;
+    -moz-border-top-colors: #8b2718 #9a8387 #9e878b #bca0a5 #dcbcc1 !important;
+    -moz-border-bottom-colors: #8b2718 #f7e7ea #f5e3e6 #f3dce0 #efd0d5 !important;
+    -moz-border-left-colors: #8b2718 #a99095 #ba9ea3 #ceb0b5 #e3c1c7 !important;
+    -moz-border-right-colors: #8b2718 #f7e7ea #f5e3e6 #f3dce0 #efd0d5 !important;
 }
 
 .product-button-color-3 {
-    background: transparent url(images/pluBtn4.png) center center repeat-x !important;
+    background: #69a9b2 !important;
     color: #fff !important;
 }
 .product-button-color-3[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #3b1502 #441902 #843106 #c94d0b !important;
-    -moz-border-bottom-colors: #fecfb6 #fec8ab #febb98 #fda779 !important;
-    -moz-border-left-colors: #5d2609 #81330a #ac4610 #d95814 !important;
-    -moz-border-right-colors: #fdb189 #fdb087 #fdab80 #fda171 !important;
+    -moz-border-top-colors: #8b2718 #446e74 #467177 #54878e #629ea6 !important;
+    -moz-border-bottom-colors: #8b2718 #8dbec4 #8bbdc4 #84b9c0 #74afb8 !important;
+    -moz-border-left-colors: #8b2718 #4b7980 #53858c #5c949c #65a2ab !important;
+    -moz-border-right-colors: #8b2718 #8dbec4 #8bbdc4 #84b9c0 #74afb8 !important;
 }
 
 .product-button-color-4 {
-    background: transparent url(images/pluBtn5.png) center center repeat-x !important;
-    color: #004a80 !important;
+    background: #f1cda1 !important;
+    color: #4b443f !important;
 }
 .product-button-color-4[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #28363c #2d3e45 #557786 #7fb5cb !important;
-    -moz-border-bottom-colors: #9ad9f6 #8bd4f5 #70caf3 #46baef !important;
-    -moz-border-left-colors: #11455d #1d6281 #1f80ac #27a1d9 !important;
-    -moz-border-right-colors: #a2daf2 #a5dbf2 #9bd7f1 #8fd2ef !important;
+    -moz-border-top-colors: #8b2718 #9d8569 #a2896c #c0a380 #e1bf96 !important;
+    -moz-border-bottom-colors: #8b2718 #f9e9d5 #f8e5ce #f6dec1 #f6dec1 !important;
+    -moz-border-left-colors: #8b2718 #ad9374 #bea27f #d3b38d #e8c59b !important;
+    -moz-border-right-colors: #8b2718 #f9e9d5 #f8e5ce #f6dec1 #f6dec1 !important;
 }
 
 .product-button-color-5 {
-    background: transparent url(images/pluBtn6.png) center center repeat-x !important;
-    color: #534741 !important;
+    background: #93888d !important;
+    color: #fff !important;
 }
 .product-button-color-5[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #31281b #382e1e #66502b #9d7a44 !important;
-    -moz-border-bottom-colors: #faf3e7 #faf1e4 #f8eddd #f6e8d3 !important;
-    -moz-border-left-colors: #4a3b23 #675231 #886b3e #ad8952 !important;
-    -moz-border-right-colors: #f7ebd8 #f7ebd8 #f7e9d5 #f6e7d1 !important;
+    -moz-border-top-colors: #8b2718 #60595c #635b5f #756c70 #897f84 !important;
+    -moz-border-bottom-colors: #8b2718 #cfcacc #c7c1c4 #b8b1b4 #a1989c !important;
+    -moz-border-left-colors: #8b2718 #696265 #746b6f #81777b #8d8387 !important;
+    -moz-border-right-colors: #8b2718 #cfcacc #c7c1c4 #b8b1b4 #a1989c !important;
 }
 
 .product-button-color-6 {
-    background: transparent url(images/pluBtn7.png) center center repeat-x !important;
+    background: #947a5e !important;
     color: #fff !important;
 }
 .product-button-color-6[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #351518 #3d171b #762b32 #9f212f !important;
-    -moz-border-bottom-colors: #f8c8ce #f7c0c6 #f6b2ba #f39ba5 !important;
-    -moz-border-left-colors: #491016 #661720 #881f2b #ac2736 !important;
-    -moz-border-right-colors: #f4a7af #f4a6ae #f3a0a9 #f2959f !important;
+    -moz-border-top-colors: #8b2718 #604f3d #63523f #76614b #8a7258 !important;
+    -moz-border-bottom-colors: #8b2718 #d0c4b8 #c8baac #b9a896 #a28c73 !important;
+    -moz-border-left-colors: #8b2718 #6a5843 #75604a #816b52 #8e755a !important;
+    -moz-border-right-colors: #8b2718 #ae9a85 #ac9883 #a7927b #9c846a !important;
 }
 
 .product-button-color-7 {
-    background: transparent url(images/pluBtn8.png) center center repeat-x !important;
-    color: #fff !important;
+    background: #c7e1dd !important;
+    color: #005952 !important;
 }
 .product-button-color-7[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #000 #000 #010101 #030303 !important;
-    -moz-border-bottom-colors: #8e8e8e #7d7d7d #606060 #313131 !important;
-    -moz-border-left-colors: #010101 #030303 #040404 #050505 !important;
-    -moz-border-right-colors: #494949 #464646 #3b3b3b #242424 !important;
+    -moz-border-top-colors: #8b2718 #829290 #859794 #9eb3b0 #bad2ce !important;
+    -moz-border-bottom-colors: #8b2718 #e6f2f0 #e2efed #daebe9 #cee5e2 !important;
+    -moz-border-left-colors: #8b2718 #8fa19f #9db1ae #aec5c1 #bfd8d4  !important;
+    -moz-border-right-colors: #8b2718 #d4e8e5 #d4e8e5 #d1e6e3 #c7e1dd !important;
 }
 
 .product-button-color-8 {
-    background: transparent url(images/pluBtn9.png) center center repeat-x !important;
-    color: #440e62 !important;
+    background: #d6e0a8 !important;
+    color: #384e1d !important;
  }
  .product-button-color-8[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #3c2a31 #452e36 #875564 #d07f96 !important;
-    -moz-border-bottom-colors: #fbd6df #fbcfda #fac4d1 #f8b2c3 !important;
-    -moz-border-left-colors: #603a45 #85515f #b16b7f #df87a0 !important;
-    -moz-border-right-colors: #f9b9c8 #f9b8c7 #f8b4c5 #f8aabd !important;
+    -moz-border-top-colors: #8b2718 #8b926d #909671 #aab286 #c8d19d !important;
+    -moz-border-bottom-colors: #8b2718 #edf1d8 #eaefd2 #e4ebc6 #dbe4b4 !important;
+    -moz-border-left-colors: #8b2718 #9aa179 #a9b184 #bbc493 #ced7a1 !important;
+    -moz-border-right-colors: #8b2718 #edf1d8 #eaefd2 #e4ebc6 #dbe4b4 !important;
 }
 
 .product-button-color-9 {
-    background: transparent url(images/pluBtn10.png) center center repeat-x !important;
-    color: #fff !important;
+    background: #d9dbee !important;
+    color: #3b3c42 !important;
 }
  .product-button-color-9[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #16293c #193045 #215387 #2d7acd !important;
-    -moz-border-bottom-colors: #92b4ee #82a9eb #6596e7 #3877e0 !important;
-    -moz-border-left-colors: #0b2756 #113a7a #1951a4 #2068cf !important;
-    -moz-border-right-colors: #4f86e3 #4c85e3 #417de1 #2b6ede !important;
+    -moz-border-top-colors: #8b2718 #8d8f9b #9293a0 #adaebd #cbccde !important;
+    -moz-border-bottom-colors: #8b2718 #eeeff7 #ebecf6 #e6e7f4 #e6e7f4 !important;
+    -moz-border-left-colors: #8b2718 #9c9dab #abadbc #bec0d0 #d0d2e5 !important;
+    -moz-border-right-colors: #8b2718 #eeeff7 #ebecf6 #e6e7f4 #e6e7f4 !important;
 }
 
 
 .product-button-color-10 {
-    background: transparent url(images/pluBtn11.png) center center repeat-x !important;
+    background: #979546 !important;
     color: #fff !important;
 }
  .product-button-color-10[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #202e10 #233411 #2e5512 #2d7309 !important;
-    -moz-border-bottom-colors: #bcde8e #b2d97d #a1d05f #85c230 !important;
-    -moz-border-left-colors: #153503 #1d4a04 #266206 #307b07 !important;
-    -moz-border-right-colors: #93c948 #91c845 #8bc53a #7dbe23 !important;
+    -moz-border-top-colors: #8b2718 #62612e #65642f #787738 #8d8b41 !important;
+    -moz-border-bottom-colors: #8b2718 #d1d0ad #c9c89f #bbba86 #a5a35f !important;
+    -moz-border-left-colors: #8b2718 #6c6b32 #777537 #84823d #918f43 !important;
+    -moz-border-right-colors: #8b2718 #d1d0ad #c9c89f #bbba86 #a5a35f !important;
 }
 
 
 .product-button-color-11 {
-    background: transparent url(images/pluBtn12.png) center center repeat-x !important;
-    color: #252525 !important;
+    background: #c26567 !important;
+    color: #fff !important;
 }
 .product-button-color-11[selected] {
     border-width: 5px !important;
-    -moz-border-top-colors: #404040 #3c4145 #747e86 #b1c1cc !important;
-    -moz-border-bottom-colors: #fff #fff #fff #fff !important;
-    -moz-border-left-colors: #646464 #8b8b8b #b9b9b9 #e9e9e9 !important;
-    -moz-border-right-colors: #fff #fff #fff #fff !important;
+    -moz-border-top-colors: #8b2718 #7e4243 #824445 #9a5052 #b55e60 !important;
+    -moz-border-bottom-colors: #8b2718 #e4bbbc #dfafb0 #d79a9b #ca7a7b !important;
+    -moz-border-left-colors: #8b2718 #8b484a #995051 #aa585a #ba6163 !important;
+    -moz-border-right-colors: #8b2718 #e4bbbc #dfafb0 #d79a9b #ca7a7b !important;
 }
 
 
@@ -193,5 +193,5 @@ button_colorpicker .product-button-color-default[selected],.product-button-color
     text-overflow: ellipsis;
 }
 .product-button[disabled] {
-    background-color: #f3f1ed;
+    background-color: #efede9;
 }
