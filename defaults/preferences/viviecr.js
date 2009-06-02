@@ -683,12 +683,17 @@ pref("vivipos.fec.reportpanels.customertransaction.label", "Customer Transaction
 pref("vivipos.fec.reportpanels.customertransaction.path", "chrome://viviecr/content/reports/rpt_customer_transaction.xul");
 pref("vivipos.fec.reportpanels.customertransaction.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.customertransaction.roles", "acl_run_report");
-*/
 
 pref("vivipos.fec.reportpanels.detailedcustomertransaction.label", "Detailed Customer Transaction Report");
 pref("vivipos.fec.reportpanels.detailedcustomertransaction.path", "chrome://viviecr/content/reports/rpt_detailed_customer_transaction.xul");
 pref("vivipos.fec.reportpanels.detailedcustomertransaction.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.detailedcustomertransaction.roles", "acl_run_report");
+
+pref("vivipos.fec.reportpanels.customers.label", "Customers");
+pref("vivipos.fec.reportpanels.customers.path", "chrome://viviecr/content/reports/rpt_customers.xul");
+pref("vivipos.fec.reportpanels.customers.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.customers.roles", "acl_run_report");
+*/
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
