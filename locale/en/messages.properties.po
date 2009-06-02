@@ -3134,7 +3134,7 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3058
 #: ../..//content/controllers/cart_controller.js:3605
-#: ../..//content/controllers/main_controller.js:263
+#: ../..//content/controllers/main_controller.js:267
 msgid "Add Annotation"
 msgstr ""
 
@@ -3214,75 +3214,75 @@ msgstr ""
 msgid "Cannot queue the recalled order!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3776
+#: ../..//content/controllers/cart_controller.js:3777
 msgid "Order is not queued because it is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3905
+#: ../..//content/controllers/cart_controller.js:3906
 msgid "This order must be stored first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3956
-#: ../..//content/controllers/cart_controller.js:3999
-#: ../..//content/controllers/cart_controller.js:4028
-#: ../..//content/controllers/cart_controller.js:4066
-#: ../..//content/controllers/cart_controller.js:4102
+#: ../..//content/controllers/cart_controller.js:3957
+#: ../..//content/controllers/cart_controller.js:4000
+#: ../..//content/controllers/cart_controller.js:4029
+#: ../..//content/controllers/cart_controller.js:4067
+#: ../..//content/controllers/cart_controller.js:4103
 msgid "Not an open order; unable to store"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3961
-#: ../..//content/controllers/cart_controller.js:4033
-#: ../..//content/controllers/cart_controller.js:4071
-#: ../..//content/controllers/cart_controller.js:4107
+#: ../..//content/controllers/cart_controller.js:3962
+#: ../..//content/controllers/cart_controller.js:4034
+#: ../..//content/controllers/cart_controller.js:4072
+#: ../..//content/controllers/cart_controller.js:4108
 msgid "This order has been submitted"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3966
-#: ../..//content/controllers/cart_controller.js:4037
-#: ../..//content/controllers/cart_controller.js:4075
-#: ../..//content/controllers/cart_controller.js:4111
+#: ../..//content/controllers/cart_controller.js:3967
+#: ../..//content/controllers/cart_controller.js:4038
+#: ../..//content/controllers/cart_controller.js:4076
+#: ../..//content/controllers/cart_controller.js:4112
 msgid "This order is closed pending payment and may only be finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3971
-#: ../..//content/controllers/cart_controller.js:4041
-#: ../..//content/controllers/cart_controller.js:4079
-#: ../..//content/controllers/cart_controller.js:4115
+#: ../..//content/controllers/cart_controller.js:3972
+#: ../..//content/controllers/cart_controller.js:4042
+#: ../..//content/controllers/cart_controller.js:4080
+#: ../..//content/controllers/cart_controller.js:4116
 msgid "This order is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3984
+#: ../..//content/controllers/cart_controller.js:3985
 msgid "No change to store"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4006
+#: ../..//content/controllers/cart_controller.js:4007
 msgid "fatal error!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4046
-#: ../..//content/controllers/cart_controller.js:4084
-#: ../..//content/controllers/cart_controller.js:4120
+#: ../..//content/controllers/cart_controller.js:4047
+#: ../..//content/controllers/cart_controller.js:4085
+#: ../..//content/controllers/cart_controller.js:4121
 msgid "This order has been modified and must be stored first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4152
+#: ../..//content/controllers/cart_controller.js:4151
 #: ../..//content/controllers/cashdrawer_controller.js:464
 #: ../..//content/controllers/changeuser_controller.js:111
 #: ../..//content/controllers/clockinout_controller.js:301
 #: ../..//content/controllers/ledger_controller.js:297
-#: ../..//content/controllers/main_controller.js:1090
+#: ../..//content/controllers/main_controller.js:1094
 #: ../..//content/controllers/shift_changes_controller.js:755
 #: ../..//content/controllers/shift_changes_controller.js:772
 #: ../..//content/controllers/shift_changes_controller.js:948
 msgid "Data Operation Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4153
+#: ../..//content/controllers/cart_controller.js:4152
 #: ../..//content/controllers/cashdrawer_controller.js:465
 #: ../..//content/controllers/changeuser_controller.js:112
 #: ../..//content/controllers/clockinout_controller.js:302
 #: ../..//content/controllers/ledger_controller.js:298
-#: ../..//content/controllers/main_controller.js:1091
+#: ../..//content/controllers/main_controller.js:1095
 #: ../..//content/controllers/shift_changes_controller.js:757
 #: ../..//content/controllers/shift_changes_controller.js:774
 #: ../..//content/controllers/shift_changes_controller.js:949
@@ -3340,7 +3340,7 @@ msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:456
-#: ../..//content/controllers/print_controller.js:1007
+#: ../..//content/controllers/print_controller.js:1008
 #: ../..//content/controllers/vfd_controller.js:340
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
@@ -3354,8 +3354,8 @@ msgstr ""
 
 #: ../..//content/controllers/changeuser_controller.js:72
 #: ../..//content/controllers/changeuser_controller.js:84
-#: ../..//content/controllers/main_controller.js:591
-#: ../..//content/controllers/main_controller.js:680
+#: ../..//content/controllers/main_controller.js:595
+#: ../..//content/controllers/main_controller.js:684
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
@@ -4096,19 +4096,19 @@ msgstr ""
 msgid "Drawer Change OUT"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:117
+#: ../..//content/controllers/main_controller.js:121
 msgid "Control Panel"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:143
+#: ../..//content/controllers/main_controller.js:147
 msgid "Change User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:155
+#: ../..//content/controllers/main_controller.js:159
 msgid "Clock In/Out"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:179
+#: ../..//content/controllers/main_controller.js:183
 #: ../..//content/controllers/plus_controller.js:497
 #: ../..//content/controllers/plus_controller.js:988
 #: ../..//content/controllers/plusearch_controller.js:135
@@ -4117,144 +4117,144 @@ msgstr ""
 msgid "Product Search"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:202
-#: ../..//content/controllers/print_controller.js:1118
+#: ../..//content/controllers/main_controller.js:206
+#: ../..//content/controllers/print_controller.js:1119
 msgid "Printer Dashboard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:212
+#: ../..//content/controllers/main_controller.js:216
 msgid "No order to add/view annotations"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:309
+#: ../..//content/controllers/main_controller.js:313
 #: ../..//content/reports/controllers/rpt_base_controller.js:259
 msgid "Order Details"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:387
+#: ../..//content/controllers/main_controller.js:391
 msgid "Price must be given to register sale of department [%S]"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:468
-#: ../..//content/controllers/main_controller.js:627
-#: ../..//content/controllers/main_controller.js:640
+#: ../..//content/controllers/main_controller.js:472
+#: ../..//content/controllers/main_controller.js:631
+#: ../..//content/controllers/main_controller.js:644
 msgid "An error was encountered while retrieving employees (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:574
-#: ../..//content/controllers/main_controller.js:672
+#: ../..//content/controllers/main_controller.js:578
+#: ../..//content/controllers/main_controller.js:676
 msgid " logged in"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:646
+#: ../..//content/controllers/main_controller.js:650
 msgid "User [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:685
+#: ../..//content/controllers/main_controller.js:689
 msgid "Please enter passcode first."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:709
-#: ../..//content/controllers/main_controller.js:721
-#: ../..//content/controllers/main_controller.js:734
-#: ../..//content/controllers/main_controller.js:747
+#: ../..//content/controllers/main_controller.js:713
+#: ../..//content/controllers/main_controller.js:725
+#: ../..//content/controllers/main_controller.js:738
+#: ../..//content/controllers/main_controller.js:751
 msgid "Sign Off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:709
+#: ../..//content/controllers/main_controller.js:713
 msgid "Discard items that have been registered?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:721
+#: ../..//content/controllers/main_controller.js:725
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:722
+#: ../..//content/controllers/main_controller.js:726
 msgid "Queue"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:722
-#: ../..//content/controllers/main_controller.js:748
+#: ../..//content/controllers/main_controller.js:726
+#: ../..//content/controllers/main_controller.js:752
 msgid "Discard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:734
+#: ../..//content/controllers/main_controller.js:738
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:747
+#: ../..//content/controllers/main_controller.js:751
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:748
+#: ../..//content/controllers/main_controller.js:752
 msgid "Keep"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:757
+#: ../..//content/controllers/main_controller.js:761
 msgid "confirm sign-off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:757
+#: ../..//content/controllers/main_controller.js:761
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:828
-#: ../..//content/controllers/main_controller.js:831
-#: ../..//content/controllers/main_controller.js:886
+#: ../..//content/controllers/main_controller.js:832
+#: ../..//content/controllers/main_controller.js:835
+#: ../..//content/controllers/main_controller.js:890
 msgid "Remove All Transaction Records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:829
+#: ../..//content/controllers/main_controller.js:833
 msgid ""
 "This operation will remove all transaction records. Are you sure you want to "
 "proceed?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:832
+#: ../..//content/controllers/main_controller.js:836
 msgid ""
 "Data will not be recoverable once removed. It is strongly recommended that "
 "the system be backed up before truncating transaction records. Proceed with "
 "data removal?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:834
+#: ../..//content/controllers/main_controller.js:838
 msgid "Removing all transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:869
-#: ../..//content/controllers/main_controller.js:878
+#: ../..//content/controllers/main_controller.js:873
+#: ../..//content/controllers/main_controller.js:882
 msgid ""
 "An error was encountered while attempting to remove all transaction records "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:887
+#: ../..//content/controllers/main_controller.js:891
 msgid "Removal completed. Application will now restart"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:908
+#: ../..//content/controllers/main_controller.js:912
 msgid "Removing old data..."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:928
+#: ../..//content/controllers/main_controller.js:932
 msgid ""
 "An error was encountered while expiring employee attendance records (error "
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:957
+#: ../..//content/controllers/main_controller.js:961
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:957
+#: ../..//content/controllers/main_controller.js:961
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:964
+#: ../..//content/controllers/main_controller.js:968
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:964
+#: ../..//content/controllers/main_controller.js:968
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
@@ -4544,7 +4544,7 @@ msgid "The specified receipt printer [%S] is not enabled"
 msgstr ""
 
 #: ../..//content/controllers/print_controller.js:521
-#: ../..//content/controllers/print_controller.js:979
+#: ../..//content/controllers/print_controller.js:980
 msgid "A receipt has already been issued for this order on printer [%S]"
 msgstr ""
 
