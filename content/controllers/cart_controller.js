@@ -393,6 +393,17 @@
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
 
+        removeQueueRecoveryFile: function() {
+            var filename = "/var/tmp/cart_queue.txt";
+
+            // unserialize from fail recovery file
+            var file = new GeckoJS.File(filename);
+
+            if (!file.exists()) return false;
+
+            file.remove();
+        },
+
         serializeQueueToRecoveryFile: function(queue) {
 
             // save serialize to fail recovery file
@@ -3703,6 +3714,8 @@
 
             delete queuePool.user[username];
 
+            this.serializeQueueToRecoveryFile(queuePool);
+
             return removeCount;
 
         },
@@ -3722,7 +3735,7 @@
                     userQueues.splice(idx, 1);
                 }
             }
-            
+            this.serializeQueueToRecoveryFile(queuePool);
         },
 
         pushQueue: function(nowarning) {

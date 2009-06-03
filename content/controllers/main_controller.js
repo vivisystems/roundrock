@@ -843,6 +843,15 @@
                     this.dispatchEvent('beforeTruncateTxnRecords', null);
 
                     try {
+                        // remove txn recovery file
+                        Transaction.removeRecoveryFile();
+
+                        // remove cart queue recovery file
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        if (cart) {
+                            cart.removeQueueRecoveryFile();
+                        }
+                        
                         // truncate order related tables
                         var orderModel = new OrderModel();
                         var r = orderModel.begin();

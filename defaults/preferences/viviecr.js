@@ -17,12 +17,12 @@ pref("vivipos.fec.settings.PrivateQueue", false);
 pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
  
 pref("vivipos.fec.settings.image.disklimit", 52428800);
-
+/*
 pref("vivipos.fec.settings.controlpanels.system.localization.label", "Localization Editor");
 pref("vivipos.fec.settings.controlpanels.system.localization.path", "chrome://viviecr/content/localization_editor.xul");
 pref("vivipos.fec.settings.controlpanels.system.localization.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.system.localization.roles", "acl_localization_editor");
-
+*/
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.label", "Store Contact");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.path", "chrome://viviecr/content/storecontact.xul");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_store.png");

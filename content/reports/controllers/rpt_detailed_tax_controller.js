@@ -133,14 +133,16 @@
                 summary.surcharge_subtotal -= data.current_surcharge || 0;
                 summary.discount_subtotal -= data.current_discount || 0;
                 
-                // need to push tax into tax list if data.tax_name not in taxList
-                if (!(data.tax_name in taxesByName)) {
-                    taxList.push({no: data.tax_name, name: data.tax_name});
-                    taxesByName[data.tax_name] = 1;
-                }
 				var taxObject = TaxComponent.prototype.getTax( data.tax_name );
 				
 				if (!taxObject || taxObject.type != typeCombineTax ) {
+
+                    // need to push tax into tax list if data.tax_name not in taxList
+                    if (!(data.tax_name in taxesByName)) {
+                        taxList.push({no: data.tax_name, name: data.tax_name});
+                        taxesByName[data.tax_name] = 1;
+                    }
+
                     if (records[ oid ]) {
                         if (data.tax_name in records[oid]) {
                             records[ oid ][ data.tax_name ].tax_subtotal += data.tax;
@@ -165,6 +167,13 @@
                     }
 				} else {// break down the combined tax.
 					taxObject.CombineTax.forEach( function( cTax ) {
+
+                        // need to push tax into tax list if cTax.no not in taxList
+                        if (!(cTax.no in taxesByName)) {
+                            taxList.push({no: cTax.no, name: cTax.tax_name});
+                            taxesByName[cTax.no] = 1;
+                        }
+
 						var taxAmountObject = TaxComponent.prototype.calcTaxAmount( cTax.no, data.current_subtotal, data.current_price, data.current_qty );
 						var taxAmount = taxAmountObject[ cTax.no ].charge + taxAmountObject[ cTax.no ].included;
                         if (cTax.no in records[ oid ] ) {
