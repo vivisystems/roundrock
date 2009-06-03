@@ -6,6 +6,8 @@ skin viviecr classic-800x600/1.0 skin/classic-800x600/
 skin viviecr classic-1024x768/1.0 skin/classic-1024x768/
 skin viviecr traditional-800x600/1.0 skin/traditional-800x600/
 skin viviecr traditional-1024x768/1.0 skin/traditional-1024x768/
+skin viviecr retail-800x600/1.0 skin/retail-800x600/
+skin viviecr retail-1024x768/1.0 skin/retail-1024x768/
 
 locale viviecr en locale/en/
 

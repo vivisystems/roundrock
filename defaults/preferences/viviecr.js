@@ -867,12 +867,14 @@ pref("vivipos.fec.registry.layouts.traditional.desc", "chrome://viviecr/locale/m
 pref("vivipos.fec.registry.layouts.traditional.overlay_uri", "chrome://viviecr/content/layouts/traditional.xul");
 pref("vivipos.fec.registry.layouts.traditional.icon", "chrome://viviecr/content/layouts/traditional.png");
 pref("vivipos.fec.registry.layouts.traditional.disabled_features", "");
+pref("vivipos.fec.registry.layouts.traditional.skin", "traditional-${width}x${height}/1.0");
 
 pref("vivipos.fec.registry.layouts.retail.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.retail.desc", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.retail.overlay_uri", "chrome://viviecr/content/layouts/retail.xul");
 pref("vivipos.fec.registry.layouts.retail.icon", "chrome://viviecr/content/layouts/retail.png");
 pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft,ProductPanelOnTop,fnheightFeature");
+pref("vivipos.fec.registry.layouts.retail.skin", "retail-${width}x${height}/1.0");
 
 pref("vivipos.fec.registry.localization.package.viviecr.base", "en");
 pref("vivipos.fec.registry.localization.package.viviecr.ext", "dtd,properties");
