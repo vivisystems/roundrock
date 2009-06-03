@@ -121,12 +121,14 @@
             var remoteUrl = this.getRemoteService('getSequence');
             var seq = -1;
 
-            if (remoteUrl) {
+            var isTraining = GeckoJS.Session.get( "isTraining" );
+
+            if (remoteUrl && !isTraining) {
             
                 seq = this.requestRemoteService(remoteUrl, key, null);
                 return seq;
             
-            }else {
+            } else {
 
                 seq = this.findByIndex('first', {
                     index: 'key',
@@ -138,6 +140,10 @@
                     key: key,
                     value: 0
                 };
+
+		if ( isTraining )
+			return seq.value;
+
                 seq.value++;
                 this.id = seq.id;
                 this.save(seq);
@@ -148,6 +154,9 @@
         },
 
         resetSequence: function(key, value) {
+            var isTraining = GeckoJS.Session.get( "isTraining" );
+            if (isTraining) return;
+
             key = key || "default";
 
             if (value == null) {

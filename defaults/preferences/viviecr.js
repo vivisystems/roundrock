@@ -105,7 +105,7 @@ pref("vivipos.fec.settings.controlpanels.product.plufilters.icon", "chrome://viv
 pref("vivipos.fec.settings.controlpanels.product.plufilters.roles", "acl_manage_plufilters");
 
 pref("vivipos.fec.settings.controlpanels.product.stocks.label", "Stock Control");
-pref("vivipos.fec.settings.controlpanels.product.stocks.path", "chrome://viviecr/content/stocks.xul");
+pref("vivipos.fec.settings.controlpanels.product.stocks.path", "chrome://viviecr/content/stock_records.xul");
 pref("vivipos.fec.settings.controlpanels.product.stocks.icon", "chrome://viviecr/skin/icons/icon_stocks.png");
 pref("vivipos.fec.settings.controlpanels.product.stocks.roles", "acl_manage_stock");
  
@@ -566,6 +566,16 @@ pref("vivipos.fec.registry.function.programmable.printerDashboard.access", "acl_
 pref("vivipos.fec.registry.function.programmable.printerDashboard.command", "printerDashboard");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.data", "");
+
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.access", "acl_stock_adjustment");
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.command", "stockAdjustment");
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.data", "");
+
+pref("vivipos.fec.registry.function.programmable.trainingMode.access", "acl_training_mode");
+pref("vivipos.fec.registry.function.programmable.trainingMode.command", "start");
+pref("vivipos.fec.registry.function.programmable.trainingMode.controller", "TrainingMode");
+pref("vivipos.fec.registry.function.programmable.trainingMode.data", "");
 
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');

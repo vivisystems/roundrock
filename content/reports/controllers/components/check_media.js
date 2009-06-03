@@ -45,8 +45,6 @@
                 deviceNode = tmp[tmp.length-1];
                 deviceMount +=  deviceNode + '/';
 
-
-
                 var mountDir = new GeckoJS.File(deviceMount);
 
                 if (mountDir.exists() && mountDir.isDir()) {

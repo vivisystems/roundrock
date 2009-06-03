@@ -10,7 +10,7 @@
         components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
         packageName: 'viviecr',
         _recordOffset: 0, // this attribute indicates the number of rows going to be ignored from the beginning of retrieved data rows.
-        _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
+        _recordLimit: 100, // this attribute indicates upper bound of the number of rwos we are going to take.
         _csvLimit: 3000000,
         _stdLimit: 3000,
         
@@ -204,7 +204,7 @@
                 var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
 
 				var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-   					.getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+   					.getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
    				var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
    				
    				var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';

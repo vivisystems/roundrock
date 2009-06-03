@@ -3,5 +3,5 @@ var CashdrawerRecordModel = window.CashdrawerRecordModel = GeckoJS.Model.extend(
 
     useDbConfig: 'order',
 
-    behaviors: ['Sync']
+    behaviors: ['Sync', 'Training']
 });

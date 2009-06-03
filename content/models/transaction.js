@@ -180,8 +180,7 @@
             var self = this;
             // maintain stock...
             if (status > 0)
-                self.requestCommand('decStock', self.data, "Stocks");
-
+               self.requestCommand('decStock', self.data, 'StockRecords');
 
             // remove recovery file
             Transaction.removeRecoveryFile();

@@ -758,6 +758,10 @@
 
         // print slip using the given parameters
         printSlip: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
+        	var isTraining = GeckoJS.Session.get( "isTraining" );
+        	var ifPrintWhileTraining = GeckoJS.Configure.read( "vivipos.fec.settings.ifprintwhiletraining" );
+        	if ( isTraining && !ifPrintWhileTraining ) return;
+        	
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller; no worker thread available!'));
                 return;

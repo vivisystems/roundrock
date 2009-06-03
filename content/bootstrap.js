@@ -12,12 +12,15 @@
 GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties");
 
 // include project models
+include('chrome://viviecr/content/models/behaviors/training.js');
+
 include('chrome://viviecr/content/models/cashdrawer_record.js');
 include('chrome://viviecr/content/models/category.js');
 include('chrome://viviecr/content/models/clockstamp.js');
 include('chrome://viviecr/content/models/condiment.js');
 include('chrome://viviecr/content/models/condiment_group.js');
 include('chrome://viviecr/content/models/job.js');
+include('chrome://viviecr/content/models/stock_record.js');
 
 include('chrome://viviecr/content/models/order.js');
 include('chrome://viviecr/content/models/order_item.js');
