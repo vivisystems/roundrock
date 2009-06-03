@@ -271,8 +271,9 @@
                 this._connected = true;
                 var fields = null;
                 var conditions = "table_statuses.modified > '" + lastModified + "'";
+                var orderby = 'table_statuses.table_no';
 
-                tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 2});
+                tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 2, order: orderby});
 
             }
             
