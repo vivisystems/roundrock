@@ -175,17 +175,6 @@ msgstr "** TRAY"
 msgid "House Bon"
 msgstr "BON"
 
-msgid "stockAdjustment.label"
-msgstr "Stock Adj."
-
-msgid "stockAdjustment.name"
-msgstr "Stock Adjustment"
-
-msgid "stockAdjustment.desc"
-msgstr ""
-"By using this function, the quantity of stock can be adjusted.Meanwhile, a "
-"memo of the adjustment can be recorded."
-
 msgid "trainingMode.label"
 msgstr "Training Mode"
 
@@ -2305,9 +2294,6 @@ msgstr "Occurrences"
 
 msgid "acl_layout_manager"
 msgstr "Layout Manager"
-
-msgid "acl_stock_adjustment"
-msgstr "Stock Adjustment"
 
 msgid "acl_training_mode"
 msgstr "Training Mode"

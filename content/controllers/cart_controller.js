@@ -110,22 +110,14 @@
             var diff = qty;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var min_stock = parseFloat(item.min_stock);
+            var stock = parseFloat(item.stock);
             var auto_maintain_stock = item.auto_maintain_stock;
-            
-            // get the stock quantity;
-            var stockRecordModel = new StockRecordModel();
-			var stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
-			var stock = parseFloat( stockRecord.quantity );
 
             if (action != "addItem") {
                 var productsById = GeckoJS.Session.get('productsById');
                 var product = productsById[item.id];
                 if (product) {
-                    // get the stock quantity;
-				    stockRecordModel = new StockRecordModel();
-					stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
-					stock = parseFloat( stockRecord.quantity );
-					
+                    stock = parseFloat(product.stock);
                     min_stock = parseFloat(product.min_stock);
                     auto_maintain_stock = product.auto_maintain_stock;
                     diff = qty - item.current_qty;
@@ -181,6 +173,7 @@
                 if (clearWarning != false) cart.dispatchEvent('onWarning', '');
             }
             return true;
+
         },
 
         clearWarning: function (evt) {
@@ -3563,11 +3556,6 @@
 
                         if (r) {
                             for (var o in order.OrderItem) {
-/*
-                    var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
-                    stockController.requestCommand('decStock', order, 'StockRecords');
->>>>>>> training:content/controllers/cart_controller.js
-*/
 
                                 // look up corresponding product and set the product id into the item; also reverse quantity
                                 var item = order.OrderItem[o];
