@@ -393,6 +393,17 @@
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
 
+        removeQueueRecoveryFile: function() {
+            var filename = "/var/tmp/cart_queue.txt";
+
+            // unserialize from fail recovery file
+            var file = new GeckoJS.File(filename);
+
+            if (!file.exists()) return false;
+
+            file.remove();
+        },
+
         serializeQueueToRecoveryFile: function(queue) {
 
             // save serialize to fail recovery file
@@ -446,7 +457,6 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
@@ -547,7 +557,7 @@
             }
             
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             if (buf.length>0) {
                 this.setPrice(buf);
                 this._getKeypadController().clearBuffer();
@@ -892,7 +902,7 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             // check if has buffer
@@ -1889,7 +1899,7 @@
         currencyConvert: function(convertCode) {
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             var currencies = GeckoJS.Session.get('Currencies');
@@ -2055,7 +2065,7 @@
             if (type == null) type = '';
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             GeckoJS.Session.remove('cart_set_price_value');
@@ -2169,7 +2179,7 @@
             }
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             // check if order is open
@@ -2270,7 +2280,7 @@
             }
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             // check if order is open
@@ -2374,7 +2384,7 @@
         check: function(type) {
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             // check if order is open
@@ -3113,7 +3123,7 @@
         cash: function(amount) {
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
             
             if (buf.length>0) {
@@ -3704,6 +3714,8 @@
 
             delete queuePool.user[username];
 
+            this.serializeQueueToRecoveryFile(queuePool);
+
             return removeCount;
 
         },
@@ -3723,7 +3735,7 @@
                     userQueues.splice(idx, 1);
                 }
             }
-            
+            this.serializeQueueToRecoveryFile(queuePool);
         },
 
         pushQueue: function(nowarning) {
@@ -3772,6 +3784,7 @@
 
                 this.serializeQueueToRecoveryFile(queuePool);
 
+                Transaction.removeRecoveryFile();
             }
             else {
                 if (!nowarning) NotifyUtils.warn(_('Order is not queued because it is empty'));
@@ -4141,8 +4154,6 @@
                 if (priceLevel) {
                     $do('change', priceLevel, 'Pricelevel');
                 }
-                
-                this.unserializeQueueFromRecoveryFile();
                 this.subtotal();
             }
         },

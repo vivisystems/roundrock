@@ -1,0 +1,103 @@
+/* sycn_settings */
+.bgtext {
+    color: #ddd;
+    font-size: 80px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+.tablebox td {
+  empty-cells: show;
+  height: 18px;
+}
+
+.tdb_green {
+    border-bottom: #0a2 solid 1px;
+}
+.tdb_red {
+    border-bottom: #d26 solid 1px;
+}
+.tdb_blue {
+    border-bottom: #66f solid 1px;
+}
+.tdb_yellow {
+    border-bottom: #f6f solid 1px;
+}
+
+.table_no {
+    /*
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 8px;
+    -moz-box-align: center;
+    */
+
+    color: #eef;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    width: 40px;
+    text-align: center;
+    float: left;
+}
+.table_label {
+    background-color: none;
+    font-style: italic;
+    float: left;
+}
+.checks {
+    background-color: none;
+    color: #f33;
+    font-size: 16px;
+    text-align: right;
+    float: right;
+    margin-top: 6px;
+}
+.check_no {
+    background-color: none;
+    float: left;
+}
+.period {
+    text-align: right;
+    float: right;
+}
+.seq_no {
+    background-color: none;
+    float: left;
+}
+.booking {
+    background-color: none;
+    float: left;
+}
+.subtotal {
+    background-color: none;
+    float: left;
+}
+.capacity {
+    text-align: right;
+    float: right;
+}
+.green {
+    background-color: #cfc;
+}
+.red {
+    background-color: #fcc;
+}
+.blue {
+    background-color: #ccf;
+}
+.yellow {
+    background-color: #fcf;
+}
+.table_green {
+    background-color: #0a2;
+}
+.table_red {
+    background-color: #d26;
+}
+.table_blue {
+    background-color: #66f;
+}
+.table_yellow {
+    background-color: #f6f;
+}

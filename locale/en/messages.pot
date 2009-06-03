@@ -58,6 +58,9 @@ msgstr "General Options"
 msgid "Taxes"
 msgstr "Taxes"
 
+msgid "Localization Editor"
+msgstr "Localization Editor"
+
 msgid "Date and Time"
 msgstr "Date & Time"
 
@@ -1098,6 +1101,9 @@ msgstr "View Ledger Entries"
 
 msgid "acl_add_ledger_entry"
 msgstr "Add Ledger Entries"
+
+msgid "acl_localization_editor"
+msgstr "Localization Editor"
 
 msgid "togglereceipt.desc"
 msgstr ""

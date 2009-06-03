@@ -35,16 +35,6 @@
             deptNode.selectedIndex = 0;
             deptNode.selectedItems = [0];
             
-            // change log level
-            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
-            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
-
-            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
-            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.TRACE;
-
-            GeckoJS.Log.getLoggerForClass('DatasourceSQL').level = GeckoJS.Log.TRACE;
-            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.TRACE;
-
             var self = this;
             
             // observer restart topic
@@ -68,6 +58,9 @@
             // ourselves
 
             this.dispatchEvent('afterInitial', null);
+
+            // recover queued orders
+            this.requestCommand('unserializeQueueFromRecoveryFile', null, 'Cart');
 
             // check transaction fail
             var recovered = false;
@@ -97,6 +90,7 @@
                     catch(e) {}
                 }
             }
+
             if (!recovered) {
                 this.requestCommand('initialLogin', null, 'Main');
             }
@@ -839,6 +833,15 @@
                     this.dispatchEvent('beforeTruncateTxnRecords', null);
 
                     try {
+                        // remove txn recovery file
+                        Transaction.removeRecoveryFile();
+
+                        // remove cart queue recovery file
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        if (cart) {
+                            cart.removeQueueRecoveryFile();
+                        }
+                        
                         // truncate order related tables
                         var orderModel = new OrderModel();
                         var r = orderModel.begin();

@@ -1,0 +1,30 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.MainL {
+    border-right: 1px solid #c1ab8e;
+}
+
+.ToolBar {
+    margin-left: 4px;
+}
+
+.PluFilterForm {
+    padding: 8px;
+    background: #f0efe8;
+    margin: 33px 10px 10px 10px;
+}
+
+.SubTitle {
+    margin: 4px;
+}
+
+#plufilterscrollablepanel tree #index,
+#plufilterscrollablepanel tree #length {
+    text-align: center;
+}
+
+#plufilterscrollablepanel tree #filtername {
+    text-align: left;
+}

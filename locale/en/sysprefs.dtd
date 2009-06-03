@@ -24,6 +24,7 @@
 <!ENTITY general.departmentpopstotop "Always return to top level departments">
 <!ENTITY general.idletime "System idle time (seconds)">
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
+<!ENTITY general.autosetdecimalpoint "Adjust for decimal point automatically">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY login.defaultlogin "Automatically log in default user">
@@ -56,6 +57,7 @@
 <!ENTITY layout.functionpanel.rows "rows">
 <!ENTITY layout.functionpanel.cols "columns">
 <!ENTITY layout.functionpanel.height "panel height">
+<!ENTITY layout.hidebottombox "Hide status bar">
 <!ENTITY layout.showtoolbar "Show tool bar (may require restart)">
 <!ENTITY layout.showclockinicon "Show clock-in icon">
 <!ENTITY layout.showvirtualkeyboardicon "Show virtual keyboard icon">

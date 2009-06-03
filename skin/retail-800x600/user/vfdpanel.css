@@ -1,0 +1,29 @@
+/*  skin for main screen ------------------------------------------------------------- */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+.vfdPad {
+    background: none;
+}
+
+.vbox_vfd {
+    padding: 3px;
+    margin-left: 0px;
+    height: 60px;
+}
+
+.label_vfd {
+    color: red;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 15pt;
+    font-family: monospace;
+    font-weight: bold !important;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
+

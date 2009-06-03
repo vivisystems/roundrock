@@ -3,8 +3,8 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % Condiments SYSTEM "chrome://viviecr/locale/fecpos.dtd">
-  %Condiments;
+  <!ENTITY % ControlPanel SYSTEM "chrome://viviecr/locale/controlpanel.dtd">
+  %ControlPanel;
   ]>
 
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
@@ -40,7 +40,7 @@
                 <spacer flex="1" />
             </viviscrollablebuttonpanel>
             <hbox id="loading" align="center" style="display: none;" class="LoadingPnl">
-                <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&vivipos.fec.controlpanel.loading;</label>
+                <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&controlpanel.loading;</label>
             </hbox>
         </stack>
         <hbox id="dialogButtons" class="dialogbtns" pack="end">
