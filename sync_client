@@ -10,10 +10,4 @@ dir=`dirname $0`
 
 cd $dir ;
 
-#echo "pid = ${pid}"
-
-find ${dir}/app/tmp/cache -type f -exec rm -f {} \;
-find ${dir}/app/tmp/sessions -type f -exec rm -f {} \;
-
 exec ${dir}/cake/console/cake -app ${dir}/app sync_client ${cmd}
-
