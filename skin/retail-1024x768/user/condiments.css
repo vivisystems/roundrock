@@ -1,0 +1,79 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.MainL {
+    border-right: 1px solid #a98f6e;
+}
+
+.TopPnl {
+    border-bottom: 1px solid #a98f6e;
+    padding-bottom:4px;
+    margin-bottom: 5px;
+}
+
+.ItemButtonA {
+    min-height: 50px;
+}
+
+.LeftTop {
+    min-width: 380px;
+}
+.LeftBottom {
+    min-width: 300px;
+}
+
+.DataForm {
+    margin: 5px 4px 0px 10px;
+}
+
+.DataForm column {
+    width: 220px;
+}
+
+.RightPnlB {
+    margin: 4px 5px 8px 9px;
+}
+
+.RightPnlB vbox {
+    margin: 1px;
+    background: #ede7dc;
+}
+
+.RightPnlB .SubTitle {
+  font-size: 11pt;
+  color: #372213;
+  margin: 8px;
+}
+
+.FontSizeSet {
+    margin: 0px 10px 10px 10px;
+}
+.FontSizeSet button {
+    min-height: 60px;
+}
+
+.BtnColors {
+    margin: 5px;
+}
+
+.BtnColors button {
+    min-width: 65px;
+    min-height: 65px;
+    margin: 4px;
+}
+.BtnColors button hbox {
+    -moz-box-orient: vertical;
+}
+
+
+.ToolBar {
+    margin-left: 4px;
+}
+
+.PresetCondiment {
+    -moz-border-radius: 10px;
+}
+
+.NotPresetCondiment {
+}

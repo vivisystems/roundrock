@@ -1,0 +1,62 @@
+.terminal_no {
+    margin: 0px 5px 0px 2px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 1px;
+    border-color: black;
+    font-size: x-small;
+    color: black;
+    text-align: center;
+}
+
+.current_user {
+    margin: 0px 2px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 1px;
+    font-size: x-small;
+    text-align: center;
+    color: black;
+    max-width: 100px;
+}
+
+.sale_period {
+    border-width: 0px;
+    border-style: solid;
+    border-color: blue;
+    background-color: transparent;
+    max-height: 30px;
+    text-align: center;
+    color: black;
+}
+
+.console_message_value {
+    min-width: 100px;
+    margin: 0px 2px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 1px;
+    color: black;
+    font-size: x-small;
+}
+
+.clock {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    font-size: small;
+}
+
+.receiptStatus[status="on"] {
+    max-width: 18px;
+    max-height: 18px;
+    margin: 0 10px 0 10px;
+    list-style-image: url("chrome://viviecr/skin/images/gtk-yes.png");
+}
+
+.receiptStatus[status="off"] {
+    max-width: 18px;
+    max-height: 18px;
+    margin: 0 10px 0 10px;
+    list-style-image: url("chrome://viviecr/skin/images/gtk-cancel.png");
+}

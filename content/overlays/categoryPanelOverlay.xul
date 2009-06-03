@@ -10,7 +10,9 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <box id="categoryPanelContainer">
-    <box id="categoryPanel" flex="1" orient="vertical">
+    <box id="categoryPanel" flex="1" orient="vertical" class="categoryPanel">
+        <box class="DepartTop"></box>
+
         <!-- Begin Catalogs -->
         <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="3" rows="2" labelField="name" imageField="no"
                                    oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
@@ -27,6 +29,7 @@
         </viviscrollablebuttonpanel>
         <!-- End Catalogs -->
 
+        <box class="DepartBottom"></box>
     </box>
   </box>
 </overlay>

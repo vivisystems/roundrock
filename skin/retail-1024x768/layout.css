@@ -1,0 +1,67 @@
+/**
+ * VIVIECR Layout CSS
+ */
+
+#main-container {
+     padding: 0px;
+     margin: 0px;
+     width: 1024px;
+     min-width: 1024px;
+     max-width: 1024px;
+     overflow: hidden;
+}
+
+#block-main {
+	width: 1024px;
+}
+
+.block-g .block-u  {
+    /* 49% */
+    width: 510px;
+    min-width: 510px;
+    max-width: 510px;
+}
+
+.block-gb .block-u.first, .block-gc .block-u {
+    /* 33%*/
+    width: 337px;
+    min-width: 337px;
+    max-width: 337px;
+}
+
+.block-gc .block-u.first, .block-gb .block-u  {
+    /* 66%*/
+    width: 675px;
+    min-width: 675px;
+    max-width: 675px;
+}
+
+.block-gd .block-u {
+    /* 25% */
+    width: 256px;
+    min-width: 256px;
+    max-width: 256px;
+}
+
+.block-ge .block-u {
+    /* 55% */
+    width: 537px;
+    min-width: 537px;
+    max-width: 537px;
+    margin: 35px 33px 0 0;
+}
+
+.block-gf .block-u {
+    /* 20% */
+    width: 195px;
+    min-width: 195px;
+    max-width: 195px;
+    margin-right: 32px;
+}
+
+.block-r .block-u  {
+    /* 49% */
+    height: 380px;
+    min-height: 380px;
+    max-height: 380px;
+}
