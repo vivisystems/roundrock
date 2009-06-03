@@ -252,7 +252,7 @@
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
             var data = {orders:[]};
-            
+            /*
             // remove all tabs
             var tabs = document.getElementById('orders_tab');
             while (tabs.firstChild) {
@@ -266,7 +266,10 @@
                 tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
                 tabs.appendChild(tab);
             })
-
+            */
+            tableObj.order.forEach(function(o){
+                data.orders.push(o);
+            });
 
             data.sequence = order.seq;
 
@@ -289,10 +292,22 @@
             
             promptPanel.openPopupAtScreen(x, y, false);
 
+            // remove all tabs
+            var tabs = document.getElementById('orders_tab');
+            while (tabs.firstChild) {
+                tabs.removeChild(tabs.firstChild);
+            }
+
+            tableObj.order.forEach(function(o){
+                var tab = document.createElement("tab");
+                tab.setAttribute('label', 'C#' + o.check_no);
+                tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
+                tabs.appendChild(tab);
+            })
+
             // select first order
             tabs.selectedIndex = 0;
             tabs.selectedItem.doCommand();
-
 
             return promptPanel;
         },
@@ -439,10 +454,22 @@
         },
 
         doTransTable: function() {
-            this._setPromptLabel('*** ' + _('Trans Table') + ' ***', _('Please select the table to be transfered...'), '', _('Press CANCEL button to cancel function'), 2);
+            if (this._selectedCheckNo) {
 
-            var pnl = this._showPromptPanel('prompt_panel');
-            this._inputObj.action = 'TransTable';
+                this._inputObj.action = 'TransTable';
+                this._inputObj.check_no = this._selectedCheckNo;
+
+                this.doCloseOrderPanel();
+                this.doFunc();
+
+            } else {
+
+                this._setPromptLabel('*** ' + _('Trans Table') + ' ***', _('Please select the table to be transfered...'), '', _('Press CANCEL button to cancel function'), 2);
+
+                var pnl = this._showPromptPanel('prompt_panel');
+                this._inputObj.action = 'TransTable';
+
+            }
         },
 
         doSelectTableNo: function() {
@@ -806,7 +833,8 @@
                 shown: function(evt) {
 
                     document.getElementById('tableScrollablepanel').invalidate();
-
+                    
+                    clearInterval(window.tableStatusRefreshInterval);
                     window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 15000);
 
                 },
