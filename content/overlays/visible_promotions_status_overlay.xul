@@ -8,8 +8,9 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <box id="visiblePromotionsStatusPanelContainer" orient="vertical">
-        <promotions_status id="promotions_status" dir="normal" autohide="false" type="detail" boxClass="vbox_promotions" labelClass="label_promotions" subtotalClass="subtotal_promotions" value="" />
+    <box id="visiblePromotionsStatusPanelContainer" orient="vertical" class="promotionpanel">
+        <promotions_status id="promotions_status" dir="normal" autohide="false" type="detail"
+        boxClass="vbox_promotions" labelClass="label_promotions" subtotalClass="subtotal_promotions" value="" />
     </box>
 
 </overlay>

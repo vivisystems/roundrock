@@ -47,7 +47,7 @@
         },
     
         initial: function() {
-
+            
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
 
@@ -120,7 +120,7 @@
             }
         },
 
-        resizePanels: function (initial) {
+        resizePanels: function (disabled_features, initial) {
             // resizing product/function panels
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
@@ -160,13 +160,17 @@
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
+
+            // not all layout supports fnHeight
             var fnHeight = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.height') || 200;
+            if (GeckoJS.Array.inArray("fnheightFeature", disabled_features) != -1) fnHeight = 0;
 
             if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
-            if (initial ||
-                (condPanel.vivibuttonpanel.getAttribute('rows') != condRows) ||
-                (condPanel.vivibuttonpanel.getAttribute('cols') != condCols)) {
+            if (condPanel &&
+                (initial ||
+                 (condPanel.vivibuttonpanel.getAttribute('rows') != condRows) ||
+                 (condPanel.vivibuttonpanel.getAttribute('cols') != condCols))) {
                 condPanel.vivibuttonpanel.rows = condRows;
                 condPanel.vivibuttonpanel.cols = condCols;
 
@@ -181,13 +185,14 @@
                 }
             }
             
-            if (initial ||
-                (deptPanel.getAttribute('rows') != departmentRows) ||
-                (deptPanel.getAttribute('cols') != departmentCols) ||
-                (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
-                (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
-                (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
-                (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar)) {
+            if (deptPanel &&
+                (initial ||
+                 (deptPanel.getAttribute('rows') != departmentRows) ||
+                 (deptPanel.getAttribute('cols') != departmentCols) ||
+                 (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
+                 (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
+                 (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
+                 (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar))) {
 
                 deptPanel.setAttribute('rows', departmentRows);
                 deptPanel.setAttribute('cols', departmentCols);
@@ -211,12 +216,13 @@
                 }
             }
 
-            if (initial ||
-                (pluPanel.getAttribute('rows') != pluRows) ||
-                (pluPanel.getAttribute('cols') != pluCols) ||
-                (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
-                (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
-                (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar)) {
+            if (pluPanel &&
+                (initial ||
+                 (pluPanel.getAttribute('rows') != pluRows) ||
+                 (pluPanel.getAttribute('cols') != pluCols) ||
+                 (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
+                 (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
+                 (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar))) {
 
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
@@ -260,17 +266,17 @@
                     var hspacing = fnPanel.hspacing;
                     var vspacing = fnPanel.vspacing;
 
-                    fnPanelContainer.setAttribute('style', 'height: ' + fnHeight + 'px; max-height: ' + fnHeight + 'px; min-height: ' + fnHeight + 'px');
+                    if (fnHeight && fnPanelContainer) {
+                        fnPanelContainer.setAttribute('style', 'height: ' + fnHeight + 'px; max-height: ' + fnHeight + 'px; min-height: ' + fnHeight + 'px');
+                        fnPanel.setAttribute('height', fnHeight);
+                    }
                     fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
-                    fnPanel.setAttribute('height', fnHeight);
                     //fnPanel.setAttribute('width', fnWidth);
                 }
             }
         },
         
         resetLayout: function (initial) {
-
-            var selectedLayout = this._selectedLayout;
             var layout = this._layout ;
             var disabled_features = layout ? (layout['disabled_features'] || "").split(",") : [];
 
@@ -285,8 +291,10 @@
             var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false;
             var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.HideTagColumn') || false;
             var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.ShowToolbar') || false;
+            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.HideBottomBox') || false;
             
             var hbox = document.getElementById('mainPanel');
+            var bottombox = document.getElementById('vivipos-bottombox');
             var productPanel = document.getElementById('productPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
@@ -297,6 +305,9 @@
             var checkTrackingStatus = document.getElementById('vivipos_fec_check_tracking_status');
             var soldOutCategory = document.getElementById('catescrollablepanel-soldout');
             var soldOutProduct = document.getElementById('prodscrollablepanel-soldout');
+
+            if (hideBottomBox) bottombox.setAttribute('hidden', 'true');
+            else bottombox.removeAttribute('hidden');
             
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', productPanelOnTop ? 'reverse' : 'normal');
@@ -342,7 +353,7 @@
             if (soldOutCategory) soldOutCategory.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
 
-            this.resizePanels(initial);
+            this.resizePanels(disabled_features, initial);
         },
 
         handleUpdateOptions: function(evt) {

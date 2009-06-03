@@ -1,0 +1,197 @@
+/*--------------------------------------------------------------------------
+ *
+ * PRODUCT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.product-button-color-default {
+    background: #fff !important;
+    color: #4b443f !important;
+}
+.product-button-color-default[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #a6a6a6 #ababab #cbcbcb #eeeeee !important;
+    -moz-border-bottom-colors: #8b2718 #fff #fff #fff #fff !important;
+    -moz-border-left-colors: #8b2718 #b7b7b7 #c9c9c9 #dfdfdf #f5f5f5 !important;
+    -moz-border-right-colors: #8b2718 #fff #fff #fff #dbdee1 !important;
+}
+
+.product-button-color-1 {
+    background: #faf1af !important;
+    color: #4b443f !important;
+}
+.product-button-color-1[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #a39d72 #a8a275 #c7c08b #e9e1a3 !important;
+    -moz-border-bottom-colors: #8b2718 #fdf9dc #fcf8d6 #fcf6cb #fbf3ba !important;
+    -moz-border-left-colors: #8b2718 #b3ad7e #c5be8a #dbd399 #f0e8a8 !important;
+    -moz-border-right-colors: #8b2718 #fdf9dc #fcf8d6 #fcf6cb #fbf3ba !important;
+}
+
+.product-button-color-2 {
+    background: #ecc9cf !important;
+    color: #7f4868 !important;
+}
+.product-button-color-2[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #9a8387 #9e878b #bca0a5 #dcbcc1 !important;
+    -moz-border-bottom-colors: #8b2718 #f7e7ea #f5e3e6 #f3dce0 #efd0d5 !important;
+    -moz-border-left-colors: #8b2718 #a99095 #ba9ea3 #ceb0b5 #e3c1c7 !important;
+    -moz-border-right-colors: #8b2718 #f7e7ea #f5e3e6 #f3dce0 #efd0d5 !important;
+}
+
+.product-button-color-3 {
+    background: #69a9b2 !important;
+    color: #fff !important;
+}
+.product-button-color-3[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #446e74 #467177 #54878e #629ea6 !important;
+    -moz-border-bottom-colors: #8b2718 #8dbec4 #8bbdc4 #84b9c0 #74afb8 !important;
+    -moz-border-left-colors: #8b2718 #4b7980 #53858c #5c949c #65a2ab !important;
+    -moz-border-right-colors: #8b2718 #8dbec4 #8bbdc4 #84b9c0 #74afb8 !important;
+}
+
+.product-button-color-4 {
+    background: #f1cda1 !important;
+    color: #4b443f !important;
+}
+.product-button-color-4[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #9d8569 #a2896c #c0a380 #e1bf96 !important;
+    -moz-border-bottom-colors: #8b2718 #f9e9d5 #f8e5ce #f6dec1 #f6dec1 !important;
+    -moz-border-left-colors: #8b2718 #ad9374 #bea27f #d3b38d #e8c59b !important;
+    -moz-border-right-colors: #8b2718 #f9e9d5 #f8e5ce #f6dec1 #f6dec1 !important;
+}
+
+.product-button-color-5 {
+    background: #93888d !important;
+    color: #fff !important;
+}
+.product-button-color-5[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #60595c #635b5f #756c70 #897f84 !important;
+    -moz-border-bottom-colors: #8b2718 #cfcacc #c7c1c4 #b8b1b4 #a1989c !important;
+    -moz-border-left-colors: #8b2718 #696265 #746b6f #81777b #8d8387 !important;
+    -moz-border-right-colors: #8b2718 #cfcacc #c7c1c4 #b8b1b4 #a1989c !important;
+}
+
+.product-button-color-6 {
+    background: #947a5e !important;
+    color: #fff !important;
+}
+.product-button-color-6[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #604f3d #63523f #76614b #8a7258 !important;
+    -moz-border-bottom-colors: #8b2718 #d0c4b8 #c8baac #b9a896 #a28c73 !important;
+    -moz-border-left-colors: #8b2718 #6a5843 #75604a #816b52 #8e755a !important;
+    -moz-border-right-colors: #8b2718 #ae9a85 #ac9883 #a7927b #9c846a !important;
+}
+
+.product-button-color-7 {
+    background: #c7e1dd !important;
+    color: #005952 !important;
+}
+.product-button-color-7[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #829290 #859794 #9eb3b0 #bad2ce !important;
+    -moz-border-bottom-colors: #8b2718 #e6f2f0 #e2efed #daebe9 #cee5e2 !important;
+    -moz-border-left-colors: #8b2718 #8fa19f #9db1ae #aec5c1 #bfd8d4  !important;
+    -moz-border-right-colors: #8b2718 #d4e8e5 #d4e8e5 #d1e6e3 #c7e1dd !important;
+}
+
+.product-button-color-8 {
+    background: #d6e0a8 !important;
+    color: #384e1d !important;
+ }
+ .product-button-color-8[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #8b926d #909671 #aab286 #c8d19d !important;
+    -moz-border-bottom-colors: #8b2718 #edf1d8 #eaefd2 #e4ebc6 #dbe4b4 !important;
+    -moz-border-left-colors: #8b2718 #9aa179 #a9b184 #bbc493 #ced7a1 !important;
+    -moz-border-right-colors: #8b2718 #edf1d8 #eaefd2 #e4ebc6 #dbe4b4 !important;
+}
+
+.product-button-color-9 {
+    background: #d9dbee !important;
+    color: #3b3c42 !important;
+}
+ .product-button-color-9[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #8d8f9b #9293a0 #adaebd #cbccde !important;
+    -moz-border-bottom-colors: #8b2718 #eeeff7 #ebecf6 #e6e7f4 #e6e7f4 !important;
+    -moz-border-left-colors: #8b2718 #9c9dab #abadbc #bec0d0 #d0d2e5 !important;
+    -moz-border-right-colors: #8b2718 #eeeff7 #ebecf6 #e6e7f4 #e6e7f4 !important;
+}
+
+
+.product-button-color-10 {
+    background: #979546 !important;
+    color: #fff !important;
+}
+ .product-button-color-10[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #62612e #65642f #787738 #8d8b41 !important;
+    -moz-border-bottom-colors: #8b2718 #d1d0ad #c9c89f #bbba86 #a5a35f !important;
+    -moz-border-left-colors: #8b2718 #6c6b32 #777537 #84823d #918f43 !important;
+    -moz-border-right-colors: #8b2718 #d1d0ad #c9c89f #bbba86 #a5a35f !important;
+}
+
+
+.product-button-color-11 {
+    background: #c26567 !important;
+    color: #fff !important;
+}
+.product-button-color-11[selected] {
+    border-width: 5px !important;
+    -moz-border-top-colors: #8b2718 #7e4243 #824445 #9a5052 #b55e60 !important;
+    -moz-border-bottom-colors: #8b2718 #e4bbbc #dfafb0 #d79a9b #ca7a7b !important;
+    -moz-border-left-colors: #8b2718 #8b484a #995051 #aa585a #ba6163 !important;
+    -moz-border-right-colors: #8b2718 #e4bbbc #dfafb0 #d79a9b #ca7a7b !important;
+}
+
+
+.product-button-color-default[selected], .product-button-color-1[selected],
+.product-button-color-2[selected], .product-button-color-3[selected],
+.product-button-color-4[selected], .product-button-color-5[selected],
+.product-button-color-6[selected], .product-button-color-7[selected],
+.product-button-color-8[selected], .product-button-color-9[selected],
+.product-button-color-10[selected], .product-button-color-11[selected] {
+    list-style-image: none;
+    background-position: 0 -100px !important;
+}
+
+button_colorpicker .product-button-color-default[selected],.product-button-color-1[selected],
+.product-button-color-2[selected], .product-button-color-3[selected],
+.product-button-color-4[selected], .product-button-color-5[selected],
+.product-button-color-6[selected], .product-button-color-7[selected],
+.product-button-color-8[selected], .product-button-color-9[selected],
+.product-button-color-10[selected], .product-button-color-11[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/con_sel.png);
+}
+
+.product-button {
+    min-height:50px;
+    min-width: 50px;
+    border: 1px solid;
+    -moz-appearance: none;
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+}
+.product-button hbox{
+    -moz-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.product-button[disabled] {
+    background-color: #efede9;
+}

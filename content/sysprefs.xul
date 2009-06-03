@@ -57,6 +57,7 @@
             <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool" />
             <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool" />
             <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool" />
+            <preference id="pref_autosetdecimalpoint" name="vivipos.fec.settings.AutoSetDecimalPoint" type="bool" />
 
 
         </preferences>
@@ -92,6 +93,7 @@
                 </row>
                 <row>
                     <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
+                    <checkbox preference="pref_autosetdecimalpoint" id="pref_autosedecimalpointCtrl" label="&general.autosetdecimalpoint;" />
                 </row>
                 <row>
                     <vbox>

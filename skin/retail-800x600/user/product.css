@@ -1,0 +1,141 @@
+/*--------------------------------------------------------------------------
+ *
+ * DEPARTMENT PANEL
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.catescrollablepanel{
+    background: transparent url(images/departbg.png) top center repeat-y;
+    margin: 0px;
+    padding: 1px;
+}
+.catescrollablepanel > hbox {
+    -moz-box-orient: vertical;
+    -moz-box-direction: reverse;
+}
+
+.catescrollablepanel .scrollablepanel-scrollbar{
+    -moz-box-orient: horizontal;
+}
+
+.categoryPanel {
+    margin: 10px 1px 0 1px;
+}
+
+.DepartTop {
+    background: transparent url(images/departTop.png) 0 0 no-repeat;
+    min-height: 21px;
+    max-height: 21px;
+    min-width: 154px;
+    max-width: 154px;
+}
+.DepartBottom {
+    background: transparent url(images/departBottom.png) 0 0 no-repeat;
+    min-height: 57px;
+    max-height: 57px;
+    min-width: 154px;
+    max-width: 154px;
+}
+
+/*--------------------------------------------------------------------------
+ * SCROLLBAR
+ *--------------------------------------------------------------------------
+ */
+
+.depart_scroll_up {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 2px 0px 0px 0px;
+    padding: 0px;
+    background: transparent url(images/scrollup.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+
+.depart_scroll_up[disabled=false]:active {
+	  background-position: -32px 0;
+}
+
+.depart_scroll_up label {
+	  display: none;
+}
+
+.depart_scroll_up description {
+	  display: none;
+}
+
+.depart_scroll_down {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px 0px 2px 0px;
+    padding: 0px;
+    background: transparent url(images/scrolldown.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+
+.depart_scroll_down[disabled=false]:active {
+	  background-position: -32px 0;
+}
+
+.depart_scroll_down label {
+	display: none;
+}
+
+.depart_scroll_down description {
+	display: none;
+}
+
+
+
+/*--------------------------------------------------------------------------
+ *
+ * PLU PANEL
+ *
+ *--------------------------------------------------------------------------
+ */
+.prodscrollablepanel {
+	-moz-appearance: none;
+	-moz-background-clip: border;
+	margin: 0px 2px 15px 0px;
+	background: none;
+	padding: 0px 0 0 2px;
+    -moz-box-orient: horizontal;
+}
+
+.prodscrollablepanel > hbox {
+    -moz-box-orient: vertical;
+    -moz-box-direction: reverse;
+}
+
+.prodscrollablepanel vivibuttonpanel {
+	margin-top: 2px;
+	margin-right: 4px;
+	margin-bottom: 0px;
+}
+
+/*--------------------------------------------------------------------------
+ * SCROLLBAR
+ *--------------------------------------------------------------------------
+ */
+
+.prodscrollablepanel .scrollablepanel-scrollbar {
+	margin: 2px 0 2px 2px;
+    -moz-box-orient: horizontal;
+}
+
+.prodscrollablepanel image {
+	width: 32px;
+	height: 32px;
+}
+
+

@@ -12,6 +12,8 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/visible_promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/Retail_functionPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/Retail_ToolbarOverlay.xul" ?>
 
 <overlay id="bootstrapPanelsOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
