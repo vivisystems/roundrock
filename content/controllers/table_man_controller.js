@@ -158,6 +158,7 @@
 
                 var tableModel = new TableModel();
                 tableModel.id = inputObj.id;
+
                 var tables = tableModel.save(inputObj);
 
                 // update table_status
@@ -391,6 +392,8 @@
                             'tables.active',
                             'tables.tag',
                             'tables.destination',
+                            'tables.lowest_expend_by_table',
+                            'tables.lowest_expend_per_guest',
                             'table_regions.name AS "Table.region"',
                             'tables.table_region_id',
                             'table_regions.image AS "Table.image"',
@@ -461,6 +464,7 @@
         readTableSettings: function() {
             //
             this._tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+this.log(this.dump(this._tableSettings));
             return this._tableSettings;
         },
 
