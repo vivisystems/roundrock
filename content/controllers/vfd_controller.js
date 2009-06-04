@@ -43,10 +43,23 @@
             }
             
             // add event listener for startTrainingMode event.
-            var trainingModeController = GeckoJS.Controller.getInstanceByName( 'TrainingMode' );
+            /*var trainingModeController = GeckoJS.Controller.getInstanceByName( 'TrainingMode' );
             if ( trainingModeController ) {
-            	trainingModeController.addEventListener( 'startTrainingMode', this.switchTrainingMode );
-            }
+           		trainingModeController.addEventListener( 'startTrainingMode', this.switchTrainingMode );
+            }*/
+
+			var self = this;
+            this.observer = GeckoJS.Observer.newInstance( {
+                topics: [ "TrainingMode" ],
+
+                observe: function( aSubject, aTopic, aData ) {
+                    if ( aData == "start" ) {
+                    	self.switchTrainingMode( true );
+                    } else if (aData == "exit") {
+                    	self.switchTrainingMode( false );
+                    }
+                }
+            } ).register();
 
             var self = this;
             this.observer = GeckoJS.Observer.newInstance({
@@ -368,9 +381,9 @@
 
         },
         
-        switchTrainingMode: function( event ) {
+        switchTrainingMode: function( isTraining ) {
         	var class = "vfdPad";
-        	if ( event.data == "start" )
+        	if ( isTraining )
         		class = "vfdPadOnTraining";
         	document.getElementById( 'vfdPanel' ).className = class;
         }

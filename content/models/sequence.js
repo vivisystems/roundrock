@@ -141,8 +141,8 @@
                     value: 0
                 };
 
-		if ( isTraining )
-			return seq.value;
+				if ( isTraining )
+					return seq.value;
 
                 seq.value++;
                 this.id = seq.id;
