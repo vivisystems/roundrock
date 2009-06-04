@@ -101,6 +101,10 @@
                     self.resetCurrentPromotions();
                 });
 
+                Transaction.events.addListener('onUnserialize', function(evt) {
+                    self.appendTransactionDatas(evt.data);
+                });
+                
                 // on Transaction calcPromtions
                 Transaction.events.addListener('onCalcPromotions', function(evt) {
                     self.process();
@@ -260,6 +264,15 @@
 
         },
 
+        appendTransactionDatas: function(transaction) {
+            try {
+                for (var index in transaction.data.items) {
+                    if(transaction.data.items[index]) {
+                        this.appendTransactionData(transaction.data.items[index]);
+                    }
+                }
+            }catch(e) {}
+        },
 
         appendTransactionData: function(item) {
 
