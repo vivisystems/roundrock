@@ -175,6 +175,17 @@ msgstr "** TRAY"
 msgid "House Bon"
 msgstr "BON"
 
+msgid "returncartitem.desc"
+msgstr ""
+"This function is used to register return of the current item in the "
+"shopping cart. No parameter is needed."
+
+msgid "returncartitem.label"
+msgstr "Return Item"
+
+msgid "returncartitem.name"
+msgstr "Return Item"
+
 msgid "itembybarcode.desc"
 msgstr ""
 "This function is used to register an item by its product number or barcode. "

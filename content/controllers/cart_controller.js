@@ -524,7 +524,88 @@
                 this.dispatchEvent('afterTagItem', [taggedItem, itemDisplay]);
             }
         },
-        
+
+        returnCartItem: function() {
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            var exit = false;
+
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+
+                //@todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot return the selected item'));
+
+                exit = true;
+            }
+
+            // check if transaction is closed
+            if (!exit && curTransaction.isClosed()) {
+                NotifyUtils.warn(_('This order is being finalized and items may not be returned'));
+
+                exit = true;
+            }
+
+            if(!exit && index <0) {
+                //@todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
+
+                exit = true;
+            }
+
+            var itemTrans = curTransaction.getItemAt(index, true);
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                this.dispatchEvent('onReturnCartItemError', {});
+
+                //@todo OSD
+                NotifyUtils.warn(_('The selected item [%S] is not a product and cannot be returned', [itemDisplay.name]));
+
+                exit = true;
+            }
+
+            // locate product
+            if (!exit) {
+                var productsById = GeckoJS.Session.get('productsById');
+                var plu;
+                if (productsById) {
+                    plu = productsById[itemTrans.id];
+                }
+            }
+
+            if (!exit) {
+                if (plu) {
+                    var currentReturnMode = this._returnMode;
+                    this._returnMode = true;
+
+                    // determine price:
+                    // 1. if manually entered into keypad buffer, use that price
+                    // 2. otherwise, use price from selected cart item
+                    var buf = this._getKeypadController().getBuffer(true);
+                    if (!buf) {
+                        this.setPrice(itemTrans.current_price);
+                    }
+
+                    this.addItem(plu);
+
+                    this._returnMode = currentReturnMode;
+                }
+                else {
+                    //@todo OSD
+                    GREUtils.Dialog.alert(null,
+                                          _('Memory Error'),
+                                          _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation', [itemDisplay.name]));
+                    exit = true;
+                }
+            }
+
+            if (exit) {
+                this._getKeypadController().clearBuffer();
+                this.clearAndSubtotal();
+            }
+        },
+
         addItem: function(plu) {
 
             if (this._suspended) return;

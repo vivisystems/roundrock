@@ -322,6 +322,11 @@ pref("vivipos.fec.registry.function.programmable.itembybarcode.command", "addIte
 pref("vivipos.fec.registry.function.programmable.itembybarcode.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.itembybarcode.data", "");
 
+pref("vivipos.fec.registry.function.programmable.returncartitem.access", "acl_register_return");
+pref("vivipos.fec.registry.function.programmable.returncartitem.command", "returnCartItem");
+pref("vivipos.fec.registry.function.programmable.returncartitem.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.returncartitem.data", "");
+
 pref("vivipos.fec.registry.function.programmable.enter.access", "acl_register_enter");
 pref("vivipos.fec.registry.function.programmable.enter.command", "sendKeycode");
 pref("vivipos.fec.registry.function.programmable.enter.controller", "Keypad");
