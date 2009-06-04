@@ -1904,6 +1904,7 @@
                     if (dispItem.index != null) {
                         switch(dispItem.type) {
                             case 'item':
+                            case 'setitem':
                                 if (transItems[dispItem.index] != null) {
                                     transItems[dispItem.index].batch = batch;
                                     batchItemCount++;

@@ -317,6 +317,11 @@ pref("vivipos.fec.registry.function.programmable.quantity.command", "sendCharcod
 pref("vivipos.fec.registry.function.programmable.quantity.controller", "Keypad");
 pref("vivipos.fec.registry.function.programmable.quantity.data", "X");
  
+pref("vivipos.fec.registry.function.programmable.itembybarcode.access", "acl_register_plus");
+pref("vivipos.fec.registry.function.programmable.itembybarcode.command", "addItemByBarcode");
+pref("vivipos.fec.registry.function.programmable.itembybarcode.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.itembybarcode.data", "");
+
 pref("vivipos.fec.registry.function.programmable.enter.access", "acl_register_enter");
 pref("vivipos.fec.registry.function.programmable.enter.command", "sendKeycode");
 pref("vivipos.fec.registry.function.programmable.enter.controller", "Keypad");
@@ -873,7 +878,7 @@ pref("vivipos.fec.registry.layouts.retail.label", "chrome://viviecr/locale/messa
 pref("vivipos.fec.registry.layouts.retail.desc", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.retail.overlay_uri", "chrome://viviecr/content/layouts/retail.xul");
 pref("vivipos.fec.registry.layouts.retail.icon", "chrome://viviecr/content/layouts/retail.png");
-pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft,ProductPanelOnTop,fnheightFeature");
+pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft,ProductPanelOnTop,fnheightFeature,deptheightFeature,condimentPanelFeature");
 pref("vivipos.fec.registry.layouts.retail.skin", "retail-${width}x${height}/1.0");
 
 pref("vivipos.fec.registry.localization.package.viviecr.base", "en");

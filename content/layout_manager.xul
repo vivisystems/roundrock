@@ -137,7 +137,7 @@
                         <label control="depcols" value="&layout.department.cols;"/>
                         <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
                     </vbox>
-                    <vbox>
+                    <vbox id="deptheightFeature" feature="hidden">
                         <label control="depbtnheight" value="&layout.department.button.height;"/>
                         <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
                     </vbox>
@@ -153,7 +153,7 @@
                         <textbox preference="pref_plucols" id="plucols" type="number" size="2" maxlength="1"/>
                     </vbox>
                 </row>
-                <row>
+                <row id="condimentPanelFeature" feature="hidden">
                     <label value="&layout.condiment.label;"/>
                     <vbox>
                         <label control="condrows" value="&layout.condiment.rows;"/>

@@ -825,7 +825,7 @@
                         // 3. item.link_group does not contain any routing groups and device.printNoRouting is true
                         //
                         //this.log('item link groups: ' + GeckoJS.BaseObject.dump(item.link_group));
-                        if (device.printNoRouting) {
+                        if (data.printNoRouting) {
                             if (item.link_group == null || item.link_group == '') {
                                 item.linked = true;
                             }
@@ -867,6 +867,7 @@
                     //this.log('no items linked to this printer; printing terminated');
                 }
             }
+            if (data && data.order) this.log('duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
 
             var tpl;
             var result;

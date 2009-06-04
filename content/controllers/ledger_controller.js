@@ -255,6 +255,17 @@
             }
         },
 
+        openDrawerForLedgerEntry: function() {
+
+            // retrieve handle to cashdrawer controller
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var cashdrawer = mainWindow.GeckoJS.Controller.getInstanceByName( 'CashDrawer' );
+            if (cashdrawer) {
+                this.requestCommand('openDrawerForLedgerEntry', null, cashdrawer);
+            }
+        },
+
         load: function() {
             GeckoJS.FormHelper.reset('ledger_recordForm');
 

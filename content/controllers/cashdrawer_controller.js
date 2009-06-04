@@ -214,6 +214,30 @@
             this.openDrawer(2, 'nosale');
         },
 
+        openDrawerForLedgerEntry: function() {
+            var device = this.getDeviceController();
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
+            // get list of enabled drawers
+            var enabledDevices = device.getEnabledDevices('cashdrawer');
+            if (enabledDevices == null || enabledDevices.length == 0) {
+                // no cashdrawer enabled, simply return
+                return;
+            }
+
+            // get user assigned drawer
+            var drawer;
+            var user = this.Acl.getUserPrincipal();
+            if (user && user.drawer) {
+                drawer = parseInt(user.drawer);
+            }
+
+            this.openDrawer(drawer, 'ledger');
+        },
+
         openDrawerForShiftChange: function() {
             var device = this.getDeviceController();
             if (device == null) {
@@ -228,13 +252,14 @@
                 return;
             }
 
-            if (device.isDeviceEnabled('cashdrawer', 1)) {
-                this.openDrawer(1, 'shift change');
+            // get user assigned drawer
+            var drawer;
+            var user = this.Acl.getUserPrincipal();
+            if (user && user.drawer) {
+                drawer = parseInt(user.drawer);
             }
-
-            if (device.isDeviceEnabled('cashdrawer', 2)) {
-                this.openDrawer(2, 'shift change');
-            }
+            
+            this.openDrawer(drawer, 'shift change');
         },
         
         openDrawer: function(drawerNo, eventType, paymentType, sequence, amount) {

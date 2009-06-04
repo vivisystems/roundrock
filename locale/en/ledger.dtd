@@ -5,6 +5,9 @@
 <!ENTITY ledger.button.action.modify "Modify">
 <!ENTITY ledger.button.action.delete "Delete">
 <!ENTITY ledger.button.action.edittopics "Edit Topics">
+<!ENTITY ledger.button.action.del "DEL">
+<!ENTITY ledger.button.action.clear "CLEAR">
+<!ENTITY ledger.button.action.opendrawer "Open Drawer">
 
 <!ENTITY ledger.tab.records "Ledger Entries">
 <!ENTITY ledger.tab.entry.types "Entry Types">

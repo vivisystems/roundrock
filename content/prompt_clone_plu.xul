@@ -42,11 +42,11 @@
                     </columns>
                     <rows>
                         <row id="row0">
-                            <checkbox id="setting-basic-data" checked="true" label="&cloneplu.settings.basic.data;" form="settingsForm" name="basic-data" default="1"/>
-                            <checkbox id="setting-appearance" checked="true" label="&cloneplu.settings.appearance;" form="settingsForm" name="appearance" default="1"/>
+                            <checkbox id="setting-basic-data" checked="false" label="&cloneplu.settings.basic.data;" form="settingsForm" name="basic-data" default="1"/>
+                            <checkbox id="setting-appearance" checked="false" label="&cloneplu.settings.appearance;" form="settingsForm" name="appearance" default="1"/>
                             <checkbox id="setting-prices" checked="false" label="&cloneplu.settings.prices;" form="settingsForm" name="prices" default="1"/>
-                            <checkbox id="setting-condiments" checked="true" label="&cloneplu.settings.condiments;" form="settingsForm" name="condiments" default="1"/>
-                            <checkbox id="setting-linkgroups" checked="true" label="&cloneplu.settings.linkgroups;" form="settingsForm" name="linkgroups" default="1"/>
+                            <checkbox id="setting-condiments" checked="false" label="&cloneplu.settings.condiments;" form="settingsForm" name="condiments" default="1"/>
+                            <checkbox id="setting-linkgroups" checked="false" label="&cloneplu.settings.linkgroups;" form="settingsForm" name="linkgroups" default="1"/>
                         </row>
                         <row id="row1">
                         </row>

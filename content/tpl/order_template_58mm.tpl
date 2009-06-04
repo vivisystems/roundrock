@@ -165,3 +165,10 @@ ${'  ' + note.text|left:24}
   delete TrimPath.PrecisionTaxes;
 {/eval}
 {/if}
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&PC]
+[&CR]

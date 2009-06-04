@@ -864,7 +864,10 @@
 
         addItemByBarcode: function(barcode) {
 
-            if (barcode == null || barcode.length == 0) return;
+            if (barcode == null || barcode.length == 0) {
+                NotifyUtils.warn(_('Product number/barcode not provided'));
+                return;
+            }
             
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
@@ -880,7 +883,7 @@
                 event.error = true;
 
                 //@todo OSD
-                NotifyUtils.warn(_('Product scan code not found [%S]', [barcode]));
+                NotifyUtils.warn(_('Product number/barcode [%S] not found', [barcode]));
             }else {
                 var id = barcodesIndexes[barcode];
                 var product = productsById[id];
@@ -2489,12 +2492,11 @@
 
         },
 
-        ledgerEntry: function(inputObj) {
+        ledgerEntry: function(data) {
 
-            var data = {};
-            data.ledgerPayment = {};
+            var inputObj = {};
 
-            if (!inputObj) {
+            if (!data) {
                 var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
                 inputObj = {}
@@ -2521,7 +2523,7 @@
 
             if (r) {
                 // @todo OSD
-                OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
+                NotifyUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
                     [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
             }
             else {

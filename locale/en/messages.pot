@@ -175,6 +175,18 @@ msgstr "** TRAY"
 msgid "House Bon"
 msgstr "BON"
 
+msgid "itembybarcode.desc"
+msgstr ""
+"This function is used to register an item by its product number or barcode. "
+"The parameter must be set to the product number or the barcode of the item "
+"to be registered."
+
+msgid "itembybarcode.label"
+msgstr "PLU"
+
+msgid "itembybarcode.name"
+msgstr "Register PLU"
+
 msgid "annotate.desc"
 msgstr ""
 "This function is used to add and/or view annotations. Annotations are "
