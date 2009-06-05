@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-<overlay id="jcmLayoutOverlay"
+<?xml-stylesheet href="chrome://viviecr/skin/layout.css" type="text/css"?>
+
+<overlay id="traditionalLayoutOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
+        <box id="mainPanel" flex="1" class="mainpanel block-ge" orient="horizontal">
 
-            <box id="leftPanel" flex="1" style="overflow: hidden" orient="vertical" class="leftPanel">
+            <box id="x" flex="0" style="overflow: hidden" orient="vertical" class="block-u first">
                 <box id="cartlistPanelContainer" flex="1"/>
                 <box id="promotionsStatusPanelContainer" flex="0"/>
                 <box id="categoryPanelContainer" flex="0" class="categoryPanel" />
@@ -19,7 +21,7 @@
 
             <spacer id="panelSpacer" width="0px" flex="0"/>
 
-            <box id="rightPanel" flex="1" class="rightPanel" orient="vertical">
+            <box id="d" flex="1" class="block-u" orient="vertical">
                 <box id="vfdPanelContainer" flex="1"/>
                 <box id="functionPanelContainer" flex="0" />
             </box>

@@ -142,7 +142,7 @@
         <groupbox flex="1">
             <caption label="&rptorderstatus.wait;" class="PageTitle"/>
             <spacer style="height: 20px;" />
-            <progressmeter id="progress" mode="undetermined" value="0" />
+            <progressmeter id="progress" mode="determined" value="0" />
             <spacer style="height: 20px;" />
         </groupbox>
         </vbox>

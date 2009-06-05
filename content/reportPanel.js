@@ -1,6 +1,7 @@
 (function(){
 
     var width = 0 , height = 0;
+    var isShowing = false;
     
     /**
      * Window Startup
@@ -44,9 +45,16 @@
         var pref = data[index];
         var aArguments = "";
 
-        $('#loading').show();
-        openModel(pref['path'], "Preferences_" + pref['label'], aArguments);
-        $('#loading').hide();
+        if (isShowing) {
+            // nothings to do
+        }else {
+            $('#loading').show();
+            isShowing = true;
+            openModel(pref['path'], "Preferences_" + pref['label'], aArguments);
+            $('#loading').hide();
+            isShowing = false;
+
+        }
     };
 
     window.addEventListener('load', startup, true);
