@@ -169,6 +169,13 @@
                     );
             } catch ( e ) {
             } finally {
+                // enable buttons
+                this._enableButton( true );
+
+                // hide panel
+                if ( waitPanel != undefined )
+                    waitPanel.hidePopup();
+
             }
         },
 
@@ -211,12 +218,12 @@
                 this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl );
 
                 self.copyExportFileFromTmp(tmpFile, targetDir, 180, function() {
-                            // enable buttons
-                            self._enableButton( true );
+                    // enable buttons
+                    self._enableButton( true );
 
-                            // hide panel
-                            if ( waitPanel != undefined )
-                                waitPanel.hidePopup();
+                    // hide panel
+                    if ( waitPanel != undefined )
+                        waitPanel.hidePopup();
 
                 });
 
@@ -226,7 +233,17 @@
 
                     GREUtils.gc();
                 }
-            } catch ( e ) {            }
+            } catch ( e ) {
+            }
+            finally {
+                // enable buttons
+                this._enableButton( true );
+
+                // hide panel
+                if ( waitPanel != undefined )
+                    waitPanel.hidePopup();
+
+            }
         },
 
         exportRcp: function() {
@@ -352,14 +369,14 @@
                 }else {
                     try {
 
-                    GREUtils.File.copy(nsTmpfile, targetDir);
+                        GREUtils.File.copy(nsTmpfile, targetDir);
 
-                    // crazy sync.....
-                    GREUtils.File.run("/bin/sync", [], true);
-                    GREUtils.File.run("/bin/sh", ['-c', '/bin/sync; /bin/sleep 3; /bin/sync;'], true);
-                    GREUtils.File.run("/bin/sync", [], true);
+                        // crazy sync.....
+                        GREUtils.File.run("/bin/sync", [], true);
+                        GREUtils.File.run("/bin/sh", ['-c', '/bin/sync; /bin/sleep 3; /bin/sync;'], true);
+                        GREUtils.File.run("/bin/sync", [], true);
 
-                    nsTmpfile.remove(false);
+                        nsTmpfile.remove(false);
 
                     }catch(e) {
                         dump(e);
