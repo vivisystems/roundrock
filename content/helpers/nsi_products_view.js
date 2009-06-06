@@ -15,6 +15,8 @@
                 this.updateProducts();
             }
 
+            this._productsById = GeckoJS.Session.get('productsById');
+            
             // binding dom
             this.bindingPanel(domId);
 
@@ -42,6 +44,7 @@
                 if (evt.data.key == 'products') {
                     //self.updateProducts();
                     if(self._cateView) self.setCatePanelIndex(self._currentCateIndex);
+                    self._productsById = GeckoJS.Session.get('productsById');
                 }
             });
             
@@ -215,7 +218,7 @@
         getCurrentIndexData: function (row) {
             
             var id = this.data[row];
-            var products = GeckoJS.Session.get('productsById');
+            var products = this._productsById ; //  GeckoJS.Session.get('productsById');
             
             return products[id];
         },
@@ -223,7 +226,8 @@
         getCellValue: function(row, col) {
             
             // this.log(row +","+col);
-            var products = GeckoJS.Session.get('productsById');
+            // var products = GeckoJS.Session.get('productsById');
+            var products = this._productsById; // GeckoJS.Session.get('productsById');
 
             var sResult;
             var id;
@@ -236,7 +240,7 @@
                 if (id == "") return "";
                 
                 sResult= products[id][key];
-                this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
+                // this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
             }
             catch (e) {
                 return "";
@@ -246,20 +250,47 @@
         },
 
         getImageSrc: function(row, col) {
-            
-            var val = this.getCellValue(row, col);
-            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-            var sPluDir = datapath + "/images/pluimages/";
-            if (!sPluDir) sPluDir = '/data/images/pluimages/';
-            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
-            var aDstFile = sPluDir + val + ".png";
-            
-            if (GREUtils.File.exists(aDstFile)) {
-                return 'file://' + aDstFile  /*+ "?"+ Math.random()*/;
 
+            var products = this._productsById;
+
+            var cachedKey = 'pluimages' ;
+            var colKey = col.id;
+            var pid = this.data[row];
+
+            if (pid == "") return null;
+            if(!products[pid]) return null;
+            if (products[pid][cachedKey] === false ) return null;
+
+            var aDstFile = false;
+
+            if (products[pid][cachedKey]) {
+
+                aDstFile = products[pid][cachedKey];
+                return 'file://' + aDstFile ;
+                
             }else {
-                return null;
+
+                var val = products[pid][colKey];
+                // var val = this.getCellValue(row, col);
+                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+                var sPluDir = datapath + "/images/pluimages/";
+                if (!sPluDir) sPluDir = '/data/images/pluimages/';
+                sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+
+                aDstFile = sPluDir + val + ".png";
+
+                if (GREUtils.File.exists(aDstFile)) {
+                    products[pid][cachedKey] = aDstFile;
+                    return 'file://' + aDstFile  /*+ "?"+ Math.random()*/;
+
+                }else {
+                    products[pid][cachedKey] = false;
+                    return null;
+                }
             }
+
+            // this.log('DEBUG', 'getImageSrc = ' + aDstFile);
+            
         },
 
         renderButton: function(row, btn) {
@@ -298,7 +329,8 @@
                 //$(btn).addClass('noimagebtn');
             }
             if (classStr.length > 0) {
-                $(btn).addClass(classStr);
+                //$(btn).addClass(classStr);
+                btn.className += ' ' +  classStr;
             }
         }
 

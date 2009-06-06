@@ -6,7 +6,7 @@
          * Component GuestCheck
          */
 
-        /*t
+        /*
             // Session
             vivipos_fec_price_level,
             vivipos_fec_tax_total,
@@ -29,11 +29,8 @@
             this._super(c);
 
             // read switch
-            this._guestCheck.tableWinAsFirstWin = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.TableWinAsFirstWin') || false;
-            this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
-            this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
-            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
-
+            this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+            
             // @todo : check orders first and set _checkNoArray, _tableNoArray...
 
             this._tableStatusModel = new TableStatusModel;
@@ -55,7 +52,7 @@
                 // cart.addEventListener('onClear', this.handleClear, this);
 
                 // Store
-                cart.addEventListener('onStore', this.handleNewTransaction, this);
+                cart.addEventListener('onStore', this.handleStore, this);
 
                 // ChangeServiceClerk
                 cart.addEventListener('onChangeServiceClerk', this.handleChangeServiceClerk, this);
@@ -64,7 +61,10 @@
                 cart.addEventListener('onTransTable', this.handleTransTable, this);
 
                 // check table no and guests before submit...
-                cart.addEventListener('beforeSubmit', this.handleRequestTableNo, this);
+                cart.addEventListener('beforeSubmit', this.handleBeforeSubmit, this);
+
+                // check minimum charge and table no and guests before addPayment...
+                cart.addEventListener('beforeAddPayment', this.handleBeforeAddPayment, this);
 
                 // SplitCheck
                 cart.addEventListener('onSplitCheck', this.handleSplitCheck, this);
@@ -92,13 +92,13 @@
             // add listener for onStartShift event
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
-                main.addEventListener('onFirstLoad', this.handleNewTransaction, this);
+                main.addEventListener('onFirstLoad', this.handleFirstLoad, this);
             }
             
         },
 
         printChecks: function(txn) {
-            // var txn = evt.data;
+
             var printer = 1;
             var autoPrint = false;
             var duplicate = 1;
@@ -106,48 +106,7 @@
             this._printController.printChecks(txn, printer, autoPrint, duplicate);
         },
 
-        handleRequestTableNo: function(evt) {
-
-            if (this._guestCheck.requireTableNo && !evt.data.txn.data.table_no) {
-                // NotifyUtils.warn(_('Please set table no first!'));
-                // evt.preventDefault();
-                // this._controller.newTable();
-                this.table(this.selTableNum(''));
-            }
-
-            if (this._guestCheck.requireGuestNum && !evt.data.txn.data.no_of_customers) {
-                // NotifyUtils.warn(_('Please set table no first!'));
-                // evt.preventDefault();
-                this.guest('');
-            }
-        },
-
-        handleTransTable: function(evt) {
-            //
-            this._tableStatusModel.addCheck(evt.data.data);
-
-            GeckoJS.Session.set('vivipos_guest_check_action', '');
-
-            if (this._guestCheck.tableWinAsFirstWin) {
-                    this._controller.newTable();
-            }
-        },
-
-        handleChangeServiceClerk: function(evt) {
-            //
-            this._tableStatusModel.addCheck(evt.data.data);
-
-            GeckoJS.Session.set('vivipos_guest_check_action', '');
-
-            if (this._guestCheck.tableWinAsFirstWin) {
-                    this._controller.newTable();
-            }
-        },
-
-        handleStore: function(evt) {
-            //
-            this._tableStatusModel.addCheck(evt.data.data);
-
+        syncClient: function() {
             // sync data
             try {
                 var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
@@ -159,21 +118,122 @@
                 NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
                 return false;
             }
+        },
+
+        handleBeforeAddPayment: function(evt) {
+            //
+            if (this._guestCheck.tableSettings.RequireTableNo && !evt.data.transaction.data.table_no) {
+                this.table(this.selTableNum(''));
+            }
+
+            if (this._guestCheck.tableSettings.RequireGuestNum && !evt.data.transaction.data.no_of_customers) {
+                this.guest('');
+            }
+
+            if (this._guestCheck.tableSettings.RequestMinimumCharge) {
+                //
+                var minimum_charge_per_table = this._guestCheck.tableSettings.GlobalMinimumChargePerTable;
+                var minimum_charge_per_guest = this._guestCheck.tableSettings.GlobalMinimumChargePerGuest;
+                var table_no = evt.data.transaction.data.table_no;
+                var guests = evt.data.transaction.data.no_of_customers;
+                var total = evt.data.transaction.data.total;
+
+                var tables = this._tableStatusModel.getTableStatusList();
+                var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + table_no + "'");
+                if (tableObj.length > 0) {
+                    // set minimum charge
+                    minimum_charge_per_table = tableObj[0].Table.minimum_charge_per_table || minimum_charge_per_table;
+                    minimum_charge_per_guest = tableObj[0].Table.minimum_charge_per_guest || minimum_charge_per_guest;
+                }
+
+                var minimum_charge = Math.max(minimum_charge_per_table, minimum_charge_per_guest * guests);
+
+// this.log(_("tableNo: %S, guests: %S, minChargeTable: %S, minChargeGuest: %S, total: %S, minimumCharge: %S", [table_no, guests, minimum_charge_per_table, minimum_charge_per_guest, total, minimum_charge]));
+                if (total < minimum_charge) {
+
+                    if (GREUtils.Dialog.confirm(null,
+                        _('Order amount does not reach Minimum Charge'),
+                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\n' +
+                            'Click OK to finalize this order by Minimum Charge, \nor, click Cancel to ' +
+                            'return shopping cart and add more items.', [minimum_charge])) == false) {
+
+                        // @todo OSD
+                        NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+
+                    } else {
+
+                        var product = GeckoJS.BaseObject.unserialize(this._guestCheck.tableSettings.MinimumChargePlu);
+                        if (product) {
+                            this._controller.setPrice(minimum_charge - total);
+                            this._controller.addItem(product);
+
+                            // @todo OSD
+                            NotifyUtils.warn(_('Add difference (%S) to finalize this order by Minimum Charge.', [minimum_charge - total]));
+
+                        } else {
+                            // @todo OSD
+                            NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+                            
+                        }
+
+                    }
+
+                    evt.preventDefault();
+
+                }
+            }
+        },
+
+        handleBeforeSubmit: function(evt) {
+
+            if (this._guestCheck.tableSettings.RequireTableNo && !evt.data.txn.data.table_no) {
+                this.table(this.selTableNum(''));
+            }
+
+            if (this._guestCheck.tableSettings.RequireGuestNum && !evt.data.txn.data.no_of_customers) {
+                this.guest('');
+            }
+
+        },
+
+        handleTransTable: function(evt) {
+            //
+            this.handleStore(evt);
+
+        },
+
+        handleChangeServiceClerk: function(evt) {
+            //
+            this.handleStore(evt);
+
+        },
+
+        handleStore: function(evt) {
+            //
+            this._tableStatusModel.addCheck(evt.data.data);
+
+            this.syncClient();
            
             GeckoJS.Session.set('vivipos_guest_check_action', '');
 
-            if (this._guestCheck.tableWinAsFirstWin) {
+            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
         },
 
         handleAfterSubmit: function(evt) {
             //
-            this._tableStatusModel.removeCheck(evt.data.data);
+            // is stored order?
+            if (evt.data.data.recall == 2) {
+
+                this._tableStatusModel.removeCheck(evt.data.data);
+
+                this.syncClient();
+            }
 
             GeckoJS.Session.set('vivipos_guest_check_action', '');
 
-            if (this._guestCheck.tableWinAsFirstWin) {
+            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
         },
@@ -200,56 +260,28 @@
             //
             GeckoJS.Session.set('vivipos_guest_check_action', '');
 
-            if (this._guestCheck.tableWinAsFirstWin) {
+            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
+                    this._controller.newTable();
+            }
+        },
+
+        handleFirstLoad: function(evt) {
+            //
+            GeckoJS.Session.set('vivipos_guest_check_action', '');
+
+            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
         },
 
         handleNewTransaction: function(evt) {
 
-            this._guestCheck.tableWinAsFirstWin = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.TableWinAsFirstWin') || false;
-            this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
-            this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
-            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
-
-// this.log("DEBUG", "evt.type:" + evt.type);
-
             if ( evt.type == 'newTransaction') {
-                if (this._guestCheck.requireCheckNo) {
-                    // if (!GeckoJS.Session.get('vivipos_fec_check_number'))
-                        // var check_no = this.getNewCheckNo();
-                        this._controller.newCheck(true);
+                if (this._guestCheck.tableSettings.RequireCheckNo) {
+                    this._controller.newCheck(true);
                 }
             }
-            if (evt.type == 'onFirstLoad' || evt.type == 'onCancel' || evt.type == 'onSubmit' || evt.type == 'onStore' || evt.type == 'afterSubmit' || evt.type == 'onChangeServiceClerk' || evt.type == 'onTransTable') {
-                if (evt.type == 'onStore' || evt.type == 'onChangeServiceClerk' || evt.type == 'onTransTable') {
-                    this._tableStatusModel.addCheck(evt.data.data);
-                }
-                if (evt.type == 'afterSubmit') {
-                    try {
-                        this._tableStatusModel.removeCheck(evt.data.data);
-                    } catch(e) {}
-                }
-                GeckoJS.Session.set('vivipos_guest_check_action', '');
 
-                if (this._guestCheck.tableWinAsFirstWin) {
-                    // if (!GeckoJS.Session.get('vivipos_fec_table_number') || evt.type == "onStore" || evt.type == 'onStartShift')
-                        // var table_no = this.getNewTableNo();
-                        this._controller.newTable();
-                }
-
-                /*
-                var action = GeckoJS.Session.get('vivipos_guest_check_action');
-                if (action == 'SelectTableNo') {
-                    if (this._guestCheck.requireGuestNum) {
-                        var num = GeckoJS.Session.get('vivipos_fec_number_of_customers') || 1;
-                        num = this.selGuestNum(num);
-                        this.guest(num);
-                        // this._controller.guestNum(num);
-                    }
-                }
-                */
-            }
         },
 
         getTableList: function() {
@@ -359,21 +391,9 @@
 
         getNewTableNo: function() {
 
-//            this._tableList = null;
-            /*
-            var tablelist = this.getTableList();
-            if (tablelist.length <= 0) {
-                return this.table(this.selTableNum(''));
-            }
-            */
-            // if (this._tableStatusModel.getTableStatusList().length <=0) {
             if (this._tableStatusModel._tableStatusList.length <=0) {
-                // if (this._tableStatusModel._connected) {
-                //    return this.table(this.selTableNum(''));
-                // } else {
                     this._tableStatusModel.getTableStatusList();
                     return;
-                // }
             }
 
             var self = this;
@@ -621,6 +641,9 @@
 
         table: function(table_no) {
 
+            // read table settings...
+            this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+
             var r = this._tableStatusModel.getTableNo(table_no);
 
             if (r >= 0) {
@@ -642,6 +665,7 @@
                 var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + r + "'");
                 if (tableObj.length > 0) {
 
+                    // set destination action
                     var destination = tableObj[0].Table.destination;
                     if (destination)
                         this.requestCommand('setDestination', destination, 'Destinations');
@@ -1079,7 +1103,7 @@
 
             }else {
                 // return null;
-                if (this._guestCheck.tableWinAsFirstWin) {
+                if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
                 }
                 return -1;

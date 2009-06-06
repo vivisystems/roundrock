@@ -27,14 +27,7 @@
         _tableStatusIdxById: {},
 
         initial: function (c) {
-            // this._super(c);
-// GREUtils.log("initial...");
-            //            this._checkList = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
-            //            this._tableList = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
-            //            this._tableStatusList = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
             if (!this._tableStatusList) {
-//                 this.getTableList();
-//                this.getCheckList("AllCheck");
 // GREUtils.log("initial list...");
                 this.getTableStatusList();
             }
@@ -147,33 +140,6 @@
 
         },
 
-
-        /*
-        initial: function() {
-
-            this.view = null,
-
-            this.data = {
-
-                id: '',
-                items: {},
-                table_no: 0,
-                table_name: '',
-                region: '',
-                seats: 0,
-                active: false,
-                tag: '',
-                booking: {},
-                status: 0,
-                created: '',
-                modified: ''
-            };
-
-            this.create();
-
-
-        },
-*/
         serialize: function() {
             // @todo 
             return GeckoJS.BaseObject.serialize(this.data);
@@ -194,7 +160,7 @@
         },
 
         getNewCheckNo: function(no) {
-            //@todo rack
+
             this.resetCheckNoArray();
             var i = 1;
             var cnt = 0;
@@ -240,9 +206,9 @@
         },
 
         getTableStatuses: function(lastModified) {
-// GREUtils.log("getTableStatuses..." + lastModified );
+
             var self = this;
-            // var remoteUrl = this.getRemoteService('getTableStatusList');
+
             var remoteUrl = this.getRemoteService('getTableStatuses');
             var tableStatus = null;
 
@@ -373,7 +339,7 @@
             // GREUtils.log("DEBUG", "getTableList...");
             reload = true;
             if (!reload) {
-                var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
+                // var tables = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
                 if (tables) {
                     return tables;
                 }
@@ -381,7 +347,7 @@
             var tableModel = new TableModel();
             var tableList = tableModel.find('all', {recursive: 2});
 
-            GeckoJS.Session.set('vivipos_fec_guest_check_table_list', tableList);
+            // GeckoJS.Session.set('vivipos_fec_guest_check_table_list', tableList);
 
             return this._tableList = tableList;
         },
@@ -501,7 +467,7 @@
         },
 
         getTableStatus: function(table_no) {
-            // @todo rack
+
             return this._tableStatusList[table_no];
         },
 
@@ -541,10 +507,6 @@
         },
 
         setTableStatus: function(tableStatusObj) {
-
-            // this.setTableMap(tableStatusObj);
-
-            // @todo rack
             
             var remoteUrl = this.getRemoteService('setTableStatus');
             var tableStatus = null;

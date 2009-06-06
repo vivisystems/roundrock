@@ -69,7 +69,6 @@
                                         <column flex="1" />
                                         <column flex="1" />
                                         <column flex="1" />
-                                        <column flex="1" />
                                     </columns>
                                     <rows>
 
@@ -89,6 +88,14 @@
                                                 <textbox id="seats" name="seats" form="tableForm" default="" onfocus="select()"/>
                                             </vbox>
                                             <vbox flex="1">
+                                                <label control="minimumchargepertable" value="&tableman.table.minimumchargepertable;"/>
+                                                <textbox id="minimumchargepertable" name="minimum_charge_per_table" form="tableForm" default="0" onfocus="select()"/>
+                                            </vbox>
+                                            
+
+                                        </row>
+                                        <row>
+                                            <vbox flex="1">
                                                 <label control="seats" value="&tableman.table.region; ----------------"/>
                                                 <!-- textbox id="table_region" name="region" form="tableForm" default="" onfocus="select()"/ -->
                                                 <menulist id="table_region" name="table_region_id" form="tableForm">
@@ -105,6 +112,12 @@
                                                         
                                                     </menupopup>
                                                 </menulist>
+                                            </vbox>
+                                            <vbox />
+
+                                            <vbox flex="1">
+                                                <label control="minimumchargeperguest" value="&tableman.table.minimumchargeperguest;"/>
+                                                <textbox id="minimumchargeperguest" name="minimum_charge_per_guest" form="tableForm" default="0" onfocus="select()"/>
                                             </vbox>
                                         </row>
                                     </rows>
@@ -197,74 +210,125 @@
                     <!-- Table Settings Panel -->
 
                     <tabpanel id="panel_table_settings" oncommand="event.stopPropagation()">
-
                         <vbox flex="1">
-                            <caption label="&tableman.tableoptions.options;" />
-                            <grid class="DataForm" flex="1">
-                                <columns>
-                                    <column flex="1" />
-                                    <column flex="1" />
-                                </columns>
-                                <rows>
-                                    <row>
-                                        <checkbox id="tableWinAsFirstWin" label="&tableman.tableoptions.tablewinasfirstwin;" form="settingsForm" name="TableWinAsFirstWin"/>
-                                        <checkbox id="virtualTableMap" label="&tableman.tableoptions.virtualtablemap;" form="settingsForm" name="VirtualTableMap"/>
-                                    </row>
-                                    <row>
-                                        <checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/>
-                                        <hbox>
-                                            <label control="tablePeriodLimit" value="&tableman.tableoptions.tableperiodlimit;"/>
-                                            <textbox id="tablePeriodLimit" name="TablePeriodLimit" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
-                                        </hbox>
-                                    </row>
-                                    <row>
-                                        <checkbox id="requireTableNo" label="&tableman.tableoptions.requiretableno;" form="settingsForm" name="RequireTableNo"/>
-                                        <hbox>
-                                            <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
-                                            <textbox id="tableRemindTime" name="TableRemindTime" form="settingsForm" type="Number" size="6" maxlength="3" min="10" max="999" onfocus="select()"/>
-                                        </hbox>
-                                    </row>
-                                    <row>
-                                        <checkbox id="requireGuestNum" label="&tableman.tableoptions.requireguestnum;" form="settingsForm" name="RequireGuestNum"/>
-                                        <hbox>
-                                            <label control="tableBookingTimeout" value="&tableman.tableoptions.tablebookingtimeout;"/>
-                                            <textbox id="tableBookingTimeout" name="TableBookingTimeout" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
-                                        </hbox>
-                                    </row>
-                                    <row>
-                                        <!-- checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/ -->
-                                        <label value="" />
-                                        <hbox>
-                                            <label control="tablePeriodLimit" value="&tableman.tableoptions.maxcheckno;"/>
-                                            <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="6" maxlength="3" min="30" max="999" onfocus="select()"/>
-                                        </hbox>
-                                    </row>
-                                </rows>
-                            </grid>
+                            <tabbox flex="1" class="RightTabbox" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
+                                <tabs id="options-tabbox">
+                                    <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
+                                    <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>
+                                </tabs>
+                                <tabpanels flex="1">
 
-                            <caption label="&tableman.tableoptions.displayoptions;" />
-                            <grid class="DataForm" flex="1">
-                                <columns>
-                                    <column flex="1" />
-                                    <column flex="1" />
-                                    <column flex="1" />
-                                    <column flex="1" />
-                                </columns>
-                                <rows>
-                                    <row>
-                                        <checkbox id="displayCheckNo" label="&tableman.tableoptions.displaycheckno;" form="settingsForm" name="DisplayCheckNo"/>
-                                        <checkbox id="displayTableLabel" label="&tableman.tableoptions.displaytablelabel;" form="settingsForm" name="DisplayTableLabel"/>
-                                        <checkbox id="displaySeqNo" label="&tableman.tableoptions.displayseqno;" form="settingsForm" name="DisplaySeqNo"/>
-                                        <checkbox id="displayBooking" label="&tableman.tableoptions.displaybooking;" form="settingsForm" name="DisplayBooking"/>
-                                    </row>
-                                    <row>
-                                        <checkbox id="displayPeriod" label="&tableman.tableoptions.displayperiod;" form="settingsForm" name="DisplayPeriod"/>
-                                        <checkbox id="displayTotal" label="&tableman.tableoptions.displaytotal;" form="settingsForm" name="DisplayTotal"/>
-                                        <checkbox id="displayCapacity" label="&tableman.tableoptions.displaycapacity;" form="settingsForm" name="DisplayCapacity"/>
-                                        <checkbox id="displayClerk" label="&tableman.tableoptions.displayclerk;" form="settingsForm" name="DisplayClerk"/>
-                                    </row>
-                                </rows>
-                            </grid>
+                                    <tabpanel>
+                                        <vbox flex="1">
+                                        <caption label="&tableman.tableoptions.options;" />
+                                        <grid class="DataForm" flex="1">
+                                            <columns>
+                                                <column flex="1" />
+                                                <column flex="1" />
+                                            </columns>
+                                            <rows>
+                                                <row>
+                                                    <checkbox id="tableWinAsFirstWin" label="&tableman.tableoptions.tablewinasfirstwin;" form="settingsForm" name="TableWinAsFirstWin"/>
+                                                    <checkbox id="virtualTableMap" label="&tableman.tableoptions.virtualtablemap;" form="settingsForm" name="VirtualTableMap"/>
+                                                </row>
+                                                <row>
+                                                    <checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/>
+                                                    <hbox>
+                                                        <label control="tablePeriodLimit" value="&tableman.tableoptions.tableperiodlimit;"/>
+                                                        <textbox id="tablePeriodLimit" name="TablePeriodLimit" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                    </hbox>
+                                                </row>
+                                                <row>
+                                                    <checkbox id="requireTableNo" label="&tableman.tableoptions.requiretableno;" form="settingsForm" name="RequireTableNo"/>
+                                                    <hbox>
+                                                        <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
+                                                        <textbox id="tableRemindTime" name="TableRemindTime" form="settingsForm" type="Number" size="6" maxlength="3" min="10" max="999" onfocus="select()"/>
+                                                    </hbox>
+                                                </row>
+                                                <row>
+                                                    <checkbox id="requireGuestNum" label="&tableman.tableoptions.requireguestnum;" form="settingsForm" name="RequireGuestNum"/>
+                                                    <hbox>
+                                                        <label control="tableBookingTimeout" value="&tableman.tableoptions.tablebookingtimeout;"/>
+                                                        <textbox id="tableBookingTimeout" name="TableBookingTimeout" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                    </hbox>
+                                                </row>
+                                                <row>
+                                                    <!-- checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/ -->
+                                                    <label value="" />
+                                                    <hbox>
+                                                        <label control="tablePeriodLimit" value="&tableman.tableoptions.maxcheckno;"/>
+                                                        <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="6" maxlength="3" min="30" max="999" onfocus="select()"/>
+                                                    </hbox>
+                                                </row>
+                                            </rows>
+                                        </grid>
+                                        </vbox>
+                                    </tabpanel>
+
+                                    <tabpanel>
+                                        <vbox flex="1">
+                                        <caption label="&tableman.tableoptions.minimumchargeoptions;" />
+                                        <grid class="DataForm" flex="1">
+                                            <columns>
+                                                <column flex="1" />
+                                                <column flex="1" />
+                                            </columns>
+                                            <rows>
+                                                <row>
+                                                    <checkbox id="requestMinimumCharge" label="&tableman.tableoptions.requestminimumcharge;" form="settingsForm" name="RequestMinimumCharge"/>
+                                                    <hbox>
+                                                        <label control="globalMinimumChargePerTable" value="&tableman.tableoptions.globalminimumchargepertable;"/>
+                                                        <textbox id="globalMinimumChargePerTable" name="GlobalMinimumChargePerTable" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                    </hbox>
+                                                </row>
+                                                <row>
+                                                    <label />
+                                                    <hbox>
+                                                        <label control="globalMinimumChargePerGuest" value="&tableman.tableoptions.globalminimumchargeperguest;"/>
+                                                        <textbox id="globalMinimumChargePerGuest" name="GlobalMinimumChargePerGuest" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                    </hbox>
+                                                </row>
+                                                <row>
+                                                    <label />
+                                                    <vbox>
+                                                    <label value="&tableman.tableoptions.minimumchargeplu;" />
+                                                    <hbox>
+                                                    <textbox id="minimumChargePlu" name="MinimumChargePlu" form="settingsForm" readonly="true" hidden="true"/>
+                                                    <textbox id="pluInfo" name="PluInfo" form="settingsForm" readonly="true"/>
+                                                    <vivibutton id="plusBtn" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('searchDialog', null, 'TableMan');" />
+                                                    </hbox>
+                                                    </vbox>
+                                                </row>
+                                            </rows>
+                                        </grid>
+
+                                        <caption label="&tableman.tableoptions.displayoptions;" />
+                                        <grid class="DataForm" flex="1">
+                                            <columns>
+                                                <column flex="1" />
+                                                <column flex="1" />
+                                                <column flex="1" />
+                                                <column flex="1" />
+                                            </columns>
+                                            <rows>
+                                                <row>
+                                                    <checkbox id="displayCheckNo" label="&tableman.tableoptions.displaycheckno;" form="settingsForm" name="DisplayCheckNo"/>
+                                                    <checkbox id="displayTableLabel" label="&tableman.tableoptions.displaytablelabel;" form="settingsForm" name="DisplayTableLabel"/>
+                                                    <checkbox id="displaySeqNo" label="&tableman.tableoptions.displayseqno;" form="settingsForm" name="DisplaySeqNo"/>
+                                                    <checkbox id="displayBooking" label="&tableman.tableoptions.displaybooking;" form="settingsForm" name="DisplayBooking"/>
+                                                </row>
+                                                <row>
+                                                    <checkbox id="displayPeriod" label="&tableman.tableoptions.displayperiod;" form="settingsForm" name="DisplayPeriod"/>
+                                                    <checkbox id="displayTotal" label="&tableman.tableoptions.displaytotal;" form="settingsForm" name="DisplayTotal"/>
+                                                    <checkbox id="displayCapacity" label="&tableman.tableoptions.displaycapacity;" form="settingsForm" name="DisplayCapacity"/>
+                                                    <checkbox id="displayClerk" label="&tableman.tableoptions.displayclerk;" form="settingsForm" name="DisplayClerk"/>
+                                                </row>
+                                            </rows>
+                                        </grid>
+                                        </vbox>
+                                    </tabpanel>
+                                </tabpanels>
+                            </tabbox>
 
                             <hbox>
                                 <hbox class="ToolBar" flex="1">

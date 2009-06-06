@@ -168,11 +168,11 @@
                     <label value="&layout.functionpanel.label;"/>
                     <vbox>
                         <label control="pref_fnrows" value="&layout.functionpanel.rows;"/>
-                        <textbox preference="pref_fnrows" id="pref_fnrows" type="number" size="2" maxlength="1" min="1" max="9"/>
+                        <textbox preference="pref_fnrows" id="pref_fnrows" type="number" size="2" maxlength="1" min="1" max="99"/>
                     </vbox>
                     <vbox>
                         <label control="pref_fncols" value="&layout.functionpanel.cols;"/>
-                        <textbox preference="pref_fncols" id="pref_fncols" type="number" size="2" maxlength="1" min="1" max="9"/>
+                        <textbox preference="pref_fncols" id="pref_fncols" type="number" size="2" maxlength="1" min="1" max="99"/>
                     </vbox>
                     <vbox id="fnheightFeature" feature="hidden">
                         <label control="pref_fncols" value="&layout.functionpanel.height;"/>

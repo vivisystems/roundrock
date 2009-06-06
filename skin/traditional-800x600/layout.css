@@ -43,12 +43,20 @@
     max-width: 200px;
 }
 
-.block-ge .block-u {
+.block-ge .block-u.first {
     /* 55% */
     width: 440px;
     min-width: 440px;
     max-width: 440px;
 }
+
+.block-ge .block-u {
+    /* 45% */
+    width: 360px;
+    min-width: 360px;
+    max-width: 360px;
+}
+
 
 .block-gf .block-u {
     /* 20% */

@@ -4,11 +4,15 @@
 <!ENTITY tableman.tab.bookings "Bookings">
 <!ENTITY tableman.tab.tableoptions "Options">
 <!ENTITY tableman.tab.tablemap "Table Map">
+<!ENTITY tableman.tab.tableoptions.1 "Options 1">
+<!ENTITY tableman.tab.tableoptions.2 "Options 2">
 
 <!ENTITY tableman.table.active "Active">
 <!ENTITY tableman.table.tableno "Table No.">
 <!ENTITY tableman.table.tablename "Label">
 <!ENTITY tableman.table.seats "Seats">
+<!ENTITY tableman.table.minimumchargepertable "Minimum Charge per table">
+<!ENTITY tableman.table.minimumchargeperguest "Minimum Charge per guest">
 <!ENTITY tableman.table.region "Region">
 <!ENTITY tableman.table.destination "Destination">
 
@@ -51,6 +55,12 @@
 <!ENTITY tableman.tableoptions.tablebookingtimeout "Booking time out (minutes):">
 <!ENTITY tableman.tableoptions.tableremindtime "Remind before booking time (minutes):">
 <!ENTITY tableman.tableoptions.maxcheckno "Maximum check number:">
+
+<!ENTITY tableman.tableoptions.minimumchargeoptions "Minimum Charge:">
+<!ENTITY tableman.tableoptions.requestminimumcharge "Force Minimum Charge">
+<!ENTITY tableman.tableoptions.globalminimumchargepertable "Global Minimum Charge per table">
+<!ENTITY tableman.tableoptions.globalminimumchargeperguest "Global Minimum Charge per guest">
+<!ENTITY tableman.tableoptions.minimumchargeplu "Plu for Minimum Charge">
 
 <!ENTITY tableman.tableoptions.displayoptions "Display Elements:">
 <!ENTITY tableman.tableoptions.displaycheckno "Check Number">

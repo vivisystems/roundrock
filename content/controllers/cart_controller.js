@@ -2779,26 +2779,34 @@
             var paymentItem = {
                 type: type,
                 amount: amount,
-                origin_amount: origin_amount
+                origin_amount: origin_amount,
+                transaction: curTransaction
             };
             
-            this.dispatchEvent('beforeAddPayment', paymentItem);
-            var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
+            var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
 
-            paymentedItem.seq = curTransaction.data.seq;
+            if (beforeResult) {
+                var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
 
-            this.dispatchEvent('afterAddPayment', paymentedItem);
+                paymentedItem.seq = curTransaction.data.seq;
 
-            GeckoJS.Session.remove('cart_set_price_value');
-            GeckoJS.Session.remove('cart_set_qty_value');
+                this.dispatchEvent('afterAddPayment', paymentedItem);
 
-            // @todo auto submit ??
-            this._getCartlist().refresh();
-            if (curTransaction.getRemainTotal() <= 0) {
-                this.submit();
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                // @todo auto submit ??
+                this._getCartlist().refresh();
+                if (curTransaction.getRemainTotal() <= 0) {
+                    this.submit();
+                }else {
+                    this.subtotal();
+                }
+
             }else {
                 this.subtotal();
             }
+            
         },
 
 

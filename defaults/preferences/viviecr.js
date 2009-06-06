@@ -887,6 +887,14 @@ pref("vivipos.fec.registry.layouts.traditional.icon", "chrome://viviecr/content/
 pref("vivipos.fec.registry.layouts.traditional.disabled_features", "");
 pref("vivipos.fec.registry.layouts.traditional.skin", "traditional-${width}x${height}/1.0");
 
+
+pref("vivipos.fec.registry.layouts.jcm.label", "jcm");
+pref("vivipos.fec.registry.layouts.jcm.desc", "jcm");
+pref("vivipos.fec.registry.layouts.jcm.overlay_uri", "chrome://viviecr/content/layouts/jcm.xul");
+pref("vivipos.fec.registry.layouts.jcm.icon", "chrome://viviecr/content/layouts/traditional.png");
+pref("vivipos.fec.registry.layouts.jcm.disabled_features", "");
+pref("vivipos.fec.registry.layouts.jcm.skin", "traditional-${width}x${height}/1.0");
+
 pref("vivipos.fec.registry.layouts.retail.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.retail.desc", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.retail.overlay_uri", "chrome://viviecr/content/layouts/retail.xul");

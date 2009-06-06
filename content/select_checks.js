@@ -83,7 +83,8 @@
 //            btn.booking = tableSettings.DisplayBooking ? book_time : '';
             btn.period = tableSettings.DisplayPeriod ? period : '';
             btn.subtotal = tableSettings.DisplayTotal ? subtotal : '';
-            btn.capacity = tableSettings.DisplayCapacity ? capacity : '';
+            // btn.capacity = tableSettings.DisplayCapacity ? capacity : '';
+            btn.capacity = '';
             // share seq_no for seq & clerk
             btn.seq_no = tableSettings.DisplayClerk ? clerk : btn.seq_no;
 
