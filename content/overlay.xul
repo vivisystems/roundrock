@@ -80,8 +80,8 @@
         <popupset id="dialogs" />
 
         <vivipanel id="wait_panel" position="overlap" noautohide="true" pack="center" align="center">
-            <vbox class="mainWaitPanel">
-                <vbox class="mainWaitDialog">
+            <vbox flex="1" class="mainWaitPanel">
+                <vbox flex="1" class="mainWaitDialog">
                     <groupbox flex="1">
                         <caption id="common_wait" label="Waiting..." class="PageTitle"/>
                         <spacer style="height: 20px;" />
