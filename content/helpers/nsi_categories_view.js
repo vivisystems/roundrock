@@ -77,6 +77,8 @@
             GeckoJS.Session.add('categoriesIndexes', indexCate);
             GeckoJS.Session.add('categoriesIndexesAll', indexCateAll);
 
+            this._categoriesById = byId;
+
         },
 
         refreshView: function() {
@@ -131,7 +133,7 @@
 
         getCurrentIndexData: function (row) {
             var id = this.data[row];
-            var categories = GeckoJS.Session.get('categoriesById');
+            var categories = this._categoriesById ; //GeckoJS.Session.get('categoriesById');
             
             return categories[id];
         },
@@ -139,7 +141,7 @@
         getCellValue: function(row, col) {
             
             // this.log(row +","+col);
-            var categories = GeckoJS.Session.get('categoriesById');
+            var categories = this._categoriesById ; //GeckoJS.Session.get('categoriesById');
 
             var sResult;
             var id;
@@ -192,7 +194,8 @@
                 //$(btn).addClass('font-'+ buttonFontSize);
             }
             if (classStr.length > 0) {
-                $(btn).addClass(classStr);
+                // $(btn).addClass(classStr);
+                btn.className += " " + classStr;
             }
 
         }

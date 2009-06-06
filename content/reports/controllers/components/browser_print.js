@@ -5,7 +5,7 @@
 
     var BrowserPrintComponent = window.BrowserPrintComponent = GeckoJS.Component.extend({
 
-    /**
+        /**
      * Component BrowserPrint
      */
 
@@ -15,7 +15,7 @@
 
         initial: function () {
             // @todo :
-            alert('BrowserPrint initial...');
+            //alert('BrowserPrint initial...');
         },
         
         execute: function(cmd, param) {
@@ -51,53 +51,16 @@
         },
         
         showPrintDialog: function() {
-        	try {
-        		if (!this._printSettings)
-        			this.getPrintSettings();
-        		
-		    	this._webBrowserPrint.print( this._printSettings, null );
-			} catch (e) {
-			}
-        },
-
-        /*
-        print: function () {
-
-            var webBrowserPrint = this.getWebBrowserPrint();
-            var printSettings = this.getPrintSettings();
-
-            printSettings.paperSizeUnit = 1; //kPaperSizeMillimeters;
-
-            // letter
-            printSettings.paperHeight = 279;
-            printSettings.paperWidth = 216;
-
-            // a4
-            printSettings.paperHeight = 288;
-            printSettings.paperWidth = 210;
-
-            printSettings.edgeLeft = 60;
-            printSettings.edgeRight = 60;
-            printSettings.edgeTop = 60;
-            printSettings.edgeBottom = 60;
-
-            printSettings.outputFormat = Components.interfaces.nsIPrintSettings.kOutputFormatPDF;
-
-            var path = "/var/tmp/departments.pdf";
-            printSettings.printToFile = true;
-            printSettings.toFileName = path;
-            printSettings.printSilent = true;
-
             try {
-                webBrowserPrint.print(printSettings, null);
-
+                if (!this._printSettings)
+                    this.getPrintSettings();
+        		
+                this._webBrowserPrint.print( this._printSettings, null );
             } catch (e) {
-
             }
         },
-        */
 
-        printToPdf: function(pdfFileName) {
+        printToPdf: function(pdfFileName, progress, callback) {
             if (!pdfFileName) {
                 // need filename
                 return;
@@ -110,12 +73,39 @@
 
                 this._printSettings.printToFile = true;
                 this._printSettings.toFileName = pdfFileName;
-                this._printSettings.printSilent = true;
 
-                this._webBrowserPrint.print(this._printSettings, null);
+                var self = this ;
+                progress.value = 0 ;
+                var caption = progress.previousSibling.previousSibling;
+
+                if(caption.tagName != 'caption') caption = null;
+                if(caption) {
+                    if(caption.label.match(/\(.*\)/)) {
+                        caption.label = caption.label.replace(/\(.*\)/, '(100/100)');
+                    }
+                }
+
+                this._webBrowserPrint.print(this._printSettings,
+                    {
+                        onStateChange: function(aWebProgress, aRequest, aFlag, aStatus)
+                        {
+                            //dump('onStateChange ' + aStatus  + '\n');
+                            // callback
+                            callback.apply(this);
+                        },
+                        onProgressChange: function(aWebProgress, aRequest, curSelf, maxSelf, curTot, maxTot) {
+                            //dump('onProgressChange ' + maxSelf  + '\n');
+                            if(caption) {
+                                if(caption.label.match(/\(.*\)/)) {
+                                    caption.label = caption.label.replace(/\(.*\)/, '('+curTot+'/'+maxTot+')');
+                                }else {
+                                    caption.label += ' (' + curTot+'/'+maxTot +')';
+                                }
+                            }
+                            progress.value = parseInt(curTot/maxTot*100);
+                        }
+                    });
                 
-                // sync to media...
-                this.execute("/bin/sh", ["-c", "/bin/sync; sleep 1; /bin/sync;"]);
             } catch (e) {
 
             }
@@ -143,20 +133,20 @@
             this._printSettings.marginRight = marginRight;
             this._printSettings.marginBottom = marginBottom;
             
-//            this._printSettings.setMarginTop(marginTop);
-//            this._printSettings.setMarginLeft(marginLeft);
-//            this._printSettings.setMarginRight(marginRight);
-//            this._printSettings.setMarginBottom(marginBottom);
+        //            this._printSettings.setMarginTop(marginTop);
+        //            this._printSettings.setMarginLeft(marginLeft);
+        //            this._printSettings.setMarginRight(marginRight);
+        //            this._printSettings.setMarginBottom(marginBottom);
 
         },
         
         setPaperHeader: function( headerStrLeft, headerStrRight ) {
-        	// set to default value if the parameter is null.
-        	if (!this._printSettings) this.getPrintSettings();
+            // set to default value if the parameter is null.
+            if (!this._printSettings) this.getPrintSettings();
         	
-        	this._printSettings.headerStrRight = headerStrRight || 'Generated by VIVIPOS';
+            this._printSettings.headerStrRight = headerStrRight || 'Generated by VIVIPOS';
         	
-        	this._printSettings.headerStrLeft = headerStrLeft || 'Firich Enterprises Co.,Ltd.';
+            this._printSettings.headerStrLeft = headerStrLeft || 'Firich Enterprises Co.,Ltd.';
         },
 
         setPaperEdge: function(edgeLeft, edgeRight, edgeTop, edgeBottom) {
@@ -174,10 +164,11 @@
             var _content;
             if (typeof content == "string") {
                 try {
-                _content = document.getElementById(content).contentWindow;
+                    _content = document.getElementById(content).contentWindow;
                 }
                 catch (e) {}
-            } else if (typeof content == "object") {printSettings.paperSizeUnit = 1; //kPaperSizeMillimeters;
+            } else if (typeof content == "object") {
+                printSettings.paperSizeUnit = 1; //kPaperSizeMillimeters;
                 _content = content;
             }
             if (!_content) {
@@ -203,8 +194,8 @@
                 if (gPrintSettingsAreGlobal) {
                     printSettings = PSSVC.globalPrintSettings;
 
-                    // do not set default...
-                    // this.setPrinterDefaultsForSelectedPrinter(PSSVC, printSettings);
+                // do not set default...
+                // this.setPrinterDefaultsForSelectedPrinter(PSSVC, printSettings);
                 } else {
                     printSettings = PSSVC.newPrintSettings;
                 }
@@ -213,7 +204,7 @@
             }
 
             printSettings.showPrintProgress = true;
-            printSettings.printSilent = false;
+            printSettings.printSilent = true;
             
             printSettings.paperSizeUnit = Components.interfaces.nsIPrintSettings.kPaperSizeMillimeters;
             
