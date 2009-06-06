@@ -69,7 +69,6 @@
                                         <column flex="1" />
                                         <column flex="1" />
                                         <column flex="1" />
-                                        <column flex="1" />
                                     </columns>
                                     <rows>
 
@@ -89,13 +88,10 @@
                                                 <textbox id="seats" name="seats" form="tableForm" default="" onfocus="select()"/>
                                             </vbox>
                                             <vbox flex="1">
-                                                <label control="lowestexpend" value="&tableman.table.lowestexpend;"/>
-                                                <textbox id="lowestexpend" name="lowest_expend_by_table" form="tableForm" default="0" onfocus="select()"/>
+                                                <label control="minimumchargepertable" value="&tableman.table.minimumchargepertable;"/>
+                                                <textbox id="minimumchargepertable" name="minimum_charge_per_table" form="tableForm" default="0" onfocus="select()"/>
                                             </vbox>
-                                            <vbox flex="1">
-                                                <label control="lowestexpendperguest" value="&tableman.table.lowestexpendperguest;"/>
-                                                <textbox id="lowestexpendperguest" name="lowest_expend_per_guest" form="tableForm" default="0" onfocus="select()"/>
-                                            </vbox>
+                                            
 
                                         </row>
                                         <row>
@@ -116,6 +112,12 @@
                                                         
                                                     </menupopup>
                                                 </menulist>
+                                            </vbox>
+                                            <vbox />
+
+                                            <vbox flex="1">
+                                                <label control="minimumchargeperguest" value="&tableman.table.minimumchargeperguest;"/>
+                                                <textbox id="minimumchargeperguest" name="minimum_charge_per_guest" form="tableForm" default="0" onfocus="select()"/>
                                             </vbox>
                                         </row>
                                     </rows>
@@ -265,7 +267,7 @@
 
                                     <tabpanel>
                                         <vbox flex="1">
-                                        <caption label="&tableman.tableoptions.lowestexpendoptions;" />
+                                        <caption label="&tableman.tableoptions.minimumchargeoptions;" />
                                         <grid class="DataForm" flex="1">
                                             <columns>
                                                 <column flex="1" />
@@ -273,18 +275,29 @@
                                             </columns>
                                             <rows>
                                                 <row>
-                                                    <checkbox id="requestLowestExpendByTable" label="&tableman.tableoptions.requestlowestexpendbytable;" form="settingsForm" name="RequestLowestExpendByTable"/>
+                                                    <checkbox id="requestMinimumCharge" label="&tableman.tableoptions.requestminimumcharge;" form="settingsForm" name="RequestMinimumCharge"/>
                                                     <hbox>
-                                                        <label control="globalLowestExpendByTable" value="&tableman.tableoptions.globallowestexpendbytable;"/>
-                                                        <textbox id="globalLowestExpendByTable" name="GlobalLowestExpendByTable" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                        <label control="globalMinimumChargePerTable" value="&tableman.tableoptions.globalminimumchargepertable;"/>
+                                                        <textbox id="globalMinimumChargePerTable" name="GlobalMinimumChargePerTable" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
                                                     </hbox>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="requestLowestExpendPerGuest" label="&tableman.tableoptions.requestlowestexpendperguest;" form="settingsForm" name="RequestLowestExpendPerGuest"/>
+                                                    <label />
                                                     <hbox>
-                                                        <label control="globalLowestExpendPerGuest" value="&tableman.tableoptions.globallowestexpendperguest;"/>
-                                                        <textbox id="globalLowestExpendPerGuest" name="GlobalLowestExpendPerGuest" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                        <label control="globalMinimumChargePerGuest" value="&tableman.tableoptions.globalminimumchargeperguest;"/>
+                                                        <textbox id="globalMinimumChargePerGuest" name="GlobalMinimumChargePerGuest" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
                                                     </hbox>
+                                                </row>
+                                                <row>
+                                                    <label />
+                                                    <vbox>
+                                                    <label value="&tableman.tableoptions.minimumchargeplu;" />
+                                                    <hbox>
+                                                    <textbox id="minimumChargePlu" name="MinimumChargePlu" form="settingsForm" readonly="true" hidden="true"/>
+                                                    <textbox id="pluInfo" name="PluInfo" form="settingsForm" readonly="true"/>
+                                                    <vivibutton id="plusBtn" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('searchDialog', null, 'TableMan');" />
+                                                    </hbox>
+                                                    </vbox>
                                                 </row>
                                             </rows>
                                         </grid>

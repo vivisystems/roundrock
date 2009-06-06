@@ -392,13 +392,12 @@
                             'tables.active',
                             'tables.tag',
                             'tables.destination',
-                            'tables.lowest_expend_by_table',
-                            'tables.lowest_expend_per_guest',
+                            'tables.minimum_charge_per_table',
+                            'tables.minimum_charge_per_guest',
                             'table_regions.name AS "Table.region"',
                             'tables.table_region_id',
                             'table_regions.image AS "Table.image"',
                             'table_statuses.id AS "Table.table_status_id"'
-//                            'table_maps.id AS "Table.map_id"'
                         ];
             var orderby = 'tables.table_no ASC';
             
@@ -461,16 +460,48 @@
             });
         },
 
+        searchDialog: function () {
+
+            var aURL = "chrome://viviecr/content/plusearch.xul";
+            var aName = _('Product Search');
+
+            var item = null;
+
+            var buf = null;
+            var aArguments = {
+                buffer: buf,
+                item: item
+            };
+            var width = this.screenwidth;
+            var height = this.screenheight;
+
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
+
+            if (aArguments.ok) {
+                if (aArguments.item) {
+
+                    var serializedPlu = GeckoJS.BaseObject.serialize(aArguments.item.Product);
+                    document.getElementById('minimumChargePlu').value = serializedPlu;
+                    document.getElementById('pluInfo').value = aArguments.item.Product.no + "-" + aArguments.item.Product.name;
+
+                }else {
+                    
+                }
+            }
+
+            return null;
+
+        },
+
         readTableSettings: function() {
             //
             this._tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-this.log(this.dump(this._tableSettings));
+
             return this._tableSettings;
         },
 
         saveTableSettings: function(settings) {
             //
-            // var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
             this._tableSettings = settings;
             GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings', this._tableSettings);
         },

@@ -6,7 +6,7 @@
          * Component GuestCheck
          */
 
-        /*t
+        /*
             // Session
             vivipos_fec_price_level,
             vivipos_fec_tax_total,
@@ -31,11 +31,6 @@
             // read switch
             this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
             
-            this._guestCheck.tableWinAsFirstWin = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.TableWinAsFirstWin') || false;
-            this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireCheckNo') || false;
-            this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireTableNo') || false;
-            this._guestCheck.requireGuestNum = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.RequireGuestNum') || false;
-
             // @todo : check orders first and set _checkNoArray, _tableNoArray...
 
             this._tableStatusModel = new TableStatusModel;
@@ -67,6 +62,9 @@
 
                 // check table no and guests before submit...
                 cart.addEventListener('beforeSubmit', this.handleBeforeSubmit, this);
+
+                // check minimum charge and table no and guests before addPayment...
+                cart.addEventListener('beforeAddPayment', this.handleBeforeAddPayment, this);
 
                 // SplitCheck
                 cart.addEventListener('onSplitCheck', this.handleSplitCheck, this);
@@ -100,7 +98,7 @@
         },
 
         printChecks: function(txn) {
-            // var txn = evt.data;
+
             var printer = 1;
             var autoPrint = false;
             var duplicate = 1;
@@ -122,62 +120,77 @@
             }
         },
 
-        handleBeforeSubmit: function(evt) {
-            if (this._guestCheck.requireTableNo && !evt.data.txn.data.table_no) {
-                // NotifyUtils.warn(_('Please set table no first!'));
-                // evt.preventDefault();
-                // this._controller.newTable();
+        handleBeforeAddPayment: function(evt) {
+            //
+            if (this._guestCheck.tableSettings.RequireTableNo && !evt.data.transaction.data.table_no) {
                 this.table(this.selTableNum(''));
             }
 
-            if (this._guestCheck.requireGuestNum && !evt.data.txn.data.no_of_customers) {
-                // NotifyUtils.warn(_('Please set table no first!'));
-                // evt.preventDefault();
+            if (this._guestCheck.tableSettings.RequireGuestNum && !evt.data.transaction.data.no_of_customers) {
                 this.guest('');
             }
 
-            if (this._guestCheck.tableSettings.RequestLowestExpendByTable ||
-                this._guestCheck.tableSettings.RequestLowestExpendPerGuest) {
+            if (this._guestCheck.tableSettings.RequestMinimumCharge) {
                 //
-                if (evt.data.status == 1) {
-                    var lowest_expend_by_table = this._guestCheck.tableSettings.GlobalLowestExpendByTable;
-                    var lowest_expend_per_guest = this._guestCheck.tableSettings.GlobalLowestExpendPerGuest;
-                    var table_no = evt.data.txn.data.table_no;
-                    var guests = evt.data.txn.data.no_of_customers;
-                    var total = evt.data.txn.data.total;
+                var minimum_charge_per_table = this._guestCheck.tableSettings.GlobalMinimumChargePerTable;
+                var minimum_charge_per_guest = this._guestCheck.tableSettings.GlobalMinimumChargePerGuest;
+                var table_no = evt.data.transaction.data.table_no;
+                var guests = evt.data.transaction.data.no_of_customers;
+                var total = evt.data.transaction.data.total;
 
-                    var tables = this._tableStatusModel.getTableStatusList();
-                    var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + table_no + "'");
-                    if (tableObj.length > 0) {
-                        // set lowest expend
-                        lowest_expend_by_table = tableObj[0].Table.lowest_expend_by_table || lowest_expend_by_table;
-                        lowest_expend_per_guest = tableObj[0].Table.lowest_expend_per_guest || lowest_expend_per_guest;
-                    }
-this.log(_("tableNo: %S, guests: %S, lowestTable: %S, lowestGuest: %S, total: %S", [table_no, guests, lowest_expend_by_table, lowest_expend_per_guest, total]));
-                    if (total < lowest_expend_by_table) {
-
-                        // @todo OSD
-                        NotifyUtils.warn(_('Not reach to lowest expend!'));
-                        evt.preventDefault();
-                    }
+                var tables = this._tableStatusModel.getTableStatusList();
+                var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + table_no + "'");
+                if (tableObj.length > 0) {
+                    // set minimum charge
+                    minimum_charge_per_table = tableObj[0].Table.minimum_charge_per_table || minimum_charge_per_table;
+                    minimum_charge_per_guest = tableObj[0].Table.minimum_charge_per_guest || minimum_charge_per_guest;
                 }
 
-            }
+                var minimum_charge = Math.max(minimum_charge_per_table, minimum_charge_per_guest * guests);
 
+// this.log(_("tableNo: %S, guests: %S, minChargeTable: %S, minChargeGuest: %S, total: %S, minimumCharge: %S", [table_no, guests, minimum_charge_per_table, minimum_charge_per_guest, total, minimum_charge]));
+                if (total < minimum_charge) {
+
+                    if (GREUtils.Dialog.confirm(null,
+                        _('Order amount does not reach Minimum Charge'),
+                        _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\n' +
+                            'Click OK to finalize this order by Minimum Charge, \nor, click Cancel to ' +
+                            'return shopping cart and add more items.', [minimum_charge])) == false) {
+
+                        // @todo OSD
+                        NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+
+                    } else {
+
+                        var product = GeckoJS.BaseObject.unserialize(this._guestCheck.tableSettings.MinimumChargePlu);
+                        if (product) {
+                            this._controller.setPrice(minimum_charge - total);
+                            this._controller.addItem(product);
+
+                            // @todo OSD
+                            NotifyUtils.warn(_('Add difference (%S) to finalize this order by Minimum Charge.', [minimum_charge - total]));
+
+                        } else {
+                            // @todo OSD
+                            NotifyUtils.warn(_('The amount of this order does not reach Minimum Charge (%S) yet.', [minimum_charge]));
+                            
+                        }
+
+                    }
+
+                    evt.preventDefault();
+
+                }
+            }
         },
 
-        handleRequestTableNo: function(evt) {
+        handleBeforeSubmit: function(evt) {
 
-            if (this._guestCheck.requireTableNo && !evt.data.txn.data.table_no) {
-                // NotifyUtils.warn(_('Please set table no first!'));
-                // evt.preventDefault();
-                // this._controller.newTable();
+            if (this._guestCheck.tableSettings.RequireTableNo && !evt.data.txn.data.table_no) {
                 this.table(this.selTableNum(''));
             }
 
-            if (this._guestCheck.requireGuestNum && !evt.data.txn.data.no_of_customers) {
-                // NotifyUtils.warn(_('Please set table no first!'));
-                // evt.preventDefault();
+            if (this._guestCheck.tableSettings.RequireGuestNum && !evt.data.txn.data.no_of_customers) {
                 this.guest('');
             }
 
@@ -203,20 +216,24 @@ this.log(_("tableNo: %S, guests: %S, lowestTable: %S, lowestGuest: %S, total: %S
            
             GeckoJS.Session.set('vivipos_guest_check_action', '');
 
-            if (this._guestCheck.tableWinAsFirstWin) {
+            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
         },
 
         handleAfterSubmit: function(evt) {
             //
-            this._tableStatusModel.removeCheck(evt.data.data);
+            // is stored order?
+            if (evt.data.data.recall == 2) {
 
-            this.syncClient();
+                this._tableStatusModel.removeCheck(evt.data.data);
+
+                this.syncClient();
+            }
 
             GeckoJS.Session.set('vivipos_guest_check_action', '');
 
-            if (this._guestCheck.tableWinAsFirstWin) {
+            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
         },
@@ -243,7 +260,7 @@ this.log(_("tableNo: %S, guests: %S, lowestTable: %S, lowestGuest: %S, total: %S
             //
             GeckoJS.Session.set('vivipos_guest_check_action', '');
 
-            if (this._guestCheck.tableWinAsFirstWin) {
+            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
         },
@@ -252,7 +269,7 @@ this.log(_("tableNo: %S, guests: %S, lowestTable: %S, lowestGuest: %S, total: %S
             //
             GeckoJS.Session.set('vivipos_guest_check_action', '');
 
-            if (this._guestCheck.tableWinAsFirstWin) {
+            if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
         },
@@ -260,7 +277,7 @@ this.log(_("tableNo: %S, guests: %S, lowestTable: %S, lowestGuest: %S, total: %S
         handleNewTransaction: function(evt) {
 
             if ( evt.type == 'newTransaction') {
-                if (this._guestCheck.requireCheckNo) {
+                if (this._guestCheck.tableSettings.RequireCheckNo) {
                     this._controller.newCheck(true);
                 }
             }
@@ -623,6 +640,9 @@ this.log(_("tableNo: %S, guests: %S, lowestTable: %S, lowestGuest: %S, total: %S
         },
 
         table: function(table_no) {
+
+            // read table settings...
+            this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
 
             var r = this._tableStatusModel.getTableNo(table_no);
 
@@ -1083,7 +1103,7 @@ this.log(_("tableNo: %S, guests: %S, lowestTable: %S, lowestGuest: %S, total: %S
 
             }else {
                 // return null;
-                if (this._guestCheck.tableWinAsFirstWin) {
+                if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
                 }
                 return -1;

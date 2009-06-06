@@ -35,6 +35,7 @@
                     }
                 }
             }
+            return this.buf;
         },
 	
         clearBuffer: function() {
