@@ -804,10 +804,10 @@
 
             if (waitCaption) waitCaption.setAttribute("label", title);
 
+            /*
             waitPanel.sizeTo(600, 120);
-            var x = (width - 600) / 2;
-            var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
+            */
+            waitPanel.openPopupAtScreen(0, 0);
 
             // release CPU for progressbar ...
             if (!sleepTime) {

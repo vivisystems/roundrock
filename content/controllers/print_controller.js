@@ -301,7 +301,34 @@
                 device: device,
             };
 
-            orderReceiptModel.save(orderReceipt);
+            var r = orderReceiptModel.save(orderReceipt);
+            if (!r) {
+                //@db saveToBackup
+                orderReceiptModel.saveToBackup(orderReceipt);
+
+                this.log('ERROR',
+                         'An error was encountered while updating order receipt (error code ' + orderReceiptModel.lastError +
+                         '); record saved to backup:\n' + this.dump(orderReceipt));
+            }
+        },
+
+        // add a receipt print timestamp
+        ledgerReceiptPrinted: function(ledger_id, printer) {
+
+            var ledgerReceiptModel = new LedgerReceiptModel();
+            var ledgerReceipt = {
+                ledger_id: ledger_id,
+                printer: printer
+            };
+            var r = ledgerReceiptModel.save(ledgerReceipt);
+            if (!r) {
+                //@db saveToBackup
+                ledgerReceiptModel.saveToBackup(ledgerReceipt);
+
+                this.log('ERROR',
+                         'An error was encountered while updating order receipt (error code ' + ledgerReceiptModel.lastError +
+                         '); record saved to backup:\n' + this.dump(ledgerReceipt));
+            }
         },
 
         // handle order submit events
@@ -522,7 +549,7 @@
                                     return;
                                 }
                             }
-                            self.printSlip(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
+                            self.printSlip('receipt', data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                         }
                     }
                 };
@@ -679,7 +706,7 @@
                             data.routingGroups = routingGroups;
                             data.autoPrint = autoPrint;
                             data.duplicate = duplicate;
-                            self.printSlip(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
+                            self.printSlip('check', data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                         }
                     }
                 });
@@ -713,6 +740,46 @@
 
         },
 
+        // handles
+        printLedgerReceipt: function(ledgerEntry, printer) {
+            var device = this.getDeviceController();
+
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
+            switch (device.isDeviceEnabled('receipt', printer)) {
+                case -2:
+                    NotifyUtils.warn(_('The specified receipt printer [%S] is not configured', [printer]));
+                    return;
+
+                case -1:
+                    NotifyUtils.warn(_('Invalid receipt printer [%S]', [printer]));
+                    return;
+
+                case 0:
+                    NotifyUtils.warn(_('The specified receipt printer [%S] is not enabled', [printer]));
+                    return;
+            }
+
+            var enabledDevices = device.getEnabledDevices('receipt', printer);
+            if (enabledDevices != null) {
+                var template = enabledDevices[0].template;
+                var port = enabledDevices[0].port;
+                var portspeed = enabledDevices[0].portspeed;
+                var handshaking = enabledDevices[0].handshaking;
+                var devicemodel = enabledDevices[0].devicemodel;
+                var encoding = enabledDevices[0].encoding;
+
+                _templateModifiers(TrimPath, encoding);
+
+                var data = {ledger: ledgerEntry};
+
+                this.printSlip('ledger', data, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
+            }
+        },
+
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
@@ -725,7 +792,6 @@
             // check device settings
             var printer = (type == 'report' ? 1 : 2);
 
-			// to test with the 'alert' below, just comment the following switch statement and setup a dummy printer.
             switch (device.isDeviceEnabled('report', printer)) {
                 case -2:
                     NotifyUtils.warn(_('The specified report/label printer [%S] is not configured', [printer]));
@@ -753,11 +819,11 @@
             
             //alert( template );
 
-            this.printSlip(null, template, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
+            this.printSlip('report', null, template, port, portspeed, handshaking, devicemodel, encoding, printer, 1);
         },
 
         // print slip using the given parameters
-        printSlip: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
+        printSlip: function(deviceType, data, template, port, portspeed, handshaking, devicemodel, encoding, printer, copies) {
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller; no worker thread available!'));
                 return;
@@ -774,11 +840,10 @@
                 data.customer = GeckoJS.Session.get('current_customer');
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
-                if (data.order) {
-                    if (!('annotations' in data.order)) data.order.annotations = {};
-
-                    // for backward compatibility
-                    data.annotations = data.order.annotations;
+                var user = this.Acl.getUserPrincipal();
+                if (user) {
+                    data.user = user.username;
+                    data.display_name = user.description;
                 }
 	        }
 
@@ -791,18 +856,19 @@
                                                         handshaking: handshaking,
                                                         devicemodel: devicemodel,
                                                         encoding: encoding,
-                                                        device: device})) {
+                                                        printer: printer,
+                                                        devicetype: deviceType})) {
                 return;
             }
 
             //@debug
             //if (data && data.order) this.log('duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
-            //if (data.customer) this.log(this.dump(data.customer));
-            //if (data.store) this.log(this.dump(data.store));
-            //if (data.annotations) this.log(this.dump(data.annotations));
+            //if (data && data.customer) this.log(this.dump(data.customer));
+            //if (data && data.store) this.log(this.dump(data.store));
+            //if (data && data.ledger) this.log(this.dump(data.ledger));
 
             // check if item is linked to this printer and set 'linked' accordingly
-            if (data != null) {
+            if (data && data.order) {
                 var empty = true;
                 var routingGroups = data.routingGroups;
 
@@ -821,7 +887,7 @@
                         // rules:
                         //
                         // 1. item.link_group does not contain any link groups and device.printNoRouting is true
-                        // 2. device.linkgroup intersects item.link_group
+                        // 2. data.linkgroup intersects item.link_group
                         // 3. item.link_group does not contain any routing groups and device.printNoRouting is true
                         //
                         //this.log('item link groups: ' + GeckoJS.BaseObject.dump(item.link_group));
@@ -842,8 +908,8 @@
                             }
                             else {
                                 var groups = item.link_group.split(',');
-                                var noRoutingGroups = true;
-                                for (var i = 0; i < groups.length; i++) {
+                                noRoutingGroups = true;
+                                for (i = 0; i < groups.length; i++) {
                                     if (groups[i] in routingGroups) {
                                         noRoutingGroups = false;
                                         break;
@@ -867,7 +933,6 @@
                     //this.log('no items linked to this printer; printing terminated');
                 }
             }
-            if (data && data.order) this.log('duplicate: ' + data.duplicate + ': ' + this.dump(data.order));
 
             var tpl;
             var result;
@@ -882,7 +947,14 @@
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
                     return;
                 }
-                result = tpl.process(data);
+                try{
+                    result = tpl.process(data);
+                }
+                catch(e) {
+                    NotifyUtils.error(_('Error in parsing template [%S]!', [template]));
+                    this.log(e);
+                    return;
+                }
             }
             else {
                 result = template;
@@ -894,6 +966,8 @@
             /*
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +
+                  '   device type [' + deviceType + ']\n' +
+                  '   printer [' + printer + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
                   '   speed [' + portspeed + ']\n' +
                   '   model [' + devicemodel + ']\n' +
@@ -922,9 +996,6 @@
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values
-            var replacer = function(str, p1, offset, s) {
-                return String.fromCharCode(new Number(p1));
-            }
             result = result.replace(/\[(0x[0-9,A-F][0-9,A-F])\]/g, function(str, p1, offset, s) {return String.fromCharCode(new Number(p1));});
             //alert(this.dump(result));
 
@@ -933,9 +1004,10 @@
             //this.log('RECEIPT/CHECK\n' + encodedResult);
 
             // set up main thread callback to dispatch event
-            var sendEvent = function(device, data, result, encodedResult, printed) {
+            var sendEvent = function(deviceType, printer, data, result, encodedResult, printed) {
                 this.eventData = {printed: printed,
-                                  device: device,
+                                  deviceType: deviceType,
+                                  printer: printer,
                                   data: data,
                                   receipt: result,
                                   encodedReceipt: encodedResult
@@ -947,15 +1019,26 @@
 
             sendEvent.prototype = {
                 run: function() {
-                    try {
-                        data = this.eventData.data;
-                        if (this.eventData.device > 0 && this.eventData.printed) {
-                            self.receiptPrinted(data.order.id, data.order.seq, data.order.batchCount, this.eventData.device);
-                            self.dispatchEvent('onReceiptPrinted', this.eventData);
+                    data = this.eventData.data;
+                    if (this.eventData.printed) {
+                        if (this.eventData.deviceType == 'receipt') {
+                            try {
+                                self.receiptPrinted(data.order.id, data.order.seq, data.order.batchCount, this.eventData.printer);
+                                self.dispatchEvent('onReceiptPrinted', this.eventData);
+                            }
+                            catch (e) {
+                                this.log('WARN', 'failed to update receipt printed event');
+                            }
                         }
-                    }
-                    catch (e) {
-                        this.log('WARN', 'failed to dispatch onReceiptPrinted event');
+                        else if (this.eventData.deviceType == 'ledger') {
+                            try {
+                                self.ledgerReceiptPrinted(data.ledger.ledger_id, this.eventData.printer);
+                                self.dispatchEvent('onLedgerReceiptPrinted', this.eventData);
+                            }
+                            catch (e) {
+                                this.log('WARN', 'failed to update ledger receipt printed event');
+                            }
+                        }
                     }
                 },
 
@@ -970,15 +1053,15 @@
             var runnable = {
                 run: function() {
                     try {
-                        // check if record already exists if device > 0 (device is set to 0 for check and report/label printers
-                        if (device > 0 && ((typeof data.duplicate) == 'undefined' || data.duplicate == null)) {
+                        // check if record already exists if deviceType is 'receipt'
+                        if (deviceType == 'receipt' && ((typeof data.duplicate) == 'undefined' || data.duplicate == null)) {
                             // since we can't access DB to see if receipt is already printed, we'll store the last
                             // receipt information to prevent duplicate receipts from printed
                             if (this.lastReceipt != null) {
                                 if (data.order.id == this.lastReceipt.id &&
                                     data.order.batchCount == this.lastReceipt.batchCount &&
-                                    device == this.lastReceipt.device) {
-                                    NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
+                                    printer == this.lastReceipt.printer) {
+                                    NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [printer]));
                                     return;
                                 }
                             }
@@ -1008,10 +1091,10 @@
                             //@todo OSD
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
-                        if (device > 0 && (typeof data.duplicate == 'undefined' || data.duplicate == null)) {
+                        if (deviceType == 'receipt' && (typeof data.duplicate == 'undefined' || data.duplicate == null)) {
                             this.lastReceipt = {id: data.order.id,
                                                 batchCount: data.order.batchCount,
-                                                device: device};
+                                                printer: printer};
 
                         }
 
@@ -1023,9 +1106,9 @@
 
                             if (curThread === self._main) {
                                 // invoke directly
-                                (new sendEvent(device, data, result,encodedResult, printed)).run();
+                                (new sendEvent(deviceType, printer, data, result, encodedResult, printed)).run();
                             }else {
-                                self._main.dispatch(new sendEvent(device, data, result,encodedResult, printed), self._main.DISPATCH_NORMAL);
+                                self._main.dispatch(new sendEvent(deviceType, printer, data, result,encodedResult, printed), self._main.DISPATCH_NORMAL);
                             }
                             
                         }

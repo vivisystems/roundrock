@@ -2573,25 +2573,91 @@
 
         },
 
+        // data fields:
+        // 1. entry type
+        // 2. receipt printer number
+        //
+        // if receipt printer number is not specified, receipt is not printed
         ledgerEntry: function(data) {
 
             var inputObj = {};
+            var entryType;
+            var printer;
 
-            if (!data) {
+            var buf = this._getKeypadController().getBuffer(true);
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            // make sure we are not in the middle of an order
+            var curTransaction = this._getTransaction();
+            if(curTransaction != null && !curTransaction.isSubmit() && !curTransaction.isCancel()) {
+
+                // @todo OSD
+                NotifyUtils.warn(_('Please complete or cancel transaction first'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return;
+            }
+
+            // parse input data
+            if (data && data.length > 0) {
+                var args = data.split(',');
+                entryType = args[0];
+                printer = parseInt(args[1]);
+            }
+
+            // get ledger entry types
+            var ledgerEntryTypeModel = new LedgerEntryTypeModel();
+            inputObj.entry_types = ledgerEntryTypeModel.find('all', {
+                order: 'mode, type'
+            });
+
+            if (ledgerEntryTypeModel.lastError) {
+                this.dbAlert(ledgerEntryTypeModel,
+                             _('An error was encountered while retrieving ledger entry types'));
+                return;
+            }
+
+            // if entry type is given, make sure it is defined, and retrieve its mode
+            if (entryType) {
+                var found = false;;
+                for (var i = 0; i < inputObj.entry_types.length; i++) {
+                    if (inputObj.entry_types[i].type == entryType) {
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (found) {
+                    var user = this.Acl.getUserPrincipal();
+                    var userDisplayName = user ? user.description : _('unknown user');
+
+                    // amount must be given on input line
+                    var amount = parseFloat(buf);
+                    if (isNaN(amount)) {
+                        NotifyUtils.warn(_('Please enter an amount first'));
+                        return;
+                    }
+
+                    inputObj.ok = true;
+                    inputObj.description = '';
+                    inputObj.type = inputObj.entry_types[i].type;
+                    inputObj.mode = inputObj.entry_types[i].mode;
+                    inputObj.amount = amount;
+                    inputObj.display_name = userDisplayName;
+                }
+                else {
+                    NotifyUtils.warn(_('Specified ledger entry type [%S] is not defined', [entryType]));
+                    return;
+                }
+            }
+            else {
                 var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
                 inputObj = {}
-
-                var ledgerEntryTypeModel = new LedgerEntryTypeModel();
-                inputObj.entry_types = ledgerEntryTypeModel.find('all', {
-                    order: 'mode, type'
-                });
-
-                if (ledgerEntryTypeModel.lastError) {
-                    this.dbAlert(ledgerEntryTypeModel,
-                                 _('An error was encountered while retrieving ledger entry types'));
-                    return;
-                }
 
                 window.openDialog(aURL, _('Add New Ledger Entry'), features, inputObj);
             }
@@ -2599,13 +2665,21 @@
             if (!inputObj.ok) {
                 return;
             }
+
+            var r;
             var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
-            var r = ledgerController.saveLedgerEntry(inputObj);
+            if (ledgerController)
+                r = ledgerController.saveLedgerEntry(inputObj);
 
             if (r) {
+                // print receipt?
+                if (printer == 1 || printer == 2) {
+                    var printController = GeckoJS.Controller.getInstanceByName('Print');
+                    printController.printLedgerReceipt(inputObj, printer);
+                }
                 // @todo OSD
                 NotifyUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
-                    [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+                                   [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
             }
             else {
                 NotifyUtils.error('Failed to save ledger entry');

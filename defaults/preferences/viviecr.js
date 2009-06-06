@@ -17,12 +17,12 @@ pref("vivipos.fec.settings.PrivateQueue", false);
 pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
  
 pref("vivipos.fec.settings.image.disklimit", 52428800);
-/*
+
 pref("vivipos.fec.settings.controlpanels.system.localization.label", "Localization Editor");
 pref("vivipos.fec.settings.controlpanels.system.localization.path", "chrome://viviecr/content/localization_editor.xul");
 pref("vivipos.fec.settings.controlpanels.system.localization.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.system.localization.roles", "acl_localization_editor");
-*/
+
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.label", "Store Contact");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.path", "chrome://viviecr/content/storecontact.xul");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_store.png");
@@ -692,6 +692,14 @@ pref("vivipos.fec.reportpanels.promotionsummary.label", "Daily Promotion Summary
 pref("vivipos.fec.reportpanels.promotionsummary.path", "chrome://viviecr/content/reports/rpt_promotion_summary.xul");
 pref("vivipos.fec.reportpanels.promotionsummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.promotionsummary.roles", "acl_run_report");
+
+pref("vivipos.fec.registry.templates.ledger-sample-42c.label", "Sample Ledger Receipt 42c");
+pref("vivipos.fec.registry.templates.ledger-sample-42c.type", "receipt");
+pref("vivipos.fec.registry.templates.ledger-sample-42c.path", "chrome://viviecr/content/devices/templates/ledger-sample-42c.tpl");
+
+pref("vivipos.fec.registry.templates.ledger-sample-24c.label", "Sample Ledger Receipt 24c");
+pref("vivipos.fec.registry.templates.ledger-sample-24c.type", "receipt");
+pref("vivipos.fec.registry.templates.ledger-sample-24c.path", "chrome://viviecr/content/devices/templates/ledger-sample-24c.tpl");
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
