@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/reports/rpt_waiting_panel.dtd">
+
+<overlay id="waiting_panel" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<panel id="wait_panel">
+		<vbox flex="1">
+		<groupbox flex="1">
+		    <caption id="waiting_caption" label="&rptwaitingpanel.wait;" statustext="&rptwaitingpanel.wait;" class="PageTitle"/>
+		    <spacer style="height: 20px;" />
+		    <vbox id="progress_box">
+		    	<!--progressmeter id="progress" mode="determined" value="0" /-->
+		    </vbox>
+		    <spacer style="height: 20px;" />
+		</groupbox>
+		</vbox>
+	</panel>
+</overlay>
