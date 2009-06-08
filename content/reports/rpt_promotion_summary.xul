@@ -11,7 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
-
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 
 <window id="main"
         hidechrome="true"
@@ -136,16 +136,7 @@
         </vbox>
     </vbox>
   
-    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
-        <vbox flex="1">
-        <groupbox flex="1">
-            <caption label="&promotionsummary.wait;" class="PageTitle"/>
-            <spacer style="height: 20px;" />
-            <progressmeter id="progress" mode="undetermined" value="0" />
-            <spacer style="height: 20px;" />
-        </groupbox>
-        </vbox>
-    </panel>
-    
+    <!-- overlay the waiting panel. -->
+	<panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl" />
 
 </window>

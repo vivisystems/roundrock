@@ -55,10 +55,22 @@
             }
             
             // add event listener for startTrainingMode event.
-            var trainingModeController = GeckoJS.Controller.getInstanceByName( 'TrainingMode' );
+            /*var trainingModeController = GeckoJS.Controller.getInstanceByName( 'TrainingMode' );
             if ( trainingModeController ) {
             	trainingModeController.addEventListener( 'startTrainingMode', this.startTraining, this );
-            }
+            }*/
+            
+            this.observer = GeckoJS.Observer.newInstance( {
+                topics: [ "TrainingMode" ],
+
+                observe: function( aSubject, aTopic, aData ) {
+                    if ( aData == "start" ) {
+                    	self.startTraining( true );
+                    } else if ( aData == "exit" ) {
+                    	self.startTraining( false );
+                    }
+                }
+            } ).register();
         },
 
         sessionHandler: function(evt) {
@@ -2966,10 +2978,6 @@
 
         // pre-finalize the order by closing it
         preFinalize: function(args) {
-        	if ( GeckoJS.Session.get( 'isTraining' ) ) {
-        		alert( _( "Prefinalizing is not allowed in the training mode!" ) );
-        		return;
-        	}
         	
             var curTransaction = this._getTransaction();
 
@@ -3417,11 +3425,6 @@
 
 
         voidSale: function(id) {
-        
-        	/*if ( GeckoJS.Session.get( 'isTraining' ) ) {
-        		alert( _( "Voiding order is not allowed in the training mode!" ) );
-        		return;
-        	}*/
 
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 
@@ -3657,11 +3660,11 @@
 
         },
         
-        startTraining: function( event ) {
-        	if ( event.data == "start" ) {
+        startTraining: function( isTraining ) {
+        	if ( isTraining ) {
         		this._queueFile = this._trainingQueueFile;
         		this._queueSession = this._trainingQueueSession;
-        	} else if ( event.data == "exit" ) {
+        	} else {
         		this.removeQueueRecoveryFile( this._queueFile );
         		GeckoJS.Session.remove( this._queueSession );
         		this._queueFile = this._defaultQueueFile;
@@ -3990,10 +3993,6 @@
         },
 
         recallOrder: function() {
-        	if ( GeckoJS.Session.get( 'isTraining' ) ) {
-        		alert( _( "Recalling order is not allowed in the training mode!" ) );
-        		return;
-        	}
         	
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
@@ -4013,10 +4012,6 @@
         },
 
         recallCheck: function() {
-        	if ( GeckoJS.Session.get( 'isTraining' ) ) {
-        		alert( _( "Recalling order is not allowed in the training mode!" ) );
-        		return;
-        	}
         	
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
@@ -4027,11 +4022,7 @@
         },
 
         storeCheck: function() {
-        	if ( GeckoJS.Session.get( 'isTraining' ) ) {
-        		alert( _( "Storing order is not allowed in the training mode!" ) );
-        		return;
-        	}
-        	
+        
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
@@ -4138,10 +4129,6 @@
         },
 
         splitCheck: function() {
-			if ( GeckoJS.Session.get( 'isTraining' ) ) {
-        		alert( _( "Splitting check is not allowed in the training mode!" ) );
-        		return;
-        	}
         	
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
@@ -4237,7 +4224,11 @@
             GREUtils.Dialog.alert(null,
                                   _('Data Operation Error'),
                                   alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
-        }
+        },
+        
+        destroy: function() {
+        	this.observer.unregister();
+    	}
     };
 
     GeckoJS.Controller.extend(__controller__);

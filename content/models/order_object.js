@@ -6,6 +6,4 @@ var OrderObjectModel = window.OrderObjectModel =  GeckoJS.Model.extend({
     belongsTo: ['Order'],
 
     behaviors: ['Sync', 'Training']
-
-    
 });

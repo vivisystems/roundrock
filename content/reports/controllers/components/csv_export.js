@@ -3,7 +3,7 @@
     var CsvExportComponent = window.CsvExportComponent = GeckoJS.Component.extend({
 
     /**
-     * Component CsvExport
+     * Component BrowserPrint
      */
 
         name: 'CsvExport',
@@ -50,9 +50,10 @@
                 GREUtils.log('ERROR', 'exportCSV ' + e);
             }
 
-        },
+        }
 
         // @todo
+        /*
         exportToCsv: function(csvFileName, headers, columns, datas) {
 
             if (!csvFileName) {
@@ -98,6 +99,9 @@
             }
 
         }
+        */
+
+
     });
 
 })();

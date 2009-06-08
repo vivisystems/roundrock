@@ -187,12 +187,8 @@
                 this.id = seq.id;
                 this.save(seq);
                 return seq.value;
-
             }
-
-
         }
     }
     );
-
 })();

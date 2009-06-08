@@ -115,8 +115,12 @@
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
 
-
         ControlPanelDialog: function () {
+        	if ( GeckoJS.Session.get( "isTraining" ) ) {
+        		alert( _( "Entering control area is not allowed during training." ) );
+        		return;
+        	}
+        		
             var aURL = 'chrome://viviecr/content/controlPanel.xul';
             var aName = _('Control Panel');
             var posX = 0;
@@ -141,7 +145,6 @@
 
         },
 
-
         ChangeUserDialog: function () {
             var aURL = "chrome://viviecr/content/changeuser.xul";
             var aName = _('Change User');
@@ -165,7 +168,6 @@
             
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
         },
-
 
         PLUSearchDialog: function (addtocart) {
             //
@@ -609,7 +611,6 @@
                 // generate onEnterPassword event
                 this.dispatchEvent('onEnterPassword', null);
             }
-
         },
 
         silentUserSwitch: function (newUser) {
@@ -1107,5 +1108,4 @@
     };
 
     GeckoJS.Controller.extend(__controller__);
-
 })();

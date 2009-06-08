@@ -188,12 +188,10 @@
 		    this._reportRecords.body = categories;
 		},
 
-        _set_reportRecords: function(limit) {
+        _set_reportRecords: function( limit ) {
 
-            limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
-
-            var waitPanel = this._showWaitPanel( 'wait_panel' );
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
 
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
@@ -212,7 +210,7 @@
         },
         
         exportCsv: function() {
-            this._super(this, true);
+            this._super( this, true );
         },
 
         load: function() {

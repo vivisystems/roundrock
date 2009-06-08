@@ -39,9 +39,9 @@
 
         saveOrder: function(data) {
 
-           	var isTraining = GeckoJS.Session.get( "isTraining" );
+           	//var isTraining = GeckoJS.Session.get( "isTraining" );
            	
-            if(!data || isTraining) return;
+            if(!data ) return;
 
             var r;
             r = this.begin();

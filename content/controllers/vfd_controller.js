@@ -48,36 +48,28 @@
            		trainingModeController.addEventListener( 'startTrainingMode', this.switchTrainingMode );
             }*/
 
-			var self = this;
-            this.observer = GeckoJS.Observer.newInstance( {
-                topics: [ "TrainingMode" ],
-
-                observe: function( aSubject, aTopic, aData ) {
-                    if ( aData == "start" ) {
-                    	self.switchTrainingMode( true );
-                    } else if (aData == "exit") {
-                    	self.switchTrainingMode( false );
-                    }
-                }
-            } ).register();
-
             var self = this;
             this.observer = GeckoJS.Observer.newInstance({
-                    topics: ['acl-session-change'],
-                    observe: function(aSubject, aTopic, aData) {
-                        switch(aTopic) {
-                            case 'acl-session-change':
-
-                                var user = new GeckoJS.AclComponent().getUserPrincipal();
-                                if (user == null) {
-                                    // signed out
-                                    self.displayOnVFD();
-                                }
-                                break;
-
-                        }
+                topics: [ 'acl-session-change', 'TrainingMode' ],
+                observe: function(aSubject, aTopic, aData) {
+                    switch(aTopic) {
+                        case 'acl-session-change':
+                            var user = new GeckoJS.AclComponent().getUserPrincipal();
+                            if (user == null) {
+                                // signed out
+                                self.displayOnVFD();
+                            }
+                            break;
+						case 'TrainingMode':
+							if ( aData == "start" ) {
+					        	self.switchTrainingMode( true );
+					        } else if ( aData == "exit" ) {
+					        	self.switchTrainingMode( false );
+					        }
+					     	break;
                     }
-                }).register();
+                }
+            }).register();
 
             // initialize display
             this.displayOnVFD();
@@ -386,8 +378,11 @@
         	if ( isTraining )
         		class = "vfdPadOnTraining";
         	document.getElementById( 'vfdPanel' ).className = class;
-        }
-
+        },
+		
+		destroy: function() {
+        	this.observer.unregister();
+    	}
     };
 
     GeckoJS.Controller.extend(__controller__);
@@ -398,8 +393,5 @@
         if(main) main.addEventListener('afterInitial', function() {
                                             main.requestCommand('initial', null, 'VFD');
                                       });
-
     }, false);
-
-
 })();

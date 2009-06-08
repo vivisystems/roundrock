@@ -13,4 +13,3 @@
 <!ENTITY rptstocks.sortby.stock "Stock Level">
 <!ENTITY rptstocks.sortby.min_stock "Low Stock Threshold">
 <!ENTITY rptstocks.all "List All">
-<!ENTITY rptstocks.wait "Waiting...">

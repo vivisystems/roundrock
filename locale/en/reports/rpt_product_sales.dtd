@@ -16,7 +16,6 @@
 <!ENTITY productsales.sortby.gross "Gross Sales">
 <!ENTITY productsales.sortby.net "Net Sales">
 <!ENTITY productsales.all "List All">
-<!ENTITY productsales.wait "Waiting...">
 <!ENTITY productsales.periodtype "Period Type:">
 <!ENTITY productsales.transaction_created "Order Opened">
 <!ENTITY productsales.transaction_submitted "Order Closed">

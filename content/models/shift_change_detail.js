@@ -5,6 +5,5 @@ var ShiftChangeDetailModel = window.ShiftChangeDetailModel = GeckoJS.Model.exten
 
 	belongsTo: ['ShiftChange'],
 
-    behaviors: ['Sync']
-
+    behaviors: ['Sync', 'Training']
 });

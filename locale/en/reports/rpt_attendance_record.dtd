@@ -6,7 +6,6 @@
 <!ENTITY rptattendancerecord.exportcsv "Export to CSV">
 <!ENTITY rptattendancerecord.exportrcp "Print">
 <!ENTITY rptattendancerecord.togglezoom "Toggle Zoom">
-<!ENTITY rptattendancerecord.wait "Waiting...">
 <!ENTITY rptattendancerecord.user "User:">
 <!ENTITY rptattendancerecord.all "List All">
 <!ENTITY rptattendancerecord.jobs "Jobs:">

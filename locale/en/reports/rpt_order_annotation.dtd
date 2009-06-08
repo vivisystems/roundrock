@@ -21,7 +21,6 @@
 <!ENTITY rptorderannotation.sortby.orderstatus "Order Status">
 <!ENTITY rptorderannotation.sortby.annotationtext "Annotation Text">
 <!ENTITY rptorderannotation.all "List All">
-<!ENTITY rptorderannotation.wait "Waiting...">
 <!ENTITY rptorderannotation.periodtype "Period Type:">
 <!ENTITY rptorderannotation.transaction_created "Order Opened">
 <!ENTITY rptorderannotation.transaction_submitted "Order Closed">

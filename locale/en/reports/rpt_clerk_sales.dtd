@@ -27,7 +27,6 @@
 <!ENTITY rptclerksales.sortby.giftcard "Gift Card">
 <!ENTITY rptclerksales.sortby.clerk "Clerk">
 <!ENTITY rptclerksales.all "List All">
-<!ENTITY rptclerksales.wait "Waiting...">
 <!ENTITY rptclerksales.service_clerk "Last Modified Order">
 <!ENTITY rptclerksales.proceeds_clerk "Completed Order">
 <!ENTITY rptclerksales.clerk_type "Clerk Type:">
