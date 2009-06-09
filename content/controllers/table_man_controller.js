@@ -14,6 +14,8 @@
         _tableListDatas: null,
         _tableListObj: null,
 
+        _minimumChargeFor: {'0': _('Final Amount'), '1': _('Original Amount') /*, '2': _('No Revalue'), '3': _('No Promotion') */},
+
         _tableSettings: null,
 
 
@@ -95,12 +97,17 @@
         addTable: function() {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
-            var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true};
+            var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
 
             window.openDialog(aURL, _('Add Table'), features, _('New Table'), '', _('Table Number'), _('Table Name'), inputObj);
             if (inputObj.ok && inputObj.input0) {
 
                 var table_no = inputObj.input0;
+                if (table_no <= 0) {
+                    // @todo OSD
+                    NotifyUtils.warn(_('Table Number [%S] is invalid', [table_no]));
+                    return;
+                }
                 if (this.isDuplicate(table_no)) {
                     // @todo OSD
                     NotifyUtils.warn(_('Table Number [%S] has already been assigned exists', [table_no]));
@@ -406,6 +413,22 @@
 
             this._tableListDatas = tables;
             var tableView =  new GeckoJS.NSITreeViewArray(this._tableListDatas);
+            tableView.getCellValue = function(row, col) {
+                var sResult;
+                var key = (typeof col == 'object') ? col.id : col;
+
+                try {
+                    if (key == 'active') {
+                        sResult = this.data[row][key] ? '*' : ' ';
+                    } else {
+                        sResult= this.data[row][key];
+                    }
+                }
+                catch (e) {
+                    return "<" + row + "," + key + ">";
+                }
+                return sResult;
+            }
             this.getTableListObj().datasource = tableView;
 
             document.getElementById('table_count').value = this._tableListDatas.length;
@@ -458,6 +481,23 @@
                 menuitem.setAttribute('label', data.name);
                 regionObj.appendChild(menuitem);
             });
+        },
+
+        setMinimumChargeForMenuItem: function() {
+
+            var minimumChargeForObj = document.getElementById('minimumChargeForPopup');
+
+            // remove all child...
+            while (minimumChargeForObj.firstChild) {
+                minimumChargeForObj.removeChild(minimumChargeForObj.firstChild);
+            }
+
+            for (var key in this._minimumChargeFor) {
+                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                menuitem.setAttribute('value', key);
+                menuitem.setAttribute('label', this._minimumChargeFor[key]);
+                minimumChargeForObj.appendChild(menuitem);
+            }
         },
 
         searchDialog: function () {
@@ -520,6 +560,7 @@
 
             this.setDestinationMenuItem();
             this.setRegionMenuItem();
+            this.setMinimumChargeForMenuItem();
             this.loadRegions();
             this.selectRegion(0);
             this.loadTables();
