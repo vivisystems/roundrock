@@ -39,7 +39,7 @@ $PROFILE_PATH = '/data/profile';
 if (($sync_settings = Cache::read('sync_settings')) === false) {
     if(file_exists($PROFILE_PATH.DS."sync_settings.ini")) {
         $sync_settings = parse_ini_file($PROFILE_PATH.DS."sync_settings.ini");
-        Cache::write('sync_settings', $sync_settings);
+        // Cache::write('sync_settings', $sync_settings);
     }
 }
 Configure::write('sync_settings', $sync_settings);

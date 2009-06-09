@@ -29,7 +29,7 @@ class SyncBaseShell extends Shell {
 
         $this->statusFile = "/tmp/sync_client.status" ;
 
-        $this->http = new HttpSocket(array('timeout'=> 5));
+        $this->http = new HttpSocket(array('timeout'=> 5, 'stream_timeout' => 3));
 
     }
 

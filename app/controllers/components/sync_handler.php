@@ -446,6 +446,10 @@ class SyncHandlerComponent extends Object {
 
             $dbConfig = $data['datasource'];
 
+            // datasource not exists
+            $cm =& ConnectionManager::getInstance();
+            if(empty($cm->config->{$dbConfig})) continue;
+
             // PDO Connection object
             $datasource =& ConnectionManager::getDataSource($dbConfig);
 

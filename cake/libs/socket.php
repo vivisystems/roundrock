@@ -50,7 +50,8 @@ class CakeSocket extends Object {
 		'host'			=> 'localhost',
 		'protocol'		=> 'tcp',
 		'port'			=> 80,
-		'timeout'		=> 30
+		'timeout'		=> 30,
+                'stream_timeout'        => 0
 	);
 /**
  * Configuration settings for the socket connection
@@ -218,6 +219,11 @@ class CakeSocket extends Object {
 		}
 
 		if (!feof($this->connection)) {
+
+                        // set stream time out
+                        // by racklin@gmail.com
+                        if(!empty($this->config['stream_timeout'])) stream_set_timeout($this->connection, $this->config['stream_timeout']);
+
 			return fread($this->connection, $length);
 		} else {
 			return false;
