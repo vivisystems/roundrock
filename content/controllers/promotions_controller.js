@@ -259,12 +259,17 @@
 
         removeTransactionData: function(item) {
 
+            if(this._currentPromotions.length == 0) return;
+            
             var cartItemModel = this.getCartItemModel();
             cartItemModel.removeItem(item);
 
         },
 
         appendTransactionDatas: function(transaction) {
+
+            if(this._currentPromotions.length == 0) return;
+            
             try {
                 for (var index in transaction.data.items) {
                     if(transaction.data.items[index]) {
@@ -276,6 +281,8 @@
 
         appendTransactionData: function(item) {
 
+            if(this._currentPromotions.length == 0) return;
+
             var cartItemModel = this.getCartItemModel();
             cartItemModel.appendItem(item);
 
@@ -283,6 +290,8 @@
 
 
         prepareTransactionData: function(evt) {
+
+            if(this._currentPromotions.length == 0) return;
 
             this._transaction = evt.data;
             var cartItemModel = this.getCartItemModel();
@@ -301,6 +310,8 @@
 
 
         process: function() {
+
+            if(this._currentPromotions.length == 0) return;
 
             //var profileStart = (new Date()).getTime();
             // triggers with time control for now
