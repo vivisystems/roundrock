@@ -2947,7 +2947,7 @@ msgid "subtotal"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1930
-msgid "Not an open order; cannot add %S asdasdsd"
+msgid "Not an open order; cannot add %S"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1937

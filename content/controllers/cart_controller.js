@@ -1927,7 +1927,7 @@
                 this.clear();
 
                 // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot add %S asdasdsd', [type]));
+                NotifyUtils.warn(_('Not an open order; cannot add %S', [type]));
 
                 this.subtotal();
                 return;
