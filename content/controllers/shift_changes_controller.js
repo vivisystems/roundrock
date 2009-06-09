@@ -241,7 +241,7 @@
         },
         
         ShiftDialog: function (newSalePeriod, newShiftNumber, lastSalePeriod, lastShiftNumber) {
-            var width = 400;
+            var width = 450;
             var height = 330;
             var aURL = 'chrome://viviecr/content/alert_shift.xul';
             var aName = 'Shift Information';

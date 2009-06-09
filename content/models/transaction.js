@@ -223,6 +223,8 @@
             if (typeof(status) == 'undefined') status = 1;
 
             // set proceeds_cherk when submit to status == 1
+            // @irving 06-09-2009: following code is moved to cart
+            /*
             if (status == 1) {
                 var user = new GeckoJS.AclComponent().getUserPrincipal();
                 if ( user != null ) {
@@ -230,6 +232,7 @@
                     this.data.proceeds_clerk_displayname = user.description;
                 }
             }
+            */
             this.process(status);
 
         },

@@ -3156,7 +3156,16 @@
                 oldTransaction.lockItems();
 
                 // save order unless the order is being finalized (i.e. status == 1)
-                if (status != 1) oldTransaction.submit(status);
+                if (status == 1) {
+                    var user = this.Acl.getUserPrincipal();
+                    if ( user != null ) {
+                        oldTransaction.data.proceeds_clerk = user.username;
+                        oldTransaction.data.proceeds_clerk_displayname = user.description;
+                    }
+                }
+                else {
+                    oldTransaction.submit(status);
+                }
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
 

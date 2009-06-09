@@ -497,21 +497,6 @@
                 order: order
             };
 
-/*
-            if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
-                var user = new GeckoJS.AclComponent().getUserPrincipal();
-                if ( user != null ) {
-                    order.proceeds_clerk = user.username;
-                    order.proceeds_clerk_displayname = user.description;
-                }
-            }
-*/
-
-            //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
-            //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
-            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
-            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
-            
             // for each enabled printer device, print if autoprint is on or if force is true
             var self = this;
             if (enabledDevices != null) {
@@ -652,21 +637,6 @@
                 order: order
             };
 
-/*
-            if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
-                var user = new GeckoJS.AclComponent().getUserPrincipal();
-                if ( user != null ) {
-                    order.proceeds_clerk = user.username;
-                    order.proceeds_clerk_displayname = user.description;
-                }
-            }
-*/
-/*
-            //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
-            //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
-            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
-            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
-*/
             // construct routing groups
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.findByIndex('all', {
@@ -1077,8 +1047,6 @@
                                     }
                                 }
                                 self.closeSerialPort(portPath);
-                                if (data && data.order) {
-                                }
                             }
                         }
                         if (printed == 0) {
