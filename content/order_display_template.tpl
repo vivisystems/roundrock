@@ -1,4 +1,10 @@
-<tabpanels >
+<tabbox class="CheckTabbox" flex="1">
+    <tabs id="orders_tab">
+        <!-- dynamic created tabs -->
+        <!-- tab linkedpanel="panel_{order.check_no}" label="C#{order.check_no}"/ -->
+    </tabs>
+    <tabpanels >
+
 {for order in orders}
 <tabpanel id="panel_${order.check_no}">
 {if order}
@@ -145,6 +151,7 @@
     <html:tr>
         <html:td colspan="4" style="text-align: left;">${_('(view)Item Subtotal')}</html:td>
         <html:td style="width: 100px; text-align: right;">${order.item_subtotal|viviFormatPrices:true}</html:td>
+        <html:td></html:td>
     </html:tr>
     <html:tr>
         <html:td colspan="6"></html:td>
@@ -248,4 +255,6 @@
 </tabpanel>
 
 {/for}
-</tabpanels>
+
+    </tabpanels >
+</tabbox>

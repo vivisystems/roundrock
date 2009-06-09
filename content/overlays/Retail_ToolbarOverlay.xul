@@ -12,7 +12,7 @@
   <box id="retailToolbarContainer" orient="horizontal" pack="end">
 
         <!-- begin tools -->
-        <hbox id="toolbar" flex="1" pack="center">
+        <hbox id="toolbar" flex="1" pack="end">
             <isoptionenabled id="vkb" option="vivipos.fec.settings.ShowVKIcon" action="display">
                 <vivibutton id="vkb-icon" label=""  oncommand="VirtualKeyboard.toggle();"
                             class="button-vkb"/>

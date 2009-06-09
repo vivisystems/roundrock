@@ -110,8 +110,11 @@
                                 </vbox>
                                 <spacer style="height:10px;" />
                                 <vbox>
-                                    <sendkeybutton id="bkeyBtn" label="DEL" keyCode='0x08' class="fixedbtn"/>
-                                    <button id="clearBtn" label="CLEAR" class="fixedbtn" oncommand="clearFocusedElement()"/>
+                                    <sendkeybutton id="bkeyBtn" label="&ledger.button.action.del;" keyCode='0x08' class="fixedbtn"/>
+                                    <button id="clearBtn" label="&ledger.button.action.clear;" class="fixedbtn" oncommand="clearFocusedElement()"/>
+                                    <spacer flex="1"/>
+                                    <vivibutton id="opendrawer" label="&ledger.button.action.opendrawer;" default="false" class="fixedbtn"
+                                                oncommand="$do('openDrawerForLedgerEntry', null, 'LedgerRecords');"/>
                                 </vbox>
                             </hbox>
                             <spacer style="height: 10px;" />

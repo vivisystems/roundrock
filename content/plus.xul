@@ -394,7 +394,7 @@
                                     </hbox>
                                     <hbox>
                                         <label value="&plus.display_order;" class="SubTitle"/>
-                                        <textbox id="display_order" type="number" min="0" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="display_order" size="4" class="geneditbox right"/>
+                                        <textbox id="display_order" default="" form="productForm" name="display_order" size="4" class="geneditbox right"/>
                                         <label value="&plus.append_empty_btns;" class="SubTitle"/>
                                         <textbox id="append_empty_btns" type="number" value="0" default="0" decimalplaces="0" min="0" hidespinbuttons="true" form="productForm" name="append_empty_btns" size="4" class="geneditbox right"/>
                                     </hbox>

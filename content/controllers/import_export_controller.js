@@ -109,12 +109,12 @@
         exportData: function (model) {
             // return if importing...
             if (this._busy) {
-                GREUtils.Dialog.alert(window, _('Export Error'), _('Import/Export already in progress'));
+                GREUtils.Dialog.alert(this.activeWindow, _('Export Error'), _('Import/Export already in progress'));
                 return;
             }
 
             if (!this.checkBackupDevices()) {
-                GREUtils.Dialog.alert(window, _('Export Error'), _('Export device and/or folder not found [%S]', [this._exportFolder]));
+                GREUtils.Dialog.alert(this.activeWindow, _('Export Error'), _('Export device and/or folder not found [%S]', [this._exportFolder]));
                 return;
             }
 
@@ -215,12 +215,12 @@
         importData: function(model) {
             // return if importing...
             if (this._busy) {
-                GREUtils.Dialog.alert(window, _('Import Error'), _('Import/Export already in progress'));
+                GREUtils.Dialog.alert(this.activeWindow, _('Import Error'), _('Import/Export already in progress'));
                 return;
             }
 
             if (!this.checkBackupDevices()) {
-                GREUtils.Dialog.alert(window, _('Import Error'), _('Import device and/or folder not found [%S]', [this._importFolder]));
+                GREUtils.Dialog.alert(this.activeWindow, _('Import Error'), _('Import device and/or folder not found [%S]', [this._importFolder]));
                 return;
             }
 

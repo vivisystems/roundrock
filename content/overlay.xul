@@ -44,7 +44,6 @@
   <script src='chrome://viviecr/content/controllers/condiments_controller.js'/>
   <script src='chrome://viviecr/content/controllers/currencysetup_controller.js'/>
   <script src='chrome://viviecr/content/controllers/destination_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/currencysetup_controller.js'/>
   <script src='chrome://viviecr/content/controllers/storecontact_controller.js'/>
   <script src='chrome://viviecr/content/controllers/annotation_controller.js'/>
   <script src='chrome://viviecr/content/controllers/shift_changes_controller.js'/>
@@ -53,6 +52,7 @@
   <script src='chrome://viviecr/content/controllers/ledger_entry_types_controller.js'/>
   <script src='chrome://viviecr/content/controllers/stocks_controller.js'/>
   <script src='chrome://viviecr/content/controllers/training_mode_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/nonplu_setting_controller.js'/>
 
   <!-- report controllers for reports to be generated from front-end -->
   <script src='chrome://viviecr/content/reports/controllers/rpt_cash_by_clerk_controller.js'/>
@@ -80,16 +80,18 @@
 
         <popupset id="dialogs" />
 
-        <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
-            <vbox flex="1">
-            <groupbox flex="1">
-                <caption id="common_wait" label="Waiting..." class="PageTitle"/>
-                <spacer style="height: 20px;" />
-                <progressmeter id="progress" mode="undetermined" value="0" />
-                <spacer style="height: 20px;" />
-            </groupbox>
+        <vivipanel id="wait_panel" position="overlap" noautohide="true" pack="center" align="center">
+            <vbox flex="1" class="mainWaitPanel">
+                <vbox flex="1" class="mainWaitDialog">
+                    <groupbox flex="1">
+                        <caption id="common_wait" label="Waiting..." class="PageTitle"/>
+                        <spacer style="height: 20px;" />
+                        <progressmeter id="progress" mode="undetermined" value="0" />
+                        <spacer style="height: 20px;" />
+                    </groupbox>
+                </vbox>
             </vbox>
-        </panel>
+        </vivipanel>
 
     </box>
 

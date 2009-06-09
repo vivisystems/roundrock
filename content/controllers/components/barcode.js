@@ -156,6 +156,56 @@
                 return "";
             }
 
+        },
+
+        isValidNONPLU13: function (param) {
+            
+            if ( !this.isNumeric(param) || param.length != 13) {
+
+                return false;
+
+            }
+
+            var identifier = param.substr(0, 2);
+            var number = param.substr(0, 12);
+            var checksum = param.substr(12, 1);
+
+            if (this.getEAN13CheckDigit(number) == checksum) {
+
+                // NON-PLU13 - (Instore Marking)
+                return (["02", "20","21","22","23","24","25","26","27","28","29"].indexOf(identifier) >= 0);
+
+            }
+
+            return false;
+
+        },
+
+        getNONPLU13Identifier: function(param) {
+
+            if ( !this.isNumeric(param) || param.length != 13) {
+
+                return false;
+
+            }
+
+            var identifier = param.substr(0, 2);
+            var number = param.substr(0, 12);
+            var checksum = param.substr(12, 1);
+
+            if (this.getEAN13CheckDigit(number) == checksum) {
+
+                // NON-PLU13 - (Instore Marking)
+                if( ["02", "20","21","22","23","24","25","26","27","28","29"].indexOf(identifier) >= 0) {
+
+                    return identifier;
+
+                }
+
+            }
+
+            return false;
+
         }
 
     });

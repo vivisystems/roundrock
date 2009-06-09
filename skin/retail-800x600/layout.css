@@ -37,26 +37,26 @@
 }
 
 .block-gd .block-u {
-    /* 25% */
-    width: 200px;
-    min-width: 200px;
-    max-width: 200px;
+    /* 23% */
+    width: 184px;
+    min-width: 184px;
+    max-width: 184px;
 }
 
 .block-ge .block-u {
-    /* 55% */
-    width: 430px;
-    min-width: 430px;
-    max-width: 430px;
-    margin: 30px 14px 0 0;
+    /* 55.50% */
+    width: 444px;
+    min-width: 444px;
+    max-width: 444px;
+    padding: 30px 14px 0 0;
 }
 
 .block-gf .block-u {
-    /* 20% */
-    width: 155px;
-    min-width: 155px;
-    max-width: 155px;
-    margin-right: 17px;
+    /* 21.50% */
+    width: 172px;
+    min-width: 172px;
+    max-width: 172px;
+    padding-right: 17px;
 }
 
 .block-r .block-u  {
@@ -66,4 +66,16 @@
     max-height: 298px;
 }
 
+.block-s .block-u  {
+    /* 33% */
+    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
+}
 
+.block-t .block-u  {
+    /* 25% */
+    height: 150px;
+    min-height: 150px;
+    max-height: 150px;
+}

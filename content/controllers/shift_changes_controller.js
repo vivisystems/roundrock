@@ -24,7 +24,6 @@
                 main.addEventListener('afterClearOrderData', this.expireData, this);
                 main.addEventListener('afterTruncateTxnRecords', this.truncateData, this);
             }
-
         },
 
         expireData: function(evt) {
@@ -243,7 +242,7 @@
         
         ShiftDialog: function (newSalePeriod, newShiftNumber, lastSalePeriod, lastShiftNumber) {
             var width = 400;
-            var height = 300;
+            var height = 330;
             var aURL = 'chrome://viviecr/content/alert_shift.xul';
             var aName = 'Shift Information';
             var aArguments = {current_sale_period: newSalePeriod,
@@ -262,7 +261,7 @@
             var salePeriod = this.getSalePeriod();
             var shiftNumber = this.getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
-            var salePeriodLeadDays = GeckoJS.Configure.read('vivipos.fec.settings.MaxSalePeriodLeadDays') || 0;
+            var salePeriodLeadDays = GeckoJS.Configure.read('vivipos.fec.settings.MaxSalePeriodLeadDays') || 1;
 
             var orderPayment = new OrderPaymentModel();
 
@@ -751,7 +750,7 @@
                             else {
                                 shiftChangeModel.rollback();
                                 
-                                GREUtils.Dialog.alert(null,
+                                GREUtils.Dialog.alert(this.activeWindow,
                                                       _('Data Operation Error'),
                                                       _('A database error has been encountered. ') +
                                                       _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
@@ -768,7 +767,7 @@
             }
             catch(e) {
                 if (e == 'dbException') {
-                    GREUtils.Dialog.alert(null,
+                    GREUtils.Dialog.alert(this.activeWindow,
                                           _('Data Operation Error'),
                                           _('A database error has been encountered. ') +
                                           _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
@@ -782,7 +781,7 @@
 
                 // offer options to power off or restart and to print shift and day reports
                 aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=270';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=280';
                 var parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 window.openDialog(aURL, _('Sale Period Close'), features, parms);
 
@@ -809,7 +808,7 @@
 
                 // shift change notification and print option
                 aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=477,height=150';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=200';
                 message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 window.openDialog(aURL, _('Shift Close'), features, message);
 
@@ -836,7 +835,7 @@
         },
 
         printShiftReport: function( all ) {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print shift report?' ) ) )
+        	if ( !GREUtils.Dialog.confirm(this.activeWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
         		return;
 
 			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
@@ -858,7 +857,7 @@
         },
 
         printDailySales: function() {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+        	if ( !GREUtils.Dialog.confirm(this.activeWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
         		return;
         	
         	var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
@@ -944,7 +943,7 @@
 
         dbError: function(errNo, errMsg, alertStr) {
             this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(null,
+            GREUtils.Dialog.alert(this.activeWindow,
                                   _('Data Operation Error'),
                                   alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

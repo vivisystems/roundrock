@@ -234,7 +234,7 @@
                     pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
                     pluPanel.setAttribute('hidden', false);
                     pluPanel.initGrid();
-
+                    
                     // @hack to allow vivibuttons to be fully instantiated
                     this.sleep(100);
                     

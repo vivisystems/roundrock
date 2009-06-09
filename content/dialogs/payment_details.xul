@@ -20,7 +20,7 @@
     
     <popupset id="dialogs">
 
-        <panel id="paymentDetailsPanel" noautohide="false">
+        <vivipanel id="paymentDetailsPanel" noautohide="false">
 
             <hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;">
 
@@ -43,7 +43,7 @@
 
             </hbox>
 
-        </panel>
+        </vivipanel>
 
     </popupset>
 

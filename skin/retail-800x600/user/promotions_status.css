@@ -57,7 +57,7 @@ promotions_status textbox {
     display: none;
 }
 
-.promotionpanel .cartScrollUp {
+.tree_promotions .cartScrollUp {
     border: 0px solid;
     background: transparent url(images/proup.png) 0 0 no-repeat;
     max-height: 32px;
@@ -70,7 +70,7 @@ promotions_status textbox {
     -moz-appearance: none;
 }
 
-.promotionpanel .cartScrollDown {
+.tree_promotions .cartScrollDown {
     border: 0px solid;
     background: transparent url(images/prodown.png) 0 0 no-repeat;
     max-height: 32px;
@@ -83,13 +83,13 @@ promotions_status textbox {
     -moz-appearance: none;
 }
 
-.promotionpanel .cartScrollUp[disabled=false]:active,
-.promotionpanel .cartScrollDown[disabled=false]:active{
+.tree_promotions .cartScrollUp[disabled=false]:active,
+.tree_promotions .cartScrollDown[disabled=false]:active{
     background-position: -32px 0;
 }
 
-.promotionpanel .cartScrollUp description,
-.promotionpanel .cartScrollDown description {
+.tree_promotions .cartScrollUp description,
+.tree_promotions .cartScrollDown description {
     display: none;
 }
 

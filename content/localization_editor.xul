@@ -11,7 +11,10 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="localization" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&localization.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
 
@@ -21,16 +24,70 @@
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/localization_editor.js" />
 
-    <box flex="1" class="mainpanel">
-       <vbox flex="1">
-            <hbox flex="1">
-
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+            <hbox>
+                <label value="&localization.title;" class="PageTitle" />
+                <label id="locale" value="" class="PageTitle" />
             </hbox>
-            <hbox flex="0" id="dialogButtons" class="dialogbtns" pack="end">
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+            <vbox flex="1" class="block-t">
+                <tree id="navtree" class="block-u showscrollbar" hidecolumnpicker="true" seltype="single" flex="1"
+                      onselect="$do('selectFile', this.currentIndex, 'Localization')"
+                      >
+
+                    <treecols>
+                        <treecol id="file" label="&localization.heading.package;" primary="true" flex="1"/>
+                    </treecols>
+
+                    <treechildren id="navtree-root">
+                   </treechildren>
+                </tree>
+
+                <spacer width="10px"/>
+
+                <vbox flex="1">
+                    <vivitree id="editscrollabletree" flex="1"
+                                        headers="&localization.heading.key;,&localization.heading.base.string;,&localization.heading.translated.string;"
+                                        fields="key,base,working" hidecolumnpicker="true"
+                                        onselect="$do('selectEntry', this.currentIndex, 'Localization')"
+                                        class="editscrollabletree showscrollbar">
+                    </vivitree>
+
+                    <spacer height="5px"/>
+
+                    <vbox>
+                        <hbox>
+                            <textbox id="edit_file" readonly="true" disabled="true" flex="1"/>
+                            <spacer width="5px"/>
+                            <textbox id="edit_key" readonly="true" disabled="true" flex="1"/>
+                        </hbox>
+                        <spacer height="5px"/>
+                        <hbox>
+                            <textbox id="edit_base" readonly="true" disabled="true" flex="1" multiline="true" wrap="true"/>
+                            <spacer width="5px"/>
+                            <textbox id="edit_working" disabled="true" flex="2" multiline="true" rows="3"/>
+                        </hbox>
+                    </vbox>
+                </vbox>
+            </vbox>
+            
+            <spacer height="10px"/>
+
+            <hbox>
+                <hbox class="ToolBar" flex="1">
+                    <button id="modify" label="&localization.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modify', null, 'Localization');"   />
+                    <spacer flex="1"/>
+                    <button id="auto_fill" label="&localization.action.generate;" oncommand="$do('generateAll', null, 'Localization');"   />
+                    <button id="export_xpi"  label="&localization.action.export;" oncommand="$do('exportXPI', null, 'Localization');"   />
+                </hbox>
+                <hbox flex="0" id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="save" label="&localization.action.save;" disabled="true" class="SaveBtn" oncommand="$do('save', null, 'Localization');"/>
+                    <spacer flex="1"/>
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
             </hbox>
         </vbox>
 
-    </box>
+    </vbox>
 </window>

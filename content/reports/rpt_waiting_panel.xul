@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/reports/rpt_waiting_panel.dtd">
+<!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
 
 <overlay id="waiting_panel"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
@@ -10,7 +10,7 @@
 			<hbox class="pop-dialog" flex="1" pack="center" style="margin: 0; padding: 0; display: -moz-box;">
 				<vbox flex="1" class="WaitPnl" style="width: 400px;" >
 				<groupbox flex="1">
-					<caption id="waiting_caption" label="&rptwaitingpanel.wait;" statustext="&rptwaitingpanel.wait;" class="PageTitle"/>
+					<caption id="waiting_caption" label="&dialog.reports.wait;" statustext="&dialog.reports.wait;" class="PageTitle"/>
 					<spacer style="height: 20px;" />
 					<vbox id="progress_box">
 						<!--progressmeter id="progress" mode="determined" value="0" /-->

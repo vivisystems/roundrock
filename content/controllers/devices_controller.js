@@ -24,7 +24,7 @@
             this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
 
             // load device ports
-	    this.getPorts();
+            this.getPorts();
 
             // load port speeds
             var portspeeds = GeckoJS.Configure.read('vivipos.fec.registry.portspeeds');
@@ -47,8 +47,9 @@
                 var statusResult = this.checkStatusAll();
 
                 if (!statusResult.printerEnabled) {
-                    GREUtils.Dialog.alert(window, _('Device Status'),
-                                                  _('No device has been enabled for receipt and/or check printing!'));
+                    GREUtils.Dialog.alert(this.activeWindow,
+                                          _('Device Status'),
+                                          _('No device has been enabled for receipt and/or check printing!'));
                 }
 
                 var statusStr = '';
@@ -64,8 +65,9 @@
                 });
 
                 if (offline) {
-                    GREUtils.Dialog.alert(window, _('Device Status'),
-                                                  _('The following enabled devices appear to be offline, please ensure that they are functioning correctly') + '\n  ' + statusStr);
+                    GREUtils.Dialog.alert(this.activeWindow,
+                                          _('Device Status'),
+                                          _('The following enabled devices appear to be offline, please ensure that they are functioning correctly') + '\n  ' + statusStr);
                 }
             }
             // observer device-refresh topic
@@ -278,7 +280,7 @@
                 file.close();
             }
             catch (e) {
-                this.log('Error reading from template file [' + path + ']');
+                this.log('WARN', 'Error reading from template file [' + path + ',' + GREUtils.File.chromeToPath(path) + ']');
                 bytes = '';
             }
             return bytes;
@@ -1622,8 +1624,9 @@
             var statusResult = this.checkStatusAll();
 
             if (!statusResult.printerEnabled) {
-                GREUtils.Dialog.alert(window, _('Device Status'),
-                                              _('No device has been enabled for receipt and/or check printing!'));
+                GREUtils.Dialog.alert(this.activeWindow,
+                                      _('Device Status'),
+                                      _('No device has been enabled for receipt and/or check printing!'));
             }
             
             var statusStr = '';
@@ -1639,7 +1642,8 @@
             });
 
             if (offline) {
-                if (GREUtils.Dialog.confirm(null, _('Device Status'),
+                if (GREUtils.Dialog.confirm(this.activeWindow,
+                                            _('Device Status'),
                                             _('The following enabled devices appear to be offline, do you still want to save the new configuration?') + '\n' + statusStr) == false) {
                         if (data != null) data.cancel = true;
                         return;

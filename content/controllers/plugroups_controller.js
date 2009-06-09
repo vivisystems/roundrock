@@ -177,7 +177,7 @@
                 NotifyUtils.error(_('[%S] has been linked to one or more check printers and may not be deleted', [name]));
                 evt.preventDefault();
             }
-            else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [name]), _('Are you sure?')) == false) {
+            else if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [name]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },

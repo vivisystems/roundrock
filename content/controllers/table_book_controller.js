@@ -56,7 +56,7 @@
 
         addBooking: function() {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {input0:null, require0:true, input1:null, require1:false, numpad:true};
 
             window.openDialog(aURL, _('Add Booking'), features, _('New Booking'), '', _('Contact'), _('Telephone'), inputObj);

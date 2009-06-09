@@ -472,7 +472,58 @@
 
             this.execute("DELETE FROM " + this.table + " WHERE " + conditions);
 
+        },
+        
+        getOrderChecksum: function(id) {
+            if (!id) return ""; // return "" is id not specify
+
+            var ds = this.getDataSource();
+            if (!ds) return ""; // return "" if datasouce is null
+
+            var checksum = "";
+            var datas = [];
+
+            //hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'],
+
+            datas = ds.fetchAll("SELECT id,modified from orders where id = '"+id+"'");
+            datas.forEach(function (d) {
+              checksum += d.id + d.modified;
+            });
+
+            datas = ds.fetchAll("SELECT id,modified from order_items where order_id = '"+id+"'");
+            datas.forEach(function (d) {
+              checksum += d.id + d.modified;
+            });
+
+            datas = ds.fetchAll("SELECT id,modified from order_additions where order_id = '"+id+"'");
+            datas.forEach(function (d) {
+              checksum += d.id + d.modified;
+            });
+
+            datas = ds.fetchAll("SELECT id,modified from order_payments where order_id = '"+id+"'");
+            datas.forEach(function (d) {
+              checksum += d.id + d.modified;
+            });
+
+            datas = ds.fetchAll("SELECT id,modified from order_annotations where order_id = '"+id+"'");
+            datas.forEach(function (d) {
+              checksum += d.id + d.modified;
+            });
+
+            datas = ds.fetchAll("SELECT id,modified from order_item_condiments where order_id = '"+id+"'");
+            datas.forEach(function (d) {
+              checksum += d.id + d.modified;
+            });
+
+            datas = ds.fetchAll("SELECT id,modified from order_promotions where order_id = '"+id+"'");
+            datas.forEach(function (d) {
+              checksum += d.id + d.modified;
+            });
+
+            return GREUtils.CryptoHash.md5(checksum);
+            
         }
+
 
     };
 

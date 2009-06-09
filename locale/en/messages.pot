@@ -22,6 +22,9 @@ msgstr "Jobs"
 msgid "Image Manager"
 msgstr "Image Manager"
 
+msgid "Layout Manager"
+msgstr "Layout Manager"
+
 msgid "Locale and Keyboard Mapping"
 msgstr "Language and Keyboard Mapping"
 
@@ -184,6 +187,29 @@ msgstr "Training Mode"
 msgid "trainingMode.desc"
 msgstr ""
 "This function is used to launch the training mode."
+
+msgid "returncartitem.desc"
+msgstr ""
+"This function is used to register return of the current item in the "
+"shopping cart. No parameter is needed."
+
+msgid "returncartitem.label"
+msgstr "Return Item"
+
+msgid "returncartitem.name"
+msgstr "Return Item"
+
+msgid "itembybarcode.desc"
+msgstr ""
+"This function is used to register an item by its product number or barcode."
+"The parameter must be set to the product number or the barcode of the item"
+"to be registered."
+
+msgid "itembybarcode.label"
+msgstr "PLU"
+
+msgid "itembybarcode.name"
+msgstr "Register PLU"
 
 msgid "annotate.desc"
 msgstr ""
@@ -699,6 +725,16 @@ msgstr "Check"
 msgid "check.name"
 msgstr "Check"
 
+msgid "showpayment.desc"
+msgstr ""
+"This function displays details of currently registered payments. No parameter is needed."
+
+msgid "showpayment.label"
+msgstr "Show Payments"
+
+msgid "showpayment.name"
+msgstr "Show Payments"
+
 msgid "addmemo.desc"
 msgstr ""
 "This function adds an open memo to an item in the cart. The memo may also be "
@@ -1152,7 +1188,10 @@ msgstr "Sample Label Argox 203TD"
 
 msgid "ledgerentry.desc"
 msgstr ""
-"This function is used to enter an entry into the ledger. No parameter is needed."
+"This function is used to enter an entry into the ledger. The parameter may "
+"be used to program an ledger entry type and a receipt device number "
+"(separated by commas.) If the receipt device number is not given, no receipt "
+"will be issued."
 
 msgid "Sample Receipt 24c condensed"
 msgstr "Sample Receipt 24c condensed"
@@ -2313,3 +2352,6 @@ msgstr "combined"
 
 msgid "(rpt)Obsolete Department"
 msgstr "Obsolete Department"
+
+msgid "Non PLU Setting"
+msgstr "Non PLU Setting"
