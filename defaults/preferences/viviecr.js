@@ -18,11 +18,12 @@ pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
  
 pref("vivipos.fec.settings.image.disklimit", 52428800);
 
+/*
 pref("vivipos.fec.settings.controlpanels.system.localization.label", "Localization Editor");
 pref("vivipos.fec.settings.controlpanels.system.localization.path", "chrome://viviecr/content/localization_editor.xul");
 pref("vivipos.fec.settings.controlpanels.system.localization.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.system.localization.roles", "acl_localization_editor");
-
+*/
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.label", "Store Contact");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.path", "chrome://viviecr/content/storecontact.xul");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_store.png");
@@ -186,6 +187,11 @@ pref("vivipos.fec.settings.controlpanels.config.ledger.label", "Ledger");
 pref("vivipos.fec.settings.controlpanels.config.ledger.path", "chrome://viviecr/content/ledger.xul");
 pref("vivipos.fec.settings.controlpanels.config.ledger.icon", "chrome://viviecr/skin/icons/icon_daybook.png");
 pref("vivipos.fec.settings.controlpanels.config.ledger.roles", "acl_manage_ledger");
+
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.label", "Non PLU Setting");
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.path", "chrome://viviecr/content/nonplu_setting.xul");
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.icon", "chrome://viviecr/skin/icons/icon_plus.png");
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.roles", "acl_manage_nonplu_setting");
 
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");

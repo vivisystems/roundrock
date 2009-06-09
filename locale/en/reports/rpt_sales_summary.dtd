@@ -7,7 +7,6 @@
 <!ENTITY rptsalessummary.exportrcp "Print">
 <!ENTITY rptsalessummary.togglezoom "Toggle Zoom">
 <!ENTITY rptsalessummary.terminal_no "Terminal:">
-<!ENTITY rptsalessummary.wait "Waiting...">
 <!ENTITY rptsalessummary.periodtype "Period Type:">
 <!ENTITY rptsalessummary.transaction_created "Order Opened">
 <!ENTITY rptsalessummary.transaction_submitted "Order Closed">

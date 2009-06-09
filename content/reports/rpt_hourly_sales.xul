@@ -11,7 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
-
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 
 <window id="main"
         hidechrome="true"
@@ -104,21 +104,17 @@
                 </hbox>
             </hbox>
             
-            <box class="reportbox" flex="1">
-                <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
-            </box>
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" id="previewBox" flex="1">
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1" />
+					</box>
+                </groupbox>
+            </hbox>
         </vbox>
     </vbox>
 
-    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
-        <vbox flex="1">
-        <groupbox flex="1">
-            <caption label="&rpthourlysales.wait;" class="PageTitle"/>
-            <spacer style="height: 20px;" />
-            <progressmeter id="progress" mode="determined" value="0" />
-            <spacer style="height: 20px;" />
-        </groupbox>
-        </vbox>
-    </panel>
-
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs" />
+	
 </window>

@@ -10,4 +10,3 @@
 <!ENTITY rptdepartments.sortby.no "Department Number">
 <!ENTITY rptdepartments.sortby.name "Department Name">
 <!ENTITY rptdepartments.sortby "Sort by:">
-<!ENTITY rptdepartments.wait "Waiting...">

@@ -25,7 +25,6 @@
 <!ENTITY rptdailysales.sortby.coupon "Coupon">
 <!ENTITY rptdailysales.sortby.giftcard "Gift Card">
 <!ENTITY rptdailysales.all "List All">
-<!ENTITY rptdailysales.wait "Waiting...">
 <!ENTITY rptdailysales.periodtype "Period Type:">
 <!ENTITY rptdailysales.transaction_created "Order Opened">
 <!ENTITY rptdailysales.transaction_submitted "Order Closed">

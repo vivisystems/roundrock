@@ -12,10 +12,10 @@
         
         _fileName: "rpt_order_status",
 
-        _set_reportRecords: function(limit) {
+        _set_reportRecords: function( limit ) {
 
-            limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
             
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;

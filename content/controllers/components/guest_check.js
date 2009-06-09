@@ -136,7 +136,31 @@
                 var minimum_charge_per_guest = this._guestCheck.tableSettings.GlobalMinimumChargePerGuest;
                 var table_no = evt.data.transaction.data.table_no;
                 var guests = evt.data.transaction.data.no_of_customers;
+
                 var total = evt.data.transaction.data.total;
+                switch (this._guestCheck.tableSettings.MinimumChargeFor)  {
+                    case "1":
+                        // original
+                        total = evt.data.transaction.data.item_subtotal;
+                        break;
+                    /*
+                    case "2":
+                        // before revalue
+                        total = total - evt.data.transaction.data.revalue_subtotal;
+                        break;
+
+                    case "3":
+                        // before promote
+                        total = total - evt.data.transaction.data.promotion_subtotal;
+                        break;
+                    */
+                    default:
+                        // final total
+                        // total = evt.data.transaction.data.total;
+                        break;
+
+                }
+                
 
                 var tables = this._tableStatusModel.getTableStatusList();
                 var tableObj = new GeckoJS.ArrayQuery(tables).filter("table_no = '" + table_no + "'");

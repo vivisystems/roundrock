@@ -289,3 +289,8 @@ vividatetimepicker dropmarker {
     color: #534741;
     list-style-image: url(../images/dropdown.png);
 }
+
+.reportbox iframe {
+	border: 0px;
+	padding: 0px;
+}

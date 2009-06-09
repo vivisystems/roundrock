@@ -1,0 +1,24 @@
+<!ENTITY nonplusetting.title "Non PLU Setting">
+<!ENTITY nonplusetting.properties "Properties of Identifier">
+<!ENTITY nonplusetting.identifier "Identifier">
+<!ENTITY nonplusetting.activeidentifier "Active this Identifier">
+<!ENTITY nonplusetting.lengthoffield1 "Length of Field 1">
+<!ENTITY nonplusetting.lengthoffield2 "Length of Field 2">
+<!ENTITY nonplusetting.contentoffield2 "Content of Field 2">
+<!ENTITY nonplusetting.usepricecheckdigit "Use price check digit">
+<!ENTITY nonplusetting.decimalpointoffield2 "Decimal point of Field 2">
+<!ENTITY nonplusetting.backspace "DEL">
+<!ENTITY nonplusetting.clear "CLEAR">
+<!ENTITY nonplusetting.save "SAVE">
+
+<!ENTITY nonplusetting.header.active "Active">
+<!ENTITY nonplusetting.header.identifier "Identifier">
+<!ENTITY nonplusetting.header.field1 "Field1">
+<!ENTITY nonplusetting.header.field2check "*">
+<!ENTITY nonplusetting.header.field2 "Field2">
+<!ENTITY nonplusetting.header.content "Content">
+<!ENTITY nonplusetting.header.decimalpoint "Decimal">
+<!ENTITY nonplusetting.header.crc "CRC">
+<!ENTITY nonplusetting.header.pluno "Plu No">
+
+

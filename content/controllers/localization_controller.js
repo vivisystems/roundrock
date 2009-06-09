@@ -588,7 +588,7 @@
                     // fieDelta is used to increment/decrement container counts
                     var fileDelta = 0;
                     if (emptyCount * file.emptyCount == 0) {
-                        fileDelta = (emptyCount) ? -1 : 1;
+                        fileDelta = (emptyCount) ? 1 : -1;
                     }
 
                     file.emptyCount = emptyCount;
@@ -612,8 +612,15 @@
                             if (this.getAttribute('container') == 'true') {
                                 var folder = this.treecell.getAttribute('folder');
                                 var oldEmptyCount = this.treecell.getAttribute('emptyCount');
-                                var label = this.treecell.getAttribute('label');
-                                alert('tag: ' + this.treecell.tagName + ', label: ' + label + ', folder: ' + folder + ', empty count: ' + oldEmptyCount);
+
+                                var newEmptyCount = parseInt(oldEmptyCount) + parseInt(fileDelta);
+                                if (newEmptyCount == 0) {
+                                    this.treecell.setAttribute('label', folder);
+                                }
+                                else {
+                                    this.treecell.setAttribute('label', folder + ' (' + newEmptyCount + ')');
+                                }
+                                this.treecell.setAttribute('emptyCount', newEmptyCount);
                             }
                         })
                     }

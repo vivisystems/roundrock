@@ -96,7 +96,7 @@
                                         </row>
                                         <row>
                                             <vbox flex="1">
-                                                <label control="seats" value="&tableman.table.region; ----------------"/>
+                                                <label control="seats" value="&tableman.table.region;"/>
                                                 <!-- textbox id="table_region" name="region" form="tableForm" default="" onfocus="select()"/ -->
                                                 <menulist id="table_region" name="table_region_id" form="tableForm">
                                                     <menupopup id="table_region_menupopup">
@@ -105,7 +105,7 @@
                                                 </menulist>
                                             </vbox>
                                             <vbox flex="1">
-                                                <label control="seats" value="&tableman.table.destination; ----------------"/>
+                                                <label control="seats" value="&tableman.table.destination;"/>
                                                 <!-- textbox id="table_region" name="region" form="tableForm" default="" onfocus="select()"/ -->
                                                 <menulist id="table_destination" name="destination" form="tableForm">
                                                     <menupopup id="table_destination_menupopup">
@@ -289,14 +289,22 @@
                                                     </hbox>
                                                 </row>
                                                 <row>
-                                                    <label />
                                                     <vbox>
-                                                    <label value="&tableman.tableoptions.minimumchargeplu;" />
-                                                    <hbox>
-                                                    <textbox id="minimumChargePlu" name="MinimumChargePlu" form="settingsForm" readonly="true" hidden="true"/>
-                                                    <textbox id="pluInfo" name="PluInfo" form="settingsForm" readonly="true"/>
-                                                    <vivibutton id="plusBtn" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('searchDialog', null, 'TableMan');" />
-                                                    </hbox>
+                                                        <label value="&tableman.tableoptions.minimumchargefor;" />
+                                                        <menulist id="minimumChargeFor" name="MinimumChargeFor" form="settingsForm">
+                                                            <menupopup id="minimumChargeForPopup">
+
+                                                            </menupopup>
+                                                        </menulist>
+                                                    </vbox>
+                                                    <vbox>
+                                                        <label value="&tableman.tableoptions.minimumchargeplu;" />
+                                                        <hbox>
+                                                            <textbox id="minimumChargePlu" name="MinimumChargePlu" form="settingsForm" readonly="true" hidden="true"/>
+                                                            <textbox id="pluInfo" name="PluInfo" form="settingsForm" readonly="true"/>
+                                                            <!-- vivibutton id="plusBtn" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('searchDialog', null, 'TableMan');" / -->
+                                                            <button id="plusBtn" class="ItemButtonA" image="chrome://viviecr/skin/images/gtk-find.png" oncommand="$do('searchDialog', null, 'TableMan');"/>
+                                                        </hbox>
                                                     </vbox>
                                                 </row>
                                             </rows>

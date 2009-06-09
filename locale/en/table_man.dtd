@@ -60,6 +60,7 @@
 <!ENTITY tableman.tableoptions.requestminimumcharge "Force Minimum Charge">
 <!ENTITY tableman.tableoptions.globalminimumchargepertable "Global Minimum Charge per table">
 <!ENTITY tableman.tableoptions.globalminimumchargeperguest "Global Minimum Charge per guest">
+<!ENTITY tableman.tableoptions.minimumchargefor "Apply Minimum Charge on:">
 <!ENTITY tableman.tableoptions.minimumchargeplu "Plu for Minimum Charge">
 
 <!ENTITY tableman.tableoptions.displayoptions "Display Elements:">
