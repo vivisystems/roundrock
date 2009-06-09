@@ -10,14 +10,14 @@
 
         <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
 
-            <box id="leftPanel" flex="1" style="overflow: hidden" orient="vertical" class="leftPanel">
+            <box id="leftPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel">
                 <box id="categoryPanelContainer" flex="0" class="categoryPanel" />
                 <box id="productPanelContainer" flex="1" class="productPanel" />
             </box>
 
-            <spacer id="panelSpacer" width="0px" flex="0"/>
+            <spacer id="panelSpacer" flex="1"/>
 
-            <box id="rightPanel" flex="1" class="rightPanel" orient="vertical">
+            <box id="rightPanel" flex="0" class="rightPanel" orient="vertical">
                 <box id="vfdPanelContainer" flex="1"/>
                 <box id="cartlistPanelContainer" flex="1"/>
                 <box id="promotionsStatusPanelContainer" flex="0"/>

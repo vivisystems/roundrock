@@ -13,7 +13,9 @@
 }
 
 .leftPanel {
-    width: 500px;
+    width: 504px;
+    min-width: 504px;
+    max-width: 504px;
 }
 
 .rightPanel {

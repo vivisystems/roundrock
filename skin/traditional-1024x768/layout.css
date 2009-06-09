@@ -16,10 +16,10 @@
 }
 
 .block-g .block-u  {
-    /* 49% */
-    width: 510px;
-    min-width: 510px;
-    max-width: 510px;
+    /* 50% */
+    width: 512px;
+    min-width: 512px;
+    max-width: 512px;
 }
 
 .block-gb .block-u.first, .block-gc .block-u {
