@@ -66,7 +66,7 @@ class TableStatus extends AppModel {
 		// $lastModified = 0; //1243000000;
 		$conditions = "modified > '" . $lastModified . "'";
 
-                $tableStatus = $this->find('all', array("conditions" => $conditions, "recursive" => 3));
+                $tableStatus = $this->find('all', array("conditions" => $conditions, "recursive" => 3, "order"=>array('TableStatus.table_no')));
                 // $tableStatus = $this->find('all');
 		
 		$tables = array();
