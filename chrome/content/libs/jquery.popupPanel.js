@@ -125,7 +125,7 @@
 
                 // if already init , call load function at showing event
                 if (typeof _init != 'undefined') {
-                    if(loadFunction) loadFunction.apply(this, [evt] );
+                    if(loadFunction) loadFunction.apply(_opts, [evt] );
                 }
 
                 // fixed for non-topmost panel
@@ -134,7 +134,7 @@
                     element.removeAttribute('noautohide');
                 }               
 
-                if(showingFunction) showingFunction.apply(this, [evt]);
+                if(showingFunction) showingFunction.apply(_opts, [evt]);
 
                 return onPopupShowingCB.call(evt);
 
@@ -160,18 +160,18 @@
 
                 if (typeof _init == 'undefined') {
 
-                    if(initFunction) initFunction.apply(this, [evt] );
+                    if(initFunction) initFunction.apply(_opts, [evt] );
 
                     $element.data('popupPanel.init', {});
 
-                    if(loadFunction) loadFunction.apply(this, [evt] );
+                    if(loadFunction) loadFunction.apply(_opts, [evt] );
 
                 }else {
                     // maybe load function calling at showing event.
                     evt.target.focus();
                 }
 
-                if(shownFunction) shownFunction.apply(this, [evt]);
+                if(shownFunction) shownFunction.apply(_opts, [evt]);
 
                 return onPopupShownCB.call(evt);
 
@@ -191,7 +191,7 @@
 
                 evt.data = _data;
 
-                if(hideFunction) hideFunction.apply(this, [evt] );
+                if(hideFunction) hideFunction.apply(_opts, [evt] );
 
                 return onPopupHiddenCB.call(evt);
             };
