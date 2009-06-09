@@ -240,8 +240,6 @@
             limit = parseInt(limit);
             if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
 
-            var waitPanel = this._showWaitPanel('wait_panel');
-
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 

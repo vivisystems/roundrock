@@ -15,7 +15,6 @@
 <!ENTITY rptdetailedtax.sortby.invoice_no "Invoice Number">
 <!ENTITY rptdetailedtax.sortby.total "Net">
 <!ENTITY rptdetailedtax.all "List All">
-<!ENTITY rptdetailedtax.wait "Waiting...">
 <!ENTITY rptdetailedtax.periodtype "Period Type:">
 <!ENTITY rptdetailedtax.created "Order Opened">
 <!ENTITY rptdetailedtax.transaction_submitted "Order Closed">

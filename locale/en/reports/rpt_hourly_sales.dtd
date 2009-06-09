@@ -16,7 +16,6 @@
 <!ENTITY rpthourlysales.sortby.guests "Guests">
 <!ENTITY rpthourlysales.sortby.items "Items">
 <!ENTITY rpthourlysales.all "List All">
-<!ENTITY rpthourlysales.wait "Waiting...">
 <!ENTITY rpthourlysales.periodtype "Period Type:">
 <!ENTITY rpthourlysales.transaction_created "Order Opened">
 <!ENTITY rpthourlysales.transaction_submitted "Order Closed">

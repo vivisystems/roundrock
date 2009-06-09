@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/reports/rpt_waiting_panel.dtd">
+
+<overlay id="waiting_panel"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <popupset id="dialogs">
+		<vivipanel id="wait_panel" position="overlap" noautohide="true" >
+			<hbox class="pop-dialog" flex="1" pack="center" style="margin: 0; padding: 0; display: -moz-box;">
+				<vbox flex="1" class="WaitPnl" style="width: 400px;" >
+				<groupbox flex="1">
+					<caption id="waiting_caption" label="&rptwaitingpanel.wait;" statustext="&rptwaitingpanel.wait;" class="PageTitle"/>
+					<spacer style="height: 20px;" />
+					<vbox id="progress_box">
+						<!--progressmeter id="progress" mode="determined" value="0" /-->
+					</vbox>
+					<spacer style="height: 20px;" />
+				</groupbox>
+				</vbox>
+			</hbox>
+		</vivipanel>
+    </popupset>
+    
+</overlay>
