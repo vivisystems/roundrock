@@ -26,13 +26,13 @@
                 return;
             this.initialized = true;
 
-            // addAppender for vivipos.log file.
-            GeckoJS.Log.addAppender('vivipos', new GeckoJS.Log.FileAppender(GeckoJS.Log.WARN, GeckoJS.Configure.read('CurProcD')+"/log/vivipos.log"));
-
             GeckoJS.Configure.loadPreferences('vivipos');
 
             // set log level
             var logLevel = GeckoJS.Configure.read('vivipos.fec.debug.log_level') || 'ERROR';
+
+            // addAppender for vivipos.log file.
+            GeckoJS.Log.addAppender('vivipos', new GeckoJS.Log.FileAppender(GeckoJS.Log.WARN, GeckoJS.Configure.read('CurProcD')+"/log/vivipos.log"));
 
             GeckoJS.Log.defaultClassLevel = GeckoJS.Log[logLevel];
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log[logLevel];
@@ -112,7 +112,11 @@
                             body += "  topic: " + topic + "\n";
                             body += "  data: " + data + "\n";
 
-                            GeckoJS.Observer.notify(null, topic, data);
+                            // use function wrapper , and response
+                            setTimeout(function() {
+                                GeckoJS.Observer.notify(null, topic, data);
+                            }, 0);
+                            
                         }
                     }catch(e) {
                         dump(e);
@@ -144,7 +148,11 @@
                             body += "  controller: " + controller + "\n";
                             body += "  command: " + command + "\n";
 
-                            GeckoJS.Dispatcher.dispatch(mainWindow, command, data, controller);
+                            // use function wrapper , and response
+                            setTimeout(function() {
+                                GeckoJS.Dispatcher.dispatch(mainWindow, command, data, controller);
+                            }, 10);
+                            
                         }
                     }catch(e){
                         dump(e);
@@ -174,14 +182,20 @@
                                     body = "session added: \n";
                                     body += "  key: " + key + "\n";
 
-                                    GeckoJS.Session.add(key, value);
+                                    // use function wrapper , and response
+                                    setTimeout(function() {
+                                        GeckoJS.Session.add(key, value);
+                                    }, 10);
 
                                 case "set":
 
                                     body = "session updated: \n";
                                     body += "  key: " + key + "\n";
 
-                                    GeckoJS.Session.set(key, value);
+                                    // use function wrapper , and response
+                                    setTimeout(function() {
+                                        GeckoJS.Session.set(key, value);
+                                    }, 10);
 
                                     break;
 
@@ -189,7 +203,11 @@
                                     body = "session removed: \n";
                                     body += "  key: " + key + "\n";
 
-                                    GeckoJS.Session.remove(key);
+                                    // use function wrapper , and response
+                                    setTimeout(function() {
+                                        GeckoJS.Session.remove(key);
+                                    }, 10);
+
                                     break;
 
                                 case "get":
@@ -222,9 +240,12 @@
 
             try {
                 // notify that vivipos STARTUP
-                var event = document.createEvent("Event");
+                var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+
+                var event = mainWindow.document.createEvent("Event");
                 event.initEvent("ViviposStartup", true, true);
-                window.dispatchEvent(event);
+                GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS dispatchEvent [ViviposStartup]');
+                mainWindow.dispatchEvent(event);
             }catch(e) {
             }
 
@@ -248,7 +269,7 @@
                 if (this._httpdServer) {
                     this._httpdServer.stop( {
                         onStopped: function() {
-                            // not things to do
+                            // nothing to do
                         }
                     });
 
@@ -260,10 +281,12 @@
             }
 
             try {
-                // notify that vivipos STARTUP
-                var event = document.createEvent("Event");
+                // notify that vivipos SHUTDOWN
+                var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+                var event = mainWindow.document.createEvent("Event");
                 event.initEvent("ViviposShutdown", true, true);
-                window.dispatchEvent(event);
+                GeckoJS.Log.getLoggerForClass('VIVIPOS').warn('VIVIPOS dispatchEvent [ViviposShutdown]');
+                mainWindow.dispatchEvent(event);
             }catch(e) {
             }
 

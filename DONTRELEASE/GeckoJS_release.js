@@ -2186,8 +2186,8 @@ GeckoJS.Log.Appender.prototype.getFormattedMessage = function (className, level,
     level = level || this.level || GeckoJS.Log.defaultClassLevel;
 
     var today = new Date();
-    var formattedDate = today.getUTCFullYear() + "-" + GeckoJS.String.padLeft(today.getUTCMonth(), 2) + "-" + GeckoJS.String.padLeft(today.getUTCDate(), 2) + " " +
-    GeckoJS.String.padLeft(today.getUTCHours(), 2) + ":" + GeckoJS.String.padLeft(today.getUTCMinutes(), 2) + ":" + GeckoJS.String.padLeft(today.getUTCSeconds(), 2);
+    var formattedDate = today.getFullYear() + "-" + GeckoJS.String.padLeft((today.getMonth() +1) , 2) + "-" + GeckoJS.String.padLeft(today.getDate(), 2) + " " +
+    GeckoJS.String.padLeft(today.getHours(), 2) + ":" + GeckoJS.String.padLeft(today.getMinutes(), 2) + ":" + GeckoJS.String.padLeft(today.getSeconds(), 2);
 
     var formattedException = '';
     if(exception) {
@@ -2713,6 +2713,24 @@ GeckoJS.Event.prototype.removeListener = function(aEvent, aListener){
  * @return {Boolean}              Whether preventDefault() has been invoked on the event
  */
 GeckoJS.Event.prototype.dispatch = function(aEvent, aEventData, aTarget){
+
+    /*
+     * if workerThread , disable dispatch and process callback .
+     * This will prevent listener update UI in worker thread.
+     */
+    try {
+        var curThread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
+        var mainThread = Components.classes["@mozilla.org/thread-manager;1"].getService().mainThread;
+
+        if (curThread !== mainThread) {
+            dump('WARN: Dispatch Event in worker Thread !!! \n');
+            return false;
+        }
+
+    }catch(e) {
+        return false;
+    }
+
     var eventItem = new GeckoJS.EventItem(aEvent, aEventData, aTarget);
 
     var self = this;
@@ -6511,7 +6529,12 @@ GeckoJS.Session.prototype.serialize = function(){
  * @param {String} str      The JSON representation of the Session context
  */
 GeckoJS.Session.prototype.unserialize = function(str) {
-	return this.map.unserialize(str);
+
+    	this.map.unserialize(str);
+
+        this.events.dispatch("unserialize", this);
+        return this;
+
 };
 /**
  * Defines the GeckoJS.Dispatcher namespace.

@@ -24,7 +24,11 @@
                     // alert('Maybe license error' );
                     var aURL = "chrome://vivipos/content/lic_help/lic_help.xul";
                     var aName = "LicenseHelp";
-                    var aArguments = {restart: false, shutdown: false, retry: false};
+                    var aArguments = {
+                        restart: false,
+                        shutdown: false,
+                        retry: false
+                    };
                     GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,resize=no", aArguments);
  
                     // only prompt once
