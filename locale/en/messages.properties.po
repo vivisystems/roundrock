@@ -2359,6 +2359,9 @@ msgstr "combined"
 msgid "(rpt)Obsolete Department"
 msgstr "Obsolete Department"
 
+msgid "Non PLU Setting"
+msgstr "Non PLU Setting"
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""
@@ -2947,7 +2950,7 @@ msgid "subtotal"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1930
-msgid "Not an open order; cannot add %S asdasdsd"
+msgid "Not an open order; cannot add %S"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1937

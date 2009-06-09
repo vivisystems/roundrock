@@ -2336,3 +2336,6 @@ msgstr "combined"
 
 msgid "(rpt)Obsolete Department"
 msgstr "Obsolete Department"
+
+msgid "Non PLU Setting"
+msgstr "Non PLU Setting"
