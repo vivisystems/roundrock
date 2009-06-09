@@ -35,6 +35,8 @@
                     }
                 }
             }
+            else
+                return this.buf;
         },
 	
         clearBuffer: function() {
@@ -148,7 +150,7 @@
                 case 13:
                     if (this.target == 'Cart') {
                         var cart = this.getCartController();
-                        cart.data = this.getBuffer(true);
+                        cart.data = this.getBuffer();
                         this.clearBuffer();
                         this.getCartController().addItemByBarcode(cart.data);
                     }

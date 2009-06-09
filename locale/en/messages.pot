@@ -175,6 +175,29 @@ msgstr "** TRAY"
 msgid "House Bon"
 msgstr "BON"
 
+msgid "returncartitem.desc"
+msgstr ""
+"This function is used to register return of the current item in the "
+"shopping cart. No parameter is needed."
+
+msgid "returncartitem.label"
+msgstr "Return Item"
+
+msgid "returncartitem.name"
+msgstr "Return Item"
+
+msgid "itembybarcode.desc"
+msgstr ""
+"This function is used to register an item by its product number or barcode. "
+"The parameter must be set to the product number or the barcode of the item "
+"to be registered."
+
+msgid "itembybarcode.label"
+msgstr "PLU"
+
+msgid "itembybarcode.name"
+msgstr "Register PLU"
+
 msgid "annotate.desc"
 msgstr ""
 "This function is used to add and/or view annotations. Annotations are "
@@ -1142,7 +1165,10 @@ msgstr "Sample Label Argox 203TD"
 
 msgid "ledgerentry.desc"
 msgstr ""
-"This function is used to enter an entry into the ledger. No parameter is needed."
+"This function is used to enter an entry into the ledger. The parameter may "
+"be used to program an ledger entry type and a receipt device number "
+"(separated by commas.) If the receipt device number is not given, no receipt "
+"will be issued."
 
 msgid "Sample Receipt 24c condensed"
 msgstr "Sample Receipt 24c condensed"

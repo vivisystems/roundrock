@@ -6,7 +6,7 @@
  */
 
 .RetailFunctionPnl {
-    margin: 25px 0 0 7px;
+    margin: 20px 0 0 2px;
 }
 
 .vivifuncpanelecr_function_panel {
@@ -250,7 +250,7 @@ vivifunctionpanelecr vivibutton[disabled=false]:active {
  */
 
 #toolbar {
-    margin: 8px 0 10px 0;
+    margin: 10px 0 8px 0;
     -moz-box-align: center;
     max-height: 50px;
 }
@@ -267,7 +267,7 @@ vivifunctionpanelecr vivibutton[disabled=false]:active {
 
 
 /* toggle button */
-
+/*
 .togglefunctionpanel {
   border: 0px solid;
   max-height: 40px;
@@ -302,7 +302,7 @@ vivifunctionpanelecr vivibutton[disabled=false]:active {
 .togglefunctionpanel[state=false]:active {
 	background-position: -40px 0;
 }
-
+*/
 /* clockin/out button */
 
 .clockinout {

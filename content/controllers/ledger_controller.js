@@ -33,6 +33,15 @@
                     // log error and notify user
                     this.dbError(model.lastError, model.lastErrorString,
                                  _('An error was encountered while expiring ledger activity logs (error code %S).', [model.lastError]));
+                    return;
+                }
+
+                model = new LedgerReceiptModel();
+                r = model.execute('delete from ledger_receipts where created <= ' + expireDate);
+                if (!r) {
+                    // log error and notify user
+                    this.dbError(model.lastError, model.lastErrorString,
+                                 _('An error was encountered while expiring ledger receipts (error code %S).', [model.lastError]));
                 }
             }
         },
@@ -44,6 +53,15 @@
                 // log error and notify user
                 this.dbError(model.lastError, model.lastErrorString,
                              _('An error was encountered while removing all ledger activity logs (error code %S).', [model.lastError]));
+                return;
+            }
+
+            model = new LedgerReceiptModel();
+            r = model.execute('delete from ledger_receipts');
+            if (!r) {
+                // log error and notify user
+                this.dbError(model.lastError, model.lastErrorString,
+                             _('An error was encountered while removing all ledger receipts (error code %S).', [model.lastError]));
             }
         },
 
@@ -84,6 +102,7 @@
             }
             var r = ledgerRecordModel.save(inputObj);
             if (r) {
+                inputObj.ledger_id = r.id;
                 r =  this.savePaymentEntry(inputObj);
             }
 
@@ -252,6 +271,17 @@
                 else {
                     this.getListObj().selection.select(-1);
                 }
+            }
+        },
+
+        openDrawerForLedgerEntry: function() {
+
+            // retrieve handle to cashdrawer controller
+            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+            var cashdrawer = mainWindow.GeckoJS.Controller.getInstanceByName( 'CashDrawer' );
+            if (cashdrawer) {
+                this.requestCommand('openDrawerForLedgerEntry', null, cashdrawer);
             }
         },
 

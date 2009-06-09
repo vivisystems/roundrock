@@ -37,26 +37,26 @@
 }
 
 .block-gd .block-u {
-    /* 25% */
-    width: 256px;
-    min-width: 256px;
-    max-width: 256px;
+    /* 22.16% */
+    width: 227px;
+    min-width: 227px;
+    max-width: 227px;
 }
 
 .block-ge .block-u {
-    /* 55% */
-    width: 537px;
-    min-width: 537px;
-    max-width: 537px;
-    margin: 35px 33px 0 0;
+    /* 55.66% */
+    width: 565px;
+    min-width: 565px;
+    max-width: 565px;
+    padding: 35px 28px 0 0;
 }
 
 .block-gf .block-u {
-    /* 20% */
-    width: 195px;
-    min-width: 195px;
-    max-width: 195px;
-    margin-right: 32px;
+    /* 22.16% */
+    width: 227px;
+    min-width: 227px;
+    max-width: 227px;
+    padding-right: 32px;
 }
 
 .block-r .block-u  {

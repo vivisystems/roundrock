@@ -243,7 +243,7 @@
         
         ShiftDialog: function (newSalePeriod, newShiftNumber, lastSalePeriod, lastShiftNumber) {
             var width = 400;
-            var height = 300;
+            var height = 330;
             var aURL = 'chrome://viviecr/content/alert_shift.xul';
             var aName = 'Shift Information';
             var aArguments = {current_sale_period: newSalePeriod,
@@ -782,7 +782,7 @@
 
                 // offer options to power off or restart and to print shift and day reports
                 aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=270';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=280';
                 var parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 window.openDialog(aURL, _('Sale Period Close'), features, parms);
 
@@ -809,7 +809,7 @@
 
                 // shift change notification and print option
                 aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=477,height=150';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=150';
                 message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 window.openDialog(aURL, _('Shift Close'), features, message);
 

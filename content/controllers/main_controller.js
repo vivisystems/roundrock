@@ -35,16 +35,6 @@
             deptNode.selectedIndex = 0;
             deptNode.selectedItems = [0];
             
-            // change log level
-            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
-            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
-
-            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
-            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.TRACE;
-
-            GeckoJS.Log.getLoggerForClass('DatasourceSQL').level = GeckoJS.Log.TRACE;
-            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.TRACE;
-
             var self = this;
             
             // observer restart topic
@@ -814,10 +804,10 @@
 
             if (waitCaption) waitCaption.setAttribute("label", title);
 
+            /*
             waitPanel.sizeTo(600, 120);
-            var x = (width - 600) / 2;
-            var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
+            */
+            waitPanel.openPopupAtScreen(0, 0);
 
             // release CPU for progressbar ...
             if (!sleepTime) {

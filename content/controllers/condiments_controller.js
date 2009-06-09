@@ -72,7 +72,7 @@
 
                 products.forEach(function(product) {
 
-                    if(product['cond_group'].length == 0) return false;
+                    if(!product['cond_group'] || product['cond_group'].length == 0) return false;
                     if (condGroupsByPLU[product['cond_group']]) return false;
 
                     var condgroup = product['cond_group'];

@@ -17,12 +17,12 @@ pref("vivipos.fec.settings.PrivateQueue", false);
 pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
  
 pref("vivipos.fec.settings.image.disklimit", 52428800);
-/*
+
 pref("vivipos.fec.settings.controlpanels.system.localization.label", "Localization Editor");
 pref("vivipos.fec.settings.controlpanels.system.localization.path", "chrome://viviecr/content/localization_editor.xul");
 pref("vivipos.fec.settings.controlpanels.system.localization.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.system.localization.roles", "acl_localization_editor");
-*/
+
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.label", "Store Contact");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.path", "chrome://viviecr/content/storecontact.xul");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_store.png");
@@ -187,6 +187,11 @@ pref("vivipos.fec.settings.controlpanels.config.ledger.path", "chrome://viviecr/
 pref("vivipos.fec.settings.controlpanels.config.ledger.icon", "chrome://viviecr/skin/icons/icon_daybook.png");
 pref("vivipos.fec.settings.controlpanels.config.ledger.roles", "acl_manage_ledger");
 
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.label", "Non PLU Setting");
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.path", "chrome://viviecr/content/nonplu_setting.xul");
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.icon", "chrome://viviecr/skin/icons/icon_plus.png");
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.roles", "acl_manage_nonplu_setting");
+
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");
 pref("vivipos.fec.registry.function.programmable.tagitem.controller", "Cart");
@@ -317,6 +322,16 @@ pref("vivipos.fec.registry.function.programmable.quantity.command", "sendCharcod
 pref("vivipos.fec.registry.function.programmable.quantity.controller", "Keypad");
 pref("vivipos.fec.registry.function.programmable.quantity.data", "X");
  
+pref("vivipos.fec.registry.function.programmable.itembybarcode.access", "acl_register_plus");
+pref("vivipos.fec.registry.function.programmable.itembybarcode.command", "addItemByBarcode");
+pref("vivipos.fec.registry.function.programmable.itembybarcode.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.itembybarcode.data", "");
+
+pref("vivipos.fec.registry.function.programmable.returncartitem.access", "acl_register_return");
+pref("vivipos.fec.registry.function.programmable.returncartitem.command", "returnCartItem");
+pref("vivipos.fec.registry.function.programmable.returncartitem.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.returncartitem.data", "");
+
 pref("vivipos.fec.registry.function.programmable.enter.access", "acl_register_enter");
 pref("vivipos.fec.registry.function.programmable.enter.command", "sendKeycode");
 pref("vivipos.fec.registry.function.programmable.enter.controller", "Keypad");
@@ -683,6 +698,14 @@ pref("vivipos.fec.reportpanels.promotionsummary.path", "chrome://viviecr/content
 pref("vivipos.fec.reportpanels.promotionsummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.promotionsummary.roles", "acl_run_report");
 
+pref("vivipos.fec.registry.templates.ledger-sample-42c.label", "Sample Ledger Receipt 42c");
+pref("vivipos.fec.registry.templates.ledger-sample-42c.type", "receipt");
+pref("vivipos.fec.registry.templates.ledger-sample-42c.path", "chrome://viviecr/content/devices/templates/ledger-sample-42c.tpl");
+
+pref("vivipos.fec.registry.templates.ledger-sample-24c.label", "Sample Ledger Receipt 24c");
+pref("vivipos.fec.registry.templates.ledger-sample-24c.type", "receipt");
+pref("vivipos.fec.registry.templates.ledger-sample-24c.path", "chrome://viviecr/content/devices/templates/ledger-sample-24c.tpl");
+
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");
@@ -867,12 +890,22 @@ pref("vivipos.fec.registry.layouts.traditional.desc", "chrome://viviecr/locale/m
 pref("vivipos.fec.registry.layouts.traditional.overlay_uri", "chrome://viviecr/content/layouts/traditional.xul");
 pref("vivipos.fec.registry.layouts.traditional.icon", "chrome://viviecr/content/layouts/traditional.png");
 pref("vivipos.fec.registry.layouts.traditional.disabled_features", "");
+pref("vivipos.fec.registry.layouts.traditional.skin", "traditional-${width}x${height}/1.0");
+
+
+pref("vivipos.fec.registry.layouts.jcm.label", "jcm");
+pref("vivipos.fec.registry.layouts.jcm.desc", "jcm");
+pref("vivipos.fec.registry.layouts.jcm.overlay_uri", "chrome://viviecr/content/layouts/jcm.xul");
+pref("vivipos.fec.registry.layouts.jcm.icon", "chrome://viviecr/content/layouts/traditional.png");
+pref("vivipos.fec.registry.layouts.jcm.disabled_features", "");
+pref("vivipos.fec.registry.layouts.jcm.skin", "traditional-${width}x${height}/1.0");
 
 pref("vivipos.fec.registry.layouts.retail.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.retail.desc", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.layouts.retail.overlay_uri", "chrome://viviecr/content/layouts/retail.xul");
 pref("vivipos.fec.registry.layouts.retail.icon", "chrome://viviecr/content/layouts/retail.png");
-pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft,ProductPanelOnTop,fnheightFeature");
+pref("vivipos.fec.registry.layouts.retail.disabled_features", "RegisterAtLeft,ProductPanelOnTop,fnheightFeature,deptheightFeature,condimentPanelFeature");
+pref("vivipos.fec.registry.layouts.retail.skin", "retail-${width}x${height}/1.0");
 
 pref("vivipos.fec.registry.localization.package.viviecr.base", "en");
 pref("vivipos.fec.registry.localization.package.viviecr.ext", "dtd,properties");

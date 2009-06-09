@@ -278,7 +278,7 @@
                 file.close();
             }
             catch (e) {
-                this.log('Error reading from template file [' + path + ']');
+                this.log('WARN', 'Error reading from template file [' + path + ',' + GREUtils.File.chromeToPath(path) + ']');
                 bytes = '';
             }
             return bytes;
