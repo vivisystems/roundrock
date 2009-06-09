@@ -15,8 +15,6 @@
                 this.updateProducts();
             }
 
-            this._productsById = GeckoJS.Session.get('productsById');
-            
             // binding dom
             this.bindingPanel(domId);
 
@@ -218,7 +216,7 @@
         getCurrentIndexData: function (row) {
             
             var id = this.data[row];
-            var products = this._productsById ; //  GeckoJS.Session.get('productsById');
+            var products = GeckoJS.Session.get('productsById');
             
             return products[id];
         },
@@ -227,7 +225,7 @@
             
             // this.log(row +","+col);
             // var products = GeckoJS.Session.get('productsById');
-            var products = this._productsById; // GeckoJS.Session.get('productsById');
+            var products = GeckoJS.Session.get('productsById');
 
             var sResult;
             var id;
@@ -251,7 +249,7 @@
 
         getImageSrc: function(row, col) {
 
-            var products = this._productsById;
+            var products = GeckoJS.Session.get('productsById');
 
             var cachedKey = 'pluimages' ;
             var colKey = col.id;

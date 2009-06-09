@@ -41,7 +41,6 @@
 
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
-
                 // maybe controllPanel update product session.
                 // just refresh view , dont prepare product array to session.
                 if (evt.data.key == 'productsIndexesByCateAll') {
@@ -82,7 +81,6 @@
                     this._data = productsIndexesByCate[cate.no] || [];
                 }
             }
-
             try {
                 //we cheat here, invoke vivibutton directly to reset to first page and refresh the buttons
                 this._prodscrollablepanel.vivibuttonpanel.startOffset = 0;
