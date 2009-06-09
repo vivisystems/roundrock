@@ -7,9 +7,9 @@
             this._data = [];
             this.hideInvisible = this.hideInvisible || false;
 
-            if (GeckoJS.Session.get('categories') == null) {
+            var categories = GeckoJS.Session.get('categories');
+            if (categories == null)
                 this.updateCategories();
-            }
 
             // binding dom
             this.bindingPanel(domId);
@@ -77,6 +77,8 @@
             GeckoJS.Session.add('categoriesIndexes', indexCate);
             GeckoJS.Session.add('categoriesIndexesAll', indexCateAll);
 
+            this._categoriesById = byId;
+
         },
 
         refreshView: function() {
@@ -89,6 +91,7 @@
                 categoriesIndexes = GeckoJS.Session.get('categoriesIndexesAll');
             }
             this._data = categoriesIndexes;
+            
             try {
                 this.tree.invalidate();
             }
@@ -138,7 +141,6 @@
 
         getCellValue: function(row, col) {
             
-            // this.log(row +","+col);
             var categories = GeckoJS.Session.get('categoriesById');
 
             var sResult;
@@ -192,7 +194,8 @@
                 //$(btn).addClass('font-'+ buttonFontSize);
             }
             if (classStr.length > 0) {
-                $(btn).addClass(classStr);
+                // $(btn).addClass(classStr);
+                btn.className += " " + classStr;
             }
 
         }

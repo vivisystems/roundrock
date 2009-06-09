@@ -72,7 +72,7 @@
 
                 products.forEach(function(product) {
 
-                    if(product['cond_group'].length == 0) return false;
+                    if(!product['cond_group'] || product['cond_group'].length == 0) return false;
                     if (condGroupsByPLU[product['cond_group']]) return false;
 
                     var condgroup = product['cond_group'];
@@ -302,7 +302,7 @@
 
         add: function  () {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
 
             var inputObj = {
                 input0:null,
@@ -427,7 +427,7 @@
                 return;
             }
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
                 var condGroupModel = new CondimentGroupModel();
                 var condimentModel = new CondimentModel();
 
@@ -504,7 +504,7 @@
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {
                 input0:null,
                 input1:0,
@@ -663,7 +663,7 @@
             var condGroups = GeckoJS.Session.get('condGroups');
             var condiment = condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex];
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [condiment.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [condiment.name]), _('Are you sure?'))) {
 
                 var condModel = new CondimentModel();
 

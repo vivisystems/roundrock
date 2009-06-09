@@ -99,11 +99,14 @@
         unserialize: function(data) {
             // @todo
             this.data = GeckoJS.BaseObject.unserialize(data);
+            Transaction.events.dispatch('onUnserialize', this, this);
         },
 
         unserializeFromOrder: function(order_id) {
             var order = new OrderModel();
             this.data = order.unserializeOrder(order_id);
+
+            Transaction.events.dispatch('onUnserialize', this, this);
         },
 
         create: function() {
@@ -1904,6 +1907,7 @@
                     if (dispItem.index != null) {
                         switch(dispItem.type) {
                             case 'item':
+                            case 'setitem':
                                 if (transItems[dispItem.index] != null) {
                                     transItems[dispItem.index].batch = batch;
                                     batchItemCount++;

@@ -41,7 +41,7 @@
         add: function () {
 
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300";
             var inputObj = {input0:null, require0:true};
 
             window.openDialog(aURL, _('Add New ACL Group'), features, _('New ACL Group'), '', _('Group Name'), '', inputObj);
@@ -78,10 +78,10 @@
             if (users && users.length > 0) {
                 var userlist = GeckoJS.Array.objectExtract(users, '{n}.description').join(", ");
                 userlist = [group].concat(userlist);
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.activeWindow,
                                       _('Remove User'),
                                       _('The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.', userlist));
-            } else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [group]), _('Are you sure?'))) {
+            } else if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [group]), _('Are you sure?'))) {
 
                 try {
                     this.Acl.removeGroup(group);

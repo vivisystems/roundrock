@@ -131,7 +131,7 @@
             if (this._listDatas.length <= 0) {
                 // barcode notfound
                 // @todo OSD?
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.activeWindow,
                                       _('Product Search'),
                                       _('Product [%S] Not Found!', [barcode]));
             } else if (this._listDatas.length == 1) {

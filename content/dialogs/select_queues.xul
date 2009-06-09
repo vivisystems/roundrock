@@ -19,7 +19,7 @@
 
     <popupset id="dialogs">
 
-        <panel id="selectQueuesPanel" noautohide="false">
+        <vivipanel id="selectQueuesPanel" noautohide="false" pack="center">
 
             <hbox flex="1" class="main-dialog" pack="center" style="margin: 0; padding: 0;">
 
@@ -62,7 +62,7 @@
 
             </hbox>
 
-        </panel>
+        </vivipanel>
 
     </popupset>
 

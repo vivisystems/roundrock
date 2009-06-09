@@ -105,7 +105,7 @@
 
         add: function  () {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
 
             var inputObj = {
                 input0:null,
@@ -368,7 +368,7 @@
 
             if (!selObj) return;
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [selObj.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [selObj.name]), _('Are you sure?'))) {
 
                 try {
 

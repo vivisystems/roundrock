@@ -17,4 +17,3 @@
 <!ENTITY rptproducts.rate "Tax">
 <!ENTITY rptproducts.stock "Stock">
 <!ENTITY rptproducts.min_stock "Low Threshold">
-<!ENTITY rptproducts.wait "Waiting...">

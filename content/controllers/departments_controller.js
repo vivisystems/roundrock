@@ -171,7 +171,7 @@
 
         add: function  () {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
@@ -256,7 +256,7 @@
                 return;
             }
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [dept.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [dept.name]), _('Are you sure?'))) {
                 var cateModel = new CategoryModel();
 
                 try {

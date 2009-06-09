@@ -177,6 +177,14 @@
 
         confirm: function() {
 
+            // var datasource = document.getElementById('sourcecheckscrollablepanel').datasource;
+            var rows = document.getElementById('sourcecheckscrollablepanel').rowCount;
+
+            if (rows > 0) {
+                // not yet merged...
+                return;
+            }
+
             var order = new OrderModel();
 
             // add to table_status

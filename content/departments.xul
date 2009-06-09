@@ -82,7 +82,7 @@
                             </vbox>
                             <vbox flex="0">
                                 <label style="width:10em" value="&departments.display_order;" control="display_order"/>
-                                <textbox id="display_order" default="" size="2" form="deptForm" name="display_order" onfocus="this.select()"/>
+                                <textbox id="display_order" default="" size="4" form="deptForm" name="display_order" onfocus="this.select()"/>
                             </vbox>
                        </row>
                     </rows>

@@ -69,8 +69,8 @@
             </columns>
             <rows>
                 <row>
-                    <checkbox id="RegisterAtLeft" label="&layout.registeratleft;" feature="true" preference="pref_registeratleft"/>
-                    <checkbox id="ProductPanelOnTop" label="&layout.productpanelontop;" feature="true" preference="pref_productpanelontop"/>
+                    <checkbox id="RegisterAtLeft" label="&layout.registeratleft;" feature="disabled" preference="pref_registeratleft"/>
+                    <checkbox id="ProductPanelOnTop" label="&layout.productpanelontop;" feature="disabled" preference="pref_productpanelontop"/>
                 </row>
                 <row>
                     <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>            
@@ -137,7 +137,7 @@
                         <label control="depcols" value="&layout.department.cols;"/>
                         <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
                     </vbox>
-                    <vbox>
+                    <vbox id="deptheightFeature" feature="hidden">
                         <label control="depbtnheight" value="&layout.department.button.height;"/>
                         <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
                     </vbox>
@@ -153,7 +153,7 @@
                         <textbox preference="pref_plucols" id="plucols" type="number" size="2" maxlength="1"/>
                     </vbox>
                 </row>
-                <row>
+                <row id="condimentPanelFeature" feature="hidden">
                     <label value="&layout.condiment.label;"/>
                     <vbox>
                         <label control="condrows" value="&layout.condiment.rows;"/>
@@ -168,13 +168,13 @@
                     <label value="&layout.functionpanel.label;"/>
                     <vbox>
                         <label control="pref_fnrows" value="&layout.functionpanel.rows;"/>
-                        <textbox preference="pref_fnrows" id="pref_fnrows" type="number" size="2" maxlength="1" min="1" max="9"/>
+                        <textbox preference="pref_fnrows" id="pref_fnrows" type="number" size="2" maxlength="1" min="1" max="99"/>
                     </vbox>
                     <vbox>
                         <label control="pref_fncols" value="&layout.functionpanel.cols;"/>
-                        <textbox preference="pref_fncols" id="pref_fncols" type="number" size="2" maxlength="1" min="1" max="9"/>
+                        <textbox preference="pref_fncols" id="pref_fncols" type="number" size="2" maxlength="1" min="1" max="99"/>
                     </vbox>
-                    <vbox>
+                    <vbox id="fnheightFeature" feature="hidden">
                         <label control="pref_fncols" value="&layout.functionpanel.height;"/>
                         <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="999"  size="3" maxlength="3"/>
                     </vbox>

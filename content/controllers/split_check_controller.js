@@ -47,6 +47,12 @@
             // this._splitItems = [];
             var selectedItems = document.getElementById('sourcecheckscrollablepanel').vivitree.selectedItems;
 
+            if (selectedItems.length <= 0) {
+                // @todo OSD
+                NotifyUtils.warn(_('Please select source items to split'));
+                return;
+            }
+
             //
             if (selectedItems.length == this._sourceItems.length) {
                 // @todo OSD
@@ -460,6 +466,11 @@
         },
 
         confirm: function() {
+            if (!this._splitItems || this._splitItems.length <= 0) {
+                //
+                return;
+            }
+
             var retOrder = this._saveOrders();
             var inputObj = window.arguments[0];
             inputObj.ok = true;
@@ -476,6 +487,11 @@
         },
 
         paythis: function() {
+            if (!this._splitItems || this._splitItems.length <= 0) {
+                //
+                return;
+            }
+            
             var retOrder = this._saveOrders(this._splitedIndex);
             var inputObj = window.arguments[0];
             inputObj.ok = true;

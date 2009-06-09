@@ -353,16 +353,15 @@
                                     </row>
                                 </rows>
                             </grid>
-                            <viviscrollabletree id="vivifuncpanelecr_prefs_keymap_function_tree"
-                                                class="keymap_function_list"
-                                                headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.label;"
-                                                fields="name,label"
-                                                seltype="single"
-                                                flex="1"
-                                                hidevscroll="true"
-                                                hidecolumnpicker="true"
-                                                scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
-                                                onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
+                            <vivitree id="vivifuncpanelecr_prefs_keymap_function_tree"
+                                      class="keymap_function_list showscrollbar"
+                                      headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.label;"
+                                      fields="name,label"
+                                      seltype="single"
+                                      flex="1"
+                                      hidevscroll="true"
+                                      hidecolumnpicker="true"
+                                      onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
                             <spacer height="3px" />
                             <hbox>
                                 <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_keymap_function_desc" wrap="true"
@@ -431,16 +430,15 @@
                                     </row>
                                 </rows>
                             </grid>
-                            <viviscrollabletree id="vivifuncpanelecr_prefs_gkeymap_function_tree"
-                                                class="keymap_function_list"
-                                                headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.label;"
-                                                fields="name,label"
-                                                seltype="single"
-                                                flex="1"
-                                                hidecolumnpicker="true"
-                                                hidevscroll="true"
-                                                scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
-                                                onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
+                            <vivitree id="vivifuncpanelecr_prefs_gkeymap_function_tree"
+                                      class="keymap_function_list showscrollbar"
+                                      headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.label;"
+                                      fields="name,label"
+                                      seltype="single"
+                                      flex="1"
+                                      hidecolumnpicker="true"
+                                      hidevscroll="true"
+                                      onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
                             <spacer height="3px" />
                             <hbox>
                                 <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_gkeymap_function_desc" wrap="true"

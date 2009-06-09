@@ -35,16 +35,6 @@
             deptNode.selectedIndex = 0;
             deptNode.selectedItems = [0];
             
-            // change log level
-            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
-            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
-
-            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
-            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.TRACE;
-
-            GeckoJS.Log.getLoggerForClass('DatasourceSQL').level = GeckoJS.Log.TRACE;
-            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.TRACE;
-
             var self = this;
             
             // observer restart topic
@@ -150,7 +140,6 @@
             var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=no,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
         },
 
@@ -710,7 +699,7 @@
 
                     if (promptDiscardCart) {
                         if (autoDiscardQueue || mustEmptyQueue || !canQueueOrder) {
-                            if (!GREUtils.Dialog.confirm(null, _('Sign Off'), _('Discard items that have been registered?'))) return;
+                            if (!GREUtils.Dialog.confirm(this.activeWindow, _('Sign Off'), _('Discard items that have been registered?'))) return;
                             responseDiscardCart = 1;
                         }
                         else {
@@ -735,7 +724,7 @@
 
                     if (promptDiscardQueue) {
                         if (mustEmptyQueue) {
-                            if (GREUtils.Dialog.confirm(null, _('Sign Off'), _('You have one or more queued orders. Discard them?')) == false) {
+                            if (GREUtils.Dialog.confirm(this.activeWindow, _('Sign Off'), _('You have one or more queued orders. Discard them?')) == false) {
                                 return;
                             }
                         }
@@ -758,7 +747,7 @@
                     }
 
                     if (!promptDiscardCart && !promptDiscardQueue)
-                        if (GREUtils.Dialog.confirm(null, _('confirm sign-off'), _('Are you ready to sign off?')) == false) {
+                        if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm sign-off'), _('Are you ready to sign off?')) == false) {
                             return;
                     }
                 }
@@ -814,10 +803,10 @@
 
             if (waitCaption) waitCaption.setAttribute("label", title);
 
+            /*
             waitPanel.sizeTo(600, 120);
-            var x = (width - 600) / 2;
-            var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
+            */
+            waitPanel.openPopupAtScreen(0, 0);
 
             // release CPU for progressbar ...
             if (!sleepTime) {
@@ -828,10 +817,10 @@
         },
 
         truncateTxnRecords: function() {
-            if (GREUtils.Dialog.confirm(window,
+            if (GREUtils.Dialog.confirm(this.activeWindow,
                                         _('Remove All Transaction Records'),
                                         _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
-                if (GREUtils.Dialog.confirm(window,
+                if (GREUtils.Dialog.confirm(this.activeWindow,
                                             _('Remove All Transaction Records'),
                                             _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
@@ -843,6 +832,15 @@
                     this.dispatchEvent('beforeTruncateTxnRecords', null);
 
                     try {
+                        // remove txn recovery file
+                        Transaction.removeRecoveryFile();
+
+                        // remove cart queue recovery file
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        if (cart) {
+                            cart.removeQueueRecoveryFile();
+                        }
+                        
                         // truncate order related tables
                         var orderModel = new OrderModel();
                         var r = orderModel.begin();
@@ -887,8 +885,9 @@
                         waitPanel.hidePopup();
                     }
 
-                    GREUtils.Dialog.alert(window, _('Remove All Transaction Records'),
-                                                  _('Removal completed. Application will now restart'));
+                    GREUtils.Dialog.alert(this.activeWindow,
+                                          _('Remove All Transaction Records'),
+                                          _('Removal completed. Application will now restart'));
 
                     try {
                         GREUtils.restartApplication();
@@ -958,14 +957,14 @@
         },
 
         reboot: function() {
-            if (GREUtils.Dialog.confirm(null, _('Reboot'), _('Please confirm to reboot the terminal')) == false) {
+            if (GREUtils.Dialog.confirm(this.activeWindow, _('Reboot'), _('Please confirm to reboot the terminal')) == false) {
                 return;
             }
             this.rebootMachine();
         },
 
         shutdown: function() {
-            if (GREUtils.Dialog.confirm(null, _('Shutdown'), _('Please confirm to shut down the terminal')) == false) {
+            if (GREUtils.Dialog.confirm(this.activeWindow, _('Shutdown'), _('Please confirm to shut down the terminal')) == false) {
                 return;
             }
             this.shutdownMachine();
@@ -1090,7 +1089,7 @@
 
         dbError: function(errNo, errMsg, alertStr) {
             this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(null,
+            GREUtils.Dialog.alert(this.activeWindow,
                                   _('Data Operation Error'),
                                   alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

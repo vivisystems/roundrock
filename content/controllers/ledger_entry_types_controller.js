@@ -91,7 +91,7 @@
 
         beforeScaffoldDelete: function(evt) {
             if (evt.data.id) {
-                if (GREUtils.Dialog.confirm(null, _('confirm delete %S (%S)', [evt.data.type, _(evt.data.mode)]), _('Are you sure?')) == false) {
+                if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S (%S)', [evt.data.type, _(evt.data.mode)]), _('Are you sure?')) == false) {
                     evt.preventDefault();
                 }
             }

@@ -52,7 +52,7 @@
             				'order_items.current_price',
                             'order_items.current_discount',
                             'order_items.current_surcharge',
-                            'order_items.current_subtotal',
+                            'order_items.current_subtotal + order_items.current_discount + order_items.current_surcharge as "OrderItem.current_subtotal"',
                             'order_items.current_tax + order_items.included_tax as "OrderItem.tax"'
                          ];
                             
@@ -133,58 +133,67 @@
                 summary.surcharge_subtotal -= data.current_surcharge || 0;
                 summary.discount_subtotal -= data.current_discount || 0;
                 
-                // need to push tax into tax list if data.tax_name not in taxList
-                if (!(data.tax_name in taxesByName)) {
-                    taxList.push({no: data.tax_name, name: data.tax_name});
-                    taxesByName[data.tax_name] = 1;
-                }
 				var taxObject = TaxComponent.prototype.getTax( data.tax_name );
 				
 				if (!taxObject || taxObject.type != typeCombineTax ) {
+
+                    // need to push tax into tax list if data.tax_name not in taxList
+                    if (!(data.tax_name in taxesByName)) {
+                        taxList.push({no: data.tax_name, name: data.tax_name});
+                        taxesByName[data.tax_name] = 1;
+                    }
+
                     if (records[ oid ]) {
                         if (data.tax_name in records[oid]) {
                             records[ oid ][ data.tax_name ].tax_subtotal += data.tax;
-                            records[ oid ][ data.tax_name ].item_subtotal += data.current_subtotal + data.current_surcharge + data.current_discount;
+                            records[ oid ][ data.tax_name ].item_subtotal += data.current_subtotal;
                         }
                         else {
                             records[ oid ][ data.tax_name ] = {
                                 tax_subtotal: data.tax,
-                                item_subtotal: data.current_subtotal + data.current_surcharge + data.current_discount
+                                item_subtotal: data.current_subtotal
                             }
                         }
                     }
                     if (data.tax_name in summary) {
                         summary[ data.tax_name ].tax_subtotal += data.tax;
-                        summary[ data.tax_name ].item_subtotal += data.current_subtotal + data.current_surcharge + data.current_discount;
+                        summary[ data.tax_name ].item_subtotal += data.current_subtotal;
                     }
                     else {
                         summary[ data.tax_name ] = {
                             tax_subtotal: data.tax,
-                            item_subtotal: data.current_subtotal + data.current_surcharge + data.current_discount
+                            item_subtotal: data.current_subtotal
                         }
                     }
 				} else {// break down the combined tax.
 					taxObject.CombineTax.forEach( function( cTax ) {
+
+                        // need to push tax into tax list if cTax.no not in taxList
+                        if (!(cTax.no in taxesByName)) {
+                            taxList.push({no: cTax.no, name: cTax.tax_name});
+                            taxesByName[cTax.no] = 1;
+                        }
+
 						var taxAmountObject = TaxComponent.prototype.calcTaxAmount( cTax.no, data.current_subtotal, data.current_price, data.current_qty );
 						var taxAmount = taxAmountObject[ cTax.no ].charge + taxAmountObject[ cTax.no ].included;
                         if (cTax.no in records[ oid ] ) {
                             records[ oid ][ cTax.no ].tax_subtotal += taxAmount;
-                            records[ oid ][ cTax.no ].item_subtotal += data.current_subtotal + data.current_surcharge + data.current_discount;
+                            records[ oid ][ cTax.no ].item_subtotal += data.current_subtotal;
                         }
                         else {
                             records[ oid ][ cTax.no ] = {
                                 tax_subtotal: taxAmount,
-                                item_subtotal: data.current_subtotal + data.current_surcharge + data.current_discount
+                                item_subtotal: data.current_subtotal
                             }
                         }
                         if (cTax.no in summary) {
                             summary[ cTax.no ].tax_subtotal += taxAmount;
-                            summary[ cTax.no ].item_subtotal += data.current_subtotal + data.current_surcharge + data.current_discount;
+                            summary[ cTax.no ].item_subtotal += data.current_subtotal;
                         }
                         else {
                             summary[ cTax.no ] = {
                                 tax_subtotal: taxAmount,
-                                item_subtotal: data.current_subtotal + data.current_surcharge + data.current_discount
+                                item_subtotal: data.current_subtotal
                             }
                         }
 					} );
@@ -230,8 +239,6 @@
 
             limit = parseInt(limit);
             if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
-
-            var waitPanel = this._showWaitPanel('wait_panel');
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;

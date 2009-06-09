@@ -770,14 +770,14 @@
             }
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {
                 input0:prodNo, require0:true, alphaOnly0:true,
                 input1:null, require1:true
             };
             window.openDialog(aURL, _('Add New Product'), features, _('New Product'), '', _('Product No.'), _('Product Name'), inputObj);
-
-            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
+            
+            if (inputObj.ok && (inputObj.input0.length > 0) && (inputObj.input1.length > 0)) {
                 var product = new ProductModel();
                 inputData.no = inputObj.input0;
                 inputData.name = inputObj.input1;
@@ -794,13 +794,9 @@
                         prodData.name = inputData.name;
                         prodData.cate_no = inputData.cate_no;
 
-                        product.save(prodData);
+                        var newProduct = product.save(prodData);
 
                         // need to retrieve product id
-                        var newProduct = product.findByIndex('first', {
-                            index: 'no',
-                            value: prodData.no
-                        });
                         if (newProduct != null) {
                             this.updateSession('add', newProduct);
                         }
@@ -943,7 +939,7 @@
                     return;
                 }
 
-                if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
+                if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
                 
                     //try {
                         prodModel.del(product.id);

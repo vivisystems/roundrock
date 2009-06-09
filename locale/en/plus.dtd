@@ -21,7 +21,7 @@
 <!ENTITY plus.linkgroups "Link Groups">
 
 <!ENTITY plus.department "Department">
-<!ENTITY plus.product.no "Product No.">
+<!ENTITY plus.product.no "Product Number">
 <!ENTITY plus.product.name "Product Name">
 <!ENTITY plus.product.alt.name1 "Altenative Product Name 1">
 <!ENTITY plus.product.alt.name2 "Altenative Product Name 2">
@@ -81,7 +81,7 @@
 <!ENTITY plus.halo "HALO">
 <!ENTITY plus.lalo "LALO">
 
-<!ENTITY plus.search.label "Enter Product No., Barcode, or Name">
+<!ENTITY plus.search.label "Enter Product Number, Barcode, or Name">
 <!ENTITY plus.search.advancesearch "Advanced Search">
 
 <!ENTITY plus.button.action.add "Add">

@@ -18,7 +18,6 @@
 <!ENTITY promotionsummary.sortby.matched_items_qty "Matched Item Quantity">
 <!ENTITY promotionsummary.sortby.matched_items_subtotal "Matched Item Amount">
 <!ENTITY promotionsummary.all "List All">
-<!ENTITY promotionsummary.wait "Waiting...">
 <!ENTITY promotionsummary.periodtype "Period Type:">
 <!ENTITY promotionsummary.created "Order Opened">
 <!ENTITY promotionsummary.transaction_submitted "Order Closed">
