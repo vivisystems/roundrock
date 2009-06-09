@@ -6,7 +6,7 @@
 
     var __controller__ = {
         name: 'Cart',
-        components: ['Tax', 'GuestCheck'],
+        components: ['Tax', 'GuestCheck', 'Barcode'],
         _cartView: null,
         _queuePool: null,
         _returnMode: false,
@@ -949,7 +949,29 @@
                 NotifyUtils.warn(_('Product number/barcode not provided'));
                 return;
             }
-            
+
+            // NON-PLU13
+            var identifier = this.Barcode.getNONPLU13Identifier(barcode);
+            if (identifier) {
+
+                var identifiers = GeckoJS.Session.get('NonPluIdentifiers');
+                var identifierIndex = GeckoJS.Session.get('NonPluIdentifierIndex');
+
+                var index = identifierIndex[identifier];
+
+                var identifierObj = identifiers[index];
+
+                if (identifierObj && identifierObj.active) {
+                    var check_digit = identifierObj.use_price_check_digit ? 1 : 0;
+                    var pluno = barcode.substr(2, identifierObj.length_of_field1);
+
+                    var field2 = barcode.substr(2 + parseInt(identifierObj.length_of_field1) + check_digit, identifierObj.length_of_field2) / Math.pow(10, identifierObj.decimal_point_of_field2);
+
+                    barcode = pluno;
+                }
+
+            }
+
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 
@@ -973,6 +995,17 @@
             this.dispatchEvent('beforeItemByBarcode', event);
             
             if (!event.error) {
+
+                // NON-PLU13
+                // modify price / quantity
+                if (identifier && identifierObj.active) {
+                    if (identifierObj.content_of_field2 == 0) {
+                        this.setPrice(field2);
+                    } else {
+                        this.setQty(field2);
+                    }
+                }
+
                 this.addItem(product);
             }
             else {
