@@ -22,6 +22,9 @@ msgstr "Jobs"
 msgid "Image Manager"
 msgstr "Image Manager"
 
+msgid "Layout Manager"
+msgstr "Layout Manager"
+
 msgid "Locale and Keyboard Mapping"
 msgstr "Language and Keyboard Mapping"
 
@@ -2531,7 +2534,7 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:259
 #: ../..//content/controllers/jobs_controller.js:144
 #: ../..//content/controllers/plugroups_controller.js:180
-#: ../..//content/controllers/plus_controller.js:946
+#: ../..//content/controllers/plus_controller.js:942
 #: ../..//content/controllers/promotions_manager_controller.js:371
 #: ../..//content/controllers/taxes_controller.js:213
 #: ../..//content/controllers/users_controller.js:248
@@ -2545,7 +2548,7 @@ msgstr ""
 #: ../..//content/controllers/jobs_controller.js:144
 #: ../..//content/controllers/ledger_entry_types_controller.js:94
 #: ../..//content/controllers/plugroups_controller.js:180
-#: ../..//content/controllers/plus_controller.js:946
+#: ../..//content/controllers/plus_controller.js:942
 #: ../..//content/controllers/pricelevelschedule_controller.js:157
 #: ../..//content/controllers/promotions_manager_controller.js:371
 #: ../..//content/controllers/taxes_controller.js:213
@@ -4239,7 +4242,7 @@ msgstr ""
 
 #: ../..//content/controllers/main_controller.js:172
 #: ../..//content/controllers/plus_controller.js:497
-#: ../..//content/controllers/plus_controller.js:988
+#: ../..//content/controllers/plus_controller.js:984
 #: ../..//content/controllers/plusearch_controller.js:135
 #: ../..//content/controllers/stocks_controller.js:118
 #: ../..//content/controllers/table_man_controller.js:506
@@ -4562,65 +4565,65 @@ msgstr ""
 msgid "Product Name"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:822
+#: ../..//content/controllers/plus_controller.js:818
 msgid "Product [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:826
+#: ../..//content/controllers/plus_controller.js:822
 msgid ""
 "An error occurred while adding Product [%S]; the product may not have been "
 "added successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:900
+#: ../..//content/controllers/plus_controller.js:896
 msgid "Product [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:905
+#: ../..//content/controllers/plus_controller.js:901
 msgid ""
 "An error occurred while modifying Product [%S]. The product may not have "
 "been modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:942
+#: ../..//content/controllers/plus_controller.js:938
 msgid "Product [%S] is part of a product set [%S] and may not be removed"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:974
+#: ../..//content/controllers/plus_controller.js:970
 msgid "Product [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:978
+#: ../..//content/controllers/plus_controller.js:974
 msgid ""
 "An error occurred while removing Product [%S]. The product may not have been "
 "removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1001
+#: ../..//content/controllers/plus_controller.js:997
 msgid "Product [%S] already linked to to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1016
+#: ../..//content/controllers/plus_controller.js:1012
 msgid "Selected products successfully linked to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1420
+#: ../..//content/controllers/plus_controller.js:1416
 msgid "Product Group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1428
+#: ../..//content/controllers/plus_controller.js:1424
 msgid "Department [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1444
+#: ../..//content/controllers/plus_controller.js:1440
 msgid "Product to Clone"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1449
+#: ../..//content/controllers/plus_controller.js:1445
 msgid "Clone Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1513
+#: ../..//content/controllers/plus_controller.js:1509
 msgid "Product [%S] cloned successfully"
 msgstr ""
 
@@ -5445,7 +5448,7 @@ msgstr ""
 
 #: ../..//content/helpers/nsi_condiments_view.js:145
 #: ../..//content/helpers/nsi_departments_view.js:201
-#: ../..//content/helpers/nsi_plus_view.js:158
+#: ../..//content/helpers/nsi_plus_view.js:156
 msgid "Sold Out -"
 msgstr ""
 

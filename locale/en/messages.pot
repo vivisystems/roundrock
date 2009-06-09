@@ -22,6 +22,9 @@ msgstr "Jobs"
 msgid "Image Manager"
 msgstr "Image Manager"
 
+msgid "Layout Manager"
+msgstr "Layout Manager"
+
 msgid "Locale and Keyboard Mapping"
 msgstr "Language and Keyboard Mapping"
 
