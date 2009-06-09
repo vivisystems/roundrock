@@ -1,0 +1,9 @@
+<!ENTITY localization.title "Localization Editor">
+<!ENTITY localization.heading.package "Package">
+<!ENTITY localization.heading.key "ID">
+<!ENTITY localization.heading.base.string "Base String">
+<!ENTITY localization.heading.translated.string "Translation">
+<!ENTITY localization.action.modify "Modify">
+<!ENTITY localization.action.save "Save">
+<!ENTITY localization.action.generate "Auto-Fill">
+<!ENTITY localization.action.export "Export">

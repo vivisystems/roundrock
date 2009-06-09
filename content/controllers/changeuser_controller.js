@@ -107,7 +107,7 @@
 
         dbError: function(errNo, errMsg, alertStr) {
             this.log('WARN', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(null,
+            GREUtils.Dialog.alert(this.activeWindow,
                                   _('Data Operation Error'),
                                   alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

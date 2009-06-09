@@ -712,6 +712,16 @@ msgstr "Check"
 msgid "check.name"
 msgstr "Check"
 
+msgid "showpayment.desc"
+msgstr ""
+"This function displays details of currently registered payments. No parameter is needed."
+
+msgid "showpayment.label"
+msgstr "Show Payments"
+
+msgid "showpayment.name"
+msgstr "Show Payments"
+
 msgid "addmemo.desc"
 msgstr ""
 "This function adds an open memo to an item in the cart. The memo may also be "

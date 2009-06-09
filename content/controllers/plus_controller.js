@@ -943,7 +943,7 @@
                     return;
                 }
 
-                if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
+                if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
                 
                     //try {
                         prodModel.del(product.id);

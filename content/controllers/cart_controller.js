@@ -291,7 +291,9 @@
                     var requireAck = GeckoJS.Configure.read('vivipos.fec.settings.AgeVerificationAck')
 
                     if (requireAck) {
-                        if (GREUtils.Dialog.confirm(null, _('confirm age'), _('Is customer of age for purchase of [%S]?', [item.name])) == false) {
+                        if (GREUtils.Dialog.confirm(this.activeWindow,
+                                                    _('confirm age'),
+                                                    _('Is customer of age for purchase of [%S]?', [item.name])) == false) {
                             evt.preventDefault();
                             return;
                         }
@@ -593,7 +595,7 @@
                 }
                 else {
                     //@todo OSD
-                    GREUtils.Dialog.alert(null,
+                    GREUtils.Dialog.alert(this.activeWindow,
                                           _('Memory Error'),
                                           _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation', [itemDisplay.name]));
                     exit = true;
@@ -1887,19 +1889,19 @@
 
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
-
+            
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
 
                 // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot add %s', [type]));
+                NotifyUtils.warn(_('Not an open order; cannot add %S asdasdsd', [type]));
 
                 this.subtotal();
                 return;
             }
 
             if (curTransaction.getItemsCount() < 1) {
-                NotifyUtils.warn(_('Nothing has been registered yet; cannot add %s', [type]));
+                NotifyUtils.warn(_('Nothing has been registered yet; cannot add %S', [type]));
 
                 this.subtotal();
                 return;
@@ -1948,7 +1950,7 @@
                 this.dispatchEvent('onHouseBon', null);
 
                 // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register %s', [name]));
+                NotifyUtils.warn(_('Not an open order; cannot register %S', [name]));
 
                 this.subtotal();
                 return;
@@ -2208,9 +2210,9 @@
 
                 if (payment > balance) {
                     // @todo OSD
-                    GREUtils.Dialog.alert(window,
-                        _('Credit Card Payment Error'),
-                        _('Credit card payment may not exceed remaining balance'));
+                    GREUtils.Dialog.alert(this.activeWindow,
+                                          _('Credit Card Payment Error'),
+                                          _('Credit card payment may not exceed remaining balance'));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -2420,9 +2422,9 @@
                 }
 
                 if (payment > balance) {
-                    if (GREUtils.Dialog.confirm(null,
-                        _('confirm giftcard payment'),
-                        _('Change of [%S] will NOT be given for this type of payment. Proceed?',
+                    if (GREUtils.Dialog.confirm(this.activeWindow,
+                                                _('confirm giftcard payment'),
+                                                _('Change of [%S] will NOT be given for this type of payment. Proceed?',
                             [curTransaction.formatPrice(payment - balance)])) == false) {
                         GeckoJS.Session.remove('cart_set_price_value');
                         GeckoJS.Session.remove('cart_set_qty_value');
@@ -2535,9 +2537,9 @@
 
                     if (payment - balance > limit) {
                         // @todo OSD
-                        GREUtils.Dialog.alert(window,
-                            _('Check Payment Error'),
-                            _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                        GREUtils.Dialog.alert(this.activeWindow,
+                                              _('Check Payment Error'),
+                                              _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
                         GeckoJS.Session.remove('cart_set_price_value');
                         GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -3017,8 +3019,9 @@
                 
                 // determine if new items have been added
                 if (!curTransaction.isModified() || forceCancel ||
-                    GREUtils.Dialog.confirm(null, _('confirm cancel'),
-                        _('Are you sure you want to discard changes made to this order?'))) {
+                    GREUtils.Dialog.confirm(this.activeWindow,
+                                            _('confirm cancel'),
+                                            _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
 
@@ -3099,14 +3102,14 @@
                         statusStr = existingOrder.status;
                         break;
                 }
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.activeWindow,
                                       _('Order Finalization'),
                                       _('Current order is no longer available for finalization (status = %S)', [statusStr]));
                 return false;
             }
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) {
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.activeWindow,
                                       _('Order Finalization'),
                                       _('Current order has non-zero balance and may not be closed'));
                 return false;
@@ -3187,8 +3190,9 @@
 
                 if (dest) {
                     if (curTransaction.data.destination != dest) {
-                        if (GREUtils.Dialog.confirm(null, _('confirm destination'),
-                            _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
+                        if (GREUtils.Dialog.confirm(this.activeWindow,
+                                                    _('confirm destination'),
+                                                    _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
                             return;
                         }
                     }
@@ -3203,8 +3207,9 @@
                     }
 
                     if (mismatch) {
-                        if (GREUtils.Dialog.confirm(null, _('confirm destination'),
-                            _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
+                        if (GREUtils.Dialog.confirm(this.activeWindow,
+                                                    _('confirm destination'),
+                                                    _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
                             return;
                         }
                     }
@@ -3617,16 +3622,16 @@
             }
 
             if (!order) {
-                GREUtils.Dialog.alert(window,
-                    _('Void Sale'),
-                    _('Failed to void: the selected order no longer exists'));
+                GREUtils.Dialog.alert(this.activeWindow,
+                                      _('Void Sale'),
+                                      _('Failed to void: the selected order no longer exists'));
                 return;
             }
 
             if (order.status < 1) {
-                GREUtils.Dialog.alert(window,
-                    _('Void Sale'),
-                    _('Failed to void: the selected order is not stored or finalized'));
+                GREUtils.Dialog.alert(this.activeWindow,
+                                      _('Void Sale'),
+                                      _('Failed to void: the selected order is not stored or finalized'));
                 return;
             }
 
@@ -3737,9 +3742,9 @@
 
                             this.dispatchEvent('afterVoidSale', order);
                             
-                            GREUtils.Dialog.alert(window,
-                                _('Void Sale'),
-                                _('Transaction [%S] successfully voided', [order.sequence]));
+                            GREUtils.Dialog.alert(this.activeWindow,
+                                                  _('Void Sale'),
+                                                  _('Transaction [%S] successfully voided', [order.sequence]));
                         }
                         else {
                             if (lastModel) {
@@ -3754,9 +3759,9 @@
                                              _('An error was encountered while voiding sale (error code %S).', [lastModel.lastError]));
                             }
                             else {
-                                GREUtils.Dialog.alert(window,
-                                    _('Void Sale'),
-                                    _('Errors were encountered while void order; order was not voided'));
+                                GREUtils.Dialog.alert(this.activeWindow,
+                                                      _('Void Sale'),
+                                                      _('Errors were encountered while void order; order was not voided'));
                             }
                         }
                     }
@@ -4325,7 +4330,7 @@
 
         dbError: function(errNo, errMsg, alertStr) {
             this.log('WARN', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(null,
+            GREUtils.Dialog.alert(this.activeWindow,
                                   _('Data Operation Error'),
                                   alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

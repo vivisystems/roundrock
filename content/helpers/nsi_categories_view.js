@@ -7,9 +7,9 @@
             this._data = [];
             this.hideInvisible = this.hideInvisible || false;
 
-            if (GeckoJS.Session.get('categories') == null) {
+            var categories = GeckoJS.Session.get('categories');
+            if (categories == null)
                 this.updateCategories();
-            }
 
             // binding dom
             this.bindingPanel(domId);
@@ -91,6 +91,7 @@
                 categoriesIndexes = GeckoJS.Session.get('categoriesIndexesAll');
             }
             this._data = categoriesIndexes;
+            
             try {
                 this.tree.invalidate();
             }
@@ -133,15 +134,14 @@
 
         getCurrentIndexData: function (row) {
             var id = this.data[row];
-            var categories = this._categoriesById ; //GeckoJS.Session.get('categoriesById');
+            var categories = GeckoJS.Session.get('categoriesById');
             
             return categories[id];
         },
 
         getCellValue: function(row, col) {
             
-            // this.log(row +","+col);
-            var categories = this._categoriesById ; //GeckoJS.Session.get('categoriesById');
+            var categories = GeckoJS.Session.get('categoriesById');
 
             var sResult;
             var id;

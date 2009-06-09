@@ -22,7 +22,6 @@
                 listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datastr));
             }
             GeckoJS.Session.set('annotations', listDatas);
-
         },
 
         /*
@@ -107,7 +106,8 @@
             if (index >= 0) {
                 var annotationCode = this._codeDatas[index].code;
 
-                if (!GREUtils.Dialog.confirm(null, _('confirm delete annotation code [%S]', [annotationCode]),
+                if (!GREUtils.Dialog.confirm(this.activeWindow,
+                                             _('confirm delete annotation code [%S]', [annotationCode]),
                                              _('Are you sure you want to delete annotation code [%S]?', [annotationCode]))) {
                     return;
                 }
@@ -336,7 +336,8 @@
             if (index >= 0) {
                 var annotationType = this._annotationDatas[index].type;
 
-                if (!GREUtils.Dialog.confirm(null, _('confirm delete annotation [%S]', [annotationType]),
+                if (!GREUtils.Dialog.confirm(this.activeWindow,
+                                             _('confirm delete annotation [%S]', [annotationType]),
                                              _('Are you sure you want to delete annotation [%S]?', [annotationType]))) {
                     return;
                 }

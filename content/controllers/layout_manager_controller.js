@@ -161,7 +161,7 @@
                     
                 var confirmMessage = _("Do you want to change layout") + "\n" + _("If you change layout now, the system will restart automatically after you return to the Main Screen.");
 
-                if (GREUtils.Dialog.confirm(this.window, _("Confirm Change Layout"), confirmMessage)) {
+                if (GREUtils.Dialog.confirm(this.activeWindow, _("Confirm Change Layout"), confirmMessage)) {
 
                     if(changedSkin.length > 0 ) {
                         GeckoJS.Configure.write('general.skins.selectedSkin', changedSkin);

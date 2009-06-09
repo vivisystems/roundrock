@@ -368,7 +368,7 @@
 
             if (!selObj) return;
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [selObj.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [selObj.name]), _('Are you sure?'))) {
 
                 try {
 

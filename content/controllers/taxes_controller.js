@@ -210,7 +210,7 @@
                 }
             }
             
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [tax.name]), _('Are you sure?')) == false) {
+            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [tax.name]), _('Are you sure?')) == false) {
                 return;
             }
             try {

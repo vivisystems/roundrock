@@ -432,6 +432,11 @@ pref("vivipos.fec.registry.function.programmable.check.command", "check");
 pref("vivipos.fec.registry.function.programmable.check.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.check.data", "");
 
+pref("vivipos.fec.registry.function.programmable.showpayment.access", "acl_register_plus");
+pref("vivipos.fec.registry.function.programmable.showpayment.command", "showPaymentStatus");
+pref("vivipos.fec.registry.function.programmable.showpayment.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.showpayment.data", "");
+
 pref("vivipos.fec.registry.function.programmable.addmemo.access", "acl_register_plus");
 pref("vivipos.fec.registry.function.programmable.addmemo.command", "addMemo");
 pref("vivipos.fec.registry.function.programmable.addmemo.controller", "Cart");
@@ -904,3 +909,9 @@ pref("vivipos.fec.registry.layouts.retail.skin", "retail-${width}x${height}/1.0"
 
 pref("vivipos.fec.registry.localization.package.viviecr.base", "en");
 pref("vivipos.fec.registry.localization.package.viviecr.ext", "dtd,properties");
+
+pref("vivipos.fec.registry.localization.package.vivipos.base", "en");
+pref("vivipos.fec.registry.localization.package.vivipos.ext", "dtd,properties");
+
+pref("vivipos.fec.registry.localization.package.branding.base", "en");
+pref("vivipos.fec.registry.localization.package.branding.ext", "dtd,properties");

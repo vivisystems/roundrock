@@ -21,6 +21,8 @@
                 left: 0,
 
                 width: screenwidth,
+                'max-width': screenwidth,
+                'min-width': screenwidth,
                 height: screenheight
             },
 
