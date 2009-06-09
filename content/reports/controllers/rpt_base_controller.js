@@ -338,7 +338,7 @@
                 menuitem.setAttribute( 'value', data[ valueField ] );
                 menuitem.setAttribute( 'label', data[ labelField ] );
                 menupopup.appendChild( menuitem );
-            });
+            } );
         },
 	    
         _queryStringPreprocessor: function( s ) {
