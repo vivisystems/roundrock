@@ -1,4 +1,4 @@
-(function() {
+( function() {
 
     /**
      * Report Base Controller
@@ -70,7 +70,7 @@
             this.sleep( 100 );
             waitPanel.openPopupAtScreen( x, y );
 
-            // release CPU for progressbar ...
+            // release CPU for progressbar to show up.
             if ( !sleepTime ) {
                 sleepTime = 1000;
             }
@@ -168,6 +168,7 @@
                 return;
         		
             try {
+            	// setting the flag be zero means that the exporting has not finished yet.
             	this._fileExportingFlag = 0;
             	
                 this._enableButton( false );
@@ -203,11 +204,11 @@
                 this.BrowserPrint.printToPdf( tmpFile, progress,
                     function() {
                         // printing finished callback,
-
                         self.copyExportFileFromTmp( tmpFile, targetDir, 180 );
                     }
                 );
                 
+                // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
                 this._waitingForExporting();
             } catch ( e ) {
             } finally {
@@ -225,6 +226,7 @@
                 return;
         		
             try {
+            	// setting the flag be zero means that the exporting has not finished yet.
             	this._fileExportingFlag = 0;
             	
                 this._enableButton( false );
@@ -263,10 +265,10 @@
                 if ( !noReload ) {
                     // drop CSV data and garbage collect
                     this._reportRecords = tmpRecords;
-
                     GREUtils.gc();
                 }
                 
+                // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
                 this._waitingForExporting();
             } catch ( e ) {
             }
@@ -300,7 +302,7 @@
                 
                 rcp.printReport( 'report', tpl, this._reportRecords );
             } catch ( e ) {
-                this.log(this.dump(e));
+                this.log( this.dump( e ) );
             } finally {
                 this._enableButton( true );
                 
@@ -336,7 +338,7 @@
                 menuitem.setAttribute( 'value', data[ valueField ] );
                 menuitem.setAttribute( 'label', data[ labelField ] );
                 menupopup.appendChild( menuitem );
-            });
+            } );
         },
 	    
         _queryStringPreprocessor: function( s ) {
@@ -391,7 +393,7 @@
 		    }*/
         },
 
-        copyExportFileFromTmp: function(tmpFile, targetDir, timeout) {
+        copyExportFileFromTmp: function( tmpFile, targetDir, timeout ) {
 			try {
 		        var maxTimes = timeout / 0.2;
 		        var tries = 0 ;
@@ -400,27 +402,27 @@
 
 		        // use setTimeout to wait gecko writing file to disk. XXXX
 		        var checkFn = function() {
-		            nsTmpfile = GREUtils.File.getFile(tmpFile);
-		            if (nsTmpfile == null) {
-		                // not exists waiting..
+		            nsTmpfile = GREUtils.File.getFile( tmpFile );
+		            if ( nsTmpfile == null ) {
+		                // not exists waiting...
 		                tries++;
-		            }else {
-	                    GREUtils.File.copy(nsTmpfile, targetDir);
+		            } else {
+	                    GREUtils.File.copy( nsTmpfile, targetDir );
 
 	                    // crazy sync.....
-	                    GREUtils.File.run("/bin/sync", [], true);
-	                    GREUtils.File.run("/bin/sh", ['-c', '/bin/sync; /bin/sleep 3; /bin/sync;'], true);
-	                    GREUtils.File.run("/bin/sync", [], true);
+	                    GREUtils.File.run( "/bin/sync", [], true );
+	                    GREUtils.File.run( "/bin/sh", [ '-c', '/bin/sync; /bin/sleep 3; /bin/sync;' ], true );
+	                    GREUtils.File.run( "/bin/sync", [], true );
 
-	                    nsTmpfile.remove(false);
+	                    nsTmpfile.remove( false );
 
 		                tries = maxTimes;
 		            }
-		            if(tries<maxTimes) {
-		                setTimeout(arguments.callee, 200);
+		            if( tries < maxTimes ) {
+		                setTimeout( arguments.callee, 200 );
 		            }
 		        };
-		        setTimeout(checkFn, 200);
+		        setTimeout( checkFn, 200 );
 		    } catch ( e ) {
 		    } finally {
 		    	this._fileExportingFlag = 1;
@@ -433,4 +435,4 @@
     };
     
     var RptBaseController = window.RptBaseController = GeckoJS.Controller.extend( __controller__ );
-})();
+} )();

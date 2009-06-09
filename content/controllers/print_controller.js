@@ -988,19 +988,19 @@
                         }
 
                         var printed = 0;
-                        if (self.checkSerialPort(portPath, handshaking, true)) {
-                            if (self.openSerialPort(portPath, portspeed, handshaking)) {
-                                for (var i = 0; i < copies; i++) {
-                                    var len = self.writeSerialPort(portPath, encodedResult);
-                                    if (len == encodedResult.length) {
-                                        printed++;
-                                    }
-                                }
-                                self.closeSerialPort(portPath);
-                                if (data && data.order) {
-                                }
-                            }
-                        }
+                        if ( isTraining ) {
+                        	printed = copies;
+                        } else if (self.checkSerialPort(portPath, handshaking, true)) {
+	                        if (self.openSerialPort(portPath, portspeed, handshaking)) {
+	                            for (var i = 0; i < copies; i++) {
+	                                var len = self.writeSerialPort(portPath, encodedResult);
+	                                if (len == encodedResult.length) {
+	                                    printed++;
+	                                }
+	                            }
+	                            self.closeSerialPort(portPath);
+	                        }
+		                }
                         if (printed == 0) {
                             var devicemodelName = self.getDeviceModelName(devicemodel);
                             var portName = self.getPortName(port);
@@ -1015,25 +1015,20 @@
                             this.lastReceipt = {id: data.order.id,
                                                 batchCount: data.order.batchCount,
                                                 device: device};
-
                         }
 
                         // dispatch receiptPrinted event indirectly through the main thread
-                        
                         if (self._main) {
-
                             var curThread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
 
                             if (curThread === self._main) {
                                 // invoke directly
                                 (new sendEvent(device, data, result,encodedResult, printed)).run();
                             }else {
-                                self._main.dispatch(new sendEvent(device, data, result,encodedResult, printed), self._main.DISPATCH_NORMAL);
+                                self._main.dispatch(new sendEvent(device, data, result, encodedResult, printed), self._main.DISPATCH_NORMAL);
                             }
                             
                         }
-
-                        
                     }catch(e) {
                         return false;
                     }

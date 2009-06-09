@@ -113,13 +113,18 @@
                     
                 </hbox>
             </hbox>
-            <box class="reportbox" flex="1">
-                <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
-            </box>
+            
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" id="previewBox" flex="1">
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template3.html" flex="1" />
+					</box>
+                </groupbox>
+            </hbox>
         </vbox>
     </vbox>
     
     <!-- overlay the waiting panel. -->
-	<panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl" />
+    <popupset id="dialogs" />
 
 </window>
