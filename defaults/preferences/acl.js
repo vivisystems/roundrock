@@ -111,4 +111,4 @@ pref("vivipos.fec.acl.roles.acl_manage_tableman", "acl_manage_tableman");
 pref("vivipos.fec.acl.roles.acl_close_sale_period", "acl_close_sale_period");
 pref("vivipos.fec.acl.roles.acl_layout_manager", "acl_layout_manager");
 pref("vivipos.fec.acl.roles.acl_truncate_transaction_records", "acl_truncate_transaction_records");
-
+pref("vivipos.fec.acl.roles.acl_manage_nonplu_setting", "acl_manage_nonplu_setting");

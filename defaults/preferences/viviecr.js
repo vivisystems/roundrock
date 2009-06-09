@@ -187,6 +187,11 @@ pref("vivipos.fec.settings.controlpanels.config.ledger.path", "chrome://viviecr/
 pref("vivipos.fec.settings.controlpanels.config.ledger.icon", "chrome://viviecr/skin/icons/icon_daybook.png");
 pref("vivipos.fec.settings.controlpanels.config.ledger.roles", "acl_manage_ledger");
 
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.label", "Non PLU Setting");
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.path", "chrome://viviecr/content/nonplu_setting.xul");
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.icon", "chrome://viviecr/skin/icons/icon_plus.png");
+pref("vivipos.fec.settings.controlpanels.product.nonplu_setting.roles", "acl_manage_nonplu_setting");
+
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");
 pref("vivipos.fec.registry.function.programmable.tagitem.controller", "Cart");
