@@ -49,7 +49,7 @@
 
         addAnnotationCode: function(){
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {input0:null, require0:true, alphaOnly0:true, input1:null, require1:true};
 
             window.openDialog(aURL, _('Add New Annotation Code'), features, _('New Annotation Code'), '', _('Code'), _('Type'), inputObj);

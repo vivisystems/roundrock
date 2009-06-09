@@ -808,7 +808,7 @@
 
                 // shift change notification and print option
                 aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=150';
+                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=200';
                 message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                 window.openDialog(aURL, _('Shift Close'), features, message);
 

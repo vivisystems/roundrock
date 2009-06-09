@@ -41,7 +41,7 @@
         add: function () {
 
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300";
             var inputObj = {input0:null, require0:true};
 
             window.openDialog(aURL, _('Add New ACL Group'), features, _('New ACL Group'), '', _('Group Name'), '', inputObj);
