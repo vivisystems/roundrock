@@ -16,6 +16,8 @@
 
         _suspendLoadTest: false,
         _groupPath: [],
+        
+        _isTraining: false,
     
         initial: function() {
 
@@ -36,17 +38,22 @@
             deptNode.selectedItems = [0];
             
             var self = this;
-            
             // observer restart topic
             this.observer = GeckoJS.Observer.newInstance({
-                topics: ['prepare-to-restart', 'restart-clock', 'addons-message-notification' ],
+                topics: ['prepare-to-restart', 'restart-clock', 'addons-message-notification', 'TrainingMode' ],
 
                 observe: function(aSubject, aTopic, aData) {
-                    if (aTopic == 'prepare-to-restart' || aData == 'addons-restart-app')
+                    if (aTopic == 'prepare-to-restart' || aData == 'addons-restart-app') {
                         self.doRestart = true;
-
-                    else if (aTopic == 'restart-clock')
+                    } else if (aTopic == 'restart-clock') {
                         self.restartClock = true;
+                    } else if ( aTopic == 'TrainingMode' ) {
+                        if ( aData == "start" ) {
+                        	self._isTraining = true;
+                        } else if ( aData == "exit" ) {
+                        	self._isTraining = false;
+                        }
+                    }
                 }
             }).register();
 
@@ -539,6 +546,10 @@
         },
 
         quickUserSwitch: function (stop) {
+            if ( this._isTraining ) {
+                alert( _( "To use this funciton, please leave training mode first!" ) ); 
+                return;
+            }
             if (stop || this.suspendButton) {
                 this.requestCommand('setTarget', 'Cart', 'Keypad');
 
@@ -603,6 +614,10 @@
         },
 
         silentUserSwitch: function (newUser) {
+            if ( this._isTraining ) {
+                alert( _( "To use this funciton, please leave training mode first!" ) ); 
+                return;
+            }
             // check if buffer (password) is empty
             var buf = this._getKeypadController().getBuffer().replace(/^\s*/, '').replace(/\s*$/, '');
             this.requestCommand('clear', null, 'Cart');
@@ -681,6 +696,10 @@
         },
 
         signOff: function (quickSignoff) {
+            if ( this._isTraining ) {
+                alert( _( "To use this funciton, please leave training mode first!" ) ); 
+                return;
+            }
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
             var autoDiscardQueue = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardqueue');
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
