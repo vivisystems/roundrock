@@ -55,7 +55,7 @@
 
             },
 
-            hide: function (evt) {
+            hide: function(evt) {
 
                 // press escape
                 var isOK = typeof evt.data == 'boolean' ? evt.data : false;

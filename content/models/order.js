@@ -9,19 +9,18 @@
         hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'],
         hasOne: ['OrderObject'],
 
-        behaviors: ['Sync'],
+        behaviors: ['Sync', 'Training'],
 
         autoRestoreFromBackup: true,
 
         removeOldOrder: function(iid) {
-            //
             var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
             if (r) {
 
                 this.delAll("id='" + iid + "'");
 
                 var cond = "order_id='" + iid + "'";
-
+        
                 this.OrderItem.delAll(cond);
                 this.OrderAddition.delAll(cond);
                 // this.OrderPayment.delAll(cond);
@@ -29,14 +28,11 @@
                 this.OrderAnnotation.delAll(cond);
                 this.OrderItemCondiment.delAll(cond);
                 this.OrderPromotion.delAll(cond);
-
             }
-
         },
 
         saveOrder: function(data) {
-            
-            if(!data) return;
+            if(!data ) return;
 
             var r;
             r = this.begin();
@@ -56,7 +52,6 @@
                     this.saveOrderItemCondiments(data);
                     this.saveOrderPromotions(data);
                 }
-
                 r = this.commit();
             }
 
@@ -75,7 +70,6 @@
             }else {
                 // success 
             }
-
         },
 
         saveOrderMaster: function(data) {
@@ -88,7 +82,6 @@
             return orderData;
             
         },
-
 
         saveOrderItems: function(data) {
 
@@ -146,7 +139,6 @@
             return orderPromotions;
 
         },
-
 
         mappingTranToOrderFields: function(data) {
 
@@ -289,7 +281,6 @@
 
         },
 
-
         mappingTranToOrderAdditionsFields: function(data) {
 
             var orderAdditions = [];
@@ -406,8 +397,10 @@
 
         },
 
-
         serializeOrder: function (data) {
+
+            // add checksum field
+            data.checksum = this.getOrderChecksum(data.id);
 
             var obj = GeckoJS.BaseObject.serialize(data);
             var orderObj = {
@@ -516,12 +509,8 @@
             });
 
             return GREUtils.CryptoHash.md5(checksum);
-            
         }
-
-
     };
 
     var OrderModel = window.OrderModel =  GeckoJS.Model.extend(__model__);
-
 })();

@@ -804,6 +804,10 @@
 
         // print slip using the given parameters
         printSlip: function(deviceType, data, template, port, portspeed, handshaking, devicemodel, encoding, printer, copies) {
+        	var isTraining = GeckoJS.Session.get( "isTraining" );
+        	var ifPrintWhileTraining = GeckoJS.Configure.read( "vivipos.fec.settings.ifprintwhiletraining" );
+        	if ( isTraining && !ifPrintWhileTraining ) return;
+
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller; no worker thread available!'));
                 return;
@@ -1048,17 +1052,19 @@
                         }
 
                         var printed = 0;
-                        if (self.checkSerialPort(portPath, handshaking, true)) {
-                            if (self.openSerialPort(portPath, portspeed, handshaking)) {
-                                for (var i = 0; i < copies; i++) {
-                                    var len = self.writeSerialPort(portPath, encodedResult);
-                                    if (len == encodedResult.length) {
-                                        printed++;
-                                    }
-                                }
-                                self.closeSerialPort(portPath);
-                            }
-                        }
+                        if ( isTraining && ( deviceType == "receipt" || deviceType == "ledger" ) ) {
+                        	printed = copies;
+                        } else if (self.checkSerialPort(portPath, handshaking, true)) {
+			    if (self.openSerialPort(portPath, portspeed, handshaking)) {
+				for (var i = 0; i < copies; i++) {
+				    var len = self.writeSerialPort(portPath, encodedResult);
+				    if (len == encodedResult.length) {
+					printed++;
+				    }
+				}
+				self.closeSerialPort(portPath);
+			    }
+			}
                         if (printed == 0) {
                             var devicemodelName = self.getDeviceModelName(devicemodel);
                             var portName = self.getPortName(port);
@@ -1073,13 +1079,10 @@
                             this.lastReceipt = {id: data.order.id,
                                                 batchCount: data.order.batchCount,
                                                 printer: printer};
-
                         }
 
                         // dispatch receiptPrinted event indirectly through the main thread
-                        
                         if (self._main) {
-
                             var curThread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
 
                             if (curThread === self._main) {
@@ -1090,8 +1093,6 @@
                             }
                             
                         }
-
-                        
                     }catch(e) {
                         return false;
                     }

@@ -1,5 +1,7 @@
 var LedgerRecordModel = window.LedgerRecordModel = GeckoJS.Model.extend({
     name: 'LedgerRecord',
     
-    useDbConfig: 'order'
+    useDbConfig: 'order',
+
+    behaviors: ['Training']
 });

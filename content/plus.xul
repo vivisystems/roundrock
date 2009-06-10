@@ -174,7 +174,7 @@
                                                 <textbox id="product_name" form="productForm" name="name" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
                                             </vbox>
                                             <vbox>
-                                                <label  value="&plus.product.barcode;" control="barcode"/>
+                                                <label value="&plus.product.barcode;" control="barcode"/>
                                                 <textbox id="barcode" form="productForm" name="barcode" value="" onfocus="this.select()"/>
                                             </vbox>
                                         </row>
@@ -183,8 +183,6 @@
                                                 <label value="&plus.product.tax.rate;"/>
                                                 <label id="rate" hidden="true" form="productForm" name="rate" default="" value=""/>
                                                 <textbox id="rate_name" class="ItemButtonA" value="" form="productForm" name="rate_name" default="" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
-                                            </vbox>
-                                            <vbox>
                                             </vbox>
                                         </row>
                                     </rows>

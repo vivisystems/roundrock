@@ -149,7 +149,6 @@
             this.data.revalueprices = GeckoJS.Configure.read('vivipos.fec.settings.RevaluePrices');
 
             Transaction.events.dispatch('onCreate', this, this);
-
         },
 
         emptyView: function() {
@@ -201,9 +200,7 @@
                 if (this.data.status == 2) {
                     order.serializeOrder(this.data);
                 }
-
             }
-
         },
 
         cancel: function() {
@@ -234,7 +231,6 @@
             }
             */
             this.process(status);
-
         },
 
         close: function() {
@@ -263,7 +259,6 @@
             //GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
             GeckoJS.Session.set('vivipos_fec_number_of_items', this.data.qty_subtotal);
             GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
-
         },
 
         createItemDataObj: function(index, item, sellQty, sellPrice, parent_index) {
@@ -328,11 +323,8 @@
                 destination: GeckoJS.Session.get('vivipos_fec_order_destination'),
                 
                 price_modifier: priceModifier
-
             };
-
             return item2;
-
         },
 
         createDisplaySeq: function(index, item, type, level) {
@@ -550,14 +542,12 @@
                 }
             }
             return itemDisplay;
-
         },
 
         removeDisplaySeq: function(index, count) {
 
             count = count || 1;
             this.data.display_sequences.splice(index, count);
-
         },
 
 
@@ -571,7 +561,6 @@
             };
 
             GeckoJS.Session.set('cart_last_sell_item', lastSellItem);
-
         },
 
         checkSellPrice: function(item) {
@@ -989,7 +978,6 @@
             this.updateLastSellItem(itemModified);
 
             return itemModified;
-
         },
 
         voidItemAt: function(index){
@@ -1199,7 +1187,6 @@
             this.updateCartView(prevRowCount, currentRowCount, index);
             //this.log('VoidItem' +( (new Date()).getTime() - startProfile));
             return itemRemoved;
-
         },
 
         calcItemSubtotal: function(item) {
@@ -1229,7 +1216,6 @@
             itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
 
             Transaction.events.dispatch('onCalcItemSubtotal', item, this);
-
         },
 
 
@@ -1356,7 +1342,6 @@
             this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
 
             return resultItem;
-
         },
 
         appendSurcharge: function(index, surcharge){
@@ -1464,7 +1449,6 @@
             this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
 
             return resultItem;
-
         },
 
 
@@ -1525,7 +1509,6 @@
             this.updateCartView(prevRowCount, currentRowCount, index);
 
             return itemModified;
-
         },
 
 
@@ -1588,8 +1571,6 @@
             this.updateCartView(prevRowCount, currentRowCount, currentRowCount - 1);
 
             return markerItem;
-
-
         },
 
         appendCondiment: function(index, condiments, replace, replaceInPlace){
@@ -1688,8 +1669,6 @@
             this.updateCartView(prevRowCount, currentRowCount, displayIndex);
 
             return item;
-
-
         },
 
         expandCondiments: function(index) {
@@ -1803,8 +1782,6 @@
             this.updateCartView(prevRowCount, currentRowCount, index + 1);
 
             return item;
-
-
         },
 
 
@@ -1884,7 +1861,6 @@
 
             }
             return item;
-
         },
 
         lockItems: function(index) {
@@ -2003,7 +1979,6 @@
                 if (itemDisplay.index == index) return itemDisplay;
             }
             return -1;
-
         },
 
         getLastDisplaySeqByIndex: function(index){
@@ -2024,7 +1999,6 @@
                 }
 
             }
-
             return lastIndex ;
         },
 
@@ -2081,7 +2055,6 @@
 
             // return final sellPrice
             return obj.sellPrice;
-
         },
 
         getSellPriceByPriceLevel: function(sellPrice, sellQty, item, notify) {
@@ -2153,7 +2126,6 @@
                 }
             }
             return sellPrice;
-
         },
 
         getPriceLevelPrice: function(priceLevel, item) {
@@ -2170,7 +2142,6 @@
                 }
             }
             return price;
-
         },
 
         getPriceLevelHalo: function(priceLevel, item) {
@@ -2187,7 +2158,6 @@
                 }
             }
             return price;
-
         },
 
         getPriceLevelLalo: function(priceLevel, item) {
@@ -2204,7 +2174,6 @@
                 }
             }
             return price;
-
         },
 
 
@@ -2272,7 +2241,6 @@
 
             //this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + items);
             Transaction.events.dispatch('onCalcItemsTax', items, this);
-
         },
 
 
@@ -2380,7 +2348,6 @@
             //this.log('afterCalcTotal End ' + (profileEnd - profileStart));
 
         //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
-
         },
 
 
@@ -2457,9 +2424,6 @@
             // format display precision
             return Transaction.Number.format(tax, options);
         }
-
-
-
     };
 
 
@@ -2478,50 +2442,48 @@
 
     Transaction.isRecoveryFileExists = function() {
 
-            var filename = "/var/tmp/cart_transaction.txt";
+        var filename = "/var/tmp/cart_transaction.txt";
 
-            return GeckoJS.File.exists(filename);
-
+        return GeckoJS.File.exists(filename);
     };
 
     Transaction.removeRecoveryFile = function() {
 
-            var filename = "/var/tmp/cart_transaction.txt";
+        var filename = "/var/tmp/cart_transaction.txt";
 
-            GeckoJS.File.remove(filename);
-
+        GeckoJS.File.remove(filename);
     };
 
     Transaction.unserializeFromRecoveryFile = function() {
 
-            var filename = "/var/tmp/cart_transaction.txt";
+        var filename = "/var/tmp/cart_transaction.txt";
 
-            // unserialize from fail recovery file
-            var file = new GeckoJS.File(filename);
+        // unserialize from fail recovery file
+        var file = new GeckoJS.File(filename);
 
-            if (!file.exists()) return false;
+        if (!file.exists()) return false;
 
-            var data = null;
-            file.open("r");
-            data = GeckoJS.BaseObject.unserialize(file.read());
-            file.close();
-            file.remove();
-            delete file;
-            
-            return data;
+        var data = null;
+        file.open("r");
+        data = GeckoJS.BaseObject.unserialize(file.read());
+        file.close();
+        file.remove();
+        delete file;
+        
+        return data;
     };
 
     Transaction.serializeToRecoveryFile = function(transaction) {
+		if ( GeckoJS.Session.get( "isTraining" ) )
+			return;
+			
+        var filename = "/var/tmp/cart_transaction.txt";
 
-            var filename = "/var/tmp/cart_transaction.txt";
-
-            // save serialize to fail recovery file
-            var file = new GeckoJS.File(filename);
-            file.open("w");
-            file.write(transaction.serialize());
-            file.close();
-            delete file;
+        // save serialize to fail recovery file
+        var file = new GeckoJS.File(filename);
+        file.open("w");
+        file.write(transaction.serialize());
+        file.close();
+        delete file;
     };
-
-
 })();

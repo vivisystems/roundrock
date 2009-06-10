@@ -181,6 +181,9 @@
         },
 
         decStock: function (obj) {
+        	if ( GeckoJS.Session.get( "isTraining" ) )
+        		return;
+        		
             this._productsById = GeckoJS.Session.get('productsById');
             this._barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 

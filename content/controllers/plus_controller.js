@@ -830,6 +830,7 @@
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
             var inputData = this.getInputData();
+
             var product = this.productPanelView.getCurrentIndexData(this._selectedIndex);
 
             //GREUtils.log('modify <' + this._selectedIndex + '> ' + GeckoJS.BaseObject.dump(inputData));

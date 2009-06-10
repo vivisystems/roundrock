@@ -5,8 +5,7 @@ var OrderPromotionModel = window.OrderPromotionModel =  GeckoJS.Model.extend({
 
     belongsTo: ['Order'],
 
-    behaviors: ['Sync'],
+    behaviors: ['Sync', 'Training'],
 
     autoRestoreFromBackup: true
-    
 });

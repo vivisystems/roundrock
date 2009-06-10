@@ -47,10 +47,11 @@
   <script src='chrome://viviecr/content/controllers/storecontact_controller.js'/>
   <script src='chrome://viviecr/content/controllers/annotation_controller.js'/>
   <script src='chrome://viviecr/content/controllers/shift_changes_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/stocks_controller.js'/>
   <script src='chrome://viviecr/content/controllers/plus_controller.js'/>
   <script src='chrome://viviecr/content/controllers/ledger_controller.js'/>
   <script src='chrome://viviecr/content/controllers/ledger_entry_types_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/stocks_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/training_mode_controller.js'/>
   <script src='chrome://viviecr/content/controllers/nonplu_setting_controller.js'/>
 
   <!-- report controllers for reports to be generated from front-end -->

@@ -13,6 +13,8 @@
         _regionListObj: null,
         _tableListDatas: null,
         _tableListObj: null,
+        _tableStatusModel: null,
+        _cart: null,
 
         _minimumChargeFor: {'0': _('Final Amount'), '1': _('Original Amount') /*, '2': _('No Revalue'), '3': _('No Promotion') */},
 
@@ -21,6 +23,27 @@
 
         initial: function () {
             //
+        },
+
+        _getTableStatusModel: function() {
+            if (this._tableStatusModel == null) {
+
+                var cart = this.getCartController();
+                this._tableStatusModel = cart.GuestCheck._tableStatusModel;
+
+            }
+            return this._tableStatusModel;
+        },
+
+        getCartController: function() {
+            if (this._cart == null) {
+                var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
+            }
+            // this._cart.dispatchEvent('onSplitCheck', null);
+
+            return this._cart;
         },
 
         getTableListObj: function() {
@@ -123,8 +146,7 @@
 
                 // add table_status
                 var newTableStatus = {table_id:newTable.id, table_no: table_no};
-                var tableStatusModel = new TableStatusModel();
-                newTableStatus = tableStatusModel.save(newTableStatus);
+                newTableStatus = this._getTableStatusModel().save(newTableStatus);
 
                 this.loadTables();
 
@@ -169,11 +191,16 @@
                 var tables = tableModel.save(inputObj);
 
                 // update table_status
+                /*
                 var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
                 var tableStatusModel = new TableStatusModel();
                 tableStatusModel.id = table.table_status_id;
                 newTableStatus = tableStatusModel.save(newTableStatus);
                 delete tableStatusModel;
+                */
+                var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
+                this._getTableStatusModel().id = table.table_status_id;
+                this._getTableStatusModel().save(newTableStatus);
 
                 this.loadTables();
 
@@ -213,10 +240,12 @@
 
 
                 // update table_status
+                /*
                 var tableStatusModel = new TableStatusModel();
                 tableStatusModel.del(table.table_status_id);
                 delete tableStatusModel;
-
+                */
+                this._getTableStatusModel().del(table.table_status_id);
 
                 this._tableListDatas.splice(index, 1);
 
