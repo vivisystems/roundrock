@@ -104,20 +104,24 @@ class SyncHandlerComponent extends Object {
             $lastSynced = $data['SyncRemoteMachine']['last_synced'];
         }else {
             if ($direction == 'pull') {
-            // change cursor to last insert id
+                // change cursor to last insert id
                 $sync = new Sync(false, null, $dbConfig); // id , table, ds
                 $lastSync = $sync->find('first', array('order' => array('Sync.id DESC')) );
                 $lastSynced = ($lastSync) ? $lastSync['Sync']['id'] : 0;
 
                 // insert machine setting
                 $this->setLastSynced($machine_id, $dbConfig, $lastSynced);
-            //$syncRemoteMachine->create();
-            //$syncRemoteMachine->save(array('machine_id'=>$machine_id, 'last_synced'=>$lastSynced));
+                //$syncRemoteMachine->create();
+                //$syncRemoteMachine->save(array('machine_id'=>$machine_id, 'last_synced'=>$lastSynced));
 
             }else {
                 $lastSynced = 0;
             }
         }
+
+        // write debug
+        CakeLog::write('debug', 'getLastSynced machine_id: ' . $machine_id . ' , dbConfig: ' . $dbConfig . ' , lastSynced: ' . $lastSynced);
+
 
         return $lastSynced;
 

@@ -29,8 +29,6 @@ class SyncBaseShell extends Shell {
 
         $this->statusFile = "/tmp/sync_client.status" ;
 
-        $this->http = new HttpSocket(array('timeout'=> 5, 'stream_timeout' => 3));
-
     }
 
     function help() {
@@ -47,7 +45,9 @@ class SyncBaseShell extends Shell {
      */
     function observerNotify($action="starting", $data="") {
 
-    // notify vivipos client we are now syncing...
+        $this->syncStatus($action);
+        
+        // notify vivipos client we are now syncing...
         switch($action) {
             case "starting":
                 $url = "http://localhost:8888/observer?topic=sync_client_starting&data=".$data;
@@ -58,8 +58,16 @@ class SyncBaseShell extends Shell {
                 break;
         }
 
-        $this->syncStatus($action);
-        $result = $this->http->get($url);
+        // notify observer
+        $process = curl_init($url);
+        curl_setopt($process, CURLOPT_TIMEOUT, 3);
+        curl_setopt($process, CURLOPT_HTTPGET, 1);
+        curl_exec($process);
+        // close cURL resource
+        curl_close($process);
+
+        //$this->http = new HttpSocket(array('timeout'=> 5, 'stream_timeout' => 3));
+        //$result = $this->http->get($url);
 
     }
 
