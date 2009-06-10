@@ -26,7 +26,6 @@
                     </xul:rows>
                 </xul:grid>
             </xul:hbox>
-
         </content>
   
         <xbl:implementation>
@@ -38,7 +37,6 @@
             <field name="_label0_1">null</field>
             <field name="_label1_0">null</field>
             <field name="_label1_1">null</field>
-	
 
             <constructor>
             <![CDATA[
@@ -47,6 +45,8 @@
                 this._label0_1 = document.getAnonymousElementByAttribute(this, "anonid", "label0_1");
                 this._label1_0 = document.getAnonymousElementByAttribute(this, "anonid", "label1_0");
                 this._label1_1 = document.getAnonymousElementByAttribute(this, "anonid", "label1_1");
+                
+                this._hbox = document.getAnonymousElementByAttribute( this, "anonid", "hbox" );
 
                 this._maxlen = this.getAttribute('maxlen');
 
@@ -299,12 +299,10 @@
                     if(val.length > this._maxlen) {
                         val = val.substr(0,this._maxlen-4) + "..." + val.substr(val.length-1,1);
                     }
-
                     this._label1_1.value = val;
                 ]]>
                 </xbl:body>
             </xbl:method>
-
         </xbl:implementation>
 
     </binding>

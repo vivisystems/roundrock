@@ -82,6 +82,7 @@
                 }
                 */
             }
+            // doing so to redraw the tree.
             this.tree.invalidate();
 
             if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;

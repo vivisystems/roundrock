@@ -9,11 +9,14 @@
         hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation', 'OrderItemCondiment', 'OrderPromotion'],
         hasOne: ['OrderObject'],
 
-        behaviors: ['Sync'],
+        behaviors: ['Sync', 'Training'],
 
         autoRestoreFromBackup: true,
 
         removeOldOrder: function(iid) {
+        	var isTraining = GeckoJS.Session.get( "isTraining" );
+        	if (isTraining) return;
+
             //
             var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
             if (r) {
@@ -21,7 +24,7 @@
                 this.delAll("id='" + iid + "'");
 
                 var cond = "order_id='" + iid + "'";
-
+        
                 this.OrderItem.delAll(cond);
                 this.OrderAddition.delAll(cond);
                 // this.OrderPayment.delAll(cond);
@@ -35,8 +38,10 @@
         },
 
         saveOrder: function(data) {
-            
-            if(!data) return;
+
+           	//var isTraining = GeckoJS.Session.get( "isTraining" );
+           	
+            if(!data ) return;
 
             var r;
             r = this.begin();

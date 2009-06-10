@@ -588,6 +588,11 @@ pref("vivipos.fec.registry.function.programmable.printerDashboard.command", "pri
 pref("vivipos.fec.registry.function.programmable.printerDashboard.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.data", "");
 
+pref("vivipos.fec.registry.function.programmable.trainingMode.access", "acl_training_mode");
+pref("vivipos.fec.registry.function.programmable.trainingMode.command", "start");
+pref("vivipos.fec.registry.function.programmable.trainingMode.controller", "TrainingMode");
+pref("vivipos.fec.registry.function.programmable.trainingMode.data", "");
+
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');

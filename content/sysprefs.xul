@@ -32,6 +32,7 @@
   <!-- include controllers -->
   <script src="chrome://viviecr/content/controllers/users_controller.js" type="application/x-javascript"/>
   <script src="chrome://viviecr/content/controllers/taxes_controller.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/training_mode_controller.js" type="application/x-javascript"/>
 
   <!-- include startup scripts -->
   <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
@@ -58,6 +59,7 @@
             <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool" />
             <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool" />
             <preference id="pref_autosetdecimalpoint" name="vivipos.fec.settings.AutoSetDecimalPoint" type="bool" />
+            <preference id="pref_ifprintwhiletraining" name="vivipos.fec.settings.ifprintwhiletraining" type="bool" />
 
 
         </preferences>
@@ -96,16 +98,18 @@
                     <checkbox preference="pref_autosetdecimalpoint" id="pref_autosedecimalpointCtrl" label="&general.autosetdecimalpoint;" />
                 </row>
                 <row>
+                	<checkbox preference="pref_ifprintwhiletraining" id="ifprintwhiletraining" label="&general.ifprintwhiletraining;" />
                     <vbox>
                         <label control="idletime" value="&general.idletime;"/>
                         <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
                     </vbox>
-                    <vbox>
+                    
+                </row>
+                <row>
+                	<vbox>
                         <label control="defaultpricelevel" value="&general.defaultpricelevel;"/>
                         <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>
                     </vbox>
-                </row>
-                <row>
                     <vbox>
                         <label control="maxsaleperiodleaddays" value="&general.maxsaleperiodleaddays;"/>
                         <textbox preference="pref_maxsaleperiodleaddays" id="maxsaleperiodleaddays" type="number" size="3" min="1"/>
@@ -433,6 +437,8 @@
 
         <hbox class="ToolBar" pack="center">
             <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
+            <button id="vacuum_training_db" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
+            <button id="take_current_db_to_be_training_db" label="&orderdata.takecurrentdbtobetrainingdb;" oncommand="$do( 'takeCurrentDBToBeTrainingDB', null, 'TrainingMode' );" />
         </hbox>
 
     </prefpane>
