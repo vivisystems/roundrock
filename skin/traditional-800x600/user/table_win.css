@@ -242,12 +242,16 @@
 }
 
 .PromptPnl {
-  background: transparent url(images/checkbg.gif) center center no-repeat;
-  -moz-appearance: none;
+/*  background: transparent url(images/checkbg.gif) center center no-repeat; */
+/*  -moz-appearance: none; */
   border: none;
-  padding: 2px;
+/*  padding: 2px; */
   width:707px;
   height: 579px;
+}
+
+.PromptPnlBg {
+  background: transparent url(images/checkbg.png) left top no-repeat;
 }
 
 .MsgPnl {

@@ -280,16 +280,17 @@
             }
 
             // first popup...
+            
             if (promptPanel.boxObject.width == 0) {
                 
                 promptPanel.openPopupAtScreen(0, 0, false);
                 this.sleep(100);
                 promptPanel.hidePopup();
             }
-
+            
             var x = (width - promptPanel.boxObject.width) / 2;
             var y = (height - promptPanel.boxObject.height) / 2;
-            
+
             promptPanel.openPopupAtScreen(x, y, false);
 
             // remove all tabs
