@@ -927,3 +927,5 @@ pref("vivipos.fec.registry.localization.package.vivipos.ext", "dtd,properties");
 
 pref("vivipos.fec.registry.localization.package.branding.base", "en");
 pref("vivipos.fec.registry.localization.package.branding.ext", "dtd,properties");
+
+pref("vivipos.fec.settings.maxExportPdfHeight", 30000);
