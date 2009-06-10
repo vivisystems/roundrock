@@ -14,10 +14,6 @@
         autoRestoreFromBackup: true,
 
         removeOldOrder: function(iid) {
-        	var isTraining = GeckoJS.Session.get( "isTraining" );
-        	if (isTraining) return;
-
-            //
             var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
             if (r) {
 
@@ -32,15 +28,10 @@
                 this.OrderAnnotation.delAll(cond);
                 this.OrderItemCondiment.delAll(cond);
                 this.OrderPromotion.delAll(cond);
-
             }
-
         },
 
         saveOrder: function(data) {
-
-           	//var isTraining = GeckoJS.Session.get( "isTraining" );
-           	
             if(!data ) return;
 
             var r;
@@ -61,7 +52,6 @@
                     this.saveOrderItemCondiments(data);
                     this.saveOrderPromotions(data);
                 }
-
                 r = this.commit();
             }
 
@@ -80,7 +70,6 @@
             }else {
                 // success 
             }
-
         },
 
         saveOrderMaster: function(data) {

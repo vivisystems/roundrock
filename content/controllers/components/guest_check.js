@@ -1169,7 +1169,5 @@
         reformOrder: function(no) {
             //
         }
-
     });
-
 })();
