@@ -318,13 +318,13 @@
 
         popupOrderPanel: function() {
             //
-            this.log("popupOrderPanel:::");
+            // this.log("popupOrderPanel:::");
             // this._selectedCheckNo =
         },
 
         hideOrderPanel: function() {
             //
-            this.log("hideOrderPanel:::");
+            // this.log("hideOrderPanel:::");
             this._selectedCheckNo = null;
         },
 

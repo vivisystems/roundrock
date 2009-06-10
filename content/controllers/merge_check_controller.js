@@ -13,6 +13,16 @@
         _mergedCheck: {},
         _tableStatusModel: null,
 
+        _getTableStatusModel: function() {
+            if (this._tableStatusModel == null) {
+
+                var cart = this.getCartController();
+                this._tableStatusModel = cart.GuestCheck._tableStatusModel;
+
+            }
+            return this._tableStatusModel;
+        },
+
         getCartController: function() {
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                 .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
@@ -187,11 +197,6 @@
 
             var order = new OrderModel();
 
-            // add to table_status
-            if (this._tableStatusModel == null) {
-                this._tableStatusModel = new TableStatusModel;
-                this._tableStatusModel.initial();
-            }
 
             // save merged check...
             order.saveOrder(this._mergedCheck);
@@ -202,7 +207,7 @@
             this.getCartController().dispatchEvent('onMergeCheck', this._mergedCheck);
 
             // update table status
-            this._tableStatusModel.addCheck(this._mergedCheck);
+            this._getTableStatusModel().addCheck(this._mergedCheck);
 
             // @todo set source check's status to -3 ==> transfered check'
             this._sourceCheck.status = -3;
@@ -211,7 +216,7 @@
             
             // remove source check table status
             this._sourceCheck.seq = "";
-            this._tableStatusModel.addCheck(this._sourceCheck);
+            this._getTableStatusModel().addCheck(this._sourceCheck);
             
             // @todo OSD
             NotifyUtils.warn(_('The Check# %S has been merged to Check# %S!!', [this._sourceCheck.check_no, this._mergedCheck.check_no]));
