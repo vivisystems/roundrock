@@ -60,6 +60,12 @@ var options;
         }
         document.getElementById('key_enter').setAttribute('disabled', multiline);
 
+        if (multiline) {
+            // set main-grid and main-rows to flex
+            document.getElementById('main-grid').setAttribute('flex', 1);
+            document.getElementById('main-rows').setAttribute('flex', 1);
+            document.getElementById('single-line-spacer').setAttribute('flex', 0);
+        }
         // set input type
         if ('type0' in inputObj) {
             document.getElementById('input0').setAttribute('type', inputObj.type0);

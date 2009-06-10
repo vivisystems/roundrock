@@ -18,12 +18,11 @@ pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
  
 pref("vivipos.fec.settings.image.disklimit", 52428800);
 
-/*
 pref("vivipos.fec.settings.controlpanels.system.localization.label", "Localization Editor");
 pref("vivipos.fec.settings.controlpanels.system.localization.path", "chrome://viviecr/content/localization_editor.xul");
 pref("vivipos.fec.settings.controlpanels.system.localization.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.system.localization.roles", "acl_localization_editor");
-*/
+
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.label", "Store Contact");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.path", "chrome://viviecr/content/storecontact.xul");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_store.png");
@@ -368,7 +367,7 @@ pref("vivipos.fec.registry.function.programmable.pullqueue.command", "pullQueue"
 pref("vivipos.fec.registry.function.programmable.pullqueue.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.pullqueue.data", "");
  
-pref("vivipos.fec.registry.function.programmable.modifyitem.access", "acl_modify_cart_item");
+pref("vivipos.fec.registry.function.programmable.modifyitem.access", "acl_modify_price,acl_modify_quantity");
 pref("vivipos.fec.registry.function.programmable.modifyitem.command", "modifyItem");
 pref("vivipos.fec.registry.function.programmable.modifyitem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.modifyitem.data", "");
@@ -916,6 +915,7 @@ pref("vivipos.fec.registry.layouts.retail.skin", "retail-${width}x${height}/1.0"
 
 pref("vivipos.fec.registry.localization.package.viviecr.base", "en");
 pref("vivipos.fec.registry.localization.package.viviecr.ext", "dtd,properties");
+pref("vivipos.fec.registry.localization.package.viviecr.installable", "true");
 
 pref("vivipos.fec.registry.localization.package.vivipos.base", "en");
 pref("vivipos.fec.registry.localization.package.vivipos.ext", "dtd,properties");

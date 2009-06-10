@@ -7,6 +7,8 @@
     var __controller__ = {
         name: 'Localization',
 
+        components: [ 'CheckMedia' ],
+
         _tree: null,
 
         _editscrollabletree: null,
@@ -14,6 +16,8 @@
         _packages: null,
 
         _dirtyBit: false,
+
+        _currentLocale: null,
 
         _currentIndex: -1,
 
@@ -25,6 +29,8 @@
 
         _containers: {},
 
+        _exporting_file_folder: 'locale_export',
+        
         // data structure
         //
         // localePkgs array of locales [
@@ -59,6 +65,8 @@
         //
         load: function() {
 
+            var profD = GeckoJS.Configure.read('ProfD') || '';
+
             this._tree = document.getElementById('navtree');
             this._editscrollabletree = document.getElementById('editscrollabletree');
 
@@ -69,6 +77,8 @@
             var packages = GeckoJS.Configure.read('vivipos.fec.registry.localization.package');
 
             var selectedLocale = xulChromeReg.getSelectedLocale('viviecr');
+            var this._currentLocale = selectedLocale;
+
             var localeObj = document.getElementById('locale');
             if (localeObj) localeObj.value = '[' + selectedLocale + ']';
 
@@ -87,12 +97,15 @@
                                        [baseFilePath, pkg, packages[pkg].base]));
                 }
                 else {
-                    var extensions = packages[pkg].ext.split(',');
+                    var extensions = packages[pkg].ext ? packages[pkg].ext.split(',') : [];
+                    var installable = packages[pkg].installable;
+                    
                     var localePkg = {
                         pkg: pkg,
                         basePath: baseFilePath,
                         baseLocale: packages[pkg].base,
-                        extensions: extensions
+                        extensions: extensions,
+                        installable: installable
                     }
 
                     // retrieve individual files
@@ -116,6 +129,15 @@
                 // get current locale file path
                 var chromePath = 'chrome://' + p.pkg + '/locale/';
                 var currentFilePath = GREUtils.File.chromeToPath(chromePath);
+                // extract current installation name
+                var installation = '';
+                var extensionsPath = profD + '/extensions/';
+
+                var index = currentFilePath.indexOf(extensionsPath);
+                if (index > -1) {
+                    var descPath = currentFilePath.substr(extensionsPath.length);
+                    installation = descPath.split('/')[0];
+                }
 
                 // make sure file path exists and is a directory
                 if (!GREUtils.File.exists(currentFilePath) || !GREUtils.File.isDir(currentFilePath)) {
@@ -125,6 +147,9 @@
                 else {
                     p.currentLocale = selectedLocale;
                     p.currentPath = currentFilePath;
+                    p.installation = installation;
+                    p.installable = p.installable && installation;
+                    p.installationPath = profD + '/extensions/' + installation;
                     self._extractTranslations(p);
                     finalLocalePkgs.push(p);
                 }
@@ -211,7 +236,7 @@
                     var matchCount = 0;
                     var file = localePkg.currentPath + '/' + f.file;
 
-                    //try {
+                    try {
                         if (GREUtils.File.exists(file) && GREUtils.File.isReadable(file)) {
                             //self.log('WARN', 'extracting translations from file ' + file);
                             var match;
@@ -263,12 +288,10 @@
                         f.strings = emptyStrings.concat(translatedStrings);
                         f.totalCount = totalCount;
                         f.emptyCount = totalCount - matchCount;
-/*
                     }
                     catch(e) {
                         self.log('WARN', 'failed to read current locale file ' + file);
                     }
-                    */
                 });
             }
             else {
@@ -680,6 +703,119 @@
             return emptyCount;
         },
 
+        autoFill: function() {
+            var f = this._currentFile;
+            if (f && f.emptyCount > 0) {
+                var modified = false;
+                for (var i = 0; i < f.strings.length; i++) {
+                    if (!f.strings[i].working || f.strings[i].working.length == 0) {
+                        f.strings[i].working = f.strings[i].base;
+                        modified = true;
+                    }
+                }
+                this._dirtyBit = modified;
+                if (this._editscrollabletree) this._editscrollabletree.invalidate();
+            }
+
+            this._validateForm();
+        },
+
+        exportXPI: function() {
+            var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
+            if ( !media_path ) {
+                NotifyUtils.warn( _( 'Media not found!! Please attach the USB thumb drive...' ) );
+                return;
+            }
+
+            // load package install.rdf file for edit
+            var installations = [];
+            var installList = '';
+            this._packages.forEach(function(pkg) {
+                if (pkg.installable) {
+                    var installRDF = pkg.installationPath + '/install.rdf';
+                    installList += ('\n' + pkg.installation);
+                    installations.push({installation: pkg.installation,
+                                        path: pkg.installationPath,
+                                        installRDF: installRDF});
+
+                }
+            })
+            
+            if (installations.length  == 0) {
+                NotifyUtils.warn( _( 'No exportable locale packages found' ) );
+            }
+            else if (GREUtils.Dialog.confirm(window,
+                                             _('Export Locales'),
+                                             _('Do you want to export the following locale(s)?')
+                                               + '\n' + installList)) {
+                for (var i = 0; i < installations.length; i++) {
+                    var inst = installations[i];
+                    
+                    // load install.rdf for editing
+                    var buf = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(inst.installRDF));
+                    alert(buf);
+                    // put up editbox
+                    this.editInstallRDF(inst, buf);
+                    
+                    // save edited install.rdf in /tmp
+                    var r;
+                    var tmpInstallRDF = '/tmp/install.rdf.' + GeckoJS.String.uuid();
+                    var fp = new GeckoJS.File(tmpInstallRDF, true);
+                    fp.open('w');
+                    if (!(r = fp.write(buf))) {
+                        this.log('ERROR', 'Failed to write temporary install.rdf file [' + tmpInstallRDF + ']');
+                        NotifyUtils.error(_('Failed to write temporary install.rdf file [%S]', [tmpInstallRDF]));
+                    }
+                    fp.close();
+                    if (!r) return;
+
+                    // invoke external script to generate XPI and move it to media
+                    var exportScript = '/data/scripts/exportLocale.sh';
+                    var exec = new GeckoJS.File(exportScript);
+                    r = exec.run([inst.installation, inst.path, tmpInstallRDF, media_path], true);
+
+                    if (r >= 0) {
+                        NotifyUtils.info(_( 'Locale package [%S] successfully exported', [inst.installation]));
+                    }
+                    else {
+                        this.log('ERROR', 'Script ' + exportScript + ' failed to export locale package [' + inst.installation + ']');
+                        GREUtils.Dialog.alert(window,
+                                              _('Export Locales'),
+                                              _('Failed to export locale package %S', [inst.installation]));
+                    }
+                }
+            }
+        },
+
+        editInstallRDF: function (inst, buf) {
+
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var screenwidth = GeckoJS.Session.get('screenwidth');
+            var screenheight = GeckoJS.Session.get('screenheight');
+
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var inputObj = {
+                input0:inst.installation, require0:true,
+                input1:buf, require1:true, multiline1: true
+            };
+
+            window.openDialog(aURL, _('Edit Install RDF'), features,
+                              _('Exporting Locale [%S]', [this._currentLocale]),
+                              '',
+                              _('Please edit the following install.rdf file as appropriate'),
+                              '',
+                              inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                alert('export');
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        },
+
         _validateForm: function() {
             var modBtnObj = document.getElementById('modify');
             var saveBtnObj = document.getElementById('save');
@@ -704,9 +840,9 @@
             }
             // turn on save btn if dirty bit is set and current locale is different from base locale
             if (this._dirtyBit && this._currentPkg && this._currentPkg.baseLocale != this._currentPkg.currentLocale)
-                saveBtnObj.removeAttribute('disabled');
+                saveBtnObj.removeAttribute('hidden');
             else
-                saveBtnObj.setAttribute('disabled', 'true');
+                saveBtnObj.setAttribute('hidden', 'true');
         }
     };
 

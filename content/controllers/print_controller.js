@@ -341,16 +341,22 @@
             // don't print if order has been pre-finalized and the order is being submitted for completion
             // since receipts and checks would have already been printed
             if (txn.data.status != 1 || !txn.isClosed()) {
-                // check if receipts need to be printed
-                if (txn.data.batchPaymentCount > 0 || txn.isClosed()) {
-                    this.printReceipts(evt.data, null, 'submit');
-                }
-                // allow UI to catch up
-                this.sleep(100);
 
-                // check if checks need to be printed
-                if (txn.data.batchItemCount > 0) {
-                    this.printChecks(evt.data, null, 'submit');
+                try {
+                    // check if receipts need to be printed
+                    if (txn.data.batchPaymentCount > 0 || txn.isClosed()) {
+                        this.printReceipts(evt.data, null, 'submit');
+                    }
+                    // allow UI to catch up
+                    this.sleep(100);
+
+                    // check if checks need to be printed
+                    if (txn.data.batchItemCount > 0) {
+                        this.printChecks(evt.data, null, 'submit');
+                    }
+                }
+                catch(e) {
+                    this.log('ERROR', 'error in generating receipts/checks on submitting order');
                 }
             }
             
@@ -370,18 +376,22 @@
             var txn = evt.data;
             //this.log('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
 
-            // check if receipts need to be printed
-            if (txn.data.batchPaymentCount > 0 || txn.data.closed)
-                this.printReceipts(evt.data, null, 'store');
+            try {
+                // check if receipts need to be printed
+                if (txn.data.batchPaymentCount > 0 || txn.data.closed)
+                    this.printReceipts(evt.data, null, 'store');
 
-            // @hack
-            // sleep to allow UI to catch up
-            this.sleep(100);
-            
-            // check if checks need to be printed
-            if (txn.data.batchItemCount > 0)
-                this.printChecks(evt.data, null, 'store');
+                // @hack
+                // sleep to allow UI to catch up
+                this.sleep(100);
 
+                // check if checks need to be printed
+                if (txn.data.batchItemCount > 0)
+                    this.printChecks(evt.data, null, 'store');
+            }
+            catch(e) {
+                this.log('ERROR', 'error in generating receipts/checks on submitting order');
+            }
             // clear dashboard settings
             this.resetDashboardSettings();
 

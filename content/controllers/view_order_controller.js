@@ -132,7 +132,7 @@
         },
 
         exportRcp: function() {
-        	if ( !GREUtils.Dialog.confirm( this.activeWindow, '', _( 'Are you sure you want to print this order?' ) ) )
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this order?' ) ) )
         		return;
 
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]

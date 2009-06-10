@@ -234,7 +234,7 @@
                 var confirmMessage = _("Do you want to restore (%S) from local backup?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
                 if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
 
-                if (GREUtils.Dialog.confirm(this.activeWindow, _("Confirm Restore"), confirmMessage )) {
+                if (GREUtils.Dialog.confirm(window, _("Confirm Restore"), confirmMessage )) {
                     this.sleep(100);
                     if (this.execute(this._scriptPath + "restore.sh", args )) {
                         this._restart();
@@ -275,7 +275,7 @@
                 var confirmMessage = _("Do you want to restore (%S) from stick?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
                 if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
                 
-                if (GREUtils.Dialog.confirm(this.activeWindow, _("Confirm Restore"), confirmMessage)) {
+                if (GREUtils.Dialog.confirm(window, _("Confirm Restore"), confirmMessage)) {
 
                     this.sleep(100);
                     if (this.execute(this._scriptPath + "restore.sh", args)){

@@ -113,7 +113,7 @@
             if (index >= 0) {
                 var destName = this._listDatas[index].name;
 
-                if (!GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete destination [%S]', [destName]), _('Are you sure you want to delete destination [%S]?', [destName]))) {
+                if (!GREUtils.Dialog.confirm(window, _('confirm delete destination [%S]', [destName]), _('Are you sure you want to delete destination [%S]?', [destName]))) {
                     return;
                 }
 

@@ -427,7 +427,7 @@
                 return;
             }
 
-            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
                 var condGroupModel = new CondimentGroupModel();
                 var condimentModel = new CondimentModel();
 
@@ -663,7 +663,7 @@
             var condGroups = GeckoJS.Session.get('condGroups');
             var condiment = condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex];
 
-            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [condiment.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [condiment.name]), _('Are you sure?'))) {
 
                 var condModel = new CondimentModel();
 

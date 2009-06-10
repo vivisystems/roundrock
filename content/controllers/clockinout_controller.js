@@ -297,7 +297,7 @@
 
         dbError: function(model, alertStr) {
             this.log('WARN', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
-            GREUtils.Dialog.alert(this.activeWindow,
+            GREUtils.Dialog.alert(window,
                                   _('Data Operation Error'),
                                   alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

@@ -88,7 +88,7 @@
             if (index >= 0) {
                 var filterName = this._listDatas[index].filtername;
 
-                if (!GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete filter [%S]', [filterName]), _('Are you sure you want to delete product filter [%S]?', [filterName]))) {
+                if (!GREUtils.Dialog.confirm(window, _('confirm delete filter [%S]', [filterName]), _('Are you sure you want to delete product filter [%S]?', [filterName]))) {
                     return;
                 }
 
