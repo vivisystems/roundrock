@@ -32,6 +32,7 @@
   <!-- include controllers -->
   <script src="chrome://viviecr/content/controllers/users_controller.js" type="application/x-javascript"/>
   <script src="chrome://viviecr/content/controllers/taxes_controller.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/training_mode_controller.js" type="application/x-javascript"/>
 
   <!-- include startup scripts -->
   <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
@@ -436,6 +437,8 @@
 
         <hbox class="ToolBar" pack="center">
             <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
+            <button id="vacuum_training_db" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
+            <button id="take_current_db_to_be_training_db" label="&orderdata.takecurrentdbtobetrainingdb;" oncommand="$do( 'takeCurrentDBToBeTrainingDB', null, 'TrainingMode' );" />
         </hbox>
 
     </prefpane>

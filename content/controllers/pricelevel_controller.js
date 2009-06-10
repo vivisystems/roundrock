@@ -9,10 +9,33 @@
 
         limit: 9,
         _manualChange: false,
+        _priceLevelSession: "vivipos_fec_price_level",
+        _priceLevelSessionBackup: null,
 
         initial: function() {
+            // listen to the broadcast propagated by Training Mode Controller.
+            var self = this;
+            this.observer = GeckoJS.Observer.newInstance( {
+                topics: [ "TrainingMode" ],
+
+                observe: function( aSubject, aTopic, aData ) {
+                    if ( aData == "start" ) {
+                    	self.startTraining( true );
+                    } else if ( aData == "exit" ) {
+                    	self.startTraining( false );
+                    }
+                }
+            } ).register();
             
             this.schedule();
+        },
+        
+        startTraining: function( isTraining ) {
+        	if ( isTraining ) {
+        		this._priceLevelSessionBackup = GeckoJS.Session.get( this._priceLevelSession );
+        	} else {
+        		GeckoJS.Session.set( this._priceLevelSession, this._priceLevelSessionBackup );
+        	}
         },
 
         schedule: function(changeToCurrent) {
@@ -46,7 +69,7 @@
 
                     //if (idx >= 0 && !this._manualChange) {
                     if (idx >= 0) {
-                        var oldpriceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+                        var oldpriceLevel = GeckoJS.Session.get(this._priceLevelSession);
                         var newpriceLevel = schedule[idx].pricelevel;
                         if (newpriceLevel == 0) newpriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
                         if (!changeToCurrent && oldpriceLevel && oldpriceLevel != newpriceLevel)
@@ -62,16 +85,15 @@
                 // no schedule, but changeToCurrent is requested, so we change to system/user default
                 var priceLevel = GeckoJS.Session.get('default_price_level') || GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
 
-                GeckoJS.Session.set('vivipos_fec_price_level', priceLevel);
+                GeckoJS.Session.set(this._priceLevelSession, priceLevel);
             }
 
-            var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+            var priceLevel = GeckoJS.Session.get(this._priceLevelSession);
             
             if (priceLevel == null) {
                 priceLevel = GeckoJS.Configure.read('default_price_level') || GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
-                GeckoJS.Session.set('vivipos_fec_price_level', priceLevel);
+                GeckoJS.Session.set(this._priceLevelSession, priceLevel);
             }
-
         },
 
         changeToCurrentLevel: function() {
@@ -81,13 +103,13 @@
 
         _changeLevel: function(level) {
 
-            var currentLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+            var currentLevel = GeckoJS.Session.get(this._priceLevelSession);
 
             if ( (typeof level != 'undefined') && (level >=1 && level <= this.limit)) {
-                GeckoJS.Session.set('vivipos_fec_price_level', level);
+                GeckoJS.Session.set(this._priceLevelSession, level);
             }else {
                 currentLevel = (++currentLevel <= this.limit) ? (currentLevel) : 1;
-                GeckoJS.Session.set('vivipos_fec_price_level', currentLevel);
+                GeckoJS.Session.set(this._priceLevelSession, currentLevel);
             }
             GeckoJS.Session.set('cart_last_sell_item', null);
         },
@@ -95,8 +117,11 @@
         change: function(level) {
             this._manualChange = true;
             this._changeLevel(level);
-        }
-
+        },
+        
+        destroy: function() {
+        	this.observer.unregister();
+    	}
     };
 
     GeckoJS.Controller.extend(__controller__);
@@ -108,5 +133,8 @@
                                       });
 
     }, false);
-
+    
+    window.addEventListener('unload', function() {
+        $do( "destroy", null, "PriceLevel" );
+    }, false);
 })();

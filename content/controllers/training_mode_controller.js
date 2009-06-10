@@ -6,6 +6,10 @@
 	 var __controller__ = {
 	 	name: "TrainingMode",
 	 	
+	 	_orderDBConfig: "DATABASE_CONFIG.order",
+	 	_trainingOrderDBConfig: "DATABASE_CONFIG.training_order",
+	 	_emptyTrainingOrderDBConfg: "DATABASE_CONFIG.empty_training_order",
+	 	
 	 	execute: function( cmd, param ) {
             try {
                 var exec = new GeckoJS.File( cmd );
@@ -20,17 +24,42 @@
             }
         },
         
-        vacuumTrainingDB: function() {
+        _vacuumTrainingDB: function() {
         	var trainingOrderDBConf =
-        		GeckoJS.Configure.read( "DATABASE_CONFIG.training_order" );
+        		GeckoJS.Configure.read( this._trainingOrderDBConfig );
         	var emptyTrainingOrderDBConf =
-        		GeckoJS.Configure.read( "DATABASE_CONFIG.empty_training_order" );
+        		GeckoJS.Configure.read( this._emptyTrainingOrderDBConfg );
         	var trainingOrderDB =
         		trainingOrderDBConf.path + '/' + trainingOrderDBConf.database;
         	var emptyTrainingOrderDB =
         		emptyTrainingOrderDBConf.path + '/' + emptyTrainingOrderDBConf.database;
         	
         	this.execute( "/bin/cp", [ emptyTrainingOrderDB, trainingOrderDB ] );
+        },
+        
+        vacuumTrainingDB: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to VACUUM training database?' ) ) )
+                return;
+            this._vacuumTrainingDB();
+        },
+        
+        _takeCurrentDBToBeTrainingDB: function() {
+        	var trainingOrderDBConf =
+        		GeckoJS.Configure.read( this._trainingOrderDBConfig );
+        	var orderDBConf =
+        		GeckoJS.Configure.read( this._orderDBConfig );
+        	var trainingOrderDB =
+        		trainingOrderDBConf.path + '/' + trainingOrderDBConf.database;
+        	var orderDB =
+        		orderDBConf.path + '/' + orderDBConf.database;
+        	
+        	this.execute( "/bin/cp", [ orderDB, trainingOrderDB ] );
+        },
+        
+        takeCurrentDBToBeTrainingDB: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to take current database to be training database?' ) ) )
+                return;
+        	this._takeCurrentDBToBeTrainingDB();
         },
 	 	
 	 	start: function() {
@@ -43,7 +72,7 @@
 	 				GeckoJS.Session.set( "isTraining", 0 );
 	 				
 	 				//Vacuum the training DB by just substituting an empty one for it.
-	 				this.vacuumTrainingDB();
+	 				//this.vacuumTrainingDB();
 	 				
 	 				//trainingModeController.dispatchEvent( "startTrainingMode", "exit" );
 	 				GeckoJS.Observer.notify( null, "TrainingMode", "exit" );
@@ -61,7 +90,7 @@
 			 		GeckoJS.Session.add( "isTraining", 1 );
 			 		
 			 		//Vacuum the training DB by just substituting an empty one for it.
-	 				this.vacuumTrainingDB();
+	 				//this.vacuumTrainingDB();
 			 		
 			 		//trainingModeController.dispatchEvent( "startTrainingMode", "start" );
 			 		GeckoJS.Observer.notify( null, "TrainingMode", "start" );
