@@ -83,7 +83,6 @@
             
         },
 
-
         saveOrderItems: function(data) {
 
             return this.OrderItem.saveAll(this.mappingTranToOrderItemsFields(data));
@@ -140,7 +139,6 @@
             return orderPromotions;
 
         },
-
 
         mappingTranToOrderFields: function(data) {
 
@@ -283,7 +281,6 @@
 
         },
 
-
         mappingTranToOrderAdditionsFields: function(data) {
 
             var orderAdditions = [];
@@ -400,7 +397,6 @@
 
         },
 
-
         serializeOrder: function (data) {
 
             var obj = GeckoJS.BaseObject.serialize(data);
@@ -510,12 +506,8 @@
             });
 
             return GREUtils.CryptoHash.md5(checksum);
-            
         }
-
-
     };
 
     var OrderModel = window.OrderModel =  GeckoJS.Model.extend(__model__);
-
 })();

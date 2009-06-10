@@ -258,6 +258,10 @@
         },
 
         shiftChange: function() {
+            if ( GeckoJS.Session.get( "isTraining" ) ) {
+                alert( _( "To use this function, please leave training mode first!" ) );
+                return;
+            }
             var salePeriod = this.getSalePeriod();
             var shiftNumber = this.getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
