@@ -7,5 +7,4 @@ var ProductModel = window.ProductModel = GeckoJS.Model.extend({
     checkUnique: function() {
 	return 	this.items;
     }
-    
 });

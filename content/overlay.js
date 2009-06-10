@@ -44,6 +44,8 @@
     function destroy() {
         this.observer.unregister();
         $do('destroy', null, "Main");
+        $do('destroy', null, "Cart");
+        $do('destroy', null, "VFD");
     }
 
     window.addEventListener('load', startup, false);
