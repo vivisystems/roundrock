@@ -13675,7 +13675,10 @@ GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
                 /* ifdef DEBUG 
                 this.log('DEBUG', '_execute > executeStep ' );
                 /* endif DEBUG */
+
                 this._result = this._statement.executeStep();
+                
+                return this._result;
 
             } else {
 
@@ -13729,12 +13732,75 @@ GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
     this.lastError = (this.conn.lastError == 0 || this.conn.lastError == 100 || this.conn.lastError == 101) ? 0 : this.conn.lastError; // not an error
     this.lastErrorString = this.conn.lastErrorString;
 
-    //dump('_execute > execute > exception: ' + this.conn.lastError +',,'+this.conn.lastErrorString +  '\n retries ' + numTries + '\n' + sql);
-
     return this._result;
 
 };
 
+/**
+ * Returns an array of all result rows for a given SQL query.
+ * Returns false if no rows matched.
+ *
+ * @param {String} sql SQL statement
+ * @param {Array} params parameters for prepare SQL statement
+ * @param {Boolean} cache Enables returning/storing cached query results
+ * @param {GeckoJS.Model} model [optional] Model for prepare result array
+ * @return {Array} Array of resultset rows, or false if no rows matched
+ */
+GeckoJS.DatasourceSQLite.prototype.fetchAll = function (sql, params, cache, model) {
+
+    cache = cache || false;
+
+    if (cache && this._queryCache[sql]) {
+        if (sql.match(/^\s*select/i)) {
+            return this._queryCache[sql];
+        }
+    }
+
+    params = params || [];
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', "fetchAll > execute " + sql + ((model) ? '\n'+model.name : '') );
+    /* endif DEBUG */
+   
+    if (this.execute(sql, params)) {
+
+        var out = [];
+        var columns = this.getStatementColumnsType(this._statement) || [];
+
+        var first = this.fetchResult(model, columns);
+
+        if (first != null){
+            out.push(first);
+        }
+
+        var item = this.fetchResult(model, columns);
+
+        while (item) {
+            out.push(item);
+            item = this.fetchResult(model, columns);
+        }
+
+        if (cache) {
+            if (sql.match(/^\s*select/i)) {
+                this._queryCache[sql] = out;
+            }
+        }
+
+        return out;
+
+    } else {
+        var errorCode = this.lastError ;
+        var errorString = this.lastErrorString ;
+
+        if (this.lastError == 0) {
+            return [];
+        }
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'fetchAll > failure: ' + errorCode + '\n' + errorString +'\n'+ sql);
+        /* endif DEBUG */
+        return false;
+    }
+};
 
 
 /**
@@ -13743,36 +13809,30 @@ GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
  * @param {GeckoJS.Model} model [optional] Model for prepare result array
  * @return {Array|Boolean} result array or false
  */
-GeckoJS.DatasourceSQLite.prototype.fetchResult = function(model) {
+GeckoJS.DatasourceSQLite.prototype.fetchResult = function(model, columns) {
 
     if (this._result == false) return false;
 
     model = model || false;
 
-    var numCols = this._statement.columnCount;
-
-    var columns = [];
-    var values_assoc = {};
-    var values = [];
-
-    for (var iCol = 0; iCol < numCols; iCol++) {
-        columns[iCol] = this._statement.getColumnName(iCol);
+    if (!columns) {
+        columns = this.getStatementColumnsType(this._statement);
     }
     
-    for (var iCol = 0; iCol < numCols; iCol++) {
-        var colType = {
-            declared: this._statement.getColumnDecltype(iCol),
-            sqlite: this._statement.getTypeOfIndex(iCol)
-        };
-        var colName = columns[iCol];
-        var value = this.getAsType(this._statement, iCol, colType);
-        values[iCol] = value;
+    var numCols = columns.length;
 
-        var m = colName.match(/^(\w+)\.(.*)/);
+    var values_assoc = {};
+    //var values = [];
+    
+    for (var iCol = 0; iCol < numCols; iCol++) {
+
+        var colName = columns[iCol].name;
+        var modelName = columns[iCol].modelName;
+
+        var value = this.getAsType(this._statement, iCol, columns[iCol].type);
+        //values[iCol] = value;
         
-        if(m) {
-            colName =  m[2];
-            var modelName =  m[1];
+        if(modelName.length > 0) {
 
             if(!values_assoc[modelName]) values_assoc[modelName] = {};
             
@@ -13922,7 +13982,7 @@ GeckoJS.DatasourceSQLite.prototype.bindParameter = function (stmt, params) {
                         break;
                 }
             }catch(e) {
-            ///this.log('ERROR', 'Error bindParameter' + e.message);
+                this.log('ERROR', 'Error bindParameter ' + e);
             }
         });
     }
@@ -13944,6 +14004,7 @@ GeckoJS.DatasourceSQLite.prototype.getAsType = function(stmt, iCol, iType) {
     if (stmt.getIsNull(iCol)) return null;
     var declaredType = iType.declared;
     var sqliteType = iType.sqlite;
+    var convertType = iType.convert;
 
     if (sqliteType == stmt.VALUE_TYPE_NULL) return null;
 
@@ -13965,13 +14026,12 @@ GeckoJS.DatasourceSQLite.prototype.getAsType = function(stmt, iCol, iType) {
         default:
             throw new Exception("SQLite statement returned an unknown data type: " + sqliteType);
     }
-    if (declaredType.match(/bool/i))
-    {
-        //value = Boolean(value);
+    
+    if (convertType == 'Boolean') {
         value = GeckoJS.String.parseBoolean(value);
     }
-    if ((declaredType.match(/date/i) || declaredType.match(/time/i)) && (sqliteType == stmt.VALUE_TYPE_INTEGER))
-    {
+    if (convertType == 'Date') {
+
         if (parseFloat(value).toFixed(0).length == 10) {
             value = new Date(value * 1000);
         }else if (parseFloat(value).toFixed(0).length == 13) {
@@ -14221,6 +14281,47 @@ GeckoJS.DatasourceSQLite.prototype.renderStatement = function(type, data) {
     }
 };
 
+
+GeckoJS.DatasourceSQLite.prototype.getStatementColumnsType = function (statement) {
+        // do not use stmt.columnCount in the for loop
+        var numCols = statement.columnCount;
+
+        var columns = [];
+        for (var iCol = 0; iCol < numCols; iCol++) {
+
+            var colName = statement.getColumnName(iCol);
+            var declaredType = statement.getColumnDecltype(iCol);
+            var sqliteType = statement.getTypeOfIndex(iCol);
+            var convertType = false;
+
+            if (declaredType.match(/bool/i)) {
+                convertType = "Boolean";
+            }
+            if ((declaredType.match(/date/i) || declaredType.match(/time/i)) && (sqliteType == statement.VALUE_TYPE_INTEGER)) {
+                convertType = "Date";
+            }
+
+            var modelName = "";
+
+            var m = colName.match(/^(\w+)\.(.*)/);
+
+            if(m) {
+                colName =  m[2];
+                modelName =  m[1];
+            }
+
+            columns[iCol] =  {name: colName,
+                              modelName: modelName,
+                              type: {
+                                    declared: declaredType,
+                                    sqlite: sqliteType,
+                                    convert: convertType
+
+                                }};
+
+        }
+        return columns;
+};
 /**
  * Defines the GeckoJS.NSITreeViewArray namespace.
  *
