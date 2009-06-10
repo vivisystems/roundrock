@@ -399,6 +399,9 @@
 
         serializeOrder: function (data) {
 
+            // add checksum field
+            data.checksum = this.getOrderChecksum(data.id);
+
             var obj = GeckoJS.BaseObject.serialize(data);
             var orderObj = {
                 order_id: data.id,

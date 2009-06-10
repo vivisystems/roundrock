@@ -242,14 +242,17 @@
     border: none;
 }
 
-
 .PromptPnl {
- background: transparent url(images/checkbg.gif) center center no-repeat;
-  -moz-appearance: none;
+/*  background: transparent url(images/checkbg.gif) center center no-repeat; */
+/*  -moz-appearance: none; */
   border: none;
-  padding: 2px;
+/*  padding: 2px; */
   width:854px;
   height: 659px;
+}
+
+.PromptPnlBg {
+  background: transparent url(images/checkbg.png) left top no-repeat;
 }
 
 .PromptBox {
