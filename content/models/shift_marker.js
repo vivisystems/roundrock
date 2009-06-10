@@ -3,6 +3,5 @@ var ShiftMarkerModel = window.ShiftMarkerModel = GeckoJS.Model.extend({
 
     useDbConfig: 'order',
 
-    behaviors: ['Sync']
-
+    behaviors: ['Sync', 'Training']
 });

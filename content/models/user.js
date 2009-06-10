@@ -3,6 +3,5 @@
         name: 'User',
 
         belongsTo: ['Job']
-    
     });
 })();

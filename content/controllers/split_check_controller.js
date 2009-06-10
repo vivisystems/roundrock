@@ -19,23 +19,31 @@
             alert('checkOrd');
         },
 
+        _getTableStatusModel: function() {
+            if (this._tableStatusModel == null) {
+
+                var cart = this.getCartController();
+                this._tableStatusModel = cart.GuestCheck._tableStatusModel;
+
+            }
+            return this._tableStatusModel;
+        },
+
         _getNewCheckNo: function() {
             var i = 1;
             var ar = [];
-            if (this._tableStatusModel == null) {
-                this._tableStatusModel = new TableStatusModel;
-                this._tableStatusModel.initial();
-            }
-            var r = this._tableStatusModel.getNewCheckNo();
+            
+            var r = this._getTableStatusModel().getNewCheckNo();
 
             return "" + r;
         },
 
         getCartController: function() {
-            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
-            this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
-
+            if (this._cart == null) {
+                var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                this._cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
+            }
             // this._cart.dispatchEvent('onSplitCheck', null);
 
             return this._cart;
@@ -402,14 +410,8 @@
             // this.getCartController().dispatchEvent('onStore', origData);
             this.getCartController().dispatchEvent('onSplitCheck', origData);
 
-            // add to table_status
-            if (this._tableStatusModel == null) {
-                this._tableStatusModel = new TableStatusModel;
-                this._tableStatusModel.initial();
-            }
-
             // update table status
-            this._tableStatusModel.addCheck(origData);
+            this._getTableStatusModel().addCheck(origData);
 
             var orders = this._genOrders();
 
@@ -443,14 +445,8 @@
                 // this.getCartController().dispatchEvent('onStore', origData);
                 self.getCartController().dispatchEvent('onSplitCheck', data);
 
-                // add to table_status
-                if (self._tableStatusModel == null) {
-                    self._tableStatusModel = new TableStatusModel;
-                    self._tableStatusModel.initial();
-                }
-
                 // update table status
-                self._tableStatusModel.addCheck(data);
+                self._getTableStatusModel().addCheck(data);
 
             });
             

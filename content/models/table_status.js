@@ -369,6 +369,7 @@
                 status: tableObj.status,
                 terminal_no: tableObj.terminal_no,
                 transaction_created: tableObj.transaction_created,
+                checksum: tableObj.checksum,
 
                 table_id: tableObj.table_id,
                 total: tableObj.total,
@@ -406,6 +407,7 @@
                 status: 0,
                 terminal_no: checkObj.terminal_no,
                 transaction_created: checkObj.created,
+                checksum: checkObj.checksum,
 
                 total: checkObj.total,
 

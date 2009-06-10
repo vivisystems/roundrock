@@ -27,6 +27,7 @@
 <!ENTITY general.autosetdecimalpoint "Adjust for decimal point automatically">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
+<!ENTITY general.ifprintwhiletraining "Print receipt and check while training?">
 <!ENTITY login.defaultlogin "Automatically log in default user">
 <!ENTITY general.quietcancel "Do not beep when cancelling orders">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
@@ -105,7 +106,8 @@
 <!ENTITY formats.sequence.number.length "Sequence number length">
 <!ENTITY formats.revalueprices "Rounding value to use for Revalue Prices">
 <!ENTITY formats.autorevalueprices "Auto-Revalue subtotal prices">
-
 <!ENTITY orderdata.requirecheckno "Require check no">
 <!ENTITY orderdata.requiretableno "Require table no">
 <!ENTITY orderdata.rebuilddatabase "Rebuild Database">
+<!ENTITY orderdata.vacuumtrainingdb "Vacuum Training DB">
+<!ENTITY orderdata.takecurrentdbtobetrainingdb "Take current DB to be training DB">

@@ -178,6 +178,16 @@ msgstr "** TRAY"
 msgid "House Bon"
 msgstr "BON"
 
+msgid "trainingMode.label"
+msgstr "Training Mode"
+
+msgid "trainingMode.name"
+msgstr "Training Mode"
+
+msgid "trainingMode.desc"
+msgstr ""
+"This function is used to launch the training mode."
+
 msgid "returncartitem.desc"
 msgstr ""
 "This function is used to register return of the current item in the "
@@ -191,8 +201,8 @@ msgstr "Return Item"
 
 msgid "itembybarcode.desc"
 msgstr ""
-"This function is used to register an item by its product number or barcode. "
-"The parameter must be set to the product number or the barcode of the item "
+"This function is used to register an item by its product number or barcode."
+"The parameter must be set to the product number or the barcode of the item"
 "to be registered."
 
 msgid "itembybarcode.label"
@@ -2306,6 +2316,9 @@ msgstr "Occurrences"
 
 msgid "acl_layout_manager"
 msgstr "Layout Manager"
+
+msgid "acl_training_mode"
+msgstr "Training Mode"
 
 msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
