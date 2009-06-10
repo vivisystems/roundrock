@@ -15,7 +15,7 @@
         _set_reportRecords: function(limit) {
 
             limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+            if (isNaN(limit) || limit <= 0) limit = this._csvLimit ; // this._stdLimit;
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
@@ -34,10 +34,10 @@
             end = parseInt(end / 1000, 10);
 
             var fields = [
-                            'sum(order_payments.amount - order_payments.change) as "Order.payment_subtotal"',
-                            'order_payments.name as "Order.payment_name"',
+                            'sum(order_payments.amount - order_payments.change) as "payment_subtotal"',
+                            'order_payments.name as "payment_name"',
                             'orders.transaction_created',
-                            'strftime( "%Y-%m-%d", "orders"."' + periodType + '", "unixepoch", "localtime" ) AS "Order.date"',
+                            'strftime( "%Y-%m-%d", "orders"."' + periodType + '", "unixepoch", "localtime" ) AS "date"',
                             'orders.id',
                             //'orders.sequence',
                             'orders.status',
@@ -68,15 +68,15 @@
             if ( shiftNo.length > 0 )
             	conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
             	
-            var groupby = 'order_payments.order_id, order_payments.name';//order_payments.order_id';
-            var orderby = 'orders.terminal_no, "Order.date", orders.item_subtotal desc';//orders.transaction_created, orders.id';
+            var groupby = 'orders.id, payment_name';//order_payments.order_id';
+            var orderby = 'orders.terminal_no, "date", orders.item_subtotal desc';//orders.transaction_created, orders.id';
 
             // var order = new OrderModel();
 
             var orderPayment = new OrderPaymentModel();
             // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
-            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, limit: this._csvLimit, recursive: 1});
-
+            //var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, limit: this._csvLimit, recursive: 1});
+            var datas = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
             //var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             //var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
@@ -115,6 +115,7 @@
             
             datas.forEach( function( data ) {
 
+                data.Order = data;
                 var oid = data.Order.id;
                 var o = data.Order;
 

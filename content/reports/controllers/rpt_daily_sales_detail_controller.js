@@ -13,7 +13,7 @@
         _fileName: 'rpt_daily_sales_detail',
         
         _enableButton: function( enable ) {
-        	this._super( enable );
+            this._super( enable );
         	
             var disabled = !enable;
             $( '#previous_page' ).attr( 'disabled', disabled );
@@ -46,174 +46,174 @@
                 timeField = 'transaction_submitted';
             }
             var fields =	'orders.id, ' +
-            				'orders.' + timeField + ' as time, ' +
-                            'orders.sequence, ' +
-                            'orders.total, ' +
-                            'orders.tax_subtotal, ' +
-                            'orders.item_subtotal, ' +
-                            'orders.discount_subtotal, ' +
-                            'orders.promotion_subtotal, ' +
-                            'orders.revalue_subtotal, ' +
-                            'orders.surcharge_subtotal, ' +
-                            'orders.qty_subtotal, ' +
-                            'orders.no_of_customers, ' +
-                            'orders.invoice_no, ' +
-                            'orders.sale_period, ' +
-                            'orders.shift_number, ' +
-                            'orders.rounding_prices, ' +
-                            'orders.precision_prices, ' +
-                            'orders.rounding_taxes, ' +
-                            'orders.precision_taxes, ' +
-                            'orders.surcharge_subtotal, ' +
-                            'orders.terminal_no, ' +
-                            'order_items.product_no, ' +
-                            'order_items.product_name, ' +
-                            'order_items.current_qty, ' +
-                            'order_items.current_price, ' +
-                            'order_items.current_subtotal, ' +
-                            'order_items.current_discount, ' +
-                            'order_items.current_surcharge, ' +
-                            'order_items.tax_name';
+            'orders.' + timeField + ' as time, ' +
+            'orders.sequence, ' +
+            'orders.total, ' +
+            'orders.tax_subtotal, ' +
+            'orders.item_subtotal, ' +
+            'orders.discount_subtotal, ' +
+            'orders.promotion_subtotal, ' +
+            'orders.revalue_subtotal, ' +
+            'orders.surcharge_subtotal, ' +
+            'orders.qty_subtotal, ' +
+            'orders.no_of_customers, ' +
+            'orders.invoice_no, ' +
+            'orders.sale_period, ' +
+            'orders.shift_number, ' +
+            'orders.rounding_prices, ' +
+            'orders.precision_prices, ' +
+            'orders.rounding_taxes, ' +
+            'orders.precision_taxes, ' +
+            'orders.surcharge_subtotal, ' +
+            'orders.terminal_no, ' +
+            'order_items.product_no, ' +
+            'order_items.product_name, ' +
+            'order_items.current_qty, ' +
+            'order_items.current_price, ' +
+            'order_items.current_subtotal, ' +
+            'order_items.current_discount, ' +
+            'order_items.current_surcharge, ' +
+            'order_items.tax_name';
                             
             var tables = 'orders left join order_items on orders.id = order_items.order_id';
 
             var conditions = "orders." + periodType + " >= '" + start +
-                            "' and orders." + periodType + " <= '" + end +
-                            "' and orders.status = '1'";
+            "' and orders." + periodType + " <= '" + end +
+            "' and orders.status = '1'";
 
             if ( terminalNo.length > 0 )
                 conditions += " and orders.terminal_no like '" + this._queryStringPreprocessor( terminalNo ) + "%'";
                 
             if ( shiftNo.length > 0 ) 
-            	conditions += " and orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+                conditions += " and orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
           
             if ( sequenceNo.length > 0 )
-            	conditions += " and orders.sequence like '" + this._queryStringPreprocessor( sequenceNo ) + "%'";
+                conditions += " and orders.sequence like '" + this._queryStringPreprocessor( sequenceNo ) + "%'";
 
             var orderby = 'orders.' +  timeField;
             
             if ( sortby != 'all' ) {
-            	var desc = "";
+                var desc = "";
             	
-            	switch ( sortby ) {
-            		case 'terminal_no':
-            		case periodType:
-            		case 'discount_subtotal':
-            		case 'promotion_subtotal':
-            		case 'revalue_subtotal':
+                switch ( sortby ) {
+                    case 'terminal_no':
+                    case periodType:
+                    case 'discount_subtotal':
+                    case 'promotion_subtotal':
+                    case 'revalue_subtotal':
                         orderby = sortby + ', ' + periodType;
-            			break;
-            		case 'item_subtotal':
-            		case 'tax_subtotal':
-            		case 'surcharge_subtotal':
-            		case 'total':
-            		case 'no_of_customers':
-            		case 'qty_subtotal':
+                        break;
+                    case 'item_subtotal':
+                    case 'tax_subtotal':
+                    case 'surcharge_subtotal':
+                    case 'total':
+                    case 'no_of_customers':
+                    case 'qty_subtotal':
                         orderby = sortby + ' desc';
                         break;
-            	}
+                }
             }
             	
             //var limit = this._recordLimit + ' offset ' + this._recordOffset;
             	
-            var sql = 'select ' + fields + ' from ' + tables + ' where ' + conditions + ' order by ' + orderby + ' limit ' + limit + ';';
+            var sql = 'SELECT ' + fields + ' FROM ' + tables + ' WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT ' + limit + ';';
 
             var order = new OrderModel();
 
-			var results = order.getDataSource().fetchAll( sql );
+            var results = order.getDataSource().fetchAll( sql );
 			
-			var summary = {
-				item_subtotal: 0,
-				tax_subtotal: 0,
-				surcharge_subtotal: 0,
-				discount_subtotal: 0,
-				promotion_subtotal: 0,
-				revalue_subtotal: 0,
-				payment: 0,
+            var summary = {
+                item_subtotal: 0,
+                tax_subtotal: 0,
+                surcharge_subtotal: 0,
+                discount_subtotal: 0,
+                promotion_subtotal: 0,
+                revalue_subtotal: 0,
+                payment: 0,
                 guests: 0,
                 items: 0
-			};
+            };
 
-			// re-synthesis the data retrieved from DB to fit the structure that .tpl files use.
-			var records = [];
-			var oid;
-			var record;
-			var isFirstRow = true;
+            // re-synthesis the data retrieved from DB to fit the structure that .tpl files use.
+            var records = [];
+            var oid;
+            var record;
+            var isFirstRow = true;
 			
-			results.forEach( function( result ) {
+            results.forEach( function( result ) {
 			
-				if ( oid != result.id ) {
-					if ( isFirstRow ) isFirstRow = false;
-					else records.push( record );
+                if ( oid != result.id ) {
+                    if ( isFirstRow ) isFirstRow = false;
+                    else records.push( record );
 					
-					record = {};
-					record.OrderItem = [];
-					record.Order = {};
+                    record = {};
+                    record.OrderItem = [];
+                    record.Order = {};
 				
-					record.total = result.total;
-					record.sequence = result.sequence;
-					record.tax_subtotal = result.tax_subtotal;
-					record.item_subtotal = result.item_subtotal;
-					record.discount_subtotal = result.discount_subtotal;
-					record.promotion_subtotal = result.promotion_subtotal;
-					record.revalue_subtotal = result.revalue_subtotal;
-					record.surcharge_subtotal = result.surcharge_subtotal;
+                    record.total = result.total;
+                    record.sequence = result.sequence;
+                    record.tax_subtotal = result.tax_subtotal;
+                    record.item_subtotal = result.item_subtotal;
+                    record.discount_subtotal = result.discount_subtotal;
+                    record.promotion_subtotal = result.promotion_subtotal;
+                    record.revalue_subtotal = result.revalue_subtotal;
+                    record.surcharge_subtotal = result.surcharge_subtotal;
                     record.invoice_no = result.invoice_no;
-					record.qty_subtotal = result.qty_subtotal;
-					record.no_of_customers = result.no_of_customers;
-					record.terminal_no = result.terminal_no;
+                    record.qty_subtotal = result.qty_subtotal;
+                    record.no_of_customers = result.no_of_customers;
+                    record.terminal_no = result.terminal_no;
                     record.sale_period = result.sale_period;
                     record.shift_number = result.shift_number;
-					record.id = result.id;
+                    record.id = result.id;
 					
-					record.Order.time = result.time;
+                    record.Order.time = result.time;
 					
-					summary.item_subtotal += result.item_subtotal;
-					summary.tax_subtotal += result.tax_subtotal;
-					summary.surcharge_subtotal += result.surcharge_subtotal;
-					summary.discount_subtotal += result.discount_subtotal;
-					summary.promotion_subtotal += result.promotion_subtotal;
-					summary.revalue_subtotal += result.revalue_subtotal;
-					summary.payment += result.total;
+                    summary.item_subtotal += result.item_subtotal;
+                    summary.tax_subtotal += result.tax_subtotal;
+                    summary.surcharge_subtotal += result.surcharge_subtotal;
+                    summary.discount_subtotal += result.discount_subtotal;
+                    summary.promotion_subtotal += result.promotion_subtotal;
+                    summary.revalue_subtotal += result.revalue_subtotal;
+                    summary.payment += result.total;
                     summary.guests += result.no_of_customers;
                     summary.items += result.qty_subtotal;
-				}
+                }
 				
-				var item = {};
+                var item = {};
 
-				item.product_no = result.product_no;
-				item.product_name = result.product_name;
-				item.current_qty = result.current_qty;
-				item.current_price = result.current_price;
-				item.current_subtotal = result.current_subtotal;
-				item.current_discount = result.current_discount;
-				item.current_surcharge = result.current_surcharge;
-				item.tax_name = result.tax_name;
+                item.product_no = result.product_no;
+                item.product_name = result.product_name;
+                item.current_qty = result.current_qty;
+                item.current_price = result.current_price;
+                item.current_subtotal = result.current_subtotal;
+                item.current_discount = result.current_discount;
+                item.current_surcharge = result.current_surcharge;
+                item.tax_name = result.tax_name;
 					
-				record.OrderItem.push( item );
+                record.OrderItem.push( item );
 				
-				oid = result.id;
-			} );
-			// trap the last order.	
-			if ( record ) records.push( record );
+                oid = result.id;
+            } );
+            // trap the last order.
+            if ( record ) records.push( record );
 			
-			this._reportRecords.head.title = _( 'Sales Report - Detailed' );
-			this._reportRecords.head.start_time = start_str;
-			this._reportRecords.head.end_time = end_str;
-			this._reportRecords.head.terminal_no = terminalNo;
+            this._reportRecords.head.title = _( 'Sales Report - Detailed' );
+            this._reportRecords.head.start_time = start_str;
+            this._reportRecords.head.end_time = end_str;
+            this._reportRecords.head.terminal_no = terminalNo;
 			
-			this._reportRecords.body = records;
+            this._reportRecords.body = records;
 			
-			this._reportRecords.foot.foot_datas = summary;
+            this._reportRecords.foot.foot_datas = summary;
         },
         
         exportPdf: function() {
-        	this._super( {
-        		paperSize: {
-        			width: 297,
-        			height: 210
-        		}
-        	} );
+            this._super( {
+                paperSize: {
+                    width: 297,
+                    height: 210
+                }
+            } );
         },
         
         exportCsv: function() {
@@ -221,8 +221,8 @@
         },
 
         execute: function() {
-        	this._super();
-        	this._registerOpenOrderDialog();
+            this._super();
+            this._registerOpenOrderDialog();
         },
         
         load: function() {
