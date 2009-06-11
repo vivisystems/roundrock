@@ -93,6 +93,8 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
                 main.addEventListener('onFirstLoad', this.handleFirstLoad, this);
+                main.addEventListener('afterTruncateTxnRecords', this.handleFirstLoad, this);
+
             }
             
         },
@@ -117,6 +119,35 @@
             catch (e) {
                 NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
                 return false;
+            }
+        },
+
+        handleTruncateTxnRecords: function(evt) {
+            //
+            //this._tableStatusModel.
+            var r = this._tableStatusModel.begin();
+            if (r) {
+                r = this._tableStatusModel.execute('delete from orders');
+                if (r) r = this._tableStatusModel.execute('delete from order_receipts');
+
+                if (r) r = this._tableStatusModel.commit();
+                if (!r) {
+                    var errNo = this._tableStatusModel.lastError;
+                    var errMsg = this._tableStatusModel.lastErrorString;
+
+                    this._tableStatusModel.rollback();
+
+                    this.dbError(errNo, errMsg,
+                                 _('An error was encountered while attempting to remove all transaction records (error code %S).', [errNo]));
+                }
+                else {
+                    // dispatch afterTruncateTxnRecords event
+                    this.dispatchEvent('afterTruncateTxnRecords', null);
+                }
+            }
+            else {
+                this.dbError(this._tableStatusModel.lastError, this._tableStatusModel.lastErrorString,
+                             _('An error was encountered while attempting to remove all transaction records (error code %S).', orderModel.lastError));
             }
         },
 
