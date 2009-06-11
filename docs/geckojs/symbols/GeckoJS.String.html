@@ -1,0 +1,1803 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - GeckoJS.String</title>
+
+		<style type="text/css">
+			/* default.css */
+body
+{
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+.header
+{
+	clear: both;
+	background-color: #ccc;
+	padding: 8px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 1em 0 0 .3em;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 160px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 190px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle { margin-bottom: 8px; }
+.summaryTable thead { display: none; }
+
+.summaryTable td
+{
+	vertical-align: top;
+	padding: 4px;
+	border-bottom: 1px #7F8FB1 solid;
+	border-right: 1px #7F8FB1 solid;
+}
+
+/*col#summaryAttributes {}*/
+.summaryTable td.attributes
+{
+	border-left: 1px #7F8FB1 solid;
+	width: 140px;
+	text-align: right;
+}
+
+td.attributes, .fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.summaryTable td.nameDescription
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.summaryTable td.nameDescription, .description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.summaryTable { margin-bottom: 8px; }
+
+ul.inheritsList
+{
+	list-style: square;
+	margin-left: 20px;
+	padding-left: 0;
+}
+
+.detailList {
+	margin-left: 20px; 
+	line-height: 15px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/GeckoJS.html">GeckoJS</a></li>
+	
+	<li><a href="../symbols/GeckoJS.AclComponent.html">GeckoJS.AclComponent</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Array.html">GeckoJS.Array</a></li>
+	
+	<li><a href="../symbols/GeckoJS.ArrayQuery.html">GeckoJS.ArrayQuery</a></li>
+	
+	<li><a href="../symbols/GeckoJS.BaseController.html">GeckoJS.BaseController</a></li>
+	
+	<li><a href="../symbols/GeckoJS.BaseModel.html">GeckoJS.BaseModel</a></li>
+	
+	<li><a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Behavior.html">GeckoJS.Behavior</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Class.html">GeckoJS.Class</a></li>
+	
+	<li><a href="../symbols/GeckoJS.ClassRegistry.html">GeckoJS.ClassRegistry</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Component.html">GeckoJS.Component</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceSQLite.html">GeckoJS.DatasourceSQLite</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Dir.html">GeckoJS.Dir</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Dispatcher.html">GeckoJS.Dispatcher</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Event.html">GeckoJS.Event</a></li>
+	
+	<li><a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a></li>
+	
+	<li><a href="../symbols/GeckoJS.File.html">GeckoJS.File</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Filter.html">GeckoJS.Filter</a></li>
+	
+	<li><a href="../symbols/GeckoJS.FormHelper.html">GeckoJS.FormHelper</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Helper.html">GeckoJS.Helper</a></li>
+	
+	<li><a href="../symbols/GeckoJS.HttpRequest.html">GeckoJS.HttpRequest</a></li>
+	
+	<li><a href="../symbols/GeckoJS.I18n.html">GeckoJS.I18n</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Inflector.html">GeckoJS.Inflector</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.html">GeckoJS.Log</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.Appender.html">GeckoJS.Log.Appender</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.ClassLogger.html">GeckoJS.Log.ClassLogger</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.ConsoleAppender.html">GeckoJS.Log.ConsoleAppender</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.FileAppender.html">GeckoJS.Log.FileAppender</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSIRunnable.html">GeckoJS.NSIRunnable</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSITreeViewArray.html">GeckoJS.NSITreeViewArray</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NumberHelper.html">GeckoJS.NumberHelper</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Observer.html">GeckoJS.Observer</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Scaffold.html">GeckoJS.Scaffold</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Session.html">GeckoJS.Session</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Set.html">GeckoJS.Set</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Singleton.html">GeckoJS.Singleton</a></li>
+	
+	<li><a href="../symbols/GeckoJS.String.html">GeckoJS.String</a></li>
+	
+	<li><a href="../symbols/GeckoJS.StringBundle.html">GeckoJS.StringBundle</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Thread.html">GeckoJS.Thread</a></li>
+	
+</ul>
+<hr />
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Namespace GeckoJS.String
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+
+				
+GeckoJS.String provides a set of common string manipulation functions.
+<br/>
+
+				
+			
+				
+					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class GeckoJS.String.">
+				<caption>Namespace Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/GeckoJS.String.html#constructor">GeckoJS.String</a></b>
+							</div>
+							<div class="description">GeckoJS.String provides a set of common string manipulation functions.</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.String.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.base64Decode">base64Decode</a></b>(str)
+								</div>
+								<div class="description">Decodes a string of data which has been encoded using base-64 encoding.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.base64Encode">base64Encode</a></b>(str)
+								</div>
+								<div class="description">Creates a base-64 encoding of a string.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.contains">contains</a></b>(s, ss)
+								</div>
+								<div class="description">Checks whether a string contains a given substring.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.escapeForSQL">escapeForSQL</a></b>(raw)
+								</div>
+								<div class="description">Escapes an input string for use with SQL</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.getRandomString">getRandomString</a></b>()
+								</div>
+								<div class="description">Returns a string with at least 64-bits of randomness.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.httpBuildQuery">httpBuildQuery</a></b>(formdata, numeric_prefix, arg_separator)
+								</div>
+								<div class="description">Generates a URL-encoded query string.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.iconv">iconv</a></b>(in_charset, out_charset, str)
+								</div>
+								<div class="description">Converts a string from one character set encoding to another.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.lcfirst">lcfirst</a></b>(word)
+								</div>
+								<div class="description">Converts the first character of a string to lower case.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.numberFormat">numberFormat</a></b>(number, decimals, dec_point, thousands_sep)
+								</div>
+								<div class="description">Formats a number with grouped thousands.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.padLeft">padLeft</a></b>(num, totalChars, padWith)
+								</div>
+								<div class="description">Pads a string 'on the left' to the specified length by prepending the string
+with the given padding character.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.padRight">padRight</a></b>(num, totalChars, padWith)
+								</div>
+								<div class="description">Pads a string 'on the right' to the specified length by appending the string
+with the given padding character.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.parseBoolean">parseBoolean</a></b>(bool)
+								</div>
+								<div class="description">Parses a string or boolean or object into Boolean value.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.parseCSV">parseCSV</a></b>(text, delim, quote, linedelim)
+								</div>
+								<div class="description">parse CSV Format Text to Array</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.parseStr">parseStr</a></b>(str, array)
+								</div>
+								<div class="description">Parses a query string into property-value pairs.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.singleQuote">singleQuote</a></b>(text)
+								</div>
+								<div class="description">Surround the provided string in single quotation marks</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.sprintf">sprintf</a></b>(format, args)
+								</div>
+								<div class="description">Returns a string produced according to the formatting string format .</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.trim">trim</a></b>(str)
+								</div>
+								<div class="description">Trims white spaces to the left and right of a string.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.trimLeft">trimLeft</a></b>(str)
+								</div>
+								<div class="description">Trims white spaces at the left end of a string.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.trimRight">trimRight</a></b>(str)
+								</div>
+								<div class="description">Trims white spaces at the right end of a string.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.ucfirst">ucfirst</a></b>(word)
+								</div>
+								<div class="description">Converts the first character of a string to upper case.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.ucwords">ucwords</a></b>(word)
+								</div>
+								<div class="description">Converts the first character of each word in a string to upper case.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.urlDecode">urlDecode</a></b>(str)
+								</div>
+								<div class="description">Converts a string from its URL-encoded form.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.urlEncode">urlEncode</a></b>(str)
+								</div>
+								<div class="description">Converts a string to a form suitable for use in a URL.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.String.<b><a href="../symbols/GeckoJS.String.html#.uuid">uuid</a></b>()
+								</div>
+								<div class="description">Generates a globally unique ID.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Namespace Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>GeckoJS.String</b>
+				</div>
+				
+				<div class="description">
+					GeckoJS.String provides a set of common string manipulation functions.
+<br/>
+					
+				</div>
+				
+				
+				
+				
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name=".base64Decode"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>base64Decode</b>(str)
+					
+					</div>
+					<div class="description">
+						Decodes a string of data which has been encoded using base-64 encoding.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>str</b>
+									
+								</dt>
+								<dd>This is the base-64 encoded string data</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The decoded string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".base64Encode"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>base64Encode</b>(str)
+					
+					</div>
+					<div class="description">
+						Creates a base-64 encoding of a string.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>str</b>
+									
+								</dt>
+								<dd>This is the string to encode</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The base-64 encoded ASCII string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".contains"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Boolean}</span>
+					<span class="light">GeckoJS.String.</span><b>contains</b>(s, ss)
+					
+					</div>
+					<div class="description">
+						Checks whether a string contains a given substring.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>s</b>
+									
+								</dt>
+								<dd>This is the string to check</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>ss</b>
+									
+								</dt>
+								<dd>This is the substring to look for in the string</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if the string contains the substring; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".escapeForSQL"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>escapeForSQL</b>(raw)
+					
+					</div>
+					<div class="description">
+						Escapes an input string for use with SQL
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>raw</b>
+									
+								</dt>
+								<dd>The source string</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The escaped string suitable for use in a SQL query</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getRandomString"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>getRandomString</b>()
+					
+					</div>
+					<div class="description">
+						Returns a string with at least 64-bits of randomness.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> A random string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".httpBuildQuery"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>httpBuildQuery</b>(formdata, numeric_prefix, arg_separator)
+					
+					</div>
+					<div class="description">
+						Generates a URL-encoded query string.<br/>
+<br/>
+This method builds a URL-encoded query string out of the elements of
+"formdata". Each element of formdata should be a name-value pair, which is
+converted into a field-value pair in the query string. The field name used
+is normally the same as the element name, but if numeric_prefix is
+specified, then each field is assigned a numeric ID prefixed with
+numeric_prefix. Finally, arg_separator is used to delimite field-value pairs
+in the query string.
+						
+						
+					</div>
+					
+					
+					
+					<pre class="code"><pre>
+    GeckoJS.String.httpBuildQuery({ foo: 'bar',
+                                    baz: 'boom',
+                                    cow: 'milk',
+                                    php: 'hypertext processor' }, '', '&');
+    => 'foo=bar&baz=boom&cow=milk&php=hypertext+processor'
+</pre></pre>
+					
+					<pre class="code"><pre>
+    GeckoJS.String.httpBuildQuery({ 0: 'foo',
+                                    1: 'bar',
+                                    2: 'baz',
+                                    3: 'boom',
+                                    cow: 'milk',
+                                    php :'hypertext processor'}, 'myvar_');
+    => 'myvar_0=foo&myvar_1=bar&myvar_2=baz&myvar_3=boom&cow=milk&php=hypertext+processor'
+</pre></pre>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>formdata</b>
+									
+								</dt>
+								<dd>This is an object containing name-value pairs</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>numeric_prefix</b>
+									
+								</dt>
+								<dd>This is the prefix for auto-generated field names</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>arg_separator</b>
+									
+								</dt>
+								<dd>This is the separator delimiting field-value pairs in the query string; defaults to "&"</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> A URL-encoded query string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".iconv"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>iconv</b>(in_charset, out_charset, str)
+					
+					</div>
+					<div class="description">
+						Converts a string from one character set encoding to another.<br/>
+<br/>
+This method takes a string encoded in character set "in_charset"
+and returns the corresponding string encoded in character set "out_charset".
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>in_charset</b>
+									
+								</dt>
+								<dd>This is the character set used to encode the string</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>out_charset</b>
+									
+								</dt>
+								<dd>This is the character set encoding the string is to be converted to</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>str</b>
+									
+								</dt>
+								<dd>This is the string to convert</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> A string encoded using the given character set "out_charset" if conversion succeeds; otherwise the original string is returned</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".lcfirst"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>lcfirst</b>(word)
+					
+					</div>
+					<div class="description">
+						Converts the first character of a string to lower case.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>word</b>
+									
+								</dt>
+								<dd>This is the string</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The string with the first character converted to upper case</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".numberFormat"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>numberFormat</b>(number, decimals, dec_point, thousands_sep)
+					
+					</div>
+					<div class="description">
+						Formats a number with grouped thousands.
+						
+						
+					</div>
+					
+					
+					
+					<pre class="code">  number_format(1234.5678, 2, '.', '') returns 1234.57
+  number_format(1234.5678, 2, '.', ',') returns 1,234.57</pre>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>number</b>
+									
+								</dt>
+								<dd>This is the number to format</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>decimals</b>
+									
+								</dt>
+								<dd>This is the number of decimal places</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>dec_point</b>
+									
+								</dt>
+								<dd>This is the decimal point symbol</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>thousands_sep</b>
+									
+								</dt>
+								<dd>This is the grouped thousands separator</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".padLeft"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>padLeft</b>(num, totalChars, padWith)
+					
+					</div>
+					<div class="description">
+						Pads a string 'on the left' to the specified length by prepending the string
+with the given padding character.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>num</b>
+									
+								</dt>
+								<dd>This is the string to pad</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>totalChars</b>
+									
+								</dt>
+								<dd>This is the length to pad the string to</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>padWith</b>
+									
+								</dt>
+								<dd>This is the padding charactor</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The padded string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".padRight"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>padRight</b>(num, totalChars, padWith)
+					
+					</div>
+					<div class="description">
+						Pads a string 'on the right' to the specified length by appending the string
+with the given padding character.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>num</b>
+									
+								</dt>
+								<dd>This is the string to pad</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>totalChars</b>
+									
+								</dt>
+								<dd>This is the length to pad the string to</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>padWith</b>
+									
+								</dt>
+								<dd>This is the padding charactor</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The padded string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".parseBoolean"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Boolean}</span>
+					<span class="light">GeckoJS.String.</span><b>parseBoolean</b>(bool)
+					
+					</div>
+					<div class="description">
+						Parses a string or boolean or object into Boolean value.
+<br/>
+
+returns false when the passed value to the object is any one of the following:
+
+  0 / "" / false / undefined / NaN / "false" / "0"
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean|String|Object}</span> <b>bool</b>
+									
+								</dt>
+								<dd>This is the value to parse</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".parseCSV"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Array}</span>
+					<span class="light">GeckoJS.String.</span><b>parseCSV</b>(text, delim, quote, linedelim)
+					
+					</div>
+					<div class="description">
+						parse CSV Format Text to Array
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>text</b>
+									
+								</dt>
+								<dd>This is the csv format text</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>delim</b>
+									
+								</dt>
+								<dd>This is the column delimeter</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>quote</b>
+									
+								</dt>
+								<dd>This is the quote</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>linedelim</b>
+									
+								</dt>
+								<dd>This is the line delimeter</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Array}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".parseStr"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.String.</span><b>parseStr</b>(str, array)
+					
+					</div>
+					<div class="description">
+						Parses a query string into property-value pairs.<br/>
+<br/>
+This method parses the field-values pairs in the query string "str" and
+converts them into properties of the "array" object. The field name is used
+as the property name and the value of the field is stored as the value of
+the corresponding property.<br/>
+<br/>
+If "array" is not specified then a new object is created to store the parsed
+results.
+						
+						
+					</div>
+					
+					
+					
+					<pre class="code">    example 1: GeckoJS.String.parseStr('first=foo&second=bar');
+    returns 1: { first: 'foo', second: 'bar' }
+    example 2: GeckoJS.String.parseStr('str_a=Jack+and+Jill+didn%27t+see+the+well.');
+    returns 2: { str_a: "Jack and Jill didn't see the well." }</pre>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>str</b>
+									
+								</dt>
+								<dd>This is the query string to parse</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>array</b>
+									
+								</dt>
+								<dd>This is the object in which to store the parsed field-value pairs</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An object containing the field-value pairs from the query string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".singleQuote"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>singleQuote</b>(text)
+					
+					</div>
+					<div class="description">
+						Surround the provided string in single quotation marks
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>text</b>
+									
+								</dt>
+								<dd>The original string</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The original string encased in single quotes</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".sprintf"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>sprintf</b>(format, args)
+					
+					</div>
+					<div class="description">
+						Returns a string produced according to the formatting string format .
+
+ PHP sprintf like
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>format</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>args</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> Return a formatted string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".trim"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>trim</b>(str)
+					
+					</div>
+					<div class="description">
+						Trims white spaces to the left and right of a string.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>str</b>
+									
+								</dt>
+								<dd>This is the string to trim</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The trimmed string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".trimLeft"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>trimLeft</b>(str)
+					
+					</div>
+					<div class="description">
+						Trims white spaces at the left end of a string.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>str</b>
+									
+								</dt>
+								<dd>This is the string to trim</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The trimmed string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".trimRight"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>trimRight</b>(str)
+					
+					</div>
+					<div class="description">
+						Trims white spaces at the right end of a string.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>str</b>
+									
+								</dt>
+								<dd>This is the string to trim</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The trimmed string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".ucfirst"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>ucfirst</b>(word)
+					
+					</div>
+					<div class="description">
+						Converts the first character of a string to upper case.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>word</b>
+									
+								</dt>
+								<dd>This is the string</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The string with the first character converted to upper case</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".ucwords"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>ucwords</b>(word)
+					
+					</div>
+					<div class="description">
+						Converts the first character of each word in a string to upper case.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>word</b>
+									
+								</dt>
+								<dd>This is the string of words</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The string with first character of each word converted to upper case</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".urlDecode"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>urlDecode</b>(str)
+					
+					</div>
+					<div class="description">
+						Converts a string from its URL-encoded form.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>str</b>
+									
+								</dt>
+								<dd>This is the string to URL-decode</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The URL-decoded string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".urlEncode"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>urlEncode</b>(str)
+					
+					</div>
+					<div class="description">
+						Converts a string to a form suitable for use in a URL.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>str</b>
+									
+								</dt>
+								<dd>This is the string to URL-encode</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> The URL-encoded string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".uuid"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{String}</span>
+					<span class="light">GeckoJS.String.</span><b>uuid</b>()
+					
+					</div>
+					<div class="description">
+						Generates a globally unique ID.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> A globally unique ID</dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
+			
+			<hr />
+		</div>
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Thu Jun 11 2009 09:14:52 GMT+0800 (CST)
+		</div>
+	</body>
+</html>

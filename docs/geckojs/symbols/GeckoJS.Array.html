@@ -1,0 +1,962 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - GeckoJS.Array</title>
+
+		<style type="text/css">
+			/* default.css */
+body
+{
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+.header
+{
+	clear: both;
+	background-color: #ccc;
+	padding: 8px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 1em 0 0 .3em;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 160px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 190px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle { margin-bottom: 8px; }
+.summaryTable thead { display: none; }
+
+.summaryTable td
+{
+	vertical-align: top;
+	padding: 4px;
+	border-bottom: 1px #7F8FB1 solid;
+	border-right: 1px #7F8FB1 solid;
+}
+
+/*col#summaryAttributes {}*/
+.summaryTable td.attributes
+{
+	border-left: 1px #7F8FB1 solid;
+	width: 140px;
+	text-align: right;
+}
+
+td.attributes, .fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.summaryTable td.nameDescription
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.summaryTable td.nameDescription, .description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.summaryTable { margin-bottom: 8px; }
+
+ul.inheritsList
+{
+	list-style: square;
+	margin-left: 20px;
+	padding-left: 0;
+}
+
+.detailList {
+	margin-left: 20px; 
+	line-height: 15px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/GeckoJS.html">GeckoJS</a></li>
+	
+	<li><a href="../symbols/GeckoJS.AclComponent.html">GeckoJS.AclComponent</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Array.html">GeckoJS.Array</a></li>
+	
+	<li><a href="../symbols/GeckoJS.ArrayQuery.html">GeckoJS.ArrayQuery</a></li>
+	
+	<li><a href="../symbols/GeckoJS.BaseController.html">GeckoJS.BaseController</a></li>
+	
+	<li><a href="../symbols/GeckoJS.BaseModel.html">GeckoJS.BaseModel</a></li>
+	
+	<li><a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Behavior.html">GeckoJS.Behavior</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Class.html">GeckoJS.Class</a></li>
+	
+	<li><a href="../symbols/GeckoJS.ClassRegistry.html">GeckoJS.ClassRegistry</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Component.html">GeckoJS.Component</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceSQLite.html">GeckoJS.DatasourceSQLite</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Dir.html">GeckoJS.Dir</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Dispatcher.html">GeckoJS.Dispatcher</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Event.html">GeckoJS.Event</a></li>
+	
+	<li><a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a></li>
+	
+	<li><a href="../symbols/GeckoJS.File.html">GeckoJS.File</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Filter.html">GeckoJS.Filter</a></li>
+	
+	<li><a href="../symbols/GeckoJS.FormHelper.html">GeckoJS.FormHelper</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Helper.html">GeckoJS.Helper</a></li>
+	
+	<li><a href="../symbols/GeckoJS.HttpRequest.html">GeckoJS.HttpRequest</a></li>
+	
+	<li><a href="../symbols/GeckoJS.I18n.html">GeckoJS.I18n</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Inflector.html">GeckoJS.Inflector</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.html">GeckoJS.Log</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.Appender.html">GeckoJS.Log.Appender</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.ClassLogger.html">GeckoJS.Log.ClassLogger</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.ConsoleAppender.html">GeckoJS.Log.ConsoleAppender</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.FileAppender.html">GeckoJS.Log.FileAppender</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSIRunnable.html">GeckoJS.NSIRunnable</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSITreeViewArray.html">GeckoJS.NSITreeViewArray</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NumberHelper.html">GeckoJS.NumberHelper</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Observer.html">GeckoJS.Observer</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Scaffold.html">GeckoJS.Scaffold</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Session.html">GeckoJS.Session</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Set.html">GeckoJS.Set</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Singleton.html">GeckoJS.Singleton</a></li>
+	
+	<li><a href="../symbols/GeckoJS.String.html">GeckoJS.String</a></li>
+	
+	<li><a href="../symbols/GeckoJS.StringBundle.html">GeckoJS.StringBundle</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Thread.html">GeckoJS.Thread</a></li>
+	
+</ul>
+<hr />
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Namespace GeckoJS.Array
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+
+				
+GeckoJS.Array provides a set of functions for manipulating arrays.<br/>
+
+				
+			
+				
+					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class GeckoJS.Array.">
+				<caption>Namespace Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/GeckoJS.Array.html#constructor">GeckoJS.Array</a></b>
+							</div>
+							<div class="description">GeckoJS.Array provides a set of functions for manipulating arrays.</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.Array.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.grep">grep</a></b>(array, callback, inv)
+								</div>
+								<div class="description">Applies a validator function on each element of an array, and returns a new
+array containing only those elements that pass the validator function.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.inArray">inArray</a></b>(elem, array)
+								</div>
+								<div class="description">Returns the index of an element in an array.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.isArray">isArray</a></b>(obj)
+								</div>
+								<div class="description">Checks if an object is an array.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.makeArray">makeArray</a></b>(array)
+								</div>
+								<div class="description">Creates a copy of an array.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.map">map</a></b>(array, callback)
+								</div>
+								<div class="description">Applies a function on each element of an array, and returns an array containing
+the results of the function calls.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.merge">merge</a></b>(first, second)
+								</div>
+								<div class="description">Merges two arrays.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.objectCombine">objectCombine</a></b>(data, pathKey, pathValue)
+								</div>
+								<div class="description">Gets a value from an array or object that is contained in a given path using an array path syntax, i.e.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.objectExtract">objectExtract</a></b>(data, path)
+								</div>
+								<div class="description">Extracts from an array or object the value that is contained in a given path
+within the array or object indicated by an array path.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.unique">unique</a></b>(array)
+								</div>
+								<div class="description">Returns an array containing only unique elements.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Namespace Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>GeckoJS.Array</b>
+				</div>
+				
+				<div class="description">
+					GeckoJS.Array provides a set of functions for manipulating arrays.<br/>
+					
+				</div>
+				
+				
+				
+				
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name=".grep"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.Array.</span><b>grep</b>(array, callback, inv)
+					
+					</div>
+					<div class="description">
+						Applies a validator function on each element of an array, and returns a new
+array containing only those elements that pass the validator function.<br/>
+<br/>
+The validator function is invoked with two arguments: the array element,
+and the element index, and should return "true" or "false". This method
+returns array elements that return "true" from the validator function if "inv"
+is "false"; otherwise, array elements that return "false" from the validator
+function are returned.<br/>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>array</b>
+									
+								</dt>
+								<dd>This is the array</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Function}</span> <b>callback</b>
+									
+								</dt>
+								<dd>This is the validator function</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>inv</b>
+									
+								</dt>
+								<dd>This is the validation flag</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An array containing only validated elements</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".inArray"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Number}</span>
+					<span class="light">GeckoJS.Array.</span><b>inArray</b>(elem, array)
+					
+					</div>
+					<div class="description">
+						Returns the index of an element in an array.<br/>
+<br/>
+This method returns -1 if the element is not found.<br/>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>elem</b>
+									
+								</dt>
+								<dd>This is the element to look for in the array</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>array</b>
+									
+								</dt>
+								<dd>This is the array</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> The index of the element</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".isArray"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Boolean}</span>
+					<span class="light">GeckoJS.Array.</span><b>isArray</b>(obj)
+					
+					</div>
+					<div class="description">
+						Checks if an object is an array.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>obj</b>
+									
+								</dt>
+								<dd>This is the object to check</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if the object is an array; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".makeArray"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.Array.</span><b>makeArray</b>(array)
+					
+					</div>
+					<div class="description">
+						Creates a copy of an array.<br/>
+<br/>
+If the object passed in is not an array, a new array with the object as its
+only element is returned.<br/>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>array</b>
+									
+								</dt>
+								<dd>This is an array object</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> A copy of the array object</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".map"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.Array.</span><b>map</b>(array, callback)
+					
+					</div>
+					<div class="description">
+						Applies a function on each element of an array, and returns an array containing
+the results of the function calls.<br/>
+<br/>
+The function will be invoked with two arguments: the array element,
+and the element index. "null" return values are ignored.<br/>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>array</b>
+									
+								</dt>
+								<dd>This is the array</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Function}</span> <b>callback</b>
+									
+								</dt>
+								<dd>This is the function to apply to each element</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An array containing results from applying the function to each element</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".merge"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.Array.</span><b>merge</b>(first, second)
+					
+					</div>
+					<div class="description">
+						Merges two arrays.<br/>
+<br/>
+This method appends the second array to the end of the first array.<br/>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>first</b>
+									
+								</dt>
+								<dd>This is the first array</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>second</b>
+									
+								</dt>
+								<dd>This is the second array</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> The merged array</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".objectCombine"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.Array.</span><b>objectCombine</b>(data, pathKey, pathValue)
+					
+					</div>
+					<div class="description">
+						Gets a value from an array or object that is contained in a given path using an array path syntax, i.e.:
+"{n}.Person.{[a-z]+}" - Where "{n}" represents a numeric key, "Person" represents a string literal,
+and "{[a-z]+}" (i.e. any string literal enclosed in brackets besides {n} and {s}) is interpreted as
+a regular expression.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object||Array}</span> <b>data</b>
+									
+								</dt>
+								<dd>Array Or Data from where to extract</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>pathKey</b>
+									
+								</dt>
+								<dd>dot-separated string.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>pathValue</b>
+									
+								</dt>
+								<dd>dot-separated string.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> Extracted data</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".objectExtract"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.Array.</span><b>objectExtract</b>(data, path)
+					
+					</div>
+					<div class="description">
+						Extracts from an array or object the value that is contained in a given path
+within the array or object indicated by an array path. Each component in the
+array path syntax is delimited with ".", and may be:<br/><br/>
+<em>{n}</em> matching a numeric key, <br/>
+<em>{s}</em> matching a literal key, <br/>
+<em>a string literal</em>, or<br/>
+<em>{[a-z]+}</em> representing a regular expression<br/><br/>
+The following is an example of an array path:
+<em>"{n}.Person.{[a-z]+}"</em>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>data</b>
+									
+								</dt>
+								<dd>This is the object from which to extract</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>path</b>
+									
+								</dt>
+								<dd>This is a dot-separated string identifying the data to extract</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An array holding the extracted data</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".unique"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.Array.</span><b>unique</b>(array)
+					
+					</div>
+					<div class="description">
+						Returns an array containing only unique elements.<br/>
+<br/>
+This method takes an array and returns a new array containing only unique
+elements from that array.<br/>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>array</b>
+									
+								</dt>
+								<dd>This is the array</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> A new array containing only unique elements</dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
+			
+			<hr />
+		</div>
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Thu Jun 11 2009 09:14:50 GMT+0800 (CST)
+		</div>
+	</body>
+</html>

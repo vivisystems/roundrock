@@ -1,0 +1,1332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - GeckoJS.Log</title>
+
+		<style type="text/css">
+			/* default.css */
+body
+{
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+.header
+{
+	clear: both;
+	background-color: #ccc;
+	padding: 8px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 1em 0 0 .3em;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 160px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 190px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle { margin-bottom: 8px; }
+.summaryTable thead { display: none; }
+
+.summaryTable td
+{
+	vertical-align: top;
+	padding: 4px;
+	border-bottom: 1px #7F8FB1 solid;
+	border-right: 1px #7F8FB1 solid;
+}
+
+/*col#summaryAttributes {}*/
+.summaryTable td.attributes
+{
+	border-left: 1px #7F8FB1 solid;
+	width: 140px;
+	text-align: right;
+}
+
+td.attributes, .fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.summaryTable td.nameDescription
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.summaryTable td.nameDescription, .description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.summaryTable { margin-bottom: 8px; }
+
+ul.inheritsList
+{
+	list-style: square;
+	margin-left: 20px;
+	padding-left: 0;
+}
+
+.detailList {
+	margin-left: 20px; 
+	line-height: 15px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/GeckoJS.html">GeckoJS</a></li>
+	
+	<li><a href="../symbols/GeckoJS.AclComponent.html">GeckoJS.AclComponent</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Array.html">GeckoJS.Array</a></li>
+	
+	<li><a href="../symbols/GeckoJS.ArrayQuery.html">GeckoJS.ArrayQuery</a></li>
+	
+	<li><a href="../symbols/GeckoJS.BaseController.html">GeckoJS.BaseController</a></li>
+	
+	<li><a href="../symbols/GeckoJS.BaseModel.html">GeckoJS.BaseModel</a></li>
+	
+	<li><a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Behavior.html">GeckoJS.Behavior</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Class.html">GeckoJS.Class</a></li>
+	
+	<li><a href="../symbols/GeckoJS.ClassRegistry.html">GeckoJS.ClassRegistry</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Component.html">GeckoJS.Component</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceSQLite.html">GeckoJS.DatasourceSQLite</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Dir.html">GeckoJS.Dir</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Dispatcher.html">GeckoJS.Dispatcher</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Event.html">GeckoJS.Event</a></li>
+	
+	<li><a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a></li>
+	
+	<li><a href="../symbols/GeckoJS.File.html">GeckoJS.File</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Filter.html">GeckoJS.Filter</a></li>
+	
+	<li><a href="../symbols/GeckoJS.FormHelper.html">GeckoJS.FormHelper</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Helper.html">GeckoJS.Helper</a></li>
+	
+	<li><a href="../symbols/GeckoJS.HttpRequest.html">GeckoJS.HttpRequest</a></li>
+	
+	<li><a href="../symbols/GeckoJS.I18n.html">GeckoJS.I18n</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Inflector.html">GeckoJS.Inflector</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.html">GeckoJS.Log</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.Appender.html">GeckoJS.Log.Appender</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.ClassLogger.html">GeckoJS.Log.ClassLogger</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.ConsoleAppender.html">GeckoJS.Log.ConsoleAppender</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.FileAppender.html">GeckoJS.Log.FileAppender</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSIRunnable.html">GeckoJS.NSIRunnable</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NSITreeViewArray.html">GeckoJS.NSITreeViewArray</a></li>
+	
+	<li><a href="../symbols/GeckoJS.NumberHelper.html">GeckoJS.NumberHelper</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Observer.html">GeckoJS.Observer</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Scaffold.html">GeckoJS.Scaffold</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Session.html">GeckoJS.Session</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Set.html">GeckoJS.Set</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Singleton.html">GeckoJS.Singleton</a></li>
+	
+	<li><a href="../symbols/GeckoJS.String.html">GeckoJS.String</a></li>
+	
+	<li><a href="../symbols/GeckoJS.StringBundle.html">GeckoJS.StringBundle</a></li>
+	
+	<li><a href="../symbols/GeckoJS.Thread.html">GeckoJS.Thread</a></li>
+	
+</ul>
+<hr />
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Class GeckoJS.Log
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+
+				GeckoJS.Log is a static object meant to be shared across the framework
+and perhaps even the user's code. Its purpose is to provide a level-based
+logging mechanism that can record log entris to multiple destinations of
+various types.<br/>
+<br/>
+Under this scheme, each log destination is represented by an instance of
+a GeckoJS.Log.Appender, and GeckoJS.Log acts as a central point of
+dispatch that sends the log messages to the appropriate appenders. The log
+level is used as the switch: when a message is logged as a certain level,
+it is dispatched only to appenders whose log level is the same or higher.
+This allows you to easily stream log messages to different output devices
+and/or destinations.<br/>
+<br/>
+Finally, GeckoJS.Log can also used to instantiate class-specific loggers that
+tag each log entry with a class identification string.<br/>
+<pre>
+- TRACE
+- DEBUG
+- INFO
+- WARN
+- ERROR
+- FATAL
+</pre>
+
+				
+			
+				
+					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class GeckoJS.Log.">
+				<caption>Class Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/GeckoJS.Log.html#constructor">GeckoJS.Log</a></b>()
+							</div>
+							<div class="description">Creates a static GeckoJS.Log instance.</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class GeckoJS.Log.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/GeckoJS.Log.html#appenders">appenders</a></b>
+								</div>
+								<div class="description">This is used to hold the appenders</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/GeckoJS.Log.html#classes">classes</a></b>
+								</div>
+								<div class="description">This is used to hold the class-specific loggers</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/GeckoJS.Log.html#defaultClassLevel">defaultClassLevel</a></b>
+								</div>
+								<div class="description">This is the default log level used when creating class-specific loggers</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/GeckoJS.Log.html#levels">levels</a></b>
+								</div>
+								<div class="description">This is the list of built-in log levels</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/GeckoJS.Log.html#This">This</a></b>
+								</div>
+								<div class="description">is the default "GeckoJS" logger</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.Log.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.addAppender">addAppender</a></b>(name, appender)
+								</div>
+								<div class="description">Adds a Log appender.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.debug">debug</a></b>(message, exception)
+								</div>
+								<div class="description">Logs a message at the "DEBUG" level.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.error">error</a></b>(message, exception)
+								</div>
+								<div class="description">Logs a message at the "ERROR" level.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.fatal">fatal</a></b>(message, exception)
+								</div>
+								<div class="description">Logs a message at the "FATAL" level.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.getAppender">getAppender</a></b>(name)
+								</div>
+								<div class="description">Retrieves the given appender.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.getLevels">getLevels</a></b>()
+								</div>
+								<div class="description">Returns in an array the built-in log levels.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.getLoggerForClass">getLoggerForClass</a></b>(className)
+								</div>
+								<div class="description">Creates a logger for the given class if such a logger has not already
+been created, and returns it.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.hasLoggerForClass">hasLoggerForClass</a></b>(className)
+								</div>
+								<div class="description">Checks if a class-specific logger already exists for a given class.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.info">info</a></b>(message, exception)
+								</div>
+								<div class="description">Logs a message at the "INFO" level.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.log">log</a></b>(className, level, message, exception)
+								</div>
+								<div class="description">Dispatches the log message to the appropriate appenders for recording.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.removeAppender">removeAppender</a></b>(name)
+								</div>
+								<div class="description">Removes the specified appender.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.trace">trace</a></b>(message, exception)
+								</div>
+								<div class="description">Logs a message at the "TRACE" level.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Log.<b><a href="../symbols/GeckoJS.Log.html#.warn">warn</a></b>(message, exception)
+								</div>
+								<div class="description">Logs a message at the "WARN" level.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Class Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>GeckoJS.Log</b>()
+				</div>
+				
+				<div class="description">
+					Creates a static GeckoJS.Log instance.
+					
+				</div>
+				
+				
+				
+				
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name="appenders"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>appenders</b>
+					
+					</div>
+					<div class="description">
+						This is used to hold the appenders
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="classes"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>classes</b>
+					
+					</div>
+					<div class="description">
+						This is used to hold the class-specific loggers
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="defaultClassLevel"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>defaultClassLevel</b>
+					
+					</div>
+					<div class="description">
+						This is the default log level used when creating class-specific loggers
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="levels"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>levels</b>
+					
+					</div>
+					<div class="description">
+						This is the list of built-in log levels
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="This"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{GeckoJS.Log.defaultLogger}</span>
+					<b>This</b>
+					
+					</div>
+					<div class="description">
+						is the default "GeckoJS" logger
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name=".addAppender"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.Log.</span><b>addAppender</b>(name, appender)
+					
+					</div>
+					<div class="description">
+						Adds a Log appender.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the name of the appender</dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Appender.html#constructor">GeckoJS.Log.Appender</a>}</span> <b>appender</b>
+									
+								</dt>
+								<dd>The instance of the Log appender to add</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".debug"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span>
+					<span class="light">GeckoJS.Log.</span><b>debug</b>(message, exception)
+					
+					</div>
+					<div class="description">
+						Logs a message at the "DEBUG" level.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>message</b>
+									
+								</dt>
+								<dd>This is the message to append to the log.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Error}</span> <b>exception</b>
+									<i>Optional</i>
+								</dt>
+								<dd>This is an optional error or exception to be logged</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span> The default logger object</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".error"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span>
+					<span class="light">GeckoJS.Log.</span><b>error</b>(message, exception)
+					
+					</div>
+					<div class="description">
+						Logs a message at the "ERROR" level.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>message</b>
+									
+								</dt>
+								<dd>This is the message to append to the log.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Error}</span> <b>exception</b>
+									<i>Optional</i>
+								</dt>
+								<dd>This is an optional error or exception to be logged</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span> The default logger object</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".fatal"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span>
+					<span class="light">GeckoJS.Log.</span><b>fatal</b>(message, exception)
+					
+					</div>
+					<div class="description">
+						Logs a message at the "FATAL" level.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>message</b>
+									
+								</dt>
+								<dd>This is the message to append to the log.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Error}</span> <b>exception</b>
+									<i>Optional</i>
+								</dt>
+								<dd>This is an optional error or exception to be logged</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span> The default logger object</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getAppender"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Log.Appender.html#constructor">GeckoJS.Log.Appender</a>}</span>
+					<span class="light">GeckoJS.Log.</span><b>getAppender</b>(name)
+					
+					</div>
+					<div class="description">
+						Retrieves the given appender.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the name of the appender to look for</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Appender.html#constructor">GeckoJS.Log.Appender</a>}</span> The appender instance</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getLevels"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.Log.</span><b>getLevels</b>()
+					
+					</div>
+					<div class="description">
+						Returns in an array the built-in log levels.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An array of built-in log levels</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getLoggerForClass"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span>
+					<span class="light">GeckoJS.Log.</span><b>getLoggerForClass</b>(className)
+					
+					</div>
+					<div class="description">
+						Creates a logger for the given class if such a logger has not already
+been created, and returns it. This GeckoJS.Log.ClassLogger instance will log
+entries marked as belonging to that specific class.<br/>
+<br/>
+The class is used only for identification purposes and is not related to
+any GeckoJS classes or objects.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>className</b>
+									
+								</dt>
+								<dd>This is the name of the class (just an identifier string).</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span> A class-specific logger</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".hasLoggerForClass"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Boolean}</span>
+					<span class="light">GeckoJS.Log.</span><b>hasLoggerForClass</b>(className)
+					
+					</div>
+					<div class="description">
+						Checks if a class-specific logger already exists for a given class.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>className</b>
+									
+								</dt>
+								<dd>This is the name of the class to look up</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if a logger already exists for the given class; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".info"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span>
+					<span class="light">GeckoJS.Log.</span><b>info</b>(message, exception)
+					
+					</div>
+					<div class="description">
+						Logs a message at the "INFO" level.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>message</b>
+									
+								</dt>
+								<dd>This is the message to append to the log.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Error}</span> <b>exception</b>
+									<i>Optional</i>
+								</dt>
+								<dd>This is an optional error or exception to be logged</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span> The default logger object</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".log"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Log.html#constructor">GeckoJS.Log</a>}</span>
+					<span class="light">GeckoJS.Log.</span><b>log</b>(className, level, message, exception)
+					
+					</div>
+					<div class="description">
+						Dispatches the log message to the appropriate appenders for recording.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>className</b>
+									
+								</dt>
+								<dd>This is the associated log class</dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html#constructor">GeckoJS.Log.Level</a>}</span> <b>level</b>
+									
+								</dt>
+								<dd>This is the log level of the message</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>message</b>
+									
+								</dt>
+								<dd>This is the message to log</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>exception</b>
+									<i>Optional</i>
+								</dt>
+								<dd>This is an optional exception to use</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.html#constructor">GeckoJS.Log</a>}</span> The GeckoJS.Log object;</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".removeAppender"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.Log.</span><b>removeAppender</b>(name)
+					
+					</div>
+					<div class="description">
+						Removes the specified appender.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the name of the appender to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".trace"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span>
+					<span class="light">GeckoJS.Log.</span><b>trace</b>(message, exception)
+					
+					</div>
+					<div class="description">
+						Logs a message at the "TRACE" level.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>message</b>
+									
+								</dt>
+								<dd>This is the message to append to the log.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Error}</span> <b>exception</b>
+									<i>Optional</i>
+								</dt>
+								<dd>This is an optional error or exception to be logged</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span> The default logger object</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".warn"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span>
+					<span class="light">GeckoJS.Log.</span><b>warn</b>(message, exception)
+					
+					</div>
+					<div class="description">
+						Logs a message at the "WARN" level.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>message</b>
+									
+								</dt>
+								<dd>This is the message to append to the log.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Error}</span> <b>exception</b>
+									<i>Optional</i>
+								</dt>
+								<dd>This is an optional error or exception to be logged</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.ClassLogger.html#constructor">GeckoJS.Log.ClassLogger</a>}</span> The default logger object</dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
+			
+			<hr />
+		</div>
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Thu Jun 11 2009 09:14:52 GMT+0800 (CST)
+		</div>
+	</body>
+</html>
