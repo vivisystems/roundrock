@@ -3235,7 +3235,7 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3269
 #: ../..//content/controllers/cart_controller.js:3817
-#: ../..//content/controllers/main_controller.js:265
+#: ../..//content/controllers/main_controller.js:271
 msgid "Add Annotation"
 msgstr ""
 
@@ -3371,7 +3371,7 @@ msgstr ""
 #: ../..//content/controllers/changeuser_controller.js:111
 #: ../..//content/controllers/clockinout_controller.js:301
 #: ../..//content/controllers/ledger_controller.js:327
-#: ../..//content/controllers/main_controller.js:1113
+#: ../..//content/controllers/main_controller.js:1119
 #: ../..//content/controllers/shift_changes_controller.js:758
 #: ../..//content/controllers/shift_changes_controller.js:775
 #: ../..//content/controllers/shift_changes_controller.js:951
@@ -3383,7 +3383,7 @@ msgstr ""
 #: ../..//content/controllers/changeuser_controller.js:112
 #: ../..//content/controllers/clockinout_controller.js:302
 #: ../..//content/controllers/ledger_controller.js:328
-#: ../..//content/controllers/main_controller.js:1114
+#: ../..//content/controllers/main_controller.js:1120
 #: ../..//content/controllers/shift_changes_controller.js:760
 #: ../..//content/controllers/shift_changes_controller.js:777
 #: ../..//content/controllers/shift_changes_controller.js:952
@@ -3457,8 +3457,8 @@ msgstr ""
 
 #: ../..//content/controllers/changeuser_controller.js:72
 #: ../..//content/controllers/changeuser_controller.js:84
-#: ../..//content/controllers/main_controller.js:597
-#: ../..//content/controllers/main_controller.js:689
+#: ../..//content/controllers/main_controller.js:603
+#: ../..//content/controllers/main_controller.js:695
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
@@ -3945,7 +3945,7 @@ msgstr ""
 #: ../..//content/controllers/image_manager_controller.js:75
 #: ../..//content/controllers/import_export_controller.js:47
 #: ../..//content/controllers/systembackup_controller.js:139
-#: ../..//content/controllers/training_mode_controller.js:22
+#: ../..//content/controllers/training_mode_controller.js:23
 #: ../..//content/reports/controllers/components/browser_print.js:30
 #: ../..//content/reports/controllers/components/csv_export.js:25
 msgid "Failed to execute command (%S)."
@@ -4263,8 +4263,8 @@ msgid "Save"
 msgstr ""
 
 #: ../..//content/controllers/localization_controller.js:435
-#: ../..//content/controllers/main_controller.js:735
-#: ../..//content/controllers/main_controller.js:761
+#: ../..//content/controllers/main_controller.js:741
+#: ../..//content/controllers/main_controller.js:767
 msgid "Discard"
 msgstr ""
 
@@ -4292,19 +4292,23 @@ msgstr ""
 msgid "Entering control area is not allowed during training."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:122
+#: ../..//content/controllers/main_controller.js:123
+msgid "You are not authorized to access the control panel"
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:128
 msgid "Control Panel"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:147
+#: ../..//content/controllers/main_controller.js:153
 msgid "Change User"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:158
+#: ../..//content/controllers/main_controller.js:164
 msgid "Clock In/Out"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:181
+#: ../..//content/controllers/main_controller.js:187
 #: ../..//content/controllers/plus_controller.js:497
 #: ../..//content/controllers/plus_controller.js:985
 #: ../..//content/controllers/plusearch_controller.js:135
@@ -4314,145 +4318,145 @@ msgstr ""
 msgid "Product Search"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:204
+#: ../..//content/controllers/main_controller.js:210
 #: ../..//content/controllers/print_controller.js:1182
 msgid "Printer Dashboard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:214
+#: ../..//content/controllers/main_controller.js:220
 msgid "No order to add/view annotations"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:311
+#: ../..//content/controllers/main_controller.js:317
 #: ../..//content/reports/controllers/rpt_base_controller.js:362
 msgid "Order Details"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:389
+#: ../..//content/controllers/main_controller.js:395
 msgid "Price must be given to register sale of department [%S]"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:470
-#: ../..//content/controllers/main_controller.js:636
-#: ../..//content/controllers/main_controller.js:649
+#: ../..//content/controllers/main_controller.js:476
+#: ../..//content/controllers/main_controller.js:642
+#: ../..//content/controllers/main_controller.js:655
 msgid "An error was encountered while retrieving employees (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:550
-#: ../..//content/controllers/main_controller.js:618
-#: ../..//content/controllers/main_controller.js:700
+#: ../..//content/controllers/main_controller.js:556
+#: ../..//content/controllers/main_controller.js:624
+#: ../..//content/controllers/main_controller.js:706
 msgid "To use this funciton, please leave training mode first!"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:580
-#: ../..//content/controllers/main_controller.js:681
+#: ../..//content/controllers/main_controller.js:586
+#: ../..//content/controllers/main_controller.js:687
 msgid " logged in"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:655
+#: ../..//content/controllers/main_controller.js:661
 msgid "User [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:694
+#: ../..//content/controllers/main_controller.js:700
 msgid "Please enter passcode first."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:722
-#: ../..//content/controllers/main_controller.js:734
-#: ../..//content/controllers/main_controller.js:747
-#: ../..//content/controllers/main_controller.js:760
+#: ../..//content/controllers/main_controller.js:728
+#: ../..//content/controllers/main_controller.js:740
+#: ../..//content/controllers/main_controller.js:753
+#: ../..//content/controllers/main_controller.js:766
 msgid "Sign Off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:722
+#: ../..//content/controllers/main_controller.js:728
 msgid "Discard items that have been registered?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:734
+#: ../..//content/controllers/main_controller.js:740
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:735
+#: ../..//content/controllers/main_controller.js:741
 msgid "Queue"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:747
+#: ../..//content/controllers/main_controller.js:753
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:760
+#: ../..//content/controllers/main_controller.js:766
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:761
+#: ../..//content/controllers/main_controller.js:767
 msgid "Keep"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:770
+#: ../..//content/controllers/main_controller.js:776
 msgid "confirm sign-off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:770
+#: ../..//content/controllers/main_controller.js:776
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:841
-#: ../..//content/controllers/main_controller.js:844
-#: ../..//content/controllers/main_controller.js:909
+#: ../..//content/controllers/main_controller.js:847
+#: ../..//content/controllers/main_controller.js:850
+#: ../..//content/controllers/main_controller.js:915
 msgid "Remove All Transaction Records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:842
+#: ../..//content/controllers/main_controller.js:848
 msgid ""
 "This operation will remove all transaction records. Are you sure you want to "
 "proceed?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:845
+#: ../..//content/controllers/main_controller.js:851
 msgid ""
 "Data will not be recoverable once removed. It is strongly recommended that "
 "the system be backed up before truncating transaction records. Proceed with "
 "data removal?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:847
+#: ../..//content/controllers/main_controller.js:853
 msgid "Removing all transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:891
-#: ../..//content/controllers/main_controller.js:900
+#: ../..//content/controllers/main_controller.js:897
+#: ../..//content/controllers/main_controller.js:906
 msgid ""
 "An error was encountered while attempting to remove all transaction records "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:910
+#: ../..//content/controllers/main_controller.js:916
 msgid "Removal completed. Application will now restart"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:931
+#: ../..//content/controllers/main_controller.js:937
 msgid "Removing old data..."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:951
+#: ../..//content/controllers/main_controller.js:957
 msgid ""
 "An error was encountered while expiring employee attendance records (error "
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:980
+#: ../..//content/controllers/main_controller.js:986
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:980
+#: ../..//content/controllers/main_controller.js:986
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:987
+#: ../..//content/controllers/main_controller.js:993
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:987
+#: ../..//content/controllers/main_controller.js:993
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
@@ -5407,23 +5411,27 @@ msgstr ""
 msgid "Test"
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:41
+#: ../..//content/controllers/training_mode_controller.js:51
 msgid "Are you sure you want to VACUUM training database?"
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:60
-msgid "Are you sure you want to take current database to be training database?"
+#: ../..//content/controllers/training_mode_controller.js:61
+msgid "Are you sure you want to take current database to be default database?"
 msgstr ""
 
 #: ../..//content/controllers/training_mode_controller.js:71
+msgid "Are you sure you want to take default database to be training database?"
+msgstr ""
+
+#: ../..//content/controllers/training_mode_controller.js:82
 msgid "Are you going to leave the training mode?"
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:84
+#: ../..//content/controllers/training_mode_controller.js:95
 msgid "The training mode can be launched only if there is no opened order."
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:88
+#: ../..//content/controllers/training_mode_controller.js:99
 msgid "Are you sure you want to start training?"
 msgstr ""
 

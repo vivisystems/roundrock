@@ -272,7 +272,7 @@
             // check if sale period leads calendar date by more than allowed number of days
             var today = Date.today();
             var salePeriodDate = new Date(salePeriod * 1000);
-            var canEndSalePeriod = this.Acl.isUserInRole('acl_close_sale_period') &&
+            var canEndSalePeriod = this.Acl.isUserInRole('acl_end_sale_period') &&
                                    ((salePeriodDate - today) / (24 * 60 * 60 * 1000) + 1) <= salePeriodLeadDays;
 
             var doEndOfShift = false;
