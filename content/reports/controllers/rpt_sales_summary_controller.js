@@ -154,7 +154,7 @@
                 limit: rows
             } );
             */
-            data.records = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + rows);
+            data.records = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + rows);
             
             var data_obj = {};
             data.records.forEach( function( record ) {
@@ -243,7 +243,7 @@
                 limit: rows
             } );
             */
-            data.records = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + rows);
+            data.records = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + rows);
             
             var data_obj = {};
             data.records.forEach( function( record ) {
@@ -325,7 +325,7 @@
                 limit: this._csvLimit
             } );
             */
-            var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+            var records = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
             
             var paymentList = {};
             var giftcardExcess;
@@ -557,7 +557,7 @@
                 limit: this._csvLimit
             } );
             */
-            data.records = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+            data.records = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
             data.records.forEach( function( record ) {
                 summary.addon_tax_total += record.tax_subtotal;
@@ -650,7 +650,7 @@
             });
             */
            
-            var records = orderPromotionModel.getDataSource().fetchAll('SELECT ' + fields + '  FROM orders LEFT JOIN order_promotions ON ("orders"."id" = "order_promotions"."order_id" )  WHERE ' + conditions + ' LIMIT 0, ' + this._csvLimit);
+            var records = orderPromotionModel.getDataSource().fetchAll('SELECT ' + fields + '  FROM orders INNER JOIN order_promotions ON ("orders"."id" = "order_promotions"."order_id" )  WHERE ' + conditions + ' LIMIT 0, ' + this._csvLimit);
 
             var results = {};
             var summary = {
@@ -727,7 +727,7 @@
                 limit: this._csvLimit
             } );
             */
-            var results = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+            var results = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
             var summary = {
                 num_rows: 0,
@@ -762,7 +762,7 @@
                 limit: this._csvLimit
             } );
             */
-           results = orderAddition.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_additions ON ("orders"."id" = "order_additions"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+           results = orderAddition.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_additions ON ("orders"."id" = "order_additions"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
             results.forEach( function( result ) {
                 summary.num_rows += result.num_rows;
