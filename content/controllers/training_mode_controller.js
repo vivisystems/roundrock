@@ -11,20 +11,6 @@
         _emptyTrainingOrderDBConfg: "DATABASE_CONFIG.empty_training_order",
         _defaultTrainingOrderDBConfg: "DATABASE_CONFIG.default_training_order",
         _origSyncActive: null,
-
-        execute: function( cmd, param ) {
-            try {
-                var exec = new GeckoJS.File( cmd );
-                var r = exec.run( param, true );
-                // this.log("ERROR", "Ret:" + r + "  cmd:" + cmd + "  param:" + param);
-                exec.close();
-                return true;
-            }
-            catch ( e ) {
-                NotifyUtils.warn( _( 'Failed to execute command (%S).', [ cmd + ' ' + param ] ) );
-                return false;
-            }
-        },
         
         /**
          * This private method can be used to replace designated DB by means of CP directive.
@@ -41,7 +27,7 @@
             var pathDBToBeReplaced =
             confDBToBeReplaced.path + '/' + confDBToBeReplaced.database;
         	
-            this.execute( "/bin/cp", [ pathDBToReplace, pathDBToBeReplaced ] );
+            GREUtils.File.run( "/bin/cp", [ pathDBToReplace, pathDBToBeReplaced ], true );
         },
         
         _vacuumTrainingDB: function() {
@@ -75,9 +61,8 @@
         },
 
         enableSyncActive: function() {
-
             // setting global SyncSetting
-            if(SyncSetting._setting && this._origSyncActive == 1) {
+            if( SyncSetting._setting && this._origSyncActive == 1 ) {
                 SyncSetting._setting.active = 1;
             }
 
@@ -85,9 +70,8 @@
         },
 
         disableSyncActive: function() {
-
             // setting global SyncSetting
-            if(SyncSetting._setting && SyncSetting._setting.active == 1) {
+            if( SyncSetting._setting && SyncSetting._setting.active == 1 ) {
                 SyncSetting._setting.active = 0;
             }
             
@@ -102,10 +86,6 @@
                 if ( GREUtils.Dialog.confirm( window, '', _( 'Are you going to leave the training mode?' ) ) ) {
                     GeckoJS.Session.set( "isTraining", 0 );
 	 				
-                    //Vacuum the training DB by just substituting an empty one for it.
-                    //this.vacuumTrainingDB();
-	 				
-                    //trainingModeController.dispatchEvent( "startTrainingMode", "exit" );
                     GeckoJS.Observer.notify( null, "TrainingMode", "exit" );
 
                     // enableSyncActive
@@ -122,15 +102,10 @@
                 if ( GREUtils.Dialog.confirm( window, '', _( "Are you sure you want to start training?" ) ) ) {
                     // set up the flag indicating that we are now in the training mode.
                     GeckoJS.Session.add( "isTraining", 1 );
-
 			 		
-                    //Vacuum the training DB by just substituting an empty one for it.
-                    //this.vacuumTrainingDB();
-			 		
-                    //trainingModeController.dispatchEvent( "startTrainingMode", "start" );
                     GeckoJS.Observer.notify( null, "TrainingMode", "start" );
 
-                    this._origSyncActive = ((new SyncSetting()).read()).active;
+                    this._origSyncActive = ( ( new SyncSetting() ).read() ).active;
                     
                     // disableSyncActive
                     this.disableSyncActive();

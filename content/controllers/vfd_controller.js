@@ -41,12 +41,6 @@
                 cart.addEventListener('onQueue', this.displayOnVFD, this);
                 cart.addEventListener('onPullQueue', this.displayOnVFD, this);
             }
-            
-            // add event listener for startTrainingMode event.
-            /*var trainingModeController = GeckoJS.Controller.getInstanceByName( 'TrainingMode' );
-            if ( trainingModeController ) {
-           		trainingModeController.addEventListener( 'startTrainingMode', this.switchTrainingMode );
-            }*/
 
             var self = this;
             this.observer = GeckoJS.Observer.newInstance({
