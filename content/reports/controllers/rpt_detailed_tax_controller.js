@@ -74,11 +74,7 @@
                 limit: limit
             } );*/
 
-
-//alert('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
-            var datas = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
-
-//alert(this.dump(datas));
+            var datas = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
 
             var typeCombineTax = 'COMBINE';
             var taxList = [];
