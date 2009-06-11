@@ -2,7 +2,7 @@
 
     /**
      * Report Base Controller
-     * This class is used to maintain the utility methods took advantage by each report controller.
+     * This class is used to maintain the utility methods taken advantage by each report controller.
      */
 
     var __controller__ = {
@@ -56,7 +56,8 @@
             var x = ( width - 360 ) / 2;
             var y = ( height - 240 ) / 2;
             
-            var caption = document.getElementById( this._waiting_caption_id );
+            // set the content of the label attribute be default string, taking advantage of the statusText attribute.
+            var caption = document.getElementById( this.getCaptionId() );
             caption.label = caption.statusText;
             
             var progressBox = document.getElementById( this._progress_box_id );
@@ -137,7 +138,6 @@
 	    
         nextPage: function() {
             this._recordOffset += this._recordLimit;
-	    	
             this.execute();
         },
 
@@ -168,11 +168,11 @@
                 return;
 
             var bodydiv = document.getElementById( this._preview_frame_id ).contentWindow.document.getElementById( this._div_id );
-            var clientHeight = parseInt(bodydiv.clientHeight);
-            var maxClientHeight = parseInt(GeckoJS.Configure.read( "vivipos.fec.settings.maxExportPdfHeight" ) || 30000);
+            var clientHeight = parseInt( bodydiv.clientHeight );
+            var maxClientHeight = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.maxExportPdfHeight" ) || 30000 );
 
-            if (clientHeight>maxClientHeight){
-                GREUtils.Dialog.alert( window, '', _( 'Document is too large to export PDF, please use export CSV instead' ));
+            if ( clientHeight > maxClientHeight ) {
+                GREUtils.Dialog.alert( window, '', _( 'The document is too large to be exported in .PDF format, please use export CSV instead!' ) );
                 return;
             }
 
@@ -184,13 +184,11 @@
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
                 if ( !media_path ) {
-                    NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
+                    NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
                     return;
                 }
 
                 var waitPanel = this._showWaitingPanel();
-
-                var self = this;
 
                 var progress = document.getElementById( this._progress_bar_id );
 				
@@ -211,10 +209,11 @@
                 var fileName = this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.pdf';
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
+                var self = this;
                 this.BrowserPrint.printToPdf( tmpFile, progress,
                     function() {
                         // printing finished callback,
-                        self.copyExportFileFromTmp( tmpFile, targetDir, 180 );
+                        self._copyExportFileFromTmp( tmpFile, targetDir, 180 );
                     }
                 );
                 
@@ -242,12 +241,11 @@
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
                 if ( !media_path ) {
-                    NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
+                    NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
                     return;
                 }
 
                 var waitPanel = this._showWaitingPanel( 100 );
-                var self = this;
                 
                 var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_csv.tpl' );
 
@@ -270,7 +268,7 @@
 
                 this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl );
 
-                self.copyExportFileFromTmp( tmpFile, targetDir, 180 );
+                this._copyExportFileFromTmp( tmpFile, targetDir, 180 );
 
                 if ( !noReload ) {
                     // drop CSV data and garbage collect
@@ -301,7 +299,7 @@
                 var waitPanel = this._showWaitingPanel( 100 );
 
                 var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                    .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
                 var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
    				
                 var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
@@ -353,7 +351,6 @@
 	    
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
-
             return s.replace( re, '\'\'' );
         },
 	    
@@ -403,11 +400,11 @@
 		    }*/
         },
 
-        copyExportFileFromTmp: function( tmpFile, targetDir, timeout ) {
+        _copyExportFileFromTmp: function( tmpFile, targetDir, timeout ) {
 			try {
 		        var maxTimes = timeout / 0.2;
-		        var tries = 0 ;
-		        var nsTmpfile ;
+		        var tries = 0;
+		        var nsTmpfile;
 		        var self = this;
 
 		        // use setTimeout to wait gecko writing file to disk. XXXX
