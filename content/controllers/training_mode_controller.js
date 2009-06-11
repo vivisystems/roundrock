@@ -9,6 +9,7 @@
 	 	_orderDBConfig: "DATABASE_CONFIG.order",
 	 	_trainingOrderDBConfig: "DATABASE_CONFIG.training_order",
 	 	_emptyTrainingOrderDBConfg: "DATABASE_CONFIG.empty_training_order",
+	 	_defaultTrainingOrderDBConfg: "DATABASE_CONFIG.default_training_order",
 	 	
 	 	execute: function( cmd, param ) {
             try {
@@ -24,17 +25,26 @@
             }
         },
         
-        _vacuumTrainingDB: function() {
-        	var trainingOrderDBConf =
-        		GeckoJS.Configure.read( this._trainingOrderDBConfig );
-        	var emptyTrainingOrderDBConf =
-        		GeckoJS.Configure.read( this._emptyTrainingOrderDBConfg );
-        	var trainingOrderDB =
-        		trainingOrderDBConf.path + '/' + trainingOrderDBConf.database;
-        	var emptyTrainingOrderDB =
-        		emptyTrainingOrderDBConf.path + '/' + emptyTrainingOrderDBConf.database;
+        /**
+         * This private method can be used to replace designated DB by means of CP directive.
+         * @param dbToReplace is a preference key in string format.
+         * @param dbToBeReplace is a preference key in string format.
+         */
+        _copyToReplaceDB: function( dbToReplace, dbToBeReplaced ) {
+            var confDBToReplace =
+        		GeckoJS.Configure.read( dbToReplace );
+        	var confDBToBeReplaced =
+        		GeckoJS.Configure.read( dbToBeReplaced );
+        	var pathDBToReplace =
+        		confDBToReplace.path + '/' + confDBToReplace.database;
+        	var pathDBToBeReplaced =
+        		confDBToBeReplaced.path + '/' + confDBToBeReplaced.database;
         	
-        	this.execute( "/bin/cp", [ emptyTrainingOrderDB, trainingOrderDB ] );
+        	this.execute( "/bin/cp", [ pathDBToReplace, pathDBToBeReplaced ] );
+        },
+        
+        _vacuumTrainingDB: function() {
+            this._copyToReplaceDB( this._emptyTrainingOrderDBConfg, this._trainingOrderDBConfig );
         },
         
         vacuumTrainingDB: function() {
@@ -43,23 +53,24 @@
             this._vacuumTrainingDB();
         },
         
-        _takeCurrentDBToBeTrainingDB: function() {
-        	var trainingOrderDBConf =
-        		GeckoJS.Configure.read( this._trainingOrderDBConfig );
-        	var orderDBConf =
-        		GeckoJS.Configure.read( this._orderDBConfig );
-        	var trainingOrderDB =
-        		trainingOrderDBConf.path + '/' + trainingOrderDBConf.database;
-        	var orderDB =
-        		orderDBConf.path + '/' + orderDBConf.database;
-        	
-        	this.execute( "/bin/cp", [ orderDB, trainingOrderDB ] );
+        _takeCurrentDBToBeDefaultDB: function() {
+            this._copyToReplaceDB( this._orderDBConfig, this._defaultTrainingOrderDBConfg );
         },
         
-        takeCurrentDBToBeTrainingDB: function() {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to take current database to be training database?' ) ) )
+        takeCurrentDBToBeDefaultDB: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to take current database to be default database?' ) ) )
                 return;
-        	this._takeCurrentDBToBeTrainingDB();
+        	this._takeCurrentDBToBeDefaultDB();
+        },
+        
+        _takeDefaultDBToBeTrainingDB: function() {
+            this._copyToReplaceDB( this._defaultTrainingOrderDBConfg, this._trainingOrderDBConfig );
+        },
+        
+        takeDefaultDBToBeTrainingDB: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to take default database to be training database?' ) ) )
+                return;
+        	this._takeDefaultDBToBeTrainingDB();
         },
 	 	
 	 	start: function() {

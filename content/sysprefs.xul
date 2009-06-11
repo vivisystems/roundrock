@@ -434,13 +434,19 @@
 
             </rows>
         </grid>
+        
+        <hbox class="ToolBar" pack="center">
+            <button id="vacuum_training_db" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
+            <button id="take_current_db_to_be_default_db" label="&orderdata.takecurrentdbtobedefaultdb;" oncommand="$do( 'takeCurrentDBToBeDefaultDB', null, 'TrainingMode' );" />
+            <button id="take_default_db_to_be_training_db" label="&orderdata.takedefaultdbtobetrainingdb;" oncommand="$do( 'takeDefaultDBToBeTrainingDB', null, 'TrainingMode' );" />
+        </hbox>
+        
+        <spacer flex="1" />
 
         <hbox class="ToolBar" pack="center">
             <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
-            <button id="vacuum_training_db" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
-            <button id="take_current_db_to_be_training_db" label="&orderdata.takecurrentdbtobetrainingdb;" oncommand="$do( 'takeCurrentDBToBeTrainingDB', null, 'TrainingMode' );" />
         </hbox>
-
+        
     </prefpane>
     
 <!--
