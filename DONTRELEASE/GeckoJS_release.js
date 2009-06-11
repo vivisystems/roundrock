@@ -13628,7 +13628,8 @@ GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
         }catch(e){
             
         }
-        
+
+        this._statement = null;
         this._result = false;
     }
 
@@ -13636,7 +13637,7 @@ GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
         /* ifdef DEBUG 
         this.log('DEBUG', '_execute > createStatement : ' + sql);
         /* endif DEBUG */
-
+        this._statement = null;
         this._statement = this.conn.createStatement(sql);
 
     }catch(e) {
@@ -13677,8 +13678,7 @@ GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
                 /* endif DEBUG */
 
                 this._result = this._statement.executeStep();
-                
-                return this._result;
+               
 
             } else {
 
@@ -13760,6 +13760,7 @@ GeckoJS.DatasourceSQLite.prototype.fetchAll = function (sql, params, cache, mode
 
     /* ifdef DEBUG 
     this.log('DEBUG', "fetchAll > execute " + sql + ((model) ? '\n'+model.name : '') );
+    var start = (new Date).getTime(), diff = 0;
     /* endif DEBUG */
    
     if (this.execute(sql, params)) {
@@ -13786,6 +13787,11 @@ GeckoJS.DatasourceSQLite.prototype.fetchAll = function (sql, params, cache, mode
             }
         }
 
+        /* ifdef DEBUG 
+        diff = (new Date).getTime() - start;
+        this.log('DEBUG', 'fetchAll > expend: ' + diff + ' ms and return ' + out.length +' datas');
+        /* endif DEBUG */
+
         return out;
 
     } else {
@@ -13795,9 +13801,8 @@ GeckoJS.DatasourceSQLite.prototype.fetchAll = function (sql, params, cache, mode
         if (this.lastError == 0) {
             return [];
         }
-        /* ifdef DEBUG 
-        this.log('DEBUG', 'fetchAll > failure: ' + errorCode + '\n' + errorString +'\n'+ sql);
-        /* endif DEBUG */
+        this.log('WARN', 'fetchAll > failure: ' + errorCode + '\n' + errorString +'\n'+ sql);
+
         return false;
     }
 };
