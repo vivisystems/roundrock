@@ -983,6 +983,9 @@ msgstr "Register Currency Exchange"
 msgid "acl_manage_jobs"
 msgstr "Manage Jobs"
 
+msgid "acl_manage_nonplu_setting"
+msgstr "Manage Non-PLU Settings"
+
 msgid "acl_manage_plu_groups"
 msgstr "Manage Product Groups"
 

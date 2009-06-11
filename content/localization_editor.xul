@@ -21,9 +21,6 @@
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/localization_controller.js" type="application/x-javascript"/>
 
-  <!-- include component for media checking -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
-  
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/localization_editor.js" />
 
@@ -81,7 +78,7 @@
                     <button id="modify" label="&localization.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modify', null, 'Localization');"   />
                     <spacer flex="1"/>
                     <button id="auto_fill" label="&localization.action.generate;" oncommand="$do('autoFill', null, 'Localization');"   />
-                    <button id="export_xpi"  label="&localization.action.export;" oncommand="$do('exportXPI', null, 'Localization');"   />
+                    <button id="export_xpi"  label="&localization.action.export;" oncommand="$do('exportDialog', null, 'Localization');"   />
                 </hbox>
                 <hbox flex="0" id="dialogButtons" class="dialogbtns" pack="end">
                     <button id="save" label="&localization.action.save;" class="SaveBtn" oncommand="$do('save', null, 'Localization');"/>

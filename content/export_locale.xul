@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Localization SYSTEM "chrome://viviecr/locale/localization.dtd">
+  %Localization;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&dialog.prompt.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/export_locale_controller.js" type="application/x-javascript"/>
+
+  <!-- include component for media checking -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/export_locale.js" />
+
+    <vbox flex="1" class="main-dialog">
+        <vbox class="MainPnl" flex="1">
+            <groupbox  flex="1">
+                <hbox>
+                    <caption label="&localization.export.title;" class="PageTitle"/>
+                    <label id="locale" value="" class="PageTitle"/>
+                </hbox>
+                <grid class="DataForm">
+                    <columns>
+                        <column flex="0"/>
+                        <column flex="1"/>
+                    </columns>
+
+                    <rows>
+                        <row>
+                            <label value="&localization.export.select.package;" class="SubTitle"/>
+                            <menulist id="package" flex="1" style="text-align:left;" oncommand="$do('selectPackage', this.selectedIndex, 'ExportLocale')">
+                                <menupopup id="package-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+
+                        <row>
+                            <label value="&localization.export.package.name;" class="SubTitle"/>
+                            <textbox id="name" flex="1" value="" oninput="$do('validateForm', null, 'ExportLocale')"/>
+                        </row>
+
+                    </rows>
+                </grid>
+
+                <!-- install.RDF editor -->
+                <vbox flex="1">
+                    <label value="&localization.export.edit.install;" class="SubTitle"/>
+                    <textbox id="install" flex="1" value="" multiline="true"
+                             oninput="$do('validateForm', null, 'ExportLocale')"/>
+                </vbox>
+            </groupbox>
+            <spacer height="5px"/>
+            <hbox>
+                <hbox id="dialogButtons" class="ToolBar" flex="1">
+                    <button id="export" label="&localization.action.export;" default="true" oncommand="$do('exportLocale', null, 'ExportLocale')"/>
+                </hbox>
+                <hbox class="dialogbtns">
+                    <button id="vkb" label=""  oncommand="opener.VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+    <vivipanel id="wait_panel" position="overlap" noautohide="true" pack="center" align="center">
+        <vbox flex="1" class="mainWaitPanel">
+            <vbox flex="1" class="mainWaitDialog">
+                <groupbox flex="1">
+                    <caption id="common_wait" label="Waiting..." class="PageTitle"/>
+                    <spacer style="height: 20px;" />
+                    <progressmeter id="progress" mode="undetermined" value="0" />
+                    <spacer style="height: 20px;" />
+                </groupbox>
+            </vbox>
+        </vbox>
+    </vivipanel>
+    
+</window>
