@@ -861,6 +861,7 @@
                     itemTrans.current_price = itemModified.current_price;
                     itemTrans.current_subtotal = itemModified.current_subtotal;
                     itemTrans.price_modifier = itemModified.price_modifier;
+                    itemTrans.destination = itemModified.destination;
                     itemModified = itemTrans;
 
                     // update to items array
