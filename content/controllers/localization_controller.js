@@ -7,8 +7,6 @@
     var __controller__ = {
         name: 'Localization',
 
-        components: [ 'CheckMedia' ],
-
         _tree: null,
 
         _editscrollabletree: null,
@@ -28,8 +26,6 @@
         _currentEntryIndex: -1,
 
         _containers: {},
-
-        _exporting_file_folder: 'locale_export',
         
         // data structure
         //
@@ -75,9 +71,9 @@
 
             // retrieve list of packages requesting localization editor support
             var packages = GeckoJS.Configure.read('vivipos.fec.registry.localization.package');
-
+            
             var selectedLocale = xulChromeReg.getSelectedLocale('viviecr');
-            var this._currentLocale = selectedLocale;
+            this._currentLocale = selectedLocale;
 
             var localeObj = document.getElementById('locale');
             if (localeObj) localeObj.value = '[' + selectedLocale + ']';
@@ -99,13 +95,12 @@
                 else {
                     var extensions = packages[pkg].ext ? packages[pkg].ext.split(',') : [];
                     var installable = packages[pkg].installable;
-                    
                     var localePkg = {
                         pkg: pkg,
                         basePath: baseFilePath,
                         baseLocale: packages[pkg].base,
                         extensions: extensions,
-                        installable: installable
+                        installable: installable || ''
                     }
 
                     // retrieve individual files
@@ -719,99 +714,41 @@
 
             this._validateForm();
         },
-
+/*
         exportXPI: function() {
-            var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
-            if ( !media_path ) {
-                NotifyUtils.warn( _( 'Media not found!! Please attach the USB thumb drive...' ) );
-                return;
-            }
-
-            // load package install.rdf file for edit
-            var installations = [];
-            var installList = '';
-            this._packages.forEach(function(pkg) {
-                if (pkg.installable) {
-                    var installRDF = pkg.installationPath + '/install.rdf';
-                    installList += ('\n' + pkg.installation);
-                    installations.push({installation: pkg.installation,
-                                        path: pkg.installationPath,
-                                        installRDF: installRDF});
-
-                }
-            })
-            
-            if (installations.length  == 0) {
-                NotifyUtils.warn( _( 'No exportable locale packages found' ) );
-            }
-            else if (GREUtils.Dialog.confirm(window,
-                                             _('Export Locales'),
-                                             _('Do you want to export the following locale(s)?')
-                                               + '\n' + installList)) {
-                for (var i = 0; i < installations.length; i++) {
-                    var inst = installations[i];
-                    
-                    // load install.rdf for editing
-                    var buf = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(inst.installRDF));
-                    alert(buf);
-                    // put up editbox
-                    this.editInstallRDF(inst, buf);
-                    
-                    // save edited install.rdf in /tmp
-                    var r;
-                    var tmpInstallRDF = '/tmp/install.rdf.' + GeckoJS.String.uuid();
-                    var fp = new GeckoJS.File(tmpInstallRDF, true);
-                    fp.open('w');
-                    if (!(r = fp.write(buf))) {
-                        this.log('ERROR', 'Failed to write temporary install.rdf file [' + tmpInstallRDF + ']');
-                        NotifyUtils.error(_('Failed to write temporary install.rdf file [%S]', [tmpInstallRDF]));
-                    }
-                    fp.close();
-                    if (!r) return;
-
-                    // invoke external script to generate XPI and move it to media
-                    var exportScript = '/data/scripts/exportLocale.sh';
-                    var exec = new GeckoJS.File(exportScript);
-                    r = exec.run([inst.installation, inst.path, tmpInstallRDF, media_path], true);
-
-                    if (r >= 0) {
-                        NotifyUtils.info(_( 'Locale package [%S] successfully exported', [inst.installation]));
-                    }
-                    else {
-                        this.log('ERROR', 'Script ' + exportScript + ' failed to export locale package [' + inst.installation + ']');
-                        GREUtils.Dialog.alert(window,
-                                              _('Export Locales'),
-                                              _('Failed to export locale package %S', [inst.installation]));
-                    }
                 }
             }
         },
+*/
+        exportDialog: function () {
 
-        editInstallRDF: function (inst, buf) {
+            // load package install.rdf file for edit
+            var installations = [];
+            this._packages.forEach(function(pkg) {
+                if (pkg.installable) {
+                    var installRDF = pkg.installationPath + '/install.rdf';
+                    installations.push({pkg: pkg.pkg,
+                                        installation: pkg.installation,
+                                        path: pkg.installationPath,
+                                        rdf: GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(installRDF))});
 
-            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var screenwidth = GeckoJS.Session.get('screenwidth');
-            var screenheight = GeckoJS.Session.get('screenheight');
+                }
+            })
 
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
-            var inputObj = {
-                input0:inst.installation, require0:true,
-                input1:buf, require1:true, multiline1: true
-            };
-
-            window.openDialog(aURL, _('Edit Install RDF'), features,
-                              _('Exporting Locale [%S]', [this._currentLocale]),
-                              '',
-                              _('Please edit the following install.rdf file as appropriate'),
-                              '',
-                              inputObj);
-
-            if (inputObj.ok && inputObj.input0) {
-                alert('export');
-                return true;
+            if (installations.length  == 0) {
+                NotifyUtils.warn( _( 'No exportable locale packages found' ) );
             }
             else {
-                return false;
+                var aURL = 'chrome://viviecr/content/export_locale.xul';
+                var screenwidth = GeckoJS.Session.get('screenwidth');
+                var screenheight = GeckoJS.Session.get('screenheight');
+
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+
+                window.openDialog(aURL,
+                                  _('Export Locale'),
+                                  features,
+                                  [this._currentLocale, installations]);
             }
 
         },
