@@ -2380,6 +2380,9 @@ msgstr "Obsolete Department"
 msgid "Non PLU Setting"
 msgstr "Non PLU Setting"
 
+msgid "Document is too large to export PDF, please use export CSV instead"
+msgstr "Document is too large to export PDF, please use export CSV instead"
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""
@@ -3850,8 +3853,8 @@ msgstr ""
 #: ../..//content/controllers/export_locale_controller.js:67
 #: ../..//content/controllers/systembackup_controller.js:186
 #: ../..//content/controllers/systembackup_controller.js:256
-#: ../..//content/reports/controllers/rpt_base_controller.js:177
-#: ../..//content/reports/controllers/rpt_base_controller.js:235
+#: ../..//content/reports/controllers/rpt_base_controller.js:187
+#: ../..//content/reports/controllers/rpt_base_controller.js:245
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
@@ -4321,7 +4324,7 @@ msgid "No order to add/view annotations"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:311
-#: ../..//content/reports/controllers/rpt_base_controller.js:352
+#: ../..//content/reports/controllers/rpt_base_controller.js:362
 msgid "Order Details"
 msgstr ""
 
@@ -5648,11 +5651,11 @@ msgstr ""
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:225
+#: ../..//content/reports/controllers/rpt_base_controller.js:235
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:286
+#: ../..//content/reports/controllers/rpt_base_controller.js:296
 msgid "Are you sure you want to print this report?"
 msgstr ""
 

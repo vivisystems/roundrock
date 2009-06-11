@@ -166,7 +166,17 @@
         exportPdf: function( paperProperties ) {
             if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
                 return;
-        		
+
+            var bodydiv = document.getElementById( this._preview_frame_id ).contentWindow.document.getElementById( this._div_id );
+            var clientHeight = parseInt(bodydiv.clientHeight);
+            var maxClientHeight = parseInt(GeckoJS.Configure.read( "vivipos.fec.settings.maxExportPdfHeight" ) || 30000);
+
+            if (clientHeight>maxClientHeight){
+                GREUtils.Dialog.alert( window, '', _( 'Document is too large to export PDF, please use export CSV instead' ));
+                return;
+            }
+
+
             try {
             	// setting the flag be zero means that the exporting has not finished yet.
             	this._fileExportingFlag = 0;
