@@ -117,6 +117,12 @@
         		alert( _( "Entering control area is not allowed during training." ) );
         		return;
         	}
+
+            // check for access privilege
+            if (!this.Acl.isUserInRole('acl_open_control_panel')) {
+                NotifyUtils.warn(_('You are not authorized to access the control panel'));
+                return;
+            }
         		
             var aURL = 'chrome://viviecr/content/controlPanel.xul';
             var aName = _('Control Panel');
