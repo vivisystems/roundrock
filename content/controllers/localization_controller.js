@@ -7,9 +7,9 @@
     var __controller__ = {
         name: 'Localization',
 
-        _tree: null,
+        _menu: null,
 
-        _editscrollabletree: null,
+        _list: null,
 
         _packages: null,
 
@@ -21,39 +21,38 @@
 
         _currentPkg: null,
 
-        _currentFile: null,
-
         _currentEntryIndex: -1,
 
         _containers: {},
         
         // data structure
         //
-        // localePkgs array of locales [
+        // _packages: array of locales [
         //     index: {
         //         pkg: package name,
+        //         extensions: array of file extensions
         //         basePath: file path to base locale directory
         //         baseLocale: base locale name
         //         currentPath: file path to current locale directory
         //         currentLocale: current locale name
-        //         extensions: array of file extensions
-        //         numFiles: number of base locale files
-        //         baseFiles: sorted array of locale files [
+        //         installName: name under which the current locale package is installed
+        //         installPath: path where the current locale package is installed
+        //         totalCount: total number of strings in package
+        //         emptyCount: number of untranslated strings in current locale file
+        //         files: array of locale files [
         //             index: {
         //                 path: absolute path to base locale file
         //                 file: relative path to base locale file (rooted at base locale directory)
         //                 ext: base locale file extension
-        //                 level: number of levels down from base locale directory
-        //                 emptyCount: number of untranslated strings in current locale file
-        //                 totalCount: total number of strings in base locale file
-        //                 strings: array of strings in base locale file [
-        //                     index: {
-        //                         key: entity key,
-        //                         base: base string,
-        //                         translation: translated string for the current locale
-        //                         working: working translation
-        //                     }
-        //                 ]
+        //             }
+        //         ]
+        //         strings: sorted array of strings [
+        //             index: {
+        //                 index: index into files
+        //                 key: entity key,
+        //                 base: base string,
+        //                 translation: translated string for the current locale
+        //                 working: working translation
         //             }
         //         ]
         //     }
@@ -61,10 +60,11 @@
         //
         load: function() {
 
-            var profD = GeckoJS.Configure.read('ProfD') || '';
+            var self = this;
+            this._list = document.getElementById('editlist');
 
-            this._tree = document.getElementById('navtree');
-            this._editscrollabletree = document.getElementById('editscrollabletree');
+            var profD = GeckoJS.Configure.read('ProfD') || '';
+            var menu = document.getElementById('package');
 
             var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
             var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
@@ -78,7 +78,7 @@
             var localeObj = document.getElementById('locale');
             if (localeObj) localeObj.value = '[' + selectedLocale + ']';
 
-            // retrieve files from base locales
+            // retrieve files from base locale
             var localePkgs = [];
             for (var pkg in packages) {
 
@@ -94,36 +94,44 @@
                 }
                 else {
                     var extensions = packages[pkg].ext ? packages[pkg].ext.split(',') : [];
-                    var installable = packages[pkg].installable;
                     var localePkg = {
-                        pkg: pkg,
+                        pkgName: pkg,
                         basePath: baseFilePath,
                         baseLocale: packages[pkg].base,
-                        extensions: extensions,
-                        installable: installable || ''
+                        extensions: extensions
                     }
 
-                    // retrieve individual files
-                    var baseFiles = this._retrieveBaseFiles(GREUtils.Dir.readDir(baseFilePath, true), extensions, baseFilePath);
+                    // get list of files
+                    var baseFileRecords = this._getBaseFileRecords(GREUtils.Dir.readDir(baseFilePath, true), extensions, baseFilePath);
 
-                    if (baseFiles.length > 0) {
-                        localePkg.baseFiles = baseFiles.sort(function(a,b) {return a.path > b.path});
-                        localePkg.numFiles = baseFiles.length;
-                        localePkgs.push(localePkg);
+                    if (baseFileRecords.length > 0) {
+                        baseFileRecords.forEach(function(record) {
+                            record.strings = self._extractStrings(GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(record.path)), record.ext);
+                        });
+                    }
+
+                    localePkg.files = baseFileRecords;
+                    localePkgs.push(localePkg);
+
+                    // add to package menu
+                    if (menu) {
+                        var menuitem = menu.appendItem(pkg);
+                        if (menuitem) menuitem.setAttribute('style', 'text-align: left');
                     }
                 }
             }
+            this._menu = menu;
+
             // restore current locale
             GeckoJS.Configure.write('general.useragent.locale', selectedLocale);
 
             // retrieve file system paths to current locales
-            var finalLocalePkgs = [];
-            var self = this;
             localePkgs.forEach(function(p) {
 
                 // get current locale file path
-                var chromePath = 'chrome://' + p.pkg + '/locale/';
+                var chromePath = 'chrome://' + p.pkgName + '/locale/';
                 var currentFilePath = GREUtils.File.chromeToPath(chromePath);
+
                 // extract current installation name
                 var installation = '';
                 var extensionsPath = profD + '/extensions/';
@@ -142,34 +150,29 @@
                 else {
                     p.currentLocale = selectedLocale;
                     p.currentPath = currentFilePath;
-                    p.installation = installation;
-                    p.installable = p.installable && installation;
-                    p.installationPath = profD + '/extensions/' + installation;
-                    self._extractTranslations(p);
-                    finalLocalePkgs.push(p);
+                    p.installName = installation;
                 }
+                self._extractTranslations(p);
             });
+            this._packages = localePkgs;
 
             /*
-            finalLocalePkgs.forEach(function(p) {
+            localePkgs.forEach(function(p) {
                 self.log('WARN', self.dump(p));
             });
             */
-           
-            // construct the hierarchical tree
-            this._buildTree(finalLocalePkgs);
 
-            // save data
-            this._packages = finalLocalePkgs;
+            // select first package
+            if (localePkgs.length > 0) {
+                menu.selectedIndex = 0;
+                this.selectPackage(0);
+            }
 
             this._validateForm();
         },
 
 
-        _retrieveBaseFiles: function(files, extensions, root, level) {
-
-            level = parseInt(level);
-            if (isNaN(level)) level = 0;
+        _getBaseFileRecords: function(files, extensions, root) {
 
             // filter files by extensions
             var self = this;
@@ -178,26 +181,16 @@
 
             files.forEach(function(f) {
                 if (f.length > 0) {
-                    result = result.concat(self._retrieveBaseFiles(f, extensions, root, level + 1));
+                    result = result.concat(self._getBaseFileRecords(f, extensions, root));
                 }
                 else {
-                    try {
-                        var ext = GREUtils.File.ext(f);
-                        if (extensions.indexOf(ext) > -1) {
-                            var file = f.path.substr(rootLength + 1, f.path.length - rootLength - 1);
-                            //self.log('WARN', 'extracting base strings from ' + file);
-                            var entry = {
-                                path: f.path,
-                                file: file,
-                                ext: ext,
-                                level: level,
-                                strings: self._extractStrings(GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(f)), ext)
-                            }
-                            result.push(entry);
-                        }
-                    }
-                    catch(e) {
-                        self.log('WARN', 'failed to read base locale file ' + f.path);
+                    var ext = GREUtils.File.ext(f);
+                    if (extensions.indexOf(ext) > -1) {
+                        var file = f.path.substr(rootLength + 1, f.path.length - rootLength - 1);
+                        //self.log('WARN', 'extracting base strings from ' + file);
+                        result.push({path: f.path,
+                                     file: file,
+                                     ext: ext});
                     }
                 }
             });
@@ -223,17 +216,22 @@
             return entries;
         },
 
-        _extractTranslations: function(localePkg) {
+        _extractTranslations: function(pkg) {
             //this.log('WARN', 'extracting translations from directory ' + localeFile.currentPath);
-            if (localePkg.baseFiles) {
-                localePkg.baseFiles.forEach(function(f) {
-                    var totalCount = 0;
-                    var matchCount = 0;
-                    var file = localePkg.currentPath + '/' + f.file;
+            var emptyStrings = [];
+            var translatedStrings = [];
+            var totalCount = 0;
+            var translatedCount = 0;
+
+            if (pkg.files) {
+                for (var index = 0; index < pkg.files.length; index++) {
+                    var f = pkg.files[index];
+
+                    var file = pkg.currentPath + '/' + f.file;
 
                     try {
                         if (GREUtils.File.exists(file) && GREUtils.File.isReadable(file)) {
-                            //self.log('WARN', 'extracting translations from file ' + file);
+                            //this.log('WARN', 'extracting translations from file ' + file);
                             var match;
                             var buf;
                             if (f.ext == 'dtd') {
@@ -242,7 +240,7 @@
                                 while ((match = regexDTD.exec(buf)) != null) {
                                     if (f.strings[match[1]]) {
                                         f.strings[match[1]].translation = match[2];
-                                        if (match[2].length > 0) matchCount++;
+                                        if (match[2].length > 0) translatedCount++;
                                     }
                                 }
                             }
@@ -252,7 +250,7 @@
                                 while ((match = regexProp.exec(buf)) != null) {
                                     if (f.strings[match[1]]) {
                                         f.strings[match[1]].translation = match[2];
-                                        if (match[2].length > 0) matchCount++;
+                                        if (match[2].length > 0) translatedCount++;
                                     }
                                 }
                                 //this.log('WARN', GeckoJS.BaseObject.dump(entries));
@@ -261,163 +259,41 @@
                         }
 
                         // convert strings to array
-                        var emptyStrings = [];
-                        var translatedStrings = [];
                         for (var key in f.strings) {
                             totalCount++;
                             if (f.strings[key].translation) {
-                                translatedStrings.push({key: key,
+                                translatedStrings.push({index: index,
+                                                        key: key,
                                                         base: f.strings[key].base,
+                                                        working: f.strings[key].translation,
                                                         translation: f.strings[key].translation});
                             }
                             else {
-                                emptyStrings.push({key: key,
-                                                   base: f.strings[key].base});
+                                emptyStrings.push({index: index,
+                                                   key: key,
+                                                   base: f.strings[key].base,
+                                                   working: '',
+                                                   translation: ''});
                             }
                         }
-                        // sort strings
-                        translatedStrings = translatedStrings.sort(function(a, b) {return a.key > b.key});
-                        emptyStrings = emptyStrings.sort(function(a, b) {return a.key > b.key});
 
                         delete f.strings;
-                        f.strings = emptyStrings.concat(translatedStrings);
-                        f.totalCount = totalCount;
-                        f.emptyCount = totalCount - matchCount;
                     }
                     catch(e) {
-                        self.log('WARN', 'failed to read current locale file ' + file);
+                        this.log('WARN', 'failed to read current locale file ' + file);
                     }
-                });
+                };
+                // sort strings
+                translatedStrings = translatedStrings.sort(function(a, b) {return a.key > b.key});
+                emptyStrings = emptyStrings.sort(function(a, b) {return a.key > b.key});
+                pkg.strings = emptyStrings.concat(translatedStrings);
+                pkg.totalCount = totalCount;
+                pkg.emptyCount = totalCount - translatedCount;
             }
             else {
-                this.log('WARN', 'extraction aborted: no base files');
-            }
-        },
-
-        _addContainer: function(parent) {
-            // add container treeitem
-            var treeitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treeitem");
-            treeitem.setAttribute('open', 'false');
-            treeitem.setAttribute('container', 'true');
-
-            // create a tree row
-            var treerow = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treerow");
-
-            // create a tree cell
-            var treecell = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treecell");
-
-            treerow.appendChild(treecell);
-            treeitem.appendChild(treerow);
-
-            parent.appendChild(treeitem);
-
-            var treechildren = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treechildren");
-            treeitem.appendChild(treechildren);
-
-            treeitem.treecell = treecell;
-            treeitem.treechildren = treechildren;
-
-            return treeitem;
-        },
-
-        _addTreeItem: function(parent, label, data) {
-            // create a treeitem
-            var treeitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treeitem");
-            
-            // create a treerow
-            var treerow = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treerow");
-
-            // create a treecell
-            var treecell = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treecell");
-
-            treecell.setAttribute('label', label);
-            treecell.setAttribute('value', data);
-
-            treerow.appendChild(treecell);
-            treeitem.appendChild(treerow);
-
-            parent.appendChild(treeitem);
-        },
-
-        _buildTree: function(pkgs) {
-            var root = document.getElementById('navtree-root');
-            if (root) {
-                var self = this;
-                pkgs.forEach(function(pkg) {
-
-                    var containerNodes = {};
-                    var containerLabels = {};
-                    var incompletes = {};
-                    var totalIncompletes = 0;
-                    var level = 0;
-
-                    containerNodes[level] = self._addContainer(root);
-                    containerLabels[level] = pkg.pkg;
-                    incompletes[level] = 0;
-
-                    var pathList, folder, leaf;
-
-                    // iterate over baseFiles
-                    var baseFiles = pkg.baseFiles;
-                    if (baseFiles.length > 0) {
-                        baseFiles.forEach(function(f) {
-                            if (f.level > level) {
-                                // extract folder name
-                                pathList = f.file.split('/');
-                                if (pathList.length >= f.level) {
-                                    folder = pathList[f.level - 1];
-
-                                    // down one level, add container treeitem and treechildren
-
-                                    containerNodes[f.level] = self._addContainer(containerNodes[level].treechildren);
-                                    containerLabels[f.level] = folder;
-                                    level = f.level;
-                                    incompletes[level] = 0;
-                                }
-                            }
-                            else if (f.level < level) {
-                                for (var lvl = level; lvl > f.level; lvl--) {
-                                    // display incomplete count in current level's container label
-                                    containerNodes[lvl].treecell.setAttribute('folder', containerLabels[lvl]);
-                                    containerNodes[lvl].treecell.setAttribute('emptyCount', incompletes[lvl]);
-                                    if (incompletes[lvl] > 0) {
-                                        containerLabels[lvl] += ' (' + incompletes[lvl] + ')';
-                                    }
-                                    containerNodes[lvl].treecell.setAttribute('label', containerLabels[lvl]);
-
-                                    // add incompletes count to parent level's count
-                                    incompletes[lvl - 1] += incompletes[lvl];
-                                }
-                                // return to upper level
-                                level = f.level;
-                            }
-
-                            // extract leaf name
-                            pathList = f.file.split('/');
-                            if (pathList.length > 0) {
-                                leaf = pathList[pathList.length - 1];
-                            }
-                            else {
-                                leaf = '';
-                            }
-
-                            if (f.emptyCount > 0) {
-                                incompletes[level]++;
-                                totalIncompletes++;
-                            }
-                            f.leaf = leaf;
-                            self._addTreeItem(containerNodes[level].treechildren,
-                                              leaf + ((f.emptyCount > 0) ? ' (' + f.emptyCount + ')' : ''),
-                                              f.path);
-                        })
-                        containerNodes[0].treecell.setAttribute('folder', containerLabels[0]);
-                        containerNodes[0].treecell.setAttribute('emptyCount', totalIncompletes);
-                        if (totalIncompletes > 0) {
-                            containerLabels[0] += ' (' + totalIncompletes + ')';
-                        }
-                        containerNodes[0].treecell.setAttribute('label', containerLabels[0]);
-                    }
-                })
+                this.log('WARN', 'no base files');
+                pkg.strings = [];
+                pkg.totalCount = pkg.emptyCount = 0;
             }
         },
 
@@ -436,22 +312,14 @@
             return r;
         },
 
-        _displayFile: function(p) {
+        _displayPackage: function(p) {
             //this.log('WARN', this.dump(p.strings));
 
-            // copy current translation into working
-            p.strings.forEach(function(str) {
-                str.working = str.translation;
-            });
-
             // set to displayTree's data source
-            this._editscrollabletree.datasource = p.strings;
+            this._list.datasource = p.strings;
 
             // update file name
-            var fileObj = document.getElementById('edit_file');
-            if (fileObj) fileObj.value = p.file + ' (' + p.totalCount + ')';
-
-            this._editscrollabletree.view.selection.select(0);
+            this._list.view.selection.select(0);
 
             this.selectEntry(0);
         },
@@ -474,83 +342,56 @@
             }
         },
         
-        selectFile: function(index) {
-            var tree = this._tree;
-            if (tree) {
-                var value = tree.view.getCellValue(index, {id: 'value'});
+        selectPackage: function(index) {
+            // if current package is selected, do nothing and exit
+            if (this._currentIndex == index) {
+                return;
+            }
 
-                // if current file is selected, do nothing and exit
-                if (this._currentFile && this._currentFile.path == value) {
-                    this._currentIndex = index;
-                    return;
-                }
+            var list = this._list;
+            var pkg = this._packages[index];
 
-                // locate pkg and base file
-                var pkgs = this._packages;
+            if (list && pkg) {
 
-                for (var i = 0; i < pkgs.length; i++) {
-                    var pkg = pkgs[i];
+                if (this._dirtyBit) {
 
-                    for (var j = 0; j < pkg.baseFiles.length; j++) {
-                        var f = pkg.baseFiles[j];
-                        if (f.path == value) {
-
-                            if (this._dirtyBit) {
-
-                                // file modified, save first?
-                                var response = this._confirmSwitch();
-                                if (response == 2) {
-                                    // cancel; re-select current file
-                                    if (this._currentIndex > -1 && this._currentIndex < tree.view.rowCount) {
-                                        var cursor = tree.view.getCellValue(this._currentIndex, {id: 'value'});
-                                        if (!this._currentFile || this._currentFile.path != cursor) {
-                                            this._currentIndex = -1;
-                                        }
-                                    }
-                                    if (this._currentIndex > -1) {
-                                        tree.view.selection.select(this._currentIndex);
-                                    }
-                                    else {
-                                        tree.view.selection.clearSelection();
-                                    }
-                                    return;
-                                }
-                                else if (response == 1) {
-                                    // discard; do nothing
-                                }
-                                else if (response == 0) {
-                                    this.save();
-                                }
-                            }
-                            // clear state
-                            this._currentPkg = pkg;
-                            this._currentFile = f;
-                            this._dirtyBit = false;
-
-                            this._currentIndex = index;
-                            this._displayFile(f);
-
-                            this._validateForm();
-                            
-                            return;
-                        }
+                    // file modified, save first?
+                    var response = this._confirmSwitch();
+                    if (response == 2) {
+                        // cancel; re-select current package
+                        this._menu.selectedIndex = this._currentIndex;
+                        return;
+                    }
+                    else if (response == 1) {
+                        // discard; do nothing
+                    }
+                    else if (response == 0) {
+                        this.save();
                     }
                 }
+                // clear state
+                this._currentPkg = pkg;
+                this._dirtyBit = false;
+
+                this._currentIndex = index;
+                this._displayPackage(pkg);
+
+                this._validateForm();
             }
         },
 
         selectEntry: function(index) {
+            var indexObj = document.getElementById('index');
             var keyObj = document.getElementById('edit_key');
             var baseObj = document.getElementById('edit_base');
             var workingObj = document.getElementById('edit_working');
-            var entry;
 
-            if (this._currentFile && index > -1) {
-                entry = this._currentFile.strings[index];
-            }
+            var pkg = this._currentPkg;
+            var entry = pkg.strings[index];
 
             if (entry) {
                 if (keyObj) keyObj.value = entry.key;
+                if (indexObj) indexObj.value = parseInt(index + 1) + '/' + pkg.strings.length;
                 if (baseObj) baseObj.value = entry.base;
                 if (workingObj) {
                     workingObj.value = entry.working || '';
@@ -723,19 +564,17 @@
         exportDialog: function () {
 
             // load package install.rdf file for edit
-            var installations = [];
+            var exports = [];
             this._packages.forEach(function(pkg) {
-                if (pkg.installable) {
-                    var installRDF = pkg.installationPath + '/install.rdf';
-                    installations.push({pkg: pkg.pkg,
-                                        installation: pkg.installation,
-                                        path: pkg.installationPath,
-                                        rdf: GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(installRDF))});
+                var installRDF = pkg.installationPath + '/install.rdf';
+                exports.push({pkg: pkg.pkgName,
+                              installName: pkg.installName,
+                              currenPath: pkg.currentPath,
+                              rdf: GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(installRDF))});
 
-                }
             })
 
-            if (installations.length  == 0) {
+            if (exports.length  == 0) {
                 NotifyUtils.warn( _( 'No exportable locale packages found' ) );
             }
             else {
@@ -748,7 +587,7 @@
                 window.openDialog(aURL,
                                   _('Export Locale'),
                                   features,
-                                  [this._currentLocale, installations]);
+                                  [this._currentLocale, exports]);
             }
 
         },
@@ -760,8 +599,8 @@
 
             // turn on modify btn if an entry has been selected
             var selectedEntry = -1;
-            if (this._editscrollabletree) {
-                selectedEntry = this._editscrollabletree.currentIndex;
+            if (this._list) {
+                selectedEntry = this._list.currentIndex;
             }
             if (selectedEntry > -1)
                 modBtnObj.removeAttribute('disabled');

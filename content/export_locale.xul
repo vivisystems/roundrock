@@ -45,7 +45,7 @@
 
                     <rows>
                         <row>
-                            <label value="&localization.export.select.package;" class="SubTitle"/>
+                            <label value="&localization.menu.package;" class="SubTitle"/>
                             <menulist id="package" flex="1" style="text-align:left;" oncommand="$do('selectPackage', this.selectedIndex, 'ExportLocale')">
                                 <menupopup id="package-popup">
                                 </menupopup>

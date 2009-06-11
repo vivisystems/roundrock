@@ -30,7 +30,32 @@
                 <label value="&localization.title;" class="PageTitle" />
                 <label id="locale" value="" class="PageTitle" />
             </hbox>
-            <vbox flex="1" class="block-t">
+
+            <grid class="DataForm" flex="1">
+
+                <columns>
+                    <column flex="1"/>
+                </columns>
+
+                <rows>
+                    <row>
+                        <!-- package list -->
+                        <menulist id="package" style="text-align:left;" oncommand="$do('selectPackage', this.selectedIndex, 'Localization')">
+                            <menupopup id="package-popup">
+                            </menupopup>
+                        </menulist>
+                    </row>
+
+                    <row>
+                        <hbox class="Toolbar">
+                            <textbox id="filter" flex="1" wrap="true"/>
+                            <spacer width="5px"/>
+                            <button id="filter_btn" label="&localization.action.filter;"
+                                    oncommand="$do('filter', null, 'Localization');"   />
+                        </hbox>
+                    </row>
+
+            <!--vbox flex="1" class="block-t">
                 <tree id="navtree" class="block-u showscrollbar" hidecolumnpicker="true" seltype="single" flex="1"
                       onselect="$do('selectFile', this.currentIndex, 'Localization')"
                       >
@@ -42,35 +67,36 @@
                     <treechildren id="navtree-root">
                    </treechildren>
                 </tree>
+            </vbox-->
 
-                <spacer width="10px"/>
+                    <row flex="1">
+                        <vivitree id="editlist" flex="1"
+                                  headers="&localization.heading.key;,&localization.heading.base.string;,&localization.heading.translated.string;"
+                                  fields="key,base,working" hidecolumnpicker="true"
+                                  onselect="$do('selectEntry', this.currentIndex, 'Localization')"
+                                  class="editscrollabletree showscrollbar">
+                        </vivitree>
+                    </row>
 
-                <vbox flex="1">
-                    <vivitree id="editscrollabletree" flex="1"
-                                        headers="&localization.heading.key;,&localization.heading.base.string;,&localization.heading.translated.string;"
-                                        fields="key,base,working" hidecolumnpicker="true"
-                                        onselect="$do('selectEntry', this.currentIndex, 'Localization')"
-                                        class="editscrollabletree showscrollbar">
-                    </vivitree>
-
-                    <spacer height="5px"/>
-
-                    <vbox>
-                        <hbox>
-                            <textbox id="edit_file" readonly="true" disabled="true" flex="1"/>
-                            <spacer width="5px"/>
-                            <textbox id="edit_key" readonly="true" disabled="true" flex="1"/>
-                        </hbox>
-                        <spacer height="5px"/>
-                        <hbox>
-                            <textbox id="edit_base" readonly="true" disabled="true" flex="1" multiline="true" wrap="true"/>
-                            <spacer width="5px"/>
-                            <textbox id="edit_working" disabled="true" flex="2" multiline="true" rows="3"/>
-                        </hbox>
-                    </vbox>
-                </vbox>
-            </vbox>
-            
+                    <row>
+                        <vbox>
+                            <hbox>
+                                <textbox id="edit_key" readonly="true" flex="3"/>
+                                <spacer width="5px"/>
+                                <textbox id="index" readonly="true" disabled="true" flex="1"/>
+                                <spacer width="5px"/>
+                                <textbox id="empty" readonly="true" disabled="true" flex="1"/>
+                            </hbox>
+                            <spacer height="5px"/>
+                            <hbox>
+                                <textbox id="edit_base" readonly="true" disabled="true" flex="1" multiline="true" wrap="true"/>
+                                <spacer width="5px"/>
+                                <textbox id="edit_working" disabled="true" flex="2" multiline="true" rows="1"/>
+                            </hbox>
+                        </vbox>
+                    </row>
+                </rows>
+            </grid>
             <spacer height="10px"/>
 
             <hbox>
