@@ -2288,9 +2288,6 @@ msgstr "Multi Buy"
 msgid "type.multi_buy.desc"
 msgstr "Multi Buy DESC, Chris Help!"
 
-msgid "acl_close_sale_period"
-msgstr "Close Sale Period"
-
 msgid "Your Saving"
 msgstr "** Your Saving **"
 
