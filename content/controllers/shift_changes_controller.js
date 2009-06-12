@@ -842,7 +842,7 @@
         	if ( !GREUtils.Dialog.confirm(this.activeWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
         		return;
 
-			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+			//var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
         	
         	try {
 		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptCashByClerk' );
@@ -856,7 +856,7 @@
 		        reportController.printShiftChangeReport( salePeriod, salePeriod, shiftNumber, terminalNo );
 		    } catch ( e ) {
 		    } finally {
-		    	if ( waitPanel ) waitPanel.hidePopup();
+		    	//if ( waitPanel ) waitPanel.hidePopup();
 		    }
         },
 
@@ -864,7 +864,7 @@
         	if ( !GREUtils.Dialog.confirm(this.activeWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
         		return;
         	
-        	var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+        	//var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
         	
         	try {
 		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
@@ -874,7 +874,7 @@
 		        reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', '' );
 		    } catch ( e ) {
 		    } finally {
-		    	if ( waitPanel ) waitPanel.hidePopup();
+		    	//if ( waitPanel ) waitPanel.hidePopup();
 		    }
         },
         
@@ -894,17 +894,17 @@
 				terminalNo: terminalNo
 			};
 		
-			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+			//var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
 			
 			try {
 				var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
 			} catch ( e ) {
 			} finally {
-				if ( waitPanel ) waitPanel.hidePopup();
+				//if ( waitPanel ) waitPanel.hidePopup();
 			}					
 		       
-		    aURL = 'chrome://viviecr/content/rpt_cash_by_clerk.xul';
-		    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+		    var aURL = 'chrome://viviecr/content/rpt_cash_by_clerk.xul';
+		    var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
 		    window.openDialog( aURL, '', features, processedTpl, parameters );
         },
 
@@ -923,17 +923,17 @@
 				machineid: terminalNo
 			};
 
-			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+			//var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
 			
 			try{
             	var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
             } catch ( e ) {
             } finally {
-            	if ( waitPanel ) waitPanel.hidePopup();
+            	//if ( waitPanel ) waitPanel.hidePopup();
             }
             
-            aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
-            features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             window.openDialog( aURL, '', features, processedTpl, parameters );
         },
 
