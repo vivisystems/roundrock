@@ -12,6 +12,6 @@
 <!ENTITY localization.action.generate "Auto-Fill">
 <!ENTITY localization.action.export "Export">
 <!ENTITY localization.export.title "Export Locale">
-<!ENTITY localization.export.select.package "Please select package to export">
-<!ENTITY localization.export.package.name "Export package as">
-<!ENTITY localization.export.edit.install "Please update install.rdf as appropriate">
+<!ENTITY localization.export.package "Package">
+<!ENTITY localization.export.locale "Locale">
+<!ENTITY localization.export.name "Export package as">

@@ -44,7 +44,7 @@
                 <rows>
                     <row>
                         <!-- package list -->
-                        <menulist id="locale" style="text-align:left;" oncommand="$do('selectLocale', this.selectedIndex, 'Localization')">
+                        <menulist id="locale" style="text-align:left;" oncommand="$do('selectLocale', this.selectedItem.value, 'Localization')">
                             <menupopup id="locale-popup">
                             </menupopup>
                         </menulist>

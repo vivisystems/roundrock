@@ -11,50 +11,33 @@
 
         _exporting_file_folder: 'locale_export',
 
-        _installations: [],
+        _pkg: null,
 
         _locale: null,
 
-        _selectedPackage: null,
+        _path: null,
 
         load: function(data) {
-            var locale = data[0];
-            var installations = data[1];
-            var packageMenuObj = document.getElementById('package');
-
-            var localeObj = document.getElementById('locale');
-            if (localeObj) localeObj.value = '[' + locale + ']';
-
-            if (packageMenuObj) {
-                installations.forEach(function(inst) {
-                    var menuitem = packageMenuObj.appendItem(inst.pkg);
-                    if (menuitem) menuitem.setAttribute('style', 'text-align: left');
-                })
-            }
-            this._installations = installations;
-            this._locale = locale;
-
-            packageMenuObj.selectedIndex = 0;
-            this.selectPackage(0);
-        },
-
-        selectPackage: function(index) {
+            var pkg = data[0];
+            var locale = data[1];
+            var path = data[2];
+            var installation = data[3];
+            var rdf = data[4];
+            
+            var packageTextboxObj = document.getElementById('package');
+            var localeTextboxObj = document.getElementById('locale');
             var nameTextboxObj = document.getElementById('name');
             var installTextboxObj = document.getElementById('install');
-            var inst = this._installations[index];
 
-            if (inst) {
-                if (nameTextboxObj) nameTextboxObj.value = inst.installation;
-                if (installTextboxObj) installTextboxObj.value = inst.rdf;
-
-                this._selectedPackage = inst;
+            if (packageTextboxObj) packageTextboxObj.value = pkg;
+            if (localeTextboxObj) localeTextboxObj.value = locale;
+            if (nameTextboxObj) {
+                nameTextboxObj.value = installation;
+                nameTextboxObj.select();
             }
-            else {
-                this._selectedPackage = null;
-            }
-            this.validateForm();
+            if (installTextboxObj) installTextboxObj.value = rdf;
         },
-
+        
         exportLocale: function() {
             var inst = this._selectedPackage;
             if (!inst) {

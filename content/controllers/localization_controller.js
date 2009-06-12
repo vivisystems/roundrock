@@ -19,22 +19,23 @@
 
         _dirtyFiles: {},
 
+        _currentPkg: null,
+
         _currentLocale: null,
 
-        _currentIndex: -1,
-
-        _currentPkg: null,
+        _currentLocalIndex: -1,
 
         _currentEntryIndex: -1,
 
-        _containers: {},
+        _currentPkgIndex: -1,
 
-        load: function() {
+        _selectedLocale: null,
+
+        load: function() {            
             var self = this;
             this._list = document.getElementById('editlist');
             this._localelist = document.getElementById('locale');
 
-            var profD = GeckoJS.Configure.read('ProfD') || '';
             var menu = document.getElementById('package');
 
             var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
@@ -45,18 +46,19 @@
             var packages = GeckoJS.Configure.read('vivipos.fec.registry.localization.package');
 
             var selectedLocale = xulChromeReg.getSelectedLocale('viviecr');
-            this._currentLocale = selectedLocale;
-
-            var localeObj = document.getElementById('locale');
-            if (localeObj) localeObj.value = '[' + selectedLocale + ']';
+            this._selectedLocale = selectedLocale;
 
             // retrieve files from base locale
             var localePkgs = [];
             for (var pkgName in packages) {
 
                 // get available locales
-                var locales = toolkitChromeReg.getLocalesForPackage(pkgName);
-
+                var localeEnumerator = toolkitChromeReg.getLocalesForPackage(pkgName);
+                var locales = [];
+                while (localeEnumerator.hasMore()) {
+                    locales.push(localeEnumerator.getNext());
+                }
+                
                 // get base locale file path
                 var chromePath = 'chrome://' + pkgName + '/locale/';
                 GeckoJS.Configure.write('general.useragent.locale', packages[pkgName].base);
@@ -82,7 +84,7 @@
 
                     if (baseFileRecords.length > 0) {
                         baseFileRecords.forEach(function(record) {
-                            record.strings = self._extractStrings(GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(record.path)), record.ext);
+                            record.baseStrings = self._extractStrings(GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(record.path)), record.ext);
                         });
                     }
 
@@ -97,62 +99,23 @@
                 }
             }
             this._menu = menu;
-
-            // restore current locale
-            GeckoJS.Configure.write('general.useragent.locale', selectedLocale);
-
-            // retrieve file system paths to current locales
-            localePkgs.forEach(function(p) {
-
-                // get current locale file path
-                var chromePath = 'chrome://' + p.pkgName + '/locale/';
-                var currentFilePath = GREUtils.File.chromeToPath(chromePath);
-
-                // extract current installation name
-                var installation = '';
-                var extensionsPath = profD + '/extensions/';
-
-                var index = currentFilePath.indexOf(extensionsPath);
-                if (index > -1) {
-                    var descPath = currentFilePath.substr(extensionsPath.length);
-                    installation = descPath.split('/')[0];
-                }
-
-                // make sure file path exists and is a directory
-                if (!GREUtils.File.exists(currentFilePath) || !GREUtils.File.isDir(currentFilePath)) {
-                    NotifyUtils.warn(_('Path [%S] for package [%S] locale [%S] is either non-existent or is not a directory',
-                                       [currentFilePath, pkgName, selectedLocale]));
-                }
-                else {
-                    p.currentLocale = selectedLocale;
-                    p.currentPath = currentFilePath;
-                    p.installName = installation;
-                }
-                self._extractTranslations(p);
-            });
             this._packages = localePkgs;
-
-            /*
-            localePkgs.forEach(function(p) {
-                self.log('WARN', self.dump(p));
-            });
-            */
 
             // select first package
             if (localePkgs.length > 0) {
                 menu.selectedIndex = 0;
                 this.selectPackage(0);
             }
+            this._packages = localePkgs;
 
             this._validateForm();
-
         },
 
         // data structure
         //
         // _packages: array of locales [
         //     index: {
-        //         pkg: package name,
+        //         pkgName: package name,
         //         locales: available locales
         //         extensions: array of file extensions
         //         basePath: file path to base locale directory
@@ -182,115 +145,51 @@
         //     }
         // ]
         //
-        loadLocale: function(locale) {
-
+        _loadLocale: function(pkg, locale) {
             var self = this;
             this._list = document.getElementById('editlist');
 
             var profD = GeckoJS.Configure.read('ProfD') || '';
-            var menu = document.getElementById('package');
 
-            var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
-            var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+            // set to given locale
+            GeckoJS.Configure.write('general.useragent.locale', locale);
 
-            // retrieve list of packages requesting localization editor support
-            var packages = GeckoJS.Configure.read('vivipos.fec.registry.localization.package');
-            
-            var selectedLocale = xulChromeReg.getSelectedLocale('viviecr');
-            this._currentLocale = selectedLocale;
+            // get current locale file path
+            var chromePath = 'chrome://' + pkg.pkgName + '/locale/';
+            var currentFilePath = GREUtils.File.chromeToPath(chromePath);
 
-            var localeObj = document.getElementById('locale');
-            if (localeObj) localeObj.value = '[' + selectedLocale + ']';
+            // extract current installation name
+            var installation = '';
+            var extensionsPath = profD + '/extensions/';
 
-            // retrieve files from base locale
-            var localePkgs = [];
-            for (var pkg in packages) {
-
-                // get base locale file path
-                var chromePath = 'chrome://' + pkg + '/locale/';
-                GeckoJS.Configure.write('general.useragent.locale', packages[pkg].base);
-                var baseFilePath = GREUtils.File.chromeToPath(chromePath);
-
-                // make sure file path exists and is a directory
-                if (!GREUtils.File.exists(baseFilePath) || !GREUtils.File.isDir(baseFilePath)) {
-                    NotifyUtils.warn(_('Path [%S] for package [%S] locale [%S] is either non-existent or is not a directory',
-                                       [baseFilePath, pkg, packages[pkg].base]));
-                }
-                else {
-                    var extensions = packages[pkg].ext ? packages[pkg].ext.split(',') : [];
-                    var localePkg = {
-                        pkgName: pkg,
-                        basePath: baseFilePath,
-                        baseLocale: packages[pkg].base,
-                        extensions: extensions
-                    }
-
-                    // get list of files
-                    var baseFileRecords = this._getBaseFileRecords(GREUtils.Dir.readDir(baseFilePath, true), extensions, baseFilePath);
-
-                    if (baseFileRecords.length > 0) {
-                        baseFileRecords.forEach(function(record) {
-                            record.strings = self._extractStrings(GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(record.path)), record.ext);
-                        });
-                    }
-
-                    localePkg.files = baseFileRecords;
-                    localePkgs.push(localePkg);
-
-                    // add to package menu
-                    if (menu) {
-                        var menuitem = menu.appendItem(pkg);
-                        if (menuitem) menuitem.setAttribute('style', 'text-align: left');
-                    }
-                }
+            var index = currentFilePath.indexOf(extensionsPath);
+            if (index > -1) {
+                var descPath = currentFilePath.substr(extensionsPath.length);
+                installation = descPath.split('/')[0];
             }
-            this._menu = menu;
 
-            // restore current locale
-            GeckoJS.Configure.write('general.useragent.locale', selectedLocale);
+            // make sure file path exists and is a directory
+            if (!GREUtils.File.exists(currentFilePath) || !GREUtils.File.isDir(currentFilePath)) {
+                NotifyUtils.warn(_('Path [%S] for package [%S] locale [%S] is either non-existent or is not a directory',
+                                   [currentFilePath, pkg, locale]));
+            }
+            else {
+                pkg.currentLocale = locale;
+                pkg.currentPath = currentFilePath;
+                pkg.installName = installation;
+                pkg.installPath = extensionsPath + installation
+            }
+            self._extractTranslations(pkg);
 
-            // retrieve file system paths to current locales
-            localePkgs.forEach(function(p) {
-
-                // get current locale file path
-                var chromePath = 'chrome://' + p.pkgName + '/locale/';
-                var currentFilePath = GREUtils.File.chromeToPath(chromePath);
-
-                // extract current installation name
-                var installation = '';
-                var extensionsPath = profD + '/extensions/';
-
-                var index = currentFilePath.indexOf(extensionsPath);
-                if (index > -1) {
-                    var descPath = currentFilePath.substr(extensionsPath.length);
-                    installation = descPath.split('/')[0];
-                }
-
-                // make sure file path exists and is a directory
-                if (!GREUtils.File.exists(currentFilePath) || !GREUtils.File.isDir(currentFilePath)) {
-                    NotifyUtils.warn(_('Path [%S] for package [%S] locale [%S] is either non-existent or is not a directory',
-                                       [currentFilePath, pkg, selectedLocale]));
-                }
-                else {
-                    p.currentLocale = selectedLocale;
-                    p.currentPath = currentFilePath;
-                    p.installName = installation;
-                }
-                self._extractTranslations(p);
-            });
-            this._packages = localePkgs;
-
+            // restore to selected locale
+            GeckoJS.Configure.write('general.useragent.locale', this._selectedLocale);
+            
             /*
-            localePkgs.forEach(function(p) {
-                self.log('WARN', self.dump(p));
-            });
+            self.log('WARN', self.dump(pkg));
             */
 
-            // select first package
-            if (localePkgs.length > 0) {
-                menu.selectedIndex = 0;
-                this.selectPackage(0);
-            }
+            // display locale
+            this._displayStrings(pkg);
 
             this._validateForm();
         },
@@ -345,7 +244,7 @@
             var emptyStrings = [];
             var translatedStrings = [];
             var totalCount = 0;
-            var translatedCount = 0;
+            var emptyCount = 0;
 
             if (pkg.files) {
                 for (var index = 0; index < pkg.files.length; index++) {
@@ -362,9 +261,8 @@
                                 buf = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(file));
                                 var regexDTD = /\s*<!ENTITY\s+(\S+)\s+"([^"]*)"\s*>\s*/g;
                                 while ((match = regexDTD.exec(buf)) != null) {
-                                    if (f.strings[match[1]]) {
-                                        f.strings[match[1]].translation = match[2];
-                                        if (match[2].length > 0) translatedCount++;
+                                    if (f.baseStrings[match[1]]) {
+                                        f.baseStrings[match[1]].translation = match[2];
                                     }
                                 }
                             }
@@ -372,9 +270,8 @@
                                 buf = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(file));
                                 var regexProp = /^\s*([^#].*)=(.*)\s*$/gm;
                                 while ((match = regexProp.exec(buf)) != null) {
-                                    if (f.strings[match[1]]) {
-                                        f.strings[match[1]].translation = match[2];
-                                        if (match[2].length > 0) translatedCount++;
+                                    if (f.baseStrings[match[1]]) {
+                                        f.baseStrings[match[1]].translation = match[2];
                                     }
                                 }
                                 //this.log('WARN', GeckoJS.BaseObject.dump(entries));
@@ -383,25 +280,27 @@
                         }
 
                         // convert strings to array
-                        for (var key in f.strings) {
+                        for (var key in f.baseStrings) {
                             totalCount++;
-                            if (f.strings[key].translation) {
+                            if (f.baseStrings[key].translation) {
                                 translatedStrings.push({index: index,
                                                         key: key,
-                                                        base: f.strings[key].base,
-                                                        working: f.strings[key].translation,
-                                                        translation: f.strings[key].translation});
+                                                        base: f.baseStrings[key].base,
+                                                        working: f.baseStrings[key].translation,
+                                                        translation: f.baseStrings[key].translation});
+                                if (f.baseStrings[key].translation.length == 0) {
+                                    emptyCount++;
+                                }
                             }
                             else {
                                 emptyStrings.push({index: index,
                                                    key: key,
-                                                   base: f.strings[key].base,
+                                                   base: f.baseStrings[key].base,
                                                    working: '',
                                                    translation: ''});
+                                emptyCount++;
                             }
                         }
-
-                        delete f.strings;
                     }
                     catch(e) {
                         this.log('WARN', 'failed to read current locale file ' + file);
@@ -412,7 +311,7 @@
                 emptyStrings = emptyStrings.sort(function(a, b) {return a.key > b.key});
                 pkg.strings = emptyStrings.concat(translatedStrings);
                 pkg.totalCount = totalCount;
-                pkg.emptyCount = totalCount - translatedCount;
+                pkg.emptyCount = emptyCount;
             }
             else {
                 this.log('WARN', 'no base files');
@@ -436,15 +335,15 @@
             return r;
         },
 
-        _displayPackage: function(p) {
+        _displayStrings: function(pkg) {
             //this.log('WARN', this.dump(p.strings));
 
             // set to displayTree's data source
-            this._list.datasource = p.strings;
+            this._list.datasource = pkg.strings;
 
             // update empty count
             var emptyObj = document.getElementById('empty');
-            emptyObj.value = p.emptyCount;
+            emptyObj.value = pkg.emptyCount;
             
             // select first entry
             this._list.view.selection.select(0);
@@ -470,8 +369,9 @@
         },
         
         selectPackage: function(index) {
+
             // if current package is selected, do nothing and exit
-            if (this._currentIndex == index) {
+            if (this._currentPkgIndex == index) {
                 return;
             }
 
@@ -486,7 +386,7 @@
                     var response = this._confirmSwitch();
                     if (response == 2) {
                         // cancel; re-select current package
-                        this._menu.selectedIndex = this._currentIndex;
+                        this._menu.selectedIndex = this._currentPkgIndex;
                         return;
                     }
                     else if (response == 1) {
@@ -501,10 +401,58 @@
                 this._dirtyBit = false;
                 this._dirtyFiles = {};
 
-                this._currentIndex = index;
-                this._displayPackage(pkg);
+                this._currentPkgIndex = index;
 
-                this._validateForm();
+                // append locale to localelist
+                var localelist = this._localelist;
+                if (localelist) {
+                    // remove existing items
+                    localelist.removeAllItems();
+
+                    // add available packages
+                    for (var i = 0; i < pkg.locales.length; i++) {
+                        var locale = pkg.locales[i];
+                        var item = localelist.appendItem(locale, locale);
+                        item.setAttribute('style', 'text-align:left;');
+                        if (locale == this._selectedLocale) localelist.selectedIndex = i;
+                    };
+                    this.selectLocale(this._selectedLocale);
+                }
+            }
+        },
+
+        selectLocale: function(locale) {
+
+            var localelist = this._localelist;
+            var pkg = this._currentPkg;
+
+            if (localelist && pkg) {
+
+                if (this._dirtyBit) {
+
+                    // file modified, save first?
+                    var response = this._confirmSwitch();
+                    if (response == 2) {
+                        // cancel; re-select current locale
+                        localelist.selectedIndex = this._currentLocaleIndex;
+                        return;
+                    }
+                    else if (response == 1) {
+                        // discard; do nothing
+                    }
+                    else if (response == 0) {
+                        this.save();
+                    }
+                }
+                // clear state
+                this._dirtyBit = false;
+                this._dirtyFiles = {};
+
+                this._currentLocale = locale;
+                this._currentLocaleIndex = localelist.selectedIndex;
+
+                // load locale
+                this._loadLocale(pkg, locale);
             }
         },
 
@@ -614,8 +562,8 @@
                 OsdUtils.info(_('DTD file [%S] successfully updated', [filepath]));
             }
             else {
-                NotifyUtils.error(_('Failed to write DTD to file [%S]', [filepath]));
                 this.log('ERROR', 'Failed to write DTD to [' + filepath + ']');
+                NotifyUtils.error(_('Failed to write DTD to file [%S]', [filepath]));
             }
             fp.close();
         },
@@ -661,41 +609,34 @@
 
             this._validateForm();
         },
-/*
-        exportXPI: function() {
-                }
-            }
-        },
-*/
+
         exportDialog: function () {
 
             // load package install.rdf file for edit
-            var exports = [];
-            this._packages.forEach(function(pkg) {
-                var installRDF = pkg.installationPath + '/install.rdf';
-                exports.push({pkg: pkg.pkgName,
-                              installName: pkg.installName,
-                              currenPath: pkg.currentPath,
-                              rdf: GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(installRDF))});
+            var pkg = this._currentPkg;
+            var locale = this._currentLocale;
 
-            })
-
-            if (exports.length  == 0) {
-                NotifyUtils.warn( _( 'No exportable locale packages found' ) );
+            var installRDF = pkg.installPath + '/install.rdf';
+            var rdf = '';
+            try {
+                rdf = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(installRDF));
             }
-            else {
-                var aURL = 'chrome://viviecr/content/export_locale.xul';
-                var screenwidth = GeckoJS.Session.get('screenwidth');
-                var screenheight = GeckoJS.Session.get('screenheight');
+            catch (e) {
+                this.log('ERROR', 'Failed to load install.rdf for package:locale [' + pkg.pkgName + ':' + locale + '] at [' + installRDF + ']');
+                NotifyUtils.error(_('Failed to load install.rdf for package:locale [%S:%S] at path [%S]', [pkg.pkgName, locale, installRDF]));
 
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
-
-                window.openDialog(aURL,
-                                  _('Export Locale'),
-                                  features,
-                                  [this._currentLocale, exports]);
+                return;
             }
+            var aURL = 'chrome://viviecr/content/export_locale.xul';
+            var screenwidth = GeckoJS.Session.get('screenwidth');
+            var screenheight = GeckoJS.Session.get('screenheight');
 
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+
+            window.openDialog(aURL,
+                              _('Export Locale'),
+                              features,
+                              [pkg.pkgName, locale, pkg.installPath, pkg.installName, rdf]);
         },
 
         _validateForm: function() {
