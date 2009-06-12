@@ -11,6 +11,8 @@
 
         _list: null,
 
+        _localelist: null,
+        
         _packages: null,
 
         _dirtyBit: false,
@@ -30,6 +32,7 @@
         load: function() {
             var self = this;
             this._list = document.getElementById('editlist');
+            this._localelist = document.getElementById('locale');
 
             var profD = GeckoJS.Configure.read('ProfD') || '';
             var menu = document.getElementById('package');
@@ -52,7 +55,7 @@
             for (var pkgName in packages) {
 
                 // get available locales
-                var availableLocales = toolkitChromeReg.getLocalesForPackage(pkgName);
+                var locales = toolkitChromeReg.getLocalesForPackage(pkgName);
 
                 // get base locale file path
                 var chromePath = 'chrome://' + pkgName + '/locale/';
@@ -68,6 +71,7 @@
                     var extensions = packages[pkgName].ext ? packages[pkgName].ext.split(',') : [];
                     var localePkg = {
                         pkgName: pkgName,
+                        locales: locales,
                         basePath: baseFilePath,
                         baseLocale: packages[pkgName].base,
                         extensions: extensions
@@ -470,8 +474,6 @@
             if (this._currentIndex == index) {
                 return;
             }
-
-            // update locale list
 
             var list = this._list;
             var pkg = this._packages[index];
