@@ -26,9 +26,13 @@
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <hbox>
-                <label value="&localization.title;" class="PageTitle" />
-                <label id="locale" value="" class="PageTitle" />
+            <hbox align="center">
+                <label value="&localization.title;" class="PageTitle"/>
+                <menulist id="package" class="PageTitle" style="text-align:left;" flex="1"
+                          oncommand="$do('selectPackage', this.selectedIndex, 'Localization')">
+                    <menupopup id="package-popup">
+                    </menupopup>
+                </menulist>
             </hbox>
 
             <grid class="DataForm" flex="1">
@@ -40,8 +44,8 @@
                 <rows>
                     <row>
                         <!-- package list -->
-                        <menulist id="package" style="text-align:left;" oncommand="$do('selectPackage', this.selectedIndex, 'Localization')">
-                            <menupopup id="package-popup">
+                        <menulist id="locale" style="text-align:left;" oncommand="$do('selectLocale', this.selectedIndex, 'Localization')">
+                            <menupopup id="locale-popup">
                             </menupopup>
                         </menulist>
                     </row>
@@ -55,20 +59,6 @@
                         </hbox>
                     </row>
 
-            <!--vbox flex="1" class="block-t">
-                <tree id="navtree" class="block-u showscrollbar" hidecolumnpicker="true" seltype="single" flex="1"
-                      onselect="$do('selectFile', this.currentIndex, 'Localization')"
-                      >
-
-                    <treecols>
-                        <treecol id="file" label="&localization.heading.package;" primary="true" flex="1"/>
-                    </treecols>
-
-                    <treechildren id="navtree-root">
-                   </treechildren>
-                </tree>
-            </vbox-->
-
                     <row flex="1">
                         <vivitree id="editlist" flex="1"
                                   headers="&localization.heading.key;,&localization.heading.base.string;,&localization.heading.translated.string;"
@@ -79,25 +69,23 @@
                     </row>
 
                     <row>
-                        <vbox>
-                            <hbox>
-                                <textbox id="edit_key" readonly="true" flex="3"/>
-                                <spacer width="5px"/>
-                                <textbox id="index" readonly="true" disabled="true" flex="1"/>
-                                <spacer width="5px"/>
-                                <textbox id="empty" readonly="true" disabled="true" flex="1"/>
-                            </hbox>
-                            <spacer height="5px"/>
-                            <hbox>
-                                <textbox id="edit_base" readonly="true" disabled="true" flex="1" multiline="true" wrap="true"/>
-                                <spacer width="5px"/>
-                                <textbox id="edit_working" disabled="true" flex="2" multiline="true" rows="1"/>
-                            </hbox>
-                        </vbox>
+                        <hbox pack="end">
+                            <label value="&localization.label.index;"/>
+                            <label id="index" readonly="true" disabled="true"/>
+                            <spacer width="5px"/>
+                            <label value="&localization.label.empty;"/>
+                            <label id="empty" readonly="true" disabled="true"/>
+                        </hbox>
+                    </row>
+                    <row>
+                        <hbox>
+                            <textbox id="edit_base" readonly="true" disabled="true" flex="1" multiline="true" wrap="true"/>
+                            <spacer width="5px"/>
+                            <textbox id="edit_working" disabled="true" flex="2" multiline="true" rows="1"/>
+                        </hbox>
                     </row>
                 </rows>
             </grid>
-            <spacer height="10px"/>
 
             <hbox>
                 <hbox class="ToolBar" flex="1">

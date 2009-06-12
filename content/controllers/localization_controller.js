@@ -15,6 +15,8 @@
 
         _dirtyBit: false,
 
+        _dirtyFiles: {},
+
         _currentLocale: null,
 
         _currentIndex: -1,
@@ -24,12 +26,130 @@
         _currentEntryIndex: -1,
 
         _containers: {},
-        
+
+        load: function() {
+            var self = this;
+            this._list = document.getElementById('editlist');
+
+            var profD = GeckoJS.Configure.read('ProfD') || '';
+            var menu = document.getElementById('package');
+
+            var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
+            var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+            var toolkitChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIToolkitChromeRegistry);
+
+            // retrieve list of packages requesting localization editor support
+            var packages = GeckoJS.Configure.read('vivipos.fec.registry.localization.package');
+
+            var selectedLocale = xulChromeReg.getSelectedLocale('viviecr');
+            this._currentLocale = selectedLocale;
+
+            var localeObj = document.getElementById('locale');
+            if (localeObj) localeObj.value = '[' + selectedLocale + ']';
+
+            // retrieve files from base locale
+            var localePkgs = [];
+            for (var pkgName in packages) {
+
+                // get available locales
+                var availableLocales = toolkitChromeReg.getLocalesForPackage(pkgName);
+
+                // get base locale file path
+                var chromePath = 'chrome://' + pkgName + '/locale/';
+                GeckoJS.Configure.write('general.useragent.locale', packages[pkgName].base);
+                var baseFilePath = GREUtils.File.chromeToPath(chromePath);
+
+                // make sure file path exists and is a directory
+                if (!GREUtils.File.exists(baseFilePath) || !GREUtils.File.isDir(baseFilePath)) {
+                    NotifyUtils.warn(_('Path [%S] for package [%S] locale [%S] is either non-existent or is not a directory',
+                                       [baseFilePath, pkgName, packages[pkgName].base]));
+                }
+                else {
+                    var extensions = packages[pkgName].ext ? packages[pkgName].ext.split(',') : [];
+                    var localePkg = {
+                        pkgName: pkgName,
+                        basePath: baseFilePath,
+                        baseLocale: packages[pkgName].base,
+                        extensions: extensions
+                    }
+
+                    // get list of files
+                    var baseFileRecords = this._getBaseFileRecords(GREUtils.Dir.readDir(baseFilePath, true), extensions, baseFilePath);
+
+                    if (baseFileRecords.length > 0) {
+                        baseFileRecords.forEach(function(record) {
+                            record.strings = self._extractStrings(GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(record.path)), record.ext);
+                        });
+                    }
+
+                    localePkg.files = baseFileRecords;
+                    localePkgs.push(localePkg);
+
+                    // add to package menu
+                    if (menu) {
+                        var menuitem = menu.appendItem(pkgName);
+                        if (menuitem) menuitem.setAttribute('style', 'text-align: left');
+                    }
+                }
+            }
+            this._menu = menu;
+
+            // restore current locale
+            GeckoJS.Configure.write('general.useragent.locale', selectedLocale);
+
+            // retrieve file system paths to current locales
+            localePkgs.forEach(function(p) {
+
+                // get current locale file path
+                var chromePath = 'chrome://' + p.pkgName + '/locale/';
+                var currentFilePath = GREUtils.File.chromeToPath(chromePath);
+
+                // extract current installation name
+                var installation = '';
+                var extensionsPath = profD + '/extensions/';
+
+                var index = currentFilePath.indexOf(extensionsPath);
+                if (index > -1) {
+                    var descPath = currentFilePath.substr(extensionsPath.length);
+                    installation = descPath.split('/')[0];
+                }
+
+                // make sure file path exists and is a directory
+                if (!GREUtils.File.exists(currentFilePath) || !GREUtils.File.isDir(currentFilePath)) {
+                    NotifyUtils.warn(_('Path [%S] for package [%S] locale [%S] is either non-existent or is not a directory',
+                                       [currentFilePath, pkgName, selectedLocale]));
+                }
+                else {
+                    p.currentLocale = selectedLocale;
+                    p.currentPath = currentFilePath;
+                    p.installName = installation;
+                }
+                self._extractTranslations(p);
+            });
+            this._packages = localePkgs;
+
+            /*
+            localePkgs.forEach(function(p) {
+                self.log('WARN', self.dump(p));
+            });
+            */
+
+            // select first package
+            if (localePkgs.length > 0) {
+                menu.selectedIndex = 0;
+                this.selectPackage(0);
+            }
+
+            this._validateForm();
+
+        },
+
         // data structure
         //
         // _packages: array of locales [
         //     index: {
         //         pkg: package name,
+        //         locales: available locales
         //         extensions: array of file extensions
         //         basePath: file path to base locale directory
         //         baseLocale: base locale name
@@ -58,7 +178,7 @@
         //     }
         // ]
         //
-        load: function() {
+        loadLocale: function(locale) {
 
             var self = this;
             this._list = document.getElementById('editlist');
@@ -318,9 +438,12 @@
             // set to displayTree's data source
             this._list.datasource = p.strings;
 
-            // update file name
+            // update empty count
+            var emptyObj = document.getElementById('empty');
+            emptyObj.value = p.emptyCount;
+            
+            // select first entry
             this._list.view.selection.select(0);
-
             this.selectEntry(0);
         },
 
@@ -348,6 +471,8 @@
                 return;
             }
 
+            // update locale list
+
             var list = this._list;
             var pkg = this._packages[index];
 
@@ -372,6 +497,7 @@
                 // clear state
                 this._currentPkg = pkg;
                 this._dirtyBit = false;
+                this._dirtyFiles = {};
 
                 this._currentIndex = index;
                 this._displayPackage(pkg);
@@ -382,7 +508,6 @@
 
         selectEntry: function(index) {
             var indexObj = document.getElementById('index');
-            var keyObj = document.getElementById('edit_key');
             var baseObj = document.getElementById('edit_base');
             var workingObj = document.getElementById('edit_working');
 
@@ -390,7 +515,6 @@
             var entry = pkg.strings[index];
 
             if (entry) {
-                if (keyObj) keyObj.value = entry.key;
                 if (indexObj) indexObj.value = parseInt(index + 1) + '/' + pkg.strings.length;
                 if (baseObj) baseObj.value = entry.base;
                 if (workingObj) {
@@ -408,82 +532,64 @@
             if (workingObj) {
                 var text = workingObj.value;
                 var index = this._currentEntryIndex;
+                var pkg = this._currentPkg;
 
-                if (index > -1) {
-                    this._currentFile.strings[index].working = text;
-                    this._dirtyBit = this._dirtyBit ||
-                                     (text != this._currentFile.strings[index].translation);
+                if (text != null) text = GeckoJS.String.trim(text);
+                
+                if (index > -1 && pkg && pkg.strings) {
+                    var strEntry = pkg.strings[index];
+                    if (strEntry) {
 
-                    if (this._editscrollabletree) this._editscrollabletree.invalidateRow(index);
+                        // has text changed?
+                        if (text != strEntry.translation) {
+                            this._dirtyFiles[strEntry.index] = strEntry.index;
+                            this._dirtyBit = true;
+                        }
+                        
+                        if (strEntry.working == '' && text.length > 0) {
+                            pkg.emptyCount--;
+                        }
+                        else if (strEntry.working.length > 0 && text == '') {
+                            pkg.emptyCount++;
+                        }
+                        strEntry.working = text;
+                        if (this._list) this._list.invalidateRow(index);
+                        
+                        var emptyObj = document.getElementById('empty');
+                        emptyObj.value = pkg.emptyCount;
+                    }
                 }
             }
             this._validateForm();
         },
 
         save: function() {
-            if (this._currentPkg && this._currentFile) {
+            if (this._currentPkg) {
                 var pkg = this._currentPkg;
-                var file = this._currentFile;
-                var filepath = pkg.currentPath + '/' + file.file;
 
-                // for each string, copy working into translation
-                file.strings.forEach(function(str) {
-                    str.translation = str.working || '';
-                });
+                // look through each dirtyFile
+                for (var index in this._dirtyFiles) {
+                    var fileRecord = pkg.files[index];
+                    var filepath = pkg.currentPath + '/' + fileRecord.file;
 
-                // save to current locale file
-                var emptyCount;
-                switch(file.ext) {
+                    // for each string, copy working into translation
+                    pkg.strings.forEach(function(str) {
+                        str.translation = str.working || '';
+                    });
 
-                    case 'dtd':
-                        emptyCount = this.saveDTD(file.strings, filepath);
-                        break;
+                    // save to current locale file
+                    switch(fileRecord.ext) {
 
-                    case 'properties':
-                        emptyCount = this.saveProperties(file.strings, filepath);
-                        break;
-                }
-                if (emptyCount > -1 && emptyCount != file.emptyCount) {
-                    // fieDelta is used to increment/decrement container counts
-                    var fileDelta = 0;
-                    if (emptyCount * file.emptyCount == 0) {
-                        fileDelta = (emptyCount) ? 1 : -1;
-                    }
+                        case 'dtd':
+                            this.saveDTD(pkg.strings, index, filepath);
+                            break;
 
-                    file.emptyCount = emptyCount;
-                    var items = $('[value=' + file.path + ']');
-
-                    if (items) {
-                        if (emptyCount > 0) {
-                            items.each(function(i) {
-                                              this.setAttribute('label', file.leaf + ' (' + emptyCount + ')');
-                                          })
-                        }
-                        else {
-                            items.each(function(i) {
-                                              this.setAttribute('label', file.leaf);
-                                          })
-                        }
-                    }
-
-                    if (fileDelta != 0) {
-                        items.parents().map(function () {
-                            if (this.getAttribute('container') == 'true') {
-                                var folder = this.treecell.getAttribute('folder');
-                                var oldEmptyCount = this.treecell.getAttribute('emptyCount');
-
-                                var newEmptyCount = parseInt(oldEmptyCount) + parseInt(fileDelta);
-                                if (newEmptyCount == 0) {
-                                    this.treecell.setAttribute('label', folder);
-                                }
-                                else {
-                                    this.treecell.setAttribute('label', folder + ' (' + newEmptyCount + ')');
-                                }
-                                this.treecell.setAttribute('emptyCount', newEmptyCount);
-                            }
-                        })
+                        case 'properties':
+                            this.saveProperties(pkg.strings, index, filepath);
+                            break;
                     }
                 }
+                this._dirtyFiles = {};
                 this._dirtyBit = false;
 
                 this._validateForm();
@@ -493,13 +599,12 @@
             }
         },
 
-        saveDTD: function(strings, filepath) {
+        saveDTD: function(strings, index, filepath) {
             // write to in-memory buffer;
-            var emptyCount = 0;
             var buf = ''
             strings.forEach(function(str) {
-                if (!str.translation) emptyCount++;
-                buf += '<!ENTITY ' + str.key + ' "' + str.translation + '">\n';
+                if (str.index == index)
+                    buf += '<!ENTITY ' + str.key + ' "' + str.translation + '">\n';
             });
             var fp = new GeckoJS.File(filepath, true);
             fp.open('w');
@@ -509,20 +614,16 @@
             else {
                 NotifyUtils.error(_('Failed to write DTD to file [%S]', [filepath]));
                 this.log('ERROR', 'Failed to write DTD to [' + filepath + ']');
-
-                emptyCount = -1
             }
             fp.close();
-            return emptyCount;
         },
 
-        saveProperties: function(strings, filepath) {
+        saveProperties: function(strings, index, filepath) {
             // write to in-memory buffer;
-            var emptyCount = 0;
             var buf = ''
             strings.forEach(function(str) {
-                if (!str.translation) emptyCount++;
-                buf += (str.key + '=' + str.translation + '\n\n');
+                if (str.index == index)
+                    buf += (str.key + '=' + str.translation + '\n\n');
             });
             var fp = new GeckoJS.File(filepath, true);
             fp.open('w');
@@ -532,25 +633,28 @@
             else {
                 NotifyUtils.error(_('Failed to write Properties to file [%S]', [filepath]));
                 this.log('ERROR', 'Failed to write Properties to [' + filepath + ']');
-
-                emptyCount = -1;
             }
             fp.close();
-            return emptyCount;
         },
 
         autoFill: function() {
-            var f = this._currentFile;
-            if (f && f.emptyCount > 0) {
+            var pkg = this._currentPkg;
+            if (pkg && pkg.emptyCount > 0) {
                 var modified = false;
-                for (var i = 0; i < f.strings.length; i++) {
-                    if (!f.strings[i].working || f.strings[i].working.length == 0) {
-                        f.strings[i].working = f.strings[i].base;
+                for (var i = 0; i < pkg.strings.length; i++) {
+                    if (!pkg.strings[i].working || pkg.strings[i].working.length == 0) {
+                        pkg.strings[i].working = pkg.strings[i].base;
+
+                        this._dirtyFiles[pkg.strings[i].index] = pkg.strings[i].index;
                         modified = true;
                     }
                 }
-                this._dirtyBit = modified;
-                if (this._editscrollabletree) this._editscrollabletree.invalidate();
+                this._dirtyBit = this._dirtyBit || modified;
+                if (this._list) this._list.invalidate();
+
+                pkg.emptyCount = 0;
+                var emptyObj = document.getElementById('empty');
+                emptyObj.value = pkg.emptyCount;
             }
 
             this._validateForm();
@@ -596,29 +700,46 @@
             var modBtnObj = document.getElementById('modify');
             var saveBtnObj = document.getElementById('save');
             var fillBtnObj = document.getElementById('auto_fill');
+            var workingObj = document.getElementById('edit_working');
+            var exportBtnObj = document.getElementById('export_xpi');
 
             // turn on modify btn if an entry has been selected
-            var selectedEntry = -1;
-            if (this._list) {
-                selectedEntry = this._list.currentIndex;
-            }
-            if (selectedEntry > -1)
-                modBtnObj.removeAttribute('disabled');
-            else
-                modBtnObj.setAttribute('disabled', 'true');
-
-            // turn on fill button if a file has been selected and empty count > 0
-            if (this._currentPkg && this._currentFile && this._currentFile.emptyCount > 0) {
-                fillBtnObj.removeAttribute('disabled');
+            if (this._currentPkg.baseLocale == this._currentPkg.currentLocale) {
+                if (workingObj) workingObj.setAttribute('disabled', 'true');
+                if (modBtnObj) modBtnObj.setAttribute('disabled', 'true');
+                if (fillBtnObj) fillBtnObj.setAttribute('disabled', 'true');
+                if (saveBtnObj) saveBtnObj.setAttribute('hidden', 'true');
+                if (exportBtnObj) exportBtnObj.setAttribute('disabled', 'true');
             }
             else {
-                fillBtnObj.setAttribute('disabled', 'true');
+                var selectedEntry = -1;
+                if (this._list) {
+                    selectedEntry = this._list.currentIndex;
+                }
+                if (selectedEntry > -1) {
+                    if (modBtnObj) modBtnObj.removeAttribute('disabled');
+                    if (workingObj) workingObj.removeAttribute('disabled');
+                }
+                else {
+                    if (modBtnObj) modBtnObj.setAttribute('disabled', 'true');
+                    if (workingObj) workingObj.setAttribute('disabled', 'true');
+                }
+
+                // turn on fill button if empty count > 0
+                if (this._currentPkg && this._currentPkg.emptyCount > 0) {
+                    if (fillBtnObj) fillBtnObj.removeAttribute('disabled');
+                }
+                else {
+                    if (fillBtnObj) fillBtnObj.setAttribute('disabled', 'true');
+                }
+                // turn on save btn if dirty bit is set and current locale is different from base locale
+                if (this._dirtyBit && this._currentPkg)
+                    if (saveBtnObj) saveBtnObj.removeAttribute('hidden');
+                else
+                    if (saveBtnObj) saveBtnObj.setAttribute('hidden', 'true');
+
+                if (exportBtnObj) exportBtnObj.removeAttribute('disabled');
             }
-            // turn on save btn if dirty bit is set and current locale is different from base locale
-            if (this._dirtyBit && this._currentPkg && this._currentPkg.baseLocale != this._currentPkg.currentLocale)
-                saveBtnObj.removeAttribute('hidden');
-            else
-                saveBtnObj.setAttribute('hidden', 'true');
         }
     };
 
