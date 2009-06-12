@@ -1,4 +1,4 @@
-(function(){
+( function() {
 
     /**
      * RptDailySales Controller
@@ -12,16 +12,16 @@
         
         _fileName: 'rpt_daily_sales',
 
-        _set_reportRecords: function(limit) {
+        _set_reportRecords: function( limit ) {
 
-            limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
 
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
-            //            var start_str = document.getElementById( 'start_date' ).datetimeValue.toLocaleString();
-            //            var end_str = document.getElementById( 'end_date' ).datetimeValue.toLocaleString();
+            //var start_str = document.getElementById( 'start_date' ).datetimeValue.toLocaleString();
+            //var end_str = document.getElementById( 'end_date' ).datetimeValue.toLocaleString();
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
@@ -237,4 +237,4 @@
     };
 
     RptBaseController.extend(__controller__);
-})();
+} )();

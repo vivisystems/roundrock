@@ -27,7 +27,7 @@
         _tmpFileDir: "/var/tmp/",
         
         _exporting_file_folder: "report_export",
-        _fileExportingFlag: 0,// 1 if the exporting task is done, 0 otherwise.
+        _fileExportingFlag: 0, // 1 if the exporting task is done, 0 otherwise.
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -160,6 +160,7 @@
                 	this._dismissWaitingPanel();
             }
         },
+        
         /**
 		 * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
 		 */
@@ -172,10 +173,9 @@
             var maxClientHeight = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.maxExportPdfHeight" ) || 30000 );
 
             if ( clientHeight > maxClientHeight ) {
-                GREUtils.Dialog.alert( window, '', _( 'The document is too large to be exported in .PDF format, please use export CSV instead!' ) );
+                GREUtils.Dialog.alert( window, '', _( 'The document is too large to be exported in .PDF format, please export as .CSV file instead!' ) );
                 return;
             }
-
 
             try {
             	// setting the flag be zero means that the exporting has not finished yet.
@@ -191,26 +191,13 @@
                 var waitPanel = this._showWaitingPanel();
 
                 var progress = document.getElementById( this._progress_bar_id );
+				var caption = document.getElementById( this.getCaptionId() );
 				
-                this.BrowserPrint.getPrintSettings();
-
-                if ( paperProperties ) {
-                    if ( paperProperties.paperSize )
-                        this.BrowserPrint.setPaperSize( paperProperties.paperSize.width, paperProperties.paperSize.height );
-                    if ( paperProperties.paperEdges )
-                        this.BrowserPrint.setPaperEdge( paperProperties.paperEdges.left, paperProperties.paperEdges.right, paperProperties.paperEdges.top, paperProperties.paperEdges.bottom );
-                    if ( paperProperties.paperMargins )
-                        this.BrowserPrint.setPaperMargin( paperProperties.paperMargins.left, paperProperties.paperMargin.right, paperProperties.paperMargins.top, paperProperties.paperMargins.bottom );
-                    if ( paperProperties.paperHeader )
-                        this.BrowserPrint.setPaperHeader( paperProperties.paperHeader.left, paperProperties.paperHeader.right );
-                }
-				
-                this.BrowserPrint.getWebBrowserPrint( this._preview_frame_id );
                 var fileName = this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.pdf';
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
                 var self = this;
-                this.BrowserPrint.printToPdf( tmpFile, progress,
+                this.BrowserPrint.printToPdf( tmpFile, paperProperties, this._preview_frame_id, caption, progress,
                     function() {
                         // printing finished callback,
                         self._copyExportFileFromTmp( tmpFile, targetDir, 180 );
@@ -321,6 +308,28 @@
             }
         },
         
+        print: function( paperProperties ) {
+        	try {
+        	    this._enableButton( false );
+
+                var waitPanel = this._showWaitingPanel();
+
+                var progress = document.getElementById( this._progress_bar_id );
+				var caption = document.getElementById( this.getCaptionId() );
+
+				//document.getElementById( 'preview_frame' ).contentWindow.print();
+		        //this.BrowserPrint.showPageSetup();
+		    	this.BrowserPrint.showPrintDialog( paperProperties, this._preview_frame_id, caption, progress );
+		    } catch ( e ) {
+            } finally {
+                this._enableButton( true );
+                
+                // hide panel
+                if ( waitPanel != undefined )
+                	this._dismissWaitingPanel();
+            }
+        },
+        
         /**
          * @param fields is an array consisted of strings indicating the fields going to be added to popup menu.
          * @param conditions is a string, the conditions to constrain the DB retrieval. Pass a null string if none of it.
@@ -332,7 +341,6 @@
          *
          * The propose of this private method is to add some menuitems into a certain xul menupopup element.
          */
-         
         _addMenuitem: function( dbModel, fields, conditions, order, group, menupopupId, valueField, labelField ) {
             //set up the designated pop-up menulist.
             var records = dbModel.find( 'all', {
@@ -388,18 +396,6 @@
 		                self._openOrderDialogByKey( key, event.originalTarget.parentNode.id );
 		        }, true );
 		    }
-        	
-        /*if ( table.hasChildNodes ) {
-        		var children = table.getElementsByTagName( 'tr' );
-        		
-		    	for ( var i = 0; i < children.length; i++ ) {
-		    		if ( children[ i ].id ) {
-						children[ i ].addEventListener( 'click', function( event ) {
-							orderDialog( event.currentTarget.id );
-						}, true );
-					}
-		    	}
-		    }*/
         },
 
         _copyExportFileFromTmp: function( tmpFile, targetDir, timeout ) {
