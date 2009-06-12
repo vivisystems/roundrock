@@ -472,8 +472,8 @@ class SyncHandlerComponent extends Object {
             }  catch(Exception $e) {
 
                     CakeLog::write('warning', 'Exception saveData to ' . $dbConfig . "\n" .
-                                          '  Exception: ' . $e->getMessage() . "\n"
-                                          '  SQL: ' . $data['sql'] . "\n\n\n");
+                                          '  Exception: ' . $e->getMessage() . "\n" .
+                                          '  SQL: ' . $data['sql'] . "\n\n");
 
                     // always rollback
                     $datasource->connection->rollback();
