@@ -59,9 +59,12 @@
 
                         if( caption ) {
                             if(caption.label.match( /\(.*\)/) ) {
-                                caption.label = caption.label.replace( /\(.*\)/, '(' + curTot + '/' + maxTot + ')' );
+                                caption.label = caption.label.replace( /\(.*\)/, '(' + GeckoJS.NumberHelper.toReadableSize(curTot)
+                                                                                 + '/' + GeckoJS.NumberHelper.toReadableSize(maxTot)
+                                                                                 + ')' );
                             }else {
-                                caption.label += ' (' + curTot + '/' + maxTot +')';
+                                caption.label += ' (' + GeckoJS.NumberHelper.toReadableSize(curTot)
+                                               + '/' + GeckoJS.NumberHelper.toReadableSize(maxTot) +')';
                             }
                         }
                         progress.value = parseInt( curTot / maxTot * 100 );
