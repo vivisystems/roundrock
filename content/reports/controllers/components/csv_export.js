@@ -8,6 +8,8 @@
 
         name: 'CsvExport',
 
+        _blockSize: 4096,
+
         initial: function () {
             // @todo :
             alert('Csv Export initial...');
@@ -27,19 +29,63 @@
             }
         },
 
-        printToFile: function(csvFileName, datas, tpl) {
+        printToFile: function(csvFileName, datas, tpl, progress) {
             if (!csvFileName) {
                 // need filename
                 return;
             }
 
             try {
+
+                var caption = document.getElementById( this.controller.getCaptionId() );
+
+                if( caption.tagName != 'caption' )
+                    caption = null;
+
+                // release cpu to update ui
+                this.sleep(10);
+
+                var output = GREUtils.Charset.convertFromUnicode( tpl.process(datas) );
+                var bufLength = output.length;
+                var blockCount = Math.ceil(bufLength / this._blockSize);
+
+                var onProgressChange = function( curTot, maxTot ) {
+                        var numReachingMaxTot =  0;
+                        //dump('onProgressChange ' + maxSelf  + '\n');
+                        if ( curTot == maxTot )
+                            numReachingMaxTot++;
+                        if ( numReachingMaxTot > 1 )
+                            return;
+
+                        if( caption ) {
+                            if(caption.label.match( /\(.*\)/) ) {
+                                caption.label = caption.label.replace( /\(.*\)/, '(' + curTot + '/' + maxTot + ')' );
+                            }else {
+                                caption.label += ' (' + curTot + '/' + maxTot +')';
+                            }
+                        }
+                        progress.value = parseInt( curTot / maxTot * 100 );
+                    };
+
                 var saveFile = new GeckoJS.File( csvFileName, true );
-                saveFile.open("w");
 
-                var buf = tpl.process(datas);
+                saveFile.open("wb");
 
-                saveFile.write(buf+"\n");
+                var offsetCount = 0;
+                while(offsetCount < blockCount) {
+
+                    saveFile.write(output.substr(offsetCount*this._blockSize, this._blockSize));
+                    
+                    onProgressChange(offsetCount*this._blockSize, (bufLength+1));
+                    offsetCount++;
+                    // sleep for release cpu to update ui
+                    this.sleep(10);
+                    
+                }
+                // add newline at last line
+                saveFile.write("\n");
+                onProgressChange((bufLength+1), (bufLength+1));
+                this.sleep(10);
 
                 saveFile.close();
                 

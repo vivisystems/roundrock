@@ -75,7 +75,7 @@
             'order_items.current_surcharge, ' +
             'order_items.tax_name';
                             
-            var tables = 'orders left join order_items on orders.id = order_items.order_id';
+            var tables = 'orders INNER JOIN order_items on orders.id = order_items.order_id';
 
             var conditions = "orders." + periodType + " >= '" + start +
             "' and orders." + periodType + " <= '" + end +

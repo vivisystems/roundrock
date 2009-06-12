@@ -245,7 +245,9 @@
                     return;
                 }
 
-                var waitPanel = this._showWaitingPanel( 100 );
+                var waitPanel = this._showWaitingPanel();
+
+                var progress = document.getElementById( this._progress_bar_id );
                 
                 var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_csv.tpl' );
 
@@ -266,7 +268,7 @@
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
 
-                this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl );
+                this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl, progress );
 
                 this._copyExportFileFromTmp( tmpFile, targetDir, 180 );
 

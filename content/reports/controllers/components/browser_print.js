@@ -14,8 +14,8 @@
         _webBrowserPrint: null,
 
         initial: function () {
-            // @todo :
-            //alert('BrowserPrint initial...');
+        // @todo :
+        //alert('BrowserPrint initial...');
         },
         
         execute: function( cmd, param ) {
@@ -36,11 +36,11 @@
             try {
                 var printSettings = this.getPrintSettings();
                 var PRINTPROMPTSVC = Components.classes[ "@mozilla.org/embedcomp/printingprompt-service;1" ]
-                	.getService( Components.interfaces.nsIPrintingPromptService );
+                .getService( Components.interfaces.nsIPrintingPromptService );
                 PRINTPROMPTSVC.showPageSetup( window, printSettings, null );
                 if ( gSavePrintSettings ) {
                     var PSSVC = Components.classes[ "@mozilla.org/gfx/printsettings-service;1" ]
-                    	.getService( Components.interfaces.nsIPrintSettingsService );
+                    .getService( Components.interfaces.nsIPrintSettingsService );
                     PSSVC.savePrintSettingsToPrefs( printSettings, true, printSettings.kInitSaveNativeData );
                 }
             } catch ( e ) {
@@ -55,8 +55,8 @@
                 if ( !this._printSettings )
                     this.getPrintSettings();
                     
-        		this._printSettings.printSilent = false;
-        		this._printSettings.printToFile = false;
+                this._printSettings.printSilent = false;
+                this._printSettings.printToFile = false;
         		
                 this._webBrowserPrint.print( this._printSettings, null );
             } catch ( e ) {
@@ -82,55 +82,55 @@
                 var caption = document.getElementById( this.controller.getCaptionId() );
 
                 if( caption.tagName != 'caption' )
-                	caption = null;
+                    caption = null;
                 
                 var aWPListener = {
-                	numReachingMaxTot: 0,
+                    numReachingMaxTot: 0,
                 	
-		        	QueryInterface: function( aIID )
-					{
-						if (aIID.equals( Components.interfaces.nsIWebProgressListener ) ||
-							aIID.equals( Components.interfaces.nsISupportsWeakReference ) ||
-							aIID.equals( Components.interfaces.nsISupports ) )
-							return this;
-						throw Components.results.NS_NOINTERFACE;
-					},
+                    QueryInterface: function( aIID )
+                    {
+                        if (aIID.equals( Components.interfaces.nsIWebProgressListener ) ||
+                            aIID.equals( Components.interfaces.nsISupportsWeakReference ) ||
+                            aIID.equals( Components.interfaces.nsISupports ) )
+                            return this;
+                        throw Components.results.NS_NOINTERFACE;
+                    },
 					
-		           onStateChange: function( aWebProgress, aRequest, aFlag, aStatus )
-		            {
-		                //dump('onStateChange ' + aStatus  + '\n');
-		                // callback
-		                callback.apply( this );
-		            },
+                    onStateChange: function( aWebProgress, aRequest, aFlag, aStatus )
+                    {
+                        //dump('onStateChange ' + aStatus  + '\n');
+                        // callback
+                        callback.apply( this );
+                    },
 		            
-		            onProgressChange: function( aWebProgress, aRequest, curSelf, maxSelf, curTot, maxTot ) {
-		                //dump('onProgressChange ' + maxSelf  + '\n');
-		                if ( curTot == maxTot )
-		                	this.numReachingMaxTot++;
-		                if ( this.numReachingMaxTot > 1 )
-		                	return;
+                    onProgressChange: function( aWebProgress, aRequest, curSelf, maxSelf, curTot, maxTot ) {
+                        //dump('onProgressChange ' + maxSelf  + '\n');
+                        if ( curTot == maxTot )
+                            this.numReachingMaxTot++;
+                        if ( this.numReachingMaxTot > 1 )
+                            return;
 		                	
-		                if( caption ) {
-		                    if(caption.label.match( /\(.*\)/) ) {
-		                        caption.label = caption.label.replace( /\(.*\)/, '('+curTot+'/'+maxTot+')' );
-		                    }else {
-		                        caption.label += ' (' + curTot+'/'+maxTot +')';
-		                    }
-		                }
-		                progress.value = parseInt( curTot / maxTot * 100 );
-		            },
+                        if( caption ) {
+                            if(caption.label.match( /\(.*\)/) ) {
+                                caption.label = caption.label.replace( /\(.*\)/, '('+curTot+'/'+maxTot+')' );
+                            }else {
+                                caption.label += ' (' + curTot+'/'+maxTot +')';
+                            }
+                        }
+                        progress.value = parseInt( curTot / maxTot * 100 );
+                    },
 		            
-		            onLocationChange: function( aWebProgress, aRequest, aLocation ) {
-		            },
+                    onLocationChange: function( aWebProgress, aRequest, aLocation ) {
+                    },
 
-					onStatusChange: function( aWebProgress, aRequest, aStatus, aMessage ) {
-					},
+                    onStatusChange: function( aWebProgress, aRequest, aStatus, aMessage ) {
+                    },
 
-					onSecurityChange: function( aWebProgress, aRequest, aState ) {
-					}
-		        };
+                    onSecurityChange: function( aWebProgress, aRequest, aState ) {
+                    }
+                };
 		        
-		        this._webBrowserPrint.print( this._printSettings, aWPListener );
+                this._webBrowserPrint.print( this._printSettings, aWPListener );
             } catch ( e ) {
             }
         },
@@ -194,13 +194,13 @@
                 _content = window.contentWindow;
             }
             this._webBrowserPrint = _content.QueryInterface( Components.interfaces.nsIInterfaceRequestor )
-            	.getInterface( Components.interfaces.nsIWebBrowserPrint );
+            .getInterface( Components.interfaces.nsIWebBrowserPrint );
             return this._webBrowserPrint;
         },
 
         getPrintSettings: function () {
             var pref = Components.classes[ "@mozilla.org/preferences-service;1" ]
-            	.getService( Components.interfaces.nsIPrefBranch );
+            .getService( Components.interfaces.nsIPrefBranch );
             if ( pref ) {
                 gPrintSettingsAreGlobal = pref.getBoolPref( "print.use_global_printsettings", false );
                 gSavePrintSettings = pref.getBoolPref( "print.save_print_settings", false );
@@ -209,7 +209,7 @@
             var printSettings;
             try {
                 var PSSVC = Components.classes[ "@mozilla.org/gfx/printsettings-service;1" ]
-                	.getService( Components.interfaces.nsIPrintSettingsService );
+                .getService( Components.interfaces.nsIPrintSettingsService );
                 if ( gPrintSettingsAreGlobal ) {
                     printSettings = PSSVC.globalPrintSettings;
 
