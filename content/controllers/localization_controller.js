@@ -31,6 +31,8 @@
 
         _selectedLocale: null,
 
+        _strings: [],
+
         load: function() {            
             var self = this;
             this._list = document.getElementById('editlist');
@@ -147,7 +149,6 @@
         //
         _loadLocale: function(pkg, locale) {
             var self = this;
-            this._list = document.getElementById('editlist');
 
             var profD = GeckoJS.Configure.read('ProfD') || '';
 
@@ -189,7 +190,7 @@
             */
 
             // display locale
-            this._displayStrings(pkg);
+            this._displayStrings(pkg, pkg.strings, pkg.emptyCount);
 
             this._validateForm();
         },
@@ -335,15 +336,18 @@
             return r;
         },
 
-        _displayStrings: function(pkg) {
+        _displayStrings: function(pkg, strings, emptyCount) {
             //this.log('WARN', this.dump(p.strings));
 
             // set to displayTree's data source
-            this._list.datasource = pkg.strings;
+            this._list.datasource = strings;
+            this._strings = strings;
+
+            // update total count
 
             // update empty count
             var emptyObj = document.getElementById('empty');
-            emptyObj.value = pkg.emptyCount;
+            emptyObj.value = emptyCount;
             
             // select first entry
             this._list.view.selection.select(0);
@@ -367,7 +371,30 @@
                 }
             }
         },
-        
+
+        filter: function() {
+            var filterText = '';
+            var filterObj = document.getElementById('filter');
+            if (filterObj) filterText = filterObj.value;
+
+            var emptyCount;
+            var strings;
+
+            if (filterText.length == 0) {
+                strings = this._currentPkg.strings;
+                emptyCount = this._currentPkg.emptyCount;
+            }
+            else {
+                strings = this._currentPkg.strings.filter(function(str) {
+                    return str.translation.indexOf(filterText) > -1;
+                })
+                emptyCount = 0;
+            }
+            this._displayStrings(this._currentPkg, strings, emptyCount);
+
+            this.selectEntry(0);
+        },
+
         selectPackage: function(index) {
 
             // if current package is selected, do nothing and exit
@@ -461,17 +488,18 @@
             var baseObj = document.getElementById('edit_base');
             var workingObj = document.getElementById('edit_working');
 
-            var pkg = this._currentPkg;
-            var entry = pkg.strings[index];
-
+            var entry = this._strings[index];
             if (entry) {
-                if (indexObj) indexObj.value = parseInt(index + 1) + '/' + pkg.strings.length;
+                if (indexObj) indexObj.value = parseInt(index + 1) + '/' + this._strings.length;
                 if (baseObj) baseObj.value = entry.base;
                 if (workingObj) {
                     workingObj.value = entry.working || '';
                     workingObj.removeAttribute('disabled');
                 }
                 this._currentEntryIndex = index;
+            }
+            else {
+                if (indexObj) indexObj.value = '0/0';
             }
 
             this._validateForm();
@@ -486,8 +514,8 @@
 
                 if (text != null) text = GeckoJS.String.trim(text);
                 
-                if (index > -1 && pkg && pkg.strings) {
-                    var strEntry = pkg.strings[index];
+                if (index > -1 && pkg && this._strings) {
+                    var strEntry = this._strings[index];
                     if (strEntry) {
 
                         // has text changed?
@@ -676,11 +704,12 @@
                     if (fillBtnObj) fillBtnObj.setAttribute('disabled', 'true');
                 }
                 // turn on save btn if dirty bit is set and current locale is different from base locale
-                if (this._dirtyBit && this._currentPkg)
+                if (this._dirtyBit && this._currentPkg) {
                     if (saveBtnObj) saveBtnObj.removeAttribute('hidden');
-                else
+                }
+                else {
                     if (saveBtnObj) saveBtnObj.setAttribute('hidden', 'true');
-
+                }
                 if (exportBtnObj) exportBtnObj.removeAttribute('disabled');
             }
         }

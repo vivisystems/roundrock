@@ -54,7 +54,7 @@
                         <hbox class="Toolbar">
                             <textbox id="filter" flex="1" wrap="true"/>
                             <spacer width="5px"/>
-                            <button id="filter_btn" label="&localization.action.filter;"
+                            <button id="filter_btn" label="&localization.action.filter;" class="fixedbtn"
                                     oncommand="$do('filter', null, 'Localization');"   />
                         </hbox>
                     </row>

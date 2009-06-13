@@ -2303,9 +2303,6 @@ msgstr "Multi Buy"
 msgid "type.multi_buy.desc"
 msgstr "Multi Buy DESC, Chris Help!"
 
-msgid "acl_close_sale_period"
-msgstr "Close Sale Period"
-
 msgid "Your Saving"
 msgstr "** Your Saving **"
 
@@ -3846,11 +3843,11 @@ msgid ""
 "save the new configuration?"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:61
+#: ../..//content/controllers/export_locale_controller.js:44
 msgid "Please select a package to export first"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:67
+#: ../..//content/controllers/export_locale_controller.js:50
 #: ../..//content/controllers/systembackup_controller.js:186
 #: ../..//content/controllers/systembackup_controller.js:256
 #: ../..//content/reports/controllers/rpt_base_controller.js:187
@@ -3858,24 +3855,24 @@ msgstr ""
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:86
+#: ../..//content/controllers/export_locale_controller.js:69
 msgid "Installation file [install.rdf] must not be empty"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:97
+#: ../..//content/controllers/export_locale_controller.js:80
 msgid "Failed to create install.rdf file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:113
+#: ../..//content/controllers/export_locale_controller.js:96
 msgid "Locale package [%S] successfully exported"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:118
-#: ../..//content/controllers/localization_controller.js:749
+#: ../..//content/controllers/export_locale_controller.js:101
+#: ../..//content/controllers/localization_controller.js:665
 msgid "Export Locale"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:119
+#: ../..//content/controllers/export_locale_controller.js:102
 msgid "Failed to export locale package [%S]"
 msgstr ""
 
@@ -3945,9 +3942,9 @@ msgstr ""
 #: ../..//content/controllers/image_manager_controller.js:75
 #: ../..//content/controllers/import_export_controller.js:47
 #: ../..//content/controllers/systembackup_controller.js:139
-#: ../..//content/controllers/training_mode_controller.js:23
+#: ../..//content/controllers/training_mode_controller.js:24
 #: ../..//content/reports/controllers/components/browser_print.js:30
-#: ../..//content/reports/controllers/components/csv_export.js:25
+#: ../..//content/reports/controllers/components/csv_export.js:27
 msgid "Failed to execute command (%S)."
 msgstr ""
 
@@ -4243,49 +4240,49 @@ msgstr ""
 msgid "Drawer Change OUT"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:92
-#: ../..//content/controllers/localization_controller.js:139
+#: ../..//content/controllers/localization_controller.js:71
+#: ../..//content/controllers/localization_controller.js:174
 msgid ""
 "Path [%S] for package [%S] locale [%S] is either non-existent or is not a "
 "directory"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:433
+#: ../..//content/controllers/localization_controller.js:333
 msgid "Localization"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:434
+#: ../..//content/controllers/localization_controller.js:334
 msgid "Translations have been modified; save changes?"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:435
+#: ../..//content/controllers/localization_controller.js:335
 msgid "Save"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:435
+#: ../..//content/controllers/localization_controller.js:335
 #: ../..//content/controllers/main_controller.js:741
 #: ../..//content/controllers/main_controller.js:767
 msgid "Discard"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:666
+#: ../..//content/controllers/localization_controller.js:590
 msgid "DTD file [%S] successfully updated"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:669
+#: ../..//content/controllers/localization_controller.js:594
 msgid "Failed to write DTD to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:689
+#: ../..//content/controllers/localization_controller.js:609
 msgid "Properties file [%S] successfully updated"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:692
+#: ../..//content/controllers/localization_controller.js:612
 msgid "Failed to write Properties to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:739
-msgid "No exportable locale packages found"
+#: ../..//content/controllers/localization_controller.js:654
+msgid "Failed to load install.rdf for package:locale [%S:%S] at path [%S]"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:117
@@ -4328,7 +4325,7 @@ msgid "No order to add/view annotations"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:317
-#: ../..//content/reports/controllers/rpt_base_controller.js:362
+#: ../..//content/reports/controllers/rpt_base_controller.js:364
 msgid "Order Details"
 msgstr ""
 
@@ -5411,27 +5408,27 @@ msgstr ""
 msgid "Test"
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:51
+#: ../..//content/controllers/training_mode_controller.js:52
 msgid "Are you sure you want to VACUUM training database?"
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:61
+#: ../..//content/controllers/training_mode_controller.js:62
 msgid "Are you sure you want to take current database to be default database?"
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:71
+#: ../..//content/controllers/training_mode_controller.js:72
 msgid "Are you sure you want to take default database to be training database?"
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:82
+#: ../..//content/controllers/training_mode_controller.js:102
 msgid "Are you going to leave the training mode?"
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:95
+#: ../..//content/controllers/training_mode_controller.js:118
 msgid "The training mode can be launched only if there is no opened order."
 msgstr ""
 
-#: ../..//content/controllers/training_mode_controller.js:99
+#: ../..//content/controllers/training_mode_controller.js:122
 msgid "Are you sure you want to start training?"
 msgstr ""
 
@@ -5663,7 +5660,7 @@ msgstr ""
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:296
+#: ../..//content/reports/controllers/rpt_base_controller.js:298
 msgid "Are you sure you want to print this report?"
 msgstr ""
 

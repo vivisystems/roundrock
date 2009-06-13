@@ -36,12 +36,20 @@
                 nameTextboxObj.select();
             }
             if (installTextboxObj) installTextboxObj.value = rdf;
+
+            this._pkg = pkg;
+            this._locale = locale;
+            this._path = path;
         },
         
         exportLocale: function() {
-            var inst = this._selectedPackage;
-            if (!inst) {
+            if (!this._pkg) {
                 NotifyUtils.warn(_('Please select a package to export first'));
+                return;
+            }
+
+            if (!this._locale) {
+                NotifyUtils.warn(_('Please select a locale to export first'));
                 return;
             }
 
@@ -88,18 +96,17 @@
             // invoke external script to generate XPI and move it to media
             var exportScript = '/data/scripts/exportLocale.sh';
             var exec = new GeckoJS.File(exportScript);
-            r = exec.run([name, inst.path, tmpInstallRDF, media_path], true);
+            r = exec.run([name, this._path, tmpInstallRDF, media_path], true);
 
             GREUtils.File.remove(tmpInstallRDF);
-            alert(r);
             if (r == 0) {
-                NotifyUtils.info(_( 'Locale package [%S] successfully exported', [inst.pkg]));
+                NotifyUtils.info(_( 'Locale package [%S] successfully exported', [this._pkg]));
             }
             else {
-                this.log('ERROR', 'Script ' + exportScript + ' failed to export locale package [' + inst.pkg + ']');
+                this.log('ERROR', 'Script ' + exportScript + ' failed to export locale package [' + this._pkg + ']');
                 GREUtils.Dialog.alert(window,
                                       _('Export Locale'),
-                                      _('Failed to export locale package [%S]', [inst.pkg]));
+                                      _('Failed to export locale package [%S]', [this._pkg]));
             }
         },
         
