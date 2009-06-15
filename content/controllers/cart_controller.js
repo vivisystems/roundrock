@@ -3142,7 +3142,23 @@
                 oldTransaction.lockItems();
 
                 // save order unless the order is being finalized (i.e. status == 1)
-                if (status != 1) oldTransaction.submit(status);
+                var r = true;
+                if (status != 1) {
+                    var submitStatus = parseInt(oldTransaction.submit(status));
+                    /*
+                     *   1: success
+                     *   null: input data is null
+                     *   -1: save fail, save to backup
+                     *   -2: remove fail
+                     */
+                    if (submitStatus == -2) {
+
+                        GREUtils.Dialog.alert(this.activeWindow,
+                                      _('Submit Fail'),
+                                      _('Current order is not saved successfully, please try again...'));
+                        return false;
+                    }
+                }
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
@@ -3167,8 +3183,9 @@
                     if (status != 1) this.clearWarning();
                     this.dispatchEvent('onSubmit', oldTransaction);
                 }
-                else
+                else {
                     this.dispatchEvent('onGetSubtotal', oldTransaction);
+                }
             }
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
@@ -4132,6 +4149,14 @@
             var curTransaction = new Transaction();
             curTransaction.unserializeFromOrder(order_id);
 
+            if (curTransaction.data == null) {
+
+                //@todo OSD
+                NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
+
+                return false;
+            }
+
             if (curTransaction.data.status == 2) {
                 // set order status to process (0)
                 curTransaction.data.status = 0;
@@ -4142,6 +4167,8 @@
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
             this.subtotal();
+
+            return true;
 
         },
 
@@ -4251,10 +4278,10 @@
                 return;
             }
 
-            var r = -1;
             var modified = curTransaction.isModified();
             if (modified) {
-                r = this.GuestCheck.store();
+                this.GuestCheck.store();
+
                 this.dispatchEvent('onStore', curTransaction);
 
                 this._getCartlist().refresh();

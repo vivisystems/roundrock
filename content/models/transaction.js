@@ -195,20 +195,23 @@
                 if (this.data.status == 1 && this.data.no_of_customers == '') {
                     this.data.no_of_customers = '1';
                 }
-                order.saveOrder(this.data);
+                return order.saveOrder(this.data);
 
-                if (this.data.status == 2) {
-                    order.serializeOrder(this.data);
-                }
+// achang marked
+//                if (this.data.status == 2) {
+//                    order.serializeOrder(this.data);
+//                }
             }
         },
 
         cancel: function() {
 
             // set status = -1
-            this.process(-1);
+            var r = this.process(-1);
 
             this.emptyView();
+
+            return r;
         },
 
         isCancel: function() {
@@ -227,7 +230,7 @@
                     this.data.proceeds_clerk_displayname = user.description;
                 }
             }
-            this.process(status);
+            return this.process(status);
         },
 
         close: function() {

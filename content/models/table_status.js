@@ -25,6 +25,7 @@
         _tableStatusLastTime: 0,
         _tableStatusArray: [],
         _tableStatusIdxById: {},
+        _tableOrderByOrderId: {},
 
         initial: function (c) {
             if (!this._tableStatusList) {
@@ -282,6 +283,8 @@
             // set checklist
             this._checkList = tableStatus.concat([]);
 
+            this._tableOrderByOrderId = {};
+
             // gen tables status
 
             // var tables = [];
@@ -295,6 +298,12 @@
                         o.TableOrder.forEach(function(orderObj){
                             var guests = Math.round(parseInt(orderObj.guests)) || 0;
                             o.guests = o.guests + guests;
+                            self._tableOrderByOrderId[orderObj.order_id] =
+                                {
+                                    status_id: orderObj.table_status_id,
+                                    table_id: orderObj.table_id,
+                                    checksum: orderObj.checksum
+                                }
                         });
                         o.clerk = o.TableOrder[0].clerk;
                         o.total = o.TableOrder[0].total;
@@ -319,6 +328,10 @@
 
             return tableStatus;
 
+        },
+
+        getTableOrderIdx: function() {
+            return this._tableOrderByOrderId;
         },
 
         getCheckNo: function() {
