@@ -5,6 +5,7 @@
 <!ENTITY rptsalessummary.exportpdf "Export to PDF">
 <!ENTITY rptsalessummary.exportcsv "Export to CSV">
 <!ENTITY rptsalessummary.exportrcp "Print">
+<!ENTITY rptsalessummary.print "Print">
 <!ENTITY rptsalessummary.togglezoom "Toggle Zoom">
 <!ENTITY rptsalessummary.terminal_no "Terminal:">
 <!ENTITY rptsalessummary.periodtype "Period Type:">

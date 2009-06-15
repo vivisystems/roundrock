@@ -6,6 +6,7 @@
 <!ENTITY cashdrawersummary.exportpdf "Export to PDF">
 <!ENTITY cashdrawersummary.exportcsv "Export to CSV">
 <!ENTITY cashdrawersummary.exportrcp "Print">
+<!ENTITY cashdrawersummary.print "Print">
 <!ENTITY cashdrawersummary.togglezoom "Toggle Zoom">
 <!ENTITY cashdrawersummary.terminal_no "Terminal:">
 <!ENTITY cashdrawersummary.sortby "Sort By:">

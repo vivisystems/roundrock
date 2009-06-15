@@ -1,10 +1,9 @@
-(function(){
-
+( function() {
     /**
      * RptCashByClerk Controller
      */
      
-     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
+    include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     var __controller__ = {
         
@@ -112,6 +111,8 @@
         },
 
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -122,10 +123,8 @@
 
             document.getElementById( 'start_date' ).value = start;
             document.getElementById( 'end_date' ).value = end;
-
-            this._enableButton( false );
         }
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * RptDailySales Controller
      */
@@ -11,17 +10,25 @@
         name: 'RptDailySales',
         
         _fileName: 'rpt_daily_sales',
+        
+        _paperProperties: {
+            orientation: "landscape"/*,
+            paperSize: {
+                width: 297,
+                height: 210
+            }*/
+        },
 
-        _set_reportRecords: function(limit) {
+        _set_reportRecords: function( limit ) {
 
-            limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
 
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
-            //            var start_str = document.getElementById( 'start_date' ).datetimeValue.toLocaleString();
-            //            var end_str = document.getElementById( 'end_date' ).datetimeValue.toLocaleString();
+            //var start_str = document.getElementById( 'start_date' ).datetimeValue.toLocaleString();
+            //var end_str = document.getElementById( 'end_date' ).datetimeValue.toLocaleString();
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
@@ -212,15 +219,16 @@
         },
         
         exportPdf: function() {
-            this._super( {
-                paperSize: {
-                    width: 297,
-                    height: 210
-                }
-            } );
+            this._super( this._paperProperties );
         },
-
+        
+        print: function() {
+            this._super( this._paperProperties );
+        },
+        
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -231,10 +239,8 @@
 
             document.getElementById( 'start_date' ).value = start;
             document.getElementById( 'end_date' ).value = end;
-		    	    
-            this._enableButton( false );
         }
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();
