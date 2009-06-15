@@ -328,7 +328,7 @@
                 input0:no, require0:true, numpad:true
             };
 
-            window.openDialog(aURL, _('Select Number of Customers'), features, _('Select Number of Customers'), '', _('Numbers'), '', inputObj);
+            window.openDialog(aURL, _('Select Number of Customers'), features, _('Select Number of Customers'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -346,7 +346,7 @@
                 input0:no, require0:true, numpad:true, disablecancelbtn:true
             };
 
-            window.openDialog(aURL, _('Select Table Number'), features, _('Select Table Number'), '', _('Numbers'), '', inputObj);
+            window.openDialog(aURL, _('Select Table Number'), features, _('Select Table Number'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;

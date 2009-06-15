@@ -439,7 +439,7 @@
             
             var tableModel = new TableModel();
             var tables = tableModel.find('all', {fields: fields, order: orderby, recursive: 2});
-
+            
             this._tableListDatas = tables;
             var tableView =  new GeckoJS.NSITreeViewArray(this._tableListDatas);
             tableView.getCellValue = function(row, col) {
