@@ -339,6 +339,7 @@
 
             this.depPanelView = new NSIDepartmentsView('catescrollablepanel');
             this.pluPanelView = new NSIPlusView('prodscrollablepanel');
+            
             this.pluPanelView.setCatePanelView(this.depPanelView);
             this.pluPanelView.setCatePanelIndex(0);
 

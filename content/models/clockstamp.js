@@ -4,7 +4,7 @@ var ClockStampModel = GeckoJS.Model.extend({
     indexes: ['username', 'job', 'created'],
 
     useDbConfig: 'order',
-    
+
     behaviors: ['Sync', 'Training'],
 
     saveStamp: function(type, username, job, displayname) {

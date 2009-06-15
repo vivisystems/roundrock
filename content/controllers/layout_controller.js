@@ -158,6 +158,7 @@
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
+            var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
 
@@ -184,12 +185,17 @@
                     $.hidePanel('selectCondimentPanel', {});
                 }
             }
-            
+/*
+            if (deptPanel && (deptPanel.datasource.plugroupsFirst != showPlugroupsFirst)) {
+                deptPanel.datasource.refreshView(false);
+            }
+*/
             if (deptPanel &&
                 (initial ||
                  (deptPanel.getAttribute('rows') != departmentRows) ||
                  (deptPanel.getAttribute('cols') != departmentCols) ||
                  (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
+                 (deptPanel.datasource.plugroupsFirst != showPlugroupsFirst) ||
                  (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
                  (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
                  (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar))) {
@@ -208,8 +214,8 @@
 
                     // @hack to allow vivibuttons to be fully instantiated
                     this.sleep(100);
-
-                    deptPanel.vivibuttonpanel.refresh();
+                    
+                    deptPanel.datasource.refreshView(true);
                 }
                 else {
                     deptPanel.setAttribute('hidden', true);

@@ -530,7 +530,7 @@
 
             var itemTrans = curTransaction.getItemAt(index, true);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
-
+            
             if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
                 this.dispatchEvent('onReturnCartItemError', {});
 
@@ -546,6 +546,12 @@
                 var plu;
                 if (productsById) {
                     plu = productsById[itemTrans.id];
+                }
+
+                if (!plu) {
+                    // sale department?
+                    var categoriesByNo = GeckoJS.Session.get('categoriesByNo');
+                    plu = categoriesByNo[itemTrans.no];
                 }
             }
 
@@ -2686,24 +2692,15 @@
                 return;
             }
 
-            var r;
-            var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
-            if (ledgerController)
-                r = ledgerController.saveLedgerEntry(inputObj);
+            $do('saveLedgerEntry', inputObj, 'LedgerRecords');
 
-            if (r) {
-                // print receipt?
-                if (printer == 1 || printer == 2) {
-                    var printController = GeckoJS.Controller.getInstanceByName('Print');
-                    printController.printLedgerReceipt(inputObj, printer);
-                }
-                // @todo OSD
-                NotifyUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
-                                   [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+            if (printer == 1 || printer == 2) {
+                var printController = GeckoJS.Controller.getInstanceByName('Print');
+                printController.printLedgerReceipt(inputObj, printer);
             }
-            else {
-                NotifyUtils.error('Failed to save ledger entry');
-            }
+            // @todo OSD
+            NotifyUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
+                               [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -2836,6 +2833,7 @@
 
             if(curTransaction == null) {
                 NotifyUtils.warn(_('No order for which to show payment status'));
+                return;
             }
 
             // if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
@@ -3687,9 +3685,8 @@
                     var user = new GeckoJS.AclComponent().getUserPrincipal();
 
                     // get sale period and shift number
-                    var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
-                    var salePeriod = (shiftController) ? shiftController.getSalePeriod() : '';
-                    var shiftNumber = (shiftController) ? shiftController.getShiftNumber() : '';
+                    var salePeriod = GeckoJS.Session.get('sale_period');
+                    var shiftNumber = GeckoJS.Session.get('shift_number');
 
                     var terminalNo = GeckoJS.Session.get('terminal_no');
 

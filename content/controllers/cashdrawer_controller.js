@@ -372,16 +372,7 @@
                 accessRecord.clerk = user.username;
                 accessRecord.clerk_displayname = user.description;
             }
-            var r = drawerRecordModel.save(accessRecord);
-            if (!r) {
-                //@db saveToBackup
-                drawerRecordModel.saveToBackup(accessRecord);
-
-                // log error
-                this.log('ERROR',
-                         _('An error was encountered while logging cashdrawer activity (error code %S); record saved to backup %S',
-                           [drawerRecordModel.lastError, '\n' + this.dump(accessRecord)]));
-            }
+            drawerRecordModel.saveAccessRecord(accessRecord);
         },
 
         expireData: function(evt) {

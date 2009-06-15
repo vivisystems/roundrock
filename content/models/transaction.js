@@ -159,9 +159,8 @@
             this.data.status = status;
 
             // set sale period and shift number
-            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
-            var salePeriod = (shiftController) ? shiftController.getSalePeriod() : '';
-            var shiftNumber = (shiftController) ? shiftController.getShiftNumber() : '';
+            var salePeriod = GeckoJS.Session.get('sale_period');
+            var shiftNumber = GeckoJS.Session.get('shift_number');
 
             this.data.sale_period = salePeriod;
             this.data.shift_number = shiftNumber;

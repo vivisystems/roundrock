@@ -1,9 +1,11 @@
 var ShiftChangeDetailModel = window.ShiftChangeDetailModel = GeckoJS.Model.extend({
-	name: 'ShiftChangeDetail',
-    
+    name: 'ShiftChangeDetail',
+
     useDbConfig: 'order',
 
-	belongsTo: ['ShiftChange'],
+    autoRestoreFromBackup: true,
+
+    belongsTo: ['ShiftChange'],
 
     behaviors: ['Sync', 'Training']
 });
