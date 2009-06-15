@@ -1130,7 +1130,23 @@
                 run: function() {
                     try {
 
-                        this._commitTxn.submit();
+                        var r = this._commitTxn.submit();
+
+                        var submitStatus = parseInt(r);
+                        /*
+                         *   1: success
+                         *   null: input data is null
+                         *   -1: save fail, save to backup
+                         *   -2: remove fail
+                         */
+                        if (submitStatus == -2) {
+
+                            // if error caused when remove old order items
+                            GREUtils.Dialog.alert(this.activeWindow,
+                                          _('Submit Fail'),
+                                          _('Current order is not saved successfully, please try again...'));
+                            // return false;
+                        }
 
                         // dispatch afterSubmit event...
                         self.dispatchEvent('afterSubmit', this._commitTxn);

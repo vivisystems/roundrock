@@ -197,6 +197,16 @@
 
             var order = new OrderModel();
 
+            // @todo set source check's status to -3 ==> transfered check'
+            this._sourceCheck.status = -3;
+            order.removeOldOrderObject(this._sourceCheck.id);
+            order.removeOldOrder(this._sourceCheck.id);
+            order.saveOrderMaster(this._sourceCheck);
+
+            // remove source check table status
+            this._sourceCheck.seq = "";
+            this._getTableStatusModel().removeCheck(this._sourceCheck);
+
 
             // save merged check...
             order.saveOrder(this._mergedCheck);
@@ -209,14 +219,7 @@
             // update table status
             this._getTableStatusModel().addCheck(this._mergedCheck);
 
-            // @todo set source check's status to -3 ==> transfered check'
-            this._sourceCheck.status = -3;
-            order.removeOldOrder(this._sourceCheck.id);
-            order.saveOrderMaster(this._sourceCheck);
             
-            // remove source check table status
-            this._sourceCheck.seq = "";
-            this._getTableStatusModel().addCheck(this._sourceCheck);
             
             // @todo OSD
             NotifyUtils.warn(_('The Check# %S has been merged to Check# %S!!', [this._sourceCheck.check_no, this._mergedCheck.check_no]));

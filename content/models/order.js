@@ -13,53 +13,118 @@
 
         autoRestoreFromBackup: true,
 
+
+        _saveAll: function(data, model) {
+
+            var r = true;
+
+            for (var key in data) {
+                var d = data[key];
+                model.create();
+                d = model.save(d);
+
+                if (!d) {
+                    r = false;
+                    break;
+                }
+            }
+
+            return r;
+        },
+
         removeOldOrder: function(iid) {
             var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
             if (r) {
 
-                this.delAll("id='" + iid + "'");
+                if (r) r = this.delAll("id='" + iid + "'");
 
                 var cond = "order_id='" + iid + "'";
         
-                this.OrderItem.delAll(cond);
-                this.OrderAddition.delAll(cond);
-                // this.OrderPayment.delAll(cond);
+                if (r) r = this.OrderItem.delAll(cond);
+                if (r) r = this.OrderAddition.delAll(cond);
+                // if (r) r = this.OrderPayment.delAll(cond);
+                // if (r) r = this.OrderObject.delAll(cond);
+                if (r) r = this.OrderAnnotation.delAll(cond);
+                if (r) r = this.OrderItemCondiment.delAll(cond);
+                if (r) r = this.OrderPromotion.delAll(cond);
+            }
+
+            return r;
+        },
+
+        removeOldOrderObject: function(iid) {
+GREUtils.log("remove iid:::" + iid);
+            var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
+            if (r) {
+GREUtils.log("remove order_id:::" + iid);
+                var cond = "order_id='" + iid + "'";
+
                 this.OrderObject.delAll(cond);
-                this.OrderAnnotation.delAll(cond);
-                this.OrderItemCondiment.delAll(cond);
-                this.OrderPromotion.delAll(cond);
             }
         },
 
+        /**
+         * return:
+         *   1: success
+         *   null: input data is null
+         *   -1: save fail, save to backup
+         *   -2: remove fail
+         *
+         */
         saveOrder: function(data) {
             if(!data ) return;
 
             var r;
+
+            // remove old order data if exist...
             r = this.begin();
             if (r) {
 
                 // remove old order data if exist...
-                this.removeOldOrder(data.id);
+                if (r) r = this.removeOldOrder(data.id);
 
-                this.saveOrderMaster(data);
+                if (r) r = this.commit();
+            }
+
+            // new order to save
+            if (r == 0) r = true;
+
+            if(!r) {
+                this.log('ERROR', 'failed to remove old order, notify user ???');
+
+                this.rollback();
+
+                return -2;
+            }
+
+            // begin to save order
+            r = this.begin();
+            if (r) {
+
+                if (r) r = this.saveOrderMaster(data);
 
                 if (data.status >= 0) {
+                    
                     // ignore cancel or fail order
-                    this.saveOrderItems(data);
-                    this.saveOrderAdditions(data);
-                    this.saveOrderPayments(data);
-                    this.saveOrderAnnotations(data);
-                    this.saveOrderItemCondiments(data);
-                    this.saveOrderPromotions(data);
+                    if (r) r = this.saveOrderItems(data);
+                    if (r) r = this.saveOrderAdditions(data);
+                    if (r) r = this.saveOrderPayments(data);
+                    if (r) r = this.saveOrderAnnotations(data);
+                    if (r) r = this.saveOrderItemCondiments(data);
+                    if (r) r = this.saveOrderPromotions(data);
+
+                    if (r && data.status == 2) {
+                        r = this.serializeOrder(data);
+                    }
                 }
-                r = this.commit();
+                if (r) r = this.commit();
             }
 
             if(!r) {
                 this.log('ERROR', 'save order to backup , notify user ???');
+
                 this.rollback();
                 
-                //return; // debug
                 this.saveToBackup(this.mappingTranToOrderFields(data));
                 this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
                 this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
@@ -67,9 +132,20 @@
                 this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
                 this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
                 this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
+
+                if (data.status == 2) {
+                    this.serializeOrder(data, true);
+                }
+
+                // save fail, saveToBackup, return -1
+                return -1;
+
             }else {
-                // success 
+                // success
+                return 1;
             }
+
+            return 1;
         },
 
         saveOrderMaster: function(data) {
@@ -85,7 +161,8 @@
 
         saveOrderItems: function(data) {
 
-            return this.OrderItem.saveAll(this.mappingTranToOrderItemsFields(data));
+            // return this.OrderItem.saveAll(this.mappingTranToOrderItemsFields(data));
+            return this._saveAll(this.mappingTranToOrderItemsFields(data), this.OrderItem);
 
         },
 
@@ -93,7 +170,10 @@
 
             var orderAdditions  = this.mappingTranToOrderAdditionsFields(data);
 
-            this.OrderAddition.saveAll(orderAdditions);
+            // this.OrderAddition.saveAll(orderAdditions);
+            if (!this._saveAll(orderAdditions, this.OrderAddition)) {
+                return false;
+            };
             
             return orderAdditions;
 
@@ -104,7 +184,10 @@
 
             var orderPayments  = this.mappingTranToOrderPaymentsFields(data);
 
-            this.OrderPayment.saveAll(orderPayments);
+            // this.OrderPayment.saveAll(orderPayments);
+            if (!this._saveAll(orderPayments, this.OrderPayment)) {
+                return false;
+            };
 
             return orderPayments;
 
@@ -114,7 +197,10 @@
 
             var orderAnnotations = this.mappingTranToOrderAnnotationsFields(data);
 
-            this.OrderAnnotation.saveAll(orderAnnotations);
+            // this.OrderAnnotation.saveAll(orderAnnotations);
+            if (!this._saveAll(orderAnnotations, this.OrderAnnotation)) {
+                return false;
+            };
 
             return orderAnnotations;
         },
@@ -123,7 +209,10 @@
 
             var orderItemCondiments = this.mappingTranToOrderItemCondimentsFields(data);
 
-            this.OrderItemCondiment.saveAll(orderItemCondiments);
+            // this.OrderItemCondiment.saveAll(orderItemCondiments);
+            if (!this._saveAll(orderItemCondiments, this.OrderItemCondiment)) {
+                return false;
+            };
 
             return orderItemCondiments;
             
@@ -134,7 +223,10 @@
 
             var orderPromotions  = this.mappingTranToOrderPromotionsFields(data);
 
-            this.OrderPromotion.saveAll(orderPromotions);
+            // this.OrderPromotion.saveAll(orderPromotions);
+            if (!this._saveAll(orderPromotions, this.OrderPromotion)) {
+                return false;
+            };
 
             return orderPromotions;
 
@@ -397,10 +489,13 @@
 
         },
 
-        serializeOrder: function (data) {
+        serializeOrder: function (data, toBackup) {
 
             // add checksum field
             data.checksum = this.getOrderChecksum(data.id);
+
+            // remove old order data if exist...
+            this.removeOldOrderObject(data.id);
 
             var obj = GeckoJS.BaseObject.serialize(data);
             var orderObj = {
@@ -408,7 +503,12 @@
                 object: obj
             };
             this.OrderObject.id = '';
-            this.OrderObject.save(orderObj);
+            if (toBackup) {
+                this.OrderObject.saveToBackup(orderObj);
+                return true;
+            } else {
+                return this.OrderObject.save(orderObj);
+            }
 
         },
 
