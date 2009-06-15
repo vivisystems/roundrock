@@ -66,6 +66,7 @@
                     <vivibutton id="export_pdf" label="&rptusers.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptUsers');" />
                     <vivibutton id="export_csv" label="&rptusers.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptUsers');" />
                     <vivibutton id="export_rcp" label="&rptusers.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptUsers');" />
+                    <vivibutton id="print" label="&rptusers.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptUsers');" />
 
                     <vivibutton id="togglesize" label="&rptusers.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                     

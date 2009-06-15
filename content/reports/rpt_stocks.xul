@@ -71,6 +71,7 @@
                     <vivibutton id="export_pdf" label="&rptstocks.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptStocks');" />
                     <vivibutton id="export_csv" label="&rptstocks.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptStocks');" />
                     <vivibutton id="export_rcp" label="&rptstocks.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptStocks');" />
+                    <vivibutton id="print" label="&rptstocks.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptStocks');" />
 
                     <vivibutton id="togglesize" label="&rptstocks.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                     

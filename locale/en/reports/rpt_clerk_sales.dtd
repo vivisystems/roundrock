@@ -5,6 +5,7 @@
 <!ENTITY rptclerksales.exportpdf "Export to PDF">
 <!ENTITY rptclerksales.exportcsv "Export to CSV">
 <!ENTITY rptclerksales.exportrcp "Print">
+<!ENTITY rptclerksales.print "Print">
 <!ENTITY rptclerksales.togglezoom "Toggle Zoom">
 <!ENTITY rptclerksales.terminal_no "Terminal:">
 <!ENTITY rptclerksales.sortby "Sort By:">

@@ -6,6 +6,7 @@
 <!ENTITY rptdetailedtax.exportpdf "Export to PDF">
 <!ENTITY rptdetailedtax.exportcsv "Export to CSV">
 <!ENTITY rptdetailedtax.exportrcp "Print">
+<!ENTITY rptdetailedtax.print "Print">
 <!ENTITY rptdetailedtax.togglezoom "Toggle Zoom">
 <!ENTITY rptdetailedtax.terminal_no "Terminal:">
 <!ENTITY rptdetailedtax.sortby "Sort By:">

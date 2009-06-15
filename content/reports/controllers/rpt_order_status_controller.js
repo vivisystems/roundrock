@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * RptOrderStatus Controller
      */
@@ -11,6 +10,14 @@
         name: 'RptOrderStatus',
         
         _fileName: "rpt_order_status",
+        
+        _paperProperties: {
+            orientation: "landscape"/*,
+            paperSize: {
+                width: 297,
+                height: 210
+            }*/
+        },
 
         _set_reportRecords: function( limit ) {
 
@@ -179,14 +186,13 @@
         },
         
         exportPdf: function() {
-            this._super( {
-                paperSize: {
-                    width: 297,
-                    height: 210
-                }
-            } );
+            this._super( this._paperProperties );
         },
-
+        
+        print: function() {
+            this._super( this._paperProperties );
+        },
+        
         exportCsv: function() {
             this._super(this);
         },
@@ -208,4 +214,4 @@
     };
 
     RptBaseController.extend(__controller__);
-})();
+} )();

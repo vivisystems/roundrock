@@ -5,6 +5,7 @@
 <!ENTITY rptattendancerecord.exportpdf "Export to PDF">
 <!ENTITY rptattendancerecord.exportcsv "Export to CSV">
 <!ENTITY rptattendancerecord.exportrcp "Print">
+<!ENTITY rptattendancerecord.print "Print">
 <!ENTITY rptattendancerecord.togglezoom "Toggle Zoom">
 <!ENTITY rptattendancerecord.user "User:">
 <!ENTITY rptattendancerecord.all "List All">

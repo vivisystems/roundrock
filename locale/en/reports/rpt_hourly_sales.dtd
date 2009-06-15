@@ -5,6 +5,7 @@
 <!ENTITY rpthourlysales.exportpdf "Export to PDF">
 <!ENTITY rpthourlysales.exportcsv "Export to CSV">
 <!ENTITY rpthourlysales.exportrcp "Print">
+<!ENTITY rpthourlysales.print "Print">
 <!ENTITY rpthourlysales.togglezoom "Toggle Zoom">
 <!ENTITY rpthourlysales.terminal_no "Terminal:">
 <!ENTITY rpthourlysales.sortby "Sort By:">

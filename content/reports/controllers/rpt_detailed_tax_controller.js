@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * Detailed Tax Controller
      */
@@ -11,6 +10,14 @@
         name: 'RptDetailedTax',
         
         _fileName: "rpt_detailed_tax",
+        
+        _paperProperties: {
+            orientation: "landscape"/*,
+            paperSize: {
+                width: 297,
+                height: 210
+            }*/
+        },
         
         _setData: function( start, end, periodType, terminalNo, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
@@ -275,12 +282,11 @@
         },
         
         exportPdf: function() {
-            this._super( {
-                paperSize: {
-                    width: 297,
-                    height: 210
-                }
-            } );
+            this._super( this._paperProperties );
+        },
+        
+        print: function() {
+            this._super( this._paperProperties );
         },
 
         load: function() {
@@ -300,5 +306,5 @@
         }
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

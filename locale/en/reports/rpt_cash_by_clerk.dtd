@@ -5,6 +5,7 @@
 <!ENTITY rptcashbyclerk.exportpdf "Export to PDF">
 <!ENTITY rptcashbyclerk.exportcsv "Export to CSV">
 <!ENTITY rptcashbyclerk.exportrcp "Print">
+<!ENTITY rptcashbyclerk.print "Print">
 <!ENTITY rptcashbyclerk.togglezoom "Toggle Zoom">
 <!ENTITY rptcashbyclerk.terminal_no "Terminal:">
 <!ENTITY rptcashbyclerk.shiftno "Shift:">

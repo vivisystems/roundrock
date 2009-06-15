@@ -6,6 +6,7 @@
 <!ENTITY promotionsummary.exportpdf "Export to PDF">
 <!ENTITY promotionsummary.exportcsv "Export to CSV">
 <!ENTITY promotionsummary.exportrcp "Print">
+<!ENTITY promotionsummary.print "Print">
 <!ENTITY promotionsummary.togglezoom "Toggle Zoom">
 <!ENTITY promotionsummary.terminal_no "Terminal:">
 <!ENTITY promotionsummary.sortby "Sort By:">

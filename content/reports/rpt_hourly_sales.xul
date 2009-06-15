@@ -93,6 +93,7 @@
                     <vivibutton id="export_pdf" label="&rpthourlysales.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptHourlySales');" />
                     <vivibutton id="export_csv" label="&rpthourlysales.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptHourlySales');" />
                     <vivibutton id="export_rcp" label="&rpthourlysales.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptHourlySales');" />
+                    <vivibutton id="print" label="&rpthourlysales.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptHourlySales');" />
 
                     <vivibutton id="togglesize" label="&rpthourlysales.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                     

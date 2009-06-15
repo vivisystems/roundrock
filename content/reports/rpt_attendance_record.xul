@@ -88,13 +88,12 @@
             </splitter>
             <hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
-
                     <vivibutton id="export_pdf" label="&rptattendancerecord.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptAttendanceRecord');" />
                     <vivibutton id="export_csv" label="&rptattendancerecord.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptAttendanceRecord');" />
                     <vivibutton id="export_rcp" label="&rptattendancerecord.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptAttendanceRecord');" />
+                    <vivibutton id="print" label="&rptattendancerecord.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptAttendanceRecord');" />
 
                     <vivibutton id="togglesize" label="&rptattendancerecord.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                    
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
