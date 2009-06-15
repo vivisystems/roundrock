@@ -90,6 +90,7 @@
                     <vivibutton id="export_pdf" label="&rptdetailedtax.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDetailedTax');" />
                     <vivibutton id="export_csv" label="&rptdetailedtax.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDetailedTax');" />
                     <vivibutton id="export_rcp" label="&rptdetailedtax.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDetailedTax');" />
+                    <vivibutton id="print" label="&rptdetailedtax.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptDetailedTax');" />
 
                     <vivibutton id="togglesize" label="&rptdetailedtax.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                 </hbox>

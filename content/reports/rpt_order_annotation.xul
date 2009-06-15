@@ -125,6 +125,7 @@
                     <vivibutton id="export_pdf" label="&rptorderannotation.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptOrderAnnotation');" />
                     <vivibutton id="export_csv" label="&rptorderannotation.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptOrderAnnotation');" />
                     <vivibutton id="export_rcp" label="&rptorderannotation.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptOrderAnnotation');" />
+                    <vivibutton id="print" label="&rptorderannotation.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptOrderAnnotation');" />
 
                     <vivibutton id="togglesize" label="&rptorderannotation.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                     

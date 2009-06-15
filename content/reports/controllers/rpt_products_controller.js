@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * RptProducts Controller
      */
@@ -100,5 +99,5 @@
         }
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

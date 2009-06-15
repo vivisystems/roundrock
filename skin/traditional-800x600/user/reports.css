@@ -33,6 +33,7 @@
     min-height: 50px;
     margin-bottom: 4px;
 }
+
 .ExeBtn:hover {
 		border: 3px solid;
 	  -moz-border-top-colors: #f0efe8 #e8e8e1 #00aeef;
@@ -42,7 +43,6 @@
 	  background: white url(images/tboxbg_readonly.png) left center repeat-x;
   	-moz-appearance: none;
 }
-
 .ExeBtn:active {
     border: 2px solid;
   -moz-border-top-colors: #ee9400 #ee9400;
@@ -171,6 +171,15 @@
 }
 .PrintBtn[disabled=true] {
 	background: transparent url(images/icon_print-d.png) center center no-repeat !important;
+}
+.PrintReportBtn {
+	height: 60px;
+	padding-left: 58px;
+	-moz-appearance: none;
+	background: transparent url(../icons/icon_printlabel.png) center center no-repeat !important;
+}
+.PrintReportBtn[disabled=true] {
+	background: transparent url(../icons/icon_printlabel.png) center center no-repeat !important;
 }
 .ZoomBtn {
 	height: 60px;

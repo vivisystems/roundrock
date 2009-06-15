@@ -102,22 +102,19 @@
             </splitter>
 			<hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
-                    <!--
-                	<vivibutton id="previous_page" label="&rptdailysalesdetail.previouspage;" disabled="false" class="previousPage" oncommand="$do('previousPage', null, 'RptDailySalesDetail');" />
-                    <vivibutton id="next_page" label="&rptdailysalesdetail.nextpage;" disabled="false" class="nextPage" oncommand="$do('nextPage', null, 'RptDailySalesDetail');" />
-                    -->
+                	<!--vivibutton id="previous_page" label="&rptdailysalesdetail.previouspage;" disabled="false" class="previousPage" oncommand="$do('previousPage', null, 'RptDailySalesDetail');" />
+                    <vivibutton id="next_page" label="&rptdailysalesdetail.nextpage;" disabled="false" class="nextPage" oncommand="$do('nextPage', null, 'RptDailySalesDetail');" /-->
 
                     <vivibutton id="export_pdf" label="&rptdailysalesdetail.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDailySalesDetail');" />
                     <vivibutton id="export_csv" label="&rptdailysalesdetail.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDailySalesDetail');" />
                     <vivibutton id="export_rcp" label="&rptdailysalesdetail.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDailySalesDetail');" />
+                    <vivibutton id="print" label="&rptdailysalesdetail.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptDailySalesDetail');" />
 
                     <vivibutton id="togglesize" label="&rptdailysalesdetail.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                    
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button id="vkb" label="" oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                    
                 </hbox>
             </hbox>
 
@@ -133,5 +130,4 @@
 
     <!-- overlay the waiting panel. -->
     <popupset id="dialogs" />
-
 </window>

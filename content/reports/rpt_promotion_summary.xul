@@ -114,6 +114,7 @@
                     <vivibutton id="export_pdf" label="&promotionsummary.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptPromotionSummary');" />
                     <vivibutton id="export_csv" label="&promotionsummary.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptPromotionSummary');" />
                     <vivibutton id="export_rcp" label="&promotionsummary.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptPromotionSummary');" />
+                    <vivibutton id="print" label="&promotionsummary.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptPromotionSummary');" />
 
                     <vivibutton id="togglesize" label="&promotionsummary.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                 </hbox>

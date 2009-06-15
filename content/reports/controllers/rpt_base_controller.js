@@ -94,12 +94,16 @@
             $( '#export_csv' ).attr( 'disabled', disabled );
             $( '#export_rcp' ).attr( 'disabled', disabled );
 
+            $( '#print' ).attr( 'disabled', disabled );
+
             $( '#btnScrollTop' ).attr( 'disabled', disabled );
             $( '#btnScrollUp' ).attr( 'disabled', disabled );
             $( '#btnScrollDown' ).attr( 'disabled', disabled );
             $( '#btnScrollBottom' ).attr( 'disabled', disabled );
             $( '#btnScrollLeft' ).attr( 'disabled', disabled );
             $( '#btnScrollRight' ).attr( 'disabled', disabled );
+
+
         },
         
         _setTemplateDataHead: function() {
@@ -224,7 +228,7 @@
             }
         },
 
-        exportCsv: function(controller, noReload) {
+        exportCsv: function( controller, noReload ) {
             if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
                 return;
         		
@@ -240,7 +244,8 @@
                 }
 
                 var waitPanel = this._showWaitingPanel();
-
+                
+                var caption = document.getElementById( this.getCaptionId() );
                 var progress = document.getElementById( this._progress_bar_id );
                 
                 var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_csv.tpl' );
@@ -262,7 +267,7 @@
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
 
-                this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl, progress );
+                this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl, caption, progress );
 
                 this._copyExportFileFromTmp( tmpFile, targetDir, 180 );
 

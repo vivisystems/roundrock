@@ -71,10 +71,10 @@
             </splitter>
 			<hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
-
                     <vivibutton id="export_pdf" label="&rptproducts.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptProducts');" />
                     <vivibutton id="export_csv" label="&rptproducts.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptProducts');" />
                     <vivibutton id="export_rcp" label="&rptproducts.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptProducts');" />
+                    <vivibutton id="print" label="&rptproducts.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptProducts');" />
 
                     <vivibutton id="togglesize" label="&rptproducts.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                     

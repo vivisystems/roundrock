@@ -5,6 +5,7 @@
 <!ENTITY rptproducts.exportpdf "Export to PDF">
 <!ENTITY rptproducts.exportcsv "Export to CSV">
 <!ENTITY rptproducts.exportrcp "Print">
+<!ENTITY rptproducts.print "Print">
 <!ENTITY rptproducts.togglezoom "Toggle Zoom">
 <!ENTITY rptproducts.department "Department:">
 <!ENTITY rptproducts.sortby "Sort by:">
