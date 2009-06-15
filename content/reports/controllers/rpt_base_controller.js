@@ -93,6 +93,13 @@
             $( '#export_pdf' ).attr( 'disabled', disabled );
             $( '#export_csv' ).attr( 'disabled', disabled );
             $( '#export_rcp' ).attr( 'disabled', disabled );
+
+            $( '#btnScrollTop' ).attr( 'disabled', disabled );
+            $( '#btnScrollUp' ).attr( 'disabled', disabled );
+            $( '#btnScrollDown' ).attr( 'disabled', disabled );
+            $( '#btnScrollBottom' ).attr( 'disabled', disabled );
+            $( '#btnScrollLeft' ).attr( 'disabled', disabled );
+            $( '#btnScrollRight' ).attr( 'disabled', disabled );
         },
         
         _setTemplateDataHead: function() {
@@ -433,6 +440,73 @@
 		    	this._fileExportingFlag = 1;
 		    }
         },
+
+        btnScrollTop: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if (!bw) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            doc.scrollTop = 0;
+
+        },
+
+        btnScrollUp: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if (!bw) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            if (doc.scrollTop <= 0) return;
+            doc.scrollTop -= 200;
+
+            if (doc.scrollTop < 0) doc.scrollTop = 0;
+            
+        },
+
+        btnScrollDown: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if (!bw) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            if (doc.scrollTop > doc.scrollHeight) return;
+            doc.scrollTop += 200;
+
+            if (doc.scrollTop > doc.scrollHeight) doc.scrollTop = doc.scrollHeight-doc.clientHeight;
+
+        },
+
+        btnScrollBottom: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if (!bw) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            doc.scrollTop = doc.scrollHeight-doc.clientHeight;
+
+        },
+
+        btnScrollLeft: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if (!bw) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            if (doc.scrollLeft <= 0) return;
+            doc.scrollLeft -= 200;
+
+            if (doc.scrollLeft < 0) doc.scrollLeft = 0;
+
+        },
+
+        btnScrollRight: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if (!bw) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            if (doc.scrollLeft > doc.scrollWidth) return;
+            doc.scrollLeft += 200;
+
+            if (doc.scrollLeft > doc.scrollWidth) doc.scrollLeft = doc.scrollWidth-doc.clientWidth;
+
+        },
+
 
         load: function() {
             this._enableButton( false );

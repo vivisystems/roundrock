@@ -114,6 +114,11 @@
             var group = $('#aclgroup_name').val();
 
             try {
+
+                var ds = GeckoJS.ConnectionManager.getDataSource('acl');
+                var r = ds.begin();
+                if(!r) throw new Exception('database is locked');
+
                 // first remove roles
                 var roles = this.Acl.getRoleListInGroup(group);
                 roles.forEach(function(o) {
@@ -126,6 +131,9 @@
                 selectedItems.forEach(function(idx){
                     self.Acl.addRoleToGroup(group, roles[idx].name);
                 });
+
+                r = ds.commit();
+                if(!r) throw new Exception('database is locked');
 
                 this.select();
                 
