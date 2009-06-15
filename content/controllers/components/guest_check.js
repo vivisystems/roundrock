@@ -662,10 +662,10 @@
                             if (curTransaction) {
                                 this.table("" + targetTableNo);
 
+                                this.store();
+                                
                                 // update modified time of source table status
                                 this._tableStatusModel.touchTableStatus(sourceTableNo);
-
-                                this.store();
 
                                 // clear recall check from cart
                                 this._controller.cancel(true);
@@ -826,11 +826,13 @@
             var tables = this._tableStatusModel.getTableStatusList();
 
             var tableOrderIdx = this._tableStatusModel.getTableOrderIdx();
+//this.log("tableOrderIdx:::");
+//this.log(this.dump(tableOrderIdx));
 
             var ordChecked = [];
             ord.forEach(function(o){
                 var crc = order.getOrderChecksum(o.id);
-                if (crc == tableOrderIdx[o.id].checksum) {
+                if (tableOrderIdx[o.id] && (crc == tableOrderIdx[o.id].checksum)) {
 
                     ordChecked.push(o);
                 }
@@ -846,6 +848,8 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('This order has been stored!!'));
+
+                this.sleep(100);
 
                 return true;
             }

@@ -49,7 +49,7 @@
                             </viviscrollabletree>
                         </vbox>
                         <vbox style="width:200px;">
-                            <vbox class="ToolBar">
+                            <vbox class="ToolBar2">
                             <button id="btn_merge" label="&mergecheck.button.action.merge;" disabled="false" class="BtnAdd" oncommand="$do('mergeItems', null, 'MergeCheck');" />
                             <button id="btn_confirm" label="&mergecheck.button.action.confirm;" disabled="false" class="BtnMod" oncommand="$do('confirm', null, 'MergeCheck');" />
                             <button id="btn_cancel" label="&mergecheck.button.action.cancel;" disabled="false" class="BtnDel" oncommand="$do('cancel', null, 'MergeCheck');" />
@@ -82,7 +82,7 @@
                             </viviscrollabletree>
                         </vbox>
                         <vbox style="width:200px;">                            
-                            <vbox class="ToolBar">
+                            <vbox class="ToolBar2">
                                 <button id="btn_reverse" label="&mergecheck.button.action.reverse;" disabled="false" class="BtnDel" oncommand="$do('reverse', null, 'MergeCheck');" />
                             </vbox>
                         </vbox>

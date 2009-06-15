@@ -210,7 +210,7 @@
 
         calcTotal: function(data) {
 
-            this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(data));
+            // this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(data));
 
             var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
             var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0;

@@ -53,9 +53,10 @@
         },
 
         removeOldOrderObject: function(iid) {
+GREUtils.log("remove iid:::" + iid);
             var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
             if (r) {
-
+GREUtils.log("remove order_id:::" + iid);
                 var cond = "order_id='" + iid + "'";
 
                 this.OrderObject.delAll(cond);

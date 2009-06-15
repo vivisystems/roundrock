@@ -282,6 +282,8 @@
             var self = this;
             // set checklist
             this._checkList = tableStatus.concat([]);
+// GREUtils.log("genTablesArray:::");
+// GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
 
             this._tableOrderByOrderId = {};
 

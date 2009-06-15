@@ -487,7 +487,7 @@
 
             try {
 
-                window._tableStatusModel.getTableStatusList();
+//                window._tableStatusModel.getTableStatusList();
 
                 document.getElementById('tableScrollablepanel').invalidate();
                 // GREUtils.log("refreshTableStatusLight:::");
