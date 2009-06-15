@@ -241,7 +241,7 @@
         },
         
         ShiftDialog: function (newSalePeriod, newShiftNumber, lastSalePeriod, lastShiftNumber) {
-            var width = 400;
+            var width = 450;
             var height = 330;
             var aURL = 'chrome://viviecr/content/alert_shift.xul';
             var aName = 'Shift Information';
@@ -754,7 +754,7 @@
                             else {
                                 shiftChangeModel.rollback();
                                 
-                                GREUtils.Dialog.alert(this.activeWindow,
+                                GREUtils.Dialog.alert(window,
                                                       _('Data Operation Error'),
                                                       _('A database error has been encountered. ') +
                                                       _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
@@ -771,7 +771,7 @@
             }
             catch(e) {
                 if (e == 'dbException') {
-                    GREUtils.Dialog.alert(this.activeWindow,
+                    GREUtils.Dialog.alert(window,
                                           _('Data Operation Error'),
                                           _('A database error has been encountered. ') +
                                           _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
@@ -947,7 +947,7 @@
 
         dbError: function(errNo, errMsg, alertStr) {
             this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(this.activeWindow,
+            GREUtils.Dialog.alert(window,
                                   _('Data Operation Error'),
                                   alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

@@ -114,7 +114,7 @@
 
             if (!this._barcodesIndexes[barcode]) {
                 // barcode notfound
-                GREUtils.Dialog.alert(this.activeWindow,
+                GREUtils.Dialog.alert(window,
                                       _('Product Search'),
                                       _('Product/Barcode Number (%S) not found!', [barcode]));
             }else {

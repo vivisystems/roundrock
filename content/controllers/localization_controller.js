@@ -15,6 +15,8 @@
 
         _dirtyBit: false,
 
+        _currentLocale: null,
+
         _currentIndex: -1,
 
         _currentPkg: null,
@@ -24,7 +26,7 @@
         _currentEntryIndex: -1,
 
         _containers: {},
-
+        
         // data structure
         //
         // localePkgs array of locales [
@@ -59,6 +61,8 @@
         //
         load: function() {
 
+            var profD = GeckoJS.Configure.read('ProfD') || '';
+
             this._tree = document.getElementById('navtree');
             this._editscrollabletree = document.getElementById('editscrollabletree');
 
@@ -67,8 +71,10 @@
 
             // retrieve list of packages requesting localization editor support
             var packages = GeckoJS.Configure.read('vivipos.fec.registry.localization.package');
-
+            
             var selectedLocale = xulChromeReg.getSelectedLocale('viviecr');
+            this._currentLocale = selectedLocale;
+
             var localeObj = document.getElementById('locale');
             if (localeObj) localeObj.value = '[' + selectedLocale + ']';
 
@@ -87,12 +93,14 @@
                                        [baseFilePath, pkg, packages[pkg].base]));
                 }
                 else {
-                    var extensions = packages[pkg].ext.split(',');
+                    var extensions = packages[pkg].ext ? packages[pkg].ext.split(',') : [];
+                    var installable = packages[pkg].installable;
                     var localePkg = {
                         pkg: pkg,
                         basePath: baseFilePath,
                         baseLocale: packages[pkg].base,
-                        extensions: extensions
+                        extensions: extensions,
+                        installable: installable || ''
                     }
 
                     // retrieve individual files
@@ -116,6 +124,15 @@
                 // get current locale file path
                 var chromePath = 'chrome://' + p.pkg + '/locale/';
                 var currentFilePath = GREUtils.File.chromeToPath(chromePath);
+                // extract current installation name
+                var installation = '';
+                var extensionsPath = profD + '/extensions/';
+
+                var index = currentFilePath.indexOf(extensionsPath);
+                if (index > -1) {
+                    var descPath = currentFilePath.substr(extensionsPath.length);
+                    installation = descPath.split('/')[0];
+                }
 
                 // make sure file path exists and is a directory
                 if (!GREUtils.File.exists(currentFilePath) || !GREUtils.File.isDir(currentFilePath)) {
@@ -125,6 +142,9 @@
                 else {
                     p.currentLocale = selectedLocale;
                     p.currentPath = currentFilePath;
+                    p.installation = installation;
+                    p.installable = p.installable && installation;
+                    p.installationPath = profD + '/extensions/' + installation;
                     self._extractTranslations(p);
                     finalLocalePkgs.push(p);
                 }
@@ -211,7 +231,7 @@
                     var matchCount = 0;
                     var file = localePkg.currentPath + '/' + f.file;
 
-                    //try {
+                    try {
                         if (GREUtils.File.exists(file) && GREUtils.File.isReadable(file)) {
                             //self.log('WARN', 'extracting translations from file ' + file);
                             var match;
@@ -263,12 +283,10 @@
                         f.strings = emptyStrings.concat(translatedStrings);
                         f.totalCount = totalCount;
                         f.emptyCount = totalCount - matchCount;
-/*
                     }
                     catch(e) {
                         self.log('WARN', 'failed to read current locale file ' + file);
                     }
-                    */
                 });
             }
             else {
@@ -680,6 +698,61 @@
             return emptyCount;
         },
 
+        autoFill: function() {
+            var f = this._currentFile;
+            if (f && f.emptyCount > 0) {
+                var modified = false;
+                for (var i = 0; i < f.strings.length; i++) {
+                    if (!f.strings[i].working || f.strings[i].working.length == 0) {
+                        f.strings[i].working = f.strings[i].base;
+                        modified = true;
+                    }
+                }
+                this._dirtyBit = modified;
+                if (this._editscrollabletree) this._editscrollabletree.invalidate();
+            }
+
+            this._validateForm();
+        },
+/*
+        exportXPI: function() {
+                }
+            }
+        },
+*/
+        exportDialog: function () {
+
+            // load package install.rdf file for edit
+            var installations = [];
+            this._packages.forEach(function(pkg) {
+                if (pkg.installable) {
+                    var installRDF = pkg.installationPath + '/install.rdf';
+                    installations.push({pkg: pkg.pkg,
+                                        installation: pkg.installation,
+                                        path: pkg.installationPath,
+                                        rdf: GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(installRDF))});
+
+                }
+            })
+
+            if (installations.length  == 0) {
+                NotifyUtils.warn( _( 'No exportable locale packages found' ) );
+            }
+            else {
+                var aURL = 'chrome://viviecr/content/export_locale.xul';
+                var screenwidth = GeckoJS.Session.get('screenwidth');
+                var screenheight = GeckoJS.Session.get('screenheight');
+
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+
+                window.openDialog(aURL,
+                                  _('Export Locale'),
+                                  features,
+                                  [this._currentLocale, installations]);
+            }
+
+        },
+
         _validateForm: function() {
             var modBtnObj = document.getElementById('modify');
             var saveBtnObj = document.getElementById('save');
@@ -704,9 +777,9 @@
             }
             // turn on save btn if dirty bit is set and current locale is different from base locale
             if (this._dirtyBit && this._currentPkg && this._currentPkg.baseLocale != this._currentPkg.currentLocale)
-                saveBtnObj.removeAttribute('disabled');
+                saveBtnObj.removeAttribute('hidden');
             else
-                saveBtnObj.setAttribute('disabled', 'true');
+                saveBtnObj.setAttribute('hidden', 'true');
         }
     };
 

@@ -1,4 +1,4 @@
-(function(){
+( function() {
 
     /**
      * RptDailySales Controller
@@ -12,16 +12,16 @@
         
         _fileName: 'rpt_daily_sales',
 
-        _set_reportRecords: function(limit) {
+        _set_reportRecords: function( limit ) {
 
-            limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
 
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
-            //            var start_str = document.getElementById( 'start_date' ).datetimeValue.toLocaleString();
-            //            var end_str = document.getElementById( 'end_date' ).datetimeValue.toLocaleString();
+            //var start_str = document.getElementById( 'start_date' ).datetimeValue.toLocaleString();
+            //var end_str = document.getElementById( 'end_date' ).datetimeValue.toLocaleString();
             var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
 
@@ -85,7 +85,7 @@
             var orderPayment = new OrderPaymentModel();
             
             //var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: limit } );
-            var datas = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
+            var datas = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
 
             //var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
             //var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
@@ -237,4 +237,4 @@
     };
 
     RptBaseController.extend(__controller__);
-})();
+} )();

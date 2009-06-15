@@ -110,4 +110,5 @@
 <!ENTITY orderdata.requiretableno "Require table no">
 <!ENTITY orderdata.rebuilddatabase "Rebuild Database">
 <!ENTITY orderdata.vacuumtrainingdb "Vacuum Training DB">
-<!ENTITY orderdata.takecurrentdbtobetrainingdb "Take current DB to be training DB">
+<!ENTITY orderdata.takecurrentdbtobedefaultdb "Take current DB to be default DB">
+<!ENTITY orderdata.takedefaultdbtobetrainingdb "Take default DB to be training DB">

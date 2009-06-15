@@ -1,0 +1,145 @@
+(function(){
+
+    /**
+     * Localization Editor
+     */
+
+    var __controller__ = {
+        name: 'ExportLocale',
+
+        components: [ 'CheckMedia' ],
+
+        _exporting_file_folder: 'locale_export',
+
+        _installations: [],
+
+        _locale: null,
+
+        _selectedPackage: null,
+
+        load: function(data) {
+            var locale = data[0];
+            var installations = data[1];
+            var packageMenuObj = document.getElementById('package');
+
+            var localeObj = document.getElementById('locale');
+            if (localeObj) localeObj.value = '[' + locale + ']';
+
+            if (packageMenuObj) {
+                installations.forEach(function(inst) {
+                    var menuitem = packageMenuObj.appendItem(inst.pkg);
+                    if (menuitem) menuitem.setAttribute('style', 'text-align: left');
+                })
+            }
+            this._installations = installations;
+            this._locale = locale;
+
+            packageMenuObj.selectedIndex = 0;
+            this.selectPackage(0);
+        },
+
+        selectPackage: function(index) {
+            var nameTextboxObj = document.getElementById('name');
+            var installTextboxObj = document.getElementById('install');
+            var inst = this._installations[index];
+
+            if (inst) {
+                if (nameTextboxObj) nameTextboxObj.value = inst.installation;
+                if (installTextboxObj) installTextboxObj.value = inst.rdf;
+
+                this._selectedPackage = inst;
+            }
+            else {
+                this._selectedPackage = null;
+            }
+            this.validateForm();
+        },
+
+        exportLocale: function() {
+            var inst = this._selectedPackage;
+            if (!inst) {
+                NotifyUtils.warn(_('Please select a package to export first'));
+                return;
+            }
+
+            var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
+            if ( !media_path ) {
+                NotifyUtils.warn( _( 'Media not found!! Please attach the USB thumb drive...' ) );
+                return;
+            }
+
+            // retrieve new package name
+            var name = '';
+            var nameTextboxObj = document.getElementById('name');
+            if (nameTextboxObj) {
+                name = GeckoJS.String.trim(nameTextboxObj.value);
+                if (name && name.substr(-4) != '.xpi')
+                    name += '.xpi';
+            }
+
+            // retrieve edited install.rdf
+            var buf = '';
+            var installTextboxObj = document.getElementById('install');
+            if (installTextboxObj) buf = GeckoJS.String.trim(installTextboxObj.value);
+
+            if (!buf || buf.length == 0) {
+                NotifyUtils.warn(_('Installation file [install.rdf] must not be empty'));
+                return;
+            }
+
+            // save edited install.rdf in /tmp
+            var r;
+            var tmpInstallRDF = '/tmp/install.rdf.' + GeckoJS.String.uuid();
+            var fp = new GeckoJS.File(tmpInstallRDF, true);
+            fp.open('w');
+            if (!(r = fp.write(buf))) {
+                this.log('ERROR', 'Failed to write temporary install.rdf file [' + tmpInstallRDF + ']');
+                NotifyUtils.error(_('Failed to create install.rdf file [%S]', [tmpInstallRDF]));
+            }
+            fp.close();
+            if (!r) {
+                GREUtils.File.remove(tmpInstallRDF);
+                return;
+            }
+
+            // invoke external script to generate XPI and move it to media
+            var exportScript = '/data/scripts/exportLocale.sh';
+            var exec = new GeckoJS.File(exportScript);
+            r = exec.run([name, inst.path, tmpInstallRDF, media_path], true);
+
+            GREUtils.File.remove(tmpInstallRDF);
+            alert(r);
+            if (r == 0) {
+                NotifyUtils.info(_( 'Locale package [%S] successfully exported', [inst.pkg]));
+            }
+            else {
+                this.log('ERROR', 'Script ' + exportScript + ' failed to export locale package [' + inst.pkg + ']');
+                GREUtils.Dialog.alert(window,
+                                      _('Export Locale'),
+                                      _('Failed to export locale package [%S]', [inst.pkg]));
+            }
+        },
+        
+        validateForm: function() {
+            var exportBtnObj = document.getElementById('export');
+            var packageMenuObj = document.getElementById('package');
+            var nameTextboxObj = document.getElementById('name');
+            var installTextboxObj = document.getElementById('install');
+
+            // turn on export btn only if all fields are populated
+            if (exportBtnObj) {
+                if ((packageMenuObj && packageMenuObj.selectedIndex > -1) &&
+                    (nameTextboxObj && nameTextboxObj.value != '') &&
+                    (installTextboxObj && GeckoJS.String.trim(installTextboxObj.value) != '')) {
+                    exportBtnObj.removeAttribute('disabled');
+                }
+                else {
+                    exportBtnObj.setAttribute('disabled', 'true');
+                }
+            }
+        }
+    };
+
+    GeckoJS.Controller.extend(__controller__);
+
+})();

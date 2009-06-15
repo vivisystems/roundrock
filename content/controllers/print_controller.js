@@ -341,16 +341,22 @@
             // don't print if order has been pre-finalized and the order is being submitted for completion
             // since receipts and checks would have already been printed
             if (txn.data.status != 1 || !txn.isClosed()) {
-                // check if receipts need to be printed
-                if (txn.data.batchPaymentCount > 0 || txn.isClosed()) {
-                    this.printReceipts(evt.data, null, 'submit');
-                }
-                // allow UI to catch up
-                this.sleep(100);
 
-                // check if checks need to be printed
-                if (txn.data.batchItemCount > 0) {
-                    this.printChecks(evt.data, null, 'submit');
+                try {
+                    // check if receipts need to be printed
+                    if (txn.data.batchPaymentCount > 0 || txn.isClosed()) {
+                        this.printReceipts(evt.data, null, 'submit');
+                    }
+                    // allow UI to catch up
+                    this.sleep(100);
+
+                    // check if checks need to be printed
+                    if (txn.data.batchItemCount > 0) {
+                        this.printChecks(evt.data, null, 'submit');
+                    }
+                }
+                catch(e) {
+                    this.log('ERROR', 'error in generating receipts/checks on submitting order');
                 }
             }
             
@@ -370,18 +376,22 @@
             var txn = evt.data;
             //this.log('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
 
-            // check if receipts need to be printed
-            if (txn.data.batchPaymentCount > 0 || txn.data.closed)
-                this.printReceipts(evt.data, null, 'store');
+            try {
+                // check if receipts need to be printed
+                if (txn.data.batchPaymentCount > 0 || txn.data.closed)
+                    this.printReceipts(evt.data, null, 'store');
 
-            // @hack
-            // sleep to allow UI to catch up
-            this.sleep(100);
-            
-            // check if checks need to be printed
-            if (txn.data.batchItemCount > 0)
-                this.printChecks(evt.data, null, 'store');
+                // @hack
+                // sleep to allow UI to catch up
+                this.sleep(100);
 
+                // check if checks need to be printed
+                if (txn.data.batchItemCount > 0)
+                    this.printChecks(evt.data, null, 'store');
+            }
+            catch(e) {
+                this.log('ERROR', 'error in generating receipts/checks on submitting order');
+            }
             // clear dashboard settings
             this.resetDashboardSettings();
 
@@ -497,21 +507,6 @@
                 order: order
             };
 
-/*
-            if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
-                var user = new GeckoJS.AclComponent().getUserPrincipal();
-                if ( user != null ) {
-                    order.proceeds_clerk = user.username;
-                    order.proceeds_clerk_displayname = user.description;
-                }
-            }
-*/
-
-            //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
-            //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
-            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
-            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
-            
             // for each enabled printer device, print if autoprint is on or if force is true
             var self = this;
             if (enabledDevices != null) {
@@ -652,21 +647,6 @@
                 order: order
             };
 
-/*
-            if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
-                var user = new GeckoJS.AclComponent().getUserPrincipal();
-                if ( user != null ) {
-                    order.proceeds_clerk = user.username;
-                    order.proceeds_clerk_displayname = user.description;
-                }
-            }
-*/
-/*
-            //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
-            //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
-            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
-            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
-*/
             // construct routing groups
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.findByIndex('all', {
@@ -1075,16 +1055,16 @@
                         if ( isTraining && ( deviceType == "receipt" || deviceType == "ledger" ) ) {
                         	printed = copies;
                         } else if (self.checkSerialPort(portPath, handshaking, true)) {
-	                        if (self.openSerialPort(portPath, portspeed, handshaking)) {
-	                            for (var i = 0; i < copies; i++) {
-	                                var len = self.writeSerialPort(portPath, encodedResult);
-	                                if (len == encodedResult.length) {
-	                                    printed++;
-	                                }
-	                            }
-	                            self.closeSerialPort(portPath);
-	                        }
-		                }
+			    if (self.openSerialPort(portPath, portspeed, handshaking)) {
+				for (var i = 0; i < copies; i++) {
+				    var len = self.writeSerialPort(portPath, encodedResult);
+				    if (len == encodedResult.length) {
+					printed++;
+				    }
+				}
+				self.closeSerialPort(portPath);
+			    }
+			}
                         if (printed == 0) {
                             var devicemodelName = self.getDeviceModelName(devicemodel);
                             var portName = self.getPortName(port);

@@ -256,7 +256,7 @@
                 return;
             }
 
-            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [dept.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [dept.name]), _('Are you sure?'))) {
                 var cateModel = new CategoryModel();
 
                 try {

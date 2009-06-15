@@ -77,11 +77,11 @@
                 <hbox class="ToolBar" flex="1">
                     <button id="modify" label="&localization.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modify', null, 'Localization');"   />
                     <spacer flex="1"/>
-                    <button id="auto_fill" label="&localization.action.generate;" oncommand="$do('generateAll', null, 'Localization');"   />
-                    <button id="export_xpi"  label="&localization.action.export;" oncommand="$do('exportXPI', null, 'Localization');"   />
+                    <button id="auto_fill" label="&localization.action.generate;" oncommand="$do('autoFill', null, 'Localization');"   />
+                    <button id="export_xpi"  label="&localization.action.export;" oncommand="$do('exportDialog', null, 'Localization');"   />
                 </hbox>
                 <hbox flex="0" id="dialogButtons" class="dialogbtns" pack="end">
-                    <button id="save" label="&localization.action.save;" disabled="true" class="SaveBtn" oncommand="$do('save', null, 'Localization');"/>
+                    <button id="save" label="&localization.action.save;" class="SaveBtn" oncommand="$do('save', null, 'Localization');"/>
                     <spacer flex="1"/>
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>

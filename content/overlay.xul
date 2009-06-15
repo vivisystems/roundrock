@@ -84,7 +84,7 @@
             <vbox flex="1" class="mainWaitPanel">
                 <vbox flex="1" class="mainWaitDialog">
                     <groupbox flex="1">
-                        <caption id="common_wait" label="Waiting..." class="PageTitle"/>
+                        <caption id="common_wait" label="" class="PageTitle"/>
                         <spacer style="height: 20px;" />
                         <progressmeter id="progress" mode="undetermined" value="0" />
                         <spacer style="height: 20px;" />

@@ -154,7 +154,7 @@
             var time = item.time;
             var pricelevel = item.pricelevel ? item.pricelevel : 'default';
 
-            if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm remove %S - price level %S', [time, pricelevel]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(window, _('confirm remove %S - price level %S', [time, pricelevel]), _('Are you sure?'))) {
 
                 if (index > 0) {
                     this._listDatas[this._weekIndex].splice(index, 1);
