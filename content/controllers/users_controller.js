@@ -155,7 +155,7 @@
                 // if
                 var currentUser = GeckoJS.Session.get('user');
                 if (currentUser != null && currentUser.id == evt.data.id) {
-                        GREUtils.Dialog.alert(this.activeWindow,
+                        GREUtils.Dialog.alert(window,
                                               _('Modify Employee'),
                                               _('Changes to an employee will take effect the next time the employee logs in'));
                 }
@@ -245,7 +245,7 @@
                 NotifyUtils.warn(_('[%S] may not be deleted', [displayname]));
                 evt.preventDefault();
             }
-            else if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [displayname]), _('Are you sure?')) == false) {
+            else if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [displayname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },

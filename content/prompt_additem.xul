@@ -35,19 +35,19 @@
             <groupbox  flex="1">
                 <caption id="dialog-caption" label="" class="PageTitle"/>
                 <label id="text0" value="" />
-                <grid class="DataForm">
+                <grid id="main-grid" class="DataForm">
                     <columns>
                         <column flex="1"/>
                     </columns>
-                    <rows>
+                    <rows id="main-rows">
                         <row id="row0">
-                            <vbox>
+                            <vbox flex="1">
                                 <label id="title0" style="width:6em" value="" control="input0"/>
                                 <textbox id="input0" flex="1" value="" oninput="validateInput()" onfocus="this.select()"/>
                             </vbox>
                         </row>
                         <row id="row1">
-                            <vbox>
+                            <vbox flex="1">
                                 <label id="title1" style="width:6em" value="" control="input1"/>
                                 <textbox id="input1" flex="1" value="" oninput="validateInput()" onfocus="this.select()"/>
                             </vbox>
@@ -62,7 +62,7 @@
                     <sendkeybutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="clearFocusedElement()" class="fixedbtn"/>
                 </vbox>
             </hbox>
-                <spacer flex="1"/>
+            <spacer id="single-line-spacer" flex="1"/>
             <hbox>
                 <hbox id="dialogButtons" class="ToolBar" flex="1">
                     <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>

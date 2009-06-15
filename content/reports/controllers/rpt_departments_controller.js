@@ -1,4 +1,4 @@
-(function(){
+( function() {
 
     /**
      * RptDepartments Controller
@@ -12,10 +12,10 @@
         
         _fileName: 'rpt_departments',
         
-        _set_reportRecords: function(limit) {
+        _set_reportRecords: function( limit ) {
 
-            limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
 
         	var sortby = document.getElementById( 'sortby' ).value;
         	var orderby = sortby;
@@ -25,17 +25,17 @@
             var cate = new CategoryModel();
             var cateRecords = cate.find( 'all', {
                 fields: [ 'no', 'name' ], order: orderby, limit: limit
-            });
+            } );
 
             this._reportRecords.head.title = _( 'Department Report' );
             this._reportRecords.body = cateRecords;
         },
 
         exportCsv: function() {
-            this._super(this);
+            this._super( this );
         }
 
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

@@ -2,7 +2,7 @@
 
     /**
      * Report Base Controller
-     * This class is used to maintain the utility methods took advantage by each report controller.
+     * This class is used to maintain the utility methods taken advantage by each report controller.
      */
 
     var __controller__ = {
@@ -27,7 +27,7 @@
         _tmpFileDir: "/var/tmp/",
         
         _exporting_file_folder: "report_export",
-        _fileExportingFlag: 0,// 1 if the exporting task is done, 0 otherwise.
+        _fileExportingFlag: 0, // 1 if the exporting task is done, 0 otherwise.
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -56,7 +56,8 @@
             var x = ( width - 360 ) / 2;
             var y = ( height - 240 ) / 2;
             
-            var caption = document.getElementById( this._waiting_caption_id );
+            // set the content of the label attribute be default string, taking advantage of the statusText attribute.
+            var caption = document.getElementById( this.getCaptionId() );
             caption.label = caption.statusText;
             
             var progressBox = document.getElementById( this._progress_box_id );
@@ -137,7 +138,6 @@
 	    
         nextPage: function() {
             this._recordOffset += this._recordLimit;
-	    	
             this.execute();
         },
 
@@ -160,13 +160,23 @@
                 	this._dismissWaitingPanel();
             }
         },
+        
         /**
 		 * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
 		 */
         exportPdf: function( paperProperties ) {
             if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
                 return;
-        		
+
+            var bodydiv = document.getElementById( this._preview_frame_id ).contentWindow.document.getElementById( this._div_id );
+            var clientHeight = parseInt( bodydiv.clientHeight );
+            var maxClientHeight = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.maxExportPdfHeight" ) || 30000 );
+
+            if ( clientHeight > maxClientHeight ) {
+                GREUtils.Dialog.alert( window, '', _( 'The document is too large to be exported in .PDF format, please export as .CSV file instead!' ) );
+                return;
+            }
+
             try {
             	// setting the flag be zero means that the exporting has not finished yet.
             	this._fileExportingFlag = 0;
@@ -174,37 +184,23 @@
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
                 if ( !media_path ) {
-                    NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
+                    NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
                     return;
                 }
 
                 var waitPanel = this._showWaitingPanel();
 
-                var self = this;
-
                 var progress = document.getElementById( this._progress_bar_id );
+				var caption = document.getElementById( this.getCaptionId() );
 				
-                this.BrowserPrint.getPrintSettings();
-
-                if ( paperProperties ) {
-                    if ( paperProperties.paperSize )
-                        this.BrowserPrint.setPaperSize( paperProperties.paperSize.width, paperProperties.paperSize.height );
-                    if ( paperProperties.paperEdges )
-                        this.BrowserPrint.setPaperEdge( paperProperties.paperEdges.left, paperProperties.paperEdges.right, paperProperties.paperEdges.top, paperProperties.paperEdges.bottom );
-                    if ( paperProperties.paperMargins )
-                        this.BrowserPrint.setPaperMargin( paperProperties.paperMargins.left, paperProperties.paperMargin.right, paperProperties.paperMargins.top, paperProperties.paperMargins.bottom );
-                    if ( paperProperties.paperHeader )
-                        this.BrowserPrint.setPaperHeader( paperProperties.paperHeader.left, paperProperties.paperHeader.right );
-                }
-				
-                this.BrowserPrint.getWebBrowserPrint( this._preview_frame_id );
                 var fileName = this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.pdf';
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
-                this.BrowserPrint.printToPdf( tmpFile, progress,
+                var self = this;
+                this.BrowserPrint.printToPdf( tmpFile, paperProperties, this._preview_frame_id, caption, progress,
                     function() {
                         // printing finished callback,
-                        self.copyExportFileFromTmp( tmpFile, targetDir, 180 );
+                        self._copyExportFileFromTmp( tmpFile, targetDir, 180 );
                     }
                 );
                 
@@ -232,12 +228,13 @@
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
                 if ( !media_path ) {
-                    NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
+                    NotifyUtils.info( _( 'Media not found!! Please attach a USB thumb drive...' ) );
                     return;
                 }
 
-                var waitPanel = this._showWaitingPanel( 100 );
-                var self = this;
+                var waitPanel = this._showWaitingPanel();
+
+                var progress = document.getElementById( this._progress_bar_id );
                 
                 var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_csv.tpl' );
 
@@ -258,9 +255,9 @@
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
 
-                this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl );
+                this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl, progress );
 
-                self.copyExportFileFromTmp( tmpFile, targetDir, 180 );
+                this._copyExportFileFromTmp( tmpFile, targetDir, 180 );
 
                 if ( !noReload ) {
                     // drop CSV data and garbage collect
@@ -291,7 +288,7 @@
                 var waitPanel = this._showWaitingPanel( 100 );
 
                 var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+                    .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
                 var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
    				
                 var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
@@ -311,6 +308,28 @@
             }
         },
         
+        print: function( paperProperties ) {
+        	try {
+        	    this._enableButton( false );
+
+                var waitPanel = this._showWaitingPanel();
+
+                var progress = document.getElementById( this._progress_bar_id );
+				var caption = document.getElementById( this.getCaptionId() );
+
+				//document.getElementById( 'preview_frame' ).contentWindow.print();
+		        //this.BrowserPrint.showPageSetup();
+		    	this.BrowserPrint.showPrintDialog( paperProperties, this._preview_frame_id, caption, progress );
+		    } catch ( e ) {
+            } finally {
+                this._enableButton( true );
+                
+                // hide panel
+                if ( waitPanel != undefined )
+                	this._dismissWaitingPanel();
+            }
+        },
+        
         /**
          * @param fields is an array consisted of strings indicating the fields going to be added to popup menu.
          * @param conditions is a string, the conditions to constrain the DB retrieval. Pass a null string if none of it.
@@ -322,7 +341,6 @@
          *
          * The propose of this private method is to add some menuitems into a certain xul menupopup element.
          */
-         
         _addMenuitem: function( dbModel, fields, conditions, order, group, menupopupId, valueField, labelField ) {
             //set up the designated pop-up menulist.
             var records = dbModel.find( 'all', {
@@ -343,7 +361,6 @@
 	    
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
-
             return s.replace( re, '\'\'' );
         },
 	    
@@ -379,25 +396,13 @@
 		                self._openOrderDialogByKey( key, event.originalTarget.parentNode.id );
 		        }, true );
 		    }
-        	
-        /*if ( table.hasChildNodes ) {
-        		var children = table.getElementsByTagName( 'tr' );
-        		
-		    	for ( var i = 0; i < children.length; i++ ) {
-		    		if ( children[ i ].id ) {
-						children[ i ].addEventListener( 'click', function( event ) {
-							orderDialog( event.currentTarget.id );
-						}, true );
-					}
-		    	}
-		    }*/
         },
 
-        copyExportFileFromTmp: function( tmpFile, targetDir, timeout ) {
+        _copyExportFileFromTmp: function( tmpFile, targetDir, timeout ) {
 			try {
 		        var maxTimes = timeout / 0.2;
-		        var tries = 0 ;
-		        var nsTmpfile ;
+		        var tries = 0;
+		        var nsTmpfile;
 		        var self = this;
 
 		        // use setTimeout to wait gecko writing file to disk. XXXX

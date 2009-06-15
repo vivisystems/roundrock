@@ -1,4 +1,4 @@
-(function(){
+( function() {
 
     /**
      * Product Sales Controller
@@ -22,18 +22,18 @@
             var orderItem = new OrderItemModel();
 
             var fields = [
-            'order_items.product_no',
-            'order_items.product_name',
-            'SUM("order_items"."current_qty") as "qty"',
-            'SUM("order_items"."current_subtotal") as "gross"',
-            'SUM("order_items"."current_subtotal" + "order_items"."current_discount" + "order_items"."current_surcharge") as "net"',
-            'order_items.cate_no',
-            'order_items.cate_name'
+                'order_items.product_no',
+                'order_items.product_name',
+                'SUM("order_items"."current_qty") as "qty"',
+                'SUM("order_items"."current_subtotal") as "gross"',
+                'SUM("order_items"."current_subtotal" + "order_items"."current_discount" + "order_items"."current_surcharge") as "net"',
+                'order_items.cate_no',
+                'order_items.cate_name'
             ];
-                            
+            
             var conditions = "orders." + periodType + ">='" + start +
-            "' AND orders." + periodType + "<='" + end + "'" +
-            " AND orders.status = 1";
+                "' AND orders." + periodType + "<='" + end + "'" +
+                " AND orders.status = 1";
             
             if (terminalNo.length > 0)
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminalNo ) + "%'";
@@ -45,7 +45,7 @@
 
             var orderby = '';
 
-            switch(sortby) {
+            switch( sortby ) {
                 case 'product_no':
                 case 'product_name':
                     orderby = sortby;
@@ -100,7 +100,7 @@
             } );
             */
 
-           var orderItemRecords = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders LEFT JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
+           var orderItemRecords = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + this._csvLimit);
 
             orderItemRecords.forEach( function( record ) {
                 delete record.OrderItem;
@@ -264,5 +264,5 @@
         }
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

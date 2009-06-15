@@ -141,7 +141,7 @@
                 NotifyUtils.warn(_('[%S] has been assigned as the default job to one or more users and may not be deleted', [jobname]));
                 evt.preventDefault();
             }
-            else if (GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete %S', [jobname]), _('Are you sure?')) == false) {
+            else if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [jobname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },

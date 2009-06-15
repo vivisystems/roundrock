@@ -229,7 +229,7 @@
             if (index >= 0) {
                 var table = this._tableListDatas[index];
 
-                if (!GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete table [%S (%S)]', [table.table_no, table.table_name]),
+                if (!GREUtils.Dialog.confirm(window, _('confirm delete table [%S (%S)]', [table.table_no, table.table_name]),
                                              _('Are you sure you want to delete table [%S (%S)]?', [table.table_no, table.table_name]))) {
                     return;
                 }
@@ -382,7 +382,7 @@
             if (index >= 0) {
                 var region = this._regionListDatas[index];
 
-                if (!GREUtils.Dialog.confirm(this.activeWindow, _('confirm delete region [%S (%S)]', [region.name]),
+                if (!GREUtils.Dialog.confirm(window, _('confirm delete region [%S (%S)]', [region.name]),
                                              _('Are you sure you want to delete region [%S]?', [region.name]))) {
                     return;
                 }

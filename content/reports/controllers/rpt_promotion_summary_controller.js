@@ -44,7 +44,7 @@
             var groupby = 'date, op.promotion_id, op.order_id';
             var orderby = 'date, op.promotion_id, op.order_id';
 			
-            var subquery = 	'SELECT ' + fields + ' FROM orders o LEFT JOIN order_promotions op ON (o.id= op.order_id) ' +
+            var subquery = 	'SELECT ' + fields + ' FROM orders o INNER JOIN order_promotions op ON (o.id= op.order_id) ' +
             ' WHERE ' + conditions + ' GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT -1';
             				
             var s_fields =  's.date as date, ' +

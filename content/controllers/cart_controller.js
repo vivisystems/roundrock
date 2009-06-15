@@ -315,7 +315,7 @@
                     var requireAck = GeckoJS.Configure.read('vivipos.fec.settings.AgeVerificationAck')
 
                     if (requireAck) {
-                        if (GREUtils.Dialog.confirm(this.activeWindow,
+                        if (GREUtils.Dialog.confirm(window,
                                                     _('confirm age'),
                                                     _('Is customer of age for purchase of [%S]?', [item.name])) == false) {
                             evt.preventDefault();
@@ -568,7 +568,7 @@
                 }
                 else {
                     //@todo OSD
-                    GREUtils.Dialog.alert(this.activeWindow,
+                    GREUtils.Dialog.alert(window,
                                           _('Memory Error'),
                                           _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation', [itemDisplay.name]));
                     exit = true;
@@ -2225,7 +2225,7 @@
 
                 if (payment > balance) {
                     // @todo OSD
-                    GREUtils.Dialog.alert(this.activeWindow,
+                    GREUtils.Dialog.alert(window,
                                           _('Credit Card Payment Error'),
                                           _('Credit card payment may not exceed remaining balance'));
                     GeckoJS.Session.remove('cart_set_price_value');
@@ -2439,7 +2439,7 @@
                 }
 
                 if (payment > balance) {
-                    if (GREUtils.Dialog.confirm(this.activeWindow,
+                    if (GREUtils.Dialog.confirm(window,
                                                 _('confirm giftcard payment'),
                                                 _('Change of [%S] will NOT be given for this type of payment. Proceed?',
                             [curTransaction.formatPrice(payment - balance)])) == false) {
@@ -2555,7 +2555,7 @@
 
                     if (payment - balance > limit) {
                         // @todo OSD
-                        GREUtils.Dialog.alert(this.activeWindow,
+                        GREUtils.Dialog.alert(window,
                                               _('Check Payment Error'),
                                               _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
                         GeckoJS.Session.remove('cart_set_price_value');
@@ -2835,7 +2835,7 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
-                return; // fatal error ?
+                NotifyUtils.warn(_('No order for which to show payment status'));
             }
 
             // if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
@@ -3038,7 +3038,7 @@
                 
                 // determine if new items have been added
                 if (!curTransaction.isModified() || forceCancel ||
-                    GREUtils.Dialog.confirm(this.activeWindow,
+                    GREUtils.Dialog.confirm(window,
                                             _('confirm cancel'),
                                             _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
@@ -3121,14 +3121,14 @@
                         statusStr = existingOrder.status;
                         break;
                 }
-                GREUtils.Dialog.alert(this.activeWindow,
+                GREUtils.Dialog.alert(window,
                                       _('Order Finalization'),
                                       _('Current order is no longer available for finalization (status = %S)', [statusStr]));
                 return false;
             }
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) {
-                GREUtils.Dialog.alert(this.activeWindow,
+                GREUtils.Dialog.alert(window,
                                       _('Order Finalization'),
                                       _('Current order has non-zero balance and may not be closed'));
                 return false;
@@ -3142,8 +3142,17 @@
                 oldTransaction.lockItems();
 
                 // save order unless the order is being finalized (i.e. status == 1)
-                var r = true;
-                if (status != 1) {
+                if (status == 1) {
+                    var user = this.Acl.getUserPrincipal();
+                    if ( user != null ) {
+                        oldTransaction.data.proceeds_clerk = user.username;
+                        oldTransaction.data.proceeds_clerk_displayname = user.description;
+                    }
+                }
+
+                else {
+                    // oldTransaction.submit(status);
+
                     var submitStatus = parseInt(oldTransaction.submit(status));
                     /*
                      *   1: success
@@ -3158,7 +3167,9 @@
                                       _('Current order is not saved successfully, please try again...'));
                         return false;
                     }
+
                 }
+
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
@@ -3228,7 +3239,7 @@
 
                 if (dest) {
                     if (curTransaction.data.destination != dest) {
-                        if (GREUtils.Dialog.confirm(this.activeWindow,
+                        if (GREUtils.Dialog.confirm(window,
                                                     _('confirm destination'),
                                                     _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
                             return;
@@ -3245,7 +3256,7 @@
                     }
 
                     if (mismatch) {
-                        if (GREUtils.Dialog.confirm(this.activeWindow,
+                        if (GREUtils.Dialog.confirm(window,
                                                     _('confirm destination'),
                                                     _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
                             return;
@@ -3660,14 +3671,14 @@
             }
 
             if (!order) {
-                GREUtils.Dialog.alert(this.activeWindow,
+                GREUtils.Dialog.alert(window,
                                       _('Void Sale'),
                                       _('Failed to void: the selected order no longer exists'));
                 return;
             }
 
             if (order.status < 1) {
-                GREUtils.Dialog.alert(this.activeWindow,
+                GREUtils.Dialog.alert(window,
                                       _('Void Sale'),
                                       _('Failed to void: the selected order is not stored or finalized'));
                 return;
@@ -3781,7 +3792,7 @@
 
                             this.dispatchEvent('afterVoidSale', order);
                             
-                            GREUtils.Dialog.alert(this.activeWindow,
+                            GREUtils.Dialog.alert(window,
                                                   _('Void Sale'),
                                                   _('Transaction [%S] successfully voided', [order.sequence]));
                         }
@@ -3798,7 +3809,7 @@
                                              _('An error was encountered while voiding sale (error code %S).', [lastModel.lastError]));
                             }
                             else {
-                                GREUtils.Dialog.alert(this.activeWindow,
+                                GREUtils.Dialog.alert(window,
                                                       _('Void Sale'),
                                                       _('Errors were encountered while void order; order was not voided'));
                             }
@@ -4451,7 +4462,7 @@
 
         dbError: function(errNo, errMsg, alertStr) {
             this.log('WARN', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(this.activeWindow,
+            GREUtils.Dialog.alert(window,
                                   _('Data Operation Error'),
                                   alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
