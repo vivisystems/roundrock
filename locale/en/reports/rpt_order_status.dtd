@@ -5,6 +5,7 @@
 <!ENTITY rptorderstatus.exportpdf "Export to PDF">
 <!ENTITY rptorderstatus.exportcsv "Export to CSV">
 <!ENTITY rptorderstatus.exportrcp "Print">
+<!ENTITY rptorderstatus.print "Print">
 <!ENTITY rptorderstatus.togglezoom "Toggle Zoom">
 <!ENTITY rptorderstatus.terminal_no "Terminal:">
 <!ENTITY rptorderstatus.sortby "Sort By:">

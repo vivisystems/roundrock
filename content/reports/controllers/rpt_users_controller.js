@@ -1,4 +1,4 @@
-(function(){
+( function() {
 
     /**
      * RptUsers Controller
@@ -28,8 +28,7 @@
         exportCsv: function() {
             this._super(this);
         }
-
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

@@ -1,5 +1,4 @@
 ( function() {
-
     /**
      * Report Base Controller
      * This class is used to maintain the utility methods taken advantage by each report controller.
@@ -13,6 +12,8 @@
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
         _csvLimit: 3000000,
         _stdLimit: 3000,
+        _scrollRange: null,
+        _scrollRangePreference: "vivipos.fec.settings.scrollRange",
         
         //for the use of manipulating the waiting panel.
         _wait_panel_id: "wait_panel",
@@ -93,6 +94,16 @@
             $( '#export_pdf' ).attr( 'disabled', disabled );
             $( '#export_csv' ).attr( 'disabled', disabled );
             $( '#export_rcp' ).attr( 'disabled', disabled );
+            $( '#print' ).attr( 'disabled', disabled );
+
+            $( '#btnScrollTop' ).attr( 'disabled', disabled );
+            $( '#btnScrollUp' ).attr( 'disabled', disabled );
+            $( '#btnScrollDown' ).attr( 'disabled', disabled );
+            $( '#btnScrollBottom' ).attr( 'disabled', disabled );
+            $( '#btnScrollLeft' ).attr( 'disabled', disabled );
+            $( '#btnScrollRight' ).attr( 'disabled', disabled );
+            $( '#btnScrollLeftMost' ).attr( 'disabled', disabled );
+            $( '#btnScrollRightMost' ).attr( 'disabled', disabled );
         },
         
         _setTemplateDataHead: function() {
@@ -217,7 +228,7 @@
             }
         },
 
-        exportCsv: function(controller, noReload) {
+        exportCsv: function( controller, noReload ) {
             if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
                 return;
         		
@@ -233,7 +244,8 @@
                 }
 
                 var waitPanel = this._showWaitingPanel();
-
+                
+                var caption = document.getElementById( this.getCaptionId() );
                 var progress = document.getElementById( this._progress_bar_id );
                 
                 var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_csv.tpl' );
@@ -255,7 +267,7 @@
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
 
-                this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl, progress );
+                this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl, caption, progress );
 
                 this._copyExportFileFromTmp( tmpFile, targetDir, 180 );
 
@@ -434,8 +446,85 @@
 		    }
         },
 
+        btnScrollTop: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            doc.scrollTop = 0;
+        },
+
+        btnScrollUp: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            if ( doc.scrollTop <= 0 ) return;
+            doc.scrollTop -= this._scrollRange;
+
+            if ( doc.scrollTop < 0 ) doc.scrollTop = 0;
+        },
+
+        btnScrollDown: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            if ( doc.scrollTop > doc.scrollHeight ) return;
+            doc.scrollTop += this._scrollRange;
+
+            if ( doc.scrollTop > doc.scrollHeight ) doc.scrollTop = doc.scrollHeight - doc.clientHeight;
+        },
+
+        btnScrollBottom: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            doc.scrollTop = doc.scrollHeight - doc.clientHeight;
+        },
+
+        btnScrollLeft: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            if ( doc.scrollLeft <= 0 ) return;
+            doc.scrollLeft -= this._scrollRange;
+
+            if ( doc.scrollLeft < 0 ) doc.scrollLeft = 0;
+        },
+
+        btnScrollRight: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            if (doc.scrollLeft > doc.scrollWidth) return;
+            doc.scrollLeft += this._scrollRange;
+
+            if ( doc.scrollLeft > doc.scrollWidth ) doc.scrollLeft = doc.scrollWidth - doc.clientWidth;
+        },
+        
+        btnScrollLeftMost: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            doc.scrollLeft = 0;
+        },
+
+        btnScrollRightMost: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            doc.scrollLeft = doc.scrollWidth - doc.clientWidth;
+        },
+
         load: function() {
             this._enableButton( false );
+            this._scrollRange = GeckoJS.Configure.read( this._scrollRangePreference );
         }
     };
     

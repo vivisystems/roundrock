@@ -1,5 +1,4 @@
 ( function() {
-
     /**
      * RptDailySales Controller
      */
@@ -11,6 +10,14 @@
         name: 'RptDailySales',
         
         _fileName: 'rpt_daily_sales',
+        
+        _paperProperties: {
+            orientation: "landscape"/*,
+            paperSize: {
+                width: 297,
+                height: 210
+            }*/
+        },
 
         _set_reportRecords: function( limit ) {
 
@@ -212,15 +219,16 @@
         },
         
         exportPdf: function() {
-            this._super( {
-                paperSize: {
-                    width: 297,
-                    height: 210
-                }
-            } );
+            this._super( this._paperProperties );
         },
-
+        
+        print: function() {
+            this._super( this._paperProperties );
+        },
+        
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -231,10 +239,8 @@
 
             document.getElementById( 'start_date' ).value = start;
             document.getElementById( 'end_date' ).value = end;
-		    	    
-            this._enableButton( false );
         }
     };
 
-    RptBaseController.extend(__controller__);
+    RptBaseController.extend( __controller__ );
 } )();

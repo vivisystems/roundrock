@@ -28,7 +28,7 @@
         <vbox flex="1" class="MainPnl">
         	<vbox>
 		        <caption label="&rptusers.title;"  class="PageTitle"/>
-		        <!--caption label="&productsales.conditions;" / -->
+		        <!--caption label="&rptusers.conditions;" / -->
 		        <hbox>
 		        	<hbox flex="1">
 		            <grid class="DataForm" flex="1">
@@ -61,14 +61,25 @@
                 <!-- grippy/ -->
             </splitter>
             <hbox class="TopPnl">
-                <hbox class="ReportTool"  flex="1">
-
-                    <vivibutton id="export_pdf" label="&rptusers.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptUsers');" />
-                    <vivibutton id="export_csv" label="&rptusers.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptUsers');" />
-                    <vivibutton id="export_rcp" label="&rptusers.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptUsers');" />
-
-                    <vivibutton id="togglesize" label="&rptusers.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                    
+                <hbox class="ReportTool" flex="1" style="overflow: auto;">
+                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                        <tabs id="tabs" >
+                            <vivibutton id="export_pdf" label="&rptusers.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptUsers');" />
+                            <vivibutton id="export_csv" label="&rptusers.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptUsers');" />
+                            <vivibutton id="export_rcp" label="&rptusers.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptUsers');" />
+                            <vivibutton id="print" label="&rptusers.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptUsers');" />
+                            <vivibutton id="togglesize" label="&rptusers.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                            
+                            <vivibutton id="btnScrollTop" label="btnScrollTop" disabled="true" class="scrollTopBtn" image="chrome://viviecr/skin/images/top.png" oncommand="$do('btnScrollTop', null, 'RptUsers');"/>
+                            <vivibutton id="btnScrollUp" label="btnScrollUp" disabled="true" class="scrollUpBtn" image="chrome://viviecr/skin/images/up.png" oncommand="$do('btnScrollUp', null, 'RptUsers');"/>
+                            <vivibutton id="btnScrollDown" label="btnScrollDown" disabled="true" class="scrollDownBtn" image="chrome://viviecr/skin/images/down.png" oncommand="$do('btnScrollDown', null, 'RptUsers');"/>
+                            <vivibutton id="btnScrollBottom" label="btnScrollBottom" disabled="true" class="scrollBottomBtn" image="chrome://viviecr/skin/images/bottom.png" oncommand="$do('btnScrollBottom', null, 'RptUsers');"/>
+                            <!--vivibutton id="btnScrollLeftMost" label="btnScrollLeftMost" disabled="true" class="scrollLeftMostBtn" image="chrome://viviecr/skin/images/left_most.png" oncommand="$do('btnScrollLeftMost', null, 'RptUsers');"/>
+                            <vivibutton id="btnScrollLeft" label="btnScrollLeft" disabled="true" class="scrollLeftBtn" image="chrome://viviecr/skin/images/previous.png" oncommand="$do('btnScrollLeft', null, 'RptUsers');"/>
+                            <vivibutton id="btnScrollRight" label="btnScrollRight" disabled="true" class="scrollRightBtn" image="chrome://viviecr/skin/images/next.png" oncommand="$do('btnScrollRight', null, 'RptUsers');"/>
+                            <vivibutton id="btnScrollRightMost" label="btnScrollRightMost" disabled="true" class="scrollRightMostBtn" image="chrome://viviecr/skin/images/right_most.png" oncommand="$do('btnScrollRightMost', null, 'RptUsers');"/-->
+                        </tabs>
+                    </arrowscrollbox>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>

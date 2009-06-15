@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * RptProducts Controller
      */
@@ -82,6 +81,8 @@
         },
 
         load: function() {
+            this._super();
+            
             var cate = new CategoryModel();
             var cateRecords = cate.find('all', {
                 fields: ['no','name'],
@@ -95,10 +96,8 @@
                 menuitem.setAttribute('label', record.no + "-" + record.name);
                 dpt.appendChild(menuitem);
             });
-
-            this._enableButton(false);
         }
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

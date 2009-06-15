@@ -121,17 +121,29 @@
                 <!-- grippy/ -->
             </splitter>
             <hbox class="TopPnl">
-                <hbox class="ReportTool" flex="1">
-                    <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptProductSales');" />
-                    <vivibutton id="export_csv" label="&productsales.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptProductSales');" />
-                    <vivibutton id="export_rcp" label="&productsales.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptProductSales');" />
-
-                    <vivibutton id="togglesize" label="&productsales.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                <hbox class="ReportTool" flex="1" style="overflow: auto;">
+                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                        <tabs id="tabs" >
+                            <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptProductSales');" />
+                            <vivibutton id="export_csv" label="&productsales.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptProductSales');" />
+                            <vivibutton id="export_rcp" label="&productsales.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptProductSales');" />
+                            <vivibutton id="print" label="&productsales.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptProductSales');" />
+                            <vivibutton id="togglesize" label="&productsales.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                            
+                            <vivibutton id="btnScrollTop" label="btnScrollTop" disabled="true" class="scrollTopBtn" image="chrome://viviecr/skin/images/top.png" oncommand="$do('btnScrollTop', null, 'RptProductSales');"/>
+                            <vivibutton id="btnScrollUp" label="btnScrollUp" disabled="true" class="scrollUpBtn" image="chrome://viviecr/skin/images/up.png" oncommand="$do('btnScrollUp', null, 'RptProductSales');"/>
+                            <vivibutton id="btnScrollDown" label="btnScrollDown" disabled="true" class="scrollDownBtn" image="chrome://viviecr/skin/images/down.png" oncommand="$do('btnScrollDown', null, 'RptProductSales');"/>
+                            <vivibutton id="btnScrollBottom" label="btnScrollBottom" disabled="true" class="scrollBottomBtn" image="chrome://viviecr/skin/images/bottom.png" oncommand="$do('btnScrollBottom', null, 'RptProductSales');"/>
+                            <vivibutton id="btnScrollLeftMost" label="btnScrollLeftMost" disabled="true" class="scrollLeftMostBtn" image="chrome://viviecr/skin/images/left_most.png" oncommand="$do('btnScrollLeftMost', null, 'RptProductSales');"/>
+                            <vivibutton id="btnScrollLeft" label="btnScrollLeft" disabled="true" class="scrollLeftBtn" image="chrome://viviecr/skin/images/previous.png" oncommand="$do('btnScrollLeft', null, 'RptProductSales');"/>
+                            <vivibutton id="btnScrollRight" label="btnScrollRight" disabled="true" class="scrollRightBtn" image="chrome://viviecr/skin/images/next.png" oncommand="$do('btnScrollRight', null, 'RptProductSales');"/>
+                            <vivibutton id="btnScrollRightMost" label="btnScrollRightMost" disabled="true" class="scrollRightMostBtn" image="chrome://viviecr/skin/images/right_most.png" oncommand="$do('btnScrollRightMost', null, 'RptProductSales');"/>
+                        </tabs>
+                    </arrowscrollbox>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                    
                 </hbox>
             </hbox>
             
@@ -147,5 +159,4 @@
   
     <!-- overlay the waiting panel. -->
     <popupset id="dialogs" />
-
 </window>

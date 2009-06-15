@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * RptDailySalesSummary Controller
      */
@@ -11,6 +10,14 @@
         name: 'RptOrderAnnotation',
         
         _fileName: 'rpt_order_annotation',
+        
+        _paperProperties: {
+            orientation: "landscape"/*,
+            paperSize: {
+                width: 297,
+                height: 210
+            }*/
+        },
 
         _set_reportRecords: function(limit) {
 
@@ -172,12 +179,11 @@
         },
         
         exportPdf: function() {
-            this._super( {
-                paperSize: {
-                    width: 297,
-                    height: 210
-                }
-            } );
+            this._super( this._paperProperties );
+        },
+        
+        print: function() {
+            this._super( this._paperProperties );
         },
 
         exportCsv: function() {
@@ -185,6 +191,8 @@
         },
 
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -197,10 +205,8 @@
             document.getElementById('end_date').value = end;
             
             this._addMenuitem( new OrderAnnotationModel(), [ 'type' ], '', 'type', 'type', 'annotationtype_menupopup', 'type', 'type' );
-
-            this._enableButton(false);
         }
     };
     
     RptBaseController.extend( __controller__ );
-})();
+} )();

@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * RptDailySales Controller
      */
@@ -7,10 +6,17 @@
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     var __controller__ = {
-
         name: 'RptDailySalesDetail',
         
         _fileName: 'rpt_daily_sales_detail',
+        
+        _paperProperties: {
+            orientation: "landscape"/*,
+            paperSize: {
+                width: 297,
+                height: 210
+            }*/
+        },
         
         _enableButton: function( enable ) {
             this._super( enable );
@@ -46,40 +52,40 @@
                 timeField = 'transaction_submitted';
             }
             var fields =	'orders.id, ' +
-            'orders.' + timeField + ' as time, ' +
-            'orders.sequence, ' +
-            'orders.total, ' +
-            'orders.tax_subtotal, ' +
-            'orders.item_subtotal, ' +
-            'orders.discount_subtotal, ' +
-            'orders.promotion_subtotal, ' +
-            'orders.revalue_subtotal, ' +
-            'orders.surcharge_subtotal, ' +
-            'orders.qty_subtotal, ' +
-            'orders.no_of_customers, ' +
-            'orders.invoice_no, ' +
-            'orders.sale_period, ' +
-            'orders.shift_number, ' +
-            'orders.rounding_prices, ' +
-            'orders.precision_prices, ' +
-            'orders.rounding_taxes, ' +
-            'orders.precision_taxes, ' +
-            'orders.surcharge_subtotal, ' +
-            'orders.terminal_no, ' +
-            'order_items.product_no, ' +
-            'order_items.product_name, ' +
-            'order_items.current_qty, ' +
-            'order_items.current_price, ' +
-            'order_items.current_subtotal, ' +
-            'order_items.current_discount, ' +
-            'order_items.current_surcharge, ' +
-            'order_items.tax_name';
+                'orders.' + timeField + ' as time, ' +
+                'orders.sequence, ' +
+                'orders.total, ' +
+                'orders.tax_subtotal, ' +
+                'orders.item_subtotal, ' +
+                'orders.discount_subtotal, ' +
+                'orders.promotion_subtotal, ' +
+                'orders.revalue_subtotal, ' +
+                'orders.surcharge_subtotal, ' +
+                'orders.qty_subtotal, ' +
+                'orders.no_of_customers, ' +
+                'orders.invoice_no, ' +
+                'orders.sale_period, ' +
+                'orders.shift_number, ' +
+                'orders.rounding_prices, ' +
+                'orders.precision_prices, ' +
+                'orders.rounding_taxes, ' +
+                'orders.precision_taxes, ' +
+                'orders.surcharge_subtotal, ' +
+                'orders.terminal_no, ' +
+                'order_items.product_no, ' +
+                'order_items.product_name, ' +
+                'order_items.current_qty, ' +
+                'order_items.current_price, ' +
+                'order_items.current_subtotal, ' +
+                'order_items.current_discount, ' +
+                'order_items.current_surcharge, ' +
+                'order_items.tax_name';
                             
             var tables = 'orders INNER JOIN order_items on orders.id = order_items.order_id';
 
             var conditions = "orders." + periodType + " >= '" + start +
-            "' and orders." + periodType + " <= '" + end +
-            "' and orders.status = '1'";
+                "' and orders." + periodType + " <= '" + end +
+                "' and orders.status = '1'";
 
             if ( terminalNo.length > 0 )
                 conditions += " and orders.terminal_no like '" + this._queryStringPreprocessor( terminalNo ) + "%'";
@@ -208,16 +214,15 @@
         },
         
         exportPdf: function() {
-            this._super( {
-                paperSize: {
-                    width: 297,
-                    height: 210
-                }
-            } );
+            this._super( this._paperProperties );
+        },
+        
+        print: function() {
+            this._super( this._paperProperties );
         },
         
         exportCsv: function() {
-            this._super(this);
+            this._super( this );
         },
 
         execute: function() {
@@ -226,6 +231,8 @@
         },
         
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -235,11 +242,9 @@
             var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
 
             document.getElementById('start_date').value = start;
-            document.getElementById('end_date').value = end;
-
-            this._enableButton(false);            
+            document.getElementById('end_date').value = end;       
         }
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

@@ -158,6 +158,15 @@
 .PrintBtn[disabled=true] {
 	background: transparent url(images/icon_print-d.png) center center no-repeat !important;
 }
+.PrintReportBtn {
+	height: 60px;
+	padding-left: 58px;
+	-moz-appearance: none;
+	background: transparent url(../icons/icon_printlabel.png) center center no-repeat !important;
+}
+.PrintReportBtn[disabled=true] {
+	background: transparent url(../icons/icon_printlabel.png) center center no-repeat !important;
+}
 .ZoomBtn {
 	height: 60px;
 	padding-left: 58px;

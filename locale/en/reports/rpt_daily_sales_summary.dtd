@@ -5,6 +5,7 @@
 <!ENTITY rptdailysalessummary.exportpdf "Export to PDF">
 <!ENTITY rptdailysalessummary.exportcsv "Export to CSV">
 <!ENTITY rptdailysalessummary.exportrcp "Print">
+<!ENTITY rptdailysalessummary.print "Print">
 <!ENTITY rptdailysalessummary.togglezoom "Toggle Zoom">
 <!ENTITY rptdailysalessummary.terminal_no "Terminal:">
 <!ENTITY rptdailysalessummary.sortby "Sort By:">

@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * Cash Drawer Controller
      */
@@ -79,6 +78,7 @@
         },
 
         load: function() {
+            this._super();
 
             var today = new Date();
             var yy = today.getYear() + 1900;
@@ -90,10 +90,8 @@
 
             document.getElementById( 'start_date' ).value = start;
             document.getElementById( 'end_date' ).value = end;
-
-            this._enableButton( false );
         }
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

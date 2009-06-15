@@ -5,6 +5,7 @@
 <!ENTITY rptorderannotation.exportpdf "Export to PDF">
 <!ENTITY rptorderannotation.exportcsv "Export to CSV">
 <!ENTITY rptorderannotation.exportrcp "Print">
+<!ENTITY rptorderannotation.print "Print">
 <!ENTITY rptorderannotation.togglezoom "Toggle Zoom">
 <!ENTITY rptorderannotation.terminal_no "Terminal:">
 <!ENTITY rptorderannotation.sortby "Sort By:">
