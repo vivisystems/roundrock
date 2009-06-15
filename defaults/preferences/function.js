@@ -289,7 +289,7 @@ pref("vivipos.fec.registry.function.programmable.newTable.command", "newTable");
 pref("vivipos.fec.registry.function.programmable.newTable.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.newTable.data", "");
 
-pref("vivipos.fec.registry.function.programmable.guestNum.access", "acl_guest_num");
+pref("vivipos.fec.registry.function.programmable.guestNum.access", "acl_guest_no");
 pref("vivipos.fec.registry.function.programmable.guestNum.command", "guestNum");
 pref("vivipos.fec.registry.function.programmable.guestNum.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.guestNum.data", "");
