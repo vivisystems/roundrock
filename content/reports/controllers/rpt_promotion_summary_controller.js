@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * Product Sales Controller
      */
@@ -175,6 +174,8 @@
         },
 
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -188,10 +189,8 @@
             
             // setup the promotion menu.
             this._addMenuitem( new PromotionModel(), [ 'name', 'id' ], '', 'name', 'id', 'promotion_menupopup', 'id', 'name' );
-
-            this._enableButton( false );
         }
     };
     
     RptBaseController.extend( __controller__ );
-})();
+} )();

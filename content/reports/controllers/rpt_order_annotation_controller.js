@@ -191,6 +191,8 @@
         },
 
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -203,8 +205,6 @@
             document.getElementById('end_date').value = end;
             
             this._addMenuitem( new OrderAnnotationModel(), [ 'type' ], '', 'type', 'type', 'annotationtype_menupopup', 'type', 'type' );
-
-            this._enableButton(false);
         }
     };
     

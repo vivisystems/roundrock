@@ -1,4 +1,9 @@
 /* reports */
+/* general preference */
+pref("vivipos.fec.settings.maxExportPdfHeight", 30000);
+pref("vivipos.fec.settings.scrollRange", 200);
+
+/* register reports to report panel */
 pref("vivipos.fec.reportpanels.productsales.label", "Product Sales Report");
 pref("vivipos.fec.reportpanels.productsales.path", "chrome://viviecr/content/reports/rpt_product_sales.xul");
 pref("vivipos.fec.reportpanels.productsales.icon", "chrome://viviecr/content/skin/icons/reporticon_sale.png");

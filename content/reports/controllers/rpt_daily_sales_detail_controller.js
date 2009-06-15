@@ -231,6 +231,8 @@
         },
         
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -240,11 +242,9 @@
             var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
 
             document.getElementById('start_date').value = start;
-            document.getElementById('end_date').value = end;
-
-            this._enableButton(false);            
+            document.getElementById('end_date').value = end;       
         }
     };
 
-    RptBaseController.extend(__controller__);
-})();
+    RptBaseController.extend( __controller__ );
+} )();

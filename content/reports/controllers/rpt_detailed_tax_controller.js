@@ -290,6 +290,7 @@
         },
 
         load: function() {
+            this._super();
 
             var today = new Date();
             var yy = today.getYear() + 1900;
@@ -301,8 +302,6 @@
 
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
-
-            this._enableButton(false);
         }
     };
 

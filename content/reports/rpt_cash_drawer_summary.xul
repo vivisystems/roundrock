@@ -72,13 +72,25 @@
                 <!-- grippy/ -->
             </splitter>
             <hbox class="TopPnl">
-                <hbox class="ReportTool"  flex="1">
-                    <vivibutton id="export_pdf" label="&cashdrawersummary.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do( 'exportPdf', null, 'RptCashDrawerSummary' );" />
-                    <vivibutton id="export_csv" label="&cashdrawersummary.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do( 'exportCsv', null, 'RptCashDrawerSummary' );" />
-                    <vivibutton id="export_rcp" label="&cashdrawersummary.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptCashDrawerSummary');" />
-                    <vivibutton id="print" label="&cashdrawersummary.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptCashDrawerSummary');" />
-                    
-                    <vivibutton id="togglesize" label="&cashdrawersummary.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                <hbox class="ReportTool" flex="1" style="overflow: auto;">
+                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                        <tabs id="tabs" >
+                            <vivibutton id="export_pdf" label="&cashdrawersummary.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptCashDrawerSummary');" />
+                            <vivibutton id="export_csv" label="&cashdrawersummary.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptCashDrawerSummary');" />
+                            <vivibutton id="export_rcp" label="&cashdrawersummary.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptCashDrawerSummary');" />
+                            <vivibutton id="print" label="&cashdrawersummary.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptCashDrawerSummary');" />
+                            <vivibutton id="togglesize" label="&cashdrawersummary.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                            
+                            <vivibutton id="btnScrollTop" label="btnScrollTop" disabled="true" class="scrollTopBtn" image="chrome://viviecr/skin/images/top.png" oncommand="$do('btnScrollTop', null, 'RptCashDrawerSummary');"/>
+                            <vivibutton id="btnScrollUp" label="btnScrollUp" disabled="true" class="scrollUpBtn" image="chrome://viviecr/skin/images/up.png" oncommand="$do('btnScrollUp', null, 'RptCashDrawerSummary');"/>
+                            <vivibutton id="btnScrollDown" label="btnScrollDown" disabled="true" class="scrollDownBtn" image="chrome://viviecr/skin/images/down.png" oncommand="$do('btnScrollDown', null, 'RptCashDrawerSummary');"/>
+                            <vivibutton id="btnScrollBottom" label="btnScrollBottom" disabled="true" class="scrollBottomBtn" image="chrome://viviecr/skin/images/bottom.png" oncommand="$do('btnScrollBottom', null, 'RptCashDrawerSummary');"/>
+                            <!--vivibutton id="btnScrollLeftMost" label="btnScrollLeftMost" disabled="true" class="scrollLeftMostBtn" image="chrome://viviecr/skin/images/left_most.png" oncommand="$do('btnScrollLeftMost', null, 'RptCashDrawerSummary');"/>
+                            <vivibutton id="btnScrollLeft" label="btnScrollLeft" disabled="true" class="scrollLeftBtn" image="chrome://viviecr/skin/images/previous.png" oncommand="$do('btnScrollLeft', null, 'RptCashDrawerSummary');"/>
+                            <vivibutton id="btnScrollRight" label="btnScrollRight" disabled="true" class="scrollRightBtn" image="chrome://viviecr/skin/images/next.png" oncommand="$do('btnScrollRight', null, 'RptCashDrawerSummary');"/>
+                            <vivibutton id="btnScrollRightMost" label="btnScrollRightMost" disabled="true" class="scrollRightMostBtn" image="chrome://viviecr/skin/images/right_most.png" oncommand="$do('btnScrollRightMost', null, 'RptCashDrawerSummary');"/-->
+                        </tabs>
+                    </arrowscrollbox>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>

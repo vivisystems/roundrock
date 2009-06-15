@@ -1,5 +1,4 @@
 ( function() {
-
     /**
      * Product Sales Controller
      */
@@ -235,6 +234,8 @@
         },
 
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -259,8 +260,6 @@
                 menuitem.setAttribute( 'label', data.no + "-" + data.name );
                 dpt.appendChild( menuitem );
             });
-
-            this._enableButton( false );
         }
     };
 
