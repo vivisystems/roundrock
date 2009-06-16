@@ -13,6 +13,7 @@
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
         _csvLimit: 3000000,
         _stdLimit: 3000,
+        _maxRuntime: 20*60,
         
         //for the use of manipulating the waiting panel.
         _wait_panel_id: "wait_panel",
@@ -45,7 +46,7 @@
         _fileName: '', // appellation for the exported files.
         
         getCaptionId: function() {
-        	return this._waiting_caption_id;
+            return this._waiting_caption_id;
         },
 
         _showWaitingPanel: function( sleepTime ) {
@@ -81,11 +82,11 @@
         },
         
         _dismissWaitingPanel: function() {
-        	var progressBox = document.getElementById( this._progress_box_id );
-        	progressBox.removeChild( progressBox.firstChild );
+            var progressBox = document.getElementById( this._progress_box_id );
+            progressBox.removeChild( progressBox.firstChild );
         	
-        	var waitPanel = document.getElementById( this._wait_panel_id );
-        	waitPanel.hidePopup();
+            var waitPanel = document.getElementById( this._wait_panel_id );
+            waitPanel.hidePopup();
         },
 
         _enableButton: function( enable ) {
@@ -132,10 +133,10 @@
         },
         
         _waitingForExporting: function() {
-        	while ( 1 ) { // Because printToPdf will return right away, we have to wait until the exporting task has done so that the waiting panel disappears properly.
-            	if ( this._fileExportingFlag )
-            		break;
-            	this.sleep( 1000 );
+            while ( 1 ) { // Because printToPdf will return right away, we have to wait until the exporting task has done so that the waiting panel disappears properly.
+                if ( this._fileExportingFlag )
+                    break;
+                this.sleep( 1000 );
             }
         },
 	    
@@ -154,6 +155,10 @@
 
         execute: function() {
             try {
+
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+
                 var waitPanel = this._showWaitingPanel();
 
                 this._setTemplateDataHead();
@@ -162,13 +167,16 @@
                 this._exploit_reportRecords();
             } catch ( e ) {
             } finally {
+
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                
                 this._enableButton( true );
                 
                 var splitter = document.getElementById( 'splitter_zoom' );
                 splitter.setAttribute( 'state', 'collapsed' );
 		        
-		        if ( waitPanel != undefined )
-                	this._dismissWaitingPanel();
+                if ( waitPanel != undefined )
+                    this._dismissWaitingPanel();
             }
         },
         
@@ -189,8 +197,12 @@
             }
 
             try {
-            	// setting the flag be zero means that the exporting has not finished yet.
-            	this._fileExportingFlag = 0;
+
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+
+                // setting the flag be zero means that the exporting has not finished yet.
+                this._fileExportingFlag = 0;
             	
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
@@ -202,7 +214,7 @@
                 var waitPanel = this._showWaitingPanel();
 
                 var progress = document.getElementById( this._progress_bar_id );
-				var caption = document.getElementById( this.getCaptionId() );
+                var caption = document.getElementById( this.getCaptionId() );
 				
                 var fileName = this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.pdf';
                 var targetDir = media_path;
@@ -213,18 +225,21 @@
                         // printing finished callback,
                         self._copyExportFileFromTmp( tmpFile, targetDir, 180 );
                     }
-                );
+                    );
                 
                 // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
                 this._waitingForExporting();
             } catch ( e ) {
             } finally {
-            	// enable buttons
+
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                
+                // enable buttons
                 this._enableButton( true );
 
                 // hide panel
                 if ( waitPanel != undefined )
-                	this._dismissWaitingPanel();
+                    this._dismissWaitingPanel();
             }
         },
 
@@ -233,8 +248,12 @@
                 return;
         		
             try {
-            	// setting the flag be zero means that the exporting has not finished yet.
-            	this._fileExportingFlag = 0;
+
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+
+                // setting the flag be zero means that the exporting has not finished yet.
+                this._fileExportingFlag = 0;
             	
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
@@ -282,12 +301,15 @@
             } catch ( e ) {
             }
             finally {
+
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                
                 // enable buttons
                 this._enableButton( true );
 
                 // hide panel
                 if ( waitPanel != undefined )
-                	this._dismissWaitingPanel();
+                    this._dismissWaitingPanel();
             }
         },
 
@@ -296,11 +318,15 @@
                 return;
         		
             try {
+
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+
                 this._enableButton( false );
                 var waitPanel = this._showWaitingPanel( 100 );
 
                 var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                    .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
+                .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
                 var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
    				
                 var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
@@ -313,32 +339,42 @@
             } catch ( e ) {
                 this.log( this.dump( e ) );
             } finally {
+
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                
                 this._enableButton( true );
                 
                 if ( waitPanel != undefined )
-               		this._dismissWaitingPanel();
+                    this._dismissWaitingPanel();
             }
         },
         
         print: function( paperProperties ) {
-        	try {
-        	    this._enableButton( false );
+            try {
+
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+
+                this._enableButton( false );
 
                 var waitPanel = this._showWaitingPanel();
 
                 var progress = document.getElementById( this._progress_bar_id );
-				var caption = document.getElementById( this.getCaptionId() );
+                var caption = document.getElementById( this.getCaptionId() );
 
-				//document.getElementById( 'preview_frame' ).contentWindow.print();
-		        //this.BrowserPrint.showPageSetup();
-		    	this.BrowserPrint.showPrintDialog( paperProperties, this._preview_frame_id, caption, progress );
-		    } catch ( e ) {
+                //document.getElementById( 'preview_frame' ).contentWindow.print();
+                //this.BrowserPrint.showPageSetup();
+                this.BrowserPrint.showPrintDialog( paperProperties, this._preview_frame_id, caption, progress );
+            } catch ( e ) {
             } finally {
+
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                
                 this._enableButton( true );
                 
                 // hide panel
                 if ( waitPanel != undefined )
-                	this._dismissWaitingPanel();
+                    this._dismissWaitingPanel();
             }
         },
         
@@ -403,47 +439,47 @@
             var self = this;
             if (!key) key = 'id';
             if ( div ) {
-		        div.addEventListener( 'click', function( event ) {
-		            if ( event.originalTarget.parentNode.id && event.originalTarget.parentNode.tagName == 'TR' )
-		                self._openOrderDialogByKey( key, event.originalTarget.parentNode.id );
-		        }, true );
-		    }
+                div.addEventListener( 'click', function( event ) {
+                    if ( event.originalTarget.parentNode.id && event.originalTarget.parentNode.tagName == 'TR' )
+                        self._openOrderDialogByKey( key, event.originalTarget.parentNode.id );
+                }, true );
+            }
         },
 
         _copyExportFileFromTmp: function( tmpFile, targetDir, timeout ) {
-			try {
-		        var maxTimes = timeout / 0.2;
-		        var tries = 0;
-		        var nsTmpfile;
-		        var self = this;
+            try {
+                var maxTimes = timeout / 0.2;
+                var tries = 0;
+                var nsTmpfile;
+                var self = this;
 
-		        // use setTimeout to wait gecko writing file to disk. XXXX
-		        var checkFn = function() {
-		            nsTmpfile = GREUtils.File.getFile( tmpFile );
-		            if ( nsTmpfile == null ) {
-		                // not exists waiting...
-		                tries++;
-		            } else {
-	                    GREUtils.File.copy( nsTmpfile, targetDir );
+                // use setTimeout to wait gecko writing file to disk. XXXX
+                var checkFn = function() {
+                    nsTmpfile = GREUtils.File.getFile( tmpFile );
+                    if ( nsTmpfile == null ) {
+                        // not exists waiting...
+                        tries++;
+                    } else {
+                        GREUtils.File.copy( nsTmpfile, targetDir );
 
-	                    // crazy sync.....
-	                    GREUtils.File.run( "/bin/sync", [], true );
-	                    GREUtils.File.run( "/bin/sh", [ '-c', '/bin/sync; /bin/sleep 3; /bin/sync;' ], true );
-	                    GREUtils.File.run( "/bin/sync", [], true );
+                        // crazy sync.....
+                        GREUtils.File.run( "/bin/sync", [], true );
+                        GREUtils.File.run( "/bin/sh", [ '-c', '/bin/sync; /bin/sleep 3; /bin/sync;' ], true );
+                        GREUtils.File.run( "/bin/sync", [], true );
 
-	                    nsTmpfile.remove( false );
+                        nsTmpfile.remove( false );
 
-		                tries = maxTimes;
-		            }
-		            if( tries < maxTimes ) {
-		                setTimeout( arguments.callee, 200 );
-		            }
-		        };
-		        setTimeout( checkFn, 200 );
-		    } catch ( e ) {
-		    } finally {
-		    	this._fileExportingFlag = 1;
-		    }
+                        tries = maxTimes;
+                    }
+                    if( tries < maxTimes ) {
+                        setTimeout( arguments.callee, 200 );
+                    }
+                };
+                setTimeout( checkFn, 200 );
+            } catch ( e ) {
+            } finally {
+                this._fileExportingFlag = 1;
+            }
         },
 
         btnScrollTop: function() {
