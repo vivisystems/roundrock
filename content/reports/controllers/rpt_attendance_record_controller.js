@@ -116,6 +116,8 @@
         },
 
         load: function() {
+            this._super();
+            
             var today = new Date();
             var yy = today.getYear() + 1900;
             var mm = today.getMonth();
@@ -130,8 +132,6 @@
 		    this._addMenuitem( new ClockStampModel(), [ 'displayname' ], '', 'displayname', 'displayname', 'user_menupopup', 'displayname', 'displayname' );
             
             this._addMenuitem( new ClockStampModel(), [ 'job' ], '', 'job', 'job', 'job_menupopup', 'job', 'job' );
-
-            this._enableButton(false);
         }
     };
     

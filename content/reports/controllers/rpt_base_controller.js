@@ -1,5 +1,4 @@
 ( function() {
-
     /**
      * Report Base Controller
      * This class is used to maintain the utility methods taken advantage by each report controller.
@@ -14,6 +13,8 @@
         _csvLimit: 3000000,
         _stdLimit: 3000,
         _maxRuntime: 20*60,
+        _scrollRange: null,
+        _scrollRangePreference: "vivipos.fec.settings.scrollRange",
         
         //for the use of manipulating the waiting panel.
         _wait_panel_id: "wait_panel",
@@ -94,7 +95,6 @@
             $( '#export_pdf' ).attr( 'disabled', disabled );
             $( '#export_csv' ).attr( 'disabled', disabled );
             $( '#export_rcp' ).attr( 'disabled', disabled );
-
             $( '#print' ).attr( 'disabled', disabled );
 
             $( '#btnScrollTop' ).attr( 'disabled', disabled );
@@ -103,8 +103,8 @@
             $( '#btnScrollBottom' ).attr( 'disabled', disabled );
             $( '#btnScrollLeft' ).attr( 'disabled', disabled );
             $( '#btnScrollRight' ).attr( 'disabled', disabled );
-
-
+            $( '#btnScrollLeftMost' ).attr( 'disabled', disabled );
+            $( '#btnScrollRightMost' ).attr( 'disabled', disabled );
         },
         
         _setTemplateDataHead: function() {
@@ -484,73 +484,83 @@
 
         btnScrollTop: function() {
             var bw = document.getElementById( this._preview_frame_id );
-            if (!bw) return ;
+            if ( !bw ) return ;
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             doc.scrollTop = 0;
-
         },
 
         btnScrollUp: function() {
             var bw = document.getElementById( this._preview_frame_id );
-            if (!bw) return ;
+            if ( !bw ) return ;
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
-            if (doc.scrollTop <= 0) return;
-            doc.scrollTop -= 200;
+            if ( doc.scrollTop <= 0 ) return;
+            doc.scrollTop -= this._scrollRange;
 
-            if (doc.scrollTop < 0) doc.scrollTop = 0;
-            
+            if ( doc.scrollTop < 0 ) doc.scrollTop = 0;
         },
 
         btnScrollDown: function() {
             var bw = document.getElementById( this._preview_frame_id );
-            if (!bw) return ;
+            if ( !bw ) return ;
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
-            if (doc.scrollTop > doc.scrollHeight) return;
-            doc.scrollTop += 200;
+            if ( doc.scrollTop > doc.scrollHeight ) return;
+            doc.scrollTop += this._scrollRange;
 
-            if (doc.scrollTop > doc.scrollHeight) doc.scrollTop = doc.scrollHeight-doc.clientHeight;
-
+            if ( doc.scrollTop > doc.scrollHeight ) doc.scrollTop = doc.scrollHeight - doc.clientHeight;
         },
 
         btnScrollBottom: function() {
             var bw = document.getElementById( this._preview_frame_id );
-            if (!bw) return ;
+            if ( !bw ) return ;
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
-            doc.scrollTop = doc.scrollHeight-doc.clientHeight;
-
+            doc.scrollTop = doc.scrollHeight - doc.clientHeight;
         },
 
         btnScrollLeft: function() {
             var bw = document.getElementById( this._preview_frame_id );
-            if (!bw) return ;
+            if ( !bw ) return ;
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
-            if (doc.scrollLeft <= 0) return;
-            doc.scrollLeft -= 200;
+            if ( doc.scrollLeft <= 0 ) return;
+            doc.scrollLeft -= this._scrollRange;
 
-            if (doc.scrollLeft < 0) doc.scrollLeft = 0;
-
+            if ( doc.scrollLeft < 0 ) doc.scrollLeft = 0;
         },
 
         btnScrollRight: function() {
             var bw = document.getElementById( this._preview_frame_id );
-            if (!bw) return ;
+            if ( !bw ) return ;
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             if (doc.scrollLeft > doc.scrollWidth) return;
-            doc.scrollLeft += 200;
+            doc.scrollLeft += this._scrollRange;
 
-            if (doc.scrollLeft > doc.scrollWidth) doc.scrollLeft = doc.scrollWidth-doc.clientWidth;
+            if ( doc.scrollLeft > doc.scrollWidth ) doc.scrollLeft = doc.scrollWidth - doc.clientWidth;
+        },
+        
+        btnScrollLeftMost: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
 
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            doc.scrollLeft = 0;
         },
 
+        btnScrollRightMost: function() {
+            var bw = document.getElementById( this._preview_frame_id );
+            if ( !bw ) return ;
+
+            var doc = bw.contentWindow.document.getElementById( this._abody_id );
+            doc.scrollLeft = doc.scrollWidth - doc.clientWidth;
+        },
 
         load: function() {
             this._enableButton( false );
+            this._scrollRange = GeckoJS.Configure.read( this._scrollRangePreference );
         }
     };
     

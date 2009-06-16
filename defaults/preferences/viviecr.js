@@ -11,6 +11,5 @@ pref("vivipos.fec.settings.functionpanel.rows", 3);
 pref("vivipos.fec.settings.PrivateQueue", false);
 pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
 pref("vivipos.fec.settings.image.disklimit", 52428800);
-pref("vivipos.fec.settings.maxExportPdfHeight", 30000);
 
 pref("vivipos.fec.general.layouts.selectedLayout", "traditional");

@@ -133,7 +133,7 @@
                                 </hbox>
                                 <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
                                     <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('doExit', null, 'TableMan');"/>
                                 </hbox>
                             </hbox>
                         </vbox>
@@ -195,7 +195,7 @@
                                 </hbox>
                                 <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
                                     <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('doExit', null, 'TableMan');"/>
                                 </hbox>
                             </hbox>
                         </vbox>
@@ -345,7 +345,7 @@
                                 </hbox>
                                 <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
                                     <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('doExit', null, 'TableMan');"/>
                                 </hbox>
                             </hbox>
                         </vbox>
@@ -373,7 +373,7 @@
                                 </hbox>
                                 <hbox id="edit_dialogButtons" class="dialogbtns" pack="center">
                                     <button id="edit_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                                    <button class="ExitBtn" id="edit_ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                                    <button class="ExitBtn" id="edit_ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('doExit', null, 'TableMan');"/>
                                 </hbox>
                             </hbox>
                         </vbox>
