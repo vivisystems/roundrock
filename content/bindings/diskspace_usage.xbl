@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+  <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
+  %bindingsDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="diskspace_usage">
+  <resources>
+  	<stylesheet src="chrome://viviecr/skin/buttons.css" />
+  </resources>
+
+  <content>
+
+    <xul:vbox flex="1" xbl:inherits="flex,class" anonid="boxContainer">
+        <html:div anonid="barContainer" style="width: 704px; max-width: 704px; min-height: 54px; border: 2px solid black;">
+            <html:div class="button-gray" anonid="day1Bar" style="width: 0px; float: left;" ></html:div>
+            <html:div class="button-red" anonid="day2Bar" style="width: 0px; float: left;"></html:div>
+            <html:div class="button-orange" anonid="day3Bar" style="width: 0px; float: left;"></html:div>
+            <html:div class="button-fuchsia" anonid="day4Bar" style="width: 0px; float: left;"></html:div>
+            <html:div class="button-teal" anonid="day5Bar" style="width: 0px; float: left;"></html:div>
+            <html:div class="button-yellow" anonid="day6Bar" style="width: 0px; float: left;"></html:div>
+            <html:div class="button-blue" anonid="day7Bar" style="width: 0px; float: left;"></html:div>
+            <html:div class="button-green" anonid="freeBar" style="width: 0px; float: left;"></html:div>
+        </html:div>
+
+        <xul:grid flex="1">
+            <xul:columns>
+                <xul:column flex="1" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;"/>
+                <xul:column flex="4" />
+                <xul:column flex="1" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" />
+                <xul:column flex="4" />
+                <xul:column flex="1" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" />
+                <xul:column flex="4" />
+                <xul:column flex="1" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" />
+                <xul:column flex="4" />
+            </xul:columns>
+            <xul:rows>
+                <xul:spacer style="min-height: 4px;" />
+
+                <xul:row>
+                    <html:div class="button-gray" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" ></html:div>
+                    <xul:label anonid="day1Label" value="" />
+                    <html:div class="button-red" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" ></html:div>
+                    <xul:label anonid="day2Label" value="" />
+                    <html:div class="button-orange" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" ></html:div>
+                    <xul:label anonid="day3Label" value="" />
+                    <html:div class="button-fuchsia" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" ></html:div>
+                    <xul:label anonid="day4Label" value="" />
+                </xul:row>
+
+                <xul:spacer style="min-height: 4px;" />
+
+                <xul:row>
+                    <html:div class="button-teal" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" ></html:div>
+                    <xul:label anonid="day5Label" value="" />
+                    <html:div class="button-yellow" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" ></html:div>
+                    <xul:label anonid="day6Label" value="" />
+                    <html:div class="button-blue" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" ></html:div>
+                    <xul:label anonid="day7Label" value="" />
+                    <html:div class="button-green" style="min-width: 24px; min-height: 24px;max-width: 24px; max-height: 24px;" ></html:div>
+                    <xul:label anonid="freeLabel" value="" />
+                </xul:row>
+            </xul:rows>
+        </xul:grid>
+
+        <xul:spacer style="min-height: 4px;" />
+
+    </xul:vbox>
+  </content>
+
+  <implementation>
+
+        <property name="boxContainer" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'boxContainer');" readonly="true" />
+        <property name="barContainer" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'barContainer');" readonly="true" />
+
+	<xbl:constructor><![CDATA[
+
+            this.datas = [] ;
+            this.parseDiskspaceUsage();
+            this.renderDiskspaceUsage();
+
+         ]]>
+	</xbl:constructor>
+
+    <xbl:destructor>
+
+    </xbl:destructor>
+
+    <method name="parseDiskspaceUsage">
+      <body><![CDATA[
+
+          var file = new GeckoJS.File("/var/lib/vivipos/diskspace_usage.csv");
+
+          var buf = "";
+          try {
+            file.open("r");
+            buf = file.read();
+            file.close();
+            this.datas = GeckoJS.String.parseCSV(buf, ',', '', '\n');
+
+          }catch(e) {
+            dump(e);
+          }
+
+      ]]>
+      </body>
+    </method>
+
+    <method name="renderDiskspaceUsage">
+      <body><![CDATA[
+
+
+        var duDatas = [];
+
+        var dataLength = this.datas.length;
+        var maxDay = 7;
+
+        var barWidth = parseInt(this.barContainer.style.width.replace('px',''));
+        barWidth = barWidth - (barWidth%10); // no border width
+
+        GREUtils.log('length = ' + dataLength);
+        try {
+
+        for( var i=dataLength-1, day=0; i >=0 ; i--) {
+
+            // parseCSV bug
+            if (this.datas[i].length == 1) continue;
+
+            var used = parseInt(this.datas[i][1]);
+            var available = parseInt(this.datas[i][2]);
+            var date = this.datas[i][0]+'';
+
+            if(isNaN(used))continue;
+            
+            var data = {date: date, used: used, available: available};
+
+            duDatas.push(data);
+            day++;
+            if(day >= maxDay) break;
+
+        }
+        }catch(e) {
+            dump(e);
+        }
+
+
+        var prevUsed = 0;
+        var day =0 ;
+        var totalPixels = 0;
+        for( var idx=duDatas.length-1; idx >=0 ; idx--) {
+
+            var data = duDatas[idx];
+            day++;
+            var diffUsed = parseInt(data.used-prevUsed);
+            prevUsed = data.used;
+
+            var percentPixels = Math.floor((diffUsed / parseInt(data.used+data.available)) * barWidth);
+            totalPixels+=percentPixels;
+
+            this.setLabel('day'+day, data.date + ' (' +  GeckoJS.NumberHelper.toReadableSize(diffUsed*1024) + ')');
+            this.setBar('day'+day, percentPixels);            
+
+        }
+
+        this.setBar('free', barWidth-totalPixels);
+        this.setLabel('free', _('Free') + ' (' + GeckoJS.NumberHelper.toReadableSize(duDatas[duDatas.length-1].available*1024) + ')');
+
+
+
+      ]]>
+      </body>
+    </method>
+
+
+    <method name="setLabel">
+      <parameter name="label"/>
+      <parameter name="value"/>
+      <body><![CDATA[
+
+        var labelObj = document.getAnonymousElementByAttribute(this, "anonid", label+'Label') || null;
+        if(!labelObj) return;
+
+        labelObj.setAttribute('value', value);
+
+      ]]>
+      </body>
+    </method>
+
+    <method name="setBar">
+      <parameter name="bar"/>
+      <parameter name="value"/>
+      <body><![CDATA[
+
+        var barObj = document.getAnonymousElementByAttribute(this, "anonid", bar+'Bar') || null;
+        if(!barObj) return;
+
+        barObj.style.width = value + 'px';
+
+      ]]>
+      </body>
+    </method>
+
+
+   </implementation>
+</binding>
+
+</bindings>
