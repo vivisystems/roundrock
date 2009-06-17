@@ -115,3 +115,4 @@ pref("vivipos.fec.acl.roles.acl_truncate_transaction_records", "acl_truncate_tra
 pref("vivipos.fec.acl.roles.acl_localization_editor", "acl_localization_editor");
 pref("vivipos.fec.acl.roles.acl_training_mode", "acl_training_mode");
 pref("vivipos.fec.acl.roles.acl_manage_nonplu_setting", "acl_manage_nonplu_setting");
+pref("vivipos.fec.acl.roles.acl_stock_adjustment", "acl_stock_adjustment");
