@@ -42,7 +42,18 @@ do_integrity_check()
 
 }
 
+#
+# do disk usage check
+#
+do_disk_usage_check()
+{
+	if [ -x /data/scripts/diskspace_usage.sh ]; then
+		/data/scripts/diskspace_usage.sh
+	fi
+}
 
+
+# for loop runing vivipos forever
 while [ $RETVAL != 0 ]; do
     /usr/bin/aosd_cat -d 8000 "Starting VIVIPOS ......" &
 
@@ -50,6 +61,8 @@ while [ $RETVAL != 0 ]; do
 
 	# do_integrity_check
 	do_integrity_check
+
+	do_disk_usage_check
 
     ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
     RETVAL=$?
