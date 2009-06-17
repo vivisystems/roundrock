@@ -46,6 +46,8 @@ class SyncBaseShell extends Shell {
     function observerNotify($action="starting", $data="") {
 
         $this->syncStatus($action);
+
+        return ;
         
         // notify vivipos client we are now syncing...
         switch($action) {

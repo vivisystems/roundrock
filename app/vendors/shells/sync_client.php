@@ -124,6 +124,8 @@ class SyncClientShell extends SyncBaseShell {
 
         $timeout = $syncSettings['timeout'];
 
+        $hostname = $syncSettings['hostname'];
+
         // While checks on 2 things in this case:
         // - That the Daemon Class hasn't reported it's dying
         // - That your own code has been running Okay
@@ -145,6 +147,8 @@ class SyncClientShell extends SyncBaseShell {
             while ( $runningOkay && ($tries < $error_retry)) {
 
                 System_Daemon::log(System_Daemon::LOG_INFO, "requestAction perform_syncs, retries = " . $tries );
+
+                if ($hostname == 'localhost' || $hostname == '127.0.0.1') break;
 
                 $successed = false;
                 
