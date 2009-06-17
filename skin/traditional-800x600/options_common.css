@@ -415,6 +415,11 @@ listitem[selected=true] {
 }
 
 /* number pad */
+.numpad row, .numpad column {
+    border: 0px;
+    padding: 0px;
+}
+
 .numpad sendkeybutton{
     min-width:77px;
     max-width:77px;
@@ -433,6 +438,7 @@ listitem[selected=true] {
     background: transparent url(images/m_numbtn.png) center center no-repeat;
     color: #47657d;
 }
+
 .numpad sendkeybutton:active{
 	background: transparent url(images/m_numbtn_a.png) center center no-repeat;
 }

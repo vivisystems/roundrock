@@ -52,6 +52,13 @@
 		
 		getAll: function( type, params) {
 			return this.find( type, params );
+		},
+		
+		getStockRecordByProductNo: function( product_no ) {
+		    return this.get( "first", {
+		        fields: [ "quantity" ],
+		        conditions: "product_no = '" + product_no + "'"
+		    } );
 		}
 	};
 	

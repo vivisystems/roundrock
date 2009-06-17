@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * Class ViviPOS.StockRecordsController
      */
@@ -147,10 +146,16 @@
         },
         
         modifyStock: function() {
-        	var product_no = document.getElementById( 'product_no' ).value;
-        	var quantity = document.getElementById( 'quantity' ).value;
+            var product_no = document.getElementById( 'product_no' ).value;
+        	var quantity = parseInt( document.getElementById( 'quantity' ).value, 10 );
         	var memo = document.getElementById( 'memo' ).value;
         	
+        	this.adjustStock( product_no, quantity, memo );
+        	
+        	this.updateStock();
+        },
+        
+        adjustStock: function( product_no, quantity, memo ) {
         	var stockRecord = this._stockRecordsByProductNo[ product_no ];
         	var qty_difference = quantity - stockRecord.quantity;
         	stockRecord.quantity = quantity;
@@ -163,16 +168,15 @@
         	for ( attr in stockRecord )
         		adjustment[ attr ] = stockRecord[ attr ];
         	adjustment.id = '';
-        	adjustment.quantity = qty_difference;
+        	adjustment.difference = qty_difference;
+        	adjustment.new_quantity = quantity;
         	adjustment.sale_period = GeckoJS.Session.get( 'sale_period' );
         	adjustment.shift_number = GeckoJS.Session.get( 'shift_number' );
         	
         	var stockAdjustmentModel = new StockAdjustmentModel();
         	stockAdjustmentModel.set( adjustment );
-        	
-        	this.updateStock();
         }
     };
     
     GeckoJS.Controller.extend( __controller__ );
-})();
+} )();
