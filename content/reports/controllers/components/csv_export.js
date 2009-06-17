@@ -89,6 +89,9 @@
                 this.execute( "/bin/sh", [ "-c", "/bin/sync; /bin/sleep 1; /bin/sync;" ] );
             } catch( e ) {
                 GREUtils.log( 'ERROR', 'exportCSV ' + e );
+                alert( "Fail while exporting CSV file with printToFile method!" );
+                throw e;
+            } finally {
             }
         }
 

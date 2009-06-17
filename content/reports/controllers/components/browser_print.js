@@ -128,6 +128,10 @@
                 	this.sleep( 1000 );
                 }
             } catch ( e ) {
+                dump( e );
+                alert( "Fail in showPrintDialog method!" );
+                throw e;
+            } finally {
             }
         },
         
@@ -165,6 +169,10 @@
 		        
                 this._webBrowserPrint.print( this._printSettings, awpListener );
             } catch ( e ) {
+                dump( e );
+                alert( "Fail in printToPdf method!" );
+                throw e;
+            } finally {
             }
         },
        

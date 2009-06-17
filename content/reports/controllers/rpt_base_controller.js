@@ -226,11 +226,12 @@
                         // printing finished callback,
                         self._copyExportFileFromTmp( tmpFile, targetDir, 180 );
                     }
-                    );
+                );
                 
                 // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
                 this._waitingForExporting();
             } catch ( e ) {
+                dump( e );
             } finally {
                 // Reset the timeout limit to the default value.
                 GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
@@ -300,6 +301,7 @@
                 // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
                 this._waitingForExporting();
             } catch ( e ) {
+                dump( e );
             } finally {
                 // Reset the timeout limit to the default value.
                 GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
@@ -337,7 +339,7 @@
                 
                 rcp.printReport( 'report', tpl, this._reportRecords );
             } catch ( e ) {
-                this.log( this.dump( e ) );
+                dump( e );
             } finally {
                 // Reset the timeout limit to the default value.
                 GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
@@ -366,6 +368,7 @@
                 //this.BrowserPrint.showPageSetup();
                 this.BrowserPrint.showPrintDialog( paperProperties, this._preview_frame_id, caption, progress );
             } catch ( e ) {
+                dump( e );
             } finally {
                 // Reset the timeout limit to the default value.
                 GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
@@ -477,6 +480,7 @@
                 };
                 setTimeout( checkFn, 200 );
             } catch ( e ) {
+                dump( e );
             } finally {
                 this._fileExportingFlag = 1;
             }
