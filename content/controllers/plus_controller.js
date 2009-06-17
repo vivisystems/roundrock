@@ -234,6 +234,11 @@
                 else {
                     product.cate_name = this._selCateName;
                 }
+                // for rendering stock quantity.
+                var stockRecordModel = new StockRecordModel();
+                var stockRecord = stockRecordModel.getStockRecordByProductNo( product.no );
+                product.stock = stockRecord.quantity;
+                
                 this.setInputData(product);
 
                 this.reorderCondimentGroup();
@@ -842,8 +847,14 @@
                     prodModel.id = inputData.id;
                     prodModel.save(inputData);
                     
+                    // Insert stock difference into stock_adjustments.
+                    var stockAdjustmentsController =
+                        GeckoJS.Controller.getInstanceByName( "StockAdjustments" );
+                    // Get stock info. used in the stockAdjustmentsController.
+                    stockAdjustmentsController.list();
+                    stockAdjustmentsController.adjustStock( product.no, inputData.stock, "Done in product page" );
+                    
                     // update set items
-
                     var setItemModel = new SetItemModel();
 
                     // first we delete old items

@@ -361,6 +361,11 @@ checkbox:hover, radio:hover {
     color: #cc6300;
 }
 
+.numpad row, .numpad column {
+    border: 0px;
+    padding: 0px;
+}
+
 .numpad sendkeybutton{
     min-width:92px;
     max-width:92px;

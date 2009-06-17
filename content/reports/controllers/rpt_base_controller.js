@@ -12,7 +12,8 @@
         _recordLimit: 100, // this attribute indicates upper bount of the number of rwos we are going to take.
         _csvLimit: 3000000,
         _stdLimit: 3000,
-        _maxRuntime: 20*60,
+        _maxRuntime: 20 * 60,
+        _maxRuntimePreference: 'dom.max_chrome_script_run_time',
         _scrollRange: null,
         _scrollRangePreference: "vivipos.fec.settings.scrollRange",
         
@@ -155,9 +156,9 @@
 
         execute: function() {
             try {
-
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+                // Doing so to prevent the timeout dialog from prompting during the execution.
+                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
+                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
 
                 var waitPanel = this._showWaitingPanel();
 
@@ -167,8 +168,8 @@
                 this._exploit_reportRecords();
             } catch ( e ) {
             } finally {
-
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // Reset the timeout limit to the default value.
+                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
                 this._enableButton( true );
                 
@@ -197,9 +198,9 @@
             }
 
             try {
-
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+                // Doing so to prevent the timeout dialog from prompting during the execution.
+                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
+                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );;
 
                 // setting the flag be zero means that the exporting has not finished yet.
                 this._fileExportingFlag = 0;
@@ -231,8 +232,8 @@
                 this._waitingForExporting();
             } catch ( e ) {
             } finally {
-
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // Reset the timeout limit to the default value.
+                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
                 // enable buttons
                 this._enableButton( true );
@@ -248,9 +249,9 @@
                 return;
         		
             try {
-
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+                // Doing so to prevent the timeout dialog from prompting during the execution.
+                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
+                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
 
                 // setting the flag be zero means that the exporting has not finished yet.
                 this._fileExportingFlag = 0;
@@ -299,10 +300,9 @@
                 // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
                 this._waitingForExporting();
             } catch ( e ) {
-            }
-            finally {
-
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+            } finally {
+                // Reset the timeout limit to the default value.
+                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
                 // enable buttons
                 this._enableButton( true );
@@ -318,9 +318,9 @@
                 return;
         		
             try {
-
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+                // Doing so to prevent the timeout dialog from prompting during the execution.
+                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
+                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
 
                 this._enableButton( false );
                 var waitPanel = this._showWaitingPanel( 100 );
@@ -339,8 +339,8 @@
             } catch ( e ) {
                 this.log( this.dump( e ) );
             } finally {
-
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // Reset the timeout limit to the default value.
+                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
                 this._enableButton( true );
                 
@@ -351,9 +351,9 @@
         
         print: function( paperProperties ) {
             try {
-
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', this._maxRuntime);
+                // Doing so to prevent the timeout dialog from prompting during the execution.
+                var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
+                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
 
                 this._enableButton( false );
 
@@ -367,8 +367,8 @@
                 this.BrowserPrint.showPrintDialog( paperProperties, this._preview_frame_id, caption, progress );
             } catch ( e ) {
             } finally {
-
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // Reset the timeout limit to the default value.
+                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
                 this._enableButton( true );
                 
@@ -560,7 +560,7 @@
 
         load: function() {
             this._enableButton( false );
-            this._scrollRange = GeckoJS.Configure.read( this._scrollRangePreference );
+            this._scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
         }
     };
     

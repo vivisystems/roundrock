@@ -7,7 +7,6 @@
  */
 (function(){
 
-
 // include project locale properties
 GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties");
 
@@ -20,6 +19,7 @@ include('chrome://viviecr/content/models/clockstamp.js');
 include('chrome://viviecr/content/models/condiment.js');
 include('chrome://viviecr/content/models/condiment_group.js');
 include('chrome://viviecr/content/models/job.js');
+include('chrome://viviecr/content/models/stock_record.js');
 
 include('chrome://viviecr/content/models/order.js');
 include('chrome://viviecr/content/models/order_item.js');
