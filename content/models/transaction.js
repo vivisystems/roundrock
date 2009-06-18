@@ -1714,7 +1714,7 @@
 
                 condimentList.forEach(function(c) {
                     condimentNames += (condimentNames == '') ? c : (',' + c);
-                    condimentSubtotal += parseInt(condiments[c].price) || 0;
+                    condimentSubtotal += parseFloat(condiments[c].price) || 0;
                 });
 
                 var condimentItem = {

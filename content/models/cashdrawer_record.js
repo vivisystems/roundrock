@@ -1,23 +1,35 @@
-var CashdrawerRecordModel = window.CashdrawerRecordModel = GeckoJS.Model.extend({
-    name: 'CashdrawerRecord',
+(function() {
 
-    useDbConfig: 'order',
+    var __model__ = {
+        
+        name: 'CashdrawerRecord',
 
-    autoRestoreFromBackup: true,
-    
-    behaviors: ['Sync', 'Training1'],
+        useDbConfig: 'order',
 
-    saveAccessRecord: function(record) {
-        var r = this.save(record);
-        if (!r) {
-            //@db saveToBackup
-            this.saveToBackup(record);
+        autoRestoreFromBackup: true,
 
-            // log error
-            this.log('ERROR',
-                     _('An error was encountered while logging cashdrawer activity (error code %S); record saved to backup %S',
-                       [this.lastError, '\n' + this.dump(record)]));
+        behaviors: ['Sync', 'Training'],
+
+        saveAccessRecord: function(data) {
+            var r = this.save(data);
+            if (!r) {
+                this.log('ERROR',
+                         _('An error was encountered while saving cashdrawer activity (error code %S): %S', [this.lastError, this.lastErrorString]));
+
+                //@db saveToBackup
+                r = this.saveToBackup(data);
+                if (r) {
+                    this.log('ERROR', _('record saved to backup'));
+                }
+                else {
+                    this.log('ERROR',
+                             _('record could not be saved to backup: %S', ['\n' + this.dump(data)]));
+                }
+            }
+            return r;
         }
-
     }
-});
+
+    var CashdrawerRecordModel = window.CashdrawerRecordModel = GeckoJS.Model.extend(__model__);
+
+})();

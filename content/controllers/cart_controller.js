@@ -161,8 +161,8 @@
                 } catch (e) {}
 
                 if ((diff + item_count) > stock) {
-                    if (true || qtyIncreased) { // always display warning
-                        cart.dispatchEvent('onLowStock', obj);
+                    if (qtyIncreased) { // always display warning
+                        cart.dispatchEvent('onOutOfStock', obj);
                         cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
                         //@todo add OSD?
                         NotifyUtils.warn(_('[%S] may be out of stock!', [item.name]));
@@ -179,7 +179,7 @@
                     }
                 } else if (min_stock > (stock - (diff + item_count))) {
                     if (true || qtyIncreased) { // always display warning
-                        cart.dispatchEvent('onLowerStock', obj);
+                        cart.dispatchEvent('onLowStock', obj);
                         cart.dispatchEvent('onWarning', _('STOCK LOW'));
 
                         //@todo add OSD?
@@ -2642,8 +2642,8 @@
             });
 
             if (ledgerEntryTypeModel.lastError) {
-                this.dbAlert(ledgerEntryTypeModel,
-                             _('An error was encountered while retrieving ledger entry types'));
+                this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
+                              _('An error was encountered while retrieving ledger entry types (error code %s)', [ledgerEntryTypeModel.lastError]));
                 return;
             }
 
@@ -2694,13 +2694,21 @@
 
             $do('saveLedgerEntry', inputObj, 'LedgerRecords');
 
-            if (printer == 1 || printer == 2) {
-                var printController = GeckoJS.Controller.getInstanceByName('Print');
-                printController.printLedgerReceipt(inputObj, printer);
-            }
-            // @todo OSD
-            NotifyUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
-                               [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+            // check inputObj.id for result
+                if (inputObj.id) {
+                    if (printer == 1 || printer == 2) {
+                        var printController = GeckoJS.Controller.getInstanceByName('Print');
+                        printController.printLedgerReceipt(inputObj, printer);
+                    }
+                    // @todo OSD
+                    NotifyUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
+                                       [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+                }
+                else {
+                    //@todo OSD
+                    NotifyUtils.error(_('Failed to log transaction [%S] for amount of [%S] to the ledger',
+                                      [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+                }
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -3090,8 +3098,8 @@
             var orderModel = new OrderModel();
             var existingOrder = orderModel.findById(oldTransaction.data.id, 0, "id,status");
             if (parseInt(orderModel.lastError) != 0) {
-                this.dbError(orderModel.lastError, orderModel.lastErrorString,
-                             _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
+                this._dbError(orderModel.lastError, orderModel.lastErrorString,
+                              _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
                 return false;
             }
 
@@ -3644,8 +3652,8 @@
             var orderModel = new OrderModel();
             var order = orderModel.findById(id, 2);
             if (parseInt(orderModel.lastError) != 0) {
-                this.dbError(orderModel.lastError, orderModel.lastErrorString,
-                             _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
+                this._dbError(orderModel.lastError, orderModel.lastErrorString,
+                              _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
                 return;
             }
 
@@ -3783,8 +3791,8 @@
                             paymentModel.rollback();
 
                             if (lastModel) {
-                                this.dbError(lastModel.lastError, lastModel.lastErrorString,
-                                             _('An error was encountered while voiding sale (error code %S).', [lastModel.lastError]));
+                                this._dbError(lastModel.lastError, lastModel.lastErrorString,
+                                              _('An error was encountered while voiding sale (error code %S).', [lastModel.lastError]));
                             }
                             else {
                                 GREUtils.Dialog.alert(window,
@@ -3794,8 +3802,8 @@
                         }
                     }
                     else {
-                        this.dbError(paymentModel.lastError, paymentModel.lastErrorString,
-                                     _('An error was encountered while voiding sale (error code %S).', [paymentModel.lastError]));
+                        this._dbError(paymentModel.lastError, paymentModel.lastErrorString,
+                                      _('An error was encountered while voiding sale (error code %S).', [paymentModel.lastError]));
                     }
                 }
             }
@@ -4428,11 +4436,11 @@
             }
         },
 
-        dbError: function(errNo, errMsg, alertStr) {
-            this.log('WARN', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(window,
                                   _('Data Operation Error'),
-                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errstr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
         
         destroy: function() {

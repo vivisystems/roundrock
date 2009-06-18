@@ -385,10 +385,16 @@
                 emptyCount = this._currentPkg.emptyCount;
             }
             else {
-                strings = this._currentPkg.strings.filter(function(str) {
-                    return str.translation.indexOf(filterText) > -1;
-                })
                 emptyCount = 0;
+
+                strings = this._currentPkg.strings.filter(function(str) {
+                    if ((str.translation.indexOf(filterText) > -1) || (str.base.indexOf(filterText) > -1)) {
+                        if (str.translation == null || str.translation == '') emptyCount++;
+                        return true;
+                    }
+                    else
+                        return false;
+                })
             }
             this._displayStrings(this._currentPkg, strings, emptyCount);
 

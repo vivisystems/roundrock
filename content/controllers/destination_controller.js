@@ -202,7 +202,7 @@
         },
 	
         select: function(index){
-            this.getListObj().vivitree.selection.select(index);
+            this.getListObj().selection.select(index);
             this.getListObj().treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
                 var inputObj = this._listDatas[index];

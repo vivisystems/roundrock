@@ -133,7 +133,7 @@
                 }
                 if (this.isDuplicate(table_no)) {
                     // @todo OSD
-                    NotifyUtils.warn(_('Table Number [%S] has already been assigned exists', [table_no]));
+                    NotifyUtils.warn(_('Table Number [%S] has already been assigned', [table_no]));
                     return;
                 }
 
@@ -146,7 +146,9 @@
 
                 // add table_status
                 var newTableStatus = {table_id:newTable.id, table_no: table_no};
-                newTableStatus = this._getTableStatusModel().save(newTableStatus);
+                var tableStatusModel = this._getTableStatusModel();
+                tableStatusModel.id = null;
+                newTableStatus = tableStatusModel.save(newTableStatus);
 
                 this.loadTables();
 

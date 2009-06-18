@@ -58,15 +58,10 @@
                         </hbox>
                     </groupbox>
                     <spacer style="height:5px;" />
-                    <viviscrollabletree id="plusearchscrollablepanel" flex="1"
+                    <vivitree id="plusearchscrollablepanel" flex="1" class="ListPnl showscrollbar"
                                         headers="&plus.product.no;,&plus.product.name;,&plus.stock.level;"
                                         fields="no,name,stock" hidecolumnpicker="true"
-                                        onclick="$do('select',this.selectedIndex, 'PluSearch');"
-                                        class="plupnl" dir="reverse"
-                                        scrollUpClass="ScrollUp"
-                                        scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
+                                        onclick="$do('select',this.selectedIndex, 'PluSearch');"/>
                 </vbox>
             </vbox> 
             

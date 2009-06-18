@@ -36,7 +36,7 @@
         <hbox flex="1" class="MainPnl">
             <vbox flex="1" pack="start" class="MainL">
                 <caption label="&pricelevelschedule.title;" class="PageTitle" />
-                <tabbox id="weekindex" class="RightTabbox" flex="1"
+                <tabbox id="weekindex" class="RightTabbox"
                         onselect="$do('selectWeek', this.selectedIndex, 'PriceLevelSchedule')">
                     <tabs id="weeklabel" >
                         <tab label="-" flex="1" />
@@ -48,15 +48,11 @@
                         <tab label="-" flex="1" />
                     </tabs>
                 </tabbox>
-                <viviscrollabletree id="schedulescrollablepanel" flex="1" rows="12"
-                                    headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
-                                    ensureVisible="true"
-                                    onselect="$do('validateForm', null, 'PriceLevelSchedule')"
-                                    fields="time,pricelevel"
-                                    class="prodscrollablepanel" dir="reverse"
-                                    scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                    <spacer flex="1" />
-                </viviscrollabletree>
+                <vivitree id="schedulescrollablepanel" flex="1" class="ListPnl showscrollbar"
+                          headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
+                          ensureVisible="true" hidecolumnpicker="true"
+                          onselect="$do('validateForm', null, 'PriceLevelSchedule')"
+                          fields="time,pricelevel"/>
             </vbox>
             <vbox >
                 <label value="&pricelevelschedule.add.header;" class="PageTitle"/>

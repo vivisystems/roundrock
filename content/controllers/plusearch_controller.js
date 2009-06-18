@@ -118,8 +118,9 @@
                     }
                 });
             }
-            var inputObj = window.arguments[0];
-            inputObj.selections = selections;
+            if (window.arguments && window.arguments[0]) {
+                window.arguments[0].selections = selections;
+            }
         },
 
         searchPlu: function (barcode) {
@@ -138,8 +139,9 @@
                 var product = this._listDatas[0];
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
                 // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
-                var inputObj = window.arguments[0];
-                inputObj.item = product;
+                if (window.arguments && window.arguments[0]) {
+                    window.arguments[0].item = product;
+                }
             }else {
                 // reset?
             }

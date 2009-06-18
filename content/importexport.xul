@@ -48,15 +48,10 @@
                     <spacer flex="1" />
                 </viviscrollablebuttonpanel -->
 
-                <viviscrollabletree id="datasourcescrollablepanel" flex="1"
-                                    headers="&importexport.tablename;,&importexport.import;,&importexport.export;"
-                                    fields="name,imported,exported"
-                                    onclick="$do('select',this.selectedIndex, 'ImportExport');"
-                                    class="ListPnl"
-                                    scrollUpClass="ScrollUp"
-                                    scrollDownClass="ScrollDown">
-                    <spacer flex="1" />
-                </viviscrollabletree>
+                <vivitree id="datasourcescrollablepanel" flex="1" class="ListPnl showscrollbar"
+                          headers="&importexport.tablename;,&importexport.import;,&importexport.export;"
+                          fields="name,imported,exported" hidecolumnpicker="true"
+                          onclick="$do('select',this.selectedIndex, 'ImportExport');"/>
                 <!-- progressmeter id="datasprogressmeter" mode="determined" value="0" /-->
             </vbox>
             <spacer style="height: 5px;" />

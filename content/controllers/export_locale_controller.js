@@ -112,14 +112,12 @@
         
         validateForm: function() {
             var exportBtnObj = document.getElementById('export');
-            var packageMenuObj = document.getElementById('package');
             var nameTextboxObj = document.getElementById('name');
             var installTextboxObj = document.getElementById('install');
 
             // turn on export btn only if all fields are populated
             if (exportBtnObj) {
-                if ((packageMenuObj && packageMenuObj.selectedIndex > -1) &&
-                    (nameTextboxObj && nameTextboxObj.value != '') &&
+                if ((nameTextboxObj && nameTextboxObj.value != '') &&
                     (installTextboxObj && GeckoJS.String.trim(installTextboxObj.value) != '')) {
                     exportBtnObj.removeAttribute('disabled');
                 }

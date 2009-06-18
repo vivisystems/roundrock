@@ -992,7 +992,6 @@
                 if (inputObj.selections && inputObj.selections.length > 0) {
                     var self = this;
                     inputObj.selections.forEach(function(product) {
-                        alert(product.name + ': ' + product.link_group + ': ' + plugroup.id);
                         if (product.link_group.indexOf(plugroup.id) > -1) {
                             // @todo OSD
                             NotifyUtils.warn(_('Product [%S] already linked to to product group [%S]',
@@ -1369,14 +1368,16 @@
 
             var plu = datas[index];
             if (plu != null) {
-                var categories = GeckoJS.Session.get('categories');
+                var categoriesById = GeckoJS.Session.get('categoriesById');
+                var categoryIDs = this.catePanelView.tree.datasource.data;
 
                 // @todo optimize search
                 // categories are now sorted by display_order, which aren't unique and may be null, so
                 // for now we use simple linear search
                 var catIndex = -1;
-                for (var i = 0; i < categories.length; i++) {
-                    if (categories[i].no == plu.cate_no) {
+                for (var i = 0; i < categoryIDs.length; i++) {
+                    var cat_id = categoryIDs[i];
+                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].no == plu.cate_no) {
                         catIndex = i;
                         break;
                     }
@@ -1389,7 +1390,6 @@
 
                 var plus = this.productPanelView.tree.datasource.data;
                 var pluIndex = plus.indexOf(plu.id);
-                
                 this.clickPluPanel(pluIndex);
             }
         },

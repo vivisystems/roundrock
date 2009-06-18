@@ -468,7 +468,7 @@
                                                           recursive: 0,
                                                           limit: this._limit
                                                          });
-                if (parseInt(orderModel.lastError) != 0) throw 'dbException';
+                if (parseInt(orderModel.lastError) != 0)
                     throw {errno: orderModel.lastError,
                            errstr: orderModel.lastErrorString,
                            errmsg: _('An error was encountered while retrieving transaction records (error code %S)', [orderModel.lastError])};
@@ -639,7 +639,7 @@
                                                                 recursive: 0,
                                                                 limit: this._limit
                                                                });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
                     throw {errno: orderPayment.lastError,
                            errstr: orderPayment.lastErrorString,
                            errmsg: _('An error was encountered while computing excess giftcard payments (error code %S)', [orderPayment.lastError])};

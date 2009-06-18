@@ -267,8 +267,7 @@
                     // validate condiment name and price
                     var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
                     var cond_price = document.getElementById('condiment_price').value.replace(/^\s*/, '').replace(/\s*$/, '');
-
-                    if (cond_name.length > 0 && !isNaN(parseInt(cond_price))) {
+                    if (cond_name.length > 0 && !isNaN(parseFloat(cond_price))) {
                         document.getElementById('modify_condiment').removeAttribute('disabled');
                     }
                     else {

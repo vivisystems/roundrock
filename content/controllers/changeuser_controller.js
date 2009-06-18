@@ -24,7 +24,7 @@
             });
 
             if (parseInt(userModel.lastError) != 0) {
-                this.dbError(userModel.lastError, userModel.lastErrorString,
+                this._dbError(userModel.lastError, userModel.lastErrorString,
                              _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
             }
 
@@ -105,11 +105,11 @@
             }
         },
 
-        dbError: function(errNo, errMsg, alertStr) {
-            this.log('WARN', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('WARN', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(window,
                                   _('Data Operation Error'),
-                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         }
 
     };

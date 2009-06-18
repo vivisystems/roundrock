@@ -2324,13 +2324,13 @@ msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
 
 msgid "vivipos.fec.registry.layouts.traditional.desc"
-msgstr "Traditional Layout DESC. Chris Help!"
+msgstr "Traditional Layout, suitable for quick service and ECR type applications"
 
 msgid "vivipos.fec.registry.layouts.retail.label"
 msgstr "Retail Layout"
 
 msgid "vivipos.fec.registry.layouts.retail.desc"
-msgstr "Retail Layout DESC. Chris Help!"
+msgstr "Retail Layout (for conceptual demonstration only)"
 
 msgid "Confirm Change Layout"
 msgstr "Confirm Change Layout"

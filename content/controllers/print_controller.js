@@ -298,7 +298,7 @@
                 order_id: orderid,
                 batch: batch,
                 sequence: orderseq,
-                device: device,
+                device: device
             };
 
             var r = orderReceiptModel.save(orderReceipt);
@@ -307,7 +307,7 @@
                 orderReceiptModel.saveToBackup(orderReceipt);
 
                 this.log('ERROR',
-                         'An error was encountered while updating order receipt (error code ' + orderReceiptModel.lastError +
+                         'An error was encountered while logging order receipt (error code ' + orderReceiptModel.lastError +
                          '); record saved to backup:\n' + this.dump(orderReceipt));
             }
         },
@@ -326,7 +326,7 @@
                 ledgerReceiptModel.saveToBackup(ledgerReceipt);
 
                 this.log('ERROR',
-                         'An error was encountered while updating order receipt (error code ' + ledgerReceiptModel.lastError +
+                         'An error was encountered while logging ledger receipt (error code ' + ledgerReceiptModel.lastError +
                          '); record saved to backup:\n' + this.dump(ledgerReceipt));
             }
         },
@@ -1016,7 +1016,7 @@
                         }
                         else if (this.eventData.deviceType == 'ledger') {
                             try {
-                                self.ledgerReceiptPrinted(data.ledger.ledger_id, this.eventData.printer);
+                                self.ledgerReceiptPrinted(data.ledger.id, this.eventData.printer);
                                 self.dispatchEvent('onLedgerReceiptPrinted', this.eventData);
                             }
                             catch (e) {
@@ -1055,16 +1055,16 @@
                         if ( isTraining && ( deviceType == "receipt" || deviceType == "ledger" ) ) {
                         	printed = copies;
                         } else if (self.checkSerialPort(portPath, handshaking, true)) {
-			    if (self.openSerialPort(portPath, portspeed, handshaking)) {
-				for (var i = 0; i < copies; i++) {
-				    var len = self.writeSerialPort(portPath, encodedResult);
-				    if (len == encodedResult.length) {
-					printed++;
-				    }
-				}
-				self.closeSerialPort(portPath);
-			    }
-			}
+                            if (self.openSerialPort(portPath, portspeed, handshaking)) {
+                                for (var i = 0; i < copies; i++) {
+                                    var len = self.writeSerialPort(portPath, encodedResult);
+                                    if (len == encodedResult.length) {
+                                        printed++;
+                                    }
+                                }
+                                self.closeSerialPort(portPath);
+                            }
+                        }
                         if (printed == 0) {
                             var devicemodelName = self.getDeviceModelName(devicemodel);
                             var portName = self.getPortName(port);

@@ -867,7 +867,7 @@
                         if (cart) {
                             cart.removeQueueRecoveryFile();
                         }
-                        
+
                         // truncate order related tables
                         var orderModel = new OrderModel();
                         var r = orderModel.begin();
@@ -881,6 +881,9 @@
                             if (r) r = orderModel.execute('delete from order_item_condiments');
                             if (r) r = orderModel.execute('delete from order_annotations');
                             if (r) r = orderModel.execute('delete from order_additions');
+
+                            // truncate clockin/out timestamps
+                            if (r) r = orderModel.execute('delete from clock_stamps');
 
                             // truncate sync tables
                             if (r) r = orderModel.execute('delete from syncs');
