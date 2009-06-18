@@ -134,14 +134,32 @@
             var diff = qty;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var min_stock = parseFloat(item.min_stock);
-            var stock = parseFloat(item.stock);
             var auto_maintain_stock = item.auto_maintain_stock;
+            
+            // get the stock quantity;
+            var stockRecordModel = new StockRecordModel();
+			var stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
+			if ( stockRecord ) {
+				var stock = parseFloat( stockRecord.quantity );
+			} else {
+				NotifyUtils.warn( _( 'The stock record seems not existent!' ) );
+				return false;
+			}
 
             if (action != "addItem") {
                 var productsById = GeckoJS.Session.get('productsById');
                 var product = productsById[item.id];
                 if (product) {
-                    stock = parseFloat(product.stock);
+                    // get the stock quantity;
+				    stockRecordModel = new StockRecordModel();
+					stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
+					if ( stockRecord ) {
+						stock = parseFloat( stockRecord.quantity );
+					} else {
+						NotifyUtils.warn( _( 'The stock record seems not existent!' ) );
+						return false;
+					}
+					
                     min_stock = parseFloat(product.min_stock);
                     auto_maintain_stock = product.auto_maintain_stock;
                     diff = qty - item.current_qty;
@@ -197,7 +215,6 @@
                 if (clearWarning != false) cart.dispatchEvent('onWarning', '');
             }
             return true;
-
         },
 
         clearWarning: function (evt) {
@@ -3155,9 +3172,27 @@
                         oldTransaction.data.proceeds_clerk_displayname = user.description;
                     }
                 }
+
                 else {
-                    oldTransaction.submit(status);
+                    // oldTransaction.submit(status);
+
+                    var submitStatus = parseInt(oldTransaction.submit(status));
+                    /*
+                     *   1: success
+                     *   null: input data is null
+                     *   -1: save fail, save to backup
+                     *   -2: remove fail
+                     */
+                    if (submitStatus == -2) {
+
+                        GREUtils.Dialog.alert(this.activeWindow,
+                                      _('Submit Fail'),
+                                      _('Current order is not saved successfully, please try again...'));
+                        return false;
+                    }
+
                 }
+
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
@@ -3182,8 +3217,9 @@
                     if (status != 1) this.clearWarning();
                     this.dispatchEvent('onSubmit', oldTransaction);
                 }
-                else
+                else {
                     this.dispatchEvent('onGetSubtotal', oldTransaction);
+                }
             }
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
@@ -3773,8 +3809,8 @@
                             order.items = order.OrderItem;
 
                             // restore stock
-                            var stockController = GeckoJS.Controller.getInstanceByName( 'Stocks' );
-                            stockController.decStock(order);
+                            var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
+                            stockController.requestCommand('decStock', order, 'StockRecords');
 
                             this.dispatchEvent('afterVoidSale', order);
                             
@@ -4146,6 +4182,14 @@
             var curTransaction = new Transaction();
             curTransaction.unserializeFromOrder(order_id);
 
+            if (curTransaction.data == null) {
+
+                //@todo OSD
+                NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
+
+                return false;
+            }
+
             if (curTransaction.data.status == 2) {
                 // set order status to process (0)
                 curTransaction.data.status = 0;
@@ -4156,6 +4200,8 @@
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
             this.subtotal();
+
+            return true;
 
         },
 
@@ -4265,10 +4311,10 @@
                 return;
             }
 
-            var r = -1;
             var modified = curTransaction.isModified();
             if (modified) {
-                r = this.GuestCheck.store();
+                this.GuestCheck.store();
+
                 this.dispatchEvent('onStore', curTransaction);
 
                 this._getCartlist().refresh();

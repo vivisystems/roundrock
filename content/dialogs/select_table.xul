@@ -98,7 +98,7 @@
     <panel id="order_display_panel" position="after_start" noautohide="false" class="PromptPnl"
             onpopupshown="$do('popupOrderPanel', null, 'SelectTable');"
             onpopuphidden="$do('hideOrderPanel', null, 'SelectTable');">
-        <hbox flex="1" class="PromptPnl2">
+        <hbox flex="1" class="PromptPnlBg">
             <!-- tabbox class="CheckTabbox" flex="1">
             <tabs id="orders_tab">
                 <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>

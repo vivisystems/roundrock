@@ -53,6 +53,7 @@
   <script src='chrome://viviecr/content/controllers/stocks_controller.js'/>
   <script src='chrome://viviecr/content/controllers/training_mode_controller.js'/>
   <script src='chrome://viviecr/content/controllers/nonplu_setting_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/stock_records_controller.js'/>
 
   <!-- report controllers for reports to be generated from front-end -->
   <script src='chrome://viviecr/content/reports/controllers/rpt_cash_by_clerk_controller.js'/>

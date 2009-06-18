@@ -142,13 +142,13 @@
                 var newTable = {table_no: table_no, table_name: table_name, active: true, seats: 4};
 
                 var tableModel = new TableModel();
+                tableModel.id = '';
                 newTable = tableModel.save(newTable);
 
                 // add table_status
                 var newTableStatus = {table_id:newTable.id, table_no: table_no};
-                var tableStatusModel = this._getTableStatusModel();
-                tableStatusModel.id = null;
-                newTableStatus = tableStatusModel.save(newTableStatus);
+                this._getTableStatusModel().id = '';
+                newTableStatus = this._getTableStatusModel().save(newTableStatus);
 
                 this.loadTables();
 
@@ -189,7 +189,7 @@
 
                 var tableModel = new TableModel();
                 tableModel.id = inputObj.id;
-
+                inputObj.active = GeckoJS.String.parseBoolean(inputObj.active);
                 var tables = tableModel.save(inputObj);
 
                 // update table_status
@@ -596,6 +596,12 @@
             this.selectRegion(0);
             this.loadTables();
             this.selectTable(0);
+        },
+
+        doExit: function() {
+            //
+            this._getTableStatusModel()._tableStatusLastTime = 0;
+            doOKButton();
         },
 
         validateForm: function() {

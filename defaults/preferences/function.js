@@ -289,7 +289,7 @@ pref("vivipos.fec.registry.function.programmable.newTable.command", "newTable");
 pref("vivipos.fec.registry.function.programmable.newTable.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.newTable.data", "");
 
-pref("vivipos.fec.registry.function.programmable.guestNum.access", "acl_guest_num");
+pref("vivipos.fec.registry.function.programmable.guestNum.access", "acl_guest_no");
 pref("vivipos.fec.registry.function.programmable.guestNum.command", "guestNum");
 pref("vivipos.fec.registry.function.programmable.guestNum.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.guestNum.data", "");
@@ -398,3 +398,8 @@ pref("vivipos.fec.registry.function.programmable.trainingMode.access", "acl_trai
 pref("vivipos.fec.registry.function.programmable.trainingMode.command", "start");
 pref("vivipos.fec.registry.function.programmable.trainingMode.controller", "TrainingMode");
 pref("vivipos.fec.registry.function.programmable.trainingMode.data", "");
+
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.access", "acl_stock_adjustment");
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.command", "stockAdjustment");
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.data", "");

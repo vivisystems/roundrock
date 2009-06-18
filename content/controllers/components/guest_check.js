@@ -93,6 +93,8 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
                 main.addEventListener('onFirstLoad', this.handleFirstLoad, this);
+                main.addEventListener('afterTruncateTxnRecords', this.handleFirstLoad, this);
+
             }
             
         },
@@ -117,6 +119,35 @@
             catch (e) {
                 NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
                 return false;
+            }
+        },
+
+        handleTruncateTxnRecords: function(evt) {
+            //
+            //this._tableStatusModel.
+            var r = this._tableStatusModel.begin();
+            if (r) {
+                r = this._tableStatusModel.execute('delete from table_orders');
+                if (r) r = this._tableStatusModel.execute('delete from table_bookings');
+
+                // truncate sync tables
+                if (r) r = this._tableStatusModel.execute('delete from syncs');
+                if (r) r = this._tableStatusModel.execute('delete from sync_remote_machines');
+
+                if (r) r = this._tableStatusModel.commit();
+                if (!r) {
+                    var errNo = this._tableStatusModel.lastError;
+                    var errMsg = this._tableStatusModel.lastErrorString;
+
+                    this._tableStatusModel.rollback();
+
+                    this.dbError(errNo, errMsg,
+                                 _('An error was encountered while attempting to remove all table status records (error code %S).', [errNo]));
+                }
+            }
+            else {
+                this.dbError(this._tableStatusModel.lastError, this._tableStatusModel.lastErrorString,
+                             _('An error was encountered while attempting to remove all table status records (error code %S).', this._tableStatusModel.lastError));
             }
         },
 
@@ -267,6 +298,7 @@
             // this._tableStatusModel.addCheck(evt.data.data);
 
             // print check
+// this.log("SplitCheck printChecks:::");
             this.printChecks(evt.data);
 
         },
@@ -276,6 +308,7 @@
             // this._tableStatusModel.addCheck(evt.data.data);
 
             // print check
+// this.log("MergeCheck printChecks:::");
             this.printChecks(evt.data);
 
         },
@@ -629,10 +662,10 @@
                             if (curTransaction) {
                                 this.table("" + targetTableNo);
 
+                                this.store();
+                                
                                 // update modified time of source table status
                                 this._tableStatusModel.touchTableStatus(sourceTableNo);
-
-                                this.store();
 
                                 // clear recall check from cart
                                 this._controller.cancel(true);
@@ -749,7 +782,7 @@
             return num;
         },
 
-        getCheckList: function(key, no) {
+        getCheckList: function(key, no, notCheckStatus) {
             //
             var self = this;
             var order = new OrderModel();
@@ -787,17 +820,42 @@
             
             var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
 
-            return ord;
+            // return all store checks...
+            if (notCheckStatus) return ord;
+
+            var tables = this._tableStatusModel.getTableStatusList();
+
+            var tableOrderIdx = this._tableStatusModel.getTableOrderIdx();
+//this.log("tableOrderIdx:::");
+//this.log(this.dump(tableOrderIdx));
+
+            var ordChecked = [];
+            ord.forEach(function(o){
+                var crc = order.getOrderChecksum(o.id);
+                if (tableOrderIdx[o.id] && (crc == tableOrderIdx[o.id].checksum)) {
+
+                    ordChecked.push(o);
+                }
+            })
+
+            return ordChecked;
         },
 
         store: function() {
 
-            this._controller.submit(2);
-            this._controller.dispatchEvent('onWarning', _('STORED'));
-                
-            // @todo OSD
-            NotifyUtils.warn(_('This order has been stored!!'));
-     
+            if (this._controller.submit(2)) {
+                this._controller.dispatchEvent('onWarning', _('STORED'));
+
+                // @todo OSD
+                NotifyUtils.warn(_('This order has been stored!!'));
+
+                this.sleep(100);
+
+                return true;
+            }
+
+            return false;
+
         },
 
         removeTableStatus: function(checkObj) {
@@ -844,7 +902,11 @@
 
                         var status = ord[0].status;
 
-                        this._controller.unserializeFromOrder(id);
+                        if (!this._controller.unserializeFromOrder(id)) {
+                            //@todo OSD
+                            NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                            return -1
+                        }
 
                         if (status == 1) {
                             // @todo OSD
@@ -868,7 +930,11 @@
 
                         var status = ord[0].status;
 
-                        this._controller.unserializeFromOrder(id);
+                        if (!this._controller.unserializeFromOrder(id)) {
+                            //@todo OSD
+                            NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                            return -1
+                        }
 
                         // display to onscreen VFD
                         this._controller.dispatchEvent('onWarning', _('RECALL# %S', [no]));
@@ -919,7 +985,11 @@
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
 
-                            this._controller.unserializeFromOrder(id);
+                            if (!this._controller.unserializeFromOrder(id)) {
+                                //@todo OSD
+                                NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                                return -1
+                            }
 
                             // display to onscreen VFD
                             this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
@@ -941,7 +1011,11 @@
                         var status = ord[0].status;
                         var check_no = ord[0].check_no;
 
-                        this._controller.unserializeFromOrder(id);
+                        if (!this._controller.unserializeFromOrder(id)) {
+                            //@todo OSD
+                            NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                            return -1
+                        }
 
                         // display to onscreen VFD
                         this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
@@ -998,7 +1072,12 @@
                                 // return this._controller.unserializeFromOrder(id);
 
                             } else {
-                                this._controller.unserializeFromOrder(id);
+
+                                if (!this._controller.unserializeFromOrder(id)) {
+                                    //@todo OSD
+                                    NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                                    return -1
+                                }
                                 
                                 this._controller.dispatchEvent('afterRecallCheck', this._controller._getTransaction());
                             
@@ -1029,7 +1108,11 @@
                         var status = ord[0].status;
                         var check_no = ord[0].check_no;
 
-                        this._controller.unserializeFromOrder(id);
+                        if (!this._controller.unserializeFromOrder(id)) {
+                            //@todo OSD
+                            NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                            return -1
+                        }
 
                         // display to onscreen VFD
                         this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
@@ -1078,10 +1161,14 @@
 
             var curTransaction = new Transaction();
             curTransaction.unserializeFromOrder(order_id);
+
+            if (curTransaction.data == null) {
+
+                return false;
+            }
+
             return curTransaction;
 
-            var order = new OrderModel();
-            return order.unserializeOrder(order_id);
         },
 
         mergeOrder: function(no, data) {
@@ -1093,7 +1180,13 @@
             if (target_id == -1) return -1;
 
             var targetCheck = this.unserializeFromOrder(target_id);
-            // var targetCheck = this._controller._getTransaction();
+            
+            // fatal error ??
+            if (targetCheck == false) {
+                //@todo OSD
+                NotifyUtils.error(_('The target order object does not exist [%S]', [target_id]));
+                return -1;
+            }
 
             // check if target check allow to be merged...
             if (!this._isAllowMerge(targetCheck)) return -1
@@ -1120,7 +1213,11 @@
                 var check_no = inputObj.check_no;
 
                 // recall the merged order...
-                this._controller.unserializeFromOrder(id);
+                if (!this._controller.unserializeFromOrder(id)) {
+                    //@todo OSD
+                    NotifyUtils.error(_('The source order object does not exist [%S]', [target_id]));
+                    return -1
+                }
 
                 // display to onscreen VFD
                 this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
@@ -1154,7 +1251,15 @@
             if (inputObj.ok) {
                 var id = inputObj.id;
 
-                this._controller.unserializeFromOrder(id);
+                var r = this._controller.unserializeFromOrder(id);
+                // fatal error ??
+                if (r == false) {
+                    //@todo OSD
+                    NotifyUtils.error(_('The order object does not exist [%S]', [id]));
+                    return -1;
+                }
+
+
                 var check_no = inputObj.check_no
 
                 // display to onscreen VFD

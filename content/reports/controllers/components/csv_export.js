@@ -43,25 +43,25 @@
                 var blockCount = Math.ceil( bufLength / this._blockSize );
 
                 var onProgressChange = function( curTot, maxTot ) {
-                        var numReachingMaxTot =  0;
-                        //dump('onProgressChange ' + maxSelf  + '\n');
-                        if ( curTot == maxTot )
-                            numReachingMaxTot++;
-                        if ( numReachingMaxTot > 1 )
-                            return;
+                    var numReachingMaxTot =  0;
+                    //dump('onProgressChange ' + maxSelf  + '\n');
+                    if ( curTot == maxTot )
+                        numReachingMaxTot++;
+                    if ( numReachingMaxTot > 1 )
+                        return;
 
-                        if( caption ) {
-                            if( caption.label.match( /\(.*\)/ ) ) {
-                                caption.label = caption.label.replace( /\(.*\)/, '(' + GeckoJS.NumberHelper.toReadableSize( curTot )
-                                                                                 + '/' + GeckoJS.NumberHelper.toReadableSize( maxTot )
-                                                                                 + ')' );
-                            } else {
-                                caption.label += ' (' + GeckoJS.NumberHelper.toReadableSize( curTot )
-                                               + '/' + GeckoJS.NumberHelper.toReadableSize( maxTot ) +')';
-                            }
+                    if( caption ) {
+                        if( caption.label.match( /\(.*\)/ ) ) {
+                            caption.label = caption.label.replace( /\(.*\)/, '(' + GeckoJS.NumberHelper.toReadableSize( curTot )
+                                                                             + '/' + GeckoJS.NumberHelper.toReadableSize( maxTot )
+                                                                             + ')' );
+                        } else {
+                            caption.label += ' (' + GeckoJS.NumberHelper.toReadableSize( curTot )
+                                           + '/' + GeckoJS.NumberHelper.toReadableSize( maxTot ) +')';
                         }
-                        progress.value = parseInt( curTot / maxTot * 100 );
-                    };
+                    }
+                    progress.value = parseInt( curTot / maxTot * 100 );
+                };
 
                 var saveFile = new GeckoJS.File( csvFileName, true );
 
@@ -89,6 +89,9 @@
                 this.execute( "/bin/sh", [ "-c", "/bin/sync; /bin/sleep 1; /bin/sync;" ] );
             } catch( e ) {
                 GREUtils.log( 'ERROR', 'exportCSV ' + e );
+                alert( "Fail while exporting CSV file with printToFile method!" );
+                throw e;
+            } finally {
             }
         }
 
