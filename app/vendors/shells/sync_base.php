@@ -25,7 +25,7 @@ class SyncBaseShell extends Shell {
         // load dbConfig
         $this->_loadDbConfig();
 
-        $this->syncSettings =& Configure::read('sync_settings');
+        $this->syncSettings = $this->readSyncSettings();
 
         $this->statusFile = "/tmp/sync_client.status" ;
 
@@ -36,6 +36,18 @@ class SyncBaseShell extends Shell {
         $this->out("sync_base ", true);
 
     }
+
+    function readSyncSettings() {
+        
+        $syncSettings =& Configure::read('sync_settings');
+
+        if(empty($syncSettings['process_type'])) {
+            $syncSettings['process_type'] = 'shell';
+        }
+
+        return $syncSettings;
+    }
+
 
     /**
      * observerNotify

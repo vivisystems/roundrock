@@ -26,13 +26,13 @@ class SyncToolsShell extends SyncBaseShell {
 
     function truncate() {
 
-        if (empty($this->syncSettings['retain_days'])) $retain_days = 7;
-        else $retain_days = $this->syncSettings['retain_days'];
+        $syncSettings = $this->readSyncSettings();
+
+        if (empty($syncSettings['retain_days'])) $retain_days = 7;
+        else $retain_days = $syncSettings['retain_days'];
 
         $this->out("truncate syncs (days = " . $retain_days . " )", true);
         $this->hr(false);
-
-        $shell =& $this;
 
         if ($this->isSyncing()) {
             $this->out("other process issyncing..", true);
@@ -41,7 +41,7 @@ class SyncToolsShell extends SyncBaseShell {
 
         // $this->observerNotify('starting');
 
-        $truncateResult = $shell->requestAction("/syncs/truncate/${retain_days}");
+        $truncateResult = $this->requestAction("/syncs/truncate/${retain_days}");
 
         // $this->observerNotify('finished', json_encode($truncateResult) );
 
