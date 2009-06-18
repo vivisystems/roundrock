@@ -132,7 +132,8 @@
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             doc.innerHTML = result;
         },
-        
+
+        /*
         _waitingForExporting: function() {
             while ( 1 ) { // Because printToPdf will return right away, we have to wait until the exporting task has done so that the waiting panel disappears properly.
                 if ( this._fileExportingFlag )
@@ -140,6 +141,7 @@
                 this.sleep( 1000 );
             }
         },
+        */
 	    
         previousPage: function() {
             var offset = this._recordOffset - this._recordLimit;
@@ -197,9 +199,11 @@
                 return;
             }
 
+            var cb = null;
+
             try {
                 // setting the flag be false means that the exporting has not finished yet.
-                this._fileExportingFlag = false;
+                //this._fileExportingFlag = false;
                 
                 // Doing so to prevent the timeout dialog from prompting during the execution.
                 var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
@@ -221,41 +225,46 @@
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
                 var self = this;
+
+                cb = function() {
+                    // Reset the timeout limit to the default value.
+                    GREUtils.Pref.setPref( self._maxRuntimePreference, oldLimit );
+                    // enable buttons
+                    self._enableButton( true );
+                    // hide panel
+                    if ( waitPanel != undefined )
+                        self._dismissWaitingPanel();
+
+                };
+
                 this.BrowserPrint.printToPdf( tmpFile, paperProperties, this._preview_frame_id, caption, progress,
                     function() {
                         // printing finished callback,
-                        self._copyExportFileFromTmp( tmpFile, targetDir, 180 );
+                        self._copyExportFileFromTmp( tmpFile, targetDir, 180, cb );
                     }
-                );
+                    );
                 
                 // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
-                this._waitingForExporting();
+                //this._waitingForExporting();
             } catch ( e ) {
-                dump( e );
-            } finally {
-                // Reset the timeout limit to the default value.
-                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
-                
-                // enable buttons
-                this._enableButton( true );
-
-                // hide panel
-                if ( waitPanel != undefined )
-                    this._dismissWaitingPanel();
+                //dump( e );
+                this._copyExportFileFromTmp( '/tmp/__notexists__', '/tmp', 0.1,  cb);
             }
         },
 
         exportCsv: function( controller, noReload ) {
             if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
                 return;
+            
+            var cb = null;
         		
             try {
-                // setting the flag be false means that the exporting has not finished yet.
-                this._fileExportingFlag = false;
-                
                 // Doing so to prevent the timeout dialog from prompting during the execution.
                 var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
                 GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
+
+                // setting the flag be false means that the exporting has not finished yet.
+                //this._fileExportingFlag = false;
             	
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
@@ -287,31 +296,33 @@
                 var fileName = this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv';
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
+                
+                var self = this;
+
+                cb = function() {
+                    if ( !noReload ) {
+                        // drop CSV data and garbage collect
+                        self._reportRecords = tmpRecords;
+                        GREUtils.gc();
+                    }
+                    // Reset the timeout limit to the default value.
+                    GREUtils.Pref.setPref( self._maxRuntimePreference, oldLimit );
+                    // enable buttons
+                    self._enableButton( true );
+                    // hide panel
+                    if ( waitPanel != undefined )
+                        self._dismissWaitingPanel();
+
+                };
 
                 this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl, caption, progress );
 
-                this._copyExportFileFromTmp( tmpFile, targetDir, 180 );
-
-                if ( !noReload ) {
-                    // drop CSV data and garbage collect
-                    this._reportRecords = tmpRecords;
-                    GREUtils.gc();
-                }
+                this._copyExportFileFromTmp( tmpFile, targetDir, 180,  cb);
                 
                 // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
-                this._waitingForExporting();
+                // this._waitingForExporting();
             } catch ( e ) {
-                dump( e );
-            } finally {
-                // Reset the timeout limit to the default value.
-                GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
-                
-                // enable buttons
-                this._enableButton( true );
-
-                // hide panel
-                if ( waitPanel != undefined )
-                    this._dismissWaitingPanel();
+                this._copyExportFileFromTmp( '/tmp/__notexists__', '/tmp', 0.1,  cb);
             }
         },
 
@@ -449,25 +460,27 @@
             }
         },
 
-        _copyExportFileFromTmp: function( tmpFile, targetDir, timeout ) {
-            try {
-                var maxTimes = timeout / 0.2;
-                var tries = 0;
-                var nsTmpfile;
-                var self = this;
+        _copyExportFileFromTmp: function( tmpFile, targetDir, timeout, callback ) {
 
-                // use setTimeout to wait gecko writing file to disk. XXXX
-                var checkFn = function() {
+            var maxTimes = Math.floor(timeout / 0.2);
+            var tries = 0;
+            var nsTmpfile;
+            var self = this;
+
+            // use setTimeout to wait gecko writing file to disk. XXXX
+            var checkFn = function() {
+                try {
                     nsTmpfile = GREUtils.File.getFile( tmpFile );
                     if ( nsTmpfile == null ) {
                         // not exists waiting...
                         tries++;
                     } else {
+
                         GREUtils.File.copy( nsTmpfile, targetDir );
 
                         // crazy sync.....
                         GREUtils.File.run( "/bin/sync", [], true );
-                        GREUtils.File.run( "/bin/sh", [ '-c', '/bin/sync; /bin/sleep 3; /bin/sync;' ], true );
+                        GREUtils.File.run( "/bin/sh", [ '-c', '/bin/sync; /bin/sleep 1; /bin/sync;' ], true );
                         GREUtils.File.run( "/bin/sync", [], true );
 
                         nsTmpfile.remove( false );
@@ -475,19 +488,15 @@
                         tries = maxTimes;
                     }
                     if( tries < maxTimes ) {
-                        //setTimeout( arguments.callee, 200 );
-                        self.sleep( 200 );
-                        arguments.callee();
+                        setTimeout( arguments.callee, 200 );
+                    }else {
+                        callback.apply(self);
                     }
-                };
-                //setTimeout( checkFn, 200 );
-                this.sleep( 200 );
-                checkFn();
-            } catch ( e ) {
-                dump( e );
-            } finally {
-                this._fileExportingFlag = true;
-            }
+                }catch(e) {
+                    callback.apply(self);
+                }
+            };
+            setTimeout( checkFn, 200 );
         },
 
         btnScrollTop: function() {
