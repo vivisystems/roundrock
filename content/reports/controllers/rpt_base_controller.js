@@ -475,10 +475,14 @@
                         tries = maxTimes;
                     }
                     if( tries < maxTimes ) {
-                        setTimeout( arguments.callee, 200 );
+                        //setTimeout( arguments.callee, 200 );
+                        self.sleep( 200 );
+                        arguments.callee();
                     }
                 };
-                setTimeout( checkFn, 200 );
+                //setTimeout( checkFn, 200 );
+                this.sleep( 200 );
+                checkFn();
             } catch ( e ) {
                 dump( e );
             } finally {

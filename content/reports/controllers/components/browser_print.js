@@ -45,7 +45,8 @@
 			
                 onStateChange: function( aWebProgress, aRequest, aFlag, aStatus ) {
                     if ( callback )
-                        callback.apply( this );
+                        setTimeout( callback );
+                        //setTimeout( callback.apply( this ) ); // doing so to return immediately.
                 },
                 
                 onProgressChange: function( aWebProgress, aRequest, curSelf, maxSelf, curTot, maxTot ) {
@@ -129,7 +130,7 @@
                 }
             } catch ( e ) {
                 dump( e );
-                alert( "Fail in showPrintDialog method!" );
+                alert( _( "Fail in showPrintDialog method!" ) );
                 throw e;
             } finally {
             }
@@ -170,7 +171,7 @@
                 this._webBrowserPrint.print( this._printSettings, awpListener );
             } catch ( e ) {
                 dump( e );
-                alert( "Fail in printToPdf method!" );
+                alert( _( "Fail in printToPdf method!" ) );
                 throw e;
             } finally {
             }
