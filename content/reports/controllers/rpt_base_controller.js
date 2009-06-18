@@ -30,7 +30,7 @@
         _tmpFileDir: "/var/tmp/",
         
         _exporting_file_folder: "report_export",
-        _fileExportingFlag: 0, // 1 if the exporting task is done, 0 otherwise.
+        _fileExportingFlag: false, // true if the exporting task is done, false otherwise.
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -198,12 +198,12 @@
             }
 
             try {
+                // setting the flag be false means that the exporting has not finished yet.
+                this._fileExportingFlag = false;
+                
                 // Doing so to prevent the timeout dialog from prompting during the execution.
                 var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
-                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );;
-
-                // setting the flag be zero means that the exporting has not finished yet.
-                this._fileExportingFlag = 0;
+                GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
             	
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
@@ -250,12 +250,12 @@
                 return;
         		
             try {
+                // setting the flag be false means that the exporting has not finished yet.
+                this._fileExportingFlag = false;
+                
                 // Doing so to prevent the timeout dialog from prompting during the execution.
                 var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
                 GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
-
-                // setting the flag be zero means that the exporting has not finished yet.
-                this._fileExportingFlag = 0;
             	
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( this._exporting_file_folder );
@@ -482,7 +482,7 @@
             } catch ( e ) {
                 dump( e );
             } finally {
-                this._fileExportingFlag = 1;
+                this._fileExportingFlag = true;
             }
         },
 
