@@ -465,16 +465,28 @@
             var maxTimes = Math.floor(timeout / 0.2);
             var tries = 0;
             var nsTmpfile;
+            var nsTargetDir;
             var self = this;
 
             // use setTimeout to wait gecko writing file to disk. XXXX
             var checkFn = function() {
                 try {
                     nsTmpfile = GREUtils.File.getFile( tmpFile );
+                    nsTargetDir = GREUtils.File.getFile( targetDir );
+
+                    if (nsTargetDir == null) {
+                        throw new Exception('Target Directory not Exists');
+                    }
                     if ( nsTmpfile == null ) {
                         // not exists waiting...
                         tries++;
                     } else {
+
+                        // check fileSize and diskSpaceAvailable
+                        if (nsTmpfile.fileSize > nsTargetDir.diskSpaceAvailable) {
+                            GREUtils.Dialog.alert( window, '', _( 'Target directory not enough disk space' ) );
+                            throw new Exception('Target directory not enough disk space');
+                        }
 
                         GREUtils.File.copy( nsTmpfile, targetDir );
 
