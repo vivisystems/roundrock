@@ -132,16 +132,6 @@
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             doc.innerHTML = result;
         },
-
-        /*
-        _waitingForExporting: function() {
-            while ( 1 ) { // Because printToPdf will return right away, we have to wait until the exporting task has done so that the waiting panel disappears properly.
-                if ( this._fileExportingFlag )
-                    break;
-                this.sleep( 1000 );
-            }
-        },
-        */
 	    
         previousPage: function() {
             var offset = this._recordOffset - this._recordLimit;
@@ -234,7 +224,6 @@
                     // hide panel
                     if ( waitPanel != undefined )
                         self._dismissWaitingPanel();
-
                 };
 
                 this.BrowserPrint.printToPdf( tmpFile, paperProperties, this._preview_frame_id, caption, progress,
@@ -242,13 +231,10 @@
                         // printing finished callback,
                         self._copyExportFileFromTmp( tmpFile, targetDir, 180, cb );
                     }
-                    );
-                
-                // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
-                //this._waitingForExporting();
+                );
             } catch ( e ) {
                 //dump( e );
-                this._copyExportFileFromTmp( '/tmp/__notexists__', '/tmp', 0.1,  cb);
+                this._copyExportFileFromTmp( "/tmp/__notexists__", "/tmp", 0.1,  cb );
             }
         },
 
@@ -312,17 +298,13 @@
                     // hide panel
                     if ( waitPanel != undefined )
                         self._dismissWaitingPanel();
-
                 };
 
                 this.CsvExport.printToFile( tmpFile, this._reportRecords, tpl, caption, progress );
 
-                this._copyExportFileFromTmp( tmpFile, targetDir, 180,  cb);
-                
-                // the function below returns only if the fileExportingFlag is set be one in the finally block of copyExportFileFromTmp.
-                // this._waitingForExporting();
+                this._copyExportFileFromTmp( tmpFile, targetDir, 180,  cb );
             } catch ( e ) {
-                this._copyExportFileFromTmp( '/tmp/__notexists__', '/tmp', 0.1,  cb);
+                this._copyExportFileFromTmp( "/tmp/__notexists__", "/tmp", 0.1,  cb );
             }
         },
 
@@ -461,8 +443,7 @@
         },
 
         _copyExportFileFromTmp: function( tmpFile, targetDir, timeout, callback ) {
-
-            var maxTimes = Math.floor(timeout / 0.2);
+            var maxTimes = Math.floor( timeout / 0.2 );
             var tries = 0;
             var nsTmpfile;
             var self = this;
@@ -489,11 +470,11 @@
                     }
                     if( tries < maxTimes ) {
                         setTimeout( arguments.callee, 200 );
-                    }else {
-                        callback.apply(self);
+                    } else {
+                        callback.apply( self );
                     }
-                }catch(e) {
-                    callback.apply(self);
+                } catch( e ) {
+                    callback.apply( self );
                 }
             };
             setTimeout( checkFn, 200 );
