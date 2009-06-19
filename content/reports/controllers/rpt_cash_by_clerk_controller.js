@@ -55,10 +55,10 @@
             this._reportRecords.body = records;
         },
         
-        _set_reportRecords: function(limit) {
-
-            limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+        _set_reportRecords: function( limit ) {
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 )
+                limit = this._stdLimit;
 
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;

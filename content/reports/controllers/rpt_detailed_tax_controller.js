@@ -11,14 +11,6 @@
         
         _fileName: "rpt_detailed_tax",
         
-        _paperProperties: {
-            orientation: "landscape"/*,
-            paperSize: {
-                width: 297,
-                height: 210
-            }*/
-        },
-        
         _setData: function( start, end, periodType, terminalNo, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
@@ -282,11 +274,18 @@
         },
         
         exportPdf: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                paperSize: {
+                    width: 297,
+                    height: 210
+                }
+            } );
         },
         
         print: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                orientation: "landscape"
+            } );
         },
 
         load: function() {

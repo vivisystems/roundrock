@@ -1,5 +1,4 @@
 ( function() {
-
     //var gPrintSettingsAreGlobal = false;
     //var gSavePrintSettings = false;
 
@@ -45,8 +44,7 @@
 			
                 onStateChange: function( aWebProgress, aRequest, aFlag, aStatus ) {
                     if ( callback )
-                        setTimeout( callback );
-                        //setTimeout( callback.apply( this ) ); // doing so to return immediately.
+                        callback.apply( this );
                 },
                 
                 onProgressChange: function( aWebProgress, aRequest, curSelf, maxSelf, curTot, maxTot ) {
@@ -104,8 +102,7 @@
          */
         showPrintDialog: function( paperProperties, frameID, caption, progress ) {
             try {
-                if ( !this._printSettings )
-                    this._getPrintSettings();
+                this._getPrintSettings();
 
                 // A print dialog will pop up  if printSilent is set be false.
                 this._printSettings.printSilent = false;
@@ -151,8 +148,7 @@
             }
 
             try {
-                if ( !this._printSettings )
-                    this._getPrintSettings();
+                this._getPrintSettings();
                 
                 this._printSettings.outputFormat = Components.interfaces.nsIPrintSettings.kOutputFormatPDF;
                 this._printSettings.printToFile = true;

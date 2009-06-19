@@ -10,14 +10,6 @@
         name: 'RptClerkSales',
         
         _fileName: "rpt_clerk_sales",
-        
-        _paperProperties: {
-            orientation: "landscape"/*,
-            paperSize: {
-                width: 297,
-                height: 210
-            }*/
-        },
 
         _set_reportRecords: function(limit) {
 
@@ -237,11 +229,18 @@
         },
         
         exportPdf: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                paperSize: {
+                    width: 297,
+                    height: 210
+                }
+            } );
         },
         
         print: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                orientation: "landscape"
+            } );
         },
 
         exportCsv: function() {
