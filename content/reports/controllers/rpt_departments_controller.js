@@ -1,5 +1,4 @@
 ( function() {
-
     /**
      * RptDepartments Controller
      */
@@ -7,7 +6,6 @@
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     var __controller__ = {
-
         name: 'RptDepartments',
         
         _fileName: 'rpt_departments',
@@ -34,7 +32,6 @@
         exportCsv: function() {
             this._super( this );
         }
-
     };
 
     RptBaseController.extend( __controller__ );

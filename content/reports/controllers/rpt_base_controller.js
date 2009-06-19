@@ -234,7 +234,7 @@
                 );
             } catch ( e ) {
                 //dump( e );
-                this._copyExportFileFromTmp( "/tmp/__notexists__", "/tmp", 0.1,  cb );
+                this._copyExportFileFromTmp( "/tmp/__notexists__", "/tmp", 0.1,  cb ); // to close the waiting panel.
             }
         },
 
@@ -304,7 +304,7 @@
 
                 this._copyExportFileFromTmp( tmpFile, targetDir, 180,  cb );
             } catch ( e ) {
-                this._copyExportFileFromTmp( "/tmp/__notexists__", "/tmp", 0.1,  cb );
+                this._copyExportFileFromTmp( "/tmp/__notexists__", "/tmp", 0.1,  cb ); // to close the waiting panel.
             }
         },
 
@@ -462,11 +462,10 @@
                         // not exists waiting...
                         tries++;
                     } else {
-
                         // check fileSize and diskSpaceAvailable
-                        if (nsTmpfile.fileSize > nsTargetDir.diskSpaceAvailable) {
-                            GREUtils.Dialog.alert( window, '', _( 'Target directory not enough disk space' ) );
-                            throw new Exception('Target directory not enough disk space');
+                        if ( nsTmpfile.fileSize > nsTargetDir.diskSpaceAvailable ) {
+                            GREUtils.Dialog.alert( window, '', _( "The thumb drive has no enough free space!" ) );
+                            throw new Exception( "The thumb drive has no enough free space!" );
                         }
 
                         GREUtils.File.copy( nsTmpfile, targetDir );

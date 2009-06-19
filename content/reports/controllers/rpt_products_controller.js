@@ -11,12 +11,12 @@
         
         _fileName: "rpt_products",
 
-        _set_reportRecords: function(limit) {
+        _set_reportRecords: function( limit ) {
 
-            limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._stdLimit;
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
 
-            var department = document.getElementById('department').value;
+            var department = document.getElementById( 'department' ).value;
             var sortby = document.getElementById( 'sortby' ).value;
 
             var fields = [];

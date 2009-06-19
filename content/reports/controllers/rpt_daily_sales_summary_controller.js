@@ -10,19 +10,10 @@
         name: 'RptDailySalesSummary',
         
         _fileName: 'rpt_daily_sales_summary',
-        
-        _paperProperties: {
-            orientation: "landscape"/*,
-            paperSize: {
-                width: 297,
-                height: 210
-            }*/
-        },
 
-        _set_reportRecords: function(limit) {
-
-            limit = parseInt(limit);
-            if (isNaN(limit) || limit <= 0) limit = this._csvLimit ; // this._stdLimit;
+        _set_reportRecords: function( limit ) {
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 ) limit = this._csvLimit ; // this._stdLimit;
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
@@ -237,11 +228,18 @@
         },
         
         exportPdf: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                paperSize: {
+                    width: 297,
+                    height: 210
+                }
+            } );
         },
         
         print: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                orientation: "landscape"
+            } );
         },
 
         exportCsv: function() {

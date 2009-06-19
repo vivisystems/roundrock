@@ -6,21 +6,11 @@
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     var __controller__ = {
-
         name: 'RptDailySales',
         
         _fileName: 'rpt_daily_sales',
-        
-        _paperProperties: {
-            orientation: "landscape"/*,
-            paperSize: {
-                width: 297,
-                height: 210
-            }*/
-        },
 
         _set_reportRecords: function( limit ) {
-
             limit = parseInt( limit );
             if ( isNaN( limit ) || limit <= 0 ) limit = this._stdLimit;
 
@@ -46,33 +36,33 @@
                 timeField = 'transaction_submitted';
             }
             var fields = [
-            'sum(order_payments.amount - order_payments.change) as "payment_subtotal"',
-            'order_payments.name as "payment_name"',
-            'orders.' + timeField + ' as "time"',
-            'orders.id',
-            'orders.sequence',
-            'orders.status',
-            'orders.tax_subtotal',
-            'orders.item_subtotal',
-            'orders.total',
-            'orders.service_clerk_displayname',
-            'orders.proceeds_clerk_displayname',
-            'orders.rounding_prices',
-            'orders.precision_prices',
-            'orders.rounding_taxes',
-            'orders.precision_taxes',
-            'orders.surcharge_subtotal',
-            'orders.discount_subtotal',
-            'orders.promotion_subtotal',
-            'orders.revalue_subtotal',
-            'orders.qty_subtotal',
-            'orders.check_no',
-            'orders.table_no',
-            'orders.no_of_customers',
-            'orders.invoice_no',
-            'orders.sale_period',
-            'orders.shift_number',
-            'orders.terminal_no'
+                'sum(order_payments.amount - order_payments.change) as "payment_subtotal"',
+                'order_payments.name as "payment_name"',
+                'orders.' + timeField + ' as "time"',
+                'orders.id',
+                'orders.sequence',
+                'orders.status',
+                'orders.tax_subtotal',
+                'orders.item_subtotal',
+                'orders.total',
+                'orders.service_clerk_displayname',
+                'orders.proceeds_clerk_displayname',
+                'orders.rounding_prices',
+                'orders.precision_prices',
+                'orders.rounding_taxes',
+                'orders.precision_taxes',
+                'orders.surcharge_subtotal',
+                'orders.discount_subtotal',
+                'orders.promotion_subtotal',
+                'orders.revalue_subtotal',
+                'orders.qty_subtotal',
+                'orders.check_no',
+                'orders.table_no',
+                'orders.no_of_customers',
+                'orders.invoice_no',
+                'orders.sale_period',
+                'orders.shift_number',
+                'orders.terminal_no'
             ];
 
             var conditions = "orders." + periodType + ">='" + start +
@@ -219,11 +209,18 @@
         },
         
         exportPdf: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                paperSize: {
+                    width: 297,
+                    height: 210
+                }
+            } );
         },
         
         print: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                orientation: "landscape"
+            } );
         },
         
         load: function() {
