@@ -430,14 +430,14 @@
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
                            errmsg: _('An error was encountered while removing all backup cashdrawer activity logs (error code %S).', [model.lastError])};
-                    }
+                }
 
-                    r = model.truncate();
-                    if (!r) {
-                        throw {errno: model.lastError,
-                               errstr: model.lastErrorString,
-                               errmsg: ('An error was encountered while removing all cashdrawer activity logs (error code %S).', [model.lastError])};
-                    }
+                r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: ('An error was encountered while removing all cashdrawer activity logs (error code %S).', [model.lastError])};
+                }
             }
             catch(e) {
                 this._dbError(e.errno, e.errstr, e.errmsg);
