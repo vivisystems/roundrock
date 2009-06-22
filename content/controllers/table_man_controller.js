@@ -119,7 +119,7 @@
 
         addTable: function() {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=540,height=500';
             var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
 
             window.openDialog(aURL, _('Add Table'), features, _('New Table'), '', _('Table Number'), _('Table Name'), inputObj);

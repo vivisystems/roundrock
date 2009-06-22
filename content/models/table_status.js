@@ -34,6 +34,20 @@
             }
         },
 
+        syncClient: function() {
+            // sync data
+            try {
+                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
+                var r = exec.run(["sync"], false); // nonblock mode
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
+                return false;
+            }
+        },
+
         getRemoteService: function(method) {
             this.syncSettings = (new SyncSetting()).read();
 
@@ -243,7 +257,12 @@
                 tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 2, order: orderby});
 
             }
-            
+
+            // if table status changed, sync database...
+            if (tableStatus.length > 0) {
+                this.syncClient();
+            }
+
             return tableStatus;
         },
 
@@ -282,8 +301,6 @@
             var self = this;
             // set checklist
             this._checkList = tableStatus.concat([]);
-// GREUtils.log("genTablesArray:::");
-// GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
 
             this._tableOrderByOrderId = {};
 
@@ -483,9 +500,41 @@
             return list;
         },
 
+        getTableOrderCheckSum: function(order_id) {
+            var self = this;
+
+            var remoteUrl = this.getRemoteService('getTableOrderCheckSum');
+            var tableOrder = null;
+
+            if (remoteUrl) {
+                try {
+                    tableOrder = this.requestRemoteService('GET', remoteUrl + "/" + order_id, null);
+
+                    this._connected = true;
+                }catch(e) {
+                    tableOrder = [];
+                    this._connected = false;
+
+                }
+
+            }else {
+                // read all order status
+                this._connected = true;
+                var fields = null;
+                var conditions = "table_orders.order_id='" + order_id + "'";
+
+                tableOrder = this.TableOrder.find('all', {fields: fields, conditions: conditions, recursive: 0});
+
+            }
+
+            return tableOrder;
+
+        },
+
         getTableStatus: function(table_no) {
 
             return this._tableStatusList[table_no];
+
         },
 
         setTableHostBy: function(table_no, holdTable) {

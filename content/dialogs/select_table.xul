@@ -71,7 +71,7 @@
         <hbox class="dialogbtn">
             <vbox>
                 <spacer flex="1" />
-                <viviclock showdate="true"/>
+                <viviclock id="table_status_timer" showdate="true"/>
             </vbox>
             <spacer flex="1" />
             <button class="RefrashBtn" id="refresh_table_status" label="&selecttable.refreshtablestatus;" default="true" type="radio" group="func" oncommand="$do('doRefreshTableStatus', null, 'SelectTable');"/>

@@ -138,6 +138,7 @@
         _cartController: null,
         _mainController: null,
         _selectedCheckNo: null,
+        _isBusy: false,
 
         initial: function () {
             //
@@ -434,12 +435,6 @@
 
             return;
 
-            var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
-            var cart = mainWindow.GeckoJS.Controller.getInstanceByName( 'Cart' );
-            var curTransaction = null;
-            curTransaction = cart._getTransaction();
-
         },
 
         doChangeClerk: function() {
@@ -487,7 +482,7 @@
 
             try {
 
-//                window._tableStatusModel.getTableStatusList();
+                window._tableStatusModel.getTableStatusList();
 
                 document.getElementById('tableScrollablepanel').invalidate();
                 // GREUtils.log("refreshTableStatusLight:::");
@@ -541,6 +536,14 @@
         },
 
         doFunc: function(evt) {
+
+            // @todo prevent reentry...
+            if (this._isBusy) {
+                this._hidePromptPanel('prompt_panel');
+                return;
+            }
+            this._isBusy = true;
+
             // @todo check status first, doFunc when match table selected...
             var v = document.getElementById('tableScrollablepanel').value;
             var selTable = this._tables[v];
@@ -551,6 +554,7 @@
                     if (selTable.hostby) {
                         // @todo OSD
                         NotifyUtils.error(_('This table is host by Table#%S !!', [selTable.hostby]));
+                        this._isBusy = false;
                         return;
                     }
 
@@ -571,6 +575,8 @@
                         this._sourceTableNo = null;
                         
                         $.hidePanel('selectTablePanel', true);
+
+                        this._isBusy = false;
                         return;
                     }
                     break;
@@ -578,6 +584,7 @@
                     if (!selTable.sequence) {
                         // @todo OSD
                         NotifyUtils.error(_('This table is empty!!'));
+                        this._isBusy = false;
                         return;
                     }
 
@@ -586,6 +593,7 @@
                     if (!selTable.sequence) {
                         // @todo OSD
                         NotifyUtils.error(_('This table is empty!!'));
+                        this._isBusy = false;
                         return;
                     }
 
@@ -594,6 +602,7 @@
                     if (!selTable.sequence) {
                         // @todo OSD
                         NotifyUtils.error(_('This table is empty!!'));
+                        this._isBusy = false;
                         return;
                     }
 
@@ -618,12 +627,14 @@
 
                         // $.hidePanel('selectTablePanel', true);
                         cart.GuestCheck.getNewTableNo();
+                        this._isBusy = false;
                         return;
                     }
                     break;
                 case 'TransTable':
                     if (this._sourceTableNo) {
                         //
+                        var srcTableNo = this._sourceTableNo;
                         this._inputObj.sourceTableNo = this._sourceTableNo;
 
                         this._hidePromptPanel('prompt_panel');
@@ -633,6 +644,7 @@
                             // this._inputObj.index = this._tables[v].table_no;
                             this._inputObj.index = v;
                             this._inputObj.tableObj = this._tables[v];
+                            // this._inputObj.tableObj = GREUtils.extend({}, this._tables[v]);
                             this._inputObj.ok = true;
                             // doOKButton();
                             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -643,6 +655,7 @@
 
                             // $.hidePanel('selectTablePanel', true);
                             cart.GuestCheck.getNewTableNo();
+                            this._isBusy = false;
                             return;
                         }
 
@@ -650,11 +663,13 @@
                         if (!selTable.sequence) {
                             // @todo OSD
                             NotifyUtils.error(_('This table is empty!!'));
+                            this._isBusy = false;
                             return;
                         }
                         this._setPromptLabel(null, null, _('Please select the table to transfer to...'), null, 3);
                         this._sourceTableNo = this._tables[v].table_no;
                         document.getElementById('tableScrollablepanel').invalidate();
+                        this._isBusy = false;
                         return;
                     }
                     
@@ -674,6 +689,7 @@
                         this._sourceTable = null;
                         this._sourceTableNo = null;
                         this._hidePromptPanel('prompt_panel');
+                        this._isBusy = false;
                         return;
                     } else {
                         // allow empty table as host table
@@ -689,6 +705,7 @@
                         this._sourceTableNo = this._tables[v].table_no;
 
                         document.getElementById('tableScrollablepanel').invalidate();
+                        this._isBusy = false;
                         return;
                     }
                     break;
@@ -698,6 +715,7 @@
                     if (!selTable.hostby) {
                         // @todo OSD
                         NotifyUtils.error(_('This table had not been hold!!'));
+                        this._isBusy = false;
                         return;
                     }
 
@@ -714,6 +732,7 @@
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
                     this._hidePromptPanel('prompt_panel');
+                    this._isBusy = false;
                     return;
                     break;
 
@@ -744,7 +763,7 @@
                     
                     var cart = GeckoJS.Controller.getInstanceByName('Cart');
                     cart.GuestCheck.getNewTableNo();
-
+                    this._isBusy = false;
                     return;
                     break;
                 default:
@@ -775,7 +794,7 @@
                 this._sourceTableNo = null;
                 
             }
-                
+            this._isBusy = false;
         },
 
         _enableFuncs: function(isNewOrder) {
@@ -839,11 +858,15 @@
                     clearInterval(window.tableStatusRefreshInterval);
                     window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 15000);
 
+                    document.getElementById('table_status_timer').startClock();
+
                 },
 
                 hide: function (evt) {
 
                     clearInterval(window.tableStatusRefreshInterval);
+
+                    document.getElementById('table_status_timer').stopClock();
 
                 }
 

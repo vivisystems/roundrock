@@ -3134,6 +3134,28 @@
                 return false;
             }
 
+            // get checksum if recall == 2
+            if (oldTransaction.data.recall == 2) {
+                //
+                var tableOrderObj = this.GuestCheck._tableStatusModel.getTableOrderCheckSum(oldTransaction.data.id);
+
+                if (tableOrderObj.length <= 0) return false;
+
+                var crc = orderModel.getOrderChecksum(oldTransaction.data.id);
+
+                if (crc != tableOrderObj[0].TableOrder.checksum) {
+                    GREUtils.Dialog.alert(window,
+                                      _('Order Checksum Fail'),
+                                      _('Current order checksum fail and may not be submit. Please retry or check this order.'));
+
+                    // sync database
+                    this.GuestCheck.syncClient();
+
+                    return false;
+                }
+
+            }
+
             if (this.dispatchEvent('beforeSubmit', {
                 status: status,
                 txn: oldTransaction

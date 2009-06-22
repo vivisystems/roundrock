@@ -1,6 +1,6 @@
 (function() {
 
-    var GuestCheckComponent = window.GuestCheckComponent = GeckoJS.Component.extend({
+    var __component__ = {
 
         /**
          * Component GuestCheck
@@ -112,7 +112,7 @@
             // sync data
             try {
                 var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
-                var r = exec.run(["sync"], false);
+                var r = exec.run(["sync"], true);
                 exec.close();
                 return true;
             }
@@ -663,16 +663,16 @@
                                 this.table("" + targetTableNo);
 
                                 this.store();
-                                
                                 // update modified time of source table status
                                 this._tableStatusModel.touchTableStatus(sourceTableNo);
+                                
+                                // dispatch changeclerk event
+                                // this._controller.dispatchEvent('onStore', curTransaction);
+                                this._controller.dispatchEvent('onTransTable', curTransaction);
 
                                 // clear recall check from cart
                                 this._controller.cancel(true);
 
-                                // dispatch changeclerk event
-                                // this._controller.dispatchEvent('onStore', curTransaction);
-                                this._controller.dispatchEvent('onTransTable', curTransaction);
                             }
 
                         }
@@ -1274,5 +1274,9 @@
         reformOrder: function(no) {
             //
         }
-    });
+
+    };
+
+    GeckoJS.Component.extend(__component__);
+
 })();
