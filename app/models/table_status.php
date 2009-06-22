@@ -179,6 +179,14 @@ class TableStatus extends AppModel {
             return $retObj;
 
         }
+
+        function getTableOrderCheckSum($order_id) {
+            $conditions = "TableOrder.order_id='" . $order_id . "'";
+
+            $tableOrder = $this->TableOrder->find('all', array("conditions" => $conditions, "recursive" => 0));
+
+            return $tableOrder;
+        }
         
 
 }

@@ -197,6 +197,21 @@ function index() {
 
         exit;
     }
-    
+
+    function getTableOrderCheckSum($order_id) {
+
+        $getResult = $this->TableStatus->getTableOrderCheckSum($order_id);
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $getResult
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+    }
+
 }
 ?>
