@@ -47,9 +47,7 @@ class SyncClientShell extends SyncBaseShell {
 
         set_time_limit(0);
 
-        $syncSettings =& Configure::read('sync_settings');
-
-        $shell =& $this;
+        $syncSettings = $this->readSyncSettings();
 
         if ($this->isSyncing()) {
             CakeLog::write('info', "other process issyncing.. sleep to next interval");
@@ -64,7 +62,7 @@ class SyncClientShell extends SyncBaseShell {
 
             CakeLog::write('info', "requestAction perform_sync");
 
-            $syncResult = $shell->requestAction("/sync_clients/perform_sync");
+            $syncResult = $this->requestAction("/sync_clients/perform_sync");
 
             CakeLog::write('info', "requestAction perform_sync result: " . $syncResult['pull_result'] . "," . $syncResult['push_result']);
 
@@ -98,12 +96,26 @@ class SyncClientShell extends SyncBaseShell {
     // set php time limit to unlimimted
         set_time_limit(0);
 
-        $syncSettings =& Configure::read('sync_settings');
+        /*
+         * read sync settings and process_type
+         */
+        $syncSettings = $this->readSyncSettings();
+
+        $active = $syncSettings['active'];
+        $startHour = $syncSettings['start_hour'] + 0 ;
+        $endHour = $syncSettings['end_hour'] + 0;
+        $interval = $syncSettings['interval'];
+        $error_retry = $syncSettings['error_retry'];
+        $timeout = $syncSettings['timeout'];
+        $hostname = $syncSettings['hostname'];
+        $process_type = $syncSettings['process_type'];
 
         $shell =& $this;
 
         // use shell script, so we don't need db connection
-        $this->closeAll();
+        if ($process_type == 'shell') {
+            $this->closeAll();
+        }
 
         System_Daemon::start();
 
@@ -116,13 +128,6 @@ class SyncClientShell extends SyncBaseShell {
         // This variable gives your own code the ability to breakdown the daemon:
         $runningOkay = true;
 
-        $startHour = $syncSettings['start_hour'] + 0 ;
-        $endHour = $syncSettings['end_hour'] + 0;
-
-        $interval = $syncSettings['interval'];
-        $error_retry = $syncSettings['error_retry'];
-
-        $timeout = $syncSettings['timeout'];
 
         // While checks on 2 things in this case:
         // - That the Daemon Class hasn't reported it's dying
@@ -146,13 +151,20 @@ class SyncClientShell extends SyncBaseShell {
 
                 System_Daemon::log(System_Daemon::LOG_INFO, "requestAction perform_syncs, retries = " . $tries );
 
+                if ($hostname == 'localhost' || $hostname == '127.0.0.1' || empty($active) ) break;
+
                 $successed = false;
-                
-                // use shellexec to prevent db locked.
-                $shell = ROOT.DS."sync_client";
-                if (file_exists($shell)) {
-                    $output = shell_exec ($shell . " sync");
-                    echo $output;
+
+                if ($process_type == 'shell') {
+                    // use shellexec to prevent db locked.
+                    $shellScript = ROOT.DS."sync_client";
+                    if (file_exists($shellScript)) {
+                        $output = shell_exec ($shellScript . " sync");
+                        echo $output;
+                        $successed = $this->isSyncingSuccess();
+                    }
+                }else {
+                    $this->sync();
                     $successed = $this->isSyncingSuccess();
                 }
 
