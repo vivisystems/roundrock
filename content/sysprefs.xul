@@ -434,7 +434,13 @@
 
             </rows>
         </grid>
-        
+
+        <hbox pack="center" style="padding: 10px;">
+        <diskspace_usage flex="1" />
+        </hbox>
+
+        <spacer flex="1" />
+
         <hbox class="ToolBar" pack="center">
             <button id="vacuum_training_db" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
             <button id="take_current_db_to_be_default_db" label="&orderdata.takecurrentdbtobedefaultdb;" oncommand="$do( 'takeCurrentDBToBeDefaultDB', null, 'TrainingMode' );" />

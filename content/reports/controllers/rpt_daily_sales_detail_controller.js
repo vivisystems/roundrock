@@ -10,14 +10,6 @@
         
         _fileName: 'rpt_daily_sales_detail',
         
-        _paperProperties: {
-            orientation: "landscape"/*,
-            paperSize: {
-                width: 297,
-                height: 210
-            }*/
-        },
-        
         _enableButton: function( enable ) {
             this._super( enable );
         	
@@ -214,11 +206,18 @@
         },
         
         exportPdf: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                paperSize: {
+                    width: 297,
+                    height: 210
+                }
+            } );
         },
         
         print: function() {
-            this._super( this._paperProperties );
+            this._super( {
+                orientation: "landscape"
+            } );
         },
         
         exportCsv: function() {

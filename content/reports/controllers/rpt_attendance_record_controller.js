@@ -1,5 +1,4 @@
-(function(){
-
+( function() {
     /**
      * RptAttendanceRecord Controller
      */
@@ -136,4 +135,4 @@
     };
     
     RptBaseController.extend(__controller__);
-})();
+} )();

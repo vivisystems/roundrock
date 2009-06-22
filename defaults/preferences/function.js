@@ -398,3 +398,8 @@ pref("vivipos.fec.registry.function.programmable.trainingMode.access", "acl_trai
 pref("vivipos.fec.registry.function.programmable.trainingMode.command", "start");
 pref("vivipos.fec.registry.function.programmable.trainingMode.controller", "TrainingMode");
 pref("vivipos.fec.registry.function.programmable.trainingMode.data", "");
+
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.access", "acl_stock_adjustment");
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.command", "stockAdjustment");
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.stockAdjustment.data", "");
