@@ -9094,6 +9094,14 @@ GeckoJS.BaseModel.prototype.findById = function(id, recursive, fields){
  */
 GeckoJS.BaseModel.prototype.findByIndex = function(type, params){
 
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'findByIndex > ') ;
+    /* endif DEBUG */
+
+    if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
+        if(!this.restoreFromBackup()) return false;
+    }
+
     type = type || 'all';
     params = params || {};
 
@@ -9194,6 +9202,12 @@ GeckoJS.BaseModel.prototype.findByIndex = function(type, params){
  * @return                          The requested record
  */
 GeckoJS.BaseModel.prototype.read = function(id){
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'read ( ' + id + ') > ') ;
+    /* endif DEBUG */
+
+
     this.data = this.findById(id);
     this.id = this.data[this.primaryKey];
     return this.data;
@@ -9367,6 +9381,10 @@ GeckoJS.BaseModel.prototype.save = function(data){
  * @param {Object} data              This is dataset to save
  */
 GeckoJS.BaseModel.prototype.saveAll = function(data) {
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'saveAll > ') ;
+    /* endif DEBUG */
 
     if(this.autoRestoreFromBackup && !this._restoreFromBackupInProcess) {
         if(!this.restoreFromBackup()) return false;
@@ -10721,6 +10739,10 @@ GeckoJS.Datasource = GeckoJS.BaseObject.extend('Datasource', {
         this._descriptionCache = {};
 
         if(config) this.setConfig(config);
+
+        this.lastError = 0;
+        this.lastErrorString = "";
+
 	
     }
 });
@@ -11374,7 +11396,10 @@ GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile', {
         this.config = config;
 
         this.lastInsertId = "";
-        
+
+        this.lastError = 0;
+        this.lastErrorString = "";
+
     }
 });
 
@@ -11409,6 +11434,15 @@ GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
     var d = {};
 
     var tableFile = new GeckoJS.Dir(this.path, true);
+
+    // directory not exists and can't created
+    if (!tableFile.exists()) {
+        this.lastError = 1;
+        this.lastErrorString = "error or missing database";
+        
+        return db;
+    }
+
     tableFile.append(table + '.db');
 
     if (tableFile.exists()) {
@@ -11424,7 +11458,10 @@ GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
 
     db = new GeckoJS.Map();
     db.addAll(d);
-        
+
+    this.lastError = 0;
+    this.lastErrorString = "successful result";
+
     return db;
     
 };
@@ -11440,6 +11477,15 @@ GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
 GeckoJS.DatasourceJsonFile.prototype.saveTableFile = function(table, db){
 
     var tableFile = new GeckoJS.Dir(this.path, true);
+
+    // directory not exists and can't created
+    if (!tableFile.exists()) {
+        this.lastError = 1;
+        this.lastErrorString = "error or missing database";
+
+        return false;
+    }
+
     tableFile.append(table + '.db');
 
     /* ifdef DEBUG 
@@ -11447,9 +11493,14 @@ GeckoJS.DatasourceJsonFile.prototype.saveTableFile = function(table, db){
     /* endif DEBUG */
     
     GREUtils.JSON.encodeToFile(tableFile.path, db._obj);
-    
+
+
     this.data.set(table, db);
-    
+
+    this.lastError = 0;
+    this.lastErrorString = "successful result";
+
+    return true;
 };
 
 
@@ -11505,6 +11556,15 @@ GeckoJS.DatasourceJsonFile.prototype.querySelect = function(model, fields, condi
 
     try {
         var db = this.readTableFile(table);
+
+        if (!db) {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'querySelect > ' + table + ',, error or missing database');
+            /* endif DEBUG */
+
+            return [];
+        }
         
         var resultSet = db.getValues();
 
@@ -11647,6 +11707,16 @@ GeckoJS.DatasourceJsonFile.prototype.querySelectById = function(model, fields, i
     
         var db = this.readTableFile(table);
 
+        if (!db) {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'querySelectById > ' + table + ',, error or missing database');
+            /* endif DEBUG */
+
+            return null;
+        }
+
+
         var resultSet = db.get(id);
         var result = null;
         
@@ -11750,6 +11820,16 @@ GeckoJS.DatasourceJsonFile.prototype.executeInsert = function(model, data){
 
         var db = this.readTableFile(table);
 
+        if (!db) {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'executeInsert > error or missing database');
+            /* endif DEBUG */
+
+            return false;
+        }
+
+
         var key = data[model.primaryKey];
 
         if (key.toString().length == 0) {
@@ -11761,11 +11841,11 @@ GeckoJS.DatasourceJsonFile.prototype.executeInsert = function(model, data){
 
         db.set(key, data);
 
-        this.saveTableFile(table, db);
+        var r = this.saveTableFile(table, db);
 
         model.setInsertID(key);
         model.id = key;
-        return true;
+        return r;
         
     }
     catch (e) {
@@ -11798,7 +11878,17 @@ GeckoJS.DatasourceJsonFile.prototype.executeUpdate = function(model, data){
     try {
     
         var db = this.readTableFile(table);
-        
+
+        if (!db) {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'executeUpdate > error or missing database');
+            /* endif DEBUG */
+
+            return false;
+        }
+
+
         var key = model.id;
         
         if (db.containsKey(key)) {
@@ -11807,9 +11897,9 @@ GeckoJS.DatasourceJsonFile.prototype.executeUpdate = function(model, data){
             dataOrg = GREUtils.extend(dataOrg, data);
             db.set(key, dataOrg);
             
-            this.saveTableFile(table, db);
+            var r = this.saveTableFile(table, db);
 
-            return true;
+            return r;
         }
 
     }
@@ -11841,15 +11931,24 @@ GeckoJS.DatasourceJsonFile.prototype.executeDelete = function(model){
     try {
     
         var db = this.readTableFile(table);
-        
+
+        if (!db) {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'executeDelete > error or missing database');
+            /* endif DEBUG */
+
+            return false;
+        }
+
         //keys = db.getKeys();
         //key = keys[id-1];
         var key = model.id;
         
         if (db.containsKey(key)) {
             db.remove(key);
-            this.saveTableFile(table, db);
-            return true;
+            var r = this.saveTableFile(table, db);
+            return r;
         }
         return false;
     }
@@ -11874,8 +11973,8 @@ GeckoJS.DatasourceJsonFile.prototype.truncate = function (table) {
 
     try {
 
-        this.saveTableFile(table, {});
-        return true;
+        var r = this.saveTableFile(table, {});
+        return r;
     }
     catch (e) {
         this.log("ERROR", "GeckoJS.DatasourceJsonFile: An error occurred executing the truncate command\n", e);
@@ -11893,7 +11992,8 @@ GeckoJS.DatasourceJsonFile.prototype.truncate = function (table) {
  */
 GeckoJS.DatasourceJsonFile.prototype.describe = function(model) {
 
-    return [];
+    // return sqlite style 
+    return {id: {name: 'id', type: 'VARCHAR', notnull: 1, pk: 1}};
 
 };
 
@@ -11956,7 +12056,7 @@ GeckoJS.DatasourceSQL = GeckoJS.Datasource.extend('DatasourceSQL', {
         this._result = null;
         this._statement = null;
 
-        this.lastError = false;
+        this.lastError = 0;
         this.lastErrorString = "";
 
     }
@@ -14122,6 +14222,10 @@ GeckoJS.DatasourceSQLite.prototype.begin = function(waiting)	{
 
     }
 
+    // update lastError / lastErrorString
+    this.lastError = (this.conn.lastError == 0 || this.conn.lastError == 100 || this.conn.lastError == 101) ? 0 : this.conn.lastError; // not an error
+    this.lastErrorString = this.conn.lastErrorString;
+
     return this.transactionInProgress;
 
 };
@@ -14189,6 +14293,10 @@ GeckoJS.DatasourceSQLite.prototype.commit = function(waiting) {
 
     }
 
+    // update lastError / lastErrorString
+    this.lastError = (this.conn.lastError == 0 || this.conn.lastError == 100 || this.conn.lastError == 101) ? 0 : this.conn.lastError; // not an error
+    this.lastErrorString = this.conn.lastErrorString;
+    
     return !this.transactionInProgress;
 
 };
@@ -14249,6 +14357,10 @@ GeckoJS.DatasourceSQLite.prototype.rollback = function(waiting) {
 
     }
 
+    // update lastError / lastErrorString
+    this.lastError = (this.conn.lastError == 0 || this.conn.lastError == 100 || this.conn.lastError == 101) ? 0 : this.conn.lastError; // not an error
+    this.lastErrorString = this.conn.lastErrorString;
+
     return !this.transactionInProgress;
 
 };
@@ -14263,31 +14375,43 @@ GeckoJS.DatasourceSQLite.prototype.rollback = function(waiting) {
  */
 GeckoJS.DatasourceSQLite.prototype.renderStatement = function(type, data) {
 
+    var sql = "";
     switch (type.toLowerCase()) {
 
         case 'select':
-            return "SELECT " + data.fields + " FROM " + data.table + " " + data.joins + " " + data.conditions + " " + data.group + " " + data.order + " " + data.limit;
+            sql = "SELECT " + data.fields + " FROM " + data.table + " " + data.joins + " " + data.conditions + " " + data.group + " " + data.order + " " + data.limit;
             break;
 
         case 'insert':
-            return "INSERT INTO " + data.table + " (" + data.fields + ") VALUES (" + data.values + ")";
+            sql = "INSERT OR REPLACE INTO " + data.table + " (" + data.fields + ") VALUES (" + data.values + ")";
             break;
 
         case 'update':
-            return "UPDATE " + data.table + " SET " + data.fields + " WHERE " + data.conditions;
+            sql = "UPDATE " + data.table + " SET " + data.fields + " WHERE " + data.conditions;
             break;
 
         case 'delete':
-            return "DELETE FROM " + data.table + " WHERE " + data.conditions ;
+            sql = "DELETE FROM " + data.table + " WHERE " + data.conditions ;
             break;
           
         case 'alter':
             break;
     }
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'renderStatement > ' + type + '\n' + sql);
+    /* endif DEBUG */
+
+    return sql;
 };
 
 
 GeckoJS.DatasourceSQLite.prototype.getStatementColumnsType = function (statement) {
+
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'getStatementColumnsType > ');
+        /* endif DEBUG */
+
         // do not use stmt.columnCount in the for loop
         var numCols = statement.columnCount;
 
@@ -14305,6 +14429,27 @@ GeckoJS.DatasourceSQLite.prototype.getStatementColumnsType = function (statement
             if ((declaredType.match(/date/i) || declaredType.match(/time/i)) && (sqliteType == statement.VALUE_TYPE_INTEGER)) {
                 convertType = "Date";
             }
+
+            // if can't determine
+            if (sqliteType == statement.VALUE_TYPE_NULL) {
+
+                if (declaredType.match(/char/i)) {
+                    sqliteType = statement.VALUE_TYPE_TEXT;
+                }
+                if (declaredType.match(/text/i)) {
+                    sqliteType = statement.VALUE_TYPE_TEXT;
+                }
+                if (declaredType.match(/memo/i)) {
+                    sqliteType = statement.VALUE_TYPE_TEXT;
+                }
+                if (declaredType.match(/int/i)) {
+                    sqliteType = statement.VALUE_TYPE_INTEGER;
+                }
+                if (declaredType.match(/float/i)) {
+                    sqliteType = statement.VALUE_TYPE_FLOAT;
+                }
+            }
+
 
             var modelName = "";
 
@@ -14325,6 +14470,11 @@ GeckoJS.DatasourceSQLite.prototype.getStatementColumnsType = function (statement
                                 }};
 
         }
+
+        /* ifdef DEBUG 
+        //this.log('DEBUG', '     getStatementColumnsType > ' + this.dump(columns));
+        /* endif DEBUG */
+
         return columns;
 };
 /**
