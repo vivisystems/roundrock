@@ -8,9 +8,7 @@
 
         useDbConfig: 'order',
 
-        //behaviors: ['Sync', 'Training'],
-
-        behaviors: ['Sync'],
+        behaviors: ['Sync', 'Training'],
 
         autoRestoreFromBackup: true,
 

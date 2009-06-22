@@ -41,7 +41,7 @@
 	
         clearBuffer: function() {
             this.buf = "";
-        //	this.dispatchEvent('onClearBuffer', this.buf);
+            this.dispatchEvent('onClearBuffer', this.buf);
         },
 	
         addBuffer: function(s) {

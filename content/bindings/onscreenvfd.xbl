@@ -62,10 +62,14 @@
                         self.setText0_0(_('TAL') + ': ' + transaction.getTotal(true));
                         // self.setText0_1('');
                         self.setText1_1(_('REM') + ': ' + transaction.getRemainTotal(true));
-                        self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
+                        if (transaction.data != null && transaction.data.status == 1) {
+                            self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(false)));
+                        }
+                        else {
+                            self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
+                        }
                     } else {
                         self.onClear(evt);
-
                     }
                 }
 

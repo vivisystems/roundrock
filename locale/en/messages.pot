@@ -2360,7 +2360,7 @@ msgid "Document is too large to export PDF, please use export CSV instead"
 msgstr "Document is too large to export PDF, please use export CSV instead"
 
 msgid "stockAdjustment.label"
-msgstr "Stock Adj."
+msgstr "Stock Adjustment"
 
 msgid "stockAdjustment.name"
 msgstr "Stock Adjustment"

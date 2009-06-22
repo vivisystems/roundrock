@@ -16,6 +16,11 @@
 
         _orderData: null,
 
+        _queryStringPreprocessor: function( s ) {
+            var re = /\'/g;
+            return s.replace( re, '\'\'' );
+        },
+
         load: function(inputObj) {
 
             // load matching order(s)
@@ -26,13 +31,13 @@
             else {
                 var indices = inputObj.index.split(',');
                 for (var i = 0; i < indices.length; i++) {
-                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + ' like "%' + inputObj.value + '%")';
+                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
                 }
             }
             var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
             
             if (localOnly) {
-                conditions += ' AND terminal_no = "' + GeckoJS.Session.get('terminal_no') + '"';
+                conditions += " AND terminal_no = '" + this._queryStringPreprocessor(GeckoJS.Session.get('terminal_no')) + "'";
             }
 
             var orderModel = new OrderModel();
@@ -43,6 +48,11 @@
                 limit: 50,
                 recursive: 0
             });
+            if (parseInt(orderModel.lastError) != 0) {
+                this._dbError(orderModel.lastError, orderModel.lastErrorString,
+                              _('An error was encountered while retrieving list of matching orders (error code %S).', [orderModel.lastError]));
+                return;
+            }
 
             // list orders
             var menulist = document.getElementById('orderlist');
@@ -105,6 +115,11 @@
             // load data
             var orderModel = new OrderModel();
             var order = orderModel.findById(id, 2);
+            if (parseInt(orderModel.lastError) != 0) {
+                this._dbError(orderModel.lastError, orderModel.lastErrorString,
+                              _('An error was encountered while retrieving details of the selected order (error code %S).', [orderModel.lastError]));
+                return;
+            }
 
             // load template
             var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
@@ -158,10 +173,17 @@
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                                                     .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
             var cartController = mainWindow.GeckoJS.Controller.getInstanceByName('Cart');
-            cartController.requestCommand('voidSale', id, 'Cart');
+            if (cartController.voidSale(id)) {
+                this.displayOrder(id);
+            }
+        },
 
-            this.displayOrder(id);
-        }
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
+            GREUtils.Dialog.alert(this.activeWindow,
+                                  _('Data Operation Error'),
+                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+        },
 
     };
 
