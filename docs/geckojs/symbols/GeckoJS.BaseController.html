@@ -451,18 +451,18 @@ nsIController interface. It is a Singleton class.<br/>
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#addEventListener">addEventListener</a></b>(aEvent, aListener, thisObj)
+								<div class="fixedFont">GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.addEventListener">addEventListener</a></b>(aEvent, aListener, thisObj)
 								</div>
 								<div class="description">Adds a listener for a given event to this BaseController instance.</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.addEventListener">addEventListener</a></b>(aEvent, aListener, thisObj)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#addEventListener">addEventListener</a></b>(aEvent, aListener, thisObj)
 								</div>
 								<div class="description">Adds a listener for a given event to this BaseController instance.</div>
 							</td>
@@ -502,6 +502,24 @@ nsIController interface. It is a Singleton class.<br/>
 								</div>
 								<div class="description">Returns the list of event listeners associated with this BaseController
 instance.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.removeEventListener">removeEventListener</a></b>(aEvent, aListener)
+								</div>
+								<div class="description">Remove a listener for a given event to this BaseController instance.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#removeEventListener">removeEventListener</a></b>(aEvent, aListener)
+								</div>
+								<div class="description">Remove a listener for a given event to this BaseController instance.</div>
 							</td>
 						</tr>
 					
@@ -723,11 +741,11 @@ instance.</div>
 					Method Detail
 				</div>
 				
-					<a name="addEventListener"> </a>
-					<div class="fixedFont">
+					<a name=".addEventListener"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<b>addEventListener</b>(aEvent, aListener, thisObj)
+					<span class="light">GeckoJS.BaseController.</span><b>addEventListener</b>(aEvent, aListener, thisObj)
 					
 					</div>
 					<div class="description">
@@ -743,7 +761,7 @@ instance.</div>
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{String|Array}</span> <b>aEvent</b>
+									<span class="light fixedFont">{String}</span> <b>aEvent</b>
 									
 								</dt>
 								<dd>This is the event name</dd>
@@ -771,11 +789,11 @@ instance.</div>
 
 					<hr />
 				
-					<a name=".addEventListener"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="addEventListener"> </a>
+					<div class="fixedFont">
 					
 					
-					<span class="light">GeckoJS.BaseController.</span><b>addEventListener</b>(aEvent, aListener, thisObj)
+					<b>addEventListener</b>(aEvent, aListener, thisObj)
 					
 					</div>
 					<div class="description">
@@ -791,7 +809,7 @@ instance.</div>
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{String}</span> <b>aEvent</b>
+									<span class="light fixedFont">{String|Array}</span> <b>aEvent</b>
 									
 								</dt>
 								<dd>This is the event name</dd>
@@ -1017,6 +1035,90 @@ instance.
 
 					<hr />
 				
+					<a name=".removeEventListener"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.BaseController.</span><b>removeEventListener</b>(aEvent, aListener)
+					
+					</div>
+					<div class="description">
+						Remove a listener for a given event to this BaseController instance.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>aEvent</b>
+									
+								</dt>
+								<dd>This is the event name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Function}</span> <b>aListener</b>
+									
+								</dt>
+								<dd>This is the listener to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeEventListener"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>removeEventListener</b>(aEvent, aListener)
+					
+					</div>
+					<div class="description">
+						Remove a listener for a given event to this BaseController instance.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String|Array}</span> <b>aEvent</b>
+									
+								</dt>
+								<dd>This is the event name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Function}</span> <b>aListener</b>
+									
+								</dt>
+								<dd>This is the listener to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="supportsCommand"> </a>
 					<div class="fixedFont">
 					
@@ -1073,7 +1175,7 @@ if scaffold is true , and dispatch to scaffold , don't warning messages.
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Mon Jun 22 2009 17:36:51 GMT+0800 (CST)
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jun 24 2009 00:03:43 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

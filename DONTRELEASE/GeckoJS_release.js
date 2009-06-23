@@ -2682,18 +2682,12 @@ GeckoJS.Event.prototype.addListener = function(aEvent, aListener, thisObj){
  */
 GeckoJS.Event.prototype.removeListener = function(aEvent, aListener){
 
-    for (var i = this.listeners.length -1; i >0; i--) {
+    for (var i = this.listeners.length -1; i >=0; i--) {
         var element = this.listeners[i];
         if ( element.event == aEvent && (element.listener == aListener || element.listener.__hashCode == aListener.__hashCode) ) {
             this.listeners.splice(i,1);
         }
-
     }
-    /*
-    this.listeners = this.listeners.filter(function(element){
-        return !(element.event == aEvent && (element.listener == aListener) );
-    });
-    */
 
 };
 
@@ -6231,6 +6225,7 @@ GeckoJS.Session.prototype.getMap = function() {
 };
 
 // We need shadow some method for event support.
+
 /**
  * Adds a listener for a given event to this Session instance.
  *
@@ -6267,6 +6262,39 @@ GeckoJS.Session.prototype.addEventListener = function(aEvent, aListener, thisObj
 
 };
 
+
+/**
+ * Remove a listener for a given event to this Session instance.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to remove
+ */
+GeckoJS.Session.removeEventListener = function(aEvent, aListener) {
+
+    this.getInstance().removeEventListener(aEvent, aListener);
+
+};
+
+
+/**
+ * Remove a listener for a given event to Session.
+ *
+ * @public
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to remove
+ */
+GeckoJS.Session.prototype.removeEventListener = function(aEvent, aListener) {
+    try {
+        this.events.removeListener(aEvent, aListener);
+    }catch(e) {
+        this.log("ERROR", 'GeckoJS.Session.removeEventListener ' + aEvent , e);
+    }
+
+};
 
 
 
@@ -6586,9 +6614,10 @@ GeckoJS.Dispatcher.prototype.__defineSetter__('events', function(e){
  * @function
  * @param {String} aEvent           This is the event name
  * @param {Function} aListener      This is the listener to add
+ * @param {Object} thisObj          This is the execution scope to lock the listener to
  */
-GeckoJS.Dispatcher.addEventListener = function(aEvent, aListener) {
-    this.getInstance().addEventListener(aEvent, aListener);
+GeckoJS.Dispatcher.addEventListener = function(aEvent, aListener, thisObj) {
+    this.getInstance().addEventListener(aEvent, aListener, thisObj);
 };
 
 
@@ -6599,19 +6628,59 @@ GeckoJS.Dispatcher.addEventListener = function(aEvent, aListener) {
  * @function
  * @param {String} aEvent           This is the event name
  * @param {Function} aListener      This is the listener to add
+ * @param {Object} thisObj          This is the execution scope to lock the listener to
  */
-GeckoJS.Dispatcher.prototype.addEventListener = function(aEvent, aListener) {
+GeckoJS.Dispatcher.prototype.addEventListener = function(aEvent, aListener, thisObj) {
     try {
         /* ifdef DEBUG 
         this.log('DEBUG', 'GeckoJS.Dispatcher.addEventListener ' + aEvent);
         /* endif DEBUG */
 
-        this.events.addListener(aEvent, aListener);
+        thisObj = thisObj || this;
+        
+        this.events.addListener(aEvent, aListener, thisObj);
     }catch(e) {
         this.log("ERROR", 'GeckoJS.Dispatcher.addEventListener ' + aEvent , e);
     }
 
 };
+
+
+/**
+ * Remove a listener for a given event to this Dispatcher instance.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to remove
+ */
+GeckoJS.Dispatcher.removeEventListener = function(aEvent, aListener) {
+    this.getInstance().removeEventListener(aEvent, aListener);
+};
+
+
+/**
+ * Remove a listener for a given event to this Dispatcher instance.
+ *
+ * @public
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to remove
+ */
+GeckoJS.Dispatcher.prototype.removeEventListener = function(aEvent, aListener) {
+    try {
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'GeckoJS.Dispatcher.RemoveEventListener ' + aEvent);
+        /* endif DEBUG */
+
+        this.events.removeListener(aEvent, aListener);
+    }catch(e) {
+        this.log("ERROR", 'GeckoJS.Dispatcher.removeEventListener ' + aEvent , e);
+    }
+
+};
+
 
 /**
  * Dispatches the given event to all listeners of that event.<br/>
@@ -6764,16 +6833,25 @@ GeckoJS.Dispatcher.prototype.dispatch = function(win, command, data, context){
                     controller.wrappedJSObject._command = command;
                 }
 
-                // dispatch dispatcher's event
-                this.dispatchEvent('onDispatch', controller);
+				// beforeDispatch 
+				var beforeResult = this.dispatchEvent('beforeDispatch', controller);
+
+				if (beforeResult) {
+
+		            // dispatch dispatcher's event
+		            this.dispatchEvent('onDispatch', controller);
 
 
-                /* ifdef DEBUG 
-                this.log('DEBUG', 'dispatch for ' + controller['name'] +'.'+ command );
-                /* endif DEBUG */
+		            /* ifdef DEBUG 
+		            this.log('DEBUG', 'dispatch for ' + controller['name'] +'.'+ command );
+		            /* endif DEBUG */
 
-                // invoke controller 's command
-                controller.doCommand(command);
+		            // invoke controller 's command
+		            controller.doCommand(command);
+
+					this.dispatchEvent('afterDispatch', controller);
+
+				}
 
             }catch(e) {
                 this.log('ERROR','GeckoJS.dispatch ', e);
@@ -7593,13 +7671,13 @@ GeckoJS.BaseController.prototype._addControllerEvents = function() {
 
 
 GeckoJS.BaseController.prototype._addComponents = function() {
-};
+    };
 
 GeckoJS.BaseController.prototype._addHelpers = function() {
-};
+    };
 
 GeckoJS.BaseController.prototype._loadModels = function() {
-};
+    };
 
 /**
  * Returns the list of event listeners associated with this BaseController
@@ -7636,8 +7714,6 @@ GeckoJS.BaseController.addEventListener = function(aEvent, aListener, thisObj) {
         aListener = arguments[2];
         aEvent = arguments[1];
         var controllerName = arguments[0];
-        
-        
 
         controller = GeckoJS.BaseController.getInstanceByName(controllerName);
         if (controller) {
@@ -7673,6 +7749,64 @@ GeckoJS.BaseController.prototype.addEventListener = function(aEvent, aListener, 
        
     }catch(e) {
         this.log("ERROR", this.getClassName() + 'Controller.addEventListener ' + aEvent , e);
+    }
+
+};
+
+
+/**
+ * Remove a listener for a given event to this BaseController instance.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to remove
+ */
+GeckoJS.BaseController.removeEventListener = function(aEvent, aListener) {
+
+    if (typeof aEvent == 'string' && typeof aListener == 'string') {
+
+        var controller = null;
+
+        // shift arguments
+        aListener = arguments[2];
+        aEvent = arguments[1];
+        var controllerName = arguments[0];
+
+        controller = GeckoJS.BaseController.getInstanceByName(controllerName);
+        if (controller) {
+            controller.removeEventListener(aEvent, aListener);
+        }
+
+    }else {
+        this.getInstance().removeEventListener(aEvent, aListener);
+    }
+};
+
+
+/**
+ * Remove a listener for a given event to this BaseController instance.
+ *
+ * @public
+ * @function
+ * @param {String|Array} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to remove
+ */
+GeckoJS.BaseController.prototype.removeEventListener = function(aEvent, aListener) {
+    
+    try {
+        if (aEvent.constructor.name == 'Array') {
+            for (var idx in aEvent) {
+                this.events.removeListener(aEvent[idx], aListener);
+            }
+
+        }else {
+            this.events.removeListener(aEvent, aListener);
+        }
+
+    }catch(e) {
+        this.log("ERROR", this.getClassName() + 'Controller.removeEventListener ' + aEvent , e);
     }
 
 };
@@ -7820,7 +7954,7 @@ GeckoJS.BaseController.prototype.doCommand = function(sCmd){
             var onActionEvent = 'on' + GeckoJS.Inflector.camelize(sCmd);
 
             if(this.dispatchedEvents[onActionEvent]) {
-                // already dispatched onAction
+            // already dispatched onAction
             }else {
                 /* ifdef DEBUG 
                 this.log('TRACE', 'doCommand > auto dispatchEvent(' + onActionEvent + ') : before (' + sCmd + ')');
@@ -7830,7 +7964,7 @@ GeckoJS.BaseController.prototype.doCommand = function(sCmd){
 
                 /* ifdef DEBUG 
                 this.log('TRACE', 'doCommand > auto dispatchEvent(' + onActionEvent + ') : after (' + sCmd + ')');
-                /* endif DEBUG */
+            /* endif DEBUG */
             }
 
             /* ifdef DEBUG 
@@ -7852,7 +7986,7 @@ GeckoJS.BaseController.prototype.doCommand = function(sCmd){
 
         /* ifdef DEBUG 
         this.log('TRACE', 'doCommand > dispatchEvent(afterFilter) : after (' + sCmd + ')');
-        /* endif DEBUG */
+    /* endif DEBUG */
 
     }
     catch (e) {
@@ -8450,6 +8584,25 @@ GeckoJS.BaseModel.prototype.addEventListener = function(aEvent, aListener, thisO
     }
     catch (e) {
         this.log('ERROR' , this.getClassName() +'Model.addEventListener ' + aEvent , e);
+    }
+
+};
+
+
+/**
+ * Remove a listener for the given event to this GeckoJS.BaseModel instance.
+ *
+ * @public
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to remove
+ */
+GeckoJS.BaseModel.prototype.removeEventListener = function(aEvent, aListener){
+    try {
+        return this.events.removeListener(aEvent, aListener);
+    }
+    catch (e) {
+        this.log('ERROR' , this.getClassName() +'Model.removeEventListener ' + aEvent , e);
     }
 
 };
@@ -9228,10 +9381,14 @@ GeckoJS.BaseModel.prototype.read = function(id){
  * field.
  *    
  * @public
- * @function  
- * @param {Boolean} success             
+ * @function
+ * @param {Array} data data to save
+ * @param {Boolean} updateTimestamp auto update created/modified fields
+ * @return {Boolean} success
  */
-GeckoJS.BaseModel.prototype.save = function(data){
+GeckoJS.BaseModel.prototype.save = function(data, updateTimestamp){
+
+    updateTimestamp = (typeof updateTimestamp != 'undefined') ? updateTimestamp : true;
 
     /* ifdef DEBUG 
     this.log('DEBUG', 'save > ') ;
@@ -9314,8 +9471,10 @@ GeckoJS.BaseModel.prototype.save = function(data){
                     if (fieldType.indexOf('INT') == -1 ) this.data[this.primaryKey] = GeckoJS.String.uuid();
                 }
 
-                this.data['created'] = Math.round( (new Date()).getTime() / 1000) ;
-                this.data['modified'] = this.data['updated'] = this.data['created'];
+                if(updateTimestamp || (typeof this.data['created'] == 'undefined') ) {
+                    this.data['created'] = Math.round( (new Date()).getTime() / 1000) ;
+                    this.data['modified'] = this.data['updated'] = this.data['created'];
+                }
 
                 created = ds.executeInsert(this, this.data);
 
@@ -9324,8 +9483,10 @@ GeckoJS.BaseModel.prototype.save = function(data){
             }else {
 
                 // update exists record
-                this.data['modified'] = Math.round( (new Date()).getTime() / 1000);
-                this.data['updated'] = this.data['modified'];
+                if(updateTimestamp || (typeof this.data['modified'] == 'undefined') ) {
+                    this.data['modified'] = Math.round( (new Date()).getTime() / 1000);
+                    this.data['updated'] = this.data['modified'];
+                }
 
                 success = ds.executeUpdate(this, this.data);
                 
@@ -9379,9 +9540,12 @@ GeckoJS.BaseModel.prototype.save = function(data){
  * @public
  * @function  
  * @param {Object} data              This is dataset to save
+ * @param {Boolean} updateTimestamp auto update created/modified fields
  */
-GeckoJS.BaseModel.prototype.saveAll = function(data) {
+GeckoJS.BaseModel.prototype.saveAll = function(data, updateTimestamp) {
 
+    updateTimestamp = (typeof updateTimestamp != 'undefined') ? updateTimestamp : true;
+    
     /* ifdef DEBUG 
     this.log('DEBUG', 'saveAll > ') ;
     /* endif DEBUG */
@@ -9394,7 +9558,7 @@ GeckoJS.BaseModel.prototype.saveAll = function(data) {
     if(typeof data == 'object' && data.constructor.name == 'Array') {
         data.forEach(function(d) {
             self.create();
-            self.save(d);
+            self.save(d, updateTimestamp);
         });
     }
 
@@ -9525,7 +9689,7 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
         /* ifdef DEBUG 
         this.log('DEBUG', 'saveall from backup data, length = ' + backupDatas.length);
         /* endif DEBUG */
-        this.saveAll(backupDatas);
+        this.saveAll(backupDatas, false); // don't update timestamp
         
         r = this.commit(true);
 
@@ -11602,7 +11766,7 @@ GeckoJS.DatasourceJsonFile.prototype.querySelect = function(model, fields, condi
         
     }
     catch (e) {
-        this.log("ERROR","GeckoJS.DatasourceJsonFile: An error occurred executing the selectAll (" + condition + ")command\n" , e);
+        this.log("ERROR","GeckoJS.DatasourceJsonFile: An error occurred executing the selectAll (" + conditions + ")command\n" , e);
         return [];
     }
     
@@ -14176,6 +14340,11 @@ GeckoJS.DatasourceSQLite.prototype.truncate = function (table) {
  */
 GeckoJS.DatasourceSQLite.prototype.begin = function(waiting)	{
 
+    // In case it hasn't been opened
+    if(!this.connect()) {
+        return false;
+    }
+
     var maxTries = waiting ? this.maxTries : 1;
     var numTries = 0;
 
@@ -14238,6 +14407,11 @@ GeckoJS.DatasourceSQLite.prototype.begin = function(waiting)	{
  * @function
  */
 GeckoJS.DatasourceSQLite.prototype.commit = function(waiting) {
+
+    // In case it hasn't been opened
+    if(!this.connect()) {
+        return false;
+    }
 
     var maxTries = waiting ? this.maxTries : 1;
     var numTries = 0;
@@ -14309,6 +14483,11 @@ GeckoJS.DatasourceSQLite.prototype.commit = function(waiting) {
  * @function
  */
 GeckoJS.DatasourceSQLite.prototype.rollback = function(waiting) {
+
+    // In case it hasn't been opened
+    if(!this.connect()) {
+        return false;
+    }
 
     var maxTries = waiting ? this.maxTries : 1;
     var numTries = 0;
