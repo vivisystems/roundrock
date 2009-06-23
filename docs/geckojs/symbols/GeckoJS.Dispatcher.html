@@ -389,7 +389,7 @@ Gecko APP Engine MVC Framework.<br/>
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">GeckoJS.Dispatcher.<b><a href="../symbols/GeckoJS.Dispatcher.html#.addEventListener">addEventListener</a></b>(aEvent, aListener)
+								<div class="fixedFont">GeckoJS.Dispatcher.<b><a href="../symbols/GeckoJS.Dispatcher.html#.addEventListener">addEventListener</a></b>(aEvent, aListener, thisObj)
 								</div>
 								<div class="description">Adds a listener for a given event to this Dispatcher instance.</div>
 							</td>
@@ -398,7 +398,7 @@ Gecko APP Engine MVC Framework.<br/>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Dispatcher.html#addEventListener">addEventListener</a></b>(aEvent, aListener)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Dispatcher.html#addEventListener">addEventListener</a></b>(aEvent, aListener, thisObj)
 								</div>
 								<div class="description">Adds a listener for a given event to this Dispatcher instance.</div>
 							</td>
@@ -439,6 +439,24 @@ of that controller.</div>
 								<div class="fixedFont">GeckoJS.Dispatcher.<b><a href="../symbols/GeckoJS.Dispatcher.html#.dispatchEvent">dispatchEvent</a></b>(sEvt, data)
 								</div>
 								<div class="description">Dispatches the given event to all listeners of that event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Dispatcher.html#removeEventListener">removeEventListener</a></b>(aEvent, aListener)
+								</div>
+								<div class="description">Remove a listener for a given event to this Dispatcher instance.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Dispatcher.<b><a href="../symbols/GeckoJS.Dispatcher.html#.removeEventListener">removeEventListener</a></b>(aEvent, aListener)
+								</div>
+								<div class="description">Remove a listener for a given event to this Dispatcher instance.</div>
 							</td>
 						</tr>
 					
@@ -523,7 +541,7 @@ of that controller.</div>
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">GeckoJS.Dispatcher.</span><b>addEventListener</b>(aEvent, aListener)
+					<span class="light">GeckoJS.Dispatcher.</span><b>addEventListener</b>(aEvent, aListener, thisObj)
 					
 					</div>
 					<div class="description">
@@ -549,6 +567,12 @@ of that controller.</div>
 									
 								</dt>
 								<dd>This is the listener to add</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>thisObj</b>
+									
+								</dt>
+								<dd>This is the execution scope to lock the listener to</dd>
 							
 							</dl>
 						
@@ -565,7 +589,7 @@ of that controller.</div>
 					<div class="fixedFont">
 					
 					
-					<b>addEventListener</b>(aEvent, aListener)
+					<b>addEventListener</b>(aEvent, aListener, thisObj)
 					
 					</div>
 					<div class="description">
@@ -591,6 +615,12 @@ of that controller.</div>
 									
 								</dt>
 								<dd>This is the listener to add</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>thisObj</b>
+									
+								</dt>
+								<dd>This is the execution scope to lock the listener to</dd>
 							
 							</dl>
 						
@@ -835,6 +865,90 @@ it returns "true".
 						
 						
 
+					<hr />
+				
+					<a name="removeEventListener"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>removeEventListener</b>(aEvent, aListener)
+					
+					</div>
+					<div class="description">
+						Remove a listener for a given event to this Dispatcher instance.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>aEvent</b>
+									
+								</dt>
+								<dd>This is the event name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Function}</span> <b>aListener</b>
+									
+								</dt>
+								<dd>This is the listener to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".removeEventListener"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.Dispatcher.</span><b>removeEventListener</b>(aEvent, aListener)
+					
+					</div>
+					<div class="description">
+						Remove a listener for a given event to this Dispatcher instance.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>aEvent</b>
+									
+								</dt>
+								<dd>This is the event name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Function}</span> <b>aListener</b>
+									
+								</dt>
+								<dd>This is the listener to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
 					
 				
 			
@@ -845,7 +959,7 @@ it returns "true".
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Mon Jun 22 2009 17:36:52 GMT+0800 (CST)
+			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Tue Jun 23 2009 11:04:56 GMT+0800 (CST)
 		</div>
 	</body>
 </html>
