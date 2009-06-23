@@ -9381,10 +9381,14 @@ GeckoJS.BaseModel.prototype.read = function(id){
  * field.
  *    
  * @public
- * @function  
- * @param {Boolean} success             
+ * @function
+ * @param {Array} data data to save
+ * @param {Boolean} updateTimestamp auto update created/modified fields
+ * @return {Boolean} success
  */
-GeckoJS.BaseModel.prototype.save = function(data){
+GeckoJS.BaseModel.prototype.save = function(data, updateTimestamp){
+
+    updateTimestamp = (typeof updateTimestamp != 'undefined') ? updateTimestamp : true;
 
     /* ifdef DEBUG 
     this.log('DEBUG', 'save > ') ;
@@ -9467,8 +9471,10 @@ GeckoJS.BaseModel.prototype.save = function(data){
                     if (fieldType.indexOf('INT') == -1 ) this.data[this.primaryKey] = GeckoJS.String.uuid();
                 }
 
-                this.data['created'] = Math.round( (new Date()).getTime() / 1000) ;
-                this.data['modified'] = this.data['updated'] = this.data['created'];
+                if(updateTimestamp || (typeof this.data['created'] == 'undefined') ) {
+                    this.data['created'] = Math.round( (new Date()).getTime() / 1000) ;
+                    this.data['modified'] = this.data['updated'] = this.data['created'];
+                }
 
                 created = ds.executeInsert(this, this.data);
 
@@ -9477,8 +9483,10 @@ GeckoJS.BaseModel.prototype.save = function(data){
             }else {
 
                 // update exists record
-                this.data['modified'] = Math.round( (new Date()).getTime() / 1000);
-                this.data['updated'] = this.data['modified'];
+                if(updateTimestamp || (typeof this.data['modified'] == 'undefined') ) {
+                    this.data['modified'] = Math.round( (new Date()).getTime() / 1000);
+                    this.data['updated'] = this.data['modified'];
+                }
 
                 success = ds.executeUpdate(this, this.data);
                 
@@ -9532,9 +9540,12 @@ GeckoJS.BaseModel.prototype.save = function(data){
  * @public
  * @function  
  * @param {Object} data              This is dataset to save
+ * @param {Boolean} updateTimestamp auto update created/modified fields
  */
-GeckoJS.BaseModel.prototype.saveAll = function(data) {
+GeckoJS.BaseModel.prototype.saveAll = function(data, updateTimestamp) {
 
+    updateTimestamp = (typeof updateTimestamp != 'undefined') ? updateTimestamp : true;
+    
     /* ifdef DEBUG 
     this.log('DEBUG', 'saveAll > ') ;
     /* endif DEBUG */
@@ -9547,7 +9558,7 @@ GeckoJS.BaseModel.prototype.saveAll = function(data) {
     if(typeof data == 'object' && data.constructor.name == 'Array') {
         data.forEach(function(d) {
             self.create();
-            self.save(d);
+            self.save(d, updateTimestamp);
         });
     }
 
@@ -9678,7 +9689,7 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
         /* ifdef DEBUG 
         this.log('DEBUG', 'saveall from backup data, length = ' + backupDatas.length);
         /* endif DEBUG */
-        this.saveAll(backupDatas);
+        this.saveAll(backupDatas, false); // don't update timestamp
         
         r = this.commit(true);
 
@@ -14329,6 +14340,11 @@ GeckoJS.DatasourceSQLite.prototype.truncate = function (table) {
  */
 GeckoJS.DatasourceSQLite.prototype.begin = function(waiting)	{
 
+    // In case it hasn't been opened
+    if(!this.connect()) {
+        return false;
+    }
+
     var maxTries = waiting ? this.maxTries : 1;
     var numTries = 0;
 
@@ -14391,6 +14407,11 @@ GeckoJS.DatasourceSQLite.prototype.begin = function(waiting)	{
  * @function
  */
 GeckoJS.DatasourceSQLite.prototype.commit = function(waiting) {
+
+    // In case it hasn't been opened
+    if(!this.connect()) {
+        return false;
+    }
 
     var maxTries = waiting ? this.maxTries : 1;
     var numTries = 0;
@@ -14462,6 +14483,11 @@ GeckoJS.DatasourceSQLite.prototype.commit = function(waiting) {
  * @function
  */
 GeckoJS.DatasourceSQLite.prototype.rollback = function(waiting) {
+
+    // In case it hasn't been opened
+    if(!this.connect()) {
+        return false;
+    }
 
     var maxTries = waiting ? this.maxTries : 1;
     var numTries = 0;
