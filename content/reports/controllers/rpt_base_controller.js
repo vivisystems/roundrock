@@ -26,11 +26,15 @@
         _preview_frame_id: "preview_frame",
         _abody_id: "abody",
         _div_id: "docbody",
+        _body_table: "body-table",
         
         _tmpFileDir: "/var/tmp/",
         
         _exporting_file_folder: "report_export",
         _fileExportingFlag: false, // true if the exporting task is done, false otherwise.
+        
+        _mainScreenWidth: 800,
+        _mainScreenHeight: 600,
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -53,11 +57,9 @@
 
         _showWaitingPanel: function( sleepTime ) {
             var waitPanel = document.getElementById( this._wait_panel_id );
-            var width = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.width' ) || 800;
-            var height = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.height' ) || 600;
             waitPanel.sizeTo( 360, 120 );
-            var x = ( width - 360 ) / 2;
-            var y = ( height - 240 ) / 2;
+            var x = ( this._mainScreenWidth - 360 ) / 2;
+            var y = ( this._mainScreenHeight - 240 ) / 2;
             
             // set the content of the label attribute be default string, taking advantage of the statusText attribute.
             var caption = document.getElementById( this.getCaptionId() );
@@ -131,6 +133,12 @@
             var bw = document.getElementById( this._preview_frame_id );
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             doc.innerHTML = result;
+            
+            // adjust the size of paper if the content will protrude the border of the paper.
+            var bodytable =  bw.contentWindow.document.getElementById( this._body_table );
+            var bodydiv = bw.contentWindow.document.getElementById( this._div_id );
+            if ( bodydiv.scrollWidth < bodytable.scrollWidth + 20 )
+               bodydiv.style.width = bodytable.scrollWidth + 35;
         },
 	    
         previousPage: function() {
@@ -151,6 +159,8 @@
                 // Doing so to prevent the timeout dialog from prompting during the execution.
                 var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
                 GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
+                
+                this._enableButton( false );
 
                 var waitPanel = this._showWaitingPanel();
 
@@ -570,6 +580,8 @@
         load: function() {
             this._enableButton( false );
             this._scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            this._mainScreenWidth = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.width' ) || 800;
+            this._mainScreenHeight = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.height' ) || 600;
         }
     };
     

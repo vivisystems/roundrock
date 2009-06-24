@@ -13,7 +13,6 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 
-
 <window id="main"
         hidechrome="true"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
@@ -92,7 +91,6 @@
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
-
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" id="previewBox" flex="1">
@@ -105,5 +103,4 @@
 
     <!-- overlay the waiting panel. -->
     <popupset id="dialogs" />
-
 </window>
