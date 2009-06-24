@@ -1,14 +1,17 @@
 (function(){
 
-    /**
-     * Class PluSearch
-     */
-
     var __controller__ = {
+
         name: 'PluSearch',
+        
         _listObj: null,
         _listDatas: null,
         _filterDatas: null,
+
+        _queryStringPreprocessor: function( s ) {
+            var re = /\'/g;
+            return s.replace( re, '\'\'' );
+        },
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -18,10 +21,9 @@
         },
 
         createFilterRows: function() {
-            var self = this;
             var i=0;
             var rows_filter = document.getElementById('rows_filter');
-            var filterstr = GeckoJS.Configure.read("vivipos.fec.settings.PluFilters") || "[]";
+            var filterstr = GeckoJS.Configure.read('vivipos.fec.settings.PluFilters') || '[]';
             this._filterDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(filterstr));
 
             if (this._filterDatas.length <= 0) {
@@ -33,11 +35,10 @@
             this._filterDatas.forEach(function(o){
                 var index = parseInt(o.index);
                 var len = parseInt(o.length);
-                //alert(index + ':' + len);
-                var row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
-                var filter_label = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:label");
-                var filter_textbox = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
-                var label = o.filtername + " (" + index + "-" + (index + len - 1) + "):";
+                var row = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'xul:row');
+                var filter_label = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'xul:label');
+                var filter_textbox = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','xul:textbox');
+                var label = o.filtername + ' (' + index + '-' + (index + len - 1) + '):';
                 filter_label.setAttribute('value', label);
                 filter_textbox.setAttribute('id', 'filter_' + i++);
                 filter_textbox.setAttribute('size', parseInt(o.length) + 2);
@@ -49,10 +50,9 @@
         },
 
         advSearch: function() {
-            var self = this;
             var lastItem = this._filterDatas[this._filterDatas.length - 1];
             var len = parseInt(lastItem.index) + parseInt(lastItem.length) - 1;
-            var pattern = "";
+            var pattern = '';
             pattern = GeckoJS.String.padLeft(pattern, len, "_");
             var i=0;
             this._filterDatas.forEach(function(o){
@@ -83,7 +83,7 @@
         load: function(barcode) {
             
             var fields = [];
-            var searchStr = barcode.replace('\'', '\'\'', 'g');
+            var searchStr = this._queryStringPreprocessor(barcode);
 
             var conditions = "products.no like '%" + searchStr + "%' or products.barcode like '%" + searchStr + "%' or products.name like '%" + searchStr + "%'";
             var prodModel = new ProductModel();
@@ -131,8 +131,8 @@
             
             if (this._listDatas.length <= 0) {
                 // barcode notfound
-                // @todo OSD?
-                GREUtils.Dialog.alert(window,
+
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Product Search'),
                                       _('Product [%S] Not Found!', [barcode]));
             } else if (this._listDatas.length == 1) {

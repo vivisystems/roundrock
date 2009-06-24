@@ -1,12 +1,11 @@
 (function(){
 
-    /**
-     * Class ViviPOS.CartController
-     */
-
     var __controller__ = {
+
         name: 'Cart',
+
         components: ['Tax', 'GuestCheck', 'Barcode'],
+        
         _cartView: null,
         _queuePool: null,
         _queueFile: "/var/tmp/cart_queue.txt",
@@ -101,14 +100,6 @@
             }
         },
 
-        suspend: function () {
-            this._suspended = true;
-        },
-
-        resume: function () {
-            this._suspended = false;
-        },
-
         beforeAddBuffer: function () {
 
             var self = this;
@@ -183,7 +174,7 @@
                     if (qtyIncreased) { // always display warning
                         cart.dispatchEvent('onOutOfStock', obj);
                         cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
-                        //@todo add OSD?
+
                         NotifyUtils.warn(_('[%S] may be out of stock!', [item.name]));
                     }
                     
@@ -201,7 +192,6 @@
                         cart.dispatchEvent('onLowStock', obj);
                         cart.dispatchEvent('onWarning', _('STOCK LOW'));
 
-                        //@todo add OSD?
                         NotifyUtils.warn(_('[%S] low stock threshold reached!', [item.name]));
                     }
                     item.stock_status = 0;
@@ -255,7 +245,6 @@
             sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
 
             // check if zero preset price is allowed
-            // @todo
             if (positivePriceRequired && curTransaction != null) {
                 sellPrice = curTransaction.checkSellPrice(item)
                 if (sellPrice <= 0) {
@@ -313,7 +302,6 @@
             else {
                 // we don't allow return of product sets
                 if (setItems.length > 0 ) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Return of product sets [%S] not allowed!', [item.name]));
                     evt.preventDefault();
                 }
@@ -333,7 +321,7 @@
                     var requireAck = GeckoJS.Configure.read('vivipos.fec.settings.AgeVerificationAck')
 
                     if (requireAck) {
-                        if (GREUtils.Dialog.confirm(window,
+                        if (GREUtils.Dialog.confirm(this.topmostWindow,
                                                     _('confirm age'),
                                                     _('Is customer of age for purchase of [%S]?', [item.name])) == false) {
                             evt.preventDefault();
@@ -341,7 +329,6 @@
                         }
                     }
                     else {
-                        //@todo OSD
                         NotifyUtils.warn(_('Verify Customer Age for Purchase of [%S]!', [item.name]));
                     }
                 }
@@ -455,11 +442,9 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-
-                //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot tag the selected item'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
@@ -467,15 +452,14 @@
             if (curTransaction.isClosed()) {
                 NotifyUtils.warn(_('This order is being finalized and items may not be modified'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
             if(index <0) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
@@ -483,15 +467,14 @@
             if (curTransaction.isLocked(index)) {
                 NotifyUtils.warn(_('Stored items may not be modified'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
             if (tag == null || tag.length == 0) {
-                //@todo OSD
                 NotifyUtils.warn(_('Cannot tag the selected item with an empty tag'));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
@@ -499,12 +482,9 @@
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
             if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
-                this.dispatchEvent('onTagItemError', {});
-
-                //@todo OSD
                 NotifyUtils.warn(_('Cannot tag the selected item [%S]', [itemDisplay.name]));
 
-                this.subtotal();
+                this.clearAndSubtotal();
                 return;
             }
 
@@ -516,6 +496,7 @@
 
                 this.dispatchEvent('afterTagItem', [taggedItem, itemDisplay]);
             }
+            this.clearAndSubtotal();
         },
 
         returnCartItem: function() {
@@ -524,9 +505,7 @@
 
             var exit = false;
 
-            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-
-                //@todo OSD
+            if(!this._ifHavingOpenedOrder()) {
                 NotifyUtils.warn(_('Not an open order; cannot return the selected item'));
 
                 exit = true;
@@ -540,7 +519,6 @@
             }
 
             if(!exit && index <0) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
                 exit = true;
@@ -550,9 +528,6 @@
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
             
             if (!exit && itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
-                this.dispatchEvent('onReturnCartItemError', {});
-
-                //@todo OSD
                 NotifyUtils.warn(_('The selected item [%S] is not a product and cannot be returned', [itemDisplay.name]));
 
                 exit = true;
@@ -591,8 +566,7 @@
                     this._returnMode = currentReturnMode;
                 }
                 else {
-                    //@todo OSD
-                    GREUtils.Dialog.alert(window,
+                    GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Memory Error'),
                                           _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation', [itemDisplay.name]));
                     exit = true;
@@ -610,11 +584,8 @@
             var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
                 
-            if (this._suspended) return;
-
             var currentIndex = this._cartView.getSelectedIndex();
             var item = GREUtils.extend({}, plu);
-
             var curTransaction = this._getTransaction(true);
 
             if(curTransaction == null) {
@@ -780,9 +751,9 @@
                 if (evt.data.ok) {
                     var plusetData = evt.data.plusetData;
 
-                    //let plu = item;
+                    let plu = item;
                     // @temp
-                    var plu = item;
+                    //var plu = item;
                     var setitems = [];
 
                     plusetData.forEach(function(setitem) {
@@ -863,9 +834,9 @@
                         var selected_no = setitem.product.no;
                         var preset_no = setitem.setitem.preset_no;
                         var priceDiff = 0;
-                        //let item = setitem.product;
+                        let item = setitem.product;
                         //@temp
-                        var item = setitem.product;
+                        //var item = setitem.product;
 
                         if (preset_no != selected_no) {
 
@@ -975,7 +946,6 @@
                 // barcode notfound
                 event.error = true;
 
-                //@todo OSD
                 NotifyUtils.warn(_('Product number/barcode [%S] not found', [barcode]));
             }else {
                 var id = barcodesIndexes[barcode];
@@ -1025,8 +995,6 @@
 
            // if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
            if( !this._ifHavingOpenedOrder() ) {
-
-                //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
                 this._clearAndSubtotal();
@@ -1042,7 +1010,6 @@
             }
 
             if (index < 0) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
                 this._clearAndSubtotal();
@@ -1067,7 +1034,6 @@
 
                     // disallow quantity/price modification on set items
                     if (newQuantity != null || newPrice != null) {
-                        //@todo OSD
                         NotifyUtils.warn(_('Price/quantity of product set item [%S] may not be modified', [itemDisplay.name]));
 
                         this._clearAndSubtotal();
@@ -1075,7 +1041,6 @@
                     }
                 }
                 else {
-                    //@todo OSD
                     NotifyUtils.warn(_('Cannot modify the selected item [%S]', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
@@ -1088,8 +1053,6 @@
                 // check if condiment is open
                 var parentItem = curTransaction.getItemAt(index, true);
                 if ('open' in itemDisplay && !itemDisplay.open && GeckoJS.BaseObject.getKeys(parentItem.condiments).length > 1) {
-
-                    //@todo OSD
                     NotifyUtils.warn(_('Cannot modify condiments when collapsed'));
 
                     this._clearAndSubtotal();
@@ -1098,7 +1061,6 @@
 
                 // check if quantity is entered
                 if (newQuantity != null) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Cannot modify condiment quantity'));
 
                     this._clearAndSubtotal();
@@ -1107,7 +1069,6 @@
                 
                 // check if price is entered
                 if (buf.length <= 0) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Cannot modify condiment price; no price entered'));
 
                     this._clearAndSubtotal();
@@ -1116,8 +1077,6 @@
 
                 // check if user is allowed to modify condiment price
                 if (!this.Acl.isUserInRole('acl_modify_condiment_price')) {
-
-                    //@todo OSD
                     NotifyUtils.warn(_('Not authorized to modify condiment price'));
 
                     this._clearAndSubtotal();
@@ -1126,9 +1085,6 @@
             }
 
             if (itemTrans.hasDiscount || itemTrans.hasSurcharge) {
-                this.dispatchEvent('onModifyItemError', {});
-
-                //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemTrans.name]));
 
                 this._clearAndSubtotal();
@@ -1136,9 +1092,6 @@
             }
 
             if (itemTrans.hasMarker) {
-                this.dispatchEvent('onModifyItemError', {});
-
-                //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemTrans.name]));
 
                 this._clearAndSubtotal();
@@ -1168,7 +1121,6 @@
             }
             
             // check if zero preset price is allowed
-            // @todo
             var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
 
             if (positivePriceRequired && curTransaction != null) {
@@ -1269,7 +1221,6 @@
                 this.modifyItem();
             }
             else {
-                //@todo OSD
                 NotifyUtils.warn(_('Quantity may not be less than 1'));
                 this._clearAndSubtotal();
             }
@@ -1289,7 +1240,7 @@
                     if (this._returnPersist) {
                         this._returnPersist = false;
                         this._getKeypadController().clearBuffer();
-                        this.subtotal();
+                        this.clearAndSubtotal();
                     }
                     else {
                         this._returnPersist = true;
@@ -1305,6 +1256,7 @@
                 }
             }
             else {
+                var curTransaction = this._getTransaction(true);
                 this._returnMode = true;
                 this.dispatchEvent('onReturnSingle', null);
             }
@@ -1324,8 +1276,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot void'));
 
                 this._clearAndSubtotal();
@@ -1341,7 +1291,6 @@
             }
 
             if(index <0) {
-                // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
                 this._clearAndSubtotal();
@@ -1365,9 +1314,6 @@
                 // allow voiding of markers only if they are the last item in cart
                 var cartLength = curTransaction.data.display_sequences.length;
                 if (index < cartLength - 1) {
-                    this.dispatchEvent('onVoidItemError', {});
-
-                    // @todo OSD
                     NotifyUtils.warn(_('Cannot VOID the selected item [%S]. It is not the last registered item', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
@@ -1375,7 +1321,6 @@
                 }
             }
             else if (itemDisplay.type == 'setitem') {
-                // @todo OSD
                 NotifyUtils.warn(_('The select item [%S] is a member of a product set and cannot be VOIDed individually', [itemDisplay.name]));
 
                 this._clearAndSubtotal();
@@ -1387,8 +1332,6 @@
 
                 // has item been marked?
                 if(itemDisplay.type != 'memo' && itemTrans.hasMarker) {
-                    // @todo OSD
-                    this.dispatchEvent('onVoidItemError', {});
                     NotifyUtils.warn(_('Cannot VOID an entry that has been subtotaled'));
 
                     this._clearAndSubtotal();
@@ -1491,7 +1434,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
 
                 this._clearAndSubtotal();
@@ -1507,7 +1449,6 @@
             }
 
             if(index <0) {
-                // @todo OSD
                 NotifyUtils.warn(_('Please select an item'));
                 
                 this._clearAndSubtotal();
@@ -1529,7 +1470,6 @@
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
             if (pretax && itemDisplay.type != 'subtotal') {
-                // @todo OSD
                 NotifyUtils.warn(_('Pretax discount can only be registered against subtotals'));
 
                 this._clearAndSubtotal();
@@ -1538,52 +1478,39 @@
 
             if (itemTrans != null && itemTrans.type == 'item') {
                 if (itemTrans.hasDiscount) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 if (itemTrans.hasMarker) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
 
                     this._clearAndSubtotal();
                     return;
                 }
-            /*
-                if (itemTrans.current_qty < 0) {
-                    //@todo OSD
-                    NotifyUtils.warn(_('Cannot register discount on return items'));
-                    return;
-                }
-                */
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
                 if (itemDisplay.hasSurcharge) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 else if (itemDisplay.hasDiscount) {
-                    // @todo OSD
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 else if (index < cartLength - 1) {
-                    // @todo OSD
                     NotifyUtils.warn(_('Cannot apply discount to [%S]. It is not the last registered item', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
@@ -1591,7 +1518,6 @@
                 }
             }
             else {
-                //@todo OSD
                 NotifyUtils.warn(_('Discount may not be applied to [%S]', [itemDisplay.name]));
 
                 this._clearAndSubtotal();
@@ -1600,11 +1526,9 @@
 
             if (discountAmount == null || isNaN(discountAmount) || !discountAmount) {
                 if (discountType == '$') {
-                    // @todo OSD
                     NotifyUtils.warn(_('Please enter the discount amount'));
                 }
                 else {
-                    // @todo OSD
                     NotifyUtils.warn(_('Please enter the discount percentage'));
                 }
 
@@ -1704,7 +1628,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
 
                 this._clearAndSubtotal();
@@ -1713,7 +1636,6 @@
 
             // check if transaction is closed
             if (curTransaction.isClosed()) {
-                // @todo OSD
                 NotifyUtils.warn(_('This order is being finalized and surcharge may not be registered'));
 
                 this._clearAndSubtotal();
@@ -1721,7 +1643,6 @@
             }
 
             if(index < 0) {
-                // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
                 this._clearAndSubtotal();
@@ -1730,7 +1651,6 @@
 
             // check if the current item is locked
             if (curTransaction.isLocked(index)) {
-                // @todo OSD
                 NotifyUtils.warn(_('Surcharge may not be registered against stored items'));
 
                 this._clearAndSubtotal();
@@ -1743,7 +1663,6 @@
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
             
             if (pretax && itemDisplay.type != 'subtotal') {
-                // @todo OSD
                 NotifyUtils.warn(_('Pretax surcharge can only be registered against subtotals'));
 
                 this._clearAndSubtotal();
@@ -1752,21 +1671,18 @@
             if (itemTrans != null && itemTrans.type == 'item') {
 
                 if (itemTrans.hasDiscount) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 if (itemTrans.hasMarker) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
 
                     this._clearAndSubtotal();
@@ -1776,7 +1692,6 @@
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
                 if (itemDisplay.hasSurcharge) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
@@ -1789,7 +1704,6 @@
                     return;
                 }
                 else if (index < cartLength - 1) {
-                    // @todo OSD
                     NotifyUtils.warn(_('Cannot apply surcharge to [%S]. It is not the last registered item', [itemDisplay.name]));
 
                     this._clearAndSubtotal();
@@ -1797,7 +1711,6 @@
                 }
             }
             else {
-                //@todo OSD
                 NotifyUtils.warn(_('Surcharge may not be applied to [%S]', [itemDisplay.name]));
 
                 this._clearAndSubtotal();
@@ -1806,7 +1719,6 @@
 
             if (surchargeAmount == null || isNaN(surchargeAmount) || !surchargeAmount) {
                 if (surchargeType == '$') {
-                    // @todo OSD
                     NotifyUtils.warn(_('Please enter the surcharge amount'));
                 }
                 else {
@@ -1850,7 +1762,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add %S', [type]));
 
                 this._clearAndSubtotal();
@@ -1858,7 +1769,6 @@
             }
 
             if (curTransaction.getItemsCount() < 1) {
-                // @todo OSD
                 NotifyUtils.warn(_('Nothing has been registered yet; cannot add %S', [type]));
 
                 this._clearAndSubtotal();
@@ -1897,8 +1807,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register %S', [name]));
 
                 this._clearAndSubtotal();
@@ -1906,7 +1814,6 @@
             }
 
             if(index <0) {
-                // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
                 this._clearAndSubtotal();
@@ -1922,7 +1829,6 @@
                 this._addDiscount(discountAmount, '$', name);
             }
             else {
-                //@todo OSD
                 NotifyUtils.warn(_('House Bon may not be applied to [%S]', [itemDisplay.name]));
 
                 this._clearAndSubtotal();
@@ -1951,7 +1857,6 @@
             }
 
             if (convertIndex < 0) {
-                //@todo OSD
                 NotifyUtils.warn(_('The selected currency [%S] has not been configured', [convertCode]));
 
                 this._clearAndSubtotal();
@@ -1963,8 +1868,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -1983,11 +1886,9 @@
             }
             else {
                 if (buf.length==0) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Please enter an amount first'));
                 }
                 else if (currencies == null || currencies.length <= convertIndex) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Please configure the selected currency entry first [%S]', [convertIndex]));
                 }
                 this._clearAndSubtotal();
@@ -2100,8 +2001,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2130,8 +2029,6 @@
             }
             else {
                 if (balance <= 0) {
-
-                    // @todo OSD
                     NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
 
                     this._clearAndSubtotal();
@@ -2139,15 +2036,11 @@
                 }
 
                 if (payment == 0 || isNaN(payment)) {
-                    //@todo OSD
-                    //NotifyUtils.warn(_('Please enter an amount first'));
-                    //return;
                     payment = balance;
                 }
 
                 if (payment > balance) {
-                    // @todo OSD
-                    GREUtils.Dialog.alert(window,
+                    GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Credit Card Payment Error'),
                                           _('Credit card payment may not exceed remaining balance'));
 
@@ -2208,8 +2101,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2238,8 +2129,6 @@
             }
             else {
                 if (balance <= 0) {
-
-                    // @todo OSD
                     NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
 
                     this._clearAndSubtotal();
@@ -2304,8 +2193,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2336,7 +2223,6 @@
                 if (balance <= 0) {
                     this.clear();
 
-                    // @todo OSD
                     NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
 
                     this._clearAndSubtotal();
@@ -2348,7 +2234,7 @@
                 }
 
                 if (payment > balance) {
-                    if (GREUtils.Dialog.confirm(window,
+                    if (GREUtils.Dialog.confirm(this.topmostWindow,
                                                 _('confirm giftcard payment'),
                                                 _('Change of [%S] will NOT be given for this type of payment. Proceed?',
                             [curTransaction.formatPrice(payment - balance)])) == false) {
@@ -2402,8 +2288,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2432,8 +2316,6 @@
             }
             else {
                 if (balance <= 0) {
-
-                    // @todo OSD
                     NotifyUtils.warn(_('No payments accepted when balance is zero or negative'));
 
                     this._clearAndSubtotal();
@@ -2455,8 +2337,7 @@
                     if (isNaN(limit)) limit = 0;
 
                     if (payment - balance > limit) {
-                        // @todo OSD
-                        GREUtils.Dialog.alert(window,
+                        GREUtils.Dialog.alert(this.topmostWindow,
                                               _('Check Payment Error'),
                                               _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
 
@@ -2509,10 +2390,7 @@
             this._cancelReturn();
 
             // make sure we are not in the middle of an order
-            var curTransaction = this._getTransaction();
-            if(curTransaction != null && !curTransaction.isSubmit() && !curTransaction.isCancel()) {
-
-                // @todo OSD
+            if (this._ifHavingOpenedOrder()) {
                 NotifyUtils.warn(_('Please complete or cancel transaction first'));
 
                 this._clearAndSubtotal();
@@ -2531,7 +2409,6 @@
             inputObj.entry_types = ledgerEntryTypeModel.find('all', {
                 order: 'mode, type'
             });
-
             if (ledgerEntryTypeModel.lastError) {
                 this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
                               _('An error was encountered while retrieving ledger entry types (error code %s)', [ledgerEntryTypeModel.lastError]));
@@ -2577,9 +2454,8 @@
             else {
                 var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
-                inputObj = {}
 
-                window.openDialog(aURL, _('Add New Ledger Entry'), features, inputObj);
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Ledger Entry'), features, inputObj);
             }
 
             if (!inputObj.ok) {
@@ -2587,7 +2463,10 @@
                 return;
             }
 
-            $do('saveLedgerEntry', inputObj, 'LedgerRecords');
+            var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
+            if (!ledgerController || !ledgerController.saveLedgerEntry(inputObj)) {
+                return;
+            }
 
             // check inputObj.id for result
             if (inputObj.id) {
@@ -2595,12 +2474,10 @@
                     var printController = GeckoJS.Controller.getInstanceByName('Print');
                     printController.printLedgerReceipt(inputObj, printer);
                 }
-                // @todo OSD
                 NotifyUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
                                    [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
             }
             else {
-                //@todo OSD
                 NotifyUtils.error(_('Failed to log transaction [%S] for amount of [%S] to the ledger',
                                   [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
             }
@@ -2616,8 +2493,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-
-                // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2677,7 +2552,6 @@
             amount = amount || false;
 
             if(!amount) {
-                // @todo default totalamount ?
                 amount = curTransaction.getRemainTotal();
                 if (amount < 0) amount = 0;
             }
@@ -2705,7 +2579,6 @@
 
                 this.dispatchEvent('afterAddPayment', paymentedItem);
 
-                // @todo auto submit ??
                 this._getCartlist().refresh();
                 if (curTransaction.getRemainTotal() <= 0) {
                     this.submit();
@@ -2725,6 +2598,7 @@
 
             if(curTransaction == null) {
                 NotifyUtils.warn(_('No order for which to show payment status'));
+                this._clearAndSubtotal();
                 return;
             }
 
@@ -2743,6 +2617,9 @@
             payments
             ];
 
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+            
             return $.popupPanel('paymentDetailsPanel', dialog_data);
 
         },
@@ -2882,8 +2759,6 @@
 
                 // let dispatcher don't auto dispatch onCancel
                 this.dispatchedEvents['onCancel'] = true;
-                //@todo OSD - don't notify'
-                //NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return;
             }
 
@@ -2911,7 +2786,7 @@
                 
                 // determine if new items have been added
                 if (!curTransaction.isModified() || forceCancel ||
-                    GREUtils.Dialog.confirm(window,
+                    GREUtils.Dialog.confirm(this.topmostWindow,
                                             _('confirm cancel'),
                                             _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
@@ -2927,8 +2802,6 @@
                 curTransaction.cancel();
             }
             
-            // @todo save oldTransaction to log ??
-
             GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
@@ -3000,14 +2873,14 @@
                         statusStr = existingOrder.status;
                         break;
                 }
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Order Finalization'),
                                       _('Current order is no longer available for finalization (status = %S)', [statusStr]));
                 return false;
             }
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) {
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Order Finalization'),
                                       _('Current order has non-zero balance and may not be closed'));
                 return false;
@@ -3029,24 +2902,19 @@
                     }
                 }
 
-                else {
-                    // oldTransaction.submit(status);
+                var submitStatus = parseInt(oldTransaction.submit(status));
+                /*
+                 *   1: success
+                 *   null: input data is null
+                 *   -1: save fail, save to backup
+                 *   -2: remove fail
+                 */
+                if (submitStatus == -2) {
 
-                    var submitStatus = parseInt(oldTransaction.submit(status));
-                    /*
-                     *   1: success
-                     *   null: input data is null
-                     *   -1: save fail, save to backup
-                     *   -2: remove fail
-                     */
-                    if (submitStatus == -2) {
-
-                        GREUtils.Dialog.alert(this.activeWindow,
-                                      _('Submit Fail'),
-                                      _('Current order is not saved successfully, please try again...'));
-                        return false;
-                    }
-
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Submit Fail'),
+                                          _('Current order is not saved successfully, please try again...'));
+                    return false;
                 }
 
                 oldTransaction.data.status = status;
@@ -3117,7 +2985,7 @@
 
                 if (dest) {
                     if (curTransaction.data.destination != dest) {
-                        if (GREUtils.Dialog.confirm(window,
+                        if (GREUtils.Dialog.confirm(this.topmostWindow,
                                                     _('confirm destination'),
                                                     _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
                             this._clearAndSubtotal();
@@ -3135,7 +3003,7 @@
                     }
 
                     if (mismatch) {
-                        if (GREUtils.Dialog.confirm(window,
+                        if (GREUtils.Dialog.confirm(this.topmostWindow,
                                                     _('confirm destination'),
                                                     _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
                             this._clearAndSubtotal();
@@ -3213,7 +3081,6 @@
             // dispatch onSubmit event here manually since submit() won't do it for us
             this.dispatchEvent('onSubmit', curTransaction);
 
-            // @todo OSD
             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
 
             this.dispatchEvent('afterPreFinalize', curTransaction);
@@ -3264,7 +3131,6 @@
             this._cancelReturn();
 
             if(curTransaction == null) {
-                //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add condiment'));
 
                 this._clearAndSubtotal();
@@ -3277,7 +3143,6 @@
                     curTransaction = this._newTransaction();
                 }
                 else {
-                    //@todo OSD
                     NotifyUtils.warn(_('Not an open order; cannot add condiment'));
 
                     this._clearAndSubtotal();
@@ -3294,7 +3159,6 @@
             }
 
             if(index <0) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
                 this._clearAndSubtotal();
@@ -3319,36 +3183,25 @@
                 var setItem = curTransaction.getItemAt(index, true);
                 if (cartItem == null || (cartItem.type != 'item' && cartItem.type != 'setitem')) {
                     var displayItem = curTransaction.getDisplaySeqAt(index);
-                    //@todo OSD
+
                     NotifyUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
-/*
-                if (cartItem.current_qty < 0) {
-                    var displayItem = curTransaction.getDisplaySeqAt(index);
-                    //@todo OSD
-                    NotifyUtils.warn(_('Condiments may not be added to a return item [%S]', [displayItem.name]));
-                    return;
-                }
-*/
                 if (cartItem.hasMarker) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Cannot add condiments to an item that has been subtotaled'));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 if (cartItem.hasDiscount) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Please void discount on item [%S] first', [cartItem.name]));
 
                     this._clearAndSubtotal();
                     return;
                 }
                 if (cartItem.hasSurcharge) {
-                    //@todo OSD
                     NotifyUtils.warn(_('Please void surcharge on item [%S] first', [cartItem.name]));
 
                     this._clearAndSubtotal();
@@ -3372,7 +3225,6 @@
             var d = new Deferred();
             if (condimentItem) {
                 if(!condimentItem.cond_group && !immediateMode){
-                    //@todo OSD
                     NotifyUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));
 
                     this._clearAndSubtotal();
@@ -3502,7 +3354,6 @@
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
             if( !this._ifHavingOpenedOrder() ) {
-                //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add memo'));
 
                 this._clearAndSubtotal();
@@ -3510,7 +3361,6 @@
             }
 
             if(index <0) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
                 this._clearAndSubtotal();
@@ -3519,7 +3369,6 @@
 
             // check if the current item is locked
             if (curTransaction.isLocked(index)) {
-                //@todo OSD
                 NotifyUtils.warn(_('Stored items may not be modified'));
 
                 this._clearAndSubtotal();
@@ -3574,14 +3423,14 @@
             }
 
             if (!order) {
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Void Sale'),
                                       _('Failed to void: the selected order no longer exists'));
                 return false;
             }
 
             if (order.status < 1) {
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Void Sale'),
                                       _('Failed to void: the selected order is not stored or finalized'));
                 return false;
@@ -3593,7 +3442,7 @@
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
-            inputObj = {
+            var inputObj = {
                 payments: order.OrderPayment,
                 paidTotal: order.payment_subtotal - order.change,
                 sequence: order.sequence,
@@ -3601,7 +3450,7 @@
                 precisionPrices: order.precision_prices
             };
             
-            window.openDialog(aURL, _('Payment Refund'), features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Payment Refund'), features, inputObj);
 
             if (inputObj.ok) {
                 if (this.dispatchEvent('beforeVoidSale', order)) {
@@ -3714,7 +3563,7 @@
 
                         this.dispatchEvent('afterVoidSale', order);
 
-                        GREUtils.Dialog.alert(window,
+                        GREUtils.Dialog.alert(this.topmostWindow,
                                               _('Void Sale'),
                                               _('Transaction [%S] successfully voided', [order.sequence]));
 
@@ -3865,6 +3714,8 @@
             	return;
 
             var removeCount = 0;
+            var queuePool = this._getQueuePool();
+            var username = user.username;
 
             queuePool.user[username].forEach(function(key){
 
@@ -4043,8 +3894,6 @@
             curTransaction.unserializeFromOrder(order_id);
 
             if (curTransaction.data == null) {
-
-                //@todo OSD
                 NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
 
                 return false;
@@ -4351,8 +4200,7 @@
 
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
-            alert(this.activeWindow);
-            GREUtils.Dialog.alert(this.activeWindow,
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },

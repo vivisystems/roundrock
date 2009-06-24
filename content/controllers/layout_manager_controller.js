@@ -1,17 +1,11 @@
 (function(){
 
-    /**
-     * Controller Promotions Manager
-     * 
-     */
     var __layout_manager_controller__ = {
 
         name: 'LayoutManager',
 
         _layouts: {},
-
         _selectedLayout: '',
-
         _rbObj: null,
 
         getRichlistbox: function() {
@@ -19,9 +13,6 @@
             return this._rbObj;
         },
 
-        /*
-         * initial promotions rules for register
-         */
         initial: function() {
 
 
@@ -161,7 +152,7 @@
                     
                 var confirmMessage = _("Do you want to change layout") + "\n" + _("If you change layout now, the system will restart automatically after you return to the Main Screen.");
 
-                if (GREUtils.Dialog.confirm(window, _("Confirm Change Layout"), confirmMessage)) {
+                if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Change Layout"), confirmMessage)) {
 
                     if(changedSkin.length > 0 ) {
                         GeckoJS.Configure.write('general.skins.selectedSkin', changedSkin);

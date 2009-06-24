@@ -1,11 +1,9 @@
 (function(){
 
-    /**
-     * Class ViviPOS.TaxesController
-     */
-
     var __controller__ = {
+
         name: 'Taxes',
+
         components: ['Tax'],
         
         _listObj: null,
@@ -76,11 +74,11 @@
             var result = 0;
 
             if (data.no.length <= 0) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Tax code must not be empty.'));
                 result = 3;
             } else if (data.name.length <= 0) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Tax name must not be empty.'));
                 result = 4;
             } else {
@@ -88,11 +86,11 @@
                     for (var i = 0; i < taxes.length; i++) {
                         var o = taxes[i];
                             if (o.no == data.no && !id) {
-                                // @todo OSD
+
                                 NotifyUtils.warn(_('Duplicate tax code [%S]; tax not added', [data.no]));
                                 return 1;
                             } else if (o.name == data.name && o.id != id) {
-                                // @todo OSD
+
                                 NotifyUtils.warn(_('Duplicate tax name [%S]; tax not %S', [data.name, id ? 'modified' : 'added']));
                                 return 2;
                             }
@@ -103,7 +101,7 @@
 
         add: function (evt) {
             var aURL = 'chrome://viviecr/content/prompt_addtaxitem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=560,height=450';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=560,height=450';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true,
@@ -113,7 +111,7 @@
                 vat_on_vat: _('VAT & VAT'),
                 combinetax:false
             };
-            window.openDialog(aURL, _('Add New Tax Status'), features, _('New Tax Status'), '', _('Tax Code'), _('Tax Name'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Tax Status'), aFeatures, _('New Tax Status'), '', _('Tax Code'), _('Tax Name'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
                 var tax_type = 'ADDON';
@@ -146,11 +144,10 @@
                         listObj.selectedIndex = index;
                         this.select();
 
-                        // @todo OSD.text to be replaced by OSD.info
                         OsdUtils.info(_('Tax [%S] added successfully', [data.name]));
                     }
                     catch (e) {
-                        // @todo OSD
+
                         NotifyUtils.error(_('An error occurred while adding Tax [%S]; the tax may not have been added successfully', [data.name]));
                     }
                 }
@@ -210,7 +207,7 @@
                 }
             }
             
-            if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [tax.name]), _('Are you sure?')) == false) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [tax.name]), _('Are you sure?')) == false) {
                 return;
             }
             try {
@@ -221,11 +218,10 @@
                 }
                 this.load(selectedIndex);
 
-                // @todo OSD.text to be replaced by OSD.info
                 OsdUtils.info(_('Tax [%S] removed successfully', [tax.name]));
             }
             catch (e) {
-                // @todo OSD
+
                 NotifyUtils.error(_('An error occurred while removing Tax [%S]; the tax may not have been removed successfully', [tax.name]));
             }
         },
@@ -244,11 +240,10 @@
             
                     this.load(this.getListObj().selectedIndex);
 
-                    // @todo OSD
                     OsdUtils.info(_('Tax [%S] modified successfully', [data.name]));
                 }
                 catch (e) {
-                    // @todo OSD
+                    
                     NotifyUtils.error(_('An error occurred while adding Tax [%S]; the tax may not have been added successfully', [data.name]));
                 }
             }

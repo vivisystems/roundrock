@@ -1,16 +1,10 @@
 (function(){
 
-    include('chrome://viviecr/content/models/cashdrawer_record.js');
-    
-    /**
-     * Cash Drawer Controller
-     */
-
     var __controller__ = {
+
         name: 'CashDrawer',
 
         _device: null,
-
         _gpio: null,
 
         // load device configuration and selections
@@ -254,8 +248,7 @@
                 accessRecord.clerk = user.username;
                 accessRecord.clerk_displayname = user.description;
             }
-            var r = model.saveAccessRecord(accessRecord);
-            if (!r) {
+            if (!model.saveAccessRecord(accessRecord)) {
                 // failed to save record to db/backup
                 this._dbError(model.lastError, model.lastErrorString,
                               _('An error was encountered while saving cashdrawer access record (error code %S).', [model.lastError]));
@@ -332,7 +325,6 @@
                 if (devicemodelName == null) devicemodelName = 'unknown';
                 if (portName == null) portName = 'unknown';
 
-                //@todo OSD
                 NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
             }
             return printed;
@@ -340,7 +332,7 @@
 
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' + errno + ']');
-            GREUtils.Dialog.alert(window,
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         },
@@ -436,7 +428,7 @@
                 if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: ('An error was encountered while removing all cashdrawer activity logs (error code %S).', [model.lastError])};
+                           errmsg: _('An error was encountered while removing all cashdrawer activity logs (error code %S).', [model.lastError])};
                 }
             }
             catch(e) {

@@ -1,16 +1,11 @@
 (function(){
 
-    /**
-     * Condiments Controller
-     *
-     * @todo need to find a way to show preset condiments
-     */
-    var window = this;
-    
     var __controller__ = {
 
         name: 'Condiments',
+
         helpers: ['Form'],
+        
         _selectedIndex: null,
         _selectedCondIndex: null,
         _condGroupscrollablepanel: null,
@@ -308,14 +303,8 @@
                 require0:true
             };
 
-            window.openDialog(aURL,
-                _('Add New Condiment Group'),
-                features,
-                _('New Condiment Group'),
-                '',
-                _('Group Name'),
-                '',
-                inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Condiment Group'), features,
+                                       _('New Condiment Group'), '', _('Group Name'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 var inputData = {
@@ -349,11 +338,9 @@
 
                     this.changeCondimentPanel(condGroups.length - 1);
 
-                    // @todo OSD
                     OsdUtils.info(_('Condiment Group [%S] added successfully', [inputData.name]));
                 }
                 catch (e) {
-                    // @todo OSD
                     NotifyUtils.error(_('An error occurred while adding Condiment Group [%S]. The group may not have been added successfully', [inputData.name]));
                 }
             }
@@ -399,11 +386,9 @@
 
                     this.changeCondimentPanel(this._selectedIndex);
 
-                    // @todo OSD
                     OsdUtils.info(_('Condiment Group [%S] modified successfully', [inputData.name]));
                 }
                 catch (e) {
-                    // @todo OSD
                     NotifyUtils.error(_('An error occurred while modifying Condiment Group [%S]. The group may not have been modified successfully', [inputData.name]));
                 }
             }
@@ -426,7 +411,7 @@
                 return;
             }
 
-            if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
                 var condGroupModel = new CondimentGroupModel();
                 var condimentModel = new CondimentModel();
 
@@ -457,11 +442,9 @@
                     if (newIndex >= groups.length) newIndex = groups.length - 1;
                     this.changeCondimentPanel(newIndex);
 
-                    // @todo OSD
                     OsdUtils.info(_('Condiment Group [%S] removed successfully', [condGroup.name]));
                 }
                 catch (e) {
-                    // @todo OSD
                     NotifyUtils.error(_('An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully', [condGroup.name]));
                 }
             }
@@ -511,12 +494,12 @@
                 require1:true,
                 numberOnly1:true
             };
-            window.openDialog(aURL, _('Add New Condiment'), features, _('New Condiment'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Condiment'), features,
+                                       _('New Condiment'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
                 if (isNaN(inputObj.input1)) {
-                    // @todo OSD
                     NotifyUtils.warn(_('Condiment Price must be a number'));
                     return;
                 }
@@ -570,12 +553,10 @@
                         var view = this._condscrollablepanel.datasource;
                         view.data = condGroups[this._selectedIndex]['Condiment'];
                         this.clickCondimentPanel(view.data.length - 1);
-                        // @todo OSD
                         OsdUtils.info(_('Condiment [%S] added successfully', [inputData.name]));
                     }
                 }
                 catch (e) {
-                    // @todo OSD
                     NotifyUtils.error(_('An error occurred while adding Condiment [%S]. The condiment may not have been added successfully', [inputData.name]));
                 }
             }
@@ -597,7 +578,6 @@
                 for (var i = 0; i < conds.length; i++) {
                     if ((conds[i].name == inputData.name) && (i != this._selectedCondIndex)) {
 
-                        // @todo OSD
                         NotifyUtils.warn(_('Condiment [%S] already exists in this group', [inputData.name]));
                         return;
                     }
@@ -647,11 +627,9 @@
                 view.data = condGroups[this._selectedIndex]['Condiment'];
                 this.clickCondimentPanel(this._selectedCondIndex);
 
-                // @todo OSD
                 OsdUtils.info(_('Condiment [%S] modified successfully', [inputData.name]));
             }
             catch (e) {
-                // @todo OSD
                 NotifyUtils.error(_('An error occurred while modifying Condiment [%S]. The condiment may not have been modified successfully', [inputData.name]));
             }
         },
@@ -662,7 +640,7 @@
             var condGroups = GeckoJS.Session.get('condGroups');
             var condiment = condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex];
 
-            if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [condiment.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [condiment.name]), _('Are you sure?'))) {
 
                 var condModel = new CondimentModel();
 
@@ -686,11 +664,9 @@
                     if (newIndex >= conds.length) newIndex = conds.length - 1;
                     this.clickCondimentPanel(newIndex);
 
-                    // @todo OSD
                     OsdUtils.info(_('Condiment [%S] removed successfully', [condiment.name]));
                 }
                 catch (e) {
-                    // @todo OSD
                     NotifyUtils.error(_('An error occurred while removing Condiment [%S]. The condiment may not have been removed successfully', [condiment.name]));
                 }
             }

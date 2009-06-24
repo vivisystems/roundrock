@@ -1,17 +1,15 @@
 (function(){
 
-    /**
-     * StaticCondiments Controller
-     */
     var window = this;
     
     var __controller__ = {
 
         name: 'StaticCondiments',
+        
         _cartController: null,
-        _condGroupId: "",
+        _condGroupId: '',
         _condsData: null,
-        _defaultGroupId: "",
+        _defaultGroupId: '',
         _defaultCondsData: null,
 
         getCartController: function() {

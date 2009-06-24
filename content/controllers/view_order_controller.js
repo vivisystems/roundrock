@@ -1,8 +1,5 @@
 (function(){
 
-    /**
-     * Class ViviPOS.JobsController
-     */
     include('chrome://viviecr/content/reports/template.js');
     include('chrome://viviecr/content/reports/template_ext.js');
 
@@ -11,9 +8,7 @@
         name: 'ViewOrder',
 
         template: 'order_template',
-
         _orderId: null,
-
         _orderData: null,
 
         _queryStringPreprocessor: function( s ) {
@@ -147,7 +142,7 @@
         },
 
         exportRcp: function() {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this order?' ) ) )
+        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print this order?' ) ) )
         		return;
 
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
@@ -180,7 +175,7 @@
 
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
-            GREUtils.Dialog.alert(this.activeWindow,
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },

@@ -1,10 +1,7 @@
 (function(){
 
-    /**
-     * Print Controller
-     */
-
     var __controller__ = {
+
         name: 'GPIO',
 
         _ioService: null,
@@ -71,7 +68,6 @@
 
     GeckoJS.Controller.extend(__controller__);
 
-    // register onload
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');
         if(main) main.addEventListener('afterInitial', function() {

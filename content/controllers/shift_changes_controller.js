@@ -1,10 +1,7 @@
 (function(){
 
-    /**
-     * ShiftChangesController
-     */
-
     var __controller__ = {
+
         name: 'ShiftChanges',
 
         _listObj: null,
@@ -12,13 +9,8 @@
         _limit: 3000000,
 
         initial: function() {
-            try {
-                // set current sales period and shift number
-                this._updateSessionEx();
-            }
-            catch(e) {
-                this.dbError(e.errno, e.errstr, e.errmsg);
-            }
+            // set current sales period and shift number
+            this._updateSession();
             
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
@@ -32,18 +24,27 @@
             }
         },
 
-        // @throw exception
-        _getShiftMarkerEx: function() {
-            var shiftMarkerModel = new ShiftMarkerModel();
-            var shift = shiftMarkerModel.findByIndex('first', {
-                index: 'terminal_no',
-                value: GeckoJS.Session.get('terminal_no')
-            });
-            if (parseInt(shiftMarkerModel.lastError) != 0) {
-                throw {errno: shiftMarkerModel.lastError,
-                       errstr: shiftMarkerModel.lastErrorString,
-                       errmsg: _('An error was encountered while retrieving shift change configuration (error code %S).', [shiftMarkerModel.lastError])};
+        _queryStringPreprocessor: function( s ) {
+            var re = /\'/g;
+            return s.replace( re, '\'\'' );
+        },
+
+        _getShiftMarker: function() {
+            shift = GeckoJS.Session.get('current_shift');
+            if (!shift) {
+                var shiftMarkerModel = new ShiftMarkerModel();
+                var terminalNo = GeckoJS.Session.get('terminal_no');
+                var shift = shiftMarkerModel.find('first', {
+                    conditions: "terminal_no = '" + this._queryStringPreprocessor(terminalNo) +  "'",
+                    recursive: 0
+                });
+                if (parseInt(shiftMarkerModel.lastError) != 0) {
+                    this._dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
+                                  _('An error was encountered while retrieving shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
+                    return;
+                }
             }
+            GeckoJS.Session.set('current_shift', shift);
             return shift;
         },
 
@@ -57,23 +58,20 @@
             return (shift) ? shift.end_of_period : false;
         },
 
-        // @throw exception
-        _setEndOfShiftEx: function() {
-            this._setShiftEx(this._getSalePeriod(), this._getShiftNumber(), false, true);
+        _setEndOfShift: function() {
+            return this._setShift(this._getSalePeriod(), this._getShiftNumber(), false, true);
         },
 
-        // @throw exception
-        _setEndOfPeriodEx: function() {
-            this._setShiftEx(this._getSalePeriod(), this._getShiftNumber(), true, true);
+        _setEndOfPeriod: function() {
+            return this._setShift(this._getSalePeriod(), this._getShiftNumber(), true, true);
         },
 
-        // @throw exception
-        _updateSessionEx: function(currentShift) {
+        _updateSession: function(currentShift) {
             var shiftNumber = '';
             var salePeriod = '';
 
             if (!currentShift) {
-                currentShift = this._getShiftMarkerEx();
+                currentShift = this._getShiftMarker();
             }
 
             if (currentShift) {
@@ -87,8 +85,7 @@
                                 salePeriod == '' ? '' : new Date(salePeriod * 1000).toLocaleDateString());
         },
 
-        // @throw exception
-        _setShiftEx: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
+        _setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
             var shiftMarkerModel = new ShiftMarkerModel();
 
             shiftNumber = parseInt(shiftNumber);
@@ -102,24 +99,23 @@
                 end_of_shift: endOfShift
             };
 
-            // will throw an exception on db error
-            var shift = this._getShiftMarkerEx();
+            var shift = this._getShiftMarker();
 
             // update shift marker if it already exists
             if (shift) {
                 newShiftMarker.id = shift.id;
                 shiftMarkerModel.id = shift.id;
             }
-            var r = shiftMarkerModel.save(newShiftMarker);
+            var r = shiftMarkerModel.saveMarker(newShiftMarker);
             if (!r) {
-                throw {errno: shiftMarkerModel.lastError,
-                       errstr: shiftMarkerModel.lastErrorString,
-                       errmsg: _('An error was encountered while updating shift change configuration (error code %S).', [shiftMarkerModel.lastError])};
+                this._dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
+                              _('An error was encountered while updating shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
             }
             else {
                 // update shift
-                this._updateSessionEx(r);
+                this._updateSession(r);
             }
+            return r;
         },
 
         _ShiftDialog: function (newSalePeriod, newShiftNumber, lastSalePeriod, lastShiftNumber) {
@@ -132,11 +128,12 @@
                               last_sale_period: lastSalePeriod,
                               last_shift_number: lastShiftNumber};
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
-            var parent = GREUtils.Dialog.getMostRecentWindow();
 
-            // if parent is the ViviPOS root window, set parent to null instead to make dialog center
-            if (parent != null && parent.document.title.toLowerCase() == 'vivipos') parent = null;
-            GREUtils.Dialog.openWindow(parent, aURL, aName, aFeatures, aArguments);
+            var win = this.topmostWindow;
+            if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+                win = null;
+            
+            GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
         },
 
         _getSalePeriod: function() {
@@ -149,30 +146,74 @@
 
         // remove expired shift change
         expireData: function(evt) {
-            var model = new ShiftChangeModel();
             var expireDate = parseInt(evt.data);
             if (!isNaN(expireDate)) {
-                var r = model.execute('delete from shift_changes where created <= ' + expireDate);
-                if (r)
+                try {
+                    var model = new ShiftChangeModel();
+                    var r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup shift change records (error code %S).', [model.lastError])};
+                    }
+
+                    r = model.execute('delete from shift_changes where created <= ' + expireDate);
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring shift change records (error code %S).', [model.lastError])};
+                    }
+
+                    model = new ShiftChangeDetailModel();
+                    r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup shift change details (error code %S).', [model.lastError])};
+                    }
+
                     r = model.execute('delete from shift_change_details where not exists (select 1 from shift_changes where shift_changes.id == shift_change_details.shift_change_id)') && r;
-                if (!r) {
-                    // log error and notify user
-                    this.dbError(model.lastError, model.lastErrorString,
-                                 _('An error was encountered while expiring shift change records (error code %S).', [model.lastError]));
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring shift change details (error code %S).', [model.lastError])};
+                    }
+                }
+                catch(e) {
+                    this._dbError(e.errno, e.errstr, e.errmsg);
                 }
             }
         },
 
         // remove all shift change data
         truncateData: function(evt) {
-            var model = new ShiftChangeModel();
-            var r = model.execute('delete from shift_changes');
-            if (r) model.execute('delete from shift_change_details');
-            if (r) model.execute('delete from shift_markers');
-            if (!r) {
-                // log error and notify user
-                this.dbError(model.lastError, model.lastErrorString,
-                             _('An error was encountered while removing all shift change records (error code %S).', [model.lastError]));
+            try {
+                var model = new ShiftChangeModel();
+                var r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while removing all shift change records (error code %S).', [model.lastError])};
+                }
+
+                model = new ShiftChangeDetailModel();
+                r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while removing all shift change details (error code %S).', [model.lastError])};
+                }
+
+                model = new ShiftMarkerModel();
+                r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: ('An error was encountered while removing shift change marker (error code %S).', [model.lastError])};
+                }
+            }
+            catch(e) {
+                this._dbError(e.errno, e.errstr, e.errmsg);
             }
         },
 
@@ -188,7 +229,7 @@
             var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
             var isNewSalePeriod = false;
             var updateShiftMarker = true;
-
+            
             // no last shift?
             if (lastSalePeriod == '') {
                 // insert new sale period with today's date;
@@ -230,9 +271,8 @@
             }
 
             // need to catch exceptions
-            try {
-                if (updateShiftMarker) {
-                    this._setShiftEx(newSalePeriod, newShiftNumber, false, false);
+            if (updateShiftMarker) {
+                if (this._setShift(newSalePeriod, newShiftNumber, false, false)) {
 
                     // reset sequence if necessary
                     if (resetSequence && isNewSalePeriod) {
@@ -245,21 +285,17 @@
                         SequenceModel.resetSequence('order_no', parseInt(newSequence));
                     }
                 }
-
-                // display current shift / last shift information
-                this._ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
-                                  lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
-
-                this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
             }
-            catch(e) {
-                this.dbError(e.errno, e.errstr, e.errmsg);
-            }
+            // display current shift / last shift information
+            this._ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
+                              lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
+
+            this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
         },
         
         shiftChange: function() {
             if (GeckoJS.Session.get('isTraining')) {
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Shift Change'),
                                       _('Shift change is disabled in training mode'));
                 return;
@@ -471,7 +507,7 @@
                 if (parseInt(orderModel.lastError) != 0)
                     throw {errno: orderModel.lastError,
                            errstr: orderModel.lastErrorString,
-                           errmsg: _('An error was encountered while retrieving transaction records (error code %S)', [orderModel.lastError])};
+                           errmsg: _('An error was encountered while retrieving orders by destinations (error code %S)', [orderModel.lastError])};
 
                 //alert(this.dump(destDetails));
                 //this.log(this.dump(ledgerDetails));
@@ -667,10 +703,10 @@
                     canEndSalePeriod: canEndSalePeriod
                 };
 
-                window.openDialog(aURL, _('Shift Change'), features, inputObj);
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Change'), features, inputObj);
             }
             catch(e) {
-                this.dbError(e.errno, e.errstr, e.errmsg);
+                this._dbError(e.errno, e.errstr, e.errmsg);
                 return;
             }
 
@@ -774,27 +810,31 @@
                     shiftChangeDetails: shiftChangeDetails
                 };
 
+                if (!shiftChangeModel.saveShiftChange(shiftChangeRecord)) {
+                    this._dbError(shiftChangeModel.lastError, shiftChangeModel.lastErrorString,
+                                  _('An error was encountered while saving shift change record; shift may not have been closed properly.'));
+                    return;
+                }
+
                 // save money out ledger entry
                 if (moneyOutLedgerEntry)
-                    ledgerController.saveLedgerEntry(moneyOutLedgerEntry);
-
-                shiftChangeModel.saveShiftChange(shiftChangeRecord);
+                    if (!ledgerController.saveLedgerEntry(moneyOutLedgerEntry)) return;
 
                 if (inputObj.end) {
 
                     // mark end of sale period
-                    this._setEndOfPeriodEx();
+                    if (!this._setEndOfPeriod()) return;
 
                     doEndOfPeriod = true;
                 }
                 else {
                     // mark end of shift
-                    this._setEndOfShiftEx();
+                    if (!this._setEndOfShift()) return;
 
                     doEndOfShift = true;
 
                     if (moneyInLedgerEntry)
-                        ledgerController.saveLedgerEntry(moneyInLedgerEntry);
+                        if (!ledgerController.saveLedgerEntry(moneyInLedgerEntry)) return;
                 }
             }
 
@@ -806,7 +846,7 @@
                 var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=280';
                 var parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
-                window.openDialog(aURL, _('Sale Period Close'), features, parms);
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 
                 // power off or restart
                 if (parms.poweroff) {
@@ -833,7 +873,7 @@
                 var aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=200';
                 var message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
-                window.openDialog(aURL, _('Shift Close'), features, message);
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Close'), features, message);
 
                 this.requestCommand('signOff', true, 'Main');
                 this.requestCommand('ChangeUserDialog', null, 'Main');
@@ -841,7 +881,7 @@
         },
         
         printShiftReport: function( all ) {
-        	if ( !GREUtils.Dialog.confirm(this.activeWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
+        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
         		return;
 
             var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
@@ -856,7 +896,7 @@
         },
 
         printDailySales: function() {
-        	if ( !GREUtils.Dialog.confirm(this.activeWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
         		return;
         	
             var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
@@ -886,7 +926,7 @@
 		       
 		    var aURL = 'chrome://viviecr/content/rpt_cash_by_clerk.xul';
 		    var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-		    window.openDialog( aURL, '', features, processedTpl, parameters );
+		    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, processedTpl, parameters);
         },
 
         reviewDailySales: function() {
@@ -908,7 +948,7 @@
             
             var aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            window.openDialog( aURL, '', features, processedTpl, parameters );
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, processedTpl, parameters);
         },
 
         select: function(index){
@@ -919,9 +959,9 @@
             }
         },
 
-        dbError: function(errno, errstr, errmsg) {
+        _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', errmsg + '\nDatabase Error [' +  errno + ']: [' + errstr + ']');
-            GREUtils.Dialog.alert(window,
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

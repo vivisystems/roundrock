@@ -1,20 +1,14 @@
 (function(){
 
-     include('chrome://viviecr/content/devices/deviceTemplate.js');
-     include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
-     include('chrome://viviecr/content/reports/template_ext.js');
-
-
-    /**
-     * Print Controller
-     */
+    include('chrome://viviecr/content/devices/deviceTemplate.js');
+    include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
+    include('chrome://viviecr/content/reports/template_ext.js');
 
     var __controller__ = {
 
         name: 'Print',
 
         _device: null,
-
         _worker: null,
 
         // load device configuration and selections
@@ -361,7 +355,7 @@
             }
             
             // @todo delay saving order to database til after print jobs have all been scheduled
-            if (txn.data.status == 1) this.scheduleOrderCommit(txn);
+            this.scheduleOrderCommit(txn);
 
             // clear dashboard settings
             this.resetDashboardSettings();
@@ -427,13 +421,13 @@
             // check transaction status
             var txn = cart._getTransaction();
             if (txn == null) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Not an open order; cannot issue receipt'));
                 return;
             }
 
             if (!duplicate && !txn.isSubmit() && !txn.isStored()) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('The order has not been finalized; cannot issue receipt'));
                 return;
             }
@@ -564,23 +558,25 @@
             // check transaction status
             var txn = cart._getTransaction();
             if (txn == null) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Not an open order; cannot issue check'));
                 return; // fatal error ?
             }
 
             if (txn.isCancel()) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Cannot issue check on a canceled order'));
                 return; // fatal error ?
             }
 
             if (!duplicate && !txn.isStored() && !txn.isSubmit()) {
+
                 NotifyUtils.warn(_('Order has not been stored yet; cannot issue check'));
                 return;
             }
 
             if (!txn.hasItemsInBatch() && !duplicate || duplicate && txn.getItemsCount() == 0) {
+
                 NotifyUtils.warn(_('Nothing has been registered yet; cannot issue check'));
                 return;
             }
@@ -1072,7 +1068,6 @@
                             if (devicemodelName == null) devicemodelName = 'unknown';
                             if (portName == null) portName = 'unknown';
 
-                            //@todo OSD
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
                         if (deviceType == 'receipt' && (typeof data.duplicate == 'undefined' || data.duplicate == null)) {
@@ -1123,37 +1118,13 @@
                 this._commitTxn = txn;
             }
 
-            // send to output device using worker thread
             var self = this;
 
             orderCommit.prototype = {
                 run: function() {
-                    try {
-
-                        var r = this._commitTxn.submit();
-
-                        var submitStatus = parseInt(r);
-                        /*
-                         *   1: success
-                         *   null: input data is null
-                         *   -1: save fail, save to backup
-                         *   -2: remove fail
-                         */
-                        if (submitStatus == -2) {
-
-                            // if error caused when remove old order items
-                            GREUtils.Dialog.alert(this.activeWindow,
-                                          _('Submit Fail'),
-                                          _('Current order is not saved successfully, please try again...'));
-                            // return false;
-                        }
-
-                        // dispatch afterSubmit event...
-                        self.dispatchEvent('afterSubmit', this._commitTxn);
-                    }
-                    catch (e) {
-                        this.log('WARN', 'failed to commit order');
-                    }
+                    // restore order from backup
+                    var model = new OrderModel();
+                    //model.restoreOrderFromBackup();
                 },
 
                 QueryInterface: function(iid) {
@@ -1193,15 +1164,15 @@
 
         dashboard: function () {
             var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var width = this.screenwidth/2;
             var height = this.screenheight/2;
-            GREUtils.Dialog.openWindow(window, aURL, _('Printer Dashboard'), 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height, '');
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Printer Dashboard'), aFeatures, '');
         },
 
         loadDashboard: function() {
             var devices = this.getSelectedDevices();
             if (devices != null) {
-                this.log(this.dump(devices));
 
                 // create receipt printer icons
                 var receiptRow = document.getElementById('receipt-row');
@@ -1212,7 +1183,7 @@
                         if ('receipt-' + i + '-enabled' in devices) {
 
                             // create icon button for this device
-                            var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
+                            var btn = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','xul:button');
                             receiptRow.appendChild(btn);
                         }
                         else {

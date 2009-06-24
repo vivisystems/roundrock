@@ -1,15 +1,10 @@
-
 (function(){
 
-    /**
-     * Layout Controller
-     */
     var __controller__ = {
 
         name: 'Layout',
 
         _layout: {},
-
         _selectedLayout: '',
 
 

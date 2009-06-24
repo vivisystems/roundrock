@@ -1,8 +1,11 @@
 (function(){
 
     var __controller__ = {
+
         name: 'NonpluSetting',
+
         components: ['Barcode'],
+
         _identifiers: [],
         _identifier: null,
         _listObj: null,

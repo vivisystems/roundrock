@@ -1,17 +1,14 @@
 (function(){
 
-    /**
-     * Class DepartmentsController
-     */
     var __controller__ = {
 
+        name: 'Departments',
+        
         screenwidth: GeckoJS.Session.get('screenwidth') || 800,
         screenheight: GeckoJS.Session.get('screenheight') || 600,
-        name: 'Departments',
         _selectedIndex: null,
         _deptscrollablepanel: null,
         deptPanelView: null,
-
 
         createDepartmentPanel: function () {
 
@@ -56,7 +53,7 @@
 
             inputObj.taxes = taxes;
 
-            window.openDialog(aURL, 'select_rate', features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_rate', features, inputObj);
 
             if (inputObj.ok && inputObj.rate) {
                 $('#rate').val(inputObj.rate);
@@ -143,11 +140,9 @@
             var result = 0;
 
             if (data.no.length <= 0) {
-                // @todo OSD
                 OsdUtisl.warn(_('Department Number must not be empty'));
                 result = 3;
             } else if (data.name.length <= 0) {
-                // @todo OSD
                 NotifyUtils.warn(_('Department Name must not be empty'));
                 result = 4;
             } else {
@@ -155,11 +150,9 @@
                     for (var i = 0; i < depts.length; i++) {
                         var o = depts[i];
                         if (o.no == data.no && !id) {
-                            // @todo OSD
                             NotifyUtils.warn(_('Duplicate Department Number (%S); department not %S.', [data.no, id ? 'modified' : 'added']));
                             return 1;
                         } else if (o.name == data.name && o.id != id) {
-                            // @todo OSD
                             NotifyUtils.warn(_('Duplicate Department Name (%S); department not %S.', [data.name, id ? 'modified' : 'added']))
                             return 2;
                         }
@@ -176,7 +169,8 @@
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
             };
-            window.openDialog(aURL, _('Add New Department'), features, _('New Department'), '', _('Department Number'), _('Department Name'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Department'), features,
+                                       _('New Department'), '', _('Department Number'), _('Department Name'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var dept = new CategoryModel();
 
@@ -201,11 +195,9 @@
 
                         this.changeDepartmentPanel(index);
 
-                        // @todo OSD
                         OsdUtils.info(_('Department [%S] added successfully', [inputData.name]));
                     }
                     catch (e) {
-                        // @todo OSD
                         NotifyUtils.error(_('An error occurred while adding Department [%S]; the department may not have been added successfully', [inputData.name]));
                     }
                 }
@@ -229,12 +221,10 @@
                     var index = this.updateSession('modify', dept.id);
                     this.changeDepartmentPanel(index);
 
-                    // @todo OSD
                     OsdUtils.info(_('Department [%S] modified successfully', [inputData.name]));
                 }
             }
             catch (e) {
-                // @todo OSD
                 NotifyUtils.error(_('An error occurred while modifying Department [%S]. The department may not have been modified successfully', [inputData.name]));
             }
         },
@@ -256,7 +246,7 @@
                 return;
             }
 
-            if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [dept.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [dept.name]), _('Are you sure?'))) {
                 var cateModel = new CategoryModel();
 
                 try {
@@ -267,11 +257,9 @@
                     var index = this.updateSession('remove');
                     this.changeDepartmentPanel(index);
 
-                    // @todo OSD
                     OsdUtils.info(_('Department [%S] removed successfully', [dept.name]));
                 }
                 catch (e) {
-                    // @todo OSD
                     NotifyUtils.error(_('An error occurred while removing Department [%S]. The department may not have been removed successfully', [dept.name]));
                 }
             }

@@ -100,6 +100,10 @@
                                         </rows>
                                     </grid>
                                 </vbox>
+                                <vbox pack="center">
+                                    <vivibutton id="opendrawer" label="&ledger.button.action.cashdrawer;" default="false" class="fixedbtn"
+                                                oncommand="$do('openDrawerForLedgerEntry', null, 'LedgerRecords');"/>
+                                                    </vbox>
                             </hbox>
                             <spacer style="height: 10px;" />
                             <hbox flex="1">

@@ -1,10 +1,7 @@
 (function(){
 
-    /**
-     * Class ViviPOS.CartController
-     */
-
     var __controller__ = {
+
         name: 'Pricelevel',
 
         limit: 9,

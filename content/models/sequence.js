@@ -1,20 +1,21 @@
 (function() {
 
-    var SequenceModel = window.SequenceModel = GeckoJS.Model.extend(
-    {
-    
+    var __class__ = {
         getSequence: function(key) {
             return (new this).getSequence(key);
-        },
+            },
 
         resetSequence: function(key, value) {
             return (new this).resetSequence(key, value);
         }
-    }
-    ,
-    {
-        name: 'Sequence',
+    };
 
+    var __model__ = {
+
+        name: 'Sequence',
+    
+        autoRestoreFromBackup: true,
+        
         getRemoteService: function(method) {
             this.syncSettings = (new SyncSetting()).read();
 
@@ -67,7 +68,8 @@
                 try {
                     req.abort();
 
-                }catch(e) {
+                }
+                catch(e) {
                     // dump('timeout exception ' + e + "\n");
                 }
             }, 15000);
@@ -83,7 +85,7 @@
                 // dump( "onreadystatechange " + req.readyState  + "\n");
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
-                    if(req.status == 200) {
+                    if (req.status == 200) {
                         var result = GeckoJS.BaseObject.unserialize(req.responseText);
                         if (result.status == 'ok') {
                             seq = result.value;
@@ -100,15 +102,15 @@
                 
                 // block ui until request finish or timeout
                 var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                while(!reqStatus.finish) {
+                while (!reqStatus.finish) {
                     thread.processNextEvent(true);
                 }
 
             }catch(e) {
                 // dump('send exception ' + e + "\n");
             }finally {
-                if(timeout) clearTimeout(timeout);
-                if(req)                 delete req;
+                if (timeout) clearTimeout(timeout);
+                if (req) delete req;
                 if (reqStatus) delete reqStatus;
             }
             return seq;
@@ -146,7 +148,9 @@
 
                 seq.value++;
                 this.id = seq.id;
-                this.save(seq);
+                if (!this.save(seq)) {
+                    this.saveToBackup(seq);
+                }
                 return seq.value;
 
             }
@@ -185,10 +189,14 @@
                 };
                 seq.value = value;
                 this.id = seq.id;
-                this.save(seq);
+                if (!this.save(seq)) {
+                    this.saveToBackup(seq);
+                }
                 return seq.value;
             }
         }
     }
-    );
+
+    var SequenceModel = window.SequenceModel = GeckoJS.Model.extend(__class__, __model__);
+    
 })();

@@ -1,9 +1,7 @@
 (function(){
 
-    /**
-     * SyncSettings Controller
-     */
     var __controller__ = {
+        
         name: 'SyncSettings',
 
         // initial SyncSettings

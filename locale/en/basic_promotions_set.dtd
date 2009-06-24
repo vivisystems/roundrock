@@ -21,7 +21,7 @@
 
 
 <!ENTITY    common.label.trigger_amount_type             "Trigger Amount Type">
-<!ENTITY    common.label.trigger_amount_type_by_qty      "By Quanity">
+<!ENTITY    common.label.trigger_amount_type_by_qty      "By Quantity">
 <!ENTITY    common.label.trigger_amount_type_by_subtotal "By Subtotal">
 <!ENTITY    common.label.trigger_amount_value            "Trigger Amount Value">
 <!ENTITY    common.label.trigger_amount_mode             "Trigger Amount Mode">
@@ -31,7 +31,7 @@
 
 <!ENTITY    amount_off.title                   "Amount Off Setting">
 <!ENTITY    amount_off.label.type              "Amount Off Type">
-<!ENTITY    amount_off.label.type_by_qty       "By Quanity">
+<!ENTITY    amount_off.label.type_by_qty       "By Quantity">
 <!ENTITY    amount_off.label.type_by_subtotal  "By Subtotal">
 <!ENTITY    amount_off.label.value             "Enter Amount Off Value">
 
@@ -40,7 +40,7 @@
 
 <!ENTITY    fixed_value.title                  "Fixed Value Setting">
 <!ENTITY    fixed_value.label.type             "Fixed Value Type">
-<!ENTITY    fixed_value.label.type_by_qty      "By Quanity">
+<!ENTITY    fixed_value.label.type_by_qty      "By Quantity">
 <!ENTITY    fixed_value.label.type_by_subtotal "By Subtotal">
 <!ENTITY    fixed_value.label.value            "Enter Fixed Value">
 
@@ -49,7 +49,7 @@
 <!ENTITY    cheapest_one_free.label.type_by_fixed_value             "Fixed Value">
 <!ENTITY    cheapest_one_free.label.type_by_amount_off             "Amount Off">
 <!ENTITY    cheapest_one_free.label.type_by_percentage_off             "Percentage Off">
-<!ENTITY    cheapest_one_free.label.maximum_qty       "Maximum Quanity">
+<!ENTITY    cheapest_one_free.label.maximum_qty       "Maximum Quantity">
 <!ENTITY    cheapest_one_free.label.value             "Set Free Price">
 
 <!ENTITY    multi_buy.title                   "MultiBuy Setting">

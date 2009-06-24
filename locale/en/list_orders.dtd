@@ -1,0 +1,4 @@
+<!ENTITY listorders.title "Order List">
+<!ENTITY listorders.searchby "search criteria: ">
+<!ENTITY listorders.count "records retrieved: ">
+<!ENTITY listorders.button.details "Order Details">

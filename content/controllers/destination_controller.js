@@ -1,6 +1,7 @@
 (function(){
 
     var __controller__ = {
+
         name: 'Destinations',
 	
         _listObj: null,
@@ -55,7 +56,8 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
 
-            window.openDialog(aURL, _('Add New Destination'), features, _('New Destination'), '', _('Destination'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Destination'), features,
+                                       _('New Destination'), '', _('Destination'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 var destName = inputObj.input0.replace('\'', '"', 'g');
 
@@ -113,7 +115,7 @@
             if (index >= 0) {
                 var destName = this._listDatas[index].name;
 
-                if (!GREUtils.Dialog.confirm(window, _('confirm delete destination [%S]', [destName]), _('Are you sure you want to delete destination [%S]?', [destName]))) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete destination [%S]', [destName]), _('Are you sure you want to delete destination [%S]?', [destName]))) {
                     return;
                 }
 

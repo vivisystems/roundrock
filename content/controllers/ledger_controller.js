@@ -1,9 +1,7 @@
 (function(){
 
-    /**
-     */
-
     var __controller__ = {
+
         name: 'LedgerRecords',
 
         scaffold: true,
@@ -220,18 +218,16 @@
 
             inputObj.entry_types = this.LedgerEntryType.find('all', {order: 'mode, type'});
             
-            window.openDialog(aURL, _('Add Ledger Entry'), features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add Ledger Entry'), features, inputObj);
 
             if (inputObj.ok && inputObj.type != '' && !isNaN(inputObj.amount)) {
 
                 if (this.saveLedgerEntry(inputObj)) {
-                    //@todo OSD
                     OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
                                    [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
                     this.load();
                 }
                 else {
-                    //@todo OSD
                     NotifyUtils.error(_('Failed to log transaction [%S] for amount of [%S] to the ledger',
                                       [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
                 }
@@ -294,7 +290,7 @@
             if (mainWindow) {
                 var cashdrawer = mainWindow.GeckoJS.Controller.getInstanceByName( 'CashDrawer' );
                 if (cashdrawer) {
-                    this.requestCommand('openDrawerForLedgerEntry', null, cashdrawer);
+                    cashdrawer.openDrawerForLedgerEntry();
                 }
             }
         },
@@ -336,7 +332,7 @@
 
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
-            GREUtils.Dialog.alert(window,
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

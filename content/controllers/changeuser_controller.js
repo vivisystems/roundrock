@@ -1,12 +1,9 @@
 (function(){
 
-
-    /**
-     * Class ViviPOS.ChangeUserController
-     */
-
     var __controller__ = {
+
         name: 'ChangeUser',
+        
         users: null,
         userpanel: null,
 
@@ -68,19 +65,16 @@
                 if (username == null) {
                     if (allowQuickLogin) {
                         if (!this.Acl.securityCheckByPassword(userpass, false)) {
-                            // @todo OSD
                             NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                         }
                     }
                     else {
-                        // @todo OSD
                         // we shouldn't be here if validateForm works correctly, but will display warning just in case
                         NotifyUtils.error(_('Authentication failed! Please select a user'));
                     }
                 }
                 else {
                     if (!this.Acl.securityCheck(username, userpass)) {
-                        // @todo OSD
                         NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                     }
                 }
@@ -107,7 +101,7 @@
 
         _dbError: function(errno, errstr, errmsg) {
             this.log('WARN', 'Database error: ' + errstr + ' [' +  errno + ']');
-            GREUtils.Dialog.alert(window,
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         }

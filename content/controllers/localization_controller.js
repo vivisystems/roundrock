@@ -1,36 +1,21 @@
 (function(){
 
-    /**
-     * Localization Editor
-     */
-
     var __controller__ = {
+        
         name: 'Localization',
 
         _menu: null,
-
         _list: null,
-
-        _localelist: null,
-        
+        _localelist: null,       
         _packages: null,
-
         _dirtyBit: false,
-
         _dirtyFiles: {},
-
         _currentPkg: null,
-
         _currentLocale: null,
-
         _currentLocalIndex: -1,
-
         _currentEntryIndex: -1,
-
         _currentPkgIndex: -1,
-
         _selectedLocale: null,
-
         _strings: [],
 
         load: function() {            
@@ -667,10 +652,8 @@
 
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
-            window.openDialog(aURL,
-                              _('Export Locale'),
-                              features,
-                              [pkg.pkgName, locale, pkg.installPath, pkg.installName, rdf]);
+            GREUtils.Dialog.openWindow(this.topmostWindow, _('Export Locale'), features,
+                                       [pkg.pkgName, locale, pkg.installPath, pkg.installName, rdf]);
         },
 
         _validateForm: function() {

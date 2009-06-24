@@ -12,10 +12,22 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
     saveShiftChange: function(data) {
         if(!data) return true;
 
+        var s;
         var r = this.saveShiftChangeMaster(data);
-        this.saveShiftChangeDetail(data);
-
-        return r;
+        if (r) {
+            s = this.saveShiftChangeDetail(data);
+            if (s) {
+                return r;
+            }
+            else {
+                this.lastError = this.ShiftChangeDetail.lastError;
+                this.lastErrorString = this.ShiftChangeDetail.lastErrorString;
+                return s;
+            }
+        }
+        else {
+            return r;
+        }
     },
 
     saveShiftChangeMaster: function(data) {
@@ -30,7 +42,8 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
 
     saveShiftChangeDetail: function(data) {
 
-        for (var i = 0; i < data.shiftChangeDetails.length; i++) {
+        var s = true;
+        for (var i = 0; s && i < data.shiftChangeDetails.length; i++) {
             var o = data.shiftChangeDetails[i];
             var detail = {};
             detail['shift_change_id'] = this.id;
@@ -43,8 +56,9 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
             
             this.ShiftChangeDetail.id = '';
             if (!this.ShiftChangeDetail.save(detail)) {
-                this.ShiftChangeDetail.saveToBackup(detail);
+                s = this.ShiftChangeDetail.saveToBackup(detail);
             }
         }
+        return s;
     }
 });

@@ -1,6 +1,7 @@
 (function(){
 
     var __controller__ = {
+        
         name: 'AclGroups',
 	
         _listObj: null,
@@ -44,7 +45,8 @@
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300";
             var inputObj = {input0:null, require0:true};
 
-            window.openDialog(aURL, _('Add New ACL Group'), features, _('New ACL Group'), '', _('Group Name'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New ACL Group'), features,
+                                       _('New ACL Group'), '', _('Group Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
 
                 // check for duplicate group name
@@ -58,11 +60,9 @@
                         this.Acl.addGroup(group);
                         this.load(group);
 
-                        // @todo OSD
                         OsdUtils.info(_('ACL Group [%S] added successfully', [group]));
                     }
                     catch (e) {
-                        // @todo OSD
                         NotifyUtils.error(_('An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully', [group]));
                     }
                 }
@@ -78,10 +78,10 @@
             if (users && users.length > 0) {
                 var userlist = GeckoJS.Array.objectExtract(users, '{n}.description').join(", ");
                 userlist = [group].concat(userlist);
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Remove User'),
                                       _('The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.', userlist));
-            } else if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [group]), _('Are you sure?'))) {
+            } else if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [group]), _('Are you sure?'))) {
 
                 try {
                     this.Acl.removeGroup(group);
@@ -98,11 +98,9 @@
 
                     this.select();
 
-                    // @todo OSD.text to be replaced by OSD.info
                     OsdUtils.info(_('ACL Group [%S] removed successfully', [group]));
                 }
                 catch (e) {
-                    // @todo OSD
                     NotifyUtils.error(_('An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully', [group]));
                 }
             }
@@ -137,11 +135,9 @@
 
                 this.select();
                 
-                // @todo OSD.text to be replaced by OSD.info
                 OsdUtils.info(_('ACL Group [%S] modified successfully', [group]));
             }
             catch (e) {
-                // @todo OSD
                 NotifyUtils.error(_('An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully', [group]));
             }
         },

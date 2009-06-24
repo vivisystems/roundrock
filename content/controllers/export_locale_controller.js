@@ -1,20 +1,14 @@
 (function(){
 
-    /**
-     * Localization Editor
-     */
-
     var __controller__ = {
+
         name: 'ExportLocale',
 
         components: [ 'CheckMedia' ],
 
         _exporting_file_folder: 'locale_export',
-
         _pkg: null,
-
         _locale: null,
-
         _path: null,
 
         load: function(data) {
@@ -104,7 +98,7 @@
             }
             else {
                 this.log('ERROR', 'Script ' + exportScript + ' failed to export locale package [' + this._pkg + ']');
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Export Locale'),
                                       _('Failed to export locale package [%S]', [this._pkg]));
             }

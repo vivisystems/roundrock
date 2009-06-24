@@ -2,11 +2,10 @@
 
     GeckoJS.include('chrome://viviecr/content/models/storecontact.js');
 
-    /**
-     * Contact Info Controller
-     */
     var __controller__ = {
+
         name: 'StoreContact',
+        
         components: ['Form'],
 
 

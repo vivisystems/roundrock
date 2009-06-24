@@ -1,11 +1,9 @@
 (function(){
 
-
-    /**
-     * Class ViviPOS.ClockInOutController
-     */
     var __controller__ = {
+
         name: 'ClockInOut',
+        
         userpanel: null,
         users: null,
         jobpanel: null,
@@ -79,7 +77,6 @@
                 }
             }
             if (username == null) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select a user first.'));
             }
             else if (this.publicAttendance || this.Acl.securityCheck(username, userpass, true)) {
@@ -88,12 +85,10 @@
             }
             else {
                 if (userpass == '')
-                    //@todo OSD
                     NotifyUtils.warn(_('Please enter the passcode.'));
                 else
-                    //@todo OSD
                     NotifyUtils.warn(_('Authentication Failed! Please make sure the passcode is correct.'));
-                    $('#user_password').val('');
+                $('#user_password').val('');
             }
         },
 
@@ -119,7 +114,6 @@
             }
 
             if (username == null) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select a user first.'));
             }
             else {
@@ -137,7 +131,6 @@
                         if (parseInt(userModel.lastError) != 0) {
                             this._dbError(userModel.lastError, userModel.lastErrorString,
                                           _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
-
                             NotifyUtils.error(_('Failed to clock user in.'));
                             return;
                         }
@@ -149,7 +142,6 @@
                     }
 
                     if (jobname == null) {
-                        //@todo OSD
                         NotifyUtils.warn(_('Please select a job first.'));
 
                         // auto-switch to Job list
@@ -157,13 +149,11 @@
                         return;
                     }
                     var clockstamp = new ClockStampModel();
-                    var r = clockstamp.saveStamp('clockin', username, jobname, displayname);
-                    if (r) {
+                    if (clockstamp.saveStamp('clockin', username, jobname, displayname)) {
                         this._listSummary(username);
                         $('#user_password').val('');
                     }
                     else {
-                        //@db
                         this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
                                       _('An error was encountered while clocking employee [%S] in (error code %S).', [displayname, clockstamp.lastError]));
 
@@ -171,12 +161,10 @@
                     }
                 } else {
                     if (userpass == '')
-                        //@todo OSD
                         NotifyUtils.warn(_('Please enter the passcode.'));
                     else
-                        //@todo OSD
                         NotifyUtils.warn(_('Authentication Failed!. Please make sure the passcode is correct.'));
-                        $('#user_password').val('');
+                    $('#user_password').val('');
                 }
             }
             document.getElementById('user_password').value = '';
@@ -195,7 +183,6 @@
                 }
             }
             if (username == null) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select a user first.'));
             }
             else {
@@ -213,8 +200,7 @@
                         return;
                     }
                     else if (last && !last.clockout) {
-                        var r = clockstamp.saveStamp('clockout', username);
-                        if (!r) {
+                        if (!clockstamp.saveStamp('clockout', username)) {
                             this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
                                           _('An error was encountered while clocking employee [%S] out (error code %S).', [displayname, clockstamp.lastError]));
                             NotifyUtils.error(_('Failed to clock user out.'));
@@ -222,7 +208,6 @@
                         }
                     }
                     else {
-                        //@todo OSD
                         NotifyUtils.warn(_('Not clocked in yet.'));
                     }
                     this._listSummary(username);
@@ -230,12 +215,10 @@
                 }
                 else {
                     if (userpass == '')
-                        //@todo OSD
                         NotifyUtils.warn(_('Please enter the passcode.'));
                     else
-                        //@todo OSD
                         NotifyUtils.warn(_('Authentication Failed! Please make sure the passcode is correct.'));
-                        $('#user_password').val('');
+                    $('#user_password').val('');
                 }
             }
         },
@@ -298,7 +281,7 @@
 
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
-            GREUtils.Dialog.alert(window,
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the terminal, and if the problem persists, please contact technical support immediately.'));
         }

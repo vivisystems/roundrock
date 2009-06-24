@@ -1,11 +1,9 @@
 (function(){
 
-    /**
-     * Class ViviPOS.MainController
-     */
     var __controller__ = {
 
         name: 'Main',
+
         screenwidth: 800,
         screenheight: 600,
         depPanelView: null,
@@ -16,7 +14,8 @@
 
         _suspendLoadTest: false,
         _groupPath: [],
-        
+        _suspendOperation: false,
+        _suspendOperationFilter: null,
         _isTraining: false,
     
         initial: function() {
@@ -27,7 +26,11 @@
             GeckoJS.Session.set('screenwidth', this.screenwidth);
             GeckoJS.Session.set('screenheight', this.screenheight);
 
-            // patch
+            // set up event listener to intercept all controller events
+            var self = this;
+            this._suspendOperationFilter = function(evt) {
+                self.filterOperations(evt);
+            };
 
             this.createPluPanel();
             //this.requestCommand('initial', null, 'Pricelevel');
@@ -37,7 +40,6 @@
             deptNode.selectedIndex = 0;
             deptNode.selectedItems = [0];
             
-            var self = this;
             // observer restart topic
             this.observer = GeckoJS.Observer.newInstance({
                 topics: ['prepare-to-restart', 'restart-clock', 'addons-message-notification', 'TrainingMode' ],
@@ -112,9 +114,15 @@
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
 
+        filterOperations: function(evt) {
+            if (this._suspendOperation && evt.data.name != 'Keypad') {
+                evt.preventDefault();
+            }
+        },
+
         ControlPanelDialog: function () {
-        	if ( GeckoJS.Session.get( "isTraining" ) ) {
-        		alert( _( "Entering control area is not allowed during training." ) );
+        	if (GeckoJS.Session.get( "isTraining" )) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('Entering control area is not allowed during training.'));
         		return;
         	}
 
@@ -126,53 +134,43 @@
         		
             var aURL = 'chrome://viviecr/content/controlPanel.xul';
             var aName = _('Control Panel');
-            var posX = 0;
-            var posY = 0;
-            var width = this.screenwidth;
-            var height = this.screenheight;
-            GREUtils.Dialog.openWindow(window, aURL, aName, 'chrome,dialog,modal,dependent=yes,resize=no,top=' + posX + ',left=' + posY + ',width=' + width + ',height=' + height, "");
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
 
             if (this.doRestart) {
                 try {
                     GREUtils.restartApplication();
-                } catch(err) {
+                }
+                catch(err) {
                 }
             }
             if (this.restartClock) {
                 try {
                     $('#clock')[0].stopClock();
                     $('#clock')[0].startClock();
-                } catch(err) {
+                }
+                catch(err) {
                 }
             }
 
         },
 
         ChangeUserDialog: function () {
-            var aURL = "chrome://viviecr/content/changeuser.xul";
+            var aURL = 'chrome://viviecr/content/changeuser.xul';
             var aName = _('Change User');
-            var aArguments = "";
-            var posX = 0;
-            var posY = 0;
-            var width = this.screenwidth;
-            var height = this.screenheight;
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=no,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=no,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, '');
         },
 
         ClockInOutDialog: function () {
-            var aURL = "chrome://viviecr/content/clockinout.xul";
+            var aURL = 'chrome://viviecr/content/clockinout.xul';
             var aName = _('Clock In/Out');
-            var aArguments = "";
-            var posX = 0;
-            var posY = 0;
-            var width = this.screenwidth;
-            var height = this.screenheight;
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
         },
 
         PLUSearchDialog: function (addtocart) {
-            //
             var buf = this._getKeypadController().getBuffer();
 
             var item;
@@ -183,13 +181,12 @@
                 item = txn.getItemAt(index, true);
             }
 
-            var aURL = "chrome://viviecr/content/plusearch.xul";
+            var aURL = 'chrome://viviecr/content/plusearch.xul';
             var aName = _('Product Search');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var aArguments = {buffer: buf, item: item};
-            var width = this.screenwidth;
-            var height = this.screenheight;
-
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
+            
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
             if (aArguments.ok) {
                 if (addtocart && aArguments.item) {
                     this.requestCommand('addItem',aArguments.item,'Cart');
@@ -201,13 +198,14 @@
         },
 
         printerDashboard: function () {
-            var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
             var width = this.screenwidth * .6;
             var height = this.screenheight * .8;
+            var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
 
             var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
             var devices = deviceController ? deviceController.getSelectedDevices() : [];
-            GREUtils.Dialog.openWindow(window, aURL, _('Printer Dashboard'), 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height, devices);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Printer Dashboard'), aFeatures, devices);
         },
 
         AnnotateDialog: function (codes) {
@@ -292,46 +290,34 @@
                 });
             }
             else {
-                var aURL = "chrome://viviecr/content/annotate.xul";
-                var aName = "Annotate";
+                var aURL = 'chrome://viviecr/content/annotate.xul';
+                var aName = _('Annotate Order');
                 var aArguments = {order: txn.data, codes: codeList, sequence: txn.data.seq, txn:txn};
                 var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
-                window.openDialog(aURL, aName, aFeatures, aArguments);
+                this.topmostWindow.openDialog(aURL, aName, aFeatures, aArguments);
             }
         },
 
-        WizardDialog: function () {
-            var aURL = "chrome://viviecr/content/firstuse.xul";
-            var aName = "First Run";
-            var aArguments = "";
-            var posX = 0;
-            var posY = 0;
-            var width = this.screenwidth;
-            var height = this.screenheight;
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
-        },
-
-        orderDialog: function () {
-            var aURL = 'chrome://viviecr/content/view_order.xul';
-            var aName = _('Order Details');
+        viewOrders: function () {
+            var aURL = 'chrome://viviecr/content/list_orders.xul';
+            var aName = _('List Orders');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var aArguments = {value: this._getKeypadController().getBuffer()};
-            var posX = 0;
-            var posY = 0;
-            var width = this.screenwidth;
-            var height = this.screenheight;
 
             var searchByTableNo = GeckoJS.Configure.read('vivipos.fec.settings.SearchOrderByTableNo');
 
             if (searchByTableNo) {
                 aArguments.index = 'table_no';
+                aArguments.criteria = _('(view)search by table number');
             }
             else {
                 aArguments.index = 'sequence';
+                aArguments.criteria = _('(view)search by order sequence');
             }
             //this._getKeypadController().clearBuffer();
             this.requestCommand('clearBuffer', null, 'Keypad');
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
             this.requestCommand('subtotal', null, 'Cart');
         },
 
@@ -473,8 +459,8 @@
                 });
 
                 if (parseInt(userModel.lastError) != 0) {
-                    this.dbError(userModel.lastError, userModel.lastErrorString,
-                                 _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                    this._dbError(userModel.lastError, userModel.lastErrorString,
+                                  _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
                     return;
                 }
 
@@ -557,22 +543,23 @@
                 alert( _( "To use this funciton, please leave training mode first!" ) ); 
                 return;
             }
-            if (stop || this.suspendButton) {
+
+            if (stop || this._suspendOperation) {
                 this.requestCommand('setTarget', 'Cart', 'Keypad');
 
-                // re-enable buttons
-                GeckoJS.Observer.notify(null, 'button-state-resume', this.target);
-                this.suspendButton = false;
-
-                // resume cart
-                this.requestCommand('resume', null, 'Cart');
-
+                this._suspendOperation = false;
+                this._getKeypadController().setNumberOnly(false);
+                GeckoJS.Dispatcher.removeEventListener('beforeDispatch', this._suspendOperationFilter);
+                
                 // check if has buffer (password)
                 var buf = this._getKeypadController().getBuffer().replace(/^\s*/, '').replace(/\s*$/, '');
                 this.requestCommand('clear', null, 'Cart');
 
                 var success = true;
-                // success is indicated by where txn is set to current transaction
+
+                // dispatch onExitPassword for onscreenvfd
+                this.dispatchEvent('onExitPassword');
+
                 if (stop != true && stop != 'true' && buf.length > 0) {
 
                     if (this.Acl.securityCheckByPassword(buf, true)) {
@@ -595,28 +582,22 @@
                         success = false;
                     }
                 }
-                this.dispatchEvent('onExitPassword', success);
-                if (success) {
-                    //GeckoJS.Controller.getInstanceByName('Cart').subtotal();
-                }
-                else if (!stop && buf.length > 0) {
-                    // @todo OSD
-                    NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
+                if (!success) {
+                    if (!stop && buf.length > 0) {
+                        
+                        NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
+                    }
                 }
             }
             else {
                 this.requestCommand('clear', null, 'Cart');
                 this.requestCommand('setTarget', 'Main', 'Keypad');
 
-                // suspend cart
-                this.requestCommand('suspend', null, 'Cart');
+                this.dispatchEvent('onEnterPassword');
 
-                // suspend all buttons
-                GeckoJS.Observer.notify(null, 'button-state-suspend', this.target);
-                this.suspendButton = true;
-
-                // generate onEnterPassword event
-                this.dispatchEvent('onEnterPassword', null);
+                this._suspendOperation = true;
+                this._getKeypadController().setNumberOnly(true);
+                GeckoJS.Dispatcher.addEventListener('beforeDispatch', this._suspendOperationFilter);
             }
         },
 
@@ -639,8 +620,8 @@
             });
 
             if (parseInt(userModel.lastError) != 0) {
-                this.dbError(userModel.lastError, userModel.lastErrorString,
-                             _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                this._dbError(userModel.lastError, userModel.lastErrorString,
+                              _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
                 return;
             }
             
@@ -652,8 +633,8 @@
                 });
 
                 if (parseInt(userModel.lastError) != 0) {
-                    this.dbError(userModel.lastError, userModel.lastErrorString,
-                                 _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
+                    this._dbError(userModel.lastError, userModel.lastErrorString,
+                                  _('An error was encountered while retrieving employees (error code %S).', [userModel.lastError]));
                     return;
                 }
 
@@ -726,7 +707,7 @@
 
                     if (promptDiscardCart) {
                         if (autoDiscardQueue || mustEmptyQueue || !canQueueOrder) {
-                            if (!GREUtils.Dialog.confirm(window, _('Sign Off'), _('Discard items that have been registered?'))) return;
+                            if (!GREUtils.Dialog.confirm(this.topmostWindow, _('Sign Off'), _('Discard items that have been registered?'))) return;
                             responseDiscardCart = 1;
                         }
                         else {
@@ -751,7 +732,7 @@
 
                     if (promptDiscardQueue) {
                         if (mustEmptyQueue) {
-                            if (GREUtils.Dialog.confirm(window, _('Sign Off'), _('You have one or more queued orders. Discard them?')) == false) {
+                            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Sign Off'), _('You have one or more queued orders. Discard them?')) == false) {
                                 return;
                             }
                         }
@@ -774,7 +755,7 @@
                     }
 
                     if (!promptDiscardCart && !promptDiscardQueue)
-                        if (GREUtils.Dialog.confirm(window, _('confirm sign-off'), _('Are you ready to sign off?')) == false) {
+                        if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm sign-off'), _('Are you ready to sign off?')) == false) {
                             return;
                     }
                 }
@@ -844,10 +825,10 @@
         },
 
         truncateTxnRecords: function() {
-            if (GREUtils.Dialog.confirm(window,
+            if (GREUtils.Dialog.confirm(this.topmostWindow,
                                         _('Remove All Transaction Records'),
                                         _('This operation will remove all transaction records. Are you sure you want to proceed?'))) {
-                if (GREUtils.Dialog.confirm(window,
+                if (GREUtils.Dialog.confirm(this.topmostWindow,
                                             _('Remove All Transaction Records'),
                                             _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
@@ -897,8 +878,8 @@
 
                                 orderModel.rollback();
 
-                                this.dbError(errNo, errMsg,
-                                             _('An error was encountered while attempting to remove all transaction records (error code %S).', [errNo]));
+                                this._dbError(errNo, errMsg,
+                                              _('An error was encountered while attempting to remove all transaction records (error code %S).', [errNo]));
                             }
                             else {
                                 // dispatch afterTruncateTxnRecords event
@@ -906,8 +887,8 @@
                             }
                         }
                         else {
-                            this.dbError(orderModel.lastError, orderModel.lastErrorString,
-                                         _('An error was encountered while attempting to remove all transaction records (error code %S).', orderModel.lastError));
+                            this._dbError(orderModel.lastError, orderModel.lastErrorString,
+                                          _('An error was encountered while attempting to remove all transaction records (error code %S).', orderModel.lastError));
                         }
                     } catch (e) {}
                     finally {
@@ -915,7 +896,7 @@
                         waitPanel.hidePopup();
                     }
 
-                    GREUtils.Dialog.alert(window,
+                    GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Remove All Transaction Records'),
                                           _('Removal completed. Application will now restart'));
 
@@ -957,8 +938,8 @@
                     var r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
                     if (!r) {
                         // log error and notify user
-                        this.dbError(clockstamp.lastError, clockstamp.lastErrorString,
-                                     _('An error was encountered while expiring employee attendance records (error code %S).', [clockstamp.lastError]));
+                        this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
+                                      _('An error was encountered while expiring employee attendance records (error code %S).', [clockstamp.lastError]));
                     }
 
                     // dispatch afterClearOrderData event
@@ -988,21 +969,20 @@
         
         stockAdjustment: function () {
             var aURL = 'chrome://viviecr/content/stock_adjustments.xul';
-            var width = this.screenwidth;
-            var height = this.screenheight;
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
 
-            GREUtils.Dialog.openWindow( window, aURL, _( 'Adjust Stock' ), 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height );
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _( 'Adjust Stock' ), aFeatures);
         },
 
         reboot: function() {
-            if (GREUtils.Dialog.confirm(window, _('Reboot'), _('Please confirm to reboot the terminal')) == false) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Reboot'), _('Please confirm to reboot the terminal')) == false) {
                 return;
             }
             this.rebootMachine();
         },
 
         shutdown: function() {
-            if (GREUtils.Dialog.confirm(window, _('Shutdown'), _('Please confirm to shut down the terminal')) == false) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('Shutdown'), _('Please confirm to shut down the terminal')) == false) {
                 return;
             }
             this.shutdownMachine();
@@ -1125,9 +1105,9 @@
             progressBar.mode = 'undetermined';
         },
 
-        dbError: function(errNo, errMsg, alertStr) {
+        _dbError: function(errNo, errMsg, alertStr) {
             this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(window,
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

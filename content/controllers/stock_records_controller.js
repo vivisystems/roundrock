@@ -1,15 +1,14 @@
 (function(){
 
-    /**
-     * Class ViviPOS.StockRecordsController
-     */
-    
     // for using the checkMedia method.
     include( 'chrome://viviecr/content/reports/controllers/components/check_media.js' );
 
     var __controller__ = {
+
         name: 'StockRecords',
+
         scaffold: false,
+
         uses: [ 'Product' ],
 
         _listObj: null,
@@ -77,7 +76,6 @@
                 this._listData = products;
                 this.updateStock();
 
-                // @todo OSD
                 OsdUtils.info( _( 'Stock level for [%S] modified successfully', [ evt.data.name ]) );
             }*/
         },
@@ -93,7 +91,7 @@
 
             if ( !this._barcodesIndexes[ barcode ] ) {
                 // barcode notfound
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _( 'Product Search' ),
                                       _( 'Product/Barcode Number (%S) not found!', [ barcode ] ) );
             } else {
@@ -247,7 +245,7 @@
         },
         
         reset: function() {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to reset all the stock records?' ) ) )
+        	if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to reset all the stock records?' ) ) )
         		return;
         	
         	var sql = "select distinct no from products;";
@@ -278,7 +276,7 @@
         },
         
         commitChanges: function() {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to commit all changes?' ) ) )
+        	if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to commit all changes?' ) ) )
         		return;
         		
         	var records = this._records;

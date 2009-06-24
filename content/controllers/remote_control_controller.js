@@ -1,10 +1,7 @@
 (function(){
 
-    /**
-     * RemoteControl Controller
-     */
-
     var __controller__ = {
+        
         name: 'RemoteControl',
 
         initial: function () {

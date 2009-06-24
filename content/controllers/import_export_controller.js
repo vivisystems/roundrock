@@ -1,12 +1,11 @@
 (function(){
 
-    /**
-     * Class ImportExportController
-     */
-
     var __controller__ = {
+
         name: 'ImportExport',
+
         scaffold: true,
+
         uses: ["Product"],
 	
         _listObj: null,
@@ -109,12 +108,12 @@
         exportData: function (model) {
             // return if importing...
             if (this._busy) {
-                GREUtils.Dialog.alert(window, _('Export Error'), _('Import/Export already in progress'));
+                GREUtils.Dialog.alert(this.topmostWindow, _('Export Error'), _('Import/Export already in progress'));
                 return;
             }
 
             if (!this.checkBackupDevices()) {
-                GREUtils.Dialog.alert(window, _('Export Error'), _('Export device and/or folder not found [%S]', [this._exportFolder]));
+                GREUtils.Dialog.alert(this.topmostWindow, _('Export Error'), _('Export device and/or folder not found [%S]', [this._exportFolder]));
                 return;
             }
 
@@ -215,12 +214,12 @@
         importData: function(model) {
             // return if importing...
             if (this._busy) {
-                GREUtils.Dialog.alert(window, _('Import Error'), _('Import/Export already in progress'));
+                GREUtils.Dialog.alert(this.topmostWindow, _('Import Error'), _('Import/Export already in progress'));
                 return;
             }
 
             if (!this.checkBackupDevices()) {
-                GREUtils.Dialog.alert(window, _('Import Error'), _('Import device and/or folder not found [%S]', [this._importFolder]));
+                GREUtils.Dialog.alert(this.topmostWindow, _('Import Error'), _('Import device and/or folder not found [%S]', [this._importFolder]));
                 return;
             }
 
@@ -298,19 +297,6 @@
             lines.splice(0,1);
 
             var bad = false;
-            /*
-            for( var i = 0; i < fields.length; i++) {
-                // fields[i] = trimQuote(fields[i]);
-                tableTpl[fields[i]] = null;
-
-                // validate the import fields
-	        //@todo disabling field validation for now
-                if (false && !tpl[fields[i]]) {
-                    bad = true;
-                    NotifyUtils.error(_('Import format error: field [%S] not exist!', [fields[i]]));
-                }
-            }
-            */
             if (bad) return;
 
             try {

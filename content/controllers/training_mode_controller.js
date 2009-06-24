@@ -1,9 +1,7 @@
 ( function() {
-    /**
-	 * Class TrainingMode
-	 */
 	 
     var __controller__ = {
+
         name: "TrainingMode",
 	 	
         _orderDBConfig: "DATABASE_CONFIG.order",
@@ -35,7 +33,7 @@
         },
         
         vacuumTrainingDB: function() {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to VACUUM training database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Trainig Mode'), _( 'Are you sure you want to VACUUM training database?' ) ) )
                 return;
             this._vacuumTrainingDB();
         },
@@ -45,7 +43,7 @@
         },
         
         takeCurrentDBToBeDefaultDB: function() {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to take current database to be default database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Trainig Mode'), _( 'Are you sure you want to take current database to be default database?' ) ) )
                 return;
             this._takeCurrentDBToBeDefaultDB();
         },
@@ -55,7 +53,7 @@
         },
         
         takeDefaultDBToBeTrainingDB: function() {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to take default database to be training database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Trainig Mode'), _( 'Are you sure you want to take default database to be training database?' ) ) )
                 return;
             this._takeDefaultDBToBeTrainingDB();
         },
@@ -83,7 +81,7 @@
             var trainingModeController = GeckoJS.Controller.getInstanceByName( "TrainingMode" );
 	 		
             if ( isTraining ) {
-                if ( GREUtils.Dialog.confirm( window, '', _( 'Are you going to leave the training mode?' ) ) ) {
+                if ( GREUtils.Dialog.confirm( this.topmostWindow, _('Training Mode'), _( 'Are you going to leave the training mode?' ) ) ) {
                     GeckoJS.Session.set( "isTraining", 0 );
 	 				
                     GeckoJS.Observer.notify( null, "TrainingMode", "exit" );
@@ -99,7 +97,7 @@
                     return;
                 }
 	 			
-                if ( GREUtils.Dialog.confirm( window, '', _( "Are you sure you want to start training?" ) ) ) {
+                if ( GREUtils.Dialog.confirm( this.topmostWindow, _('Training Model'), _( "Are you sure you want to start training?" ) ) ) {
                     // set up the flag indicating that we are now in the training mode.
                     GeckoJS.Session.add( "isTraining", 1 );
 			 		
