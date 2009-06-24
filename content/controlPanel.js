@@ -99,7 +99,8 @@ function launchControl(panel) {
                 VirtualKeyboard.hide();
             }
         }
-        catch (e) {alert(e);}
+        catch (e) {
+        }
         finally {
             $.unblockUI();
         }

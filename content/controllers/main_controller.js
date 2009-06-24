@@ -122,7 +122,7 @@
 
         ControlPanelDialog: function () {
         	if (GeckoJS.Session.get( "isTraining" )) {
-                GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('Entering control area is not allowed during training.'));
+                GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('Control Panel is disabled during training.'));
         		return;
         	}
 
@@ -540,7 +540,9 @@
 
         quickUserSwitch: function (stop) {
             if ( this._isTraining ) {
-                alert( _( "To use this funciton, please leave training mode first!" ) ); 
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Training Mode'),
+                                      _('To use this funciton, please leave training mode first'));
                 return;
             }
 
@@ -603,7 +605,9 @@
 
         silentUserSwitch: function (newUser) {
             if ( this._isTraining ) {
-                alert( _( "To use this funciton, please leave training mode first!" ) ); 
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Training Mode'),
+                                      _('To use this funciton, please leave training mode first'));
                 return;
             }
             // check if buffer (password) is empty
@@ -685,7 +689,9 @@
 
         signOff: function (quickSignoff) {
             if ( this._isTraining ) {
-                alert( _( "To use this funciton, please leave training mode first!" ) ); 
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Training Mode'),
+                                      _('To use this funciton, please leave training mode first'));
                 return;
             }
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
@@ -851,44 +857,33 @@
 
                         // truncate order related tables
                         var orderModel = new OrderModel();
-                        var r = orderModel.begin();
-                        if (r) {
-                            r = orderModel.execute('delete from orders');
-                            if (r) r = orderModel.execute('delete from order_receipts');
-                            if (r) r = orderModel.execute('delete from order_promotions');
-                            if (r) r = orderModel.execute('delete from order_payments');
-                            if (r) r = orderModel.execute('delete from order_objects');
-                            if (r) r = orderModel.execute('delete from order_items');
-                            if (r) r = orderModel.execute('delete from order_item_condiments');
-                            if (r) r = orderModel.execute('delete from order_annotations');
-                            if (r) r = orderModel.execute('delete from order_additions');
+                        var r = orderModel.truncate();
+                        
+                        r = (new OrderReceiptModel()).truncate() && r;
+                        r = (new OrderPromotionModel()).truncate() && r;
+                        r = (new OrderPaymentModel()).truncate() && r;
+                        r = (new OrderObjectModel()).truncate() && r;
+                        r = (new OrderItemModel()).truncate() && r;
+                        r = (new OrderItemCondimentModel()).truncate() && r;
+                        r = (new OrderAnnotationModel()).truncate() && r;
+                        r = (new OrderAdditionModel()).truncate() && r;
 
-                            // truncate clockin/out timestamps
-                            if (r) r = orderModel.execute('delete from clock_stamps');
+                        // truncate clockin/out timestamps
+                        r = (new ClockStampModel()).truncate() && r;
 
-                            // truncate sync tables
-                            if (r) r = orderModel.execute('delete from syncs');
-                            if (r) r = orderModel.execute('delete from sync_remote_machines');
-                            if (r) r = orderModel.execute('delete from clock_stamps');
+                        // truncate sync tables
+                        r = orderModel.execute('delete from syncs') && r;
+                        r = orderModel.execute('delete from sync_remote_machines') && r;
 
-                            if (r) r = orderModel.commit();
-                            if (!r) {
-                                var errNo = orderModel.lastError;
-                                var errMsg = orderModel.lastErrorString;
-
-                                orderModel.rollback();
-
-                                this._dbError(errNo, errMsg,
-                                              _('An error was encountered while attempting to remove all transaction records (error code %S).', [errNo]));
-                            }
-                            else {
-                                // dispatch afterTruncateTxnRecords event
-                                this.dispatchEvent('afterTruncateTxnRecords', null);
-                            }
+                        if (!r) {
+                            GREUtils.Dialog.alert(this.topmostWindow,
+                                                  _('Data Operation Error'),
+                                                  _('An error was encountered while attempting to remove all transaction records.') + '\n' +
+                                                  _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
                         }
                         else {
-                            this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                                          _('An error was encountered while attempting to remove all transaction records (error code %S).', orderModel.lastError));
+                            // dispatch afterTruncateTxnRecords event
+                            this.dispatchEvent('afterTruncateTxnRecords', null);
                         }
                     } catch (e) {}
                     finally {
@@ -931,15 +926,34 @@
                     var conditions = "orders.transaction_submitted<='" + retainDate +
                                      "' AND orders.status<='1'";
 
-                    order.removeOrders(conditions);
+                    var r = order.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: order.lastError,
+                               errstr: order.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup sales activity logs (error code %S).', [order.lastError])};
+                    }
+
+                    r = order.removeOrders(conditions);
+                    if (!r) {
+                        throw {errno: order.lastError,
+                               errstr: order.lastErrorString,
+                               errmsg: _('An error was encountered while expiring sales activity logs (error code %S).', [order.lastError])};
+                    }
 
                     // remove clock stamps
                     var clockstamp = new ClockStampModel();
-                    var r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
+                    r = clockstamp.restoreFromBackup();
                     if (!r) {
-                        // log error and notify user
-                        this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
-                                      _('An error was encountered while expiring employee attendance records (error code %S).', [clockstamp.lastError]));
+                        throw {errno: clockstamp.lastError,
+                               errstr: clockstamp.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup employee attendance records (error code %S).', [clockstamp.lastError])};
+                    }
+
+                    r = clockstamp.execute('delete from clock_stamps where created <= ' + retainDate);
+                    if (!r) {
+                        throw {errno: clockstamp.lastError,
+                               errstr: clockstamp.lastErrorString,
+                               errmsg: _('An error was encountered while expiring employee attendance records (error code %S).', [clockstamp.lastError])};
                     }
 
                     // dispatch afterClearOrderData event
@@ -957,13 +971,13 @@
 
                     delete order;
 
-                } catch (e) {}
+                } catch (e) {
+                    this._dbError(e.errno, e.errstr, e.errmsg);
+                }
                 finally {
                     GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                     waitPanel.hidePopup();
                 }
-
-
             }
         },
         
@@ -1105,11 +1119,11 @@
             progressBar.mode = 'undetermined';
         },
 
-        _dbError: function(errNo, errMsg, alertStr) {
-            this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('ERROR', 'Database exception: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
     };

@@ -14,16 +14,16 @@
             var r = this.save(data);
             if (!r) {
                 this.log('ERROR',
-                         _('An error was encountered while saving cashdrawer activity (error code %S): %S', [this.lastError, this.lastErrorString]));
+                         'An error was encountered while saving cashdrawer activity (error code ' + this.lastError + '): ' + this.lastErrorString);
 
                 //@db saveToBackup
                 r = this.saveToBackup(data);
                 if (r) {
-                    this.log('ERROR', _('record saved to backup'));
+                    this.log('ERROR', 'record saved to backup');
                 }
                 else {
                     this.log('ERROR',
-                             _('record could not be saved to backup: %S', ['\n' + this.dump(data)]));
+                             'record could not be saved to backup: %S' + '\n' + this.dump(data));
                 }
             }
             return r;

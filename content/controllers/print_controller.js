@@ -275,13 +275,15 @@
         // check if receipts have already been printed on any printer
         isReceiptPrinted: function(orderid, batch, device) {
             var orderReceiptModel = new OrderReceiptModel();
-            var receipts = orderReceiptModel.find('all', {
+            var receipt = orderReceiptModel.find('first', {
                 conditions: 'order_id = "' + orderid + '" AND device = "' + device + '" AND batch = "' + batch + '"'
             });
-            if (receipts == null || receipts.length == 0)
-                return null;
-            else
-                return receipts;
+            
+            if (parseInt(orderReceiptModel.lastError) != 0) {
+                this._dbError(orderReceiptModel.lastError, orderReceiptModel.lastErrorString,
+                              _('An error was encountered while checking if receipt has been printed (error code %S)', [orderReceiptModel.lastError]));
+            }
+            return receipt;
         },
 
         // add a receipt print timestamp
@@ -295,14 +297,11 @@
                 device: device
             };
 
-            var r = orderReceiptModel.save(orderReceipt);
+            var r = orderReceiptModel.saveReceipt(orderReceipt);
             if (!r) {
-                //@db saveToBackup
-                orderReceiptModel.saveToBackup(orderReceipt);
-
-                this.log('ERROR',
-                         'An error was encountered while logging order receipt (error code ' + orderReceiptModel.lastError +
-                         '); record saved to backup:\n' + this.dump(orderReceipt));
+                // failed to save record to db/backup
+                this._dbError(orderReceiptModel.lastError, orderReceiptModel.lastErrorString,
+                              _('An error was encountered while saving order receipt log (error code %S).', [orderReceiptModel.lastError]));
             }
         },
 
@@ -314,14 +313,11 @@
                 ledger_id: ledger_id,
                 printer: printer
             };
-            var r = ledgerReceiptModel.save(ledgerReceipt);
+            var r = ledgerReceiptModel.saveReceipt(ledgerReceipt);
             if (!r) {
-                //@db saveToBackup
-                ledgerReceiptModel.saveToBackup(ledgerReceipt);
-
-                this.log('ERROR',
-                         'An error was encountered while logging ledger receipt (error code ' + ledgerReceiptModel.lastError +
-                         '); record saved to backup:\n' + this.dump(ledgerReceipt));
+                // failed to save record to db/backup
+                this._dbError(ledgerReceiptModel.lastError, ledgerReceiptModel.lastErrorString,
+                              _('An error was encountered while saving ledger receipt log (error code %S).', [ledgerReceiptModel.lastError]));
             }
         },
 
@@ -531,8 +527,8 @@
 
                             // check if record already exists on this device if not printing a duplicate
                             if (data.duplicate == null) {
-                                var receipts = self.isReceiptPrinted(data.order.id, data.order.batchCount, device.number);
-                                if (receipts != null) {
+                                var receipt = self.isReceiptPrinted(data.order.id, data.order.batchCount, device.number);
+                                if (receipt) {
                                     // if auto-print, then we don't issue warning
                                     if (!autoPrint) NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device.number]));
                                     return;
@@ -1178,8 +1174,6 @@
                 var receiptRow = document.getElementById('receipt-row');
                 if (receiptRow) {
                     for (var i = 0; true; i++) {
-                        var attr = 'receipt-' + i + '-enabled';
-                        alert('is ' + attr + ' in devices: ' + (attr in devices));
                         if ('receipt-' + i + '-enabled' in devices) {
 
                             // create icon button for this device
@@ -1192,6 +1186,13 @@
                     }
                 }
             }
+        },
+
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('ERROR', 'Database error: ' + errstr + ' [' + errno + ']');
+            GREUtils.Dialog.alert(this.topmostWindow,
+                                  _('Data Operation Error'),
+                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         }
 
     };

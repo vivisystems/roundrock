@@ -7,7 +7,6 @@
         _layout: {},
         _selectedLayout: '',
 
-
         loadOverlay: function() {
 
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
@@ -54,7 +53,7 @@
             // add event listener for onUpdateOptions events
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
-                main.addEventListener('onUpdateOptions', this.handleUpdateOptions, this);
+                //main.addEventListener('onUpdateOptions', this.handleUpdateOptions, this);
                 main.addEventListener('onSetClerk', this.home, this);
             }
         },

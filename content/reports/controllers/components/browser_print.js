@@ -1,20 +1,12 @@
-( function() {
-    //var gPrintSettingsAreGlobal = false;
-    //var gSavePrintSettings = false;
+(function() {
 
-    var BrowserPrintComponent = window.BrowserPrintComponent = GeckoJS.Component.extend( {
-        /**
-         * Component BrowserPrint
-         */
+    var __component__ = {
+
         name: 'BrowserPrint',
+
         _printSettings: null,
         _webBrowserPrint: null,
 
-        initial: function () {
-        // @todo :
-        //alert('BrowserPrint initial...');
-        },
-        
         _setPaperProperties: function( paperProperties ) {
             if ( paperProperties ) {
                 if ( paperProperties.paperSize )
@@ -90,7 +82,7 @@
                     PSSVC.savePrintSettingsToPrefs( printSettings, true, printSettings.kInitSaveNativeData );
                 }*/
             } catch ( e ) {
-                dump( "showPageSetup " + e + "\n" );
+                this.log( 'ERROR', 'showPageSetup: ' + e );
                 return false;
             }
             return true;
@@ -148,7 +140,7 @@
                 	this.sleep( 1000 );
                 }
             } catch ( e ) {
-                dump( e );
+                this.log( 'ERROR', 'showPrintDialog: ' + e );
                 throw e;
             } finally {
             }
@@ -186,11 +178,12 @@
                     awpListener = this._getAWPListener( caption, progress, callback );
 		        
                 this._webBrowserPrint.print( this._printSettings, awpListener );
-            } catch ( e ) {
-                dump( e );
-                alert( _( "Fail in printToPdf method!" ) );
+            }
+            catch ( e ) {
+                this.log( 'ERROR', 'browser.printToPDF: ' + e );
                 throw e;
-            } finally {
+            }
+            finally {
             }
         },
        
@@ -356,5 +349,8 @@
 
             return printSettings;
         }
-    } );
-} )();
+    };
+
+    var BrowserPrintComponent = window.BrowserPrintComponent = GeckoJS.Component.extend(__component__);
+
+})();

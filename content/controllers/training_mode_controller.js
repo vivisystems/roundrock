@@ -93,7 +93,9 @@
                 var cart = GeckoJS.Controller.getInstanceByName( "Cart" );
 	 			
                 if ( cart.ifHavingOpenedOrder() ) {
-                    alert( _( "The training mode can be launched only if there is no opened order." ) );
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Training Mode'),
+                                          _('Training mode can be launched only if there is no open order.'));
                     return;
                 }
 	 			

@@ -2,6 +2,7 @@
 
     // nsIWebProgressListener implementation to monitor activity in the browser.
     var browserProgressListener = {
+
       _requestsStarted: 0,
       _requestsFinished: 0,
 
@@ -103,12 +104,6 @@
     };
 
 
-    /**
-     * Controller Printers
-     * 
-     * This controller is used to manage the CUPS Printer with browser
-     */
-
     var __controller__ = {
 
         name: 'Printers',
@@ -119,7 +114,6 @@
             try {
                 browser.addProgressListener(browserProgressListener, Components.interfaces.nsIWebProgress.NOTIFY_ALL);
             }catch(e) {
-                alert(e);
             }
             
             browser.setAttribute('src', 'http://localhost:631/');

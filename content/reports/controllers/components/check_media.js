@@ -1,22 +1,13 @@
-( function() {
+(function() {
 
-    var CheckMediaComponent = window.CheckMediaComponent = GeckoJS.Component.extend({
-        /**
-         * Component CheckMedia
-         */
+    var __component__ = {
+
         name: 'CheckMedia',
 
-        initial: function () {
-            // @todo :
-            alert('check Media initial...');
-        },
-        
-        // @todo
         // folderName can not include the "/" at this moment...
         checkMedia: function( folderName, autoCreate ) {
             var osLastMedia = new GeckoJS.File( '/tmp/last_media' );
             //var osLastMedia = new GeckoJS.File( '/var/tmp/vivipos/last_media' );
-
             var last_media = "";
             var deviceNode = "";
             var deviceReady = false;
@@ -61,5 +52,8 @@
             }
             return deviceReady ;
         }
-    } );
+    };
+
+    var CheckMediaComponent = window.CheckMediaComponent = GeckoJS.Component.extend(__component__);
+
 } )();

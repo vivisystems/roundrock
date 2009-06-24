@@ -146,7 +146,7 @@
             if ( offset >= 0 ) {
                 this._recordOffset = offset;
                 this.execute();
-            } else alert( _( 'We are now on the first page.' ) );
+            }
         },
 	    
         nextPage: function() {
