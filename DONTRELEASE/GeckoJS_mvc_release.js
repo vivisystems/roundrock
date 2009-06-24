@@ -1,3 +1,11 @@
+/*
+ * GeckoJS is simple and easy framework for XULRunner Application.
+ * 
+ * it base on GREUtils - is simple and easy use APIs libraries for GRE (Gecko Runtime Environment).
+ *
+ * Copyright (c) 2008 Rack Lin (racklin@gmail.com)
+ *
+ */
 /**
  * Defines the GeckoJS.ClassRegistry namespace.
  *
