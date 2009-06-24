@@ -876,6 +876,7 @@ GeckoJS.BaseObject.sleep = function (milliseconds) {
 GeckoJS.BaseObject.prototype.sleep = function (milliseconds) {
     return GeckoJS.BaseObject.sleep(milliseconds);
 };
+
 /**
  * Defines the GeckoJS.Map namespace.
  *
@@ -7505,7 +7506,8 @@ GREUtils.define('GeckoJS.BaseController', GeckoJS.global);
  *
  * @property {GeckoJS.Event} events       A list of event listeners (read-only)
  * @property {GeckoJS.Session} Session    A session context (read-only)
- * @property {Window} activeWindow        activeWindow's window object || ChromeWindow (read-only)
+ * @property {ChromeWindow} activeWindow        activeWindow's window object || ChromeWindow (read-only)
+ * @property {ChromeWindow} topmostWindow        topmost window object (read-only)
  * @property {Object} data                Data from gDispatch
  * @property {String} command             Command from gDispatch
  * @property {String} dispatchedEvents    Log of the dispatchedEvents
@@ -7615,6 +7617,12 @@ GeckoJS.BaseController.prototype.__defineGetter__('Session', function(){
 GeckoJS.BaseController.prototype.__defineGetter__('activeWindow', function(){
 
     return GREUtils.XPCOM.getUsefulService("window-watcher").activeWindow;
+
+});
+
+GeckoJS.BaseController.prototype.__defineGetter__('topmostWindow', function(){
+
+    return GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
 
 });
 
