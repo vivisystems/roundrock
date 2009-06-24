@@ -31,7 +31,10 @@ do_integrity_check()
 {
 
     for i in $DATABASE/*.sqlite; do
+                dbname=`basename $i`
+                /usr/bin/aosd_cat -F "Sans 20"  -y -120 -d 600000 "integrity check (${dbname})..." &
 		result=`$SQLITE3 $i "PRAGMA integrity_check"`
+                pkill aosd_cat
 		if [ "$result" != "ok" ]; then
                     /usr/bin/aosd_cat -y -120 -d 4000 "Rebuilding ..." &
 			$SQLITE3 $i ".dump" | $SQLITE3 $i.tmp
