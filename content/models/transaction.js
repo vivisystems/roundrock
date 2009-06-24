@@ -157,7 +157,7 @@
 
         process: function(status, discard) {
             this.data.status = status;
-
+// GREUtils.log("process 1:::");
             // set sale period and shift number
             var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
             var salePeriod = (shiftController) ? shiftController.getSalePeriod() : '';
@@ -165,7 +165,7 @@
 
             this.data.sale_period = salePeriod;
             this.data.shift_number = shiftNumber;
-
+// GREUtils.log("process 2:::");
             // set branch and terminal info
             var terminalNo = GeckoJS.Session.get('terminal_no') || '';
             this.data.terminal_no = terminalNo;
@@ -184,7 +184,7 @@
             if (status > 0)
                 self.requestCommand('decStock', self.data, 'StockRecords');
 
-
+// GREUtils.log("process 3:::");
             // remove recovery file
             Transaction.removeRecoveryFile();
 
@@ -195,6 +195,7 @@
                 if (this.data.status == 1 && this.data.no_of_customers == '') {
                     this.data.no_of_customers = '1';
                 }
+// GREUtils.log("process 4:::");
                 return order.saveOrder(this.data);
 
 // achang marked
@@ -202,6 +203,7 @@
 //                    order.serializeOrder(this.data);
 //                }
             }
+// GREUtils.log("process 5:::");
         },
 
         cancel: function() {

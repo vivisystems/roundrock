@@ -494,6 +494,7 @@
 
         doRefreshTableStatus: function() {
 
+            this._tableStatusModel._tableStatusLastTime = 0;
             this._tableStatusModel.getTableStatusList();
 
             document.getElementById('tableScrollablepanel').invalidate();
@@ -648,7 +649,11 @@
                             this._inputObj.ok = true;
                             // doOKButton();
                             var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                            cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                            // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                            var dstTableNo = this._tables[v].table_no;
+                            cart.GuestCheck.doTransferCheck(srcTableNo, dstTableNo);
+
 
                             this._inputObj.action = '';
                             this._sourceTableNo = null;
@@ -856,7 +861,7 @@
                     document.getElementById('tableScrollablepanel').invalidate();
                     
                     clearInterval(window.tableStatusRefreshInterval);
-                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 15000);
+                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 1500000);
 
                     document.getElementById('table_status_timer').startClock();
 

@@ -230,7 +230,7 @@
             if (remoteUrl) {
                 try {
                     tableStatus = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
-
+// GREUtils.log("getTableStatuses:::" + lastModified);
                     // do not need
                     tableStatus.forEach(function(o){
 
@@ -454,6 +454,16 @@
 
         touchTableStatus: function(table_no) {
             // touch modified time...
+            var remoteUrl = this.getRemoteService('touchTableStatus');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                tableStatus = this.requestRemoteService('GET', remoteUrl + '/' + table_no, null);
+
+                return ;
+            }
+
             var conditions = "table_statuses.table_no='" + table_no + "'";
             var tableStatusObjTmp = this.find('first', {
                 conditions: conditions,
@@ -467,6 +477,106 @@
                 var tableStatus = this.save(tableStatusObjTmp);
                 
             }
+        },
+        
+        _setTableStatus: function(tableStatusObj) {
+            var table_no = tableStatusObj.table_no;
+            var conditions = "table_statuses.table_no='" + table_no + "'";
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions
+            });
+
+            // tableStatus record exist
+            if (tableStatusObjTmp) {
+                
+                    // update tableStatus record
+                    this.id = tableStatusObjTmp.id;
+                    // var retObj = this.saveStatus(tableStatusObj);
+                    var tableOrderObj = this.save(tableStatusObj);
+
+                    // save TableOrder...
+                    var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.order_id='" + tableStatusObj.order_id + "'"});
+
+                    if (tableOrderObj) {
+                        this.TableOrder.id = tableOrderObj.id;
+                    } else {
+                        this.TableOrder.id = ''; // append table order
+                    }
+                    var statusOrderObj = this.TableOrder.save(tableStatusObj);
+                
+            }
+
+        },
+        
+        _touchTableStatus: function(table_no) {
+            // touch modified time...
+
+            var conditions = "table_statuses.table_no='" + table_no + "'";
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions,
+                recursive: 0
+            });
+
+            // @todo maintain status field...
+            if (tableStatusObjTmp) {
+                this.id = tableStatusObjTmp.id;
+
+                var tableStatus = this.save(tableStatusObjTmp);
+                
+            }
+        },
+
+        transTable: function(checkObj, sourceTableNo) {
+            // GREUtils.log("DEBUG", "add check...");
+
+            var index = -1;
+            var i = 0;
+
+            this._tableStatusList.forEach(function(o){
+                //
+                if (o.table_no == checkObj.table_no) {
+                    index = i;
+                }
+                i++;
+            })
+
+            var tableObj = {
+                order_id: checkObj.id,
+                check_no: checkObj.check_no,
+                table_no: checkObj.table_no,
+                sequence: "" + checkObj.seq,
+                guests: checkObj.no_of_customers,
+                holdby: '',
+                clerk: checkObj.service_clerk,
+                booking: 0,
+                lock: false,
+                status: 0,
+                terminal_no: checkObj.terminal_no,
+                transaction_created: checkObj.created,
+                checksum: checkObj.checksum,
+
+                total: checkObj.total,
+
+                table_id: (index > -1) ? this._tableStatusList[index].table_id : '',
+                table_status_id: (index > -1) ? this._tableStatusList[index].id : ''
+
+            };
+
+            var tableStatusObj = this.genTableStatusObj(tableObj);
+            tableStatusObj["org_table_no"] = sourceTableNo;
+
+            var remoteUrl = this.getRemoteService('transTable');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize(tableStatusObj));
+
+                return ;
+            }
+
+            this._setTableStatus(tableStatusObj);
+            this._touchTableStatus(sourceTableNo);
         },
 
         removeCheck: function(checkObj) {

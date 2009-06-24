@@ -3166,6 +3166,7 @@
                                       _('Current order checksum fail and may not be submit. Please retry or check this order.'));
 
                     // sync database
+// this.log("cart submit fail syncClient:::");
                     this.GuestCheck.syncClient();
 
                     return false;
