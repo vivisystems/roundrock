@@ -33,7 +33,7 @@
         },
         
         vacuumTrainingDB: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Trainig Mode'), _( 'Are you sure you want to VACUUM training database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Training Mode'), _( 'Are you sure you want to VACUUM training database?' ) ) )
                 return;
             this._vacuumTrainingDB();
         },
@@ -43,7 +43,7 @@
         },
         
         takeCurrentDBToBeDefaultDB: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Trainig Mode'), _( 'Are you sure you want to take current database to be default database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Training Mode'), _( 'Are you sure you want to take current database to be default database?' ) ) )
                 return;
             this._takeCurrentDBToBeDefaultDB();
         },
@@ -53,7 +53,7 @@
         },
         
         takeDefaultDBToBeTrainingDB: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Trainig Mode'), _( 'Are you sure you want to take default database to be training database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Training Mode'), _( 'Are you sure you want to take default database to be training database?' ) ) )
                 return;
             this._takeDefaultDBToBeTrainingDB();
         },
