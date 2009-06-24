@@ -2372,3 +2372,69 @@ msgid "stockAdjustment.desc"
 msgstr ""
 "By using this function, the quantity of stock can be adjusted."
 "Meanwhile, a memo of the adjustment can be recorded."
+
+msgid "(rpt)Service Clerk Display Name"
+msgstr "Service Clerk Display Name"
+
+msgid "(rpt)Proceeds Clerk Display Name"
+msgstr "Proceeds Clerk Display Name"
+
+msgid "(rpt)Selected Time"
+msgstr "Selected Time"
+
+msgid "(rpt)Table Number"
+msgstr "Table Number"
+
+msgid "(rpt)Check Number"
+msgstr "Check Number"
+
+msgid "(rpt)Created Time"
+msgstr "Created Time"
+
+msgid "(rpt)Stored/Finalized Time"
+msgstr "Stored/Finalized Time"
+
+msgid "(rpt)Member ID"
+msgstr "Member ID"
+
+msgid "(rpt)Member Display Name"
+msgstr "Member Display Name"
+
+msgid "(rpt)Member Email"
+msgstr "Member Email"
+
+msgid "(rpt)Member Cellphone"
+msgstr "Member Cellphone"
+
+msgid "(rpt)Branch ID"
+msgstr "Branch ID"
+
+msgid "(rpt)Branch"
+msgstr "Branch"
+
+msgid "(rpt)Voided Time"
+msgstr "Voided Time"
+
+msgid "(rpt)Voided Clerk"
+msgstr "Voided Clerk"
+
+msgid "(rpt)Voided Clerk Display Name"
+msgstr "Voided Clerk Display Name"
+
+msgid "(rpt)Void Sale Period"
+msgstr "Void Sale Period"
+
+msgid "(rpt)Void Shift Number"
+msgstr "Void Shift Number"
+
+msgid "(rpt)Invoice Type"
+msgstr "Invoice Type"
+
+msgid "(rpt)Invoice Title"
+msgstr "Invoice Title"
+
+msgid "(rpt)Items Count"
+msgstr "Items Count"
+
+msgid "(rpt)Change"
+msgstr "Change"	

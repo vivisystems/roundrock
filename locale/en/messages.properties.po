@@ -2394,6 +2394,72 @@ msgstr ""
 "By using this function, the quantity of stock can be adjusted.Meanwhile, a "
 "memo of the adjustment can be recorded."
 
+msgid "(rpt)Service Clerk Display Name"
+msgstr "Service Clerk Display Name"
+
+msgid "(rpt)Proceeds Clerk Display Name"
+msgstr "Proceeds Clerk Display Name"
+
+msgid "(rpt)Selected Time"
+msgstr "Selected Time"
+
+msgid "(rpt)Table Number"
+msgstr "Table Number"
+
+msgid "(rpt)Check Number"
+msgstr "Check Number"
+
+msgid "(rpt)Created Time"
+msgstr "Created Time"
+
+msgid "(rpt)Stored/Finalized Time"
+msgstr "Stored/Finalized Time"
+
+msgid "(rpt)Member ID"
+msgstr "Member ID"
+
+msgid "(rpt)Member Display Name"
+msgstr "Member Display Name"
+
+msgid "(rpt)Member Email"
+msgstr "Member Email"
+
+msgid "(rpt)Member Cellphone"
+msgstr "Member Cellphone"
+
+msgid "(rpt)Branch ID"
+msgstr "Branch ID"
+
+msgid "(rpt)Branch"
+msgstr "Branch"
+
+msgid "(rpt)Voided Time"
+msgstr "Voided Time"
+
+msgid "(rpt)Voided Clerk"
+msgstr "Voided Clerk"
+
+msgid "(rpt)Voided Clerk Display Name"
+msgstr "Voided Clerk Display Name"
+
+msgid "(rpt)Void Sale Period"
+msgstr "Void Sale Period"
+
+msgid "(rpt)Void Shift Number"
+msgstr "Void Shift Number"
+
+msgid "(rpt)Invoice Type"
+msgstr "Invoice Type"
+
+msgid "(rpt)Invoice Title"
+msgstr "Invoice Title"
+
+msgid "(rpt)Items Count"
+msgstr "Items Count"
+
+msgid "(rpt)Change"
+msgstr "Change"
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""
@@ -2563,7 +2629,7 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:259
 #: ../..//content/controllers/jobs_controller.js:144
 #: ../..//content/controllers/plugroups_controller.js:180
-#: ../..//content/controllers/plus_controller.js:943
+#: ../..//content/controllers/plus_controller.js:954
 #: ../..//content/controllers/promotions_manager_controller.js:371
 #: ../..//content/controllers/taxes_controller.js:213
 #: ../..//content/controllers/users_controller.js:248
@@ -2577,7 +2643,7 @@ msgstr ""
 #: ../..//content/controllers/jobs_controller.js:144
 #: ../..//content/controllers/ledger_entry_types_controller.js:94
 #: ../..//content/controllers/plugroups_controller.js:180
-#: ../..//content/controllers/plus_controller.js:943
+#: ../..//content/controllers/plus_controller.js:954
 #: ../..//content/controllers/pricelevelschedule_controller.js:157
 #: ../..//content/controllers/promotions_manager_controller.js:371
 #: ../..//content/controllers/taxes_controller.js:213
@@ -3401,7 +3467,7 @@ msgstr ""
 #: ../..//content/controllers/changeuser_controller.js:111
 #: ../..//content/controllers/clockinout_controller.js:301
 #: ../..//content/controllers/ledger_controller.js:327
-#: ../..//content/controllers/main_controller.js:1113
+#: ../..//content/controllers/main_controller.js:1121
 #: ../..//content/controllers/shift_changes_controller.js:758
 #: ../..//content/controllers/shift_changes_controller.js:775
 #: ../..//content/controllers/shift_changes_controller.js:951
@@ -3413,7 +3479,7 @@ msgstr ""
 #: ../..//content/controllers/changeuser_controller.js:112
 #: ../..//content/controllers/clockinout_controller.js:302
 #: ../..//content/controllers/ledger_controller.js:328
-#: ../..//content/controllers/main_controller.js:1114
+#: ../..//content/controllers/main_controller.js:1122
 #: ../..//content/controllers/shift_changes_controller.js:760
 #: ../..//content/controllers/shift_changes_controller.js:777
 #: ../..//content/controllers/shift_changes_controller.js:952
@@ -4147,7 +4213,7 @@ msgid "Product"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:414
-#: ../..//content/controllers/plus_controller.js:530
+#: ../..//content/controllers/plus_controller.js:535
 msgid "Product Group"
 msgstr ""
 
@@ -4331,12 +4397,11 @@ msgid "Clock In/Out"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:181
-#: ../..//content/controllers/plus_controller.js:497
-#: ../..//content/controllers/plus_controller.js:985
+#: ../..//content/controllers/plus_controller.js:502
+#: ../..//content/controllers/plus_controller.js:996
 #: ../..//content/controllers/plusearch_controller.js:135
-#: ../..//content/controllers/stock_adjustments_controller.js:65
+#: ../..//content/controllers/stock_adjustments_controller.js:64
 #: ../..//content/controllers/stock_records_controller.js:97
-#: ../..//content/controllers/stocks_controller.js:118
 #: ../..//content/controllers/table_man_controller.js:537
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:73
 msgid "Product Search"
@@ -4352,7 +4417,7 @@ msgid "No order to add/view annotations"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:311
-#: ../..//content/reports/controllers/rpt_base_controller.js:417
+#: ../..//content/reports/controllers/rpt_base_controller.js:423
 msgid "Order Details"
 msgstr ""
 
@@ -4468,19 +4533,23 @@ msgid ""
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:980
+#: ../..//content/controllers/main_controller.js:984
+msgid "Adjust Stock"
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:988
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:980
+#: ../..//content/controllers/main_controller.js:988
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:987
+#: ../..//content/controllers/main_controller.js:995
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:987
+#: ../..//content/controllers/main_controller.js:995
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
@@ -4578,150 +4647,150 @@ msgstr ""
 msgid "Product Group [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:433
+#: ../..//content/controllers/plus_controller.js:438
 msgid "Add New Set Item"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:433
+#: ../..//content/controllers/plus_controller.js:438
 msgid "Set Item"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:433
+#: ../..//content/controllers/plus_controller.js:438
 msgid "Label"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:508
+#: ../..//content/controllers/plus_controller.js:513
 msgid ""
 "[%S] (%S) is a product set and may not be a member of another product set."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:511
+#: ../..//content/controllers/plus_controller.js:516
 msgid "[%S] (%S) may not be a member of its own product set."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:652
+#: ../..//content/controllers/plus_controller.js:657
 msgid "Product No. must not be empty."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:655
+#: ../..//content/controllers/plus_controller.js:660
 msgid "Product Name must not be empty."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:662
+#: ../..//content/controllers/plus_controller.js:667
 msgid "The Product No. [%S] already exists; product not added"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:666
+#: ../..//content/controllers/plus_controller.js:671
 msgid ""
 "The Product Name [%S] already exists in department [%S]; product not added"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:670
+#: ../..//content/controllers/plus_controller.js:675
 msgid ""
 "The Product Name [%S] already exists in department [%S]; product not modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:679
+#: ../..//content/controllers/plus_controller.js:684
 msgid ""
 "Condiment is required but no condiment group selected; product not modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:692
+#: ../..//content/controllers/plus_controller.js:697
 msgid ""
 "Price level %S preset price [%S] is larger than HALO [%S]; product not "
 "modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:696
+#: ../..//content/controllers/plus_controller.js:701
 msgid ""
 "Price level %S preset price [%S] is less than LALO [%S]; product not modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:711
+#: ../..//content/controllers/plus_controller.js:716
 msgid ""
 "This product is part of product set [%S] and may not itself be a product set"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:720
+#: ../..//content/controllers/plus_controller.js:725
 msgid ""
 "Product set item [%S] does not have either default item or group configured"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:778
+#: ../..//content/controllers/plus_controller.js:783
 msgid "Add New Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:778
+#: ../..//content/controllers/plus_controller.js:783
 msgid "New Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:778
+#: ../..//content/controllers/plus_controller.js:783
 msgid "Product No."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:778
+#: ../..//content/controllers/plus_controller.js:783
 msgid "Product Name"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:818
+#: ../..//content/controllers/plus_controller.js:823
 msgid "Product [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:822
+#: ../..//content/controllers/plus_controller.js:827
 msgid ""
 "An error occurred while adding Product [%S]; the product may not have been "
 "added successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:897
+#: ../..//content/controllers/plus_controller.js:908
 msgid "Product [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:902
+#: ../..//content/controllers/plus_controller.js:913
 msgid ""
 "An error occurred while modifying Product [%S]. The product may not have "
 "been modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:939
+#: ../..//content/controllers/plus_controller.js:950
 msgid "Product [%S] is part of a product set [%S] and may not be removed"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:971
+#: ../..//content/controllers/plus_controller.js:982
 msgid "Product [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:975
+#: ../..//content/controllers/plus_controller.js:986
 msgid ""
 "An error occurred while removing Product [%S]. The product may not have been "
 "removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:998
+#: ../..//content/controllers/plus_controller.js:1009
 msgid "Product [%S] already linked to to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1013
+#: ../..//content/controllers/plus_controller.js:1024
 msgid "Selected products successfully linked to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1417
+#: ../..//content/controllers/plus_controller.js:1428
 msgid "Product Group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1425
+#: ../..//content/controllers/plus_controller.js:1436
 msgid "Department [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1441
+#: ../..//content/controllers/plus_controller.js:1452
 msgid "Product to Clone"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1446
+#: ../..//content/controllers/plus_controller.js:1457
 msgid "Clone Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1510
+#: ../..//content/controllers/plus_controller.js:1521
 msgid "Product [%S] cloned successfully"
 msgstr ""
 
@@ -5133,14 +5202,12 @@ msgstr ""
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/stock_adjustments_controller.js:66
+#: ../..//content/controllers/stock_adjustments_controller.js:65
 #: ../..//content/controllers/stock_records_controller.js:98
-#: ../..//content/controllers/stocks_controller.js:119
 msgid "Product/Barcode Number (%S) not found!"
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:81
-#: ../..//content/controllers/stocks_controller.js:93
 msgid "Stock level for [%S] modified successfully"
 msgstr ""
 
@@ -5162,12 +5229,6 @@ msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:395
 msgid "The following product numbers do not exist."
-msgstr ""
-
-#: ../..//content/controllers/stocks_controller.js:208
-msgid ""
-"An error was encountered while logging stock activity (error code %S); "
-"record saved to backup %S"
 msgstr ""
 
 #: ../..//content/controllers/storecontact_controller.js:63
@@ -5594,6 +5655,10 @@ msgstr ""
 msgid "Sold Out -"
 msgstr ""
 
+#: ../..//content/bindings/diskspace_usage.xbl:174
+msgid "Free"
+msgstr ""
+
 #: ../..//content/bindings/onscreenvfd.xbl:64
 #: ../..//content/bindings/onscreenvfd.xbl:116
 #: ../..//content/bindings/onscreenvfd.xbl:138
@@ -5702,30 +5767,34 @@ msgstr ""
 msgid "We are now on the first page."
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:188
+#: ../..//content/reports/controllers/rpt_base_controller.js:190
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:196
+#: ../..//content/reports/controllers/rpt_base_controller.js:198
 msgid ""
 "The document is too large to be exported in .PDF format, please export as ."
 "CSV file instead!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:211
-#: ../..//content/reports/controllers/rpt_base_controller.js:262
+#: ../..//content/reports/controllers/rpt_base_controller.js:215
+#: ../..//content/reports/controllers/rpt_base_controller.js:268
 msgid "Media not found!! Please attach a USB thumb drive..."
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:248
+#: ../..//content/reports/controllers/rpt_base_controller.js:252
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:317
+#: ../..//content/reports/controllers/rpt_base_controller.js:322
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_order_annotation_controller.js:168
+#: ../..//content/reports/controllers/rpt_base_controller.js:477
+msgid "The thumb drive has no enough free space!"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_order_annotation_controller.js:160
 msgid "Order Annotation Report"
 msgstr ""
 
@@ -5745,14 +5814,25 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:36
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:26
 msgid "(rpt)"
 msgstr ""
 
-#: ../..//content/reports/controllers/components/browser_print.js:197
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:229
+msgid "Your Order Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/components/browser_print.js:191
+msgid "Fail in printToPdf method!"
+msgstr ""
+
+#: ../..//content/reports/controllers/components/browser_print.js:237
+#: ../..//content/reports/controllers/components/browser_print.js:324
 msgid "Generated by VIVIPOS"
 msgstr ""
 
-#: ../..//content/reports/controllers/components/browser_print.js:198
+#: ../..//content/reports/controllers/components/browser_print.js:241
+#: ../..//content/reports/controllers/components/browser_print.js:325
 msgid "Firich Enterprises Co.,Ltd."
 msgstr ""
 

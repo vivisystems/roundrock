@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % rpt_your_order SYSTEM "chrome://viviecr/locale/reports/rpt_your_order.dtd">
+  %rpt_your_order;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
+
+<window id="main" 
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_your_order.js" />
+  
+    <vbox flex="1" class="main-dialog">
+		<vbox flex="1" class="MainPnl">
+		    <vbox>
+		        <caption label="&rptyourorder.title;"  class="PageTitle"/>
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <vbox>
+		                            <label value="&rptyourorder.startdate;" />
+		                            <vividatetimepicker id="start_date" value='' type="popup" />
+		                        </vbox>
+		                        <vbox>
+		                            <label value="&rptyourorder.enddate;" />
+		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                        </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
+		                    		<label value="&rptyourorder.periodtype;" />
+					                <menulist id="period_type">
+					                    <menupopup id="period_type_menupopup">
+					                        <menuitem selected="false" label="&rptyourorder.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="true" label="&rptyourorder.transaction_submitted;" value="transaction_submitted" />
+					                        <menuitem selected="false" label="&rptyourorder.sale_period;" value="sale_period" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
+				                    <label value="&rptyourorder.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
+				                	<label value="&rptyourorder.sortby;" />
+					                <menulist id="sortby">
+					                    <menupopup id="sortby_menupopup">
+					                        <menuitem selected="false" label="&rptyourorder.sortby.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="true" label="&rptyourorder.sortby.time;" value="time"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.sequence;" value="sequence" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.invoice_no;" value="invoice_no" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.item_subtotal;" value="item_subtotal" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.tax_subtotal;" value="tax_subtotal" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.surcharge_subtotal;" value="surcharge_subtotal" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.promotion_subtotal;" value="promotion_subtotal" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.revalue_subtotal;" value="revalue_subtotal" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.change;" value="change"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.items_count;" value="items_count"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.included_tax_sbutotal;" value="included_tax_subtotal"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.invoice_count;" value="invoice_count"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.status;" value="status"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.table_no;" value="table_no"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.check_no;" value="check_no"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.transaction_created;" value="transaction_created"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.transaction_submitted;" value="transaction_submitted"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.member;" value="member"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.member_displayname;" value="member_displayname"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.member_email;" value="member_email"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.member_cellphone;" value="member_cellphone"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.invoice_type;" value="invoice_type"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.invoice_title;" value="invoice_title"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.invoice_no;" value="invoice_no"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.branch_id;" value="branch_id"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.branch;" value="branch"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.transaction_voided;" value="transaction_voided"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.void_clerk;" value="void_clerk"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.void_clerk_displayname;" value="void_clerk_displayname"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.void_sale_period;" value="void_sale_period"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.void_shift_number;" value="void_shift_number"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.service_clerk;" value="service_clerk"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.service_clerk_displayname;" value="service_clerk_displayname"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.proceeds_clerk;" value="proceeds_clerk"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.proceeds_clerk_displayname;" value="proceeds_clerk_displayname"/>
+					                        <menuitem selected="false" label="&rptyourorder.sortby.total;" value="total" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.cash;" value="cash" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.check;" value="check" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.creditcard;" value="creditcard" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.coupon;" value="coupon" />
+					                        <menuitem selected="false" label="&rptyourorder.sortby.giftcard;" value="giftcard" />
+					                    </menupopup>
+					                </menulist>
+			                    </vbox>
+			                    <vbox>
+				                    <label value="&rptyourorder.terminal_no;" />
+				                    <textbox id="terminal_no" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                    <row>
+		                        <vbox>
+		                    		<label value="&rptyourorder.papersize;" />
+					                <menulist id="papersize" oncommand="$do('setPaperSize', null, 'RptYourOrder');">
+					                    <menupopup id="papersize_menupopup">
+					                        <menuitem selected="false" label="&rptyourorder.papersize.mini;" value="1" />
+					                        <menuitem selected="false" label="&rptyourorder.papersize.portrait;" value="2" />
+					                        <menuitem selected="false" label="&rptyourorder.papersize.landscape;" value="3" />
+					                        <menuitem selected="true" label="&rptyourorder.papersize.extrawide;" value="4" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
+		                    	    <label value="&rptyourorder.reportwidth;" />
+				                    <textbox id="report_width" type="number" value='' width="300" numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad" increment="10"
+				                        oncommand="$do('_adjustReportWidth', event, 'RptYourOrder');"/>
+				                </vbox>
+		                    </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <vbox>
+		                <button id="execute" label="&rptyourorder.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptYourOrder');" />
+		                <button id="field_picker" label="&rptyourorder.button.fieldpicker;" disabled="false" class="ExeBtn" oncommand="$do('showFieldPicker', null, 'RptYourOrder');" />
+		            </vbox>
+		        </hbox>
+		    </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+
+            <hbox class="TopPnl">
+                <hbox class="ReportTool" flex="1" style="overflow: auto;">
+                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                        <tabs id="tabs" >
+                            <vivibutton id="export_pdf" label="&rptyourorder.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptYourOrder');" />
+                            <vivibutton id="export_csv" label="&rptyourorder.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptYourOrder');" />
+                            <vivibutton id="export_rcp" label="&rptyourorder.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptYourOrder');" />
+                            <vivibutton id="print" label="&rptyourorder.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptYourOrder');" />
+                            <vivibutton id="togglesize" label="&rptyourorder.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                            
+                            <vivibutton id="btnScrollTop" label="btnScrollTop" disabled="true" class="scrollTopBtn" image="chrome://viviecr/skin/images/top.png" oncommand="$do('btnScrollTop', null, 'RptYourOrder');"/>
+                            <vivibutton id="btnScrollUp" label="btnScrollUp" disabled="true" class="scrollUpBtn" image="chrome://viviecr/skin/images/up.png" oncommand="$do('btnScrollUp', null, 'RptYourOrder');"/>
+                            <vivibutton id="btnScrollDown" label="btnScrollDown" disabled="true" class="scrollDownBtn" image="chrome://viviecr/skin/images/down.png" oncommand="$do('btnScrollDown', null, 'RptYourOrder');"/>
+                            <vivibutton id="btnScrollBottom" label="btnScrollBottom" disabled="true" class="scrollBottomBtn" image="chrome://viviecr/skin/images/bottom.png" oncommand="$do('btnScrollBottom', null, 'RptYourOrder');"/>
+                            <vivibutton id="btnScrollLeftMost" label="btnScrollLeftMost" disabled="true" class="scrollLeftMostBtn" image="chrome://viviecr/skin/images/left_most.png" oncommand="$do('btnScrollLeftMost', null, 'RptYourOrder');"/>
+                            <vivibutton id="btnScrollLeft" label="btnScrollLeft" disabled="true" class="scrollLeftBtn" image="chrome://viviecr/skin/images/previous.png" oncommand="$do('btnScrollLeft', null, 'RptYourOrder');"/>
+                            <vivibutton id="btnScrollRight" label="btnScrollRight" disabled="true" class="scrollRightBtn" image="chrome://viviecr/skin/images/next.png" oncommand="$do('btnScrollRight', null, 'RptYourOrder');"/>
+                            <vivibutton id="btnScrollRightMost" label="btnScrollRightMost" disabled="true" class="scrollRightMostBtn" image="chrome://viviecr/skin/images/right_most.png" oncommand="$do('btnScrollRightMost', null, 'RptYourOrder');"/>
+                        </tabs>
+                    </arrowscrollbox>
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" id="previewBox" flex="1">
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template4.html" flex="1" />
+					</box>
+                </groupbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs" />
+    
+    <!-- field picker. -->
+    <vivipanel id="field_picker_panel" position="overlap" noautohide="true">
+        <vbox class="main-dialog" id="field_picker_box">
+            <vbox class="MainPnl" flex="1">
+                <vbox pack="center" flex="1">
+                    <caption label="&rptyourorder.fieldpicker;" />
+                    <viviscrollablebuttonpanel id="fieldpickerscrollpanel" seltype="multiple" flex="1" cols="5" rows="6" labelField="name"
+                                                   oncommand=""
+                                                   class="ItemScrollablepanel"
+                                                   buttonClass="ItemButtonA"
+                                                   scrollUpClass="ScrollUp"
+                                                   scrollDownClass="ScrollDown">
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
+		            <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('dismissFieldPicker', null, 'RptYourOrder');"/>
+                    </hbox>
+                </vbox>
+            </vbox>
+        </vbox>
+	</vivipanel>
+</window>

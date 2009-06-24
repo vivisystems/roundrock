@@ -71,7 +71,7 @@
                 var item ={name: i};
                 priceleveldata.push(item);
             }
-            var panelView =  new GeckoJS.NSITreeViewArray(priceleveldata);
+            var panelView =  new GeckoJS.NSITreeViewArray(priceleveldata);this.log( this.dump( panelView ) );
             this.getPriceLevelObj().datasource = panelView;
         },
 

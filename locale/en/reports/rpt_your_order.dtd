@@ -1,0 +1,68 @@
+<!ENTITY rptyourorder.title "Your Order Report">
+<!ENTITY rptyourorder.startdate "Start Date:">
+<!ENTITY rptyourorder.enddate "End Date:">
+<!ENTITY rptyourorder.execute "Execute">
+<!ENTITY rptyourorder.exportpdf "Export to PDF">
+<!ENTITY rptyourorder.exportcsv "Export to CSV">
+<!ENTITY rptyourorder.exportrcp "Print">
+<!ENTITY rptyourorder.print "Print">
+<!ENTITY rptyourorder.togglezoom "Toggle Zoom">
+<!ENTITY rptyourorder.terminal_no "Terminal:">
+<!ENTITY rptyourorder.sortby "Sort By:">
+<!ENTITY rptyourorder.sortby.terminal_no "Terminal">
+<!ENTITY rptyourorder.sortby.time "Time">
+<!ENTITY rptyourorder.sortby.sequence "Sequence">
+<!ENTITY rptyourorder.sortby.invoice_no "Invoice Number">
+<!ENTITY rptyourorder.sortby.tax_subtotal "Add-on Tax">
+<!ENTITY rptyourorder.sortby.total "Net Sales">
+<!ENTITY rptyourorder.sortby.item_subtotal "Gross Sales">
+<!ENTITY rptyourorder.sortby.surcharge_subtotal "Surcharge">
+<!ENTITY rptyourorder.sortby.discount_subtotal "Discount">
+<!ENTITY rptyourorder.sortby.promotion_subtotal "Promotion">
+<!ENTITY rptyourorder.sortby.revalue_subtotal "Revalue">
+<!ENTITY rptyourorder.sortby.cash "Cash">
+<!ENTITY rptyourorder.sortby.check "Check">
+<!ENTITY rptyourorder.sortby.creditcard "Credit Card">
+<!ENTITY rptyourorder.sortby.coupon "Coupon">
+<!ENTITY rptyourorder.sortby.giftcard "Gift Card">
+<!ENTITY rptyourorder.sortby.change "Change">
+<!ENTITY rptyourorder.sortby.items_count "Items Count">
+<!ENTITY rptyourorder.sortby.included_tax_sbutotal "Included Tax">
+<!ENTITY rptyourorder.sortby.invoice_count "Invoice Count">
+<!ENTITY rptyourorder.sortby.status "Statue">
+<!ENTITY rptyourorder.sortby.table_no "Table Number">
+<!ENTITY rptyourorder.sortby.check_no "Check Number">
+<!ENTITY rptyourorder.sortby.transaction_created "Created Time">
+<!ENTITY rptyourorder.sortby.transaction_submitted "Stored/Finalized Time">
+<!ENTITY rptyourorder.sortby.member "Member">
+<!ENTITY rptyourorder.sortby.member_displayname "Member Display Name">
+<!ENTITY rptyourorder.sortby.member_email "Member Email">
+<!ENTITY rptyourorder.sortby.member_cellphone "Member Cellphone">
+<!ENTITY rptyourorder.sortby.invoice_type "Invoice Type">
+<!ENTITY rptyourorder.sortby.invoice_title "Invoice Title">
+<!ENTITY rptyourorder.sortby.invoice_no "Invoice Number">
+<!ENTITY rptyourorder.sortby.branch_id "Branch ID">
+<!ENTITY rptyourorder.sortby.branch "Branch">
+<!ENTITY rptyourorder.sortby.transaction_voided "Voided Time">
+<!ENTITY rptyourorder.sortby.void_clerk "Voided Clerk">
+<!ENTITY rptyourorder.sortby.void_clerk_displayname "Voided Clerk Displayname">
+<!ENTITY rptyourorder.sortby.void_sale_period "Voided Sale Period">
+<!ENTITY rptyourorder.sortby.void_shift_number "Voided Shift Number">
+<!ENTITY rptyourorder.sortby.service_clerk "Service Clerk">
+<!ENTITY rptyourorder.sortby.service_clerk_displayname "Service Clerk Displayname">
+<!ENTITY rptyourorder.sortby.proceeds_clerk "Proceeds Clerk">
+<!ENTITY rptyourorder.sortby.proceeds_clerk_displayname "Proceeds Clerk Displayname">
+<!ENTITY rptyourorder.all "List All">
+<!ENTITY rptyourorder.periodtype "Period Type:">
+<!ENTITY rptyourorder.transaction_created "Order Opened">
+<!ENTITY rptyourorder.transaction_submitted "Order Closed">
+<!ENTITY rptyourorder.sale_period "Sale Period">
+<!ENTITY rptyourorder.shiftno "Shift:">
+<!ENTITY rptyourorder.papersize "Paper Size">
+<!ENTITY rptyourorder.papersize.mini "Mini">
+<!ENTITY rptyourorder.papersize.portrait "Portrait">
+<!ENTITY rptyourorder.papersize.landscape "Landscape">
+<!ENTITY rptyourorder.papersize.extrawide "Extra-wide">
+<!ENTITY rptyourorder.reportwidth "Report Width(px):">
+<!ENTITY rptyourorder.fieldpicker "Please pick up the fields you want!">
+<!ENTITY rptyourorder.button.fieldpicker "Field Picker">
