@@ -113,6 +113,7 @@
                     cart.dispatchEvent('onClear', curTransaction);
                     cart._cartView.empty();
                 }
+                GeckoJS.Session.remove('current_transaction');
                 return ;
             }
         },
@@ -407,7 +408,7 @@
             return curTransaction;
         },
         
-        _ifHavingOpenedOrder: function() {
+        ifHavingOpenedOrder: function() {
         	var curTransaction = this._getTransaction();
 
             if( curTransaction && !curTransaction.isSubmit() && !curTransaction.isCancel() )
@@ -441,7 +442,7 @@
             this._cancelReturn();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot tag the selected item'));
 
                 this.clearAndSubtotal();
@@ -505,7 +506,7 @@
 
             var exit = false;
 
-            if(!this._ifHavingOpenedOrder()) {
+            if(!this.ifHavingOpenedOrder()) {
                 NotifyUtils.warn(_('Not an open order; cannot return the selected item'));
 
                 exit = true;
@@ -994,7 +995,7 @@
             this._cancelReturn();
 
            // if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-           if( !this._ifHavingOpenedOrder() ) {
+           if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
                 this._clearAndSubtotal();
@@ -1153,7 +1154,7 @@
             this._getKeypadController().clearBuffer();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
                 this._clearAndSubtotal();
@@ -1275,7 +1276,7 @@
             this._cancelReturn();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot void'));
 
                 this._clearAndSubtotal();
@@ -1433,7 +1434,7 @@
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
 
                 this._clearAndSubtotal();
@@ -1627,7 +1628,7 @@
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
 
                 this._clearAndSubtotal();
@@ -1761,7 +1762,7 @@
             this._cancelReturn();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add %S', [type]));
 
                 this._clearAndSubtotal();
@@ -1806,7 +1807,7 @@
             this._cancelReturn();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register %S', [name]));
 
                 this._clearAndSubtotal();
@@ -1867,7 +1868,7 @@
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2000,7 +2001,7 @@
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2100,7 +2101,7 @@
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2192,7 +2193,7 @@
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2287,7 +2288,7 @@
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2390,7 +2391,7 @@
             this._cancelReturn();
 
             // make sure we are not in the middle of an order
-            if (this._ifHavingOpenedOrder()) {
+            if (this.ifHavingOpenedOrder()) {
                 NotifyUtils.warn(_('Please complete or cancel transaction first'));
 
                 this._clearAndSubtotal();
@@ -2492,7 +2493,7 @@
             this._cancelReturn();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
 
                 this._clearAndSubtotal();
@@ -2649,7 +2650,7 @@
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot shift tax'));
 
                 this._clearAndSubtotal();
@@ -2739,8 +2740,9 @@
             }
             this.dispatchEvent('onClear', curTransaction);
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if (!this.ifHavingOpenedOrder()) {
                 this._cartView.empty();
+                GeckoJS.Session.remove('current_transaction');
                 return ;
             }
 
@@ -2753,7 +2755,7 @@
 
             // cancel cart but save
             var curTransaction = this._getTransaction();
-            if (!this._ifHavingOpenedOrder()) {
+            if (!this.ifHavingOpenedOrder()) {
                 
                 this.clear();
 
@@ -2953,7 +2955,7 @@
             var curTransaction = this._getTransaction();
 
             //if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot pre-finalize order'));
                 this._clearAndSubtotal();
                 return;
@@ -3353,7 +3355,7 @@
             this._cancelReturn();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot add memo'));
 
                 this._clearAndSubtotal();
@@ -3757,7 +3759,7 @@
             var curTransaction = this._getTransaction();
 
             //if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-            if( !this._ifHavingOpenedOrder() ) {
+            if( !this.ifHavingOpenedOrder() ) {
                 if (!nowarning) {
                     NotifyUtils.warn(_('No order to queue'));
                     this._clearAndSubtotal();

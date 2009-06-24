@@ -42,8 +42,8 @@
         
                 if (r) r = this.OrderItem.delAll(cond);
                 if (r) r = this.OrderAddition.delAll(cond);
-                // if (r) r = this.OrderPayment.delAll(cond);
-                // if (r) r = this.OrderObject.delAll(cond);
+                if (r) r = this.OrderPayment.delAll(cond);
+                if (r) r = this.OrderObject.delAll(cond);
                 if (r) r = this.OrderAnnotation.delAll(cond);
                 if (r) r = this.OrderItemCondiment.delAll(cond);
                 if (r) r = this.OrderPromotion.delAll(cond);
@@ -103,7 +103,7 @@ GREUtils.log("remove order_id:::" + iid);
 
                 if (r) r = this.saveOrderMaster(data);
 
-                if (data.status >= 0) {
+                //if (data.status >= 0) {
                     
                     // ignore cancel or fail order
                     if (r) r = this.saveOrderItems(data);
@@ -116,7 +116,7 @@ GREUtils.log("remove order_id:::" + iid);
                     if (r && data.status == 2) {
                         r = this.serializeOrder(data);
                     }
-                }
+                //}
                 if (r) r = this.commit();
             }
 
