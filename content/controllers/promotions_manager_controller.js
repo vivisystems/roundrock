@@ -11,14 +11,10 @@
         uses: ['Promotion'],
 
         _activedPromotions: [],
-
         _activedTriggers: {},
         _activedTypes: {},
-
         _lastPromotionData: null,
-
         _treeObj: null,
-
         _inputFields: null,
 
 
@@ -105,7 +101,7 @@
 
         add: function  () {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
 
             var inputObj = {
                 input0:null,
@@ -114,14 +110,8 @@
                 require1:true
             };
 
-            window.openDialog(aURL,
-                _('Add New Promotion Rule'),
-                features,
-                _('New Promotion Rule'),
-                '',
-                _('Rule Name'),
-                _('Rule Code'),
-                inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Promotion Rule'), aFeatures,
+                                       _('New Promotion Rule'), '', _('Rule Name'), _('Rule Code'), inputObj);
 
             if (inputObj.ok && inputObj.input0) {
 
@@ -174,12 +164,10 @@
                     
                     this.modifyById(addedPromotionId);
 
-                    // @todo OSD
                     OsdUtils.info(_('Promotion Rule [%S] added successfully', [inputData.name]));
                 }
                 catch (e) {
-                    // @todo OSD
-                    //alert(e);
+
                     NotifyUtils.error(_('An error occurred while adding Promotion Rule [%S]. The rule may not have been added successfully', [inputData.name]));
                 }
             }
@@ -368,7 +356,7 @@
 
             if (!selObj) return;
 
-            if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [selObj.name]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [selObj.name]), _('Are you sure?'))) {
 
                 try {
 
@@ -385,11 +373,10 @@
 
                     this.refresh();
 
-                    // @todo OSD
                     OsdUtils.info(_('Promotion Rule [%S] removed successfully', [selObj.name]));
                 }
                 catch (e) {
-                    // @todo OSD
+
                     NotifyUtils.error(_('An error occurred while removing Promotion Rule [%S]. The rule may not have been removed successfully', [selObj.name]));
                 }
             }
@@ -426,11 +413,10 @@
 
                     this.modifyById(formData.id);
 
-                    // @todo OSD
                     OsdUtils.info(_('Promotion Rule [%S] modified successfully', [formData.name]));
                 }
                 catch (e) {
-                    // @todo OSD
+                    
                     NotifyUtils.error(_('An error occurred while removing Promotion Rule [%S]. The rule may not have been modified successfully', [formData.name]));
                 }
 

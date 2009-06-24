@@ -1,6 +1,7 @@
 (function(){
 
     var __controller__ = {
+        
         name: 'SelectCondgroup',
 	
         _listObj: null,

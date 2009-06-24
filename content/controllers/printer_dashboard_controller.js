@@ -1,9 +1,5 @@
 (function(){
 
-    /**
-     * Print Controller
-     */
-
     var __controller__ = {
 
         name: 'PrinterDashboard',
@@ -26,7 +22,7 @@
                         if ('receipt-' + i + '-enabled' in devices) {
 
                             // create icon button for this device
-                            var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
+                            var btn = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','xul:button');
                             btn.setAttribute('type', 'checkbox');
                             btn.setAttribute('label', i);
                             btn.setAttribute('class', 'printerStatus')

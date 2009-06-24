@@ -1,10 +1,7 @@
 (function(){
 
-    /**
-     * Controller LocaleKeyboard
-     */
-
     var __controller__ = {
+
         name: 'LocaleKeyboard',
 
         // select the indicated keyboard layout

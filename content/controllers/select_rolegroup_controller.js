@@ -1,6 +1,7 @@
 (function(){
 
     var __controller__ = {
+        
         name: 'SelectRolegroup',
 	
         _listObj: null,

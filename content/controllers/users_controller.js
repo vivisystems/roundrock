@@ -1,13 +1,13 @@
 (function(){
-    GeckoJS.include('chrome://viviecr/content/models/job.js');
 
     var __controller__ = {
+
         name: 'Users',
+
         scaffold: true,
 	
         _listObj: null,
         _selectedIndex: null,
-
         _userAdded: false,
         _userModified: false,
 
@@ -42,13 +42,13 @@
         beforeScaffoldAdd: function (evt) {
             var user = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true, alphaOnly0: true,
                             input1:null, require1:true, numericOnly1: true, type1:'password'};
 
             this._userAdded = false;
 
-            window.openDialog(aURL, _('Add New Employee'), features, _('New Employee'), '', _('User Name'), _('Passcode'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Employee'), aFeatures, _('New Employee'), '', _('User Name'), _('Passcode'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 user.username = inputObj.input0;
                 user.password = inputObj.input1;
@@ -73,14 +73,14 @@
             });
 
             if (user_name != null && user_name.length > 0) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Duplicate user name [%S]; user not added.', [user.username]));
                 evt.preventDefault();
                 return ;
             }
 
             if (display_name != null && display_name.length > 0) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Duplicate display name [%S]; user not added.', [user.displayname]));
                 evt.preventDefault();
                 return ;
@@ -114,7 +114,6 @@
 
                 document.getElementById('display_name').focus();
 
-                // @todo OSD
                 OsdUtils.info(_('Employee [%S] added successfully', [evt.data.displayname]));
             }
         },
@@ -132,7 +131,6 @@
                     evt.preventDefault();
                     this._userModified = false;
                         
-                    // @todo OSD
                     NotifyUtils.warn(_('Duplicate display name [%S]; user not modified.', [evt.data.displayname]));
                 }
             }
@@ -149,13 +147,12 @@
                 panel.selectedItems = [index];
                 panel.ensureIndexIsVisible(index);
 
-                // @todo OSD
                 OsdUtils.info(_('Employee [%S] modified successfully', [evt.data.displayname]));
 
                 // if
                 var currentUser = GeckoJS.Session.get('user');
                 if (currentUser != null && currentUser.id == evt.data.id) {
-                        GREUtils.Dialog.alert(window,
+                        GREUtils.Dialog.alert(this.topmostWindow,
                                               _('Modify Employee'),
                                               _('Changes to an employee will take effect the next time the employee logs in'));
                 }
@@ -245,7 +242,7 @@
                 NotifyUtils.warn(_('[%S] may not be deleted', [displayname]));
                 evt.preventDefault();
             }
-            else if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [displayname]), _('Are you sure?')) == false) {
+            else if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [displayname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
@@ -269,7 +266,6 @@
 
             this.validateForm(true);
 
-            // @todo OSD
             OsdUtils.info(_('Employee [%S] removed successfully', [evt.data.displayname]));
         },
 
@@ -291,11 +287,11 @@
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
             var rolegroup = $('#user_group').val();
             var aURL = 'chrome://viviecr/content/select_rolegroup.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 rolegroup: rolegroup
             };
-            window.openDialog(aURL, _('Select Access Group'), features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Access Group'), aFeatures, inputObj);
 
             if (inputObj.ok && inputObj.rolegroup) {
                 $('#user_group').val(inputObj.rolegroup);
@@ -307,7 +303,7 @@
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
             var jobid = $('#job_id').val();
             var aURL = 'chrome://viviecr/content/select_job.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             
             var jobModel = new JobModel();
             var jobsData = jobModel.find('all', {
@@ -317,7 +313,7 @@
                 jobid: jobid,
                 jobsData: jobsData
             };
-            window.openDialog(aURL, _('Select Default Job'), features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Default Job'), aFeatures, inputObj);
 
             if (inputObj.ok && inputObj.jobid) {
                 $('#job_name').val(inputObj.jobname);

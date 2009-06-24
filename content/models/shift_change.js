@@ -3,6 +3,8 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
 
     useDbConfig: 'order',
 
+    autoRestoreFromBackup: true,
+    
     hasMany: ['ShiftChangeDetail'],
 
     behaviors: ['Sync', 'Training'],
@@ -10,25 +12,38 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
     saveShiftChange: function(data) {
         if(!data) return true;
 
-        var r;
-        r = this.saveShiftChangeMaster(data);
-        r = this.saveShiftChangeDetail(data) && r;
-
-        return r;
+        var s;
+        var r = this.saveShiftChangeMaster(data);
+        if (r) {
+            s = this.saveShiftChangeDetail(data);
+            if (s) {
+                return r;
+            }
+            else {
+                this.lastError = this.ShiftChangeDetail.lastError;
+                this.lastErrorString = this.ShiftChangeDetail.lastErrorString;
+                return s;
+            }
+        }
+        else {
+            return r;
+        }
     },
 
     saveShiftChangeMaster: function(data) {
 
         this.id = '';
-        return this.save(data);
-        
+        var r = this.save(data);
+        if (!r) {
+            r = this.saveToBackup(data);
+        }
+        return r;
     },
 
     saveShiftChangeDetail: function(data) {
 
-        var r = true;
-
-        for (var i = 0; i < data.shiftChangeDetails.length; i++) {
+        var s = true;
+        for (var i = 0; s && i < data.shiftChangeDetails.length; i++) {
             var o = data.shiftChangeDetails[i];
             var detail = {};
             detail['shift_change_id'] = this.id;
@@ -41,10 +56,9 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
             
             this.ShiftChangeDetail.id = '';
             if (!this.ShiftChangeDetail.save(detail)) {
-                r = false;
-                break;
+                s = this.ShiftChangeDetail.saveToBackup(detail);
             }
         }
-        return r;
+        return s;
     }
 });

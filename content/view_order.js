@@ -14,8 +14,7 @@
             function(){
                 return true;
             }
-        );
-            
+        );        
         $do('load', inputObj, 'ViewOrder');
     };
 

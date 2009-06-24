@@ -57,6 +57,7 @@
             <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.HideFPScrollbar" type="bool"/>
             <preference id="pref_checktrackingmode" name="vivipos.fec.settings.CheckTrackingMode" type="bool"/>
             <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.HideSoldOutButtons" type="bool"/>
+            <preference id="pref_showplugroupsfirst" name="vivipos.fec.settings.ShowPlugroupsFirst" type="bool"/>
 
             <preference id="pref_crop_dept_label" name="vivipos.fec.settings.CropDeptLabel" type="bool"/>
             <preference id="pref_crop_plu_label" name="vivipos.fec.settings.CropPLULabel" type="bool"/>
@@ -82,7 +83,7 @@
                 </row>
                 <row>
                     <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
-                    <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
+                    <checkbox id="showPlugroupsFirst" label="&layout.showplugroupsfirst;" preference="pref_showplugroupsfirst" />
                 </row>
                 <row>
                     <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
@@ -98,6 +99,7 @@
                 </row>
                 <row>
                     <checkbox preference="pref_hidebottombox" id="pref_hidebottomboxCtrl" label="&layout.hidebottombox;" />
+                    <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
                 </row>
             </rows>
         </grid>

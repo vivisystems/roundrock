@@ -1,9 +1,7 @@
 (function(){
 
-    /**
-     */
-
     var __controller__ = {
+
         name: 'LedgerRecords',
 
         scaffold: true,
@@ -24,59 +22,17 @@
             }
         },
 
-        expireData: function(evt) {
-            var model = new LedgerRecordModel();
-            var expireDate = parseInt(evt.data);
-            if (!isNaN(expireDate)) {
-                var r = model.execute('delete from ledger_records where created <= ' + expireDate);
-                if (!r) {
-                    // log error and notify user
-                    this.dbError(model.lastError, model.lastErrorString,
-                                 _('An error was encountered while expiring ledger activity logs (error code %S).', [model.lastError]));
-                    return;
-                }
-
-                model = new LedgerReceiptModel();
-                r = model.execute('delete from ledger_receipts where created <= ' + expireDate);
-                if (!r) {
-                    // log error and notify user
-                    this.dbError(model.lastError, model.lastErrorString,
-                                 _('An error was encountered while expiring ledger receipts (error code %S).', [model.lastError]));
-                }
-            }
-        },
-
-        truncateData: function(evt) {
-            var model = new LedgerRecordModel();
-            var r = model.execute('delete from ledger_records');
-            if (!r) {
-                // log error and notify user
-                this.dbError(model.lastError, model.lastErrorString,
-                             _('An error was encountered while removing all ledger activity logs (error code %S).', [model.lastError]));
-                return;
-            }
-
-            model = new LedgerReceiptModel();
-            r = model.execute('delete from ledger_receipts');
-            if (!r) {
-                // log error and notify user
-                this.dbError(model.lastError, model.lastErrorString,
-                             _('An error was encountered while removing all ledger receipts (error code %S).', [model.lastError]));
-            }
-        },
-
-        getListObj: function() {
+        _getListObj: function() {
             if(this._listObj == null) {
                 this._listObj = document.getElementById('entryscrollablepanel');
             }
             return this._listObj;
         },
 
-        setLedgerEntry: function(data) {
+        _setLedgerEntry: function(data) {
 
-            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
-            var salePeriod = shiftController.getSalePeriod();
-            var shiftNumber = shiftController.getShiftNumber();
+            var salePeriod = GeckoJS.Session.get('sale_period');
+            var shiftNumber = GeckoJS.Session.get('shift_number');
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
             data.service_clerk = (user) ? user.username : '';
@@ -85,51 +41,11 @@
             data.id = '';
 
             data.terminal_no = GeckoJS.Session.get('terminal_no');
-            data.sale_period = salePeriod;
-            data.shift_number = shiftNumber;
+            if (!('sale_period' in data)) data.sale_period = salePeriod;
+            if (!('shift_number' in data)) data.shift_number = shiftNumber;
         },
 
-        saveLedgerEntry: function(inputObj, nonAtomic) {
-
-            // create ledger entry object
-            this.setLedgerEntry(inputObj);
-
-            // save ledger entry
-            var ledgerRecordModel = new LedgerRecordModel();
-
-            if (!nonAtomic) {
-                ledgerRecordModel.begin();
-            }
-            var r = ledgerRecordModel.save(inputObj);
-            if (r) {
-                inputObj.ledger_id = r.id;
-                r =  this.savePaymentEntry(inputObj);
-            }
-
-            if (r && !nonAtomic) {
-                r = ledgerRecordModel.commit();
-            }
-
-            if (!r) {
-                // log error and alert user
-                var errNo = ledgerRecordModel.lastError;
-                var errMsg = ledgerRecordModel.lastErrorString;
-
-                if (!nonAtomic) ledgerRecordModel.rollback();
-
-                this.dbError(errNo, errMsg,
-                             _('An error was encountered while logging ledger activity (error code %S).', [errNo]));
-
-
-                return false;
-            }
-            else {
-                this.dispatchEvent('afterLedgerEntry', inputObj);
-                return true;
-            }
-        },
-
-        savePaymentEntry: function(ledgerEntry) {
+        _createPaymentEntry: function(ledgerEntry) {
 
             var data = {};
 
@@ -154,22 +70,147 @@
             data['shift_number'] = ledgerEntry.shift_number;
             data['terminal_no'] = ledgerEntry.terminal_no;
 
-            var orderPaymentModel = new OrderPaymentModel();
-            var r = orderPaymentModel.save(data);
-            if (!r) {
-                // log error
-                this.dbError(orderPaymentModel.lastError, orderPaymentModel.lastErrorString,
-                             _('An error was encountered while logging ledger payment (error code %S).', [orderPaymentModel.lastError]));
-            }
-            return r;
+            return data;
         },
 
-        /*
-        beforeScaffold: function(evt) {
-            
+        expireData: function(evt) {
+            var model = new LedgerRecordModel();
+            var expireDate = parseInt(evt.data);
+            if (!isNaN(expireDate)) {
+                try {
+                    var r = model.begin();
+                    if (r) {
+                        r = model.restoreFromBackup();
+                        if (!r) {
+                            throw {errno: model.lastError,
+                                   errstr: model.lastErrorString,
+                                   errmsg: _('An error was encountered while expiring backup ledger activity logs (error code %S).', [model.lastError])};
+                        }
+
+                        r = model.execute('delete from ledger_records where created <= ' + expireDate);
+                        if (!r) {
+                            throw {errno: model.lastError,
+                                   errstr: model.lastErrorString,
+                                   errmsg: _('An error was encountered while expiring ledger activity logs (error code %S).', [model.lastError])};
+                        }
+
+                        model = new LedgerReceiptModel();
+                        r = model.restoreFromBackup();
+                        if (!r) {
+                            throw {errno: model.lastError,
+                                   errstr: model.lastErrorString,
+                                   errmsg: _('An error was encountered while expiring backup ledger receipts (error code %S).', [model.lastError])};
+                        }
+
+                        r = model.execute('delete from ledger_receipts where created <= ' + expireDate);
+                        if (!r) {
+                            throw {errno: model.lastError,
+                                   errstr: model.lastErrorString,
+                                   errmsg: _('An error was encountered while expiring ledger receipts (error code %S).', [model.lastError])}
+                        }
+                        if (!model.commit()) {
+                            throw {errno: model.lastError,
+                                   errstr: model.lastErrorString,
+                                   errmsg: _('An error was encountered while removing expired ledger data (error code %S).', [model.lastError])}
+                        }
+                    }
+                    else {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while preparing to expire ledger data (error code %S).', [model.lastError])}
+                    }
+                }
+                catch(e) {
+                    model.rollback();
+                    this._dbError(e.errno, e.errstr, e.errmsg);
+                }
+            }
         },
-        */
-        beforeScaffoldAdd: function(evt) {
+
+        truncateData: function(evt) {
+            var model = new LedgerRecordModel();
+            try {
+                var r = model.begin();
+                if (r) {
+                    r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while removing all backup ledger activity logs (error code %S).', [model.lastError])};
+                    }
+
+                    r = model.truncate();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while removing all ledger activity logs (error code %S).', [model.lastError])};
+                    }
+
+                    model = new LedgerReceiptModel();
+                    r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while removing all backup ledger receipts (error code %S).', [model.lastError])};
+                    }
+
+                    r = model.truncate();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while revmoing all ledger receipts (error code %S).', [model.lastError])}
+                    }
+                    if (!model.commit()) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while removing all ledger data (error code %S).', [model.lastError])}
+                    }
+                }
+                else {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while preparing to remove all ledger data (error code %S).', [model.lastError])}
+                }
+            }
+            catch(e) {
+                model.rollback();
+                this._dbError(e.errno, e.errstr, e.errmsg);
+            }
+        },
+
+        // @return true if successful; false otherwise
+        saveLedgerEntry: function(inputObj) {
+            // create ledger entry object
+            this._setLedgerEntry(inputObj);
+
+            // save ledger entry
+            var model = new LedgerRecordModel();
+            var r = model.saveLedgerEntry(inputObj);
+            if (!r) {
+                // failed to save record to db/backup
+                this._dbError(model.lastError, model.lastErrorString,
+                              _('An error was encountered while saving ledger entry (error code %S).', [model.lastError]));
+                return false;
+            }
+            inputObj.id = r.id;
+            
+            var paymentRecord = this._createPaymentEntry(r);
+            model = new OrderPaymentModel();
+            r = model.saveLedgerPayment(paymentRecord);
+
+            if (!r) {
+                // failed to save record to db/backup
+                this._dbError(model.lastError, model.lastErrorString,
+                              _('An error was encountered while saving ledger payment records (error code %S).', [model.lastError]));
+                return false;
+            }
+            else {
+                this.dispatchEvent('afterLedgerEntry', inputObj);
+                return true;
+            }
+        },
+
+        addLedgerEntryFromForm: function() {
 
             var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
@@ -177,54 +218,21 @@
 
             inputObj.entry_types = this.LedgerEntryType.find('all', {order: 'mode, type'});
             
-            window.openDialog(aURL, _('Add Ledger Entry'), features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add Ledger Entry'), features, inputObj);
 
             if (inputObj.ok && inputObj.type != '' && !isNaN(inputObj.amount)) {
 
-                $('#ledger_id').val('');
-
-                GREUtils.extend(evt.data, inputObj);
-                this.setLedgerEntry(evt.data);
-
-                this.Scaffold.ScaffoldModel.begin();
-
-            } else {
-                evt.preventDefault();
+                if (this.saveLedgerEntry(inputObj)) {
+                    OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
+                                   [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+                    this.load();
+                }
+                else {
+                    NotifyUtils.error(_('Failed to log transaction [%S] for amount of [%S] to the ledger',
+                                      [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+                }
             }
             
-        },
-
-        afterScaffoldAdd: function(evt) {
-            // check if db error
-            var model = this.Scaffold.ScaffoldModel;
-            var r = !(parseInt(model.lastError) != 0);
-
-            if (r) {
-                // add payment record
-                r = this.savePaymentEntry(evt.data);
-            }
-
-            if (r) {
-                r = model.commit();
-            }
-
-            if (!r) {
-                var errNo = model.lastError;
-                var errMsg = model.lastErrorString;
-
-                model.rollback();
-
-                this.dbError(errNo, errMsg,
-                             _('An error was encountered while logging ledger payment (error code %S).', [errNo]));
-            }
-            else {
-                this._index = 0;
-                this.load();
-
-                //@todo OSD
-                OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
-                               [evt.data.type + (evt.data.description ? ' (' + evt.data.description + ')' : ''), evt.data.amount]))
-            }
         },
 
         afterScaffoldIndex: function(evt) {
@@ -232,8 +240,8 @@
             // check db error
             var model = this.Scaffold.ScaffoldModel;
             if (parseInt(model.lastError) != 0) {
-                this.dbError(model,
-                             _('An error was encountered while retrieving ledger records (error code %S).', [model.lastError]));
+                this._dbError(model.lastError, model.lastErrorString,
+                              _('An error was encountered while retrieving ledger records (error code %S).', [model.lastError]));
             }
             else {
                 this._listDatas = evt.data;
@@ -262,14 +270,14 @@
                     return text;
                 };
 
-                this.getListObj().datasource = panelView;
+                this._getListObj().datasource = panelView;
 
                 if (this._listDatas.length > 0) {
-                    this.getListObj().selection.select(this._index);
-                    this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
+                    this._getListObj().selection.select(this._index);
+                    this._getListObj().treeBoxObject.ensureRowIsVisible(this._index);
                 }
                 else {
-                    this.getListObj().selection.select(-1);
+                    this._getListObj().selection.select(-1);
                 }
             }
         },
@@ -279,9 +287,11 @@
             // retrieve handle to cashdrawer controller
             var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                 .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
-            var cashdrawer = mainWindow.GeckoJS.Controller.getInstanceByName( 'CashDrawer' );
-            if (cashdrawer) {
-                this.requestCommand('openDrawerForLedgerEntry', null, cashdrawer);
+            if (mainWindow) {
+                var cashdrawer = mainWindow.GeckoJS.Controller.getInstanceByName( 'CashDrawer' );
+                if (cashdrawer) {
+                    cashdrawer.openDrawerForLedgerEntry();
+                }
             }
         },
 
@@ -290,11 +300,10 @@
 
             var showtype = document.getElementById('show_type').value;
 
-            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
-            var sale_period = shiftController.getSalePeriod();
-            var shift_number = shiftController.getShiftNumber();
+            var salePeriod = GeckoJS.Session.get('sale_period');
+            var shiftNumber = GeckoJS.Session.get('shift_number');
 
-            var filter = 'sale_period=' + sale_period + ' AND shift_number=' + shift_number;
+            var filter = 'sale_period=' + salePeriod + ' AND shift_number=' + shiftNumber;
 
             if (showtype == 'IN') filter += ' AND mode="IN"';
             else if (showtype == 'OUT') filter += ' AND mode="OUT"';
@@ -306,7 +315,7 @@
                 index: this._index
             });
 
-            this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
+            this._getListObj().treeBoxObject.ensureRowIsVisible(this._index);
         },
 
         select: function(index){
@@ -316,16 +325,16 @@
                 this.requestCommand('view', record.id);
             }
             
-            this.getListObj().selection.select(index);
-            this.getListObj().treeBoxObject.ensureRowIsVisible(index);
+            this._getListObj().selection.select(index);
+            this._getListObj().treeBoxObject.ensureRowIsVisible(index);
             this._index = index;
         },
 
-        dbError: function(errNo, errMsg, alertStr) {
-            this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(window,
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
 
 
@@ -341,7 +350,6 @@
                                       });
 
     }, false);
-
 
 })();
 

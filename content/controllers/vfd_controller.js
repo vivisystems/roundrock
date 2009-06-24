@@ -2,17 +2,12 @@
 
     GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
 
-    /**
-     * VFD Controller
-     */
-
     var __controller__ = {
+
         name: 'VFD',
 
         _device: null,
-        
         _worker: null,
-
         _useMainThread: false,
 
         // load device configuration and selections
@@ -368,10 +363,10 @@
         },
         
         switchTrainingMode: function( isTraining ) {
-        	var class = "vfdPad";
+        	var vfdClass = 'vfdPad';
         	if ( isTraining )
-        		class = "vfdPadOnTraining";
-        	document.getElementById( 'vfdPanel' ).className = class;
+        		vfdClass = 'vfdPadOnTraining';
+        	document.getElementById( 'vfdPanel' ).className = vfdClass;
         },
 		
 		destroy: function() {

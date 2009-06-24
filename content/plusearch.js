@@ -5,8 +5,6 @@
      */
     function startup() {
 
-        centerWindowOnScreen();
-        
         $do('createFilterRows', null, 'PluSearch');
 
         doSetOKCancel(

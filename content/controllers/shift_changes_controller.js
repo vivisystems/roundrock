@@ -1,18 +1,16 @@
 (function(){
 
-    /**
-     * ShiftChangesController
-     */
-
     var __controller__ = {
+
         name: 'ShiftChanges',
 
         _listObj: null,
         _listDatas: null,
+        _limit: 3000000,
 
         initial: function() {
             // set current sales period and shift number
-            this.updateSession();
+            this._updateSession();
             
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
@@ -26,105 +24,68 @@
             }
         },
 
-        expireData: function(evt) {
-            var model = new ShiftChangeModel();
-            var expireDate = parseInt(evt.data);
-            if (!isNaN(expireDate)) {
-                var r = model.execute('delete from shift_changes where created <= ' + expireDate);
-                if (r)
-                    r = model.execute('delete from shift_change_details where not exists (select 1 from shift_changes where shift_changes.id == shift_change_details.shift_change_id)') && r;
-                if (!r) {
-                    // log error and notify user
-                    this.dbError(model.lastError, model.lastErrorString,
-                                 _('An error was encountered while expiring shift change records (error code %S).', [model.lastError]));
+        _queryStringPreprocessor: function( s ) {
+            var re = /\'/g;
+            return s.replace( re, '\'\'' );
+        },
+
+        _getShiftMarker: function() {
+            shift = GeckoJS.Session.get('current_shift');
+            if (!shift) {
+                var shiftMarkerModel = new ShiftMarkerModel();
+                var terminalNo = GeckoJS.Session.get('terminal_no');
+                var shift = shiftMarkerModel.find('first', {
+                    conditions: "terminal_no = '" + this._queryStringPreprocessor(terminalNo) +  "'",
+                    recursive: 0
+                });
+                if (parseInt(shiftMarkerModel.lastError) != 0) {
+                    this._dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
+                                  _('An error was encountered while retrieving shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
+                    return;
                 }
             }
-        },
-
-        truncateData: function(evt) {
-            var model = new ShiftChangeModel();
-            var r = model.execute('delete from shift_changes');
-            if (r) model.execute('delete from shift_change_details');
-            if (r) model.execute('delete from shift_markers');
-            if (!r) {
-                // log error and notify user
-                this.dbError(model.lastError, model.lastErrorString,
-                             _('An error was encountered while removing all shift change records (error code %S).', [model.lastError]));
-            }
-        },
-
-        load: function() {
-            //
-        },
-
-        // @throws dbException
-        getShiftMarker: function() {
-            var shiftMarkerModel = new ShiftMarkerModel();
-            var shift = shiftMarkerModel.findByIndex('first', {
-                index: 'terminal_no',
-                value: GeckoJS.Session.get('terminal_no')
-            });
-            if (parseInt(shiftMarkerModel.lastError) != 0) {
-                this.dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
-                             _('An error was encountered while retrieving shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
-                throw 'dbException';
-            }
+            GeckoJS.Session.set('current_shift', shift);
             return shift;
         },
 
-        getSalePeriod: function() {
-            return GeckoJS.Session.get('sale_period');
-        },
-
-        getShiftNumber: function() {
-            return GeckoJS.Session.get('shift_number');
-        },
-
-        getEndOfPeriod: function() {
+        _getEndOfShift: function() {
             var shift = GeckoJS.Session.get('current_shift');
-            return (shift) ? shift.end_of_period : null;
+            return (shift) ? shift.end_of_shift : false;
         },
 
-        // @throws dbException
-        setEndOfPeriod: function() {
-            this.setShift(this.getSalePeriod(), this.getShiftNumber(), true, true);
-        },
-
-        getEndOfShift: function() {
+        _getEndOfPeriod: function() {
             var shift = GeckoJS.Session.get('current_shift');
-            return (shift) ? shift.end_of_shift : null;
+            return (shift) ? shift.end_of_period : false;
         },
 
-        // @throws dbException
-        setEndOfShift: function() {
-            this.setShift(this.getSalePeriod(), this.getShiftNumber(), false, true);
+        _setEndOfShift: function() {
+            return this._setShift(this._getSalePeriod(), this._getShiftNumber(), false, true);
         },
 
-        updateSession: function(currentShift) {
+        _setEndOfPeriod: function() {
+            return this._setShift(this._getSalePeriod(), this._getShiftNumber(), true, true);
+        },
+
+        _updateSession: function(currentShift) {
             var shiftNumber = '';
             var salePeriod = '';
 
-            try {
-                if (!currentShift) {
-                    currentShift = this.getShiftMarker();
-                }
+            if (!currentShift) {
+                currentShift = this._getShiftMarker();
+            }
 
-                if (currentShift) {
-                    shiftNumber = currentShift.shift_number;
-                    salePeriod = currentShift.sale_period;
-                }
-                GeckoJS.Session.set('current_shift', currentShift);
-                GeckoJS.Session.set('shift_number', shiftNumber);
-                GeckoJS.Session.set('sale_period', salePeriod);
-                GeckoJS.Session.set('sale_period_string', salePeriod == '' ? '' : new Date(salePeriod * 1000).toLocaleDateString());
+            if (currentShift) {
+                shiftNumber = currentShift.shift_number;
+                salePeriod = currentShift.sale_period;
             }
-            catch(e) {
-            }
+            GeckoJS.Session.set('current_shift', currentShift);
+            GeckoJS.Session.set('shift_number', shiftNumber);
+            GeckoJS.Session.set('sale_period', salePeriod);
+            GeckoJS.Session.set('sale_period_string',
+                                salePeriod == '' ? '' : new Date(salePeriod * 1000).toLocaleDateString());
         },
 
-
-        // @throws dbException
-        setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
+        _setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
             var shiftMarkerModel = new ShiftMarkerModel();
 
             shiftNumber = parseInt(shiftNumber);
@@ -138,24 +99,122 @@
                 end_of_shift: endOfShift
             };
 
-            // will throw an exception on db error
-            var shift = this.getShiftMarker();
+            var shift = this._getShiftMarker();
 
-            // update shift marker
+            // update shift marker if it already exists
             if (shift) {
                 newShiftMarker.id = shift.id;
                 shiftMarkerModel.id = shift.id;
             }
-            var r = shiftMarkerModel.save(newShiftMarker);
+            var r = shiftMarkerModel.saveMarker(newShiftMarker);
             if (!r) {
-                this.dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
-                             _('An error was encountered while updating shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
+                this._dbError(shiftMarkerModel.lastError, shiftMarkerModel.lastErrorString,
+                              _('An error was encountered while updating shift change configuration (error code %S).', [shiftMarkerModel.lastError]));
             }
             else {
                 // update shift
-                this.updateSession(r);
+                this._updateSession(r);
             }
-            return true;
+            return r;
+        },
+
+        _ShiftDialog: function (newSalePeriod, newShiftNumber, lastSalePeriod, lastShiftNumber) {
+            var width = 450;
+            var height = 330;
+            var aURL = 'chrome://viviecr/content/alert_shift.xul';
+            var aName = _('Shift Information');
+            var aArguments = {current_sale_period: newSalePeriod,
+                              current_shift_number: newShiftNumber,
+                              last_sale_period: lastSalePeriod,
+                              last_shift_number: lastShiftNumber};
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
+
+            var win = this.topmostWindow;
+            if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+                win = null;
+            
+            GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
+        },
+
+        _getSalePeriod: function() {
+            return GeckoJS.Session.get('sale_period');
+        },
+
+        _getShiftNumber: function() {
+            return GeckoJS.Session.get('shift_number');
+        },
+
+        // remove expired shift change
+        expireData: function(evt) {
+            var expireDate = parseInt(evt.data);
+            if (!isNaN(expireDate)) {
+                try {
+                    var model = new ShiftChangeModel();
+                    var r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup shift change records (error code %S).', [model.lastError])};
+                    }
+
+                    r = model.execute('delete from shift_changes where created <= ' + expireDate);
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring shift change records (error code %S).', [model.lastError])};
+                    }
+
+                    model = new ShiftChangeDetailModel();
+                    r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup shift change details (error code %S).', [model.lastError])};
+                    }
+
+                    r = model.execute('delete from shift_change_details where not exists (select 1 from shift_changes where shift_changes.id == shift_change_details.shift_change_id)') && r;
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring shift change details (error code %S).', [model.lastError])};
+                    }
+                }
+                catch(e) {
+                    this._dbError(e.errno, e.errstr, e.errmsg);
+                }
+            }
+        },
+
+        // remove all shift change data
+        truncateData: function(evt) {
+            try {
+                var model = new ShiftChangeModel();
+                var r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while removing all shift change records (error code %S).', [model.lastError])};
+                }
+
+                model = new ShiftChangeDetailModel();
+                r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while removing all shift change details (error code %S).', [model.lastError])};
+                }
+
+                model = new ShiftMarkerModel();
+                r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: ('An error was encountered while removing shift change marker (error code %S).', [model.lastError])};
+                }
+            }
+            catch(e) {
+                this._dbError(e.errno, e.errstr, e.errmsg);
+            }
         },
 
         // this is invoked right after initialLogin
@@ -163,14 +222,14 @@
             // does sale period exist?
             var newSalePeriod;
             var newShiftNumber;
-            var lastSalePeriod = this.getSalePeriod();
-            var lastShiftNumber = this.getShiftNumber();
-            var endOfPeriod = this.getEndOfPeriod();
-            var endOfShift = this.getEndOfShift();
+            var lastSalePeriod = this._getSalePeriod();
+            var lastShiftNumber = this._getShiftNumber();
+            var endOfPeriod = this._getEndOfPeriod();
+            var endOfShift = this._getEndOfShift();
             var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
             var isNewSalePeriod = false;
             var updateShiftMarker = true;
-
+            
             // no last shift?
             if (lastSalePeriod == '') {
                 // insert new sale period with today's date;
@@ -211,10 +270,9 @@
                 updateShiftMarker = false;
             }
 
-            // need to catch db exceptions thrown by setShift()
-            try {
-                if (updateShiftMarker) {
-                    this.setShift(newSalePeriod, newShiftNumber, false, false);
+            // need to catch exceptions
+            if (updateShiftMarker) {
+                if (this._setShift(newSalePeriod, newShiftNumber, false, false)) {
 
                     // reset sequence if necessary
                     if (resetSequence && isNewSalePeriod) {
@@ -227,58 +285,42 @@
                         SequenceModel.resetSequence('order_no', parseInt(newSequence));
                     }
                 }
-
-                // display current shift / last shift information
-                this.ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
-                                 lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
-
-                this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
             }
-            catch(e) {
-                // catch exception thrown by setShift()
-                return;
-            }
+            // display current shift / last shift information
+            this._ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
+                              lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
+
+            this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
         },
         
-        ShiftDialog: function (newSalePeriod, newShiftNumber, lastSalePeriod, lastShiftNumber) {
-            var width = 450;
-            var height = 330;
-            var aURL = 'chrome://viviecr/content/alert_shift.xul';
-            var aName = 'Shift Information';
-            var aArguments = {current_sale_period: newSalePeriod,
-                              current_shift_number: newShiftNumber,
-                              last_sale_period: lastSalePeriod,
-                              last_shift_number: lastShiftNumber};
-            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
-            var parent = GREUtils.Dialog.getMostRecentWindow();
-
-            // if parent is the ViviPOS root window, set parent to null instead to make dialog center
-            if (parent != null && parent.document.title.toLowerCase() == 'vivipos') parent = null;
-            GREUtils.Dialog.openWindow(parent, aURL, aName, aFeatures, aArguments);
-        },
-
         shiftChange: function() {
-            if ( GeckoJS.Session.get( "isTraining" ) ) {
-                alert( _( "To use this function, please leave training mode first!" ) );
+            if (GeckoJS.Session.get('isTraining')) {
+                GREUtils.Dialog.alert(this.topmostWindow,
+                                      _('Shift Change'),
+                                      _('Shift change is disabled in training mode'));
                 return;
             }
-            var salePeriod = this.getSalePeriod();
-            var shiftNumber = this.getShiftNumber();
+
+            var salePeriod = this._getSalePeriod();
+            var shiftNumber = this._getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
             var salePeriodLeadDays = GeckoJS.Configure.read('vivipos.fec.settings.MaxSalePeriodLeadDays') || 1;
+
+            var inputObj = {ok: false};
 
             var orderPayment = new OrderPaymentModel();
 
             // check if sale period leads calendar date by more than allowed number of days
             var today = Date.today();
             var salePeriodDate = new Date(salePeriod * 1000);
-            var canEndSalePeriod = this.Acl.isUserInRole('acl_close_sale_period') &&
+            var canEndSalePeriod = this.Acl.isUserInRole('acl_end_sale_period') &&
                                    ((salePeriodDate - today) / (24 * 60 * 60 * 1000) + 1) <= salePeriodLeadDays;
 
             var doEndOfShift = false;
             var doEndOfPeriod = false;
             var message;
 
+            // catch database select errors
             try {
                 // first, we collect payment totals for credit cards and coupons
                 var fields = ['order_payments.memo1 as "OrderPayment.name"',
@@ -296,12 +338,16 @@
                                                                         conditions: conditions,
                                                                         group: groupby,
                                                                         order: orderby,
-                                                                        recursive: 0
+                                                                        recursive: 0,
+                                                                        limit: this._limit
                                                                        });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving credit card and coupon payment records (error code %S)', [orderPayment.lastError])};
 
                 //alert(this.dump(creditcardCouponDetails));
-                ////this.log(this.dump(creditcardCouponDetails));
+                //this.log(this.dump(creditcardCouponDetails));
 
                 // next, we collect payment totals for giftcard
                 fields = ['order_payments.memo1 as "OrderPayment.name"',
@@ -320,9 +366,13 @@
                                                                 conditions: conditions,
                                                                 group: groupby,
                                                                 order: orderby,
-                                                                recursive: 0
+                                                                recursive: 0,
+                                                                limit: this._limit
                                                                });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving giftcard payment records (error code %S)', [orderPayment.lastError])};
 
                 //alert(this.dump(giftcardDetails));
                 //this.log(this.dump(giftcardDetails));
@@ -343,9 +393,13 @@
                                                              conditions: conditions,
                                                              group: groupby,
                                                              order: orderby,
-                                                             recursive: 0
+                                                             recursive: 0,
+                                                             limit: this._limit
                                                             });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving check payment records (error code %S)', [orderPayment.lastError])};
 
                 //alert(this.dump(checkDetails));
                 //this.log(this.dump(checkDetails));
@@ -365,9 +419,13 @@
                                                                  conditions: conditions,
                                                                  group: groupby,
                                                                  order: orderby,
-                                                                 recursive: 0
+                                                                 recursive: 0,
+                                                                 limit: this._limit
                                                                 });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving cash payment records (error code %S)', [orderPayment.lastError])};
 
                 //alert(this.dump(localCashDetails));
                 //this.log(this.dump(localCashDetails));
@@ -389,9 +447,13 @@
                                                                    conditions: conditions,
                                                                    group: groupby,
                                                                    order: orderby,
-                                                                   recursive: 0
+                                                                   recursive: 0,
+                                                                   limit: this._limit
                                                                   });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving foreign cash payment records (error code %S)', [orderPayment.lastError])};
 
                 //alert(this.dump(foreignCashDetails));
                 //this.log(this.dump(foreignCashDetails));
@@ -411,9 +473,13 @@
                                                               conditions: conditions,
                                                               group: groupby,
                                                               order: orderby,
-                                                              recursive: 0
+                                                              recursive: 0,
+                                                              limit: this._limit
                                                              });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving ledger payment records (error code %S)', [orderPayment.lastError])};
 
                 //alert(this.dump(ledgerDetails));
                 //this.log(this.dump(ledgerDetails));
@@ -435,12 +501,17 @@
                                                           conditions: conditions,
                                                           group: groupby,
                                                           order: orderby,
-                                                          recursive: 0
+                                                          recursive: 0,
+                                                          limit: this._limit
                                                          });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderModel.lastError) != 0)
+                    throw {errno: orderModel.lastError,
+                           errstr: orderModel.lastErrorString,
+                           errmsg: _('An error was encountered while retrieving orders by destinations (error code %S)', [orderModel.lastError])};
 
                 //alert(this.dump(destDetails));
                 //this.log(this.dump(ledgerDetails));
+
                 // local cash amount = cash amount - cash change from cash, check, and coupon
 
                 // compute cash received from sale and ledger
@@ -451,9 +522,13 @@
                              ' AND ((order_payments.name = "cash" AND order_payments.memo1 IS NULL) OR (order_payments.name = "ledger"))';
                 var cashDetails = orderPayment.find('first', {fields: fields,
                                                               conditions: conditions,
-                                                              recursive: 0
+                                                              recursive: 0,
+                                                              limit: this._limit
                                                              });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing cash and ledger sums (error code %S)', [orderPayment.lastError])};
 
                 var cashReceived = (cashDetails && cashDetails.amount != null) ? cashDetails.amount : 0;
 
@@ -465,9 +540,13 @@
                              ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo1 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))';
                 var changeDetails = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
-                                                                recursive: 0
+                                                                recursive: 0,
+                                                                limit: this._limit
                                                                });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing amount of cash change given out (error code %S)', [orderPayment.lastError])};
 
                 var cashGiven = (changeDetails && changeDetails.cash_change != null) ? changeDetails.cash_change : 0;
 
@@ -481,9 +560,13 @@
                              ' AND order_payments.name != "ledger"';
                 var paymentTotal = orderPayment.find('first', {fields: fields,
                                                                conditions: conditions,
-                                                               recursive: 0
+                                                               recursive: 0,
+                                                               limit: this._limit
                                                               });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing total payments received (error code %S)', [orderPayment.lastError])};
 
                 var paymentsReceived = (paymentTotal && paymentTotal.amount != null) ? paymentTotal.amount : 0;
 
@@ -495,9 +578,13 @@
                              ' AND orders.status = 2';
                 var depositTotal = orderPayment.find('first', {fields: fields,
                                                                conditions: conditions,
-                                                               recursive: 1
+                                                               recursive: 1,
+                                                               limit: this._limit
                                                               });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing depoits received (error code %S)', [orderPayment.lastError])};
 
                 var deposits = (depositTotal && depositTotal.amount != null) ? depositTotal.amount : 0;
 
@@ -510,9 +597,13 @@
                              ' AND (orders.sale_period != "' + salePeriod + '" OR orders.shift_number != "' + shiftNumber + '")';
                 var refundTotal = orderPayment.find('first', {fields: fields,
                                                               conditions: conditions,
-                                                              recursive: 1
+                                                              recursive: 1,
+                                                              limit: this._limit
                                                              });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing refunds given out (error code %S)', [orderPayment.lastError])};
 
                 var refunds = (refundTotal && refundTotal.amount != null) ? Math.abs(refundTotal.amount) : 0;
 
@@ -524,9 +615,13 @@
                              ' AND orders.terminal_no = "' + terminal_no + '"';
                 var salesTotal = orderModel.find('first', {fields: fields,
                                                            conditions: conditions,
-                                                           recursive: 0
+                                                           recursive: 0,
+                                                           limit: this._limit
                                                           });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing sales revenue (error code %S)', [orderPayment.lastError])};
 
                 var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
                 var credit = salesRevenue - (paymentsReceived - deposits + refunds);
@@ -540,9 +635,13 @@
                              ' AND order_payments.amount > 0';
                 var ledgerInBalance = orderPayment.find('first', {fields: fields,
                                                                   conditions: conditions,
-                                                                  recursive: 0
+                                                                  recursive: 0,
+                                                                  limit: this._limit
                                                                  });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing ledger cash received (error code %S)', [orderPayment.lastError])};
 
                 var ledgerInTotal = (ledgerInBalance && ledgerInBalance.amount != null) ? ledgerInBalance.amount : 0;
 
@@ -555,9 +654,13 @@
                              ' AND order_payments.amount < 0';
                 var ledgerOutBalance = orderPayment.find('first', {fields: fields,
                                                                    conditions: conditions,
-                                                                   recursive: 0
+                                                                   recursive: 0,
+                                                                   limit: this._limit
                                                                   });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing ledger cash paid (error code %S)', [orderPayment.lastError])};
 
                 var ledgerOutTotal = (ledgerOutBalance && ledgerOutBalance.amount != null) ? ledgerOutBalance.amount : 0;
 
@@ -569,9 +672,13 @@
                              ' AND order_payments.name = "giftcard"';
                 var giftcardTotal = orderPayment.find('first', {fields: fields,
                                                                 conditions: conditions,
-                                                                recursive: 0
+                                                                recursive: 0,
+                                                                limit: this._limit
                                                                });
-                if (parseInt(orderPayment.lastError) != 0) throw 'dbException';
+                if (parseInt(orderPayment.lastError) != 0)
+                    throw {errno: orderPayment.lastError,
+                           errstr: orderPayment.lastErrorString,
+                           errmsg: _('An error was encountered while computing excess giftcard payments (error code %S)', [orderPayment.lastError])};
 
                 var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
 
@@ -581,7 +688,8 @@
 
                 var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
                 var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-                var inputObj = {
+
+                inputObj = {
                     shiftChangeDetails: shiftChangeDetails,
                     cashNet: cashNet,
                     balance: salesRevenue + ledgerInTotal + ledgerOutTotal  + deposits - refunds - credit + giftcardExcess,
@@ -595,188 +703,139 @@
                     canEndSalePeriod: canEndSalePeriod
                 };
 
-                window.openDialog(aURL, _('Shift Change'), features, inputObj);
-
-                if (inputObj.ok) {
-
-                    // cancel current transaction
-                    var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                    if (cart) {
-                        cart.cancel(true);
-                    }
-
-                    var currentShift = GeckoJS.Session.get('current_shift');
-                    var amt;
-
-                    var shiftChangeModel = new ShiftChangeModel();
-                    var moneyOutLedgerEntry;
-                    var moneyInLedgerEntry;
-
-                    if (inputObj.end) {
-                        amt = 0;
-                    }
-                    else {
-                        amt = parseFloat(inputObj.amount);
-
-                        if (isNaN(amt)) {
-                            NotifyUtils.warn(_('Invalid cash drawer change amount [%S]', [amt]));
-                            return;
-                        }
-                        else if (amt < 0) {
-                            NotifyUtils.warn(_('You may not leave negative amount of cash in the cashdrawer'));
-                            return;
-                        }
-                        else if (amt > 0) {
-                            var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
-                            var ledgerEntryTypeController = GeckoJS.Controller.getInstanceByName('LedgerEntryTypes');
-
-                            // do cashdrawer money out
-                            var entryType = ledgerEntryTypeController.getDrawerChangeType('OUT');
-                            moneyOutLedgerEntry = {
-                                type: entryType.type,
-                                mode: entryType.mode,
-                                description: inputObj.description,
-                                amount: amt
-                            };
-                            entryType = ledgerEntryTypeController.getDrawerChangeType('IN');
-
-                            moneyInLedgerEntry = {
-                                type: entryType.type,
-                                mode: entryType.mode,
-                                description: inputObj.description,
-                                amount: amt
-                            };
-
-                            // append to shiftChangeDetails
-                            var newChangeDetail = {type: 'ledger',
-                                                   name: entryType.type,
-                                                   amount: 0 - amt,
-                                                   count: 1};
-
-                            // look through shiftChangeDetails and add amount and count to entry of the same type/name
-                            var found = false;
-                            for (var i = 0; i < shiftChangeDetails.length; i++) {
-                                var record = shiftChangeDetails[i];
-                                if (record.type == newChangeDetail.type && record.name == newChangeDetail.name) {
-                                    found = true;
-                                    record.amount += newChangeDetail.amount;
-                                    record.count++;
-                                    break;
-                                }
-                            }
-                            if (!found) {
-                                shiftChangeDetails.push(newChangeDetail);
-                            }
-                        }
-                    }
-
-                    // append destination details to shift change details so it gets stored to db
-                    shiftChangeDetails = destDetails.concat(shiftChangeDetails);
-
-                    // update shiftChangeDetails and record shift change to database
-                    var shiftChangeRecord = {
-                        starttime: currentShift.modified,
-                        endtime: parseFloat(new Date().getTime() / 1000).toFixed(0),
-                        cash: inputObj.cashNet - amt,
-                        balance: inputObj.balance - amt,
-                        sales: inputObj.salesRevenue,
-                        deposit: inputObj.deposit,
-                        refund: inputObj.refund,
-                        credit: inputObj.credit,
-                        ledger_out: inputObj.ledgerOutTotal - amt,
-                        ledger_in: inputObj.ledgerInTotal,
-                        excess: inputObj.giftcardExcess,
-                        note: inputObj.description,
-                        terminal_no: GeckoJS.Session.get('terminal_no'),
-                        sale_period: this.getSalePeriod(),
-                        shift_number: this.getShiftNumber(),
-                        shiftChangeDetails: shiftChangeDetails
-                    };
-
-                    // start transaction
-                    var r = shiftChangeModel.begin();
-                    if (r) {
-                        try {
-                            // save money out ledger entry
-                            if (moneyOutLedgerEntry) {
-                                if (!ledgerController.saveLedgerEntry(moneyOutLedgerEntry, true)) {
-                                    throw 'ledgerException';
-                                }
-                            }
-                            // do shift change
-                            if (!shiftChangeModel.saveShiftChange(shiftChangeRecord)) {
-                                throw 'dbException';
-                            }
-
-                            if (inputObj.end) {
-                                
-                                // mark end of sale period
-                                this.setEndOfPeriod();
-
-                                doEndOfPeriod = true;
-                            }
-                            else {
-                                // mark end of shift
-                                this.setEndOfShift();
-
-                                doEndOfShift = true;
-                                
-                                // @hack
-                                // to make sure the ledger entry is saved to the right shift,
-                                // we increment shift number by 1 in the Session and change it
-                                // back right after saving the ledger entry
-                                if (moneyInLedgerEntry) {
-                                    // do cashdrawer money in
-                                    var shift = this.getShiftNumber();
-                                    GeckoJS.Session.set('shift_number', ++shift);
-                                    r = ledgerController.saveLedgerEntry(moneyInLedgerEntry, true);
-                                    GeckoJS.Session.set('shift_number', --shift);
-
-                                    if (!r) {
-                                        throw 'ledgerException';
-                                    }
-                                }
-                            }
-                            if (!shiftChangeModel.commit()) {
-                                throw 'dbException';
-                            }
-                        }
-                        catch(e) {
-                            if (e == 'dbException') {
-                                var errNo = shiftChangeModel.lastError;
-                                var errMsg = shiftChangeModel.lastErrorString;
-
-                                shiftChangeModel.rollback();
-
-                                this.dbError(errNo, errMsg,
-                                             _('An error was encountered while performing shift change (error code %S).', [errNo]));
-                            }
-                            else {
-                                shiftChangeModel.rollback();
-                                
-                                GREUtils.Dialog.alert(window,
-                                                      _('Data Operation Error'),
-                                                      _('A database error has been encountered. ') +
-                                                      _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
-                            }
-                            return;
-                        }
-                    }
-                    else {
-                        this.dbError(shiftChangeModel.lastError, shiftChangeModel.lastErrorString,
-                                     _('An error was encountered while performing shift change (error code %S).', [shiftChangeModel.lastError]));
-                        return;
-                    }
-                }
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Change'), features, inputObj);
             }
             catch(e) {
-                if (e == 'dbException') {
-                    GREUtils.Dialog.alert(window,
-                                          _('Data Operation Error'),
-                                          _('A database error has been encountered. ') +
-                                          _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
-                }
+                this._dbError(e.errno, e.errstr, e.errmsg);
                 return;
+            }
+
+            if (inputObj.ok) {
+
+                // cancel current transaction
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                if (cart) {
+                    cart.cancel(true);
+                }
+
+                var currentShift = GeckoJS.Session.get('current_shift');
+                var amt;
+
+                var shiftChangeModel = new ShiftChangeModel();
+                var moneyOutLedgerEntry;
+                var moneyInLedgerEntry;
+
+                if (inputObj.end) {
+                    amt = 0;
+                }
+                else {
+                    amt = parseFloat(inputObj.amount);
+
+                    if (isNaN(amt)) {
+                        NotifyUtils.warn(_('Invalid cash drawer change amount [%S]', [amt]));
+                        return;
+                    }
+                    else if (amt < 0) {
+                        NotifyUtils.warn(_('You may not leave negative amount of cash in the cashdrawer'));
+                        return;
+                    }
+                    else if (amt > 0) {
+                        var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
+                        var ledgerEntryTypeController = GeckoJS.Controller.getInstanceByName('LedgerEntryTypes');
+
+                        // do cashdrawer money out
+                        var entryType = ledgerEntryTypeController.getDrawerChangeType('OUT');
+                        moneyOutLedgerEntry = {
+                            type: entryType.type,
+                            mode: entryType.mode,
+                            description: inputObj.description,
+                            amount: amt,
+                            sale_period: salePeriod,
+                            shift_number: shiftNumber
+                        };
+                        entryType = ledgerEntryTypeController.getDrawerChangeType('IN');
+
+                        moneyInLedgerEntry = {
+                            type: entryType.type,
+                            mode: entryType.mode,
+                            description: inputObj.description,
+                            amount: amt,
+                            sale_period: salePeriod,
+                            shift_number: parseInt(shiftNumber) + 1
+                        };
+
+                        // append to shiftChangeDetails
+                        var newChangeDetail = {type: 'ledger',
+                                               name: entryType.type,
+                                               amount: 0 - amt,
+                                               count: 1};
+
+                        // look through shiftChangeDetails and add amount and count to entry of the same type/name
+                        var found = false;
+                        for (var i = 0; i < shiftChangeDetails.length; i++) {
+                            var record = shiftChangeDetails[i];
+                            if (record.type == newChangeDetail.type && record.name == newChangeDetail.name) {
+                                found = true;
+                                record.amount += newChangeDetail.amount;
+                                record.count++;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            shiftChangeDetails.push(newChangeDetail);
+                        }
+                    }
+                }
+
+                // append destination details to shift change details so it gets stored to db
+                shiftChangeDetails = destDetails.concat(shiftChangeDetails);
+
+                // update shiftChangeDetails and record shift change to database
+                var shiftChangeRecord = {
+                    starttime: currentShift.modified,
+                    endtime: parseFloat(new Date().getTime() / 1000).toFixed(0),
+                    cash: inputObj.cashNet - amt,
+                    balance: inputObj.balance - amt,
+                    sales: inputObj.salesRevenue,
+                    deposit: inputObj.deposit,
+                    refund: inputObj.refund,
+                    credit: inputObj.credit,
+                    ledger_out: inputObj.ledgerOutTotal - amt,
+                    ledger_in: inputObj.ledgerInTotal,
+                    excess: inputObj.giftcardExcess,
+                    note: inputObj.description,
+                    terminal_no: GeckoJS.Session.get('terminal_no'),
+                    sale_period: this._getSalePeriod(),
+                    shift_number: this._getShiftNumber(),
+                    shiftChangeDetails: shiftChangeDetails
+                };
+
+                if (!shiftChangeModel.saveShiftChange(shiftChangeRecord)) {
+                    this._dbError(shiftChangeModel.lastError, shiftChangeModel.lastErrorString,
+                                  _('An error was encountered while saving shift change record; shift may not have been closed properly.'));
+                    return;
+                }
+
+                // save money out ledger entry
+                if (moneyOutLedgerEntry)
+                    if (!ledgerController.saveLedgerEntry(moneyOutLedgerEntry)) return;
+
+                if (inputObj.end) {
+
+                    // mark end of sale period
+                    if (!this._setEndOfPeriod()) return;
+
+                    doEndOfPeriod = true;
+                }
+                else {
+                    // mark end of shift
+                    if (!this._setEndOfShift()) return;
+
+                    doEndOfShift = true;
+
+                    if (moneyInLedgerEntry)
+                        if (!ledgerController.saveLedgerEntry(moneyInLedgerEntry)) return;
+                }
             }
 
             if (doEndOfPeriod) {
@@ -784,10 +843,10 @@
                 this.requestCommand('clearOrderData', null, 'Main');
 
                 // offer options to power off or restart and to print shift and day reports
-                aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=280';
+                var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=280';
                 var parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
-                window.openDialog(aURL, _('Sale Period Close'), features, parms);
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 
                 // power off or restart
                 if (parms.poweroff) {
@@ -811,81 +870,50 @@
             else if (doEndOfShift) {
 
                 // shift change notification and print option
-                aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=200';
-                message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
-                window.openDialog(aURL, _('Shift Close'), features, message);
+                var aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=200';
+                var message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Close'), features, message);
 
                 this.requestCommand('signOff', true, 'Main');
                 this.requestCommand('ChangeUserDialog', null, 'Main');
             }
         },
         
-        _showWaitPanel: function(panel, sleepTime) {
-            var waitPanel = document.getElementById(panel);
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            waitPanel.sizeTo(360, 120);
-            var x = (width - 360) / 2;
-            var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
-
-            // release CPU for progressbar ...
-            if (!sleepTime) {
-              sleepTime = 1000;
-            }
-            this.sleep(sleepTime);
-            return waitPanel;
-        },
-
         printShiftReport: function( all ) {
-        	if ( !GREUtils.Dialog.confirm(this.activeWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
+        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print shift report?' ) ) )
         		return;
 
-			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
-        	
-        	try {
-		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptCashByClerk' );
-		        var salePeriod = this.getSalePeriod() * 1000;
-		        var terminalNo = GeckoJS.Session.get( 'terminal_no' );
-		        
-		        var shiftNumber = '';
-				if ( !all )
-					shiftNumber = this.getShiftNumber().toString();
+            var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
 
-		        reportController.printShiftChangeReport( salePeriod, salePeriod, shiftNumber, terminalNo );
-		    } catch ( e ) {
-		    } finally {
-		    	if ( waitPanel ) waitPanel.hidePopup();
-		    }
+            var shiftNumber = '';
+            if ( !all )
+                shiftNumber = this._getShiftNumber().toString();
+
+            reportController.printShiftChangeReport( salePeriod, salePeriod, shiftNumber, terminalNo );
         },
 
         printDailySales: function() {
-        	if ( !GREUtils.Dialog.confirm(this.activeWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+        	if ( !GREUtils.Dialog.confirm(this.topmostWindow, '', _( 'Are you sure you want to print daily sales report?' ) ) )
         		return;
         	
-        	var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
-        	
-        	try {
-		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
-		        var salePeriod = this.getSalePeriod() * 1000;
-		        var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
+            var salePeriod = this._getSalePeriod() * 1000;
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
 
-		        reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', '' );
-		    } catch ( e ) {
-		    } finally {
-		    	if ( waitPanel ) waitPanel.hidePopup();
-		    }
+            reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', '' );
         },
         
         reviewShiftReport: function( all ) {
             var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
-            var salePeriod = this.getSalePeriod() * 1000;
+            var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get('terminal_no');
 
 			var shiftNumber = '';
 			if ( !all )
-				shiftNumber = this.getShiftNumber().toString();
+				shiftNumber = this._getShiftNumber().toString();
 				
 			var parameters = {
 				start: salePeriod,
@@ -894,23 +922,16 @@
 				terminalNo: terminalNo
 			};
 		
-			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
-			
-			try {
-				var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
-			} catch ( e ) {
-			} finally {
-				if ( waitPanel ) waitPanel.hidePopup();
-			}					
+            var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, shiftNumber, terminalNo );
 		       
-		    aURL = 'chrome://viviecr/content/rpt_cash_by_clerk.xul';
-		    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-		    window.openDialog( aURL, '', features, processedTpl, parameters );
+		    var aURL = 'chrome://viviecr/content/rpt_cash_by_clerk.xul';
+		    var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+		    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, processedTpl, parameters);
         },
 
         reviewDailySales: function() {
             var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
-            var salePeriod = this.getSalePeriod() * 1000;
+            var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
             var periodType = 'sale_period';
             var shiftNo = '';
@@ -923,18 +944,11 @@
 				machineid: terminalNo
 			};
 
-			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
-			
-			try{
-            	var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
-            } catch ( e ) {
-            } finally {
-            	if ( waitPanel ) waitPanel.hidePopup();
-            }
+            var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
             
-            aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
-            features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            window.openDialog( aURL, '', features, processedTpl, parameters );
+            var aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, '', features, processedTpl, parameters);
         },
 
         select: function(index){
@@ -945,13 +959,12 @@
             }
         },
 
-        dbError: function(errNo, errMsg, alertStr) {
-            this.log('ERROR', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(window,
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('ERROR', errmsg + '\nDatabase Error [' +  errno + ']: [' + errstr + ']');
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
-
     };
 
     GeckoJS.Controller.extend(__controller__);

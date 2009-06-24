@@ -48,6 +48,7 @@
 <!ENTITY layout.department.rows "rows">
 <!ENTITY layout.department.cols "columns">
 <!ENTITY layout.department.button.height "button height">
+<!ENTITY layout.showplugroupsfirst "Show product groups before departments">
 <!ENTITY layout.plu.label "Product panel">
 <!ENTITY layout.plu.rows "rows">
 <!ENTITY layout.plu.cols "columns">

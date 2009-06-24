@@ -354,10 +354,10 @@ pref("vivipos.fec.registry.function.programmable.annotate.command", "AnnotateDia
 pref("vivipos.fec.registry.function.programmable.annotate.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.annotate.data", "");
 
-pref("vivipos.fec.registry.function.programmable.vieworder.access", "acl_view_order");
-pref("vivipos.fec.registry.function.programmable.vieworder.command", "orderDialog");
-pref("vivipos.fec.registry.function.programmable.vieworder.controller", "Main");
-pref("vivipos.fec.registry.function.programmable.vieworder.data", "");
+pref("vivipos.fec.registry.function.programmable.vieworders.access", "acl_view_orders");
+pref("vivipos.fec.registry.function.programmable.vieworders.command", "viewOrders");
+pref("vivipos.fec.registry.function.programmable.vieworders.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.vieworders.data", "");
 
 pref("vivipos.fec.registry.function.programmable.clockin.access", "");
 pref("vivipos.fec.registry.function.programmable.clockin.command", "ClockInOutDialog");

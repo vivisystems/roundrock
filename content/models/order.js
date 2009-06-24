@@ -73,7 +73,7 @@ GREUtils.log("remove order_id:::" + iid);
          */
         saveOrder: function(data) {
             if(!data ) return;
-
+            
             var r;
 
             // remove old order data if exist...
@@ -148,6 +148,25 @@ GREUtils.log("remove order_id:::" + iid);
             return 1;
         },
 
+        updateOrderMaster: function(data) {
+            var r = this.save(data);
+            if (!r) {
+                this.log('ERROR',
+                         _('An error was encountered while updating order master (error code %S): %S', [this.lastError, this.lastErrorString]));
+
+                //@db saveToBackup
+                r = this.saveToBackup(data);
+                if (r) {
+                    this.log('ERROR', _('record saved to backup'));
+                }
+                else {
+                    this.log('ERROR',
+                             _('record could not be saved to backup: %S', ['\n' + this.dump(data)]));
+                }
+            }
+            return r;
+        },
+        
         saveOrderMaster: function(data) {
 
             var orderData  = this.mappingTranToOrderFields(data);

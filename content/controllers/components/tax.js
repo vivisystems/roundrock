@@ -1,4 +1,6 @@
 (function() {
+    
+    var __component__ = {
 
 /**
  * Creates a new GeckoJS.TaxComponent instance.
@@ -13,7 +15,6 @@
  *
  */
 
-    var TaxComponent = window.TaxComponent = GeckoJS.Component.extend('Tax', {
 
         name: 'Tax',
 
@@ -31,11 +32,14 @@
     
         _calcTaxCache: {}
 
-    });
+    };
 
-    /**
+    var TaxComponent = window.TaxComponent = GeckoJS.Component.extend(__component__);
+
+/**
  * TaxComponent constructor
  */
+
     TaxComponent.prototype.init = function(controller) {
         this._controller = controller || null;
 

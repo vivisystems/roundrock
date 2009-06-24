@@ -2,7 +2,7 @@
 
     var inputObj = window.arguments[0];
     var types = inputObj.entry_types;
-
+    
     /**
      * Controller Startup
      */

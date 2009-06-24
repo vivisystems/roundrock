@@ -1,14 +1,14 @@
 ( function() {
-    /**
-     * Class ViviPOS.StockRecordsController
-     */
     
     // for using the checkMedia method.
     include( 'chrome://viviecr/content/reports/controllers/components/check_media.js' );
 
     var __controller__ = {
+
         name: 'StockAdjustments',
+
         scaffold: false,
+
         uses: [ 'Product' ],
 
         _listObj: null,
@@ -60,7 +60,7 @@
 
             if ( !this._barcodesIndexes[ barcode ] ) {
                 // barcode notfound
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _( 'Product Search' ),
                                       _( 'Product/Barcode Number (%S) not found!', [ barcode ] ) );
             } else {

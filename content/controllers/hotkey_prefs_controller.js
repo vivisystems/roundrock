@@ -1,15 +1,9 @@
 (function(){
 
-    /**
-     * Controller vivifuncpanelecrPrefs
-     * 
-     * This controller is used to manage the preference panel
-     * for vivifuncpanelecr
-     */
-
     var __controller__ = {
 
         name: 'HotkeyPrefs',
+
         prefTree: null,
         functionTree: null,
         functionArray: null,
@@ -97,7 +91,7 @@
             document.getElementById('delete_hotkey').removeAttribute('disabled');
 
             var nameObj = document.getElementById('hotkey_name');
-            nameObj.value = _('New Hotkey');
+            nameObj.value = _('New Hot Key');
             nameObj.select();
             nameObj.focus();
         
@@ -112,10 +106,8 @@
 
             if (!entry) {
 
-                // @todo OSD
-                NotifyUtils.error(_('Please Linking Function to Hotkey'));
+                NotifyUtils.error(_('Please Linking Function to Hot Key'));
                 return ;
-
             }
 
             var inputData = this.Form.serializeToObject('hotkeyForm');
@@ -147,8 +139,7 @@
 
                 if (!keycombo) {
 
-                    // @todo OSD
-                    NotifyUtils.error(_('Please Assign Hotkey to Linking Function'));
+                    NotifyUtils.error(_('Please Assign Hot Key to Linking Function'));
                     return ;
 
                 }
@@ -158,15 +149,14 @@
 
                     if(this.reserveHotKeys[keycombo]) {
 
-                        NotifyUtils.error(_('Hotkey [%S] is reserved', [keydisplay]));
+                        NotifyUtils.error(_('Hot Key [%S] is reserved', [keydisplay]));
                         return ;
                     }
 
                     var isExists = this.hotkeys.containsKey(keycombo);
                     if (isExists) {
                         
-                        // @todo OSD
-                        NotifyUtils.error(_('Hotkey [%S] is exists', [keydisplay]));
+                        NotifyUtils.error(_('Hot Key [%S] already exists', [keydisplay]));
                         return ;
                     }
 
@@ -184,20 +174,14 @@
                 this.savePreferences();
 
                 if (!isEditMode) {
-                // move cursor to last index
                     this.searchHotkey(hotkey);
                 }
-                //
-                //
-                // @todo OSD
-                OsdUtils.info(_('Hotkey [%S] [%S] modified successfully', [inputData.name, keydisplay]));
+                OsdUtils.info(_('Hot Key [%S] [%S] modified successfully', [inputData.name, keydisplay]));
 
             }
             catch (e) {
                 
-                // @todo OSD
-                NotifyUtils.error(_('An error occurred while modifying Hotkey [%S]. The hotkey may not have been modified successfully', [inputData.name]));
-
+                NotifyUtils.error(_('An error occurred while modifying Hot Key [%S]. The hot key may not have been modified successfully', [inputData.name]));
             }
 
         },
@@ -245,16 +229,11 @@
                     document.getElementById('delete_hotkey').setAttribute('disabled', true);
                 }
 
-                // @todo OSD
-                OsdUtils.info(_('Hotkey [%S] [%S] remove successfully', [inputData.name, keydisplay]));
-
-
+                OsdUtils.info(_('Hot Key [%S] [%S] remove successfully', [inputData.name, keydisplay]));
             }
             catch (e) {
 
-                // @todo OSD
-                NotifyUtils.error(_('An error occurred while removing Hotkey [%S]. The hotkey may not have been removed successfully', [inputData.name]));
-
+                NotifyUtils.error(_('An error occurred while removing Hot Key [%S]. The hot key may not have been removed successfully', [inputData.name]));
             }
 
         },
@@ -330,8 +309,7 @@
 
                 if (!this.hotkeys.get(keycombo)) {
 
-                    // @todo OSD
-                    NotifyUtils.error(_('Hotkey [%S] is not exists', [keydisplay]));
+                    NotifyUtils.error(_('Hot Key [%S] does not exist', [keydisplay]));
 
                     return ;
                 }
@@ -349,9 +327,7 @@
                 
             }catch (e) {
 
-                // @todo OSD
-                NotifyUtils.error(_('An error occurred while searching Hotkey [%S].', [keydisplay]));
-
+                NotifyUtils.error(_('An error occurred while searching for Hot Key [%S].', [keydisplay]));
             }
 
         },

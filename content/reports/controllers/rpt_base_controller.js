@@ -187,7 +187,7 @@
 		 * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
 		 */
         exportPdf: function( paperProperties ) {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
                 return;
 
             var bodydiv = document.getElementById( this._preview_frame_id ).contentWindow.document.getElementById( this._div_id );
@@ -195,7 +195,7 @@
             var maxClientHeight = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.maxExportPdfHeight" ) || 30000 );
 
             if ( clientHeight > maxClientHeight ) {
-                GREUtils.Dialog.alert( window, '', _( 'The document is too large to be exported in .PDF format, please export as .CSV file instead!' ) );
+                GREUtils.Dialog.alert( this.topmostWindow, '', _( 'The document is too large to be exported in .PDF format, please export as .CSV file instead!' ) );
                 return;
             }
 
@@ -249,7 +249,7 @@
         },
 
         exportCsv: function( controller, noReload ) {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
                 return;
             
             var cb = null;
@@ -319,7 +319,7 @@
         },
 
         exportRcp: function() {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this report?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to print this report?' ) ) )
                 return;
         		
             try {
@@ -430,7 +430,7 @@
             var width = GeckoJS.Session.get( 'screenwidth' );
             var height = GeckoJS.Session.get( 'screenheight' );
 	        
-            GREUtils.Dialog.openWindow( window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments );
+            GREUtils.Dialog.openWindow( this.topmostWindow, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments );
         },
 		
         /**
@@ -474,7 +474,7 @@
                     } else {
                         // check fileSize and diskSpaceAvailable
                         if ( nsTmpfile.fileSize > nsTargetDir.diskSpaceAvailable ) {
-                            GREUtils.Dialog.alert( window, '', _( "The thumb drive has no enough free space!" ) );
+                            GREUtils.Dialog.alert( this.topmostWindow, '', _( "The thumb drive has no enough free space!" ) );
                             throw new Exception( "The thumb drive has no enough free space!" );
                         }
 

@@ -1530,19 +1530,19 @@ msgstr "Printer Dashboard"
 msgid "printerDashboard.name"
 msgstr "Printer Dashboard"
 
-msgid "acl_view_order"
-msgstr "View Order"
+msgid "acl_view_orders"
+msgstr "View Orders"
 
-msgid "vieworder.desc"
+msgid "vieworders.desc"
 msgstr ""
 "This function allows the operator to quickly view the complete details of an "
 "order. No parameter is needed."
 
-msgid "vieworder.label"
-msgstr "View Order"
+msgid "vieworders.label"
+msgstr "View Orders"
 
-msgid "vieworder.name"
-msgstr "View Order"
+msgid "vieworders.name"
+msgstr "View Orders"
 
 msgid "truncatetxnrecords.desc"
 msgstr ""
@@ -2118,7 +2118,7 @@ msgid "(view)submitted"
 msgstr "submitted"
 
 msgid "(view)proceeds clerk"
-msgstr "closed by"
+msgstr "submitted by"
 
 msgid "(view)void clerk"
 msgstr "voided by"
@@ -2140,6 +2140,12 @@ msgstr "email"
 
 msgid "(view)check #"
 msgstr "check #"
+
+msgid "(view)items"
+msgstr "items"
+
+msgid "(view)total"
+msgstr "total"
 
 msgid "(view)table #"
 msgstr "table #"
@@ -2186,11 +2192,11 @@ msgstr "Promotions"
 msgid "(view)Revalue"
 msgstr "Revalue"
 
-msgid "Order sequence [%S] does not exist"
-msgstr ""
+msgid "(view)search by table number"
+msgstr "table number"
 
-msgid "Unable to display order; no order sequence given"
-msgstr ""
+msgid "(view)search by order sequence"
+msgstr "order sequence"
 
 msgid "Promotions Manager"
 msgstr ""
@@ -2288,9 +2294,6 @@ msgstr "Multi Buy"
 msgid "type.multi_buy.desc"
 msgstr "Multi Buy DESC, Chris Help!"
 
-msgid "acl_close_sale_period"
-msgstr "Close Sale Period"
-
 msgid "Your Saving"
 msgstr "** Your Saving **"
 
@@ -2327,13 +2330,13 @@ msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
 
 msgid "vivipos.fec.registry.layouts.traditional.desc"
-msgstr "Traditional Layout DESC. Chris Help!"
+msgstr "Traditional Layout, suitable for quick service and ECR type applications"
 
 msgid "vivipos.fec.registry.layouts.retail.label"
 msgstr "Retail Layout"
 
 msgid "vivipos.fec.registry.layouts.retail.desc"
-msgstr "Retail Layout DESC. Chris Help!"
+msgstr "Retail Layout (for conceptual demonstration only)"
 
 msgid "Confirm Change Layout"
 msgstr "Confirm Change Layout"
@@ -2363,7 +2366,7 @@ msgid "Document is too large to export PDF, please use export CSV instead"
 msgstr "Document is too large to export PDF, please use export CSV instead"
 
 msgid "stockAdjustment.label"
-msgstr "Stock Adj."
+msgstr "Stock Adjustment"
 
 msgid "stockAdjustment.name"
 msgstr "Stock Adjustment"

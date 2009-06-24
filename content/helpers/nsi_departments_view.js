@@ -6,6 +6,7 @@
 
             this._data = [];
             this.hideInvisible = true;
+            this.plugroupsFirst = false;
             this._path = [];
 
             var plugroupModel = new PlugroupModel();
@@ -67,12 +68,19 @@
         refreshView: function(autoInvalidate) {
 
             autoInvalidate = autoInvalidate || false;
+            this.plugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
             
             var departmentsIndexes;
             if (this.hideInvisible) {
-                departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(GeckoJS.Session.get('visiblePlugroups'));
+                if (this.plugroupsFirst)
+                    departmentsIndexes = GeckoJS.Session.get('visiblePlugroups').concat(GeckoJS.Session.get('categoriesIndexes'));
+                else
+                    departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(GeckoJS.Session.get('visiblePlugroups'));
             }else {
-                departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll').concat(GeckoJS.Session.get('allPlugroups'));
+                if (this.plugroupsFirst)
+                    departmentsIndexes = GeckoJS.Session.get('allPlugroups').concat(GeckoJS.Session.get('categoriesIndexesAll'));
+                else
+                    departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll').concat(GeckoJS.Session.get('allPlugroups'));
             }
             this._data = departmentsIndexes;
             try {
