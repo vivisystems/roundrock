@@ -16,7 +16,57 @@
      */
     function startup() {
         $do( 'load', null, 'RptYourOrder' );
-    };
+
+        var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+        var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
+        var $panel = $('#field_picker_panel');
+        var $buttonPanel = $('#fieldpickerscrollpanel');
+        var $box = $('#field_picker_box');
+
+        var selectedItems, fields;
+
+        $.installPanel($panel[0], {
+
+            css: {
+                left: 0,
+                top: 0,
+
+                width: screenwidth,
+                'max-width': screenwidth,
+
+                height: screenheight,
+                'max-height': screenheight
+            },
+            
+            init: function(evt) {
+
+                $box.css({width: screenwidth, height: screenheight});
+                $buttonPanel[0].vivibuttonpanel.resizeButtons();
+                
+                var viewHelper = new GeckoJS.NSITreeViewArray();
+                $buttonPanel[0].datasource = viewHelper ;
+                $buttonPanel[0].selectedItems = [] ;
+
+
+
+            },
+
+            load: function(evt) {
+
+                fields = evt.data.fields; // 0..n index
+                selectedItems = evt.data.selectedItems; // 0..n index
+
+                $buttonPanel[0].datasource = fields ;
+                $buttonPanel[0].selectedItems = selectedItems ;
+                //$buttonPanel[0].vivibuttonpanel.invalidate();
+                $buttonPanel[0].scrollToRow(0);
+
+            }
+            
+        });
+
+    }
 
     window.addEventListener( 'load', startup, false );
 } )();

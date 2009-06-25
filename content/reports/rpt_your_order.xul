@@ -8,6 +8,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -180,9 +181,9 @@
     <popupset id="dialogs" />
     
     <!-- field picker. -->
-    <vivipanel id="field_picker_panel" position="overlap" noautohide="true">
-        <vbox class="main-dialog" id="field_picker_box">
-            <vbox class="MainPnl" flex="1">
+    <vivipanel id="field_picker_panel" noautohide="false">
+        <hbox flex="1" id="field_picker_box" class="pop-dialog" pack="center" style="margin: 0; padding: 0;" >
+            <vbox class="MainPnl" flex="1" >
                 <vbox pack="center" flex="1">
                     <caption label="&rptyourorder.fieldpicker;" />
                     <viviscrollablebuttonpanel id="fieldpickerscrollpanel" seltype="multiple" flex="1" cols="5" rows="6" labelField="name"
@@ -198,6 +199,6 @@
                     </hbox>
                 </vbox>
             </vbox>
-        </vbox>
-	</vivipanel>
+        </hbox>
+    </vivipanel>
 </window>

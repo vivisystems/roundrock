@@ -328,7 +328,10 @@
             for ( var i = 0; i < this._fields_array.length; i++ )
                 if ( this._fields_array[ i ].ispicked == "true" )
                     this._selectedFieldIncies.push( i );
-            
+
+
+            $.popupPanel('field_picker_panel', {fields: this._fields_array, selectedItems: this._selectedFieldIncies});
+            /*
             var fieldPickerPanelView = new GeckoJS.NSITreeViewArray( this._fields_array );
             fieldPickerScrollPanel.datasource = fieldPickerPanelView;
             fieldPickerScrollPanel.selectedItems = this._selectedFieldIncies;
@@ -340,6 +343,7 @@
             var fieldPickerPanel = document.getElementById( this._fieldPickerPanelId );
             //fieldPickerPanel.sizeTo( this._mainScreenWidth, this._mainScreenHeight );
             fieldPickerPanel.openPopup();
+            */
         },
         
         dismissFieldPicker: function() {
@@ -357,9 +361,8 @@
             } );
             
             GeckoJS.Configure.write( this._field_pref_prefix, this._fields );
-            
-            var fieldPickerPanel = document.getElementById( this._fieldPickerPanelId );
-            fieldPickerPanel.hidePopup();
+
+            $.hidePanel(this._fieldPickerPanelId, true);
         },
         
         load: function() {
