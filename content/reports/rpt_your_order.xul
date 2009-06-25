@@ -12,6 +12,7 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
 <window id="main" 
         hidechrome="true"
@@ -156,16 +157,6 @@
                             <vivibutton id="export_csv" label="&rptyourorder.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptYourOrder');" />
                             <vivibutton id="export_rcp" label="&rptyourorder.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptYourOrder');" />
                             <vivibutton id="print" label="&rptyourorder.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptYourOrder');" />
-                            <vivibutton id="togglesize" label="&rptyourorder.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                            
-                            <vivibutton id="btnScrollTop" label="btnScrollTop" disabled="true" class="scrollTopBtn" image="chrome://viviecr/skin/images/top.png" oncommand="$do('btnScrollTop', null, 'RptYourOrder');"/>
-                            <vivibutton id="btnScrollUp" label="btnScrollUp" disabled="true" class="scrollUpBtn" image="chrome://viviecr/skin/images/up.png" oncommand="$do('btnScrollUp', null, 'RptYourOrder');"/>
-                            <vivibutton id="btnScrollDown" label="btnScrollDown" disabled="true" class="scrollDownBtn" image="chrome://viviecr/skin/images/down.png" oncommand="$do('btnScrollDown', null, 'RptYourOrder');"/>
-                            <vivibutton id="btnScrollBottom" label="btnScrollBottom" disabled="true" class="scrollBottomBtn" image="chrome://viviecr/skin/images/bottom.png" oncommand="$do('btnScrollBottom', null, 'RptYourOrder');"/>
-                            <vivibutton id="btnScrollLeftMost" label="btnScrollLeftMost" disabled="true" class="scrollLeftMostBtn" image="chrome://viviecr/skin/images/left_most.png" oncommand="$do('btnScrollLeftMost', null, 'RptYourOrder');"/>
-                            <vivibutton id="btnScrollLeft" label="btnScrollLeft" disabled="true" class="scrollLeftBtn" image="chrome://viviecr/skin/images/previous.png" oncommand="$do('btnScrollLeft', null, 'RptYourOrder');"/>
-                            <vivibutton id="btnScrollRight" label="btnScrollRight" disabled="true" class="scrollRightBtn" image="chrome://viviecr/skin/images/next.png" oncommand="$do('btnScrollRight', null, 'RptYourOrder');"/>
-                            <vivibutton id="btnScrollRightMost" label="btnScrollRightMost" disabled="true" class="scrollRightMostBtn" image="chrome://viviecr/skin/images/right_most.png" oncommand="$do('btnScrollRightMost', null, 'RptYourOrder');"/>
                         </tabs>
                     </arrowscrollbox>
                 </hbox>

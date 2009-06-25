@@ -15,18 +15,8 @@
      * Controller Startup
      */
     function startup() {
-        $( '#togglesize' )[ 0 ].addEventListener( 'command', toggleSize, false );
         $do( 'load', null, 'RptYourOrder' );
     };
-
-    function toggleSize() {
-        var splitter = document.getElementById( 'splitter_zoom' );
-        if ( splitter.getAttribute( "state" ) == "collapsed" ) {
-            splitter.setAttribute( "state", "open" );
-        } else {
-            splitter.setAttribute( "state", "collapsed" );
-        }
-    }
 
     window.addEventListener( 'load', startup, false );
 } )();
