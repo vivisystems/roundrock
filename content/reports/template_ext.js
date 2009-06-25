@@ -213,8 +213,15 @@ if (typeof(TrimPath) != 'undefined') {
 
         // unixTimeToLocale modifier
         $T.parseTemplate_etc.modifierDef['unixTimeToLocale'] = function ( time, type ) {
+            var timeValue;
+            try {
+                timeValue = parseInt(time);
+            }
+            catch(e) {}
+            if (isNaN(timeValue)) return time;
+            
             type = type || 'datetime';
-            var t = time.toFixed(0).length > 10 ? time : time * 1000;
+            var t = timeValue.toFixed(0).length > 10 ? timeValue : timeValue * 1000;
             var d = new Date(t);
 
             var s = "";
@@ -232,7 +239,6 @@ if (typeof(TrimPath) != 'undefined') {
                     break;
             }
             return s;
-
         };
         
         // Boolean to letter.

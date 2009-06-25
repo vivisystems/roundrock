@@ -137,8 +137,8 @@
             // adjust the size of paper if the content will protrude the border of the paper.
             var bodytable =  bw.contentWindow.document.getElementById( this._body_table );
             var bodydiv = bw.contentWindow.document.getElementById( this._div_id );
-            if ( bodydiv.scrollWidth < bodytable.scrollWidth + 20 )
-               bodydiv.style.width = bodytable.scrollWidth + 35;
+            if ( bodydiv.scrollWidth < bodytable.scrollWidth + 40 )
+               bodydiv.style.width = bodytable.scrollWidth + 40;
         },
 	    
         previousPage: function() {
@@ -430,7 +430,13 @@
             var width = GeckoJS.Session.get( 'screenwidth' );
             var height = GeckoJS.Session.get( 'screenheight' );
 	        
-            GREUtils.Dialog.openWindow( this.topmostWindow, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments );
+            GREUtils.Dialog.openWindow(
+                this.topmostWindow,
+                aURL,
+                aName,
+                "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height,
+                aArguments
+            );
         },
 		
         /**

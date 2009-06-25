@@ -20,6 +20,8 @@ ${head.title|center:24}
 ${_( '(rpt)' + field.name ) + ':'}
 {if field.datatype == "time"}
 ${detail[ field.value ]|unixTimeToString|right:24}
+{elseif field.datatype == "date"}
+${detail[ field.value ]|unixTimeToLocale:'date'|right:24}
 {elseif field.datatype == "dollar"}
 ${detail[ field.value ]|default:0|viviFormatPrices:true|right:24}
 {elseif field.datatype == "number"}
@@ -47,6 +49,8 @@ ${_( '(rpt)Summary' )}
 ${_( '(rpt)' + field.name ) + ':'}
 {if field.datatype == "time"}
 ${foot.foot_datas[ field.value ]|unixTimeToString|right:24}
+{elseif field.datatype == "date"}
+${foot.foot_datas[ field.value ]|unixTimeToLocale:'date'|right:24}
 {elseif field.datatype == "dollar"}
 ${foot.foot_datas[ field.value ]|default:0|viviFormatPrices:true|right:24}
 {elseif field.datatype == "number"}

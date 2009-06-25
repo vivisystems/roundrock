@@ -16,7 +16,10 @@
         _fieldPickerPanelId: 'field_picker_panel',
         _fieldPickerBox: 'field_picker_box',
         
-        _field_pref_prefix: 'vivipos.fec.report.yourorder',
+        _field_pref_prefix: 'vivipos.fec.report.yourorder.field',
+        _setting_pref: 'vivipos.fec.report.yourorder.settings',
+        
+        _setting_form: 'settings',
         
         _fields: null,
         _fields_array: null,
@@ -247,6 +250,9 @@
             var iFrame = document.getElementById( 'preview_frame' );
             if ( iFrame )
                 iFrame.src = "chrome://viviecr/content/reports/rpt_template" + paperSize + ".html";
+            // After changing the size of the template, the report currently showing on screen no longer exists.
+            // We have to disable the report-width adjuster at that moment to prevent an error from occuring.
+            document.getElementById( this._reportWidthTextBoxId ).disabled = true;
         },
         
         exportCsv: function() {
@@ -262,8 +268,20 @@
             var bodydiv = bw.contentWindow.document.getElementById( this._div_id );
             // minus 30 empirically so that at the first time we decrease the width, the width won't increase wrongly.
             // the anomaly is caused by the difference between bodydiv.scrollWidth and bodydiv.style.width.
-            document.getElementById( this._reportWidthTextBoxId ).value = bodydiv.scrollWidth - 30;
+            var defaultWidth = bodydiv.scrollWidth - 30;
+            // set the paper size.
+            var bodytable =  bw.contentWindow.document.getElementById( this._body_table );
+            var reportWidth = parseInt( document.getElementById( this._reportWidthTextBoxId ).value, 10 );
+            document.getElementById( this._reportWidthTextBoxId ).value = defaultWidth;
             
+            if ( reportWidth ) {
+                bodydiv.style.width = reportWidth;
+                document.getElementById( this._reportWidthTextBoxId ).value = reportWidth;
+                if ( bodydiv.scrollWidth <= bodytable.scrollWidth + 20 ) {
+                    bodydiv.style.width = defaultWidth;
+                    document.getElementById( this._reportWidthTextBoxId ).value = defaultWidth;
+                }
+            }
             document.getElementById( this._reportWidthTextBoxId ).disabled = false;
         },
         
@@ -277,13 +295,13 @@
                 if ( event.originalTarget.className == "spinbuttons-button spinbuttons-up" ) {
                     bodydiv.style.width = reportWidth;
                 } else if ( event.originalTarget.className == "spinbuttons-button spinbuttons-down" ) {
-                    if ( bodydiv.scrollWidth > bodytable.scrollWidth + 20 ) {
-                        bodydiv.style.width = document.getElementById( this._reportWidthTextBoxId ).value;
+                    var increment = parseInt( document.getElementById( this._reportWidthTextBoxId ).increment, 10 );
+                    if ( bodydiv.scrollWidth - increment > bodytable.scrollWidth + 20 ) {
+                        bodydiv.style.width = reportWidth;
                     } else { 
-                        document.getElementById( this._reportWidthTextBoxId ).value =
-                            reportWidth + parseInt( document.getElementById( this._reportWidthTextBoxId ).increment, 10 );
+                        document.getElementById( this._reportWidthTextBoxId ).value = reportWidth + increment;
                     }
-                } 
+                }
             }
         },
         
@@ -362,6 +380,13 @@
             fieldPickerPanel.hidePopup();
         },
         
+        saveSettings: function() {
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to save these settings?' ) ) )
+                return;
+                
+            GeckoJS.Configure.write( this._setting_pref, GeckoJS.FormHelper.serialize( this._setting_form ) );
+        },
+        
         load: function() {
             this._super();
             
@@ -377,6 +402,12 @@
             document.getElementById( 'end_date' ).value = end;
             
             document.getElementById( this._reportWidthTextBoxId ).disabled = true;
+            
+            // initialize the settings according to the preference.
+            var settings = GeckoJS.Configure.read( this._setting_pref );
+            if ( settings )
+                GeckoJS.FormHelper.unserialize( this._setting_form, settings );
+            this.setPaperSize();
         }
     };
 
