@@ -355,9 +355,9 @@
 
                 this._enableButton( false );
                 var waitPanel = this._showWaitingPanel( 100 );
-
+                
                 var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
+                    .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
                 var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
    				
                 var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';

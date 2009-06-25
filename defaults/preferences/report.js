@@ -301,13 +301,13 @@ pref("vivipos.fec.report.yourorder.invoicenumber.order", "660");
 
 pref("vivipos.fec.report.yourorder.invoicecount.name", "Invoice Count");
 pref("vivipos.fec.report.yourorder.invoicecount.value", "invoice_count");
-pref("vivipos.fec.report.yourorder.invoicecount.datatype", "number");
+pref("vivipos.fec.report.yourorder.invoicecount.datatype", "counter");
 pref("vivipos.fec.report.yourorder.invoicecount.ispicked", "");
 pref("vivipos.fec.report.yourorder.invoicecount.order", "663");
 
 pref("vivipos.fec.report.yourorder.itemscount.name", "Items Count");
 pref("vivipos.fec.report.yourorder.itemscount.value", "items_count");
-pref("vivipos.fec.report.yourorder.itemscount.datatype", "number");
+pref("vivipos.fec.report.yourorder.itemscount.datatype", "counter");
 pref("vivipos.fec.report.yourorder.itemscount.ispicked", "");
 pref("vivipos.fec.report.yourorder.itemscount.order", "666");
 
