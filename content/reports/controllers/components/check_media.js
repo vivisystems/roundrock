@@ -1,4 +1,4 @@
-(function() {
+( function() {
 
     var __component__ = {
 
@@ -54,6 +54,5 @@
         }
     };
 
-    var CheckMediaComponent = window.CheckMediaComponent = GeckoJS.Component.extend(__component__);
-
+    var CheckMediaComponent = window.CheckMediaComponent = GeckoJS.Component.extend( __component__ );
 } )();

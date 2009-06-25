@@ -42,6 +42,8 @@
 {elseif field.datatype == "dollar"}
                     <td style="text-align: right;">${detail[ field.value ]|default:0|viviFormatPrices:true}</td>
 {elseif field.datatype == "number"}
+                    <td style="text-align: right;">${detail[ field.value ]}</td>
+{elseif field.datatype == "counter"}
                     <td style="text-align: right;">${detail[ field.value ]|default:0}</td>
 {else}
                     <td style="text-align: center;">${detail[ field.value ]}</td>
@@ -93,6 +95,8 @@
                     <td style="text-align: right;">${foot.foot_datas[ field.value ]|default:0|viviFormatPrices:true}</td>
 {elseif field.datatype == "number"}
                     <td style="text-align: right;">${foot.foot_datas[ field.value ]}</td>
+{elseif field.datatype == "counter"}
+                    <td style="text-align: right;">${foot.foot_datas[ field.value ]|default:0}</td>
 {else}
                     <td style="text-align: center;">${foot.foot_datas[ field.value ]}</td>
 {/if}

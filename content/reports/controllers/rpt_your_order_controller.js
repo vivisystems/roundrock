@@ -92,7 +92,8 @@
                 qty_subtotal: 0,
                 items_count: 0,
                 change: 0,
-                invoice_count: 0
+                invoice_count: 0,
+                included_tax_subtotal: 0
             };
             
             var old_oid;
@@ -145,6 +146,7 @@
                     footDatas.items_count += o.items_count;
                     footDatas.change += o.change;
                     footDatas.invoice_count += o.invoice_count;
+                    footDatas.included_tax_subtotal += o.included_tax_subtotal;
                 }
 				
                 repDatas[ oid ][o.payment_name] += o.payment_subtotal;
