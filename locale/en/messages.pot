@@ -1,18 +1,5 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: support@vivipos.com.tw\n"
-"POT-Creation-Date: 2009-06-24 18:45+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
@@ -33,7 +20,7 @@ msgstr "繁體中文 - 台灣 (zh-TW)"
 
 ########################################################################
 #
-# List of Locations
+# List of Locations (used by setup)
 #
 ########################################################################
 
@@ -226,7 +213,7 @@ msgid "vivipos.fec.reportpanels.dailysales.label"
 msgstr "Sales Report"
 
 msgid "vivipos.fec.reportpanels.dailysalessummary.label"
-msgstr "Daily Sales Summary"
+msgstr "Sales Summary"
 
 msgid "vivipos.fec.reportpanels.departmentlist.label"
 msgstr "Department List"
@@ -236,6 +223,9 @@ msgstr "Detailed Tax Report"
 
 msgid "vivipos.fec.reportpanels.hourlysales.label"
 msgstr "Hourly Sales"
+
+msgid "vivipos.fec.reportpanels.orderannotation.label"
+msgstr "Order Annotations"
 
 msgid "vivipos.fec.reportpanels.orderstatus.label"
 msgstr "Order Status Report"
@@ -247,7 +237,7 @@ msgid "vivipos.fec.reportpanels.productsales.label"
 msgstr "Product Sales"
 
 msgid "vivipos.fec.reportpanels.promotionsummary.label"
-msgstr "Daily Promotion Summary"
+msgstr "Promotion Summary"
 
 msgid "vivipos.fec.reportpanels.salessummary.label"
 msgstr "Sales Summary"
@@ -2100,9 +2090,6 @@ msgstr "Multi Buy"
 
 msgid "type.multi_buy.desc"
 msgstr "Multi Buy DESC, Chris Help!"
-
-msgid "Your Saving"
-msgstr "** Your Saving **"
 
 ########################################################################
 #

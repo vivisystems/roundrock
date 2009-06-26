@@ -50,7 +50,7 @@
 		                    <row>
 		                    	<vbox>
 		                    		<label value="&rptyourorder.periodtype;" />
-					                <menulist id="period_type">
+					                <menulist id="period_type" form="settings" name="period_type">
 					                    <menupopup id="period_type_menupopup">
 					                        <menuitem selected="false" label="&rptyourorder.transaction_created;" value="transaction_created" />
 					                        <menuitem selected="true" label="&rptyourorder.transaction_submitted;" value="transaction_submitted" />
@@ -66,7 +66,7 @@
 		                    <row>
 		                    	<vbox>
 				                	<label value="&rptyourorder.sortby;" />
-					                <menulist id="sortby">
+					                <menulist id="sortby" form="settings" name="sortby">
 					                    <menupopup id="sortby_menupopup">
 					                        <menuitem selected="false" label="&rptyourorder.sortby.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="true" label="&rptyourorder.sortby.time;" value="time"/>
@@ -122,7 +122,7 @@
 		                    <row>
 		                        <vbox>
 		                    		<label value="&rptyourorder.papersize;" />
-					                <menulist id="papersize" oncommand="$do('setPaperSize', null, 'RptYourOrder');">
+					                <menulist id="papersize" oncommand="$do('setPaperSize', null, 'RptYourOrder');" form="settings" name="papersize">
 					                    <menupopup id="papersize_menupopup">
 					                        <menuitem selected="false" label="&rptyourorder.papersize.mini;" value="1" />
 					                        <menuitem selected="false" label="&rptyourorder.papersize.portrait;" value="2" />
@@ -133,8 +133,9 @@
 		                    	</vbox>
 		                    	<vbox>
 		                    	    <label value="&rptyourorder.reportwidth;" />
+
 				                    <textbox id="report_width" type="number" value='' width="300" numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad" increment="10"
-				                        oncommand="$do('_adjustReportWidth', event, 'RptYourOrder');"/>
+				                        oncommand="$do('_adjustReportWidth', event, 'RptYourOrder');" form="settings" name="report_width"/>
 				                </vbox>
 		                    </row>
 		                </rows>
@@ -143,6 +144,7 @@
 		            <vbox>
 		                <button id="execute" label="&rptyourorder.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptYourOrder');" />
 		                <button id="field_picker" label="&rptyourorder.button.fieldpicker;" disabled="false" class="ExeBtn" oncommand="$do('showFieldPicker', null, 'RptYourOrder');" />
+		                <button id="record_settings" label="&rptyourorder.button.recordsettings;" disabled="false" class="ExeBtn" oncommand="$do('saveSettings', null, 'RptYourOrder');" />
 		            </vbox>
 		        </hbox>
 		    </vbox>

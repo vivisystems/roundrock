@@ -105,6 +105,13 @@
             }
             
             var order = new OrderModel();
+
+            var rowCount = order.find( 'count', {
+                fields: fields,
+                conditions: conditions,
+                recursive: -1
+            } );
+
             var records = order.find( 'all', { 
                 fields: fields,
                 conditions: conditions,
@@ -158,10 +165,11 @@
                 discount_subtotal: discount_subtotal,
                 promotion_subtotal: promotion_subtotal,
                 revalue_subtotal: revalue_subtotal,
-                payment_subtotal: payment_subtotal
+                payment_subtotal: payment_subtotal,
+                rowCount: rowCount
             };
             
-            this._reportRecords.head.title = _( 'Order Status Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.orderstatus.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;

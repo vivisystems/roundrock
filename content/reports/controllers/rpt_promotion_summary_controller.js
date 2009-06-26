@@ -141,7 +141,7 @@
                 }
             }
 
-            this._reportRecords.head.title = _( 'Daily Promotion Summary Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.promotionsummary.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;

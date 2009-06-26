@@ -66,3 +66,4 @@
 <!ENTITY rptyourorder.reportwidth "Report Width(px):">
 <!ENTITY rptyourorder.fieldpicker "Please pick up the fields you want!">
 <!ENTITY rptyourorder.button.fieldpicker "Field Picker">
+<!ENTITY rptyourorder.button.recordsettings "Save Settings">

@@ -3,7 +3,6 @@
      * Report Base Controller
      * This class is used to maintain the utility methods taken advantage by each report controller.
      */
-
     var __controller__ = {
         name: 'RptBase',
         components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
@@ -113,27 +112,23 @@
         },
 
         _resizeScrollButtons: function() {
-
                 var bw = document.getElementById( this._preview_frame_id );
                 if ( !bw ) return ;
 
                 var doc = bw.contentWindow.document.getElementById( this._abody_id );
                 if ( !doc ) return ;
 
-                if (doc.scrollWidth > doc.clientWidth) {
+                if ( doc.scrollWidth > doc.clientWidth ) {
                     $( '#scrollBtnHBox' ).attr( 'hidden', false );
-                }else {
+                } else {
                     $( '#scrollBtnHBox' ).attr( 'hidden', true );
                 }
 
-
-                if (doc.scrollHeight > doc.clientHeight) {
+                if ( doc.scrollHeight > doc.clientHeight ) {
                     $( '#scrollBtnVBox' ).attr( 'hidden', false );
-                }else {
+                } else {
                     $( '#scrollBtnVBox' ).attr( 'hidden', true );
                 }
-                
-
         },
         
         _setTemplateDataHead: function() {
@@ -163,8 +158,8 @@
             // adjust the size of paper if the content will protrude the border of the paper.
             var bodytable =  bw.contentWindow.document.getElementById( this._body_table );
             var bodydiv = bw.contentWindow.document.getElementById( this._div_id );
-            if ( bodydiv.scrollWidth < bodytable.scrollWidth + 20 )
-               bodydiv.style.width = bodytable.scrollWidth + 35;
+            if ( bodydiv.scrollWidth < bodytable.scrollWidth + 40 )
+               bodydiv.style.width = bodytable.scrollWidth + 40;
         },
 	    
         previousPage: function() {
@@ -456,7 +451,13 @@
             var width = GeckoJS.Session.get( 'screenwidth' );
             var height = GeckoJS.Session.get( 'screenheight' );
 	        
-            GREUtils.Dialog.openWindow( this.topmostWindow, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments );
+            GREUtils.Dialog.openWindow(
+                this.topmostWindow,
+                aURL,
+                aName,
+                "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height,
+                aArguments
+            );
         },
 		
         /**
@@ -528,7 +529,6 @@
         },
 
         toggleSize: function () {
-            
             var splitter = document.getElementById( 'splitter_zoom' );
             if ( splitter.getAttribute( 'state' ) == 'collapsed' ) {
                 splitter.setAttribute( 'state', 'open' );

@@ -14,10 +14,10 @@ ${head.title|center:42}
   TrimPath.PrecisionTaxes = detail.precision_taxes;
 {/eval}
 {for field in fields}
-${_( '(rpt)' + field.name ) + ': '|left:20}{if field.datatype == "time"}
+${_( field.name ) + ': '|left:20}{if field.datatype == "time"}
 ${detail[ field.value ]|unixTimeToString|right:22}
-{elseif field.datatype == "dollar"}
-${detail[ field.value ]|default:0|viviFormatPrices:true|right:22}
+{elseif field.datatype == "date"}${detail[ field.value ]|unixTimeToLocale:'date'|right:22}
+{elseif field.datatype == "dollar"}${detail[ field.value ]|default:0|viviFormatPrices:true|right:22}
 {elseif field.datatype == "number"}${detail[ field.value ]|right:22}
 {elseif field.datatype == "counter"}${detail[ field.value ]|default:0|right:22}
 {else}${detail[ field.value ]|right:22}
@@ -39,6 +39,7 @@ ${_( '(rpt)Summary' )}
 {if foot.foot_datas[ field.value ] != null}
 ${'    ' + _( '(rpt)' + field.name ) + ': '|left:20}{if field.datatype == "time"}
 ${foot.foot_datas[ field.value ]|unixTimeToString|right:22}
+{elseif field.datatype == "date"}${foot.foot_datas[ field.value ]|unixTimeToLocale:'date'|right:22}
 {elseif field.datatype == "dollar"}${foot.foot_datas[ field.value ]|default:0|viviFormatPrices:true|right:22}
 {elseif field.datatype == "number"}${foot.foot_datas[ field.value ]|right:22}
 {elseif field.datatype == "counter"}${foot.foot_datas[ field.value ]|default:0|right:22}
