@@ -1,4 +1,4 @@
-(function() {
+( function() {
 
     var __component__ = {
         
@@ -85,12 +85,10 @@
             catch( e ) {
                 this.log( 'ERROR', 'exportCSV: ' + e );
                 throw e;
-            }
-            finally {
+            } finally {
             }
         }
     };
 
-    var CsvExportComponent = window.CsvExportComponent = GeckoJS.Component.extend(__component__);
-
+    var CsvExportComponent = window.CsvExportComponent = GeckoJS.Component.extend( __component__ );
 })();

@@ -92,7 +92,8 @@
                 qty_subtotal: 0,
                 items_count: 0,
                 change: 0,
-                invoice_count: 0
+                invoice_count: 0,
+                included_tax_subtotal: 0
             };
             
             var old_oid;
@@ -145,6 +146,7 @@
                     footDatas.items_count += o.items_count;
                     footDatas.change += o.change;
                     footDatas.invoice_count += o.invoice_count;
+                    footDatas.included_tax_subtotal += o.included_tax_subtotal;
                 }
 				
                 repDatas[ oid ][o.payment_name] += o.payment_subtotal;
@@ -326,7 +328,10 @@
             for ( var i = 0; i < this._fields_array.length; i++ )
                 if ( this._fields_array[ i ].ispicked == "true" )
                     this._selectedFieldIncies.push( i );
-            
+
+
+            $.popupPanel('field_picker_panel', {fields: this._fields_array, selectedItems: this._selectedFieldIncies});
+            /*
             var fieldPickerPanelView = new GeckoJS.NSITreeViewArray( this._fields_array );
             fieldPickerScrollPanel.datasource = fieldPickerPanelView;
             fieldPickerScrollPanel.selectedItems = this._selectedFieldIncies;
@@ -338,6 +343,7 @@
             var fieldPickerPanel = document.getElementById( this._fieldPickerPanelId );
             //fieldPickerPanel.sizeTo( this._mainScreenWidth, this._mainScreenHeight );
             fieldPickerPanel.openPopup();
+            */
         },
         
         dismissFieldPicker: function() {
@@ -355,9 +361,8 @@
             } );
             
             GeckoJS.Configure.write( this._field_pref_prefix, this._fields );
-            
-            var fieldPickerPanel = document.getElementById( this._fieldPickerPanelId );
-            fieldPickerPanel.hidePopup();
+
+            $.hidePanel(this._fieldPickerPanelId, true);
         },
         
         load: function() {

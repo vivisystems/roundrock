@@ -1,4 +1,4 @@
-(function() {
+( function() {
 
     var __component__ = {
 
@@ -182,8 +182,7 @@
             catch ( e ) {
                 this.log( 'ERROR', 'browser.printToPDF: ' + e );
                 throw e;
-            }
-            finally {
+            } finally {
             }
         },
        
@@ -351,6 +350,5 @@
         }
     };
 
-    var BrowserPrintComponent = window.BrowserPrintComponent = GeckoJS.Component.extend(__component__);
-
-})();
+    var BrowserPrintComponent = window.BrowserPrintComponent = GeckoJS.Component.extend( __component__ );
+} )();
