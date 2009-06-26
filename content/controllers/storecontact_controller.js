@@ -56,6 +56,11 @@
             GeckoJS.Session.set('storeContact', contact);
         },
 
+        isAlphaNumeric: function(str) {
+            var nonalphaRE = /[^a-zA-Z0-9]/;
+            return !nonalphaRE.test(str);
+        },
+
         update: function () {
             var formObj = GeckoJS.FormHelper.serializeToObject('storecontactForm');
             if (formObj == null) {
@@ -68,7 +73,8 @@
                 var name = (formObj.name == null) ? '' : GeckoJS.String.trim(formObj.name);
 
                 if (name.length == 0) {
-                    NotifyUtils.warn(_('Store name must not be blank!'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Store Contact'),
+                                          _('Store name must not be blank!'));
                     return false;
                 }
                 formObj.name = name;
@@ -77,7 +83,8 @@
                 var branch = (formObj.branch == null) ? '' : GeckoJS.String.trim(formObj.branch);
 
                 if (branch.length == 0) {
-                    NotifyUtils.warn(_('Branch name must not be blank!'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Store Contact'),
+                                          _('Branch name must not be blank!'));
                     return false;
                 }
                 formObj.branch = branch;
@@ -86,7 +93,14 @@
                 var branch_id = (formObj.branch_id == null) ? '' : GeckoJS.String.trim(formObj.branch_id);
 
                 if (branch_id.length == 0) {
-                    NotifyUtils.warn(_('Branch ID must not be blank!'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Store Contact'),
+                                          _('Branch ID must not be blank!'));
+                    return false;
+                }
+
+                if (!this.isAlphaNumeric(branch_id)) {
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Store Contact'),
+                                          _('Branch ID must only contain [a-z], [A-Z], and [0-9]!'));
                     return false;
                 }
                 formObj.branch_id = branch_id;
@@ -108,7 +122,7 @@
             var storeContactModel = new StoreContactModel();
             
             if(terminal_no==null || terminal_no==""){
-		var formObj = storeContactModel.find('first' );
+                var formObj = storeContactModel.find('first' );
             }else{
                 var formObj = storeContactModel.findByIndex('first', {
                                     index: 'terminal_no',

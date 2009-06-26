@@ -182,58 +182,6 @@
                 listObj.selectedIndex = -1;
             };
             this.select();
-/*
-            this.Acl.addRole('acl_user_override_default_price_level');
-            this.Acl.addRole('acl_change_price_level');
-            this.Acl.addRole('acl_set_price_level_1');
-            this.Acl.addRole('acl_set_price_level_2');
-            this.Acl.addRole('acl_set_price_level_3');
-            this.Acl.addRole('acl_set_price_level_4');
-            this.Acl.addRole('acl_set_price_level_5');
-            this.Acl.addRole('acl_set_price_level_6');
-            this.Acl.addRole('acl_set_price_level_7');
-            this.Acl.addRole('acl_set_price_level_8');
-            this.Acl.addRole('acl_set_price_level_9');
-            this.Acl.addRole('acl_revert_price_level');
-            this.Acl.addRole('acl_override_halo');
-            this.Acl.addRole('acl_override_lalo');
-            this.Acl.addRole('acl_queue_order');
-            this.Acl.addRole('acl_pull_queue');
-            this.Acl.addRole('acl_open_control_panel');
-            this.Acl.addRole('acl_modify_cart_item');
-            this.Acl.addRole('acl_void_cart_item');
-            this.Acl.addRole('acl_cancel_order');
-            this.Acl.addRole('acl_plu_search');
-            this.Acl.addRole('acl_open_cash');
-            this.Acl.addRole('acl_toggle_numpad');
-            this.Acl.addRole('acl_public_access');
-            this.Acl.addRole('acl_manage_condiments');
-            this.Acl.addRole('acl_manage_currency');
-            this.Acl.addRole('acl_manage_departments');
-            this.Acl.addRole('acl_manage_employees');
-            this.Acl.addRole('acl_manage_function_panel');
-            this.Acl.addRole('acl_shift_item_tax');
-            this.Acl.addRole('acl_register_discount');
-            this.Acl.addRole('acl_register_reduction');
-            this.Acl.addRole('acl_register_surcharge');
-            this.Acl.addRole('acl_register_addition');
-            this.Acl.addRole('acl_send_keypress');
-            this.Acl.addRole('acl_register_quantity');
-            this.Acl.addRole('acl_register_enter');
-            this.Acl.addRole('acl_register_sub_total');
-            this.Acl.addRole('acl_register_tray_marker');
-            this.Acl.addRole('acl_register_housebon');
-            this.Acl.addRole('acl_register_currency_exchange');
-            this.Acl.addRole('acl_manage_jobs');
-            this.Acl.addRole('acl_manage_plu_groups');
-            this.Acl.addRole('acl_manage_price_level_schedule');
-            this.Acl.addRole('acl_manage_acl_roles');
-            this.Acl.addRole('acl_register_plus');
-            this.Acl.addRole('acl_manage_stock');
-            this.Acl.addRole('acl_manage_system_options');
-            this.Acl.addRole('acl_manage_taxes');
-            this.Acl.addRole('acl_manage_products');
-*/
         },
 	
         select: function() {

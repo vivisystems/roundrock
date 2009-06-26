@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % DateTime SYSTEM "chrome://viviecr/locale/datetime.dtd">
+  %DateTime;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/bindings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<wizard id="VIVIPOS Setup"
+        title="VIVIPOS Setup"
+        onwizardfinish="return finishSetup();"
+        onwizardcancel="return cancelSetup();"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+<script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+<script type="application/x-javascript" src="chrome://viviecr/content/setup_wizard.js" />
+
+    <wizardpage
+        pageid="welcome"
+		label="VIVIPOS Setup - Splash screen"
+		description="This screen displays corporate logo and misc. legal/corporate disclaimers/announcements in English"
+        entry="display splash screen"
+        advance="no action"
+        rewind="n/a"
+        >
+        <vbox flex="1">
+        </vbox>
+    </wizardpage>
+
+    <wizardpage
+        pageid="language"
+		label="VIVIPOS Setup - Language selection"
+		description="This screen allows user to choose from a list of supported locales"
+        onpageshow="initLocaleKbmap()"
+        onpageadvanced="return setLocaleKbmap()"
+        entry="display list of supported locales"
+        advance="activate selected locale if different from previous selection"
+        rewind="no action"
+        >
+        <hbox flex="1">
+            <vbox flex="1">
+                <label value="Locale" class="SubTitle"/>
+                <vivilocaleslistbox id="locale" package="viviecr" rows="6" flex="1"/>
+            </vbox>
+            <spacer width="20px"/>
+            <vbox flex="1">
+                <label value="Keyboard" class="SubTitle"/>
+                <vivikbmaplistbox id="kbmap" flex="1"/>
+            </vbox>
+        </hbox>
+    </wizardpage>
+
+    <wizardpage
+        pageid="location"
+		label="VIVIPOS Setup - Location selection"
+		description="This screen allows user to choose from a list of supported locations"
+        entry="display list of supported locations"
+        advance="when location selection changes, update default time zone"
+        rewind="no action"
+        >
+        <box flex="1">
+        </box>
+    </wizardpage>
+
+    <wizardpage
+        pageid="timezone"
+		label="VIVIPOS Setup - Timezone"
+		description="This screen allows user to set timezone"
+        onpageadvanced="return setTimezone()"
+        entry="display timezone screen with default time zone from location"
+        advance="update system timezone if different from previous selection"
+        rewind="no action"
+        >
+        <box flex="1">
+            <vivitimezones id="timezones" flex="1" class="TimeZone"/>
+        </box>
+    </wizardpage>
+
+    <wizardpage
+        pageid="date/time"
+		label="VIVIPOS Setup - Date/Time"
+		description="This screen allows user to set date/time"
+        onpageshow="startClock()"
+        onpagehide="stopClock()"
+        entry="display date/time screen"
+        advance="update system date/time"
+        rewind="no action"
+        >
+        <box flex="1">
+            <vividatetimepicker id="datetime" flex="1" type="embed" class="DateTime"/>
+        </box>
+    </wizardpage>
+
+    <wizardpage
+        pageid="sector"
+		label="VIVIPOS Setup - Sector selection"
+		description="This screen allows user to select a sector from a list filtered by the selected location"
+        entry="display list of sectors from the selected location"
+        advance="replace existing db with factory (empty) db, install location/sector specific data (users, taxes, preferences) if location/sector has changed"
+        rewind="no action"
+        >
+        <box flex="1">
+        </box>
+    </wizardpage>
+
+    <wizardpage
+        pageid="store"
+		label="VIVIPOS Setup - Store information"
+		description="This screen allows the user to fill in store contact information"
+        entry="display"
+        advance="update db with store information; keep store information in memory"
+        rewind="no action"
+        >
+        <box flex="1">
+        </box>
+    </wizardpage>
+
+    <wizardpage
+        pageid="login"
+		label="VIVIPOS Setup - Login information"
+		description="This screen displays the list of built-in user accounts and allows the user to set administrator password"
+        entry="install user accounts from location/sector profile"
+        advance="update administrator password"
+        rewind="no action"
+        >
+        <box flex="1">
+        </box>
+    </wizardpage>
+
+    <wizardpage
+        pageid="taxes"
+		label="VIVIPOS Setup - Tax information"
+		description="This screen displays the list of taxes configured for the given location/sector; this list is informational only, and is to be used to complete tax column for the product import spreadsheet"
+        entry="no action"
+        advance="no action"
+        rewind="no action"
+        >
+        <box flex="1">
+        </box>
+    </wizardpage>
+
+    <wizardpage
+        pageid="import"
+		label="VIVIPOS Setup - Import product data"
+		description="This screen allows the user to import product data - provides an explicit 'IMPORT' button"
+        entry="no action"
+        advance="no action"
+        rewind="no action"
+        >
+        <box flex="1">
+        </box>
+    </wizardpage>
+
+    <wizardpage
+        pageid="export license"
+		label="VIVIPOS Setup - Export license"
+		description="This screen allows the user to export license to USB thumb drive - provides an explicit 'EXPORT' button"
+        entry="no action"
+        advance="no action"
+        rewind="no action"
+        >
+        <box flex="1">
+        </box>
+    </wizardpage>
+
+    <wizardpage
+        pageid="end"
+		label="VIVIPOS Setup - Finish"
+		description="This screen displays congratulatory message + selection summary"
+        entry="no action"
+        advance="no action"
+        rewind="no action"
+        >
+        <box flex="1">
+        </box>
+    </wizardpage>
+
+</wizard>
+

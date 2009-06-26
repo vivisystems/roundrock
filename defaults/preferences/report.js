@@ -1,5 +1,3 @@
-/* reports */
-/* general preference */
 pref("vivipos.fec.settings.maxExportPdfHeight", 30000);
 pref("vivipos.fec.settings.scrollRange", 200);
 

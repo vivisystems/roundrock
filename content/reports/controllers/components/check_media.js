@@ -13,10 +13,8 @@
             var deviceReady = false;
             this._backupDir = null;
 
-            var deviceMount = "/media/";
+            var deviceMount = '/media/';
             //var deviceMount = "/var/tmp/";
-
-            var hasMounted = false;
 
             // auto create folder default is true...
             if ( typeof autoCreate == 'undefined' ) autoCreate = true;
@@ -39,7 +37,12 @@
                     // autocreate given folder name
                     //storeName = GeckoJS.Session.get( 'storeContact' ).name;
                     var branchId = GeckoJS.Session.get( 'storeContact' ).branch_id;
-                    var mediaDir = new GeckoJS.Dir( deviceMount + folderName + '/' + branchId, autoCreate );
+                    var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+
+                    if (branchId) branchId = '/' + branchId;
+                    if (terminalNo) terminalNo = '/' + terminalNo;
+
+                    var mediaDir = new GeckoJS.Dir( deviceMount + folderName + branchId + terminalNo, autoCreate );
 
                     if ( mediaDir.exists() ) {
                         // return target path if device ready...

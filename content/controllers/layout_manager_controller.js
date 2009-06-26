@@ -18,6 +18,8 @@
 
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            var resolution = width + 'x' + height;
+
             document.getElementById('prefwin').width=width;
             document.getElementById('prefwin').height=height;
             document.getElementById('prefwin').dlgbuttons="accept,help";
@@ -27,10 +29,14 @@
 
             var rbObj = this.getRichlistbox();
 
-
+            // filter layouts by resolution
             for (var key in layouts) {
-
-                this.appendItem(rbObj, layouts[key], key);
+                if (GeckoJS.String.contains(layouts[key].resolutions, resolution)) {
+                    this.appendItem(rbObj, layouts[key], key);
+                }
+                else {
+                    delete layouts[key];
+                }
             }
 
             rbObj.value = selectedLayout;

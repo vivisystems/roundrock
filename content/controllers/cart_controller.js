@@ -52,12 +52,7 @@
                 events.addListener('clear', this.sessionHandler, this);
             }
             
-            // add event listener for startTrainingMode event.
-            /*var trainingModeController = GeckoJS.Controller.getInstanceByName( 'TrainingMode' );
-            if ( trainingModeController ) {
-            	trainingModeController.addEventListener( 'startTrainingMode', this.startTraining, this );
-            }*/
-            
+            // add Observer for startTrainingMode event.
             var self = this;
             this.observer = GeckoJS.Observer.newInstance( {
                 topics: [ "TrainingMode" ],
@@ -3621,11 +3616,18 @@
         	if ( isTraining ) {
         		this._queueFile = this._trainingQueueFile;
         		this._queueSession = this._trainingQueueSession;
+
+                this.clear();
         	} else {
-        		this.removeQueueRecoveryFile( this._queueFile );
+                // discard cart content
+                this.cancel(true);
+                
         		GeckoJS.Session.remove( this._queueSession );
         		this._queueFile = this._defaultQueueFile;
         		this._queueSession = this._defaultQueueSession;
+
+                // clear screen
+                this.subtotal();
         	}
         },
 

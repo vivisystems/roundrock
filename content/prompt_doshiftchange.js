@@ -74,7 +74,6 @@ var options;
                 inputObj.type = 'IN';
                 inputObj.amount = parseFloat(document.getElementById('amount').value);
 
-                // if (!isNaN(inputObj.amount) && (index >= 0)) {
                 if (!isNaN(inputObj.amount)) {
                     inputObj.ok = true;
                     return true;
@@ -83,8 +82,6 @@ var options;
                     inputObj.topic = '';
                     inputObj.ok = true;
                     return true;
-                } else {
-                    NotifyUtils.warn(_('data incomplete!'));
                 }
             },
 
