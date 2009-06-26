@@ -248,7 +248,7 @@
         	if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to reset all the stock records?' ) ) )
         		return;
         	
-        	var sql = "select distinct no from products;";
+        	var sql = "select distinct no, barcode from products;";
         	var products = this.Product.getDataSource().fetchAll( sql );
         	
         	var stockRecordModel = new StockRecordModel();
@@ -281,6 +281,7 @@
         		
         	var records = this._records;
         	var stockRecords = [];
+        	var user = this.Acl.getUserPrincipal();
         	
         	for ( record in records ) {
 				stockRecords.push( {
@@ -289,6 +290,7 @@
 					warehouse: records[ record ].warehouse,
 					quantity: records[ record ].new_quantity
 				} );
+				records[ record ].clerk = user.username;
 			}
         	
         	var stockRecordModel = new StockRecordModel();

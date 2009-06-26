@@ -161,6 +161,8 @@
         	stockRecord.quantity = quantity;
         	stockRecord.memo = memo;
         	
+        	var user = this.Acl.getUserPrincipal();
+        	
         	var stockRecordModel = new StockRecordModel();
         	stockRecordModel.set( stockRecord );
         	
@@ -172,6 +174,7 @@
         	adjustment.new_quantity = quantity;
         	adjustment.sale_period = GeckoJS.Session.get( 'sale_period' );
         	adjustment.shift_number = GeckoJS.Session.get( 'shift_number' );
+        	adjustment.clerk = user.username;
         	
         	var stockAdjustmentModel = new StockAdjustmentModel();
         	stockAdjustmentModel.set( adjustment );
