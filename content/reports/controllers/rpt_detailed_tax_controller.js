@@ -73,6 +73,9 @@
                 limit: limit
             } );*/
 
+            var counts = orderItem.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ')');
+            var rowCount = counts[0].rowCount;
+
             var datas = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
 
             var typeCombineTax = 'COMBINE';
@@ -105,7 +108,7 @@
                     }
 			} );
             */
-           
+            var taxComponentObj = new TaxComponent();
             var oid;
             var records = {};
             datas.forEach( function( data ) {
@@ -141,7 +144,7 @@
                 summary.surcharge_subtotal -= data.current_surcharge || 0;
                 summary.discount_subtotal -= data.current_discount || 0;
                 
-                var taxObject = TaxComponent.prototype.getTax( data.tax_name );
+                var taxObject = taxComponentObj.getTax( data.tax_name );
 				
                 if (!taxObject || taxObject.type != typeCombineTax ) {
 
@@ -188,7 +191,7 @@
                             taxesByName[cTax.no] = 1;
                         }
 
-                        var taxAmountObject = TaxComponent.prototype.calcTaxAmount( cTax.no, data.current_subtotal, data.current_price, data.current_qty );
+                        var taxAmountObject = taxComponentObj.calcTaxAmount( cTax.no, data.current_subtotal, data.current_price, data.current_qty );
                         var taxAmount = taxAmountObject[ cTax.no ].charge + taxAmountObject[ cTax.no ].included;
                         if (cTax.no in records[ oid ] ) {
                             records[ oid ][ cTax.no ].tax_subtotal += taxAmount;
@@ -241,6 +244,7 @@
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;
+            this._reportRecords.head.rowCount = rowCount;
 			
             this._reportRecords.body = records;
 			

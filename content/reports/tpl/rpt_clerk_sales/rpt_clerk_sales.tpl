@@ -89,7 +89,7 @@
 {/eval}
             <tfoot>
                 <tr>
-                    <td colspan="4" style="text-align: left;">${_( '(rpt)Records Found' ) }: ${clerk.orders.length|default:0|format:0}</td>
+                    <td colspan="4" style="text-align: left;">${_( '(rpt)Records Found' ) }: ${head.rowCount|default:0|format:0} <br/>${_( '(rpt)Records Display' ) }: ${clerk.orders.length|default:0|format:0}</td>
                     <td colspan="2">${_( '(rpt)Summary' ) }:</td>
                     <td style="text-align: right;">${clerk.summary.guests|format:0}</td>
                     <td style="text-align: right;">${clerk.summary.items|format:0}</td>

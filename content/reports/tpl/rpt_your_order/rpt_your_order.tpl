@@ -62,7 +62,7 @@
             <tfoot>
                 <tr>
                     <td colspan="${fields.length}">
-                        <span style="float: left;">${_( '(rpt)Records Found' ) }: ${body.length|default:0|format:0}</span>
+                        <span style="float: left;">${_( '(rpt)Records Found' ) }: ${head.rowCount|default:0|format:0} <br/>${_( '(rpt)Records Display' ) }: ${body.length|default:0|format:0}</span>
                         <span style="float: right;">${_( '(rpt)Summary' ) + ':'}</span>
                     </td>
                 </tr>
