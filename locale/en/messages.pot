@@ -2317,6 +2317,9 @@ msgstr "Invoice Count"
 msgid "(rpt)Records Found"
 msgstr "Records Found"
 
+msgid "(rpt)Records Display"
+msgstr "Records Display"
+
 msgid "(rpt)Occurrences"
 msgstr "Occurrences"
 
