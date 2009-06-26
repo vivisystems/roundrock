@@ -81,10 +81,13 @@
             'orders.terminal_no'
             ];
                 
-            var groupby = 'orders.id, payment_name';
+            var groupby = 'orders.id, order_payments.name';
             var orderby = 'orders.' +  timeField;
 
             var orderPayment = new OrderPaymentModel();
+
+            var counts = orderPayment.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby +')');
+            var rowCount = counts[0].rowCount;
 
             //var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1, limit: limit } );
             var datas = orderPayment.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_payments ON ("orders"."id" = "order_payments"."order_id" )  WHERE ' + conditions + '  GROUP BY ' + groupby + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
@@ -224,6 +227,7 @@
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminal_no;
+            this._reportRecords.head.rowCount = rowCount;
    			
             this._reportRecords.body = clerks;
         },
