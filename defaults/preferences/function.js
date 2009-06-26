@@ -123,7 +123,7 @@ pref("vivipos.fec.registry.function.programmable.keypress.command", "sendCharcod
 pref("vivipos.fec.registry.function.programmable.keypress.controller", "Keypad");
 pref("vivipos.fec.registry.function.programmable.keypress.data", "");
 
-pref("vivipos.fec.registry.function.programmable.ledgerentry.access", "acl_view_ledger_entry");
+pref("vivipos.fec.registry.function.programmable.ledgerentry.access", "acl_add_ledger_entry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.command", "ledgerEntry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.data", "");

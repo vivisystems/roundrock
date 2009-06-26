@@ -204,59 +204,62 @@ msgstr "XTerm"
 #
 ########################################################################
 
-msgid "Attendance Report"
+msgid "vivipos.fec.reportpanels.attendancerecord.label"
 msgstr "Attendance Record"
 
-msgid "Department Report"
-msgstr "Department List"
-
-msgid "Cash Drawer Report"
-msgstr "Cash Drawer Report"
-
-msgid "Cash Drawer Summary Report"
-msgstr "Cash Drawer Summary"
-
-msgid "Order Status Report"
-msgstr "Order Status Report"
-
-msgid "Product Report"
-msgstr "Product List"
-
-msgid "Product Sales Report"
-msgstr "Product Sales"
-
-msgid "Employee Report"
-msgstr "Employee List"
-
-msgid "Product Stock Report"
-msgstr "Stock Report"
-
-msgid "Hourly Sales Report"
-msgstr "Hourly Sales"
-
-msgid "Shift Change Report"
+msgid "vivipos.fec.reportpanels.cashbyclerk.label"
 msgstr "Shift Change Report"
 
-msgid "Sales Report"
-msgstr "Sales Report"
+msgid "vivipos.fec.reportpanels.cashdrawerreport.label"
+msgstr "Cash Drawer Report"
 
-msgid "Sales Report - Detailed"
-msgstr "Sales - Detailed"
+msgid "vivipos.fec.reportpanels.cashdrawersummary.label"
+msgstr "Cash Drawer Summary"
 
-msgid "Daily Sales Summary Report"
-msgstr "Daily Sales Summary"
-
-msgid "Daily Promotion Summary Report"
-msgstr "Daily Promotion Summary"
-
-msgid "Sales Summary Report"
-msgstr "Sales Summary"
-
-msgid "Clerk Sales Report"
+msgid "vivipos.fec.reportpanels.clerksalesreport.label"
 msgstr "Clerk Sales"
 
-msgid "Detailed Tax Report"
+msgid "vivipos.fec.reportpanels.dailysalesdetail.label"
+msgstr "Sales - Detailed"
+
+msgid "vivipos.fec.reportpanels.dailysales.label"
+msgstr "Sales Report"
+
+msgid "vivipos.fec.reportpanels.dailysalessummary.label"
+msgstr "Daily Sales Summary"
+
+msgid "vivipos.fec.reportpanels.departmentlist.label"
+msgstr "Department List"
+
+msgid "vivipos.fec.reportpanels.detailedtaxreport.label"
 msgstr "Detailed Tax Report"
+
+msgid "vivipos.fec.reportpanels.hourlysales.label"
+msgstr "Hourly Sales"
+
+msgid "vivipos.fec.reportpanels.orderstatus.label"
+msgstr "Order Status Report"
+
+msgid "vivipos.fec.reportpanels.productlist.label"
+msgstr "Product List"
+
+msgid "vivipos.fec.reportpanels.productsales.label"
+msgstr "Product Sales"
+
+msgid "vivipos.fec.reportpanels.promotionsummary.label"
+msgstr "Daily Promotion Summary"
+
+msgid "vivipos.fec.reportpanels.salessummary.label"
+msgstr "Sales Summary"
+
+msgid "vivipos.fec.reportpanels.stocks.label"
+msgstr "Stock Report"
+
+msgid "vivipos.fec.reportpanels.userlist.label"
+msgstr "Employee List"
+
+msgid "vivipos.fec.reportpanels.yourorder.label"
+msgstr "Custom Sales Report"
 
 ########################################################################
 #
@@ -2154,14 +2157,17 @@ msgstr "Retail Layout (for conceptual demonstration only)"
 #
 ########################################################################
 
-msgid "INCLUDED"
+msgid "(taxType)INCLUDED"
 msgstr "included"
 
-msgid "ADDON"
+msgid "(taxType)ADDON"
 msgstr "add-on"
 
-msgid "COMBINED"
+msgid "(taxType)COMBINE"
 msgstr "combined"
+
+msgid "(taxType)VAT & VAT"
+msgstr "VAT & VAT"
 
 ########################################################################
 #
@@ -2169,11 +2175,17 @@ msgstr "combined"
 #
 ########################################################################
 
-msgid "IN"
+msgid "(ledgerEntryType)IN"
 msgstr "IN"
 
-msgid "OUT"
+msgid "(ledgerEntryType)OUT"
 msgstr "OUT"
+
+msgid "(ledgerEntryType)Y"
+msgstr "Yes"
+
+msgid "(ledgerEntryType)N"
+msgstr "No"
 
 ########################################################################
 #

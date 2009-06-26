@@ -21,13 +21,13 @@ msgstr ""
 # List of Locales
 #
 # #######################################################################
-msgid "en"
+msgid "(locale)en"
 msgstr "English (en)"
 
-msgid "en-US"
+msgid "(locale)en-US"
 msgstr "English - US (en-US)"
 
-msgid "zh-TW"
+msgid "(locale)zh-TW"
 msgstr "繁體中文 - 台灣 (zh-TW)"
 
 # #######################################################################
@@ -35,22 +35,22 @@ msgstr "繁體中文 - 台灣 (zh-TW)"
 # List of Locations
 #
 # #######################################################################
-msgid "Taiwan"
+msgid "(location)Taiwan"
 msgstr "Taiwan"
 
-msgid "China"
+msgid "(location)China"
 msgstr "China"
 
-msgid "USA"
+msgid "(location)USA"
 msgstr "USA"
 
-msgid "Japan"
+msgid "(location)Japan"
 msgstr "Japan"
 
-msgid "France"
+msgid "(location)France"
 msgstr "France"
 
-msgid "Korea"
+msgid "(location)Korea"
 msgstr "Korea"
 
 # #######################################################################
@@ -195,59 +195,62 @@ msgstr "XTerm"
 # List of Reports
 #
 # #######################################################################
-msgid "Attendance Report"
+msgid "vivipos.fec.reportpanels.attendancerecord.label"
 msgstr "Attendance Record"
 
-msgid "Department Report"
-msgstr "Department List"
-
-msgid "Cash Drawer Report"
-msgstr "Cash Drawer Report"
-
-msgid "Cash Drawer Summary Report"
-msgstr "Cash Drawer Summary"
-
-msgid "Order Status Report"
-msgstr "Order Status Report"
-
-msgid "Product Report"
-msgstr "Product List"
-
-msgid "Product Sales Report"
-msgstr "Product Sales"
-
-msgid "Employee Report"
-msgstr "Employee List"
-
-msgid "Product Stock Report"
-msgstr "Stock Report"
-
-msgid "Hourly Sales Report"
-msgstr "Hourly Sales"
-
-msgid "Shift Change Report"
+msgid "vivipos.fec.reportpanels.cashbyclerk.label"
 msgstr "Shift Change Report"
 
-msgid "Sales Report"
-msgstr "Sales Report"
+msgid "vivipos.fec.reportpanels.cashdrawerreport.label"
+msgstr "Cash Drawer Report"
 
-msgid "Sales Report - Detailed"
-msgstr "Sales - Detailed"
+msgid "vivipos.fec.reportpanels.cashdrawersummary.label"
+msgstr "Cash Drawer Summary"
 
-msgid "Daily Sales Summary Report"
-msgstr "Daily Sales Summary"
-
-msgid "Daily Promotion Summary Report"
-msgstr "Daily Promotion Summary"
-
-msgid "Sales Summary Report"
-msgstr "Sales Summary"
-
-msgid "Clerk Sales Report"
+msgid "vivipos.fec.reportpanels.clerksalesreport.label"
 msgstr "Clerk Sales"
 
-msgid "Detailed Tax Report"
+msgid "vivipos.fec.reportpanels.dailysalesdetail.label"
+msgstr "Sales - Detailed"
+
+msgid "vivipos.fec.reportpanels.dailysales.label"
+msgstr "Sales Report"
+
+msgid "vivipos.fec.reportpanels.dailysalessummary.label"
+msgstr "Daily Sales Summary"
+
+msgid "vivipos.fec.reportpanels.departmentlist.label"
+msgstr "Department List"
+
+msgid "vivipos.fec.reportpanels.detailedtaxreport.label"
 msgstr "Detailed Tax Report"
+
+msgid "vivipos.fec.reportpanels.hourlysales.label"
+msgstr "Hourly Sales"
+
+msgid "vivipos.fec.reportpanels.orderstatus.label"
+msgstr "Order Status Report"
+
+msgid "vivipos.fec.reportpanels.productlist.label"
+msgstr "Product List"
+
+msgid "vivipos.fec.reportpanels.productsales.label"
+msgstr "Product Sales"
+
+msgid "vivipos.fec.reportpanels.promotionsummary.label"
+msgstr "Daily Promotion Summary"
+
+msgid "vivipos.fec.reportpanels.salessummary.label"
+msgstr "Sales Summary"
+
+msgid "vivipos.fec.reportpanels.stocks.label"
+msgstr "Stock Report"
+
+msgid "vivipos.fec.reportpanels.userlist.label"
+msgstr "Employee List"
+
+msgid "vivipos.fec.reportpanels.yourorder.label"
+msgstr "Custom Sales Report"
 
 # #######################################################################
 #
@@ -2064,25 +2067,34 @@ msgstr "Retail Layout (for conceptual demonstration only)"
 # Tax Types
 #
 # #######################################################################
-msgid "INCLUDED"
+msgid "(taxType)INCLUDED"
 msgstr "included"
 
-msgid "ADDON"
+msgid "(taxType)ADDON"
 msgstr "add-on"
 
-msgid "COMBINED"
+msgid "(taxType)COMBINE"
 msgstr "combined"
+
+msgid "(taxType)VAT & VAT"
+msgstr "VAT & VAT"
 
 # #######################################################################
 #
 # Ledger Entry Types
 #
 # #######################################################################
-msgid "IN"
+msgid "(ledgerEntryType)IN"
 msgstr "IN"
 
-msgid "OUT"
+msgid "(ledgerEntryType)OUT"
 msgstr "OUT"
+
+msgid "(ledgerEntryType)Y"
+msgstr "Yes"
+
+msgid "(ledgerEntryType)N"
+msgstr "No"
 
 #: ../..//content/controlPanel.js:36
 msgid "vivipos.fec.settings.controlpanels."
@@ -2154,6 +2166,10 @@ msgstr ""
 #: ../..//content/refund_payment.js:18
 msgid ""
 "Are you sure you want to void transaction [%S] (payment [%S], refund [%S])?"
+msgstr ""
+
+#: ../..//content/reportPanel.js:25 ../..//content/reportPanel.js:27
+msgid "vivipos.fec.reportpanels."
 msgstr ""
 
 #: ../..//content/select_checks.js:40
@@ -2263,7 +2279,7 @@ msgstr ""
 #: ../..//content/controllers/plugroups_controller.js:179
 #: ../..//content/controllers/plus_controller.js:911
 #: ../..//content/controllers/promotions_manager_controller.js:359
-#: ../..//content/controllers/taxes_controller.js:210
+#: ../..//content/controllers/taxes_controller.js:214
 #: ../..//content/controllers/users_controller.js:245
 msgid "confirm delete %S"
 msgstr ""
@@ -2278,7 +2294,7 @@ msgstr ""
 #: ../..//content/controllers/plus_controller.js:911
 #: ../..//content/controllers/pricelevelschedule_controller.js:154
 #: ../..//content/controllers/promotions_manager_controller.js:359
-#: ../..//content/controllers/taxes_controller.js:210
+#: ../..//content/controllers/taxes_controller.js:214
 #: ../..//content/controllers/users_controller.js:245
 msgid "Are you sure?"
 msgstr ""
@@ -3305,7 +3321,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/condiments_controller.js:410
-#: ../..//content/controllers/taxes_controller.js:185
+#: ../..//content/controllers/taxes_controller.js:189
 msgid "[%S] has been assigned to one or more products and may not be deleted"
 msgstr ""
 
@@ -4028,6 +4044,11 @@ msgstr ""
 msgid "Transaction type [%S] and mode [%S] successfully deleted"
 msgstr ""
 
+#: ../..//content/controllers/ledger_entry_types_controller.js:118
+#: ../..//content/controllers/ledger_entry_types_controller.js:121
+msgid "(ledgerEntryType)"
+msgstr ""
+
 #: ../..//content/controllers/ledger_entry_types_controller.js:180
 msgid "Drawer Change IN"
 msgstr ""
@@ -4101,7 +4122,7 @@ msgid "(view)stored"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:159
-#: ../..//content/reports/controllers/rpt_base_controller.js:423
+#: ../..//content/reports/controllers/rpt_base_controller.js:449
 msgid "Order Details"
 msgstr ""
 
@@ -5375,89 +5396,81 @@ msgstr ""
 msgid "Options saved successfully"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:78
+#: ../..//content/controllers/taxes_controller.js:70
+msgid "(taxType)"
+msgstr ""
+
+#: ../..//content/controllers/taxes_controller.js:81
 msgid "Tax code must not be empty."
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:82
+#: ../..//content/controllers/taxes_controller.js:85
 msgid "Tax name must not be empty."
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:90
+#: ../..//content/controllers/taxes_controller.js:93
 msgid "Duplicate tax code [%S]; tax not added"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:94
+#: ../..//content/controllers/taxes_controller.js:97
 msgid "Duplicate tax name [%S]; tax not %S"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:108
-msgid "Add-On"
-msgstr ""
-
-#: ../..//content/controllers/taxes_controller.js:109
-msgid "Included"
-msgstr ""
-
-#: ../..//content/controllers/taxes_controller.js:110
-msgid "Combined"
-msgstr ""
-
-#: ../..//content/controllers/taxes_controller.js:111
-msgid "VAT & VAT"
-msgstr ""
-
-#: ../..//content/controllers/taxes_controller.js:114
+#: ../..//content/controllers/taxes_controller.js:117
 msgid "Add New Tax Status"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:114
+#: ../..//content/controllers/taxes_controller.js:117
 msgid "New Tax Status"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:114
+#: ../..//content/controllers/taxes_controller.js:117
 msgid "Tax Code"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:114
+#: ../..//content/controllers/taxes_controller.js:117
 msgid "Tax Name"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:147
-msgid "Tax [%S] added successfully"
+#: ../..//content/controllers/taxes_controller.js:127
+msgid "(taxType"
 msgstr ""
 
 #: ../..//content/controllers/taxes_controller.js:151
-#: ../..//content/controllers/taxes_controller.js:247
+msgid "Tax [%S] added successfully"
+msgstr ""
+
+#: ../..//content/controllers/taxes_controller.js:155
+#: ../..//content/controllers/taxes_controller.js:251
 msgid ""
 "An error occurred while adding Tax [%S]; the tax may not have been added "
 "successfully"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:173
+#: ../..//content/controllers/taxes_controller.js:177
 msgid ""
 "[%S] has been assigned to one or more departments and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:192
+#: ../..//content/controllers/taxes_controller.js:196
 msgid "[%S] is the default tax and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:203
+#: ../..//content/controllers/taxes_controller.js:207
 msgid "[%S] is part of combined tax [%S] and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:221
+#: ../..//content/controllers/taxes_controller.js:225
 msgid "Tax [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:225
+#: ../..//content/controllers/taxes_controller.js:229
 msgid ""
 "An error occurred while removing Tax [%S]; the tax may not have been removed "
 "successfully"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:243
+#: ../..//content/controllers/taxes_controller.js:247
 msgid "Tax [%S] modified successfully"
 msgstr ""
 
@@ -5605,13 +5618,17 @@ msgstr ""
 msgid "Are you sure you want to print this order?"
 msgstr ""
 
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivilocaleslistbox.xbl:101
+msgid "(locale)"
+msgstr ""
+
 #: ../..//content/helpers/nsi_condiments_view.js:145
 #: ../..//content/helpers/nsi_departments_view.js:209
 #: ../..//content/helpers/nsi_plus_view.js:156
 msgid "Sold Out -"
 msgstr ""
 
-#: ../..//content/bindings/diskspace_usage.xbl:174
+#: ../..//content/bindings/diskspace_usage.xbl:163
 msgid "Free"
 msgstr ""
 
@@ -5720,31 +5737,47 @@ msgid ""
 "parameter field"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:190
+#: ../..//content/reports/controllers/rpt_attendance_record_controller.js:101
+msgid "Attendance Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_base_controller.js:216
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:198
+#: ../..//content/reports/controllers/rpt_base_controller.js:224
 msgid ""
 "The document is too large to be exported in .PDF format, please export as ."
 "CSV file instead!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:215
-#: ../..//content/reports/controllers/rpt_base_controller.js:268
+#: ../..//content/reports/controllers/rpt_base_controller.js:241
+#: ../..//content/reports/controllers/rpt_base_controller.js:294
 msgid "Media not found!! Please attach a USB thumb drive..."
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:252
+#: ../..//content/reports/controllers/rpt_base_controller.js:278
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:322
+#: ../..//content/reports/controllers/rpt_base_controller.js:348
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:477
+#: ../..//content/reports/controllers/rpt_base_controller.js:503
 msgid "The thumb drive has no enough free space!"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_cash_by_clerk_controller.js:54
+msgid "Shift Change Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_cash_drawer_controller.js:61
+msgid "Cash Drawer Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_cash_drawer_summary_controller.js:67
+msgid "Cash Drawer Summary Report"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_clerk_sales_controller.js:220
@@ -5755,32 +5788,60 @@ msgstr ""
 msgid "Proceeds Clerk Sales Report"
 msgstr ""
 
+#: ../..//content/reports/controllers/rpt_daily_sales_controller.js:192
+msgid "Sales Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_daily_sales_detail_controller.js:198
+msgid "Sales Report - Detailed"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_daily_sales_summary_controller.js:220
+msgid "Daily Sales Summary Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_departments_controller.js:28
+msgid "Department Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_detailed_tax_controller.js:240
+msgid "Detailed Tax Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_hourly_sales_controller.js:118
+msgid "Hourly Sales Report"
+msgstr ""
+
 #: ../..//content/reports/controllers/rpt_order_annotation_controller.js:136
 #: ../..//content/reports/controllers/rpt_order_status_controller.js:139
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:122
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:123
 msgid "(rpt)completed"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_order_annotation_controller.js:139
 #: ../..//content/reports/controllers/rpt_order_status_controller.js:142
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:125
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:126
 msgid "(rpt)stored"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_order_annotation_controller.js:142
 #: ../..//content/reports/controllers/rpt_order_status_controller.js:145
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:128
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:129
 msgid "(rpt)canceled"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_order_annotation_controller.js:145
 #: ../..//content/reports/controllers/rpt_order_status_controller.js:148
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:131
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:132
 msgid "(rpt)voided"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_order_annotation_controller.js:160
 msgid "Order Annotation Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_order_status_controller.js:164
+msgid "Order Status Report"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_product_sales_controller.js:144
@@ -5789,9 +5850,21 @@ msgstr ""
 msgid "Obsolete"
 msgstr ""
 
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:203
+msgid "Product Sales Report"
+msgstr ""
+
 #: ../..//content/reports/controllers/rpt_products_controller.js:64
 #: ../..//content/reports/controllers/rpt_stocks_controller.js:72
 msgid "(rpt)Obsolete Department"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_products_controller.js:75
+msgid "Product Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:144
+msgid "Daily Promotion Summary Report"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_sales_summary_controller.js:361
@@ -5806,6 +5879,10 @@ msgstr ""
 msgid "(rpt)Order Discount/Surcharge"
 msgstr ""
 
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:795
+msgid "Sales Summary Report"
+msgstr ""
+
 #: ../..//content/reports/controllers/rpt_sales_summary_controller.js:796
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:70
 #: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:40
@@ -5817,6 +5894,10 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
 #: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:26
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:20
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:47
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:17
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:40
 msgid "(rpt)"
 msgstr ""
 
@@ -5824,17 +5905,25 @@ msgstr ""
 msgid "(rpt)(based on %S)"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:229
+#: ../..//content/reports/controllers/rpt_stocks_controller.js:89
+msgid "Product Stock Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_users_controller.js:23
+msgid "Employee Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_your_order_controller.js:231
 msgid "Your Order Report"
 msgstr ""
 
-#: ../..//content/reports/controllers/components/browser_print.js:230
-#: ../..//content/reports/controllers/components/browser_print.js:317
+#: ../..//content/reports/controllers/components/browser_print.js:229
+#: ../..//content/reports/controllers/components/browser_print.js:316
 msgid "Generated by VIVIPOS"
 msgstr ""
 
-#: ../..//content/reports/controllers/components/browser_print.js:234
-#: ../..//content/reports/controllers/components/browser_print.js:318
+#: ../..//content/reports/controllers/components/browser_print.js:233
+#: ../..//content/reports/controllers/components/browser_print.js:317
 msgid "Firich Enterprises Co.,Ltd."
 msgstr ""
 
@@ -5923,8 +6012,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_users/rpt_users_rcp_80mm.tpl:4
 #: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:10
 #: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:5
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:19
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:9
 msgid "(rpt)Terminal"
 msgstr ""
 
@@ -6096,9 +6183,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:45
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:27
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:16
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:84
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:73
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:47
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:86
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:41
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:34
 msgid "(rpt)Records Found"
 msgstr ""
 
@@ -6161,9 +6248,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:105
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:117
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:128
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:85
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:76
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:50
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:87
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:44
+#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:37
 msgid "(rpt)Summary"
 msgstr ""
 
@@ -6194,8 +6281,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:25
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:24
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:21
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:25
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:21
 msgid "(rpt)Sale Period"
 msgstr ""
 
@@ -6220,8 +6305,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:26
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:26
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:22
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:27
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:22
 msgid "(rpt)Shift"
 msgstr ""
 
@@ -6249,10 +6332,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_58mm.tpl:73
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:22
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:43
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:55
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:97
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:34
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:61
 msgid "(rpt)Cash"
 msgstr ""
 
@@ -6310,10 +6389,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:45
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:17
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:27
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:51
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:93
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:32
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:59
 msgid "(rpt)Net Sales"
 msgstr ""
 
@@ -6430,8 +6505,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:27
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:28
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:9
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:29
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:9
 msgid "(rpt)Time"
 msgstr ""
 
@@ -6465,8 +6538,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:28
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:30
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:9
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:31
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:9
 msgid "(rpt)Sequence"
 msgstr ""
 
@@ -6497,8 +6568,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:30
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_58mm.tpl:34
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:24
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:33
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:23
 msgid "(rpt)Invoice Number"
 msgstr ""
 
@@ -6535,10 +6604,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:21
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:87
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:93
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:35
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:77
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:24
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:51
 msgid "(rpt)Number of Guests"
 msgstr ""
 
@@ -6570,10 +6635,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:73
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:35
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:22
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:37
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:79
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:25
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:52
 msgid "(rpt)Number of Items"
 msgstr ""
 
@@ -6643,10 +6704,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:82
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:89
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:95
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:39
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:81
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:26
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:53
 msgid "(rpt)Gross Sales"
 msgstr ""
 
@@ -6688,10 +6745,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:30
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:12
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:41
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:83
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:27
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:54
 msgid "(rpt)Add-on Tax"
 msgstr ""
 
@@ -6731,10 +6784,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:31
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:18
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:13
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:43
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:85
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:28
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:55
 msgid "(rpt)Surcharge"
 msgstr ""
 
@@ -6774,10 +6823,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:32
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:20
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:14
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:45
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:87
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:29
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:56
 msgid "(rpt)Discount"
 msgstr ""
 
@@ -6819,10 +6864,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:33
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:22
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:15
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:47
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:89
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:30
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:57
 msgid "(rpt)Promotion"
 msgstr ""
 
@@ -6864,10 +6905,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:34
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:24
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl:16
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:49
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:91
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:31
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:58
 msgid "(rpt)Revalue"
 msgstr ""
 
@@ -6897,10 +6934,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:33
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl:52
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:126
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:53
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:95
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:33
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:60
 msgid "(rpt)Payment"
 msgstr ""
 
@@ -6919,10 +6952,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_58mm.tpl:75
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:23
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:44
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:57
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:99
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:35
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:62
 msgid "(rpt)Check"
 msgstr ""
 
@@ -6941,10 +6970,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_58mm.tpl:77
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:24
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:45
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:59
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:101
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:36
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:63
 msgid "(rpt)Credit Card"
 msgstr ""
 
@@ -6963,10 +6988,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_58mm.tpl:79
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:25
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:46
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:61
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:103
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:37
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:64
 msgid "(rpt)Coupon"
 msgstr ""
 
@@ -6985,24 +7006,16 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_58mm.tpl:81
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:26
 #: ../..//content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl:47
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:63
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:105
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:38
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:65
 msgid "(rpt)Gift Card"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_58mm.tpl:21
 #: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_80mm.tpl:19
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:21
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:19
 msgid "(rpt)Service Clerk"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_58mm.tpl:23
 #: ../..//content/reports/tpl/rpt_daily_sales/rpt_daily_sales_rcp_80mm.tpl:20
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:23
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:20
 msgid "(rpt)Proceeds Clerk"
 msgstr ""
 
