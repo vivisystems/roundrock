@@ -96,18 +96,6 @@
          */
         showPrintDialog: function( paperProperties, frameID, caption, progress ) {
             try {
-                this._getPrintSettings();
-                this._setPaperProperties( paperProperties );
-                this.showPageSetup( this._printSettings );
-                
-                var pageSetup = {
-                    orientation: this._printSettings.orientation,
-                    paperName: this._printSettings.paperName,
-                    paperHeight: this._printSettings.paperHeight,
-                    paperWidth: this._printSettings.paperWidth,
-                    paperSizeUnit: this._printSettings.paperSizeUnit
-                };
-                
                 // Acquire default paper settings.
                 this._getPrintSettings();
 
@@ -117,12 +105,13 @@
                 
                 this._setPaperProperties( paperProperties );
                 
-                // change some proprieties to the ones set through showPageSetup().
-                this._printSettings.orientation = pageSetup.orientation;
-                this._printSettings.paperName = pageSetup.paperName;
-                this._printSettings.paperHeight = pageSetup.paperHeight; 
-                this._printSettings.paperWidth = pageSetup.paperWidth;
-                this._printSettings.paperSizeUnit = pageSetup.paperSizeUnit;
+                // save the print settings to prefs since the method showPageSetup always read print settings from prefs.
+                var printSettingsService =
+                    Components.classes[ "@mozilla.org/gfx/printsettings-service;1" ]
+                    .getService( Components.interfaces.nsIPrintSettingsService );
+                printSettingsService.savePrintSettingsToPrefs( this._printSettings, false, this._printSettings.kInitSaveAll );
+                
+                this.showPageSetup( this._printSettings );
 				
                 this._getWebBrowserPrint( frameID );
 
@@ -307,7 +296,7 @@
             
             //printSettings.paperSizeUnit = Components.interfaces.nsIPrintSettings.kPaperSizeMillimeters;
             //printSettings.paperSizeUnit = Components.interfaces.nsIPrintSettings.kPaperSizeInches;
-            this.setPaperSizeUnit( Components.interfaces.nsIPrintSettings.kPaperSizeMillimeters );
+            this.setPaperSizeUnit( printSettings.kPaperSizeMillimeters );
             
             //printSettings.orientation = Components.interfaces.nsIPrintSettings.kPortraitOrientation;
             //printSettings.orientation = Components.interfaces.nsIPrintSettings.kLandscapeOrientation;
@@ -345,6 +334,9 @@
             //printSettings.paperName = "iso_a4";
             //printSettings.paperName = "na_letter";
             this.setPaperName( "iso_a4" );
+            
+            // save the print settings to prefs since the method showPageSetup always read print settings from prefs.
+            //printSettingsService.savePrintSettingsToPrefs( printSettings, false, printSettings.kInitSaveAll );
 
             return printSettings;
         }

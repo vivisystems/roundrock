@@ -3,7 +3,6 @@
      * Report Base Controller
      * This class is used to maintain the utility methods taken advantage by each report controller.
      */
-
     var __controller__ = {
         name: 'RptBase',
         components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
@@ -108,6 +107,28 @@
             $( '#btnScrollRight' ).attr( 'disabled', disabled );
             $( '#btnScrollLeftMost' ).attr( 'disabled', disabled );
             $( '#btnScrollRightMost' ).attr( 'disabled', disabled );
+
+            this._resizeScrollButtons();
+        },
+
+        _resizeScrollButtons: function() {
+                var bw = document.getElementById( this._preview_frame_id );
+                if ( !bw ) return ;
+
+                var doc = bw.contentWindow.document.getElementById( this._abody_id );
+                if ( !doc ) return ;
+
+                if ( doc.scrollWidth > doc.clientWidth ) {
+                    $( '#scrollBtnHBox' ).attr( 'hidden', false );
+                } else {
+                    $( '#scrollBtnHBox' ).attr( 'hidden', true );
+                }
+
+                if ( doc.scrollHeight > doc.clientHeight ) {
+                    $( '#scrollBtnVBox' ).attr( 'hidden', false );
+                } else {
+                    $( '#scrollBtnVBox' ).attr( 'hidden', true );
+                }
         },
         
         _setTemplateDataHead: function() {
@@ -173,10 +194,10 @@
                 // Reset the timeout limit to the default value.
                 GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
-                this._enableButton( true );
-                
                 var splitter = document.getElementById( 'splitter_zoom' );
                 splitter.setAttribute( 'state', 'collapsed' );
+
+                this._enableButton( true );
 		        
                 if ( waitPanel != undefined )
                     this._dismissWaitingPanel();
@@ -507,6 +528,17 @@
             setTimeout( checkFn, 200 );
         },
 
+        toggleSize: function () {
+            var splitter = document.getElementById( 'splitter_zoom' );
+            if ( splitter.getAttribute( 'state' ) == 'collapsed' ) {
+                splitter.setAttribute( 'state', 'open' );
+            } else {
+                splitter.setAttribute( 'state', 'collapsed' );
+            }
+
+            this._resizeScrollButtons();
+        },
+
         btnScrollTop: function() {
             var bw = document.getElementById( this._preview_frame_id );
             if ( !bw ) return ;
@@ -521,7 +553,9 @@
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             if ( doc.scrollTop <= 0 ) return;
-            doc.scrollTop -= this._scrollRange;
+
+            var scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            doc.scrollTop -= scrollRange;
 
             if ( doc.scrollTop < 0 ) doc.scrollTop = 0;
         },
@@ -532,7 +566,9 @@
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             if ( doc.scrollTop > doc.scrollHeight ) return;
-            doc.scrollTop += this._scrollRange;
+
+            var scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            doc.scrollTop += scrollRange;
 
             if ( doc.scrollTop > doc.scrollHeight ) doc.scrollTop = doc.scrollHeight - doc.clientHeight;
         },
@@ -551,7 +587,9 @@
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             if ( doc.scrollLeft <= 0 ) return;
-            doc.scrollLeft -= this._scrollRange;
+
+            var scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            doc.scrollLeft -= scrollRange;
 
             if ( doc.scrollLeft < 0 ) doc.scrollLeft = 0;
         },
@@ -562,7 +600,9 @@
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             if (doc.scrollLeft > doc.scrollWidth) return;
-            doc.scrollLeft += this._scrollRange;
+
+            var scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            doc.scrollLeft += scrollRange;
 
             if ( doc.scrollLeft > doc.scrollWidth ) doc.scrollLeft = doc.scrollWidth - doc.clientWidth;
         },
@@ -585,7 +625,6 @@
 
         load: function() {
             this._enableButton( false );
-            this._scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
             this._mainScreenWidth = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.width' ) || 800;
             this._mainScreenHeight = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.height' ) || 600;
         }
