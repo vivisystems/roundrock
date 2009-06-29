@@ -1,5 +1,4 @@
 ( function() {
-	 
     var __controller__ = {
 
         name: "TrainingMode",
@@ -89,8 +88,18 @@
             var isTraining = GeckoJS.Session.get( "isTraining" );
 	 		
             var trainingModeController = GeckoJS.Controller.getInstanceByName( "TrainingMode" );
-	 		
+            var cart = GeckoJS.Controller.getInstanceByName( "Cart" );
+            
             if ( isTraining ) {
+                if ( cart.ifHavingOpenedOrder() ) {
+                    GREUtils.Dialog.alert( 
+                        this.topmostWindow,
+                        _( 'Training Mode' ),
+                        _( 'Training mode can be terminated only if there is no open order.' )
+                    );
+                    return;
+                }
+                
                 if ( GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you going to leave the training mode?' ) ) ) {
                     GeckoJS.Session.set( "isTraining", 0 );
 	 				
@@ -100,12 +109,11 @@
                     this.enableSyncActive();
                 }
             } else {
-                var cart = GeckoJS.Controller.getInstanceByName( "Cart" );
-	 			
                 if ( cart.ifHavingOpenedOrder() ) {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                                          _( 'Training Mode' ),
-                                          _( 'Training mode can be launched only if there is no open order.' )
+                    GREUtils.Dialog.alert(
+                        this.topmostWindow,
+                        _( 'Training Mode' ),
+                        _( 'Training mode can be launched only if there is no open order.' )
                     );
                     return;
                 }
