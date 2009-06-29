@@ -92,6 +92,7 @@
             var exportScript = dataPath + 'scripts/exportLocale.sh';
             var exec = new GeckoJS.File(exportScript);
             r = exec.run([name, this._path, tmpInstallRDF, media_path], true);
+            exec.close();
 
             GREUtils.File.remove(tmpInstallRDF);
             if (r == 0) {

@@ -14,15 +14,25 @@
             var aURL = 'chrome://viviecr/content/setup_wizard.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=800,height=600';
-            var aArguments = {initialized: false};
+            var aArguments = {initialized: false, restart: false, restarted: false};
 
             GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
+            while (aArguments.restart) {
+                aArguments.restart = false;
+                aArguments.restarted = true;
+
+                // reload project locale properties
+                GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties");
+
+                GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
+            }
 
             if (aArguments.initialized) {
                 // carry out initialization tasks and restart application
                 initMarker.create();
 
-                alert('initialized!');
+                GREUtils.restartApplication();
+
             }
         }
 

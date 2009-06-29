@@ -1004,7 +1004,6 @@
 
         dispatch: function(arg) {
             var args = arg.split('|');
-
             $do(args[0], args[1], args[2]) ;
             /*
             var printer = GeckoJS.Controller.getInstanceByName('Print');

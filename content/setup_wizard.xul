@@ -2,29 +2,48 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
+  <!ENTITY % Wizard SYSTEM "chrome://viviecr/locale/wizard.dtd">
+  %Wizard;
   <!ENTITY % DateTime SYSTEM "chrome://viviecr/locale/datetime.dtd">
   %DateTime;
+  <!ENTITY % StoreContact SYSTEM "chrome://viviecr/locale/storecontact.dtd">
+  %StoreContact;
+  <!ENTITY % Users SYSTEM "chrome://viviecr/locale/users.dtd">
+  %Users;
+  <!ENTITY % Taxes SYSTEM "chrome://viviecr/locale/taxes.dtd">
+  %Taxes;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/bindings.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 
-<wizard id="VIVIPOS Setup"
-        title="VIVIPOS Setup"
-        onwizardfinish="return finishSetup();"
-        onwizardcancel="return cancelSetup();"
+<wizard id="wizard"
+        title="&wizard.title;"
+        onwizardfinish="return finishSetup()"
+        onwizardcancel="return cancelSetup()"
         hidechrome="true"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml">
 
-<script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
 
-<script type="application/x-javascript" src="chrome://viviecr/content/setup_wizard.js" />
+  <!-- include models -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/models/storecontact.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/models/user.js" />
+
+  <!-- include component -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/controllers/components/tax.js" />
+
+  <!-- include controller -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/controllers/setup_wizard_controller.js" />
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/setup_wizard.js" />
 
     <wizardpage
         pageid="welcome"
-		label="VIVIPOS Setup - Splash screen"
-		description="This screen displays corporate logo and misc. legal/corporate disclaimers/announcements in English"
+		label="&wizard.page.welcome;"
+		description="&wizard.page.welcome.description;"
         entry="display splash screen"
         advance="no action"
         rewind="n/a"
@@ -35,22 +54,22 @@
 
     <wizardpage
         pageid="language"
-		label="VIVIPOS Setup - Language selection"
-		description="This screen allows user to choose from a list of supported locales"
-        onpageshow="initLocaleKbmap()"
-        onpageadvanced="return setLocaleKbmap()"
+		label="&wizard.page.language;"
+		description="&wizard.page.language.description;"
+        onpageshow="$do('initLocaleKbmap', null, 'SetupWizard')"
+        onpageadvanced="$do('setLocaleKbmap', null, 'SetupWizard')"
         entry="display list of supported locales"
         advance="activate selected locale if different from previous selection"
         rewind="no action"
         >
         <hbox flex="1">
             <vbox flex="1">
-                <label value="Locale" class="SubTitle"/>
+                <label value="&wizard.page.language.locale;"/>
                 <vivilocaleslistbox id="locale" package="viviecr" rows="6" flex="1"/>
             </vbox>
             <spacer width="20px"/>
             <vbox flex="1">
-                <label value="Keyboard" class="SubTitle"/>
+                <label value="&wizard.page.language.kbmap;"/>
                 <vivikbmaplistbox id="kbmap" flex="1"/>
             </vbox>
         </hbox>
@@ -58,21 +77,25 @@
 
     <wizardpage
         pageid="location"
-		label="VIVIPOS Setup - Location selection"
-		description="This screen allows user to choose from a list of supported locations"
+		label="&wizard.page.location;"
+		description="&wizard.page.location.description;"
+        onpageshow="$do('checkLocationSelection', null, 'SetupWizard')"
+        onpagehide="$do('advanceOK', null, 'SetupWizard')"
+        onpageadvanced="$do('setLocation', null, 'SetupWizard')"
         entry="display list of supported locations"
         advance="when location selection changes, update default time zone"
         rewind="no action"
         >
         <box flex="1">
-        </box>
+           <listbox id="locationlist" seltype="single" onselect="$do('selectLocation', this.value, 'SetupWizard')"/>
+         </box>
     </wizardpage>
 
     <wizardpage
         pageid="timezone"
-		label="VIVIPOS Setup - Timezone"
-		description="This screen allows user to set timezone"
-        onpageadvanced="return setTimezone()"
+		label="&wizard.page.timezone;"
+		description="&wizard.page.timezone.description;"
+        onpageadvanced="return $do('setTimezone', null, 'SetupWizard')"
         entry="display timezone screen with default time zone from location"
         advance="update system timezone if different from previous selection"
         rewind="no action"
@@ -84,10 +107,11 @@
 
     <wizardpage
         pageid="date/time"
-		label="VIVIPOS Setup - Date/Time"
-		description="This screen allows user to set date/time"
-        onpageshow="startClock()"
-        onpagehide="stopClock()"
+		label="&wizard.page.datetime;"
+		description="&wizard.page.datetime.description;"
+        onpageshow="$do('startClock', null, 'SetupWizard')"
+        onpagehide="$do('stopClock', null, 'SetupWizard')"
+        onpageadvanced="$do('setClock', null, 'SetupWizard')"
         entry="display date/time screen"
         advance="update system date/time"
         rewind="no action"
@@ -99,82 +123,141 @@
 
     <wizardpage
         pageid="sector"
-		label="VIVIPOS Setup - Sector selection"
-		description="This screen allows user to select a sector from a list filtered by the selected location"
+		label="&wizard.page.sector;"
+		description="&wizard.page.sector.description;"
+        onpageshow="$do('checkSectorSelection', null, 'SetupWizard')"
+        onpagehide="$do('advanceOK', null, 'SetupWizard')"
+        onpageadvanced="$do('setSector', null, 'SetupWizard')"
         entry="display list of sectors from the selected location"
-        advance="replace existing db with factory (empty) db, install location/sector specific data (users, taxes, preferences) if location/sector has changed"
-        rewind="no action"
+        advance="replace existing db with location/sector specific db"
+        rewind="set initDB flag"
         >
         <box flex="1">
+            <richlistbox id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
+            </richlistbox>
         </box>
     </wizardpage>
 
     <wizardpage
         pageid="store"
-		label="VIVIPOS Setup - Store information"
-		description="This screen allows the user to fill in store contact information"
+		label="&wizard.page.storeinfo;"
+		description="&wizard.page.storeinfo.description;"
+        onpageshow="$do('checkStoreInformation', null, 'SetupWizard')"
+        onpagehide="$do('advanceOK', null, 'SetupWizard')"
+        onpageadvanced="$do('setStoreInformation', null, 'SetupWizard')"
         entry="display"
         advance="update db with store information; keep store information in memory"
         rewind="no action"
         >
-        <box flex="1">
-        </box>
+        <grid>
+            <columns>
+                <column flex="1" />
+            </columns>
+            <rows>
+                <row>
+                    <vbox>
+                        <label value="&storecontact.name;" />
+                        <textbox id="name" value="" form="storecontactForm" name="name"
+                                 oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
+                    </vbox>
+                </row>
+                <row>
+                    <vbox>
+                        <label value="&storecontact.branch;" />
+                        <textbox id="branch" value="" form="storecontactForm" name="branch"
+                                 oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
+                    </vbox>
+                </row>
+                <row>
+                    <vbox>
+                        <label value="&storecontact.branch.id;" />
+                        <textbox id="branch_id" value="" form="storecontactForm" name="branch_id"
+                                 oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
+                    </vbox>
+                </row>
+                <row>
+                    <vbox>
+                        <label value="&storecontact.terminal.no; (a-z, A-Z, 0-9)" />
+                        <textbox id="terminal_no" value="" form="storecontactForm" name="terminal_no"
+                                 oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
+                    </vbox>
+                </row>
+            </rows>
+        </grid>
     </wizardpage>
 
     <wizardpage
         pageid="login"
-		label="VIVIPOS Setup - Login information"
-		description="This screen displays the list of built-in user accounts and allows the user to set administrator password"
-        entry="install user accounts from location/sector profile"
-        advance="update administrator password"
-        rewind="no action"
-        >
-        <box flex="1">
-        </box>
-    </wizardpage>
-
-    <wizardpage
-        pageid="taxes"
-		label="VIVIPOS Setup - Tax information"
-		description="This screen displays the list of taxes configured for the given location/sector; this list is informational only, and is to be used to complete tax column for the product import spreadsheet"
+		label="&wizard.page.login;"
+		description="&wizard.page.login.description;"
+        onpageshow="$do('loadLogin', null, 'SetupWizard')"
+        onpagehide="$do('advanceOK', null, 'SetupWizard')"
+        onpageadvanced="$do('setLogin', null, 'SetupWizard')"
         entry="no action"
         advance="no action"
         rewind="no action"
         >
-        <box flex="1">
-        </box>
+        <vbox flex="1">
+            <label value="&wizard.page.login.defaultuser;"/>
+            <listbox id="userlist" flex="1" seltype="single"/>
+            <hbox flex="1">
+                <vbox flex="1">
+                    <label value="&wizard.page.login.adminpassword;"/>
+                    <grid flex="1">
+                        <columns>
+                            <column flex="1" />
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="&users.password;" control="password"/>
+                                <vivitextbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                             type="password" id="admin_password" value="" form="userForm" name="password" oninput="$do('checkPassword', null, 'SetupWizard')"
+                                             onenter="event.stopPropagation(); event.preventDefault(); document.getElementById('wizard').advance('tax')"/>
+                            </row>
+                            <row>
+                                <label value="&users.confirm;" control="confirm"/>
+                                <vivitextbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                             type="password" id="admin_confirm" value="" form="userForm" name="confirm" oninput="$do('checkPassword', null, 'SetupWizard')"
+                                             onenter="event.stopPropagation(); event.preventDefault(); document.getElementById('wizard').advance('tax')"/>
+                            </row>
+                            <row>
+                                <label id="password_check" value=""/>
+                            </row>
+                        </rows>
+                    </grid>
+                </vbox>
+
+                <numpad/>
+            </hbox>
+        </vbox>
     </wizardpage>
 
     <wizardpage
-        pageid="import"
-		label="VIVIPOS Setup - Import product data"
-		description="This screen allows the user to import product data - provides an explicit 'IMPORT' button"
+        pageid="tax"
+		label="&wizard.page.tax;"
+		description="&wizard.page.tax.description;"
+        onpagehide="$do('advanceOK', null, 'SetupWizard')"
+        onpageadvanced="$do('setDefaultTax', null, 'SetupWizard')"
         entry="no action"
         advance="no action"
         rewind="no action"
         >
-        <box flex="1">
-        </box>
-    </wizardpage>
-
-    <wizardpage
-        pageid="export license"
-		label="VIVIPOS Setup - Export license"
-		description="This screen allows the user to export license to USB thumb drive - provides an explicit 'EXPORT' button"
-        entry="no action"
-        advance="no action"
-        rewind="no action"
-        >
-        <box flex="1">
-        </box>
+        <vbox flex="1">
+            <label value="&wizard.page.tax.defaulttax;"/>
+            <vivitree id="taxlist" flex="1"
+                      headers="&taxes.code;,&taxes.type;,&taxes.name;,&taxes.rate_type;,&taxes.rate;,&taxes.threshold;"
+                      fields="no,type_str,name,rate_type_str,rate_str,threshold_str" hidecolumnpicker="true"
+                      class="showscrollbar">
+            </vivitree>
+        </vbox>
     </wizardpage>
 
     <wizardpage
         pageid="end"
-		label="VIVIPOS Setup - Finish"
-		description="This screen displays congratulatory message + selection summary"
+		label="&wizard.page.finish;"
+		description="&wizard.page.finish.description;"
         entry="no action"
-        advance="no action"
+        advance="need to update preference 'general.skins.selectedSkin'"
         rewind="no action"
         >
         <box flex="1">

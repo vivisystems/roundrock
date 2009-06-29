@@ -24,23 +24,20 @@ msgstr "繁體中文 - 台灣 (zh-TW)"
 #
 ########################################################################
 
-msgid "(location)Taiwan"
-msgstr "Taiwan"
+msgid "(location)generic"
+msgstr "Generic Location"
 
-msgid "(location)China"
-msgstr "China"
+########################################################################
+#
+# List of Sectors (used by setup)
+#
+########################################################################
 
-msgid "(location)USA"
-msgstr "USA"
+msgid "vivipos.fec.registry.package.generic.generic.label"
+msgstr "Generic"
 
-msgid "(location)Japan"
-msgstr "Japan"
-
-msgid "(location)France"
-msgstr "France"
-
-msgid "(location)Korea"
-msgstr "Korea"
+msgid "vivipos.fec.registry.package.generic.generic.description"
+msgstr "If you are not sure what sector to choose, you may want to start with this selection."
 
 ########################################################################
 #
@@ -2140,7 +2137,7 @@ msgstr "Retail Layout (for conceptual demonstration only)"
 
 ########################################################################
 #
-# Tax Types
+# Tax Types & Rate Types
 #
 ########################################################################
 
@@ -2155,6 +2152,12 @@ msgstr "combined"
 
 msgid "(taxType)VAT & VAT"
 msgstr "VAT & VAT"
+
+msgid "(taxRateType)%"
+msgstr "Percentage"
+
+msgid "(taxRateType)$"
+msgstr "Fixed Amount"
 
 ########################################################################
 #

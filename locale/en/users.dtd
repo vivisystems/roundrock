@@ -3,7 +3,8 @@
 <!ENTITY users.option1 "User Limits">
 <!ENTITY users.option2 "Check Tracking">
 <!ENTITY users.username "User Name (a..z,0..9)">
-<!ENTITY users.password "Password">
+<!ENTITY users.password "Password (0..9)">
+<!ENTITY users.confirm "Confirm Password">
 <!ENTITY users.displayname "Display Name">
 <!ENTITY users.accesslevel "Access Group">
 <!ENTITY users.pricelevel "Default Price Level">
