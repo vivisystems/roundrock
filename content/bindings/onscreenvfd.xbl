@@ -8,7 +8,7 @@
 
         <content>
             <xul:hbox flex="1" xbl:inherits="orient,align">
-                <xul:textbox anonid="labelVfd" hidden="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
+                <xul:textbox anonid="labelVfd" hidden="true" xbl:inherits="class=labelClass"></xul:textbox>
                 <xul:grid flex="1">
                     <xul:columns>
                         <xul:column flex="1" />
@@ -16,12 +16,12 @@
                     </xul:columns>
                     <xul:rows>
                         <xul:row flex="1">
-                            <xul:textbox anonid="label0_0" disabled="true" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
-                            <xul:textbox anonid="label0_1" disabled="true" style="color: yellow; align: right;" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="label0_0" disabled="true" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="label0_1" disabled="true" style="color: yellow; align: right;" xbl:inherits="class=labelClass,value"></xul:textbox>
                         </xul:row>
                         <xul:row flex="1">
-                            <xul:textbox anonid="label1_0" disabled="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
-                            <xul:textbox anonid="label1_1" disabled="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
+                            <xul:textbox anonid="label1_0" disabled="true" xbl:inherits="class=labelClass"></xul:textbox>
+                            <xul:textbox anonid="label1_1" disabled="true" xbl:inherits="class=labelClass"></xul:textbox>
                         </xul:row>
                     </xul:rows>
                 </xul:grid>

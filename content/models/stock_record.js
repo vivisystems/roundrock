@@ -20,6 +20,7 @@
 				var stockRecord = {
 					id: '',
 					product_no: product.no,
+					barcode: product.barcode,
 					warehouse: 'warehouse',
 					quantity: 0
 				};

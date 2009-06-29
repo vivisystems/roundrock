@@ -246,7 +246,7 @@
             this._reportRecords.foot.foot_datas = footDatas;
         },
         
-        setPaperSize: function() {
+        setPaperSize: function( doNotSetReportWidthTextBoxZero ) {
             // set paper size.
             var paperSize = document.getElementById( 'papersize' );
             if ( paperSize )
@@ -257,6 +257,8 @@
             // After changing the size of the template, the report currently showing on screen no longer exists.
             // We have to disable the report-width adjuster at that moment to prevent an error from occuring.
             document.getElementById( this._reportWidthTextBoxId ).disabled = true;
+            if ( !doNotSetReportWidthTextBoxZero )
+                document.getElementById( this._reportWidthTextBoxId ).value = 0;
         },
         
         exportCsv: function() {
@@ -351,8 +353,7 @@
                 if ( this._fields_array[ i ].ispicked == "true" )
                     this._selectedFieldIncies.push( i );
 
-
-            $.popupPanel('field_picker_panel', {fields: this._fields_array, selectedItems: this._selectedFieldIncies});
+            $.popupPanel ( this._fieldPickerPanelId, { fields: this._fields_array, selectedItems: this._selectedFieldIncies } );
             /*
             var fieldPickerPanelView = new GeckoJS.NSITreeViewArray( this._fields_array );
             fieldPickerScrollPanel.datasource = fieldPickerPanelView;
@@ -384,7 +385,7 @@
             
             GeckoJS.Configure.write( this._field_pref_prefix, this._fields );
 
-            $.hidePanel(this._fieldPickerPanelId, true);
+            $.hidePanel( this._fieldPickerPanelId, true );
         },
         
         saveSettings: function() {
@@ -414,7 +415,7 @@
             var settings = GeckoJS.Configure.read( this._setting_pref );
             if ( settings )
                 GeckoJS.FormHelper.unserialize( this._setting_form, settings );
-            this.setPaperSize();
+            this.setPaperSize( true );
         }
     };
 
