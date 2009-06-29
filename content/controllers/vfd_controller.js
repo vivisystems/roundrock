@@ -364,9 +364,13 @@
         
         switchTrainingMode: function( isTraining ) {
         	var vfdClass = 'vfdPad';
-        	if ( isTraining )
+        	var vfdLabelClass = 'label_vfd';
+        	if ( isTraining ) {
         		vfdClass = 'vfdPadOnTraining';
+        		vfdLabelClass += ' label_vfd_training';
+            }
         	document.getElementById( 'vfdPanel' ).className = vfdClass;
+            document.getElementById( 'onscreenvfd' ).setAttribute( 'labelClass', vfdLabelClass );        	
         },
 		
 		destroy: function() {

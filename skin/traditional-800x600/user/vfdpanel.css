@@ -10,7 +10,7 @@
 }
 
 .vfdPadOnTraining {
-    background-color: red;
+    background-color: #bf0a64;
     border-bottom: 7px solid #f39a1c;
 }
 
@@ -33,3 +33,15 @@
     -moz-user-input: none;
 }
 
+.label_vfd_training {
+    color: #20bafb;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 15pt;
+    font-family: monospace;
+    font-weight: bold !important;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
