@@ -12,6 +12,8 @@
 <!ENTITY users.drawer "Assigned Drawer">
 <!ENTITY users.limit.item.discount "Item Discount Limit">
 <!ENTITY users.limit.order.discount "Order Discount Limit">
+<!ENTITY users.limit.type.percentage "Percentage">
+<!ENTITY users.limit.type.absolute "Absolute">
 <!ENTITY users.limit.cash.check "Check Cashing Limit">
 <!ENTITY users.limit.item.surcharge "Item Surcharge Limit">
 <!ENTITY users.limit.order.surcharge "Order Surcharge Limit">
