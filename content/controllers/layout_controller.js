@@ -50,10 +50,9 @@
 
             this.resetLayout(true);
 
-            // add event listener for onUpdateOptions events
+            // add event listener for SetClerk event
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
-                //main.addEventListener('onUpdateOptions', this.handleUpdateOptions, this);
                 main.addEventListener('onSetClerk', this.home, this);
             }
         },
@@ -170,11 +169,11 @@
                 condPanel.vivibuttonpanel.cols = condCols;
 
                 condPanel.initGrid();
-                condPanel.vivibuttonpanel.resizeButtons();
 
                 if (!initial) {
                     // @hack irving
                     // make panel visible to let changes take effect
+                    condPanel.vivibuttonpanel.resizeButtons();
                     $.popupPanel('selectCondimentPanel', {});
                     $.hidePanel('selectCondimentPanel', {});
                 }
@@ -354,10 +353,6 @@
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
 
             this.resizePanels(disabled_features, initial);
-        },
-
-        handleUpdateOptions: function(evt) {
-            this.resetLayout(false);
         }
 
     };
