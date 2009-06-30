@@ -222,7 +222,7 @@
             this.getListObj().datasource = this._panelView;
 
             this.getListObj().selectedIndex = 0;
-            this.getListObj().vivitree.selection.select(0);
+            this.getListObj().selection.select(0);
             this._panelView.tree.ensureRowIsVisible(0);
             this.select(0);
 
