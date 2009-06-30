@@ -3,7 +3,8 @@
 <!ENTITY users.option1 "User Limits">
 <!ENTITY users.option2 "Check Tracking">
 <!ENTITY users.username "User Name (a..z,0..9)">
-<!ENTITY users.password "Password">
+<!ENTITY users.password "Password (0..9)">
+<!ENTITY users.confirm "Confirm Password">
 <!ENTITY users.displayname "Display Name">
 <!ENTITY users.accesslevel "Access Group">
 <!ENTITY users.pricelevel "Default Price Level">
@@ -11,6 +12,8 @@
 <!ENTITY users.drawer "Assigned Drawer">
 <!ENTITY users.limit.item.discount "Item Discount Limit">
 <!ENTITY users.limit.order.discount "Order Discount Limit">
+<!ENTITY users.limit.type.percentage "Percentage">
+<!ENTITY users.limit.type.absolute "Absolute">
 <!ENTITY users.limit.cash.check "Check Cashing Limit">
 <!ENTITY users.limit.item.surcharge "Item Surcharge Limit">
 <!ENTITY users.limit.order.surcharge "Order Surcharge Limit">

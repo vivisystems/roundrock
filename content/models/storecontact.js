@@ -1,6 +1,11 @@
 (function() {
-    var StoreContactModel = window.StoreContactModel = GeckoJS.Model.extend({
-        name: 'StoreContact',
-    });
+    var __model__ = {
+
+        name: 'StoreContact'
+        
+    };
+
+    var StoreContactModel = window.StoreContactModel = GeckoJS.Model.extend(__model__);
+
 })();
 

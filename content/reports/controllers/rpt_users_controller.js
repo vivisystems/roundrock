@@ -20,7 +20,7 @@
             var users = new UserModel();
             var userRecords = users.find( 'all', { order: orderby, limit: limit } );
 
-			this._reportRecords.head.title = _( 'Employee Report' );
+			this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.userlist.label' );
 			this._reportRecords.body = userRecords;
         },
 

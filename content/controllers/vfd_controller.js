@@ -49,13 +49,6 @@
                                 self.displayOnVFD();
                             }
                             break;
-						case 'TrainingMode':
-							if ( aData == "start" ) {
-					        	self.switchTrainingMode( true );
-					        } else if ( aData == "exit" ) {
-					        	self.switchTrainingMode( false );
-					        }
-					     	break;
                     }
                 }
             }).register();
@@ -362,17 +355,6 @@
 
         },
         
-        switchTrainingMode: function( isTraining ) {
-        	var vfdClass = 'vfdPad';
-        	var vfdLabelClass = 'label_vfd';
-        	if ( isTraining ) {
-        		vfdClass = 'vfdPadOnTraining';
-        		vfdLabelClass += ' label_vfd_training';
-            }
-        	document.getElementById( 'vfdPanel' ).className = vfdClass;
-            document.getElementById( 'onscreenvfd' ).setAttribute( 'labelClass', vfdLabelClass );        	
-        },
-		
 		destroy: function() {
         	this.observer.unregister();
     	}

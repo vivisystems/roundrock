@@ -1,154 +1,250 @@
-msgid "Condiments"
-msgstr "Condiments"
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
-msgid "Currency Exchange"
-msgstr "Currency Exchange"
+# #######################################################################
+#
+# List of Locales
+#
+# #######################################################################
+msgid "(locale)en"
+msgstr "English (en)"
 
-msgid "Departments"
-msgstr "Departments"
+msgid "(locale)en-US"
+msgstr "English - US (en-US)"
 
-msgid "Employees"
-msgstr "Employees"
+msgid "(locale)zh-TW"
+msgstr "繁體中文 - 台灣 (zh-TW)"
 
-msgid "Function Panel Configuration"
-msgstr "Function Panel Configuration"
+# #######################################################################
+#
+# List of Locations (used by setup)
+#
+# #######################################################################
+msgid "(location)generic"
+msgstr "Generic Location"
 
-msgid "Data Import/ Export"
-msgstr "Data Import/ Export"
+# #######################################################################
+#
+# List of Sectors (used by setup)
+#
+# #######################################################################
+msgid "vivipos.fec.registry.package.generic.generic.label"
+msgstr "Generic"
 
-msgid "Jobs"
-msgstr "Jobs"
+msgid "vivipos.fec.registry.package.generic.generic.description"
+msgstr ""
+"If you are not sure what sector to choose, you may want to start with this "
+"selection."
 
-msgid "Image Manager"
-msgstr "Image Manager"
-
-msgid "Layout Manager"
-msgstr "Layout Manager"
-
-msgid "Locale and Keyboard Mapping"
-msgstr "Language and Keyboard Mapping"
-
-msgid "Product Groups"
-msgstr "Product Groups"
-
-msgid "Products"
-msgstr "Products"
-
-msgid "Ledger"
-msgstr "Ledger"
-
-msgid "Price Level Schedule"
+# #######################################################################
+#
+# List of Control Panels
+#
+# #######################################################################
+# #############
+# ACTIVITIES
+# #############
+msgid "vivipos.fec.settings.controlpanels.activity.pricelevelschedule.label"
 msgstr "Price Level Schedule"
 
-msgid "Static Condiments"
-msgstr "Condiment Dock"
+msgid "vivipos.fec.settings.controlpanels.activity.promotions_manager.label"
+msgstr "Promotions Manager"
 
-msgid "Reports"
-msgstr "Reports"
+# #########
+# CONFIG
+# #########
+msgid "vivipos.fec.settings.controlpanels.config.addons.label"
+msgstr "Add-ons"
 
-msgid "Roles"
-msgstr "Roles"
+msgid "vivipos.fec.settings.controlpanels.config.annotations.label"
+msgstr "Annotation Types"
 
-msgid "Stock Control"
-msgstr "Stock Control"
+msgid "vivipos.fec.settings.controlpanels.config.currency.label"
+msgstr "Currency Exchange"
 
-msgid "System Backup"
-msgstr "System Backup"
-
-msgid "General Options"
-msgstr "General Options"
-
-msgid "Taxes"
-msgstr "Taxes"
-
-msgid "Localization Editor"
-msgstr "Localization Editor"
-
-msgid "Date and Time"
-msgstr "Date & Time"
-
-msgid "Store Contact"
-msgstr "Store Contact"
-
-msgid "Devices"
-msgstr "Devices"
-
-msgid "Table Manager"
-msgstr "Table Manager"
-
-msgid "Print Label"
-msgstr "Print Label"
-
-msgid "Accounting Report"
-msgstr "Accounting Report"
-
-msgid "Attendance Report"
-msgstr "Attendance Record"
-
-msgid "Department Report"
-msgstr "Department List"
-
-msgid "Cash Drawer Report"
-msgstr "Cash Drawer Report"
-
-msgid "Cash Drawer Summary Report"
-msgstr "Cash Drawer Summary"
-
-msgid "Order Status Report"
-msgstr "Order Status Report"
-
-msgid "Product Report"
-msgstr "Product List"
-
-msgid "Product Sales Report"
-msgstr "Product Sales"
-
-msgid "Employee Report"
-msgstr "Employee List"
-
-msgid "Product Stock Report"
-msgstr "Stock Report"
-
-msgid "Hourly Sales Report"
-msgstr "Hourly Sales"
-
-msgid "Shift Change Report"
-msgstr "Shift Change Report"
-
-msgid "Sales Report"
-msgstr "Sales Report"
-
-msgid "Sales Report - Detailed"
-msgstr "Sales - Detailed"
-
-msgid "Daily Sales Summary Report"
-msgstr "Daily Sales Summary"
-
-msgid "Daily Promotion Summary Report"
-msgstr "Daily Promotion Summary"
-
-msgid "Sales Summary Report"
-msgstr "Sales Summary"
-
-msgid "Clerk Sales Report"
-msgstr "Clerk Sales"
-
-msgid "Service Clerk Sales Report"
-msgstr "Clerk Sales (Service)"
-
-msgid "Proceeds Clerk Sales Report"
-msgstr "Clerk Sales (Close)"
-
-msgid "Product Filters"
-msgstr "Product Filters"
-
-msgid "Destinations"
+msgid "vivipos.fec.settings.controlpanels.config.destinations.label"
 msgstr "Order Destinations"
 
-msgid "Annotations"
-msgstr "Annotations"
+msgid "vivipos.fec.settings.controlpanels.config.devices.label"
+msgstr "Devices"
 
-# \ register\ display:\ payment\ types
+msgid "vivipos.fec.settings.controlpanels.config.functionpanel.label"
+msgstr "Function Panel Configuration"
+
+msgid "vivipos.fec.settings.controlpanels.config.hotkey.label"
+msgstr "HotKey Configuration"
+
+msgid "vivipos.fec.settings.controlpanels.config.layout.label"
+msgstr "Layout Manager"
+
+msgid "vivipos.fec.settings.controlpanels.config.ledger.label"
+msgstr "Ledger"
+
+msgid "vivipos.fec.settings.controlpanels.config.sysprefs.label"
+msgstr "General Options"
+
+msgid "vivipos.fec.settings.controlpanels.config.tableman.label"
+msgstr "Table Manager"
+
+# ###########
+# EMPLOYEE
+# ###########
+msgid "vivipos.fec.settings.controlpanels.employee.jobs.label"
+msgstr "Jobs"
+
+msgid "vivipos.fec.settings.controlpanels.employee.roles.label"
+msgstr "Roles"
+
+msgid "vivipos.fec.settings.controlpanels.employee.storecontact.label"
+msgstr "Store Contact"
+
+msgid "vivipos.fec.settings.controlpanels.employee.users.label"
+msgstr "Employees"
+
+# ##########
+# PRODUCT
+# ##########
+msgid "vivipos.fec.settings.controlpanels.product.condiments.label"
+msgstr "Condiments"
+
+msgid "vivipos.fec.settings.controlpanels.product.departments.label"
+msgstr "Departments"
+
+msgid "vivipos.fec.settings.controlpanels.product.imagemanager.label"
+msgstr "Image Manager"
+
+msgid "vivipos.fec.settings.controlpanels.product.nonplu_setting.label"
+msgstr "Non PLU Setting"
+
+msgid "vivipos.fec.settings.controlpanels.product.plufilters.label"
+msgstr "Product Filters"
+
+msgid "vivipos.fec.settings.controlpanels.product.plugroups.label"
+msgstr "Product Groups"
+
+msgid "vivipos.fec.settings.controlpanels.product.plus.label"
+msgstr "Products"
+
+msgid "vivipos.fec.settings.controlpanels.product.reports.label"
+msgstr "Reports"
+
+msgid "vivipos.fec.settings.controlpanels.product.static_condiments.label"
+msgstr "Condiment Dock"
+
+msgid "vivipos.fec.settings.controlpanels.product.stocks.label"
+msgstr "Stock Control"
+
+msgid "vivipos.fec.settings.controlpanels.product.taxes.label"
+msgstr "Taxes"
+
+# #########
+# SYSTEM
+# #########
+msgid "vivipos.fec.settings.controlpanels.system.datetime.label"
+msgstr "Date & Time"
+
+msgid "vivipos.fec.settings.controlpanels.system.importexport.label"
+msgstr "Data Import/ Export"
+
+msgid "vivipos.fec.settings.controlpanels.system.localekeyboard.label"
+msgstr "Language and Keyboard Mapping"
+
+msgid "vivipos.fec.settings.controlpanels.system.localization.label"
+msgstr "Localization Editor"
+
+msgid "vivipos.fec.settings.controlpanels.system.network_setting.label"
+msgstr "Network Settings"
+
+msgid "vivipos.fec.settings.controlpanels.system.printers.label"
+msgstr "Printer Sharing"
+
+msgid "vivipos.fec.settings.controlpanels.system.remote_control.label"
+msgstr "Remote Control"
+
+msgid "vivipos.fec.settings.controlpanels.system.sync_settings.label"
+msgstr "Synchronization Settings"
+
+msgid "vivipos.fec.settings.controlpanels.system.systembackup.label"
+msgstr "System Backup"
+
+msgid "vivipos.fec.settings.controlpanels.system.touch_calibration.label"
+msgstr "Touch Calibration"
+
+msgid "vivipos.fec.settings.controlpanels.system.xterm.label"
+msgstr "XTerm"
+
+# #######################################################################
+#
+# List of Reports
+#
+# #######################################################################
+msgid "vivipos.fec.reportpanels.attendancerecord.label"
+msgstr "Attendance Record"
+
+msgid "vivipos.fec.reportpanels.cashbyclerk.label"
+msgstr "Shift Change Report"
+
+msgid "vivipos.fec.reportpanels.cashdrawerreport.label"
+msgstr "Cash Drawer Report"
+
+msgid "vivipos.fec.reportpanels.cashdrawersummary.label"
+msgstr "Cash Drawer Summary"
+
+msgid "vivipos.fec.reportpanels.clerksalesreport.label"
+msgstr "Clerk Sales"
+
+msgid "vivipos.fec.reportpanels.dailysalesdetail.label"
+msgstr "Sales - Detailed"
+
+msgid "vivipos.fec.reportpanels.dailysales.label"
+msgstr "Sales Report"
+
+msgid "vivipos.fec.reportpanels.dailysalessummary.label"
+msgstr "Sales Summary"
+
+msgid "vivipos.fec.reportpanels.departmentlist.label"
+msgstr "Department List"
+
+msgid "vivipos.fec.reportpanels.detailedtaxreport.label"
+msgstr "Detailed Tax Report"
+
+msgid "vivipos.fec.reportpanels.hourlysales.label"
+msgstr "Hourly Sales"
+
+msgid "vivipos.fec.reportpanels.orderannotation.label"
+msgstr "Order Annotations"
+
+msgid "vivipos.fec.reportpanels.orderstatus.label"
+msgstr "Order Status Report"
+
+msgid "vivipos.fec.reportpanels.productlist.label"
+msgstr "Product List"
+
+msgid "vivipos.fec.reportpanels.productsales.label"
+msgstr "Product Sales"
+
+msgid "vivipos.fec.reportpanels.promotionsummary.label"
+msgstr "Promotion Summary"
+
+msgid "vivipos.fec.reportpanels.salessummary.label"
+msgstr "Sales Summary"
+
+msgid "vivipos.fec.reportpanels.stocks.label"
+msgstr "Stock Report"
+
+msgid "vivipos.fec.reportpanels.userlist.label"
+msgstr "Employee List"
+
+msgid "vivipos.fec.reportpanels.yourorder.label"
+msgstr "Custom Sales Report"
+
+# #######################################################################
+#
+# Register Display - Payments
+#
+# #######################################################################
 msgid "CREDITCARD"
 msgstr "CC"
 
@@ -164,7 +260,11 @@ msgstr "CHK"
 msgid "GIFTCARD"
 msgstr "GC"
 
-# \ register\ display:\ marker\ types
+# #######################################################################
+#
+# Register Display - Markers
+#
+# #######################################################################
 msgid "** SUBTOTAL"
 msgstr "** SUB"
 
@@ -174,9 +274,24 @@ msgstr "** TAL"
 msgid "** TRAY"
 msgstr "** TRAY"
 
-# \ register\ display:\ others
+# #######################################################################
+#
+# Register Display - Others
+#
+# #######################################################################
 msgid "House Bon"
 msgstr "BON"
+
+# #######################################################################
+#
+# Function Keys
+#
+# #######################################################################
+# ################
+# Training Mode
+# ################
+msgid "trainingMode.desc"
+msgstr "This function is used to launch the training mode."
 
 msgid "trainingMode.label"
 msgstr "Training Mode"
@@ -184,9 +299,9 @@ msgstr "Training Mode"
 msgid "trainingMode.name"
 msgstr "Training Mode"
 
-msgid "trainingMode.desc"
-msgstr "This function is used to launch the training mode."
-
+# ###################
+# Return Cart Item
+# ###################
 msgid "returncartitem.desc"
 msgstr ""
 "This function is used to register return of the current item in the shopping "
@@ -198,6 +313,9 @@ msgstr "Return Item"
 msgid "returncartitem.name"
 msgstr "Return Item"
 
+# ##################
+# Item By Barcode
+# ##################
 msgid "itembybarcode.desc"
 msgstr ""
 "This function is used to register an item by its product number or barcode."
@@ -210,6 +328,9 @@ msgstr "PLU"
 msgid "itembybarcode.name"
 msgstr "Register PLU"
 
+# ###########
+# Annotate
+# ###########
 msgid "annotate.desc"
 msgstr ""
 "This function is used to add and/or view annotations. Annotations are most "
@@ -226,6 +347,9 @@ msgstr "Annotate"
 msgid "annotate.name"
 msgstr "Annotate"
 
+# ################
+# Issue Receipt
+# ################
 msgid "receipt.desc"
 msgstr ""
 "This function issues a post-finalization receipt. The parameter should be 1 "
@@ -238,6 +362,9 @@ msgstr "Issue Receipt"
 msgid "receipt.name"
 msgstr "Issue Receipt"
 
+# #####################
+# Issue Receipt Copy
+# #####################
 msgid "receiptcopy.desc"
 msgstr ""
 "This function issues a receipt copy. The parameter should be 1 or 2, "
@@ -250,6 +377,9 @@ msgstr "Issue Receipt Copy"
 msgid "receiptcopy.name"
 msgstr "Issue Receipt Copy"
 
+# ####################
+# Issue Guest Check 
+# ####################
 msgid "printcheck.desc"
 msgstr ""
 "This function issues a check. The parameter should be 1, 2, 3, or 4, "
@@ -262,6 +392,9 @@ msgstr "Issue Check"
 msgid "printcheck.name"
 msgstr "Issue Check"
 
+# #########################
+# Issue Guest Check Copy
+# #########################
 msgid "checkcopy.desc"
 msgstr ""
 "This function issues a check copy. The parameter should be 1, 2, 3, or 4, "
@@ -274,6 +407,9 @@ msgstr "Issue Check Copy"
 msgid "checkcopy.name"
 msgstr "Issue Check Copy"
 
+# ####################
+# Shift Price Level
+# ####################
 msgid "pricelevelshift.desc"
 msgstr ""
 "This function shifts the current price level up by 1. No parameter is needed."
@@ -284,6 +420,9 @@ msgstr "Price Level Shift"
 msgid "pricelevelshift.name"
 msgstr "Price Level Shift"
 
+# ####################
+# Set Price Level 1
+# ####################
 msgid "pricelevel1.desc"
 msgstr ""
 "This function sets the current price level to 1. The parameter must be 1."
@@ -294,6 +433,9 @@ msgstr "Price Level 1"
 msgid "pricelevel1.name"
 msgstr "Price Level 1"
 
+# ####################
+# Set Price Level 2
+# ####################
 msgid "pricelevel2.desc"
 msgstr ""
 "This function sets the current price level to 2. The parameter must be 2."
@@ -304,6 +446,9 @@ msgstr "Price Level 2"
 msgid "pricelevel2.name"
 msgstr "Price Level 2"
 
+# ####################
+# Set Price Level 3
+# ####################
 msgid "pricelevel3.desc"
 msgstr ""
 "This function sets the current price level to 3. The parameter must be 3."
@@ -314,6 +459,9 @@ msgstr "Price Level 3"
 msgid "pricelevel3.name"
 msgstr "Price Level 3"
 
+# ####################
+# Set Price Level 4
+# ####################
 msgid "pricelevel4.desc"
 msgstr ""
 "This function sets the current price level to 4. The parameter must be 4."
@@ -324,6 +472,9 @@ msgstr "Price Level 4"
 msgid "pricelevel4.name"
 msgstr "Price Level 4"
 
+# ####################
+# Set Price Level 5
+# ####################
 msgid "pricelevel5.desc"
 msgstr ""
 "This function sets the current price level to 5. The parameter must be 5."
@@ -334,6 +485,9 @@ msgstr "Price Level 5"
 msgid "pricelevel5.name"
 msgstr "Price Level 5"
 
+# ####################
+# Set Price Level 6
+# ####################
 msgid "pricelevel6.desc"
 msgstr ""
 "This function sets the current price level to 6. The parameter must be 6."
@@ -344,6 +498,9 @@ msgstr "Price Level 6"
 msgid "pricelevel6.name"
 msgstr "Price Level 6"
 
+# ####################
+# Set Price Level 7
+# ####################
 msgid "pricelevel7.desc"
 msgstr ""
 "This function sets the current price level to 7. The parameter must be 7."
@@ -354,6 +511,9 @@ msgstr "Price Level 7"
 msgid "pricelevel7.name"
 msgstr "Price Level 7"
 
+# ####################
+# Set Price Level 8
+# ####################
 msgid "pricelevel8.desc"
 msgstr ""
 "This function sets the current price level to 8. The parameter must be 8."
@@ -364,6 +524,9 @@ msgstr "Price Level 8"
 msgid "pricelevel8.name"
 msgstr "Price Level 8"
 
+# ####################
+# Set Price Level 9
+# ####################
 msgid "pricelevel9.desc"
 msgstr ""
 "This function sets the current price level to 9. The parameter must be 9."
@@ -374,6 +537,9 @@ msgstr "Price Level 9"
 msgid "pricelevel9.name"
 msgstr "Price Level 9"
 
+# ############
+# Shift Tax
+# ############
 msgid "shifttax.desc"
 msgstr ""
 "This function shifts current item's tax status. The parameter field can be "
@@ -387,6 +553,9 @@ msgstr "Shift Tax"
 msgid "shifttax.name"
 msgstr "Shift Tax"
 
+# #########################
+# Discount By Percentage
+# #########################
 msgid "discountByPercentage.desc"
 msgstr ""
 "This function registers a percentage-based discount. The parameter field can "
@@ -400,6 +569,9 @@ msgstr "-%"
 msgid "discountByPercentage.name"
 msgstr "Discount"
 
+# #####################
+# Discount By Amount
+# #####################
 msgid "discountByAmount.desc"
 msgstr ""
 "This function registers a reduction. The parameter field can be used to "
@@ -412,6 +584,9 @@ msgstr "-"
 msgid "discountByAmount.name"
 msgstr "Reduction"
 
+# ##########################
+# Surcharge By Percentage
+# ##########################
 msgid "surchargeByPercentage.desc"
 msgstr ""
 "This function registers a percentage surcharge. The parameter field can be "
@@ -425,6 +600,9 @@ msgstr "+%"
 msgid "surchargeByPercentage.name"
 msgstr "Surcharge"
 
+# ######################
+# Surcharge By Amount
+# ######################
 msgid "surchargeByAmount.desc"
 msgstr ""
 "This function registers an addition. The parameter field can be used to "
@@ -437,6 +615,9 @@ msgstr "+"
 msgid "surchargeByAmount.name"
 msgstr "PLUS"
 
+# ##############
+# Cash Tender
+# ##############
 msgid "cash.desc"
 msgstr ""
 "This function registers a cash payment. The parameter field can be used to "
@@ -450,6 +631,9 @@ msgstr "Cash"
 msgid "cash.name"
 msgstr "Cash"
 
+# ###########
+# Keypress
+# ###########
 msgid "keypress.desc"
 msgstr ""
 "This function simulates a series of key presses. The parameter field "
@@ -461,6 +645,9 @@ msgstr "Key"
 msgid "keypress.name"
 msgstr "Keypress"
 
+# ##############
+# Clear Input
+# ##############
 msgid "clear.desc"
 msgstr ""
 "This function clears the input line. The parameter field must not be altered"
@@ -471,6 +658,9 @@ msgstr "Clear"
 msgid "clear.name"
 msgstr "Clear"
 
+# ############
+# Enter Key
+# ############
 msgid "enter.desc"
 msgstr ""
 "This function simulates pressing the 'Enter' key. The parameter field must "
@@ -482,6 +672,9 @@ msgstr "Enter"
 msgid "enter.name"
 msgstr "Enter"
 
+# ###############
+# Quantity Key
+# ###############
 msgid "quantity.desc"
 msgstr ""
 "This function sets the quantity to the value entered on the input line. The "
@@ -493,6 +686,9 @@ msgstr "X"
 msgid "quantity.name"
 msgstr "Quantity"
 
+# ##################
+# Subtotal Marker
+# ##################
 msgid "subtotal.desc"
 msgstr ""
 "This function registers a subtotal. The parameter field must not be altered"
@@ -503,6 +699,9 @@ msgstr "SUB TOTAL"
 msgid "subtotal.name"
 msgstr "Sub Total"
 
+# ##############
+# Tray Marker
+# ##############
 msgid "traymarker.desc"
 msgstr ""
 "This function registers a tray marker. The parameter field must not be "
@@ -514,6 +713,9 @@ msgstr "Tray Marker"
 msgid "traymarker.name"
 msgstr "Tray Marker"
 
+# ###############
+# Cancel Order
+# ###############
 msgid "cancel.desc"
 msgstr "This function cancels the current order. No parameter is needed."
 
@@ -523,6 +725,9 @@ msgstr "Cancel"
 msgid "cancel.name"
 msgstr "Cancel"
 
+# #################
+# Product Search
+# #################
 msgid "plusearch.desc"
 msgstr ""
 "This function allows the operator to perform a Product search. No parameter "
@@ -534,6 +739,9 @@ msgstr "Product Search"
 msgid "plusearch.name"
 msgstr "Product Search"
 
+# ##############
+# Queue Order
+# ##############
 msgid "pushqueue.desc"
 msgstr ""
 "This function queues the current order and readies the register for a new "
@@ -545,6 +753,9 @@ msgstr "Queue Order"
 msgid "pushqueue.name"
 msgstr "Queue Order"
 
+# #############
+# View Order
+# #############
 msgid "pullqueue.desc"
 msgstr ""
 "This function allows the operator to recall a queued order. No parameter is "
@@ -556,6 +767,9 @@ msgstr "View Queue"
 msgid "pullqueue.name"
 msgstr "View Queue"
 
+# ##############
+# Modify Item
+# ##############
 msgid "modifyitem.desc"
 msgstr ""
 "This function allows the operator to modify a registered item. No parameter "
@@ -567,6 +781,9 @@ msgstr "Modify"
 msgid "modifyitem.name"
 msgstr "Modify Item"
 
+# ############
+# Void Item
+# ############
 msgid "voidItem.desc"
 msgstr "This function voids the last transaction. No parameter is needed."
 
@@ -576,6 +793,9 @@ msgstr "VOID"
 msgid "voidItem.name"
 msgstr "VOID"
 
+# ############
+# House BON
+# ############
 msgid "houseBon.desc"
 msgstr ""
 "This function marks the current item as 'on-the-house'. The parameter, if "
@@ -587,6 +807,9 @@ msgstr "House BON"
 msgid "houseBon.name"
 msgstr "House BON"
 
+# ###########
+# Sign Off
+# ###########
 msgid "signOff.desc"
 msgstr "This function signs off the current operator. No parameter is needed."
 
@@ -596,6 +819,9 @@ msgstr "Sign Off"
 msgid "signOff.name"
 msgstr "Sign Off"
 
+# ##########################
+# Foreign Currency Tender
+# ##########################
 msgid "currencyConvert.desc"
 msgstr ""
 "This function registers a currency conversion. The parameter indicates the "
@@ -607,6 +833,9 @@ msgstr "Currency Exchange"
 msgid "currencyConvert.name"
 msgstr "Currency Exchange"
 
+# ####################
+# Reset Price Level
+# ####################
 msgid "changeToCurrentLevel.desc"
 msgstr ""
 "This function resets the current price level. If the price level schedule is "
@@ -620,6 +849,9 @@ msgstr "Reset Price Level"
 msgid "changeToCurrentLevel.name"
 msgstr "Reset Price Level"
 
+# #####################
+# Silent User Switch
+# #####################
 msgid "silentsignoff.desc"
 msgstr ""
 "This function allows a silent switch to the user specified in the paramter "
@@ -632,6 +864,9 @@ msgstr "Silent User Switch"
 msgid "silentsignoff.name"
 msgstr "Silent User Switch"
 
+# ####################
+# Quick User Switch
+# ####################
 msgid "quicksignoff.desc"
 msgstr ""
 "This function allows the current user to enter a password and quickly switch "
@@ -643,6 +878,9 @@ msgstr "Change Clerk"
 msgid "quicksignoff.name"
 msgstr "Quick User Switch"
 
+# ###################
+# Command Dispatch
+# ###################
 msgid "dispatch.desc"
 msgstr ""
 "This function dispatches a command to a controller. The parameter field "
@@ -656,17 +894,23 @@ msgstr "Dispatch"
 msgid "dispatch.name"
 msgstr "Dispatch"
 
+# ##############
+# Item Refund
+# ##############
 msgid "return.desc"
 msgstr ""
 "This function registers a return of an item for refund. No parameter is "
 "needed."
 
 msgid "return.label"
-msgstr "Refund"
+msgstr "Item Refund"
 
 msgid "return.name"
-msgstr "Refund"
+msgstr "Item Refund"
 
+# ######################
+# Credit Card Payment
+# ######################
 msgid "creditcard.desc"
 msgstr ""
 "This function registers a credit card payment. The parameter field should be "
@@ -681,6 +925,9 @@ msgstr "Credit Card"
 msgid "creditcard.name"
 msgstr "Credit Card"
 
+# ####################
+# Payment By Coupon
+# ####################
 msgid "coupon.desc"
 msgstr ""
 "This function registers a coupon payment. The parameter field should be set "
@@ -697,6 +944,9 @@ msgstr "Coupon"
 msgid "coupon.name"
 msgstr "Coupon"
 
+# ######################
+# Payment By Giftcard
+# ######################
 msgid "giftcard.desc"
 msgstr ""
 "This function registers a giftcard payment. A giftcard payment is similar to "
@@ -714,6 +964,9 @@ msgstr "Giftcard"
 msgid "giftcard.name"
 msgstr "Giftcard"
 
+# ############################
+# Payment By Personal Check
+# ############################
 msgid "check.desc"
 msgstr ""
 "This function registers a check payment. The parameter field should be set "
@@ -726,6 +979,9 @@ msgstr "Check"
 msgid "check.name"
 msgstr "Check"
 
+# #######################
+# Show Payment Details
+# #######################
 msgid "showpayment.desc"
 msgstr ""
 "This function displays details of currently registered payments. No "
@@ -737,6 +993,9 @@ msgstr "Show Payments"
 msgid "showpayment.name"
 msgstr "Show Payments"
 
+# ###########
+# Add Memo
+# ###########
 msgid "addmemo.desc"
 msgstr ""
 "This function adds an open memo to an item in the cart. The memo may also be "
@@ -748,6 +1007,9 @@ msgstr "Add Memo"
 msgid "addmemo.name"
 msgstr "Add Memo"
 
+# ########################
+# Add Linked Condiments
+# ########################
 msgid "addlinkedcondiment.desc"
 msgstr ""
 "This function registers one or more condiments against a product from "
@@ -759,6 +1021,9 @@ msgstr "Add Linked Condiment"
 msgid "addlinkedcondiment.name"
 msgstr "Add Linked Condiment"
 
+# #######################
+# Add Static Condiment
+# #######################
 msgid "addcondiment.desc"
 msgstr ""
 "This function registers one or more condiments given by the function "
@@ -773,6 +1038,9 @@ msgstr "Add Condiment"
 msgid "addcondiment.name"
 msgstr "Add Condiment"
 
+# #################################
+# Pretax Surcharge By Percentage
+# #################################
 msgid "surchargePretaxByPercentage.desc"
 msgstr ""
 "This function registers a pretax order surcharge by percentage. The "
@@ -786,6 +1054,9 @@ msgstr "Pretax Order Surcharge"
 msgid "surchargePretaxByPercentage.name"
 msgstr "Pretax Order Surcharge"
 
+# ################################
+# Pretax Discount By Percentage
+# ################################
 msgid "discountPretaxByPercentage.desc"
 msgstr ""
 "This function registers a pretax order discount by percentage. The parameter "
@@ -799,6 +1070,9 @@ msgstr "Pretax Order Discount"
 msgid "discountPretaxByPercentage.name"
 msgstr "Pretax Order Discount"
 
+# ######################
+# Open Cash Drawer #1
+# ######################
 msgid "opendrawer1.desc"
 msgstr "This function opens cash drawer #1. The parameter field must be empty."
 
@@ -808,6 +1082,9 @@ msgstr "Cash Drawer #1"
 msgid "opendrawer1.name"
 msgstr "Cash Drawer #1"
 
+# ######################
+# Open Cash Drawer #2
+# ######################
 msgid "opendrawer2.desc"
 msgstr "This function opens cash drawer #2. The parameter field must be empty."
 
@@ -817,6 +1094,9 @@ msgstr "Cash Drawer #2"
 msgid "opendrawer2.name"
 msgstr "Cash Drawer #2"
 
+# ####################
+# Prefinalize Order
+# ####################
 msgid "prefinalize.desc"
 msgstr ""
 "This function closes the current order in order for finalization. As part of "
@@ -832,6 +1112,9 @@ msgstr "Pre-Finalize"
 msgid "prefinalize.name"
 msgstr "Pre-Finalize"
 
+# ##################
+# Set Destination
+# ##################
 msgid "setdestination.desc"
 msgstr ""
 "This function sets the destination indicator to the status given by the "
@@ -843,6 +1126,9 @@ msgstr "Set Destination"
 msgid "setdestination.name"
 msgstr "Set Destination"
 
+# ###########
+# Tag Item
+# ###########
 msgid "tagitem.desc"
 msgstr ""
 "This function tags the current cart item with the tag given by the "
@@ -854,17 +1140,359 @@ msgstr "Tag Item"
 msgid "tagitem.name"
 msgstr "Tag Item"
 
-msgid "// ACL Roles"
+# #########################
+# Toggle Receipts On/Off
+# #########################
+msgid "togglereceipt.desc"
 msgstr ""
+"This function is used to toggle receipt printing on/off. No parameter is "
+"needed."
 
-msgid "acl_user_dummy"
-msgstr "dummy"
+msgid "togglereceipt.label"
+msgstr "Receipt On/Off"
+
+msgid "togglereceipt.name"
+msgstr "Receipt On/Off"
+
+# ###############
+# Shift Change
+# ###############
+msgid "shiftchange.label"
+msgstr "Shift Change"
+
+msgid "shiftchange.name"
+msgstr "Shift Change"
+
+msgid "shiftchange.desc"
+msgstr ""
+"This function is used to initiate shift change. No parameter is needed."
+
+# ###############
+# Ledger Entry
+# ###############
+msgid "ledgerentry.desc"
+msgstr ""
+"This function is used to enter an entry into the ledger. The parameter may "
+"be used to program an ledger entry type and a receipt device number "
+"(separated by commas.) If the receipt device number is not given, no receipt "
+"will be issued."
+
+msgid "ledgerentry.label"
+msgstr "Ledger Entry"
+
+msgid "ledgerentry.name"
+msgstr "Ledger Entry"
+
+# ####################
+# Printer Dashboard
+# ####################
+msgid "printerDashboard.desc"
+msgstr ""
+"This function allows the operator to quickly view and change the status of "
+"enabled devices. No parameter is needed."
+
+msgid "printerDashboard.label"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.name"
+msgstr "Printer Dashboard"
+
+# ##############
+# View Orders
+# ##############
+msgid "vieworders.desc"
+msgstr ""
+"This function allows the operator to quickly browse and view orders. No "
+"parameter is needed."
+
+msgid "vieworders.label"
+msgstr "View Orders"
+
+msgid "vieworders.name"
+msgstr "View Orders"
+
+# ###############################
+# Truncate Transaction Records
+# ###############################
+msgid "truncatetxnrecords.desc"
+msgstr ""
+"This function removes all transactional data from the terminal. This feature "
+"should be used with extreme care, and it is strongly recommeded that the "
+"system be backed up before truncating transaction records. No parameter is "
+"needed."
+
+msgid "truncatetxnrecords.label"
+msgstr "Truncate Transaction Records"
+
+msgid "truncatetxnrecords.name"
+msgstr "Truncate Transaction Records"
+
+# ################
+# Control Panel
+# ################
+msgid "controlpanel.desc"
+msgstr ""
+"This function allows the operator to bring up the configuration control "
+"panel. No parameter is needed."
+
+msgid "controlpanel.label"
+msgstr "Control Panel"
+
+msgid "controlpanel.name"
+msgstr "Control Panel"
+
+# ###############
+# Clock In/Out
+# ###############
+msgid "clockin.desc"
+msgstr ""
+"This function allows the operator to bring up the clock in/out screen. No "
+"parameter is needed."
+
+msgid "clockin.label"
+msgstr "Clock In"
+
+msgid "clockin.name"
+msgstr "Clock In"
+
+# ##########################
+# Show/Hide Function Panel
+# ##########################
+msgid "togglefunctionpanel.desc"
+msgstr ""
+"This function allows the operator to show/hide the function panel. No "
+"parameter is needed."
+
+msgid "togglefunctionpanel.label"
+msgstr "Toggle Function Panel"
+
+# #############################
+# Show/Hide Virtual Keyboard
+# #############################
+msgid "togglefunctionpanel.name"
+msgstr "Toggle Function Panel"
+
+msgid "togglevirtualkeyboard.desc"
+msgstr ""
+"This function allows the operator to show/hide the virtual keyboard. No "
+"parameter is needed."
+
+msgid "togglevirtualkeyboard.label"
+msgstr "Toggle Virtual Keyboard"
+
+msgid "togglevirtualkeyboard.name"
+msgstr "Toggle Virtual Keyboard"
+
+# #####################
+# Adjust stock level
+# #####################
+msgid "stockAdjustment.label"
+msgstr "Stock Adjustment"
+
+msgid "stockAdjustment.name"
+msgstr "Stock Adjustment"
+
+msgid "stockAdjustment.desc"
+msgstr ""
+"By using this function, the quantity of stock can be adjusted.Meanwhile, a "
+"memo of the adjustment can be recorded."
+
+# ####################
+# Shutdown Terminal
+# ####################
+msgid "shutdown.desc"
+msgstr "This function shuts down the terminal. No parameter needed."
+
+msgid "shutdown.label"
+msgstr "Shutdown Terminal"
+
+msgid "shutdown.name"
+msgstr "Shutdown Terminal"
+
+# ##################
+# Reboot Terminal
+# ##################
+msgid "reboot.desc"
+msgstr "This function reboots the terminal. No parameter needed."
+
+msgid "reboot.label"
+msgstr "Reboot Terminal"
+
+msgid "reboot.name"
+msgstr "Reboot Terminal"
+
+# ##############
+# Store Check
+# ##############
+msgid "storeCheck.desc"
+msgstr ""
+"This function stores the current check and issues the appropriate receipts/"
+"checks. The parameter field must be empty."
+
+msgid "storeCheck.label"
+msgstr "Store Check"
+
+msgid "storeCheck.name"
+msgstr "Store Check"
+
+# ###############
+# Recall Check
+# ###############
+msgid "recallCheck.desc"
+msgstr ""
+"This function recalls a prevously stored check for further action. The "
+"parameter field must be empty."
+
+msgid "recallCheck.label"
+msgstr "Recall Check"
+
+msgid "recallCheck.name"
+msgstr "Recall Check"
+
+# ############
+# New Check
+# ############
+msgid "newCheck.desc"
+msgstr ""
+"This function assigns a new check number to an order. If the operator input "
+"a number first, then click this funcion button, the new check number will be "
+"the same as operator's input. If the operator click this function button "
+"directly, a new check number will be generated automatically. Check number "
+"can not be duplicated. The parameter field must be empty."
+
+msgid "newCheck.label"
+msgstr "New Check"
+
+msgid "newCheck.name"
+msgstr "New Check"
+
+# ############
+# New Table
+# ############
+msgid "newTable.desc"
+msgstr ""
+"This function assigns a new table number to an order. If the operator input "
+"a number first, then click this funcion button, the new table number will be "
+"the same as cashier's input. If the operator click this function button "
+"directly, a screen of table map will pop-up for table selection. Table "
+"number can be duplicated. The parameter field must be empty."
+
+msgid "newTable.label"
+msgstr "New Table"
+
+msgid "newTable.name"
+msgstr "New Table"
+
+# ###################
+# Number of Guests
+# ###################
+msgid "guestNum.desc"
+msgstr ""
+"This function allows the operator to register the number of guest. The "
+"parameter field must be empty."
+
+msgid "guestNum.label"
+msgstr "Number of Guests"
+
+msgid "guestNum.name"
+msgstr "Number of Guests"
+
+# ###############
+# Recall Order
+# ###############
+msgid "recallOrder.desc"
+msgstr ""
+"This function recalls a previously stored check for further action via "
+"sequence number. If the operator click this function button without sequence "
+"number input, a screen will pop-up for the selection of stored check. The "
+"parameter field must be empty."
+
+msgid "recallOrder.label"
+msgstr "Recall Order"
+
+msgid "recallOrder.name"
+msgstr "Recall Order"
+
+# ###############
+# Recall Table
+# ###############
+msgid "recallTable.desc"
+msgstr ""
+"This function recalls a previously stored check for further action via table "
+"number. If the operator click this function button without table number "
+"input, a screen will pop-up for the selection of stored check. The parameter "
+"field must be empty."
+
+msgid "recallTable.label"
+msgstr "Recall Table"
+
+msgid "recallTable.name"
+msgstr "Recall Table"
+
+# ##############
+# Merge Check 
+# ##############
+msgid "mergeCheck.desc"
+msgstr ""
+"This function allows operator to merge checks by recalling previously stored "
+"check. The operator should recall a previously stored check first, then "
+"input a check number and click this funcion button, the checks will be "
+"merged automatically. If the operator does not input a check number to "
+"merge, a screen will pop-up for the selection of stored check. The parameter "
+"field must be empty."
+
+msgid "mergeCheck.label"
+msgstr "Merge Stored Checks"
+
+msgid "mergeCheck.name"
+msgstr "Merge Stored Checks"
+
+# ##############
+# Split Check 
+# ##############
+msgid "splitCheck.desc"
+msgstr ""
+"This function allows operator to split check in a previously stored check. "
+"The operator should recall a previously stored check first, then click this "
+"funcion button, a screen of split check function will pop-up. The parameter "
+"field must be empty."
+
+msgid "splitCheck.label"
+msgstr "Split Stored Check"
+
+msgid "splitCheck.name"
+msgstr "Split Stored Check"
+
+# #################
+# Transfer Table
+# #################
+msgid "transferTable.desc"
+msgstr ""
+"This function allows operator to change the table number in a previously "
+"stored check. The operator should recall a previously stored check first, "
+"then input a new table number and click this funcion button. If the operator "
+"does not input a new table number, a screen of table map will pop-up for "
+"table selection. The parameter field must be empty."
+
+msgid "transferTable.label"
+msgstr "Transfer Table No"
+
+msgid "transferTable.name"
+msgstr "Transfer Table No"
+
+# #######################################################################
+#
+# List of ACLs
+#
+# #######################################################################
+msgid "acl_internal_access"
+msgstr "For Internal Access Only"
+
+msgid "acl_stock_adjustment"
+msgstr "Adjust Stock Level"
 
 msgid "acl_truncate_transaction_records"
 msgstr "Truncate Transaction Records"
-
-msgid "acl_override_default_price_level"
-msgstr "Override Default Price Level"
 
 msgid "acl_change_price_level"
 msgstr "Change Price Level"
@@ -925,12 +1553,6 @@ msgstr "Product Search"
 
 msgid "acl_open_cash"
 msgstr "Register Cash Payment"
-
-msgid "acl_toggle_function_panel"
-msgstr "Toggle Function Panl"
-
-msgid "acl_run_report"
-msgstr "Run Report"
 
 msgid "acl_manage_condiments"
 msgstr "Manage Condiments"
@@ -1109,23 +1731,11 @@ msgstr "Manage Network"
 msgid "acl_scroll_function_panel"
 msgstr "Scroll Function Panel"
 
-msgid "Network Setting"
-msgstr "Network Setting"
-
-msgid "Synchronization Settings"
-msgstr "Synchronization Settings"
-
 msgid "acl_manage_hotkey"
 msgstr "Manage Hotkey"
 
-msgid "HotKey Configuration"
-msgstr "HotKey Configuration"
-
 msgid "acl_manage_addons"
 msgstr "Manage Add-ons"
-
-msgid "Add-ons"
-msgstr "Add-ons"
 
 msgid "acl_manage_destinations"
 msgstr "Manage Order Destinations"
@@ -1138,9 +1748,6 @@ msgstr "Manage Product Filters"
 
 msgid "acl_annotate"
 msgstr "Add Annotations"
-
-msgid "acl_view_annotations"
-msgstr "View Annotations"
 
 msgid "acl_modify_annotations"
 msgstr "Modify Annotations"
@@ -1160,32 +1767,73 @@ msgstr "Add Ledger Entries"
 msgid "acl_localization_editor"
 msgstr "Localization Editor"
 
-msgid "togglereceipt.desc"
-msgstr ""
-"This function is used to toggle receipt printing on/off. No parameter is "
-"needed."
+msgid "acl_end_sale_period"
+msgstr "End Sale Period"
 
-msgid "togglereceipt.label"
-msgstr "Receipt On/Off"
+msgid "acl_remote_control"
+msgstr "Remote Control"
 
+msgid "acl_touch_settings"
+msgstr "Touch Screen Settings"
+
+msgid "acl_xterm"
+msgstr "Run XTerm"
+
+msgid "acl_new_check"
+msgstr "New Check"
+
+msgid "acl_new_table"
+msgstr "New Table"
+
+msgid "acl_guest_no"
+msgstr "Number of Guests"
+
+msgid "acl_store_check"
+msgstr "Store Check"
+
+msgid "acl_recall_check"
+msgstr "Recall Stored Check"
+
+msgid "acl_merge_check"
+msgstr "Merge Stored Checks"
+
+msgid "acl_split_check"
+msgstr "Split Stored Check"
+
+msgid "acl_transfer_table"
+msgstr "Transfer Table"
+
+msgid "acl_manage_printers"
+msgstr "Manager Printers"
+
+msgid "acl_printer_dashboard"
+msgstr "Printer Dashboard"
+
+msgid "acl_view_orders"
+msgstr "View Orders"
+
+msgid "acl_manage_promotions"
+msgstr "Promotions Manager"
+
+msgid "acl_layout_manager"
+msgstr "Layout Manager"
+
+msgid "acl_training_mode"
+msgstr "Training Mode"
+
+msgid "acl_manage_tableman"
+msgstr "Table Manager"
+
+# #######################################################################
+#
+# List of Templates
+#
+# #######################################################################
 msgid "Sample Receipt 42c condensed"
 msgstr "Sample Receipt 42c condensed"
 
-msgid "togglereceipt.name"
-msgstr "Receipt On/Off"
-
 msgid "Sample Receipt 42c expanded"
 msgstr "Sample Receipt 42c expanded"
-
-msgid "shiftchange.label"
-msgstr "Shift Change"
-
-msgid "shiftchange.name"
-msgstr "Shift Change"
-
-msgid "shiftchange.desc"
-msgstr ""
-"This function is used to initiate shift change. No parameter is needed."
 
 msgid "Sample Kitchen 42c expanded"
 msgstr "Sample Kitchen 42c expanded"
@@ -1196,25 +1844,17 @@ msgstr "Sample Guest Check 42c condensed"
 msgid "Sample Label Argox 203TD"
 msgstr "Sample Label Argox 203TD"
 
-msgid "ledgerentry.desc"
-msgstr ""
-"This function is used to enter an entry into the ledger. The parameter may "
-"be used to program an ledger entry type and a receipt device number "
-"(separated by commas.) If the receipt device number is not given, no receipt "
-"will be issued."
-
 msgid "Sample Receipt 24c condensed"
 msgstr "Sample Receipt 24c condensed"
-
-msgid "ledgerentry.label"
-msgstr "Ledger Entry"
 
 msgid "Internal VFD Template"
 msgstr "Internal VFD Template"
 
-msgid "ledgerentry.name"
-msgstr "Ledger Entry"
-
+# #######################################################################
+#
+# List of Ports
+#
+# #######################################################################
 msgid "COM 1"
 msgstr "COM 1"
 
@@ -1242,6 +1882,11 @@ msgstr "USB 4"
 msgid "GPIO 1"
 msgstr "GPIO 1"
 
+# #######################################################################
+#
+# List of Device Models
+#
+# #######################################################################
 msgid "FEC F632"
 msgstr "FEC F632"
 
@@ -1260,961 +1905,11 @@ msgstr "Firich VFD"
 msgid "Generic VFD"
 msgstr "Generic VFD"
 
-msgid "acl_end_sale_period"
-msgstr "End Sale Period"
-
-msgid "acl_remote_control"
-msgstr "Remote Control"
-
-msgid "Remote Control"
-msgstr "Remote Control"
-
-msgid "destination"
-msgstr "destination"
-
-msgid "cash"
-msgstr "cash"
-
-msgid "creditcard"
-msgstr "creditcard"
-
-msgid "coupon"
-msgstr "coupon"
-
-msgid "giftcard"
-msgstr "giftcard"
-
-msgid "check"
-msgstr "check"
-
-msgid "(rpt)cash"
-msgstr "cash"
-
-msgid "(rpt)creditcard"
-msgstr "creditcard"
-
-msgid "(rpt)coupon"
-msgstr "coupon"
-
-msgid "(rpt)giftcard"
-msgstr "giftcard"
-
-msgid "(rpt)check"
-msgstr "check"
-
-msgid "(rpt)giftcard excess amount"
-msgstr "(excess)"
-
-msgid "acl_touch_settings"
-msgstr "Touch Screen Settings"
-
-msgid "Touch Calibration"
-msgstr "Touch Calibration"
-
-msgid "Touch Utility"
-msgstr "Touch Utility"
-
-msgid "transaction_created"
-msgstr "Order Start Time"
-
-msgid "acl_new_check"
-msgstr "New Check"
-
-msgid "acl_new_table"
-msgstr "New Table"
-
-msgid "acl_guest_no"
-msgstr "Number of Guests"
-
-msgid "acl_store_check"
-msgstr "Store Check"
-
-msgid "acl_recall_check"
-msgstr "Recall Stored Check"
-
-msgid "acl_merge_check"
-msgstr "Merge Stored Checks"
-
-msgid "acl_split_check"
-msgstr "Split Stored Check"
-
-msgid "acl_transfer_table"
-msgstr "Transfer Table"
-
-msgid "shutdown.desc"
-msgstr "This function shuts down the terminal. No parameter needed."
-
-msgid "shutdown.label"
-msgstr "Shutdown Terminal"
-
-msgid "shutdown.name"
-msgstr "Shutdown Terminal"
-
-msgid "reboot.desc"
-msgstr "This function reboots the terminal. No parameter needed."
-
-msgid "reboot.label"
-msgstr "Reboot Terminal"
-
-msgid "reboot.name"
-msgstr "Reboot Terminal"
-
-msgid "storeCheck.desc"
-msgstr ""
-"This function stores the current check and issues the appropriate receipts/"
-"checks. The parameter field must be empty."
-
-msgid "storeCheck.label"
-msgstr "Store Check"
-
-msgid "storeCheck.name"
-msgstr "Store Check"
-
-msgid "recallCheck.desc"
-msgstr ""
-"This function recalls a prevously stored check for further action. The "
-"parameter field must be empty."
-
-msgid "recallCheck.label"
-msgstr "Recall Check"
-
-msgid "recallCheck.name"
-msgstr "Recall Check"
-
-msgid "newCheck.desc"
-msgstr ""
-"This function assigns a new check number to an order. If the operator input "
-"a number first, then click this funcion button, the new check number will be "
-"the same as operator's input. If the operator click this function button "
-"directly, a new check number will be generated automatically. Check number "
-"can not be duplicated. The parameter field must be empty."
-
-msgid "newCheck.label"
-msgstr "New Check"
-
-msgid "newCheck.name"
-msgstr "New Check"
-
-msgid "newTable.desc"
-msgstr ""
-"This function assigns a new table number to an order. If the operator input "
-"a number first, then click this funcion button, the new table number will be "
-"the same as cashier's input. If the operator click this function button "
-"directly, a screen of table map will pop-up for table selection. Table "
-"number can be duplicated. The parameter field must be empty."
-
-msgid "newTable.label"
-msgstr "New Table"
-
-msgid "newTable.name"
-msgstr "New Table"
-
-msgid "guestNum.desc"
-msgstr ""
-"This function allows the operator to register the number of guest. The "
-"parameter field must be empty."
-
-msgid "guestNum.label"
-msgstr "Number of Guests"
-
-msgid "guestNum.name"
-msgstr "Number of Guests"
-
-msgid "recallOrder.desc"
-msgstr ""
-"This function recalls a previously stored check for further action via "
-"sequence number. If the operator click this function button without sequence "
-"number input, a screen will pop-up for the selection of stored check. The "
-"parameter field must be empty."
-
-msgid "recallOrder.label"
-msgstr "Recall Order"
-
-msgid "recallOrder.name"
-msgstr "Recall Order"
-
-msgid "recallTable.desc"
-msgstr ""
-"This function recalls a previously stored check for further action via table "
-"number. If the operator click this function button without table number "
-"input, a screen will pop-up for the selection of stored check. The parameter "
-"field must be empty."
-
-msgid "recallTable.label"
-msgstr "Recall Table"
-
-msgid "recallTable.name"
-msgstr "Recall Table"
-
-msgid "mergeCheck.desc"
-msgstr ""
-"This function allows operator to merge checks by recalling previously stored "
-"check. The operator should recall a previously stored check first, then "
-"input a check number and click this funcion button, the checks will be "
-"merged automatically. If the operator does not input a check number to "
-"merge, a screen will pop-up for the selection of stored check. The parameter "
-"field must be empty."
-
-msgid "mergeCheck.label"
-msgstr "Merge Stored Checks"
-
-msgid "mergeCheck.name"
-msgstr "Merge Stored Checks"
-
-msgid "splitCheck.desc"
-msgstr ""
-"This function allows operator to split check in a previously stored check. "
-"The operator should recall a previously stored check first, then click this "
-"funcion button, a screen of split check function will pop-up. The parameter "
-"field must be empty."
-
-msgid "splitCheck.label"
-msgstr "Split Stored Check"
-
-msgid "splitCheck.name"
-msgstr "Split Stored Check"
-
-msgid "transferTable.desc"
-msgstr ""
-"This function allows operator to change the table number in a previously "
-"stored check. The operator should recall a previously stored check first, "
-"then input a new table number and click this funcion button. If the operator "
-"does not input a new table number, a screen of table map will pop-up for "
-"table selection. The parameter field must be empty."
-
-msgid "transferTable.label"
-msgstr "Transfer Table No"
-
-msgid "transferTable.name"
-msgstr "Transfer Table No"
-
-msgid "sale_period"
-msgstr "Sale Period"
-
-msgid "Detailed Tax Report"
-msgstr "Detailed Tax Report"
-
-msgid "Factory"
-msgstr "Factory Dataset"
-
-msgid "Training"
-msgstr "Training Dataset"
-
-msgid "XTerm"
-msgstr "XTerm"
-
-msgid "acl_xterm"
-msgstr "Run XTerm"
-
-msgid "IN"
-msgstr "IN"
-
-msgid "Printers"
-msgstr "Printers"
-
-msgid "OUT"
-msgstr "OUT"
-
-msgid "Y"
-msgstr "YES"
-
-msgid "N"
-msgstr "NO"
-
-msgid "acl_manage_printers"
-msgstr "Manager Printers"
-
-msgid "acl_printer_dashboard"
-msgstr "Printer Dashboard"
-
-msgid "printerDashboard.desc"
-msgstr ""
-"This function allows the operator to quickly view and change the status of "
-"enabled devices. No parameter is needed."
-
-msgid "printerDashboard.label"
-msgstr "Printer Dashboard"
-
-msgid "printerDashboard.name"
-msgstr "Printer Dashboard"
-
-msgid "acl_view_orders"
-msgstr "View Orders"
-
-msgid "vieworders.desc"
-msgstr ""
-"This function allows the operator to quickly view the complete details of an "
-"order. No parameter is needed."
-
-msgid "vieworders.label"
-msgstr "View Orders"
-
-msgid "vieworders.name"
-msgstr "View Orders"
-
-msgid "truncatetxnrecords.desc"
-msgstr ""
-"This function removes all transactional data from the terminal. This feature "
-"should be used with extreme care, and it is strongly recommeded that the "
-"system be backed up before truncating transaction records. No parameter is "
-"needed."
-
-msgid "truncatetxnrecords.label"
-msgstr "Truncate Transaction Records"
-
-msgid "truncatetxnrecords.name"
-msgstr "Truncate Transaction Records"
-
-msgid "controlpanel.desc"
-msgstr ""
-"This function allows the operator to bring up the configuration control "
-"panel. No parameter is needed."
-
-msgid "controlpanel.label"
-msgstr "Control Panel"
-
-msgid "controlpanel.name"
-msgstr "Control Panel"
-
-msgid "clockin.desc"
-msgstr ""
-"This function allows the operator to bring up the clock in/out screen. No "
-"parameter is needed."
-
-msgid "clockin.label"
-msgstr "Clock In"
-
-msgid "clockin.name"
-msgstr "Clock In"
-
-msgid "togglefunctionpanel.desc"
-msgstr ""
-"This function allows the operator to show/hide the function panel. No "
-"parameter is needed."
-
-msgid "togglefunctionpanel.label"
-msgstr "Toggle Function Panel"
-
-msgid "togglefunctionpanel.name"
-msgstr "Toggle Function Panel"
-
-msgid "togglevirtualkeyboard.desc"
-msgstr ""
-"This function allows the operator to show/hide the virtual keyboard. No "
-"parameter is needed."
-
-msgid "togglevirtualkeyboard.label"
-msgstr "Toggle Virtual Keyboard"
-
-msgid "togglevirtualkeyboard.name"
-msgstr "Toggle Virtual Keyboard"
-
-msgid "(rpt)Terminal"
-msgstr "Terminal"
-
-msgid "(rpt)Clerk"
-msgstr "Clerk"
-
-msgid "(rpt)Printed Time"
-msgstr "Printed Time"
-
-msgid "(rpt)Job"
-msgstr "Job"
-
-msgid "(rpt)Clock In"
-msgstr "Clock In"
-
-msgid "(rpt)Clock Out"
-msgstr "Clock Out"
-
-msgid "(rpt)Span Time"
-msgstr "Span Time"
-
-msgid "(rpt)Total Work Time"
-msgstr "Total Work Time"
-
-msgid "(rpt)Summary"
-msgstr "Summary"
-
-msgid "(rpt)Sale Period"
-msgstr "Sale Period"
-
-msgid "(rpt)Shift"
-msgstr "Shift"
-
-msgid "(rpt)Balance"
-msgstr "Balance"
-
-msgid "(rpt)Cash"
-msgstr "Cash"
-
-msgid "(rpt)Sales"
-msgstr "Sales"
-
-msgid "(rpt)Giftcard Excess"
-msgstr "Excess"
-
-msgid "(rpt)Ledger In"
-msgstr "Ledger In"
-
-msgid "(rpt)Ledger Out"
-msgstr "Ledger Out"
-
-msgid "(rpt)Type"
-msgstr "Type"
-
-msgid "(rpt)Amount"
-msgstr "Amount"
-
-msgid "(rpt)Payment Type"
-msgstr "Payment"
-
-msgid "(rpt)Order Sequence"
-msgstr "Sequence"
-
-msgid "(rpt)Payment Amount"
-msgstr "Amount"
-
-msgid "(rpt)Payment Count"
-msgstr "Count"
-
-msgid "(rpt)Destination"
-msgstr "Destination"
-
-msgid "(rpt)Destination Gross Sales"
-msgstr "Gross Sales"
-
-msgid "(rpt)Destination Amount"
-msgstr "Amount"
-
-msgid "(rpt)Destination Count"
-msgstr "Count"
-
-msgid "(rpt)Destination Average Gross Sales"
-msgstr "Average Gross Sales"
-
-msgid "(rpt)Add-On Tax Amount"
-msgstr "Add-On Tax"
-
-msgid "(rpt)Included Tax Amount"
-msgstr "Included Tax"
-
-msgid "(rpt)Start Time"
-msgstr "Start Time"
-
-msgid "(rpt)End Time"
-msgstr "End Time"
-
-msgid "(rpt)Drawer"
-msgstr "Drawer"
-
-msgid "(rpt)Time"
-msgstr "Time"
-
-msgid "(rpt)Event"
-msgstr "Event"
-
-msgid "(rpt)Number of Events"
-msgstr "Number of Events"
-
-msgid "(rpt)Sequence"
-msgstr "Sequence"
-
-msgid "(rpt)Hour"
-msgstr "Hour"
-
-msgid "(rpt)Gross Sales/Order"
-msgstr "Gross Sales/Order"
-
-msgid "(rpt)Gross Sales/Guest"
-msgstr "Gross Sales/Guest"
-
-msgid "(rpt)Net Sales/Order"
-msgstr "Net Sales/Order"
-
-msgid "(rpt)Net Sales/Guest"
-msgstr "Net Sales/Guest"
-
-msgid "(rpt)Number of Guests/Order"
-msgstr "Guests/Order"
-
-msgid "(rpt)Number of Items/Order"
-msgstr "Items/Order"
-
-msgid "(rpt)Add-on Tax"
-msgstr "Add-on Tax"
-
-msgid "(rpt)Order Surcharge"
-msgstr "Order Surcharge"
-
-msgid "(rpt)Order Discount"
-msgstr "Order Discount"
-
-msgid "(rpt)Surcharge"
-msgstr "Surcharge"
-
-msgid "(rpt)Discount"
-msgstr "Discount"
-
-msgid "(rpt)Payment"
-msgstr "Payment"
-
-msgid "(rpt)Check"
-msgstr "Check"
-
-msgid "(rpt)Credit Card"
-msgstr "Credit Card"
-
-msgid "(rpt)Gift Card"
-msgstr "Gift Card"
-
-msgid "(rpt)Coupon"
-msgstr "Coupon"
-
-msgid "(rpt)Service Clerk"
-msgstr "Clerk (Open)"
-
-msgid "Service Clerk"
-msgstr "Clerk (Open)"
-
-msgid "(rpt)Proceeds Clerk"
-msgstr "Clerk (Close)"
-
-msgid "Proceeds Clerk"
-msgstr "Clerk (Close)"
-
-msgid "(rpt)Product Number"
-msgstr "Product Number"
-
-msgid "(rpt)Product Name"
-msgstr "Product Name"
-
-msgid "(rpt)Alt Name1"
-msgstr "Alt. Name 1"
-
-msgid "(rpt)Alt Name2"
-msgstr "Alt. Name 2"
-
-msgid "(rpt)Price Level"
-msgstr "Price Level"
-
-msgid "(rpt)Price"
-msgstr "Price"
-
-msgid "(rpt)Quantity"
-msgstr "Quantity"
-
-msgid "(rpt)Name"
-msgstr "Name"
-
-msgid "(rpt)Included Tax"
-msgstr "Included Tax"
-
-msgid "(rpt)Number of Guests"
-msgstr "Guests"
-
-msgid "(rpt)Number of Orders"
-msgstr "Orders"
-
-msgid "(rpt)Number of Items"
-msgstr "Items"
-
-msgid "(rpt)Status"
-msgstr "Status"
-
-msgid "(rpt)Average Price"
-msgstr "Average Price"
-
-msgid "(rpt)Quantities Sold"
-msgstr "Quantities Sold"
-
-msgid "(rpt)Barcode"
-msgstr "Barcode"
-
-msgid "(rpt)Tax Code"
-msgstr "Tax Code"
-
-msgid "(rpt)Stock Level"
-msgstr "Stock Level"
-
-msgid "(rpt)Low Stock Threshold"
-msgstr "Low Threshold"
-
-msgid "(rpt)Halo"
-msgstr "HALO"
-
-msgid "(rpt)Lalo"
-msgstr "LALO"
-
-msgid "(rpt)auto_maintain_stock"
-msgstr "Track stock"
-
-msgid "(rpt)return_stock"
-msgstr "Returns can be restocked"
-
-msgid "(rpt)single"
-msgstr "Single Item Sale"
-
-msgid "(rpt)age_verification"
-msgstr "Require age verification"
-
-msgid "(rpt)visible"
-msgstr "Show on menu"
-
-msgid "(rpt)force_memo"
-msgstr "Memo required"
-
-msgid "(rpt)force_condiment"
-msgstr "Condiments required"
-
-msgid "(rpt)icon_only"
-msgstr "Only display product icon"
-
-msgid "(rpt)manual_adjustment_only"
-msgstr "Manual price adjustment only"
-
-msgid "(rpt)Department Number"
-msgstr "Department Number"
-
-msgid "(rpt)Department Name"
-msgstr "Department Name"
-
-msgid "(rpt)Product"
-msgstr "Product"
-
-msgid "(rpt)Safe Stock"
-msgstr "Safe Stock"
-
-msgid "(rpt)Sales Summary"
-msgstr "Sales Summary"
-
-msgid "(rpt)Average Total"
-msgstr "Average Total"
-
-msgid "(rpt)Average Guest"
-msgstr "Average Guest"
-
-msgid "(rpt)Average Items"
-msgstr "Average Items"
-
-msgid "(rpt)Payment List"
-msgstr "Payment List"
-
-msgid "(rpt)Destination Summary"
-msgstr "Destination Summary"
-
-msgid "(rpt)Times"
-msgstr "Times"
-
-msgid "(rpt)Top Department Sales"
-msgstr "Top Department Sales"
-
-msgid "(rpt)Department"
-msgstr "Department"
-
-msgid "(rpt)Hourly Sales"
-msgstr "Hourly Sales"
-
-msgid "(rpt)Top Product Sales"
-msgstr "Top Product Sales"
-
-msgid "(rpt)Tax Summary"
-msgstr "Tax Summary"
-
-msgid "(rpt)Discount Name"
-msgstr "Name"
-
-msgid "(rpt)Discount Type"
-msgstr "Type"
-
-msgid "(rpt)Discount Count"
-msgstr "Count"
-
-msgid "(rpt)Discount Amount"
-msgstr "Amount"
-
-msgid "(rpt)Surcharge Name"
-msgstr "Name"
-
-msgid "(rpt)Surcharge Type"
-msgstr "Type"
-
-msgid "(rpt)Surcharge Count"
-msgstr "Count"
-
-msgid "(rpt)Surcharge Amount"
-msgstr "Amount"
-
-msgid "(rpt)Discount Summary"
-msgstr "Discount Summary"
-
-msgid "(rpt)Surcharge Summary"
-msgstr "Surcharge Summary"
-
-msgid "(rpt)Promotion Name"
-msgstr "Promotion"
-
-msgid "(rpt)Promotion Count"
-msgstr "Count"
-
-msgid "(rpt)Promotion Amount"
-msgstr "Amount"
-
-msgid "(rpt)Sales Overview"
-msgstr "Sales Overview"
-
-msgid "(rpt)Tax Name"
-msgstr "Tax Name"
-
-msgid "(rpt)Tax Rate"
-msgstr "Tax Rate"
-
-msgid "(rpt)Min Stock"
-msgstr "Min Stock"
-
-msgid "(rpt)Min.Stock"
-msgstr "Min.Stock"
-
-msgid "(rpt)User Name"
-msgstr "User Name"
-
-msgid "(rpt)Display Name"
-msgstr "Display Name"
-
-msgid "(rpt)Access Group"
-msgstr "Access Group"
-
-msgid "(rpt)Telephone"
-msgstr "Telephone"
-
-msgid "(rpt)Start"
-msgstr "Start"
-
-msgid "(rpt)End"
-msgstr "End"
-
-msgid "(rpt)Annotation Text"
-msgstr "Annotation Text"
-
-msgid "(rpt)Deposit"
-msgstr "Deposit"
-
-msgid "(rpt)Order Discount/Surcharge"
-msgstr "order"
-
-msgid "(rpt)Item Discount/Surcharge"
-msgstr "item"
-
-msgid "(rpt)Promotion"
-msgstr "Promotions"
-
-msgid "(rpt)Subtotal"
-msgstr "Subtotal"
-
-msgid "(rpt)Promotion Summary"
-msgstr "Promotion Summary"
-
-msgid "(rpt)Code"
-msgstr "Code"
-
-msgid "(rpt)Number of Voided Orders"
-msgstr "Voided Orders"
-
-msgid "(rpt)Date"
-msgstr "Date"
-
-msgid "(rpt)Order Count"
-msgstr "Order Count"
-
-msgid "(rpt)Promotion Subtotal"
-msgstr "Customer Savings"
-
-msgid "(rpt)Matched Count"
-msgstr "Matched Count"
-
-msgid "(rpt)Matched Items Quantity"
-msgstr "Matched Items Quantity"
-
-msgid "(rpt)Matched Items Subtotal"
-msgstr "Matched Items Subtotal"
-
-msgid "(rpt)Revalue"
-msgstr "Revalue"
-
-msgid "(rpt)Refund"
-msgstr "Refund"
-
-msgid "(rpt)(based on %S)"
-msgstr "(based on %S)"
-
-msgid "(rpt)transaction_created"
-msgstr "when orders were opened"
-
-msgid "(rpt)transaction_submitted"
-msgstr "when orders were closed"
-
-msgid "(rpt)sale_period"
-msgstr "sale period"
-
-msgid "(rpt)Credit"
-msgstr "Credit"
-
-msgid "(rpt)canceled"
-msgstr "canceled"
-
-msgid "(rpt)voided"
-msgstr "voided"
-
-msgid "(rpt)stored"
-msgstr "stored"
-
-msgid "(rpt)completed"
-msgstr "completed"
-
-msgid "(rpt)payment"
-msgstr "payment"
-
-msgid "(rpt)nosale"
-msgstr "nosale"
-
-msgid "(rpt)finalization"
-msgstr "finalization"
-
-msgid "(rpt)shift change"
-msgstr "shift change"
-
-msgid "(rpt)ledger"
-msgstr "ledger"
-
-msgid "(rpt)Gross Sales"
-msgstr "Gross Sales"
-
-msgid "(rpt)Net Sales"
-msgstr "Net Sales"
-
-msgid "(view)completed"
-msgstr "completed"
-
-msgid "(view)stored"
-msgstr "stored"
-
-msgid "(view)cancelled"
-msgstr "cancelled"
-
-msgid "(view)voided"
-msgstr "voided"
-
-msgid "(view)order sequence"
-msgstr "sequence"
-
-msgid "(view)order status"
-msgstr "status"
-
-msgid "(view)order destination"
-msgstr "destination"
-
-msgid "(view)branch"
-msgstr "branch"
-
-msgid "(view)terminal"
-msgstr "terminal"
-
-msgid "(view)opened"
-msgstr "opened"
-
-msgid "(view)service clerk"
-msgstr "serviced by"
-
-msgid "(view)submitted"
-msgstr "submitted"
-
-msgid "(view)proceeds clerk"
-msgstr "submitted by"
-
-msgid "(view)void clerk"
-msgstr "voided by"
-
-msgid "(view)sale period"
-msgstr "sale period"
-
-msgid "(view)shift number"
-msgstr "shift number"
-
-msgid "(view)no_of_customers"
-msgstr "no. of customers"
-
-msgid "(view)contact"
-msgstr "contact"
-
-msgid "(view)email"
-msgstr "email"
-
-msgid "(view)check #"
-msgstr "check #"
-
-msgid "(view)items"
-msgstr "items"
-
-msgid "(view)total"
-msgstr "total"
-
-msgid "(view)table #"
-msgstr "table #"
-
-msgid "(view)customer"
-msgstr "customer"
-
-msgid "(view)customer id"
-msgstr "customer id"
-
-msgid "(view)customers"
-msgstr "customers"
-
-msgid "(view)invoice number"
-msgstr "invoice number"
-
-msgid "(view)invoice count"
-msgstr "invoice count"
-
-msgid "(view)invoice title"
-msgstr "invoice title"
-
-msgid "(view)Item Subtotal"
-msgstr "Item Subtotal"
-
-msgid "(view)Item Adjustments"
-msgstr "Item Adjustments"
-
-msgid "(view)Add-on Taxes"
-msgstr "Add-on Taxes"
-
-msgid "(view)Total"
-msgstr "Total"
-
-msgid "(view)Payment Subtotal"
-msgstr "Payment Subtotal"
-
-msgid "(view)Change"
-msgstr "Change"
-
-msgid "(view)Promotions"
-msgstr "Promotions"
-
-msgid "(view)Revalue"
-msgstr "Revalue"
-
-msgid "(view)search by table number"
-msgstr "table number"
-
-msgid "(view)search by order sequence"
-msgstr "order sequence"
-
-msgid "Promotions Manager"
-msgstr ""
-
-msgid "acl_manage_promotions"
-msgstr "Promotions Manager"
-
+# #######################################################################
+#
+# Promotion Triggers and Types
+#
+# #######################################################################
 msgid "trigger.bypass.label"
 msgstr "ByPass"
 
@@ -2305,14 +2000,16 @@ msgstr "Multi Buy"
 msgid "type.multi_buy.desc"
 msgstr "Multi Buy DESC, Chris Help!"
 
-msgid "Your Saving"
-msgstr "** Your Saving **"
+# #######################################################################
+#
+# System Backup
+#
+# #######################################################################
+msgid "Factory"
+msgstr "Factory Dataset"
 
-msgid "acl_manage_tableman"
-msgstr "Table Manager"
-
-msgid "ledger"
-msgstr ""
+msgid "Training"
+msgstr "Training Dataset"
 
 msgid "restore_with_system.confirm_message"
 msgstr ""
@@ -2321,27 +2018,22 @@ msgstr ""
 "Please MAKE SURE the backup files are from this machine otherwise a 'license "
 "error message' will pop up."
 
-msgid "(rpt)Invoice Number"
-msgstr "Invoice"
+# #######################################################################
+#
+# Common Abbreviations
+#
+# #######################################################################
+msgid "Y"
+msgstr "YES"
 
-msgid "(rpt)Invoice Count"
-msgstr "Invoice Count"
+msgid "N"
+msgstr "NO"
 
-msgid "(rpt)Records Found"
-msgstr "Records Found"
-
-msgid "(rpt)Records Display"
-msgstr "Records Display"
-
-msgid "(rpt)Occurrences"
-msgstr "Occurrences"
-
-msgid "acl_layout_manager"
-msgstr "Layout Manager"
-
-msgid "acl_training_mode"
-msgstr "Training Mode"
-
+# #######################################################################
+#
+# Layouts
+#
+# #######################################################################
 msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
 
@@ -2355,3739 +2047,234 @@ msgstr "Retail Layout"
 msgid "vivipos.fec.registry.layouts.retail.desc"
 msgstr "Retail Layout (for conceptual demonstration only)"
 
-msgid "Confirm Change Layout"
-msgstr "Confirm Change Layout"
-
-msgid "Do you want to change layout"
-msgstr "Do you want to change layout"
-
-msgid ""
-"If you change layout now, the system will restart automatically after you "
-"return to the Main Screen."
-msgstr ""
-"If you changelayout now, the system will restart automatically after you "
-"return to the Main Screen."
-
-msgid "INCLUDED"
+# #######################################################################
+#
+# Tax Types & Rate Types
+#
+# #######################################################################
+msgid "(taxType)INCLUDED"
 msgstr "included"
 
-msgid "ADDON"
+msgid "(taxType)ADDON"
 msgstr "add-on"
 
-msgid "COMBINED"
+msgid "(taxType)COMBINE"
 msgstr "combined"
 
-msgid "(rpt)Obsolete Department"
-msgstr "Obsolete Department"
+msgid "(taxType)VAT & VAT"
+msgstr "VAT & VAT"
 
-msgid "Non PLU Setting"
-msgstr "Non PLU Setting"
+msgid "(taxRateType)%"
+msgstr "Percentage"
 
-msgid "Document is too large to export PDF, please use export CSV instead"
-msgstr "Document is too large to export PDF, please use export CSV instead"
+msgid "(taxRateType)$"
+msgstr "Fixed Amount"
 
-msgid "stockAdjustment.label"
-msgstr "Stock Adjustment"
+# #######################################################################
+#
+# Ledger Entry Types
+#
+# #######################################################################
+msgid "(ledgerEntryType)IN"
+msgstr "IN"
 
-msgid "stockAdjustment.name"
-msgstr "Stock Adjustment"
+msgid "(ledgerEntryType)OUT"
+msgstr "OUT"
 
-msgid "stockAdjustment.desc"
-msgstr ""
-"By using this function, the quantity of stock can be adjusted.Meanwhile, a "
-"memo of the adjustment can be recorded."
-
-msgid "(rpt)Service Clerk Display Name"
-msgstr "Service Clerk Display Name"
-
-msgid "(rpt)Proceeds Clerk Display Name"
-msgstr "Proceeds Clerk Display Name"
-
-msgid "(rpt)Selected Time"
-msgstr "Selected Time"
-
-msgid "(rpt)Table Number"
-msgstr "Table Number"
-
-msgid "(rpt)Check Number"
-msgstr "Check Number"
-
-msgid "(rpt)Created Time"
-msgstr "Created Time"
-
-msgid "(rpt)Stored/Finalized Time"
-msgstr "Stored/Finalized Time"
-
-msgid "(rpt)Member ID"
-msgstr "Member ID"
-
-msgid "(rpt)Member Display Name"
-msgstr "Member Display Name"
-
-msgid "(rpt)Member Email"
-msgstr "Member Email"
-
-msgid "(rpt)Member Cellphone"
-msgstr "Member Cellphone"
-
-msgid "(rpt)Branch ID"
-msgstr "Branch ID"
-
-msgid "(rpt)Branch"
-msgstr "Branch"
-
-msgid "(rpt)Voided Time"
-msgstr "Voided Time"
-
-msgid "(rpt)Voided Clerk"
-msgstr "Voided Clerk"
-
-msgid "(rpt)Voided Clerk Display Name"
-msgstr "Voided Clerk Display Name"
-
-msgid "(rpt)Void Sale Period"
-msgstr "Void Sale Period"
-
-msgid "(rpt)Void Shift Number"
-msgstr "Void Shift Number"
-
-msgid "(rpt)Invoice Type"
-msgstr "Invoice Type"
-
-msgid "(rpt)Invoice Title"
-msgstr "Invoice Title"
-
-msgid "(rpt)Items Count"
-msgstr "Items Count"
-
-msgid "(rpt)Change"
-msgstr "Change"
-
-#: ../..//content/datetime.js:27
-msgid "confirm timezone change"
-msgstr ""
-
-#: ../..//content/datetime.js:28
-msgid ""
-"Timezone change requires system restart to take effect. If you save the "
-"changes now, the system will restart automatically after you return to the "
-"Main Screen. Do you want to save your changes?"
-msgstr ""
-
-#: ../..//content/datetime.js:51
-msgid "Failed to set date/time"
-msgstr ""
-
-#: ../..//content/localekeyboard.js:31
-msgid "confirm language and keyboard mapping change"
-msgstr ""
-
-#: ../..//content/localekeyboard.js:32
-msgid ""
-"Language and Keyboard mapping changes require system restart to take effect. "
-"If you save the changes now, the system will restart automatically after you "
-"return to the Main Screen. Do you want to save your changes?"
-msgstr ""
-
-#: ../..//content/prompt_doshiftchange.js:87
-msgid "data incomplete!"
-msgstr ""
-
-#: ../..//content/prompt_doshiftchange.js:117
-#: ../..//content/prompt_doshiftchange.js:121
-msgid "confirm end sale period"
-msgstr ""
-
-#: ../..//content/prompt_doshiftchange.js:117
-msgid "Change may not be left in the drawer at the end of sale period"
-msgstr ""
-
-#: ../..//content/prompt_doshiftchange.js:121
-msgid "Please confirm end of sale period"
-msgstr ""
-
-#: ../..//content/prompt_doshiftchange.js:135
-#: ../..//content/prompt_doshiftchange.js:140
-msgid "confirm shift change"
-msgstr ""
-
-#: ../..//content/prompt_doshiftchange.js:135
-msgid "Drawer change may not be negative"
-msgstr ""
-
-#: ../..//content/prompt_doshiftchange.js:140
-msgid "Please confirm shift change"
-msgstr ""
-
-#: ../..//content/refund_payment.js:17
-#: ../..//content/controllers/cart_controller.js:3429
-#: ../..//content/controllers/cart_controller.js:3436
-#: ../..//content/controllers/cart_controller.js:3569
-msgid "Void Sale"
-msgstr ""
-
-#: ../..//content/refund_payment.js:18
-msgid ""
-"Are you sure you want to void transaction [%S] (payment [%S], refund [%S])?"
-msgstr ""
-
-#: ../..//content/select_checks.js:40
-#: ../..//content/controllers/select_table_controller.js:64
-msgid "B#"
-msgstr ""
-
-#: ../..//content/select_checks.js:46
-msgid "G#"
-msgstr ""
-
-#: ../..//content/select_checks.js:48
-#: ../..//content/controllers/select_table_controller.js:77
-msgid "C#"
-msgstr ""
-
-#: ../..//content/select_checks.js:52
-msgid "S#"
-msgstr ""
-
-#: ../..//content/select_checks.js:53
-#: ../..//content/controllers/select_table_controller.js:81
-msgid "T#"
-msgstr ""
-
-#: ../..//content/select_checks.js:149 ../..//content/select_queues.js:23
-msgid "SEQ"
-msgstr ""
-
-#: ../..//content/select_checks.js:160
-#: ../..//content/bindings/onscreenvfd.xbl:62
-#: ../..//content/bindings/onscreenvfd.xbl:119
-#: ../..//content/bindings/onscreenvfd.xbl:141
-#: ../..//content/bindings/onscreenvfd.xbl:148
-#: ../..//content/bindings/onscreenvfd.xbl:166
-#: ../..//content/bindings/onscreenvfd.xbl:171
-msgid "TAL"
-msgstr ""
-
-#: ../..//content/select_checks.js:174
-msgid "Can not select this order!!"
-msgstr ""
-
-#: ../..//content/sync_settings.js:19
-msgid "confirm synchronize settings change"
-msgstr ""
-
-#: ../..//content/sync_settings.js:20
-msgid ""
-"Synchronize settings changes require system restart to take effect. If you "
-"save the changes now, the system will restart automatically after you return "
-"to the Main Screen. Do you want to save your changes?"
-msgstr ""
-
-#: ../..//content/sysprefs.js:46
-msgid "Do not pack"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:48
-msgid "Add New ACL Group"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:49
-msgid "New ACL Group"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:49
-#: ../..//content/controllers/condiments_controller.js:307
-#: ../..//content/controllers/plugroups_controller.js:49
-msgid "Group Name"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:56
-msgid "ACL Group [%S] already exists; ACL group not added."
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:63
-msgid "ACL Group [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:66
-msgid ""
-"An error occurred while adding ACL Group [%S]; the ACL group may not have "
-"been added successfully"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:82
-msgid "Remove User"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:83
-msgid ""
-"The ACL group [%S] has been assigned to one or more users [%S] and cannot be "
-"removed."
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:84
-#: ../..//content/controllers/condiments_controller.js:414
-#: ../..//content/controllers/condiments_controller.js:643
-#: ../..//content/controllers/departments_controller.js:249
-#: ../..//content/controllers/jobs_controller.js:140
-#: ../..//content/controllers/plugroups_controller.js:179
-#: ../..//content/controllers/plus_controller.js:911
-#: ../..//content/controllers/promotions_manager_controller.js:359
-#: ../..//content/controllers/taxes_controller.js:210
-#: ../..//content/controllers/users_controller.js:245
-msgid "confirm delete %S"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:84
-#: ../..//content/controllers/condiments_controller.js:414
-#: ../..//content/controllers/condiments_controller.js:643
-#: ../..//content/controllers/departments_controller.js:249
-#: ../..//content/controllers/jobs_controller.js:140
-#: ../..//content/controllers/ledger_entry_types_controller.js:90
-#: ../..//content/controllers/plugroups_controller.js:179
-#: ../..//content/controllers/plus_controller.js:911
-#: ../..//content/controllers/pricelevelschedule_controller.js:154
-#: ../..//content/controllers/promotions_manager_controller.js:359
-#: ../..//content/controllers/taxes_controller.js:210
-#: ../..//content/controllers/users_controller.js:245
-msgid "Are you sure?"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:101
-msgid "ACL Group [%S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:104
-msgid ""
-"An error occurred while removing ACL Group [%S]; the ACL group may not have "
-"been removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:138
-msgid "ACL Group [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/aclgroups_controller.js:141
-msgid ""
-"An error occurred while modifying ACL Group [%S]; the ACL group may not have "
-"been modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:56
-msgid "Add New Annotation Code"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:57
-msgid "New Annotation Code"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:57
-msgid "Code"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:57
-msgid "Type"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:63
-msgid "Annotation code [%S] already exists"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:79
-msgid "Annotation code [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:95
-msgid "Annotation code [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:99
-msgid "Annotation code must not be empty"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:110
-msgid "confirm delete annotation code [%S]"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:111
-msgid "Are you sure you want to delete annotation code [%S]?"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:119
-msgid "Annotation code [%S] deleted successfully"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:283
-msgid "You are not authorized to modify annotations"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:339
-msgid "confirm delete annotation [%S]"
-msgstr ""
-
-#: ../..//content/controllers/annotation_controller.js:340
-msgid "Are you sure you want to delete annotation [%S]?"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:139
-#: ../..//content/controllers/cart_controller.js:153
-msgid "The stock record seems not existent!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:177
-msgid "OUT OF STOCK"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:179
-msgid "[%S] may be out of stock!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:194
-msgid "STOCK LOW"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:196
-msgid "[%S] low stock threshold reached!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:240
-msgid "Not authorized to register open price"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:252
-msgid "Product [%S] may not be registered with a price of [%S]!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:306
-msgid "Return of product sets [%S] not allowed!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:320
-msgid "VERIFY AGE"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:326
-msgid "confirm age"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:327
-msgid "Is customer of age for purchase of [%S]?"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:333
-msgid "Verify Customer Age for Purchase of [%S]!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:446
-msgid "Not an open order; cannot tag the selected item"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:454
-#: ../..//content/controllers/cart_controller.js:1007
-#: ../..//content/controllers/cart_controller.js:1166
-#: ../..//content/controllers/cart_controller.js:1288
-#: ../..//content/controllers/cart_controller.js:3157
-msgid "This order is being finalized and items may not be modified"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:461
-#: ../..//content/controllers/cart_controller.js:523
-#: ../..//content/controllers/cart_controller.js:1014
-#: ../..//content/controllers/cart_controller.js:1173
-#: ../..//content/controllers/cart_controller.js:1295
-#: ../..//content/controllers/cart_controller.js:1647
-#: ../..//content/controllers/cart_controller.js:1818
-#: ../..//content/controllers/cart_controller.js:2669
-#: ../..//content/controllers/cart_controller.js:3164
-#: ../..//content/controllers/cart_controller.js:3366
-msgid "Please select an item first"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:469
-#: ../..//content/controllers/cart_controller.js:1022
-#: ../..//content/controllers/cart_controller.js:3172
-#: ../..//content/controllers/cart_controller.js:3374
-msgid "Stored items may not be modified"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:476
-msgid "Cannot tag the selected item with an empty tag"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:486
-msgid "Cannot tag the selected item [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:510
-msgid "Not an open order; cannot return the selected item"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:517
-msgid "This order is being finalized and items may not be returned"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:532
-msgid "The selected item [%S] is not a product and cannot be returned"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:571
-msgid "Memory Error"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:572
-msgid ""
-"Failed to locate product [%S]. Please restart machine immediately to ensure "
-"proper operation"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:605
-msgid "This order is being finalized and new items may not be added"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:710
-msgid "SINGLE ITEM SALE"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:911
-msgid "Product number/barcode not provided"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:950
-msgid "Product number/barcode [%S] not found"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:999
-#: ../..//content/controllers/cart_controller.js:1158
-msgid "Not an open order; cannot modify the selected item"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1038
-msgid "Price/quantity of product set item [%S] may not be modified"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1045
-msgid "Cannot modify the selected item [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1057
-msgid "Cannot modify condiments when collapsed"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1065
-msgid "Cannot modify condiment quantity"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1073
-msgid "Cannot modify condiment price; no price entered"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1081
-msgid "Not authorized to modify condiment price"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1089
-#: ../..//content/controllers/cart_controller.js:1200
-msgid "Cannot modify; selected item [%S] has discount or surcharge applied"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1096
-msgid "Cannot modify; selected item [%S] has been subtotaled"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1111
-msgid "Not authorized to modify price"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1118
-msgid "Not authorized to modify quantity"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1129
-msgid "Product [%S] may not be modified with a price of [%S]!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1186
-msgid "Quantity of product set item [%S] may not be modified"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1189
-msgid "Quantity of condiment [%S] may not be modified"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1192
-msgid "Cannot modify quantity of selected item [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1225
-msgid "Quantity may not be less than 1"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1280
-msgid "Not an open order; cannot void"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1303
-msgid "Stored items may not be voided"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1318
-msgid "Cannot VOID the selected item [%S]. It is not the last registered item"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1325
-msgid ""
-"The select item [%S] is a member of a product set and cannot be VOIDed "
-"individually"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1336
-msgid "Cannot VOID an entry that has been subtotaled"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1345
-#: ../..//content/controllers/cart_controller.js:3201
-msgid "Please void discount on item [%S] first"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1351
-#: ../..//content/controllers/cart_controller.js:3207
-msgid "Please void surcharge on item [%S] first"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1438
-msgid "Not an open order; cannot add discount"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1446
-msgid "This order is being finalized and discount may not be registered"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1453
-msgid "Please select an item"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1461
-msgid "Discount may not be registered against stored items"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1474
-msgid "Pretax discount can only be registered against subtotals"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1482
-#: ../..//content/controllers/cart_controller.js:1509
-#: ../..//content/controllers/cart_controller.js:1675
-#: ../..//content/controllers/cart_controller.js:1702
-msgid "Discount has been already been registered on item [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1488
-#: ../..//content/controllers/cart_controller.js:1503
-#: ../..//content/controllers/cart_controller.js:1681
-#: ../..//content/controllers/cart_controller.js:1696
-msgid "Surcharge has been already been registered on item [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1494
-#: ../..//content/controllers/cart_controller.js:1687
-#: ../..//content/controllers/cart_controller.js:2693
-msgid "Cannot modify an item that has been subtotaled"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1515
-msgid "Cannot apply discount to [%S]. It is not the last registered item"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1522
-msgid "Discount may not be applied to [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1530
-msgid "Please enter the discount amount"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1533
-msgid "Please enter the discount percentage"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1632
-msgid "Not an open order; cannot add surcharge"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1640
-msgid "This order is being finalized and surcharge may not be registered"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1655
-msgid "Surcharge may not be registered against stored items"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1667
-msgid "Pretax surcharge can only be registered against subtotals"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1708
-msgid "Cannot apply surcharge to [%S]. It is not the last registered item"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1715
-msgid "Surcharge may not be applied to [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1723
-msgid "Please enter the surcharge amount"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1726
-msgid "Please enter the surcharge percentage"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1757
-msgid "subtotal"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1766
-msgid "Not an open order; cannot add %S"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1773
-msgid "Nothing has been registered yet; cannot add %S"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1811
-msgid "Not an open order; cannot register %S"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1833
-msgid "House Bon may not be applied to [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1861
-msgid "The selected currency [%S] has not been configured"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1872
-#: ../..//content/controllers/cart_controller.js:2005
-#: ../..//content/controllers/cart_controller.js:2105
-#: ../..//content/controllers/cart_controller.js:2197
-#: ../..//content/controllers/cart_controller.js:2292
-#: ../..//content/controllers/cart_controller.js:2497
-msgid "Not an open order; cannot register payments"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1890
-#: ../..//content/controllers/cart_controller.js:2437
-msgid "Please enter an amount first"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1893
-msgid "Please configure the selected currency entry first [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1910
-msgid "Credit Card Remark"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1911
-#: ../..//content/controllers/cart_controller.js:1932
-#: ../..//content/controllers/cart_controller.js:1953
-#: ../..//content/controllers/cart_controller.js:1974
-msgid "Payment"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1912
-msgid "Card Type"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1913
-msgid "Card Remark"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1931
-#: ../..//content/controllers/cart_controller.js:1934
-msgid "Coupon Remark"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1933
-msgid "Coupon Type"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1952
-#: ../..//content/controllers/cart_controller.js:1955
-msgid "Giftcard Remark"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1954
-msgid "Giftcard Type"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1973
-#: ../..//content/controllers/cart_controller.js:1976
-msgid "Check Remark"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:1975
-msgid "Check Type"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2023
-#: ../..//content/controllers/cart_controller.js:2123
-#: ../..//content/controllers/cart_controller.js:2215
-#: ../..//content/controllers/cart_controller.js:2310
-msgid "Refund amount [%S] may not exceed amount paid [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2033
-#: ../..//content/controllers/cart_controller.js:2133
-#: ../..//content/controllers/cart_controller.js:2227
-#: ../..//content/controllers/cart_controller.js:2320
-msgid "No payments accepted when balance is zero or negative"
-msgstr ""
+msgid "(ledgerEntryType)Y"
+msgstr "Yes"
 
-#: ../..//content/controllers/cart_controller.js:2045
-msgid "Credit Card Payment Error"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2046
-msgid "Credit card payment may not exceed remaining balance"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2239
-msgid "confirm giftcard payment"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2240
-msgid "Change of [%S] will NOT be given for this type of payment. Proceed?"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2342
-msgid "Check Payment Error"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2343
-msgid "Check Cashing limit of [%S] exceeded"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2395
-msgid "Please complete or cancel transaction first"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2415
-#, python-format
-msgid ""
-"An error was encountered while retrieving ledger entry types (error code %s)"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2432
-msgid "unknown user"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2450
-msgid "Specified ledger entry type [%S] is not defined"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2459
-msgid "Add New Ledger Entry"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2478
-#: ../..//content/controllers/ledger_controller.js:226
-msgid "Transaction [%S] for amount of [%S] successfully logged to the ledger"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2482
-#: ../..//content/controllers/ledger_controller.js:231
-msgid "Failed to log transaction [%S] for amount of [%S] to the ledger"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2504
-msgid "Nothing has been registered yet; cannot register payments"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2516
-msgid "No payment has been made; cannot register refund payment"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2527
-msgid "Refund amount [%S] may not exceed payment amount [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2601
-msgid "No order for which to show payment status"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2617
-msgid "Payment Details"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2654
-msgid "Not an open order; cannot shift tax"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2662
-msgid "This order is being finalized and tax status may not be changed"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2677
-msgid "Tax status may not be changed on stored items"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2686
-msgid "This operation cannot be performed on [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2710
-msgid "The tax status indicated does not exist [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2792
-msgid "confirm cancel"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2793
-msgid "Are you sure you want to discard changes made to this order?"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2850
-msgid ""
-"An error was encountered while retrieving transaction record (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2859
-msgid "completed"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2863
-msgid "stored"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2867
-msgid "cancelled"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2871
-msgid "voided"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2879
-#: ../..//content/controllers/cart_controller.js:2886
-msgid "Order Finalization"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2880
-msgid "Current order is no longer available for finalization (status = %S)"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2887
-msgid "Current order has non-zero balance and may not be closed"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2917
-msgid "Submit Fail"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2918
-msgid "Current order is not saved successfully, please try again..."
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2959
-msgid "Not an open order; cannot pre-finalize order"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2965
-msgid "The order is already pre-finalized"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2971
-msgid "The order is empty; cannot pre-finalize order"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2991
-#: ../..//content/controllers/cart_controller.js:3009
-msgid "confirm destination"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2992
-msgid ""
-"The order destination is different from [%S], proceed with pre-finalization?"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3010
-msgid ""
-"Destinations other than [%S] found in the order, proceed with pre-"
-"finalization?"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3038
-#: ../..//content/controllers/main_controller.js:269
-msgid "Add Annotation"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3058
-#: ../..//content/controllers/cart_controller.js:3081
-msgid "PRE-FINALIZED"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3063
-#: ../..//content/controllers/cart_controller.js:3086
-msgid "Order# [%S] has been pre-finalized"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3136
-#: ../..//content/controllers/cart_controller.js:3148
-msgid "Not an open order; cannot add condiment"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3189
-msgid "Condiments may not be added to [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3195
-msgid "Cannot add condiments to an item that has been subtotaled"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3230
-msgid "No Condiment group associated with item [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3359
-msgid "Not an open order; cannot add memo"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3423
-msgid ""
-"An error was encountered while retrieving order payment records (error code %"
-"S)."
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3430
-msgid "Failed to void: the selected order no longer exists"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3437
-msgid "Failed to void: the selected order is not stored or finalized"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3455
-msgid "Payment Refund"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3570
-msgid "Transaction [%S] successfully voided"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3594
-msgid "Add Memo"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3596
-msgid "Memo"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3764
-msgid "No order to queue"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3772
-msgid "Cannot queue the recalled order!!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3812
-msgid "Order is not queued because it is empty"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3899
-msgid "The order object does not exist [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3952
-msgid "This order must be stored first"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:4006
-#: ../..//content/controllers/cart_controller.js:4049
-#: ../..//content/controllers/cart_controller.js:4081
-#: ../..//content/controllers/cart_controller.js:4123
-#: ../..//content/controllers/cart_controller.js:4159
-msgid "Not an open order; unable to store"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:4011
-#: ../..//content/controllers/cart_controller.js:4087
-#: ../..//content/controllers/cart_controller.js:4128
-#: ../..//content/controllers/cart_controller.js:4164
-msgid "This order has been submitted"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:4016
-#: ../..//content/controllers/cart_controller.js:4092
-#: ../..//content/controllers/cart_controller.js:4132
-#: ../..//content/controllers/cart_controller.js:4168
-msgid "This order is closed pending payment and may only be finalized"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:4021
-#: ../..//content/controllers/cart_controller.js:4097
-#: ../..//content/controllers/cart_controller.js:4136
-#: ../..//content/controllers/cart_controller.js:4172
-msgid "This order is empty"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:4034
-msgid "No change to store"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:4058
-msgid "fatal error!!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:4103
-#: ../..//content/controllers/cart_controller.js:4141
-#: ../..//content/controllers/cart_controller.js:4177
-msgid "This order has been modified and must be stored first"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:4206
-#: ../..//content/controllers/cashdrawer_controller.js:336
-#: ../..//content/controllers/changeuser_controller.js:105
-#: ../..//content/controllers/clockinout_controller.js:285
-#: ../..//content/controllers/ledger_controller.js:336
-#: ../..//content/controllers/list_orders_controller.js:172
-#: ../..//content/controllers/main_controller.js:880
-#: ../..//content/controllers/main_controller.js:1125
-#: ../..//content/controllers/print_controller.js:1194
-#: ../..//content/controllers/shift_changes_controller.js:965
-#: ../..//content/controllers/view_order_controller.js:179
-msgid "Data Operation Error"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:4207
-#: ../..//content/controllers/ledger_controller.js:337
-#: ../..//content/controllers/list_orders_controller.js:173
-#: ../..//content/controllers/main_controller.js:882
-#: ../..//content/controllers/main_controller.js:1126
-#: ../..//content/controllers/shift_changes_controller.js:966
-#: ../..//content/controllers/view_order_controller.js:180
-msgid ""
-"Please restart the machine, and if the problem persists, please contact "
-"technical support immediately."
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:150
-#: ../..//content/controllers/cashdrawer_controller.js:455
-#: ../..//content/controllers/cashdrawer_controller.js:479
-#: ../..//content/controllers/print_controller.js:413
-#: ../..//content/controllers/print_controller.js:488
-#: ../..//content/controllers/print_controller.js:550
-#: ../..//content/controllers/print_controller.js:631
-#: ../..//content/controllers/print_controller.js:694
-#: ../..//content/controllers/print_controller.js:720
-#: ../..//content/controllers/print_controller.js:760
-#: ../..//content/controllers/vfd_controller.js:184
-msgid "Error in device manager! Please check your device configuration"
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:159
-#: ../..//content/controllers/cashdrawer_controller.js:170
-#: ../..//content/controllers/cashdrawer_controller.js:183
-msgid "Cash drawer [%S] is not enabled! Please check your device configuration"
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:215
-msgid ""
-"Error detected while opening cash drawer [%S]; please check if cash drawer "
-"is connected and powered up"
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:254
-msgid ""
-"An error was encountered while saving cashdrawer access record (error code %"
-"S)."
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:265
-#: ../..//content/controllers/print_controller.js:810
-#: ../..//content/controllers/vfd_controller.js:258
-msgid "Specified device port [%S] does not exist!"
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:328
-#: ../..//content/controllers/print_controller.js:1067
-#: ../..//content/controllers/vfd_controller.js:340
-msgid "Error detected when outputing to device [%S] at port [%S]"
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:337
-#: ../..//content/controllers/changeuser_controller.js:106
-#: ../..//content/controllers/print_controller.js:1195
-msgid ""
-"Please restart the terminal, and if the problem persists, contact technical "
-"support immediately."
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:401
-msgid ""
-"An error was encountered while expiring backup cashdrawer activity logs "
-"(error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:408
-msgid ""
-"An error was encountered while expiring cashdrawer activity logs (error code "
-"%S)."
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:424
-msgid ""
-"An error was encountered while removing all backup cashdrawer activity logs "
-"(error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/cashdrawer_controller.js:431
-msgid ""
-"An error was encountered while removing all cashdrawer activity logs (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/changeuser_controller.js:25
-#: ../..//content/controllers/clockinout_controller.js:23
-#: ../..//content/controllers/clockinout_controller.js:133
-msgid ""
-"An error was encountered while retrieving employee records (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/changeuser_controller.js:68
-#: ../..//content/controllers/changeuser_controller.js:78
-#: ../..//content/controllers/main_controller.js:590
-#: ../..//content/controllers/main_controller.js:681
-msgid "Authentication failed! Please make sure the password is correct."
-msgstr ""
-
-#: ../..//content/controllers/changeuser_controller.js:73
-msgid "Authentication failed! Please select a user"
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:44
-msgid "An error was encountered while retrieving jobs (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:80
-#: ../..//content/controllers/clockinout_controller.js:117
-#: ../..//content/controllers/clockinout_controller.js:186
-msgid "Please select a user first."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:88
-#: ../..//content/controllers/clockinout_controller.js:164
-#: ../..//content/controllers/clockinout_controller.js:218
-msgid "Please enter the passcode."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:90
-#: ../..//content/controllers/clockinout_controller.js:220
-msgid "Authentication Failed! Please make sure the passcode is correct."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:134
-#: ../..//content/controllers/clockinout_controller.js:160
-msgid "Failed to clock user in."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:145
-msgid "Please select a job first."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:158
-msgid ""
-"An error was encountered while clocking employee [%S] in (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:166
-msgid "Authentication Failed!. Please make sure the passcode is correct."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:198
-msgid ""
-"An error was encountered while retrieving employee attendance record (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:199
-#: ../..//content/controllers/clockinout_controller.js:206
-msgid "Failed to clock user out."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:205
-msgid ""
-"An error was encountered while clocking employee [%S] out (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:211
-msgid "Not clocked in yet."
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:245
-msgid ""
-"An error was encountered while retrieving employee attendance records (error "
-"code %S). "
-msgstr ""
-
-#: ../..//content/controllers/clockinout_controller.js:286
-msgid ""
-"Please restart the terminal, and if the problem persists, please contact "
-"technical support immediately."
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:306
-msgid "Add New Condiment Group"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:307
-msgid "New Condiment Group"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:320
-msgid "Condiment Group [%S] already exists."
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:341
-msgid "Condiment Group [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:344
-msgid ""
-"An error occurred while adding Condiment Group [%S]. The group may not have "
-"been added successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:368
-msgid "Condiment Group [%S] already exists"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:389
-msgid "Condiment Group [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:392
-msgid ""
-"An error occurred while modifying Condiment Group [%S]. The group may not "
-"have been modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:410
-#: ../..//content/controllers/taxes_controller.js:185
-msgid "[%S] has been assigned to one or more products and may not be deleted"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:445
-msgid "Condiment Group [%S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:448
-msgid ""
-"An error occurred while removing Condiment Group [%S]. The group may not "
-"have been removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:497
-msgid "Add New Condiment"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:498
-msgid "New Condiment"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:498
-msgid "Condiment Name"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:498
-msgid "Condiment Price"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:503
-msgid "Condiment Price must be a number"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:522
-#: ../..//content/controllers/condiments_controller.js:581
-msgid "Condiment [%S] already exists in this group"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:556
-msgid "Condiment [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:560
-msgid ""
-"An error occurred while adding Condiment [%S]. The condiment may not have "
-"been added successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:630
-msgid "Condiment [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:633
-msgid ""
-"An error occurred while modifying Condiment [%S]. The condiment may not have "
-"been modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:667
-msgid "Condiment [%S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/condiments_controller.js:670
-msgid ""
-"An error occurred while removing Condiment [%S]. The condiment may not have "
-"been removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/departments_controller.js:143
-msgid "Department Number must not be empty"
-msgstr ""
-
-#: ../..//content/controllers/departments_controller.js:146
-msgid "Department Name must not be empty"
-msgstr ""
-
-#: ../..//content/controllers/departments_controller.js:153
-msgid "Duplicate Department Number (%S); department not %S."
-msgstr ""
-
-#: ../..//content/controllers/departments_controller.js:156
-msgid "Duplicate Department Name (%S); department not %S."
-msgstr ""
-
-#: ../..//content/controllers/departments_controller.js:172
-msgid "Add New Department"
-msgstr ""
-
-#: ../..//content/controllers/departments_controller.js:173
-msgid "New Department"
-msgstr ""
-
-#: ../..//content/controllers/departments_controller.js:173
-msgid "Department Number"
-msgstr ""
-
-#: ../..//content/controllers/departments_controller.js:173
-msgid "Department Name"
-msgstr ""
+msgid "(ledgerEntryType)N"
+msgstr "No"
 
-#: ../..//content/controllers/departments_controller.js:198
-msgid "Department [%S] added successfully"
+#: /tmp/your_order_report.js:1
+msgid "Terminal"
 msgstr ""
 
-#: ../..//content/controllers/departments_controller.js:201
-msgid ""
-"An error occurred while adding Department [%S]; the department may not have "
-"been added successfully"
+#: /tmp/your_order_report.js:2
+msgid "Service Clerk"
 msgstr ""
 
-#: ../..//content/controllers/departments_controller.js:224
-msgid "Department [%S] modified successfully"
+#: /tmp/your_order_report.js:3
+msgid "Service Clerk Display Name"
 msgstr ""
 
-#: ../..//content/controllers/departments_controller.js:228
-msgid ""
-"An error occurred while modifying Department [%S]. The department may not "
-"have been modified successfully"
+#: /tmp/your_order_report.js:4
+msgid "Proceeds Clerk"
 msgstr ""
 
-#: ../..//content/controllers/departments_controller.js:245
-#: ../..//content/controllers/plugroups_controller.js:168
-msgid "[%S] has one or more products and may not be deleted"
+#: /tmp/your_order_report.js:5
+msgid "Proceeds Clerk Display Name"
 msgstr ""
 
-#: ../..//content/controllers/departments_controller.js:260
-msgid "Department [%S] removed successfully"
+#: /tmp/your_order_report.js:6
+msgid "Sale Period"
 msgstr ""
 
-#: ../..//content/controllers/departments_controller.js:263
-msgid ""
-"An error occurred while removing Department [%S]. The department may not "
-"have been removed successfully"
+#: /tmp/your_order_report.js:7
+msgid "Shift"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:59
-msgid "Add New Destination"
+#: /tmp/your_order_report.js:8
+msgid "Selected Time"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:60
-msgid "New Destination"
+#: /tmp/your_order_report.js:9
+msgid "Sequence"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:60
+#: /tmp/your_order_report.js:10
 msgid "Destination"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:67
-msgid "Destination [%S] already exists"
+#: /tmp/your_order_report.js:11
+msgid "Status"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:85
-msgid "Destination [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/destination_controller.js:104
-msgid "Destination [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/destination_controller.js:108
-msgid "Destination name must not be empty"
-msgstr ""
-
-#: ../..//content/controllers/destination_controller.js:118
-msgid "confirm delete destination [%S]"
-msgstr ""
-
-#: ../..//content/controllers/destination_controller.js:118
-msgid "Are you sure you want to delete destination [%S]?"
-msgstr ""
-
-#: ../..//content/controllers/destination_controller.js:126
-msgid "Destination [%S] deleted successfully"
-msgstr ""
-
-#: ../..//content/controllers/destination_controller.js:249
-msgid "Destination [%S] has not been defined"
-msgstr ""
-
-#: ../..//content/controllers/destination_controller.js:257
-msgid ""
-"Shopping cart is missing; please contact your dealer for technical support"
-msgstr ""
-
-#: ../..//content/controllers/destination_controller.js:270
-msgid "This order is closed pending payment and may not be modified"
-msgstr ""
-
-#: ../..//content/controllers/destination_controller.js:290
-msgid "Price Level changed from [%S] to [%S] for destination [%S]"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:48
-#: ../..//content/controllers/devices_controller.js:66
-#: ../..//content/controllers/devices_controller.js:1625
-#: ../..//content/controllers/devices_controller.js:1643
-msgid "Device Status"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:49
-#: ../..//content/controllers/devices_controller.js:1626
-msgid "No device has been enabled for receipt and/or check printing!"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:59
-#: ../..//content/controllers/devices_controller.js:1636
-msgid "Device"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:59
-#: ../..//content/controllers/devices_controller.js:1636
-msgid "Port"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:67
-msgid ""
-"The following enabled devices appear to be offline, please ensure that they "
-"are functioning correctly"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:430
-#: ../..//content/controllers/devices_controller.js:434
-#: ../..//content/controllers/devices_controller.js:436
-#: ../..//content/controllers/devices_controller.js:452
-#: ../..//content/controllers/devices_controller.js:456
-#: ../..//content/controllers/devices_controller.js:458
-msgid "Receipt Printer %S"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:474
-#: ../..//content/controllers/devices_controller.js:478
-#: ../..//content/controllers/devices_controller.js:480
-#: ../..//content/controllers/devices_controller.js:496
-#: ../..//content/controllers/devices_controller.js:500
-#: ../..//content/controllers/devices_controller.js:502
-#: ../..//content/controllers/devices_controller.js:518
-#: ../..//content/controllers/devices_controller.js:522
-#: ../..//content/controllers/devices_controller.js:524
-#: ../..//content/controllers/devices_controller.js:540
-#: ../..//content/controllers/devices_controller.js:544
-#: ../..//content/controllers/devices_controller.js:546
-msgid "Check Printer %S"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:562
-#: ../..//content/controllers/devices_controller.js:566
-#: ../..//content/controllers/devices_controller.js:568
-#: ../..//content/controllers/devices_controller.js:584
-#: ../..//content/controllers/devices_controller.js:588
-#: ../..//content/controllers/devices_controller.js:590
-msgid "Report Printer %S"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:606
-#: ../..//content/controllers/devices_controller.js:610
-#: ../..//content/controllers/devices_controller.js:612
-#: ../..//content/controllers/devices_controller.js:627
-#: ../..//content/controllers/devices_controller.js:631
-#: ../..//content/controllers/devices_controller.js:633
-msgid "VFD %S"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:654
-#: ../..//content/controllers/devices_controller.js:659
-#: ../..//content/controllers/devices_controller.js:661
-#: ../..//content/controllers/devices_controller.js:683
-#: ../..//content/controllers/devices_controller.js:688
-#: ../..//content/controllers/devices_controller.js:690
-msgid "Cash Drawer %S"
-msgstr ""
-
-#: ../..//content/controllers/devices_controller.js:1644
-msgid ""
-"The following enabled devices appear to be offline, do you still want to "
-"save the new configuration?"
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:41
-msgid "Please select a package to export first"
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:46
-msgid "Please select a locale to export first"
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:52
-#: ../..//content/controllers/systembackup_controller.js:186
-#: ../..//content/controllers/systembackup_controller.js:256
-msgid "Media not found!! Please attach the USB thumb drive..."
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:71
-msgid "Installation file [install.rdf] must not be empty"
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:82
-msgid "Failed to create install.rdf file [%S]"
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:97
-msgid "Locale package [%S] successfully exported"
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:102
-#: ../..//content/controllers/localization_controller.js:655
-msgid "Export Locale"
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:103
-msgid "Failed to export locale package [%S]"
-msgstr ""
-
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:838
-#: ../..//content/controllers/hotkey_prefs_controller.js:52
-msgid ".name"
-msgstr ""
-
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:839
-#: ../..//content/controllers/hotkey_prefs_controller.js:53
-msgid ".label"
-msgstr ""
-
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:840
-#: ../..//content/controllers/hotkey_prefs_controller.js:54
-msgid ".desc"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:94
-msgid "New Hot Key"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:109
-msgid "Please Linking Function to Hot Key"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:142
-msgid "Please Assign Hot Key to Linking Function"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:152
-msgid "Hot Key [%S] is reserved"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:159
-msgid "Hot Key [%S] already exists"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:179
-msgid "Hot Key [%S] [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:184
-msgid ""
-"An error occurred while modifying Hot Key [%S]. The hot key may not have "
-"been modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:232
-msgid "Hot Key [%S] [%S] remove successfully"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:236
-msgid ""
-"An error occurred while removing Hot Key [%S]. The hot key may not have been "
-"removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:312
-msgid "Hot Key [%S] does not exist"
-msgstr ""
-
-#: ../..//content/controllers/hotkey_prefs_controller.js:330
-msgid "An error occurred while searching for Hot Key [%S]."
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:77
-#: ../..//content/controllers/import_export_controller.js:46
-#: ../..//content/controllers/systembackup_controller.js:139
-#: ../..//content/reports/controllers/components/csv_export.js:17
-msgid "Failed to execute command (%S)."
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:135
-#: ../..//content/controllers/import_export_controller.js:100
-msgid "Media Not Found!"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:136
-#: ../..//content/controllers/import_export_controller.js:101
-msgid "Please attach the USB thumb drive..."
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:216
-msgid "confirm import"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:217
-msgid ""
-"Please attach the USB thumb drive containing the images to import and press "
-"OK to start the import."
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:237
-#: ../..//content/controllers/image_manager_controller.js:344
-msgid "in progress"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:273
-msgid "import done"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:277
-msgid "Import Image Error"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:294
-msgid "Import Images Done"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:312
-msgid "Confirm Export"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:313
-msgid ""
-"Please attach the USB thumb drive to export images to and press OK to start "
-"the export."
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:369
-msgid "export done"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:373
-msgid "Export Image Error"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:389
-msgid "Export Images Done"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:397
-#: ../..//content/controllers/image_manager_controller.js:419
-msgid "Please select an image first"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:402
-msgid "confirm delete"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:403
-msgid "Are you sure you want to delete %S"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:409
-msgid "Image (%S) is successfully deleted"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:424
-msgid "Rename Image"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:424
-msgid "Original image: "
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:431
-msgid "Image (%S) successfully renamed to (%S)"
-msgstr ""
-
-#: ../..//content/controllers/image_manager_controller.js:444
-msgid "Rename Image (%S) Error"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:111
-#: ../..//content/controllers/import_export_controller.js:116
-msgid "Export Error"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:111
-#: ../..//content/controllers/import_export_controller.js:217
-msgid "Import/Export already in progress"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:116
-msgid "Export device and/or folder not found [%S]"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:122
-msgid "Please select a data category to export"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:187
-msgid "Export To CSV (%S) Error!!"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:207
-#: ../..//content/controllers/import_export_controller.js:370
-msgid "Yes"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:207
-#: ../..//content/controllers/import_export_controller.js:370
-msgid " (%S)"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:210
-msgid "Data export to CSV file [%S] finished!"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:217
-#: ../..//content/controllers/import_export_controller.js:222
-msgid "Import Error"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:222
-msgid "Import device and/or folder not found [%S]"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:228
-msgid "Please select a data category to import"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:250
-msgid "The specified CSV file [%S] does not exist!"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:287
-msgid "Unable to open the specified CSV file [%S]!"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:353
-msgid "Format error detected in import CSV file [%S]!"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:373
-msgid "Data import from CSV file [%S] finished!"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:386
-msgid "Department"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:393
-msgid "Product"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:400
-#: ../..//content/controllers/plus_controller.js:510
-msgid "Product Group"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:407
-msgid "Condiment Group"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:414
-msgid "Condiment"
-msgstr ""
-
-#: ../..//content/controllers/jobs_controller.js:33
-msgid "Add New Job"
-msgstr ""
-
-#: ../..//content/controllers/jobs_controller.js:33
-msgid "New Job"
-msgstr ""
-
-#: ../..//content/controllers/jobs_controller.js:33
-msgid "Job Name"
-msgstr ""
-
-#: ../..//content/controllers/jobs_controller.js:51
-msgid "Duplicate job name [%S]; job not added."
-msgstr ""
-
-#: ../..//content/controllers/jobs_controller.js:79
-msgid "Job [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/jobs_controller.js:99
-msgid "Duplicate job name [%S]; job not modified."
-msgstr ""
-
-#: ../..//content/controllers/jobs_controller.js:116
-#: ../..//content/controllers/plugroups_controller.js:145
-msgid "Job [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/jobs_controller.js:137
-msgid ""
-"[%S] has been assigned as the default job to one or more users and may not "
-"be deleted"
-msgstr ""
-
-#: ../..//content/controllers/jobs_controller.js:165
-msgid "Job [%S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:87
-msgid ""
-"An error was encountered while expiring backup ledger activity logs (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:94
-msgid ""
-"An error was encountered while expiring ledger activity logs (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:102
-msgid ""
-"An error was encountered while expiring backup ledger receipts (error code %"
-"S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:109
-msgid ""
-"An error was encountered while expiring ledger receipts (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:114
-msgid ""
-"An error was encountered while removing expired ledger data (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:120
-msgid ""
-"An error was encountered while preparing to expire ledger data (error code %"
-"S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:139
-msgid ""
-"An error was encountered while removing all backup ledger activity logs "
-"(error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:146
-msgid ""
-"An error was encountered while removing all ledger activity logs (error code "
-"%S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:154
-msgid ""
-"An error was encountered while removing all backup ledger receipts (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:161
-msgid ""
-"An error was encountered while revmoing all ledger receipts (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:166
-msgid ""
-"An error was encountered while removing all ledger data (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:172
-msgid ""
-"An error was encountered while preparing to remove all ledger data (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:192
-msgid "An error was encountered while saving ledger entry (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:204
-msgid ""
-"An error was encountered while saving ledger payment records (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:221
-msgid "Add Ledger Entry"
-msgstr ""
-
-#: ../..//content/controllers/ledger_controller.js:244
-msgid ""
-"An error was encountered while retrieving ledger records (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/ledger_entry_types_controller.js:29
-msgid "Transaction type must not be empty"
-msgstr ""
-
-#: ../..//content/controllers/ledger_entry_types_controller.js:40
-msgid "Transaction type [%S] already exists"
-msgstr ""
-
-#: ../..//content/controllers/ledger_entry_types_controller.js:67
-msgid "Transaction type [%S] and mode [%S] successfully added"
-msgstr ""
-
-#: ../..//content/controllers/ledger_entry_types_controller.js:83
-msgid "Transaction type [%S] and mode [%S] successfully updated"
-msgstr ""
-
-#: ../..//content/controllers/ledger_entry_types_controller.js:90
-msgid "confirm delete %S (%S)"
-msgstr ""
-
-#: ../..//content/controllers/ledger_entry_types_controller.js:106
-msgid "Transaction type [%S] and mode [%S] successfully deleted"
-msgstr ""
-
-#: ../..//content/controllers/ledger_entry_types_controller.js:180
-msgid "Drawer Change IN"
-msgstr ""
-
-#: ../..//content/controllers/ledger_entry_types_controller.js:183
-msgid "Drawer Change OUT"
-msgstr ""
-
-#: ../..//content/controllers/list_orders_controller.js:68
-#: ../..//content/controllers/view_order_controller.js:48
-msgid ""
-"An error was encountered while retrieving list of matching orders (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/list_orders_controller.js:159
-#: ../..//content/reports/controllers/rpt_base_controller.js:444
-msgid "Order Details"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:56
-#: ../..//content/controllers/localization_controller.js:159
-msgid ""
-"Path [%S] for package [%S] locale [%S] is either non-existent or is not a "
-"directory"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:318
-msgid "Localization"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:319
-msgid "Translations have been modified; save changes?"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:320
-msgid "Save"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:320
-#: ../..//content/controllers/main_controller.js:729
-#: ../..//content/controllers/main_controller.js:755
-msgid "Discard"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:581
-msgid "DTD file [%S] successfully updated"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:585
-msgid "Failed to write DTD to file [%S]"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:600
-msgid "Properties file [%S] successfully updated"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:603
-msgid "Failed to write Properties to file [%S]"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:645
-msgid "Failed to load install.rdf for package:locale [%S:%S] at path [%S]"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:125
-#: ../..//content/controllers/main_controller.js:544
-#: ../..//content/controllers/main_controller.js:609
-#: ../..//content/controllers/main_controller.js:693
-#: ../..//content/controllers/training_mode_controller.js:36
-#: ../..//content/controllers/training_mode_controller.js:46
-#: ../..//content/controllers/training_mode_controller.js:56
-#: ../..//content/controllers/training_mode_controller.js:84
-#: ../..//content/controllers/training_mode_controller.js:97
-msgid "Training Mode"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:125
-msgid "Control Panel is disabled during training."
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:131
-msgid "You are not authorized to access the control panel"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:136
-msgid "Control Panel"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:160
-msgid "Change User"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:167
-msgid "Clock In/Out"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:185
-#: ../..//content/controllers/plus_controller.js:476
-#: ../..//content/controllers/plus_controller.js:945
-#: ../..//content/controllers/plusearch_controller.js:136
-#: ../..//content/controllers/stock_adjustments_controller.js:64
-#: ../..//content/controllers/stock_records_controller.js:95
-#: ../..//content/controllers/table_man_controller.js:537
-#: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:73
-msgid "Product Search"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:208
-#: ../..//content/controllers/print_controller.js:1166
-msgid "Printer Dashboard"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:218
-msgid "No order to add/view annotations"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:294
-msgid "Annotate Order"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:304
-msgid "List Orders"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:382
-msgid "Price must be given to register sale of department [%S]"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:463
-#: ../..//content/controllers/main_controller.js:628
-#: ../..//content/controllers/main_controller.js:641
-msgid "An error was encountered while retrieving employees (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:545
-#: ../..//content/controllers/main_controller.js:610
-#: ../..//content/controllers/main_controller.js:694
-msgid "To use this funciton, please leave training mode first"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:576
-#: ../..//content/controllers/main_controller.js:673
-msgid " logged in"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:647
-msgid "User [%S] does not exist!"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:686
-msgid "Please enter passcode first."
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:716
-#: ../..//content/controllers/main_controller.js:728
-#: ../..//content/controllers/main_controller.js:741
-#: ../..//content/controllers/main_controller.js:754
-msgid "Sign Off"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:716
-msgid "Discard items that have been registered?"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:728
-msgid "What do you want to do with the registered items?"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:729
-msgid "Queue"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:741
-msgid "You have one or more queued orders. Discard them?"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:754
-msgid "You have one or more queued orders. What do you want to do with them?"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:755
-msgid "Keep"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:764
-msgid "confirm sign-off"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:764
-msgid "Are you ready to sign off?"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:835
-#: ../..//content/controllers/main_controller.js:838
-#: ../..//content/controllers/main_controller.js:895
-msgid "Remove All Transaction Records"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:836
-msgid ""
-"This operation will remove all transaction records. Are you sure you want to "
-"proceed?"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:839
-msgid ""
-"Data will not be recoverable once removed. It is strongly recommended that "
-"the system be backed up before truncating transaction records. Proceed with "
-"data removal?"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:841
-msgid "Removing all transaction records"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:881
-msgid ""
-"An error was encountered while attempting to remove all transaction records."
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:896
-msgid "Removal completed. Application will now restart"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:917
-msgid "Removing old data..."
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:933
-msgid ""
-"An error was encountered while expiring backup sales activity logs (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:940
-msgid ""
-"An error was encountered while expiring sales activity logs (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:949
-msgid ""
-"An error was encountered while expiring backup employee attendance records "
-"(error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:956
-msgid ""
-"An error was encountered while expiring employee attendance records (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:988
-msgid "Adjust Stock"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:992
-msgid "Reboot"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:992
-msgid "Please confirm to reboot the terminal"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:999
-msgid "Shutdown"
-msgstr ""
-
-#: ../..//content/controllers/main_controller.js:999
-msgid "Please confirm to shut down the terminal"
-msgstr ""
-
-#: ../..//content/controllers/merge_check_controller.js:220
-msgid "The Check# %S has been merged to Check# %S!!"
-msgstr ""
-
-#: ../..//content/controllers/nonplu_setting_controller.js:14
-#: ../..//content/order_display_template.tpl:96
-msgid "Price"
-msgstr ""
-
-#: ../..//content/controllers/nonplu_setting_controller.js:14
-msgid "Quantity"
-msgstr ""
-
-#: ../..//content/controllers/nonplu_setting_controller.js:14
-msgid "Weight"
-msgstr ""
-
-#: ../..//content/controllers/nonplu_setting_controller.js:143
-msgid "Example Code"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:36
-msgid "Add New Filter"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:37
-msgid "New Filter"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:37
-msgid "Filter Name"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:46
-msgid "Filter [%S] already exists"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:63
-msgid "Filter [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:78
-msgid "Filter [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:82
-msgid "Filter name must not be empty"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:92
-msgid "confirm delete filter [%S]"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:92
-msgid "Are you sure you want to delete product filter [%S]?"
-msgstr ""
-
-#: ../..//content/controllers/plufilter_controller.js:99
-msgid "Filter [%S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/plugroups_controller.js:49
-msgid "Add New Product Group"
-msgstr ""
-
-#: ../..//content/controllers/plugroups_controller.js:49
-msgid "New Product Group"
-msgstr ""
-
-#: ../..//content/controllers/plugroups_controller.js:67
-msgid "Duplicate Product Group name [%S]; Product Group not added."
-msgstr ""
-
-#: ../..//content/controllers/plugroups_controller.js:107
-msgid "Product Group [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/plugroups_controller.js:128
-msgid "Duplicate Product Group name [%S]; Product group not modified."
-msgstr ""
-
-#: ../..//content/controllers/plugroups_controller.js:172
-msgid "[%S] belongs to one or more product sets and may not be deleted"
-msgstr ""
-
-#: ../..//content/controllers/plugroups_controller.js:176
-msgid ""
-"[%S] has been linked to one or more check printers and may not be deleted"
-msgstr ""
-
-#: ../..//content/controllers/plugroups_controller.js:210
-msgid "Product Group [%S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:412
-msgid "Add New Set Item"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:412
-msgid "Set Item"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:412
-msgid "Label"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:488
-msgid ""
-"[%S] (%S) is a product set and may not be a member of another product set."
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:491
-msgid "[%S] (%S) may not be a member of its own product set."
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:633
-msgid "Product No. must not be empty."
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:637
-msgid "Product Name must not be empty."
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:644
-msgid "The Product No. [%S] already exists; product not added"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:648
-msgid ""
-"The Product Name [%S] already exists in department [%S]; product not added"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:652
-msgid ""
-"The Product Name [%S] already exists in department [%S]; product not modified"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:661
-msgid ""
-"Condiment is required but no condiment group selected; product not modified"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:674
-msgid ""
-"Price level %S preset price [%S] is larger than HALO [%S]; product not "
-"modified"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:678
-msgid ""
-"Price level %S preset price [%S] is less than LALO [%S]; product not modified"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:693
-msgid ""
-"This product is part of product set [%S] and may not itself be a product set"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:702
-msgid ""
-"Product set item [%S] does not have either default item or group configured"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:760
-msgid "Add New Product"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:760
-msgid "New Product"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:760
-msgid "Product No."
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:760
-msgid "Product Name"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:799
-msgid "Product [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:872
-msgid "Product [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:907
-msgid "Product [%S] is part of a product set [%S] and may not be removed"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:937
-msgid "Product [%S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:958
-msgid "Product [%S] already linked to to product group [%S]"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:972
-msgid "Selected products successfully linked to product group [%S]"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:1377
-msgid "Product Group [%S]"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:1385
-msgid "Department [%S (%S)]"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:1401
-msgid "Product to Clone"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:1406
-msgid "Clone Product"
-msgstr ""
-
-#: ../..//content/controllers/plus_controller.js:1469
-msgid "Product [%S] cloned successfully"
-msgstr ""
-
-#: ../..//content/controllers/plusearch_controller.js:137
-msgid "Product [%S] Not Found!"
-msgstr ""
-
-#: ../..//content/controllers/pricelevel_controller.js:73
-msgid "Price Level changed from [%S] to [%S]"
-msgstr ""
-
-#: ../..//content/controllers/pricelevelschedule_controller.js:66
-msgid "Default"
-msgstr ""
-
-#: ../..//content/controllers/pricelevelschedule_controller.js:84
-#: ../..//content/controllers/pricelevelschedule_controller.js:191
-msgid "Default Price Level"
-msgstr ""
-
-#: ../..//content/controllers/pricelevelschedule_controller.js:143
-msgid "Schedule [%S - Price Level %S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/pricelevelschedule_controller.js:154
-msgid "confirm remove %S - price level %S"
-msgstr ""
-
-#: ../..//content/controllers/pricelevelschedule_controller.js:169
-msgid "Schedule [%S - Price Level %S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:284
-msgid ""
-"An error was encountered while checking if receipt has been printed (error "
-"code %S)"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:304
-msgid ""
-"An error was encountered while saving order receipt log (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:320
-msgid ""
-"An error was encountered while saving ledger receipt log (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:421
-msgid "Not an open order; cannot issue receipt"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:427
-msgid "The order has not been finalized; cannot issue receipt"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:433
-msgid "No new payment made; cannot issue receipt"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:446
-msgid "You have not configured any receipt printers"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:451
-msgid "All receipt printers are disabled"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:458
-#: ../..//content/controllers/print_controller.js:726
-msgid "The specified receipt printer [%S] is not configured"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:462
-#: ../..//content/controllers/print_controller.js:730
-msgid "Invalid receipt printer [%S]"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:466
-#: ../..//content/controllers/print_controller.js:734
-msgid "The specified receipt printer [%S] is not enabled"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:533
-#: ../..//content/controllers/print_controller.js:1040
-msgid "A receipt has already been issued for this order on printer [%S]"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:558
-msgid "Not an open order; cannot issue check"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:564
-msgid "Cannot issue check on a canceled order"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:570
-msgid "Order has not been stored yet; cannot issue check"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:576
-msgid "Nothing has been registered yet; cannot issue check"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:584
-#: ../..//content/controllers/print_controller.js:600
-msgid "You have not configured any check printers"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:589
-msgid "All check printers are disabled"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:604
-msgid "Invalid check printer [%S]"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:608
-msgid "The specified check printer [%S] is not enabled"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:769
-msgid "The specified report/label printer [%S] is not configured"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:773
-msgid "Invalid report/label printer [%S]"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:777
-msgid "The specified report/label printer [%S] is not enabled"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:804
-msgid "Error in Print controller; no worker thread available!"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:923
-msgid "Specified template [%S] is empty or does not exist!"
-msgstr ""
-
-#: ../..//content/controllers/print_controller.js:930
-msgid "Error in parsing template [%S]!"
-msgstr ""
-
-#: ../..//content/controllers/promotions_controller.js:45
-#: ../..//content/controllers/promotions_controller.js:46
-#: ../..//content/controllers/promotions_controller.js:47
-#: ../..//content/controllers/promotions_manager_controller.js:53
-msgid "trigger."
-msgstr ""
-
-#: ../..//content/controllers/promotions_controller.js:69
-#: ../..//content/controllers/promotions_controller.js:70
-#: ../..//content/controllers/promotions_controller.js:71
-#: ../..//content/controllers/promotions_manager_controller.js:62
-msgid "type."
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:113
-msgid "Add New Promotion Rule"
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:114
-msgid "New Promotion Rule"
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:114
-msgid "Rule Name"
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:114
-msgid "Rule Code"
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:142
-msgid "Promotion Rule [%S] already exists."
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:167
-msgid "Promotion Rule [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:171
-msgid ""
-"An error occurred while adding Promotion Rule [%S]. The rule may not have "
-"been added successfully"
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:376
-msgid "Promotion Rule [%S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:380
-msgid ""
-"An error occurred while removing Promotion Rule [%S]. The rule may not have "
-"been removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:416
-msgid "Promotion Rule [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/promotions_manager_controller.js:420
-msgid ""
-"An error occurred while removing Promotion Rule [%S]. The rule may not have "
-"been modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/refund_payment_controller.js:97
-msgid "Refund payment amount must be a valid, positive number"
-msgstr ""
-
-#: ../..//content/controllers/remote_control_controller.js:27
-msgid "Password and Verify Password not the same"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:119
-msgid "Host Table"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:360
-msgid "Recall Check"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:360
-msgid "Please select a table to recall..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:360
-#: ../..//content/controllers/select_table_controller.js:377
-#: ../..//content/controllers/select_table_controller.js:396
-#: ../..//content/controllers/select_table_controller.js:405
-#: ../..//content/controllers/select_table_controller.js:412
-#: ../..//content/controllers/select_table_controller.js:419
-#: ../..//content/controllers/select_table_controller.js:448
-#: ../..//content/controllers/select_table_controller.js:465
-#: ../..//content/controllers/select_table_controller.js:474
-msgid "Press CANCEL button to cancel function"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:377
-msgid "Split Check"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:377
-msgid "Please select a table to split..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:396
-msgid "Merge Check"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:396
-msgid "Please select a table to merge..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:405
-msgid "Merge Table"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:405
-msgid "Please select the master table..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:412
-msgid "Unmerge Table"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:412
-msgid "Please select the table to unmerge..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:419
-msgid "Book Table"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:419
-msgid "Please select a table to book..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:448
-#: ../..//content/bindings/onscreenvfd.xbl:96
-msgid "Change Clerk"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:448
-msgid "Select a table to change service clerk to [ %S ]..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:465
-msgid "Trans Table"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:465
-msgid "Please select the table to be transfered..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:474
-msgid "Select Table"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:474
-msgid "Please select a table..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:509
-msgid "Data synchronizing, please wait..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:517
-msgid "Failed to execute command (sync_client)."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:549
-msgid "This table is host by Table#%S !!"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:576
-#: ../..//content/controllers/select_table_controller.js:584
-#: ../..//content/controllers/select_table_controller.js:592
-#: ../..//content/controllers/select_table_controller.js:648
-#: ../..//content/controllers/select_table_controller.js:679
-msgid "This table is empty!!"
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:651
-msgid "Please select the table to transfer to..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:683
-msgid "Please select an empty table to merge..."
-msgstr ""
-
-#: ../..//content/controllers/select_table_controller.js:696
-msgid "This table had not been hold!!"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:43
-msgid ""
-"An error was encountered while retrieving shift change configuration (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:112
-msgid ""
-"An error was encountered while updating shift change configuration (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:125
-msgid "Shift Information"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:157
-msgid ""
-"An error was encountered while expiring backup shift change records (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:164
-msgid ""
-"An error was encountered while expiring shift change records (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:172
-msgid ""
-"An error was encountered while expiring backup shift change details (error "
-"code %S)."
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:179
-msgid ""
-"An error was encountered while expiring shift change details (error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:196
-msgid ""
-"An error was encountered while removing all shift change records (error code "
-"%S)."
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:204
-msgid ""
-"An error was encountered while removing all shift change details (error code "
-"%S)."
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:299
-#: ../..//content/controllers/shift_changes_controller.js:706
-msgid "Shift Change"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:300
-msgid "Shift change is disabled in training mode"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:347
-msgid ""
-"An error was encountered while retrieving credit card and coupon payment "
-"records (error code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:375
-msgid ""
-"An error was encountered while retrieving giftcard payment records (error "
-"code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:402
-msgid ""
-"An error was encountered while retrieving check payment records (error code %"
-"S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:428
-msgid ""
-"An error was encountered while retrieving cash payment records (error code %"
-"S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:456
-msgid ""
-"An error was encountered while retrieving foreign cash payment records "
-"(error code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:482
-msgid ""
-"An error was encountered while retrieving ledger payment records (error code "
-"%S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:510
-msgid ""
-"An error was encountered while retrieving orders by destinations (error code "
-"%S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:531
-msgid ""
-"An error was encountered while computing cash and ledger sums (error code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:549
-msgid ""
-"An error was encountered while computing amount of cash change given out "
-"(error code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:569
-msgid ""
-"An error was encountered while computing total payments received (error code "
-"%S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:587
-msgid ""
-"An error was encountered while computing depoits received (error code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:606
-msgid ""
-"An error was encountered while computing refunds given out (error code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:624
-msgid "An error was encountered while computing sales revenue (error code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:644
-msgid ""
-"An error was encountered while computing ledger cash received (error code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:663
-msgid ""
-"An error was encountered while computing ledger cash paid (error code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:681
-msgid ""
-"An error was encountered while computing excess giftcard payments (error "
-"code %S)"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:735
-msgid "Invalid cash drawer change amount [%S]"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:739
-msgid "You may not leave negative amount of cash in the cashdrawer"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:815
-msgid ""
-"An error was encountered while saving shift change record; shift may not "
-"have been closed properly."
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:848
-msgid "Sale Period [%S] is now closed"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:849
-msgid "Sale Period Close"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:875
-msgid "Sale Period [%S] Shift [%S] is now closed"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:876
-msgid "Shift Close"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:884
-msgid "Are you sure you want to print shift report?"
-msgstr ""
-
-#: ../..//content/controllers/shift_changes_controller.js:899
-msgid "Are you sure you want to print daily sales report?"
-msgstr ""
-
-#: ../..//content/controllers/sound_controller.js:74
-msgid "Failed to set volume"
-msgstr ""
-
-#: ../..//content/controllers/split_check_controller.js:60
-msgid "Please select source items to split"
-msgstr ""
-
-#: ../..//content/controllers/split_check_controller.js:67
-msgid "Can not split all items"
-msgstr ""
-
-#: ../..//content/controllers/split_check_controller.js:456
-msgid "Check# %S has been successfully split to Check# %S"
-msgstr ""
-
-#: ../..//content/controllers/stock_adjustments_controller.js:65
-#: ../..//content/controllers/stock_records_controller.js:96
-msgid "Product/Barcode Number (%S) not found!"
-msgstr ""
-
-#: ../..//content/controllers/stock_records_controller.js:79
-msgid "Stock level for [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/stock_records_controller.js:248
-msgid "Are you sure you want to reset all the stock records?"
-msgstr ""
-
-#: ../..//content/controllers/stock_records_controller.js:279
-msgid "Are you sure you want to commit all changes?"
-msgstr ""
-
-#: ../..//content/controllers/stock_records_controller.js:336
-msgid "User canceled or errors occured."
-msgstr ""
-
-#: ../..//content/controllers/stock_records_controller.js:359
-msgid " does not exist."
-msgstr ""
-
-#: ../..//content/controllers/stock_records_controller.js:393
-msgid "The following product numbers do not exist."
-msgstr ""
-
-#: ../..//content/controllers/storecontact_controller.js:62
-msgid "Unable to save store contact!"
-msgstr ""
-
-#: ../..//content/controllers/storecontact_controller.js:71
-msgid "Store name must not be blank!"
-msgstr ""
-
-#: ../..//content/controllers/storecontact_controller.js:80
-msgid "Branch name must not be blank!"
-msgstr ""
-
-#: ../..//content/controllers/storecontact_controller.js:89
-msgid "Branch ID must not be blank!"
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:174
-msgid "<Backup to Local> is done!!"
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:205
-msgid "<Copy Backup to Stick> is done!!"
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:208
-#: ../..//content/controllers/systembackup_controller.js:245
-msgid "Must select a item from local backup list."
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:234
-msgid "Do you want to restore (%S) from local backup?"
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:234
-#: ../..//content/controllers/systembackup_controller.js:275
-msgid ""
-"If you execute restore now, the system will restart automatically after you "
-"return to the Main Screen."
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:237
-#: ../..//content/controllers/systembackup_controller.js:278
-msgid "Confirm Restore"
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:241
-msgid "<Restore from Local backup> is done!!"
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:275
-msgid "Do you want to restore (%S) from stick?"
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:283
-msgid "<Restore from Stick> is done!!"
-msgstr ""
-
-#: ../..//content/controllers/systembackup_controller.js:287
-msgid "Must select a item from stick list."
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:62
-msgid "Add Booking"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:62
-msgid "New Booking"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:62
-msgid "Contact"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:62
-msgid "Telephone"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:110
-msgid "Booking added successfully"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:149
-msgid "Booking [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:161
-msgid "confirm delete booking [%S (%S)]"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:162
-msgid "Are you sure you want to delete booking [%S (%S)]?"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:181
-msgid "Booking [%S (%S)] deleted successfully"
-msgstr ""
-
-#: ../..//content/controllers/table_book_controller.js:272
-msgid "Book Table# %S : %S"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:19
-msgid "Final Amount"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:19
-msgid "Original Amount"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:19
-msgid "No Revalue"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:19
-msgid "No Promotion"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:125
-msgid "Add Table"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:125
-msgid "New Table"
-msgstr ""
-
-#: ../..//content/controllers/table_man_controller.js:125
+#: /tmp/your_order_report.js:12
 msgid "Table Number"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:125
-msgid "Table Name"
+#: /tmp/your_order_report.js:13
+msgid "Check Number"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:131
-msgid "Table Number [%S] is invalid"
+#: /tmp/your_order_report.js:14
+msgid "Created Time"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:136
-msgid "Table Number [%S] has already been assigned"
+#: /tmp/your_order_report.js:15 /tmp/your_order_report.js:16
+msgid "Stored/Finalized Time"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:178
-msgid "Table [%S] added successfully"
+#: /tmp/your_order_report.js:17
+msgid "Member ID"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:225
-#: ../..//content/controllers/table_man_controller.js:301
-msgid "Table [%S (%S)] modified successfully"
+#: /tmp/your_order_report.js:18
+msgid "Member Display Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:234
-msgid "confirm delete table [%S (%S)]"
+#: /tmp/your_order_report.js:19
+msgid "Member Email"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:235
-msgid "Are you sure you want to delete table [%S (%S)]?"
+#: /tmp/your_order_report.js:20
+msgid "Member Cellphone"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:264
-msgid "Table [%S (%S)] deleted successfully"
+#: /tmp/your_order_report.js:21
+msgid "Branch ID"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:310
-msgid "Add Region"
+#: /tmp/your_order_report.js:22
+msgid "Branch"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:310
-msgid "New Region"
+#: /tmp/your_order_report.js:23
+msgid "Voided Time"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:310
-msgid "Region Name"
+#: /tmp/your_order_report.js:24
+msgid "Voided Clerk"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:344
-msgid "Region [%S] added successfully"
+#: /tmp/your_order_report.js:25
+msgid "Voided Clerk Display Name"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:378
-msgid "Region [%S] modified successfully"
+#: /tmp/your_order_report.js:26
+msgid "Void Sale Period"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:387
-msgid "confirm delete region [%S (%S)]"
+#: /tmp/your_order_report.js:27
+msgid "Void Shift Number"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:388
-msgid "Are you sure you want to delete region [%S]?"
+#: /tmp/your_order_report.js:28
+msgid "Invoice Type"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:409
-msgid "Region [%S] deleted successfully"
+#: /tmp/your_order_report.js:29
+msgid "Invoice Title"
 msgstr ""
 
-#: ../..//content/controllers/table_man_controller.js:584
-msgid "Options saved successfully"
+#: /tmp/your_order_report.js:30
+msgid "Invoice Number"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:78
-msgid "Tax code must not be empty."
+#: /tmp/your_order_report.js:31
+msgid "Invoice Count"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:82
-msgid "Tax name must not be empty."
+#: /tmp/your_order_report.js:32
+msgid "Items Count"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:90
-msgid "Duplicate tax code [%S]; tax not added"
+#: /tmp/your_order_report.js:33
+msgid "Number of Guests"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:94
-msgid "Duplicate tax name [%S]; tax not %S"
+#: /tmp/your_order_report.js:34
+msgid "Number of Items"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:108
-msgid "Add-On"
+#: /tmp/your_order_report.js:35
+msgid "Change"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:109
-msgid "Included"
+#: /tmp/your_order_report.js:36
+msgid "Included Tax"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:110
-msgid "Combined"
+#: /tmp/your_order_report.js:37
+msgid "Gross Sales"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:111
-msgid "VAT & VAT"
+#: /tmp/your_order_report.js:38
+msgid "Add-on Tax"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:114
-msgid "Add New Tax Status"
+#: /tmp/your_order_report.js:39
+msgid "Surcharge"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:114
-msgid "New Tax Status"
+#: /tmp/your_order_report.js:40
+msgid "Discount"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:114
-msgid "Tax Code"
+#: /tmp/your_order_report.js:41
+msgid "Promotion"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:114
-msgid "Tax Name"
+#: /tmp/your_order_report.js:42
+msgid "Revalue"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:147
-msgid "Tax [%S] added successfully"
+#: /tmp/your_order_report.js:43
+msgid "Net Sales"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:151
-#: ../..//content/controllers/taxes_controller.js:247
-msgid ""
-"An error occurred while adding Tax [%S]; the tax may not have been added "
-"successfully"
+#: /tmp/your_order_report.js:44
+msgid "Payment"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:173
-msgid ""
-"[%S] has been assigned to one or more departments and may not be deleted"
+#: /tmp/your_order_report.js:45
+msgid "Cash"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:192
-msgid "[%S] is the default tax and may not be deleted"
+#: /tmp/your_order_report.js:46
+msgid "Check"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:203
-msgid "[%S] is part of combined tax [%S] and may not be deleted"
+#: /tmp/your_order_report.js:47
+msgid "Credit Card"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:221
-msgid "Tax [%S] removed successfully"
+#: /tmp/your_order_report.js:48
+msgid "Coupon"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:225
-msgid ""
-"An error occurred while removing Tax [%S]; the tax may not have been removed "
-"successfully"
-msgstr ""
-
-#: ../..//content/controllers/taxes_controller.js:243
-msgid "Tax [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/test_controller.js:12
-msgid "Test"
-msgstr ""
-
-#: ../..//content/controllers/training_mode_controller.js:36
-msgid "Are you sure you want to VACUUM training database?"
-msgstr ""
-
-#: ../..//content/controllers/training_mode_controller.js:46
-msgid "Are you sure you want to take current database to be default database?"
-msgstr ""
-
-#: ../..//content/controllers/training_mode_controller.js:56
-msgid "Are you sure you want to take default database to be training database?"
-msgstr ""
-
-#: ../..//content/controllers/training_mode_controller.js:84
-msgid "Are you going to leave the training mode?"
-msgstr ""
-
-#: ../..//content/controllers/training_mode_controller.js:98
-msgid "Training mode can be launched only if there is no open order."
-msgstr ""
-
-#: ../..//content/controllers/training_mode_controller.js:102
-msgid "Training Model"
-msgstr ""
-
-#: ../..//content/controllers/training_mode_controller.js:102
-msgid "Are you sure you want to start training?"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:51
-msgid "Add New Employee"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:51
-msgid "New Employee"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:51
-msgid "User Name"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:51
-msgid "Passcode"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:77
-msgid "Duplicate user name [%S]; user not added."
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:84
-msgid "Duplicate display name [%S]; user not added."
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:117
-msgid "Employee [%S] added successfully"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:134
-msgid "Duplicate display name [%S]; user not modified."
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:150
-msgid "Employee [%S] modified successfully"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:156
-msgid "Modify Employee"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:157
-msgid ""
-"Changes to an employee will take effect the next time the employee logs in"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:199
-msgid "The assigned drawer [%S] does not exist!"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:214
-msgid "The assigned drawer [%S] is not yet enabled!"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:219
-msgid ""
-"Error detected in device manager; unable to verify cash drawer configuration"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:234
-msgid "[%S] is the default user and may not be deleted"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:238
-msgid "[%S] is the current user and may not be deleted"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:242
-msgid "[%S] may not be deleted"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:269
-msgid "Employee [%S] removed successfully"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:294
-msgid "Select Access Group"
-msgstr ""
-
-#: ../..//content/controllers/users_controller.js:316
-msgid "Select Default Job"
-msgstr ""
-
-#: ../..//content/controllers/vfd_controller.js:189
-msgid "Error in VFD controller; no worker thread available!"
-msgstr ""
-
-#: ../..//content/controllers/vfd_controller.js:263
-msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
-msgstr ""
-
-#: ../..//content/controllers/view_order_controller.js:87
-msgid "No orders matching [%S] found"
-msgstr ""
-
-#: ../..//content/controllers/view_order_controller.js:91
-msgid "[%S] orders matching [%S]"
-msgstr ""
-
-#: ../..//content/controllers/view_order_controller.js:94
-msgid "[%S] orders returned"
-msgstr ""
-
-#: ../..//content/controllers/view_order_controller.js:115
-msgid ""
-"An error was encountered while retrieving details of the selected order "
-"(error code %S)."
-msgstr ""
-
-#: ../..//content/controllers/view_order_controller.js:145
-msgid "Are you sure you want to print this order?"
-msgstr ""
-
-#: ../..//content/helpers/nsi_condiments_view.js:145
-#: ../..//content/helpers/nsi_departments_view.js:209
-#: ../..//content/helpers/nsi_plus_view.js:156
-msgid "Sold Out -"
-msgstr ""
-
-#: ../..//content/bindings/diskspace_usage.xbl:163
-msgid "Free"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:64
-#: ../..//content/bindings/onscreenvfd.xbl:120
-#: ../..//content/bindings/onscreenvfd.xbl:142
-msgid "REM"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:66
-#: ../..//content/bindings/onscreenvfd.xbl:173
-msgid "CHG"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:69
-#: ../..//content/bindings/onscreenvfd.xbl:121
-#: ../..//content/bindings/onscreenvfd.xbl:143
-#: ../..//content/bindings/onscreenvfd.xbl:172
-msgid "PAY"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:77
-msgid "Return Single"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:81
-msgid "Return All"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:85
-msgid "I"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:89
-msgid "QTY"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:98
-msgid "Password"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:145
-msgid "CANCELED"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:146
-#: ../..//content/bindings/onscreenvfd.xbl:158
-msgid "SEQ#"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:157
-msgid "QUEUED"
-msgstr ""
-
-#: ../..//content/bindings/onscreenvfd.xbl:174
-msgid "Sale Completed"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1903
-msgid "Scroll Forward"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1904
-msgid "Next"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1905
-msgid "This function scrolls the function panel to the next page"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1913
-msgid "Scroll Backward"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1914
-msgid "Back"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1915
-msgid "This function scrolls the function panel to the previous page"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1923
-msgid "Home Page"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1924
-msgid "Home"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1925
-msgid "This function scrolls the function panel to the home page"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1933
-msgid "Jump to Page"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1934
-msgid "Page"
-msgstr ""
-
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1935
-msgid ""
-"This function scrolls the function panel to the page indicated in the "
-"parameter field"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_base_controller.js:211
-msgid "Are you sure you want to export PDF copy of this report?"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_base_controller.js:219
-msgid ""
-"The document is too large to be exported in .PDF format, please export as ."
-"CSV file instead!"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_base_controller.js:236
-#: ../..//content/reports/controllers/rpt_base_controller.js:289
-msgid "Media not found!! Please attach a USB thumb drive..."
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_base_controller.js:273
-msgid "Are you sure you want to export CSV copy of this report?"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_base_controller.js:343
-msgid "Are you sure you want to print this report?"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_base_controller.js:504
-msgid "The thumb drive has no enough free space!"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_order_annotation_controller.js:164
-msgid "Order Annotation Report"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_product_sales_controller.js:144
-#: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:118
-#: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:119
-msgid "Obsolete"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:796
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl:70
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl:40
-#: ../..//content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl:37
-#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer.tpl:42
-#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_58mm.tpl:22
-#: ../..//content/reports/tpl/rpt_cash_drawer/rpt_cash_drawer_rcp_80mm.tpl:14
-#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary.tpl:36
-#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_58mm.tpl:16
-#: ../..//content/reports/tpl/rpt_cash_drawer_summary/rpt_cash_drawer_summary_rcp_80mm.tpl:11
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order.tpl:25
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:20
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_58mm.tpl:49
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:17
-#: ../..//content/reports/tpl/rpt_your_order/rpt_your_order_rcp_80mm.tpl:40
-msgid "(rpt)"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:237
-msgid "Your Order Report"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_your_order_controller.js:391
-msgid "Are you sure you want to save these settings?"
-msgstr ""
-
-#: ../..//content/reports/controllers/components/browser_print.js:218
-#: ../..//content/reports/controllers/components/browser_print.js:305
-msgid "Generated by VIVIPOS"
-msgstr ""
-
-#: ../..//content/reports/controllers/components/browser_print.js:222
-#: ../..//content/reports/controllers/components/browser_print.js:306
-msgid "Firich Enterprises Co.,Ltd."
-msgstr ""
-
-#: ../..//content/tpl/order_template.tpl:287
-#: ../..//content/order_display_template.tpl:250
-msgid "Order sequence [%S] does not exist"
-msgstr ""
-
-#: ../..//content/tpl/order_template.tpl:289
-#: ../..//content/order_display_template.tpl:252
-msgid "Unable to display order; no order sequence given"
-msgstr ""
-
-#: ../..//content/tpl/order_template_58mm.tpl:31
-#: ../..//content/tpl/order_template_80mm.tpl:31
-msgid "Transaction Details"
-msgstr ""
-
-#: ../..//content/order_display_template.tpl:92
-msgid "Item"
-msgstr ""
-
-#: ../..//content/order_display_template.tpl:94
-msgid "Qty"
-msgstr ""
-
-#: ../..//content/order_display_template.tpl:97
-msgid "Tax"
-msgstr ""
-
-#: ../..//content/order_display_template.tpl:161
-msgid "(view)Adjustments"
+#: /tmp/your_order_report.js:49
+msgid "Gift Card"
 msgstr ""

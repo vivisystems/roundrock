@@ -21,6 +21,26 @@
 
         },
 
+        isAlphaNumeric: function(str) {
+            var nonalphaRE = /[^a-zA-Z0-9]/;
+            return !nonalphaRE.test(str);
+        },
+
+        validateForm: function(data) {
+
+            var obj = this.Form.serializeToObject('syncSettingForm', false);
+
+            // make sure terminal_no is alphanumeric only
+            if (!this.isAlphaNumeric(obj['machine_id'])) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Synchronization Settings'),
+                                      _('Terminal number must only contain [a-zA-Z] and [0-9]'));
+                data.cancel = true;
+            }
+            else {
+                data.changed = this.Form.isFormModified('syncSettingForm');
+            }
+        },
+        
         save: function(data) {
 		
             var obj = this.Form.serializeToObject('syncSettingForm', false);

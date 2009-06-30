@@ -115,10 +115,10 @@
 
                 var text;
                 if (col.id == 'mode') {
-                    text = _(this.data[row][col.id]);
+                    text = _('(ledgerEntryType)' + this.data[row][col.id]);
                 }
                 else if (col.id == 'drawer_change') {
-                    text = _(this.data[row][col.id]);
+                    text = _('(ledgerEntryType)' + this.data[row][col.id]);
                 }
                 else {
                     text = this.data[row][col.id];

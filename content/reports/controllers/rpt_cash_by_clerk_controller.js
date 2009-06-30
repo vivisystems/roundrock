@@ -51,7 +51,7 @@
                 o.endtime = d.toString('yy/MM/dd HH:mm');
             });
             
-            this._reportRecords.head.title = _( 'Shift Change Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.cashbyclerk.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_id = terminalNo;

@@ -234,7 +234,7 @@
                     pickedFields.push( field );
             } );
             
-            this._reportRecords.head.title = _( 'Your Order Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.yourorder.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminal_no;

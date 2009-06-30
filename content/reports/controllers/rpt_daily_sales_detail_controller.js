@@ -199,7 +199,7 @@
             // trap the last order.
             if ( record ) records.push( record );
 			
-            this._reportRecords.head.title = _( 'Sales Report - Detailed' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.dailysalesdetail' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;

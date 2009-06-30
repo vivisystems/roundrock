@@ -89,12 +89,12 @@
 <html:table id="body-table" width="100%">
 	    <html:thead>
                 <html:tr>
-                    <html:th style="text-align: left;">${_('Item')}</html:th>
+                    <html:th style="text-align: left;">${_('(view)Item')}</html:th>
                     <html:th style="text-align: left;"> </html:th>
-                    <html:th style="text-align: center;">${_('Qty')}</html:th>
+                    <html:th style="text-align: center;">${_('(view)Qty')}</html:th>
                     <html:th style="text-align: center;"> </html:th>
-                    <html:th style="text-align: right;">${_('Price')}</html:th>
-                    <html:th style="text-align: left;">${_('Tax')}</html:th>
+                    <html:th style="text-align: right;">${_('(view)Price')}</html:th>
+                    <html:th style="text-align: left;">${_('(view)Tax')}</html:th>
                 </html:tr>
             </html:thead>
             <html:tbody>
@@ -158,7 +158,7 @@
     </html:tr>
 {if item_adjustments != 0}
     <html:tr>
-        <html:td style="text-align: left;">${_('(view)Adjustments')}</html:td>
+        <html:td style="text-align: left;">${_('(view)Item Adjustments')}</html:td>
         <html:td style="text-align: right;">${item_adjustments|viviFormatPrices:true}</html:td>
         <html:td colspan="3" style="text-align: right;">${order.surcharge_subtotal + order.discount_subtotal|viviFormatPrices:true}</html:td>
     </html:tr>

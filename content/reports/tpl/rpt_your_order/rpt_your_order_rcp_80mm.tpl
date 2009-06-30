@@ -14,7 +14,7 @@ ${head.title|center:42}
   TrimPath.PrecisionTaxes = detail.precision_taxes;
 {/eval}
 {for field in fields}
-${_( '(rpt)' + field.name ) + ': '|left:20}{if field.datatype == "time"}
+${_( field.name ) + ': '|left:20}{if field.datatype == "time"}
 ${detail[ field.value ]|unixTimeToString|right:22}
 {elseif field.datatype == "date"}${detail[ field.value ]|unixTimeToLocale:'date'|right:22}
 {elseif field.datatype == "dollar"}${detail[ field.value ]|default:0|viviFormatPrices:true|right:22}

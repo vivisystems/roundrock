@@ -50,10 +50,9 @@
 
             this.resetLayout(true);
 
-            // add event listener for onUpdateOptions events
+            // add event listener for SetClerk event
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
-                //main.addEventListener('onUpdateOptions', this.handleUpdateOptions, this);
                 main.addEventListener('onSetClerk', this.home, this);
             }
         },
@@ -354,10 +353,6 @@
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
 
             this.resizePanels(disabled_features, initial);
-        },
-
-        handleUpdateOptions: function(evt) {
-            this.resetLayout(false);
         }
 
     };

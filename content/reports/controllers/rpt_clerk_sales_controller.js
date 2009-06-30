@@ -218,10 +218,7 @@
                 };
             });
 
-            var reportTitle = '';
-            if ( clerk_type == 'service_clerk_displayname' )
-                reportTitle = _('Service Clerk Sales Report');
-            else reportTitle = _('Proceeds Clerk Sales Report');
+            var reportTitle = _('vivipos.fec.reportpanels.clerksalesreport.label');
    				
             this._reportRecords.head.title = reportTitle;
             this._reportRecords.head.start_time = start_str;

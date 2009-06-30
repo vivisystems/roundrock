@@ -792,7 +792,7 @@
             var start_str = ( new Date( this._start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( this._end ) ).toString( 'yyyy/MM/dd HH:mm' );
 
-            this._reportRecords.head.title = _( 'Sales Summary Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.salessummary.label' );
             this._reportRecords.head.subtitle = _( '(rpt)(based on %S)', [_( '(rpt)' + this._periodtype ) ]);
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;

@@ -98,7 +98,7 @@
                 total_spans += o.Spans;
             });
             
-            this._reportRecords.head.title = _( 'Attendance Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.attendancerecord.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             

@@ -159,7 +159,7 @@
             var aURL = 'chrome://viviecr/content/changeuser.xul';
             var aName = _('Change User');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=no,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, '');
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
         },
 
         ClockInOutDialog: function () {
@@ -450,7 +450,7 @@
             if (user) {
                 // perform user login initialization
                 // -> set price level
-                //    - if user has role 'vivipos_fec_acl_override_system_price_level', use user default price level
+                //    - if user has role 'acl_change_price_level', use user default price level
                 var userModel = new UserModel();
 
                 var userRecord = userModel.findByIndex('first', {
@@ -472,8 +472,8 @@
                     GeckoJS.Session.set('user', userRecord);
                     
                     var userPriceLevel = parseInt(userRecord.default_price_level);
-                    //var canOverride = (GeckoJS.Array.inArray('acl_user_override_default_price_level', user.Roles) != -1);
-                    var canOverride = this.Acl.isUserInRole('acl_user_override_default_price_level');
+                    //var canOverride = (GeckoJS.Array.inArray('acl_change_price_level', user.Roles) != -1);
+                    var canOverride = this.Acl.isUserInRole('acl_change_price_level');
 
                     if (userPriceLevel && !isNaN(userPriceLevel) && userPriceLevel > 0 && userPriceLevel < 10 && canOverride) {
                         $do('change', userPriceLevel, 'Pricelevel');
@@ -1004,7 +1004,6 @@
 
         dispatch: function(arg) {
             var args = arg.split('|');
-
             $do(args[0], args[1], args[2]) ;
             /*
             var printer = GeckoJS.Controller.getInstanceByName('Print');
