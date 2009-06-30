@@ -98,7 +98,7 @@
 
                     var listitem = document.createElementNS(XUL_NS, "listitem");
                     listitem.setAttribute("value", locale);
-                    listitem.setAttribute("label", _(locale));
+                    listitem.setAttribute("label", _('(locale)' + locale));
                     listitem.setAttribute("class", "listitem-iconic");
                     listitem.setAttribute("image", "chrome://vivipos/skin/flags/tb_" + locale + ".png");
 
