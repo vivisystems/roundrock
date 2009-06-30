@@ -98,4 +98,8 @@
         </br>
 {/for}
 </div>
+    <div style="float: left;">
+            <p class="heading_p">${_('(rpt)Records Found')}: ${head.rowCount|default:0|format:0}</p>
+    </div>
+
 <!--/div -->

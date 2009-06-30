@@ -5,8 +5,6 @@
      */
     function startup() {
 
-        centerWindowOnScreen();
-        
         $do('createFilterRows', null, 'PluSearch');
 
         doSetOKCancel(
@@ -73,11 +71,7 @@
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var product;
 
-            if (!barcodesIndexes[barcode]) {
-                // barcode notfound
-                // event.error = true;
-                // alert("Plu Not Found!");
-            }else {
+            if (barcodesIndexes[barcode]) {
                 var id = barcodesIndexes[barcode];
                 product = productsById[id];
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);

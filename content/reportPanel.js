@@ -13,18 +13,29 @@
    
         centerWindowOnScreen();
 
-        var prefs = GeckoJS.BaseObject.getValues(GeckoJS.Configure.read('vivipos.fec.reportpanels'));
-        var data = new opener.GeckoJS.ArrayQuery(prefs).orderBy("label asc");
-        // if (data) data.forEach(function(el) {el.label = _(el.label)});
+        var reports = GeckoJS.Configure.read('vivipos.fec.reportpanels');
+        var keys = GeckoJS.BaseObject.getKeys(reports) || [];
+        var data = [];
 
-        if (data) data = data.map(function(el) {
+        keys.forEach(function(key) {
+            var el = reports[key];
+            var label = el.label;
+            GREUtils.log(label);
+            GREUtils.log('vivipos.fec.reportpanels.' + key + '.label');
+            GREUtils.log(_('vivipos.fec.reportpanels.' + key + '.label'));
+            if (label.indexOf('chrome://') == 0) {
+                label = _('vivipos.fec.reportpanels.' + key + '.label');
+            }
+            else {
+                label = _(label);
+            }
             var entry = {
                 icon: el.icon,
                 path: el.path,
                 roles: el.roles,
-                label: _(el.label)
+                label: label
                 };
-            return entry;
+            data.push(entry);
         });
 
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);

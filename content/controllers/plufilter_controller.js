@@ -1,6 +1,7 @@
 (function(){
 
     var __controller__ = {
+
         name: 'Plufilters',
 	
         _listObj: null,
@@ -29,10 +30,11 @@
 
         addFilter: function(){
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
 
-            window.openDialog(aURL, _('Add New Filter'), features, _('New Filter'), '', _('Filter Name'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Filter'), aFeatures,
+                                       _('New Filter'), '', _('Filter Name'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 var filterName = inputObj.input0.replace('\'', '"', 'g');
@@ -40,7 +42,7 @@
                 var dupNames = new GeckoJS.ArrayQuery(this._listDatas).filter('filtername = \'' + filterName + '\'');
 
                 if (dupNames.length > 0) {
-                    // @todo OSD
+                    
                     NotifyUtils.warn(_('Filter [%S] already exists', [filterName]));
                     return;
                 }
@@ -58,7 +60,6 @@
                     }
                 }
 
-                // @todo OSD
                 OsdUtils.info(_('Filter [%S] added successfully', [filterName]));
             }
         },
@@ -88,14 +89,13 @@
             if (index >= 0) {
                 var filterName = this._listDatas[index].filtername;
 
-                if (!GREUtils.Dialog.confirm(window, _('confirm delete filter [%S]', [filterName]), _('Are you sure you want to delete product filter [%S]?', [filterName]))) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete filter [%S]', [filterName]), _('Are you sure you want to delete product filter [%S]?', [filterName]))) {
                     return;
                 }
 
                 this._listDatas.splice(index, 1);
                 this.saveFilters();
 
-                // @todo OSD
                 OsdUtils.info(_('Filter [%S] removed successfully', [filterName]));
 
                 index = this.getListObj().selectedIndex;

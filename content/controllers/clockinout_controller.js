@@ -1,11 +1,9 @@
 (function(){
 
-
-    /**
-     * Class ViviPOS.ClockInOutController
-     */
     var __controller__ = {
+
         name: 'ClockInOut',
+        
         userpanel: null,
         users: null,
         jobpanel: null,
@@ -15,15 +13,14 @@
         publicAttendance: false,
         
         loadUsers: function () {
-
             var userModel = new UserModel();
             var users = userModel.find('all', {
                 order: "username"
             });
 
             if (parseInt(userModel.lastError) != 0) {
-                this.dbError(userModel.lastError, userModel.lastErrorString,
-                             _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
+                this._dbError(userModel.lastError, userModel.lastErrorString,
+                              _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
             }
 
             var userpanel = document.getElementById('userscrollablepanel');
@@ -43,8 +40,8 @@
             });
             
             if (parseInt(jobModel.lastError) != 0) {
-                this.dbError(jobModel.lastError, jobModel.lastErrorString,
-                             _('An error was encountered while retrieving jobs (error code %S).', [jobModel.lastError]));
+                this._dbError(jobModel.lastError, jobModel.lastErrorString,
+                              _('An error was encountered while retrieving jobs (error code %S).', [jobModel.lastError]));
             }
 
             if (jobs) {
@@ -80,21 +77,18 @@
                 }
             }
             if (username == null) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select a user first.'));
             }
             else if (this.publicAttendance || this.Acl.securityCheck(username, userpass, true)) {
-                this.listSummary(username);
+                this._listSummary(username);
                 $('#user_password').val('');
             }
             else {
                 if (userpass == '')
-                    //@todo OSD
                     NotifyUtils.warn(_('Please enter the passcode.'));
                 else
-                    //@todo OSD
                     NotifyUtils.warn(_('Authentication Failed! Please make sure the passcode is correct.'));
-                    $('#user_password').val('');
+                $('#user_password').val('');
             }
         },
 
@@ -120,7 +114,6 @@
             }
 
             if (username == null) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select a user first.'));
             }
             else {
@@ -136,10 +129,10 @@
                         });
 
                         if (parseInt(userModel.lastError) != 0) {
-                            this.dbError(userModel.lastError, userModel.lastErrorString,
-                                         _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
-
+                            this._dbError(userModel.lastError, userModel.lastErrorString,
+                                          _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
                             NotifyUtils.error(_('Failed to clock user in.'));
+                            return;
                         }
                         else {
                             if (userByName && userByName.length > 0) {
@@ -149,7 +142,6 @@
                     }
 
                     if (jobname == null) {
-                        //@todo OSD
                         NotifyUtils.warn(_('Please select a job first.'));
 
                         // auto-switch to Job list
@@ -157,26 +149,22 @@
                         return;
                     }
                     var clockstamp = new ClockStampModel();
-                    var r = clockstamp.saveStamp('clockin', username, jobname, displayname);
-                    if (r) {
-                        this.listSummary(username);
+                    if (clockstamp.saveStamp('clockin', username, jobname, displayname)) {
+                        this._listSummary(username);
                         $('#user_password').val('');
                     }
                     else {
-                        //@db
-                        this.dbError(clockstamp.lastError, clockstamp.lastErrorString,
-                                     _('An error was encountered while clocking employee [%S] in (error code %S).', [displayname, clockstamp.lastError]));
+                        this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
+                                      _('An error was encountered while clocking employee [%S] in (error code %S).', [displayname, clockstamp.lastError]));
 
                         NotifyUtils.error(_('Failed to clock user in.'));
                     }
                 } else {
                     if (userpass == '')
-                        //@todo OSD
                         NotifyUtils.warn(_('Please enter the passcode.'));
                     else
-                        //@todo OSD
                         NotifyUtils.warn(_('Authentication Failed!. Please make sure the passcode is correct.'));
-                        $('#user_password').val('');
+                    $('#user_password').val('');
                 }
             }
             document.getElementById('user_password').value = '';
@@ -195,7 +183,6 @@
                 }
             }
             if (username == null) {
-                //@todo OSD
                 NotifyUtils.warn(_('Please select a user first.'));
             }
             else {
@@ -206,49 +193,46 @@
                     var clockstamp = new ClockStampModel();
                     var last = clockstamp.findLastStamp(username);
 
-                    if (parseInt(clockstamp.lastError) != 0) {
-                        this.dbError(clockstamp.lastError, clockstamp.lastErrorString,
-                                     _('An error was encountered while retrieving employee attendance record (error code %S).', [clockstamp.lastError]));
+                    if (last == -1) {
+                        this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
+                                      _('An error was encountered while retrieving employee attendance record (error code %S).', [clockstamp.lastError]));
                         NotifyUtils.error(_('Failed to clock user out.'));
                         return;
                     }
                     else if (last && !last.clockout) {
-                        var r = clockstamp.saveStamp('clockout', username);
-                        if (!r) {
-                            this.dbError(clockstamp.lastError, clockstamp.lastErrorString,
-                                         _('An error was encountered while clocking employee [%S] out (error code %S).', [displayname, clockstamp.lastError]));
+                        if (!clockstamp.saveStamp('clockout', username)) {
+                            this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
+                                          _('An error was encountered while clocking employee [%S] out (error code %S).', [displayname, clockstamp.lastError]));
                             NotifyUtils.error(_('Failed to clock user out.'));
                             return;
                         }
                     }
                     else {
-                        //@todo OSD
                         NotifyUtils.warn(_('Not clocked in yet.'));
                     }
-                    this.listSummary(username);
+                    this._listSummary(username);
                     $('#user_password').val('');
                 }
                 else {
                     if (userpass == '')
-                        //@todo OSD
                         NotifyUtils.warn(_('Please enter the passcode.'));
                     else
-                        //@todo OSD
                         NotifyUtils.warn(_('Authentication Failed! Please make sure the passcode is correct.'));
-                        $('#user_password').val('');
+                    $('#user_password').val('');
                 }
             }
         },
 
-        clearSummary: function () {
+        _clearSummary: function () {
             if (this.joblist) this.joblist.resetData();
         },
         
-        listSummary: function (username) {
+        _listSummary: function (username) {
 
             var joblist = this.joblist;
             var clockstamp = new ClockStampModel();
             var today = new Date();
+
             var stamps = clockstamp.find('all', {
                 conditions: "username='" + username + "'" +
                             " AND ( substr( clockout_time, 1, 10 ) ='" + today.toString("yyyy-MM-dd") + "'" +
@@ -257,11 +241,11 @@
                 order: "created"
             });
             if (parseInt(clockstamp.lastError) != 0) {
-                this.dbError(clockstamp.lastError, clockstamp.lastErrorString,
-                             _('An error was encountered while retrieving employee attendance record (error code %S). ', [clockstamp.lastError]));
+                this._dbError(clockstamp.lastError, clockstamp.lastErrorString,
+                              _('An error was encountered while retrieving employee attendance records (error code %S). ', [clockstamp.lastError]));
                 return;
             }
-            if (username != this.lastUser) this.clearSummary();
+            if (username != this.lastUser) this._clearSummary();
             this.lastUser = username;
 
             if (stamps && stamps.length > 0) {
@@ -274,7 +258,7 @@
                 if (joblist.selectedIndex > -1) joblist.ensureIndexIsVisible(joblist.selectedIndex);
             }
             else {
-                this.clearSummary();
+                this._clearSummary();
             }
            
             // bring summary list to front
@@ -295,11 +279,11 @@
         },
 
 
-        dbError: function(model, alertStr) {
-            this.log('WARN', 'Database exception: ' + model.lastErrorString + ' [' +  model.lastError + ']');
-            GREUtils.Dialog.alert(window,
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, please contact technical support immediately.'));
         }
     };
 

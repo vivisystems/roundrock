@@ -1,6 +1,6 @@
 (function() {
 
-    var BarcodeComponent = window.BarcodeComponent = GeckoJS.Component.extend({
+    var __component__ = {
 
         name: 'Barcode',
 
@@ -208,7 +208,9 @@
 
         }
 
-    });
+    }
+
+    var BarcodeComponent = window.BarcodeComponent = GeckoJS.Component.extend(__component__);
 
 })();
 

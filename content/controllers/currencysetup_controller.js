@@ -1,7 +1,9 @@
 (function(){
 
     var __controller__ = {
+
         name: 'CurrencySetup',
+
         _currencies: [],
 
         // initialize and load currency exchange table into Session

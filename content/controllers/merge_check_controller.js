@@ -1,11 +1,9 @@
 (function(){
 
-    /**
-     * Class MergeCheckController
-     */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'MergeCheck',
+
         _sourceCheck: null,
         _targetCheck: null,
         _sourceItems: [],
@@ -218,10 +216,7 @@
 
             // update table status
             this._getTableStatusModel().addCheck(this._mergedCheck);
-
             
-            
-            // @todo OSD
             NotifyUtils.warn(_('The Check# %S has been merged to Check# %S!!', [this._sourceCheck.check_no, this._mergedCheck.check_no]));
 
             var inputObj = window.arguments[0];
@@ -262,7 +257,9 @@
 
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

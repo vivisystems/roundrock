@@ -19,26 +19,32 @@
         var categories = GeckoJS.BaseObject.getKeys(prefs) || [];
 
         categories.forEach(function(cn) {
-            var ctrls = GeckoJS.BaseObject.getValues(prefs[cn]);
+            var ctrls = GeckoJS.BaseObject.getKeys(prefs[cn]);
             var ctrls2 = [];
 
             if (ctrls) {
+                ctrls.forEach(function(key) {
 
-                ctrls.forEach(function(el) {
-
+                    var el = prefs[cn][key];
                     // if controlpanel has stringbundle create it.
                     if (el.bundle) GeckoJS.StringBundle.createBundle(el.bundle);
 
                     // hidden inaccessible entry
                     if(GeckoJS.AclComponent.isUserInRole(el.roles)) {
-
+                        var label = el.label;
+                        if (label.indexOf('chrome://') == 0) {
+                            label = _('vivipos.fec.settings.controlpanels.' + cn + '.' + key + '.label');
+                        }
+                        else {
+                            label = _(label);
+                        }
                         var entry = {icon: el.icon,
                             path: el.path,
                             roles: el.roles,
                             features: (el.features || null),
                             type:  (el.type || 'uri'),
-                            org_label: el.label,
-                            label: _(el.label)}
+                            org_label: key,
+                            label: label}
 
                         ctrls2.push(entry);
                     }
@@ -99,7 +105,8 @@ function launchControl(panel) {
                 VirtualKeyboard.hide();
             }
         }
-        catch (e) {alert(e);}
+        catch (e) {
+        }
         finally {
             $.unblockUI();
         }

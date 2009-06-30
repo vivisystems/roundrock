@@ -1,8 +1,9 @@
 (function(){
+    
     include('chrome://viviecr/content/reports/template.js');
     include('chrome://viviecr/content/reports/template_ext.js');
-    
-    var TableStatusView = window.TableStatusView = GeckoJS.NSITreeViewArray.extend({
+
+    var __view__ = {
 
         renderButton: function(row, btn) {
             // GREUtils.log('renderButton...');
@@ -118,16 +119,18 @@
             if (holdby) btn.seq_no = _('Host Table') + ':' + holdby;
             return;
         }
-    });
+    };
+
+    var TableStatusView = window.TableStatusView = GeckoJS.NSITreeViewArray.extend(__view__);
 
     /**
      * Class SelectTableController
      */
 
     var __controller__ = {
+
         name: 'SelectTable',
 
-        // _inputObj: window.arguments[0],
         _inputObj: {},
         _tableSettings: {},
         _tables: null,
@@ -425,13 +428,13 @@
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
             var aURL = 'chrome://viviecr/content/table_book.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 isNewOrder: null,
                 tables: null
             };
 
-            window.openDialog(aURL, 'table_book', features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'table_book', aFeatures, inputObj);
 
             return;
 
@@ -751,7 +754,7 @@
                     var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
                     var aURL = 'chrome://viviecr/content/table_book.xul';
-                    var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+                    var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
                     var inputObj = {
                         table_no: table_no,
                         table_id: table_id,
@@ -760,7 +763,7 @@
                         tables: null
                     };
 
-                    window.openDialog(aURL, 'table_book', features, inputObj);
+                    GREUtils.Dialog.openWindow(this.topmostWindowaURL, 'table_book', aFeatures, inputObj);
 
                     this._inputObj.action = '';
                     this._sourceTableNo = null;

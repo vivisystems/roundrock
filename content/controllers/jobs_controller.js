@@ -1,12 +1,11 @@
 (function(){
 
-    /**
-     * Class ViviPOS.JobsController
-     */
-
     var __controller__ = {
+
         name: 'Jobs',
-        components: ['Form', 'Acl'], 
+
+        components: ['Form', 'Acl'],
+
         scaffold: true,
 	
         _listObj: null,
@@ -31,7 +30,7 @@
 
             this._jobAdded = false;
 
-            window.openDialog(aURL, _('Add New Job'), features, _('New Job'), '', _('Job Name'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Job'), features, _('New Job'), '', _('Job Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 evt.data.id = '';
                 evt.data.jobname = inputObj.input0;
@@ -77,7 +76,6 @@
 
                 document.getElementById('job_name').focus();
 
-                // @todo OSD
                 OsdUtils.info(_('Job [%S] added successfully', [evt.data.jobname]));
             }
         },
@@ -98,7 +96,6 @@
                     evt.preventDefault();
                     this._jobModified = false;
                     
-                    // @todo OSD
                     NotifyUtils.warn(_('Duplicate job name [%S]; job not modified.', [evt.data.jobname]));
                 }
             }
@@ -116,7 +113,6 @@
                 panel.selectedItems = [index];
                 panel.ensureIndexIsVisible(index);
 
-                // @todo OSD
                 OsdUtils.info(_('Job [%S] modified successfully', [evt.data.jobname]));
             }
         },
@@ -141,7 +137,7 @@
                 NotifyUtils.warn(_('[%S] has been assigned as the default job to one or more users and may not be deleted', [jobname]));
                 evt.preventDefault();
             }
-            else if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [jobname]), _('Are you sure?')) == false) {
+            else if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [jobname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
@@ -166,7 +162,6 @@
             }
             this.validateForm();
 
-            // @todo OSD
             OsdUtils.info(_('Job [%S] removed successfully', [evt.data.jobname]));
         },
 

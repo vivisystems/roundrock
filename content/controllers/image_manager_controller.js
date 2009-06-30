@@ -1,6 +1,7 @@
 (function(){
 
-var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
+    var __view__ = {
+
         init: function(dir) {
             this._dir = dir;
 
@@ -40,8 +41,9 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
 
         }
 
-    });
+    };
 
+    var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend(__view__);
 
     var __controller__ = {
         name: 'ImageManager',
@@ -210,7 +212,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             var importUsage = 0;
             var importFiles = 0;
 
-            var result = GREUtils.Dialog.confirm(window,
+            var result = GREUtils.Dialog.confirm(this.topmostWindow,
                                                  _("confirm import"),
                                                  _("Please attach the USB thumb drive containing the images to import and press OK to start the import."));
 
@@ -306,7 +308,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
 
             if (!exportDir || (exportDir.length == 0)) exportDir = this._exportDir;
 
-            var result = GREUtils.Dialog.confirm(window,
+            var result = GREUtils.Dialog.confirm(this.topmostWindow,
                                                  _("Confirm Export"),
                                                  _("Please attach the USB thumb drive to export images to and press OK to start the export."));
 
@@ -396,7 +398,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 return;
             }
 
-            var result = GREUtils.Dialog.confirm(window,
+            var result = GREUtils.Dialog.confirm(this.topmostWindow,
                                                  _("confirm delete"),
                                                  _("Are you sure you want to delete %S", [this._selectedFile.leafName]));
             if (result) {
@@ -419,7 +421,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             }
 
             var input = {value: this._selectedFile.leafName};
-            var result = GREUtils.Dialog.prompt(window, _('Rename Image'), _('Original image: ') + this._selectedFile.leafName, input);
+            var result = GREUtils.Dialog.prompt(this.topmostWindow, _('Rename Image'), _('Original image: ') + this._selectedFile.leafName, input);
 
             if (result) {
                 try {

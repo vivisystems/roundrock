@@ -11,7 +11,7 @@
 
 .vfdPadOnTraining {
     background-color: red;
-    border-bottom: 7px solid #f39a1c;
+    border-bottom: 7px solid red;
 }
 
 .vbox_vfd {
@@ -33,3 +33,6 @@
     -moz-user-input: none;
 }
 
+.vfdPadOnTraining .label_vfd {
+    color: black !important;
+}

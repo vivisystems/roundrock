@@ -1,12 +1,9 @@
 (function(){
 
-
-    /**
-     * Class ViviPOS.ChangeUserController
-     */
-
     var __controller__ = {
+
         name: 'ChangeUser',
+        
         users: null,
         userpanel: null,
 
@@ -24,7 +21,7 @@
             });
 
             if (parseInt(userModel.lastError) != 0) {
-                this.dbError(userModel.lastError, userModel.lastErrorString,
+                this._dbError(userModel.lastError, userModel.lastErrorString,
                              _('An error was encountered while retrieving employee records (error code %S).', [userModel.lastError]));
             }
 
@@ -68,19 +65,16 @@
                 if (username == null) {
                     if (allowQuickLogin) {
                         if (!this.Acl.securityCheckByPassword(userpass, false)) {
-                            // @todo OSD
                             NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                         }
                     }
                     else {
-                        // @todo OSD
                         // we shouldn't be here if validateForm works correctly, but will display warning just in case
                         NotifyUtils.error(_('Authentication failed! Please select a user'));
                     }
                 }
                 else {
                     if (!this.Acl.securityCheck(username, userpass)) {
-                        // @todo OSD
                         NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                     }
                 }
@@ -105,11 +99,11 @@
             }
         },
 
-        dbError: function(errNo, errMsg, alertStr) {
-            this.log('WARN', 'Database exception: ' + errMsg + ' [' +  errNo + ']');
-            GREUtils.Dialog.alert(window,
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('WARN', 'Database error: ' + errstr + ' [' +  errno + ']');
+            GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
-                                  alertStr + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         }
 
     };

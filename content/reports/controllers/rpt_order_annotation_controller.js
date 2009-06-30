@@ -107,6 +107,10 @@
             }
             
             var order = new OrderModel();
+
+            var counts = order.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM orders INNER JOIN order_annotations on orders.id = order_annotations.order_id where ' + conditions +')');
+            var rowCount = counts[0].rowCount;
+
             var sql = 'SELECT ' + fields + ' FROM orders INNER JOIN order_annotations on orders.id = order_annotations.order_id where ' + conditions + ' order by ' + orderby + ' limit ' + limit + ';';
             var orderRecords = order.getDataSource().fetchAll( sql );
 			
@@ -157,12 +161,13 @@
                 records[ orderRecord.type ].summary.payment += orderRecord.payment;
             } );
             
-            this._reportRecords.head.title = _( 'Order Annotation Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.orderannotation.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;
             
             this._reportRecords.body = records;
+            this._reportRecords.head.rowCount = rowCount;
         },
         
         execute: function() {

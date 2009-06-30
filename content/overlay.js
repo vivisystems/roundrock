@@ -5,22 +5,35 @@
      */
     function startup() {
 
-        // GREUtils.log('viviecr overlay.js startup ');
-        var firstRun = GREUtils.Pref.getPref('vivipos.fec.firstrun');
+        // determine if initialization has taken place by checking for the presence
+        // of '.initialized' file under user profile
+        var procPath = GeckoJS.Configure.read('ProfD');
+        var initMarker = new GeckoJS.File(procPath + '/.initialized');
 
-        if(firstRun) {
-            var aURL = "chrome://viviecr/content/firstuse.xul";
-            var aName = "First Run";
-            var aArguments = "";
-            var posX = 0;
-            var posY = 0;
-            var width = 800;
-            var height = 600;
-            GREUtils.Dialog.openDialog(aURL, aName, aArguments, posX, posY, width, height);
-        }else {
-            // app start
-            // load product and category
+        if (!initMarker.exists()) {
+            var aURL = 'chrome://viviecr/content/setup_wizard.xul';
+            var aName = _('VIVIPOS Setup');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=800,height=600';
+            var aArguments = {initialized: false, restart: false, restarted: false};
 
+            GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
+            while (aArguments.restart) {
+                aArguments.restart = false;
+                aArguments.restarted = true;
+
+                // reload project locale properties
+                GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties");
+
+                GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
+            }
+
+            if (aArguments.initialized) {
+                // carry out initialization tasks and restart application
+                initMarker.create();
+
+                GREUtils.restartApplication();
+
+            }
         }
 
         // observer restart topic

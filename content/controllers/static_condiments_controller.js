@@ -1,17 +1,15 @@
 (function(){
 
-    /**
-     * StaticCondiments Controller
-     */
     var window = this;
     
     var __controller__ = {
 
         name: 'StaticCondiments',
+        
         _cartController: null,
-        _condGroupId: "",
+        _condGroupId: '',
         _condsData: null,
-        _defaultGroupId: "",
+        _defaultGroupId: '',
         _defaultCondsData: null,
 
         getCartController: function() {
@@ -283,7 +281,7 @@
             var condimentscrollablepanel = document.getElementById('condimentscrollablepanel');
             var condGroupPanelView = new NSICondGroupsView(condGroups);
             condimentscrollablepanel.datasource = condGroupPanelView;
-
+            
             $('#condcols').val(panelCols);
             $('#condrows').val(panelRows);
             $('#btnheight').val(btnHeight);

@@ -34,15 +34,10 @@
         <hbox flex="1" class="MainPnl">
             <vbox flex="1"  class="MainL">
                 <caption label="&nonplusetting.title;"  class="PageTitle" />
-                <viviscrollabletree id="identifierscrollablepanel" flex="1" rows="11" hidevscroll="true"
+                <vivitree id="identifierscrollablepanel" flex="1" class="ListPnl showscrollbar"
                                     headers="&nonplusetting.header.active;,&nonplusetting.header.identifier;,&nonplusetting.header.field1;,&nonplusetting.header.field2check;,&nonplusetting.header.field2;,&nonplusetting.header.content;,&nonplusetting.header.decimalpoint;"
                                     fields="active,identifier,length_of_field1,use_price_check_digit,length_of_field2,content_of_field2,decimal_point_of_field2"
-                                    onclick="$do('select',this.selectedIndex, 'NonpluSetting');"
-                                    class="plupnl"
-                                    scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                    <spacer flex="1" />
-                </viviscrollabletree>
-                <spacer flex="1" />
+                                    onclick="$do('select',this.selectedIndex, 'NonpluSetting');" hidecolumnpicker="true"/>
                 <vbox>
                     <!-- hbox>
                         <label value="Example Code:" />

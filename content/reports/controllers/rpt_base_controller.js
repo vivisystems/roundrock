@@ -3,7 +3,6 @@
      * Report Base Controller
      * This class is used to maintain the utility methods taken advantage by each report controller.
      */
-
     var __controller__ = {
         name: 'RptBase',
         components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
@@ -26,11 +25,15 @@
         _preview_frame_id: "preview_frame",
         _abody_id: "abody",
         _div_id: "docbody",
+        _body_table: "body-table",
         
         _tmpFileDir: "/var/tmp/",
         
         _exporting_file_folder: "report_export",
         _fileExportingFlag: false, // true if the exporting task is done, false otherwise.
+        
+        _mainScreenWidth: 800,
+        _mainScreenHeight: 600,
         
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
@@ -53,11 +56,9 @@
 
         _showWaitingPanel: function( sleepTime ) {
             var waitPanel = document.getElementById( this._wait_panel_id );
-            var width = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.width' ) || 800;
-            var height = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.height' ) || 600;
             waitPanel.sizeTo( 360, 120 );
-            var x = ( width - 360 ) / 2;
-            var y = ( height - 240 ) / 2;
+            var x = ( this._mainScreenWidth - 360 ) / 2;
+            var y = ( this._mainScreenHeight - 240 ) / 2;
             
             // set the content of the label attribute be default string, taking advantage of the statusText attribute.
             var caption = document.getElementById( this.getCaptionId() );
@@ -106,6 +107,28 @@
             $( '#btnScrollRight' ).attr( 'disabled', disabled );
             $( '#btnScrollLeftMost' ).attr( 'disabled', disabled );
             $( '#btnScrollRightMost' ).attr( 'disabled', disabled );
+
+            this._resizeScrollButtons();
+        },
+
+        _resizeScrollButtons: function() {
+                var bw = document.getElementById( this._preview_frame_id );
+                if ( !bw ) return ;
+
+                var doc = bw.contentWindow.document.getElementById( this._abody_id );
+                if ( !doc ) return ;
+
+                if ( doc.scrollWidth > doc.clientWidth ) {
+                    $( '#scrollBtnHBox' ).attr( 'hidden', false );
+                } else {
+                    $( '#scrollBtnHBox' ).attr( 'hidden', true );
+                }
+
+                if ( doc.scrollHeight > doc.clientHeight ) {
+                    $( '#scrollBtnVBox' ).attr( 'hidden', false );
+                } else {
+                    $( '#scrollBtnVBox' ).attr( 'hidden', true );
+                }
         },
         
         _setTemplateDataHead: function() {
@@ -131,6 +154,12 @@
             var bw = document.getElementById( this._preview_frame_id );
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             doc.innerHTML = result;
+            
+            // adjust the size of paper if the content will protrude the border of the paper.
+            var bodytable =  bw.contentWindow.document.getElementById( this._body_table );
+            var bodydiv = bw.contentWindow.document.getElementById( this._div_id );
+            if ( bodydiv.scrollWidth < bodytable.scrollWidth + 40 )
+               bodydiv.style.width = bodytable.scrollWidth + 40;
         },
 	    
         previousPage: function() {
@@ -138,7 +167,7 @@
             if ( offset >= 0 ) {
                 this._recordOffset = offset;
                 this.execute();
-            } else alert( _( 'We are now on the first page.' ) );
+            }
         },
 	    
         nextPage: function() {
@@ -151,6 +180,8 @@
                 // Doing so to prevent the timeout dialog from prompting during the execution.
                 var oldLimit = GREUtils.Pref.getPref( this._maxRuntimePreference );
                 GREUtils.Pref.setPref( this._maxRuntimePreference, this._maxRuntime );
+                
+                this._enableButton( false );
 
                 var waitPanel = this._showWaitingPanel();
 
@@ -163,10 +194,10 @@
                 // Reset the timeout limit to the default value.
                 GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
                 
-                this._enableButton( true );
-                
                 var splitter = document.getElementById( 'splitter_zoom' );
                 splitter.setAttribute( 'state', 'collapsed' );
+
+                this._enableButton( true );
 		        
                 if ( waitPanel != undefined )
                     this._dismissWaitingPanel();
@@ -177,7 +208,7 @@
 		 * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
 		 */
         exportPdf: function( paperProperties ) {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
                 return;
 
             var bodydiv = document.getElementById( this._preview_frame_id ).contentWindow.document.getElementById( this._div_id );
@@ -185,7 +216,7 @@
             var maxClientHeight = parseInt( GeckoJS.Configure.read( "vivipos.fec.settings.maxExportPdfHeight" ) || 30000 );
 
             if ( clientHeight > maxClientHeight ) {
-                GREUtils.Dialog.alert( window, '', _( 'The document is too large to be exported in .PDF format, please export as .CSV file instead!' ) );
+                GREUtils.Dialog.alert( this.topmostWindow, '', _( 'The document is too large to be exported in .PDF format, please export as .CSV file instead!' ) );
                 return;
             }
 
@@ -239,7 +270,7 @@
         },
 
         exportCsv: function( controller, noReload ) {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
                 return;
             
             var cb = null;
@@ -309,7 +340,7 @@
         },
 
         exportRcp: function() {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this report?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to print this report?' ) ) )
                 return;
         		
             try {
@@ -319,9 +350,9 @@
 
                 this._enableButton( false );
                 var waitPanel = this._showWaitingPanel( 100 );
-
+                
                 var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
-                .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
+                    .getService( Components.interfaces.nsIWindowMediator ).getMostRecentWindow( 'Vivipos:Main' );
                 var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
    				
                 var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
@@ -420,7 +451,13 @@
             var width = GeckoJS.Session.get( 'screenwidth' );
             var height = GeckoJS.Session.get( 'screenheight' );
 	        
-            GREUtils.Dialog.openWindow( window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments );
+            GREUtils.Dialog.openWindow(
+                this.topmostWindow,
+                aURL,
+                aName,
+                "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height,
+                aArguments
+            );
         },
 		
         /**
@@ -464,7 +501,7 @@
                     } else {
                         // check fileSize and diskSpaceAvailable
                         if ( nsTmpfile.fileSize > nsTargetDir.diskSpaceAvailable ) {
-                            GREUtils.Dialog.alert( window, '', _( "The thumb drive has no enough free space!" ) );
+                            GREUtils.Dialog.alert( this.topmostWindow, '', _( "The thumb drive has no enough free space!" ) );
                             throw new Exception( "The thumb drive has no enough free space!" );
                         }
 
@@ -491,6 +528,17 @@
             setTimeout( checkFn, 200 );
         },
 
+        toggleSize: function () {
+            var splitter = document.getElementById( 'splitter_zoom' );
+            if ( splitter.getAttribute( 'state' ) == 'collapsed' ) {
+                splitter.setAttribute( 'state', 'open' );
+            } else {
+                splitter.setAttribute( 'state', 'collapsed' );
+            }
+
+            this._resizeScrollButtons();
+        },
+
         btnScrollTop: function() {
             var bw = document.getElementById( this._preview_frame_id );
             if ( !bw ) return ;
@@ -505,7 +553,9 @@
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             if ( doc.scrollTop <= 0 ) return;
-            doc.scrollTop -= this._scrollRange;
+
+            var scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            doc.scrollTop -= scrollRange;
 
             if ( doc.scrollTop < 0 ) doc.scrollTop = 0;
         },
@@ -516,7 +566,9 @@
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             if ( doc.scrollTop > doc.scrollHeight ) return;
-            doc.scrollTop += this._scrollRange;
+
+            var scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            doc.scrollTop += scrollRange;
 
             if ( doc.scrollTop > doc.scrollHeight ) doc.scrollTop = doc.scrollHeight - doc.clientHeight;
         },
@@ -535,7 +587,9 @@
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             if ( doc.scrollLeft <= 0 ) return;
-            doc.scrollLeft -= this._scrollRange;
+
+            var scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            doc.scrollLeft -= scrollRange;
 
             if ( doc.scrollLeft < 0 ) doc.scrollLeft = 0;
         },
@@ -546,7 +600,9 @@
 
             var doc = bw.contentWindow.document.getElementById( this._abody_id );
             if (doc.scrollLeft > doc.scrollWidth) return;
-            doc.scrollLeft += this._scrollRange;
+
+            var scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            doc.scrollLeft += scrollRange;
 
             if ( doc.scrollLeft > doc.scrollWidth ) doc.scrollLeft = doc.scrollWidth - doc.clientWidth;
         },
@@ -569,7 +625,8 @@
 
         load: function() {
             this._enableButton( false );
-            this._scrollRange = GeckoJS.Configure.read( this._scrollRangePreference ) || 200;
+            this._mainScreenWidth = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.width' ) || 800;
+            this._mainScreenHeight = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.height' ) || 600;
         }
     };
     

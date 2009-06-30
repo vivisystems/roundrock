@@ -2,17 +2,12 @@
 
     GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
 
-    /**
-     * VFD Controller
-     */
-
     var __controller__ = {
+
         name: 'VFD',
 
         _device: null,
-        
         _worker: null,
-
         _useMainThread: false,
 
         // load device configuration and selections
@@ -54,13 +49,6 @@
                                 self.displayOnVFD();
                             }
                             break;
-						case 'TrainingMode':
-							if ( aData == "start" ) {
-					        	self.switchTrainingMode( true );
-					        } else if ( aData == "exit" ) {
-					        	self.switchTrainingMode( false );
-					        }
-					     	break;
                     }
                 }
             }).register();
@@ -367,13 +355,6 @@
 
         },
         
-        switchTrainingMode: function( isTraining ) {
-        	var class = "vfdPad";
-        	if ( isTraining )
-        		class = "vfdPadOnTraining";
-        	document.getElementById( 'vfdPanel' ).className = class;
-        },
-		
 		destroy: function() {
         	this.observer.unregister();
     	}

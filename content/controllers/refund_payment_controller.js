@@ -1,27 +1,17 @@
 (function(){
 
-    /**
-     * Print Controller
-     */
 
     var __controller__ = {
 
         name: 'RefundPayment',
 
         _originalPayments: [],
-
         _refundPayments: [],
-
         _refundTotal: 0,
-
         _paidTotal: 0,
-
         _precision: 0,
-
         _rounding: 0,
-        
         _decimals: GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.',
-
         _thousands: GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',',
 
         roundPrice: function(price) {

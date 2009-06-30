@@ -2,9 +2,6 @@
 
     var $panel, $buttonPanel, $itemlist, queues, queuePool;
     
-    /**
-     * select_condiments panel register
-     */
     function startup() {
 
         $panel = $('#selectQueuesPanel');
@@ -35,8 +32,8 @@
 
                 try {
                     $buttonPanel[0].addEventListener('command', onBtnClick, true);
-                }catch(e) {
-                    alert(e);
+                }
+                catch(e) {
                 }
                 
 

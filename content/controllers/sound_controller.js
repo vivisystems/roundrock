@@ -1,11 +1,9 @@
 (function(){
 
-    /**
-     * Controller Sound
-     */
-
     var __controller__ = {
+
         name: 'Sound',
+
         volume: null,
 
         // initialize volume - called from main_controller
@@ -72,7 +70,6 @@
                 if (!silent) this.beep();
             }
             catch (e) {
-                //@todo OSD
 
                 NotifyUtils.warn(_('Failed to set volume'));
             }

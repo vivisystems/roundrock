@@ -99,15 +99,10 @@
                                     
                                     <spacer style="height:8px;" />
                                     <!-- numberpad id="multinumberpad" class="numberpad"/ -->
-                                    <viviscrollabletree id="plusearchscrollablepanel" flex="1"
+                                    <vivitree id="plusearchscrollablepanel" flex="1" class="ListPnl showscrollbar"
                                                         headers="&plus.product.no;,&plus.product.name;"
-                                                        fields="no,name"
-                                                        onclick="$do('selectPlu',this.selectedIndex, 'Plus');"
-                                                        class="plupnl"  dir="reverse"
-                                                        scrollUpClass="ScrollUp"
-                                                        scrollDownClass="ScrollDown">
-                                        <spacer flex="1" />
-                                    </viviscrollabletree>
+                                                        fields="no,name" hidecolumnpicker="true"
+                                                        onclick="$do('selectPlu',this.selectedIndex, 'Plus');"/>
                                 </vbox>
                                 <spacer style="height:10px;" />
                                 <groupbox id="advance_search">
@@ -399,7 +394,7 @@
                                     </hbox>
                                     <hbox>
                                         <label value="&plus.display_order;" class="SubTitle"/>
-                                        <textbox id="display_order" default="" form="productForm" name="display_order" size="4" class="geneditbox right"/>
+                                        <textbox id="display_order" type="number" value="0" default="0" decimalplaces="0" min="0" hidespinbuttons="true" form="productForm" name="display_order" size="4" class="geneditbox right"/>
                                         <label value="&plus.append_empty_btns;" class="SubTitle"/>
                                         <textbox id="append_empty_btns" type="number" value="0" default="0" decimalplaces="0" min="0" hidespinbuttons="true" form="productForm" name="append_empty_btns" size="4" class="geneditbox right"/>
                                     </hbox>

@@ -1,11 +1,9 @@
 (function(){
 
-    /**
-     */
+    var __controller__ = {
 
-    GeckoJS.Controller.extend( {
-        
         name: 'LedgerEntryTypes',
+
         scaffold: true,
 
         _listObj: null,
@@ -66,7 +64,6 @@
                 }
                 this.select(index);
 
-                //@todo OSD
                 OsdUtils.info(_('Transaction type [%S] and mode [%S] successfully added',
                                [evt.data.type, _(evt.data.mode)]))
             }
@@ -83,7 +80,6 @@
             if (evt.data.id) {
                 this.load();
 
-                //@todo OSD
                 OsdUtils.info(_('Transaction type [%S] and mode [%S] successfully updated',
                                [evt.data.type, _(evt.data.mode)]))
             }
@@ -91,7 +87,7 @@
 
         beforeScaffoldDelete: function(evt) {
             if (evt.data.id) {
-                if (GREUtils.Dialog.confirm(window, _('confirm delete %S (%S)', [evt.data.type, _(evt.data.mode)]), _('Are you sure?')) == false) {
+                if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S (%S)', [evt.data.type, _(evt.data.mode)]), _('Are you sure?')) == false) {
                     evt.preventDefault();
                 }
             }
@@ -107,7 +103,6 @@
             
             this.load();
 
-            //@todo OSD
             OsdUtils.info(_('Transaction type [%S] and mode [%S] successfully deleted',
                            [evt.data.type, _(evt.data.mode)]))
         },
@@ -120,10 +115,10 @@
 
                 var text;
                 if (col.id == 'mode') {
-                    text = _(this.data[row][col.id]);
+                    text = _('(ledgerEntryType)' + this.data[row][col.id]);
                 }
                 else if (col.id == 'drawer_change') {
-                    text = _(this.data[row][col.id]);
+                    text = _('(ledgerEntryType)' + this.data[row][col.id]);
                 }
                 else {
                     text = this.data[row][col.id];
@@ -204,8 +199,9 @@
         }
 
 
-    });
+    };
 
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

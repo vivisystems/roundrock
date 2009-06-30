@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % ViewOrder SYSTEM "chrome://viviecr/locale/list_orders.dtd">
+  %ViewOrder;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/list_orders.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&listorders.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/list_orders_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/list_orders.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+            <hbox>
+                <caption label="&listorders.title;" class="PageTitle" />
+            </hbox>
+            <hbox pack="start" flex="1" class="LeftPnl">
+                <vivitree id="orderscrollablepanel" flex="1" class="ListPnl showscrollbar"
+                          headers="" fields=""
+                          onselect="$do('validateForm', this.selectedIndex, 'ListOrders')"
+                          hidecolumnpicker="true"/>
+            </hbox>
+            <hbox pack="start">
+                <label value="&listorders.count;"/>
+                <label id="count" value=""/>
+                <spacer flex="1"/>
+                <label value="&listorders.searchby;"/>
+                <label id="searchby" value=""/>
+            </hbox>
+            <hbox flex="1">
+                <hbox class="ToolBar" pack="start" flex="1">
+                    <vivibutton id="details" label="&listorders.button.details;"
+                                oncommand="$do('orderDetails', null, 'ListOrders')" />
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns">
+                    <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+</window>

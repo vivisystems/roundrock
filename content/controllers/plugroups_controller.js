@@ -1,9 +1,11 @@
 (function(){
 
     var __controller__ = {
+
         name: 'Plugroups',
+
         scaffold: true,
-        uses: [],
+
         _listObj: null,
         _listView: null,
 
@@ -39,12 +41,12 @@
 
             var plugroup = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {input0:null, require0:true};
 
             this._plugroupAdded = false;
 
-            window.openDialog(aURL, _('Add New Product Group'), features, _('New Product Group'), '', _('Group Name'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Product Group'), aFeatures, _('New Product Group'), '', _('Group Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 plugroup.id = '';
                 plugroup.name = inputObj.input0;
@@ -61,7 +63,7 @@
             });
 
             if (plugroups != null && plugroups.length > 0) {
-                //@todo OSD
+                
                 NotifyUtils.warn(_('Duplicate Product Group name [%S]; Product Group not added.', [plugroup.name]));
                 evt.preventDefault();
                 return ;
@@ -102,7 +104,6 @@
 
                 document.getElementById('plugroup_name').focus();
 
-                // @todo OSD
                 OsdUtils.info(_('Product Group [%S] added successfully', [evt.data.name]));
             }
 
@@ -124,7 +125,6 @@
                     evt.preventDefault();
                     this._plugroupModified = false;
 
-                    // @todo OSD
                     NotifyUtils.warn(_('Duplicate Product Group name [%S]; Product group not modified.', [evt.data.name]));
                 }
             }
@@ -142,7 +142,6 @@
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
 
-                // @todo OSD
                 OsdUtils.info(_('Job [%S] modified successfully', [evt.data.name]));
             }
         },
@@ -177,7 +176,7 @@
                 NotifyUtils.error(_('[%S] has been linked to one or more check printers and may not be deleted', [name]));
                 evt.preventDefault();
             }
-            else if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [name]), _('Are you sure?')) == false) {
+            else if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [name]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
@@ -208,7 +207,6 @@
 
             this.validateForm();
 
-            // @todo OSD
             OsdUtils.info(_('Product Group [%S] removed successfully', [evt.data.name]));
         },
 

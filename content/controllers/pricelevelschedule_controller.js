@@ -1,16 +1,14 @@
 (function(){
 
-    /**
-     * Class PriceLevelScheduleController
-     */
     var __controller__ = {
 
         name: 'PriceLevelSchedule',
-        _selectedIndex: null,
+
         pricelevelPanelView: null,
         _listObj: null,
         _listPriceLevelObj: null,
         _listDatas: [],
+        _selectedIndex: null,
         _weekIndex: (new Date()).getDay(),
 
         getListObj: function() {
@@ -71,7 +69,7 @@
                 var item ={name: i};
                 priceleveldata.push(item);
             }
-            var panelView =  new GeckoJS.NSITreeViewArray(priceleveldata);
+            var panelView =  new GeckoJS.NSITreeViewArray(priceleveldata);this.log( this.dump( panelView ) );
             this.getPriceLevelObj().datasource = panelView;
         },
 
@@ -142,7 +140,6 @@
 
             this.updateSession();
 
-            // @todo OSD
             OsdUtils.info(_('Schedule [%S - Price Level %S] added successfully', [item.time, item.pricelevel]));
         },
 
@@ -154,7 +151,7 @@
             var time = item.time;
             var pricelevel = item.pricelevel ? item.pricelevel : 'default';
 
-            if (GREUtils.Dialog.confirm(window, _('confirm remove %S - price level %S', [time, pricelevel]), _('Are you sure?'))) {
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm remove %S - price level %S', [time, pricelevel]), _('Are you sure?'))) {
 
                 if (index > 0) {
                     this._listDatas[this._weekIndex].splice(index, 1);
@@ -169,7 +166,6 @@
 
                 this.updateSession();
 
-                // @todo OSD
                 OsdUtils.info(_('Schedule [%S - Price Level %S] removed successfully', [time, pricelevel]));
             }
         },

@@ -51,7 +51,7 @@
                                                    scrollDownClass="ScrollDown">
                               <spacer flex="1" />
                         </viviscrollablebuttonpanel>
-                      </hbox>
+                    </hbox>
                 </vbox>
                 <vbox>
                     <grid class="DataForm">

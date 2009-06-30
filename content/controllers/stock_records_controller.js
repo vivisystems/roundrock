@@ -1,15 +1,13 @@
-(function(){
-
-    /**
-     * Class ViviPOS.StockRecordsController
-     */
-    
+( function() {
     // for using the checkMedia method.
     include( 'chrome://viviecr/content/reports/controllers/components/check_media.js' );
 
     var __controller__ = {
+
         name: 'StockRecords',
+
         scaffold: false,
+
         uses: [ 'Product' ],
 
         _listObj: null,
@@ -77,7 +75,6 @@
                 this._listData = products;
                 this.updateStock();
 
-                // @todo OSD
                 OsdUtils.info( _( 'Stock level for [%S] modified successfully', [ evt.data.name ]) );
             }*/
         },
@@ -93,7 +90,7 @@
 
             if ( !this._barcodesIndexes[ barcode ] ) {
                 // barcode notfound
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _( 'Product Search' ),
                                       _( 'Product/Barcode Number (%S) not found!', [ barcode ] ) );
             } else {
@@ -183,7 +180,7 @@
 					
 					if ( stockRecord.quantity > 0 || item.return_stock )
                         stockRecord.quantity -= ordItem.current_qty;
-                        
+                    
                     stockRecordModel.set( stockRecord );
 					
 					delete stockRecordModel;
@@ -247,10 +244,14 @@
         },
         
         reset: function() {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to reset all the stock records?' ) ) )
+        	if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to reset all the stock records?' ) ) )
         		return;
+        		
+            var oldRowCount = this._listObj.datasource.tree.view.rowCount;
+            if ( oldRowCount > 0 )// We have to remove the existent data and refresh the treeview first.
+        	    this._listObj.datasource.tree.rowCountChanged( 0, -oldRowCount );
         	
-        	var sql = "select distinct no from products;";
+        	var sql = "select distinct no, barcode from products;";
         	var products = this.Product.getDataSource().fetchAll( sql );
         	
         	var stockRecordModel = new StockRecordModel();
@@ -259,7 +260,7 @@
         	this.load();
         	
         	// not doing so makes the tree panel show nothing.
-        	var rowCount = this._listObj.datasource.tree.view.rowCount;
+            var rowCount = this._listObj.datasource.tree.view.rowCount;
         	this._listObj.datasource.tree.rowCountChanged( 0, rowCount );
         },
         
@@ -278,11 +279,12 @@
         },
         
         commitChanges: function() {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to commit all changes?' ) ) )
+        	if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to commit all changes?' ) ) )
         		return;
         		
         	var records = this._records;
         	var stockRecords = [];
+        	var user = this.Acl.getUserPrincipal();
         	
         	for ( record in records ) {
 				stockRecords.push( {
@@ -291,6 +293,7 @@
 					warehouse: records[ record ].warehouse,
 					quantity: records[ record ].new_quantity
 				} );
+				records[ record ].clerk = user.username;
 			}
         	
         	var stockRecordModel = new StockRecordModel();
@@ -401,4 +404,4 @@
     };
     
     GeckoJS.Controller.extend( __controller__ );
-})();
+} )();

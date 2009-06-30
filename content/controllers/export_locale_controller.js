@@ -1,64 +1,49 @@
 (function(){
 
-    /**
-     * Localization Editor
-     */
-
     var __controller__ = {
+
         name: 'ExportLocale',
 
         components: [ 'CheckMedia' ],
 
         _exporting_file_folder: 'locale_export',
-
-        _installations: [],
-
+        _pkg: null,
         _locale: null,
-
-        _selectedPackage: null,
+        _path: null,
 
         load: function(data) {
-            var locale = data[0];
-            var installations = data[1];
-            var packageMenuObj = document.getElementById('package');
-
-            var localeObj = document.getElementById('locale');
-            if (localeObj) localeObj.value = '[' + locale + ']';
-
-            if (packageMenuObj) {
-                installations.forEach(function(inst) {
-                    var menuitem = packageMenuObj.appendItem(inst.pkg);
-                    if (menuitem) menuitem.setAttribute('style', 'text-align: left');
-                })
-            }
-            this._installations = installations;
-            this._locale = locale;
-
-            packageMenuObj.selectedIndex = 0;
-            this.selectPackage(0);
-        },
-
-        selectPackage: function(index) {
+            var pkg = data[0];
+            var locale = data[1];
+            var path = data[2];
+            var installation = data[3];
+            var rdf = data[4];
+            
+            var packageTextboxObj = document.getElementById('package');
+            var localeTextboxObj = document.getElementById('locale');
             var nameTextboxObj = document.getElementById('name');
             var installTextboxObj = document.getElementById('install');
-            var inst = this._installations[index];
 
-            if (inst) {
-                if (nameTextboxObj) nameTextboxObj.value = inst.installation;
-                if (installTextboxObj) installTextboxObj.value = inst.rdf;
+            if (packageTextboxObj) packageTextboxObj.value = pkg;
+            if (localeTextboxObj) localeTextboxObj.value = locale;
+            if (nameTextboxObj) {
+                nameTextboxObj.value = installation;
+                nameTextboxObj.select();
+            }
+            if (installTextboxObj) installTextboxObj.value = rdf;
 
-                this._selectedPackage = inst;
-            }
-            else {
-                this._selectedPackage = null;
-            }
-            this.validateForm();
+            this._pkg = pkg;
+            this._locale = locale;
+            this._path = path;
         },
-
+        
         exportLocale: function() {
-            var inst = this._selectedPackage;
-            if (!inst) {
+            if (!this._pkg) {
                 NotifyUtils.warn(_('Please select a package to export first'));
+                return;
+            }
+
+            if (!this._locale) {
+                NotifyUtils.warn(_('Please select a locale to export first'));
                 return;
             }
 
@@ -103,33 +88,32 @@
             }
 
             // invoke external script to generate XPI and move it to media
-            var exportScript = '/data/scripts/exportLocale.sh';
+            var dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+            var exportScript = dataPath + 'scripts/exportLocale.sh';
             var exec = new GeckoJS.File(exportScript);
-            r = exec.run([name, inst.path, tmpInstallRDF, media_path], true);
+            r = exec.run([name, this._path, tmpInstallRDF, media_path], true);
+            exec.close();
 
             GREUtils.File.remove(tmpInstallRDF);
-            alert(r);
             if (r == 0) {
-                NotifyUtils.info(_( 'Locale package [%S] successfully exported', [inst.pkg]));
+                NotifyUtils.info(_( 'Locale package [%S] successfully exported', [this._pkg]));
             }
             else {
-                this.log('ERROR', 'Script ' + exportScript + ' failed to export locale package [' + inst.pkg + ']');
-                GREUtils.Dialog.alert(window,
+                this.log('ERROR', 'Script ' + exportScript + ' failed to export locale package [' + this._pkg + ']');
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Export Locale'),
-                                      _('Failed to export locale package [%S]', [inst.pkg]));
+                                      _('Failed to export locale package [%S]', [this._pkg]));
             }
         },
         
         validateForm: function() {
             var exportBtnObj = document.getElementById('export');
-            var packageMenuObj = document.getElementById('package');
             var nameTextboxObj = document.getElementById('name');
             var installTextboxObj = document.getElementById('install');
 
             // turn on export btn only if all fields are populated
             if (exportBtnObj) {
-                if ((packageMenuObj && packageMenuObj.selectedIndex > -1) &&
-                    (nameTextboxObj && nameTextboxObj.value != '') &&
+                if ((nameTextboxObj && nameTextboxObj.value != '') &&
                     (installTextboxObj && GeckoJS.String.trim(installTextboxObj.value) != '')) {
                     exportBtnObj.removeAttribute('disabled');
                 }

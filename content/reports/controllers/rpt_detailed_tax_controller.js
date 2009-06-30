@@ -27,32 +27,32 @@
                 timeField = 'transaction_submitted';
             }
             var fields = [
-            'orders.' + timeField + ' as "Order.time"',
-            'orders.terminal_no as "Order.terminal_no"',
-            'orders.sequence as "Order.sequence"',
-            'orders.sale_period as "Order.sale_period"',
-            'orders.shift_number as "Order.shift_number"',
-            'orders.total as "Order.total"',
-            'orders.invoice_no as "Order.invoice_no"',
-            'orders.discount_subtotal as "Order.discount_subtotal"',
-            'orders.surcharge_subtotal as "Order.surcharge_subtotal"',
-            'orders.tax_subtotal as "Order.tax_subtotal"',
-            'orders.included_tax_subtotal as "Order.included_tax_subtotal"',
-            'orders.promotion_subtotal as "Order.promotion_subtotal"',
-            'orders.revalue_subtotal as "Order.revalue_subtotal"',
-            'orders.precision_prices as "Order.precision_prices"',
-            'orders.rounding_prices as "Order.rounding_prices"',
-            'orders.precision_taxes as "Order.precision_taxes"',
-            'orders.rounding_taxes as "Order.rounding_taxes"',
-            'order_items.order_id as "order_id"',
-            'order_items.tax_name as "tax_name"',
-            'order_items.tax_type as "tax_type"',
-            'order_items.current_qty as "current_qty"',
-            'order_items.current_price as "current_price"',
-            'order_items.current_discount as "current_discount"',
-            'order_items.current_surcharge as "current_surcharge"',
-            '(order_items.current_subtotal + order_items.current_discount + order_items.current_surcharge) as "current_subtotal"',
-            '(order_items.current_tax + order_items.included_tax) as "tax"'
+                'orders.' + timeField + ' as "Order.time"',
+                'orders.terminal_no as "Order.terminal_no"',
+                'orders.sequence as "Order.sequence"',
+                'orders.sale_period as "Order.sale_period"',
+                'orders.shift_number as "Order.shift_number"',
+                'orders.total as "Order.total"',
+                'orders.invoice_no as "Order.invoice_no"',
+                'orders.discount_subtotal as "Order.discount_subtotal"',
+                'orders.surcharge_subtotal as "Order.surcharge_subtotal"',
+                'orders.tax_subtotal as "Order.tax_subtotal"',
+                'orders.included_tax_subtotal as "Order.included_tax_subtotal"',
+                'orders.promotion_subtotal as "Order.promotion_subtotal"',
+                'orders.revalue_subtotal as "Order.revalue_subtotal"',
+                'orders.precision_prices as "Order.precision_prices"',
+                'orders.rounding_prices as "Order.rounding_prices"',
+                'orders.precision_taxes as "Order.precision_taxes"',
+                'orders.rounding_taxes as "Order.rounding_taxes"',
+                'order_items.order_id as "order_id"',
+                'order_items.tax_name as "tax_name"',
+                'order_items.tax_type as "tax_type"',
+                'order_items.current_qty as "current_qty"',
+                'order_items.current_price as "current_price"',
+                'order_items.current_discount as "current_discount"',
+                'order_items.current_surcharge as "current_surcharge"',
+                '(order_items.current_subtotal + order_items.current_discount + order_items.current_surcharge) as "current_subtotal"',
+                '(order_items.current_tax + order_items.included_tax) as "tax"'
             ];
                             
             var conditions = "orders." + periodType + ">='" + start +
@@ -72,6 +72,9 @@
                 order: orderby,
                 limit: limit
             } );*/
+
+            var counts = orderItem.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ')');
+            var rowCount = counts[0].rowCount;
 
             var datas = orderItem.getDataSource().fetchAll('SELECT ' +fields.join(', ')+ '  FROM orders INNER JOIN order_items ON ("orders"."id" = "order_items"."order_id" )  WHERE ' + conditions + ' ORDER BY ' + orderby + ' LIMIT 0, ' + limit);
 
@@ -105,7 +108,7 @@
                     }
 			} );
             */
-           
+            var taxComponentObj = new TaxComponent();
             var oid;
             var records = {};
             datas.forEach( function( data ) {
@@ -141,7 +144,7 @@
                 summary.surcharge_subtotal -= data.current_surcharge || 0;
                 summary.discount_subtotal -= data.current_discount || 0;
                 
-                var taxObject = TaxComponent.prototype.getTax( data.tax_name );
+                var taxObject = taxComponentObj.getTax( data.tax_name );
 				
                 if (!taxObject || taxObject.type != typeCombineTax ) {
 
@@ -188,7 +191,7 @@
                             taxesByName[cTax.no] = 1;
                         }
 
-                        var taxAmountObject = TaxComponent.prototype.calcTaxAmount( cTax.no, data.current_subtotal, data.current_price, data.current_qty );
+                        var taxAmountObject = taxComponentObj.calcTaxAmount( cTax.no, data.current_subtotal, data.current_price, data.current_qty );
                         var taxAmount = taxAmountObject[ cTax.no ].charge + taxAmountObject[ cTax.no ].included;
                         if (cTax.no in records[ oid ] ) {
                             records[ oid ][ cTax.no ].tax_subtotal += taxAmount;
@@ -237,10 +240,11 @@
                     );
             }
 			
-            this._reportRecords.head.title = _( 'Detailed Tax Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.detailedtaxreport.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;
+            this._reportRecords.head.rowCount = rowCount;
 			
             this._reportRecords.body = records;
 			

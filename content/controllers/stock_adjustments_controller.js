@@ -1,14 +1,14 @@
 ( function() {
-    /**
-     * Class ViviPOS.StockRecordsController
-     */
     
     // for using the checkMedia method.
     include( 'chrome://viviecr/content/reports/controllers/components/check_media.js' );
 
     var __controller__ = {
+
         name: 'StockAdjustments',
+
         scaffold: false,
+
         uses: [ 'Product' ],
 
         _listObj: null,
@@ -60,7 +60,7 @@
 
             if ( !this._barcodesIndexes[ barcode ] ) {
                 // barcode notfound
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _( 'Product Search' ),
                                       _( 'Product/Barcode Number (%S) not found!', [ barcode ] ) );
             } else {
@@ -161,6 +161,8 @@
         	stockRecord.quantity = quantity;
         	stockRecord.memo = memo;
         	
+        	var user = this.Acl.getUserPrincipal();
+        	
         	var stockRecordModel = new StockRecordModel();
         	stockRecordModel.set( stockRecord );
         	
@@ -172,6 +174,7 @@
         	adjustment.new_quantity = quantity;
         	adjustment.sale_period = GeckoJS.Session.get( 'sale_period' );
         	adjustment.shift_number = GeckoJS.Session.get( 'shift_number' );
+        	adjustment.clerk = user.username;
         	
         	var stockAdjustmentModel = new StockAdjustmentModel();
         	stockAdjustmentModel.set( adjustment );

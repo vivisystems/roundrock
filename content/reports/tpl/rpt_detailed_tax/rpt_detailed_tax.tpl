@@ -88,7 +88,7 @@ else {
 {/eval}
         <tfoot>
             <tr>
-				<td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' )+ ': '}${GeckoJS.BaseObject.getKeys(body).length|format:0}</td>
+				<td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' )}: ${head.rowCount|default:0|format:0} <br/>${_( '(rpt)Records Display' )}: ${GeckoJS.BaseObject.getKeys(body).length|format:0}</td>
 				<td colspan="4" style="text-align: right;">${_( '(rpt)Summary' ) + ':'}</td>
 				<td style="text-align: right;">${foot.summary.total|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
