@@ -138,6 +138,7 @@
         _cartController: null,
         _mainController: null,
         _selectedCheckNo: null,
+        _selectedOrderId: null,
         _isBusy: false,
 
         initial: function () {
@@ -303,7 +304,8 @@
             tableObj.order.forEach(function(o){
                 var tab = document.createElement("tab");
                 tab.setAttribute('label', 'C#' + o.check_no);
-                tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
+                // tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
+                tab.setAttribute('oncommand', "$do('selectOrderTab', '" + o.id + "', 'SelectTable')");
                 tabs.appendChild(tab);
             })
 
@@ -328,11 +330,13 @@
             //
             // this.log("hideOrderPanel:::");
             this._selectedCheckNo = null;
+            this._selectedOrderId = null;
         },
 
         selectOrderTab: function(evt) {
             //
             this._selectedCheckNo = evt;
+            this._selectedOrderId = evt;
         },
 
         doCloseOrderPanel: function() {
@@ -346,10 +350,12 @@
         },
 
         doRecallCheck: function() {
-            if (this._selectedCheckNo) {
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
                 
                 this._inputObj.action = 'RecallCheck';
                 this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
 
                 this.doCloseOrderPanel();
                 this.doFunc();
@@ -363,10 +369,12 @@
         },
 
         doSplitCheck: function() {
-            if (this._selectedCheckNo) {
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
                 
                 this._inputObj.action = 'SplitCheck';
                 this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
 
                 this.doCloseOrderPanel();
                 this.doFunc();
@@ -381,10 +389,12 @@
         },
 
         doMergeCheck: function() {
-            if (this._selectedCheckNo) {
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
                 
                 this._inputObj.action = 'MergeCheck';
                 this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
 
                 this.doCloseOrderPanel();
                 this.doFunc();
@@ -431,13 +441,39 @@
                 tables: null
             };
 
-            window.openDialog(aURL, 'table_book', features, inputObj);
+            this.topmostWindow.openDialog(aURL, 'table_book', features, inputObj);
 
             return;
 
         },
 
         doChangeClerk: function() {
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            var service_clerk;
+            if ( user != null ) {
+                service_clerk = user.username;
+            }
+
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
+
+                this._inputObj.action = 'ChangeClerk';
+                this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
+
+                this.doCloseOrderPanel();
+                this.doFunc();
+
+            } else {
+                this._setPromptLabel('*** ' + _('Change Clerk') + ' ***', _('Select a table to change service clerk to [ %S ]...', [service_clerk]), '', _('Press CANCEL button to cancel function'), 2);
+
+                var pnl = this._showPromptPanel('prompt_panel');
+                this._inputObj.action = 'ChangeClerk';
+            }
+
+            return;
+            
+
             var user = new GeckoJS.AclComponent().getUserPrincipal();
             var service_clerk;
             if ( user != null ) {
@@ -451,12 +487,19 @@
         },
 
         doTransTable: function() {
-            if (this._selectedCheckNo) {
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
 
                 this._inputObj.action = 'TransTable';
                 this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
 
                 this.doCloseOrderPanel();
+
+                this._setPromptLabel('*** ' + _('Trans Table') + ' ***', _('Please select the table to be transfered...'), '', _('Press CANCEL button to cancel function'), 2);
+
+                var pnl = this._showPromptPanel('prompt_panel');
+                
                 this.doFunc();
 
             } else {
@@ -548,6 +591,10 @@
             // @todo check status first, doFunc when match table selected...
             var v = document.getElementById('tableScrollablepanel').value;
             var selTable = this._tables[v];
+
+            var r = false;
+
+            var selectedOrderId = this._inputObj.order_id;
             
             switch (this._inputObj.action) {
                 case 'SelectTableNo':
@@ -588,27 +635,7 @@
                         this._isBusy = false;
                         return;
                     }
-
-                    break;
-                case 'SplitCheck':
-                    if (!selTable.sequence) {
-                        // @todo OSD
-                        NotifyUtils.error(_('This table is empty!!'));
-                        this._isBusy = false;
-                        return;
-                    }
-
-                    break;
-                case 'MergeCheck':
-                    if (!selTable.sequence) {
-                        // @todo OSD
-                        NotifyUtils.error(_('This table is empty!!'));
-                        this._isBusy = false;
-                        return;
-                    }
-
-                    break;
-                case 'ChangeClerk':
+                    /*
                     this._inputObj.sourceTableNo = this._sourceTableNo;
 
                     this._hidePromptPanel('prompt_panel');
@@ -621,7 +648,141 @@
                         this._inputObj.ok = true;
                         // doOKButton();
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                        cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                        // if (this._selectedCheckNo) {
+                        if (selectedOrderId) {
+                            r = cart.GuestCheck.doRecallByCheck(selectedOrderId);
+                        } else {
+                            r = cart.GuestCheck.doRecall(this._sourceTableNo);
+                        }
+
+                        if (r) {
+
+                            $.hidePanel('selectTablePanel', true)
+                        }
+
+                        this._inputObj.action = '';
+                        this._sourceTableNo = null;
+
+                        // $.hidePanel('selectTablePanel', true);
+                        // cart.GuestCheck.getNewTableNo();
+                        this._isBusy = false;
+                        return;
+                    }
+                    */
+                    break;
+                case 'SplitCheck':
+                    if (!selTable.sequence) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is empty!!'));
+                        this._isBusy = false;
+                        return;
+                    }
+                    
+                    this._inputObj.sourceTableNo = this._sourceTableNo;
+
+                    this._hidePromptPanel('prompt_panel');
+                    // alert('doFunc...' + inputObj.action);
+
+                    if (this._inputObj.action) {
+                        // this._inputObj.index = this._tables[v].table_no;
+                        this._inputObj.index = v;
+                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.ok = true;
+                        // doOKButton();
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                        // if (this._selectedCheckNo) {
+                        if (selectedOrderId) {
+                            r = cart.GuestCheck.doSplitCheckByCheck(selectedOrderId);
+                        } else {
+                            r = cart.GuestCheck.doSplitCheck(this._sourceTableNo);
+                        }
+
+                        if (r) {
+
+                            $.hidePanel('selectTablePanel', true)
+                        }
+
+                        this._inputObj.action = '';
+                        this._sourceTableNo = null;
+
+                        // $.hidePanel('selectTablePanel', true);
+                        // cart.GuestCheck.getNewTableNo();
+                        this._isBusy = false;
+                        return;
+                    }
+                    
+                   
+                    break;
+                case 'MergeCheck':
+                    if (!selTable.sequence) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is empty!!'));
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    this._inputObj.sourceTableNo = this._sourceTableNo;
+
+                    this._hidePromptPanel('prompt_panel');
+                    // alert('doFunc...' + inputObj.action);
+
+                    if (this._inputObj.action) {
+                        // this._inputObj.index = this._tables[v].table_no;
+                        this._inputObj.index = v;
+                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.ok = true;
+                        // doOKButton();
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                        // if (this._selectedCheckNo) {
+                        if (selectedOrderId) {
+                            r = cart.GuestCheck.doMergeCheckByCheck(selectedOrderId);
+                        } else {
+                            r = cart.GuestCheck.doMergeCheck(this._sourceTableNo);
+                        }
+
+                        if (r) {
+
+                            $.hidePanel('selectTablePanel', true)
+                        }
+
+                        this._inputObj.action = '';
+                        this._sourceTableNo = null;
+
+                        // $.hidePanel('selectTablePanel', true);
+                        // cart.GuestCheck.getNewTableNo();
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    break;
+                case 'ChangeClerk':
+                    
+                    this._inputObj.sourceTableNo = this._sourceTableNo;
+
+                    this._hidePromptPanel('prompt_panel');
+                    // alert('doFunc...' + inputObj.action);
+
+                    if (this._inputObj.action) {
+                        // this._inputObj.index = this._tables[v].table_no;
+                        this._inputObj.index = v;
+                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.ok = true;
+                        // doOKButton();
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                        // if (this._selectedCheckNo) {
+                        if (selectedOrderId) {
+                            cart.GuestCheck.doChangeClerkByCheck(selectedOrderId);
+                        } else {
+                            cart.GuestCheck.doChangeClerk(this._sourceTableNo);
+                        }
 
                         this._inputObj.action = '';
                         this._sourceTableNo = null;
@@ -652,7 +813,12 @@
                             // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
 
                             var dstTableNo = this._tables[v].table_no;
-                            cart.GuestCheck.doTransferCheck(srcTableNo, dstTableNo);
+                            // cart.GuestCheck.doTransferCheck(srcTableNo, dstTableNo);
+                            if (selectedOrderId) {
+                                cart.GuestCheck.doTransferByCheck(srcTableNo, dstTableNo, selectedOrderId);
+                            } else {
+                                cart.GuestCheck.doTransferCheck(srcTableNo, dstTableNo);
+                            }
 
 
                             this._inputObj.action = '';
@@ -760,7 +926,7 @@
                         tables: null
                     };
 
-                    window.openDialog(aURL, 'table_book', features, inputObj);
+                    this.topmostWindow.openDialog(aURL, 'table_book', features, inputObj);
 
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
@@ -861,7 +1027,7 @@
                     document.getElementById('tableScrollablepanel').invalidate();
                     
                     clearInterval(window.tableStatusRefreshInterval);
-                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 1500000);
+                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 15000);
 
                     document.getElementById('table_status_timer').startClock();
 

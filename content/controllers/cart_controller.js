@@ -3160,7 +3160,8 @@
 
                 var crc = orderModel.getOrderChecksum(oldTransaction.data.id);
 
-                if (crc != tableOrderObj[0].TableOrder.checksum) {
+                // if (crc != tableOrderObj[0].TableOrder.checksum) {
+                if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
                     GREUtils.Dialog.alert(window,
                                       _('Order Checksum Fail'),
                                       _('Current order checksum fail and may not be submit. Please retry or check this order.'));

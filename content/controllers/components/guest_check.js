@@ -105,12 +105,12 @@
             var autoPrint = false;
             var duplicate = 1;
             // print check
-            this._printController.printChecks(txn, printer, autoPrint, duplicate);
+//            this._printController.printChecks(txn, printer, autoPrint, duplicate);
         },
 
         syncClient: function() {
             // sync data
-this.log("guest_check syncClient:::");
+// this.log("guest_check syncClient:::");
             try {
                 var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
                 var r = exec.run(["sync"], true);
@@ -207,7 +207,7 @@ this.log("guest_check syncClient:::");
 // this.log(_("tableNo: %S, guests: %S, minChargeTable: %S, minChargeGuest: %S, total: %S, minimumCharge: %S", [table_no, guests, minimum_charge_per_table, minimum_charge_per_guest, total, minimum_charge]));
                 if (total < minimum_charge) {
 
-                    if (GREUtils.Dialog.confirm(null,
+                    if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
                         _('Order amount does not reach Minimum Charge'),
                         _('The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\n' +
                             'Click OK to finalize this order by Minimum Charge, \nor, click Cancel to ' +
@@ -370,7 +370,7 @@ this.log("guest_check syncClient:::");
                 input0:no, require0:true, numpad:true
             };
 
-            window.openDialog(aURL, _('Select Number of Customers'), features, _('Select Number of Customers'), '', _('Numbers'), '', inputObj);
+            this._controller.topmostWindow.openDialog(aURL, _('Select Number of Customers'), features, _('Select Number of Customers'), '', _('Numbers'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -388,7 +388,7 @@ this.log("guest_check syncClient:::");
                 input0:no, require0:true, numpad:true, disablecancelbtn:true
             };
 
-            window.openDialog(aURL, _('Select Table Number'), features, _('Select Table Number'), '', _('Numbers'), '', inputObj);
+            this._controller.topmostWindow.openDialog(aURL, _('Select Table Number'), features, _('Select Table Number'), '', _('Numbers'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -529,7 +529,28 @@ this.log("guest_check syncClient:::");
 
                 switch (inputObj.action) {
                     case 'RecallCheck':
-                        if (check_no) {
+                        if (id) {
+                            if (!this._controller.unserializeFromOrder(id)) {
+                                //@todo OSD
+                                NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                                return -1
+                            }
+                            
+                            var curTransaction = null;
+                            curTransaction = this._controller._getTransaction();
+                            if (curTransaction) {
+
+                                if (curTransaction.data.status == 1) {
+                                    // @todo OSD
+                                    NotifyUtils.warn(_('This order is already finalized!'));
+                                    return -1;
+                                }
+                            } else {
+                                //@todo OSD
+                                NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                                return -1
+                            }
+                        } else if (check_no) {
                             this.recallByCheckNo(check_no);
                         } else {
                             this.recallByTableNo(i);
@@ -569,6 +590,7 @@ this.log("guest_check syncClient:::");
 
                         break;
                     case 'MergeCheck':
+
                         var r = -1;
                         if (check_no) {
                             r = this.recallByCheckNo(check_no);
@@ -626,7 +648,7 @@ this.log("guest_check syncClient:::");
                         break;
                     case 'ChangeClerk':
                         // @todo ChangeClerk must be rewrited...
-
+                        /*
                         this.recallByTableNo(i);
 
                         // get login user info...
@@ -654,14 +676,14 @@ this.log("guest_check syncClient:::");
                             // this._controller.dispatchEvent('onStore', curTransaction);
                             this._controller.dispatchEvent('onChangeServiceClerk', curTransaction);
                         }
-
+                        */
                         break;
                     case 'MergeTable':
 
                         break;
                     case 'TransTable':
                         // @todo TransTable must be rewrited...
-
+                        /*
                         var targetTableNo = Math.round(parseInt(i));
                         var sourceTableNo = inputObj.sourceTableNo;
 
@@ -685,6 +707,7 @@ this.log("guest_check syncClient:::");
                             }
 
                         }
+                        */
                         break;
                 }
             }else {
@@ -828,24 +851,53 @@ this.log("guest_check syncClient:::");
             }
             
             var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
-
+// this.log(conditions);
+// this.log(this.dump(ord));
             // return all store checks...
             if (notCheckStatus) return ord;
 
             var tables = this._tableStatusModel.getTableStatusList();
 
             var tableOrderIdx = this._tableStatusModel.getTableOrderIdx();
-//this.log("tableOrderIdx:::");
-//this.log(this.dump(tableOrderIdx));
+// this.log("tableOrderIdx:::");
+// this.log(this.dump(tableOrderIdx));
 
             var ordChecked = [];
             ord.forEach(function(o){
                 var crc = order.getOrderChecksum(o.id);
-// self.log(crc + "====" + tableOrderIdx[o.id].checksum);
+//self.log(crc + "====" + tableOrderIdx[o.id].checksum);
+//self.log(o.modified + "####" + tableOrderIdx[o.id].modified);
+//self.log(o.terminal_no + "----" + tableOrderIdx[o.id].terminal_no);
+
+                if (tableOrderIdx[o.id]) {
+                    // if ((crc == tableOrderIdx[o.id].checksum) || ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified))) {
+                    if (crc == tableOrderIdx[o.id].checksum) {
+                        o.table_order_status = 0;
+                        ordChecked.push(o);
+
+//                    } else if ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified)) {
+//self.log(o.modified + "####" + tableOrderIdx[o.id].modified);
+//self.log(o.terminal_no + "----" + tableOrderIdx[o.id].terminal_no);
+//                        ordChecked.push(o);
+                    } else if ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified)) {
+//                        self.log("checksum error:::" + o.id);
+                        o.table_order_status = 1;
+                        ordChecked.push(o);
+                    }
+                } else {
+//                    self.log("not in list:::" + o.id);
+                    o.table_order_status = 2;
+                    ordChecked.push(o);
+                }
+
+                /*
                 if (tableOrderIdx[o.id] && (crc == tableOrderIdx[o.id].checksum)) {
 
                     ordChecked.push(o);
+                } else if () {
+
                 }
+                */
             })
 
             return ordChecked;
@@ -982,7 +1034,7 @@ this.log("guest_check syncClient:::");
                             excludedOrderId: excludedOrderId
                         };
 
-                        window.openDialog(aURL, 'select_tables', features, inputObj);
+                        this._controller.topmostWindow.openDialog(aURL, 'select_tables', features, inputObj);
 
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
@@ -1063,7 +1115,7 @@ this.log("guest_check syncClient:::");
                             excludedOrderId: excludedOrderId
                         };
 
-                        window.openDialog(aURL, 'select_checks', features, inputObj);
+                        this._controller.topmostWindow.openDialog(aURL, 'select_checks', features, inputObj);
 
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
@@ -1167,7 +1219,7 @@ this.log("guest_check syncClient:::");
             }
         },
 
-        doSubmit: function(oldTransaction) {
+        doStore: function(oldTransaction) {
 
             // get checksum if recall == 2
             if (oldTransaction.data.recall == 2) {
@@ -1179,8 +1231,24 @@ this.log("guest_check syncClient:::");
                 var orderModel = new OrderModel();
                 var crc = orderModel.getOrderChecksum(oldTransaction.data.id);
 
-                if (crc != tableOrderObj[0].TableOrder.checksum) {
-                    GREUtils.Dialog.alert(window,
+                /*
+                if (tableOrderIdx[o.id]) {
+                    if ((crc == tableOrderIdx[o.id].checksum) || ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified))) {
+
+                        ordChecked.push(o);
+
+                    }
+                }
+                */
+
+//GREUtils.log(crc + "====" + tableOrderObj[0].TableOrder.checksum);
+//GREUtils.log(oldTransaction.data.modified + "####" + tableOrderObj[0].TableOrder.modified);
+//GREUtils.log(oldTransaction.data.terminal_no + "----" + tableOrderObj[0].TableOrder.terminal_no);
+
+                // if (crc != tableOrderObj[0].TableOrder.checksum) {
+                if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
+
+                    GREUtils.Dialog.alert(this._controller.topmostWindow,
                                       _('Order Checksum Fail'),
                                       _('Current order checksum fail and may not be submit. Please retry or check this order.'));
 
@@ -1206,7 +1274,7 @@ this.log("guest_check syncClient:::");
                          */
                         if (submitStatus == -2) {
 
-                            GREUtils.Dialog.alert(this.activeWindow,
+                            GREUtils.Dialog.alert(this._controller.topmostWindow,
                                           _('Submit Fail'),
                                           _('Current order is not saved successfully, please try again...'));
                             return false;
@@ -1222,7 +1290,28 @@ this.log("guest_check syncClient:::");
             return false;
         },
 
-        doRecall: function(no) {
+        doRecallByCheck: function(order_id) {
+
+                var curTransaction = this.unserializeFromOrder(order_id);
+
+                if (curTransaction == false) {
+
+                    //@todo OSD
+                    NotifyUtils.error(_('The order object does not exist [%S]', [order_id]));
+
+                    return false;
+                }
+
+                if (curTransaction.data.status == 1) {
+                    // @todo OSD
+                    NotifyUtils.warn(_('This order is already finalized!'));
+                    return false;
+                }
+                return curTransaction;
+            
+        },
+
+        doRecall: function(no, excludedOrderId) {
             var ord = this.getCheckList('TableNo', no);
 
             if (ord && ord.length > 1) {
@@ -1239,7 +1328,7 @@ this.log("guest_check syncClient:::");
                     excludedOrderId: excludedOrderId
                 };
 
-                window.openDialog(aURL, 'select_tables', features, inputObj);
+                this._controller.topmostWindow.openDialog(aURL, 'select_tables', features, inputObj);
 
                 if (inputObj.ok && inputObj.index) {
                     var idx = inputObj.index;
@@ -1252,22 +1341,22 @@ this.log("guest_check syncClient:::");
                     var status = ord[idx].status;
                     var check_no = ord[idx].check_no;
 
-                    if (!this._controller.unserializeFromOrder(id)) {
+                    var curTransaction = this.unserializeFromOrder(order_id);
+
+                    if (curTransaction == false) {
                         //@todo OSD
                         NotifyUtils.error(_('This order object does not exist [%S]', [id]));
-                        return -1
+                        return false;
                     }
-
-                    // display to onscreen VFD
-                    this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
 
                     if (status == 1) {
                         // @todo OSD
                         NotifyUtils.warn(_('This order has been submited!!'));
+                        return false;
                     }
-
+                    return curTransaction;
                 }else {
-                    return -1;
+                    return false;
                 }
 
             } else if (ord && ord.length > 0) {
@@ -1278,12 +1367,8 @@ this.log("guest_check syncClient:::");
                 var status = ord[0].status;
                 var check_no = ord[0].check_no;
 
-                // var curTransaction = new Transaction();
-                // curTransaction.unserializeFromOrder(order_id);
-
                 var curTransaction = this.unserializeFromOrder(order_id);
 
-                // if (curTransaction.data == null) {
                 if (curTransaction == false) {
 
                     //@todo OSD
@@ -1291,15 +1376,6 @@ this.log("guest_check syncClient:::");
 
                     return false;
                 }
-
-//                if (!this._controller.unserializeFromOrder(id)) {
-//                    //@todo OSD
-//                    NotifyUtils.error(_('This order object does not exist [%S]', [id]));
-//                    return -1
-//                }
-
-                // display to onscreen VFD
-//                this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
 
                 if (status == 1) {
                     // @todo OSD
@@ -1314,6 +1390,37 @@ this.log("guest_check syncClient:::");
             }
         },
 
+        doTransferByCheck: function(sourceTableNo, targetTableNo, orderId) {
+            var curTransaction = null;
+            curTransaction = this.doRecallByCheck(orderId);
+            // curTransaction = this._controller._getTransaction();
+
+            if (curTransaction) {
+
+                curTransaction.data.table_no = "" + targetTableNo;
+
+                this._tableStatusModel.transTable(curTransaction.data, sourceTableNo);
+                // this.getNewTableNo();
+                this._controller.requestCommand('doRefreshTableStatusLight', null, 'SelectTable');
+
+                if (this.doStore(curTransaction)) {
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('This order has been stored!!'));
+
+                }
+
+//                this._tableStatusModel.transTable(curTransaction.data, sourceTableNo);
+
+                // dispatch changeclerk event
+                // this._controller.dispatchEvent('onStore', curTransaction);
+                this._controller.dispatchEvent('onTransTable', curTransaction);
+
+            }
+
+            return true;
+        },
+
         doTransferCheck: function(sourceTableNo, targetTableNo) {
 
             var curTransaction = null;
@@ -1324,7 +1431,7 @@ this.log("guest_check syncClient:::");
 
                 curTransaction.data.table_no = "" + targetTableNo;
 
-                if (this.doSubmit(curTransaction)) {
+                if (this.doStore(curTransaction)) {
 
                     // @todo OSD
                     NotifyUtils.warn(_('This order has been stored!!'));
@@ -1339,6 +1446,209 @@ this.log("guest_check syncClient:::");
 
             }
 
+            return true;
+        },
+
+        doChangeClerkByCheck: function(orderId) {
+            var curTransaction = null;
+
+            curTransaction = this.doRecallByCheck(orderId);
+            // curTransaction = this._controller._getTransaction();
+
+            if (curTransaction) {
+
+                // get login user info...
+                var user = new GeckoJS.AclComponent().getUserPrincipal();
+                var service_clerk;
+                var service_clerk_displayname;
+                if ( user != null ) {
+                    service_clerk = user.username;
+                    service_clerk_displayname = user.description;
+                }
+
+                if (service_clerk) {
+                    curTransaction.data.service_clerk = service_clerk;
+                    curTransaction.data.service_clerk_displayname = service_clerk_displayname;
+                }
+
+                if (this.doStore(curTransaction)) {
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('This order has been stored!!'));
+
+                }
+
+                this._controller.dispatchEvent('onChangeServiceClerk', curTransaction);
+
+            }
+
+            return true;
+        },
+
+        doChangeClerk: function(tableNo) {
+            var curTransaction = null;
+
+            curTransaction = this.doRecall(tableNo);
+            // curTransaction = this._controller._getTransaction();
+
+            if (curTransaction) {
+
+                // get login user info...
+                var user = new GeckoJS.AclComponent().getUserPrincipal();
+                var service_clerk;
+                var service_clerk_displayname;
+                if ( user != null ) {
+                    service_clerk = user.username;
+                    service_clerk_displayname = user.description;
+                }
+
+                if (service_clerk) {
+                    curTransaction.data.service_clerk = service_clerk;
+                    curTransaction.data.service_clerk_displayname = service_clerk_displayname;
+                }
+
+                if (this.doStore(curTransaction)) {
+
+                    // @todo OSD
+                    NotifyUtils.warn(_('This order has been stored!!'));
+
+                }
+
+                this._controller.dispatchEvent('onChangeServiceClerk', curTransaction);
+
+            }
+
+            return true;
+
+        },
+        
+        doSplitCheckByCheck: function(orderId) {
+            
+            var curTransaction = null;
+
+            curTransaction = this.doRecallByCheck(orderId);
+            
+            if (curTransaction) {
+                var order_id = curTransaction.data.id;
+                
+                if (this._isAllowSplit(curTransaction)) {
+
+                    if (this.splitOrder(order_id, curTransaction.data) == -1) {
+                        // clear recall check from cart
+                       //  this._controller.cancel(true);
+
+                        return false;
+                    };
+                } else {
+                    // this._controller.cancel(true);
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        doSplitCheck: function(tableNo) {
+
+            var curTransaction = null;
+
+            curTransaction = this.doRecall(tableNo);
+
+            if (curTransaction) {
+                var order_id = curTransaction.data.id;
+
+                if (this._isAllowSplit(curTransaction)) {
+
+                    if (this.splitOrder(order_id, curTransaction.data) == -1) {
+                        // clear recall check from cart
+                       //  this._controller.cancel(true);
+
+                        return false;
+                    };
+                } else {
+                    // this._controller.cancel(true);
+                    return false;
+                }
+            }
+            return true;
+
+
+            var r = -1;
+            if (check_no) {
+                r = this.recallByCheckNo(check_no);
+            } else {
+                r = this.recallByTableNo(i);
+            }
+            if (r != -1) {
+
+                var curTransaction = null;
+                curTransaction = this._controller._getTransaction();
+                if (curTransaction) {
+                    if (this._isAllowSplit(curTransaction)) {
+
+                        if (this.splitOrder(id, curTransaction.data) == -1) {
+                            // clear recall check from cart
+                            this._controller.cancel(true);
+
+                            return false;
+                        };
+                    } else {
+                        this._controller.cancel(true);
+                        return false;
+                    }
+                }
+            } else {
+
+                return false;
+            }
+        },
+
+        doMergeCheckByCheck: function(orderId) {
+
+            var curTransaction = null;
+
+            curTransaction = this.doRecallByCheck(orderId);
+
+            if (curTransaction) {
+                var order_id = curTransaction.data.id;
+
+                if (this._isAllowSplit(curTransaction)) {
+
+                    if (this.mergeOrder(order_id, curTransaction.data) == -1) {
+                        // clear recall check from cart
+                       //  this._controller.cancel(true);
+
+                        return false;
+                    };
+                } else {
+                    // this._controller.cancel(true);
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        doMergeCheck: function(tableNo) {
+
+            var curTransaction = null;
+
+            curTransaction = this.doRecall(tableNo);
+
+            if (curTransaction) {
+                var order_id = curTransaction.data.id;
+
+                if (this._isAllowSplit(curTransaction)) {
+
+                    if (this.mergeOrder(order_id, curTransaction.data) == -1) {
+                        // clear recall check from cart
+                       //  this._controller.cancel(true);
+
+                        return false;
+                    };
+                } else {
+                    // this._controller.cancel(true);
+                    return false;
+                }
+            }
             return true;
         },
 
@@ -1397,7 +1707,7 @@ this.log("guest_check syncClient:::");
                 sourceCheck: data
             };
 
-            window.openDialog(aURL, 'merge_checks', features, inputObj);
+            this._controller.topmostWindow.openDialog(aURL, 'merge_checks', features, inputObj);
 
             if (inputObj.ok) {
                 // return queues[idx].key;
@@ -1438,7 +1748,7 @@ this.log("guest_check syncClient:::");
                 sourceCheck: data
             };
 
-            window.openDialog(aURL, 'split_checks', features, inputObj);
+            this._controller.topmostWindow.openDialog(aURL, 'split_checks', features, inputObj);
 
             if (inputObj.ok) {
                 var id = inputObj.id;

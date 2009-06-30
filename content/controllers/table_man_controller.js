@@ -122,7 +122,7 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=540,height=500';
             var inputObj = {input0:null, require0:true, input1:null, require1:true, numpad:true, digitOnly0:true};
 
-            window.openDialog(aURL, _('Add Table'), features, _('New Table'), '', _('Table Number'), _('Table Name'), inputObj);
+            this.topmostWindow.openDialog(aURL, _('Add Table'), features, _('New Table'), '', _('Table Number'), _('Table Name'), inputObj);
             if (inputObj.ok && inputObj.input0) {
 
                 var table_no = inputObj.input0;
@@ -231,7 +231,7 @@
             if (index >= 0) {
                 var table = this._tableListDatas[index];
 
-                if (!GREUtils.Dialog.confirm(window, _('confirm delete table [%S (%S)]', [table.table_no, table.table_name]),
+                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table [%S (%S)]', [table.table_no, table.table_name]),
                                              _('Are you sure you want to delete table [%S (%S)]?', [table.table_no, table.table_name]))) {
                     return;
                 }
@@ -307,7 +307,7 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
             var inputObj = {input0:null, require0:true, input1:null, require1:false, numpad:true};
 
-            window.openDialog(aURL, _('Add Region'), features, _('New Region'), '', _('Region Name'), '', inputObj);
+            this.topmostWindow.openDialog(aURL, _('Add Region'), features, _('New Region'), '', _('Region Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
 
                 var region_name = inputObj.input0;
@@ -384,7 +384,7 @@
             if (index >= 0) {
                 var region = this._regionListDatas[index];
 
-                if (!GREUtils.Dialog.confirm(window, _('confirm delete region [%S (%S)]', [region.name]),
+                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete region [%S (%S)]', [region.name]),
                                              _('Are you sure you want to delete region [%S]?', [region.name]))) {
                     return;
                 }
@@ -546,7 +546,7 @@
             var width = this.screenwidth;
             var height = this.screenheight;
 
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
 
             if (aArguments.ok) {
                 if (aArguments.item) {

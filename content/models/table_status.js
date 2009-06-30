@@ -23,6 +23,7 @@
         _tableList: null,
         _tableStatusList: null,
         _tableStatusLastTime: 0,
+        _tableOrderLastTime: 0,
         _tableStatusArray: [],
         _tableStatusIdxById: {},
         _tableOrderByOrderId: {},
@@ -271,6 +272,10 @@
             var self = this;
 
             var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
+            
+            var tableOrder = this.getTableOrders(this._tableOrderLastTime);
+
+
 
             if (this._tableStatusList && this._tableStatusList.length > 0) {
                 //
@@ -302,7 +307,7 @@
             // set checklist
             this._checkList = tableStatus.concat([]);
 
-            this._tableOrderByOrderId = {};
+//            this._tableOrderByOrderId = {};
 
             // gen tables status
 
@@ -317,12 +322,14 @@
                         o.TableOrder.forEach(function(orderObj){
                             var guests = Math.round(parseInt(orderObj.guests)) || 0;
                             o.guests = o.guests + guests;
-                            self._tableOrderByOrderId[orderObj.order_id] =
-                                {
-                                    status_id: orderObj.table_status_id,
-                                    table_id: orderObj.table_id,
-                                    checksum: orderObj.checksum
-                                }
+//                            self._tableOrderByOrderId[orderObj.order_id] =
+//                                {
+//                                    status_id: orderObj.table_status_id,
+//                                    table_id: orderObj.table_id,
+//                                    checksum: orderObj.checksum,
+//                                    modified: orderObj.modified,
+//                                    terminal_no: orderObj.terminal_no
+//                                }
                         });
                         o.clerk = o.TableOrder[0].clerk;
                         o.total = o.TableOrder[0].total;
@@ -489,22 +496,22 @@
             // tableStatus record exist
             if (tableStatusObjTmp) {
                 
-                    // update tableStatus record
-                    this.id = tableStatusObjTmp.id;
-                    // var retObj = this.saveStatus(tableStatusObj);
-                    var tableOrderObj = this.save(tableStatusObj);
-
-                    // save TableOrder...
-                    var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.order_id='" + tableStatusObj.order_id + "'"});
-
-                    if (tableOrderObj) {
-                        this.TableOrder.id = tableOrderObj.id;
-                    } else {
-                        this.TableOrder.id = ''; // append table order
-                    }
-                    var statusOrderObj = this.TableOrder.save(tableStatusObj);
-                
+                // update tableStatus record
+                this.id = tableStatusObjTmp.id;
+                // var retObj = this.saveStatus(tableStatusObj);
+                var tableOrderObj = this.save(tableStatusObj);
             }
+
+            // save TableOrder...
+            var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.order_id='" + tableStatusObj.order_id + "'"});
+//GREUtils.log("_setTableStatus:::");
+//GREUtils.log(GeckoJS.BaseObject.dump(tableOrderObj));
+            if (tableOrderObj) {
+                this.TableOrder.id = tableOrderObj.id;
+            } else {
+                this.TableOrder.id = ''; // append table order
+            }
+            var statusOrderObj = this.TableOrder.save(tableStatusObj);
 
         },
         
@@ -707,19 +714,83 @@
                     this.id = tableStatusObjTmp.id;
                     // var retObj = this.saveStatus(tableStatusObj);
                     var tableOrderObj = this.save(tableStatusObj);
-
-                    // save TableOrder...
-                    var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.order_id='" + tableStatusObj.order_id + "'"});
-
-                    if (tableOrderObj) {
-                        this.TableOrder.id = tableOrderObj.id;
-                    } else {
-                        this.TableOrder.id = ''; // append table order
-                    }
-                    var statusOrderObj = this.TableOrder.save(tableStatusObj);
-                
             }
 
+            // save TableOrder...
+            var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.order_id='" + tableStatusObj.order_id + "'"});
+//GREUtils.log("table_orders.order_id='" + tableStatusObj.order_id + "'");
+//GREUtils.log(GeckoJS.BaseObject.dump(tableOrderObj));
+            if (tableOrderObj) {
+                this.TableOrder.id = tableOrderObj.id;
+            } else {
+                this.TableOrder.id = ''; // append table order
+            }
+            var statusOrderObj = this.TableOrder.save(tableStatusObj);
+
+        },
+
+        getTableOrders: function(lastModified) {
+
+            var self = this;
+
+            lastModified = 0;
+
+            var remoteUrl = this.getRemoteService('getTableOrders');
+            var tableOrder = null;
+
+            if (remoteUrl) {
+                try {
+                    tableOrder = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
+// GREUtils.log("getTableStatuses:::" + lastModified);
+                    // do not need
+                    tableOrder.forEach(function(o){
+
+                        var item = GREUtils.extend({}, o.TableStatus);
+                        for (var key in item) {
+                            o[key] = item[key];
+                        }
+                    });
+
+                    this._connected = true;
+                }catch(e) {
+                    tableOrder = [];
+                    this._connected = false;
+
+                }
+
+            }else {
+                // read all order status
+                this._connected = true;
+                var fields = null;
+                var conditions = "table_orders.modified > '" + lastModified + "'";
+                var orderby = 'table_orders.modified';
+
+                tableOrder = this.TableOrder.find('all', {fields: fields, conditions: conditions, recursive: 0, order: orderby});
+
+            }
+
+            // if table status changed, sync database...
+            self._tableOrderByOrderId = {};
+            if (tableOrder.length > 0) {
+                this.syncClient();
+                
+                tableOrder.forEach(function(orderObj){
+                    self._tableOrderByOrderId[orderObj.TableOrder.order_id] =
+                                    {
+                                        status_id: orderObj.TableOrder.table_status_id,
+                                        table_id: orderObj.TableOrder.table_id,
+                                        checksum: orderObj.TableOrder.checksum,
+                                        modified: orderObj.TableOrder.modified,
+                                        terminal_no: orderObj.TableOrder.terminal_no
+                                    }
+                });
+                
+                self._tableOrderLastTime = tableOrder[tableOrder.length - 1].TableOrder.TableOrder.modified;
+            }
+// GREUtils.log("tableOrder:::" + lastModified);
+// GREUtils.log(GeckoJS.BaseObject.dump(tableOrder));
+
+            return tableOrder;
         }
 
     };

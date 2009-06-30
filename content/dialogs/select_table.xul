@@ -49,20 +49,21 @@
                 <button class="selectBtn" id="ok" label="&selecttable.selectno;" default="true" type="radio" group="func" oncommand="$do('doSelectTableNo', null, 'SelectTable');"/>
                 <button class="mergeBtn" id="merge_table" label="&selecttable.mergetable;" type="radio" group="func" default="false" oncommand="$do('doMergeTable', null, 'SelectTable');"/>
                 <button class="unmergeBtn" id="unmerge_table" label="&selecttable.unmergetable;" type="radio" group="func" default="false" oncommand="$do('doUnmergeTable', null, 'SelectTable');"/>
-                <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" default="true" type="radio" group="func" oncommand="$do('doTransTable', null, 'SelectTable');"/>
+                <!-- button class="changeBtn" id="trans_table" label="&selecttable.transtable;" default="true" type="radio" group="func" oncommand="$do('doTransTable', null, 'SelectTable');"/ -->
+                <button class="bookcBtn2" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/>
                 <!-- button class="bookcBtn2" / -->
             </vbox>
             <vbox class="RightBtns">
 
-                <button class="selectcBtn2" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
+                <!-- button class="selectcBtn2" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
                 <button class="splitcBtn2" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
-                <button class="mergecBtn2" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
-                <button class="bookcBtn2" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/>
+                <button class="mergecBtn2" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/ -->
+                <!-- button class="bookcBtn2" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/ -->
 
                 <spacer class="space" />
                 <hbox>
                     <spacer class="space2" />
-                <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" default="true" type="radio" group="func" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>                
+                <!-- button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" default="true" type="radio" group="func" oncommand="$do('doChangeClerk', null, 'SelectTable');"/ -->
                 </hbox>
             </vbox>
             <!-- spacer flex="1" / -->
@@ -115,10 +116,10 @@
                 <button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
                 <button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
                 <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
-                <!-- button class="changeBtn" id="trans_table" label="&selecttable.transtable;" type="radio" group="func" default="false" oncommand="$do('doTransTable2', null, 'SelectTable');"/ -->
+                <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" type="radio" group="func" default="false" oncommand="$do('doTransTable', null, 'SelectTable');"/>
                 <!-- button class="bookcBtn" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/ -->
                 <spacer height="80px" />
-                <!-- button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" type="radio" group="func" default="false" oncommand="$do('doChangeClerk2', null, 'SelectTable');"/ -->
+                <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" type="radio" group="func" default="false" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
                 <!-- button class="clerkBtn" / -->
             </vbox>
         </hbox>
