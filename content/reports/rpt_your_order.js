@@ -27,7 +27,6 @@
         var selectedItems, fields;
 
         $.installPanel( $panel[ 0 ], {
-
             css: {
                 left: 0,
                 top: 0,
@@ -39,27 +38,23 @@
                 'max-height': screenheight
             },
             
-            init: function(evt) {
-
-                $box.css({width: screenwidth, height: screenheight});
-                $buttonPanel[ 0 ].vivibuttonpanel.resizeButtons();
-                
+            init: function( evt ) {
+                $box.css( { width: screenwidth, height: screenheight } );
                 var viewHelper = new GeckoJS.NSITreeViewArray();
-                $buttonPanel[ 0 ].datasource = viewHelper ;
-                $buttonPanel[ 0 ].selectedItems = [] ;
-
-
-
+                
+                $buttonPanel[ 0 ].datasource = viewHelper;
+                $buttonPanel[ 0 ].selectedItems = [];
             },
 
-            load: function(evt) { 
+            load: function( evt ) {
                 fields = evt.data.fields; // 0..n index
                 selectedItems = evt.data.selectedItems; // 0..n index
-
-                $buttonPanel[ 0 ].datasource = fields ;
-                $buttonPanel[ 0 ].selectedItems = selectedItems ;
+                
+                $buttonPanel[ 0 ].datasource = fields;
+                $buttonPanel[ 0 ].selectedItems = selectedItems;
+                $buttonPanel[ 0 ].vivibuttonpanel.resizeButtons();
                 //$buttonPanel[ 0 ].vivibuttonpanel.invalidate();
-                $buttonPanel[ 0 ].scrollToRow( 0 ); 
+                $buttonPanel[ 0 ].scrollToRow( 0 );
             } 
         } ); 
     }

@@ -170,11 +170,11 @@
                 condPanel.vivibuttonpanel.cols = condCols;
 
                 condPanel.initGrid();
-                condPanel.vivibuttonpanel.resizeButtons();
 
                 if (!initial) {
                     // @hack irving
                     // make panel visible to let changes take effect
+                    condPanel.vivibuttonpanel.resizeButtons();// this line bring about an error when initial is true.
                     $.popupPanel('selectCondimentPanel', {});
                     $.hidePanel('selectCondimentPanel', {});
                 }
