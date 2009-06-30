@@ -133,7 +133,7 @@
             // Restart printers2pty
             var prog = new GeckoJS.File('/etc/init.d/printers2pty');
 
-            prog.run(['start'], true);
+            prog.run(['restart'], true);
 
             window.close();
         }
