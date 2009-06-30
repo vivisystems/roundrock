@@ -648,13 +648,25 @@
             var height = this.boxHeight;
             var rows = parseInt(this.rows);
             var cols = parseInt(this.cols);
-            var btnWidth = Math.floor(width/cols);
-            var btnHeight = Math.floor(height/rows);
+            //var btnWidth = Math.floor(width/cols);
+            //var btnHeight = Math.floor(height/rows);
             var buttonCount = this.buttonCount;
             var buttons = this.buttons;
 
             // GREUtils.log('resizeButtons ' + width + ',,' + cols + ',,' + btnWidth );
-           
+            
+            // Calculate the average width of buttons. Buttons are all set in initGrid so don't worry about the lack of buttons.
+            var sumWidth = 0;
+            for ( var i = 0; i < cols; i++ )
+                sumWidth += ( buttons[ i ].vivibuttonBox ) ? buttons[ i ].vivibuttonBox.width : 0;
+            var btnWidth = Math.floor( sumWidth / cols );
+            
+            // Calculate the average height of buttons.
+            var sumHeight = 0;
+            for ( var i = 0; i < rows; i++ )
+                sumHeight += ( buttons[ i * cols ].vivibuttonBox ) ? buttons[ i * cols ].vivibuttonBox.height : 0;
+            var btnHeight = Math.floor( sumHeight / rows );
+            
             for(let i=0; i < buttonCount ; i++) {
 		       buttons[i].style['width'] = btnWidth +'px';
 	           buttons[i].style['height'] = btnHeight +'px';
