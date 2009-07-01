@@ -1,18 +1,17 @@
 (function(){
 
-    /**
-     * Class PlusController
-     */
     var __controller__ = {
 
         name: 'Plus',
+
+        components: ['Tax'],
+
         screenwidth: 800,
         screenheight: 600,
         _selectedIndex: null,
         _selCateNo: null,
         _selCateName: null,
         _selCateIndex: -1,
-        components: ['Tax'],
         
         catePanelView: null,
         productPanelView: null,
@@ -237,7 +236,12 @@
                 // for rendering stock quantity.
                 var stockRecordModel = new StockRecordModel();
                 var stockRecord = stockRecordModel.getStockRecordByProductNo( product.no );
-                product.stock = stockRecord.quantity;
+                if (stockRecord) {
+                    product.stock = stockRecord.quantity;
+                }
+                else {
+                    product.stock = 0;
+                }
                 
                 this.setInputData(product);
 
@@ -278,7 +282,7 @@
                 depsData: cates_data,
                 index: index
             };
-            window.openDialog(aURL, 'select_department', features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_department', features, inputObj);
 
             if (inputObj.ok && inputObj.cate_no) {
                 $('#cate_no').val(inputObj.cate_no);
@@ -289,7 +293,7 @@
         getRate: function () {
             var rate = $('#rate').val();
             var aURL = 'chrome://viviecr/content/select_tax.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
                 rate: rate
             };
@@ -299,7 +303,7 @@
 
             inputObj.taxes = taxes;
             
-            window.openDialog(aURL, 'select_rate', features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_rate', aFeatures, inputObj);
             if (inputObj.ok && inputObj.rate) {
                 $('#rate').val(inputObj.rate);
                 $('#rate_name').val(inputObj.name);
@@ -397,45 +401,15 @@
             this.getPluSetListObj().datasource = panelView;
         },
 
-        /*
-        getCondiment: function () {
-            var cond_group = $('#cond_group').val();
-            var aURL = 'chrome://viviecr/content/select_condgroup.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var inputObj = {
-                cond_group: cond_group
-            };
-            window.openDialog(aURL, 'select_cond_group', features, inputObj);
-
-            if (inputObj.ok) {
-                $('#cond_group').val(inputObj.cond_group);
-                $('#cond_group_name').val(inputObj.cond_group_name);
-            }
-        },
-
-        _setCondimentGroup: function () {
-            var cond_group = document.getElementById('cond_group').value;
-            var cond_group_name = '';
-
-            if (cond_group != null) {
-                var condGroupModel = new CondimentGroupModel();
-                var condGroup = condGroupModel.findById(cond_group);
-                if (condGroup) {
-                    cond_group_name = condGroup.name;
-                }
-            }
-            document.getElementById('cond_group_name').value = cond_group_name;
-        },*/
-
         addSetItem: function (){
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:null, require0:true
             };
 
-            window.openDialog(aURL, _('Add New Set Item'), features, _('Set Item'), '', _('Label'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Set Item'), aFeatures, _('Set Item'), '', _('Label'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 
@@ -500,13 +474,14 @@
             
             var aURL = "chrome://viviecr/content/plusearch.xul";
             var aName = _('Product Search');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var width = this.screenwidth;
             var height = this.screenheight;
             var pluNo = document.getElementById('setitem_preset_no').value;
             var productNo = document.getElementById('product_no').value;
             var inputObj = {buffer: pluNo};
 
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
             if (inputObj.ok) {
                 if (inputObj.item) {
                     if (inputObj.item.SetItem && inputObj.item.SetItem.length > 0) {
@@ -533,6 +508,7 @@
 
             var aURL = "chrome://viviecr/content/select_product_group.xul";
             var aName = _('Product Group');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var width = this.screenwidth;
             var height = this.screenheight;
             var groupNameObj = document.getElementById('setitem_linkgroup');
@@ -554,7 +530,7 @@
             }
             var inputObj = {groupData: productGroups, index: index, plugroupOnly: false};
 
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
             if (inputObj.ok && inputObj.group_id != '') {
                 groupNameObj.value = inputObj.group_name;
                 groupIdObj.value = inputObj.group_id;
@@ -653,10 +629,11 @@
             var prods = GeckoJS.Session.get('products');
             var result = 0;
             if (data.no.length <= 0) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Product No. must not be empty.'));
                 result = 3;
             } else if (data.name.length <= 0) {
+
                 NotifyUtils.warn(_('Product Name must not be empty.'));
                 result = 4;
             } else {
@@ -775,12 +752,12 @@
             }
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {
                 input0:prodNo, require0:true, alphaOnly0:true,
                 input1:null, require1:true
             };
-            window.openDialog(aURL, _('Add New Product'), features, _('New Product'), '', _('Product No.'), _('Product Name'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Product'), aFeatures, _('New Product'), '', _('Product No.'), _('Product Name'), inputObj);
             
             if (inputObj.ok && (inputObj.input0.length > 0) && (inputObj.input1.length > 0)) {
                 var product = new ProductModel();
@@ -793,42 +770,35 @@
 
                     // reset form to get product defaults
                     var prodData = this.getInputDefault();
-                    //try {
-                        prodData.id = '';
-                        prodData.no = inputData.no;
-                        prodData.name = inputData.name;
-                        prodData.cate_no = inputData.cate_no;
 
-                        var newProduct = product.save(prodData);
+                    prodData.id = '';
+                    prodData.no = inputData.no;
+                    prodData.name = inputData.name;
+                    prodData.cate_no = inputData.cate_no;
 
-                        // need to retrieve product id
-                        if (newProduct != null) {
-                            this.updateSession('add', newProduct);
-                        }
-                        
-                        // newly added item is appended to end; jump cursor to end
-                        var index = this.productPanelView.data.length - 1;
+                    var newProduct = product.save(prodData);
 
-                        // index < 0 indicates that this category was previously empty
-                        // we need to manually select it again to make the panel display
-                        // the newly added product
-                        if (index < 0) {
-                            var catepanel = document.getElementById('catescrollablepanel');
-                            this.changePluPanel(catepanel.selectedIndex);
-                            index = 0;
-                        }
-                        this.clickPluPanel(index);
+                    // need to retrieve product id
+                    if (newProduct != null) {
+                        this.updateSession('add', newProduct);
+                    }
 
-                        // @todo OSD
-                        OsdUtils.info(_('Product [%S] added successfully', [inputData.name]));
-                   // }
-                    //catch (e) {
-                        // @todo OSD
-                        //NotifyUtils.error(_('An error occurred while adding Product [%S]; the product may not have been added successfully', [inputData.name]));
-                    //}
+                    // newly added item is appended to end; jump cursor to end
+                    var index = this.productPanelView.data.length - 1;
+
+                    // index < 0 indicates that this category was previously empty
+                    // we need to manually select it again to make the panel display
+                    // the newly added product
+                    if (index < 0) {
+                        var catepanel = document.getElementById('catescrollablepanel');
+                        this.changePluPanel(catepanel.selectedIndex);
+                        index = 0;
+                    }
+                    this.clickPluPanel(index);
+
+                    OsdUtils.info(_('Product [%S] added successfully', [inputData.name]));
                 }
             }
-
         },
 
         modify: function  () {
@@ -838,81 +808,68 @@
 
             var product = this.productPanelView.getCurrentIndexData(this._selectedIndex);
 
-            //GREUtils.log('modify <' + this._selectedIndex + '> ' + GeckoJS.BaseObject.dump(inputData));
-
             // need to make sure product name is unique
             if (this._checkData(inputData) == 0) {
                 var prodModel = new ProductModel();
-                //try {
-                    prodModel.id = inputData.id;
-                    prodModel.save(inputData);
-                    
-                    // Insert stock difference into stock_adjustments.
-                    var stockAdjustmentsController =
-                        GeckoJS.Controller.getInstanceByName( "StockAdjustments" );
-                    // Get stock info. used in the stockAdjustmentsController.
-                    stockAdjustmentsController.list();
-                    stockAdjustmentsController.adjustStock( product.no, inputData.stock, "Done in product page" );
-                    
-                    // update set items
-                    var setItemModel = new SetItemModel();
+                prodModel.id = inputData.id;
+                prodModel.save(inputData);
 
-                    // first we delete old items
-                    var oldSetItems = setItemModel.findByIndex('all', {
-                        index: 'pluset_no',
-                        value: inputData.no
-                    });
-                    
-                    oldSetItems.forEach(function(setitem) {
-                        setItemModel.del(setitem.id);
-                    })
+                // Insert stock difference into stock_adjustments.
+                var stockAdjustmentsController =
+                    GeckoJS.Controller.getInstanceByName( "StockAdjustments" );
+                // Get stock info. used in the stockAdjustmentsController.
+                stockAdjustmentsController.list();
+                stockAdjustmentsController.adjustStock( product.no, inputData.stock, "Done in product page" );
 
-                    // then we add new set items
+                // update set items
+                var setItemModel = new SetItemModel();
 
-                    if (this._pluset != null && this._pluset.length > 0) {
+                // first we delete old items
+                var oldSetItems = setItemModel.findByIndex('all', {
+                    index: 'pluset_no',
+                    value: inputData.no
+                });
 
-                        for (var i = 0; i < this._pluset.length; i++) {
-                            var setitem = this._pluset[i];
-                            setitem.id = '';
-                            setItemModel.id = '';
-                            setitem.sequence = i;
-                            setitem.pluset_no = inputData.no;
+                oldSetItems.forEach(function(setitem) {
+                    setItemModel.del(setitem.id);
+                })
 
-                            setItemModel.save(setitem);
-                        }
-                        product.SetItem = this._pluset;
+                // then we add new set items
+
+                if (this._pluset != null && this._pluset.length > 0) {
+
+                    for (var i = 0; i < this._pluset.length; i++) {
+                        var setitem = this._pluset[i];
+                        setitem.id = '';
+                        setItemModel.id = '';
+                        setitem.sequence = i;
+                        setitem.pluset_no = inputData.no;
+
+                        setItemModel.save(setitem);
                     }
-                    else {
-                        product.SetItem = [];
-                    }
-                    this.updateSession('modify', inputData, product);
-
-                    var newIndex = this._selectedIndex;
-                    if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
-
-                    //this.clickPluPanel(newIndex);
-
-                    if (!this._setCateNo) {
-                        // if current department is a product group, order may have changed so we need to re-scan
-                        var data = this.productPanelView.data;
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i] == inputData.id) {
-                                newIndex = i;
-                                break;
-                            }
-                        }
-                        this.clickPluPanel(newIndex);
-                    }
-
-                    // @todo OSD
-                    OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
-                    /*
+                    product.SetItem = this._pluset;
                 }
-                catch (e) {
-                    // @todo OSD
-                    NotifyUtils.error(_('An error occurred while modifying Product [%S]. The product may not have been modified successfully', [product.name]));
+                else {
+                    product.SetItem = [];
                 }
-                    */
+                this.updateSession('modify', inputData, product);
+
+                var newIndex = this._selectedIndex;
+                if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
+
+                if (!this._setCateNo) {
+                    // if current department is a product group, order may have changed so we need to re-scan
+                    var data = this.productPanelView.data;
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i] == inputData.id) {
+                            newIndex = i;
+                            break;
+                        }
+                    }
+                    this.clickPluPanel(newIndex);
+                }
+
+                OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
             }
         },
 
@@ -951,41 +908,33 @@
                     return;
                 }
 
-                if (GREUtils.Dialog.confirm(window, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
+                if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
                 
-                    //try {
-                        prodModel.del(product.id);
+                    prodModel.del(product.id);
 
-                        // cascade delete set items
+                    // cascade delete set items
 
-                        var setItemModel = new SetItemModel();
+                    var setItemModel = new SetItemModel();
 
-                        var oldSetItems = setItemModel.findByIndex('all', {
-                            index: 'pluset_no',
-                            value: product.no
-                        });
+                    var oldSetItems = setItemModel.findByIndex('all', {
+                        index: 'pluset_no',
+                        value: product.no
+                    });
 
-                        oldSetItems.forEach(function(setitem) {
-                            setItemModel.del(setitem.id);
-                        })
+                    oldSetItems.forEach(function(setitem) {
+                        setItemModel.del(setitem.id);
+                    })
 
-                        this.RemoveImage(product.no);
-                        
-                        this.updateSession('remove', product);
+                    this.RemoveImage(product.no);
 
-                        var newIndex = this._selectedIndex;
-                        if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
+                    this.updateSession('remove', product);
 
-                        this.clickPluPanel(newIndex);
+                    var newIndex = this._selectedIndex;
+                    if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
 
-                        // @todo OSD
-                        OsdUtils.info(_('Product [%S] removed successfully', [product.name]));
-                    /*}
-                    catch (e) {
-                        // @todo OSD
-                        NotifyUtils.error(_('An error occurred while removing Product [%S]. The product may not have been removed successfully', [product.name]));
-                    }
-                        */
+                    this.clickPluPanel(newIndex);
+
+                    OsdUtils.info(_('Product [%S] removed successfully', [product.name]));
                 }
             }
         },
@@ -994,18 +943,18 @@
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
             var aName = _('Product Search');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var width = this.screenwidth;
             var height = this.screenheight;
             var inputObj = {buffer: '', seltype: 'multiple'};
 
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
             if (inputObj.ok) {
                 if (inputObj.selections && inputObj.selections.length > 0) {
                     var self = this;
                     inputObj.selections.forEach(function(product) {
-                        alert(product.name + ': ' + product.link_group + ': ' + plugroup.id);
                         if (product.link_group.indexOf(plugroup.id) > -1) {
-                            // @todo OSD
+
                             NotifyUtils.warn(_('Product [%S] already linked to to product group [%S]',
                                                [product.name, plugroup.name]));
                         }
@@ -1020,7 +969,6 @@
                         }
                     });
 
-                    // @todo OSD
                     OsdUtils.info(_('Selected products successfully linked to product group [%S]',
                                     [plugroup.name]));
                 }
@@ -1380,14 +1328,16 @@
 
             var plu = datas[index];
             if (plu != null) {
-                var categories = GeckoJS.Session.get('categories');
+                var categoriesById = GeckoJS.Session.get('categoriesById');
+                var categoryIDs = this.catePanelView.tree.datasource.data;
 
                 // @todo optimize search
                 // categories are now sorted by display_order, which aren't unique and may be null, so
                 // for now we use simple linear search
                 var catIndex = -1;
-                for (var i = 0; i < categories.length; i++) {
-                    if (categories[i].no == plu.cate_no) {
+                for (var i = 0; i < categoryIDs.length; i++) {
+                    var cat_id = categoryIDs[i];
+                    if (cat_id && categoriesById[cat_id] && categoriesById[cat_id].no == plu.cate_no) {
                         catIndex = i;
                         break;
                     }
@@ -1400,7 +1350,6 @@
 
                 var plus = this.productPanelView.tree.datasource.data;
                 var pluIndex = plus.indexOf(plu.id);
-                
                 this.clickPluPanel(pluIndex);
             }
         },
@@ -1447,14 +1396,14 @@
                 // d. prices
                 // e. link groups
                 var aURL = 'chrome://viviecr/content/prompt_clone_plu.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * .9 + ',height=' + this.screenheight * .9;
+                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * .9 + ',height=' + this.screenheight * .9;
                 var inputObj = {
                     title: _('Product to Clone') + ' [' + product.name + ']',
                     targetsLabel: targetGroupName,
                     targets: targets
                 };
 
-                window.openDialog(aURL, _('Clone Product'), features, inputObj);
+                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Clone Product'), aFeatures, inputObj);
 
                 if (inputObj.ok && inputObj.selectedItems && inputObj.selectedItems.length > 0) {
 
@@ -1517,7 +1466,6 @@
                             this.updateSession('modify', newData, oldData);
                         }
                     }
-                    // @todo OSD
                     OsdUtils.info(_('Product [%S] cloned successfully', [product.name]));
                 }
             }

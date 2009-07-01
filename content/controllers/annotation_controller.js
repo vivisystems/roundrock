@@ -1,6 +1,7 @@
 (function(){
 
     var __controller__ = {
+        
         name: 'Annotations',
 
         _order: null,
@@ -52,13 +53,13 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {input0:null, require0:true, alphaOnly0:true, input1:null, require1:true};
 
-            window.openDialog(aURL, _('Add New Annotation Code'), features, _('New Annotation Code'), '', _('Code'), _('Type'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Annotation Code'), features,
+                                       _('New Annotation Code'), '', _('Code'), _('Type'), inputObj);
             if (inputObj.ok && inputObj.input0) {
                 var annotationCode = inputObj.input0.replace('\'', '"', 'g');
 
                 var dupCodes = new GeckoJS.ArrayQuery(this._codeDatas).filter('code = \'' + annotationCode + '\'');
                 if (dupCodes.length > 0) {
-                    // @todo OSD
                     NotifyUtils.warn(_('Annotation code [%S] already exists', [annotationCode]));
                     return;
                 }
@@ -75,7 +76,6 @@
                     }
                 }
 
-                // @todo OSD
                 OsdUtils.info(_('Annotation code [%S] added successfully', [annotationCode]));
             }
         },
@@ -106,7 +106,7 @@
             if (index >= 0) {
                 var annotationCode = this._codeDatas[index].code;
 
-                if (!GREUtils.Dialog.confirm(window,
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
                                              _('confirm delete annotation code [%S]', [annotationCode]),
                                              _('Are you sure you want to delete annotation code [%S]?', [annotationCode]))) {
                     return;
@@ -116,7 +116,6 @@
                 
                 this.saveAnnotationCodes();
 
-                // @todo OSD
                 OsdUtils.info(_('Annotation code [%S] deleted successfully', [annotationCode]));
 
                 this.loadCodes();
@@ -336,7 +335,7 @@
             if (index >= 0) {
                 var annotationType = this._annotationDatas[index].type;
 
-                if (!GREUtils.Dialog.confirm(window,
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
                                              _('confirm delete annotation [%S]', [annotationType]),
                                              _('Are you sure you want to delete annotation [%S]?', [annotationType]))) {
                     return;

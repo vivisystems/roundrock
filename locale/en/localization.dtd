@@ -3,11 +3,15 @@
 <!ENTITY localization.heading.key "ID">
 <!ENTITY localization.heading.base.string "Base String">
 <!ENTITY localization.heading.translated.string "Translation">
+<!ENTITY localization.label.key "ID:">
+<!ENTITY localization.label.index "Count:">
+<!ENTITY localization.label.empty "Untranslated:">
+<!ENTITY localization.action.filter "Filter">
 <!ENTITY localization.action.modify "Modify">
 <!ENTITY localization.action.save "Save">
 <!ENTITY localization.action.generate "Auto-Fill">
 <!ENTITY localization.action.export "Export">
 <!ENTITY localization.export.title "Export Locale">
-<!ENTITY localization.export.select.package "Please select package to export">
-<!ENTITY localization.export.package.name "Export package as">
-<!ENTITY localization.export.edit.install "Please update install.rdf as appropriate">
+<!ENTITY localization.export.package "Package">
+<!ENTITY localization.export.locale "Locale">
+<!ENTITY localization.export.name "Export package as">

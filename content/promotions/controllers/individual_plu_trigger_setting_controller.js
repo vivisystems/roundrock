@@ -71,7 +71,7 @@
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
             var aName = _('Product Search');
-
+            var aFeatures = "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + this.screenwidth + ",height=" + this.screenheight
             var treeObj = this._treeObj = this._treeObj || document.getElementById('pluTree');
             var index = treeObj.selectedIndex;
 
@@ -88,10 +88,8 @@
                 buffer: buf,
                 item: item
             };
-            var width = this.screenwidth;
-            var height = this.screenheight;
 
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
 
             if (aArguments.ok) {
                 if (aArguments.item) {

@@ -1,17 +1,11 @@
 (function(){
 
-    /**
-     * Controller Promotions Manager
-     * 
-     */
     var __layout_manager_controller__ = {
 
         name: 'LayoutManager',
 
         _layouts: {},
-
         _selectedLayout: '',
-
         _rbObj: null,
 
         getRichlistbox: function() {
@@ -19,14 +13,13 @@
             return this._rbObj;
         },
 
-        /*
-         * initial promotions rules for register
-         */
         initial: function() {
 
 
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            var resolution = width + 'x' + height;
+
             document.getElementById('prefwin').width=width;
             document.getElementById('prefwin').height=height;
             document.getElementById('prefwin').dlgbuttons="accept,help";
@@ -36,10 +29,14 @@
 
             var rbObj = this.getRichlistbox();
 
-
+            // filter layouts by resolution
             for (var key in layouts) {
-
-                this.appendItem(rbObj, layouts[key], key);
+                if (GeckoJS.String.contains(layouts[key].resolutions, resolution)) {
+                    this.appendItem(rbObj, layouts[key], key);
+                }
+                else {
+                    delete layouts[key];
+                }
             }
 
             rbObj.value = selectedLayout;
@@ -161,7 +158,7 @@
                     
                 var confirmMessage = _("Do you want to change layout") + "\n" + _("If you change layout now, the system will restart automatically after you return to the Main Screen.");
 
-                if (GREUtils.Dialog.confirm(window, _("Confirm Change Layout"), confirmMessage)) {
+                if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Change Layout"), confirmMessage)) {
 
                     if(changedSkin.length > 0 ) {
                         GeckoJS.Configure.write('general.skins.selectedSkin', changedSkin);
@@ -178,8 +175,8 @@
             var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
 
             // change button height
-            var main = mainWindow.GeckoJS.Controller.getInstanceByName('Main');
-            if(main) main.requestCommand('updateOptions', null, 'Main');
+            var layout = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
+            if (layout) layout.requestCommand('resetLayout', null, 'Layout');
 
 
         }

@@ -1,175 +1,187 @@
 (function(){
 
-    /**
-     * Localization Editor
-     */
-
     var __controller__ = {
+        
         name: 'Localization',
 
-        _tree: null,
-
-        _editscrollabletree: null,
-
+        _menu: null,
+        _list: null,
+        _localelist: null,       
         _packages: null,
-
         _dirtyBit: false,
-
-        _currentLocale: null,
-
-        _currentIndex: -1,
-
+        _dirtyFiles: {},
         _currentPkg: null,
-
-        _currentFile: null,
-
+        _currentLocale: null,
+        _currentLocalIndex: -1,
         _currentEntryIndex: -1,
+        _currentPkgIndex: -1,
+        _selectedLocale: null,
+        _strings: [],
 
-        _containers: {},
-        
-        // data structure
-        //
-        // localePkgs array of locales [
-        //     index: {
-        //         pkg: package name,
-        //         basePath: file path to base locale directory
-        //         baseLocale: base locale name
-        //         currentPath: file path to current locale directory
-        //         currentLocale: current locale name
-        //         extensions: array of file extensions
-        //         numFiles: number of base locale files
-        //         baseFiles: sorted array of locale files [
-        //             index: {
-        //                 path: absolute path to base locale file
-        //                 file: relative path to base locale file (rooted at base locale directory)
-        //                 ext: base locale file extension
-        //                 level: number of levels down from base locale directory
-        //                 emptyCount: number of untranslated strings in current locale file
-        //                 totalCount: total number of strings in base locale file
-        //                 strings: array of strings in base locale file [
-        //                     index: {
-        //                         key: entity key,
-        //                         base: base string,
-        //                         translation: translated string for the current locale
-        //                         working: working translation
-        //                     }
-        //                 ]
-        //             }
-        //         ]
-        //     }
-        // ]
-        //
-        load: function() {
+        load: function() {            
+            var self = this;
+            this._list = document.getElementById('editlist');
+            this._localelist = document.getElementById('locale');
 
-            var profD = GeckoJS.Configure.read('ProfD') || '';
-
-            this._tree = document.getElementById('navtree');
-            this._editscrollabletree = document.getElementById('editscrollabletree');
+            var menu = document.getElementById('package');
 
             var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
             var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+            var toolkitChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIToolkitChromeRegistry);
 
             // retrieve list of packages requesting localization editor support
             var packages = GeckoJS.Configure.read('vivipos.fec.registry.localization.package');
-            
+
             var selectedLocale = xulChromeReg.getSelectedLocale('viviecr');
-            this._currentLocale = selectedLocale;
+            this._selectedLocale = selectedLocale;
 
-            var localeObj = document.getElementById('locale');
-            if (localeObj) localeObj.value = '[' + selectedLocale + ']';
-
-            // retrieve files from base locales
+            // retrieve files from base locale
             var localePkgs = [];
-            for (var pkg in packages) {
+            for (var pkgName in packages) {
 
+                // get available locales
+                var localeEnumerator = toolkitChromeReg.getLocalesForPackage(pkgName);
+                var locales = [];
+                while (localeEnumerator.hasMore()) {
+                    locales.push(localeEnumerator.getNext());
+                }
+                
                 // get base locale file path
-                var chromePath = 'chrome://' + pkg + '/locale/';
-                GeckoJS.Configure.write('general.useragent.locale', packages[pkg].base);
+                var chromePath = 'chrome://' + pkgName + '/locale/';
+                GeckoJS.Configure.write('general.useragent.locale', packages[pkgName].base);
                 var baseFilePath = GREUtils.File.chromeToPath(chromePath);
 
                 // make sure file path exists and is a directory
                 if (!GREUtils.File.exists(baseFilePath) || !GREUtils.File.isDir(baseFilePath)) {
                     NotifyUtils.warn(_('Path [%S] for package [%S] locale [%S] is either non-existent or is not a directory',
-                                       [baseFilePath, pkg, packages[pkg].base]));
+                                       [baseFilePath, pkgName, packages[pkgName].base]));
                 }
                 else {
-                    var extensions = packages[pkg].ext ? packages[pkg].ext.split(',') : [];
-                    var installable = packages[pkg].installable;
+                    var extensions = packages[pkgName].ext ? packages[pkgName].ext.split(',') : [];
                     var localePkg = {
-                        pkg: pkg,
+                        pkgName: pkgName,
+                        locales: locales,
                         basePath: baseFilePath,
-                        baseLocale: packages[pkg].base,
-                        extensions: extensions,
-                        installable: installable || ''
+                        baseLocale: packages[pkgName].base,
+                        extensions: extensions
                     }
 
-                    // retrieve individual files
-                    var baseFiles = this._retrieveBaseFiles(GREUtils.Dir.readDir(baseFilePath, true), extensions, baseFilePath);
+                    // get list of files
+                    var baseFileRecords = this._getBaseFileRecords(GREUtils.Dir.readDir(baseFilePath, true), extensions, baseFilePath);
 
-                    if (baseFiles.length > 0) {
-                        localePkg.baseFiles = baseFiles.sort(function(a,b) {return a.path > b.path});
-                        localePkg.numFiles = baseFiles.length;
-                        localePkgs.push(localePkg);
+                    if (baseFileRecords.length > 0) {
+                        baseFileRecords.forEach(function(record) {
+                            record.baseStrings = self._extractStrings(GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(record.path)), record.ext);
+                        });
+                    }
+
+                    localePkg.files = baseFileRecords;
+                    localePkgs.push(localePkg);
+
+                    // add to package menu
+                    if (menu) {
+                        var menuitem = menu.appendItem(pkgName);
+                        if (menuitem) menuitem.setAttribute('style', 'text-align: left');
                     }
                 }
             }
-            // restore current locale
-            GeckoJS.Configure.write('general.useragent.locale', selectedLocale);
+            this._menu = menu;
+            this._packages = localePkgs;
 
-            // retrieve file system paths to current locales
-            var finalLocalePkgs = [];
+            // select first package
+            if (localePkgs.length > 0) {
+                menu.selectedIndex = 0;
+                this.selectPackage(0);
+            }
+            this._packages = localePkgs;
+
+            this._validateForm();
+        },
+
+        // data structure
+        //
+        // _packages: array of locales [
+        //     index: {
+        //         pkgName: package name,
+        //         locales: available locales
+        //         extensions: array of file extensions
+        //         basePath: file path to base locale directory
+        //         baseLocale: base locale name
+        //         currentPath: file path to current locale directory
+        //         currentLocale: current locale name
+        //         installName: name under which the current locale package is installed
+        //         installPath: path where the current locale package is installed
+        //         totalCount: total number of strings in package
+        //         emptyCount: number of untranslated strings in current locale file
+        //         files: array of locale files [
+        //             index: {
+        //                 path: absolute path to base locale file
+        //                 file: relative path to base locale file (rooted at base locale directory)
+        //                 ext: base locale file extension
+        //             }
+        //         ]
+        //         strings: sorted array of strings [
+        //             index: {
+        //                 index: index into files
+        //                 key: entity key,
+        //                 base: base string,
+        //                 translation: translated string for the current locale
+        //                 working: working translation
+        //             }
+        //         ]
+        //     }
+        // ]
+        //
+        _loadLocale: function(pkg, locale) {
             var self = this;
-            localePkgs.forEach(function(p) {
 
-                // get current locale file path
-                var chromePath = 'chrome://' + p.pkg + '/locale/';
-                var currentFilePath = GREUtils.File.chromeToPath(chromePath);
-                // extract current installation name
-                var installation = '';
-                var extensionsPath = profD + '/extensions/';
+            var profD = GeckoJS.Configure.read('ProfD') || '';
 
-                var index = currentFilePath.indexOf(extensionsPath);
-                if (index > -1) {
-                    var descPath = currentFilePath.substr(extensionsPath.length);
-                    installation = descPath.split('/')[0];
-                }
+            // set to given locale
+            GeckoJS.Configure.write('general.useragent.locale', locale);
 
-                // make sure file path exists and is a directory
-                if (!GREUtils.File.exists(currentFilePath) || !GREUtils.File.isDir(currentFilePath)) {
-                    NotifyUtils.warn(_('Path [%S] for package [%S] locale [%S] is either non-existent or is not a directory',
-                                       [currentFilePath, pkg, selectedLocale]));
-                }
-                else {
-                    p.currentLocale = selectedLocale;
-                    p.currentPath = currentFilePath;
-                    p.installation = installation;
-                    p.installable = p.installable && installation;
-                    p.installationPath = profD + '/extensions/' + installation;
-                    self._extractTranslations(p);
-                    finalLocalePkgs.push(p);
-                }
-            });
+            // get current locale file path
+            var chromePath = 'chrome://' + pkg.pkgName + '/locale/';
+            var currentFilePath = GREUtils.File.chromeToPath(chromePath);
 
+            // extract current installation name
+            var installation = '';
+            var extensionsPath = profD + '/extensions/';
+
+            var index = currentFilePath.indexOf(extensionsPath);
+            if (index > -1) {
+                var descPath = currentFilePath.substr(extensionsPath.length);
+                installation = descPath.split('/')[0];
+            }
+
+            // make sure file path exists and is a directory
+            if (!GREUtils.File.exists(currentFilePath) || !GREUtils.File.isDir(currentFilePath)) {
+                NotifyUtils.warn(_('Path [%S] for package [%S] locale [%S] is either non-existent or is not a directory',
+                                   [currentFilePath, pkg, locale]));
+            }
+            else {
+                pkg.currentLocale = locale;
+                pkg.currentPath = currentFilePath;
+                pkg.installName = installation;
+                pkg.installPath = extensionsPath + installation
+            }
+            self._extractTranslations(pkg);
+
+            // restore to selected locale
+            GeckoJS.Configure.write('general.useragent.locale', this._selectedLocale);
+            
             /*
-            finalLocalePkgs.forEach(function(p) {
-                self.log('WARN', self.dump(p));
-            });
+            self.log('WARN', self.dump(pkg));
             */
-           
-            // construct the hierarchical tree
-            this._buildTree(finalLocalePkgs);
 
-            // save data
-            this._packages = finalLocalePkgs;
+            // display locale
+            this._displayStrings(pkg, pkg.strings, pkg.emptyCount);
 
             this._validateForm();
         },
 
 
-        _retrieveBaseFiles: function(files, extensions, root, level) {
-
-            level = parseInt(level);
-            if (isNaN(level)) level = 0;
+        _getBaseFileRecords: function(files, extensions, root) {
 
             // filter files by extensions
             var self = this;
@@ -178,26 +190,16 @@
 
             files.forEach(function(f) {
                 if (f.length > 0) {
-                    result = result.concat(self._retrieveBaseFiles(f, extensions, root, level + 1));
+                    result = result.concat(self._getBaseFileRecords(f, extensions, root));
                 }
                 else {
-                    try {
-                        var ext = GREUtils.File.ext(f);
-                        if (extensions.indexOf(ext) > -1) {
-                            var file = f.path.substr(rootLength + 1, f.path.length - rootLength - 1);
-                            //self.log('WARN', 'extracting base strings from ' + file);
-                            var entry = {
-                                path: f.path,
-                                file: file,
-                                ext: ext,
-                                level: level,
-                                strings: self._extractStrings(GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(f)), ext)
-                            }
-                            result.push(entry);
-                        }
-                    }
-                    catch(e) {
-                        self.log('WARN', 'failed to read base locale file ' + f.path);
+                    var ext = GREUtils.File.ext(f);
+                    if (extensions.indexOf(ext) > -1) {
+                        var file = f.path.substr(rootLength + 1, f.path.length - rootLength - 1);
+                        //self.log('WARN', 'extracting base strings from ' + file);
+                        result.push({path: f.path,
+                                     file: file,
+                                     ext: ext});
                     }
                 }
             });
@@ -223,26 +225,30 @@
             return entries;
         },
 
-        _extractTranslations: function(localePkg) {
+        _extractTranslations: function(pkg) {
             //this.log('WARN', 'extracting translations from directory ' + localeFile.currentPath);
-            if (localePkg.baseFiles) {
-                localePkg.baseFiles.forEach(function(f) {
-                    var totalCount = 0;
-                    var matchCount = 0;
-                    var file = localePkg.currentPath + '/' + f.file;
+            var emptyStrings = [];
+            var translatedStrings = [];
+            var totalCount = 0;
+            var emptyCount = 0;
+
+            if (pkg.files) {
+                for (var index = 0; index < pkg.files.length; index++) {
+                    var f = pkg.files[index];
+
+                    var file = pkg.currentPath + '/' + f.file;
 
                     try {
                         if (GREUtils.File.exists(file) && GREUtils.File.isReadable(file)) {
-                            //self.log('WARN', 'extracting translations from file ' + file);
+                            //this.log('WARN', 'extracting translations from file ' + file);
                             var match;
                             var buf;
                             if (f.ext == 'dtd') {
                                 buf = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(file));
                                 var regexDTD = /\s*<!ENTITY\s+(\S+)\s+"([^"]*)"\s*>\s*/g;
                                 while ((match = regexDTD.exec(buf)) != null) {
-                                    if (f.strings[match[1]]) {
-                                        f.strings[match[1]].translation = match[2];
-                                        if (match[2].length > 0) matchCount++;
+                                    if (f.baseStrings[match[1]]) {
+                                        f.baseStrings[match[1]].translation = match[2];
                                     }
                                 }
                             }
@@ -250,9 +256,8 @@
                                 buf = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(file));
                                 var regexProp = /^\s*([^#].*)=(.*)\s*$/gm;
                                 while ((match = regexProp.exec(buf)) != null) {
-                                    if (f.strings[match[1]]) {
-                                        f.strings[match[1]].translation = match[2];
-                                        if (match[2].length > 0) matchCount++;
+                                    if (f.baseStrings[match[1]]) {
+                                        f.baseStrings[match[1]].translation = match[2];
                                     }
                                 }
                                 //this.log('WARN', GeckoJS.BaseObject.dump(entries));
@@ -261,163 +266,43 @@
                         }
 
                         // convert strings to array
-                        var emptyStrings = [];
-                        var translatedStrings = [];
-                        for (var key in f.strings) {
+                        for (var key in f.baseStrings) {
                             totalCount++;
-                            if (f.strings[key].translation) {
-                                translatedStrings.push({key: key,
-                                                        base: f.strings[key].base,
-                                                        translation: f.strings[key].translation});
+                            if (f.baseStrings[key].translation) {
+                                translatedStrings.push({index: index,
+                                                        key: key,
+                                                        base: f.baseStrings[key].base,
+                                                        working: f.baseStrings[key].translation,
+                                                        translation: f.baseStrings[key].translation});
+                                if (f.baseStrings[key].translation.length == 0) {
+                                    emptyCount++;
+                                }
                             }
                             else {
-                                emptyStrings.push({key: key,
-                                                   base: f.strings[key].base});
+                                emptyStrings.push({index: index,
+                                                   key: key,
+                                                   base: f.baseStrings[key].base,
+                                                   working: '',
+                                                   translation: ''});
+                                emptyCount++;
                             }
                         }
-                        // sort strings
-                        translatedStrings = translatedStrings.sort(function(a, b) {return a.key > b.key});
-                        emptyStrings = emptyStrings.sort(function(a, b) {return a.key > b.key});
-
-                        delete f.strings;
-                        f.strings = emptyStrings.concat(translatedStrings);
-                        f.totalCount = totalCount;
-                        f.emptyCount = totalCount - matchCount;
                     }
                     catch(e) {
-                        self.log('WARN', 'failed to read current locale file ' + file);
+                        this.log('WARN', 'failed to read current locale file ' + file);
                     }
-                });
+                };
+                // sort strings
+                translatedStrings = translatedStrings.sort(function(a, b) {return a.key > b.key});
+                emptyStrings = emptyStrings.sort(function(a, b) {return a.key > b.key});
+                pkg.strings = emptyStrings.concat(translatedStrings);
+                pkg.totalCount = totalCount;
+                pkg.emptyCount = emptyCount;
             }
             else {
-                this.log('WARN', 'extraction aborted: no base files');
-            }
-        },
-
-        _addContainer: function(parent) {
-            // add container treeitem
-            var treeitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treeitem");
-            treeitem.setAttribute('open', 'false');
-            treeitem.setAttribute('container', 'true');
-
-            // create a tree row
-            var treerow = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treerow");
-
-            // create a tree cell
-            var treecell = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treecell");
-
-            treerow.appendChild(treecell);
-            treeitem.appendChild(treerow);
-
-            parent.appendChild(treeitem);
-
-            var treechildren = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treechildren");
-            treeitem.appendChild(treechildren);
-
-            treeitem.treecell = treecell;
-            treeitem.treechildren = treechildren;
-
-            return treeitem;
-        },
-
-        _addTreeItem: function(parent, label, data) {
-            // create a treeitem
-            var treeitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treeitem");
-            
-            // create a treerow
-            var treerow = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treerow");
-
-            // create a treecell
-            var treecell = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treecell");
-
-            treecell.setAttribute('label', label);
-            treecell.setAttribute('value', data);
-
-            treerow.appendChild(treecell);
-            treeitem.appendChild(treerow);
-
-            parent.appendChild(treeitem);
-        },
-
-        _buildTree: function(pkgs) {
-            var root = document.getElementById('navtree-root');
-            if (root) {
-                var self = this;
-                pkgs.forEach(function(pkg) {
-
-                    var containerNodes = {};
-                    var containerLabels = {};
-                    var incompletes = {};
-                    var totalIncompletes = 0;
-                    var level = 0;
-
-                    containerNodes[level] = self._addContainer(root);
-                    containerLabels[level] = pkg.pkg;
-                    incompletes[level] = 0;
-
-                    var pathList, folder, leaf;
-
-                    // iterate over baseFiles
-                    var baseFiles = pkg.baseFiles;
-                    if (baseFiles.length > 0) {
-                        baseFiles.forEach(function(f) {
-                            if (f.level > level) {
-                                // extract folder name
-                                pathList = f.file.split('/');
-                                if (pathList.length >= f.level) {
-                                    folder = pathList[f.level - 1];
-
-                                    // down one level, add container treeitem and treechildren
-
-                                    containerNodes[f.level] = self._addContainer(containerNodes[level].treechildren);
-                                    containerLabels[f.level] = folder;
-                                    level = f.level;
-                                    incompletes[level] = 0;
-                                }
-                            }
-                            else if (f.level < level) {
-                                for (var lvl = level; lvl > f.level; lvl--) {
-                                    // display incomplete count in current level's container label
-                                    containerNodes[lvl].treecell.setAttribute('folder', containerLabels[lvl]);
-                                    containerNodes[lvl].treecell.setAttribute('emptyCount', incompletes[lvl]);
-                                    if (incompletes[lvl] > 0) {
-                                        containerLabels[lvl] += ' (' + incompletes[lvl] + ')';
-                                    }
-                                    containerNodes[lvl].treecell.setAttribute('label', containerLabels[lvl]);
-
-                                    // add incompletes count to parent level's count
-                                    incompletes[lvl - 1] += incompletes[lvl];
-                                }
-                                // return to upper level
-                                level = f.level;
-                            }
-
-                            // extract leaf name
-                            pathList = f.file.split('/');
-                            if (pathList.length > 0) {
-                                leaf = pathList[pathList.length - 1];
-                            }
-                            else {
-                                leaf = '';
-                            }
-
-                            if (f.emptyCount > 0) {
-                                incompletes[level]++;
-                                totalIncompletes++;
-                            }
-                            f.leaf = leaf;
-                            self._addTreeItem(containerNodes[level].treechildren,
-                                              leaf + ((f.emptyCount > 0) ? ' (' + f.emptyCount + ')' : ''),
-                                              f.path);
-                        })
-                        containerNodes[0].treecell.setAttribute('folder', containerLabels[0]);
-                        containerNodes[0].treecell.setAttribute('emptyCount', totalIncompletes);
-                        if (totalIncompletes > 0) {
-                            containerLabels[0] += ' (' + totalIncompletes + ')';
-                        }
-                        containerNodes[0].treecell.setAttribute('label', containerLabels[0]);
-                    }
-                })
+                this.log('WARN', 'no base files');
+                pkg.strings = [];
+                pkg.totalCount = pkg.emptyCount = 0;
             }
         },
 
@@ -436,23 +321,21 @@
             return r;
         },
 
-        _displayFile: function(p) {
+        _displayStrings: function(pkg, strings, emptyCount) {
             //this.log('WARN', this.dump(p.strings));
 
-            // copy current translation into working
-            p.strings.forEach(function(str) {
-                str.working = str.translation;
-            });
-
             // set to displayTree's data source
-            this._editscrollabletree.datasource = p.strings;
+            this._list.datasource = strings;
+            this._strings = strings;
 
-            // update file name
-            var fileObj = document.getElementById('edit_file');
-            if (fileObj) fileObj.value = p.file + ' (' + p.totalCount + ')';
+            // update total count
 
-            this._editscrollabletree.view.selection.select(0);
-
+            // update empty count
+            var emptyObj = document.getElementById('empty');
+            emptyObj.value = emptyCount;
+            
+            // select first entry
+            this._list.view.selection.select(0);
             this.selectEntry(0);
         },
 
@@ -473,90 +356,141 @@
                 }
             }
         },
-        
-        selectFile: function(index) {
-            var tree = this._tree;
-            if (tree) {
-                var value = tree.view.getCellValue(index, {id: 'value'});
 
-                // if current file is selected, do nothing and exit
-                if (this._currentFile && this._currentFile.path == value) {
-                    this._currentIndex = index;
-                    return;
-                }
+        filter: function() {
+            var filterText = '';
+            var filterObj = document.getElementById('filter');
+            if (filterObj) filterText = filterObj.value;
 
-                // locate pkg and base file
-                var pkgs = this._packages;
+            var emptyCount;
+            var strings;
 
-                for (var i = 0; i < pkgs.length; i++) {
-                    var pkg = pkgs[i];
+            if (filterText.length == 0) {
+                strings = this._currentPkg.strings;
+                emptyCount = this._currentPkg.emptyCount;
+            }
+            else {
+                emptyCount = 0;
 
-                    for (var j = 0; j < pkg.baseFiles.length; j++) {
-                        var f = pkg.baseFiles[j];
-                        if (f.path == value) {
-
-                            if (this._dirtyBit) {
-
-                                // file modified, save first?
-                                var response = this._confirmSwitch();
-                                if (response == 2) {
-                                    // cancel; re-select current file
-                                    if (this._currentIndex > -1 && this._currentIndex < tree.view.rowCount) {
-                                        var cursor = tree.view.getCellValue(this._currentIndex, {id: 'value'});
-                                        if (!this._currentFile || this._currentFile.path != cursor) {
-                                            this._currentIndex = -1;
-                                        }
-                                    }
-                                    if (this._currentIndex > -1) {
-                                        tree.view.selection.select(this._currentIndex);
-                                    }
-                                    else {
-                                        tree.view.selection.clearSelection();
-                                    }
-                                    return;
-                                }
-                                else if (response == 1) {
-                                    // discard; do nothing
-                                }
-                                else if (response == 0) {
-                                    this.save();
-                                }
-                            }
-                            // clear state
-                            this._currentPkg = pkg;
-                            this._currentFile = f;
-                            this._dirtyBit = false;
-
-                            this._currentIndex = index;
-                            this._displayFile(f);
-
-                            this._validateForm();
-                            
-                            return;
-                        }
+                strings = this._currentPkg.strings.filter(function(str) {
+                    if ((str.translation.indexOf(filterText) > -1) || (str.base.indexOf(filterText) > -1)) {
+                        if (str.translation == null || str.translation == '') emptyCount++;
+                        return true;
                     }
+                    else
+                        return false;
+                })
+            }
+            this._displayStrings(this._currentPkg, strings, emptyCount);
+
+            this.selectEntry(0);
+        },
+
+        selectPackage: function(index) {
+
+            // if current package is selected, do nothing and exit
+            if (this._currentPkgIndex == index) {
+                return;
+            }
+
+            var list = this._list;
+            var pkg = this._packages[index];
+
+            if (list && pkg) {
+
+                if (this._dirtyBit) {
+
+                    // file modified, save first?
+                    var response = this._confirmSwitch();
+                    if (response == 2) {
+                        // cancel; re-select current package
+                        this._menu.selectedIndex = this._currentPkgIndex;
+                        return;
+                    }
+                    else if (response == 1) {
+                        // discard; do nothing
+                    }
+                    else if (response == 0) {
+                        this.save();
+                    }
+                }
+                // clear state
+                this._currentPkg = pkg;
+                this._dirtyBit = false;
+                this._dirtyFiles = {};
+
+                this._currentPkgIndex = index;
+
+                // append locale to localelist
+                var localelist = this._localelist;
+                if (localelist) {
+                    // remove existing items
+                    localelist.removeAllItems();
+
+                    // add available packages
+                    for (var i = 0; i < pkg.locales.length; i++) {
+                        var locale = pkg.locales[i];
+                        var item = localelist.appendItem(locale, locale);
+                        item.setAttribute('style', 'text-align:left;');
+                        if (locale == this._selectedLocale) localelist.selectedIndex = i;
+                    };
+                    this.selectLocale(this._selectedLocale);
                 }
             }
         },
 
+        selectLocale: function(locale) {
+
+            var localelist = this._localelist;
+            var pkg = this._currentPkg;
+
+            if (localelist && pkg) {
+
+                if (this._dirtyBit) {
+
+                    // file modified, save first?
+                    var response = this._confirmSwitch();
+                    if (response == 2) {
+                        // cancel; re-select current locale
+                        localelist.selectedIndex = this._currentLocaleIndex;
+                        return;
+                    }
+                    else if (response == 1) {
+                        // discard; do nothing
+                    }
+                    else if (response == 0) {
+                        this.save();
+                    }
+                }
+                // clear state
+                this._dirtyBit = false;
+                this._dirtyFiles = {};
+
+                this._currentLocale = locale;
+                this._currentLocaleIndex = localelist.selectedIndex;
+
+                // load locale
+                this._loadLocale(pkg, locale);
+            }
+        },
+
         selectEntry: function(index) {
-            var keyObj = document.getElementById('edit_key');
+            var indexObj = document.getElementById('index');
             var baseObj = document.getElementById('edit_base');
             var workingObj = document.getElementById('edit_working');
-            var entry;
 
-            if (this._currentFile && index > -1) {
-                entry = this._currentFile.strings[index];
-            }
-
+            var entry = this._strings[index];
             if (entry) {
-                if (keyObj) keyObj.value = entry.key;
+                if (indexObj) indexObj.value = parseInt(index + 1) + '/' + this._strings.length;
                 if (baseObj) baseObj.value = entry.base;
                 if (workingObj) {
                     workingObj.value = entry.working || '';
                     workingObj.removeAttribute('disabled');
                 }
                 this._currentEntryIndex = index;
+            }
+            else {
+                if (indexObj) indexObj.value = '0/0';
             }
 
             this._validateForm();
@@ -567,82 +501,64 @@
             if (workingObj) {
                 var text = workingObj.value;
                 var index = this._currentEntryIndex;
+                var pkg = this._currentPkg;
 
-                if (index > -1) {
-                    this._currentFile.strings[index].working = text;
-                    this._dirtyBit = this._dirtyBit ||
-                                     (text != this._currentFile.strings[index].translation);
+                if (text != null) text = GeckoJS.String.trim(text);
+                
+                if (index > -1 && pkg && this._strings) {
+                    var strEntry = this._strings[index];
+                    if (strEntry) {
 
-                    if (this._editscrollabletree) this._editscrollabletree.invalidateRow(index);
+                        // has text changed?
+                        if (text != strEntry.translation) {
+                            this._dirtyFiles[strEntry.index] = strEntry.index;
+                            this._dirtyBit = true;
+                        }
+                        
+                        if (strEntry.working == '' && text.length > 0) {
+                            pkg.emptyCount--;
+                        }
+                        else if (strEntry.working.length > 0 && text == '') {
+                            pkg.emptyCount++;
+                        }
+                        strEntry.working = text;
+                        if (this._list) this._list.invalidateRow(index);
+                        
+                        var emptyObj = document.getElementById('empty');
+                        emptyObj.value = pkg.emptyCount;
+                    }
                 }
             }
             this._validateForm();
         },
 
         save: function() {
-            if (this._currentPkg && this._currentFile) {
+            if (this._currentPkg) {
                 var pkg = this._currentPkg;
-                var file = this._currentFile;
-                var filepath = pkg.currentPath + '/' + file.file;
 
-                // for each string, copy working into translation
-                file.strings.forEach(function(str) {
-                    str.translation = str.working || '';
-                });
+                // look through each dirtyFile
+                for (var index in this._dirtyFiles) {
+                    var fileRecord = pkg.files[index];
+                    var filepath = pkg.currentPath + '/' + fileRecord.file;
 
-                // save to current locale file
-                var emptyCount;
-                switch(file.ext) {
+                    // for each string, copy working into translation
+                    pkg.strings.forEach(function(str) {
+                        str.translation = str.working || '';
+                    });
 
-                    case 'dtd':
-                        emptyCount = this.saveDTD(file.strings, filepath);
-                        break;
+                    // save to current locale file
+                    switch(fileRecord.ext) {
 
-                    case 'properties':
-                        emptyCount = this.saveProperties(file.strings, filepath);
-                        break;
-                }
-                if (emptyCount > -1 && emptyCount != file.emptyCount) {
-                    // fieDelta is used to increment/decrement container counts
-                    var fileDelta = 0;
-                    if (emptyCount * file.emptyCount == 0) {
-                        fileDelta = (emptyCount) ? 1 : -1;
-                    }
+                        case 'dtd':
+                            this.saveDTD(pkg.strings, index, filepath);
+                            break;
 
-                    file.emptyCount = emptyCount;
-                    var items = $('[value=' + file.path + ']');
-
-                    if (items) {
-                        if (emptyCount > 0) {
-                            items.each(function(i) {
-                                              this.setAttribute('label', file.leaf + ' (' + emptyCount + ')');
-                                          })
-                        }
-                        else {
-                            items.each(function(i) {
-                                              this.setAttribute('label', file.leaf);
-                                          })
-                        }
-                    }
-
-                    if (fileDelta != 0) {
-                        items.parents().map(function () {
-                            if (this.getAttribute('container') == 'true') {
-                                var folder = this.treecell.getAttribute('folder');
-                                var oldEmptyCount = this.treecell.getAttribute('emptyCount');
-
-                                var newEmptyCount = parseInt(oldEmptyCount) + parseInt(fileDelta);
-                                if (newEmptyCount == 0) {
-                                    this.treecell.setAttribute('label', folder);
-                                }
-                                else {
-                                    this.treecell.setAttribute('label', folder + ' (' + newEmptyCount + ')');
-                                }
-                                this.treecell.setAttribute('emptyCount', newEmptyCount);
-                            }
-                        })
+                        case 'properties':
+                            this.saveProperties(pkg.strings, index, filepath);
+                            break;
                     }
                 }
+                this._dirtyFiles = {};
                 this._dirtyBit = false;
 
                 this._validateForm();
@@ -652,13 +568,12 @@
             }
         },
 
-        saveDTD: function(strings, filepath) {
+        saveDTD: function(strings, index, filepath) {
             // write to in-memory buffer;
-            var emptyCount = 0;
             var buf = ''
             strings.forEach(function(str) {
-                if (!str.translation) emptyCount++;
-                buf += '<!ENTITY ' + str.key + ' "' + str.translation + '">\n';
+                if (str.index == index)
+                    buf += '<!ENTITY ' + str.key + ' "' + str.translation + '">\n';
             });
             var fp = new GeckoJS.File(filepath, true);
             fp.open('w');
@@ -666,22 +581,18 @@
                 OsdUtils.info(_('DTD file [%S] successfully updated', [filepath]));
             }
             else {
-                NotifyUtils.error(_('Failed to write DTD to file [%S]', [filepath]));
                 this.log('ERROR', 'Failed to write DTD to [' + filepath + ']');
-
-                emptyCount = -1
+                NotifyUtils.error(_('Failed to write DTD to file [%S]', [filepath]));
             }
             fp.close();
-            return emptyCount;
         },
 
-        saveProperties: function(strings, filepath) {
+        saveProperties: function(strings, index, filepath) {
             // write to in-memory buffer;
-            var emptyCount = 0;
             var buf = ''
             strings.forEach(function(str) {
-                if (!str.translation) emptyCount++;
-                buf += (str.key + '=' + str.translation + '\n\n');
+                if (str.index == index)
+                    buf += (str.key + '=' + str.translation + '\n\n');
             });
             var fp = new GeckoJS.File(filepath, true);
             fp.open('w');
@@ -691,95 +602,105 @@
             else {
                 NotifyUtils.error(_('Failed to write Properties to file [%S]', [filepath]));
                 this.log('ERROR', 'Failed to write Properties to [' + filepath + ']');
-
-                emptyCount = -1;
             }
             fp.close();
-            return emptyCount;
         },
 
         autoFill: function() {
-            var f = this._currentFile;
-            if (f && f.emptyCount > 0) {
+            var pkg = this._currentPkg;
+            if (pkg && pkg.emptyCount > 0) {
                 var modified = false;
-                for (var i = 0; i < f.strings.length; i++) {
-                    if (!f.strings[i].working || f.strings[i].working.length == 0) {
-                        f.strings[i].working = f.strings[i].base;
+                for (var i = 0; i < pkg.strings.length; i++) {
+                    if (!pkg.strings[i].working || pkg.strings[i].working.length == 0) {
+                        pkg.strings[i].working = pkg.strings[i].base;
+
+                        this._dirtyFiles[pkg.strings[i].index] = pkg.strings[i].index;
                         modified = true;
                     }
                 }
-                this._dirtyBit = modified;
-                if (this._editscrollabletree) this._editscrollabletree.invalidate();
+                this._dirtyBit = this._dirtyBit || modified;
+                if (this._list) this._list.invalidate();
+
+                pkg.emptyCount = 0;
+                var emptyObj = document.getElementById('empty');
+                emptyObj.value = pkg.emptyCount;
             }
 
             this._validateForm();
         },
-/*
-        exportXPI: function() {
-                }
-            }
-        },
-*/
+
         exportDialog: function () {
 
             // load package install.rdf file for edit
-            var installations = [];
-            this._packages.forEach(function(pkg) {
-                if (pkg.installable) {
-                    var installRDF = pkg.installationPath + '/install.rdf';
-                    installations.push({pkg: pkg.pkg,
-                                        installation: pkg.installation,
-                                        path: pkg.installationPath,
-                                        rdf: GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(installRDF))});
+            var pkg = this._currentPkg;
+            var locale = this._currentLocale;
 
-                }
-            })
-
-            if (installations.length  == 0) {
-                NotifyUtils.warn( _( 'No exportable locale packages found' ) );
+            var installRDF = pkg.installPath + '/install.rdf';
+            var rdf = '';
+            try {
+                rdf = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(installRDF));
             }
-            else {
-                var aURL = 'chrome://viviecr/content/export_locale.xul';
-                var screenwidth = GeckoJS.Session.get('screenwidth');
-                var screenheight = GeckoJS.Session.get('screenheight');
+            catch (e) {
+                this.log('ERROR', 'Failed to load install.rdf for package:locale [' + pkg.pkgName + ':' + locale + '] at [' + installRDF + ']');
+                NotifyUtils.error(_('Failed to load install.rdf for package:locale [%S:%S] at path [%S]', [pkg.pkgName, locale, installRDF]));
 
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
-
-                window.openDialog(aURL,
-                                  _('Export Locale'),
-                                  features,
-                                  [this._currentLocale, installations]);
+                return;
             }
+            var aURL = 'chrome://viviecr/content/export_locale.xul';
+            var screenwidth = GeckoJS.Session.get('screenwidth');
+            var screenheight = GeckoJS.Session.get('screenheight');
 
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, _('Export Locale'), features,
+                                       [pkg.pkgName, locale, pkg.installPath, pkg.installName, rdf]);
         },
 
         _validateForm: function() {
             var modBtnObj = document.getElementById('modify');
             var saveBtnObj = document.getElementById('save');
             var fillBtnObj = document.getElementById('auto_fill');
+            var workingObj = document.getElementById('edit_working');
+            var exportBtnObj = document.getElementById('export_xpi');
 
             // turn on modify btn if an entry has been selected
-            var selectedEntry = -1;
-            if (this._editscrollabletree) {
-                selectedEntry = this._editscrollabletree.currentIndex;
-            }
-            if (selectedEntry > -1)
-                modBtnObj.removeAttribute('disabled');
-            else
-                modBtnObj.setAttribute('disabled', 'true');
-
-            // turn on fill button if a file has been selected and empty count > 0
-            if (this._currentPkg && this._currentFile && this._currentFile.emptyCount > 0) {
-                fillBtnObj.removeAttribute('disabled');
+            if (this._currentPkg.baseLocale == this._currentPkg.currentLocale) {
+                if (workingObj) workingObj.setAttribute('disabled', 'true');
+                if (modBtnObj) modBtnObj.setAttribute('disabled', 'true');
+                if (fillBtnObj) fillBtnObj.setAttribute('disabled', 'true');
+                if (saveBtnObj) saveBtnObj.setAttribute('hidden', 'true');
+                if (exportBtnObj) exportBtnObj.setAttribute('disabled', 'true');
             }
             else {
-                fillBtnObj.setAttribute('disabled', 'true');
+                var selectedEntry = -1;
+                if (this._list) {
+                    selectedEntry = this._list.currentIndex;
+                }
+                if (selectedEntry > -1) {
+                    if (modBtnObj) modBtnObj.removeAttribute('disabled');
+                    if (workingObj) workingObj.removeAttribute('disabled');
+                }
+                else {
+                    if (modBtnObj) modBtnObj.setAttribute('disabled', 'true');
+                    if (workingObj) workingObj.setAttribute('disabled', 'true');
+                }
+
+                // turn on fill button if empty count > 0
+                if (this._currentPkg && this._currentPkg.emptyCount > 0) {
+                    if (fillBtnObj) fillBtnObj.removeAttribute('disabled');
+                }
+                else {
+                    if (fillBtnObj) fillBtnObj.setAttribute('disabled', 'true');
+                }
+                // turn on save btn if dirty bit is set and current locale is different from base locale
+                if (this._dirtyBit && this._currentPkg) {
+                    if (saveBtnObj) saveBtnObj.removeAttribute('hidden');
+                }
+                else {
+                    if (saveBtnObj) saveBtnObj.setAttribute('hidden', 'true');
+                }
+                if (exportBtnObj) exportBtnObj.removeAttribute('disabled');
             }
-            // turn on save btn if dirty bit is set and current locale is different from base locale
-            if (this._dirtyBit && this._currentPkg && this._currentPkg.baseLocale != this._currentPkg.currentLocale)
-                saveBtnObj.removeAttribute('hidden');
-            else
-                saveBtnObj.setAttribute('hidden', 'true');
         }
     };
 

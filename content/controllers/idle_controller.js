@@ -1,13 +1,8 @@
 (function(){
 
-    var window = this;
-
-    /**
-     * IdleController
-     */
     var __controller__ = {
-        name: 'Idle',
 
+        name: 'Idle',
 
         // implement observe for idle
         observe: function(subject, topic, data) {

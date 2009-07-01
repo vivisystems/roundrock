@@ -1,20 +1,14 @@
 (function(){
 
-     include('chrome://viviecr/content/devices/deviceTemplate.js');
-     include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
-     include('chrome://viviecr/content/reports/template_ext.js');
-
-
-    /**
-     * Print Controller
-     */
+    include('chrome://viviecr/content/devices/deviceTemplate.js');
+    include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
+    include('chrome://viviecr/content/reports/template_ext.js');
 
     var __controller__ = {
 
         name: 'Print',
 
         _device: null,
-
         _worker: null,
 
         // load device configuration and selections
@@ -281,13 +275,15 @@
         // check if receipts have already been printed on any printer
         isReceiptPrinted: function(orderid, batch, device) {
             var orderReceiptModel = new OrderReceiptModel();
-            var receipts = orderReceiptModel.find('all', {
+            var receipt = orderReceiptModel.find('first', {
                 conditions: 'order_id = "' + orderid + '" AND device = "' + device + '" AND batch = "' + batch + '"'
             });
-            if (receipts == null || receipts.length == 0)
-                return null;
-            else
-                return receipts;
+            
+            if (parseInt(orderReceiptModel.lastError) != 0) {
+                this._dbError(orderReceiptModel.lastError, orderReceiptModel.lastErrorString,
+                              _('An error was encountered while checking if receipt has been printed (error code %S)', [orderReceiptModel.lastError]));
+            }
+            return receipt;
         },
 
         // add a receipt print timestamp
@@ -298,17 +294,14 @@
                 order_id: orderid,
                 batch: batch,
                 sequence: orderseq,
-                device: device,
+                device: device
             };
 
-            var r = orderReceiptModel.save(orderReceipt);
+            var r = orderReceiptModel.saveReceipt(orderReceipt);
             if (!r) {
-                //@db saveToBackup
-                orderReceiptModel.saveToBackup(orderReceipt);
-
-                this.log('ERROR',
-                         'An error was encountered while updating order receipt (error code ' + orderReceiptModel.lastError +
-                         '); record saved to backup:\n' + this.dump(orderReceipt));
+                // failed to save record to db/backup
+                this._dbError(orderReceiptModel.lastError, orderReceiptModel.lastErrorString,
+                              _('An error was encountered while saving order receipt log (error code %S).', [orderReceiptModel.lastError]));
             }
         },
 
@@ -320,14 +313,11 @@
                 ledger_id: ledger_id,
                 printer: printer
             };
-            var r = ledgerReceiptModel.save(ledgerReceipt);
+            var r = ledgerReceiptModel.saveReceipt(ledgerReceipt);
             if (!r) {
-                //@db saveToBackup
-                ledgerReceiptModel.saveToBackup(ledgerReceipt);
-
-                this.log('ERROR',
-                         'An error was encountered while updating order receipt (error code ' + ledgerReceiptModel.lastError +
-                         '); record saved to backup:\n' + this.dump(ledgerReceipt));
+                // failed to save record to db/backup
+                this._dbError(ledgerReceiptModel.lastError, ledgerReceiptModel.lastErrorString,
+                              _('An error was encountered while saving ledger receipt log (error code %S).', [ledgerReceiptModel.lastError]));
             }
         },
 
@@ -361,7 +351,7 @@
             }
             
             // @todo delay saving order to database til after print jobs have all been scheduled
-            if (txn.data.status == 1) this.scheduleOrderCommit(txn);
+            this.scheduleOrderCommit(txn);
 
             // clear dashboard settings
             this.resetDashboardSettings();
@@ -427,13 +417,13 @@
             // check transaction status
             var txn = cart._getTransaction();
             if (txn == null) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Not an open order; cannot issue receipt'));
                 return;
             }
 
             if (!duplicate && !txn.isSubmit() && !txn.isStored()) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('The order has not been finalized; cannot issue receipt'));
                 return;
             }
@@ -537,8 +527,8 @@
 
                             // check if record already exists on this device if not printing a duplicate
                             if (data.duplicate == null) {
-                                var receipts = self.isReceiptPrinted(data.order.id, data.order.batchCount, device.number);
-                                if (receipts != null) {
+                                var receipt = self.isReceiptPrinted(data.order.id, data.order.batchCount, device.number);
+                                if (receipt) {
                                     // if auto-print, then we don't issue warning
                                     if (!autoPrint) NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device.number]));
                                     return;
@@ -564,23 +554,25 @@
             // check transaction status
             var txn = cart._getTransaction();
             if (txn == null) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Not an open order; cannot issue check'));
                 return; // fatal error ?
             }
 
             if (txn.isCancel()) {
-                // @todo OSD
+
                 NotifyUtils.warn(_('Cannot issue check on a canceled order'));
                 return; // fatal error ?
             }
 
             if (!duplicate && !txn.isStored() && !txn.isSubmit()) {
+
                 NotifyUtils.warn(_('Order has not been stored yet; cannot issue check'));
                 return;
             }
 
             if (!txn.hasItemsInBatch() && !duplicate || duplicate && txn.getItemsCount() == 0) {
+
                 NotifyUtils.warn(_('Nothing has been registered yet; cannot issue check'));
                 return;
             }
@@ -1016,7 +1008,7 @@
                         }
                         else if (this.eventData.deviceType == 'ledger') {
                             try {
-                                self.ledgerReceiptPrinted(data.ledger.ledger_id, this.eventData.printer);
+                                self.ledgerReceiptPrinted(data.ledger.id, this.eventData.printer);
                                 self.dispatchEvent('onLedgerReceiptPrinted', this.eventData);
                             }
                             catch (e) {
@@ -1055,16 +1047,16 @@
                         if ( isTraining && ( deviceType == "receipt" || deviceType == "ledger" ) ) {
                         	printed = copies;
                         } else if (self.checkSerialPort(portPath, handshaking, true)) {
-			    if (self.openSerialPort(portPath, portspeed, handshaking)) {
-				for (var i = 0; i < copies; i++) {
-				    var len = self.writeSerialPort(portPath, encodedResult);
-				    if (len == encodedResult.length) {
-					printed++;
-				    }
-				}
-				self.closeSerialPort(portPath);
-			    }
-			}
+                            if (self.openSerialPort(portPath, portspeed, handshaking)) {
+                                for (var i = 0; i < copies; i++) {
+                                    var len = self.writeSerialPort(portPath, encodedResult);
+                                    if (len == encodedResult.length) {
+                                        printed++;
+                                    }
+                                }
+                                self.closeSerialPort(portPath);
+                            }
+                        }
                         if (printed == 0) {
                             var devicemodelName = self.getDeviceModelName(devicemodel);
                             var portName = self.getPortName(port);
@@ -1072,7 +1064,6 @@
                             if (devicemodelName == null) devicemodelName = 'unknown';
                             if (portName == null) portName = 'unknown';
 
-                            //@todo OSD
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
                         if (deviceType == 'receipt' && (typeof data.duplicate == 'undefined' || data.duplicate == null)) {
@@ -1123,37 +1114,13 @@
                 this._commitTxn = txn;
             }
 
-            // send to output device using worker thread
             var self = this;
 
             orderCommit.prototype = {
                 run: function() {
-                    try {
-
-                        var r = this._commitTxn.submit();
-
-                        var submitStatus = parseInt(r);
-                        /*
-                         *   1: success
-                         *   null: input data is null
-                         *   -1: save fail, save to backup
-                         *   -2: remove fail
-                         */
-                        if (submitStatus == -2) {
-
-                            // if error caused when remove old order items
-                            GREUtils.Dialog.alert(this.activeWindow,
-                                          _('Submit Fail'),
-                                          _('Current order is not saved successfully, please try again...'));
-                            // return false;
-                        }
-
-                        // dispatch afterSubmit event...
-                        self.dispatchEvent('afterSubmit', this._commitTxn);
-                    }
-                    catch (e) {
-                        this.log('WARN', 'failed to commit order');
-                    }
+                    // restore order from backup
+                    var model = new OrderModel();
+                    //model.restoreOrderFromBackup();
                 },
 
                 QueryInterface: function(iid) {
@@ -1193,26 +1160,24 @@
 
         dashboard: function () {
             var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var width = this.screenwidth/2;
             var height = this.screenheight/2;
-            GREUtils.Dialog.openWindow(window, aURL, _('Printer Dashboard'), 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height, '');
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Printer Dashboard'), aFeatures, '');
         },
 
         loadDashboard: function() {
             var devices = this.getSelectedDevices();
             if (devices != null) {
-                this.log(this.dump(devices));
 
                 // create receipt printer icons
                 var receiptRow = document.getElementById('receipt-row');
                 if (receiptRow) {
                     for (var i = 0; true; i++) {
-                        var attr = 'receipt-' + i + '-enabled';
-                        alert('is ' + attr + ' in devices: ' + (attr in devices));
                         if ('receipt-' + i + '-enabled' in devices) {
 
                             // create icon button for this device
-                            var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
+                            var btn = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','xul:button');
                             receiptRow.appendChild(btn);
                         }
                         else {
@@ -1221,6 +1186,13 @@
                     }
                 }
             }
+        },
+
+        _dbError: function(errno, errstr, errmsg) {
+            this.log('ERROR', 'Database error: ' + errstr + ' [' + errno + ']');
+            GREUtils.Dialog.alert(this.topmostWindow,
+                                  _('Data Operation Error'),
+                                  errmsg + '\n' + _('Please restart the terminal, and if the problem persists, contact technical support immediately.'));
         }
 
     };

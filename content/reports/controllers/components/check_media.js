@@ -1,31 +1,20 @@
 ( function() {
 
-    var CheckMediaComponent = window.CheckMediaComponent = GeckoJS.Component.extend({
-        /**
-         * Component CheckMedia
-         */
+    var __component__ = {
+
         name: 'CheckMedia',
 
-        initial: function () {
-            // @todo :
-            alert('check Media initial...');
-        },
-        
-        // @todo
         // folderName can not include the "/" at this moment...
         checkMedia: function( folderName, autoCreate ) {
             var osLastMedia = new GeckoJS.File( '/tmp/last_media' );
             //var osLastMedia = new GeckoJS.File( '/var/tmp/vivipos/last_media' );
-
             var last_media = "";
             var deviceNode = "";
             var deviceReady = false;
             this._backupDir = null;
 
-            var deviceMount = "/media/";
+            var deviceMount = '/media/';
             //var deviceMount = "/var/tmp/";
-
-            var hasMounted = false;
 
             // auto create folder default is true...
             if ( typeof autoCreate == 'undefined' ) autoCreate = true;
@@ -48,7 +37,12 @@
                     // autocreate given folder name
                     //storeName = GeckoJS.Session.get( 'storeContact' ).name;
                     var branchId = GeckoJS.Session.get( 'storeContact' ).branch_id;
-                    var mediaDir = new GeckoJS.Dir( deviceMount + folderName + '/' + branchId, autoCreate );
+                    var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+
+                    if (branchId) branchId = '/' + branchId;
+                    if (terminalNo) terminalNo = '/' + terminalNo;
+
+                    var mediaDir = new GeckoJS.Dir( deviceMount + folderName + branchId + terminalNo, autoCreate );
 
                     if ( mediaDir.exists() ) {
                         // return target path if device ready...
@@ -61,5 +55,7 @@
             }
             return deviceReady ;
         }
-    } );
+    };
+
+    var CheckMediaComponent = window.CheckMediaComponent = GeckoJS.Component.extend( __component__ );
 } )();

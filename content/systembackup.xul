@@ -37,10 +37,9 @@
             <hbox flex="1">
                 <vbox flex="1">
                     <label value="&systembackup.local;" class="SubTitle"/>
-                    <viviscrollabletree id="localbackupscrollablepanel" flex="1" rows="7" headers="&systembackup.time;" fields="time" onclick="$do('select',this.selectedIndex, 'SystemBackup');"
-                                                 dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
+                    <vivitree id="localbackupscrollablepanel" flex="1" class="ListPnl showscrollbar"
+                              headers="&systembackup.time;" fields="time" hidecolumnpicker="true"
+                              onclick="$do('select',this.selectedIndex, 'SystemBackup');"/>
                 </vbox>
 
                 <vbox flex="1" class="ImgTool">
@@ -56,10 +55,9 @@
 
                 <vbox flex="1">
                     <label value="&systembackup.stick;" class="SubTitle"/>
-                    <viviscrollabletree id="stickbackupscrollablepanel" flex="1" rows="7" headers="&systembackup.time;" fields="time" onclick="$do('select',this.selectedIndex, 'SystemBackup');"
-                                                            class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
+                    <vivitree id="stickbackupscrollablepanel" flex="1" class="ListPnl showscrollbar"
+                              headers="&systembackup.time;" fields="time" hidecolumnpicker="true"
+                              onclick="$do('select',this.selectedIndex, 'SystemBackup');"/>
                 </vbox>
             </hbox>
             <hbox id="dialogButtons" class="dialogbtns" pack="end">

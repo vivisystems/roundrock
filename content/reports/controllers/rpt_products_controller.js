@@ -72,7 +72,7 @@
                 }
             });
 
-            this._reportRecords.head.title = _( 'Product Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.productlist.label' );
             this._reportRecords.body = records;
         },
 

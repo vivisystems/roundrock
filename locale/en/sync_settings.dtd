@@ -9,7 +9,7 @@
 <!ENTITY sync_settings.label.hostname "master hostname/ip.">
 <!ENTITY sync_settings.label.port "port.">
 
-<!ENTITY sync_settings.label.machine_id "Terminal No.">
+<!ENTITY sync_settings.label.machine_id "Terminal Number (a-z, A-Z, 0-9)">
 <!ENTITY sync_settings.label.password "Password.">
 
 <!ENTITY sync_settings.label.batch_limit "batch_limit.">

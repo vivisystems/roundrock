@@ -92,12 +92,10 @@
         },
 
         serialize: function() {
-            // @todo
             return GeckoJS.BaseObject.serialize(this.data);
         },
 
         unserialize: function(data) {
-            // @todo
             this.data = GeckoJS.BaseObject.unserialize(data);
             Transaction.events.dispatch('onUnserialize', this, this);
         },
@@ -157,15 +155,14 @@
 
         process: function(status, discard) {
             this.data.status = status;
-// GREUtils.log("process 1:::");
+
             // set sale period and shift number
-            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
-            var salePeriod = (shiftController) ? shiftController.getSalePeriod() : '';
-            var shiftNumber = (shiftController) ? shiftController.getShiftNumber() : '';
+            var salePeriod = GeckoJS.Session.get('sale_period');
+            var shiftNumber = GeckoJS.Session.get('shift_number');
 
             this.data.sale_period = salePeriod;
             this.data.shift_number = shiftNumber;
-// GREUtils.log("process 2:::");
+
             // set branch and terminal info
             var terminalNo = GeckoJS.Session.get('terminal_no') || '';
             this.data.terminal_no = terminalNo;
@@ -184,7 +181,6 @@
             if (status > 0)
                 self.requestCommand('decStock', self.data, 'StockRecords');
 
-// GREUtils.log("process 3:::");
             // remove recovery file
             Transaction.removeRecoveryFile();
 
@@ -195,7 +191,7 @@
                 if (this.data.status == 1 && this.data.no_of_customers == '') {
                     this.data.no_of_customers = '1';
                 }
-// GREUtils.log("process 4:::");
+
                 return order.saveOrder(this.data);
 
 // achang marked
@@ -203,7 +199,7 @@
 //                    order.serializeOrder(this.data);
 //                }
             }
-// GREUtils.log("process 5:::");
+
         },
 
         cancel: function() {
@@ -223,18 +219,6 @@
         submit: function(status) {
 
             if (typeof(status) == 'undefined') status = 1;
-
-            // set proceeds_cherk when submit to status == 1
-            // @irving 06-09-2009: following code is moved to cart
-            /*
-            if (status == 1) {
-                var user = new GeckoJS.AclComponent().getUserPrincipal();
-                if ( user != null ) {
-                    this.data.proceeds_clerk = user.username;
-                    this.data.proceeds_clerk_displayname = user.description;
-                }
-            }
-            */
 
             return this.process(status);
 
@@ -868,6 +852,7 @@
                     itemTrans.current_price = itemModified.current_price;
                     itemTrans.current_subtotal = itemModified.current_subtotal;
                     itemTrans.price_modifier = itemModified.price_modifier;
+                    itemTrans.destination = itemModified.destination;
                     itemModified = itemTrans;
 
                     // update to items array
@@ -1129,7 +1114,7 @@
                         if (itemType == 'subtotal' ||
                             itemType == 'tray' ||
                             itemType == 'total') {
-                            //@todo OSD
+
                             NotifyUtils.warn(_('Cannot VOID a payment that has been subtotaled'));
 
                             return;
@@ -1247,7 +1232,6 @@
                 }
                 if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
                     // discount too much
-                    //@todo OSD
                     NotifyUtils.warn(_('Discount amount [%S] may not exceed item amout [%S]',
                         [this.formatPrice(this.getRoundedPrice(discount_amount)),
                         item.current_subtotal]));
@@ -1288,7 +1272,6 @@
                 for (var checkItemIndex in this.data.items ) {
                     var checkitem = this.data.items[checkItemIndex];
                     if (checkitem.type == 'item' && checkitem.current_qty < 0) {
-                        //@todo OSD
                         NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
                     }
                 }
@@ -1298,7 +1281,6 @@
                     discountItem.current_discount = discount.amount;
                 }
                 else {
-                    //@todo
                     // percentage order surcharge is pretax?
                     if (discount.pretax == null) discount.pretax = false;
 
@@ -1312,7 +1294,6 @@
                 }
                 if (discountItem.current_discount > remainder && remainder > 0) {
                     // discount too much
-                    //@todo OSD
                     NotifyUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
                         [this.formatPrice(this.getRoundedPrice(discountItem.current_discount)),
                         remainder]));
@@ -1408,7 +1389,6 @@
                 for (var checkItemIndex in this.data.items ) {
                     var checkitem = this.data.items[checkItemIndex];
                     if (checkitem.type == 'item' && checkitem.current_qty < 0) {
-                        //@todo OSD
                         NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
                     }
                 }
@@ -1416,7 +1396,6 @@
                 if (surchargeItem.surcharge_type == '$') {
                     surchargeItem.current_surcharge = this.getRoundedPrice(surcharge.amount);
                 }else {
-                    //@todo
                     // percentage order surcharge is pretax?
                     if (surcharge.pretax == null) surcharge.pretax = false;
                     if (surcharge.pretax) {
@@ -1629,7 +1608,6 @@
 
                             // check for duplicate condiment;
                             if (condiment.name in item.condiments) {
-                                //@todo OSD
                                 NotifyUtils.warn(_('Condiment [%S] already added to [%S]', [condiment.name, item.name]));
                             }
                             else {
@@ -1667,7 +1645,6 @@
                 this.calcTotal();
             }
             else {
-                //@todo OSD
                 NotifyUtils.warn(_("Condiment may only be added to an item"));
             }
 
@@ -1721,7 +1698,7 @@
 
                 condimentList.forEach(function(c) {
                     condimentNames += (condimentNames == '') ? c : (',' + c);
-                    condimentSubtotal += parseInt(condiments[c].price) || 0;
+                    condimentSubtotal += parseFloat(condiments[c].price) || 0;
                 });
 
                 var condimentItem = {
@@ -2101,7 +2078,6 @@
                     //this.log('DEBUG', 'dispatchEvent onPriceLevelError ' + this.dump(obj) );
                     Transaction.events.dispatch('onPriceLevelError', obj, this);
 
-                    //@todo OSD
                     if (notify) NotifyUtils.warn(_('Price adjusted from [%S] to current HALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj.newPrice)]));
 
                     sellPrice = obj.newPrice;
@@ -2126,7 +2102,6 @@
                     //this.log('DEBUG', 'dispatchEvent onPriceLevelError ' + this.dump(obj2) );
                     Transaction.events.dispatch('onPriceLevelError', obj2, this);
 
-                    //@todo OSD
                     if (notify) NotifyUtils.warn(_('Price adjusted from [%S] to current LALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj2.newPrice)]));
 
                     sellPrice = obj2.newPrice;

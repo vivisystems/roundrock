@@ -1,9 +1,6 @@
 ( function() {
-    /**
-	 * Class TrainingMode
-	 */
-	 
     var __controller__ = {
+
         name: "TrainingMode",
 	 	
         _orderDBConfig: "DATABASE_CONFIG.order",
@@ -35,7 +32,7 @@
         },
         
         vacuumTrainingDB: function() {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to VACUUM training database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Training Mode'), _( 'Are you sure you want to VACUUM training database?' ) ) )
                 return;
             this._vacuumTrainingDB();
         },
@@ -45,7 +42,7 @@
         },
         
         takeCurrentDBToBeDefaultDB: function() {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to take current database to be default database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to take current database to be default database?' ) ) )
                 return;
             this._takeCurrentDBToBeDefaultDB();
         },
@@ -55,9 +52,19 @@
         },
         
         takeDefaultDBToBeTrainingDB: function() {
-            if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to take default database to be training database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to take default database to be training database?' ) ) )
                 return;
             this._takeDefaultDBToBeTrainingDB();
+        },
+        
+        _takeTrainingDBToBeDefaultDB: function() {
+            this._copyToReplaceDB( this._trainingOrderDBConfig, this._defaultTrainingOrderDBConfg );
+        },
+        
+        takeTrainingDBToBeDefaultDB: function() {
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to take training database to be default database?' ) ) )
+                return;
+            this._takeTrainingDBToBeDefaultDB();
         },
 
         enableSyncActive: function() {
@@ -81,9 +88,19 @@
             var isTraining = GeckoJS.Session.get( "isTraining" );
 	 		
             var trainingModeController = GeckoJS.Controller.getInstanceByName( "TrainingMode" );
-	 		
+            var cart = GeckoJS.Controller.getInstanceByName( "Cart" );
+            
             if ( isTraining ) {
-                if ( GREUtils.Dialog.confirm( window, '', _( 'Are you going to leave the training mode?' ) ) ) {
+                if ( cart.ifHavingOpenedOrder() ) {
+                    GREUtils.Dialog.alert( 
+                        this.topmostWindow,
+                        _( 'Training Mode' ),
+                        _( 'Training mode can be terminated only if there is no open order.' )
+                    );
+                    return;
+                }
+                
+                if ( GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you going to leave the training mode?' ) ) ) {
                     GeckoJS.Session.set( "isTraining", 0 );
 	 				
                     GeckoJS.Observer.notify( null, "TrainingMode", "exit" );
@@ -92,14 +109,14 @@
                     this.enableSyncActive();
                 }
             } else {
-                var cart = GeckoJS.Controller.getInstanceByName( "Cart" );
-	 			
                 if ( cart.ifHavingOpenedOrder() ) {
-                    alert( _( "The training mode can be launched only if there is no opened order." ) );
+                    GREUtils.Dialog.alert(this.topmostWindow,
+                                          _('Training Mode'),
+                                          _('Please complete or cancel the current order first.'));
                     return;
                 }
 	 			
-                if ( GREUtils.Dialog.confirm( window, '', _( "Are you sure you want to start training?" ) ) ) {
+                if ( GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Model' ), _( "Are you sure you want to start training?" ) ) ) {
                     // set up the flag indicating that we are now in the training mode.
                     GeckoJS.Session.add( "isTraining", 1 );
 			 		

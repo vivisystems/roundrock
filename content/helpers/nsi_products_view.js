@@ -49,7 +49,6 @@
         },
 
         updateProducts: function() {
-
             this._data = [];
             var products = GeckoJS.Session.get('products');
 
@@ -57,9 +56,9 @@
                 // find all product and update session.
                 var prodModel = new ProductModel();
                 products = prodModel.find('all', {
-                    order: "cate_no, display_order,name,no"
+                    order: "cate_no, display_order, name, no",
+                    limit: 3000000
                 });
-
                 if (products && products.length > 0) GeckoJS.Session.add('products', products);
             }
 

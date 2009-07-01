@@ -10,8 +10,9 @@
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
-
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
 <window id="main"
         hidechrome="true"
@@ -22,34 +23,75 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/rpt_cash_by_clerk.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_cash_by_clerk.js" />
   
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
+		    <vbox>
+		        <caption label="&rptcashbyclerk.title;"  class="PageTitle"/>
+		        <!--caption label="&productsales.conditions;" / -->
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <vbox>
+		                            <label value="&rptcashbyclerk.startdate;" />
+		                            <vividatetimepicker id="start_date" value='' type="popup" />
+		                        </vbox>
+		                        <vbox>
+		                            <label value="&rptcashbyclerk.enddate;" />
+		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                        </vbox>
+		                    </row>
+		                    <row>
+		                        <vbox>
+				                    <label value="&rptcashbyclerk.terminal_no;" />
+				                    <textbox id="terminal_no" value='' width="300"/>
+				                </vbox>
+		                        <vbox>
+		                            <label value="&rptcashbyclerk.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
+		                        </vbox>
+		                    </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&rptcashbyclerk.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptCashByClerk');" />
+		        </hbox>
+            </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
             <hbox class="TopPnl">
-                <hbox class="ReportTool"  flex="1">
-                    <vivibutton id="export_pdf" label="&rptcashbyclerk.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptCashByClerk');" />
-                    <vivibutton id="export_csv" label="&rptcashbyclerk.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptCashByClerk');" />
-                    <vivibutton id="export_rcp" label="&rptcashbyclerk.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptCashByClerk');" />
+                <hbox class="ReportTool" flex="1" style="overflow: auto;">
+                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                        <tabs id="tabs" >
+                            <vivibutton id="export_pdf" label="&rptcashbyclerk.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptCashByClerk');" />
+                            <vivibutton id="export_csv" label="&rptcashbyclerk.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptCashByClerk');" />
+                            <vivibutton id="export_rcp" label="&rptcashbyclerk.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptCashByClerk');" />
+                            <vivibutton id="print" label="&rptcashbyclerk.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptCashByClerk');" />
+                        </tabs>
+                    </arrowscrollbox>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
-            <box class="reportbox" flex="1">
-                <browser type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1"/>
-            </box>
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" id="previewBox" flex="1">
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1" />
+					</box>
+                </groupbox>
+            </hbox>
         </vbox>
     </vbox>
 
-    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
-        <vbox flex="1">
-        <groupbox flex="1">
-            <caption label="&rptcashbyclerk.wait;" class="PageTitle"/>
-            <spacer style="height: 20px;" />
-            <progressmeter id="progress" mode="undetermined" value="0" />
-            <spacer style="height: 20px;" />
-        </groupbox>
-        </vbox>
-    </panel>
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs" />
 </window>

@@ -115,7 +115,7 @@
             //HourTotal = GeckoJS.NumberHelper.round(HourTotal, precision_prices, rounding_prices) || 0;
             //HourTotal = HourTotal.toFixed(precision_prices);
 
-			this._reportRecords.head.title = _( 'Hourly Sales Report' );
+			this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.hourlysales.label' );
 			this._reportRecords.head.start_time = start_str;
 			this._reportRecords.head.end_time = end_str;
 			this._reportRecords.head.terminal_no = terminalNo;

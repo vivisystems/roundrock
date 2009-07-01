@@ -68,7 +68,8 @@
                             </vbox>
                             <vbox>
                                 <label  value="&taxes.type;"/>
-                                <textbox id="tax_type" form="taxForm" name="type" value="" default="ADDON" size="15" readonly="true"/>
+                                <label id="tax_type" form="taxForm" name="type" value="" hidden="true"/>
+                                <textbox id="tax_typestr" form="taxForm" name="typestr" value="" default="" size="15" readonly="true"/>
                             </vbox>
                         </row>
                         

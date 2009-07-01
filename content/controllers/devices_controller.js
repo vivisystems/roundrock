@@ -1,10 +1,7 @@
 (function(){
 
-    /**
-     * Devices Controller
-     */
-
     var __controller__ = {
+
         name: 'Devices',
 
         _templates: null,
@@ -47,7 +44,7 @@
                 var statusResult = this.checkStatusAll();
 
                 if (!statusResult.printerEnabled) {
-                    GREUtils.Dialog.alert(window,
+                    GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Device Status'),
                                           _('No device has been enabled for receipt and/or check printing!'));
                 }
@@ -65,7 +62,7 @@
                 });
 
                 if (offline) {
-                    GREUtils.Dialog.alert(window,
+                    GREUtils.Dialog.alert(this.topmostWindow,
                                           _('Device Status'),
                                           _('The following enabled devices appear to be offline, please ensure that they are functioning correctly') + '\n  ' + statusStr);
                 }
@@ -1624,7 +1621,7 @@
             var statusResult = this.checkStatusAll();
 
             if (!statusResult.printerEnabled) {
-                GREUtils.Dialog.alert(window,
+                GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Device Status'),
                                       _('No device has been enabled for receipt and/or check printing!'));
             }
@@ -1642,7 +1639,7 @@
             });
 
             if (offline) {
-                if (GREUtils.Dialog.confirm(window,
+                if (GREUtils.Dialog.confirm(this.topmostWindow,
                                             _('Device Status'),
                                             _('The following enabled devices appear to be offline, do you still want to save the new configuration?') + '\n' + statusStr) == false) {
                         if (data != null) data.cancel = true;

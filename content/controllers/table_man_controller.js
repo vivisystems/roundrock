@@ -133,7 +133,7 @@
                 }
                 if (this.isDuplicate(table_no)) {
                     // @todo OSD
-                    NotifyUtils.warn(_('Table Number [%S] has already been assigned exists', [table_no]));
+                    NotifyUtils.warn(_('Table Number [%S] has already been assigned', [table_no]));
                     return;
                 }
 
@@ -441,7 +441,7 @@
             
             var tableModel = new TableModel();
             var tables = tableModel.find('all', {fields: fields, order: orderby, recursive: 2});
-
+            
             this._tableListDatas = tables;
             var tableView =  new GeckoJS.NSITreeViewArray(this._tableListDatas);
             tableView.getCellValue = function(row, col) {

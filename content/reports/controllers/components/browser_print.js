@@ -1,20 +1,12 @@
 ( function() {
-    //var gPrintSettingsAreGlobal = false;
-    //var gSavePrintSettings = false;
 
-    var BrowserPrintComponent = window.BrowserPrintComponent = GeckoJS.Component.extend( {
-        /**
-         * Component BrowserPrint
-         */
+    var __component__ = {
+
         name: 'BrowserPrint',
+
         _printSettings: null,
         _webBrowserPrint: null,
 
-        initial: function () {
-        // @todo :
-        //alert('BrowserPrint initial...');
-        },
-        
         _setPaperProperties: function( paperProperties ) {
             if ( paperProperties ) {
                 if ( paperProperties.paperSize )
@@ -26,7 +18,7 @@
                 if ( paperProperties.paperHeader )
                     this.setPaperHeader( paperProperties.paperHeader.left, paperProperties.paperHeader.right );
                 if ( paperProperties.orientation )
-                    this.setOrientation( paperProperties.orientation );
+                    this.setPaperOrientation( paperProperties.orientation );
             }
         },
         
@@ -76,9 +68,11 @@
             return awpListener;
         },
 
-        showPageSetup: function () {
+        showPageSetup: function ( printSettings ) {
             try {
-                var printSettings = this._getPrintSettings();
+                if ( !printSettings )
+                    printSettings = this._getPrintSettings();
+                
                 var printPromptService = Components.classes[ "@mozilla.org/embedcomp/printingprompt-service;1" ]
                     .getService( Components.interfaces.nsIPrintingPromptService );
                 printPromptService.showPageSetup( window, printSettings, null );
@@ -88,7 +82,7 @@
                     PSSVC.savePrintSettingsToPrefs( printSettings, true, printSettings.kInitSaveNativeData );
                 }*/
             } catch ( e ) {
-                dump( "showPageSetup " + e + "\n" );
+                this.log( 'ERROR', 'showPageSetup: ' + e );
                 return false;
             }
             return true;
@@ -102,6 +96,7 @@
          */
         showPrintDialog: function( paperProperties, frameID, caption, progress ) {
             try {
+                // Acquire default paper settings.
                 this._getPrintSettings();
 
                 // A print dialog will pop up  if printSilent is set be false.
@@ -109,6 +104,14 @@
                 this._printSettings.printToFile = false;
                 
                 this._setPaperProperties( paperProperties );
+                
+                // save the print settings to prefs since the method showPageSetup always read print settings from prefs.
+                var printSettingsService =
+                    Components.classes[ "@mozilla.org/gfx/printsettings-service;1" ]
+                    .getService( Components.interfaces.nsIPrintSettingsService );
+                printSettingsService.savePrintSettingsToPrefs( this._printSettings, false, this._printSettings.kInitSaveAll );
+                
+                this.showPageSetup( this._printSettings );
 				
                 this._getWebBrowserPrint( frameID );
 
@@ -126,8 +129,7 @@
                 	this.sleep( 1000 );
                 }
             } catch ( e ) {
-                dump( e );
-                alert( _( "Fail in showPrintDialog method!" ) );
+                this.log( 'ERROR', 'showPrintDialog: ' + e );
                 throw e;
             } finally {
             }
@@ -165,9 +167,9 @@
                     awpListener = this._getAWPListener( caption, progress, callback );
 		        
                 this._webBrowserPrint.print( this._printSettings, awpListener );
-            } catch ( e ) {
-                dump( e );
-                alert( _( "Fail in printToPdf method!" ) );
+            }
+            catch ( e ) {
+                this.log( 'ERROR', 'browser.printToPDF: ' + e );
                 throw e;
             } finally {
             }
@@ -176,43 +178,60 @@
         setPaperSizeUnit: function( paperSizeUnit ) {
             if ( !this._printSettings )
                 this._getPrintSettings();
-            this._printSettings.paperSizeUnit = 1; //kPaperSizeMillimeters;
+            this._printSettings.paperSizeUnit = paperSizeUnit || Components.interfaces.nsIPrintSettings.kPaperSizeMillimeters; //kPaperSizeMillimeters;
+        },
+        
+        getPaperSizeUnit: function() {
+            if ( !this._printSettings )
+                this._getPrintSettings();
+            return this._printSettings.paperSizeUnit; // 1: millimeter; inch otherwise.
         },
 
         setPaperSize: function( paperWidth, paperHeight ) {
             if ( !this._printSettings )
-                this._getPrintSettings();
+                this._getPrintSettings();   
             this._printSettings.paperHeight = paperHeight;
             this._printSettings.paperWidth = paperWidth;
+        },
+        
+        setPaperName: function( paperName ) {
+            if ( !this._printSettings )
+                this._getPrintSettings();   
+            this._printSettings.paperName = paperName || "iso_a4"; // na_letter if letter.
         },
 
         setPaperMargin: function( marginLeft, marginRight, marginTop, marginBottom ) {
             if ( !this._printSettings )
                 this._getPrintSettings();
-            this._printSettings.marginTop = marginTop;
-            this._printSettings.marginLeft = marginLeft;
-            this._printSettings.marginRight = marginRight;
-            this._printSettings.marginBottom = marginBottom;
+            this._printSettings.marginTop = marginTop || 0.15; // in inch.
+            this._printSettings.marginLeft = marginLeft || 0;
+            this._printSettings.marginRight = marginRight || 0;
+            this._printSettings.marginBottom = marginBottom || 0.15;
         },
         
         setPaperHeader: function( headerStrLeft, headerStrRight ) {
             // set to default value if the parameter is null.
             if ( !this._printSettings )
                 this._getPrintSettings();
-            this._printSettings.headerStrRight = headerStrRight || _( "Generated by VIVIPOS" );
-            this._printSettings.headerStrLeft = headerStrLeft || _( "Firich Enterprises Co.,Ltd." );
+            this._printSettings.headerStrRight =
+                headerStrRight ||
+                _( "Generated by VIVIPOS" );
+            this._printSettings.headerStrLeft =
+                headerStrLeft ||
+                //this.controller._reportRecords.head.store.name + ' - ' + this.controller._reportRecords.head.store.branch ||
+                _( "Firich Enterprises Co.,Ltd." );
         },
 
         setPaperEdge: function( edgeLeft, edgeRight, edgeTop, edgeBottom ) {
             if ( !this._printSettings )
                 this._getPrintSettings();
-            this._printSettings.edgeLeft = edgeLeft;
-            this._printSettings.edgeRight = edgeRight;
-            this._printSettings.edgeTop = edgeTop;
-            this._printSettings.edgeBottom = edgeBottom;
+            this._printSettings.edgeLeft = edgeLeft || 0;// in inch.
+            this._printSettings.edgeRight = edgeRight || 0;
+            this._printSettings.edgeTop = edgeTop || 0;
+            this._printSettings.edgeBottom = edgeBottom || 0;
         },
         
-        setOrientation: function( orientation ) {
+        setPaperOrientation: function( orientation ) {
             if ( !this._printSettings )
                 this._getPrintSettings();
                 
@@ -270,47 +289,58 @@
             
             var printSettings;
             printSettings = printSettingsService.newPrintSettings;
+            this._printSettings = printSettings;
         
             printSettings.showPrintProgress = true;
             printSettings.printSilent = true; // to show printing dialog or not.
             
-            printSettings.paperSizeUnit = Components.interfaces.nsIPrintSettings.kPaperSizeMillimeters;
+            //printSettings.paperSizeUnit = Components.interfaces.nsIPrintSettings.kPaperSizeMillimeters;
             //printSettings.paperSizeUnit = Components.interfaces.nsIPrintSettings.kPaperSizeInches;
+            this.setPaperSizeUnit( printSettings.kPaperSizeMillimeters );
             
-            printSettings.orientation = Components.interfaces.nsIPrintSettings.kPortraitOrientation;
+            //printSettings.orientation = Components.interfaces.nsIPrintSettings.kPortraitOrientation;
             //printSettings.orientation = Components.interfaces.nsIPrintSettings.kLandscapeOrientation;
+            this.setPaperOrientation( "portrait" );
             
-            printSettings.headerStrRight = _( "Generated by VIVIPOS" );
-            printSettings.headerStrLeft = _( "Firich Enterprises Co.,Ltd." );
+            //printSettings.headerStrRight = _( "Generated by VIVIPOS" );
+            //printSettings.headerStrLeft = _( "Firich Enterprises Co.,Ltd." );
+            this.setPaperHeader( ' ' );
             
             printSettings.shrinkToFit = true;
             printSettings.printToFile = true;
             
-            printSettings.edgeLeft = 0; // in inch.
+            /*printSettings.edgeLeft = 0; // in inch.
             printSettings.edgeRight = 0;
             printSettings.edgeTop = 0;
-            printSettings.edgeBottom = 0;
+            printSettings.edgeBottom = 0;*/
+            this.setPaperEdge( 0, 0, 0, 0 );
             
-            printSettings.marginTop = 0.15; // in inch.
-            printSettings.marginLeft = 0;
-            printSettings.marginRight = 0;
-            printSettings.marginBottom = 0.15;
+            //printSettings.marginTop = 0.15; // in inch.
+            //printSettings.marginLeft = 0;
+            //printSettings.marginRight = 0;
+            //printSettings.marginBottom = 0.15;
+            this.setPaperMargin( 0, 0, 0.15, 0.15 );
             
             printSettings.unwriteableMarginBottom = printSettings.unwriteableMarginTop;
             printSettings.unwriteableMarginLeft = printSettings.unwriteableMarginRight;
 
-            printSettings.paperHeight = 297;// the size of A4 paper in milli-meter.
-            printSettings.paperWidth = 210;
+            //printSettings.paperHeight = 297;// the size of A4 paper in milli-meter.
+            //printSettings.paperWidth = 210;
+            this.setPaperSize( 210, 297 );
             
             //printSettings.paperHeight = 11.69;// the size of A4 paper in inch.
             //printSettings.paperWidth = 8.27;
             
-            printSettings.paperName = "iso_a4";
+            //printSettings.paperName = "iso_a4";
             //printSettings.paperName = "na_letter";
+            this.setPaperName( "iso_a4" );
             
-            this._printSettings = printSettings;
+            // save the print settings to prefs since the method showPageSetup always read print settings from prefs.
+            //printSettingsService.savePrintSettingsToPrefs( printSettings, false, printSettings.kInitSaveAll );
 
             return printSettings;
         }
-    } );
+    };
+
+    var BrowserPrintComponent = window.BrowserPrintComponent = GeckoJS.Component.extend( __component__ );
 } )();

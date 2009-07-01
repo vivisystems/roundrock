@@ -1,10 +1,7 @@
 (function(){
 
-    /**
-     * Class ViviPOS.OrdersController
-     */
-
     var __controller__ = {
+
         name: 'ReportOrders',
 
         _listObj: null,
@@ -41,7 +38,7 @@
 		
             var listObj = this.getListObj();
             // selectedIndex = listObj.selectedIndex;
-            selectedIndex = listObj.tree.currentIndex;
+            var selectedIndex = listObj.tree.currentIndex;
             if (selectedIndex >= 0) {
                 var order = this._listDatas[selectedIndex];
                 var listDetailObj = this.getListDetailObj();

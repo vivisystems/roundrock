@@ -11,7 +11,7 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="&dialog.prompt.title;"
+<window title="&localization.export.title;"
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -35,7 +35,6 @@
             <groupbox  flex="1">
                 <hbox>
                     <caption label="&localization.export.title;" class="PageTitle"/>
-                    <label id="locale" value="" class="PageTitle"/>
                 </hbox>
                 <grid class="DataForm">
                     <columns>
@@ -45,15 +44,17 @@
 
                     <rows>
                         <row>
-                            <label value="&localization.export.select.package;" class="SubTitle"/>
-                            <menulist id="package" flex="1" style="text-align:left;" oncommand="$do('selectPackage', this.selectedIndex, 'ExportLocale')">
-                                <menupopup id="package-popup">
-                                </menupopup>
-                            </menulist>
+                            <label value="&localization.export.package;" class="SubTitle"/>
+                            <textbox id="package" flex="1" value="" readonly="true" disabled="true"/>
                         </row>
 
                         <row>
-                            <label value="&localization.export.package.name;" class="SubTitle"/>
+                            <label value="&localization.export.locale;" class="SubTitle"/>
+                            <textbox id="locale" flex="1" value="" readonly="true" disabled="true"/>
+                        </row>
+
+                        <row>
+                            <label value="&localization.export.name;" class="SubTitle"/>
                             <textbox id="name" flex="1" value="" oninput="$do('validateForm', null, 'ExportLocale')"/>
                         </row>
 
@@ -62,7 +63,6 @@
 
                 <!-- install.RDF editor -->
                 <vbox flex="1">
-                    <label value="&localization.export.edit.install;" class="SubTitle"/>
                     <textbox id="install" flex="1" value="" multiline="true"
                              oninput="$do('validateForm', null, 'ExportLocale')"/>
                 </vbox>

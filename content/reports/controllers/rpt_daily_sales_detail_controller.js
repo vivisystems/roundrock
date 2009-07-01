@@ -118,6 +118,9 @@
 
             var order = new OrderModel();
 
+            var counts = order.getDataSource().fetchAll('SELECT count(id) as rowCount from (SELECT distinct (orders.id) ' + '  FROM '+ tables +' WHERE ' + conditions +')');
+            var rowCount = counts[0].rowCount;
+
             var results = order.getDataSource().fetchAll( sql );
 			
             var summary = {
@@ -129,7 +132,8 @@
                 revalue_subtotal: 0,
                 payment: 0,
                 guests: 0,
-                items: 0
+                items: 0,
+                rowCount: rowCount
             };
 
             // re-synthesis the data retrieved from DB to fit the structure that .tpl files use.
@@ -195,7 +199,7 @@
             // trap the last order.
             if ( record ) records.push( record );
 			
-            this._reportRecords.head.title = _( 'Sales Report - Detailed' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.dailysalesdetail' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;

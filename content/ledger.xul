@@ -49,14 +49,11 @@
                     <tabpanels id="tabpanels" flex="1">
                         <tabpanel orient="vertical" flex="1">
                             <vbox flex="1">
-                                <viviscrollabletree id="entryscrollablepanel" flex="1"
-                                                    headers="&ledger.entry.heading.date;,&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.amount;"
-                                                    fields="created,type,mode,amount"
-                                                    hidecolumnpicker="true"
-                                                    onclick="$do('select',this.selectedIndex, 'LedgerRecords');"
-                                                    class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                                    <spacer flex="1" />
-                                </viviscrollabletree>
+                                <vivitree id="entryscrollablepanel" flex="1" class="ListPnl showscrollbar"
+                                          headers="&ledger.entry.heading.date;,&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.amount;"
+                                          fields="created,type,mode,amount"
+                                          hidecolumnpicker="true"
+                                          onclick="$do('select',this.selectedIndex, 'LedgerRecords');"/>
 
                                 <hbox align="center">
                                     <radiogroup flex="1" orient="horizontal" id="show_type" oncommand="$do('load', null, 'LedgerRecords');" >
@@ -74,7 +71,6 @@
                             <hbox flex="0">
                                 <vbox flex="1" class="DataForm">
                                     <label id="ledger_id" hidden="true" form="ledger_recordForm" name="id" value="" />
-                                    <label id="ledger_payment_id" hidden="true" form="ledger_recordForm" name="payment_id" value="" />
                                     <label id="ledger_mode" hidden="true" form="ledger_recordForm" name="mode" value="" />
                                     <label id="ledger_terminal_no" hidden="true" form="ledger_recordForm" name="terminal_no" value="" />
                                     <label id="ledger_shift_number" hidden="true" form="ledger_recordForm" name="terminal_no" value="" />
@@ -104,24 +100,16 @@
                                         </rows>
                                     </grid>
                                 </vbox>
-                                <space style="width: 10px;"/>
-                                <vbox>
-                                    <numberpad id="multinumberpad" class="numpad"/>
-                                </vbox>
-                                <spacer style="height:10px;" />
-                                <vbox>
-                                    <sendkeybutton id="bkeyBtn" label="&ledger.button.action.del;" keyCode='0x08' class="fixedbtn"/>
-                                    <button id="clearBtn" label="&ledger.button.action.clear;" class="fixedbtn" oncommand="clearFocusedElement()"/>
-                                    <spacer flex="1"/>
-                                    <vivibutton id="opendrawer" label="&ledger.button.action.opendrawer;" default="false" class="fixedbtn"
+                                <vbox pack="center">
+                                    <vivibutton id="opendrawer" label="&ledger.button.action.cashdrawer;" default="false" class="fixedbtn"
                                                 oncommand="$do('openDrawerForLedgerEntry', null, 'LedgerRecords');"/>
-                                </vbox>
+                                                    </vbox>
                             </hbox>
                             <spacer style="height: 10px;" />
                             <hbox flex="1">
                                 <hbox class="ToolBar" flex="1">
                                     <vivibutton id="add_entry" label="&ledger.button.action.add;" disabled="false" class="BtnAdd"
-                                                roles="acl_add_ledger_entry" oncommand="$do('add', null, 'LedgerRecords');" />
+                                                roles="acl_add_ledger_entry" oncommand="$do('addLedgerEntryFromForm', null, 'LedgerRecords');" />
                                 </hbox>
                                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
@@ -132,14 +120,11 @@
                         </tabpanel>
 
                         <tabpanel orient="vertical" flex="1">
-                                <viviscrollabletree id="typescrollablepanel" flex="1"
+                                <vivitree id="typescrollablepanel" flex="1" class="ListPnl showscrollbar"
                                                     headers="&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.drawer.change;"
                                                     fields="type,mode,drawer_change"
                                                     hidecolumnpicker="true"
-                                                    onclick="$do('select',this.selectedIndex, 'LedgerEntryTypes');"
-                                                    class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                                    <spacer flex="1" />
-                                </viviscrollabletree>
+                                                    onclick="$do('select',this.selectedIndex, 'LedgerEntryTypes');"/>
                                 <label id="entry_type_id" hidden="true" form="ledger_entry_typeForm" name="id" value="" />
                                 <grid class="DataForm" flex="0">
                                     <columns>

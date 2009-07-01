@@ -1,7 +1,7 @@
 (function() {
 
     var __component__ = {
-
+        
         /**
          * Component GuestCheck
          */
@@ -365,12 +365,12 @@
         selGuestNum: function (no){
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
                 input0:no, require0:true, numpad:true
             };
 
-            this._controller.topmostWindow.openDialog(aURL, _('Select Number of Customers'), features, _('Select Number of Customers'), '', _('Numbers'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Number of Customers'), aFeatures, _('Select Number of Customers'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -383,12 +383,12 @@
         selTableNum: function (no){
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
             var inputObj = {
                 input0:no, require0:true, numpad:true, disablecancelbtn:true
             };
 
-            this._controller.topmostWindow.openDialog(aURL, _('Select Table Number'), features, _('Select Table Number'), '', _('Numbers'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Number'), aFeatures, _('Select Table Number'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -1028,13 +1028,13 @@
                         var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
                         var aURL = 'chrome://viviecr/content/select_checks.xul';
-                        var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+                        var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
                         var inputObj = {
                             checks: ord,
                             excludedOrderId: excludedOrderId
                         };
 
-                        this._controller.topmostWindow.openDialog(aURL, 'select_tables', features, inputObj);
+                        GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_tables', aFeatures, inputObj);
 
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
@@ -1109,13 +1109,13 @@
                         else if (no == 'TableNo')
                             var aURL = 'chrome://viviecr/content/select_tables.xul';
 
-                        var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+                        var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
                         var inputObj = {
                             checks: ord,
                             excludedOrderId: excludedOrderId
                         };
 
-                        this._controller.topmostWindow.openDialog(aURL, 'select_checks', features, inputObj);
+                        GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_checks', aFeatures, inputObj);
 
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
@@ -1701,13 +1701,13 @@
             var posX = 0;
             var posY = 0;
 
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 targetCheck: targetCheck.data,
                 sourceCheck: data
             };
 
-            this._controller.topmostWindow.openDialog(aURL, 'merge_checks', features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'merge_checks', aFeatures, inputObj);
 
             if (inputObj.ok) {
                 // return queues[idx].key;
@@ -1738,17 +1738,14 @@
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
             var aURL = "chrome://viviecr/content/split_check.xul";
-            var aName = "Split Check";
-            var aArguments = "";
-            var posX = 0;
-            var posY = 0;
+            var aName = _("Split Check");
 
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 sourceCheck: data
             };
 
-            this._controller.topmostWindow.openDialog(aURL, 'split_checks', features, inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
 
             if (inputObj.ok) {
                 var id = inputObj.id;
@@ -1776,9 +1773,8 @@
         reformOrder: function(no) {
             //
         }
+    }
 
-    };
-
-    GeckoJS.Component.extend(__component__);
+    var GuestCheckComponent = window.GuestCheckComponent = GeckoJS.Component.extend(__component__);
 
 })();

@@ -2,11 +2,6 @@
 
     var inputObj = window.arguments[0];
 
-    // include controllers  and register itself
-
-    /**
-     * Controller Startup
-     */
     function startup() {
 
         var queues = inputObj.queues;

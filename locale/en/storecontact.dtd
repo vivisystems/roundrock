@@ -1,8 +1,8 @@
 <!ENTITY storecontact.title "Store Contact">
 <!ENTITY storecontact.name "Store Name">
-<!ENTITY storecontact.terminal.no "Terminal No.">
+<!ENTITY storecontact.terminal.no "Terminal Number">
 <!ENTITY storecontact.branch "Branch">
-<!ENTITY storecontact.branch.id "Branch ID">
+<!ENTITY storecontact.branch.id "Branch ID (a-z, A-Z, 0-9)">
 <!ENTITY storecontact.contact "Contact Person">
 <!ENTITY storecontact.telephone1 "Telephone 1">
 <!ENTITY storecontact.telephone2 "Telephone 2">

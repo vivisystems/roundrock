@@ -1,14 +1,16 @@
 (function(){
 
-    /**
-     * Class ViviPOS.KeypadController
-     */
-
     var __controller__ = {
+
         name: 'Keypad',
-        // charpress buffer
-        buf: "",
+
+        buf: '',
         target: 'Cart',
+        _numberOnly: false,
+
+        setNumberOnly: function(val) {
+            this._numberOnly = val;
+        },
 
         setTarget: function(target) {
             this.target = target;
@@ -41,7 +43,7 @@
 	
         clearBuffer: function() {
             this.buf = "";
-        //	this.dispatchEvent('onClearBuffer', this.buf);
+            this.dispatchEvent('onClearBuffer', this.buf);
         },
 	
         addBuffer: function(s) {
@@ -86,10 +88,9 @@
                 case 'x':
                 case 'X':
                 case '*':
-                    if (this.getBuffer().length > 0 ) {
-
-                    this.getCartController().setQty(this.getBuffer());
-                    this.clearBuffer();
+                    if (!this._numberOnly && this.getBuffer().length > 0 ) {
+                        this.getCartController().setQty(this.getBuffer());
+                        this.clearBuffer();
                     }
                     break;
 				
@@ -99,9 +100,7 @@
                     break;
 				
                 case '.':
-                    // skip first . and repeat .
-                    //if(this.getBuffer().length >0 && this.getBuffer().indexOf('.') == -1) this.addBuffer(charPress);
-                    if(this.getBuffer().indexOf('.') == -1) this.addBuffer(charPress);
+                    if(!this._numberOnly && this.getBuffer().indexOf('.') == -1) this.addBuffer(charPress);
                     break;
                 case '1':
                 case '2':
@@ -130,13 +129,17 @@
 			
                 // TAB
                 case 0x09:
-                    this.getCartController().setPrice(this.getBuffer());
-                    this.clearBuffer();
+                    if (!this._numberOnly) {
+                        this.getCartController().setPrice(this.getBuffer());
+                        this.clearBuffer();
+                    }
                     break;
 			
                 // END
                 case 35:
-                    this.getCartController().addMarker('subtotal');
+                    if (!this._numberOnly) {
+                        this.getCartController().addMarker('subtotal');
+                    }
                     break;
                 // BACKSPACE
                 case 8:

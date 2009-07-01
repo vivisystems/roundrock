@@ -3,15 +3,12 @@
     // include promotion trigger / type class
     include('chrome://viviecr/content/promotions/promotion_trigger.js');
     include('chrome://viviecr/content/promotions/promotion_type.js');
+
     // in-memory data models
     include('chrome://viviecr/content/models/promotion_apply.js');
     include('chrome://viviecr/content/models/promotion_cart_item.js');
     include('chrome://viviecr/content/models/promotion_cart_addition.js');
 
-    /**
-     * Controller Promotions
-     * 
-     */
     var __promotions_controller__ = {
 
         name: 'Promotions',

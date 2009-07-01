@@ -1,17 +1,11 @@
-
 (function(){
 
-    /**
-     * Layout Controller
-     */
     var __controller__ = {
 
         name: 'Layout',
 
         _layout: {},
-
         _selectedLayout: '',
-
 
         loadOverlay: function() {
 
@@ -56,10 +50,9 @@
 
             this.resetLayout(true);
 
-            // add event listener for onUpdateOptions events
+            // add event listener for SetClerk event
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
-                main.addEventListener('onUpdateOptions', this.handleUpdateOptions, this);
                 main.addEventListener('onSetClerk', this.home, this);
             }
         },
@@ -158,6 +151,7 @@
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
+            var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
 
@@ -175,21 +169,26 @@
                 condPanel.vivibuttonpanel.cols = condCols;
 
                 condPanel.initGrid();
-                condPanel.vivibuttonpanel.resizeButtons();
 
                 if (!initial) {
                     // @hack irving
                     // make panel visible to let changes take effect
                     $.popupPanel('selectCondimentPanel', {});
                     $.hidePanel('selectCondimentPanel', {});
+                    condPanel.vivibuttonpanel.resizeButtons();// this line bring about an error when initial is true.
                 }
             }
-            
+/*
+            if (deptPanel && (deptPanel.datasource.plugroupsFirst != showPlugroupsFirst)) {
+                deptPanel.datasource.refreshView(false);
+            }
+*/
             if (deptPanel &&
                 (initial ||
                  (deptPanel.getAttribute('rows') != departmentRows) ||
                  (deptPanel.getAttribute('cols') != departmentCols) ||
                  (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
+                 (deptPanel.datasource.plugroupsFirst != showPlugroupsFirst) ||
                  (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
                  (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
                  (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar))) {
@@ -208,8 +207,8 @@
 
                     // @hack to allow vivibuttons to be fully instantiated
                     this.sleep(100);
-
-                    deptPanel.vivibuttonpanel.refresh();
+                    
+                    deptPanel.datasource.refreshView(true);
                 }
                 else {
                     deptPanel.setAttribute('hidden', true);
@@ -354,10 +353,6 @@
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
 
             this.resizePanels(disabled_features, initial);
-        },
-
-        handleUpdateOptions: function(evt) {
-            this.resetLayout(false);
         }
 
     };

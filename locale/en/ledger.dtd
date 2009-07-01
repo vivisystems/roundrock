@@ -7,7 +7,7 @@
 <!ENTITY ledger.button.action.edittopics "Edit Topics">
 <!ENTITY ledger.button.action.del "DEL">
 <!ENTITY ledger.button.action.clear "CLEAR">
-<!ENTITY ledger.button.action.opendrawer "Open Drawer">
+<!ENTITY ledger.button.action.cashdrawer "Open Drawer">
 
 <!ENTITY ledger.tab.records "Ledger Entries">
 <!ENTITY ledger.tab.entry.types "Entry Types">
@@ -18,8 +18,8 @@
 <!ENTITY ledger.entry.mode.in "IN">
 <!ENTITY ledger.entry.mode.out "OUT">
 <!ENTITY ledger.entry.drawer.change "Use for Drawer Change">
-<!ENTITY ledger.entry.drawer.change.yes "Y">
-<!ENTITY ledger.entry.drawer.change.no "N">
+<!ENTITY ledger.entry.drawer.change.yes "Yes">
+<!ENTITY ledger.entry.drawer.change.no "No">
 <!ENTITY ledger.entry.amount "Amount">
 
 <!ENTITY ledger.entry.heading.date "Date">
