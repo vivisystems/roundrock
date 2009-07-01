@@ -114,12 +114,14 @@
         },
 
         checkStock: function(action, qty, item, clearWarning) {
+
             if (clearWarning == null) clearWarning = true;
             var obj = {
                 item: item
             };
             var diff = qty;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            cart.log('checkStock ' + qty + ', ' + item.name);
             var min_stock = parseFloat(item.min_stock);
             var auto_maintain_stock = item.auto_maintain_stock;
             
@@ -203,6 +205,43 @@
             }
             return true;
         },
+
+        decStock: function ( obj ) {
+            //this._productsById = GeckoJS.Session.get( 'productsById' );
+            //this._barcodesIndexes = GeckoJS.Session.get( 'barcodesIndexes' );
+
+            for ( var o in obj.items ) {
+                var ordItem = obj.items[ o ];
+                var item = this.Product.findById( ordItem.id );
+                if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
+                    // renew the stock record.
+                    var stockRecordModel = new StockRecordModel();
+                    var stockRecord = stockRecordModel.get( 'first', {
+                        conditions: "product_no = '" + item.no + "'"
+                    } );
+
+                    if ( stockRecord.quantity > 0 || item.return_stock )
+                        stockRecord.quantity -= ordItem.current_qty;
+
+                    stockRecordModel.set( stockRecord );
+
+                    delete stockRecordModel;
+
+                    // stock had maintained
+                    ordItem.stock_maintained = true;
+
+                    // fire onLowStock event...
+                    if ( item.min_stock > item.stock ) {
+                        this.dispatchEvent( 'onLowStock', item );
+                    }
+
+                // update Session Data...
+                //var evt = { data: item, justUpdate: true };
+                //this.afterScaffoldEdit( evt );
+                }
+            }
+        },
+
 
         clearWarning: function (evt) {
             // clear warning only if not in refund all mode
@@ -2837,6 +2876,9 @@
             
             if(oldTransaction == null) return false;
 
+            //var submitStatus = parseInt(oldTransaction.submit(status));
+            //return;
+
             // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
             var existingOrder = orderModel.findById(oldTransaction.data.id, 0, "id,status");
@@ -2897,7 +2939,13 @@
                         oldTransaction.data.proceeds_clerk = user.username;
                         oldTransaction.data.proceeds_clerk_displayname = user.description;
                     }
+
+                    // check and dec stock
+                    //this.decStock(oldTransaction.data);
+
                 }
+
+                
 
                 var submitStatus = parseInt(oldTransaction.submit(status));
                 /*
@@ -2918,7 +2966,7 @@
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
                 // sleep to allow UI events to update
-                this.sleep(100);
+                //this.sleep(100);
 
                 //this.dispatchEvent('onClear', 0.00);
                 this._getKeypadController().clearBuffer();

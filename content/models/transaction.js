@@ -109,6 +109,8 @@
 
         create: function() {
 
+            var self = this;
+            
             this.data.id = GeckoJS.String.uuid();
 
             this.data.terminal_no = GeckoJS.Session.get('terminal_no');
@@ -116,10 +118,11 @@
             // SequenceModel will always return a value; even if an error occurred (return value of -1), we
             // should still allow create to proceed; it's up to the upper layer to decide how to handle
             // this error condition
-            this.data.seq = SequenceModel.getSequence('order_no');
-            // this.data.check_no = SequenceModel.getSequence('check_no');
-
-            GeckoJS.Session.set('vivipos_fec_order_sequence', this.data.seq);
+            SequenceModel.getSequence('order_no', true, function(seq) {
+                self.data.seq = (seq+'');
+                GeckoJS.Session.set('vivipos_fec_order_sequence', seq);
+            });
+            
             GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -154,7 +157,20 @@
         },
 
         process: function(status, discard) {
+            var self = this;
+            
             this.data.status = status;
+
+            // force and waiting to get sequence
+            if (self.data.seq.length == 0) {
+
+                // block ui until request finish or timeout
+                var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
+                while (self.data.seq.length == 0) {
+                    thread.processNextEvent(true);
+                }
+
+            }
 
             // set sale period and shift number
             var salePeriod = GeckoJS.Session.get('sale_period');
@@ -175,12 +191,7 @@
             }
 
             this.data.modified = Math.round(new Date().getTime() / 1000 );
-            
-            var self = this;
-            // maintain stock...
-            if (status > 0)
-                self.requestCommand('decStock', self.data, 'StockRecords');
-
+                       
             // remove recovery file
             Transaction.removeRecoveryFile();
 
@@ -193,10 +204,6 @@
                 }
                 return order.saveOrder(this.data);
 
-// achang marked
-//                if (this.data.status == 2) {
-//                    order.serializeOrder(this.data);
-//                }
             }
         },
 

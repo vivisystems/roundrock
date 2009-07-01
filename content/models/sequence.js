@@ -1,12 +1,12 @@
 (function() {
 
     var __class__ = {
-        getSequence: function(key) {
-            return (new this).getSequence(key);
-            },
+        getSequence: function(key, async, callback) {
+            return (new this).getSequence(key, async, callback);
+        },
 
-        resetSequence: function(key, value) {
-            return (new this).resetSequence(key, value);
+        resetSequence: function(key, value, async, callback) {
+            return (new this).resetSequence(key, value, async, callback);
         }
     };
 
@@ -16,7 +16,7 @@
     
         autoRestoreFromBackup: true,
         
-        getRemoteService: function(method) {
+        getRemoteServiceUrl: function(method) {
             this.syncSettings = (new SyncSetting()).read();
 
             if (this.syncSettings && this.syncSettings.active == 1) {
@@ -44,11 +44,15 @@
             }
         },
 
-        requestRemoteService: function(url, key, value) {
+        requestRemoteService: function(url, key, value, async, callback) {
 
             var reqUrl = url + '/' + key;
 
             if (value != null) reqUrl += '/' + value;
+            
+            async = async || false;
+            callback = (typeof callback == 'function') ?  callback : null;
+
 
             var username = this.username ;
             var password = this.password ;
@@ -70,7 +74,7 @@
 
                 }
                 catch(e) {
-                    // dump('timeout exception ' + e + "\n");
+                // dump('timeout exception ' + e + "\n");
                 }
             }, 15000);
 
@@ -82,7 +86,7 @@
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
 
             req.onreadystatechange = function (aEvt) {
-                // dump( "onreadystatechange " + req.readyState  + "\n");
+                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if (req.status == 200) {
@@ -90,6 +94,15 @@
                         if (result.status == 'ok') {
                             seq = result.value;
                         }
+                    }
+                    // clear resources
+                    if (async) {
+                        if (callback) {
+                            callback.call(this, seq);
+                        }
+                        if (timeout) clearTimeout(timeout);
+                        if (req) delete req;
+                        if (reqStatus) delete reqStatus;
                     }
                 }
             };
@@ -99,35 +112,46 @@
                 // Bypassing the cache
                 req.channel.loadFlags |= Components.interfaces.nsIRequest.LOAD_BYPASS_CACHE;
                 req.send(request_data);
-                
-                // block ui until request finish or timeout
-                var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                while (!reqStatus.finish) {
-                    thread.processNextEvent(true);
+
+                if (!async) {
+                    // block ui until request finish or timeout
+                    var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
+                    while (!reqStatus.finish) {
+                        thread.processNextEvent(true);
+                    }
                 }
 
             }catch(e) {
-                // dump('send exception ' + e + "\n");
+            // dump('send exception ' + e + "\n");
             }finally {
-                if (timeout) clearTimeout(timeout);
-                if (req) delete req;
-                if (reqStatus) delete reqStatus;
+
+                if (!async) {
+                    if (timeout) clearTimeout(timeout);
+                    if (req) delete req;
+                    if (reqStatus) delete reqStatus;
+                }
+                
+            }
+            if (callback && !async) {
+                callback.call(this, seq);
             }
             return seq;
         
         },
     
-        getSequence: function(key) {
+        getSequence: function(key, async, callback) {
             key = key || "default";
+            async = async || false;
+            callback = (typeof callback == 'function') ?  callback : null;
 
-            var remoteUrl = this.getRemoteService('getSequence');
+            var remoteUrl = this.getRemoteServiceUrl('getSequence');
             var seq = -1;
 
             var isTraining = GeckoJS.Session.get( "isTraining" );
 
             if (remoteUrl && !isTraining) {
             
-                seq = this.requestRemoteService(remoteUrl, key, null);
+                seq = this.requestRemoteService(remoteUrl, key, null, async, callback);
                 return seq;
             
             } else {
@@ -143,13 +167,17 @@
                     value: 0
                 };
 
-				if ( isTraining )
-					return seq.value;
+                if ( isTraining )
+                    return seq.value;
 
                 seq.value++;
                 this.id = seq.id;
                 if (!this.save(seq)) {
                     this.saveToBackup(seq);
+                }
+
+                if (callback) {
+                    callback.call(this, seq.value);
                 }
                 return seq.value;
 
@@ -157,22 +185,25 @@
 
         },
 
-        resetSequence: function(key, value) {
+        resetSequence: function(key, value, async, callback) {
             var isTraining = GeckoJS.Session.get( "isTraining" );
             if (isTraining) return;
 
             key = key || "default";
 
+            async = async || false;
+            callback = (typeof callback == 'function') ?  callback : null;
+
             if (value == null) {
                 value = 0;
             }
 
-            var remoteUrl = this.getRemoteService('resetSequence');
+            var remoteUrl = this.getRemoteServiceUrl('resetSequence');
 
             var seq = -1;
             if (remoteUrl) {
             
-                seq = this.requestRemoteService(remoteUrl, key, value);
+                seq = this.requestRemoteService(remoteUrl, key, value, async, callback);
                 return seq;
 
             }else {
@@ -191,6 +222,10 @@
                 this.id = seq.id;
                 if (!this.save(seq)) {
                     this.saveToBackup(seq);
+                }
+
+                if (callback) {
+                    callback.call(this, seq.value);
                 }
                 return seq.value;
             }
