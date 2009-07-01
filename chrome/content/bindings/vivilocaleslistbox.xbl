@@ -16,7 +16,7 @@
         </resources>
 
         <content>
-            <xul:listbox anonid="locales-listbox" crop="none" xbl:inherits="rows,flex,class,crop,dir,pack,align">
+            <xul:listbox anonid="locales-listbox" crop="none" xbl:inherits="rows,flex,class,crop,dir,pack,align,seltype">
             </xul:listbox>
         </content>
 
