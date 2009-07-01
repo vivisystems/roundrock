@@ -40,14 +40,12 @@
             <vbox flex="1"  class="MainL">
                 <caption label="&stockrecords.title;"  class="PageTitle" />
                 <vbox pack="start" flex="1" class="LeftPnl">
-                    <viviscrollabletree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true"
+                    <vivitree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true"
                                         headers="&stockrecords.header.no;,&stockrecords.header.product;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.qtydifference;,&stockrecords.header.minstock;,&stockrecords.header.memo;"
                                         fields="product_no,product_name,quantity,new_quantity,qty_difference,min_stock,memo"
                                         onclick="$do('select',this.selectedIndex, 'StockRecords');"
-                                        class="plupnl" dir="reverse"
-                                        scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
+                                        class="plupnl ListPnl showscrollbar"
+                                        scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" />
                     <hbox>
 		                <checkbox id="show_low_stock" value="false" label="&stockrecords.show.low.only;" oncommand="$do('clickLowStock', null, 'StockRecords');" />
 		                <checkbox id="show_qty_diff" value="false" label="&stockrecords.show.qty.different;" oncommand="$do('clickQtyDiff', null, 'StockRecords');" />

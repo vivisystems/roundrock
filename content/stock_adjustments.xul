@@ -40,14 +40,12 @@
             <vbox flex="1"  class="MainL">
                 <caption label="&stockadjustments.title;"  class="PageTitle" />
                 <vbox pack="start" flex="1" class="LeftPnl">
-                    <viviscrollabletree id="stockadjustmentscrollablepanel" flex="1" rows="2" hidevscroll="true"
+                    <vivitree id="stockadjustmentscrollablepanel" flex="1" rows="2" hidevscroll="true"
                                         headers="&stockadjustments.header.no;,&stockadjustments.header.product;,&stockadjustments.header.quantity;,&stockadjustments.header.memo;"
                                         fields="product_no,product_name,quantity,memo"
                                         onclick="$do('select',this.selectedIndex, 'StockAdjustments');"
-                                        class="plupnl" dir="reverse"
-                                        scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
+                                        class="plupnl ListPnl showscrollbar"
+                                        scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" />
                 </vbox>
                 <vbox>
                     <label id="plu_id" hidden="true" form="productForm" name="product_id" value="" />

@@ -70,7 +70,7 @@
 
                 this._selectedIndex =  this.locateIndex( product, this._records );
                 this._listObj.selectedIndex = this._selectedIndex;
-                this._listObj.vivitree.selection.select( this._selectedIndex );
+                this._listObj.selection.select( this._selectedIndex );
                 this._panelView.tree.ensureRowIsVisible( this._selectedIndex );
             }
 
@@ -87,7 +87,7 @@
                 this._panelView.data = this._records;
             }
             
-            this._listObj.vivitree.refresh();
+            this._listObj.refresh();
             this.validateForm();
         },
 
