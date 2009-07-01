@@ -14,7 +14,7 @@
 		
 		setAll: function( inventoryRecords ) {
 			if ( inventoryRecords.length > 0 ) {
-				var timestamp = Math.round( ( new Date() ) / 1000 , 10 );
+				var timestamp = Math.round( ( new Date() ) / 1000 , 10 );// uesd to recognize records which are in the same batch.
 				this.begin();
 				for ( inventoryRecord in inventoryRecords ) {
 					inventoryRecords[ inventoryRecord ].timestamp = timestamp;

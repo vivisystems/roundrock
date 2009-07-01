@@ -41,7 +41,7 @@
                 selectedItems = evt.data.selectedItems; // 0..n index
 
                 $buttonPanel[0].datasource = condsData ;
-                $buttonPanel[0].selectedItems = selectedItems ;
+                $buttonPanel[0].selectedItems = selectedItems;
                 $buttonPanel[0].vivibuttonpanel.invalidate();
                 $buttonPanel[0].scrollToRow(0);
 

@@ -178,10 +178,8 @@
             GREUtils.Dialog.alert(this.topmostWindow,
                                   _('Data Operation Error'),
                                   errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
-        },
-
+        }
     };
 
     GeckoJS.Controller.extend(__controller__);
-
 })();

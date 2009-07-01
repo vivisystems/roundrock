@@ -173,9 +173,9 @@
                 if (!initial) {
                     // @hack irving
                     // make panel visible to let changes take effect
-                    condPanel.vivibuttonpanel.resizeButtons();
                     $.popupPanel('selectCondimentPanel', {});
                     $.hidePanel('selectCondimentPanel', {});
+                    condPanel.vivibuttonpanel.resizeButtons();// this line bring about an error when initial is true.
                 }
             }
 /*

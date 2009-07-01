@@ -100,7 +100,7 @@
 
                 this._selectedIndex =  this.locateIndex( product, this._records );
                 this._listObj.selectedIndex = this._selectedIndex;
-                this._listObj.vivitree.selection.select( this._selectedIndex );
+                this._listObj.selection.select( this._selectedIndex );
                 this._panelView.tree.ensureRowIsVisible( this._selectedIndex );
             }
 
@@ -136,7 +136,7 @@
                 this._panelView.data = this._records;
             }
             
-            this._listObj.vivitree.refresh();
+            this._listObj.refresh();
             //this.select( this._selectedIndex );
             this.validateForm();
         },
@@ -253,6 +253,24 @@
         	
         	var sql = "select distinct no, barcode from products;";
         	var products = this.Product.getDataSource().fetchAll( sql );
+        	
+        	/*var aURL = 'chrome://viviecr/content/dialogs/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=300';
+            var inputObj = {
+                input0: null,
+                require0: true,
+                numberOnly0: true
+            };
+            
+            GREUtils.Dialog.openWindow(
+                this.topmostWindow,
+                aURL,
+                _( 'Set All Stock' ),
+                aFeatures, _( 'Set All Stock' ),
+                '',
+                _( 'Stock' ),
+                inputObj
+            );*/
         	
         	var stockRecordModel = new StockRecordModel();
         	stockRecordModel.reset( products );
