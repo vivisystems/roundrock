@@ -51,7 +51,7 @@
                 <vivitree id="datasourcescrollablepanel" flex="1" class="ListPnl showscrollbar"
                           headers="&importexport.tablename;,&importexport.import;,&importexport.export;"
                           fields="name,imported,exported" hidecolumnpicker="true"
-                          onclick="$do('select',this.selectedIndex, 'ImportExport');"/>
+                          onselect="$do('select',this.selectedIndex, 'ImportExport');"/>
                 <!-- progressmeter id="datasprogressmeter" mode="determined" value="0" /-->
             </vbox>
             <spacer style="height: 5px;" />

@@ -53,7 +53,7 @@
                     </viviscrollablebuttonpanel>
                 </vbox>
             </vbox>
-            <vbox flex="1">
+            <vbox flex="1" class="RightTabbox">
                 <grid class="DataForm">
                     <columns>
                         <column flex="1" /><column flex="1" />
@@ -82,7 +82,8 @@
                             </vbox>
                             <vbox flex="0">
                                 <label style="width:10em" value="&departments.display_order;" control="display_order"/>
-                                <textbox id="display_order" default="" size="4" form="deptForm" name="display_order" onfocus="this.select()"/>
+                                <textbox id="display_order" type="number" value="" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                         form="deptForm" name="display_order" default="99999" onfocus="this.select()"/>
                             </vbox>
                        </row>
                     </rows>

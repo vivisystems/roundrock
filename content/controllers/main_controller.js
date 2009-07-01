@@ -516,7 +516,6 @@
                 var defaultUserRecord = userModel.findById(defaultUserID);
                 if (defaultUserRecord) defaultUser = defaultUserRecord.username;
             }
-            
             if (defaultLogin && defaultUser && defaultUser.length > 0) {
                 this.Acl.securityCheck(defaultUser, 'dummy', false, true);
             }
@@ -1000,6 +999,29 @@
                 return;
             }
             this.shutdownMachine();
+        },
+
+        _testPackageBuilder: function() {
+
+            // invoke external script to capture screen image
+            var uuid = GeckoJS.String.uuid();
+            var dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+            var captureScript = dataPath + '/scripts/capture_screen.sh';
+            var imageFile = '/tmp/' + uuid + '.png';
+            var thumbFile = '/tmp/' + uuid + '-thumbnail.png';
+
+            var exec = new GeckoJS.File(captureScript);
+            r = exec.run([imageFile, thumbFile], true);
+            exec.close();
+
+            var aURL = 'chrome://viviecr/content/package_builder.xul';
+            var aName = _('Package Builder');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var aArguments = {image: imageFile, icon: thumbFile };
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
+
+            GREUtils.File.remove(imageFile);
+            GREUtils.File.remove(thumbFile);
         },
 
         dispatch: function(arg) {

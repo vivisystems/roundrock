@@ -15,7 +15,6 @@
  *
  */
 
-
         name: 'Tax',
 
         taxModel: GeckoJS.Model.extend({

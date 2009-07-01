@@ -78,7 +78,9 @@
                                             </vbox>
                                             <vbox flex="1">
                                                 <label style="width:10em" value="&plugroups.display_order;" control="display_order"/>
-                                                <textbox id="display_order" default="" size="2" form="plugroupForm" name="display_order" onfocus="this.select()"/>
+                                                <textbox id="display_order" type="number" class="geneditbox right" value="" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                         default="99999" form="plugroupForm" name="display_order" onfocus="this.select()"
+                                                         />
                                             </vbox>
                                         </row>
                                         <row>

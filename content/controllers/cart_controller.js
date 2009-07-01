@@ -820,7 +820,6 @@
             return $.popupPanel('selectSetItemPanel', dialog_data).next(function(evt){
                 if (evt.data.ok) {
                     var plusetData = evt.data.plusetData;
-                    self.log('DEBUG', 'product set selections: ' + self.dump(plusetData));
 
                     var newItems = [];
 
@@ -2577,7 +2576,10 @@
 
                 this._getCartlist().refresh();
                 if (curTransaction.getRemainTotal() <= 0) {
-                    this.submit();
+                    if (!this.submit()) {
+                        // remove last payment
+                        this.voidItem();
+                    }
                 }else {
                     this._clearAndSubtotal();
                 }
@@ -2881,6 +2883,37 @@
                                       _('Order Finalization'),
                                       _('Current order has non-zero balance and may not be closed'));
                 return false;
+            }
+
+            if (status == 1) {
+                var user = GeckoJS.Session.get('user');
+                var adjustment_amount = oldTransaction.data.trans_discount_subtotal + oldTransaction.data.trans_surcharge_subtotal +
+                                        oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
+                if (adjustment_amount > 0) {
+                    // check if order surcharge exceed user limit
+                    var surcharge_limit = parseInt(user.order_surcharge_limit);
+                    if (!isNaN(surcharge_limit) && surcharge_limit > 0) {
+                        var surcharge_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, surcharge_limit, user.order_surcharge_limit_type);
+                        if (adjustment_amount > surcharge_limit_amount) {
+                            NotifyUtils.warn(_('Total surcharge [%S] may not exceed user order surcharge limit [%S]',
+                                               [adjustment_amount, surcharge_limit_amount]));
+                            return false;
+                        }
+                    }
+                }
+                else if (adjustment_amount < 0) {
+                    // check if order discount exceed user limit
+                    adjustment_amount = 0 - adjustment_amount;
+                    var discount_limit = parseInt(user.order_discount_limit);
+                    if (!isNaN(discount_limit) && discount_limit > 0) {
+                        var discount_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, discount_limit, user.order_discount_limit_type);
+                        if (adjustment_amount > discount_limit_amount) {
+                            NotifyUtils.warn(_('Total discount [%S] may not exceed user order discount limit [%S]',
+                                               [adjustment_amount, discount_limit_amount]));
+                            return false;
+                        }
+                    }
+                }
             }
 
             if (this.dispatchEvent('beforeSubmit', {
@@ -3245,7 +3278,6 @@
             // not initial , initial again!
             if (!condGroupsByPLU) {
                 try {
-                    this.log('DEBUG', 'initital Condiments from Cart Controller ');
                     GeckoJS.Controller.getInstanceByName('Condiments').initial();
                     condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
                 }catch(e) {}

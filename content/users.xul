@@ -143,7 +143,7 @@
                                                          type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                             </vbox>
                                             <vbox pack="end">
-                                                <radiogroup id="item_discount_limit_type" form="userForm" name="item_discount_limit_type" orient="horizontal">
+                                                <radiogroup id="item_discount_limit_type" form="userForm" name="item_discount_limit_type" orient="horizontal" default="%" value="%">
                                                     <radio label="&users.limit.type.percentage;" value="%"/>
                                                     <radio label="&users.limit.type.absolute;" value="$"/>
                                                 </radiogroup>
@@ -156,7 +156,7 @@
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                             </vbox>
                                             <vbox pack="end">
-                                                <radiogroup id="order_discount_limit_type" form="userForm" name="order_discount_limit_type" orient="horizontal">
+                                                <radiogroup id="order_discount_limit_type" form="userForm" name="order_discount_limit_type" orient="horizontal" default="%" value="%">
                                                     <radio label="&users.limit.type.percentage;" value="%"/>
                                                     <radio label="&users.limit.type.absolute;" value="$"/>
                                                 </radiogroup>
@@ -170,7 +170,7 @@
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                             </vbox>
                                             <vbox pack="end">
-                                                <radiogroup id="item_surcharge_limit_type" form="userForm" name="item_surcharge_limit_type" orient="horizontal">
+                                                <radiogroup id="item_surcharge_limit_type" form="userForm" name="item_surcharge_limit_type" orient="horizontal" default="%" value="%">
                                                     <radio label="&users.limit.type.percentage;" value="%"/>
                                                     <radio label="&users.limit.type.absolute;" value="$"/>
                                                 </radiogroup>
@@ -183,7 +183,7 @@
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                             </vbox>
                                             <vbox pack="end">
-                                                <radiogroup id="order_surcharge_limit_type" form="userForm" name="order_surcharge_limit_type" orient="horizontal">
+                                                <radiogroup id="order_surcharge_limit_type" form="userForm" name="order_surcharge_limit_type" orient="horizontal" default="%" value="%">
                                                     <radio label="&users.limit.type.percentage;" value="%"/>
                                                     <radio label="&users.limit.type.absolute;" value="$"/>
                                                 </radiogroup>

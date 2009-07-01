@@ -1,0 +1,15 @@
+<!ENTITY packagebuilder.title "Package Builder">
+<!ENTITY packagebuilder.location "Location">
+<!ENTITY packagebuilder.sector "Sector">
+<!ENTITY packagebuilder.resolution "Resolution">
+<!ENTITY packagebuilder.locale "Locale">
+<!ENTITY packagebuilder.customcode "Include custom code">
+<!ENTITY packagebuilder.timezone "Set time zone">
+<!ENTITY packagebuilder.localization "Localization">
+<!ENTITY packagebuilder.description "Description">
+<!ENTITY packagebuilder.install "Package Installation">
+<!ENTITY packagebuilder.version "Version">
+<!ENTITY packagebuilder.pkgname "Package Name">
+<!ENTITY packagebuilder.creator "Creator">
+<!ENTITY packagebuilder.export "Export Package">
+<!ENTITY packagebuilder.translate "Translate">

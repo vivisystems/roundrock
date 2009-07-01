@@ -31,8 +31,9 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/models/storecontact.js" />
   <script type="application/x-javascript" src="chrome://viviecr/content/models/user.js" />
 
-  <!-- include component -->
+  <!-- include components -->
   <script type="application/x-javascript" src="chrome://viviecr/content/controllers/components/tax.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/controllers/components/package.js" />
 
   <!-- include controller -->
   <script type="application/x-javascript" src="chrome://viviecr/content/controllers/setup_wizard_controller.js" />

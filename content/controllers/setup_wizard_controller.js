@@ -4,7 +4,7 @@
 
         name: 'SetupWizard',
         
-        components: ['Tax'],
+        components: ['Tax', 'Package'],
 
         // configuration keys
         PackageKey: 'vivipos.fec.registry.package',
@@ -43,65 +43,11 @@
             var resolution = this.screenwidth + 'x' + this.screenheight;
 
             // initialize locations
-            this.Packages = GeckoJS.Configure.read(this.PackageKey);
-            GeckoJS.BaseObject.getKeys(this.Packages).forEach(function(location) {
-
-                // need to make sure location contains sectors with support resolution
-                var sectors =[];
-                var packages = this.Packages[location];
-                for (var sector in packages) {
-                    var pkg = packages[sector];
-                    if (pkg && pkg.resolutions && (pkg.resolutions.indexOf(resolution) != -1)) {
-
-                        // retrieve localized sector label
-                        var label = pkg.label || '';
-                        if (label && label.indexOf('chrome://') == 0) {
-                            label = _(this.PackageKey + '.' + location + '.' + sector + '.label');
-                        }
-                        else {
-                            label = _(label);
-                        }
-
-                        // retrieve localized sector description
-                        var desc = pkg.description || '';
-                        if (desc && desc.indexOf('chrome://') == 0) {
-                            desc = _(this.PackageKey + '.' + location + '.' + sector + '.description');
-                        }
-                        else {
-                            desc = _(desc);
-                        }
-
-                        pkg.label = label;
-                        pkg.description = desc;
-                        pkg.sector = sector;
-
-                        sectors.push(pkg);
-                    }
-                }
-                if (sectors.length > 0) {
-                    this.Locations.push({label: _('(location)' + location), location: location});
-
-                    sectors.sort(function(a, b) {
-                                     if (a.label > b.label)
-                                         return 1;
-                                     else if (a.label < b.label)
-                                         return -1
-                                     else
-                                         return 0;
-                    });
-                    this.Sectors[location] = sectors;
-                }
-            }, this);
-
-            // sort locations by label
-            this.Locations.sort(function(a, b) {
-                                    if (a.label > b.label)
-                                        return 1;
-                                    else if (a.label < b.label)
-                                        return -1;
-                                    else
-                                        return 0;
-                                });
+            var data = this.Package.loadData(resolution);
+            this.Packages = data.packages;
+            this.Locations = data.locations;
+            this.Sectors = data.sectors;
+            
             this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
 
             // initialize timezone
@@ -198,9 +144,10 @@
             var location = this.selectedLocation.location;
 
             // read timezone
-            if (this.Packages[location].timezone) {
+            if (this.selectedLocation.timezone) {
                 var timezones = document.getElementById('timezones');
-                timezones.selectedTimezone = this.Packages[location].timezone;
+                timezones.selectedTimezone = this.selectedLocation.timezone;
+                timezones.updateTimezone();
             }
             this.initSectorList();
 
@@ -368,7 +315,6 @@
                 return true;
             }
             this.selectedSector = this.lastSector;
-
             var datapath = this.selectedSector.datapath;
             if (datapath) {
                 try {
@@ -608,19 +554,25 @@
             // 4. configure default tax
             // 5. update store contact
             // 6. update terminal number in sync settings
+            // 7. copy code
 
             // 1. configure selectedSkin
             var newSkin = this.selectedSector.skin.replace('${width}', this.screenwidth).replace('${height}', this.screenheight );
+            alert('configuring new skin: ' + newSkin);
             GeckoJS.Configure.write('general.skins.selectedSkin', newSkin);
-
+            alert('written');
             // 2. if default user is selected, configure default user and enable automatic login
             if (this.selectedDefaultUser) {
                 GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', this.selectedDefaultUser);
+            alert('written');
                 GeckoJS.Configure.write('vivipos.fec.settings.DefaultLogin', true);
+            alert('written');
             }
             else {
                 GeckoJS.Configure.remove('vivipos.fec.settings.DefaultUser', true);
+            alert('written');
                 GeckoJS.Configure.write('vivipos.fec.settings.DefaultLogin', false);
+            alert('written');
             }
 
             // 3. set admin password
@@ -646,9 +598,11 @@
             // 4. configure default tax
             if (this.selectedDefaultTaxID) {
                 GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', this.selectedDefaultTaxID);
+            alert('written');
             }
             else {
                 GeckoJS.Configure.remove('vivipos.fec.settings.DefaultTaxStatus', true);
+            alert('written');
             }
 
             // 5. update store contact
@@ -679,6 +633,18 @@
             settings.machine_id = this.storeInformation.terminal_no;
             (new SyncSetting()).save(settings);
             
+            // 7. copy code
+            if (this.selectedSector.customcode) {
+                // make sure code archive exists
+                var profPath = GeckoJS.Configure.read('ProfD');
+                var codePath = GREUtils.File.chromeToPath(this.selectedSector.datapath + '/' + this.selectedSector.customcode);
+                if (GREUtils.File.exists(codePath)) {
+                    var exec = new GeckoJS.File('/bin/tar');
+                    exec.run(['-xzf', codePath, '-C', profPath + '/extensions'], true);
+                    exec.close();
+                }
+            }
+
             this.args.initialized = true;
             return true;
         },
@@ -691,7 +657,6 @@
                                           'Are you sure you want to cancel and exit from the setup wizard now?'))) {
                 data.initialized = false;
                 data.cancelled = true;
-//GREUtils.restartApplication();
             }
             else {
                 data.cancelled = false;

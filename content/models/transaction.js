@@ -1208,6 +1208,16 @@
             Transaction.events.dispatch('onCalcItemSubtotal', item, this);
         },
 
+        _computeLimit: function(amount, rate, type) {
+            if (type == '$') {
+                return rate;
+            }
+            else if (type == '%') {
+               return amount * rate / 100;
+            }
+            else
+                return amount;
+        },
 
         appendDiscount: function(index, discount){
 
@@ -1228,9 +1238,25 @@
                 else {
                     discount_amount = item.current_subtotal * discount.amount;
                 }
+
+                // rounding discount
+                item.current_discount = this.getRoundedPrice(item.current_discount);
+
+                // check if discount amount exceeds user item discount limit
+                var user = GeckoJS.Session.get('user');
+                var item_discount_limit = parseInt(user.item_discount_limit);
+                if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
+                    var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
+                    if (discount_amount > item_discount_limit_amount) {
+                        NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
+                                           [discount_amount, item_discount_limit_amount]));
+                        return;
+                    }
+                }
+            
                 if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
                     // discount too much
-                    NotifyUtils.warn(_('Discount amount [%S] may not exceed item amout [%S]',
+                    NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
                         [this.formatPrice(this.getRoundedPrice(discount_amount)),
                         item.current_subtotal]));
                     return;
@@ -1240,9 +1266,6 @@
                 item.discount_rate =  discount.amount;
                 item.discount_type =  discount.type;
                 item.hasDiscount = true;
-
-                // rounding discount
-                item.current_discount = this.getRoundedPrice(item.current_discount);
 
                 // create data object to push in items array
                 var itemDisplay = this.createDisplaySeq(item.index, item, 'discount');
@@ -1336,6 +1359,7 @@
             var itemDisplay = this.getDisplaySeqAt(index); // last seq
             var itemIndex = itemDisplay.index;
             var lastItemDispIndex;
+            var surcharge_amount;
             var resultItem;
 
             var prevRowCount = this.data.display_sequences.length;
@@ -1344,20 +1368,32 @@
 
             if (item && item.type == 'item') {
 
-                item.surcharge_name = surcharge.name;
-                item.surcharge_rate =  surcharge.amount;
-                item.surcharge_type =  surcharge.type;
-                item.hasSurcharge = true;
-
-                if (item.surcharge_type == '$') {
-                    item.current_surcharge = surcharge.amount;
+                if (surcharge.type == '$') {
+                    surcharge_amount = surcharge.amount;
                 }else {
-                    item.current_surcharge = item.current_subtotal * item.surcharge_rate;
+                    surcharge_amount = item.current_subtotal * surcharge.amount;
                 }
 
                 // rounding surcharge
-                item.current_surcharge = this.getRoundedPrice(item.current_surcharge);
+                surcharge_amount = this.getRoundedPrice(surcharge_amount);
 
+                // check if discount amount exceeds user limit
+                var user = GeckoJS.Session.get('user');
+                var surcharge_limit = parseInt(user.item_surcharge_limit);
+                if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
+                    var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
+                    if (surcharge_amount > surcharge_limit_amount) {
+                        NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
+                                           [surcharge_amount, surcharge_limit_amount]));
+                        return;
+                    }
+                }
+
+                item.surcharge_name = surcharge.name;
+                item.surcharge_rate = surcharge.amount;
+                item.surcharge_type = surcharge.type;
+                item.current_surcharge = surcharge_amount;
+                item.hasSurcharge = true;
 
                 // create data object to push in items array
                 var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
