@@ -27,6 +27,10 @@ class SyncToolsShell extends SyncBaseShell {
     function truncate() {
 
         $syncSettings = $this->readSyncSettings();
+        $active = $syncSettings['active'];
+
+        // sync not active , not truncate databases.
+        if (empty($active) ) return;
 
         if (empty($syncSettings['retain_days'])) $retain_days = 7;
         else $retain_days = $syncSettings['retain_days'];

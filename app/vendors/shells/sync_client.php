@@ -18,16 +18,16 @@ System_Daemon::setOption("logVerbosity", System_Daemon::LOG_INFO);
 
 class SyncClientShell extends SyncBaseShell {
 
-    /**
-     * Startup method for the shell
-     */
+/**
+ * Startup method for the shell
+ */
     function startup() {
 
         parent::startup();
     }
 
     /**
-     * 
+     *
      */
     function help() {
 
@@ -41,7 +41,7 @@ class SyncClientShell extends SyncBaseShell {
     }
 
     /**
-     * 
+     *
      */
     function sync() {
 
@@ -84,13 +84,13 @@ class SyncClientShell extends SyncBaseShell {
         }
 
         $this->out('syncing finished');
-        
+
     }
 
-/**
- * start as daemon
- *
- */
+    /**
+     * start as daemon
+     *
+     */
     function start() {
 
     // set php time limit to unlimimted
@@ -135,7 +135,7 @@ class SyncClientShell extends SyncBaseShell {
         while (!System_Daemon::isDying()/* && $runningOkay*/) {
 
 
-            // remove syncStatus
+        // remove syncStatus
             $this->syncStatus('');
             //
             // is ok?
@@ -183,7 +183,8 @@ class SyncClientShell extends SyncBaseShell {
             if($runningOkay) {
                 sleep($interval);
             }else {
-            // if not runningOkay sleeping next day start_time
+
+                // if not runningOkay sleeping next day start_time
                 $now = time();
                 $nowStarTime = strtotime(date("Y-m-d H") . ":00:00");
 
@@ -191,11 +192,12 @@ class SyncClientShell extends SyncBaseShell {
                     $nextStartTime = strtotime(date("Y-m-d ") . "$startHour:00:00");
                 }else if ($nowHour > $endHour) {
                     // next day
-                        $nextStartTime = $nowStarTime + 3600 * (24 - $nowHour + $startHour);
-                    }
+                    $nextStartTime = $nowStarTime + 3600 * (24 - $nowHour + $startHour);
+                }
 
                 System_Daemon::log(System_Daemon::LOG_INFO, "not runningOkay in time, sleep " . ($nextStartTime - $now) );
                 sleep($nextStartTime - $now);
+                
             }
 
         }

@@ -689,7 +689,7 @@ class SyncHandlerComponent extends Object {
 
         $datasources = $this->getSourceList();
 
-        $retain_time = time() - 86400*$retain_days;
+        $retain_time = time() - 86400 * $retain_days;
 
         $rowCount = 0 ;
         foreach($datasources as $dbConfig ) {
