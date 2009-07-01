@@ -785,7 +785,7 @@
                                     }
                 });
                 
-                self._tableOrderLastTime = tableOrder[tableOrder.length - 1].TableOrder.TableOrder.modified;
+                self._tableOrderLastTime = tableOrder[tableOrder.length - 1].TableOrder.modified;
             }
 // GREUtils.log("tableOrder:::" + lastModified);
 // GREUtils.log(GeckoJS.BaseObject.dump(tableOrder));

@@ -33,6 +33,7 @@
         },
 
         removeOldOrder: function(iid) {
+return true;
             var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
             if (r) {
 
@@ -53,7 +54,7 @@
         },
 
         removeOldOrderObject: function(iid) {
-
+return true;
             var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
             if (r) {
 
@@ -96,7 +97,7 @@
 
                 return -2;
             }
-
+/*
             // begin to save order
             r = this.begin();
             if (r) {
@@ -119,25 +120,54 @@
                 }
                 if (r) r = this.commit();
             }
+*/
+r = false;
 
             if(!r) {
                 this.log('ERROR', 'save order to backup , notify user ???');
 
-                this.rollback();
-                
+//                this.rollback();
+alert("000: order:" + this.useDbConfig + ", orderItem:" + this.OrderItem.useDbConfig);
                 this.saveToBackup(this.mappingTranToOrderFields(data));
+alert("001: order:" + this.useDbConfig + ", orderItem:" + this.OrderItem.useDbConfig);
                 this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
-                this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
-                this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
-                this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
-                this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
-                this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
+alert("002: order:" + this.useDbConfig + ", orderItem:" + this.OrderItem.useDbConfig);
+//                this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
+//                this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
+//                this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
+//                this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
+//                this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
+/*
+                this.OrderItem.restoreFromBackup();
+                this.OrderAddition.restoreFromBackup();
+                this.OrderPayment.restoreFromBackup();
+                this.OrderAnnotation.restoreFromBackup();
+                this.OrderItemCondiment.restoreFromBackup();
+                this.OrderPromotion.restoreFromBackup();
+*/
 
+alert("111");
+                // var r = this.find("all", {recursive: 2});
+                // this.OrderItem.useDbConfig = 'order';
+                // r = this.OrderItem.find("all", {recursive: 0});
+//                var cond = "order_id='" + data.id + "'";
+//                this.OrderItem.delAll(cond);
+
+
+//                GREUtils.log(GeckoJS.BaseObject.dump(items));
+alert("222");
+//var orders = new OrderItemModel;
+//items = orders.find("all", {recursive: 0});
+//// GREUtils.log(GeckoJS.BaseObject.dump(items));
+//alert("333");
                 if (data.status == 2) {
                     this.serializeOrder(data, true);
                 }
-
+alert("444");
                 // save fail, saveToBackup, return -1
+                
+                
+
                 return -1;
 
             }else {
