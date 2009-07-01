@@ -24,34 +24,34 @@
 
         var self = this;
         this.ready = function() {
-	    if (self.events) {
-		var changeHandler = function (evt) {
-		    var key = evt.getData().key;
+            if (self.events) {
+                var changeHandler = function (evt) {
+                    var key = evt.getData().key;
 
-		    if (key == self.option) {
-			self.render();
-		    }
-		}
+                    if (key == self.option) {
+                        self.render();
+                    }
+                }
 
-		var removeHandler = function (evt) {
-		    var key = evt.getData();
-		    if (key == self.option) {
-			self.render();
-		    }
-		}
+                var removeHandler = function (evt) {
+                    var key = evt.getData();
+                    if (key == self.option) {
+                        self.render();
+                    }
+                }
 
-		var clearHandler = function (evt) {
-		    self.render();
-		}
+                var clearHandler = function (evt) {
+                    self.render();
+                }
 
-		self.events.addListener('write', changeHandler, this);
-		self.events.addListener('remove', removeHandler, this);
-		self.events.addListener('clear', clearHandler, this);
-	    }
+                self.events.addListener('write', changeHandler, this);
+                self.events.addListener('remove', removeHandler, this);
+                self.events.addListener('clear', clearHandler, this);
+            }
         
-	    self.changeHandler = changeHandler;
-	    self.removeHandler = removeHandler;
-	    self.clearHandler = clearHandler;
+            self.changeHandler = changeHandler;
+            self.removeHandler = removeHandler;
+            self.clearHandler = clearHandler;
 
             self.render();
         };
@@ -71,15 +71,15 @@
         </constructor>
 
         <destructor><![CDATA[
-        //window.removeEventListener('DOMContentLoaded', this.ready, true);
-        window.removeEventListener('load', this.ready, true);
+            //window.removeEventListener('DOMContentLoaded', this.ready, true);
+            window.removeEventListener('load', this.ready, true);
         
-        if (this.events) {
-            this.events.removeListener('change', this.changeHandler);
-            this.events.removeListener('remove', this.removeHandler);
-            this.events.removeListener('clear', this.clearHandler);
-        }
-//          this.observer.unregister();
+            if (this.events) {
+                this.events.removeListener('change', this.changeHandler);
+                this.events.removeListener('remove', this.removeHandler);
+                this.events.removeListener('clear', this.clearHandler);
+            }
+    //          this.observer.unregister();
         ]]>
         </destructor>
 
