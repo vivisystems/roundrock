@@ -238,8 +238,7 @@
                 var stockRecord = stockRecordModel.getStockRecordByProductNo( product.no );
                 if (stockRecord) {
                     product.stock = stockRecord.quantity;
-                }
-                else {
+                } else {
                     product.stock = 0;
                 }
                 
@@ -813,13 +812,6 @@
                 var prodModel = new ProductModel();
                 prodModel.id = inputData.id;
                 prodModel.save(inputData);
-
-                // Insert stock difference into stock_adjustments.
-                var stockAdjustmentsController =
-                    GeckoJS.Controller.getInstanceByName( "StockAdjustments" );
-                // Get stock info. used in the stockAdjustmentsController.
-                stockAdjustmentsController.list();
-                stockAdjustmentsController.adjustStock( product.no, inputData.stock, "Done in product page" );
 
                 // update set items
                 var setItemModel = new SetItemModel();

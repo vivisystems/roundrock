@@ -171,15 +171,23 @@
         load: function () {
             this.syncSettings = (new SyncSetting()).read();
             
-            // insert untracked product into stock_record table.
-            var sql = "SELECT distinct p.no, p.barcode FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) WHERE s.product_no IS NULL;";
+            // insert untracked products into stock_record table.
+            var sql = "SELECT p.no, p.barcode FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) WHERE s.product_no IS NULL;";
             var products = this.Product.getDataSource().fetchAll( sql );
             
-            if ( products.length > 0 ) {
-                var stockRecordModel = new StockRecordModel();
+            var stockRecordModel = new StockRecordModel();
+            if ( products.length > 0 )
             	stockRecordModel.insertNewRecords( products );
-            }
             
+            // remove the products which no longer exist from stock_record table.
+            sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON ( s.product_no = p.no ) WHERE p.no IS NULL;";
+            var stockRecords = stockRecordModel.getDataSource().fetchAll( sql );
+            if ( stockRecords.length > 0 ) {
+                stockRecords.forEach( function( stockRecord ) {
+                    stockRecordModel.remove( stockRecord.id );
+                } );
+            }
+                        
             this.reload();
         },
         

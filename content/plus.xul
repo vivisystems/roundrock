@@ -24,7 +24,6 @@
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
-  <script src="chrome://viviecr/content/models/stock_adjustment.js" type="application/x-javascript"/>
   <script src="chrome://viviecr/content/models/stock_record.js" type="application/x-javascript"/>
 
   <!-- include views -->
@@ -38,7 +37,6 @@
   <!-- include controllers -->
   <script src="chrome://viviecr/content/controllers/plus_controller.js" type="application/x-javascript"/>
   <script src="chrome://viviecr/content/controllers/plusearch_controller.js" type="application/x-javascript"/>
-  <script src="chrome://viviecr/content/controllers/stock_adjustments_controller.js" type="application/x-javascript"/>
 
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
@@ -237,9 +235,9 @@
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.stock.level;" control="stock"/>
-                                                <!--textbox id="stock" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()"/-->
-                                                <vivitextbox id="stock" type="number" max="infinity" min="infinity" value="" form="productForm" name="stock" onfocus="this.select()"
-                                                  numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>
+                                                <textbox id="stock" type="number" decimalplaces="Infinity" readonly="true" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()" />
+                                                <!--vivitextbox id="stock" type="number" max="infinity" min="infinity" value="" form="productForm" name="stock" onfocus="this.select()"
+                                                  numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/-->
                                             </vbox>
                                         </row>
                                         <row>
