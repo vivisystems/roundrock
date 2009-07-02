@@ -1018,7 +1018,6 @@
                                     indexCate[(data.cate_no+"")].push("");
                                 }
                             }
-
                         }
                     }
                     
@@ -1035,7 +1034,6 @@
                             }
                             indexLinkGroupAll[(group+"")].push((data.id+""));
                             if(GeckoJS.String.parseBoolean(data.visible)) indexLinkGroup[(group+"")].push((data.id+""));
-
                         });
                     }
                     break;

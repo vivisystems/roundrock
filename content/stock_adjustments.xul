@@ -18,7 +18,7 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <keyset id="keyset_extensions">
-        <key id="key_enter" keycode="VK_RETURN" oncommand="$do('searchPlu', null, 'StockAdjustments');"/>
+        <key id="key_enter" keycode="VK_RETURN" oncommand="$do('searchPlu', null, 'StockRecords');"/>
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
     </keyset>
 
@@ -30,7 +30,7 @@
   <script src="chrome://viviecr/content/models/stock_record.js" type="application/x-javascript"/>
 
   <!-- include controller -->
-  <script src="chrome://viviecr/content/controllers/stock_adjustments_controller.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/stock_records_controller.js" type="application/x-javascript"/>
 
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/stock_adjustments.js" />
@@ -40,10 +40,10 @@
             <vbox flex="1"  class="MainL">
                 <caption label="&stockadjustments.title;"  class="PageTitle" />
                 <vbox pack="start" flex="1" class="LeftPnl">
-                    <vivitree id="stockadjustmentscrollablepanel" flex="1" rows="2" hidevscroll="true"
+                    <vivitree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true"
                                         headers="&stockadjustments.header.no;,&stockadjustments.header.product;,&stockadjustments.header.quantity;,&stockadjustments.header.memo;"
                                         fields="product_no,product_name,quantity,memo"
-                                        onclick="$do('select',this.selectedIndex, 'StockAdjustments');"
+                                        onclick="$do('select',this.selectedIndex, 'StockRecords');"
                                         class="plupnl ListPnl showscrollbar"
                                         scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" />
                 </vbox>
@@ -70,13 +70,13 @@
                                 <vbox>
                                     <label value="&stockadjustments.label.quantity;" control="quantity"/>
                                     <vivitextbox id="quantity" type="number" max="infinity" min="infinity" value="" form="productForm" name="quantity" size="14" maxsize="14"
-                                         oninput="$do('validateForm', null, 'StockAdjustments')" onfocus="this.select()"
+                                         oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
                                          numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
                                 </vbox>
                                 <vbox>
                                     <label value="&stockadjustments.label.memo;" control="memo"/>
                                     <vivitextbox id="memo" value="" form="productForm" name="memo"
-                                         oninput="$do('validateForm', null, 'StockAdjustments')" onfocus="this.select()"
+                                         oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
                                          numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
                                 </vbox>
                                 <vbox>
@@ -91,7 +91,7 @@
                 <hbox>
 		            <hbox class="ToolBar" flex="1">
 	                    <hbox flex="1">
-	                    	<button id="modify_stock" label="&stockadjustments.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyStock', null, 'StockAdjustments');" />
+	                    	<button id="modify_stock" label="&stockadjustments.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyStockForStockAdjustment', null, 'StockRecords');" />
 	                    </hbox>
 		            </hbox>
 		            <hbox flex="0" id="dialogButtons" class="dialogbtns" pack="end">

@@ -25,7 +25,6 @@
         getListObj: function() {
             if( this._listObj == null ) {
                 this._listObj = document.getElementById( 'stockrecordscrollablepanel' );
-                //this._stockRecordsByProductNo = GeckoJS.Session.get( 'stockRecordsByProductNo' );
                 this._barcodesIndexes = GeckoJS.Session.get( 'barcodesIndexes' );
             }
             return this._listObj;
@@ -54,40 +53,11 @@
             } );
         },
 
-        /*beforeScaffoldView: function(evt) {
-            this._listObj.selectedIndex = this._selectedIndex;
-        },*/
-
-        afterScaffoldEdit: function (evt) {
-        /*if (evt.justUpdate) {
-                // update stock in session...
-                var stockRecordsByProductNo = GeckoJS.Session.get( 'stockRecordsByProductNo' );
-                var product = stockRecordsByProductNo[ evt.data.id ];
-                product.stock = evt.data.stock;
-                product.min_stock = evt.data.min_stock;
-            } else {
-                var product = this._stockRecordsByProductNo[ evt.data.id ];
-                product.stock = evt.data.stock;
-                product.min_stock = evt.data.min_stock;
-
-                var productModel = new ProductModel();
-                var products = productModel.find( 'all', {
-                    order: 'no'
-                } );
-                this._listData = products;
-                this.updateStock();
-
-                OsdUtils.info( _( 'Stock level for [%S] modified successfully', [ evt.data.name ]) );
-            }*/
-        },
-
         searchPlu: function () {
             var barcode = document.getElementById( 'plu' ).value.replace( /^\s*/, '' ).replace( /\s*$/, '' );
             $( '#plu' ).val( '' ).focus();
             if ( barcode == '' ) return;
 
-            // var stockRecordsByProductNo = GeckoJS.Session.get( 'stockRecordsByProductNo' );
-            // var barcodesIndexes = GeckoJS.Session.get( 'barcodesIndexes' );
             var product;
 
             if ( !this._barcodesIndexes[ barcode ] ) {
@@ -110,8 +80,15 @@
         },
 
         updateStock: function ( reset ) {
-            var lowstock = document.getElementById( 'show_low_stock' ).checked;
-            var qtyDiff = document.getElementById( 'show_qty_diff' ).checked;
+            var lowstock = false;
+            var showLowStock = document.getElementById( 'show_low_stock' );
+            if ( showLowStock )
+                lowstock = document.getElementById( 'show_low_stock' ).checked;
+            
+            var qtyDiff = false;
+            var showQtyDiff = document.getElementById( 'show_qty_diff' );
+            if ( showQtyDiff )
+                qtyDiff = document.getElementById( 'show_qty_diff' ).checked;
 
             if ( lowstock ) {
                 var oldlength = this._records.length;
@@ -139,7 +116,6 @@
             }
             
             this._listObj.refresh();
-            //this.select( this._selectedIndex );
             this.validateForm();
         },
 
@@ -221,16 +197,28 @@
         validateForm: function () {
             var inputObj = GeckoJS.FormHelper.serializeToObject( 'productForm' );
             if ( inputObj.product_no != null && inputObj.product_no != '' ) {
-                var newQuantity = inputObj.new_quantity.replace( /^\s*/, '' ).replace( /\s*$/, '' );
-                //var min_stock = inputObj.min_stock.replace( /^\s*/, '' ).replace( /\s*$/, '' );
+                var newQuantity = null;
+                if ( inputObj.new_quantity )
+                    newQuantity = inputObj.new_quantity.replace( /^\s*/, '' ).replace( /\s*$/, '' );
+                var quantity = null;
+                if ( inputObj.quantity )
+                    quantity = inputObj.quantity.replace( /^\s*/, '' ).replace( /\s*$/, '' );// used in stock_adjustment.xul.
 
-                document.getElementById( 'modify_stock' ).setAttribute( 'disabled', isNaN( newQuantity ) );
-                //document.getElementById( 'quantity' ).removeAttribute( 'disabled' );
-                document.getElementById( 'new_quantity' ).removeAttribute( 'disabled' );
+                document.getElementById( 'modify_stock' ).setAttribute( 'disabled', isNaN( newQuantity || quantity ) );
+                var qty = document.getElementById( 'quantity' );
+                if ( qty )
+                    qty.removeAttribute( 'disabled' );// used in stock_adjustment.xul.
+                var new_qty = document.getElementById( 'new_quantity' ); 
+                if ( new_qty )
+                    new_qty.removeAttribute( 'disabled' );
             } else {
                 document.getElementById( 'modify_stock' ).setAttribute( 'disabled', true );
-                //document.getElementById( 'quantity' ).setAttribute( 'disabled', true );
-                document.getElementById( 'new_quantity' ).setAttribute( 'disabled', true );
+                var qty = document.getElementById( 'quantity' );
+                if ( qty )
+                    qty.setAttribute( 'disabled', true );// used in stock_adjustment.xul.
+                var new_qty = document.getElementById( 'new_quantity' ); 
+                if ( new_qty )
+                    new_qty.setAttribute( 'disabled', true );
             }
         },
         
@@ -238,9 +226,9 @@
             if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to reset all the stock records?' ) ) )
                 return;
         		
-            var oldRowCount = this._listObj.datasource.tree.view.rowCount;
-            if ( oldRowCount > 0 )// We have to remove the existent data and refresh the treeview first.
-                this._listObj.datasource.tree.rowCountChanged( 0, -oldRowCount );
+            //var oldRowCount = this._listObj.datasource.tree.view.rowCount;
+            //if ( oldRowCount > 0 )// We have to remove the existent data and refresh the treeview first.
+                //this._listObj.datasource.tree.rowCountChanged( 0, -oldRowCount );
                 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
@@ -268,24 +256,19 @@
                 stockQuantity = inputObj.input0;
             }
             
-            var stockRecordModel = new StockRecordModel();
+            this._records.forEach( function( record ) {
+                record.new_quantity = stockQuantity;
+                record.qty_difference = record.new_quantity - record.quantity;
+            } );
         	
-        	var stockRecords = stockRecordModel.getAll( "all" );
-        	stockRecords.forEach( function( stockRecord ) {
-        	    delete stockRecord.StockRecord;
-        	    stockRecord.quantity = stockQuantity;
-        	} );
-        	stockRecordModel.setAll( stockRecords );
-        	
-            this.reload();
-        	
+            this.updateStock();
+            
             // not doing so makes the tree panel show nothing.
-            var rowCount = this._listObj.datasource.tree.view.rowCount;
-            this._listObj.datasource.tree.rowCountChanged( 0, rowCount );
+            //var rowCount = this._listObj.datasource.tree.view.rowCount;
+            //this._listObj.datasource.tree.rowCountChanged( 0, rowCount );
         },
         
         modifyStock: function() {
-            //var product_id = document.getElementById( 'plu_id' ).value;
             var product_no = document.getElementById( 'product_no' ).value;
             var newQuantity = document.getElementById( 'new_quantity' ).value;
             var memo = document.getElementById( 'memo' ).value;
@@ -420,6 +403,41 @@
         	
             // renew the content of the tree.
             this.updateStock();
+        },
+        
+        modifyStockForStockAdjustment: function() {// used by stock adjustment.
+            var product_no = document.getElementById( 'product_no' ).value;
+        	var quantity = parseInt( document.getElementById( 'quantity' ).value, 10 );
+        	var memo = document.getElementById( 'memo' ).value;
+        	
+        	this.adjustStock( product_no, quantity, memo );
+        	
+        	this.updateStock();
+        },
+        
+        adjustStock: function( product_no, quantity, memo ) {// used by stock adjustment.
+        	var stockRecord = this._stockRecordsByProductNo[ product_no ];
+        	var qty_difference = quantity - stockRecord.quantity;
+        	stockRecord.quantity = quantity;
+        	stockRecord.memo = memo;
+        	
+        	var user = this.Acl.getUserPrincipal();
+        	
+        	var stockRecordModel = new StockRecordModel();
+        	stockRecordModel.set( stockRecord );
+        	
+        	var adjustment = {};
+        	for ( attr in stockRecord )
+        		adjustment[ attr ] = stockRecord[ attr ];
+        	adjustment.id = '';
+        	adjustment.difference = qty_difference;
+        	adjustment.new_quantity = quantity;
+        	adjustment.sale_period = GeckoJS.Session.get( 'sale_period' );
+        	adjustment.shift_number = GeckoJS.Session.get( 'shift_number' );
+        	adjustment.clerk = user.username;
+        	
+        	var stockAdjustmentModel = new StockAdjustmentModel();
+        	stockAdjustmentModel.set( adjustment );
         }
     };
     

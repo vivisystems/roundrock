@@ -1,7 +1,4 @@
 ( function() {
-    
-    // for using the checkMedia method.
-    include( 'chrome://viviecr/content/reports/controllers/components/check_media.js' );
 
     var __controller__ = {
 
@@ -44,7 +41,7 @@
             
             // construct _stockRecordsByProductNo.
             this._stockRecordsByProductNo = {};
-            stockRecordsByProductNo = this._stockRecordsByProductNo;
+            var stockRecordsByProductNo = this._stockRecordsByProductNo;
             stockRecords.forEach( function( stockRecord ) {
             	stockRecord.memo = '';
             	stockRecordsByProductNo[ stockRecord.product_no ] = stockRecord;
@@ -145,7 +142,7 @@
             }
         },
         
-        modifyStock: function() {
+        modifyStock: function() {// used by stock adjustment.
             var product_no = document.getElementById( 'product_no' ).value;
         	var quantity = parseInt( document.getElementById( 'quantity' ).value, 10 );
         	var memo = document.getElementById( 'memo' ).value;
@@ -155,7 +152,7 @@
         	this.updateStock();
         },
         
-        adjustStock: function( product_no, quantity, memo ) {
+        adjustStock: function( product_no, quantity, memo ) {// used by stock adjustment.
         	var stockRecord = this._stockRecordsByProductNo[ product_no ];
         	var qty_difference = quantity - stockRecord.quantity;
         	stockRecord.quantity = quantity;
