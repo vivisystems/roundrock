@@ -200,22 +200,13 @@
                 var newQuantity = null;
                 if ( inputObj.new_quantity )
                     newQuantity = inputObj.new_quantity.replace( /^\s*/, '' ).replace( /\s*$/, '' );
-                var quantity = null;
-                if ( inputObj.quantity )
-                    quantity = inputObj.quantity.replace( /^\s*/, '' ).replace( /\s*$/, '' );// used in stock_adjustment.xul.
 
                 document.getElementById( 'modify_stock' ).setAttribute( 'disabled', isNaN( newQuantity || quantity ) );
-                var qty = document.getElementById( 'quantity' );
-                if ( qty )
-                    qty.removeAttribute( 'disabled' );// used in stock_adjustment.xul.
                 var new_qty = document.getElementById( 'new_quantity' ); 
                 if ( new_qty )
                     new_qty.removeAttribute( 'disabled' );
             } else {
                 document.getElementById( 'modify_stock' ).setAttribute( 'disabled', true );
-                var qty = document.getElementById( 'quantity' );
-                if ( qty )
-                    qty.setAttribute( 'disabled', true );// used in stock_adjustment.xul.
                 var new_qty = document.getElementById( 'new_quantity' ); 
                 if ( new_qty )
                     new_qty.setAttribute( 'disabled', true );
@@ -288,6 +279,45 @@
             var records = this._records;
             var stockRecords = [];
             var user = this.Acl.getUserPrincipal();
+            
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var inputObj = {
+                input0: null,
+                require0: true,
+                numberOnly0: true,
+                input1: null,
+                require1: true,
+                numberOnly1: true
+            };
+
+            GREUtils.Dialog.openWindow(
+                this.topmostWindow,
+                aURL,
+                _( 'Set All Stock' ),
+                aFeatures,
+                _( 'Set All Stock' ),
+                '',
+                _( 'Type:' ),
+                _( 'Remark:' ),
+                inputObj
+            );
+            
+            var commitmentType = '';
+            var commitmentRemark = '';
+            if ( inputObj.ok && inputObj.input0 && inputObj.input1 ) {
+                commitmentType = inputObj.input0;
+                commitmentRemark = inputObj.input1;
+            }
+            
+            var commitmentID = GeckoJS.String.uuid();
+            
+            var inventoryCommitmentModel = new InventoryCommitmentModel();
+            inventoryCommitmentModel.set( {
+                id: commitmentID,
+                type: commitmentType,
+                remark: commitmentRemark
+            } );
         	
             for ( record in records ) {
                 stockRecords.push( {
@@ -297,6 +327,7 @@
                     quantity: records[ record ].new_quantity
                 } );
                 records[ record ].clerk = user.username;
+                records[ record ].commitment_id = commitmentID;
             }
         	
             var stockRecordModel = new StockRecordModel();
@@ -403,41 +434,6 @@
         	
             // renew the content of the tree.
             this.updateStock();
-        },
-        
-        modifyStockForStockAdjustment: function() {// used by stock adjustment.
-            var product_no = document.getElementById( 'product_no' ).value;
-        	var quantity = parseInt( document.getElementById( 'quantity' ).value, 10 );
-        	var memo = document.getElementById( 'memo' ).value;
-        	
-        	this.adjustStock( product_no, quantity, memo );
-        	
-        	this.updateStock();
-        },
-        
-        adjustStock: function( product_no, quantity, memo ) {// used by stock adjustment.
-        	var stockRecord = this._stockRecordsByProductNo[ product_no ];
-        	var qty_difference = quantity - stockRecord.quantity;
-        	stockRecord.quantity = quantity;
-        	stockRecord.memo = memo;
-        	
-        	var user = this.Acl.getUserPrincipal();
-        	
-        	var stockRecordModel = new StockRecordModel();
-        	stockRecordModel.set( stockRecord );
-        	
-        	var adjustment = {};
-        	for ( attr in stockRecord )
-        		adjustment[ attr ] = stockRecord[ attr ];
-        	adjustment.id = '';
-        	adjustment.difference = qty_difference;
-        	adjustment.new_quantity = quantity;
-        	adjustment.sale_period = GeckoJS.Session.get( 'sale_period' );
-        	adjustment.shift_number = GeckoJS.Session.get( 'shift_number' );
-        	adjustment.clerk = user.username;
-        	
-        	var stockAdjustmentModel = new StockAdjustmentModel();
-        	stockAdjustmentModel.set( adjustment );
         }
     };
     
