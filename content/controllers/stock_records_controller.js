@@ -35,9 +35,9 @@
             var stockRecordModel = new StockRecordModel();
             
             var sql =
-            "select s.*, p.no as product_no, p.name as product_name, p.min_stock as min_stock " +
-            "from stock_records s join products p on s.product_no = p.no " +
-            "order by product_no;"; // the result must be sorted by product_no for the use of binary search in locateIndex method.
+                "select s.*, p.no as product_no, p.name as product_name, p.min_stock as min_stock " +
+                "from stock_records s join products p on s.product_no = p.no " +
+                "order by product_no;"; // the result must be sorted by product_no for the use of binary search in locateIndex method.
             	
             var stockRecords = stockRecordModel.getDataSource().fetchAll( sql );
             
@@ -169,9 +169,21 @@
         },
 
         load: function () {
-
             this.syncSettings = (new SyncSetting()).read();
             
+            // insert untracked product into stock_record table.
+            var sql = "SELECT distinct p.no, p.barcode FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) WHERE s.product_no IS NULL;";
+            var products = this.Product.getDataSource().fetchAll( sql );
+            
+            if ( products.length > 0 ) {
+                var stockRecordModel = new StockRecordModel();
+            	stockRecordModel.insertNewRecords( products );
+            }
+            
+            this.reload();
+        },
+        
+        reload: function() {
             this._selectedIndex = -1;
             this.list();
             $( '#plu_id' ).val( '' );
@@ -221,32 +233,43 @@
             var oldRowCount = this._listObj.datasource.tree.view.rowCount;
             if ( oldRowCount > 0 )// We have to remove the existent data and refresh the treeview first.
                 this._listObj.datasource.tree.rowCountChanged( 0, -oldRowCount );
-        	
-            var sql = "select distinct no, barcode from products;";
-            var products = this.Product.getDataSource().fetchAll( sql );
-        	
-        	/*var aURL = 'chrome://viviecr/content/dialogs/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=300';
+                
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0: null,
                 require0: true,
                 numberOnly0: true
             };
-            
+
             GREUtils.Dialog.openWindow(
                 this.topmostWindow,
                 aURL,
-                _( 'Set All Stock' ),
-                aFeatures, _( 'Set All Stock' ),
+                _('Set All Stock'),
+                aFeatures,
+                _('Set All Stock'),
                 '',
-                _( 'Stock' ),
+                _('Quantity:'),
+                '',
                 inputObj
-            );*/
+            );
+            
+            // get and set the new stock quantity of all products.
+            var stockQuantity = 0;
+            if ( inputObj.ok && inputObj.input0 ) {
+                stockQuantity = inputObj.input0;
+            }
+            
+            var stockRecordModel = new StockRecordModel();
         	
-        	var stockRecordModel = new StockRecordModel();
-        	stockRecordModel.reset( products );
+        	var stockRecords = stockRecordModel.getAll( "all" );
+        	stockRecords.forEach( function( stockRecord ) {
+        	    delete stockRecord.StockRecord;
+        	    stockRecord.quantity = stockQuantity;
+        	} );
+        	stockRecordModel.setAll( stockRecords );
         	
-            this.load();
+            this.reload();
         	
             // not doing so makes the tree panel show nothing.
             var rowCount = this._listObj.datasource.tree.view.rowCount;
@@ -291,7 +314,7 @@
             var inventoryRecordModel = new InventoryRecordModel();
             inventoryRecordModel.setAll( records );
         	
-            this.load();
+            this.reload();
         },
 
         importRecords: function() {

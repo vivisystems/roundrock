@@ -131,13 +131,7 @@
 
         },
         
-        /**
-         * This method resets the stock_records table with products in 'products' parameter.
-         *
-         * @param products comprise products used to initialize the stock_records table, and it has to be in the form of
-         * an array containing objects in which the id of each products can be found.
-         */
-        reset: function( products ) {
+        insertNewRecords: function( products ) {
             var stockRecords = [];
 		    
             products.forEach( function( product ) {
@@ -146,15 +140,15 @@
                     product_no: product.no,
                     barcode: product.barcode,
                     warehouse: 'warehouse',
-                    quantity: 0
+                    quantity: product.quantity || 0
                 };
                 stockRecords.push( stockRecord );
             } );
 			
-            this.begin();
-            this.delAll( '' );
+            //this.begin();
+            //this.delAll( '' );
             this.saveAll( stockRecords );
-            this.commit();
+            //this.commit();
         },
 		
         set: function( stockRecord ) {
@@ -173,12 +167,12 @@
                         this.log(
                             'ERROR',
                             _( 'record saved to backup' )
-                            );
+                        );
                     } else {
                         this.log(
                             'ERROR',
                             _( 'record could not be saved to backup: %S', [ '\n' + this.dump( data ) ] )
-                            );
+                        );
                     }
                 }
                 return r;
