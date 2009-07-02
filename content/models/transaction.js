@@ -169,7 +169,7 @@
                 while (self.data.seq.length == 0) {
                     thread.processNextEvent(true);
                 }
-
+                // dump('length = '+self.data.seq.length+' \n');
             }
 
             // set sale period and shift number

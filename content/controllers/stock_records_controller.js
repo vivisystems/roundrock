@@ -20,6 +20,8 @@
         _folderName: 'vivipos_stock',
         _fileName: 'stock.csv',
 
+        syncSettings: null,
+
         getListObj: function() {
             if( this._listObj == null ) {
                 this._listObj = document.getElementById( 'stockrecordscrollablepanel' );
@@ -167,6 +169,9 @@
         },
 
         load: function () {
+
+            this.syncSettings = (new SyncSetting()).read();
+            
             this._selectedIndex = -1;
             this.list();
             $( '#plu_id' ).val( '' );

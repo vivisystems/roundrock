@@ -69,6 +69,7 @@
             /* Request Timeout guard */
             var timeout = null;
             timeout = setTimeout(function() {
+                
                 try {
                     req.abort();
 
@@ -86,7 +87,7 @@
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
 
             req.onreadystatechange = function (aEvt) {
-                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if (req.status == 200) {
@@ -97,6 +98,7 @@
                     }
                     // clear resources
                     if (async) {
+                        // status 0 -- timeout
                         if (callback) {
                             callback.call(this, seq);
                         }
