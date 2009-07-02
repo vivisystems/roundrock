@@ -7,9 +7,9 @@
 
         // determine if initialization has taken place by checking for the presence
         // of '.initialized' file under user profile
-        var procPath = GeckoJS.Configure.read('ProfD');
-        var initMarker = new GeckoJS.File(procPath + '/.initialized');
-        var firstRunMarker = new GeckoJS.File(procPath + '/.firstrun');
+        var profPath = GeckoJS.Configure.read('ProfD');
+        var initMarker = new GeckoJS.File(profPath + '/.initialized');
+        var firstRunMarker = new GeckoJS.File(profPath + '/.firstrun');
 
         if (!initMarker.exists()) {
             var aURL = 'chrome://viviecr/content/setup_wizard.xul';
@@ -66,6 +66,10 @@
         // check if this is first run
         if (firstRunMarker.exists()) {
             firstRunMarker.remove();
+
+            // remove user.js
+            GREUtils.File.remove(profPath + '/user.js');
+            
             if (GREUtils.Dialog.confirm(this.topmostWindow,
                                          _('Initial Setup'),
                                          _('Would you like to go to product import/export screen now?'))) {

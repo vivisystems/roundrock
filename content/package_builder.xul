@@ -82,7 +82,7 @@
                         <caption label="&packagebuilder.localization;" class="SubTitle"/>
                         <hbox flex="1">
                             <vivitree id="targetlocales" flex="1" class="showscrollbar"
-                                      headers="&packagebuilder.locale;" style="min-width: 70px"
+                                      headers="&packagebuilder.locale;" style="min-width: 120px"
                                       fields="locale" hidecolumnpicker="true"
                                       onselect="$do('selectTargetLocale',this.selectedIndex, 'PackageBuilder');"/>
                             <spacer orient="horizontal" width="10px"/>

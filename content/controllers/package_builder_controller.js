@@ -119,30 +119,42 @@
 
             this.selectTargetLocale(targetLocaleListObj.selectedIndex);
 
+            var workingLocales = [];
+            var localeMarkers  = {};
             var targetLocales = [];
-            this.targetLocales = [];
 
             if (localeEntries) {
-                targetLocales = localeEntries.split(',').map(function(elem) {return {locale: GeckoJS.String.trim(elem)}});
+                workingLocales = localeEntries.split(',').map(function(elem) {return {locale: GeckoJS.String.trim(elem)}});
             }
+            workingLocales.push({locale: 'en'});
             var selectedLocales = localeListObj.listbox.selectedItems;
 
             var lastIndex = -1;
             selectedLocales.forEach(function(l) {
-                targetLocales.push({locale: l.value});
+                workingLocales.push({locale: l.value});
             }, this);
 
-            for (var i = 0; i < targetLocales.length; i++) {
-                var l = targetLocales[i];
+            for (var i = 0; i < workingLocales.length; i++) {
+                var l = workingLocales[i];
                 if (this.isValidLocale(l.locale)) {
-                    this.targetLocales.push(l);
-                    if (l.locale == this.lastLocale) {
-                        lastIndex = i;
+                    if (!(l.locale in localeMarkers)) {
+                        targetLocales.push(l);
+                        localeMarkers[l.locale] = true;
+                        if (l.locale == this.lastLocale) {
+                            lastIndex = i;
+                        }
                     }
                 }
             }
+            targetLocales = targetLocales.sort(function(a, b) {if (a.locale > b.locale)
+                                                                   return 1;
+                                                               else if (a.locale < b.locale)
+                                                                   return -1;
+                                                               else return 0});
 
-            targetLocaleListObj.datasource = this.targetLocales;
+            targetLocaleListObj.datasource = targetLocales;
+            this.targetLocales = targetLocales;
+            
             if (lastIndex > -1) {
                 targetLocaleListObj.selection.select(lastIndex);
             }
@@ -236,9 +248,10 @@
         },
 
         isValidLocale: function(str) {
-            var localeRE1 = /^[a-z][a-z]$/;
-            var localeRE2 = /^[a-z][a-z]-[a-zA-Z][a-zA-Z]$/
-            return localeRE1.test(str) || localeRE2.test(str);
+            var localeRE1 = /^[a-z]{2}$/;
+            var localeRE2 = /^[a-z]{2}-[A-Z]{2}$/
+            var localeRE3 = /^[a-z]{2}-[A-Z]{2}-[A-Z]{2}$/
+            return localeRE1.test(str) || localeRE2.test(str) || localeRE3.test(str);
         },
 
         escapeXML: function(str) {
@@ -294,6 +307,11 @@
             // 4. resolutions
             // 5. translations
             // 6. current skin
+            // 7. current layout
+
+            if (!GREUtils.Dialog.confirm(this.topmostWindow, _('Export Package'), _('Are you sure you want to export this package now?'))) {
+                return;
+            }
 
             var data = {};
             data.location = document.getElementById('location').value;
@@ -315,11 +333,16 @@
                     delete data.timezone;
                 }
             }
-            data.skin = GREUtils.Pref.getPref('general.skins.selectedSkin') || '';
+            data.skin = GREUtils.Pref.getPref('general.skins.selectedSkin');
             if (data.skin) {
                 data.skin = data.skin.replace('-' + this.screenwidth + 'x' + this.screenheight, '-${width}x${height}');
             }
+            else {
+                data.skin = 'traditional-${width}x${height}/1.0';
+            }
 
+            data.layout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
+            
             var media_path = this.CheckMedia.checkMedia( this.exporting_file_folder );
             if ( !media_path ) {
                 NotifyUtils.warn( _( 'Media not found!! Please attach the USB thumb drive...' ) );
@@ -376,8 +399,12 @@
             GREUtils.File.copy(this.imageFile, imagePath + '/' + data.location + '_' + data.sector + '.png');
 
             // copy prefs.js
-            GREUtils.File.copy(profPath + '/prefs.js', contentPath);
-
+            // need to remove locale related settings from prefs.js - done in export_package script
+            var processScript = systemPath + '/scripts/process_prefs.sh';
+            var exec = new GeckoJS.File(processScript);
+            exec.run(['"general.useragent.locale"', profPath + '/prefs.js', contentPath + '/user.js'], true);
+            exec.close();
+            
             // copy db files
             var dbs = GeckoJS.Dir.readDir(systemPath + '/databases', {type: 'f'});
 
@@ -405,11 +432,11 @@
                         '"chrome://package_' + data.location + '_' +  data.sector + '/locale/messages.properties");\n');
             prefs.write('pref("vivipos.fec.registry.package.' + data.location + '.' + data.sector + '.resolutions", "' +
                         data.resolutions.join(',') + '");\n');
-            if (data.skin) {
-                prefs.write('pref("vivipos.fec.registry.package.' + data.location + '.' + data.sector + '.skin", "' + data.skin + '");\n');
-            }
+            prefs.write('pref("vivipos.fec.registry.package.' + data.location + '.' + data.sector + '.skin", "' + data.skin + '");\n');
+            prefs.write('pref("vivipos.fec.registry.package.' + data.location + '.' + data.sector + '.layout", "' + data.layout + '");\n');
             prefs.write('pref("vivipos.fec.registry.package.' + data.location + '.' + data.sector + '.datapath", ' +
                         '"chrome://package_' + data.location + '_' +  data.sector + '/content");\n');
+
             if (data.customcode) {
                 // create extensions.tar
                 var exec = new GeckoJS.File('/bin/tar');
@@ -442,10 +469,19 @@
             installRDF.close();
 
             // create XPI and move to media
+            var xpiFile = 'package_' + data.location + '_' + data.sector + '_' + package_version + '.xpi'
+            var convertedXPIFile = GREUtils.Charset.convertFromUnicode(xpiFile.replace(' ', '_'), 'UTF-8');
             var exportScript = systemPath + '/scripts/export_package.sh';
             var exec = new GeckoJS.File(exportScript);
-            exec.run([rootPath, 'package_' + data.location + '_' + data.sector + '.xpi', media_path], true);
+            exec.run([rootPath, convertedXPIFile, media_path], true);
             exec.close();
+
+            // remove tmp directory, which should be empty
+            GREUtils.Dir.remove(rootPath);
+
+            // notify user
+            GREUtils.Dialog.alert(this.topmostWindow, _('Export Package'), _('Package [%S] has been exported to [%S] as [%S]',
+                                  [package_name, media_path, xpiFile]));
         }
 
     };

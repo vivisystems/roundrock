@@ -233,6 +233,18 @@
             }
         },
 
+        displayScreenShot: function(image) {
+            var deck = document.getElementById('sector_deck');
+            var screenshot = document.getElementById('sector_screenshot');
+            if (screenshot) screenshot.src = image;
+            deck.selectedIndex = 1;
+        },
+
+        hideScreenShot: function() {
+            var deck = document.getElementById('sector_deck');
+            deck.selectedIndex = 0;
+        },
+
         appendSectorItem: function(box, data, value) {
 
             /*
@@ -257,6 +269,7 @@
 
             var image = document.createElement('image');
             image.setAttribute('src', data.icon);
+            image.setAttribute('onclick', '$do("displayScreenShot", "' + data.fullimage + '", "SetupWizard")');
 
             var vbox = document.createElement('vbox');
             vbox.setAttribute('flex', "1");
@@ -320,11 +333,11 @@
                 try {
                     var profPath = GeckoJS.Configure.read('ProfD');
                     // remove existing prefs.js
-                    GREUtils.File.remove(profPath + '/prefs.js');
+                    //GREUtils.File.remove(profPath + '/prefs.js');
 
                     // copy prefs.js to profile directory
-                    var prefsPath = GREUtils.File.chromeToPath(datapath + '/prefs.js');
-                    GREUtils.File.copy(prefsPath, profPath);
+                    var prefsPath = GREUtils.File.chromeToPath(datapath + '/user.js');
+                    GREUtils.File.copy(prefsPath, profPath + '/user.js');
 
                     // remove existing database files
                     var systemPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
@@ -548,34 +561,43 @@
         finishSetup: function() {
             // completion tasks:
 
-            // 1. configure selectedSkin
+            // 1. configure selectedSkin and layout
             // 2. if default user is selected, configure default user and enable automatic login
-            // 3. set admin password
-            // 4. configure default tax
+            // 3. configure default tax
+            // 4. set admin password
             // 5. update store contact
             // 6. update terminal number in sync settings
             // 7. copy code
 
-            // 1. configure selectedSkin
+            var profPath = GeckoJS.Configure.read('ProfD');
+            var prefs = new GeckoJS.File(profPath + '/user.js');
+            prefs.open('a');
+
+            // 1. configure skin & layout
             var newSkin = this.selectedSector.skin.replace('${width}', this.screenwidth).replace('${height}', this.screenheight );
-            alert('configuring new skin: ' + newSkin);
-            GeckoJS.Configure.write('general.skins.selectedSkin', newSkin);
-            alert('written');
+            prefs.write('\nuser_pref("general.skins.selectedSkin", "' + newSkin + '");\n');
+            prefs.write('\nuser_pref("vivipos.fec.general.layouts.selectedLayout", "' + this.selectedSector.layout + '");\n');
+
             // 2. if default user is selected, configure default user and enable automatic login
             if (this.selectedDefaultUser) {
-                GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', this.selectedDefaultUser);
-            alert('written');
-                GeckoJS.Configure.write('vivipos.fec.settings.DefaultLogin', true);
-            alert('written');
+                prefs.write('user_pref("vivipos.fec.settings.DefaultUser", "' + this.selectedDefaultUser + '");\n');
+                prefs.write('user_pref("vivipos.fec.settings.DefaultLogin", true);\n');
             }
             else {
-                GeckoJS.Configure.remove('vivipos.fec.settings.DefaultUser', true);
-            alert('written');
-                GeckoJS.Configure.write('vivipos.fec.settings.DefaultLogin', false);
-            alert('written');
+                prefs.write('user_pref("vivipos.fec.settings.DefaultUser", "");');
+                prefs.write('user_pref("vivipos.fec.settings.DefaultLogin", false);\n');
             }
 
-            // 3. set admin password
+            // 3. configure default tax
+            if (this.selectedDefaultTaxID) {
+                prefs.write('user_pref("vivipos.fec.settings.DefaultTaxStatus", "' + this.selectedDefaultTaxID + '");\n');
+            }
+            else {
+                prefs.write('user_pref("vivipos.fec.settings.DefaultTaxStatus", "");\n');
+            }
+            prefs.close();
+
+            // 4. set admin password
             var model = new UserModel();
             var admin = model.findByIndex('first', {index: 'username', value: 'superuser'});
 
@@ -593,16 +615,6 @@
                     return;
                 }
                 this.Acl.changeUserPassword('superuser', this.adminPassword);
-            }
-
-            // 4. configure default tax
-            if (this.selectedDefaultTaxID) {
-                GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', this.selectedDefaultTaxID);
-            alert('written');
-            }
-            else {
-                GeckoJS.Configure.remove('vivipos.fec.settings.DefaultTaxStatus', true);
-            alert('written');
             }
 
             // 5. update store contact

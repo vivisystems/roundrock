@@ -133,10 +133,13 @@
         advance="replace existing db with location/sector specific db"
         rewind="set initDB flag"
         >
-        <box flex="1">
-            <richlistbox id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
-            </richlistbox>
-        </box>
+        <vbox flex="1">
+            <deck id="sector_deck" selectedIndex="0" flex="1">
+                <richlistbox id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
+                </richlistbox>
+                <image id="sector_screenshot" flex="1" src="" onclick="$do('hideScreenShot', null, 'SetupWizard')"/>
+            </deck>
+        </vbox>
     </wizardpage>
 
     <wizardpage
