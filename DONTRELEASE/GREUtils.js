@@ -3174,9 +3174,9 @@ GREUtils.define('GREUtils.Gzip');
 
 
 /**
- * Compress a string
+ * Deflate a string
  *
- * This function compress the given string using the ZLIB  data format.
+ * This function compress the given string using the DEFLATE  data format.
  *
  * @public
  * @static
@@ -3184,7 +3184,7 @@ GREUtils.define('GREUtils.Gzip');
  * @param {String} data         The data to compress
  * @return {String}             The compressed string or FALSE if an error occurred. 
  */
-GREUtils.Gzip.compress = function(data) {
+GREUtils.Gzip.deflate = function(data) {
 
     try {
 
@@ -3201,23 +3201,35 @@ GREUtils.Gzip.compress = function(data) {
 
         // Create a stream listener to accept gunzip'ed data
         var gzipListener = {
-            data: "",
+            first: true,
+            data: null,
+
             onStartRequest: function(request, context){
             //alert("gzip onStartRequest() called");
             },
+
             onDataAvailable: function(request, context, inputStream, offset, count){
-                var inStream = Components.classes["@mozilla.org/scriptableinputstream;1"] .createInstance(Components.interfaces.nsIScriptableInputStream);
-                inStream.init(inputStream);
-                this.data += inStream.read(count);
-            //alert("gzip onDataAvailable() called");
+
+                var binInputStream = Components.classes["@mozilla.org/binaryinputstream;1"].createInstance(Components.interfaces.nsIBinaryInputStream);
+                binInputStream.setInputStream(inputStream);
+                if(this.first) {
+                    this.data = binInputStream.readBytes(count);
+                    this.first = false;
+                }else {
+                    this.data += binInputStream.readBytes(count);
+                }
+                binInputStream.close();
+
             },
+
             onStopRequest: function(request, context, statusCode){
             // alert("gzip onStopRequest() called with status " + statusCode); alert("Data is '" + this.data + "'");
             }
+
         };
 
         // Create a specific gunzipper with my listener
-        var converter = streamConv.asyncConvertData("uncompressed", "gzip", gzipListener, null);
+        var converter = streamConv.asyncConvertData("uncompressed", "deflate", gzipListener, null);
 
         // Set stream converter to read from input pump
         //inputPump.asyncRead(converter,null);
@@ -3237,9 +3249,9 @@ GREUtils.Gzip.compress = function(data) {
 };
 
 /**
- * Uncompress a compressed string
+ * Inflate a deflated string
  *
- *  This function uncompress a compressed string. 
+ *  This function inflate a deflated string. 
  *
  * @public
  * @static
@@ -3247,7 +3259,7 @@ GREUtils.Gzip.compress = function(data) {
  * @param {String} data         The data compressed
  * @return {String}             The original uncompressed data or FALSE if an error occurred.
  */
-GREUtils.Gzip.uncompress = function(data) {
+GREUtils.Gzip.inflate = function(data) {
 
     try {
 
@@ -3264,23 +3276,37 @@ GREUtils.Gzip.uncompress = function(data) {
 
         // Create a stream listener to accept gunzip'ed data
         var gzipListener = {
-            data: "",
+            first: true,
+            data: null,
+
             onStartRequest: function(request, context){
             //alert("gzip onStartRequest() called");
             },
+
             onDataAvailable: function(request, context, inputStream, offset, count){
-                var inStream = Components.classes["@mozilla.org/scriptableinputstream;1"] .createInstance(Components.interfaces.nsIScriptableInputStream);
-                inStream.init(inputStream);
-                this.data += inStream.read(count);
-            //alert("gzip onDataAvailable() called");
+
+                var binInputStream = Components.classes["@mozilla.org/binaryinputstream;1"].createInstance(Components.interfaces.nsIBinaryInputStream);
+                binInputStream.setInputStream(inputStream);
+                if(this.first) {
+                    this.data = binInputStream.readBytes(count);
+                    this.first = false;
+                }else {
+                    this.data += binInputStream.readBytes(count);
+                }
+                binInputStream.close();
+
             },
+
             onStopRequest: function(request, context, statusCode){
             // alert("gzip onStopRequest() called with status " + statusCode); alert("Data is '" + this.data + "'");
             }
+
         };
 
+
+
         // Create a specific gunzipper with my listener
-        var converter = streamConv.asyncConvertData("gzip", "uncompressed", gzipListener, null);
+        var converter = streamConv.asyncConvertData("deflate", "uncompressed", gzipListener, null);
 
         // Set stream converter to read from input pump
         //inputPump.asyncRead(converter,null);
@@ -3293,6 +3319,7 @@ GREUtils.Gzip.uncompress = function(data) {
         return gzipListener.data;
 
     }catch(e) {
+        alert(e);
         return false;
     }
 
