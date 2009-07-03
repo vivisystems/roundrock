@@ -301,7 +301,7 @@
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0: null,
-                require0: true,
+                require0: false,
                 menu: null,
                 menuItems : [
                     { label: "Check Stock", value: "check_stock", selected: true },

@@ -159,7 +159,11 @@
                     this.log(
                         'ERROR',
                         _( 'An error was encountered while saving stock record (error code %S): %S', [ this.lastError, this.lastErrorString ] )
-                        );
+                    );
+                    
+                    throw {
+                        errmsg: _( 'An error was encountered while saving stock record (error code %S): %S', [ this.lastError, this.lastErrorString ] )
+                    };
 
                     //@db saveToBackup
                     r = this.saveToBackup( stockRecord );
@@ -173,6 +177,10 @@
                             'ERROR',
                             _( 'record could not be saved to backup: %S', [ '\n' + this.dump( data ) ] )
                         );
+                        
+                        throw {
+                            errmsg: _( 'record could not be saved to backup: %S', [ '\n' + this.dump( data ) ] )
+                        };
                     }
                 }
                 return r;

@@ -61,6 +61,8 @@ var options;
         }
         document.getElementById('key_enter').setAttribute('disabled', multiline);
         
+        // To construct a menulist, please assign an array to inputObj.menuItems; the array is consisted of objects bearing fields value, label, and selected.
+        // The first object whose 'selected' property is true will be considered the default selected menuitem.
         // hide menu?
         if (!('menu' in inputObj)) {
             document.getElementById('menurow').hidden = true;
@@ -79,8 +81,7 @@ var options;
                     menuitem.setAttribute('value', item.value);
                     menuitem.setAttribute('label', item.label);
                     menu_menupopup.appendChild(menuitem);
-                    if ( item.selected ) 
-                        selectedIndex = i;
+                    if ( item.selected ) selectedIndex = i;
                 }
             }
             
