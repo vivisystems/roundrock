@@ -139,7 +139,7 @@
                     id: '',
                     product_no: product.no,
                     barcode: product.barcode,
-                    warehouse: 'warehouse',
+                    warehouse: product.warehouse,
                     quantity: product.quantity || 0
                 };
                 stockRecords.push( stockRecord );

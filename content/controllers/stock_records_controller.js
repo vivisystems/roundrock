@@ -157,8 +157,12 @@
             
             var isMaster = this.syncSettings.hostname == "localhost"
             if ( isMaster ) {
-                // insert untracked products into stock_record table.
-                var sql = "SELECT p.no, p.barcode FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) WHERE s.product_no IS NULL;";
+                // insert untracked products into stock_record table. Take branch ID to be warehouse.
+                var branch_id = '';
+                var storeContact = GeckoJS.Session.get( 'storeContact' );
+                if ( storeContact )
+                    branch_id = storeContact.branch_id;
+                var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) WHERE s.product_no IS NULL;";
                 var products = this.Product.getDataSource().fetchAll( sql );
                 
                 var stockRecordModel = new StockRecordModel();
