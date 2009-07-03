@@ -3188,9 +3188,11 @@ GREUtils.Gzip.deflate = function(data) {
 
     try {
 
+        var encodedData = encodeURIComponent(data);
+
         // Store data in an input stream
         var inputStream = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
-        inputStream.setData(data, data.length);
+        inputStream.setData(encodedData, encodedData.length);
 
         // Load input stream onto a pump
         var inputPump = Components.classes["@mozilla.org/network/input-stream-pump;1"].createInstance(Components.interfaces.nsIInputStreamPump);
@@ -3238,9 +3240,8 @@ GREUtils.Gzip.deflate = function(data) {
         converter.onStartRequest(inputPump, null);
         converter.onDataAvailable(inputPump, null, inputStream, 0, inputStream.available() );
         converter.onStopRequest(inputPump, null, 0);
-
-        var decodedData = decodeURIComponent(gzipListener.data);
-        return decodedData;
+        
+        return gzipListener.data;
 
     }catch(e) {
         return false;
@@ -3264,10 +3265,9 @@ GREUtils.Gzip.inflate = function(data) {
 
     try {
 
-        var encodedData = encodeURIComponent(data);
         // Store data in an input stream
         var inputStream = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
-        inputStream.setData(encodedData, encodedData.length);
+        inputStream.setData(data, data.length);
 
         // Load input stream onto a pump
         var inputPump = Components.classes["@mozilla.org/network/input-stream-pump;1"].createInstance(Components.interfaces.nsIInputStreamPump);
@@ -3318,7 +3318,9 @@ GREUtils.Gzip.inflate = function(data) {
         converter.onDataAvailable(inputPump, null, inputStream, 0, inputStream.available() );
         converter.onStopRequest(inputPump, null, 0);
 
-        return gzipListener.data;
+        var decodedData = decodeURIComponent(gzipListener.data);
+
+        return decodedData;
 
     }catch(e) {
         alert(e);
