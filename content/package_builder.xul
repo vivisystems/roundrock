@@ -36,92 +36,103 @@
         <vbox flex="1" class="MainPnl">
             <vbox flex="1" pack="start" class="MainL LeftPnl">
                 <caption label="&packagebuilder.title;"  class="PageTitle"/>
-                <hbox pack="start" flex="5">
-                    <vbox flex="1">
-                        <vivitree id="locationlist" flex="1" class="showscrollbar"
-                                  headers="&packagebuilder.location;"
-                                  fields="location" hidecolumnpicker="true"
-                                  onselect="$do('selectLocation',this.selectedIndex, 'PackageBuilder');"/>
-                        <textbox id="location" oninput="$do('validateForm', null, 'PackageBuilder')"/>
-                    </vbox>
-
-                    <spacer width="5px"/>
-
-                    <vbox flex="1">
-                        <vivitree id="sectorlist" flex="1" class="showscrollbar"
-                                  headers="&packagebuilder.sector;"
-                                  fields="sector" hidecolumnpicker="true"
-                                  onselect="$do('selectSector',this.selectedIndex, 'PackageBuilder');"/>
-                        <textbox id="sector" oninput="$do('validateForm', null, 'PackageBuilder')"/>
-                    </vbox>
-
-                    <spacer width="5px"/>
-
-                    <vbox flex="1">
-                        <vivitree id="resolutionlist" flex="1" class="showscrollbar"
-                                  headers="&packagebuilder.resolution;" seltype="multiple"
-                                  fields="resolution" hidecolumnpicker="true"
-                                  onselect="$do('validateForm', null, 'PackageBuilder')"/>
-                        <textbox id="resolutions" oninput="$do('validateForm', null, 'PackageBuilder')"/>
-                    </vbox>
-
-                    <spacer width="5px"/>
-
-                    <vbox flex="1">
-                        <vivilocaleslistbox id="localelist" package="viviecr" flex="1" seltype="multiple"/>
-                        <textbox id="locales" default=""/>
-                    </vbox>
-                </hbox>
-                <hbox>
-                    <checkbox id="customcode" label="&packagebuilder.customcode;" checked="false"/>
-                    <checkbox id="timezone" label="&packagebuilder.timezone;" checked="false"/>
-                </hbox>
-                <separator orient="horizontal" class="groove-thin"/>
-                <hbox flex="1">
-                    <vbox pack="start" flex="1">
-                        <caption label="&packagebuilder.localization;" class="SubTitle"/>
-                        <hbox flex="1">
-                            <vivitree id="targetlocales" flex="1" class="showscrollbar"
-                                      headers="&packagebuilder.locale;" style="min-width: 120px"
-                                      fields="locale" hidecolumnpicker="true"
-                                      onselect="$do('selectTargetLocale',this.selectedIndex, 'PackageBuilder');"/>
-                            <spacer orient="horizontal" width="10px"/>
+                <deck id="deck" selectedIndex="0" flex="1">
+                    <vbox id="main_deck" flex="1">
+                        <hbox pack="start" flex="5">
+                            <vbox pack="center">
+                                <image id="thumbnail" src="" style="min-width: 160px; max-width: 160px;"/>
+                            </vbox>
+                            <spacer width="5px"/>
                             <vbox flex="1">
+                                <vivitree id="locationlist" flex="1" class="showscrollbar"
+                                          headers="&packagebuilder.location;"
+                                          fields="location" hidecolumnpicker="true"
+                                          onselect="$do('selectLocation',this.selectedIndex, 'PackageBuilder');"/>
+                                <textbox id="location" oninput="$do('validateForm', null, 'PackageBuilder')"/>
+                            </vbox>
+
+                            <spacer width="5px"/>
+
+                            <vbox flex="1">
+                                <vivitree id="sectorlist" flex="1" class="showscrollbar"
+                                          headers="&packagebuilder.sector;"
+                                          fields="sector" hidecolumnpicker="true"
+                                          onselect="$do('selectSector',this.selectedIndex, 'PackageBuilder');"/>
+                                <textbox id="sector" oninput="$do('validateForm', null, 'PackageBuilder')"/>
+                            </vbox>
+
+                            <spacer width="5px"/>
+
+                            <vbox flex="1">
+                                <vivitree id="resolutionlist" flex="1" class="showscrollbar"
+                                          headers="&packagebuilder.resolution;" seltype="multiple"
+                                          fields="resolution" hidecolumnpicker="true"
+                                          onselect="$do('validateForm', null, 'PackageBuilder')"/>
+                                <textbox id="resolutions" oninput="$do('validateForm', null, 'PackageBuilder')"/>
+                            </vbox>
+
+                            <spacer width="5px"/>
+
+                            <vbox flex="1">
+                                <vivilocaleslistbox id="localelist" package="viviecr" flex="1" seltype="multiple"/>
+                                <textbox id="locales" default=""/>
+                            </vbox>
+                        </hbox>
+                        <hbox>
+                            <checkbox id="customcode" label="&packagebuilder.customcode;" checked="false"/>
+                            <checkbox id="timezone" label="&packagebuilder.timezone;" checked="false"/>
+                        </hbox>
+                        <separator orient="horizontal" class="groove-thin"/>
+                        <hbox flex="1">
+                            <vbox pack="start" flex="1">
+                                <caption label="&packagebuilder.localization;" class="SubTitle"/>
                                 <hbox flex="1">
+                                    <vivitree id="targetlocales" flex="1" class="showscrollbar"
+                                              headers="&packagebuilder.locale;" style="min-width: 120px"
+                                              fields="locale" hidecolumnpicker="true"
+                                              onselect="$do('selectTargetLocale',this.selectedIndex, 'PackageBuilder');"/>
+                                    <spacer orient="horizontal" width="10px"/>
                                     <vbox flex="1">
-                                        <label value="&packagebuilder.location;"/>
-                                        <textbox id="location_translation" value="" disabled="true"
-                                                 oninput="$do('updateTranslation', null, 'PackageBuilder')"/>
-                                    </vbox>
-                                    <vbox flex="1">
-                                        <label value="&packagebuilder.sector;"/>
-                                        <textbox id="sector_translation" value=""
+                                        <hbox flex="1">
+                                            <vbox flex="1">
+                                                <label value="&packagebuilder.location;"/>
+                                                <textbox id="location_translation" value="" disabled="true"
+                                                         oninput="$do('updateTranslation', null, 'PackageBuilder')"/>
+                                            </vbox>
+                                            <vbox flex="1">
+                                                <label value="&packagebuilder.sector;"/>
+                                                <textbox id="sector_translation" value=""
+                                                         oninput="$do('updateTranslation', null, 'PackageBuilder')"/>
+                                            </vbox>
+                                        </hbox>
+                                        <label value="&packagebuilder.description;"/>
+                                        <textbox id="description_translation" value="" multiline="true" rows="3" flex="1"
                                                  oninput="$do('updateTranslation', null, 'PackageBuilder')"/>
                                     </vbox>
                                 </hbox>
-                                <label value="&packagebuilder.description;"/>
-                                <textbox id="description_translation" value="" multiline="true" rows="3" flex="1"
-                                         oninput="$do('updateTranslation', null, 'PackageBuilder')"/>
+                            </vbox>
+                            <separator orient="vertical" class="thin"/>
+                            <vbox flex="1">
+                                <caption label="&packagebuilder.install;" class="SubTitle"/>
+                                <vbox flex="1">
+                                    <label value="&packagebuilder.pkgname;"/>
+                                    <textbox id="package_name" value=""/>
+                                </vbox>
+                                <vbox flex="1">
+                                    <label value="&packagebuilder.version;"/>
+                                    <textbox id="package_version" value=""/>
+                                </vbox>
+                                <vbox>
+                                    <label value="&packagebuilder.creator;"/>
+                                    <textbox id="package_creator" value=""/>
+                                </vbox>
                             </vbox>
                         </hbox>
                     </vbox>
-                    <separator orient="vertical" class="thin"/>
-                    <vbox flex="1">
-                        <caption label="&packagebuilder.install;" class="SubTitle"/>
-                        <vbox flex="1">
-                            <label value="&packagebuilder.pkgname;"/>
-                            <textbox id="package_name" value=""/>
-                        </vbox>
-                        <vbox flex="1">
-                            <label value="&packagebuilder.version;"/>
-                            <textbox id="package_version" value=""/>
-                        </vbox>
-                        <vbox>
-                            <label value="&packagebuilder.creator;"/>
-                            <textbox id="package_creator" value=""/>
-                        </vbox>
+                    <vbox id="image_deck" flex="1">
+                        <image id="screenshot" flex="1" src="" onclick="$do('hideScreenShot', null, 'PackageBuilder')"/>
                     </vbox>
-                </hbox>
+                </deck>
             </vbox>
 
             <hbox>

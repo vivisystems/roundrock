@@ -1004,6 +1004,7 @@
                             }
                             catch (e) {
                                 this.log('WARN', 'failed to update receipt printed event');
+                                self.dispatchEvent('onReceiptFailed', this.eventData);
                             }
                         }
                         else if (this.eventData.deviceType == 'ledger') {

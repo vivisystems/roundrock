@@ -20,10 +20,11 @@
         _folderName: 'vivipos_stock',
         _fileName: 'stock.csv',
 
+        syncSettings: null,
+
         getListObj: function() {
             if( this._listObj == null ) {
                 this._listObj = document.getElementById( 'stockrecordscrollablepanel' );
-                //this._stockRecordsByProductNo = GeckoJS.Session.get( 'stockRecordsByProductNo' );
                 this._barcodesIndexes = GeckoJS.Session.get( 'barcodesIndexes' );
             }
             return this._listObj;
@@ -33,9 +34,9 @@
             var stockRecordModel = new StockRecordModel();
             
             var sql =
-            	"select s.*, p.no as product_no, p.name as product_name, p.min_stock as min_stock " +
-            	"from stock_records s join products p on s.product_no = p.no " +
-            	"order by product_no;"; // the result must be sorted by product_no for the use of binary search in locateIndex method.
+                "select s.*, p.no as product_no, p.name as product_name, p.min_stock as min_stock " +
+                "from stock_records s join products p on s.product_no = p.no " +
+                "order by product_no;"; // the result must be sorted by product_no for the use of binary search in locateIndex method.
             	
             var stockRecords = stockRecordModel.getDataSource().fetchAll( sql );
             
@@ -43,40 +44,13 @@
             
             // construct _stockRecordsByProductNo.
             this._stockRecordsByProductNo = {};
-            stockRecordsByProductNo = this._stockRecordsByProductNo;
+            var stockRecordsByProductNo = this._stockRecordsByProductNo;
             stockRecords.forEach( function( stockRecord ) {
-            	stockRecord.new_quantity = stockRecord.quantity;
-            	stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
-            	stockRecord.memo = '';
-            	stockRecordsByProductNo[ stockRecord.product_no ] = stockRecord;
+                stockRecord.new_quantity = stockRecord.quantity;
+                stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+                stockRecord.memo = '';
+                stockRecordsByProductNo[ stockRecord.product_no ] = stockRecord;
             } );
-        },
-
-        /*beforeScaffoldView: function(evt) {
-            this._listObj.selectedIndex = this._selectedIndex;
-        },*/
-
-        afterScaffoldEdit: function (evt) {
-            /*if (evt.justUpdate) {
-                // update stock in session...
-                var stockRecordsByProductNo = GeckoJS.Session.get( 'stockRecordsByProductNo' );
-                var product = stockRecordsByProductNo[ evt.data.id ];
-                product.stock = evt.data.stock;
-                product.min_stock = evt.data.min_stock;
-            } else {
-                var product = this._stockRecordsByProductNo[ evt.data.id ];
-                product.stock = evt.data.stock;
-                product.min_stock = evt.data.min_stock;
-
-                var productModel = new ProductModel();
-                var products = productModel.find( 'all', {
-                    order: 'no'
-                } );
-                this._listData = products;
-                this.updateStock();
-
-                OsdUtils.info( _( 'Stock level for [%S] modified successfully', [ evt.data.name ]) );
-            }*/
         },
 
         searchPlu: function () {
@@ -84,15 +58,13 @@
             $( '#plu' ).val( '' ).focus();
             if ( barcode == '' ) return;
 
-            // var stockRecordsByProductNo = GeckoJS.Session.get( 'stockRecordsByProductNo' );
-            // var barcodesIndexes = GeckoJS.Session.get( 'barcodesIndexes' );
             var product;
 
             if ( !this._barcodesIndexes[ barcode ] ) {
                 // barcode notfound
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _( 'Product Search' ),
-                                      _( 'Product/Barcode Number (%S) not found!', [ barcode ] ) );
+                    _( 'Product Search' ),
+                    _( 'Product/Barcode Number (%S) not found!', [ barcode ] ) );
             } else {
                 product = this._stockRecordsByProductNo[ barcode ];
                 GeckoJS.FormHelper.reset( 'productForm' );
@@ -108,8 +80,15 @@
         },
 
         updateStock: function ( reset ) {
-            var lowstock = document.getElementById( 'show_low_stock' ).checked;
-            var qtyDiff = document.getElementById( 'show_qty_diff' ).checked;
+            var lowstock = false;
+            var showLowStock = document.getElementById( 'show_low_stock' );
+            if ( showLowStock )
+                lowstock = document.getElementById( 'show_low_stock' ).checked;
+            
+            var qtyDiff = false;
+            var showQtyDiff = document.getElementById( 'show_qty_diff' );
+            if ( showQtyDiff )
+                qtyDiff = document.getElementById( 'show_qty_diff' ).checked;
 
             if ( lowstock ) {
                 var oldlength = this._records.length;
@@ -117,14 +96,14 @@
                     return parseInt( d.quantity, 10 ) < parseInt( d.min_stock, 10 );
                 } );
                 if ( oldlength != this._records.length )
-                	reset = true;
+                    reset = true;
             } else if ( qtyDiff ) {
-            	var oldlength = this._records.length;
+                var oldlength = this._records.length;
                 this._records = this._listData.filter( function( d ) {
                     return parseInt( d.qty_difference, 10 ) > 0;
                 } );
                 if ( oldlength != this._records.length )
-                	reset = true;
+                    reset = true;
             } else {
                 this._records = this._listData;
             }
@@ -137,7 +116,6 @@
             }
             
             this._listObj.refresh();
-            //this.select( this._selectedIndex );
             this.validateForm();
         },
 
@@ -147,8 +125,8 @@
         },
         
         clickQtyDiff: function() {
-        	this._selectedIndex = -1;
-        	this.updateStock( true );
+            this._selectedIndex = -1;
+            this.updateStock( true );
         },
 
         locateIndex: function ( product, list ) {
@@ -166,41 +144,30 @@
             else return -1; // not found
         },
 
-        decStock: function ( obj ) {
-            //this._productsById = GeckoJS.Session.get( 'productsById' );
-            this._barcodesIndexes = GeckoJS.Session.get( 'barcodesIndexes' );
-
-            for ( o in obj.items ) {
-                var ordItem = obj.items[ o ];
-                var item = this.Product.findById( ordItem.id );
-                if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
-					// renew the stock record.
-					var stockRecordModel = new StockRecordModel();
-					var stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
-					
-					if ( stockRecord.quantity > 0 || item.return_stock )
-                        stockRecord.quantity -= ordItem.current_qty;
-                    
-                    stockRecordModel.set( stockRecord );
-					
-					delete stockRecordModel;
-					
-					// stock had maintained
-                    ordItem.stock_maintained = true;
-
-                    // fire onLowStock event...
-                    if ( item.min_stock > item.stock ) {
-                        this.dispatchEvent( 'onLowStock', item );
-                    }
-
-                    // update Session Data...
-                    //var evt = { data: item, justUpdate: true };
-                    //this.afterScaffoldEdit( evt );
-                }
-            }
-        },
-
         load: function () {
+            this.syncSettings = (new SyncSetting()).read();
+            
+            // insert untracked products into stock_record table.
+            var sql = "SELECT p.no, p.barcode FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) WHERE s.product_no IS NULL;";
+            var products = this.Product.getDataSource().fetchAll( sql );
+            
+            var stockRecordModel = new StockRecordModel();
+            if ( products.length > 0 )
+            	stockRecordModel.insertNewRecords( products );
+            
+            // remove the products which no longer exist from stock_record table.
+            sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON ( s.product_no = p.no ) WHERE p.no IS NULL;";
+            var stockRecords = stockRecordModel.getDataSource().fetchAll( sql );
+            if ( stockRecords.length > 0 ) {
+                stockRecords.forEach( function( stockRecord ) {
+                    stockRecordModel.remove( stockRecord.id );
+                } );
+            }
+                        
+            this.reload();
+        },
+        
+        reload: function() {
             this._selectedIndex = -1;
             this.list();
             $( '#plu_id' ).val( '' );
@@ -208,8 +175,8 @@
         },
 
         select: function( index ) {
-        	if ( index >= this._records.length )
-        		index = this._records.length - 1;
+            if ( index >= this._records.length )
+                index = this._records.length - 1;
         		
             this._selectedIndex = index;
 
@@ -230,101 +197,119 @@
         validateForm: function () {
             var inputObj = GeckoJS.FormHelper.serializeToObject( 'productForm' );
             if ( inputObj.product_no != null && inputObj.product_no != '' ) {
-                var newQuantity = inputObj.new_quantity.replace( /^\s*/, '' ).replace( /\s*$/, '' );
-                //var min_stock = inputObj.min_stock.replace( /^\s*/, '' ).replace( /\s*$/, '' );
+                var newQuantity = null;
+                if ( inputObj.new_quantity )
+                    newQuantity = inputObj.new_quantity.replace( /^\s*/, '' ).replace( /\s*$/, '' );
+                var quantity = null;
+                if ( inputObj.quantity )
+                    quantity = inputObj.quantity.replace( /^\s*/, '' ).replace( /\s*$/, '' );// used in stock_adjustment.xul.
 
-                document.getElementById( 'modify_stock' ).setAttribute( 'disabled', isNaN( newQuantity ) );
-                //document.getElementById( 'quantity' ).removeAttribute( 'disabled' );
-                document.getElementById( 'new_quantity' ).removeAttribute( 'disabled' );
+                document.getElementById( 'modify_stock' ).setAttribute( 'disabled', isNaN( newQuantity || quantity ) );
+                var qty = document.getElementById( 'quantity' );
+                if ( qty )
+                    qty.removeAttribute( 'disabled' );// used in stock_adjustment.xul.
+                var new_qty = document.getElementById( 'new_quantity' ); 
+                if ( new_qty )
+                    new_qty.removeAttribute( 'disabled' );
             } else {
                 document.getElementById( 'modify_stock' ).setAttribute( 'disabled', true );
-                //document.getElementById( 'quantity' ).setAttribute( 'disabled', true );
-                document.getElementById( 'new_quantity' ).setAttribute( 'disabled', true );
+                var qty = document.getElementById( 'quantity' );
+                if ( qty )
+                    qty.setAttribute( 'disabled', true );// used in stock_adjustment.xul.
+                var new_qty = document.getElementById( 'new_quantity' ); 
+                if ( new_qty )
+                    new_qty.setAttribute( 'disabled', true );
             }
         },
         
         reset: function() {
-        	if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to reset all the stock records?' ) ) )
-        		return;
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to reset all the stock records?' ) ) )
+                return;
         		
-            var oldRowCount = this._listObj.datasource.tree.view.rowCount;
-            if ( oldRowCount > 0 )// We have to remove the existent data and refresh the treeview first.
-        	    this._listObj.datasource.tree.rowCountChanged( 0, -oldRowCount );
-        	
-        	var sql = "select distinct no, barcode from products;";
-        	var products = this.Product.getDataSource().fetchAll( sql );
-        	
-        	/*var aURL = 'chrome://viviecr/content/dialogs/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=300';
+            //var oldRowCount = this._listObj.datasource.tree.view.rowCount;
+            //if ( oldRowCount > 0 )// We have to remove the existent data and refresh the treeview first.
+                //this._listObj.datasource.tree.rowCountChanged( 0, -oldRowCount );
+                
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0: null,
                 require0: true,
                 numberOnly0: true
             };
-            
+
             GREUtils.Dialog.openWindow(
                 this.topmostWindow,
                 aURL,
-                _( 'Set All Stock' ),
-                aFeatures, _( 'Set All Stock' ),
+                _('Set All Stock'),
+                aFeatures,
+                _('Set All Stock'),
                 '',
-                _( 'Stock' ),
+                _('Quantity:'),
+                '',
                 inputObj
-            );*/
+            );
+            
+            // get and set the new stock quantity of all products.
+            var stockQuantity = 0;
+            if ( inputObj.ok && inputObj.input0 ) {
+                stockQuantity = inputObj.input0;
+            }
+            
+            this._records.forEach( function( record ) {
+                record.new_quantity = stockQuantity;
+                record.qty_difference = record.new_quantity - record.quantity;
+            } );
         	
-        	var stockRecordModel = new StockRecordModel();
-        	stockRecordModel.reset( products );
-        	
-        	this.load();
-        	
-        	// not doing so makes the tree panel show nothing.
-            var rowCount = this._listObj.datasource.tree.view.rowCount;
-        	this._listObj.datasource.tree.rowCountChanged( 0, rowCount );
+            this.updateStock();
+            
+            // not doing so makes the tree panel show nothing.
+            //var rowCount = this._listObj.datasource.tree.view.rowCount;
+            //this._listObj.datasource.tree.rowCountChanged( 0, rowCount );
         },
         
         modifyStock: function() {
-        	//var product_id = document.getElementById( 'plu_id' ).value;
-        	var product_no = document.getElementById( 'product_no' ).value;
-        	var newQuantity = document.getElementById( 'new_quantity' ).value;
-        	var memo = document.getElementById( 'memo' ).value;
+            var product_no = document.getElementById( 'product_no' ).value;
+            var newQuantity = document.getElementById( 'new_quantity' ).value;
+            var memo = document.getElementById( 'memo' ).value;
         	
-        	var stockRecord = this._stockRecordsByProductNo[ product_no ];
-        	stockRecord.new_quantity = newQuantity;
-        	stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
-        	stockRecord.memo = memo;
+            var stockRecord = this._stockRecordsByProductNo[ product_no ];
+            stockRecord.new_quantity = newQuantity;
+            stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+            stockRecord.memo = memo;
         	
-        	this.updateStock();
+            this.updateStock();
         },
         
         commitChanges: function() {
-        	if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to commit all changes?' ) ) )
-        		return;
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to commit all changes?' ) ) )
+                return;
         		
-        	var records = this._records;
-        	var stockRecords = [];
-        	var user = this.Acl.getUserPrincipal();
+            var records = this._records;
+            var stockRecords = [];
+            var user = this.Acl.getUserPrincipal();
         	
-        	for ( record in records ) {
-				stockRecords.push( {
-					id: records[ record ].id || '',
-					product_no: records[ record ].product_no,
-					warehouse: records[ record ].warehouse,
-					quantity: records[ record ].new_quantity
-				} );
-				records[ record ].clerk = user.username;
-			}
+            for ( record in records ) {
+                stockRecords.push( {
+                    id: records[ record ].id || '',
+                    product_no: records[ record ].product_no,
+                    warehouse: records[ record ].warehouse,
+                    quantity: records[ record ].new_quantity
+                } );
+                records[ record ].clerk = user.username;
+            }
         	
-        	var stockRecordModel = new StockRecordModel();
-        	stockRecordModel.setAll( stockRecords );
+            var stockRecordModel = new StockRecordModel();
+            stockRecordModel.setAll( stockRecords );
         	
-        	var inventoryRecordModel = new InventoryRecordModel();
-        	inventoryRecordModel.setAll( records );
+            var inventoryRecordModel = new InventoryRecordModel();
+            inventoryRecordModel.setAll( records );
         	
-        	this.load();
+            this.reload();
         },
 
-		importRecords: function() {      
-			/*      
+        importRecords: function() {
+            /*
             // pop up a file chooser.
   			var nsIFilePicker = Components.interfaces.nsIFilePicker;
 			var fileChooser = Components.classes[ "@mozilla.org/filepicker;1" ].createInstance( nsIFilePicker );
@@ -361,64 +346,99 @@
 			}
 			*/
 			
-			// the stubstitution for the file picker.
-			// check if there is a usb thumb driver.
-			var filePath;
-			var checkMedia = new CheckMediaComponent();
-			var media = checkMedia.checkMedia();
-			if ( media ) {
-				// the media carrying the path. However, it's dedicated to the use of report. Accordingly, we have to truncate it to be /media/drive name/
-				media = media.match( /^\/[^\/]+\/[^\/]+\// );
-				filePath = media + this._folderName + '/' + this._fileName;
-			}
+            // the stubstitution for the file picker.
+            // check if there is a usb thumb driver.
+            var filePath;
+            var checkMedia = new CheckMediaComponent();
+            var media = checkMedia.checkMedia();
+            if ( media ) {
+                // the media carrying the path. However, it's dedicated to the use of report. Accordingly, we have to truncate it to be /media/drive name/
+                media = media.match( /^\/[^\/]+\/[^\/]+\// );
+                filePath = media + this._folderName + '/' + this._fileName;
+            }
 			
-			if ( !filePath )
-				return;
+            if ( !filePath )
+                return;
             
             // Retrieve the content of the comma separated values.
             var file = GREUtils.File.getFile( filePath );
             
             if ( !file ) {
-            	alert( filePath + _( ' does not exist.' ) );
-            	return;
+                alert( filePath + _( ' does not exist.' ) );
+                return;
             }
             
-	        file = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+            file = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 	    
-	        var re = /[^\x0A]+/g;
-	        var lines = file.match( re );
+            var re = /[^\x0A]+/g;
+            var lines = file.match( re );
 	        
-	        // the question mark in the RE makes .* matches non-greedly.
-	        re = /".*?"/g;
+            // the question mark in the RE makes .* matches non-greedly.
+            re = /".*?"/g;
 	        
-	        var self = this;
-	        var unmatchableRecords = [];
+            var self = this;
+            var unmatchableRecords = [];
 	        
-	        lines.forEach( function( line ) {
-	        	var values = line.match( re );
+            lines.forEach( function( line ) {
+                var values = line.match( re );
 	        	
-	        	// strip off the enclosing double quotes in a stupid way.
-	        	var product_no = values[ 0 ].substr( 1, values[ 0 ].length - 2 );
-	        	var quantity = parseInt( values[ 1 ].substr( 1, values[ 1 ].length - 2 ), 10 );
-	        	var memo = values[ 2 ].substr( 1, values[ 2 ].length - 2 );
+                // strip off the enclosing double quotes in a stupid way.
+                var product_no = values[ 0 ].substr( 1, values[ 0 ].length - 2 );
+                var quantity = parseInt( values[ 1 ].substr( 1, values[ 1 ].length - 2 ), 10 );
+                var memo = values[ 2 ].substr( 1, values[ 2 ].length - 2 );
 	        	
-	        	var stockRecord = self._stockRecordsByProductNo[ product_no ];
-	        	if ( stockRecord ) {
-			    	stockRecord.new_quantity = quantity;
-			    	stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
-			    	stockRecord.memo = memo;
-			    } else {
-			    	unmatchableRecords.push( product_no );
-			    }
-	        } );
+                var stockRecord = self._stockRecordsByProductNo[ product_no ];
+                if ( stockRecord ) {
+                    stockRecord.new_quantity = quantity;
+                    stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+                    stockRecord.memo = memo;
+                } else {
+                    unmatchableRecords.push( product_no );
+                }
+            } );
 	        
-	        if ( unmatchableRecords.length > 0 ) {
-	        	alert( _( 'The following product numbers do not exist.' ) + '\n' + unmatchableRecords );
-	        }
+            if ( unmatchableRecords.length > 0 ) {
+                alert( _( 'The following product numbers do not exist.' ) + '\n' + unmatchableRecords );
+            }
         	
-        	// renew the content of the tree.
+            // renew the content of the tree.
+            this.updateStock();
+        },
+        
+        modifyStockForStockAdjustment: function() {// used by stock adjustment.
+            var product_no = document.getElementById( 'product_no' ).value;
+        	var quantity = parseInt( document.getElementById( 'quantity' ).value, 10 );
+        	var memo = document.getElementById( 'memo' ).value;
+        	
+        	this.adjustStock( product_no, quantity, memo );
+        	
         	this.updateStock();
-		}
+        },
+        
+        adjustStock: function( product_no, quantity, memo ) {// used by stock adjustment.
+        	var stockRecord = this._stockRecordsByProductNo[ product_no ];
+        	var qty_difference = quantity - stockRecord.quantity;
+        	stockRecord.quantity = quantity;
+        	stockRecord.memo = memo;
+        	
+        	var user = this.Acl.getUserPrincipal();
+        	
+        	var stockRecordModel = new StockRecordModel();
+        	stockRecordModel.set( stockRecord );
+        	
+        	var adjustment = {};
+        	for ( attr in stockRecord )
+        		adjustment[ attr ] = stockRecord[ attr ];
+        	adjustment.id = '';
+        	adjustment.difference = qty_difference;
+        	adjustment.new_quantity = quantity;
+        	adjustment.sale_period = GeckoJS.Session.get( 'sale_period' );
+        	adjustment.shift_number = GeckoJS.Session.get( 'shift_number' );
+        	adjustment.clerk = user.username;
+        	
+        	var stockAdjustmentModel = new StockAdjustmentModel();
+        	stockAdjustmentModel.set( adjustment );
+        }
     };
     
     GeckoJS.Controller.extend( __controller__ );

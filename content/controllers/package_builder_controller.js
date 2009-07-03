@@ -40,6 +40,16 @@
             this.Locations = data.locations;
             this.Sectors = data.sectors;
 
+            // set iamge src
+            var screenshotImageObj = document.getElementById('screenshot');
+            var thumbnailImageObj = document.getElementById('thumbnail');
+
+            if (screenshotImageObj) screenshotImageObj.setAttribute('src', 'file://' + this.imageFile);
+            if (thumbnailImageObj) {
+                thumbnailImageObj.setAttribute('src', 'file://' + this.iconFile);
+                thumbnailImageObj.setAttribute('onclick', '$do("showScreenShot", null, "PackageBuilder")');
+            }
+
             // populate location list
             var locationListObj = document.getElementById('locationlist');
             locationListObj.datasource = this.Locations;
@@ -297,6 +307,16 @@
             else {
                 exportBtn.setAttribute('disabled', true)
             }
+        },
+
+        showScreenShot: function() {
+            var deck = document.getElementById('deck');
+            if (deck) deck.selectedIndex = 1;
+        },
+
+        hideScreenShot: function() {
+            var deck = document.getElementById('deck');
+            if (deck) deck.selectedIndex = 0;
         },
 
         exportPackage: function() {

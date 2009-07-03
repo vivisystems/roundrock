@@ -1,17 +1,10 @@
-(function(){
-
-    // include controllers  and register itself
-
-    // GeckoJS.include( 'chrome://viviecr/content/controllers/stock_adjustments_controller.js' );
-
+( function(){
     /**
      * Controller Startup
      */
     function startup() {
-        //$( '#clearBtn' )[ 0 ].addEventListener( 'command', clearTextBox, false );
         $( '#plu' ).focus();
-
-        $do( 'load', null, 'StockAdjustments' );
+        $do( 'load', null, 'StockRecords' );
     };
 
     /**
@@ -23,4 +16,4 @@
     };
 
     window.addEventListener( 'load', startup, false );
-})();
+} )();
