@@ -44,7 +44,7 @@
             var cart = this._controller;
             if (cart) {
                 cart.addEventListener('newTransaction', this.handleNewTransaction, this);
-                // cart.addEventListener('onSubmit', this.handleNewTransaction, this);
+                cart.addEventListener('onSubmit', this.handleAfterSubmit, this);
 
                 // Cancel
                 cart.addEventListener('onCancel', this.handleCancel, this);
@@ -75,11 +75,13 @@
             }
 
             // add listener for afterSubmit event
+            
             var print = GeckoJS.Controller.getInstanceByName('Print');
             if (print) {
                 this._printController = print;
-                print.addEventListener('afterSubmit', this.handleAfterSubmit, this);
+//                print.addEventListener('afterSubmit', this.handleAfterSubmit, this);
             }
+            
 
             // add listener for onStartShift event
             /*
@@ -93,7 +95,7 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if (main) {
                 main.addEventListener('onFirstLoad', this.handleFirstLoad, this);
-                main.addEventListener('afterTruncateTxnRecords', this.handleFirstLoad, this);
+                main.addEventListener('afterTruncateTxnRecords', this.handleTruncateTxnRecords, this);
 
             }
             
@@ -105,7 +107,7 @@
             var autoPrint = false;
             var duplicate = 1;
             // print check
-//            this._printController.printChecks(txn, printer, autoPrint, duplicate);
+            this._printController.printChecks(txn, printer, autoPrint, duplicate);
         },
 
         syncClient: function() {
@@ -125,7 +127,6 @@
 
         handleTruncateTxnRecords: function(evt) {
             //
-            //this._tableStatusModel.
             var r = this._tableStatusModel.begin();
             if (r) {
                 r = this._tableStatusModel.execute('delete from table_orders');
@@ -258,7 +259,6 @@
 //
 //            this.syncClient();
 //
-//            GeckoJS.Session.set('vivipos_guest_check_action', '');
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
@@ -277,8 +277,6 @@
             this._tableStatusModel.addCheck(evt.data.data);
 
             this.syncClient();
-           
-            GeckoJS.Session.set('vivipos_guest_check_action', '');
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
@@ -290,12 +288,11 @@
             // is stored order?
             if (evt.data.data.recall == 2) {
 
-                this._tableStatusModel.removeCheck(evt.data.data);
+                // this._tableStatusModel.removeCheck(evt.data.data);
+                this._tableStatusModel.addCheck(evt.data.data);
 
                 this.syncClient();
             }
-
-            GeckoJS.Session.set('vivipos_guest_check_action', '');
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
@@ -324,8 +321,6 @@
 
         handleCancel: function(evt) {
             //
-            GeckoJS.Session.set('vivipos_guest_check_action', '');
-
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
@@ -333,8 +328,6 @@
 
         handleFirstLoad: function(evt) {
             //
-            GeckoJS.Session.set('vivipos_guest_check_action', '');
-
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
@@ -370,7 +363,7 @@
                 input0:no, require0:true, numpad:true
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Number of Customers'), aFeatures, _('Select Number of Customers'), '', _('Number'), '', inputObj);
+            GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, _('Select Number of Customers'), aFeatures, _('Select Number of Customers'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -388,7 +381,7 @@
                 input0:no, require0:true, numpad:true, disablecancelbtn:true
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Number'), aFeatures, _('Select Table Number'), '', _('Number'), '', inputObj);
+            GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, _('Select Table Number'), aFeatures, _('Select Table Number'), '', _('Number'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -523,9 +516,6 @@
                 var i = tables[idx].table_no;
                 // var id = tables[idx].order_id;
                 var destination = tables[idx].Table.destination;
-
-                // set action tag to session
-                GeckoJS.Session.set('vivipos_guest_check_action', inputObj.action);
 
                 switch (inputObj.action) {
                     case 'RecallCheck':
@@ -818,21 +808,7 @@
             //
             var self = this;
             var order = new OrderModel();
-//            var fields = ['orders.id',
-//                          'orders.sequence',
-//                          'orders.check_no',
-//                          'orders.table_no',
-//                          'orders.status',
-//                          'orders.no_of_customers',
-//                          'orders.total',
-//                          'orders.transaction_created',
-//                          'orders.service_clerk',
-//                          'orders.service_clerk_displayname',
-//                          'orders.proceeds_clerk',
-//                          'orders.proceeds_clerk_displayname',
-//                          'orders.terminal_no',
-//                          'orders.branch_id'
-//                      ];
+
             var fields = null;
             
             switch (key) {
@@ -851,23 +827,18 @@
             }
             
             var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
-// this.log(conditions);
-// this.log(this.dump(ord));
+
             // return all store checks...
             if (notCheckStatus) return ord;
 
             var tables = this._tableStatusModel.getTableStatusList();
 
             var tableOrderIdx = this._tableStatusModel.getTableOrderIdx();
-// this.log("tableOrderIdx:::");
-// this.log(this.dump(tableOrderIdx));
 
             var ordChecked = [];
             ord.forEach(function(o){
+
                 var crc = order.getOrderChecksum(o.id);
-//self.log(crc + "====" + tableOrderIdx[o.id].checksum);
-//self.log(o.modified + "####" + tableOrderIdx[o.id].modified);
-//self.log(o.terminal_no + "----" + tableOrderIdx[o.id].terminal_no);
 
                 if (tableOrderIdx[o.id]) {
                     // if ((crc == tableOrderIdx[o.id].checksum) || ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified))) {
@@ -876,9 +847,9 @@
                         ordChecked.push(o);
 
 //                    } else if ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified)) {
-//self.log(o.modified + "####" + tableOrderIdx[o.id].modified);
-//self.log(o.terminal_no + "----" + tableOrderIdx[o.id].terminal_no);
+
 //                        ordChecked.push(o);
+
                     } else if ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified)) {
 //                        self.log("checksum error:::" + o.id);
                         o.table_order_status = 1;
@@ -1034,7 +1005,7 @@
                             excludedOrderId: excludedOrderId
                         };
 
-                        GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_tables', aFeatures, inputObj);
+                        GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, 'select_tables', aFeatures, inputObj);
 
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
@@ -1115,7 +1086,7 @@
                             excludedOrderId: excludedOrderId
                         };
 
-                        GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'select_checks', aFeatures, inputObj);
+                        GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, 'select_checks', aFeatures, inputObj);
 
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
@@ -1240,10 +1211,6 @@
                     }
                 }
                 */
-
-//GREUtils.log(crc + "====" + tableOrderObj[0].TableOrder.checksum);
-//GREUtils.log(oldTransaction.data.modified + "####" + tableOrderObj[0].TableOrder.modified);
-//GREUtils.log(oldTransaction.data.terminal_no + "----" + tableOrderObj[0].TableOrder.terminal_no);
 
                 // if (crc != tableOrderObj[0].TableOrder.checksum) {
                 if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
@@ -1399,7 +1366,6 @@
 
                 curTransaction.data.table_no = "" + targetTableNo;
 
-                this._tableStatusModel.transTable(curTransaction.data, sourceTableNo);
                 // this.getNewTableNo();
                 this._controller.requestCommand('doRefreshTableStatusLight', null, 'SelectTable');
 
@@ -1410,7 +1376,7 @@
 
                 }
 
-//                this._tableStatusModel.transTable(curTransaction.data, sourceTableNo);
+                this._tableStatusModel.transTable(curTransaction.data, sourceTableNo);
 
                 // dispatch changeclerk event
                 // this._controller.dispatchEvent('onStore', curTransaction);
@@ -1571,35 +1537,6 @@
             }
             return true;
 
-
-            var r = -1;
-            if (check_no) {
-                r = this.recallByCheckNo(check_no);
-            } else {
-                r = this.recallByTableNo(i);
-            }
-            if (r != -1) {
-
-                var curTransaction = null;
-                curTransaction = this._controller._getTransaction();
-                if (curTransaction) {
-                    if (this._isAllowSplit(curTransaction)) {
-
-                        if (this.splitOrder(id, curTransaction.data) == -1) {
-                            // clear recall check from cart
-                            this._controller.cancel(true);
-
-                            return false;
-                        };
-                    } else {
-                        this._controller.cancel(true);
-                        return false;
-                    }
-                }
-            } else {
-
-                return false;
-            }
         },
 
         doMergeCheckByCheck: function(orderId) {
@@ -1707,7 +1644,7 @@
                 sourceCheck: data
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'merge_checks', aFeatures, inputObj);
+            GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, 'merge_checks', aFeatures, inputObj);
 
             if (inputObj.ok) {
                 // return queues[idx].key;
@@ -1745,7 +1682,7 @@
                 sourceCheck: data
             };
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
+            GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, aName, aFeatures, inputObj);
 
             if (inputObj.ok) {
                 var id = inputObj.id;

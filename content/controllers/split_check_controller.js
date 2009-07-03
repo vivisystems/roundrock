@@ -404,7 +404,7 @@
             var origData = this._genOrigOrder();
             var order = new OrderModel();
             order.saveOrder(origData);
-            order.serializeOrder(origData);
+//            order.serializeOrder(origData);
 
             // dispatch changeclerk event
             // this.getCartController().dispatchEvent('onStore', origData);
@@ -420,7 +420,9 @@
             orders.forEach(function(data){
 
                 // save order
-                var order = new OrderModel();
+                // var order = new OrderModel();
+                order.saveOrder(data);
+/*
                 // order.saveOrder(data);
                 order.saveOrderMaster(data);
 
@@ -440,7 +442,7 @@
 
                 // save order object
                 order.serializeOrder(data);
-
+*/
                 // dispatch changeclerk event
                 // this.getCartController().dispatchEvent('onStore', origData);
                 self.getCartController().dispatchEvent('onSplitCheck', data);

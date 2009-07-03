@@ -144,6 +144,16 @@
         _selectedOrderId: null,
         _isBusy: false,
 
+        _orderPanel: null,
+        _orderDoc: null,
+
+        _tplPath: null,
+        _tplFile: null,
+        _tpl: null,
+
+        _popupX: 40,
+        _popupY: 30,
+
         initial: function () {
             //
 //            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
@@ -241,8 +251,13 @@
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
 
-            var promptPanel = document.getElementById(panel);
-            var doc = document.getElementById('order_display_div');
+            if (this._orderPanel == null) {
+                this._orderPanel = document.getElementById(panel);
+                this._orderDoc = document.getElementById('order_display_div');
+            }
+
+            var promptPanel = this._orderPanel;
+            var doc = this._orderDoc;
 
             var id = tableObj.order_id || '';
 
@@ -252,9 +267,12 @@
             var order = tableObj.order[0];
 
             // load template
-            var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_display_template.tpl');
-            var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+            if (this._tpl == null) {
+                var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_display_template.tpl');
+                var file = GREUtils.File.getFile(path);
+                this._tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+            }
+            var tpl = this._tpl;
 
             var data = {orders:[]};
             /*
@@ -285,16 +303,32 @@
             }
 
             // first popup...
-            
+            // promptPanel.showPopup();
+            /*
+            promptPanel.autoPosition = false;
             if (promptPanel.boxObject.width == 0) {
                 
-                promptPanel.openPopupAtScreen(0, 0, false);
+                promptPanel.openPopupAtScreen(-1000, 0, true);
+                // promptPanel.openPopup( "" , position , x , y , isContextMenu, attributesOverride );
+                // promptPanel.openPopup(window, "end_before", 2000, 200, false, false);
+                // promptPanel.showPopup();
+
                 this.sleep(100);
                 promptPanel.hidePopup();
             }
-            
-            var x = (width - promptPanel.boxObject.width) / 2;
-            var y = (height - promptPanel.boxObject.height) / 2;
+            */
+            if (promptPanel.boxObject.width == 0) {
+                var x = this._popupX;
+                var y = this._popupY;
+                promptPanel.openPopupAtScreen(x, y, false);
+                this.sleep(100);
+            } else {
+                var x = (width - promptPanel.boxObject.width) / 2;
+                var y = (height - promptPanel.boxObject.height) / 2;
+
+                this._popupX = x;
+                this._popupY = y;
+            }
 
             promptPanel.openPopupAtScreen(x, y, false);
 
@@ -314,7 +348,9 @@
 
             // select first order
             tabs.selectedIndex = 0;
-            tabs.selectedItem.doCommand();
+            if (tabs.selectedItem) {
+                tabs.selectedItem.doCommand();
+            }
 
             return promptPanel;
         },
@@ -610,7 +646,6 @@
                     }
 
                     this._hidePromptPanel('prompt_panel');
-                    // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
                         // this._inputObj.index = this._tables[v].table_no;
@@ -638,42 +673,7 @@
                         this._isBusy = false;
                         return;
                     }
-                    /*
-                    this._inputObj.sourceTableNo = this._sourceTableNo;
 
-                    this._hidePromptPanel('prompt_panel');
-                    // alert('doFunc...' + inputObj.action);
-
-                    if (this._inputObj.action) {
-                        // this._inputObj.index = this._tables[v].table_no;
-                        this._inputObj.index = v;
-                        this._inputObj.tableObj = this._tables[v];
-                        this._inputObj.ok = true;
-                        // doOKButton();
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
-
-                        // if (this._selectedCheckNo) {
-                        if (selectedOrderId) {
-                            r = cart.GuestCheck.doRecallByCheck(selectedOrderId);
-                        } else {
-                            r = cart.GuestCheck.doRecall(this._sourceTableNo);
-                        }
-
-                        if (r) {
-
-                            $.hidePanel('selectTablePanel', true)
-                        }
-
-                        this._inputObj.action = '';
-                        this._sourceTableNo = null;
-
-                        // $.hidePanel('selectTablePanel', true);
-                        // cart.GuestCheck.getNewTableNo();
-                        this._isBusy = false;
-                        return;
-                    }
-                    */
                     break;
                 case 'SplitCheck':
                     if (!selTable.sequence) {
@@ -1026,11 +1026,11 @@
                 },
 
                 shown: function(evt) {
-
+                    window._tableStatusModel.getTableStatusList();
                     document.getElementById('tableScrollablepanel').invalidate();
                     
                     clearInterval(window.tableStatusRefreshInterval);
-                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 15000);
+                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 5000);
 
                     document.getElementById('table_status_timer').startClock();
 
