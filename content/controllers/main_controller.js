@@ -1016,7 +1016,7 @@
         },
         
         stockAdjustment: function () {
-            var aURL = 'chrome://viviecr/content/stock_adjustments.xul';
+            var aURL = 'chrome://viviecr/content/stock_records.xul';
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _( 'Adjust Stock' ), aFeatures);
