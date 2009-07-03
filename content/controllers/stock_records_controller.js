@@ -298,29 +298,32 @@
             var inputObj = {
                 input0: null,
                 require0: true,
-                numberOnly0: true,
-                input1: null,
-                require1: true,
-                numberOnly1: true
+                menu: null,
+                menuItems : [
+                    { label: "Check Stock", value: "check_stock", selected: true },
+                    { label: "Procure", value: "procure" },
+                    { label: "Otherwise", value: "otherwise" }
+               ]
             };
 
             GREUtils.Dialog.openWindow(
                 this.topmostWindow,
                 aURL,
-                _( 'Set All Stock' ),
+                _( 'Commit Changes' ),
                 aFeatures,
-                _( 'Set All Stock' ),
+                _( 'Commit Changes' ),
                 '',
-                _( 'Type:' ),
-                _( 'Remark:' ),
-                inputObj
+                _( 'Remark' ) + ':',
+                '',
+                inputObj,
+                _( 'Type' ) + ':'
             );
             
             var commitmentType = '';
             var commitmentRemark = '';
-            if ( inputObj.ok && inputObj.input0 && inputObj.input1 ) {
-                commitmentType = inputObj.input0;
-                commitmentRemark = inputObj.input1;
+            if ( inputObj.ok && inputObj.menu && inputObj.input0 ) {
+                commitmentType = inputObj.menu;
+                commitmentRemark = inputObj.input0;
             }
             
             var commitmentID = GeckoJS.String.uuid();
