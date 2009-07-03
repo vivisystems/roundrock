@@ -50,10 +50,11 @@
                     <hbox>
 		                <checkbox id="show_low_stock" value="false" label="&stockrecords.show.low.only;" oncommand="$do('clickLowStock', null, 'StockRecords');" />
 		                <checkbox id="show_qty_diff" value="false" label="&stockrecords.show.qty.different;" oncommand="$do('clickQtyDiff', null, 'StockRecords');" />
+		                <checkbox id="show_maintained_ones" value="false" label="&stockrecords.show.stockmaintainones;" oncommand="$do('clickMaintainedOnes', null, 'StockRecords');" />
 		            </hbox>
                 </vbox>
                 <vbox>
-                    <label id="plu_id" hidden="true" form="productForm" name="product_id" value="" />
+                    <!--label id="plu_id" hidden="true" form="productForm" name="product_id" value="" /-->
                     <grid class="DataForm1" flex="1">
                         <columns>
                             <column flex="1" />
