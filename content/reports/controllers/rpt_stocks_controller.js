@@ -86,7 +86,7 @@
                 }
             });
 
-			this._reportRecords.head.title = _( 'Product Stock Report' );
+			this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.stocks.label' );
 			this._reportRecords.body = records;
         },
 

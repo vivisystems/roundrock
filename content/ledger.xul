@@ -53,7 +53,7 @@
                                           headers="&ledger.entry.heading.date;,&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.amount;"
                                           fields="created,type,mode,amount"
                                           hidecolumnpicker="true"
-                                          onclick="$do('select',this.selectedIndex, 'LedgerRecords');"/>
+                                          onselect="$do('select',this.selectedIndex, 'LedgerRecords');"/>
 
                                 <hbox align="center">
                                     <radiogroup flex="1" orient="horizontal" id="show_type" oncommand="$do('load', null, 'LedgerRecords');" >
@@ -124,7 +124,7 @@
                                                     headers="&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.drawer.change;"
                                                     fields="type,mode,drawer_change"
                                                     hidecolumnpicker="true"
-                                                    onclick="$do('select',this.selectedIndex, 'LedgerEntryTypes');"/>
+                                                    onselect="$do('select',this.selectedIndex, 'LedgerEntryTypes');"/>
                                 <label id="entry_type_id" hidden="true" form="ledger_entry_typeForm" name="id" value="" />
                                 <grid class="DataForm" flex="0">
                                     <columns>

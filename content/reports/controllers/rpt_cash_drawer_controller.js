@@ -61,7 +61,7 @@
 
             var datas = cashDrawer.find( 'all', {fields: fields, conditions: conditions, group: groupby, recursive: 1, order: orderby, limit: limit} );
             
-            this._reportRecords.head.title = _( 'Cash Drawer Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.cashdrawerreport.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminal_no;

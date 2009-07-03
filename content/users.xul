@@ -132,19 +132,34 @@
                             <vbox flex="1">
                                 <grid class="DataForm">
                                     <columns>
-                                        <column flex="1" /><column flex="1" />
+                                        <column flex="0" />
+                                        <column flex="1" />
                                     </columns>
                                     <rows>
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.item.discount;" control="item_discount_limit"/>
                                                 <textbox id="item_discount_limit" form="userForm" name="item_discount_limit" width="100px" onfocus="this.select()"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                                         type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                             </vbox>
+                                            <vbox pack="end">
+                                                <radiogroup id="item_discount_limit_type" form="userForm" name="item_discount_limit_type" orient="horizontal" default="%" value="%">
+                                                    <radio label="&users.limit.type.percentage;" value="%"/>
+                                                    <radio label="&users.limit.type.absolute;" value="$"/>
+                                                </radiogroup>
+                                            </vbox>
+                                        </row>
+                                        <row>
                                             <vbox>
                                                 <label value="&users.limit.order.discount;" control="order_discount_limit"/>
                                                 <textbox id="order_discount_limit" form="userForm" name="order_discount_limit" width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
+                                            <vbox pack="end">
+                                                <radiogroup id="order_discount_limit_type" form="userForm" name="order_discount_limit_type" orient="horizontal" default="%" value="%">
+                                                    <radio label="&users.limit.type.percentage;" value="%"/>
+                                                    <radio label="&users.limit.type.absolute;" value="$"/>
+                                                </radiogroup>
                                             </vbox>
                                         </row>
 
@@ -154,13 +169,27 @@
                                                 <textbox id="item_surcharge_limit" form="userForm" name="item_surcharge_limit"  width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                             </vbox>
+                                            <vbox pack="end">
+                                                <radiogroup id="item_surcharge_limit_type" form="userForm" name="item_surcharge_limit_type" orient="horizontal" default="%" value="%">
+                                                    <radio label="&users.limit.type.percentage;" value="%"/>
+                                                    <radio label="&users.limit.type.absolute;" value="$"/>
+                                                </radiogroup>
+                                            </vbox>
+                                        </row>
+                                        <row>
                                             <vbox>
                                                 <label value="&users.limit.order.surcharge;" control="order_surcharge_limit"/>
                                                 <textbox id="order_surcharge_limit" form="userForm" name="order_surcharge_limit"  width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                             </vbox>
+                                            <vbox pack="end">
+                                                <radiogroup id="order_surcharge_limit_type" form="userForm" name="order_surcharge_limit_type" orient="horizontal" default="%" value="%">
+                                                    <radio label="&users.limit.type.percentage;" value="%"/>
+                                                    <radio label="&users.limit.type.absolute;" value="$"/>
+                                                </radiogroup>
+                                            </vbox>
                                         </row>
-
+<!--
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.plu.quantity;" control="max_plu_qty"/>
@@ -186,7 +215,7 @@
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                             </vbox>
                                         </row>
-
+-->
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.cash.check;" control="max_cash_check"/>

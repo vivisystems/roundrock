@@ -159,7 +159,7 @@
         },
 	
         selectCode: function(index){
-            this.getCodeListObj().vivitree.selection.select(index);
+            this.getCodeListObj().selection.select(index);
             this.getCodeListObj().treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
                 var inputObj = this._codeDatas[index];
@@ -362,13 +362,13 @@
             var textBox = this.getTextboxObj();
             var typeList = this.getTypeListObj();
 
-            this.getViewListObj().vivitree.selection.select(index);
+            this.getViewListObj().selection.select(index);
 
             // select type matching the view data
             var type = this._annotationDatas[index].type;
             for (var i = 0; i < this._typeDatas.length; i++) {
                 if (this._typeDatas[i].type == type) {
-                    typeList.vivitree.selection.select(i);
+                    typeList.selection.select(i);
                     typeList.treeBoxObject.ensureRowIsVisible(i);
                     break;
                 }
@@ -383,7 +383,7 @@
         },
 
         selectType: function(index){
-            this.getTypeListObj().vivitree.selection.select(index);
+            this.getTypeListObj().selection.select(index);
 
             var textBox = this.getTextboxObj();
             textBox.select();

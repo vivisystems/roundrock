@@ -90,7 +90,6 @@
             this._thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
             // list orders
-            var self = this;
             orders.forEach(function(order) {
                 var statusStr = order.status;
                 switch(parseInt(order.status)) {
@@ -111,9 +110,10 @@
                         break;
                 }
                 order.status_str = statusStr;
-                self._precision_prices = order.precision_prices;
-                order.total = self._formatPrice(order.total);
-            });
+
+                this._precision_prices = order.precision_prices;
+                order.total = this._formatPrice(order.total);
+            }, this);
 
             tree.datasource = orders;
 

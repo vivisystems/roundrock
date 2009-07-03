@@ -8,6 +8,10 @@
   background: none;
 }
 
+.vfdPadOnTraining {
+    background-color: red;
+}
+
 .vbox_vfd {
   padding: 3px;
   margin-left: 0px;
@@ -27,3 +31,6 @@
     -moz-user-input: none;
 }
 
+.vfdPadOnTraining .label_vfd {
+    color: black !important;
+}

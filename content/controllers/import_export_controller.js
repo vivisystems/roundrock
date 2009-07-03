@@ -624,7 +624,7 @@
             }
 
             this._datas[index].exported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
-            this.getListObj().vivitree.refresh();
+            this.getListObj().refresh();
 
             NotifyUtils.info(_('Data export to file [%S] finished!',[this._datas[index].filename]));
 
@@ -1682,7 +1682,7 @@
             }
 
             this._datas[index].imported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
-            this.getListObj().vivitree.refresh();
+            this.getListObj().refresh();
 
             NotifyUtils.info(_('Data import from file [%S] finished!', [this._datas[index].filename]));
 

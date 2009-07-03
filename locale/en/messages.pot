@@ -1,154 +1,265 @@
-msgid "Condiments"
-msgstr "Condiments"
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
-msgid "Currency Exchange"
-msgstr "Currency Exchange"
+########################################################################
+#
+# List of Locales
+#
+########################################################################
 
-msgid "Departments"
-msgstr "Departments"
+msgid "(locale)en"
+msgstr "English (en)"
 
-msgid "Employees"
-msgstr "Employees"
+msgid "(locale)en-US"
+msgstr "English - US (en-US)"
 
-msgid "Function Panel Configuration"
-msgstr "Function Panel Configuration"
+msgid "(locale)zh-TW"
+msgstr "繁體中文 - 台灣 (zh-TW)"
 
-msgid "Data Import/ Export"
-msgstr "Data Import/ Export"
+########################################################################
+#
+# List of Locations (used by setup)
+#
+########################################################################
 
-msgid "Jobs"
-msgstr "Jobs"
+msgid "vivipos.fec.registry.package-location.generic"
+msgstr "Generic Location"
 
-msgid "Image Manager"
-msgstr "Image Manager"
+########################################################################
+#
+# List of Sectors (used by setup)
+#
+########################################################################
 
-msgid "Layout Manager"
-msgstr "Layout Manager"
+msgid "vivipos.fec.registry.package.generic.generic.label"
+msgstr "Generic"
 
-msgid "Locale and Keyboard Mapping"
-msgstr "Language and Keyboard Mapping"
+msgid "vivipos.fec.registry.package.generic.generic.description"
+msgstr "If you are not sure what sector to choose, you may want to start with this selection."
 
-msgid "Product Groups"
-msgstr "Product Groups"
+msgid "vivipos.fec.registry.package.generic.retail.label"
+msgstr "Retail"
 
-msgid "Products"
-msgstr "Products"
+msgid "vivipos.fec.registry.package.generic.retail.description"
+msgstr "This is for general retail."
 
-msgid "Ledger"
-msgstr "Ledger"
+########################################################################
+#
+# List of Control Panels
+#
+########################################################################
 
-msgid "Price Level Schedule"
+##############
+# ACTIVITIES
+##############
+
+msgid "vivipos.fec.settings.controlpanels.activity.pricelevelschedule.label"
 msgstr "Price Level Schedule"
 
-msgid "Static Condiments"
-msgstr "Condiment Dock"
+msgid "vivipos.fec.settings.controlpanels.activity.promotions_manager.label"
+msgstr "Promotions Manager"
 
-msgid "Reports"
-msgstr "Reports"
+##########
+# CONFIG
+##########
 
-msgid "Roles"
-msgstr "Roles"
+msgid "vivipos.fec.settings.controlpanels.config.addons.label"
+msgstr "Add-ons"
 
-msgid "Stock Control"
-msgstr "Stock Control"
+msgid "vivipos.fec.settings.controlpanels.config.annotations.label"
+msgstr "Annotation Types"
 
-msgid "System Backup"
-msgstr "System Backup"
+msgid "vivipos.fec.settings.controlpanels.config.currency.label"
+msgstr "Currency Exchange"
 
-msgid "General Options"
-msgstr "General Options"
-
-msgid "Taxes"
-msgstr "Taxes"
-
-msgid "Localization Editor"
-msgstr "Localization Editor"
-
-msgid "Date and Time"
-msgstr "Date & Time"
-
-msgid "Store Contact"
-msgstr "Store Contact"
-
-msgid "Devices"
-msgstr "Devices"
-
-msgid "Table Manager"
-msgstr "Table Manager"
-
-msgid "Print Label"
-msgstr "Print Label"
-
-msgid "Accounting Report"
-msgstr "Accounting Report"
-
-msgid "Attendance Report"
-msgstr "Attendance Record"
-
-msgid "Department Report"
-msgstr "Department List"
-
-msgid "Cash Drawer Report"
-msgstr "Cash Drawer Report"
-
-msgid "Cash Drawer Summary Report"
-msgstr "Cash Drawer Summary"
-
-msgid "Order Status Report"
-msgstr "Order Status Report"
-
-msgid "Product Report"
-msgstr "Product List"
-
-msgid "Product Sales Report"
-msgstr "Product Sales"
-
-msgid "Employee Report"
-msgstr "Employee List"
-
-msgid "Product Stock Report"
-msgstr "Stock Report"
-
-msgid "Hourly Sales Report"
-msgstr "Hourly Sales"
-
-msgid "Shift Change Report"
-msgstr "Shift Change Report"
-
-msgid "Sales Report"
-msgstr "Sales Report"
-
-msgid "Sales Report - Detailed"
-msgstr "Sales - Detailed"
-
-msgid "Daily Sales Summary Report"
-msgstr "Daily Sales Summary"
-
-msgid "Daily Promotion Summary Report"
-msgstr "Daily Promotion Summary"
-
-msgid "Sales Summary Report"
-msgstr "Sales Summary"
-
-msgid "Clerk Sales Report"
-msgstr "Clerk Sales"
-
-msgid "Service Clerk Sales Report"
-msgstr "Clerk Sales (Service)"
-
-msgid "Proceeds Clerk Sales Report"
-msgstr "Clerk Sales (Close)"
-
-msgid "Product Filters"
-msgstr "Product Filters"
-
-msgid "Destinations"
+msgid "vivipos.fec.settings.controlpanels.config.destinations.label"
 msgstr "Order Destinations"
 
-msgid "Annotations"
-msgstr "Annotations"
+msgid "vivipos.fec.settings.controlpanels.config.devices.label"
+msgstr "Devices"
 
-# \ register\ display:\ payment\ types
+msgid "vivipos.fec.settings.controlpanels.config.functionpanel.label"
+msgstr "Function Panel Configuration"
+
+msgid "vivipos.fec.settings.controlpanels.config.hotkey.label"
+msgstr "HotKey Configuration"
+
+msgid "vivipos.fec.settings.controlpanels.config.layout.label"
+msgstr "Layout Manager"
+
+msgid "vivipos.fec.settings.controlpanels.config.ledger.label"
+msgstr "Ledger"
+
+msgid "vivipos.fec.settings.controlpanels.config.sysprefs.label"
+msgstr "General Options"
+
+msgid "vivipos.fec.settings.controlpanels.config.tableman.label"
+msgstr "Table Manager"
+
+############
+# EMPLOYEE
+############
+
+msgid "vivipos.fec.settings.controlpanels.employee.jobs.label"
+msgstr "Jobs"
+
+msgid "vivipos.fec.settings.controlpanels.employee.roles.label"
+msgstr "Roles"
+
+msgid "vivipos.fec.settings.controlpanels.employee.storecontact.label"
+msgstr "Store Contact"
+
+msgid "vivipos.fec.settings.controlpanels.employee.users.label"
+msgstr "Employees"
+
+###########
+# PRODUCT
+###########
+
+msgid "vivipos.fec.settings.controlpanels.product.condiments.label"
+msgstr "Condiments"
+
+msgid "vivipos.fec.settings.controlpanels.product.departments.label"
+msgstr "Departments"
+
+msgid "vivipos.fec.settings.controlpanels.product.imagemanager.label"
+msgstr "Image Manager"
+
+msgid "vivipos.fec.settings.controlpanels.product.nonplu_setting.label"
+msgstr "Non PLU Setting"
+
+msgid "vivipos.fec.settings.controlpanels.product.plufilters.label"
+msgstr "Product Filters"
+
+msgid "vivipos.fec.settings.controlpanels.product.plugroups.label"
+msgstr "Product Groups"
+
+msgid "vivipos.fec.settings.controlpanels.product.plus.label"
+msgstr "Products"
+
+msgid "vivipos.fec.settings.controlpanels.product.reports.label"
+msgstr "Reports"
+
+msgid "vivipos.fec.settings.controlpanels.product.static_condiments.label"
+msgstr "Condiment Dock"
+
+msgid "vivipos.fec.settings.controlpanels.product.stocks.label"
+msgstr "Stock Control"
+
+msgid "vivipos.fec.settings.controlpanels.product.taxes.label"
+msgstr "Taxes"
+
+##########
+# SYSTEM
+##########
+
+msgid "vivipos.fec.settings.controlpanels.system.datetime.label"
+msgstr "Date & Time"
+
+msgid "vivipos.fec.settings.controlpanels.system.importexport.label"
+msgstr "Data Import/ Export"
+
+msgid "vivipos.fec.settings.controlpanels.system.localekeyboard.label"
+msgstr "Language and Keyboard Mapping"
+
+msgid "vivipos.fec.settings.controlpanels.system.localization.label"
+msgstr "Localization Editor"
+
+msgid "vivipos.fec.settings.controlpanels.system.network_setting.label"
+msgstr "Network Settings"
+
+msgid "vivipos.fec.settings.controlpanels.system.printers.label"
+msgstr "Printer Sharing"
+
+msgid "vivipos.fec.settings.controlpanels.system.remote_control.label"
+msgstr "Remote Control"
+
+msgid "vivipos.fec.settings.controlpanels.system.sync_settings.label"
+msgstr "Synchronization Settings"
+
+msgid "vivipos.fec.settings.controlpanels.system.systembackup.label"
+msgstr "System Backup"
+
+msgid "vivipos.fec.settings.controlpanels.system.touch_calibration.label"
+msgstr "Touch Calibration"
+
+msgid "vivipos.fec.settings.controlpanels.system.xterm.label"
+msgstr "XTerm"
+
+########################################################################
+#
+# List of Reports
+#
+########################################################################
+
+msgid "vivipos.fec.reportpanels.attendancerecord.label"
+msgstr "Attendance Record"
+
+msgid "vivipos.fec.reportpanels.cashbyclerk.label"
+msgstr "Shift Change Report"
+
+msgid "vivipos.fec.reportpanels.cashdrawerreport.label"
+msgstr "Cash Drawer Report"
+
+msgid "vivipos.fec.reportpanels.cashdrawersummary.label"
+msgstr "Cash Drawer Summary"
+
+msgid "vivipos.fec.reportpanels.clerksalesreport.label"
+msgstr "Clerk Sales"
+
+msgid "vivipos.fec.reportpanels.dailysalesdetail.label"
+msgstr "Sales - Detailed"
+
+msgid "vivipos.fec.reportpanels.dailysales.label"
+msgstr "Sales Report"
+
+msgid "vivipos.fec.reportpanels.dailysalessummary.label"
+msgstr "Sales Summary"
+
+msgid "vivipos.fec.reportpanels.departmentlist.label"
+msgstr "Department List"
+
+msgid "vivipos.fec.reportpanels.detailedtaxreport.label"
+msgstr "Detailed Tax Report"
+
+msgid "vivipos.fec.reportpanels.hourlysales.label"
+msgstr "Hourly Sales"
+
+msgid "vivipos.fec.reportpanels.orderannotation.label"
+msgstr "Order Annotations"
+
+msgid "vivipos.fec.reportpanels.orderstatus.label"
+msgstr "Order Status Report"
+
+msgid "vivipos.fec.reportpanels.productlist.label"
+msgstr "Product List"
+
+msgid "vivipos.fec.reportpanels.productsales.label"
+msgstr "Product Sales"
+
+msgid "vivipos.fec.reportpanels.promotionsummary.label"
+msgstr "Promotion Summary"
+
+msgid "vivipos.fec.reportpanels.salessummary.label"
+msgstr "Sales Summary"
+
+msgid "vivipos.fec.reportpanels.stocks.label"
+msgstr "Stock Report"
+
+msgid "vivipos.fec.reportpanels.userlist.label"
+msgstr "Employee List"
+
+msgid "vivipos.fec.reportpanels.yourorder.label"
+msgstr "Custom Sales Report"
+
+########################################################################
+#
+# Register Display - Payments
+#
+########################################################################
+
 msgid "CREDITCARD"
 msgstr "CC"
 
@@ -164,7 +275,12 @@ msgstr "CHK"
 msgid "GIFTCARD"
 msgstr "GC"
 
-# \ register\ display:\ marker\ types
+########################################################################
+#
+# Register Display - Markers
+#
+########################################################################
+
 msgid "** SUBTOTAL"
 msgstr "** SUB"
 
@@ -174,9 +290,28 @@ msgstr "** TAL"
 msgid "** TRAY"
 msgstr "** TRAY"
 
-# \ register\ display:\ others
+########################################################################
+#
+# Register Display - Others
+#
+########################################################################
+
 msgid "House Bon"
 msgstr "BON"
+
+########################################################################
+#
+# Function Keys
+#
+########################################################################
+
+#################
+# Training Mode
+#################
+
+msgid "trainingMode.desc"
+msgstr ""
+"This function is used to launch the training mode."
 
 msgid "trainingMode.label"
 msgstr "Training Mode"
@@ -184,9 +319,9 @@ msgstr "Training Mode"
 msgid "trainingMode.name"
 msgstr "Training Mode"
 
-msgid "trainingMode.desc"
-msgstr ""
-"This function is used to launch the training mode."
+####################
+# Return Cart Item
+####################
 
 msgid "returncartitem.desc"
 msgstr ""
@@ -199,6 +334,10 @@ msgstr "Return Item"
 msgid "returncartitem.name"
 msgstr "Return Item"
 
+###################
+# Item By Barcode
+###################
+
 msgid "itembybarcode.desc"
 msgstr ""
 "This function is used to register an item by its product number or barcode."
@@ -210,6 +349,10 @@ msgstr "PLU"
 
 msgid "itembybarcode.name"
 msgstr "Register PLU"
+
+############
+# Annotate
+############
 
 msgid "annotate.desc"
 msgstr ""
@@ -227,6 +370,10 @@ msgstr "Annotate"
 msgid "annotate.name"
 msgstr "Annotate"
 
+#################
+# Issue Receipt
+#################
+
 msgid "receipt.desc"
 msgstr ""
 "This function issues a post-finalization receipt. The parameter should be 1 "
@@ -238,6 +385,10 @@ msgstr "Issue Receipt"
 
 msgid "receipt.name"
 msgstr "Issue Receipt"
+
+######################
+# Issue Receipt Copy
+######################
 
 msgid "receiptcopy.desc"
 msgstr ""
@@ -251,6 +402,10 @@ msgstr "Issue Receipt Copy"
 msgid "receiptcopy.name"
 msgstr "Issue Receipt Copy"
 
+#####################
+# Issue Guest Check 
+#####################
+
 msgid "printcheck.desc"
 msgstr ""
 "This function issues a check. The parameter should be 1, 2, 3, or 4, "
@@ -262,6 +417,10 @@ msgstr "Issue Check"
 
 msgid "printcheck.name"
 msgstr "Issue Check"
+
+##########################
+# Issue Guest Check Copy
+##########################
 
 msgid "checkcopy.desc"
 msgstr ""
@@ -275,6 +434,10 @@ msgstr "Issue Check Copy"
 msgid "checkcopy.name"
 msgstr "Issue Check Copy"
 
+#####################
+# Shift Price Level
+#####################
+
 msgid "pricelevelshift.desc"
 msgstr ""
 "This function shifts the current price level up by 1. No parameter is needed."
@@ -284,6 +447,10 @@ msgstr "Price Level Shift"
 
 msgid "pricelevelshift.name"
 msgstr "Price Level Shift"
+
+#####################
+# Set Price Level 1
+#####################
 
 msgid "pricelevel1.desc"
 msgstr ""
@@ -295,6 +462,10 @@ msgstr "Price Level 1"
 msgid "pricelevel1.name"
 msgstr "Price Level 1"
 
+#####################
+# Set Price Level 2
+#####################
+
 msgid "pricelevel2.desc"
 msgstr ""
 "This function sets the current price level to 2. The parameter must be 2."
@@ -304,6 +475,10 @@ msgstr "Price Level 2"
 
 msgid "pricelevel2.name"
 msgstr "Price Level 2"
+
+#####################
+# Set Price Level 3
+#####################
 
 msgid "pricelevel3.desc"
 msgstr ""
@@ -315,6 +490,10 @@ msgstr "Price Level 3"
 msgid "pricelevel3.name"
 msgstr "Price Level 3"
 
+#####################
+# Set Price Level 4
+#####################
+
 msgid "pricelevel4.desc"
 msgstr ""
 "This function sets the current price level to 4. The parameter must be 4."
@@ -324,6 +503,10 @@ msgstr "Price Level 4"
 
 msgid "pricelevel4.name"
 msgstr "Price Level 4"
+
+#####################
+# Set Price Level 5
+#####################
 
 msgid "pricelevel5.desc"
 msgstr ""
@@ -335,6 +518,10 @@ msgstr "Price Level 5"
 msgid "pricelevel5.name"
 msgstr "Price Level 5"
 
+#####################
+# Set Price Level 6
+#####################
+
 msgid "pricelevel6.desc"
 msgstr ""
 "This function sets the current price level to 6. The parameter must be 6."
@@ -344,6 +531,10 @@ msgstr "Price Level 6"
 
 msgid "pricelevel6.name"
 msgstr "Price Level 6"
+
+#####################
+# Set Price Level 7
+#####################
 
 msgid "pricelevel7.desc"
 msgstr ""
@@ -355,6 +546,10 @@ msgstr "Price Level 7"
 msgid "pricelevel7.name"
 msgstr "Price Level 7"
 
+#####################
+# Set Price Level 8
+#####################
+
 msgid "pricelevel8.desc"
 msgstr ""
 "This function sets the current price level to 8. The parameter must be 8."
@@ -365,6 +560,10 @@ msgstr "Price Level 8"
 msgid "pricelevel8.name"
 msgstr "Price Level 8"
 
+#####################
+# Set Price Level 9
+#####################
+
 msgid "pricelevel9.desc"
 msgstr ""
 "This function sets the current price level to 9. The parameter must be 9."
@@ -374,6 +573,10 @@ msgstr "Price Level 9"
 
 msgid "pricelevel9.name"
 msgstr "Price Level 9"
+
+#############
+# Shift Tax
+#############
 
 msgid "shifttax.desc"
 msgstr ""
@@ -388,6 +591,10 @@ msgstr "Shift Tax"
 msgid "shifttax.name"
 msgstr "Shift Tax"
 
+##########################
+# Discount By Percentage
+##########################
+
 msgid "discountByPercentage.desc"
 msgstr ""
 "This function registers a percentage-based discount. The parameter field can "
@@ -399,6 +606,10 @@ msgstr "-%"
 
 msgid "discountByPercentage.name"
 msgstr "Discount"
+
+######################
+# Discount By Amount
+######################
 
 msgid "discountByAmount.desc"
 msgstr ""
@@ -412,6 +623,10 @@ msgstr "-"
 msgid "discountByAmount.name"
 msgstr "Reduction"
 
+###########################
+# Surcharge By Percentage
+###########################
+
 msgid "surchargeByPercentage.desc"
 msgstr ""
 "This function registers a percentage surcharge. The parameter field can be "
@@ -424,6 +639,10 @@ msgstr "+%"
 msgid "surchargeByPercentage.name"
 msgstr "Surcharge"
 
+#######################
+# Surcharge By Amount
+#######################
+
 msgid "surchargeByAmount.desc"
 msgstr ""
 "This function registers an addition. The parameter field can be used to "
@@ -435,6 +654,10 @@ msgstr "+"
 
 msgid "surchargeByAmount.name"
 msgstr "PLUS"
+
+###############
+# Cash Tender
+###############
 
 msgid "cash.desc"
 msgstr ""
@@ -449,6 +672,10 @@ msgstr "Cash"
 msgid "cash.name"
 msgstr "Cash"
 
+############
+# Keypress
+############
+
 msgid "keypress.desc"
 msgstr ""
 "This function simulates a series of key presses. The parameter field "
@@ -460,6 +687,10 @@ msgstr "Key"
 msgid "keypress.name"
 msgstr "Keypress"
 
+###############
+# Clear Input
+###############
+
 msgid "clear.desc"
 msgstr ""
 "This function clears the input line. The parameter field must not be altered"
@@ -469,6 +700,10 @@ msgstr "Clear"
 
 msgid "clear.name"
 msgstr "Clear"
+
+#############
+# Enter Key
+#############
 
 msgid "enter.desc"
 msgstr ""
@@ -481,6 +716,10 @@ msgstr "Enter"
 msgid "enter.name"
 msgstr "Enter"
 
+################
+# Quantity Key
+################
+
 msgid "quantity.desc"
 msgstr ""
 "This function sets the quantity to the value entered on the input line. The "
@@ -492,6 +731,10 @@ msgstr "X"
 msgid "quantity.name"
 msgstr "Quantity"
 
+###################
+# Subtotal Marker
+###################
+
 msgid "subtotal.desc"
 msgstr ""
 "This function registers a subtotal. The parameter field must not be altered"
@@ -501,6 +744,10 @@ msgstr "SUB TOTAL"
 
 msgid "subtotal.name"
 msgstr "Sub Total"
+
+###############
+# Tray Marker
+###############
 
 msgid "traymarker.desc"
 msgstr ""
@@ -513,6 +760,10 @@ msgstr "Tray Marker"
 msgid "traymarker.name"
 msgstr "Tray Marker"
 
+################
+# Cancel Order
+################
+
 msgid "cancel.desc"
 msgstr "This function cancels the current order. No parameter is needed."
 
@@ -521,6 +772,10 @@ msgstr "Cancel"
 
 msgid "cancel.name"
 msgstr "Cancel"
+
+##################
+# Product Search
+##################
 
 msgid "plusearch.desc"
 msgstr ""
@@ -533,6 +788,10 @@ msgstr "Product Search"
 msgid "plusearch.name"
 msgstr "Product Search"
 
+###############
+# Queue Order
+###############
+
 msgid "pushqueue.desc"
 msgstr ""
 "This function queues the current order and readies the register for a new "
@@ -543,6 +802,10 @@ msgstr "Queue Order"
 
 msgid "pushqueue.name"
 msgstr "Queue Order"
+
+##############
+# View Order
+##############
 
 msgid "pullqueue.desc"
 msgstr ""
@@ -555,6 +818,10 @@ msgstr "View Queue"
 msgid "pullqueue.name"
 msgstr "View Queue"
 
+###############
+# Modify Item
+###############
+
 msgid "modifyitem.desc"
 msgstr ""
 "This function allows the operator to modify a registered item. No parameter "
@@ -566,6 +833,10 @@ msgstr "Modify"
 msgid "modifyitem.name"
 msgstr "Modify Item"
 
+#############
+# Void Item
+#############
+
 msgid "voidItem.desc"
 msgstr "This function voids the last transaction. No parameter is needed."
 
@@ -574,6 +845,10 @@ msgstr "VOID"
 
 msgid "voidItem.name"
 msgstr "VOID"
+
+#############
+# House BON
+#############
 
 msgid "houseBon.desc"
 msgstr ""
@@ -586,6 +861,10 @@ msgstr "House BON"
 msgid "houseBon.name"
 msgstr "House BON"
 
+############
+# Sign Off
+############
+
 msgid "signOff.desc"
 msgstr "This function signs off the current operator. No parameter is needed."
 
@@ -594,6 +873,10 @@ msgstr "Sign Off"
 
 msgid "signOff.name"
 msgstr "Sign Off"
+
+###########################
+# Foreign Currency Tender
+###########################
 
 msgid "currencyConvert.desc"
 msgstr ""
@@ -605,6 +888,10 @@ msgstr "Currency Exchange"
 
 msgid "currencyConvert.name"
 msgstr "Currency Exchange"
+
+#####################
+# Reset Price Level
+#####################
 
 msgid "changeToCurrentLevel.desc"
 msgstr ""
@@ -619,6 +906,10 @@ msgstr "Reset Price Level"
 msgid "changeToCurrentLevel.name"
 msgstr "Reset Price Level"
 
+######################
+# Silent User Switch
+######################
+
 msgid "silentsignoff.desc"
 msgstr ""
 "This function allows a silent switch to the user specified in the paramter "
@@ -631,6 +922,10 @@ msgstr "Silent User Switch"
 msgid "silentsignoff.name"
 msgstr "Silent User Switch"
 
+#####################
+# Quick User Switch
+#####################
+
 msgid "quicksignoff.desc"
 msgstr ""
 "This function allows the current user to enter a password and quickly switch "
@@ -641,6 +936,10 @@ msgstr "Change Clerk"
 
 msgid "quicksignoff.name"
 msgstr "Quick User Switch"
+
+####################
+# Command Dispatch
+####################
 
 msgid "dispatch.desc"
 msgstr ""
@@ -655,16 +954,24 @@ msgstr "Dispatch"
 msgid "dispatch.name"
 msgstr "Dispatch"
 
+###############
+# Item Refund
+###############
+
 msgid "return.desc"
 msgstr ""
 "This function registers a return of an item for refund. No parameter is "
 "needed."
 
 msgid "return.label"
-msgstr "Refund"
+msgstr "Item Refund"
 
 msgid "return.name"
-msgstr "Refund"
+msgstr "Item Refund"
+
+#######################
+# Credit Card Payment
+#######################
 
 msgid "creditcard.desc"
 msgstr ""
@@ -679,6 +986,10 @@ msgstr "Credit Card"
 
 msgid "creditcard.name"
 msgstr "Credit Card"
+
+#####################
+# Payment By Coupon
+#####################
 
 msgid "coupon.desc"
 msgstr ""
@@ -695,6 +1006,10 @@ msgstr "Coupon"
 
 msgid "coupon.name"
 msgstr "Coupon"
+
+#######################
+# Payment By Giftcard
+#######################
 
 msgid "giftcard.desc"
 msgstr ""
@@ -713,6 +1028,10 @@ msgstr "Giftcard"
 msgid "giftcard.name"
 msgstr "Giftcard"
 
+#############################
+# Payment By Personal Check
+#############################
+
 msgid "check.desc"
 msgstr ""
 "This function registers a check payment. The parameter field should be set "
@@ -725,6 +1044,10 @@ msgstr "Check"
 msgid "check.name"
 msgstr "Check"
 
+########################
+# Show Payment Details
+########################
+
 msgid "showpayment.desc"
 msgstr ""
 "This function displays details of currently registered payments. No parameter is needed."
@@ -734,6 +1057,10 @@ msgstr "Show Payments"
 
 msgid "showpayment.name"
 msgstr "Show Payments"
+
+############
+# Add Memo
+############
 
 msgid "addmemo.desc"
 msgstr ""
@@ -746,6 +1073,10 @@ msgstr "Add Memo"
 msgid "addmemo.name"
 msgstr "Add Memo"
 
+#########################
+# Add Linked Condiments
+#########################
+
 msgid "addlinkedcondiment.desc"
 msgstr ""
 "This function registers one or more condiments against a product from condiment groups linked to that product. The parameter field must be empty."
@@ -755,6 +1086,10 @@ msgstr "Add Linked Condiment"
 
 msgid "addlinkedcondiment.name"
 msgstr "Add Linked Condiment"
+
+########################
+# Add Static Condiment
+########################
 
 msgid "addcondiment.desc"
 msgstr ""
@@ -769,6 +1104,10 @@ msgstr "Add Condiment"
 msgid "addcondiment.name"
 msgstr "Add Condiment"
 
+##################################
+# Pretax Surcharge By Percentage
+##################################
+
 msgid "surchargePretaxByPercentage.desc"
 msgstr ""
 "This function registers a pretax order surcharge by percentage. The "
@@ -782,6 +1121,10 @@ msgstr "Pretax Order Surcharge"
 msgid "surchargePretaxByPercentage.name"
 msgstr "Pretax Order Surcharge"
 
+#################################
+# Pretax Discount By Percentage
+#################################
+
 msgid "discountPretaxByPercentage.desc"
 msgstr ""
 "This function registers a pretax order discount by percentage. The parameter "
@@ -794,6 +1137,10 @@ msgstr "Pretax Order Discount"
 msgid "discountPretaxByPercentage.name"
 msgstr "Pretax Order Discount"
 
+#######################
+# Open Cash Drawer #1
+#######################
+
 msgid "opendrawer1.desc"
 msgstr "This function opens cash drawer #1. The parameter field must be empty."
 
@@ -803,6 +1150,10 @@ msgstr "Cash Drawer #1"
 msgid "opendrawer1.name"
 msgstr "Cash Drawer #1"
 
+#######################
+# Open Cash Drawer #2
+#######################
+
 msgid "opendrawer2.desc"
 msgstr "This function opens cash drawer #2. The parameter field must be empty."
 
@@ -811,6 +1162,10 @@ msgstr "Cash Drawer #2"
 
 msgid "opendrawer2.name"
 msgstr "Cash Drawer #2"
+
+#####################
+# Prefinalize Order
+#####################
 
 msgid "prefinalize.desc"
 msgstr ""
@@ -826,6 +1181,10 @@ msgstr "Pre-Finalize"
 msgid "prefinalize.name"
 msgstr "Pre-Finalize"
 
+###################
+# Set Destination
+###################
+
 msgid "setdestination.desc"
 msgstr ""
 "This function sets the destination indicator to the status given by the "
@@ -836,6 +1195,10 @@ msgstr "Set Destination"
 
 msgid "setdestination.name"
 msgstr "Set Destination"
+
+############
+# Tag Item
+############
 
 msgid "tagitem.desc"
 msgstr ""
@@ -848,17 +1211,378 @@ msgstr "Tag Item"
 msgid "tagitem.name"
 msgstr "Tag Item"
 
-msgid "// ACL Roles"
-msgstr ""
+##########################
+# Toggle Receipts On/Off
+##########################
 
-msgid "acl_user_dummy"
-msgstr "dummy"
+msgid "togglereceipt.desc"
+msgstr ""
+"This function is used to toggle receipt printing on/off. No parameter is needed."
+
+msgid "togglereceipt.label"
+msgstr "Receipt On/Off"
+
+msgid "togglereceipt.name"
+msgstr "Receipt On/Off"
+
+################
+# Shift Change
+################
+
+msgid "shiftchange.label"
+msgstr "Shift Change"
+
+msgid "shiftchange.name"
+msgstr "Shift Change"
+
+msgid "shiftchange.desc"
+msgstr ""
+"This function is used to initiate shift change. No parameter is needed."
+
+################
+# Ledger Entry
+################
+
+msgid "ledgerentry.desc"
+msgstr ""
+"This function is used to enter an entry into the ledger. The parameter may "
+"be used to program an ledger entry type and a receipt device number "
+"(separated by commas.) If the receipt device number is not given, no receipt "
+"will be issued."
+
+msgid "ledgerentry.label"
+msgstr "Ledger Entry"
+
+msgid "ledgerentry.name"
+msgstr "Ledger Entry"
+
+#####################
+# Printer Dashboard
+#####################
+
+msgid "printerDashboard.desc"
+msgstr ""
+"This function allows the operator to quickly view and change the status of "
+"enabled devices. No parameter is needed."
+
+msgid "printerDashboard.label"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.name"
+msgstr "Printer Dashboard"
+
+###############
+# View Orders
+###############
+
+msgid "vieworders.desc"
+msgstr ""
+"This function allows the operator to quickly browse and view orders. "
+"No parameter is needed."
+
+msgid "vieworders.label"
+msgstr "View Orders"
+
+msgid "vieworders.name"
+msgstr "View Orders"
+
+################################
+# Truncate Transaction Records
+################################
+
+msgid "truncatetxnrecords.desc"
+msgstr ""
+"This function removes all transactional data from the terminal. This feature should be used with extreme care, and it is strongly recommeded that the system be backed up before truncating transaction records. No parameter is needed."
+
+msgid "truncatetxnrecords.label"
+msgstr "Truncate Transaction Records"
+
+msgid "truncatetxnrecords.name"
+msgstr "Truncate Transaction Records"
+
+#################
+# Control Panel
+#################
+
+msgid "controlpanel.desc"
+msgstr ""
+"This function allows the operator to bring up the configuration control panel. "
+"No parameter is needed."
+
+msgid "controlpanel.label"
+msgstr "Control Panel"
+
+msgid "controlpanel.name"
+msgstr "Control Panel"
+
+################
+# Clock In/Out
+################
+
+msgid "clockin.desc"
+msgstr ""
+"This function allows the operator to bring up the clock in/out screen. "
+"No parameter is needed."
+
+msgid "clockin.label"
+msgstr "Clock In"
+
+msgid "clockin.name"
+msgstr "Clock In"
+
+###########################
+# Show/Hide Function Panel
+###########################
+
+msgid "togglefunctionpanel.desc"
+msgstr ""
+"This function allows the operator to show/hide the function panel. "
+"No parameter is needed."
+
+msgid "togglefunctionpanel.label"
+msgstr "Toggle Function Panel"
+
+##############################
+# Show/Hide Virtual Keyboard
+##############################
+
+msgid "togglefunctionpanel.name"
+msgstr "Toggle Function Panel"
+
+msgid "togglevirtualkeyboard.desc"
+msgstr ""
+"This function allows the operator to show/hide the virtual keyboard. "
+"No parameter is needed."
+
+msgid "togglevirtualkeyboard.label"
+msgstr "Toggle Virtual Keyboard"
+
+msgid "togglevirtualkeyboard.name"
+msgstr "Toggle Virtual Keyboard"
+
+######################
+# Adjust stock level
+######################
+
+msgid "stockAdjustment.label"
+msgstr "Stock Adjustment"
+
+msgid "stockAdjustment.name"
+msgstr "Stock Adjustment"
+
+msgid "stockAdjustment.desc"
+msgstr ""
+"By using this function, the quantity of stock can be adjusted."
+"Meanwhile, a memo of the adjustment can be recorded."
+
+#####################
+# Shutdown Terminal
+#####################
+
+msgid "shutdown.desc"
+msgstr ""
+"This function shuts down the terminal. No parameter needed."
+
+msgid "shutdown.label"
+msgstr "Shutdown Terminal"
+
+msgid "shutdown.name"
+msgstr "Shutdown Terminal"
+
+###################
+# Reboot Terminal
+###################
+
+msgid "reboot.desc"
+msgstr ""
+"This function reboots the terminal. No parameter needed."
+
+msgid "reboot.label"
+msgstr "Reboot Terminal"
+
+msgid "reboot.name"
+msgstr "Reboot Terminal"
+
+###############
+# Store Check
+###############
+
+msgid "storeCheck.desc"
+msgstr ""
+"This function stores the current check and issues the appropriate receipts/checks. The parameter field must be empty."
+
+msgid "storeCheck.label"
+msgstr "Store Check"
+
+msgid "storeCheck.name"
+msgstr "Store Check"
+
+################
+# Recall Check
+################
+
+msgid "recallCheck.desc"
+msgstr ""
+"This function recalls a prevously stored check for further action. The parameter field must be empty."
+
+msgid "recallCheck.label"
+msgstr "Recall Check"
+
+msgid "recallCheck.name"
+msgstr "Recall Check"
+
+#############
+# New Check
+#############
+
+msgid "newCheck.desc"
+msgstr ""
+"This function assigns a new check number to an order. If the operator input "
+"a number first, then click this funcion button, the new check number will be "
+"the same as operator's input. If the operator click this function button "
+"directly, a new check number will be generated automatically. Check number "
+"can not be duplicated. The parameter field must be empty."
+
+msgid "newCheck.label"
+msgstr "New Check"
+
+msgid "newCheck.name"
+msgstr "New Check"
+
+#############
+# New Table
+#############
+
+msgid "newTable.desc"
+msgstr ""
+"This function assigns a new table number to an order. If the operator input "
+"a number first, then click this funcion button, the new table number will be "
+"the same as cashier's input. If the operator click this function button "
+"directly, a screen of table map will pop-up for table selection. Table "
+"number can be duplicated. The parameter field must be empty."
+
+msgid "newTable.label"
+msgstr "New Table"
+
+msgid "newTable.name"
+msgstr "New Table"
+
+####################
+# Number of Guests
+####################
+
+msgid "guestNum.desc"
+msgstr ""
+"This function allows the operator to register the number of guest. The parameter field must be empty."
+
+msgid "guestNum.label"
+msgstr "Number of Guests"
+
+msgid "guestNum.name"
+msgstr "Number of Guests"
+
+################
+# Recall Order
+################
+
+msgid "recallOrder.desc"
+msgstr ""
+"This function recalls a previously stored check for further action via "
+"sequence number. If the operator click this function button without sequence "
+"number input, a screen will pop-up for the selection of stored check. The "
+"parameter field must be empty."
+
+msgid "recallOrder.label"
+msgstr "Recall Order"
+
+msgid "recallOrder.name"
+msgstr "Recall Order"
+
+################
+# Recall Table
+################
+
+msgid "recallTable.desc"
+msgstr ""
+"This function recalls a previously stored check for further action via "
+"table number. If the operator click this function button without table "
+"number input, a screen will pop-up for the selection of stored check. The "
+"parameter field must be empty."
+
+msgid "recallTable.label"
+msgstr "Recall Table"
+
+msgid "recallTable.name"
+msgstr "Recall Table"
+
+###############
+# Merge Check 
+###############
+
+msgid "mergeCheck.desc"
+msgstr ""
+"This function allows operator to merge checks by recalling previously "
+"stored check. The operator should recall a previously stored check first, "
+"then input a check number and click this funcion button, the checks will be "
+"merged automatically. If the operator does not input a check number to "
+"merge, a screen will pop-up for the selection of stored check. The parameter "
+"field must be empty."
+
+msgid "mergeCheck.label"
+msgstr "Merge Stored Checks"
+
+msgid "mergeCheck.name"
+msgstr "Merge Stored Checks"
+
+###############
+# Split Check 
+###############
+
+msgid "splitCheck.desc"
+msgstr ""
+"This function allows operator to split check in a previously stored check. "
+"The operator should recall a previously stored check first, then click this "
+"funcion button, a screen of split check function will pop-up. The parameter "
+"field must be empty."
+
+msgid "splitCheck.label"
+msgstr "Split Stored Check"
+
+msgid "splitCheck.name"
+msgstr "Split Stored Check"
+
+##################
+# Transfer Table
+##################
+
+msgid "transferTable.desc"
+msgstr ""
+"This function allows operator to change the table number in a previously "
+"stored check. The operator should recall a previously stored check first, "
+"then input a new table number and click this funcion button. If the operator "
+"does not input a new table number, a screen of table map will pop-up for "
+"table selection. The parameter field must be empty."
+
+msgid "transferTable.label"
+msgstr "Transfer Table No"
+
+msgid "transferTable.name"
+msgstr "Transfer Table No"
+
+########################################################################
+#
+# List of ACLs
+#
+########################################################################
+
+msgid "acl_internal_access"
+msgstr "For Internal Access Only"
+
+msgid "acl_stock_adjustment"
+msgstr "Adjust Stock Level"
 
 msgid "acl_truncate_transaction_records"
 msgstr "Truncate Transaction Records"
-
-msgid "acl_override_default_price_level"
-msgstr "Override Default Price Level"
 
 msgid "acl_change_price_level"
 msgstr "Change Price Level"
@@ -919,12 +1643,6 @@ msgstr "Product Search"
 
 msgid "acl_open_cash"
 msgstr "Register Cash Payment"
-
-msgid "acl_toggle_function_panel"
-msgstr "Toggle Function Panl"
-
-msgid "acl_run_report"
-msgstr "Run Report"
 
 msgid "acl_manage_condiments"
 msgstr "Manage Condiments"
@@ -1103,23 +1821,11 @@ msgstr "Manage Network"
 msgid "acl_scroll_function_panel"
 msgstr "Scroll Function Panel"
 
-msgid "Network Setting"
-msgstr "Network Setting"
-
-msgid "Synchronization Settings"
-msgstr "Synchronization Settings"
-
 msgid "acl_manage_hotkey"
 msgstr "Manage Hotkey"
 
-msgid "HotKey Configuration"
-msgstr "HotKey Configuration"
-
 msgid "acl_manage_addons"
 msgstr "Manage Add-ons"
-
-msgid "Add-ons"
-msgstr "Add-ons"
 
 msgid "acl_manage_destinations"
 msgstr "Manage Order Destinations"
@@ -1132,9 +1838,6 @@ msgstr "Manage Product Filters"
 
 msgid "acl_annotate"
 msgstr "Add Annotations"
-
-msgid "acl_view_annotations"
-msgstr "View Annotations"
 
 msgid "acl_modify_annotations"
 msgstr "Modify Annotations"
@@ -1154,31 +1857,74 @@ msgstr "Add Ledger Entries"
 msgid "acl_localization_editor"
 msgstr "Localization Editor"
 
-msgid "togglereceipt.desc"
-msgstr ""
-"This function is used to toggle receipt printing on/off. No parameter is needed."
+msgid "acl_end_sale_period"
+msgstr "End Sale Period"
 
-msgid "togglereceipt.label"
-msgstr "Receipt On/Off"
+msgid "acl_remote_control"
+msgstr "Remote Control"
+
+msgid "acl_touch_settings"
+msgstr "Touch Screen Settings"
+
+msgid "acl_xterm"
+msgstr "Run XTerm"
+
+msgid "acl_new_check"
+msgstr "New Check"
+
+msgid "acl_new_table"
+msgstr "New Table"
+
+msgid "acl_guest_no"
+msgstr "Number of Guests"
+
+msgid "acl_store_check"
+msgstr "Store Check"
+
+msgid "acl_recall_check"
+msgstr "Recall Stored Check"
+
+msgid "acl_merge_check"
+msgstr "Merge Stored Checks"
+
+msgid "acl_split_check"
+msgstr "Split Stored Check"
+
+msgid "acl_transfer_table"
+msgstr "Transfer Table"
+
+msgid "acl_manage_printers"
+msgstr "Manager Printers"
+
+msgid "acl_printer_dashboard"
+msgstr "Printer Dashboard"
+
+msgid "acl_view_orders"
+msgstr "View Orders"
+
+msgid "acl_manage_promotions"
+msgstr "Promotions Manager"
+
+msgid "acl_layout_manager"
+msgstr "Layout Manager"
+
+msgid "acl_training_mode"
+msgstr "Training Mode"
+
+msgid "acl_manage_tableman"
+msgstr "Table Manager"
+
+########################################################################
+#
+# List of Templates
+#
+########################################################################
 
 msgid "Sample Receipt 42c condensed"
 msgstr "Sample Receipt 42c condensed"
 
-msgid "togglereceipt.name"
-msgstr "Receipt On/Off"
-
 msgid "Sample Receipt 42c expanded"
 msgstr "Sample Receipt 42c expanded"
-
-msgid "shiftchange.label"
-msgstr "Shift Change"
-
-msgid "shiftchange.name"
-msgstr "Shift Change"
-
-msgid "shiftchange.desc"
-msgstr ""
-"This function is used to initiate shift change. No parameter is needed."
 
 msgid "Sample Kitchen 42c expanded"
 msgstr "Sample Kitchen 42c expanded"
@@ -1189,24 +1935,17 @@ msgstr "Sample Guest Check 42c condensed"
 msgid "Sample Label Argox 203TD"
 msgstr "Sample Label Argox 203TD"
 
-msgid "ledgerentry.desc"
-msgstr ""
-"This function is used to enter an entry into the ledger. The parameter may "
-"be used to program an ledger entry type and a receipt device number "
-"(separated by commas.) If the receipt device number is not given, no receipt "
-"will be issued."
-
 msgid "Sample Receipt 24c condensed"
 msgstr "Sample Receipt 24c condensed"
-
-msgid "ledgerentry.label"
-msgstr "Ledger Entry"
 
 msgid "Internal VFD Template"
 msgstr "Internal VFD Template"
 
-msgid "ledgerentry.name"
-msgstr "Ledger Entry"
+########################################################################
+#
+# List of Ports
+#
+########################################################################
 
 msgid "COM 1"
 msgstr "COM 1"
@@ -1235,6 +1974,12 @@ msgstr "USB 4"
 msgid "GPIO 1"
 msgstr "GPIO 1"
 
+########################################################################
+#
+# List of Device Models
+#
+########################################################################
+
 msgid "FEC F632"
 msgstr "FEC F632"
 
@@ -1253,956 +1998,11 @@ msgstr "Firich VFD"
 msgid "Generic VFD"
 msgstr "Generic VFD"
 
-msgid "acl_end_sale_period"
-msgstr "End Sale Period"
-
-msgid "acl_remote_control"
-msgstr "Remote Control"
-
-msgid "Remote Control"
-msgstr "Remote Control"
-
-msgid "destination"
-msgstr "destination"
-
-msgid "cash"
-msgstr "cash"
-
-msgid "creditcard"
-msgstr "creditcard"
-
-msgid "coupon"
-msgstr "coupon"
-
-msgid "giftcard"
-msgstr "giftcard"
-
-msgid "check"
-msgstr "check"
-
-msgid "(rpt)cash"
-msgstr "cash"
-
-msgid "(rpt)creditcard"
-msgstr "creditcard"
-
-msgid "(rpt)coupon"
-msgstr "coupon"
-
-msgid "(rpt)giftcard"
-msgstr "giftcard"
-
-msgid "(rpt)check"
-msgstr "check"
-
-msgid "(rpt)giftcard excess amount"
-msgstr "(excess)"
-
-msgid "acl_touch_settings"
-msgstr "Touch Screen Settings"
-
-msgid "Touch Calibration"
-msgstr "Touch Calibration"
-
-msgid "Touch Utility"
-msgstr "Touch Utility"
-
-msgid "transaction_created"
-msgstr "Order Start Time"
-
-msgid "acl_new_check"
-msgstr "New Check"
-
-msgid "acl_new_table"
-msgstr "New Table"
-
-msgid "acl_guest_no"
-msgstr "Number of Guests"
-
-msgid "acl_store_check"
-msgstr "Store Check"
-
-msgid "acl_recall_check"
-msgstr "Recall Stored Check"
-
-msgid "acl_merge_check"
-msgstr "Merge Stored Checks"
-
-msgid "acl_split_check"
-msgstr "Split Stored Check"
-
-msgid "acl_transfer_table"
-msgstr "Transfer Table"
-
-msgid "shutdown.desc"
-msgstr ""
-"This function shuts down the terminal. No parameter needed."
-
-msgid "shutdown.label"
-msgstr "Shutdown Terminal"
-
-msgid "shutdown.name"
-msgstr "Shutdown Terminal"
-
-msgid "reboot.desc"
-msgstr ""
-"This function reboots the terminal. No parameter needed."
-
-msgid "reboot.label"
-msgstr "Reboot Terminal"
-
-msgid "reboot.name"
-msgstr "Reboot Terminal"
-
-msgid "storeCheck.desc"
-msgstr ""
-"This function stores the current check and issues the appropriate receipts/checks. The parameter field must be empty."
-
-msgid "storeCheck.label"
-msgstr "Store Check"
-
-msgid "storeCheck.name"
-msgstr "Store Check"
-
-msgid "recallCheck.desc"
-msgstr ""
-"This function recalls a prevously stored check for further action. The parameter field must be empty."
-
-msgid "recallCheck.label"
-msgstr "Recall Check"
-
-msgid "recallCheck.name"
-msgstr "Recall Check"
-
-msgid "newCheck.desc"
-msgstr ""
-"This function assigns a new check number to an order. If the operator input "
-"a number first, then click this funcion button, the new check number will be "
-"the same as operator's input. If the operator click this function button "
-"directly, a new check number will be generated automatically. Check number "
-"can not be duplicated. The parameter field must be empty."
-
-msgid "newCheck.label"
-msgstr "New Check"
-
-msgid "newCheck.name"
-msgstr "New Check"
-
-msgid "newTable.desc"
-msgstr ""
-"This function assigns a new table number to an order. If the operator input "
-"a number first, then click this funcion button, the new table number will be "
-"the same as cashier's input. If the operator click this function button "
-"directly, a screen of table map will pop-up for table selection. Table "
-"number can be duplicated. The parameter field must be empty."
-
-msgid "newTable.label"
-msgstr "New Table"
-
-msgid "newTable.name"
-msgstr "New Table"
-
-msgid "guestNum.desc"
-msgstr ""
-"This function allows the operator to register the number of guest. The parameter field must be empty."
-
-msgid "guestNum.label"
-msgstr "Number of Guests"
-
-msgid "guestNum.name"
-msgstr "Number of Guests"
-
-msgid "recallOrder.desc"
-msgstr ""
-"This function recalls a previously stored check for further action via "
-"sequence number. If the operator click this function button without sequence "
-"number input, a screen will pop-up for the selection of stored check. The "
-"parameter field must be empty."
-
-msgid "recallOrder.label"
-msgstr "Recall Order"
-
-msgid "recallOrder.name"
-msgstr "Recall Order"
-
-msgid "recallTable.desc"
-msgstr ""
-"This function recalls a previously stored check for further action via "
-"table number. If the operator click this function button without table "
-"number input, a screen will pop-up for the selection of stored check. The "
-"parameter field must be empty."
-
-msgid "recallTable.label"
-msgstr "Recall Table"
-
-msgid "recallTable.name"
-msgstr "Recall Table"
-
-msgid "mergeCheck.desc"
-msgstr ""
-"This function allows operator to merge checks by recalling previously "
-"stored check. The operator should recall a previously stored check first, "
-"then input a check number and click this funcion button, the checks will be "
-"merged automatically. If the operator does not input a check number to "
-"merge, a screen will pop-up for the selection of stored check. The parameter "
-"field must be empty."
-
-msgid "mergeCheck.label"
-msgstr "Merge Stored Checks"
-
-msgid "mergeCheck.name"
-msgstr "Merge Stored Checks"
-
-msgid "splitCheck.desc"
-msgstr ""
-"This function allows operator to split check in a previously stored check. "
-"The operator should recall a previously stored check first, then click this "
-"funcion button, a screen of split check function will pop-up. The parameter "
-"field must be empty."
-
-msgid "splitCheck.label"
-msgstr "Split Stored Check"
-
-msgid "splitCheck.name"
-msgstr "Split Stored Check"
-
-msgid "transferTable.desc"
-msgstr ""
-"This function allows operator to change the table number in a previously "
-"stored check. The operator should recall a previously stored check first, "
-"then input a new table number and click this funcion button. If the operator "
-"does not input a new table number, a screen of table map will pop-up for "
-"table selection. The parameter field must be empty."
-
-msgid "transferTable.label"
-msgstr "Transfer Table No"
-
-msgid "transferTable.name"
-msgstr "Transfer Table No"
-
-msgid "sale_period"
-msgstr "Sale Period"
-
-msgid "Detailed Tax Report"
-msgstr "Detailed Tax Report"
-
-msgid "Factory"
-msgstr "Factory Dataset"
-
-msgid "Training"
-msgstr "Training Dataset"
-
-msgid "XTerm"
-msgstr "XTerm"
-
-msgid "acl_xterm"
-msgstr "Run XTerm"
-
-msgid "IN"
-msgstr "IN"
-
-msgid "Printers"
-msgstr "Printers"
-
-msgid "OUT"
-msgstr "OUT"
-
-msgid "Y"
-msgstr "YES"
-
-msgid "N"
-msgstr "NO"
-
-msgid "acl_manage_printers"
-msgstr "Manager Printers"
-
-msgid "acl_printer_dashboard"
-msgstr "Printer Dashboard"
-
-msgid "printerDashboard.desc"
-msgstr ""
-"This function allows the operator to quickly view and change the status of "
-"enabled devices. No parameter is needed."
-
-msgid "printerDashboard.label"
-msgstr "Printer Dashboard"
-
-msgid "printerDashboard.name"
-msgstr "Printer Dashboard"
-
-msgid "acl_view_orders"
-msgstr "View Orders"
-
-msgid "vieworders.desc"
-msgstr ""
-"This function allows the operator to quickly view the complete details of an "
-"order. No parameter is needed."
-
-msgid "vieworders.label"
-msgstr "View Orders"
-
-msgid "vieworders.name"
-msgstr "View Orders"
-
-msgid "truncatetxnrecords.desc"
-msgstr ""
-"This function removes all transactional data from the terminal. This feature should be used with extreme care, and it is strongly recommeded that the system be backed up before truncating transaction records. No parameter is needed."
-
-msgid "truncatetxnrecords.label"
-msgstr "Truncate Transaction Records"
-
-msgid "truncatetxnrecords.name"
-msgstr "Truncate Transaction Records"
-
-msgid "controlpanel.desc"
-msgstr ""
-"This function allows the operator to bring up the configuration control panel. "
-"No parameter is needed."
-
-msgid "controlpanel.label"
-msgstr "Control Panel"
-
-msgid "controlpanel.name"
-msgstr "Control Panel"
-
-msgid "clockin.desc"
-msgstr ""
-"This function allows the operator to bring up the clock in/out screen. "
-"No parameter is needed."
-
-msgid "clockin.label"
-msgstr "Clock In"
-
-msgid "clockin.name"
-msgstr "Clock In"
-
-msgid "togglefunctionpanel.desc"
-msgstr ""
-"This function allows the operator to show/hide the function panel. "
-"No parameter is needed."
-
-msgid "togglefunctionpanel.label"
-msgstr "Toggle Function Panel"
-
-msgid "togglefunctionpanel.name"
-msgstr "Toggle Function Panel"
-
-msgid "togglevirtualkeyboard.desc"
-msgstr ""
-"This function allows the operator to show/hide the virtual keyboard. "
-"No parameter is needed."
-
-msgid "togglevirtualkeyboard.label"
-msgstr "Toggle Virtual Keyboard"
-
-msgid "togglevirtualkeyboard.name"
-msgstr "Toggle Virtual Keyboard"
-
-msgid "(rpt)Terminal"
-msgstr "Terminal"
-
-msgid "(rpt)Clerk"
-msgstr "Clerk"
-
-msgid "(rpt)Printed Time"
-msgstr "Printed Time"
-
-msgid "(rpt)Job"
-msgstr "Job"
-
-msgid "(rpt)Clock In"
-msgstr "Clock In"
-
-msgid "(rpt)Clock Out"
-msgstr "Clock Out"
-
-msgid "(rpt)Span Time"
-msgstr "Span Time"
-
-msgid "(rpt)Total Work Time"
-msgstr "Total Work Time"
-
-msgid "(rpt)Summary"
-msgstr "Summary"
-
-msgid "(rpt)Sale Period"
-msgstr "Sale Period"
-
-msgid "(rpt)Shift"
-msgstr "Shift"
-
-msgid "(rpt)Balance"
-msgstr "Balance"
-
-msgid "(rpt)Cash"
-msgstr "Cash"
-
-msgid "(rpt)Sales"
-msgstr "Sales"
-
-msgid "(rpt)Giftcard Excess"
-msgstr "Excess"
-
-msgid "(rpt)Ledger In"
-msgstr "Ledger In"
-
-msgid "(rpt)Ledger Out"
-msgstr "Ledger Out"
-
-msgid "(rpt)Type"
-msgstr "Type"
-
-msgid "(rpt)Amount"
-msgstr "Amount"
-
-msgid "(rpt)Payment Type"
-msgstr "Payment"
-
-msgid "(rpt)Order Sequence"
-msgstr "Sequence"
-
-msgid "(rpt)Payment Amount"
-msgstr "Amount"
-
-msgid "(rpt)Payment Count"
-msgstr "Count"
-
-msgid "(rpt)Destination"
-msgstr "Destination"
-
-msgid "(rpt)Destination Gross Sales"
-msgstr "Gross Sales"
-
-msgid "(rpt)Destination Amount"
-msgstr "Amount"
-
-msgid "(rpt)Destination Count"
-msgstr "Count"
-
-msgid "(rpt)Destination Average Gross Sales"
-msgstr "Average Gross Sales"
-
-msgid "(rpt)Add-On Tax Amount"
-msgstr "Add-On Tax"
-
-msgid "(rpt)Included Tax Amount"
-msgstr "Included Tax"
-
-msgid "(rpt)Start Time"
-msgstr "Start Time"
-
-msgid "(rpt)End Time"
-msgstr "End Time"
-
-msgid "(rpt)Drawer"
-msgstr "Drawer"
-
-msgid "(rpt)Time"
-msgstr "Time"
-
-msgid "(rpt)Event"
-msgstr "Event"
-
-msgid "(rpt)Number of Events"
-msgstr "Number of Events"
-
-msgid "(rpt)Sequence"
-msgstr "Sequence"
-
-msgid "(rpt)Hour"
-msgstr "Hour"
-
-msgid "(rpt)Gross Sales/Order"
-msgstr "Gross Sales/Order"
-
-msgid "(rpt)Gross Sales/Guest"
-msgstr "Gross Sales/Guest"
-
-msgid "(rpt)Net Sales/Order"
-msgstr "Net Sales/Order"
-
-msgid "(rpt)Net Sales/Guest"
-msgstr "Net Sales/Guest"
-
-msgid "(rpt)Number of Guests/Order"
-msgstr "Guests/Order"
-
-msgid "(rpt)Number of Items/Order"
-msgstr "Items/Order"
-
-msgid "(rpt)Add-on Tax"
-msgstr "Add-on Tax"
-
-msgid "(rpt)Order Surcharge"
-msgstr "Order Surcharge"
-
-msgid "(rpt)Order Discount"
-msgstr "Order Discount"
-
-msgid "(rpt)Surcharge"
-msgstr "Surcharge"
-
-msgid "(rpt)Discount"
-msgstr "Discount"
-
-msgid "(rpt)Payment"
-msgstr "Payment"
-
-msgid "(rpt)Check"
-msgstr "Check"
-
-msgid "(rpt)Credit Card"
-msgstr "Credit Card"
-
-msgid "(rpt)Gift Card"
-msgstr "Gift Card"
-
-msgid "(rpt)Coupon"
-msgstr "Coupon"
-
-msgid "(rpt)Service Clerk"
-msgstr "Clerk (Open)"
-
-msgid "Service Clerk"
-msgstr "Clerk (Open)"
-
-msgid "(rpt)Proceeds Clerk"
-msgstr "Clerk (Close)"
-
-msgid "Proceeds Clerk"
-msgstr "Clerk (Close)"
-
-msgid "(rpt)Product Number"
-msgstr "Product Number"
-
-msgid "(rpt)Product Name"
-msgstr "Product Name"
-
-msgid "(rpt)Alt Name1"
-msgstr "Alt. Name 1"
-
-msgid "(rpt)Alt Name2"
-msgstr "Alt. Name 2"
-
-msgid "(rpt)Price Level"
-msgstr "Price Level"
-
-msgid "(rpt)Price"
-msgstr "Price"
-
-msgid "(rpt)Quantity"
-msgstr "Quantity"
-
-msgid "(rpt)Name"
-msgstr "Name"
-
-msgid "(rpt)Included Tax"
-msgstr "Included Tax"
-
-msgid "(rpt)Number of Guests"
-msgstr "Guests"
-
-msgid "(rpt)Number of Orders"
-msgstr "Orders"
-
-msgid "(rpt)Number of Items"
-msgstr "Items"
-
-msgid "(rpt)Status"
-msgstr "Status"
-
-msgid "(rpt)Average Price"
-msgstr "Average Price"
-
-msgid "(rpt)Quantities Sold"
-msgstr "Quantities Sold"
-
-msgid "(rpt)Barcode"
-msgstr "Barcode"
-
-msgid "(rpt)Tax Code"
-msgstr "Tax Code"
-
-msgid "(rpt)Stock Level"
-msgstr "Stock Level"
-
-msgid "(rpt)Low Stock Threshold"
-msgstr "Low Threshold"
-
-msgid "(rpt)Halo"
-msgstr "HALO"
-
-msgid "(rpt)Lalo"
-msgstr "LALO"
-
-msgid "(rpt)auto_maintain_stock"
-msgstr "Track stock"
-
-msgid "(rpt)return_stock"
-msgstr "Returns can be restocked"
-
-msgid "(rpt)single"
-msgstr "Single Item Sale"
-
-msgid "(rpt)age_verification"
-msgstr "Require age verification"
-
-msgid "(rpt)visible"
-msgstr "Show on menu"
-
-msgid "(rpt)force_memo"
-msgstr "Memo required"
-
-msgid "(rpt)force_condiment"
-msgstr "Condiments required"
-
-msgid "(rpt)icon_only"
-msgstr "Only display product icon"
-
-msgid "(rpt)manual_adjustment_only"
-msgstr "Manual price adjustment only"
-
-msgid "(rpt)Department Number"
-msgstr "Department Number"
-
-msgid "(rpt)Department Name"
-msgstr "Department Name"
-
-msgid "(rpt)Product"
-msgstr "Product"
-
-msgid "(rpt)Safe Stock"
-msgstr "Safe Stock"
-
-msgid "(rpt)Sales Summary"
-msgstr "Sales Summary"
-
-msgid "(rpt)Average Total"
-msgstr "Average Total"
-
-msgid "(rpt)Average Guest"
-msgstr "Average Guest"
-
-msgid "(rpt)Average Items"
-msgstr "Average Items"
-
-msgid "(rpt)Payment List"
-msgstr "Payment List"
-
-msgid "(rpt)Destination Summary"
-msgstr "Destination Summary"
-
-msgid "(rpt)Times"
-msgstr "Times"
-
-msgid "(rpt)Top Department Sales"
-msgstr "Top Department Sales"
-
-msgid "(rpt)Department"
-msgstr "Department"
-
-msgid "(rpt)Hourly Sales"
-msgstr "Hourly Sales"
-
-msgid "(rpt)Top Product Sales"
-msgstr "Top Product Sales"
-
-msgid "(rpt)Tax Summary"
-msgstr "Tax Summary"
-
-msgid "(rpt)Discount Name"
-msgstr "Name"
-
-msgid "(rpt)Discount Type"
-msgstr "Type"
-
-msgid "(rpt)Discount Count"
-msgstr "Count"
-
-msgid "(rpt)Discount Amount"
-msgstr "Amount"
-
-msgid "(rpt)Surcharge Name"
-msgstr "Name"
-
-msgid "(rpt)Surcharge Type"
-msgstr "Type"
-
-msgid "(rpt)Surcharge Count"
-msgstr "Count"
-
-msgid "(rpt)Surcharge Amount"
-msgstr "Amount"
-
-msgid "(rpt)Discount Summary"
-msgstr "Discount Summary"
-
-msgid "(rpt)Surcharge Summary"
-msgstr "Surcharge Summary"
-
-msgid "(rpt)Promotion Name"
-msgstr "Promotion"
-
-msgid "(rpt)Promotion Count"
-msgstr "Count"
-
-msgid "(rpt)Promotion Amount"
-msgstr "Amount"
-
-msgid "(rpt)Sales Overview"
-msgstr "Sales Overview"
-
-msgid "(rpt)Tax Name"
-msgstr "Tax Name"
-
-msgid "(rpt)Tax Rate"
-msgstr "Tax Rate"
-
-msgid "(rpt)Min Stock"
-msgstr "Min Stock"
-
-msgid "(rpt)Min.Stock"
-msgstr "Min.Stock"
-
-msgid "(rpt)User Name"
-msgstr "User Name"
-
-msgid "(rpt)Display Name"
-msgstr "Display Name"
-
-msgid "(rpt)Access Group"
-msgstr "Access Group"
-
-msgid "(rpt)Telephone"
-msgstr "Telephone"
-
-msgid "(rpt)Start"
-msgstr "Start"
-
-msgid "(rpt)End"
-msgstr "End"
-
-msgid "(rpt)Annotation Text"
-msgstr "Annotation Text"
-
-msgid "(rpt)Deposit"
-msgstr "Deposit"
-
-msgid "(rpt)Order Discount/Surcharge"
-msgstr "order"
-
-msgid "(rpt)Item Discount/Surcharge"
-msgstr "item"
-
-msgid "(rpt)Promotion"
-msgstr "Promotions"
-
-msgid "(rpt)Subtotal"
-msgstr "Subtotal"
-
-msgid "(rpt)Promotion Summary"
-msgstr "Promotion Summary"
-
-msgid "(rpt)Code"
-msgstr "Code"
-
-msgid "(rpt)Number of Voided Orders"
-msgstr "Voided Orders"
-
-msgid "(rpt)Date"
-msgstr "Date"
-
-msgid "(rpt)Order Count"
-msgstr "Order Count"
-
-msgid "(rpt)Promotion Subtotal"
-msgstr "Customer Savings"
-
-msgid "(rpt)Matched Count"
-msgstr "Matched Count"
-
-msgid "(rpt)Matched Items Quantity"
-msgstr "Matched Items Quantity"
-
-msgid "(rpt)Matched Items Subtotal"
-msgstr "Matched Items Subtotal"
-
-msgid "(rpt)Revalue"
-msgstr "Revalue"
-
-msgid "(rpt)Refund"
-msgstr "Refund"
-
-msgid "(rpt)(based on %S)"
-msgstr "(based on %S)"
-
-msgid "(rpt)transaction_created"
-msgstr "when orders were opened"
-
-msgid "(rpt)transaction_submitted"
-msgstr "when orders were closed"
-
-msgid "(rpt)sale_period"
-msgstr "sale period"
-
-msgid "(rpt)Credit"
-msgstr "Credit"
-
-msgid "(rpt)canceled"
-msgstr "canceled"
-
-msgid "(rpt)voided"
-msgstr "voided"
-
-msgid "(rpt)stored"
-msgstr "stored"
-
-msgid "(rpt)completed"
-msgstr "completed"
-
-msgid "(rpt)payment"
-msgstr "payment"
-
-msgid "(rpt)nosale"
-msgstr "nosale"
-
-msgid "(rpt)finalization"
-msgstr "finalization"
-
-msgid "(rpt)shift change"
-msgstr "shift change"
-
-msgid "(rpt)ledger"
-msgstr "ledger"
-
-msgid "(rpt)Gross Sales"
-msgstr "Gross Sales"
-
-msgid "(rpt)Net Sales"
-msgstr "Net Sales"
-
-msgid "(view)completed"
-msgstr "completed"
-
-msgid "(view)stored"
-msgstr "stored"
-
-msgid "(view)cancelled"
-msgstr "cancelled"
-
-msgid "(view)voided"
-msgstr "voided"
-
-msgid "(view)order sequence"
-msgstr "sequence"
-
-msgid "(view)order status"
-msgstr "status"
-
-msgid "(view)order destination"
-msgstr "destination"
-
-msgid "(view)branch"
-msgstr "branch"
-
-msgid "(view)terminal"
-msgstr "terminal"
-
-msgid "(view)opened"
-msgstr "opened"
-
-msgid "(view)service clerk"
-msgstr "serviced by"
-
-msgid "(view)submitted"
-msgstr "submitted"
-
-msgid "(view)proceeds clerk"
-msgstr "submitted by"
-
-msgid "(view)void clerk"
-msgstr "voided by"
-
-msgid "(view)sale period"
-msgstr "sale period"
-
-msgid "(view)shift number"
-msgstr "shift number"
-
-msgid "(view)no_of_customers"
-msgstr "no. of customers"
-
-msgid "(view)contact"
-msgstr "contact"
-
-msgid "(view)email"
-msgstr "email"
-
-msgid "(view)check #"
-msgstr "check #"
-
-msgid "(view)items"
-msgstr "items"
-
-msgid "(view)total"
-msgstr "total"
-
-msgid "(view)table #"
-msgstr "table #"
-
-msgid "(view)customer"
-msgstr "customer"
-
-msgid "(view)customer id"
-msgstr "customer id"
-
-msgid "(view)customers"
-msgstr "customers"
-
-msgid "(view)invoice number"
-msgstr "invoice number"
-
-msgid "(view)invoice count"
-msgstr "invoice count"
-
-msgid "(view)invoice title"
-msgstr "invoice title"
-
-msgid "(view)Item Subtotal"
-msgstr "Item Subtotal"
-
-msgid "(view)Item Adjustments"
-msgstr "Item Adjustments"
-
-msgid "(view)Add-on Taxes"
-msgstr "Add-on Taxes"
-
-msgid "(view)Total"
-msgstr "Total"
-
-msgid "(view)Payment Subtotal"
-msgstr "Payment Subtotal"
-
-msgid "(view)Change"
-msgstr "Change"
-
-msgid "(view)Promotions"
-msgstr "Promotions"
-
-msgid "(view)Revalue"
-msgstr "Revalue"
-
-msgid "(view)search by table number"
-msgstr "table number"
-
-msgid "(view)search by order sequence"
-msgstr "order sequence"
-
-msgid "Promotions Manager"
-msgstr ""
-
-msgid "acl_manage_promotions"
-msgstr "Promotions Manager"
+########################################################################
+#
+# Promotion Triggers and Types
+#
+########################################################################
 
 msgid "trigger.bypass.label"
 msgstr "ByPass"
@@ -2294,37 +2094,40 @@ msgstr "Multi Buy"
 msgid "type.multi_buy.desc"
 msgstr "Multi Buy DESC, Chris Help!"
 
-msgid "Your Saving"
-msgstr "** Your Saving **"
+########################################################################
+#
+# System Backup
+#
+########################################################################
 
-msgid "acl_manage_tableman"
-msgstr "Table Manager"
+msgid "Factory"
+msgstr "Factory Dataset"
 
-msgid "ledger"
-msgstr ""
+msgid "Training"
+msgstr "Training Dataset"
 
 msgid "restore_with_system.confirm_message"
 msgstr ""
 "Restore with System Settings will restore all systems settings including software activation code to this machine.\n"
 "Please MAKE SURE the backup files are from this machine otherwise a 'license error message' will pop up."
 
-msgid "(rpt)Invoice Number"
-msgstr "Invoice"
+########################################################################
+#
+# Common Abbreviations
+#
+########################################################################
 
-msgid "(rpt)Invoice Count"
-msgstr "Invoice Count"
+msgid "Y"
+msgstr "YES"
 
-msgid "(rpt)Records Found"
-msgstr "Records Found"
+msgid "N"
+msgstr "NO"
 
-msgid "(rpt)Occurrences"
-msgstr "Occurrences"
-
-msgid "acl_layout_manager"
-msgstr "Layout Manager"
-
-msgid "acl_training_mode"
-msgstr "Training Mode"
+########################################################################
+#
+# Layouts
+#
+########################################################################
 
 msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
@@ -2338,106 +2141,47 @@ msgstr "Retail Layout"
 msgid "vivipos.fec.registry.layouts.retail.desc"
 msgstr "Retail Layout (for conceptual demonstration only)"
 
-msgid "Confirm Change Layout"
-msgstr "Confirm Change Layout"
+########################################################################
+#
+# Tax Types & Rate Types
+#
+########################################################################
 
-msgid "Do you want to change layout"
-msgstr "Do you want to change layout"
-
-msgid "If you change layout now, the system will restart automatically after you return to the Main Screen."
-msgstr "If you changelayout now, the system will restart automatically after you return to the Main Screen."
-
-msgid "INCLUDED"
+msgid "(taxType)INCLUDED"
 msgstr "included"
 
-msgid "ADDON"
+msgid "(taxType)ADDON"
 msgstr "add-on"
 
-msgid "COMBINED"
+msgid "(taxType)COMBINE"
 msgstr "combined"
 
-msgid "(rpt)Obsolete Department"
-msgstr "Obsolete Department"
+msgid "(taxType)VAT & VAT"
+msgstr "VAT & VAT"
 
-msgid "Non PLU Setting"
-msgstr "Non PLU Setting"
+msgid "(taxRateType)%"
+msgstr "Percentage"
 
-msgid "Document is too large to export PDF, please use export CSV instead"
-msgstr "Document is too large to export PDF, please use export CSV instead"
+msgid "(taxRateType)$"
+msgstr "Fixed Amount"
 
-msgid "stockAdjustment.label"
-msgstr "Stock Adjustment"
+########################################################################
+#
+# Ledger Entry Types
+#
+########################################################################
 
-msgid "stockAdjustment.name"
-msgstr "Stock Adjustment"
+msgid "(ledgerEntryType)IN"
+msgstr "IN"
 
-msgid "stockAdjustment.desc"
-msgstr ""
-"By using this function, the quantity of stock can be adjusted."
-"Meanwhile, a memo of the adjustment can be recorded."
+msgid "(ledgerEntryType)OUT"
+msgstr "OUT"
 
-msgid "(rpt)Service Clerk Display Name"
-msgstr "Service Clerk Display Name"
+msgid "(ledgerEntryType)Y"
+msgstr "Yes"
 
-msgid "(rpt)Proceeds Clerk Display Name"
-msgstr "Proceeds Clerk Display Name"
-
-msgid "(rpt)Selected Time"
-msgstr "Selected Time"
-
-msgid "(rpt)Table Number"
-msgstr "Table Number"
-
-msgid "(rpt)Check Number"
-msgstr "Check Number"
-
-msgid "(rpt)Created Time"
-msgstr "Created Time"
-
-msgid "(rpt)Stored/Finalized Time"
-msgstr "Stored/Finalized Time"
-
-msgid "(rpt)Member ID"
-msgstr "Member ID"
-
-msgid "(rpt)Member Display Name"
-msgstr "Member Display Name"
-
-msgid "(rpt)Member Email"
-msgstr "Member Email"
-
-msgid "(rpt)Member Cellphone"
-msgstr "Member Cellphone"
-
-msgid "(rpt)Branch ID"
-msgstr "Branch ID"
-
-msgid "(rpt)Branch"
-msgstr "Branch"
-
-msgid "(rpt)Voided Time"
-msgstr "Voided Time"
-
-msgid "(rpt)Voided Clerk"
-msgstr "Voided Clerk"
-
-msgid "(rpt)Voided Clerk Display Name"
-msgstr "Voided Clerk Display Name"
-
-msgid "(rpt)Void Sale Period"
-msgstr "Void Sale Period"
-
-msgid "(rpt)Void Shift Number"
-msgstr "Void Shift Number"
-
-msgid "(rpt)Invoice Type"
-msgstr "Invoice Type"
-
-msgid "(rpt)Invoice Title"
-msgstr "Invoice Title"
-
-msgid "(rpt)Items Count"
-msgstr "Items Count"
+msgid "(ledgerEntryType)N"
+msgstr "No"
 
 msgid "(rpt)Change"
 msgstr "Change"
@@ -2762,3 +2506,8 @@ msgstr "Void Clerk"
 
 msgid "(rpt)Void Time"
 msgstr "Void Time"
+########################################################################
+#
+# END OF STATIC MESSAGES
+#
+########################################################################

@@ -118,7 +118,7 @@
         var barWidth = parseInt(this.barContainer.style.width.replace('px',''));
         barWidth = barWidth - (barWidth%10); // no border width
 
-        GREUtils.log('length = ' + dataLength);
+        //GREUtils.log('length = ' + dataLength);
         try {
 
         for( var i=dataLength-1, day=0; i >=0 ; i--) {

@@ -19,33 +19,38 @@
         var categories = GeckoJS.BaseObject.getKeys(prefs) || [];
 
         categories.forEach(function(cn) {
-            var ctrls = GeckoJS.BaseObject.getValues(prefs[cn]);
+            var ctrls = GeckoJS.BaseObject.getKeys(prefs[cn]);
             var ctrls2 = [];
 
             if (ctrls) {
+                ctrls.forEach(function(key) {
 
-                ctrls.forEach(function(el) {
-
+                    var el = prefs[cn][key];
                     // if controlpanel has stringbundle create it.
                     if (el.bundle) GeckoJS.StringBundle.createBundle(el.bundle);
 
                     // hidden inaccessible entry
                     if(GeckoJS.AclComponent.isUserInRole(el.roles)) {
-
+                        var label = el.label;
+                        if (label.indexOf('chrome://') == 0) {
+                            label = GeckoJS.StringBundle.getPrefLocalizedString('vivipos.fec.settings.controlpanels.' + cn + '.' + key + '.label');
+                        }
+                        else {
+                            label = _(label);
+                        }
                         var entry = {icon: el.icon,
                             path: el.path,
                             roles: el.roles,
                             features: (el.features || null),
                             type:  (el.type || 'uri'),
-                            org_label: el.label,
-                            label: _(el.label)}
+                            label: label}
 
                         ctrls2.push(entry);
                     }
                 });
             }
             
-            var data = new GeckoJS.ArrayQuery(ctrls2).orderBy("org_label asc");
+            var data = new GeckoJS.ArrayQuery(ctrls2).orderBy("label asc");
             window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
         
             document.getElementById(cn + 'Panel').datasource = window.viewHelper ;

@@ -40,6 +40,15 @@
                         <column flex="1"/>
                     </columns>
                     <rows id="main-rows">
+                        <row id="menurow">
+                            <vbox>
+		                        <label id="menulabel" style="width:6em" value="" control="menu"/>
+			                    <menulist id="menu">
+			                        <menupopup id="menu_menupopup">
+			                        </menupopup>
+			                    </menulist>
+			                </vbox>
+			            </row>
                         <row id="row0">
                             <vbox flex="1">
                                 <label id="title0" style="width:6em" value="" control="input0"/>

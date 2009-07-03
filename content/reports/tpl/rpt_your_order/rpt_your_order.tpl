@@ -22,7 +22,7 @@
             <thead>
                 <tr>
 {for field in fields}
-                    <th style="text-align: center;">${_( '(rpt)' + field.name )}</th>
+                    <th style="text-align: center;">${_( field.name )}</th>
 {/for}
                 </tr>
             </thead>

@@ -164,6 +164,14 @@
                                     <textbox class="descbox_keymap" id="table_hostname_desc" wrap="true"
                                          readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.table_hostname;" />
                                 </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&sync_settings.label.stock_hostname;" />
+                                        <textbox form="syncSettingForm" name="stock_hostname" value="localhost"/>
+                                    </vbox>
+                                    <textbox class="descbox_keymap" id="stock_hostname_desc" wrap="true"
+                                         readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.stock_hostname;" />
+                                </row>
                             </rows>
                         </grid>
 

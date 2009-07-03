@@ -7,7 +7,7 @@
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
-{for field in fields}"${_( '(rpt)' + field.name )}",{/for}""
+{for field in fields}"${_( field.name )}",{/for}""
 {for detail in body}
 {eval}
   TrimPath.RoundingPrices = detail.rounding_prices;

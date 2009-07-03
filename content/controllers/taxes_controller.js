@@ -38,7 +38,9 @@
             var Obj = {
                 no:'',
                 name:'',
-                rate:0,
+                rate: 0,
+                type: 'ADDON',
+                typestr: _('(taxType)ADDON'),
                 rate_type:'%',
                 threshold:0
             };
@@ -62,11 +64,12 @@
                 
             } else {
                 if (propDeck) document.getElementById('prop_deck').selectedIndex=0;
+
                 
             }
+            valObj.typestr = _('(taxType)' + valObj.type);
 
             GeckoJS.FormHelper.unserializeFromObject('taxForm', valObj);
-
         },
 
         _checkData: function (data, id) {
@@ -105,10 +108,10 @@
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true,
-                addon: _('Add-On'),
-                included: _('Included'),
-                combine: _('Combined'),
-                vat_on_vat: _('VAT & VAT'),
+                addon: _('(taxType)ADDON'),
+                included: _('(taxType)INCLUDED'),
+                combine: _('(taxType)COMBINE'),
+                vat_on_vat: _('(taxType)VAT & VAT'),
                 combinetax:false
             };
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Tax Status'), aFeatures, _('New Tax Status'), '', _('Tax Code'), _('Tax Name'), inputObj);
@@ -120,7 +123,8 @@
                 var data = {
                     no: inputObj.input0,
                     name: inputObj.input1,
-                    type: tax_type
+                    type: tax_type,
+                    typestr: _('(taxType' + tax_type)
                 };
 
                 if (this._checkData(data) == 0) {

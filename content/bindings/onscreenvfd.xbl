@@ -8,7 +8,7 @@
 
         <content>
             <xul:hbox flex="1" xbl:inherits="orient,align">
-                <xul:textbox anonid="labelVfd" hidden="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
+                <xul:textbox anonid="labelVfd" hidden="true" xbl:inherits="class=labelClass"></xul:textbox>
                 <xul:grid flex="1">
                     <xul:columns>
                         <xul:column flex="1" />
@@ -16,12 +16,12 @@
                     </xul:columns>
                     <xul:rows>
                         <xul:row flex="1">
-                            <xul:textbox anonid="label0_0" disabled="true" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
-                            <xul:textbox anonid="label0_1" disabled="true" style="color: yellow; align: right;" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="label0_0" disabled="true" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="label0_1" disabled="true" style="color: yellow; align: right;" xbl:inherits="class=labelClass,value"></xul:textbox>
                         </xul:row>
                         <xul:row flex="1">
-                            <xul:textbox anonid="label1_0" disabled="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
-                            <xul:textbox anonid="label1_1" disabled="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
+                            <xul:textbox anonid="label1_0" disabled="true" xbl:inherits="class=labelClass"></xul:textbox>
+                            <xul:textbox anonid="label1_1" disabled="true" xbl:inherits="class=labelClass"></xul:textbox>
                         </xul:row>
                     </xul:rows>
                 </xul:grid>
@@ -216,6 +216,24 @@
                 this.mainevents.addListener('onEnterPassword', this.onEnterPassword, this);
                 this.mainevents.addListener('onExitPassword', this.onExitPassword, this);
 
+                // add Observer for startTrainingMode event.
+                var self = this;
+                this.observer = GeckoJS.Observer.newInstance( {
+                    topics: [ "TrainingMode" ],
+
+                    observe: function( aSubject, aTopic, aData ) {
+                        switch(aTopic) {
+                            case 'TrainingMode':
+                                if ( aData == "start" ) {
+                                    self.switchTrainingMode( true );
+                                } else if ( aData == "exit" ) {
+                                    self.switchTrainingMode( false );
+                                }
+                                break;
+                        }
+                    }
+                } ).register();
+
                 //this.ready = function() {
                     self.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
                     self.onClear({data: null});
@@ -248,11 +266,38 @@
                     this.mainevents.removeListener('onExitPassword', this.onExitPassword, this);
                 }
 
+                this.observer.unregister();
+
                 //window.removeEventListener('DOMContentLoaded', this.ready, true);
 
             ]]>
             </destructor>
 	
+            <xbl:method name="switchTrainingMode">
+                <xbl:parameter name="isTraining"/>
+                <xbl:body>
+                <![CDATA[
+                    var classStr = this.getAttribute('class');
+                    var trainingClass = this.getAttribute('trainingClass') || 'vfdPadOnTraining';
+                    GREUtils.log('in switchTrainingMode: ' + classStr);
+                    if (isTraining) {
+                        // if class doesn't contain trainingClass, append it
+                        if (!GeckoJS.String.contains(classStr, trainingClass)) {
+                            classStr += ' ' + trainingClass;
+                            this.className = classStr;
+                        }
+                    }
+                    else {
+                        // if class contains trainingClass, remove it
+                        if (GeckoJS.String.contains(classStr, trainingClass)) {
+                            classStr = GeckoJS.String.trim(classStr.replace(trainingClass, '', 'g'));
+                            this.className = classStr;
+                        }
+                    }
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
             <xbl:method name="setText0_0">
                 <xbl:parameter name="val"/>
                 <xbl:body>

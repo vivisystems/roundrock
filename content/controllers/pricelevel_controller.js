@@ -132,6 +132,7 @@
     }, false);
     
     window.addEventListener('unload', function() {
-        $do( "destroy", null, "PriceLevel" );
+        var controller = GeckoJS.Controller.getInstanceByName('PriceLevel');
+        if (controller) controller.destroy();
     }, false);
 })();

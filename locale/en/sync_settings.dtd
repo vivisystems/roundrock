@@ -9,7 +9,7 @@
 <!ENTITY sync_settings.label.hostname "master hostname/ip.">
 <!ENTITY sync_settings.label.port "port.">
 
-<!ENTITY sync_settings.label.machine_id "Terminal No.">
+<!ENTITY sync_settings.label.machine_id "Terminal Number (a-z, A-Z, 0-9)">
 <!ENTITY sync_settings.label.password "Password.">
 
 <!ENTITY sync_settings.label.batch_limit "batch_limit.">
@@ -32,3 +32,6 @@
 
 <!ENTITY sync_settings.label.table_hostname "table services server hostname/ip.">
 <!ENTITY sync_settings.desc.table_hostname "Provide table service's server. Local Network master or localhost">
+
+<!ENTITY sync_settings.label.stock_hostname "stock services server hostname/ip.">
+<!ENTITY sync_settings.desc.stock_hostname "Provide realtime stock service's server. Local Network master or localhost">

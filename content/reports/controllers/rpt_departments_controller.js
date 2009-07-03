@@ -25,7 +25,7 @@
                 fields: [ 'no', 'name' ], order: orderby, limit: limit
             } );
 
-            this._reportRecords.head.title = _( 'Department Report' );
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.departmentlist.label' );
             this._reportRecords.body = cateRecords;
         },
 

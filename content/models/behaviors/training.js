@@ -25,9 +25,9 @@ TrainingBehavior.prototype.switchRelativeDBConf = function( model ) {
 };
 
 TrainingBehavior.prototype.switchDBConf = function() {
-
     // do not switch if current db config is 'backup'
-    if (this.model.useDbConfig == 'backup') return;
+    if ( this.model.useDbConfig == 'backup' )
+        return;
     
 	var isTraining = GeckoJS.Session.get( "isTraining" );
     if( !this.model.useDbConfigBak )
