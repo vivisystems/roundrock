@@ -8802,6 +8802,10 @@ GeckoJS.BaseModel.prototype.schema = function (recursive) {
 
 GeckoJS.BaseModel.prototype.getFieldsInfo = function(field) {
 
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'getFieldsInfo > ' + field  + ', useDbConfig = ' + this.useDbConfig);
+    /* endif DEBUG */
+
     field = field || false;
 
     if (this._fieldsinfo == null || field === true) {
@@ -8813,6 +8817,7 @@ GeckoJS.BaseModel.prototype.getFieldsInfo = function(field) {
 
         if (this._fieldsinfo === false ) return false;
     }
+
 
     if (typeof field == 'string') {
 
@@ -9598,6 +9603,9 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
         this.log('DEBUG', 'saveToBackup > ') ;
         /* endif DEBUG */
 
+        // force try to get original database schema
+        this.getFieldsInfo();
+
         var orgUseDbConfig = this.useDbConfig;
 
         var backupDbConfig = 'backup';
@@ -9616,10 +9624,10 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
             /* ifdef DEBUG 
             this.log('DEBUG', 'saveToBackup > save datas, length: ' + data.length ) ;
             /* endif DEBUG */
-
+            result = [];
             data.forEach(function(d) {
                 self.create();
-                result = self.save(d);
+                result.push(self.save(d));
             });
             
         }else if(typeof data == 'object') {
@@ -9673,11 +9681,25 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
     this._restoreFromBackupInProcess = true;
     this._restoreFromBackupError = false;
 
+    // force try to get original database schema
+    this.getFieldsInfo();
+
     var backupDbConfig = 'backup';
     var newDataSource = GeckoJS.ConnectionManager.getDataSource(backupDbConfig);
 
     // query all backup datas
-    var backupDatas = newDataSource.querySelect(this, null, null, null, null, 0, 0, 0);
+    try {
+
+        var backupDatas = newDataSource.querySelect(this, null, null, null, null, 0, 0, 0);
+
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'restoreFromBackup > datas length = ') ;
+        /* endif DEBUG */
+
+    }catch(e) {
+        this.log('ERROR', 'restoreFromBackup > querySelect Error: ') ;
+    }
+
 
     // no backup datas
     if (!backupDatas || backupDatas.length == 0) {
@@ -9689,7 +9711,11 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
         this._restoreFromBackupInProcess = false;
         return true ;
     }
-    
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'restoreFromBackup > begin ' + this.name + ', useDbConfig ' + this.useDbConfig ) ;
+    /* endif DEBUG */
+
     // get transaction exclusive lock
     var r = this.begin(true);
     if(r) {
@@ -11620,13 +11646,21 @@ GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
     if (tableFile.exists()) {
 
         /* ifdef DEBUG 
-        this.log('DEBUG', 'readTableFile > ' + tableFile.path);
+        this.log('DEBUG', 'readTableFile > ' + tableFile.path + ' , fileSize = ' + tableFile.file.fileSize);
         /* endif DEBUG */
-        
-        d = GREUtils.JSON.decodeFromFile(tableFile.path);
-        if (d == null) d = {};
+
+        try {
+            d = GREUtils.JSON.decodeFromFile(tableFile.path);
+            if (d == null) d = {};
+        }catch(e) {
+            d = {};
+        }
         
     }
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'readTableFile > AddtoMap ');
+    /* endif DEBUG */
 
     db = new GeckoJS.Map();
     db.addAll(d);
@@ -11721,9 +11755,10 @@ GeckoJS.DatasourceJsonFile.prototype.querySelect = function(model, fields, condi
     recursive = typeof recursive != 'undefined' ? recursive : 1;
 
     var table = model.table;
+    var name = model.name ;
 
     /* ifdef DEBUG 
-    this.log('DEBUG', 'querySelect > ' + table);
+    this.log('DEBUG', 'querySelect > ' + table + ' , name: ' + name + ', recursive: ' + recursive);
     /* endif DEBUG */
 
     try {
@@ -11739,6 +11774,10 @@ GeckoJS.DatasourceJsonFile.prototype.querySelect = function(model, fields, condi
         }
         
         var resultSet = db.getValues();
+
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'querySelect > resultSet datas length = ' + resultSet.length );
+        /* endif DEBUG */
 
         // if no datas , return 
         if (resultSet.length == 0) return [];
@@ -11756,18 +11795,36 @@ GeckoJS.DatasourceJsonFile.prototype.querySelect = function(model, fields, condi
         
         var result = arrayDs.data.concat([]);
 
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'querySelect > arrayDs data result length = ' + result.length );
+        /* endif DEBUG */
+
         // make row[ModelName] format
         result.forEach(function(row) {
-            row[model.name] = GREUtils.extend({}, row);
+            row[name] = GREUtils.extend({}, row);
         });
-        
+
+        /* ifdef DEBUG 
+        this.log('DEBUG', 'querySelect > set result with model.name structure, length = ' + result.length );
+        /* endif DEBUG */
+
         delete arrayDs;
         delete resultSet;
         delete db;
-        
+
         if (recursive == 1) {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'querySelect > _queryAssociations, length = ' + result.length );
+            /* endif DEBUG */
+
             return this._queryAssociations(model, result, recursive);
         }else {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'querySelect > return result , length = ' + result.length );
+            /* endif DEBUG */
+
             return result;
         }
         
@@ -12888,11 +12945,15 @@ GeckoJS.DatasourceSQL.prototype.executeInsert = function(model, data){
 
                 // get declare type
                 var fieldInfo = model.getFieldsInfo(field);
-                var declaredType = fieldInfo.type;
 
-                if(declaredType.match(/bool/i)) {
-                    val = GeckoJS.String.parseBoolean(val) ? 1 : 0;
+                if ( fieldInfo ) {
+                    var declaredType = fieldInfo.type;
+
+                    if(declaredType.match(/bool/i)) {
+                        val = GeckoJS.String.parseBoolean(val) ? 1 : 0;
+                    }
                 }
+                
                 values.push(val);
             }
         }
@@ -14162,6 +14223,10 @@ GeckoJS.DatasourceSQLite.prototype.listTables = function() {
  * @return {Object} Fields in table
  */
 GeckoJS.DatasourceSQLite.prototype.describe = function(model) {
+
+    /* ifdef DEBUG 
+    this.log('DEBUG', 'describe > ' + model.table );
+    /* endif DEBUG */
 
     var table = model.table;
 
