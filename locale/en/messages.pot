@@ -188,6 +188,9 @@ msgstr "Touch Calibration"
 msgid "vivipos.fec.settings.controlpanels.system.xterm.label"
 msgstr "XTerm"
 
+msgid "vivipos.fec.settings.controlpanels.system.journal.label"
+msgstr "Electronic Journal"
+
 ########################################################################
 #
 # List of Reports
