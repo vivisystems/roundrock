@@ -55,6 +55,7 @@
             var curTransaction = cart._getTransaction(true);
             
             this.log('checkStock: ' + item.name + '('+qty+')');
+            
             var min_stock = parseFloat(item.min_stock);
             var auto_maintain_stock = item.auto_maintain_stock;
             
