@@ -1589,6 +1589,28 @@
                 devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
             }
 
+            if (document.getElementById('journal-panel') != null) {
+
+                /* populate templates */
+
+                var tmplmenu1 = document.getElementById('journal-preview-template');
+                var templates = this.getTemplates('preview');
+
+                var sortedTemplates = [];
+                for (var tmpl in templates) {
+                        var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                        newTemplate.name = tmpl;
+                        sortedTemplates.push(newTemplate);
+                }
+                sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
+
+                for (var i in sortedTemplates) {
+                    var tmplName = sortedTemplates[i].name;
+                    tmplmenu1.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                }
+                tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = 0;
+            }
+
             /* apply device selections */
             GeckoJS.FormHelper.unserializeFromObject('deviceForm', selectedDevices);
 

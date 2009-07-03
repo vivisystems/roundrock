@@ -364,7 +364,7 @@
         // handle store order events
         storeOrder: function(evt) {
             var txn = evt.data;
-            //this.log('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
+            alert('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
 
             try {
                 // check if receipts need to be printed
@@ -482,7 +482,6 @@
         // printer = null: print on all auto-print enabled printers
 
         printReceipts: function(txn, printer, autoPrint, duplicate) {
-
             var deviceController = this.getDeviceController();
             if (deviceController == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -917,7 +916,6 @@
             if (data != null) {
 
                 //this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
-                
                 tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
@@ -973,7 +971,6 @@
             //
             // translate embedded hex codes into actual hex values
             result = result.replace(/\[(0x[0-9,A-F][0-9,A-F])\]/g, function(str, p1, offset, s) {return String.fromCharCode(new Number(p1));});
-            //alert(this.dump(result));
 
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);

@@ -54,6 +54,7 @@
                     <tab id="vfd-tab" label="&devices.tab.vfd.label;"/>
                     <tab id="cashdrawer-1-tab" label="&devices.tab.cashdrawer1.label;"/>
                     <tab id="cashdrawer-2-tab" label="&devices.tab.cashdrawer2.label;"/>
+                    <tab id="journal-tab" label="&devices.tab.journal.label;"/>
                 </tabs>
 
                 <!-- Receipt configuration -->
@@ -1030,6 +1031,36 @@
                             </hbox>
                         </vbox>
 
+                    </tabpanel>
+                    <tabpanel id="journal-panel" orient="horizontal">
+                        <vbox class="SetArea" flex="1">
+                            <vbox class="SubArea">
+                                <grid>
+                                    <columns>
+                                        <column flex="0"/>
+                                        <column flex="1"/>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <label value="&devices.journal.printer.label;"/>
+                                            <menulist id="journal-print-template" name="journal-print-template" form="deviceForm">
+                                                <menupopup id="journal-print-template-popup">
+                                                    <menuitem label="1" value="1"/>
+                                                    <menuitem label="2" value="2"/>
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.journal.preview.label;"/>
+                                            <menulist id="journal-preview-template" name="journal-preview-template" form="deviceForm">
+                                                <menupopup id="journal-preview-template-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                    </rows>
+                                </grid>
+                            </vbox>
+                        </vbox>
                     </tabpanel>
                 </tabpanels>
             </tabbox>

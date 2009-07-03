@@ -3546,6 +3546,7 @@
                         order.items = order.OrderItem;
 
                         // restore stock
+                        
                         var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
                         alert('before updating stock level');
                         r = stockController.decStock(order);
@@ -3556,13 +3557,13 @@
                         }
 
                         alert('before committing');
-                        r = paymentModel.commit();
+                        
                         if (!r) {
                             throw {errno: paymentModel.lastError,
                                    errstr: paymentModel.lastErrorString,
                                    errmsg: 'An error was encountered while voiding sale; order is not voided.'};
                         }
-
+                        paymentModel.commit();
                         this.dispatchEvent('afterVoidSale', order);
 
                         GREUtils.Dialog.alert(this.topmostWindow,
