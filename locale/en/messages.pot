@@ -24,7 +24,7 @@ msgstr "繁體中文 - 台灣 (zh-TW)"
 #
 ########################################################################
 
-msgid "(location)generic"
+msgid "vivipos.fec.registry.package-location.generic"
 msgstr "Generic Location"
 
 ########################################################################
@@ -38,6 +38,12 @@ msgstr "Generic"
 
 msgid "vivipos.fec.registry.package.generic.generic.description"
 msgstr "If you are not sure what sector to choose, you may want to start with this selection."
+
+msgid "vivipos.fec.registry.package.generic.retail.label"
+msgstr "Retail"
+
+msgid "vivipos.fec.registry.package.generic.retail.description"
+msgstr "This is for general retail."
 
 ########################################################################
 #
@@ -181,6 +187,9 @@ msgstr "Touch Calibration"
 
 msgid "vivipos.fec.settings.controlpanels.system.xterm.label"
 msgstr "XTerm"
+
+msgid "vivipos.fec.settings.controlpanels.system.journal.label"
+msgstr "Electronic Journal"
 
 ########################################################################
 #
@@ -2177,6 +2186,329 @@ msgstr "Yes"
 msgid "(ledgerEntryType)N"
 msgstr "No"
 
+msgid "(rpt)Change"
+msgstr "Change"
+
+msgid "Export To (%S) Error!!"
+msgstr "Export To (%S) Error!!"
+
+msgid "Data export to file [%S] finished!"
+msgstr "Data export to file [%S] finished!"
+
+msgid "The specified file(s) [%S] does not exist!"
+msgstr "The specified file(s) [%S] does not exist!"
+
+msgid "Database Import Error"
+msgstr"Database Import Error"
+
+msgid "License Import Error"
+msgstr "License Import Error"
+
+msgid "License validated - import not required"
+msgstr "License validated - import not required"
+
+msgid "The specified file [%S] does not exist!"
+msgstr "The specified file [%S] does not exist!"
+
+msgid "Unable to open the specified file [%S]!"
+msgstr "Unable to open the specified file [%S]!"
+
+msgid "Condiment item @ row %S requires a name"
+msgstr "Condiment item @ row %S requires a name"
+
+msgid "Condiment item %S @ row %S requires a condiment group"
+msgstr "Condiment item %S @ row %S requires a condiment group"
+
+msgid "Condiment item %S @ row %S requires a valid condiment group"
+msgstr "Condiment item %S @ row %S requires a valid condiment group"
+
+msgid "Condiment item %S @ row %S has name duplication under the Condiment Group %S"
+msgstr "Condiment item %S @ row %S has name duplication under the Condiment Group %S"
+
+msgid "Condiment item %S @row %S requires a valid UUID"
+msgstr "Condiment item %S @row %S requires a valid UUID"
+
+msgid "Condiment item %S @ row %S contains a duplicated ID"
+msgstr "Condiment item %S @ row %S contains a duplicated ID"
+
+msgid "Condiment item %S @ row %S requires a valid price"
+msgstr "Condiment item %S @ row %S requires a valid price"
+
+msgid "Condiment item %S @ row %S requires a valid button color"
+msgstr "Condiment item %S @ row %S requires a valid button color"
+
+msgid "Condiment item %S @ row %S requires a valid font size"
+msgstr "Condiment item %S @ row %S requires a valid font size"
+
+msgid "Condiment item %S @ row %S requires a valid boolean preset value"
+msgstr "Condiment item %S @ row %S requires a valid boolean preset value"
+
+msgid "Condiment Group item %S @ row %S requires a name"
+msgstr "Condiment Group item %S @ row %S requires a name"
+
+msgid "Condiment Group item %S @ row %S contains a duplicated name"
+msgstr "Condiment Group item %S @ row %S contains a duplicated name"
+
+msgid "Condiment Group item %S @ row %S requires a valid UUID"
+msgstr "Condiment Group item %S @ row %S requires a valid UUID"
+
+msgid "Condiment Group item %S @ row %S contains a duplicated ID"
+msgstr "Condiment Group item %S @ row %S contains a duplicated ID"
+
+msgid "Condiment Group item %S @ row %S requires a valid select type"
+msgstr "Condiment Group item %S @ row %S requires a valid select type"
+
+msgid "Condiment Group item %S @ row %S requires a valid boolean new line value"
+msgstr "Condiment Group item %S @ row %S requires a valid boolean new line value"
+
+msgid "Product Group item %S @ row %S requires a name"
+msgstr "Product Group item %S @ row %S requires a name"
+
+msgid "Product Group item %S @ row %S contains a duplicated name"
+msgstr "Product Group item %S @ row %S contains a duplicated name"
+
+msgid "Product Group item %S @ row %S requires a valid UUID"
+msgstr "Product Group item %S @ row %S requires a valid UUID"
+
+msgid "Product Group item %S @ row %S contains a duplicated ID"
+msgstr "Product Group item %S @ row %S contains a duplicated ID"
+
+msgid "Product Group item %S @ row %S requires a valid button color"
+msgstr "Product Group item %S @ row %S requires a valid button color"
+
+msgid "Product Group item %S @ row %S requires a valid font size"
+msgstr "Product Group item %S @ row %S requires a valid font size"
+
+msgid "Product Group item %S @ row %S requires a valid boolean visible value"
+msgstr "Product Group item %S @ row %S requires a valid boolean visible value"
+
+msgid "Product Group item %S @ row %S requires a valid routing field"
+msgstr "Product Group item %S @ row %S requires a valid routing field"
+
+msgid "Product Group item %S @ row %S has invalid department link"
+msgstr "Product Group item %S @ row %S has invalid department link"
+
+msgid "Product item @ row %S requires a name"
+msgstr "Product item @ row %S requires a name"
+
+msgid "Product item %S @ row %S requires a department"
+msgstr "Product item %S @ row %S requires a department"
+
+msgid "Product item %S @ row %S requires a valid department"
+msgstr "Product item %S @ row %S requires a valid department"
+
+msgid "Product item %S @ row %S has name duplication under the department %S"
+msgstr "Product item %S @ row %S has name duplication under the department %S"
+
+msgid "Product item %S @row %S requires a valid UUID"
+msgstr "Product item %S @row %S requires a valid UUID"
+
+msgid "Product item %S @ row %S contains a duplicated ID"
+msgstr "Product item %S @ row %S contains a duplicated ID"
+
+msgid "Product item %S @ row %S requires a product number"
+msgstr "Product item %S @ row %S requires a product number"
+
+msgid "Product item %S @ row %S contains a duplicated product number"
+msgstr "Product item %S @ row %S contains a duplicated product number"
+
+msgid "Product item %S @ row %S requires a tax rate"
+msgstr "Product item %S @ row %S requires a tax rate"
+
+msgid "Product item %S @ row %S requires a valid tax rate"
+msgstr "Product item %S @ row %S requires a valid tax rate"
+
+msgid "Product item %S @ row %S has invalid condiment group %S"
+msgstr "Product item %S @ row %S has invalid condiment group %S"
+
+msgid "Product item %S @ row %S has invalid group link %S"
+msgstr "Product item %S @ row %S has invalid group link %S"
+
+msgid "Product item %S @ row %S contains duplicated barcode"
+msgstr "Product item %S @ row %S contains duplicated barcode"
+
+msgid "Product item %S @ row %S requires a valid buy price value"
+msgstr "Product item %S @ row %S requires a valid buy price value"
+
+msgid "Product item %S @ row %S requires a valid stock value"
+msgstr "Product item %S @ row %S requires a valid stock value"
+
+msgid "Product item %S @ row %S requires a valid minimum stock value"
+msgstr "Product item %S @ row %S requires a valid minimum stock value"
+
+msgid "Product item %S @ row %S requires a valid minimum sale quantity value"
+msgstr "Product item %S @ row %S requires a valid minimum sale quantity value"
+
+msgid "Product item %S @ row %S requires a valid level enable %S"
+msgstr "Product item %S @ row %S requires a valid level enable %S"
+
+msgid "Product item %S @ row %S requires a valid price level %S"
+msgstr "Product item %S @ row %S requires a valid price level %S"
+
+msgid "Product item %S @ row %S requires a valid halo %S"
+msgstr "Product item %S @ row %S requires a valid halo %S"
+
+msgid "Product item %S @ row %S requires a valid lalo %S"
+msgstr "Product item %S @ row %S requires a valid lalo %S"
+
+msgid "Product item %S @ row %S requires a valid auto maintain stock value"
+msgstr "Product item %S @ row %S requires a valid auto maintain stock value"
+
+msgid "Product item %S @ row %S requires a valid return stock value"
+msgstr "Product item %S @ row %S requires a valid return stock value"
+
+msgid "Product item %S @ row %S requires a valid force condiment value"
+msgstr "Product item %S @ row %S requires a valid force condiment value"
+
+msgid "Product item %S @ row %S requires a valid force memo value"
+msgstr "Product item %S @ row %S requires a valid force memo value"
+
+msgid "Product item %S @ row %S requires a valid single value"
+msgstr "Product item %S @ row %S requires a valid single value"
+
+msgid "Product item %S @ row %S requires a valid button color"
+msgstr "Product item %S @ row %S requires a valid button color"
+
+msgid "Product item %S @ row %S requires a valid font size"
+msgstr "Product item %S @ row %S requires a valid font size"
+
+msgid "Product item %S @ row %S requires a valid age verification value"
+msgstr "Product item %S @ row %S requires a valid age verification value"
+
+msgid "Product item %S @ row %S requires a valid icon only value"
+msgstr "Product item %S @ row %S requires a valid icon only value"
+
+msgid "Product item %S @ row %S requires a valid manual adjustment only value"
+msgstr "Product item %S @ row %S requires a valid manual adjustment only value"
+
+msgid "Product item %S @ row %S requires a valid append empty buttons value"
+msgstr "Product item %S @ row %S requires a valid append empty buttons value"
+
+msgid "Department item %S @ row %S requires a name"
+msgstr "Department item %S @ row %S requires a name"
+
+msgid "Department item %S @ row %S contains a duplicated name"
+msgstr "Department item %S @ row %S contains a duplicated name"
+
+msgid "Department item %S @ row %S requires a department number"
+msgstr "Department item %S @ row %S requires a department number"
+
+msgid "Department item %S @ row %S contains a duplicated department number"
+msgstr "Department item %S @ row %S contains a duplicated department number"
+
+msgid "Department item %S @row %S requires a valid UUID"
+msgstr "Department item %S @row %S requires a valid UUID"
+
+msgid "Department item %S @ row %S contains a duplicated ID"
+msgstr "Department item %S @ row %S contains a duplicated ID"
+
+msgid "Department item %S @ row %S requires a valid boolean visible value"
+msgstr "Department item %S @ row %S requires a valid boolean visible value"
+
+msgid "Department item %S @ row %S requires a valid boolean cansale value"
+msgstr "Department item %S @ row %S requires a valid boolean cansale value"
+
+msgid "Department item %S @ row %S requires a valid button color"
+msgstr "Department item %S @ row %S requires a valid button color"
+
+msgid "Department item %S @ row %S requires a valid font size"
+msgstr "Department item %S @ row %S requires a valid font size"
+
+msgid "Department item %S @ row %S requires a tax rate"
+msgstr "Department item %S @ row %S requires a tax rate"
+
+msgid "Department item %S @ row %S requires a valid tax rate"
+msgstr "Department item %S @ row %S requires a valid tax rate"
+
+msgid "Set item @ row %S requires a product number"
+msgstr "Set item @ row %S requires a product number"
+
+msgid "Set item @ row %S requires a valid product number"
+msgstr "Set item @ row %S requires a valid product number"
+
+msgid "Set item @ row %S requires a preset product number"
+msgstr "Set item @ row %S requires a preset product number"
+
+msgid "Set item @ row %S requires a valid preset product number"
+msgstr "Set item @ row %S requires a valid preset product number"
+
+msgid "Set item @ row %S requires a label"
+msgstr "Set item @ row %S requires a label"
+
+msgid "Set item @ row %S requires a valid UUID"
+msgstr "Set item @ row %S requires a valid UUID"
+
+msgid "Set item row %S contains a duplicated ID"
+msgstr "Set item row %S contains a duplicated ID"
+
+msgid "Set item @ row %S requires a valid category link"
+msgstr "Set item @ row %S requires a valid category link"
+
+msgid "Set item @ row %S requires a valid quantity"
+msgstr "Set item @ row %S requires a valid quantity"
+
+msgid "Set item @ row %S requires a valid base price value"
+msgstr "Set item @ row %S requires a valid base price value"
+
+msgid "Set item @ row %S requires a sequence"
+msgstr "Set item @ row %S requires a sequence"
+
+msgid "Set item @ row %S requires a valid sequence value"
+msgstr "Set item @ row %S requires a valid sequence value"
+
+msgid "Set item @ row %S constains a repeating sequence value in product set %S"
+msgstr "Set item @ row %S constains a repeating sequence value in product set %S"
+
+msgid "Set item @ row %S requires a valid boolean reduction value"
+msgstr "Set item @ row %S requires a valid boolean reduction value"
+
+msgid "Product Group item @ row %S has invalid group link %S"
+msgstr "Product Group item @ row %S has invalid group link %S"
+
+msgid "Please check %S for complete error log"
+msgstr "Please check %S for complete error log"
+
+msgid "Import Data Integrity Error"
+msgstr "Import Data Integrity Error"
+
+msgid "Format error detected in import file [%S]!"
+msgstr "Format error detected in import file [%S]!"
+
+msgid "Data import from file [%S] finished!"
+msgstr "Data import from file [%S] finished!"
+
+msgid "Function Panels"
+msgstr "Function Panels"
+
+msgid "Device Settings"
+msgstr "Device Settings"
+
+msgid "Price Levels"
+msgstr "Price Levels"
+
+msgid "HotKeys"
+msgstr "HotKeys"
+
+msgid "Promotions"
+msgstr "Promotions"
+
+msgid "ACL Permissions"
+msgstr "ACL Permissions"
+
+msgid "Tables"
+msgstr "Tables"
+
+msgid "Set Items"
+msgstr "Set Items"
+
+msgid "License"
+msgstr "License"
+
+msgid "(rpt)Void Clerk"
+msgstr "Void Clerk"
+
+msgid "(rpt)Void Time"
+msgstr "Void Time"
 ########################################################################
 #
 # END OF STATIC MESSAGES

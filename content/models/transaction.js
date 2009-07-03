@@ -109,6 +109,8 @@
 
         create: function() {
 
+            var self = this;
+            
             this.data.id = GeckoJS.String.uuid();
 
             this.data.terminal_no = GeckoJS.Session.get('terminal_no');
@@ -116,10 +118,11 @@
             // SequenceModel will always return a value; even if an error occurred (return value of -1), we
             // should still allow create to proceed; it's up to the upper layer to decide how to handle
             // this error condition
-            this.data.seq = SequenceModel.getSequence('order_no');
-            // this.data.check_no = SequenceModel.getSequence('check_no');
-
-            GeckoJS.Session.set('vivipos_fec_order_sequence', this.data.seq);
+            SequenceModel.getSequence('order_no', true, function(seq) {
+                self.data.seq = (seq+'');
+                GeckoJS.Session.set('vivipos_fec_order_sequence', seq);
+            });
+            
             GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -154,7 +157,20 @@
         },
 
         process: function(status, discard) {
+            var self = this;
+            
             this.data.status = status;
+
+            // force and waiting to get sequence
+            if (self.data.seq.length == 0) {
+
+                // block ui until request finish or timeout
+                var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
+                while (self.data.seq.length == 0) {
+                    thread.processNextEvent(true);
+                }
+                // dump('length = '+self.data.seq.length+' \n');
+            }
 
             // set sale period and shift number
             var salePeriod = GeckoJS.Session.get('sale_period');
@@ -175,12 +191,7 @@
             }
 
             this.data.modified = Math.round(new Date().getTime() / 1000 );
-            
-            var self = this;
-            // maintain stock...
-            if (status > 0)
-                self.requestCommand('decStock', self.data, 'StockRecords');
-
+                       
             // remove recovery file
             Transaction.removeRecoveryFile();
 
@@ -194,10 +205,6 @@
 
                 return order.saveOrder(this.data);
 
-// achang marked
-//                if (this.data.status == 2) {
-//                    order.serializeOrder(this.data);
-//                }
             }
 
         },
@@ -1210,6 +1217,16 @@
             Transaction.events.dispatch('onCalcItemSubtotal', item, this);
         },
 
+        _computeLimit: function(amount, rate, type) {
+            if (type == '$') {
+                return rate;
+            }
+            else if (type == '%') {
+               return amount * rate / 100;
+            }
+            else
+                return amount;
+        },
 
         appendDiscount: function(index, discount){
 
@@ -1230,9 +1247,25 @@
                 else {
                     discount_amount = item.current_subtotal * discount.amount;
                 }
+
+                // rounding discount
+                item.current_discount = this.getRoundedPrice(item.current_discount);
+
+                // check if discount amount exceeds user item discount limit
+                var user = GeckoJS.Session.get('user');
+                var item_discount_limit = parseInt(user.item_discount_limit);
+                if (item.current_subtotal > 0 && !isNaN(item_discount_limit) && item_discount_limit > 0) {
+                    var item_discount_limit_amount = this._computeLimit(item.current_subtotal, item_discount_limit, user.item_discount_limit_type);
+                    if (discount_amount > item_discount_limit_amount) {
+                        NotifyUtils.warn(_('Discount amount [%S] may not exceed user item discount limit [%S]',
+                                           [discount_amount, item_discount_limit_amount]));
+                        return;
+                    }
+                }
+            
                 if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
                     // discount too much
-                    NotifyUtils.warn(_('Discount amount [%S] may not exceed item amout [%S]',
+                    NotifyUtils.warn(_('Discount amount [%S] may not exceed item amount [%S]',
                         [this.formatPrice(this.getRoundedPrice(discount_amount)),
                         item.current_subtotal]));
                     return;
@@ -1242,9 +1275,6 @@
                 item.discount_rate =  discount.amount;
                 item.discount_type =  discount.type;
                 item.hasDiscount = true;
-
-                // rounding discount
-                item.current_discount = this.getRoundedPrice(item.current_discount);
 
                 // create data object to push in items array
                 var itemDisplay = this.createDisplaySeq(item.index, item, 'discount');
@@ -1338,6 +1368,7 @@
             var itemDisplay = this.getDisplaySeqAt(index); // last seq
             var itemIndex = itemDisplay.index;
             var lastItemDispIndex;
+            var surcharge_amount;
             var resultItem;
 
             var prevRowCount = this.data.display_sequences.length;
@@ -1346,20 +1377,32 @@
 
             if (item && item.type == 'item') {
 
-                item.surcharge_name = surcharge.name;
-                item.surcharge_rate =  surcharge.amount;
-                item.surcharge_type =  surcharge.type;
-                item.hasSurcharge = true;
-
-                if (item.surcharge_type == '$') {
-                    item.current_surcharge = surcharge.amount;
+                if (surcharge.type == '$') {
+                    surcharge_amount = surcharge.amount;
                 }else {
-                    item.current_surcharge = item.current_subtotal * item.surcharge_rate;
+                    surcharge_amount = item.current_subtotal * surcharge.amount;
                 }
 
                 // rounding surcharge
-                item.current_surcharge = this.getRoundedPrice(item.current_surcharge);
+                surcharge_amount = this.getRoundedPrice(surcharge_amount);
 
+                // check if discount amount exceeds user limit
+                var user = GeckoJS.Session.get('user');
+                var surcharge_limit = parseInt(user.item_surcharge_limit);
+                if (item.current_subtotal > 0 && !isNaN(surcharge_limit) && surcharge_limit > 0) {
+                    var surcharge_limit_amount = this._computeLimit(item.current_subtotal, surcharge_limit, user.item_surcharge_limit_type);
+                    if (surcharge_amount > surcharge_limit_amount) {
+                        NotifyUtils.warn(_('Surcharge amount [%S] may not exceed user item surcharge limit [%S]',
+                                           [surcharge_amount, surcharge_limit_amount]));
+                        return;
+                    }
+                }
+
+                item.surcharge_name = surcharge.name;
+                item.surcharge_rate = surcharge.amount;
+                item.surcharge_type = surcharge.type;
+                item.current_surcharge = surcharge_amount;
+                item.hasSurcharge = true;
 
                 // create data object to push in items array
                 var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');

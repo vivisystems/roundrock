@@ -5,7 +5,6 @@
      */
     function startup() {
 
-        GeckoJS.Configure.loadPreferences('vivipos.fec.settings');
         var rt = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
         var rp = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
         var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');

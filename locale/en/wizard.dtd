@@ -13,6 +13,7 @@
 <!ENTITY wizard.page.datetime.description "This screen allows user to set date/time">
 <!ENTITY wizard.page.sector "VIVIPOS Setup - Sector Selection">
 <!ENTITY wizard.page.sector.description "This screen allows user to select a sector-specific configuration">
+<!ENTITY wizard.page.sector.screenshot "Screen Shot">
 <!ENTITY wizard.page.storeinfo "VIVIPOS Setup - Store Information">
 <!ENTITY wizard.page.storeinfo.description "This screen allows user to fill in store information">
 <!ENTITY wizard.page.login "VIVIPOS Setup - User Accounts">

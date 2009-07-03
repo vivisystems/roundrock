@@ -155,7 +155,7 @@
 
                 if (index > 0) {
                     this._listDatas[this._weekIndex].splice(index, 1);
-                    this.getListObj().vivitree.refresh();
+                    this.getListObj().refresh();
                 } else if (index == 0) {
                     this._listDatas[this._weekIndex][0].pricelevel = 0;
                 }

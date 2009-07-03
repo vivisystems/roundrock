@@ -20,11 +20,8 @@
         keys.forEach(function(key) {
             var el = reports[key];
             var label = el.label;
-            GREUtils.log(label);
-            GREUtils.log('vivipos.fec.reportpanels.' + key + '.label');
-            GREUtils.log(_('vivipos.fec.reportpanels.' + key + '.label'));
             if (label.indexOf('chrome://') == 0) {
-                label = _('vivipos.fec.reportpanels.' + key + '.label');
+                label = GeckoJS.StringBundle.getPrefLocalizedString('vivipos.fec.reportpanels.' + key + '.label');
             }
             else {
                 label = _(label);
@@ -37,7 +34,7 @@
                 };
             data.push(entry);
         });
-
+        data = new GeckoJS.ArrayQuery(data).orderBy("label asc");
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
 
         document.getElementById('imagePanel').datasource = window.viewHelper;

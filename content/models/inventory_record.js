@@ -5,6 +5,8 @@
 		
 		useDbConfig: 'default',
 		
+		belongsTo: [ 'InventoryCommitment' ],
+		
 		set: function( inventoryRecord ) {
 			if ( inventoryRecord ) {
 				this.id = '';
@@ -14,11 +16,8 @@
 		
 		setAll: function( inventoryRecords ) {
 			if ( inventoryRecords.length > 0 ) {
-				var timestamp = Math.round( ( new Date() ) / 1000 , 10 );
 				this.begin();
 				for ( inventoryRecord in inventoryRecords ) {
-					inventoryRecords[ inventoryRecord ].timestamp = timestamp;
-					
 					var record = {};
 					for ( field in inventoryRecords[ inventoryRecord ] ) {
 						if ( field != 'id' )

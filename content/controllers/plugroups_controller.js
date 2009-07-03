@@ -350,6 +350,7 @@
         validateForm: function() {
 
             var nameTextbox = document.getElementById('plugroup_name');
+            var dispOrderTextbox = document.getElementById('display_order');
             var modBtn = document.getElementById('modify_plugroup');
             var delBtn = document.getElementById('delete_plugroup');
             var visibleCheckbox = document.getElementById('visible');
@@ -362,6 +363,7 @@
 
                 var name = nameTextbox.value.replace(/^\s*/, '').replace(/\s*$/, '');
                 nameTextbox.removeAttribute('disabled');
+                dispOrderTextbox.removeAttribute('disabled');
                 modBtn.setAttribute('disabled', name.length < 1);
                 delBtn.setAttribute('disabled', false);
                 visibleCheckbox.removeAttribute('disabled');
@@ -370,6 +372,7 @@
             }
             else {
                 nameTextbox.setAttribute('disabled', true);
+                dispOrderTextbox.setAttribute('disabled', true);
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
                 visibleCheckbox.setAttribute('disabled', true);

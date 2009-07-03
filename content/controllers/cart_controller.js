@@ -59,9 +59,9 @@
 
                 observe: function( aSubject, aTopic, aData ) {
                     if ( aData == "start" ) {
-                    	self.startTraining( true );
+                        self.startTraining( true );
                     } else if ( aData == "exit" ) {
-                    	self.startTraining( false );
+                        self.startTraining( false );
                     }
                 }
             } ).register();
@@ -111,97 +111,6 @@
                 GeckoJS.Session.remove('current_transaction');
                 return ;
             }
-        },
-
-        checkStock: function(action, qty, item, clearWarning) {
-            if (clearWarning == null) clearWarning = true;
-            var obj = {
-                item: item
-            };
-            var diff = qty;
-            var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            var min_stock = parseFloat(item.min_stock);
-            var auto_maintain_stock = item.auto_maintain_stock;
-            
-            if (auto_maintain_stock) {
-
-                // get the stock quantity;
-                var stockRecordModel = new StockRecordModel();
-                var stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
-                if ( stockRecord ) {
-                    var stock = parseFloat( stockRecord.quantity );
-                } else {
-                    NotifyUtils.warn( _( 'The stock record seems not existent!' ) );
-                    return false;
-                }
-
-                if (action != "addItem") {
-                    var productsById = GeckoJS.Session.get('productsById');
-                    var product = productsById[item.id];
-                    if (product) {
-                        // get the stock quantity;
-                        stockRecordModel = new StockRecordModel();
-                        stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
-                        if ( stockRecord ) {
-                            stock = parseFloat( stockRecord.quantity );
-                        } else {
-                            NotifyUtils.warn( _( 'The stock record seems not existent!' ) );
-                            return false;
-                        }
-
-                        min_stock = parseFloat(product.min_stock);
-                        auto_maintain_stock = product.auto_maintain_stock;
-                        diff = qty - item.current_qty;
-                    }
-                    else {
-                        auto_maintain_stock = false;
-                    }
-                }
-
-                var item_count = 0;
-                var curTransaction = cart._getTransaction(true);
-                var qtyIncreased = (diff > 0);
-                
-                try {
-                    item_count = (curTransaction.data.items_summary[item.id]).qty_subtotal;
-                } catch (e) {}
-
-                if ((diff + item_count) > stock) {
-                    if (qtyIncreased) { // always display warning
-                        cart.dispatchEvent('onOutOfStock', obj);
-                        cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
-
-                        NotifyUtils.warn(_('[%S] may be out of stock!', [item.name]));
-                    }
-                    
-                    // allow over stock...
-                    var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
-                    if (!allowoverstock) {
-                        cart.clear();
-                        return false;
-                    }
-                    else {
-                        item.stock_status = -1;
-                    }
-                } else if (min_stock > (stock - (diff + item_count))) {
-                    if (true || qtyIncreased) { // always display warning
-                        cart.dispatchEvent('onLowStock', obj);
-                        cart.dispatchEvent('onWarning', _('STOCK LOW'));
-
-                        NotifyUtils.warn(_('[%S] low stock threshold reached!', [item.name]));
-                    }
-                    item.stock_status = 0;
-                } else {
-                    // normal
-                    if (clearWarning != false) cart.dispatchEvent('onWarning', '');
-                    item.stock_status = 1;
-                }
-            }
-            else {
-                delete item.stock_status;
-                if (clearWarning != false) cart.dispatchEvent('onWarning', '');
-            }
-            return true;
         },
 
         clearWarning: function (evt) {
@@ -318,8 +227,8 @@
 
                     if (requireAck) {
                         if (GREUtils.Dialog.confirm(this.topmostWindow,
-                                                    _('confirm age'),
-                                                    _('Is customer of age for purchase of [%S]?', [item.name])) == false) {
+                            _('confirm age'),
+                            _('Is customer of age for purchase of [%S]?', [item.name])) == false) {
                             evt.preventDefault();
                             return;
                         }
@@ -400,24 +309,25 @@
 
             // has submit
             if (curTransaction.isSubmit() && autoCreate ) return this._newTransaction();
+            
             return curTransaction;
         },
         
         ifHavingOpenedOrder: function() {
-        	var curTransaction = this._getTransaction();
+            var curTransaction = this._getTransaction();
 
             if( curTransaction && !curTransaction.isSubmit() && !curTransaction.isCancel() )
-            	return true;
+                return true;
             return false;
-		},
+        },
 
         _setTransactionToView: function(transaction) {
 
             this._cartView.setTransaction(transaction);
             GeckoJS.Session.set('current_transaction', transaction);
             GeckoJS.Session.remove('cart_last_sell_item');
-            //GeckoJS.Session.remove('cart_set_price_value');
-            //GeckoJS.Session.remove('cart_set_qty_value');
+        //GeckoJS.Session.remove('cart_set_price_value');
+        //GeckoJS.Session.remove('cart_set_qty_value');
         },
 	
         _getCartlist: function() {
@@ -426,6 +336,16 @@
 
         _getKeypadController: function() {
             return GeckoJS.Controller.getInstanceByName('Keypad');
+        },
+
+        checkStock: function() {
+            // not implemented here
+            return true;
+        },
+
+        decStock: function() {
+            // not implemented here
+            return true;
         },
 
         tagItem: function(tag) {
@@ -563,8 +483,8 @@
                 }
                 else {
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Memory Error'),
-                                          _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation', [itemDisplay.name]));
+                        _('Memory Error'),
+                        _('Failed to locate product [%S]. Please restart machine immediately to ensure proper operation', [itemDisplay.name]));
                     exit = true;
                 }
             }
@@ -820,7 +740,6 @@
             return $.popupPanel('selectSetItemPanel', dialog_data).next(function(evt){
                 if (evt.data.ok) {
                     var plusetData = evt.data.plusetData;
-                    self.log('DEBUG', 'product set selections: ' + self.dump(plusetData));
 
                     var newItems = [];
 
@@ -989,8 +908,8 @@
 
             this._cancelReturn();
 
-           // if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-           if( !this.ifHavingOpenedOrder() ) {
+            // if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
                 this._clearAndSubtotal();
@@ -2037,8 +1956,8 @@
 
                 if (payment > balance) {
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Credit Card Payment Error'),
-                                          _('Credit card payment may not exceed remaining balance'));
+                        _('Credit Card Payment Error'),
+                        _('Credit card payment may not exceed remaining balance'));
 
                     this._clearAndSubtotal();
                     return;
@@ -2231,8 +2150,8 @@
 
                 if (payment > balance) {
                     if (GREUtils.Dialog.confirm(this.topmostWindow,
-                                                _('confirm giftcard payment'),
-                                                _('Change of [%S] will NOT be given for this type of payment. Proceed?',
+                        _('confirm giftcard payment'),
+                        _('Change of [%S] will NOT be given for this type of payment. Proceed?',
                             [curTransaction.formatPrice(payment - balance)])) == false) {
 
                         this._clearAndSubtotal();
@@ -2334,8 +2253,8 @@
 
                     if (payment - balance > limit) {
                         GREUtils.Dialog.alert(this.topmostWindow,
-                                              _('Check Payment Error'),
-                                              _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                            _('Check Payment Error'),
+                            _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
 
                         this._clearAndSubtotal();
                         return;
@@ -2407,7 +2326,7 @@
             });
             if (ledgerEntryTypeModel.lastError) {
                 this._dbError(ledgerEntryTypeModel.lastError, ledgerEntryTypeModel.lastErrorString,
-                              _('An error was encountered while retrieving ledger entry types (error code %s)', [ledgerEntryTypeModel.lastError]));
+                    _('An error was encountered while retrieving ledger entry types (error code %s)', [ledgerEntryTypeModel.lastError]));
                 this._clearAndSubtotal();
                 return;
             }
@@ -2471,11 +2390,11 @@
                     printController.printLedgerReceipt(inputObj, printer);
                 }
                 NotifyUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
-                                   [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+                    [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
             }
             else {
                 NotifyUtils.error(_('Failed to log transaction [%S] for amount of [%S] to the ledger',
-                                  [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
+                    [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
             }
             this._clearAndSubtotal();
         },
@@ -2577,7 +2496,10 @@
 
                 this._getCartlist().refresh();
                 if (curTransaction.getRemainTotal() <= 0) {
-                    this.submit();
+                    if (!this.submit()) {
+                        // remove last payment
+                        this.voidItem();
+                    }
                 }else {
                     this._clearAndSubtotal();
                 }
@@ -2766,7 +2688,7 @@
 
                     var quiet = GeckoJS.Configure.read('vivipos.fec.settings.quietcancel') || false;
                     if(!quiet) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
-                    //GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+                //GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
                 }catch(e) {                  
                 }
                 // prevent onCancel event dispatch
@@ -2784,8 +2706,8 @@
                 // determine if new items have been added
                 if (!curTransaction.isModified() || forceCancel ||
                     GREUtils.Dialog.confirm(this.topmostWindow,
-                                            _('confirm cancel'),
-                                            _('Are you sure you want to discard changes made to this order?'))) {
+                        _('confirm cancel'),
+                        _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
 
@@ -2837,12 +2759,15 @@
             
             if(oldTransaction == null) return false;
 
+            //var submitStatus = parseInt(oldTransaction.submit(status));
+            //return;
+
             // make sure the order has not yet been voided or submitted
             var orderModel = new OrderModel();
             var existingOrder = orderModel.findById(oldTransaction.data.id, 0, "id,status");
             if (parseInt(orderModel.lastError) != 0) {
                 this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                              _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
+                    _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
                 return false;
             }
 
@@ -2871,17 +2796,18 @@
                         break;
                 }
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Order Finalization'),
-                                      _('Current order is no longer available for finalization (status = %S)', [statusStr]));
+                    _('Order Finalization'),
+                    _('Current order is no longer available for finalization (status = %S)', [statusStr]));
                 return false;
             }
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Order Finalization'),
-                                      _('Current order has non-zero balance and may not be closed'));
+                    _('Order Finalization'),
+                    _('Current order has non-zero balance and may not be closed'));
                 return false;
             }
+
 
             // get checksum if recall == 2
             if (oldTransaction.data.recall == 2) {
@@ -2903,6 +2829,38 @@
 
                     return false;
                 }
+            }
+
+            if (status == 1) {
+                var user = GeckoJS.Session.get('user');
+                var adjustment_amount = oldTransaction.data.trans_discount_subtotal + oldTransaction.data.trans_surcharge_subtotal +
+                                        oldTransaction.data.item_discount_subtotal + oldTransaction.data.item_surcharge_subtotal;
+                if (adjustment_amount > 0) {
+                    // check if order surcharge exceed user limit
+                    var surcharge_limit = parseInt(user.order_surcharge_limit);
+                    if (!isNaN(surcharge_limit) && surcharge_limit > 0) {
+                        var surcharge_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, surcharge_limit, user.order_surcharge_limit_type);
+                        if (adjustment_amount > surcharge_limit_amount) {
+                            NotifyUtils.warn(_('Total surcharge [%S] may not exceed user order surcharge limit [%S]',
+                                               [adjustment_amount, surcharge_limit_amount]));
+                            return false;
+                        }
+                    }
+                }
+                else if (adjustment_amount < 0) {
+                    // check if order discount exceed user limit
+                    adjustment_amount = 0 - adjustment_amount;
+                    var discount_limit = parseInt(user.order_discount_limit);
+                    if (!isNaN(discount_limit) && discount_limit > 0) {
+                        var discount_limit_amount = oldTransaction._computeLimit(oldTransaction.data.item_subtotal, discount_limit, user.order_discount_limit_type);
+                        if (adjustment_amount > discount_limit_amount) {
+                            NotifyUtils.warn(_('Total discount [%S] may not exceed user order discount limit [%S]',
+                                               [adjustment_amount, discount_limit_amount]));
+                            return false;
+                        }
+                    }
+
+                }
 
             }
 
@@ -2910,7 +2868,10 @@
                 status: status,
                 txn: oldTransaction
             })) {
-            
+
+                // blockUI when saving...
+                this._blockUI('wait_panel', 'common_wait', _('Saving Order'), 0);
+                
                 oldTransaction.lockItems();
 
                 // save order unless the order is being finalized (i.e. status == 1)
@@ -2920,9 +2881,17 @@
                         oldTransaction.data.proceeds_clerk = user.username;
                         oldTransaction.data.proceeds_clerk_displayname = user.description;
                     }
+
+                    // check and dec stock
+                    this.decStock(oldTransaction.data);
+
                 }
 
                 var submitStatus = parseInt(oldTransaction.submit(status));
+
+                // unblockUI
+                this._unblockUI('wait_panel');
+
                 /*
                  *   1: success
                  *   null: input data is null
@@ -2932,8 +2901,8 @@
                 if (submitStatus == -2) {
 
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Submit Fail'),
-                                          _('Current order is not saved successfully, please try again...'));
+                        _('Submit Fail'),
+                        _('Current order is not saved successfully, please try again...'));
                     return false;
                 }
 
@@ -2941,7 +2910,7 @@
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
                 // sleep to allow UI events to update
-                this.sleep(100);
+                this.sleep(10);
 
                 //this.dispatchEvent('onClear', 0.00);
                 this._getKeypadController().clearBuffer();
@@ -3006,8 +2975,8 @@
                 if (dest) {
                     if (curTransaction.data.destination != dest) {
                         if (GREUtils.Dialog.confirm(this.topmostWindow,
-                                                    _('confirm destination'),
-                                                    _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
+                            _('confirm destination'),
+                            _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
                             this._clearAndSubtotal();
                             return;
                         }
@@ -3024,8 +2993,8 @@
 
                     if (mismatch) {
                         if (GREUtils.Dialog.confirm(this.topmostWindow,
-                                                    _('confirm destination'),
-                                                    _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
+                            _('confirm destination'),
+                            _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
                             this._clearAndSubtotal();
                             return;
                         }
@@ -3268,7 +3237,6 @@
             // not initial , initial again!
             if (!condGroupsByPLU) {
                 try {
-                    this.log('DEBUG', 'initital Condiments from Cart Controller ');
                     GeckoJS.Controller.getInstanceByName('Condiments').initial();
                     condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
                 }catch(e) {}
@@ -3287,7 +3255,7 @@
                 //var condNames = GeckoJS.BaseObject.getKeys(condiments);
                 var condNames = condiments.map(function(c) {
                     return c.name
-                    });
+                });
                 for (var i = 0; i < conds.length; i++) {
                     if (condNames.indexOf(conds[i].name) > -1) {
                         selectedItems.push(i);
@@ -3438,21 +3406,21 @@
             var order = orderModel.findById(id, 2);
             if (parseInt(orderModel.lastError) != 0) {
                 this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                              _('An error was encountered while retrieving order payment records (error code %S).', [orderModel.lastError]));
+                    _('An error was encountered while retrieving order payment records (error code %S).', [orderModel.lastError]));
                 return false;
             }
 
             if (!order) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Void Sale'),
-                                      _('Failed to void: the selected order no longer exists'));
+                    _('Void Sale'),
+                    _('Failed to void: the selected order no longer exists'));
                 return false;
             }
 
             if (order.status < 1) {
                 GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Void Sale'),
-                                      _('Failed to void: the selected order is not stored or finalized'));
+                    _('Void Sale'),
+                    _('Failed to void: the selected order is not stored or finalized'));
                 return false;
             }
 
@@ -3491,9 +3459,11 @@
                         alert('before void sale begin');
                         var r = paymentModel.begin();
                         if (!r) {
-                            throw {errno: paymentModel.lastError,
-                                   errstr: paymentModel.lastErrorString,
-                                   errmsg: 'An error was encountered while preparing to void sale; order is not voided.'};
+                            throw {
+                                errno: paymentModel.lastError,
+                                errstr: paymentModel.lastErrorString,
+                                errmsg: 'An error was encountered while preparing to void sale; order is not voided.'
+                            };
                         }
                     
                         for (var i = 0; r && i < inputObj.refunds.length; i++) {
@@ -3520,9 +3490,11 @@
                             alert('before saving refund payment');
                             r = paymentModel.save(payment);
                             if (!r) {
-                                throw {errno: paymentModel.lastError,
-                                       errstr: paymentModel.lastErrorString,
-                                       errmsg: 'An error was encountered while saving refund payment; order is not voided.'};
+                                throw {
+                                    errno: paymentModel.lastError,
+                                    errstr: paymentModel.lastErrorString,
+                                    errmsg: 'An error was encountered while saving refund payment; order is not voided.'
+                                };
                             }
 
                             refundTotal += payment.amount;
@@ -3547,9 +3519,11 @@
                         alert('before updating order status');
                         r = orderModel.save(order);
                         if (!r) {
-                            throw {errno: paymentModel.lastError,
-                                   errstr: paymentModel.lastErrorString,
-                                   errmsg: 'An error was encountered while updating order status; order is not voided.'};
+                            throw {
+                                errno: paymentModel.lastError,
+                                errstr: paymentModel.lastErrorString,
+                                errmsg: 'An error was encountered while updating order status; order is not voided.'
+                            };
                         }
 
                         for (var o in order.OrderItem) {
@@ -3564,28 +3538,32 @@
                         order.items = order.OrderItem;
 
                         // restore stock
-                        var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
-                        alert('before updating stock level');
-                        r = stockController.decStock(order);
+//                        var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
+//                        alert('before updating stock level');
+                        r = this.decStock(order);
                         if (!r) {
-                            throw {errno: paymentModel.lastError,
-                                   errstr: paymentModel.lastErrorString,
-                                   errmsg: 'An error was encountered while updating stock level; order is not voided.'};
+                            throw {
+                                errno: paymentModel.lastError,
+                                errstr: paymentModel.lastErrorString,
+                                errmsg: 'An error was encountered while updating stock level; order is not voided.'
+                            };
                         }
 
-                        alert('before committing');
+//                        alert('before committing');
                         r = paymentModel.commit();
                         if (!r) {
-                            throw {errno: paymentModel.lastError,
-                                   errstr: paymentModel.lastErrorString,
-                                   errmsg: 'An error was encountered while voiding sale; order is not voided.'};
+                            throw {
+                                errno: paymentModel.lastError,
+                                errstr: paymentModel.lastErrorString,
+                                errmsg: 'An error was encountered while voiding sale; order is not voided.'
+                            };
                         }
-
+                        paymentModel.commit();
                         this.dispatchEvent('afterVoidSale', order);
 
                         GREUtils.Dialog.alert(this.topmostWindow,
-                                              _('Void Sale'),
-                                              _('Transaction [%S] successfully voided', [order.sequence]));
+                            _('Void Sale'),
+                            _('Transaction [%S] successfully voided', [order.sequence]));
 
                         return true;
                     }
@@ -3636,22 +3614,22 @@
         },
         
         startTraining: function( isTraining ) {
-        	if ( isTraining ) {
-        		this._queueFile = this._trainingQueueFile;
-        		this._queueSession = this._trainingQueueSession;
+            if ( isTraining ) {
+                this._queueFile = this._trainingQueueFile;
+                this._queueSession = this._trainingQueueSession;
 
                 this.clear();
-        	} else {
+            } else {
                 // discard cart content
                 this.cancel(true);
                 
-        		GeckoJS.Session.remove( this._queueSession );
-        		this._queueFile = this._defaultQueueFile;
-        		this._queueSession = this._defaultQueueSession;
+                GeckoJS.Session.remove( this._queueSession );
+                this._queueFile = this._defaultQueueFile;
+                this._queueSession = this._defaultQueueSession;
 
                 // clear screen
                 this.subtotal();
-        	}
+            }
         },
 
         removeQueueRecoveryFile: function() {
@@ -3738,7 +3716,7 @@
             }*/
             
             if ( !this._hasUserQueue( user ) )
-            	return;
+                return;
 
             var removeCount = 0;
             var queuePool = this._getQueuePool();
@@ -4198,7 +4176,8 @@
                 return;
             }
             var modified = curTransaction.isModified();
-            if (modified) {rec
+            if (modified) {
+                rec
                 NotifyUtils.warn(_('This order has been modified and must be stored first'));
             // r = this.GuestCheck.store();
             // this.dispatchEvent('onStore', curTransaction);
@@ -4228,13 +4207,38 @@
         _dbError: function(errno, errstr, errmsg) {
             this.log('ERROR', 'Database error: ' + errstr + ' [' +  errno + ']');
             GREUtils.Dialog.alert(this.topmostWindow,
-                                  _('Data Operation Error'),
-                                  errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
+                _('Data Operation Error'),
+                errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
+
+        _blockUI: function(panel, caption, title, sleepTime) {
+
+            sleepTime = typeof sleepTime =='undefined' ?  0 : sleepTime;
+            var waitPanel = document.getElementById(panel);
+            var waitCaption = document.getElementById(caption);
+
+            if (waitCaption) waitCaption.setAttribute("label", title);
+
+            waitPanel.openPopupAtScreen(0, 0);
+
+            if (sleepTime > 0) this.sleep(sleepTime);
+            return waitPanel;
+            
+        },
+
+        _unblockUI: function(panel) {
+
+            var waitPanel = document.getElementById(panel);
+
+            waitPanel.hidePopup();
+            return waitPanel;
+
+        },
+
         
         destroy: function() {
-        	this.observer.unregister();
-    	}
+            this.observer.unregister();
+        }
     };
 
     GeckoJS.Controller.extend(__controller__);

@@ -89,7 +89,7 @@
 
             // invoke external script to generate XPI and move it to media
             var dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-            var exportScript = dataPath + 'scripts/exportLocale.sh';
+            var exportScript = dataPath + '/scripts/export_locale.sh';
             var exec = new GeckoJS.File(exportScript);
             r = exec.run([name, this._path, tmpInstallRDF, media_path], true);
             exec.close();
