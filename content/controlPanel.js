@@ -33,7 +33,7 @@
                     if(GeckoJS.AclComponent.isUserInRole(el.roles)) {
                         var label = el.label;
                         if (label.indexOf('chrome://') == 0) {
-                            label = _('vivipos.fec.settings.controlpanels.' + cn + '.' + key + '.label');
+                            label = GeckoJS.StringBundle.getPrefLocalizedString('vivipos.fec.settings.controlpanels.' + cn + '.' + key + '.label');
                         }
                         else {
                             label = _(label);
@@ -43,7 +43,6 @@
                             roles: el.roles,
                             features: (el.features || null),
                             type:  (el.type || 'uri'),
-                            org_label: key,
                             label: label}
 
                         ctrls2.push(entry);
@@ -51,7 +50,7 @@
                 });
             }
             
-            var data = new GeckoJS.ArrayQuery(ctrls2).orderBy("org_label asc");
+            var data = new GeckoJS.ArrayQuery(ctrls2).orderBy("label asc");
             window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
         
             document.getElementById(cn + 'Panel').datasource = window.viewHelper ;

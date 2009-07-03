@@ -4,7 +4,7 @@
 
         name: 'SetupWizard',
         
-        components: ['Tax'],
+        components: ['Tax', 'Package'],
 
         // configuration keys
         PackageKey: 'vivipos.fec.registry.package',
@@ -43,65 +43,11 @@
             var resolution = this.screenwidth + 'x' + this.screenheight;
 
             // initialize locations
-            this.Packages = GeckoJS.Configure.read(this.PackageKey);
-            GeckoJS.BaseObject.getKeys(this.Packages).forEach(function(location) {
-
-                // need to make sure location contains sectors with support resolution
-                var sectors =[];
-                var packages = this.Packages[location];
-                for (var sector in packages) {
-                    var pkg = packages[sector];
-                    if (pkg && pkg.resolutions && (pkg.resolutions.indexOf(resolution) != -1)) {
-
-                        // retrieve localized sector label
-                        var label = pkg.label || '';
-                        if (label && label.indexOf('chrome://') == 0) {
-                            label = _(this.PackageKey + '.' + location + '.' + sector + '.label');
-                        }
-                        else {
-                            label = _(label);
-                        }
-
-                        // retrieve localized sector description
-                        var desc = pkg.description || '';
-                        if (desc && desc.indexOf('chrome://') == 0) {
-                            desc = _(this.PackageKey + '.' + location + '.' + sector + '.description');
-                        }
-                        else {
-                            desc = _(desc);
-                        }
-
-                        pkg.label = label;
-                        pkg.description = desc;
-                        pkg.sector = sector;
-
-                        sectors.push(pkg);
-                    }
-                }
-                if (sectors.length > 0) {
-                    this.Locations.push({label: _('(location)' + location), location: location});
-
-                    sectors.sort(function(a, b) {
-                                     if (a.label > b.label)
-                                         return 1;
-                                     else if (a.label < b.label)
-                                         return -1
-                                     else
-                                         return 0;
-                    });
-                    this.Sectors[location] = sectors;
-                }
-            }, this);
-
-            // sort locations by label
-            this.Locations.sort(function(a, b) {
-                                    if (a.label > b.label)
-                                        return 1;
-                                    else if (a.label < b.label)
-                                        return -1;
-                                    else
-                                        return 0;
-                                });
+            var data = this.Package.loadData(resolution);
+            this.Packages = data.packages;
+            this.Locations = data.locations;
+            this.Sectors = data.sectors;
+            
             this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
 
             // initialize timezone
@@ -198,9 +144,10 @@
             var location = this.selectedLocation.location;
 
             // read timezone
-            if (this.Packages[location].timezone) {
+            if (this.selectedLocation.timezone) {
                 var timezones = document.getElementById('timezones');
-                timezones.selectedTimezone = this.Packages[location].timezone;
+                timezones.selectedTimezone = this.selectedLocation.timezone;
+                timezones.updateTimezone();
             }
             this.initSectorList();
 
@@ -286,6 +233,18 @@
             }
         },
 
+        displayScreenShot: function(image) {
+            var deck = document.getElementById('sector_deck');
+            var screenshot = document.getElementById('sector_screenshot');
+            if (screenshot) screenshot.src = image;
+            deck.selectedIndex = 1;
+        },
+
+        hideScreenShot: function() {
+            var deck = document.getElementById('sector_deck');
+            deck.selectedIndex = 0;
+        },
+
         appendSectorItem: function(box, data, value) {
 
             /*
@@ -310,6 +269,7 @@
 
             var image = document.createElement('image');
             image.setAttribute('src', data.icon);
+            image.setAttribute('onclick', '$do("displayScreenShot", "' + data.fullimage + '", "SetupWizard")');
 
             var vbox = document.createElement('vbox');
             vbox.setAttribute('flex', "1");
@@ -368,17 +328,16 @@
                 return true;
             }
             this.selectedSector = this.lastSector;
-
             var datapath = this.selectedSector.datapath;
             if (datapath) {
                 try {
                     var profPath = GeckoJS.Configure.read('ProfD');
                     // remove existing prefs.js
-                    GREUtils.File.remove(profPath + '/prefs.js');
+                    //GREUtils.File.remove(profPath + '/prefs.js');
 
                     // copy prefs.js to profile directory
-                    var prefsPath = GREUtils.File.chromeToPath(datapath + '/prefs.js');
-                    GREUtils.File.copy(prefsPath, profPath);
+                    var prefsPath = GREUtils.File.chromeToPath(datapath + '/user.js');
+                    GREUtils.File.copy(prefsPath, profPath + '/user.js');
 
                     // remove existing database files
                     var systemPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
@@ -602,28 +561,43 @@
         finishSetup: function() {
             // completion tasks:
 
-            // 1. configure selectedSkin
+            // 1. configure selectedSkin and layout
             // 2. if default user is selected, configure default user and enable automatic login
-            // 3. set admin password
-            // 4. configure default tax
+            // 3. configure default tax
+            // 4. set admin password
             // 5. update store contact
             // 6. update terminal number in sync settings
+            // 7. copy code
 
-            // 1. configure selectedSkin
+            var profPath = GeckoJS.Configure.read('ProfD');
+            var prefs = new GeckoJS.File(profPath + '/user.js');
+            prefs.open('a');
+
+            // 1. configure skin & layout
             var newSkin = this.selectedSector.skin.replace('${width}', this.screenwidth).replace('${height}', this.screenheight );
-            GeckoJS.Configure.write('general.skins.selectedSkin', newSkin);
+            prefs.write('\nuser_pref("general.skins.selectedSkin", "' + newSkin + '");\n');
+            prefs.write('\nuser_pref("vivipos.fec.general.layouts.selectedLayout", "' + this.selectedSector.layout + '");\n');
 
             // 2. if default user is selected, configure default user and enable automatic login
             if (this.selectedDefaultUser) {
-                GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', this.selectedDefaultUser);
-                GeckoJS.Configure.write('vivipos.fec.settings.DefaultLogin', true);
+                prefs.write('user_pref("vivipos.fec.settings.DefaultUser", "' + this.selectedDefaultUser + '");\n');
+                prefs.write('user_pref("vivipos.fec.settings.DefaultLogin", true);\n');
             }
             else {
-                GeckoJS.Configure.remove('vivipos.fec.settings.DefaultUser', true);
-                GeckoJS.Configure.write('vivipos.fec.settings.DefaultLogin', false);
+                prefs.write('user_pref("vivipos.fec.settings.DefaultUser", "");');
+                prefs.write('user_pref("vivipos.fec.settings.DefaultLogin", false);\n');
             }
 
-            // 3. set admin password
+            // 3. configure default tax
+            if (this.selectedDefaultTaxID) {
+                prefs.write('user_pref("vivipos.fec.settings.DefaultTaxStatus", "' + this.selectedDefaultTaxID + '");\n');
+            }
+            else {
+                prefs.write('user_pref("vivipos.fec.settings.DefaultTaxStatus", "");\n');
+            }
+            prefs.close();
+
+            // 4. set admin password
             var model = new UserModel();
             var admin = model.findByIndex('first', {index: 'username', value: 'superuser'});
 
@@ -641,14 +615,6 @@
                     return;
                 }
                 this.Acl.changeUserPassword('superuser', this.adminPassword);
-            }
-
-            // 4. configure default tax
-            if (this.selectedDefaultTaxID) {
-                GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', this.selectedDefaultTaxID);
-            }
-            else {
-                GeckoJS.Configure.remove('vivipos.fec.settings.DefaultTaxStatus', true);
             }
 
             // 5. update store contact
@@ -679,6 +645,18 @@
             settings.machine_id = this.storeInformation.terminal_no;
             (new SyncSetting()).save(settings);
             
+            // 7. copy code
+            if (this.selectedSector.customcode) {
+                // make sure code archive exists
+                var profPath = GeckoJS.Configure.read('ProfD');
+                var codePath = GREUtils.File.chromeToPath(this.selectedSector.datapath + '/' + this.selectedSector.customcode);
+                if (GREUtils.File.exists(codePath)) {
+                    var exec = new GeckoJS.File('/bin/tar');
+                    exec.run(['-xzf', codePath, '-C', profPath + '/extensions'], true);
+                    exec.close();
+                }
+            }
+
             this.args.initialized = true;
             return true;
         },
@@ -691,7 +669,6 @@
                                           'Are you sure you want to cancel and exit from the setup wizard now?'))) {
                 data.initialized = false;
                 data.cancelled = true;
-//GREUtils.restartApplication();
             }
             else {
                 data.cancelled = false;

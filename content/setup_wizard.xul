@@ -31,8 +31,9 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/models/storecontact.js" />
   <script type="application/x-javascript" src="chrome://viviecr/content/models/user.js" />
 
-  <!-- include component -->
+  <!-- include components -->
   <script type="application/x-javascript" src="chrome://viviecr/content/controllers/components/tax.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/controllers/components/package.js" />
 
   <!-- include controller -->
   <script type="application/x-javascript" src="chrome://viviecr/content/controllers/setup_wizard_controller.js" />
@@ -132,10 +133,13 @@
         advance="replace existing db with location/sector specific db"
         rewind="set initDB flag"
         >
-        <box flex="1">
-            <richlistbox id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
-            </richlistbox>
-        </box>
+        <vbox flex="1">
+            <deck id="sector_deck" selectedIndex="0" flex="1">
+                <richlistbox id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
+                </richlistbox>
+                <image id="sector_screenshot" flex="1" src="" onclick="$do('hideScreenShot', null, 'SetupWizard')"/>
+            </deck>
+        </vbox>
     </wizardpage>
 
     <wizardpage

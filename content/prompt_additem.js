@@ -137,6 +137,7 @@ function validateInput() {
     var input1Required = false;
     var validated = false;
     var alphaOnly0 = false;
+    var numberOnly0 = false;
     var numberOnly1 = false;
     var numericOnly1 = false;
     var digitOnly0 = false;

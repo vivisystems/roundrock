@@ -120,6 +120,41 @@
             }
         },
 
+        PackageBuilderDialog: function() {
+
+            // check if .packagebuilder exists
+            var procPath = GeckoJS.Configure.read('ProfD');
+            var builderMarker = new GeckoJS.File(procPath + '/.pkgbuilder');
+            if (!builderMarker.exists()) return;
+
+            // check for access privilege
+            if (!this.Acl.isUserInRole('acl_internal_access')) {
+                return;
+            }
+
+            // invoke external script to capture screen image
+            var uuid = GeckoJS.String.uuid();
+            var dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+            var captureScript = dataPath + '/scripts/capture_screen.sh';
+            var imageFile = '/tmp/' + uuid + '.png';
+            var thumbFile = '/tmp/' + uuid + '-thumbnail.png';
+            var imageGeometry = '640x480';
+            var thumbGeometry = '160x120';
+
+            var exec = new GeckoJS.File(captureScript);
+            r = exec.run([imageFile, thumbFile, imageGeometry, thumbGeometry], true);
+            exec.close();
+
+            var aURL = 'chrome://viviecr/content/package_builder.xul';
+            var aName = _('Package Builder');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var aArguments = {image: imageFile, icon: thumbFile };
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
+
+            GREUtils.File.remove(imageFile);
+            GREUtils.File.remove(thumbFile);
+        },
+
         ControlPanelDialog: function () {
         	if (GeckoJS.Session.get( "isTraining" )) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Training Mode'), _('Control Panel is disabled during training.'));
@@ -516,7 +551,6 @@
                 var defaultUserRecord = userModel.findById(defaultUserID);
                 if (defaultUserRecord) defaultUser = defaultUserRecord.username;
             }
-            
             if (defaultLogin && defaultUser && defaultUser.length > 0) {
                 this.Acl.securityCheck(defaultUser, 'dummy', false, true);
             }
@@ -814,7 +848,7 @@
             var waitCaption = document.getElementById(caption);
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-
+            
             if (waitCaption) waitCaption.setAttribute("label", title);
 
             /*
