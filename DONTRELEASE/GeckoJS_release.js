@@ -11383,8 +11383,25 @@ GeckoJS.ArrayQuery.prototype.buildFilterFunction = function (condition) {
         // should appear first in the final array sort
         for(var sa = 0; sa < custO.length; sa++) {
             if (returnvar === true) {
-			
+
                 x = r1[custO[sa]["condCol"]];
+                
+                if (!x && custO[sa]["condCol"].indexOf('.') != -1) {
+
+                    // try to get inner object.
+                    var tt = custO[sa]["condCol"].split('.');
+                    
+                    try {
+                        tt.forEach(function(tcol){
+                            if(r1[tcol]) {
+                                x = r1[tcol];
+                            }
+                        });
+                    }catch(e){
+                        
+                    }
+
+                }
                 y = custO[sa]["condVal"];
                 
                 if (custO[sa].condTest == '=')
