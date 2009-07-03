@@ -146,20 +146,23 @@
         },
         
         _exploit_reportRecords: function() {
-            var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
-            var file = GREUtils.File.getFile( path );
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
-            var result = tpl.process( this._reportRecords );
-	        
-            var bw = document.getElementById( this._preview_frame_id );
-            var doc = bw.contentWindow.document.getElementById( this._abody_id );
-            doc.innerHTML = result;
-            
-            // adjust the size of paper if the content will protrude the border of the paper.
-            var bodytable =  bw.contentWindow.document.getElementById( this._body_table );
-            var bodydiv = bw.contentWindow.document.getElementById( this._div_id );
-            if ( bodydiv.scrollWidth < bodytable.scrollWidth + 40 )
-               bodydiv.style.width = bodytable.scrollWidth + 40;
+            try {
+                var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
+                var file = GREUtils.File.getFile( path );
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+                var result = tpl.process( this._reportRecords );
+
+                var bw = document.getElementById( this._preview_frame_id );
+                var doc = bw.contentWindow.document.getElementById( this._abody_id );
+                doc.innerHTML = result;
+
+                // adjust the size of paper if the content will protrude the border of the paper.
+                var bodytable =  bw.contentWindow.document.getElementById( this._body_table );
+                var bodydiv = bw.contentWindow.document.getElementById( this._div_id );
+                if ( bodydiv.scrollWidth < bodytable.scrollWidth + 40 )
+                   bodydiv.style.width = bodytable.scrollWidth + 40;
+            }catch(e) {}
+
         },
 	    
         previousPage: function() {
@@ -184,12 +187,12 @@
                 this._enableButton( false );
 
                 var waitPanel = this._showWaitingPanel();
-
                 this._setTemplateDataHead();
                 this._set_reportRecords();
                 this._setTemplateDataFoot();
                 this._exploit_reportRecords();
             } catch ( e ) {
+                alert(GeckoJS.BaseObject.dump(e));
             } finally {
                 // Reset the timeout limit to the default value.
                 GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );

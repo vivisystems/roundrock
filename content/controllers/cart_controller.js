@@ -2866,7 +2866,10 @@
                 status: status,
                 txn: oldTransaction
             })) {
-            
+
+                // blockUI when saving...
+                this._blockUI('wait_panel', 'common_wait', _('Saving Order'), 0);
+                
                 oldTransaction.lockItems();
 
                 // save order unless the order is being finalized (i.e. status == 1)
@@ -2882,9 +2885,8 @@
 
                 }
 
-                
-
                 var submitStatus = parseInt(oldTransaction.submit(status));
+
                 /*
                  *   1: success
                  *   null: input data is null
@@ -2896,14 +2898,21 @@
                     GREUtils.Dialog.alert(this.topmostWindow,
                         _('Submit Fail'),
                         _('Current order is not saved successfully, please try again...'));
+
+                    // unblockUI
+                    this._unblockUI('wait_panel');
+
                     return false;
                 }
 
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
+                // unblockUI
+                this._unblockUI('wait_panel');
+
                 // sleep to allow UI events to update
-                //this.sleep(100);
+                this.sleep(10);
 
                 //this.dispatchEvent('onClear', 0.00);
                 this._getKeypadController().clearBuffer();
@@ -3551,7 +3560,7 @@
                                 errmsg: 'An error was encountered while voiding sale; order is not voided.'
                             };
                         }
-
+                        paymentModel.commit();
                         this.dispatchEvent('afterVoidSale', order);
 
                         GREUtils.Dialog.alert(this.topmostWindow,
@@ -4203,6 +4212,31 @@
                 _('Data Operation Error'),
                 errmsg + '\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         },
+
+        _blockUI: function(panel, caption, title, sleepTime) {
+
+            sleepTime = typeof sleepTime =='undefined' ?  0 : sleepTime;
+            var waitPanel = document.getElementById(panel);
+            var waitCaption = document.getElementById(caption);
+
+            if (waitCaption) waitCaption.setAttribute("label", title);
+
+            waitPanel.openPopupAtScreen(0, 0);
+
+            if (sleepTime > 0) this.sleep(sleepTime);
+            return waitPanel;
+            
+        },
+
+        _unblockUI: function(panel) {
+
+            var waitPanel = document.getElementById(panel);
+
+            waitPanel.hidePopup();
+            return waitPanel;
+
+        },
+
         
         destroy: function() {
             this.observer.unregister();

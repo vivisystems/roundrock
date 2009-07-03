@@ -199,3 +199,29 @@ text-align: center;
   }
 	
 }
+
+
+body
+{
+    font: 10px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+}
+.header1
+{
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+.header2
+{
+    font-size: 14px;
+    text-align: center;
+}
+.header3
+{
+    font-size: 14px;
+    text-align: center;
+}
+.right
+{
+    text-align: right;
+}

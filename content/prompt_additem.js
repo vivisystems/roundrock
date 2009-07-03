@@ -6,6 +6,7 @@ var options;
     var title0  = window.arguments[2];
     var title1  = window.arguments[3];
     var inputObj = window.arguments[4];
+    var menuTitle = window.arguments[5];
     
     /**
      * Controller Startup
@@ -59,6 +60,34 @@ var options;
             }
         }
         document.getElementById('key_enter').setAttribute('disabled', multiline);
+        
+        // To construct a menulist, please assign an array to inputObj.menuItems; the array is consisted of objects bearing fields value, label, and selected.
+        // The first object whose 'selected' property is true will be considered the default selected menuitem.
+        // hide menu?
+        if (!('menu' in inputObj)) {
+            document.getElementById('menurow').hidden = true;
+            document.getElementById('menulabel').hidden = true;
+            document.getElementById('menu').hidden = true;
+        }
+        else {
+            var menu_menupopup = document.getElementById('menu_menupopup');
+            var selectedIndex = 0;
+            
+            if ( inputObj.menuItems ) {
+                var items = inputObj.menuItems;
+                for ( var i = 0; i < items.length; i++ ) {
+                    var item = items[ i ];
+                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem");
+                    menuitem.setAttribute('value', item.value);
+                    menuitem.setAttribute('label', item.label);
+                    menu_menupopup.appendChild(menuitem);
+                    if ( item.selected ) selectedIndex = i;
+                }
+            }
+            
+            var menu = document.getElementById('menu');
+            menu.selectedIndex = selectedIndex;
+        }
 
         if (multiline) {
             // set main-grid and main-rows to flex
@@ -83,6 +112,7 @@ var options;
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
         document.getElementById('title1').value = title1;
+        document.getElementById('menulabel').value = menuTitle;
 
         // must use setAttribute; otherwise values would be wiped out by change made to 'multiline'
         document.getElementById('input0').setAttribute('value', inputObj.input0);
@@ -97,6 +127,7 @@ var options;
             function(){
                 inputObj.input0 = GeckoJS.String.trim(document.getElementById('input0').value);
                 inputObj.input1 = GeckoJS.String.trim(document.getElementById('input1').value);
+                inputObj.menu = document.getElementById('menu').value;
                 inputObj.ok = true;
                 return true;
             },

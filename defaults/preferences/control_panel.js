@@ -197,3 +197,8 @@ pref("vivipos.fec.settings.controlpanels.system.xterm.label", "chrome://viviecr/
 pref("vivipos.fec.settings.controlpanels.system.xterm.path", "/usr/bin/lilyterm --execute login");
 pref("vivipos.fec.settings.controlpanels.system.xterm.roles", "acl_xterm");
 pref("vivipos.fec.settings.controlpanels.system.xterm.type", "application");
+
+pref("vivipos.fec.settings.controlpanels.system.journal.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.system.journal.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.settings.controlpanels.system.journal.path", "chrome://viviecr/content/reports/journal_report.xul");
+pref("vivipos.fec.settings.controlpanels.system.journal.roles", "acl_manage_journal");

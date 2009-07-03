@@ -31,6 +31,10 @@ pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "Sampl
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-24c.tpl");
 
+pref("vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.label", "Sample HTML Receipt 24c condensed");
+pref("vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.type", "preview");
+pref("vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.path", "chrome://viviecr/content/devices/templates/receipt-html-sample-condensed-24c.tpl");
+
 pref("vivipos.fec.registry.templates.vfd-internal.label", "Internal VFD Template");
 pref("vivipos.fec.registry.templates.vfd-internal.type", "vfd");
 pref("vivipos.fec.registry.templates.vfd-internal.path", "chrome://viviecr/content/devices/templates/vfd-internal.tpl");

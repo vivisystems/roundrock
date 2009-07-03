@@ -34,7 +34,7 @@
             var stockRecordModel = new StockRecordModel();
             
             var sql =
-                "select s.*, p.no as product_no, p.name as product_name, p.min_stock as min_stock " +
+                "select s.*, p.no as product_no, p.name as product_name, p.min_stock as min_stock, p.auto_maintain_stock as auto_maintain_stock " +
                 "from stock_records s join products p on s.product_no = p.no " +
                 "order by product_no;"; // the result must be sorted by product_no for the use of binary search in locateIndex method.
             	
@@ -62,9 +62,11 @@
 
             if ( !this._barcodesIndexes[ barcode ] ) {
                 // barcode notfound
-                GREUtils.Dialog.alert(this.topmostWindow,
+                GREUtils.Dialog.alert(
+                    this.topmostWindow,
                     _( 'Product Search' ),
-                    _( 'Product/Barcode Number (%S) not found!', [ barcode ] ) );
+                    _( 'Product/Barcode Number (%S) not found!', [ barcode ] )
+                );
             } else {
                 product = this._stockRecordsByProductNo[ barcode ];
                 GeckoJS.FormHelper.reset( 'productForm' );
@@ -83,29 +85,30 @@
             var lowstock = false;
             var showLowStock = document.getElementById( 'show_low_stock' );
             if ( showLowStock )
-                lowstock = document.getElementById( 'show_low_stock' ).checked;
+                lowstock = showLowStock.checked;
             
             var qtyDiff = false;
             var showQtyDiff = document.getElementById( 'show_qty_diff' );
             if ( showQtyDiff )
-                qtyDiff = document.getElementById( 'show_qty_diff' ).checked;
+                qtyDiff = showQtyDiff.checked;
+                
+            var maintainedOnes = false;
+            var showMaintainedOnes = document.getElementById( 'show_maintained_ones' );
+            if ( showMaintainedOnes )
+                maintainedOnes = showMaintainedOnes.checked;
 
-            if ( lowstock ) {
+            this._records = this._listData;
+            // filter the records by the constraints user checked.
+            if ( lowstock || qtyDiff || maintainedOnes ) {
                 var oldlength = this._records.length;
-                this._records = this._listData.filter( function( d ) {
-                    return parseInt( d.quantity, 10 ) < parseInt( d.min_stock, 10 );
+                this._records = this._records.filter( function( d ) {
+                    var r = true;
+                    if ( lowstock ) r = r && parseInt( d.quantity, 10 ) < parseInt( d.min_stock, 10 );
+                    if ( qtyDiff ) r = r && parseInt( d.qty_difference, 10 ) != 0;
+                    if ( maintainedOnes ) r = r && d.auto_maintain_stock;
+                    return r;
                 } );
-                if ( oldlength != this._records.length )
-                    reset = true;
-            } else if ( qtyDiff ) {
-                var oldlength = this._records.length;
-                this._records = this._listData.filter( function( d ) {
-                    return parseInt( d.qty_difference, 10 ) > 0;
-                } );
-                if ( oldlength != this._records.length )
-                    reset = true;
-            } else {
-                this._records = this._listData;
+                if ( oldlength != this._records.length ) reset = true;
             }
             
             if ( reset || this._panelView == null ) {
@@ -124,7 +127,12 @@
             this.updateStock( true );
         },
         
-        clickQtyDiff: function() {
+        clickQtyDiff: function () {
+            this._selectedIndex = -1;
+            this.updateStock( true );
+        },
+        
+        clickMaintainedOnes: function () {
             this._selectedIndex = -1;
             this.updateStock( true );
         },
@@ -145,23 +153,32 @@
         },
 
         load: function () {
-            this.syncSettings = (new SyncSetting()).read();
+            this.syncSettings = ( new SyncSetting() ).read();
             
-            // insert untracked products into stock_record table.
-            var sql = "SELECT p.no, p.barcode FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) WHERE s.product_no IS NULL;";
-            var products = this.Product.getDataSource().fetchAll( sql );
-            
-            var stockRecordModel = new StockRecordModel();
-            if ( products.length > 0 )
-            	stockRecordModel.insertNewRecords( products );
-            
-            // remove the products which no longer exist from stock_record table.
-            sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON ( s.product_no = p.no ) WHERE p.no IS NULL;";
-            var stockRecords = stockRecordModel.getDataSource().fetchAll( sql );
-            if ( stockRecords.length > 0 ) {
-                stockRecords.forEach( function( stockRecord ) {
-                    stockRecordModel.remove( stockRecord.id );
-                } );
+            var isMaster = this.syncSettings.hostname == "localhost"
+            if ( isMaster ) {
+                // insert untracked products into stock_record table. Take branch ID to be warehouse.
+                var branch_id = '';
+                var storeContact = GeckoJS.Session.get( 'storeContact' );
+                if ( storeContact )
+                    branch_id = storeContact.branch_id;
+                var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) WHERE s.product_no IS NULL;";
+                var products = this.Product.getDataSource().fetchAll( sql );
+                
+                var stockRecordModel = new StockRecordModel();
+                if ( products.length > 0 )
+                	stockRecordModel.insertNewRecords( products );
+                
+                // remove the products which no longer exist from stock_record table.
+                sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON ( s.product_no = p.no ) WHERE p.no IS NULL;";
+                var stockRecords = stockRecordModel.getDataSource().fetchAll( sql );
+                if ( stockRecords.length > 0 ) {
+                    stockRecords.forEach( function( stockRecord ) {
+                        stockRecordModel.remove( stockRecord.id );
+                    } );
+                }
+            } else {
+                document.getElementById( 'commitchanges' ).setAttribute( 'disabled', !isMaster );
             }
                         
             this.reload();
@@ -170,7 +187,7 @@
         reload: function() {
             this._selectedIndex = -1;
             this.list();
-            $( '#plu_id' ).val( '' );
+            //$( '#plu_id' ).val( '' );
             this.updateStock();
         },
 
@@ -184,12 +201,12 @@
                 var item = this._records[ index ];
                 //this.requestCommand( 'view', item.product_id );
                 GeckoJS.FormHelper.unserializeFromObject( 'productForm', item );
-            }
+            }/*
             else {
                 // clear form only if plu_id not set
                 if ( $( '#plu_id' ).val() == '' )
                     GeckoJS.FormHelper.reset( 'productForm' );
-            }
+            }*/
 
             this.validateForm();
         },
@@ -284,30 +301,33 @@
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0: null,
-                require0: true,
-                numberOnly0: true,
-                input1: null,
-                require1: true,
-                numberOnly1: true
+                require0: false,
+                menu: null,
+                menuItems : [
+                    { label: "Check Stock", value: "check_stock", selected: true },
+                    { label: "Procure", value: "procure" },
+                    { label: "Otherwise", value: "otherwise" }
+               ]
             };
 
             GREUtils.Dialog.openWindow(
                 this.topmostWindow,
                 aURL,
-                _( 'Set All Stock' ),
+                _( 'Commit Changes' ),
                 aFeatures,
-                _( 'Set All Stock' ),
+                _( 'Commit Changes' ),
                 '',
-                _( 'Type:' ),
-                _( 'Remark:' ),
-                inputObj
+                _( 'Remark' ) + ':',
+                '',
+                inputObj,
+                _( 'Type' ) + ':'
             );
             
             var commitmentType = '';
             var commitmentRemark = '';
-            if ( inputObj.ok && inputObj.input0 && inputObj.input1 ) {
-                commitmentType = inputObj.input0;
-                commitmentRemark = inputObj.input1;
+            if ( inputObj.ok && inputObj.menu && inputObj.input0 ) {
+                commitmentType = inputObj.menu;
+                commitmentRemark = inputObj.input0;
             }
             
             var commitmentID = GeckoJS.String.uuid();

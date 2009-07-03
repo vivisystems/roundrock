@@ -45,7 +45,6 @@
         },
 
         checkStock: function(action, qty, item, clearWarning) {
-
             if (clearWarning == null) clearWarning = true;
             var obj = {
                 item: item
@@ -55,46 +54,35 @@
             var curTransaction = cart._getTransaction(true);
             
             this.log('checkStock: ' + item.name + '('+qty+')');
+            
             var min_stock = parseFloat(item.min_stock);
             var auto_maintain_stock = item.auto_maintain_stock;
+            var productsById = GeckoJS.Session.get('productsById');
+            var product = productsById[item.id];
+            if (product) {
+                min_stock = parseFloat(product.min_stock);
+                auto_maintain_stock = product.auto_maintain_stock;
+            } else {
+                auto_maintain_stock = false;
+            }
             
             if (auto_maintain_stock) {
-
                 // get the stock quantity;
+                var stock = null;
                 var stockRecordModel = new StockRecordModel();
                 var stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
                 if ( stockRecord ) {
-                    var stock = parseFloat( stockRecord.quantity );
+                    stock = parseFloat( stockRecord.quantity );
                 } else {
                     NotifyUtils.warn( _( 'The stock record seems not existent!' ) );
                     return false;
                 }
 
-                if (action != "addItem") {
-                    var productsById = GeckoJS.Session.get('productsById');
-                    var product = productsById[item.id];
-                    if (product) {
-                        // get the stock quantity;
-                        stockRecordModel = new StockRecordModel();
-                        stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
-                        if ( stockRecord ) {
-                            stock = parseFloat( stockRecord.quantity );
-                        } else {
-                            NotifyUtils.warn( _( 'The stock record seems not existent!' ) );
-                            return false;
-                        }
-
-                        min_stock = parseFloat(product.min_stock);
-                        auto_maintain_stock = product.auto_maintain_stock;
-                        diff = qty - item.current_qty;
-                    }
-                    else {
-                        auto_maintain_stock = false;
-                    }
+                if (action != "addItem") {//modifyItem
+                    diff = qty - item.current_qty;
                 }
 
                 var item_count = 0;
-                
                 var qtyIncreased = (diff > 0);
                 
                 try {
@@ -114,69 +102,64 @@
                     if (!allowoverstock) {
                         cart.clear();
                         return false;
-                    }
-                    else {
+                    } else {
                         item.stock_status = -1;
                     }
                 } else if (min_stock > (stock - (diff + item_count))) {
-                    if (true || qtyIncreased) { // always display warning
+                    //if (true || qtyIncreased) { // always display warning
                         cart.dispatchEvent('onLowStock', obj);
                         cart.dispatchEvent('onWarning', _('STOCK LOW'));
 
                         NotifyUtils.warn(_('[%S] low stock threshold reached!', [item.name]));
-                    }
+                    //}
                     item.stock_status = 0;
                 } else {
                     // normal
                     if (clearWarning != false) cart.dispatchEvent('onWarning', '');
                     item.stock_status = 1;
                 }
-            }
-            else {
+            } else {
                 delete item.stock_status;
                 if (clearWarning != false) cart.dispatchEvent('onWarning', '');
             }
             return true;
         },
 
-        decStock: function ( obj ) {
+        decStock: function( obj ) {
             //this._productsById = GeckoJS.Session.get( 'productsById' );
             //this._barcodesIndexes = GeckoJS.Session.get( 'barcodesIndexes' );
 
             this.log('decStock: ');
-            for ( var o in obj.items ) {
-                var ordItem = obj.items[ o ];
-                var item = this.Product.findById( ordItem.id );
-                if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
-                    // renew the stock record.
-                    var stockRecordModel = new StockRecordModel();
-                    var stockRecord = stockRecordModel.get( 'first', {
-                        conditions: "product_no = '" + item.no + "'"
-                    } );
-
-                    if ( stockRecord.quantity > 0 || item.return_stock )
+            try {
+                for ( var o in obj.items ) {
+                    var ordItem = obj.items[ o ];
+                    var item = this.Product.findById( ordItem.id );
+                    if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
+                        // renew the stock record.
+                        var stockRecordModel = new StockRecordModel();
+                        var stockRecord = stockRecordModel.get( 'first', {
+                            conditions: "product_no = '" + item.no + "'"
+                        } );
                         stockRecord.quantity -= ordItem.current_qty;
+                        stockRecordModel.set( stockRecord );
+                        
+                        // stock had maintained
+                        ordItem.stock_maintained = true;
 
-                    stockRecordModel.set( stockRecord );
-
-                    delete stockRecordModel;
-
-                    // stock had maintained
-                    ordItem.stock_maintained = true;
-
-                    // fire onLowStock event...
-                    if ( item.min_stock > item.stock ) {
-                        this.dispatchEvent( 'onLowStock', item );
+                        // fire onLowStock event...
+                        if ( item.min_stock > stockRecord.quantity ) {
+                            this.dispatchEvent( 'onLowStock', item );
+                        }
+                        
+                        delete stockRecordModel;
                     }
-
-                // update Session Data...
-                //var evt = { data: item, justUpdate: true };
-                //this.afterScaffoldEdit( evt );
                 }
-            }
+            } catch ( e ) {
+                dump( e );
+                return false;
+            } 
             return true;
         }
-
     };
     
     GeckoJS.Controller.extend( __controller__ );
