@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+  <!ENTITY % timezonesDTD SYSTEM "chrome://vivipos/locale/timezones.dtd">
+  %timezonesDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <binding id="vivikbmaplistbox">
+        <resources>
+            <stylesheet src="chrome://vivipos/skin/bindings/vivikbmaps.css" />
+        </resources>
+
+        <content>
+            <xul:listbox anonid="kbmaps-listbox" oncommand="updateKbmap(event)" crop="none" xbl:inherits="rows,flex,class,crop,dir,pack,align">
+                <xul:listitem label="Albania" value="al" />
+                <xul:listitem label="Andorra" value="ad" />
+                <xul:listitem label="Arabic" value="ara" />
+                <xul:listitem label="Armenia" value="am" />
+                <xul:listitem label="Azerbaijan" value="az" />
+                <xul:listitem label="Bangladesh" value="bd" />
+                <xul:listitem label="Belarus" value="by" />
+                <xul:listitem label="Belgium" value="be" />
+                <xul:listitem label="Bosnia and Herzegovina" value="ba" />
+                <xul:listitem label="Brazil" value="br" />
+                <xul:listitem label="Bulgaria" value="bg" />
+                <xul:listitem label="Canada" value="ca" />
+                <xul:listitem label="China" value="cn" />
+                <xul:listitem label="Congo, Democratic Republic of the" value="cd" />
+                <xul:listitem label="Croatia" value="hr" />
+                <xul:listitem label="Czechia" value="cz" />
+                <xul:listitem label="Denmark" value="dk" />
+                <xul:listitem label="Esperanto" value="epo" />
+                <xul:listitem label="Estonia" value="ee" />
+                <xul:listitem label="Ethiopia" value="et" />
+                <xul:listitem label="Faroe Islands" value="fo" />
+                <xul:listitem label="Finland" value="fi" />
+                <xul:listitem label="France" value="fr" />
+                <xul:listitem label="Georgia" value="ge" />
+                <xul:listitem label="Germany" value="de" />
+                <xul:listitem label="Ghana" value="gh" />
+                <xul:listitem label="Greece" value="gr" />
+                <xul:listitem label="Guinea" value="gn" />
+                <xul:listitem label="Hungary" value="hu" />
+                <xul:listitem label="Iceland" value="is" />
+                <xul:listitem label="India" value="in" />
+                <xul:listitem label="Iran" value="ir" />
+                <xul:listitem label="Iraq" value="iq" />
+                <xul:listitem label="Ireland" value="ie" />
+                <xul:listitem label="Israel" value="il" />
+                <xul:listitem label="Italy" value="it" />
+                <xul:listitem label="Japan" value="jp" />
+                <xul:listitem label="Japan (PC-98xx Series)" value="nec_vndr_jp" />
+                <xul:listitem label="Kazakhstan" value="kz" />
+                <xul:listitem label="Korea, Republic of" value="kr" />
+                <xul:listitem label="Kyrgyzstan" value="kg" />
+                <xul:listitem label="Laos" value="la" />
+                <xul:listitem label="Latin American" value="latam" />
+                <xul:listitem label="Lithuania" value="lt" />
+                <xul:listitem label="Latvia" value="lv" />
+                <xul:listitem label="Macedonia" value="mk" />
+                <xul:listitem label="Maldives" value="mv" />
+                <xul:listitem label="Malta" value="mt" />
+                <xul:listitem label="Maori" value="mao" />
+                <xul:listitem label="Mongolia" value="mn" />
+                <xul:listitem label="Montenegro" value="me" />
+                <xul:listitem label="Morocco" value="ma" />
+                <xul:listitem label="Nepal" value="np" />
+                <xul:listitem label="Netherlands" value="nl" />
+                <xul:listitem label="Nigeria" value="ng" />
+                <xul:listitem label="Norway" value="no" />
+                <xul:listitem label="Pakistan" value="pk" />
+                <xul:listitem label="Poland" value="pl" />
+                <xul:listitem label="Portugal" value="pt" />
+                <xul:listitem label="Romania" value="ro" />
+                <xul:listitem label="Russia" value="ru" />
+                <xul:listitem label="Serbia" value="rs" />
+                <xul:listitem label="Slovakia" value="sk" />
+                <xul:listitem label="Slovenia" value="si" />
+                <xul:listitem label="South Africa" value="za" />
+                <xul:listitem label="Spain" value="es" />
+                <xul:listitem label="Sweden" value="se" />
+                <xul:listitem label="Switzerland" value="ch" />
+                <xul:listitem label="Syria" value="sy" />
+                <xul:listitem label="Tajikistan" value="tj" />
+                <xul:listitem label="Thailand" value="th" />
+                <xul:listitem label="Turkey" value="tr" />
+                <xul:listitem label="Ukraine" value="ua" />
+                <xul:listitem label="United Kingdom" value="gb" />
+                <xul:listitem label="USA" value="us" />
+                <xul:listitem label="Uzbekistan" value="uz" />
+                <xul:listitem label="Vietnam" value="vn" />
+            </xul:listbox>
+
+        </content>
+
+        <xbl:implementation>
+
+            <field name="listbox">
+                document.getAnonymousElementByAttribute(this, "anonid", "kbmaps-listbox");
+            </field>
+
+            <property name="currentKbmap" onget="return this._currentKbmap;" readonly="true" />
+
+            <property name="selectedIndex" onget="return this.listbox.selectedIndex;" onset="this.listbox.selectedIndex=val; return val;" />
+
+            <property name="selectedKbmap" onget="return this.listbox.selectedItem.getAttribute('value');" onset="this.listbox.selectedIndex=this.findKbmap(val);" />
+
+            <xbl:constructor><![CDATA[
+                var self = this;
+                //this.ready = function() {
+                    self.init();
+                //};
+                //window.addEventListener('load', this.ready, true);
+            ]]>
+            </xbl:constructor>
+
+            <destructor>
+            <![CDATA[
+               //window.removeEventListener('load', this.ready, true);
+            ]]>
+            </destructor>
+
+            <xbl:method name="init">
+                <xbl:body><![CDATA[
+
+                // ubuntu timezone
+                var kb = "us";
+                try {
+                    var kbFile = new GeckoJS.File('/etc/kbmap');
+                    if (kbFile.exists()) {
+                        kbFile.open("r");
+                        kb =  kbFile.readLine() || "us";
+                        kbFile.close();
+                    }
+                    delete kbFile
+                }catch(e) {
+                }
+
+                this._currentKbmap = kb;
+
+                var index = this.findKbmap(kb);
+
+                var listbox = this.listbox;
+                listbox.selectedIndex = index;
+
+                this.updateKbmap();
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="findKbmap">
+                <xbl:parameter name="layout"/>
+                <xbl:body><![CDATA[
+                    var listbox = this.listbox;
+                    var numChilds = listbox.childNodes.length;
+                    for (var i=0; i<numChilds; i++) {
+                        var listitem = listbox.childNodes[i];
+                        if (listitem.getAttribute("value") == layout) {
+                            return i;
+                        }
+                    }
+                    return -1;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="updateKbmap">
+                <xbl:parameter name="event"/>
+                <xbl:body><![CDATA[
+
+                    var listitem = this.listbox.selectedItem;
+                    var layout = listitem.getAttribute("value");
+
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="changeOSKbmap">
+                <xbl:body><![CDATA[
+
+                    // Which Kbmap did the user select?
+                    var newKbmap = this.selectedKbmap;
+
+                    try {
+
+                        // write Kbmap file
+                        var kbFile = new GeckoJS.File('/etc/kbmap', true);
+                        kbFile.open("w");
+                        kbFile.write(newKbmap+"\n");
+                        kbFile.close();
+                        delete kbFile;
+
+                    }catch (e) {
+                        // maybe permision deny
+                    }
+
+                    // restart virtual keyboard
+                    try {
+                        var resetKeyboardScript = new GeckoJS.File('/data/scripts/reset_keyboard.sh');
+                        if (resetKeyboardScript.exists()) {
+	                    resetKeyboardScript.run([], true); // no arguments and blocking.
+                        }
+                        delete resetKeyboardScript;
+                        resetKeyboardScript = null;
+                    }catch(e) {
+                    }
+
+                    return false;
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+        </xbl:implementation>
+
+    </binding>
+
+</bindings>

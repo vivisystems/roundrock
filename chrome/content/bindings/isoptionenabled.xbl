@@ -18,39 +18,40 @@
 
     	<constructor><![CDATA[
         
-        this.events = GeckoJS.Configure.getInstance().events;
+        var events = GeckoJS.Configure.getInstance().events;
         this.option = this.getAttribute('option') || '';
+        this.events = events;
 
         var self = this;
         this.ready = function() {
-	    if (this.events) {
-		var changeHandler = function (evt) {
-		    var key = evt.getData().key;
+            if (self.events) {
+                var changeHandler = function (evt) {
+                    var key = evt.getData().key;
 
-		    if (key == self.option) {
-			self.render();
-		    }
-		}
+                    if (key == self.option) {
+                        self.render();
+                    }
+                }
 
-		var removeHandler = function (evt) {
-		    var key = evt.getData();
-		    if (key == self.option) {
-			self.render();
-		    }
-		}
+                var removeHandler = function (evt) {
+                    var key = evt.getData();
+                    if (key == self.option) {
+                        self.render();
+                    }
+                }
 
-		var clearHandler = function (evt) {
-		    self.render();
-		}
+                var clearHandler = function (evt) {
+                    self.render();
+                }
 
-		this.events.addListener('write', changeHandler, this);
-		this.events.addListener('remove', removeHandler, this);
-		this.events.addListener('clear', clearHandler, this);
-	    }
+                self.events.addListener('write', changeHandler, this);
+                self.events.addListener('remove', removeHandler, this);
+                self.events.addListener('clear', clearHandler, this);
+            }
         
-	    this.changeHandler = changeHandler;
-	    this.removeHandler = removeHandler;
-	    this.clearHandler = clearHandler;
+            self.changeHandler = changeHandler;
+            self.removeHandler = removeHandler;
+            self.clearHandler = clearHandler;
 
             self.render();
         };
@@ -70,15 +71,15 @@
         </constructor>
 
         <destructor><![CDATA[
-        //window.removeEventListener('DOMContentLoaded', this.ready, true);
-        window.removeEventListener('load', this.ready, true);
+            //window.removeEventListener('DOMContentLoaded', this.ready, true);
+            window.removeEventListener('load', this.ready, true);
         
-        if (this.events) {
-            this.events.removeListener('change', this.changeHandler);
-            this.events.removeListener('remove', this.removeHandler);
-            this.events.removeListener('clear', this.clearHandler);
-        }
-//          this.observer.unregister();
+            if (this.events) {
+                this.events.removeListener('change', this.changeHandler);
+                this.events.removeListener('remove', this.removeHandler);
+                this.events.removeListener('clear', this.clearHandler);
+            }
+    //          this.observer.unregister();
         ]]>
         </destructor>
 

@@ -88,6 +88,10 @@ vivikbmaps {
   -moz-binding: url("chrome://vivipos/content/bindings/vivikbmaps.xbl#vivikbmaps");
 }
 
+vivikbmaplistbox {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivikbmaplistbox.xbl#vivikbmaplistbox");
+}
+
 vivipanel {
   -moz-binding: url("chrome://vivipos/content/bindings/vivipanel.xbl#vivipanel");
 }
