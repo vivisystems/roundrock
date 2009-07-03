@@ -98,27 +98,25 @@ class TableStatus extends AppModel {
 		    
 		    $retObj = $this->save($tableStatusObjTmp);
 		    
-		    	    
-		    // save TableOrder...
-		    $tableOrderObj = $this->TableOrder->find('first', array("conditions" => "TableOrder.order_id='" . $tableObject['order_id'] . "'"));
-		    
-		    if ($tableOrderObj) {
-			// update order
-		    	$this->TableOrder->id = $tableOrderObj['TableOrder']['id'];
+                }
 
-		    } else {
-		    	// add new one
-			$this->TableOrder->create();
-			// $this->TableOrder->id = '';	
-			$tableObject['id'] = String::uuid();
-			
-		    }
+                // save TableOrder...
+                $tableOrderObj = $this->TableOrder->find('first', array("conditions" => "TableOrder.id='" . $tableObject['order_id'] . "'"));
 
-		    $retObj = $this->TableOrder->save($tableObject);
-		    
-		    return true;
-		}
-		
+                if ($tableOrderObj) {
+                    // update order
+                    $this->TableOrder->id = $tableOrderObj['TableOrder']['id'];
+
+                } else {
+                    // add new one
+                    $this->TableOrder->create();
+                    // $this->TableOrder->id = '';
+                    // $tableObject['id'] = String::uuid();
+                    $tableObject['id'] = $tableOrderObj['TableOrder']['id'];
+
+                }
+
+                $retObj = $this->TableOrder->save($tableObject);
 		
 		return true;
 
@@ -169,7 +167,8 @@ class TableStatus extends AppModel {
         
         function removeCheck($table_no, $order_id) {
 
-		$conditions = "TableOrder.order_id='" . $order_id . "'";
+            // $conditions = "TableOrder.order_id='" . $order_id . "'";
+            $conditions = "TableOrder.id='" . $order_id . "'";
 		
             // $retObj = $this->TableOrder->deleteAll(array("conditions" => $conditions));
             $retObj = $this->TableOrder->deleteAll(array("TableOrder.order_id" => $order_id));
@@ -181,12 +180,40 @@ class TableStatus extends AppModel {
         }
 
         function getTableOrderCheckSum($order_id) {
-            $conditions = "TableOrder.order_id='" . $order_id . "'";
+            // $conditions = "TableOrder.order_id='" . $order_id . "'";
+            $conditions = "TableOrder.id='" . $order_id . "'";
 
             $tableOrder = $this->TableOrder->find('all', array("conditions" => $conditions, "recursive" => 0));
 
             return $tableOrder;
         }
+
+        function transTable($tableObject) {
+
+            $this->setTableStatus($tableObject);
+
+            $this->touchTableStatus($tableObject["org_table_no"]);
+
+        }
+
+        function getTableOrders($lastModified) {
+
+		// $lastModified = 0; //1243000000;
+		$conditions = "modified > '" . $lastModified . "'";
+
+                $tableOrder = $this->TableOrder->find('all', array("conditions" => $conditions, "recursive" => 0, "order"=>array('TableOrder.modified')));
+                // $tableStatus = $this->find('all');
+
+		$orders = array();
+		if ($tableOrder) {
+			$orders = Set::classicExtract($tableStatus, '{n}.TableOrder');
+
+		}
+
+
+		return $tableOrder;
+
+	}
         
 
 }
