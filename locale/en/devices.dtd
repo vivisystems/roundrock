@@ -9,6 +9,7 @@
 <!ENTITY devices.tab.vfd.label "VFD">
 <!ENTITY devices.tab.cashdrawer1.label "Drawer 1">
 <!ENTITY devices.tab.cashdrawer2.label "Drawer 2">
+<!ENTITY devices.tab.scale.label "Scales">
 <!ENTITY devices.receipt.printer.1.label "Receipt Printer 1">
 <!ENTITY devices.receipt.printer.2.label "Receipt Printer 2">
 <!ENTITY devices.template.label "Template">
@@ -51,3 +52,7 @@
 <!ENTITY devices.cashdrawer.action.finalization.label "Finalization">
 <!ENTITY devices.cashdrawer.action.always.label "Always">
 <!ENTITY devices.cashdrawer.action.never.label "Never">
+<!ENTITY devices.scale1.label "Scale 1">
+<!ENTITY devices.scale2.label "Scale 2">
+<!ENTITY devices.scale.tare.label "Tare">
+<!ENTITY devices.scale.multiplier.label "Multiplier">

@@ -2542,6 +2542,29 @@
 
         },
 
+        readScale: function(number) {
+            this._getKeypadController().clearBuffer();
+
+            number = parseInt(number);
+            if (isNaN(number) || number < 1 || number > 2) {
+                number = null;
+            }
+
+            var scaleController = GeckoJS.Controller.getInstanceByName('Scale');
+            if (scaleController) {
+                var qty = scaleController.readScale(number);
+
+                if (qty == null) {
+                    NotifyUtils.warn(_('Failed to read from scale'))
+                }
+                else if (qty <= 0) {
+                    NotifyUtils.warn(_('Illegal weight [%S] returned from scale', [qty]));
+                }
+                else {
+                    this.setQty(qty);
+                }
+            }
+        },
 
         setQty: function(qty) {
 

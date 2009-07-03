@@ -16,7 +16,8 @@
             this._device = this.getDeviceController();
 
             // initialize worker thread
-            this._worker = GREUtils.Thread.getWorkerThread();
+            //this._worker = GREUtils.Thread.getWorkerThread();
+            this._worker = GREUtils.Thread.getMainThread();
 
             this._useMainThread = (this._worker === GREUtils.Thread.getMainThread());
 

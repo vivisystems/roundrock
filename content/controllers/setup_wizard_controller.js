@@ -573,6 +573,14 @@
             var prefs = new GeckoJS.File(profPath + '/user.js');
             prefs.open('a');
 
+            // 0. reset preferences
+            // delete existing preferences
+            GeckoJS.Configure.remove('vivipos');
+            var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+            mPrefService.resetPrefs();
+
+            prefs.write('\nuser_pref("general.useragent.locale", "' + this.selectedLocale + '");\n');
+
             // 1. configure skin & layout
             var newSkin = this.selectedSector.skin.replace('${width}', this.screenwidth).replace('${height}', this.screenheight );
             prefs.write('\nuser_pref("general.skins.selectedSkin", "' + newSkin + '");\n');

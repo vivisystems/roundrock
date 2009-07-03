@@ -51,6 +51,7 @@
 <!ENTITY plus.sale.unit.kilogram "Kilogram">
 <!ENTITY plus.sale.unit.ounce "Ounce">
 <!ENTITY plus.sale.unit.pound "Pound">
+<!ENTITY plus.sale.unit.milliliter "Milliliter">
 <!ENTITY plus.sale.unit.liter "Liter">
 <!ENTITY plus.sale.unit.pint "Pint">
 <!ENTITY plus.sale.unit.quart "Quart">

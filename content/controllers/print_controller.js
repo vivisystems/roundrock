@@ -18,8 +18,8 @@
             this._device = this.getDeviceController();
 
             // initialize worker thread
-            this._worker = GREUtils.Thread.getWorkerThread();
-            //this._worker = GREUtils.Thread.getMainThread();
+            //this._worker = GREUtils.Thread.getWorkerThread();
+            this._worker = GREUtils.Thread.getMainThread();
 
             // initialize main thread
             this._main = GREUtils.Thread.getMainThread();
@@ -1004,7 +1004,6 @@
                             }
                             catch (e) {
                                 this.log('WARN', 'failed to update receipt printed event');
-                                self.dispatchEvent('onReceiptFailed', this.eventData);
                             }
                         }
                         else if (this.eventData.deviceType == 'ledger') {
@@ -1015,6 +1014,20 @@
                             catch (e) {
                                 this.log('WARN', 'failed to update ledger receipt printed event');
                             }
+                        }
+                    }
+                    else {
+                        if (this.eventData.deviceType == 'receipt') {
+                            self.dispatchEvent('onReceiptPrintingFailed', this.eventData);
+                            this.log('WARN', 'receipt printing failed');
+                        }
+                        else if (this.eventData.deviceType == 'ledger') {
+                            self.dispatchEvent('onLedgerPrintingFailed', this.eventData);
+                            this.log('WARN', 'ledger printing failed');
+                        }
+                        else if (this.eventData.deviceType == 'check') {
+                            self.dispatchEvent('onCheckPrintingFailed', this.eventData);
+                            this.log('WARN', 'ledger printing failed');
                         }
                     }
                 },
@@ -1067,7 +1080,7 @@
 
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
-                        if (deviceType == 'receipt' && (typeof data.duplicate == 'undefined' || data.duplicate == null)) {
+                        if (deviceType == 'receipt' && printed && (typeof data.duplicate == 'undefined' || data.duplicate == null)) {
                             this.lastReceipt = {id: data.order.id,
                                                 batchCount: data.order.batchCount,
                                                 printer: printer};

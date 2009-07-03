@@ -842,14 +842,18 @@
             VirtualKeyboard.toggle();
         },
 
-        _showWaitPanel: function(panel, caption, title, sleepTime) {
+        _showWaitPanel: function(panel, caption, title, sleepTime, hide) {
             
             var waitPanel = document.getElementById(panel);
             var waitCaption = document.getElementById(caption);
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            var progressbar = document.getElementById('progress');
             
             if (waitCaption) waitCaption.setAttribute("label", title);
+
+            if (progressbar) {
+                if (hide) progressbar.setAttribute('hidden', true);
+                else progressbar.removeAttribute('hidden');
+            }
 
             /*
             waitPanel.sizeTo(600, 120);

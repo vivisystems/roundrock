@@ -418,13 +418,11 @@
             GREUtils.File.copy(this.iconFile, imagePath + '/' + data.location + '_' + data.sector + '_thumbnail.png');
             GREUtils.File.copy(this.imageFile, imagePath + '/' + data.location + '_' + data.sector + '.png');
 
-            // copy prefs.js
-            // need to remove locale related settings from prefs.js - done in export_package script
-            var processScript = systemPath + '/scripts/process_prefs.sh';
-            var exec = new GeckoJS.File(processScript);
-            exec.run(['"general.useragent.locale"', profPath + '/prefs.js', contentPath + '/user.js'], true);
-            exec.close();
-            
+            // store preferences
+            var mPrefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+            var prefFile = new GeckoJS.File(contentPath + '/user.js', true);
+            mPrefService.savePrefFile(prefFile.file);
+
             // copy db files
             var dbs = GeckoJS.Dir.readDir(systemPath + '/databases', {type: 'f'});
 

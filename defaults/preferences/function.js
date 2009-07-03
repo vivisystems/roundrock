@@ -288,6 +288,11 @@ pref("vivipos.fec.registry.function.programmable.returncartitem.command", "retur
 pref("vivipos.fec.registry.function.programmable.returncartitem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.returncartitem.data", "");
 
+pref("vivipos.fec.registry.function.programmable.scale.access", "acl_read_scale");
+pref("vivipos.fec.registry.function.programmable.scale.command", "readScale");
+pref("vivipos.fec.registry.function.programmable.scale.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.scale.data", "");
+
 pref("vivipos.fec.registry.function.programmable.setdestination.access", "acl_set_destination");
 pref("vivipos.fec.registry.function.programmable.setdestination.command", "setDestination");
 pref("vivipos.fec.registry.function.programmable.setdestination.controller", "Destinations");
@@ -362,6 +367,11 @@ pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item"
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");
 pref("vivipos.fec.registry.function.programmable.tagitem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.tagitem.data", "");
+
+pref("vivipos.fec.registry.function.programmable.tare.access", "acl_set_tare");
+pref("vivipos.fec.registry.function.programmable.tare.command", "setTare");
+pref("vivipos.fec.registry.function.programmable.tare.controller", "Scale");
+pref("vivipos.fec.registry.function.programmable.tare.data", "");
 
 pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.access", "");
 pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.command", "toggleFunctionPanel");

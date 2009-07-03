@@ -42,12 +42,12 @@ pref("vivipos.fec.registry.templates.vfd-internal-non-en.path", "chrome://viviec
 pref("vivipos.fec.registry.ports.com1.label", "COM 1");
 pref("vivipos.fec.registry.ports.com1.type", "serial");
 pref("vivipos.fec.registry.ports.com1.path", "/dev/ttyS0");
-pref("vivipos.fec.registry.ports.com1.support", "receipt,check,vfd,cashdrawer,report");
+pref("vivipos.fec.registry.ports.com1.support", "receipt,check,vfd,cashdrawer,report,scale");
 
 pref("vivipos.fec.registry.ports.com2.label", "COM 2");
 pref("vivipos.fec.registry.ports.com2.type", "serial");
 pref("vivipos.fec.registry.ports.com2.path", "/dev/ttyS1");
-pref("vivipos.fec.registry.ports.com2.support", "receipt,check,vfd,cashdrawer,report");
+pref("vivipos.fec.registry.ports.com2.support", "receipt,check,vfd,cashdrawer,report,scale");
 
 pref("vivipos.fec.registry.ports.com4.label", "COM 4");
 pref("vivipos.fec.registry.ports.com4.type", "serial");
@@ -57,27 +57,27 @@ pref("vivipos.fec.registry.ports.com4.support", "vfd");
 pref("vivipos.fec.registry.ports.com5.label", "COM 5");
 pref("vivipos.fec.registry.ports.com5.type", "serial");
 pref("vivipos.fec.registry.ports.com5.path", "/dev/ttyS4");
-pref("vivipos.fec.registry.ports.com5.support", "receipt,check,vfd,cashdrawer,report");
+pref("vivipos.fec.registry.ports.com5.support", "receipt,check,vfd,cashdrawer,report,scale");
 
 pref("vivipos.fec.registry.ports.usb1.label", "USB 1");
 pref("vivipos.fec.registry.ports.usb1.type", "usb");
 pref("vivipos.fec.registry.ports.usb1.path", "/dev/ttyUSB0");
-pref("vivipos.fec.registry.ports.usb1.support", "receipt,check,vfd,cashdrawer,report");
+pref("vivipos.fec.registry.ports.usb1.support", "receipt,check,vfd,cashdrawer,report,scale");
 
 pref("vivipos.fec.registry.ports.usb2.label", "USB 2");
 pref("vivipos.fec.registry.ports.usb2.type", "usb");
 pref("vivipos.fec.registry.ports.usb2.path", "/dev/ttyUSB1");
-pref("vivipos.fec.registry.ports.usb2.support", "receipt,check,vfd,cashdrawer,report");
+pref("vivipos.fec.registry.ports.usb2.support", "receipt,check,vfd,cashdrawer,report,scale");
 
 pref("vivipos.fec.registry.ports.usb3.label", "USB 3");
 pref("vivipos.fec.registry.ports.usb3.type", "usb");
 pref("vivipos.fec.registry.ports.usb3.path", "/dev/ttyUSB2");
-pref("vivipos.fec.registry.ports.usb3.support", "receipt,check,vfd,cashdrawer,report");
+pref("vivipos.fec.registry.ports.usb3.support", "receipt,check,vfd,cashdrawer,report,scale");
 
 pref("vivipos.fec.registry.ports.usb4.label", "USB 4");
 pref("vivipos.fec.registry.ports.usb4.type", "usb");
 pref("vivipos.fec.registry.ports.usb4.path", "/dev/ttyUSB3");
-pref("vivipos.fec.registry.ports.usb4.support", "receipt,check,vfd,cashdrawer,report");
+pref("vivipos.fec.registry.ports.usb4.support", "receipt,check,vfd,cashdrawer,report,scale");
 
 pref("vivipos.fec.registry.ports.gpio1.label", "GPIO 1");
 pref("vivipos.fec.registry.ports.gpio1.type", "gpio");
@@ -115,3 +115,11 @@ pref("vivipos.fec.registry.devicemodels.vfdgeneric.label", "Generic VFD");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.type", "vfd");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.path", "chrome://viviecr/content/devices/commands/vfdgeneric.cmd");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.encodings", "English=US-ASCII");
+
+pref("vivipos.fec.registry.devicemodels.excell-aw-30.label", "Excell AW-30");
+pref("vivipos.fec.registry.devicemodels.excell-aw-30.type", "scale");
+pref("vivipos.fec.registry.devicemodels.excell-aw-30.controller", "ScaleExcellAW30Controller");
+
+pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.label", "Mettler Toledo Tiger II");
+pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.type", "scale");
+pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.controller", "ScaleMTTigerIIController");

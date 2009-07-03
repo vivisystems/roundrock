@@ -1569,6 +1569,36 @@ msgstr "Transfer Table No"
 msgid "transferTable.name"
 msgstr "Transfer Table No"
 
+##########
+# Scale
+##########
+
+msgid "scale.desc"
+msgstr ""
+"This function allows operator to read product weight from scale. "
+"The parameter field, if set (1 or 2), indicates from which scale to read."
+
+msgid "scale.label"
+msgstr "Scale"
+
+msgid "scale.name"
+msgstr "Scale"
+
+#########
+# Tare
+#########
+
+msgid "tare.desc"
+msgstr ""
+"This function allows operator to set scale tare. "
+"The parameter field, if set (1 or 2), indicates for which scale to set tare."
+
+msgid "tare.label"
+msgstr "Tare"
+
+msgid "tare.name"
+msgstr "Tare"
+
 ########################################################################
 #
 # List of ACLs
@@ -1577,6 +1607,12 @@ msgstr "Transfer Table No"
 
 msgid "acl_internal_access"
 msgstr "For Internal Access Only"
+
+msgid "acl_read_scale"
+msgstr "Read Scale"
+
+msgid "acl_set_tare"
+msgstr "Scale Tare"
 
 msgid "acl_stock_adjustment"
 msgstr "Adjust Stock Level"
@@ -1847,9 +1883,6 @@ msgstr "Delete Annotations"
 
 msgid "acl_manage_ledger"
 msgstr "Manage Ledger"
-
-msgid "acl_view_ledger_entry"
-msgstr "View Ledger Entries"
 
 msgid "acl_add_ledger_entry"
 msgstr "Add Ledger Entries"
