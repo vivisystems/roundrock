@@ -2831,6 +2831,29 @@
                 return false;
             }
 
+
+            // get checksum if recall == 2
+            if (oldTransaction.data.recall == 2) {
+                //
+                var tableOrderObj = this.GuestCheck._tableStatusModel.getTableOrderCheckSum(oldTransaction.data.id);
+
+                if (tableOrderObj.length <= 0) return false;
+
+                var crc = orderModel.getOrderChecksum(oldTransaction.data.id);
+
+                // if (crc != tableOrderObj[0].TableOrder.checksum) {
+                if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
+                    GREUtils.Dialog.alert(window,
+                                      _('Order Checksum Fail'),
+                                      _('Current order checksum fail and may not be submit. Please retry or check this order.'));
+
+                    // sync database
+                    this.GuestCheck.syncClient();
+
+                    return false;
+                }
+            }
+
             if (status == 1) {
                 var user = GeckoJS.Session.get('user');
                 var adjustment_amount = oldTransaction.data.trans_discount_subtotal + oldTransaction.data.trans_surcharge_subtotal +
@@ -2859,7 +2882,9 @@
                             return false;
                         }
                     }
+
                 }
+
             }
 
             if (this.dispatchEvent('beforeSubmit', {

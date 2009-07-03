@@ -22,7 +22,9 @@
         _checkList: null,
         _tableList: null,
         _tableStatusList: null,
+        _tableOrders: null,
         _tableStatusLastTime: 0,
+        _tableOrderLastTime: 0,
         _tableStatusArray: [],
         _tableStatusIdxById: {},
         _tableOrderByOrderId: {},
@@ -31,6 +33,20 @@
             if (!this._tableStatusList) {
 // GREUtils.log("initial list...");
                 this.getTableStatusList();
+            }
+        },
+
+        syncClient: function() {
+            // sync data
+            try {
+                var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
+                var r = exec.run(["sync"], false); // nonblock mode
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (sync_client).', []));
+                return false;
             }
         },
 
@@ -216,7 +232,7 @@
             if (remoteUrl) {
                 try {
                     tableStatus = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
-
+// GREUtils.log("getTableStatuses:::" + lastModified);
                     // do not need
                     tableStatus.forEach(function(o){
 
@@ -240,10 +256,15 @@
                 var conditions = "table_statuses.modified > '" + lastModified + "'";
                 var orderby = 'table_statuses.table_no';
 
-                tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 2, order: orderby});
+                tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 1, order: orderby});
 
             }
-            
+
+            // if table status changed, sync database...
+            if (tableStatus.length > 0) {
+                this.syncClient();
+            }
+
             return tableStatus;
         },
 
@@ -252,6 +273,9 @@
             var self = this;
 
             var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
+            
+            var tableOrder = this.getTableOrders(this._tableOrderLastTime);
+            
 
             if (this._tableStatusList && this._tableStatusList.length > 0) {
                 //
@@ -282,10 +306,8 @@
             var self = this;
             // set checklist
             this._checkList = tableStatus.concat([]);
-// GREUtils.log("genTablesArray:::");
-// GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
 
-            this._tableOrderByOrderId = {};
+//            this._tableOrderByOrderId = {};
 
             // gen tables status
 
@@ -300,12 +322,14 @@
                         o.TableOrder.forEach(function(orderObj){
                             var guests = Math.round(parseInt(orderObj.guests)) || 0;
                             o.guests = o.guests + guests;
-                            self._tableOrderByOrderId[orderObj.order_id] =
-                                {
-                                    status_id: orderObj.table_status_id,
-                                    table_id: orderObj.table_id,
-                                    checksum: orderObj.checksum
-                                }
+//                            self._tableOrderByOrderId[orderObj.order_id] =
+//                                {
+//                                    status_id: orderObj.table_status_id,
+//                                    table_id: orderObj.table_id,
+//                                    checksum: orderObj.checksum,
+//                                    modified: orderObj.modified,
+//                                    terminal_no: orderObj.terminal_no
+//                                }
                         });
                         o.clerk = o.TableOrder[0].clerk;
                         o.total = o.TableOrder[0].total;
@@ -319,13 +343,17 @@
                         o.booking = o.TableBooking[0].booking;
                     }
 
+                    // add orders
+
+                    o.TableOrder = new GeckoJS.ArrayQuery(this._tableOrders).filter("table_no = '" + o.table_no + "'");
+
                     // set last status modify time
                     if (o.modified > self._tableStatusLastTime) {
                         self._tableStatusLastTime = o.modified;
                     }
                     // this._tableStatusLastTime = this._tableStatusLastTime < o.modified ? o.modified : this._tableStatusLastTime;
 
-                });
+                }, this);
             }
 
             return tableStatus;
@@ -333,6 +361,7 @@
         },
 
         getTableOrderIdx: function() {
+            this.getTableOrders();
             return this._tableOrderByOrderId;
         },
 
@@ -367,76 +396,18 @@
             return this._tableList = tableList;
         },
 
-        genTableStatusObj: function(tableObj) {
-            var tableStatusObj = {};
-
-            tableStatusObj = {
-                id: tableObj.id,
-                order_id: tableObj.order_id,
-                check_no: tableObj.check_no,
-                table_no: tableObj.table_no,
-                sequence: tableObj.sequence,
-                guests: tableObj.guests,
-                holdby: tableObj.holdby,
-                clerk: tableObj.clerk,
-                booking: tableObj.booking,
-                lock: false,
-                status: tableObj.status,
-                terminal_no: tableObj.terminal_no,
-                transaction_created: tableObj.transaction_created,
-                checksum: tableObj.checksum,
-
-                table_id: tableObj.table_id,
-                total: tableObj.total,
-                table_status_id: tableObj.table_status_id
-
-            };
-
-            return tableStatusObj;
-        },
-
-        addCheck: function(checkObj) {
-            // GREUtils.log("DEBUG", "add check...");
-
-            var index = -1;
-            var i = 0;
-
-            this._tableStatusList.forEach(function(o){
-                //
-                if (o.table_no == checkObj.table_no) {
-                    index = i;
-                }
-                i++;
-            })
-            
-            var tableObj = {
-                order_id: checkObj.id,
-                check_no: checkObj.check_no,
-                table_no: checkObj.table_no,
-                sequence: "" + checkObj.seq,
-                guests: checkObj.no_of_customers,
-                holdby: '',
-                clerk: checkObj.service_clerk,
-                booking: 0,
-                lock: false,
-                status: 0,
-                terminal_no: checkObj.terminal_no,
-                transaction_created: checkObj.created,
-                checksum: checkObj.checksum,
-
-                total: checkObj.total,
-
-                table_id: (index > -1) ? this._tableStatusList[index].table_id : '',
-                table_status_id: (index > -1) ? this._tableStatusList[index].id : ''
-
-            };
-
-            this.setTableStatus( this.genTableStatusObj(tableObj));
-
-        },
-
         touchTableStatus: function(table_no) {
             // touch modified time...
+            var remoteUrl = this.getRemoteService('touchTableStatus');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                tableStatus = this.requestRemoteService('GET', remoteUrl + '/' + table_no, null);
+
+                return ;
+            }
+
             var conditions = "table_statuses.table_no='" + table_no + "'";
             var tableStatusObjTmp = this.find('first', {
                 conditions: conditions,
@@ -452,25 +423,74 @@
             }
         },
 
-        removeCheck: function(checkObj) {
+        _touchTableStatus: function(table_no) {
+            // touch modified time...
 
-            var remoteUrl = this.getRemoteService('removeCheck');
+            var conditions = "table_statuses.table_no='" + table_no + "'";
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions,
+                recursive: 0
+            });
+
+            // @todo maintain status field...
+            if (tableStatusObjTmp) {
+                this.id = tableStatusObjTmp.id;
+
+                var tableStatus = this.save(tableStatusObjTmp);
+                
+            }
+        },
+
+        transTable: function(checkObj, sourceTableNo) {
+            // GREUtils.log("DEBUG", "add check...");
+
+            var index = -1;
+            var i = 0;
+
+            this._tableStatusList.forEach(function(o){
+                //
+                if (o.table_no == checkObj.table_no) {
+                    index = i;
+                }
+                i++;
+            })
+
+            var tableObj = {
+                order_id: checkObj.id,
+                check_no: checkObj.check_no,
+                table_no: checkObj.table_no,
+                sequence: "" + checkObj.seq,
+                guests: checkObj.no_of_customers,
+                holdby: '',
+                clerk: checkObj.service_clerk,
+                booking: 0,
+                lock: false,
+                status: checkObj.status,
+                terminal_no: checkObj.terminal_no,
+                transaction_created: checkObj.created,
+                checksum: checkObj.checksum,
+
+                total: checkObj.total,
+
+//                table_id: (index > -1) ? this._tableStatusList[index].table_id : '',
+                table_status_id: (index > -1) ? this._tableStatusList[index].id : '',
+
+            };
+
+            tableObj["org_table_no"] = sourceTableNo;
+
+            var remoteUrl = this.getRemoteService('transTable');
             var tableStatus = null;
 
             if (remoteUrl) {
 
-                // tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({table_no: table_no, holdTable: holdTable}));
-                tableStatus = this.requestRemoteService('GET', remoteUrl + '/' + checkObj.table_no + '/' + checkObj.id, null);
+                tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize(tableObj));
 
                 return ;
             }
 
-            this.TableOrder.delAll("order_id='" + checkObj.id + "'");
-
-            this.touchTableStatus(checkObj.table_no);
-
-            return checkObj;
-
+            this._setTableStatus(tableObj);
+            this._touchTableStatus(sourceTableNo);
         },
 
         holdTable: function(table_no, holdTable) {
@@ -483,9 +503,41 @@
             return list;
         },
 
+        getTableOrderCheckSum: function(order_id) {
+            var self = this;
+
+            var remoteUrl = this.getRemoteService('getTableOrderCheckSum');
+            var tableOrder = null;
+
+            if (remoteUrl) {
+                try {
+                    tableOrder = this.requestRemoteService('GET', remoteUrl + "/" + order_id, null);
+
+                    this._connected = true;
+                }catch(e) {
+                    tableOrder = [];
+                    this._connected = false;
+
+                }
+
+            }else {
+                // read all order status
+                this._connected = true;
+                var fields = null;
+                var conditions = "table_orders.id='" + order_id + "'";
+
+                tableOrder = this.TableOrder.find('all', {fields: fields, conditions: conditions, recursive: 0});
+
+            }
+
+            return tableOrder;
+
+        },
+
         getTableStatus: function(table_no) {
 
             return this._tableStatusList[table_no];
+
         },
 
         setTableHostBy: function(table_no, holdTable) {
@@ -523,8 +575,48 @@
             }
         },
 
+        addCheck: function(checkObj) {
+            var index = -1;
+            var i = 0;
+
+            this._tableStatusList.forEach(function(o){
+                //
+                if (o.table_no == checkObj.table_no) {
+                    index = i;
+                }
+                i++;
+            })
+
+            var tableObj = {
+                order_id: checkObj.id,
+                check_no: checkObj.check_no,
+                table_no: checkObj.table_no,
+                sequence: "" + checkObj.seq,
+                guests: checkObj.no_of_customers,
+                holdby: '',
+                clerk: checkObj.service_clerk,
+                booking: 0,
+                lock: false,
+                status: checkObj.status,
+                terminal_no: checkObj.terminal_no,
+                transaction_created: checkObj.created,
+                checksum: checkObj.checksum,
+
+                total: checkObj.total,
+
+//                table_id: (index > -1) ? this._tableStatusList[index].table_id : '',
+                table_status_id: (index > -1) ? this._tableStatusList[index].id : '',
+
+            };
+
+            // this.setTableStatus2( this.genTableStatusObj(tableObj));
+            this.setTableStatus( tableObj);
+
+        },
+
         setTableStatus: function(tableStatusObj) {
-            
+//GREUtils.log("table_status_setTableStatus:::");
+//GREUtils.log(GeckoJS.BaseObject.dump(tableStatusObj));
             var remoteUrl = this.getRemoteService('setTableStatus');
             var tableStatus = null;
 
@@ -535,32 +627,120 @@
                 return ;
             }
 
-            var table_no = tableStatusObj.table_no;
-            var conditions = "table_statuses.table_no='" + table_no + "'";
-            var tableStatusObjTmp = this.find('first', {
-                conditions: conditions
-            });
-
-            // tableStatus record exist
-            if (tableStatusObjTmp) {
-                
-                    // update tableStatus record
-                    this.id = tableStatusObjTmp.id;
-                    // var retObj = this.saveStatus(tableStatusObj);
-                    var tableOrderObj = this.save(tableStatusObj);
-
-                    // save TableOrder...
-                    var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.order_id='" + tableStatusObj.order_id + "'"});
-
-                    if (tableOrderObj) {
-                        this.TableOrder.id = tableOrderObj.id;
-                    } else {
-                        this.TableOrder.id = ''; // append table order
-                    }
-                    var statusOrderObj = this.TableOrder.save(tableStatusObj);
-                
+            if (tableStatusObj.table_status_id) {
+                this.id = tableStatusObj.table_status_id;
+                var tableOrderObj = this.save(tableStatusObj);
             }
 
+            var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.id='" + tableStatusObj.order_id + "'"});
+//GREUtils.log("table_orders.order_id='" + tableStatusObj.order_id + "'");
+//GREUtils.log(GeckoJS.BaseObject.dump(tableOrderObj));
+            if (tableOrderObj) {
+                this.TableOrder.id = tableOrderObj.id;
+            } else {
+                this.TableOrder.id = ''; // append table order
+            }
+
+            // this.TableOrder.id = "";
+            tableStatusObj.id = tableStatusObj.order_id;
+            this.TableOrder.save(tableStatusObj);
+
+            return;
+
+        },
+
+        _setTableStatus: function(tableStatusObj) {
+
+            if (tableStatusObj.table_status_id) {
+                this.id = tableStatusObj.table_status_id;
+                var tableOrderObj = this.save(tableStatusObj);
+            }
+
+            var tableOrderObj = this.TableOrder.find("first", {conditions: "table_orders.id='" + tableStatusObj.order_id + "'"});
+//GREUtils.log("table_orders.order_id='" + tableStatusObj.order_id + "'");
+//GREUtils.log(GeckoJS.BaseObject.dump(tableOrderObj));
+            if (tableOrderObj) {
+                this.TableOrder.id = tableOrderObj.id;
+            } else {
+                this.TableOrder.id = ''; // append table order
+            }
+
+            // this.TableOrder.id = "";
+            tableStatusObj.id = tableStatusObj.order_id;
+            this.TableOrder.save(tableStatusObj);
+
+            return;
+
+        },
+
+        getTableOrders: function(lastModified) {
+
+            var self = this;
+
+            lastModified = 0;
+
+            var remoteUrl = this.getRemoteService('getTableOrders');
+            var tableOrder = null;
+
+            if (remoteUrl) {
+                try {
+                    tableOrder = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
+
+                    //@todo do not need, just for ArrayQuery.filter
+                    tableOrder.forEach(function(o){
+
+                        var item = GREUtils.extend({}, o.TableOrder);
+                        for (var key in item) {
+                            o[key] = item[key];
+                        }
+                    });
+
+                    this._connected = true;
+                }catch(e) {
+                    tableOrder = [];
+                    this._connected = false;
+
+                }
+
+            }else {
+                // read all order status
+                this._connected = true;
+                var fields = null;
+                var conditions = "table_orders.modified > '" + lastModified + "'";
+                var orderby = 'table_orders.modified';
+
+                tableOrder = this.TableOrder.find('all', {fields: fields, conditions: conditions, recursive: 0, order: orderby});
+
+            }
+
+            // var tableOrders = [];
+
+            tableOrder = new GeckoJS.ArrayQuery(tableOrder).filter("status = 2");
+
+            // if table status changed, sync database...
+            self._tableOrderByOrderId = {};
+            if (tableOrder.length > 0) {
+                this.syncClient();
+                
+                tableOrder.forEach(function(orderObj){
+                    self._tableOrderByOrderId[orderObj.TableOrder.id] =
+                                    {
+                                        status_id: orderObj.TableOrder.table_status_id,
+                                        table_id: orderObj.TableOrder.table_id,
+                                        checksum: orderObj.TableOrder.checksum,
+                                        modified: orderObj.TableOrder.modified,
+                                        terminal_no: orderObj.TableOrder.terminal_no
+                                    }
+                });
+                
+                self._tableOrderLastTime = tableOrder[tableOrder.length - 1].TableOrder.modified;
+            }
+//GREUtils.log("tableOrder:::" + lastModified);
+//GREUtils.log(GeckoJS.BaseObject.dump(tableOrder));
+
+            this._tableOrders = tableOrder;
+
+            return tableOrder;
         }
 
     };

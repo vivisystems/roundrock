@@ -1,6 +1,7 @@
 (function(){
 
     var inputObj = window.arguments[0];
+    var tableOrderStatusStr = {0: "***", 1:"Checksum Error", 2:"Lost Status"};
 
     var CheckListView = window.CheckListView = GeckoJS.NSITreeViewArray.extend({
 
@@ -32,6 +33,9 @@
             var clerk = this.data[row].clerk || '';
             var now = Math.round(new Date().getTime());
             var holdby = this.data[row].holdby || '';
+
+            var table_order_status = this.data[row].table_order_status || '';
+            var table_order_status_str = tableOrderStatusStr[table_order_status];
 
             // var transaction_created = this.data[row].transaction_created * 1000 || now;
             var transaction_created = this.data[row].created * 1000 || now;
@@ -88,6 +92,9 @@
             // share seq_no for seq & clerk
             btn.seq_no = tableSettings.DisplayClerk ? clerk : btn.seq_no;
 
+            // if (holdby) btn.seq_no = _('Status') + ':' + holdby;
+            if (table_order_status) btn.seq_no = _('Status') + ':' + table_order_status_str;
+
             return;
         }
 
@@ -112,6 +119,7 @@
                 sequence: checkObj.sequence,
                 guests: checkObj.no_of_customers,
                 holdby: '',
+                table_order_status: checkObj.table_order_status,
                 clerk: checkObj.service_clerk,
                 booking: 0,
                 lock: false,

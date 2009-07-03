@@ -141,6 +141,18 @@
         _cartController: null,
         _mainController: null,
         _selectedCheckNo: null,
+        _selectedOrderId: null,
+        _isBusy: false,
+
+        _orderPanel: null,
+        _orderDoc: null,
+
+        _tplPath: null,
+        _tplFile: null,
+        _tpl: null,
+
+        _popupX: 40,
+        _popupY: 30,
 
         initial: function () {
             //
@@ -239,8 +251,13 @@
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
 
-            var promptPanel = document.getElementById(panel);
-            var doc = document.getElementById('order_display_div');
+            if (this._orderPanel == null) {
+                this._orderPanel = document.getElementById(panel);
+                this._orderDoc = document.getElementById('order_display_div');
+            }
+
+            var promptPanel = this._orderPanel;
+            var doc = this._orderDoc;
 
             var id = tableObj.order_id || '';
 
@@ -250,9 +267,12 @@
             var order = tableObj.order[0];
 
             // load template
-            var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_display_template.tpl');
-            var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+            if (this._tpl == null) {
+                var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_display_template.tpl');
+                var file = GREUtils.File.getFile(path);
+                this._tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+            }
+            var tpl = this._tpl;
 
             var data = {orders:[]};
             /*
@@ -283,16 +303,32 @@
             }
 
             // first popup...
-            
+            // promptPanel.showPopup();
+            /*
+            promptPanel.autoPosition = false;
             if (promptPanel.boxObject.width == 0) {
                 
-                promptPanel.openPopupAtScreen(0, 0, false);
+                promptPanel.openPopupAtScreen(-1000, 0, true);
+                // promptPanel.openPopup( "" , position , x , y , isContextMenu, attributesOverride );
+                // promptPanel.openPopup(window, "end_before", 2000, 200, false, false);
+                // promptPanel.showPopup();
+
                 this.sleep(100);
                 promptPanel.hidePopup();
             }
-            
-            var x = (width - promptPanel.boxObject.width) / 2;
-            var y = (height - promptPanel.boxObject.height) / 2;
+            */
+            if (promptPanel.boxObject.width == 0) {
+                var x = this._popupX;
+                var y = this._popupY;
+                promptPanel.openPopupAtScreen(x, y, false);
+                this.sleep(100);
+            } else {
+                var x = (width - promptPanel.boxObject.width) / 2;
+                var y = (height - promptPanel.boxObject.height) / 2;
+
+                this._popupX = x;
+                this._popupY = y;
+            }
 
             promptPanel.openPopupAtScreen(x, y, false);
 
@@ -305,13 +341,16 @@
             tableObj.order.forEach(function(o){
                 var tab = document.createElement("tab");
                 tab.setAttribute('label', 'C#' + o.check_no);
-                tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
+                // tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
+                tab.setAttribute('oncommand', "$do('selectOrderTab', '" + o.id + "', 'SelectTable')");
                 tabs.appendChild(tab);
             })
 
             // select first order
             tabs.selectedIndex = 0;
-            tabs.selectedItem.doCommand();
+            if (tabs.selectedItem) {
+                tabs.selectedItem.doCommand();
+            }
 
             return promptPanel;
         },
@@ -330,11 +369,13 @@
             //
             // this.log("hideOrderPanel:::");
             this._selectedCheckNo = null;
+            this._selectedOrderId = null;
         },
 
         selectOrderTab: function(evt) {
             //
             this._selectedCheckNo = evt;
+            this._selectedOrderId = evt;
         },
 
         doCloseOrderPanel: function() {
@@ -348,10 +389,12 @@
         },
 
         doRecallCheck: function() {
-            if (this._selectedCheckNo) {
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
                 
                 this._inputObj.action = 'RecallCheck';
                 this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
 
                 this.doCloseOrderPanel();
                 this.doFunc();
@@ -365,10 +408,12 @@
         },
 
         doSplitCheck: function() {
-            if (this._selectedCheckNo) {
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
                 
                 this._inputObj.action = 'SplitCheck';
                 this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
 
                 this.doCloseOrderPanel();
                 this.doFunc();
@@ -383,10 +428,12 @@
         },
 
         doMergeCheck: function() {
-            if (this._selectedCheckNo) {
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
                 
                 this._inputObj.action = 'MergeCheck';
                 this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
 
                 this.doCloseOrderPanel();
                 this.doFunc();
@@ -436,9 +483,36 @@
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'table_book', aFeatures, inputObj);
 
             return;
+
         },
 
         doChangeClerk: function() {
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            var service_clerk;
+            if ( user != null ) {
+                service_clerk = user.username;
+            }
+
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
+
+                this._inputObj.action = 'ChangeClerk';
+                this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
+
+                this.doCloseOrderPanel();
+                this.doFunc();
+
+            } else {
+                this._setPromptLabel('*** ' + _('Change Clerk') + ' ***', _('Select a table to change service clerk to [ %S ]...', [service_clerk]), '', _('Press CANCEL button to cancel function'), 2);
+
+                var pnl = this._showPromptPanel('prompt_panel');
+                this._inputObj.action = 'ChangeClerk';
+            }
+
+            return;
+            
+
             var user = new GeckoJS.AclComponent().getUserPrincipal();
             var service_clerk;
             if ( user != null ) {
@@ -452,12 +526,19 @@
         },
 
         doTransTable: function() {
-            if (this._selectedCheckNo) {
+            // if (this._selectedCheckNo) {
+            if (this._selectedOrderId) {
 
                 this._inputObj.action = 'TransTable';
                 this._inputObj.check_no = this._selectedCheckNo;
+                this._inputObj.order_id = this._selectedOrderId;
 
                 this.doCloseOrderPanel();
+
+                this._setPromptLabel('*** ' + _('Trans Table') + ' ***', _('Please select the table to be transfered...'), '', _('Press CANCEL button to cancel function'), 2);
+
+                var pnl = this._showPromptPanel('prompt_panel');
+                
                 this.doFunc();
 
             } else {
@@ -483,7 +564,7 @@
 
             try {
 
-//                window._tableStatusModel.getTableStatusList();
+                window._tableStatusModel.getTableStatusList();
 
                 document.getElementById('tableScrollablepanel').invalidate();
                 // GREUtils.log("refreshTableStatusLight:::");
@@ -495,6 +576,7 @@
 
         doRefreshTableStatus: function() {
 
+            this._tableStatusModel._tableStatusLastTime = 0;
             this._tableStatusModel.getTableStatusList();
 
             document.getElementById('tableScrollablepanel').invalidate();
@@ -537,9 +619,21 @@
         },
 
         doFunc: function(evt) {
+
+            // @todo prevent reentry...
+            if (this._isBusy) {
+                this._hidePromptPanel('prompt_panel');
+                return;
+            }
+            this._isBusy = true;
+
             // @todo check status first, doFunc when match table selected...
             var v = document.getElementById('tableScrollablepanel').value;
             var selTable = this._tables[v];
+
+            var r = false;
+
+            var selectedOrderId = this._inputObj.order_id;
             
             switch (this._inputObj.action) {
                 case 'SelectTableNo':
@@ -547,11 +641,11 @@
                     if (selTable.hostby) {
                         // @todo OSD
                         NotifyUtils.error(_('This table is host by Table#%S !!', [selTable.hostby]));
+                        this._isBusy = false;
                         return;
                     }
 
                     this._hidePromptPanel('prompt_panel');
-                    // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
                         // this._inputObj.index = this._tables[v].table_no;
@@ -567,6 +661,8 @@
                         this._sourceTableNo = null;
                         
                         $.hidePanel('selectTablePanel', true);
+
+                        this._isBusy = false;
                         return;
                     }
                     break;
@@ -574,6 +670,7 @@
                     if (!selTable.sequence) {
                         // @todo OSD
                         NotifyUtils.error(_('This table is empty!!'));
+                        this._isBusy = false;
                         return;
                     }
 
@@ -582,19 +679,10 @@
                     if (!selTable.sequence) {
                         // @todo OSD
                         NotifyUtils.error(_('This table is empty!!'));
+                        this._isBusy = false;
                         return;
                     }
-
-                    break;
-                case 'MergeCheck':
-                    if (!selTable.sequence) {
-                        // @todo OSD
-                        NotifyUtils.error(_('This table is empty!!'));
-                        return;
-                    }
-
-                    break;
-                case 'ChangeClerk':
+                    
                     this._inputObj.sourceTableNo = this._sourceTableNo;
 
                     this._hidePromptPanel('prompt_panel');
@@ -607,19 +695,111 @@
                         this._inputObj.ok = true;
                         // doOKButton();
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                        cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                        // if (this._selectedCheckNo) {
+                        if (selectedOrderId) {
+                            r = cart.GuestCheck.doSplitCheckByCheck(selectedOrderId);
+                        } else {
+                            r = cart.GuestCheck.doSplitCheck(this._sourceTableNo);
+                        }
+
+                        if (r) {
+
+                            $.hidePanel('selectTablePanel', true)
+                        }
+
+                        this._inputObj.action = '';
+                        this._sourceTableNo = null;
+
+                        // $.hidePanel('selectTablePanel', true);
+                        // cart.GuestCheck.getNewTableNo();
+                        this._isBusy = false;
+                        return;
+                    }
+                    
+                   
+                    break;
+                case 'MergeCheck':
+                    if (!selTable.sequence) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is empty!!'));
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    this._inputObj.sourceTableNo = this._sourceTableNo;
+
+                    this._hidePromptPanel('prompt_panel');
+                    // alert('doFunc...' + inputObj.action);
+
+                    if (this._inputObj.action) {
+                        // this._inputObj.index = this._tables[v].table_no;
+                        this._inputObj.index = v;
+                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.ok = true;
+                        // doOKButton();
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                        // if (this._selectedCheckNo) {
+                        if (selectedOrderId) {
+                            r = cart.GuestCheck.doMergeCheckByCheck(selectedOrderId);
+                        } else {
+                            r = cart.GuestCheck.doMergeCheck(this._sourceTableNo);
+                        }
+
+                        if (r) {
+
+                            $.hidePanel('selectTablePanel', true)
+                        }
+
+                        this._inputObj.action = '';
+                        this._sourceTableNo = null;
+
+                        // $.hidePanel('selectTablePanel', true);
+                        // cart.GuestCheck.getNewTableNo();
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    break;
+                case 'ChangeClerk':
+                    
+                    this._inputObj.sourceTableNo = this._sourceTableNo;
+
+                    this._hidePromptPanel('prompt_panel');
+                    // alert('doFunc...' + inputObj.action);
+
+                    if (this._inputObj.action) {
+                        // this._inputObj.index = this._tables[v].table_no;
+                        this._inputObj.index = v;
+                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.ok = true;
+                        // doOKButton();
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                        // if (this._selectedCheckNo) {
+                        if (selectedOrderId) {
+                            cart.GuestCheck.doChangeClerkByCheck(selectedOrderId);
+                        } else {
+                            cart.GuestCheck.doChangeClerk(this._sourceTableNo);
+                        }
 
                         this._inputObj.action = '';
                         this._sourceTableNo = null;
 
                         // $.hidePanel('selectTablePanel', true);
                         cart.GuestCheck.getNewTableNo();
+                        this._isBusy = false;
                         return;
                     }
                     break;
                 case 'TransTable':
                     if (this._sourceTableNo) {
                         //
+                        var srcTableNo = this._sourceTableNo;
                         this._inputObj.sourceTableNo = this._sourceTableNo;
 
                         this._hidePromptPanel('prompt_panel');
@@ -629,16 +809,27 @@
                             // this._inputObj.index = this._tables[v].table_no;
                             this._inputObj.index = v;
                             this._inputObj.tableObj = this._tables[v];
+                            // this._inputObj.tableObj = GREUtils.extend({}, this._tables[v]);
                             this._inputObj.ok = true;
                             // doOKButton();
                             var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                            cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                            // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+
+                            var dstTableNo = this._tables[v].table_no;
+                            // cart.GuestCheck.doTransferCheck(srcTableNo, dstTableNo);
+                            if (selectedOrderId) {
+                                cart.GuestCheck.doTransferByCheck(srcTableNo, dstTableNo, selectedOrderId);
+                            } else {
+                                cart.GuestCheck.doTransferCheck(srcTableNo, dstTableNo);
+                            }
+
 
                             this._inputObj.action = '';
                             this._sourceTableNo = null;
 
                             // $.hidePanel('selectTablePanel', true);
                             cart.GuestCheck.getNewTableNo();
+                            this._isBusy = false;
                             return;
                         }
 
@@ -646,11 +837,13 @@
                         if (!selTable.sequence) {
                             // @todo OSD
                             NotifyUtils.error(_('This table is empty!!'));
+                            this._isBusy = false;
                             return;
                         }
                         this._setPromptLabel(null, null, _('Please select the table to transfer to...'), null, 3);
                         this._sourceTableNo = this._tables[v].table_no;
                         document.getElementById('tableScrollablepanel').invalidate();
+                        this._isBusy = false;
                         return;
                     }
                     
@@ -670,6 +863,7 @@
                         this._sourceTable = null;
                         this._sourceTableNo = null;
                         this._hidePromptPanel('prompt_panel');
+                        this._isBusy = false;
                         return;
                     } else {
                         // allow empty table as host table
@@ -685,6 +879,7 @@
                         this._sourceTableNo = this._tables[v].table_no;
 
                         document.getElementById('tableScrollablepanel').invalidate();
+                        this._isBusy = false;
                         return;
                     }
                     break;
@@ -694,6 +889,7 @@
                     if (!selTable.hostby) {
                         // @todo OSD
                         NotifyUtils.error(_('This table had not been hold!!'));
+                        this._isBusy = false;
                         return;
                     }
 
@@ -710,6 +906,7 @@
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
                     this._hidePromptPanel('prompt_panel');
+                    this._isBusy = false;
                     return;
                     break;
 
@@ -740,7 +937,7 @@
                     
                     var cart = GeckoJS.Controller.getInstanceByName('Cart');
                     cart.GuestCheck.getNewTableNo();
-
+                    this._isBusy = false;
                     return;
                     break;
                 default:
@@ -771,7 +968,7 @@
                 this._sourceTableNo = null;
                 
             }
-                
+            this._isBusy = false;
         },
 
         _enableFuncs: function(isNewOrder) {
@@ -829,17 +1026,21 @@
                 },
 
                 shown: function(evt) {
-
+                    window._tableStatusModel.getTableStatusList();
                     document.getElementById('tableScrollablepanel').invalidate();
                     
                     clearInterval(window.tableStatusRefreshInterval);
-                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 15000);
+                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 5000);
+
+                    document.getElementById('table_status_timer').startClock();
 
                 },
 
                 hide: function (evt) {
 
                     clearInterval(window.tableStatusRefreshInterval);
+
+                    document.getElementById('table_status_timer').stopClock();
 
                 }
 

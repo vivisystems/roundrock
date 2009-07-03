@@ -197,21 +197,11 @@
 
             // @todo set source check's status to -3 ==> transfered check'
             this._sourceCheck.status = -3;
-            order.removeOldOrderObject(this._sourceCheck.id);
-            order.removeOldOrder(this._sourceCheck.id);
-            order.saveOrderMaster(this._sourceCheck);
-
-            // remove source check table status
-            this._sourceCheck.seq = "";
-            this._getTableStatusModel().removeCheck(this._sourceCheck);
-
+            order.saveOrder(this._sourceCheck);
+            this._getTableStatusModel().addCheck(this._sourceCheck);
 
             // save merged check...
             order.saveOrder(this._mergedCheck);
-            order.serializeOrder(this._mergedCheck);
-
-            // dispatch mergecheck event
-            // this.getCartController().dispatchEvent('onStore', this._mergedCheck);
             this.getCartController().dispatchEvent('onMergeCheck', this._mergedCheck);
 
             // update table status

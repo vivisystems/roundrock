@@ -202,9 +202,11 @@
                 if (this.data.status == 1 && this.data.no_of_customers == '') {
                     this.data.no_of_customers = '1';
                 }
+
                 return order.saveOrder(this.data);
 
             }
+
         },
 
         cancel: function() {
