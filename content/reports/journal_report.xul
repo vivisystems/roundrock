@@ -35,7 +35,9 @@
 		            <hbox flex="1">
 		            <grid class="DataForm" flex="1">
 		                <columns>
-		                    <column  flex="1"/><column flex="1" />
+		                    <column flex="1"/>
+		                    <column flex="1"/>
+		                    <column flex="1"/>
 		                </columns>
 		                <rows>
 		                    <row>
