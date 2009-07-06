@@ -21,7 +21,8 @@
             var el = reports[key];
             var label = el.label;
             if (label.indexOf('chrome://') == 0) {
-                label = GeckoJS.StringBundle.getPrefLocalizedString('vivipos.fec.reportpanels.' + key + '.label');
+                var keystr = 'vivipos.fec.reportpanels.' + key + '.label';
+                label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }
             else {
                 label = _(label);

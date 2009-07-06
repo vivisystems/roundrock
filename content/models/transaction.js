@@ -284,6 +284,7 @@
                 cate_name: item.cate_name,
 
                 index: index,
+                sale_unit: item.sale_unit,
                 stock_status: item.stock_status,
                 age_verification: item.age_verification,
                 parent_index: parent_index,
@@ -344,6 +345,7 @@
                     current_tax: item.tax_name,
                     type: type,
                     index: index,
+                    sale_unit: item.sale_unit || 'unit',
                     stock_status: item.stock_status,
                     age_verification: item.age_verification,
                     level: (level == null) ? 0 : level,
@@ -536,7 +538,12 @@
                     itemDisplay.current_qty = this.formatTax(itemDisplay.current_qty);
                 }
                 else if (type == 'item' || type == 'setitem') {
-                    itemDisplay.current_qty += 'X';
+                    if (item.sale_unit == 'unit') {
+                        itemDisplay.current_qty += 'X';
+                    }
+                    else {
+                        itemDisplay.current_qty += item.sale_unit;
+                    }
                 }
             }
             return itemDisplay;
@@ -2293,7 +2300,7 @@
                     item_discount_subtotal += parseFloat(item.current_discount);
                     item_subtotal += parseFloat(item.current_subtotal);
 
-                    qty_subtotal += item.current_qty;
+                    qty_subtotal += (item.sale_unit == 'unit') ? item.current_qty : 1;
                 }
 
                 // summary it
@@ -2308,7 +2315,7 @@
                 }));
 
                 // include set items in quantity summation
-                sumItem.qty_subtotal += item.current_qty;
+                sumItem.qty_subtotal += (item.sale_unit == 'unit') ? item.current_qty : 1;
 
                 if (!item.parent_index) {
                     sumItem.subtotal += parseFloat(item.current_subtotal);

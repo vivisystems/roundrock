@@ -100,7 +100,7 @@
 
         readScale: function(port, iterations, stables, tries) {
 
-            GREUtils.log('DEBUG', 'args: ' + port + ', ' + iterations + ', ' + stables + ', ' + tries);
+            this.log('DEBUG', 'args: ' + port + ', ' + iterations + ', ' + stables + ', ' + tries);
             var weight;
             var lastWeight;
             var stableCount = 0;
@@ -108,8 +108,9 @@
 
             // return weight only if the same weight has been read 3 times in a row
             weight = this.readScaleOnce(port, iterations);
-            if (weight) {
-                if (!lastWeight) {
+            this.log('weight from readOnce: ' + weight);
+            while (weight != null) {
+                if (lastWeight == null) {
                     lastWeight = weight;
                 }
                 else {
@@ -129,13 +130,12 @@
                         }
                     }
                 }
+                weight = this.readScaleOnce(port, iterations);
+                this.log('weight from readOnce: ' + weight);
             }
-            else {
-                // fail to read from scale, return immediately
+            // fail to read from scale, return immediately
 
-                return;
-            }
-
+            return;
         },
 
         readScaleOnce: function(port, iterations) {

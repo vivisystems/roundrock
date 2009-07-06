@@ -368,11 +368,6 @@ pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");
 pref("vivipos.fec.registry.function.programmable.tagitem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.tagitem.data", "");
 
-pref("vivipos.fec.registry.function.programmable.tare.access", "acl_set_tare");
-pref("vivipos.fec.registry.function.programmable.tare.command", "setTare");
-pref("vivipos.fec.registry.function.programmable.tare.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.tare.data", "");
-
 pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.access", "");
 pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.command", "toggleFunctionPanel");
 pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.controller", "Layout");

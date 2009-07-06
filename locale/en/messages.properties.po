@@ -1491,20 +1491,6 @@ msgstr "Scale"
 msgid "scale.name"
 msgstr "Scale"
 
-# ########
-# Tare
-# ########
-msgid "tare.desc"
-msgstr ""
-"This function allows operator to set scale tare. The parameter field, if set "
-"(1 or 2), indicates for which scale to set tare."
-
-msgid "tare.label"
-msgstr "Tare"
-
-msgid "tare.name"
-msgstr "Tare"
-
 # #######################################################################
 #
 # List of ACLs

@@ -116,12 +116,9 @@
             }
 
             if (waitPanel) waitPanel.hidePopup();
-
             if (weight != null) {
-                if (weight.value == null) {
-                    return weight;
-                }
-                else {
+                alert('readings from scale: ' + this.dump(weight));
+                if (weight.value != null) {
                     var deviceTare = parseFloat(selectedDevice.tare);
                     if (isNaN(deviceTare)) deviceTare = 0;
 
@@ -131,8 +128,9 @@
                     var multiplier = parseFloat(selectedDevice.multiplier);
                     if (isNaN(multiplier) || multiplier == 0) multiplier = 1;
 
-                    return (weight - deviceTare - productTare) * multiplier;
+                    weight.value = (weight.value - deviceTare - productTare) * multiplier;
                 }
+                return weight;
             }
             else {
                 return;
