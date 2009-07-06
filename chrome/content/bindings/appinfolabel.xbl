@@ -82,6 +82,15 @@
                             value = appInfo.version;
                             break;
 
+                        case 'issue':
+                            var issueFile = new GeckoJS.File('/etc/issue.net');
+                            if(issueFile.exists()) {
+                                issueFile.open("r");
+                                value = issueFile.read();
+                                issueFile.close();
+                            }
+                            break;
+
                     }
 
                     label.value = value;
