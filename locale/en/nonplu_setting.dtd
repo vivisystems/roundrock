@@ -1,7 +1,7 @@
 <!ENTITY nonplusetting.title "Non PLU Setting">
 <!ENTITY nonplusetting.properties "Properties of Identifier">
 <!ENTITY nonplusetting.identifier "Identifier">
-<!ENTITY nonplusetting.activeidentifier "Active this Identifier">
+<!ENTITY nonplusetting.activeidentifier "Activate this Identifier">
 <!ENTITY nonplusetting.lengthoffield1 "Length of Field 1">
 <!ENTITY nonplusetting.lengthoffield2 "Length of Field 2">
 <!ENTITY nonplusetting.contentoffield2 "Content of Field 2">

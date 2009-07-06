@@ -1248,6 +1248,16 @@
 //                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('receipt') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
                         newTemplate.name = tmpl;
+
+                        var label = newTemplate.label;
+                        if (label.indexOf('chrome://') == 0) {
+                            var key = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                            label = GeckoJS.StringBundle.getPrefLocalizedString(key) || key;
+                        }
+                        else {
+                            label = _(label);
+                        }
+                        newTemplate.label = label;
                         sortedTemplates.push(newTemplate);
 //                    }
                 }

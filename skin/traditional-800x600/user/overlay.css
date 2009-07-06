@@ -57,7 +57,7 @@
 .mainWaitPanel {
     width: 600px;
     height: 140px;
-    background: white url(images/optionsbg.gif) center center no-repeat;
+    background: white none center center no-repeat;
     margin: 230px 100px 230px 100px;
 }
 

@@ -486,6 +486,13 @@
             installRDF.write(rdf);
             installRDF.close();
 
+            // create localization.js
+            prefs = new GeckoJS.File(prefsPath + '/localization.js', true);
+            prefs.open('w');
+            /* localization */
+            prefs.write('pref("vivipos.fec.registry.localization.package.' + package_id + '.base", "en");');
+            prefs.write('pref("vivipos.fec.registry.localization.package.' + package_id + '.ext", "dtd,properties");');
+
             // create XPI and move to media
             var xpiFile = 'package_' + data.location + '_' + data.sector + '_' + package_version + '.xpi'
             var convertedXPIFile = GREUtils.Charset.convertFromUnicode(xpiFile.replace(' ', '_'), 'UTF-8');

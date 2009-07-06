@@ -73,6 +73,11 @@ pref("vivipos.fec.registry.function.programmable.currencyConvert.command", "curr
 pref("vivipos.fec.registry.function.programmable.currencyConvert.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.currencyConvert.data", "");
 
+pref("vivipos.fec.registry.function.programmable.deptbyno.access", "acl_register_plus");
+pref("vivipos.fec.registry.function.programmable.deptbyno.command", "addDeptByNumber");
+pref("vivipos.fec.registry.function.programmable.deptbyno.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.deptbyno.data", "");
+
 pref("vivipos.fec.registry.function.programmable.discountByAmount.access", "acl_register_reduction");
 pref("vivipos.fec.registry.function.programmable.discountByAmount.command", "addDiscountByNumber");
 pref("vivipos.fec.registry.function.programmable.discountByAmount.controller", "Cart");
@@ -365,7 +370,7 @@ pref("vivipos.fec.registry.function.programmable.tagitem.data", "");
 
 pref("vivipos.fec.registry.function.programmable.tare.access", "acl_set_tare");
 pref("vivipos.fec.registry.function.programmable.tare.command", "setTare");
-pref("vivipos.fec.registry.function.programmable.tare.controller", "Scale");
+pref("vivipos.fec.registry.function.programmable.tare.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.tare.data", "");
 
 pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.access", "");

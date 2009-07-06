@@ -55,7 +55,7 @@
 <!ENTITY devices.cashdrawer.action.never.label "Never">
 <!ENTITY devices.scale1.label "Scale 1">
 <!ENTITY devices.scale2.label "Scale 2">
-<!ENTITY devices.scale.tare.label "Tare">
+<!ENTITY devices.scale.tare.label "Tare (in scale's unit)">
 <!ENTITY devices.scale.multiplier.label "Multiplier">
 <!ENTITY devices.journal.printer.label "Journal Printer Template">
 <!ENTITY devices.journal.preview.label "Journal Preview Template">

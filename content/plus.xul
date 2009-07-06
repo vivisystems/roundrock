@@ -205,6 +205,9 @@
                                             <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
                                             <checkbox id="manual_adjustment_only" value="false" label="&plus.manual.adjustment.only;" form="productForm" name="manual_adjustment_only" default="0"/>
                                         </row>
+                                        <row>
+                                            <checkbox id="scale" checked="false" label="&plus.scale.item;" form="productForm" name="scale" default="0"/>
+                                        </row>
                                     </rows>
                                 </grid>
                             </vbox>
@@ -231,19 +234,7 @@
                                         <row>
                                             <vbox>
                                                 <label value="&plus.purchase.price;" control="buy_price"/>
-                                                <textbox id="buy_price" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="buy_price" onfocus="this.select()"/>
-                                            </vbox>
-                                            <vbox>
-                                                <label value="&plus.stock.level;" control="stock"/>
-                                                <textbox id="stock" type="number" decimalplaces="Infinity" readonly="true" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()" />
-                                                <!--vivitextbox id="stock" type="number" max="infinity" min="infinity" value="" form="productForm" name="stock" onfocus="this.select()"
-                                                  numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/-->
-                                            </vbox>
-                                        </row>
-                                        <row>
-                                            <vbox>
-                                                <label value="&plus.stock.threshold;" control="min_stock"/>
-                                                <textbox id="min_stock" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="min_stock" default="0" onfocus="this.select()"/>
+                                                <textbox id="buy_price" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="buy_price" onfocus="this.select()"/>
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.memo;" control="product_memo"/>
@@ -252,12 +243,24 @@
                                         </row>
                                         <row>
                                             <vbox>
-                                                <label value="&plus.minimum.sale.quantity;" control="min_sale_qty"/>
-                                                <textbox id="min_sale_qty" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="min_sale_qty" default="0" onfocus="this.select()"/>
+                                                <label value="&plus.stock.level;" control="stock"/>
+                                                <textbox id="stock" type="number" decimalplaces="Infinity" readonly="true" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()" />
+                                                <!--vivitextbox id="stock" type="number" max="infinity" min="infinity" value="" form="productForm" name="stock" onfocus="this.select()"
+                                                  numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/-->
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.stock.threshold;" control="min_stock"/>
+                                                <textbox id="min_stock" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="min_stock" default="0" onfocus="this.select()"/>
+                                            </vbox>
+                                        </row>
+                                        <row>
+                                            <vbox>
+                                                <label value="&plus.scale.tare;" control="tare"/>
+                                                <textbox id="tare" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="tare" default="0" onfocus="this.select()"/>
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.sale.unit;"/>
-                                                <menulist id="sale_unit" form="productForm" name="sale_unit" value="0" default="&plus.sale.unit.individual;">
+                                                <menulist id="sale_unit" form="productForm" name="sale_unit" value="unit" default="unit">
                                                     <menupopup style="width: 200px;">
                                                         <menuitem label="&plus.sale.unit.individual;" value="unit"/>
                                                         <menuitem label="&plus.sale.unit.gram;" value="g"/>
@@ -275,11 +278,12 @@
                                         </row>
                                         <row>
                                             <vbox>
-                                                <label value="&plus.location;" control="product_location"/>
-                                                <textbox id="product_location" form="productForm" name="location" default="" onfocus="this.select()"/>
+                                                <label value="&plus.minimum.sale.quantity;" control="min_sale_qty"/>
+                                                <textbox id="min_sale_qty" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="min_sale_qty" default="0" onfocus="this.select()"/>
                                             </vbox>
                                             <vbox>
-                                                
+                                                <label value="&plus.location;" control="product_location"/>
+                                                <textbox id="product_location" form="productForm" name="location" default="" onfocus="this.select()"/>
                                             </vbox>
                                         </row>
                                     </rows>
@@ -316,13 +320,15 @@
                                                 </vbox>
                                                 <vbox>
                                                     <label value="&plus.setitem.base.price;" control="setitem_baseprice"/>
-                                                    <textbox id="setitem_baseprice" size="3" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" class="geneditbox right"
+                                                    <textbox id="setitem_baseprice" size="3" type="number" value="0" hidespinbuttons="true"
+                                                             decimalplaces="Infinity" min="-Infinity" class="geneditbox right"
                                                              form="setitemForm" name="baseprice" default="0"
                                                              onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
                                                 </vbox>
                                                 <vbox>
                                                     <label value="&plus.setitem.quantity;" control="setitem_quantity"/>
-                                                    <textbox id="setitem_quantity" size="3" type="number" value="1" decimalplaces="0" min="1" hidespinbuttons="true" class="geneditbox right"
+                                                    <textbox id="setitem_quantity" size="3" type="number" value="1" hidespinbuttons="true"
+                                                             decimalplaces="0" min="1" class="geneditbox right"
                                                              form="setitemForm" name="quantity" default="1"
                                                              onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
                                                 </vbox>
@@ -393,10 +399,10 @@
                                     </hbox>
                                     <hbox>
                                         <label value="&plus.display_order;" class="SubTitle"/>
-                                        <textbox id="display_order" type="number" value="" size="4" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                        <textbox id="display_order" type="number" hidespinbuttons="true" value="" size="4" decimalplaces="Infinity" min="-Infinity" max="Infinity"
                                                  class="geneditbox right" form="productForm" name="display_order" default="99999"/>
                                         <label value="&plus.append_empty_btns;" class="SubTitle"/>
-                                        <textbox id="append_empty_btns" type="number" value="0" default="0" decimalplaces="0" min="0" hidespinbuttons="true" form="productForm" name="append_empty_btns" size="4" class="geneditbox right"/>
+                                        <textbox id="append_empty_btns" type="number" hidespinbuttons="true" value="0" default="0" decimalplaces="0" min="0" form="productForm" name="append_empty_btns" size="4" class="geneditbox right"/>
                                     </hbox>
                                     
 

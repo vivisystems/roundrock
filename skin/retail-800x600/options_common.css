@@ -58,7 +58,7 @@
 .DataForm row{
 	border-bottom: 2px solid white;
 	font-size: 10pt;
-	padding: 5px;
+	padding: 4px;
 }
 .DataForm {
 	border-right: 2px solid white;
@@ -67,7 +67,7 @@
 }
 .DataForm column{
 	border-right: 2px solid white;
-	padding: 8px;
+	padding: 6px;
 }
 .DataForm label {
   font-size: 10pt;

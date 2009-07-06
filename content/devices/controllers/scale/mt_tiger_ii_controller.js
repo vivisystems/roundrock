@@ -92,12 +92,59 @@
             return ports[port].path;
         },
 
-        readScale: function(port, iterations) {
+        // return:
+        //
+        // null:            if failed to read from scale
+        // {value: null}:  if failed to obtain a stable reading
+        // {value: weight}: if stable reading is successfully obtained
+
+        readScale: function(port, iterations, stables, tries) {
+
+            GREUtils.log('DEBUG', 'args: ' + port + ', ' + iterations + ', ' + stables + ', ' + tries);
+            var weight;
+            var lastWeight;
+            var stableCount = 0;
+            var tryCount = 0;
+
+            // return weight only if the same weight has been read 3 times in a row
+            weight = this.readScaleOnce(port, iterations);
+            if (weight) {
+                if (!lastWeight) {
+                    lastWeight = weight;
+                }
+                else {
+                    if (weight == lastWeight) {
+                        if (++stableCount == stables) {
+                            return {value: weight};
+                        }
+                    }
+                    else {
+                        // weight has changed
+                        lastWeight = weight;
+                        if (++tryCount == tries) {
+                            return {value: null};
+                        }
+                        else {
+                            stableCount = 0;
+                        }
+                    }
+                }
+            }
+            else {
+                // fail to read from scale, return immediately
+
+                return;
+            }
+
+        },
+
+        readScaleOnce: function(port, iterations) {
 
             var weight;
             var weightStr = '';
             var count = 0;
             var buf = {};
+
 this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
             while (weightStr.length < 29 && count < iterations) {
                 var len = this.readSerialPort(port, buf, 29);

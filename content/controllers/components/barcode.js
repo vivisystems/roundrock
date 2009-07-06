@@ -169,7 +169,6 @@
             var identifier = param.substr(0, 2);
             var number = param.substr(0, 12);
             var checksum = param.substr(12, 1);
-
             if (this.getEAN13CheckDigit(number) == checksum) {
 
                 // NON-PLU13 - (Instore Marking)
@@ -182,7 +181,6 @@
         },
 
         getNONPLU13Identifier: function(param) {
-
             if ( !this.isNumeric(param) || param.length != 13) {
 
                 return false;
@@ -192,7 +190,7 @@
             var identifier = param.substr(0, 2);
             var number = param.substr(0, 12);
             var checksum = param.substr(12, 1);
-
+            
             if (this.getEAN13CheckDigit(number) == checksum) {
 
                 // NON-PLU13 - (Instore Marking)

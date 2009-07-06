@@ -132,10 +132,10 @@
     border-bottom: 1px solid #818085;
 }
 
-.cartList treechildren::-moz-tree-cell-text(batchMarker) {font-size: 18px; font-style: italic; font-weight: bolder; color: black;}
+.cartList treechildren::-moz-tree-cell-text(batchMarker) {font-size: 18px; font-weight: bolder;}
 .cartList treechildren::-moz-tree-cell-text(selected) {font-size: 18px; font-weight: bolder;}
 
-.cartList treechildren::-moz-tree-row(selected) {background-color: #3b556c; }
+.cartList treechildren::-moz-tree-row(selected) {background-color: #5b758c; }
 .cartList treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
 .cartList treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
 .cartList treechildren::-moz-tree-row(treeVerifyAge) {background-color: steelblue;}

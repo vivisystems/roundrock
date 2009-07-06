@@ -48,11 +48,7 @@
             return ports[port].path;
         },
 
-        setTare: function(data) {
-
-        },
-        
-        readScale: function(data) {
+        readScale: function(number, productTare) {
 
             var device = this.getDeviceController();
             if (device == null) {
@@ -109,25 +105,34 @@
             var handshaking = selectedDevice.handshaking;
 
             var mainController = GeckoJS.Controller.getInstanceByName('Main');
-            var waitPanel = mainController._showWaitPanel('wait_panel', 'common_wait', _('Reading from scale'), 0);
+            var waitPanel = mainController._showWaitPanel('wait_panel', 'common_wait',
+                                                          _('Reading from Scale [%S]', [selectedDevice.number]), 0);
 
             var weight;
 
             if (controller.openSerialPort(port, portspeed, handshaking)) {
-                weight = controller.readScale(port, 5);
+                weight = controller.readScale(port, devicemodel.iterations, devicemodel.stables, devicemodel.tries);
                 controller.closeSerialPort(port);
             }
 
             if (waitPanel) waitPanel.hidePopup();
 
             if (weight != null) {
-                var tare = parseFloat(selectedDevice.tare);
-                if (isNaN(tare)) tare = 0;
+                if (weight.value == null) {
+                    return weight;
+                }
+                else {
+                    var deviceTare = parseFloat(selectedDevice.tare);
+                    if (isNaN(deviceTare)) deviceTare = 0;
 
-                var multiplier = parseFloat(selectedDevice.multiplier);
-                if (isNaN(multiplier) || multiplier == 0) multiplier = 1;
+                    productTare = parseFloat(productTare);
+                    if (isNaN(productTare)) productTare = 0;
 
-                return (weight - tare) * multiplier;
+                    var multiplier = parseFloat(selectedDevice.multiplier);
+                    if (isNaN(multiplier) || multiplier == 0) multiplier = 1;
+
+                    return (weight - deviceTare - productTare) * multiplier;
+                }
             }
             else {
                 return;

@@ -45,6 +45,8 @@
 <!ENTITY plus.stock.threshold "Minimum Threshold">
 <!ENTITY plus.memo "Memo">
 <!ENTITY plus.minimum.sale.quantity "Minimum Sale Qty">
+<!ENTITY plus.scale.item "Scale item">
+<!ENTITY plus.scale.tare "Tare (in scale unit)">
 <!ENTITY plus.sale.unit "Unit of Sale">
 <!ENTITY plus.sale.unit.individual "Individually">
 <!ENTITY plus.sale.unit.gram "Gram">
@@ -74,7 +76,7 @@
 <!ENTITY plus.image "Product Icon">
 <!ENTITY plus.button.color "Button Color">
 <!ENTITY plus.font.size "Font Size">
-<!ENTITY plus.append_empty_btns "Append Empty Buttons">
+<!ENTITY plus.append_empty_btns "Empty Buttons">
 <!ENTITY plus.display_order "Display Order">
 
 <!ENTITY plus.level "Level">

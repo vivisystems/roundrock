@@ -523,6 +523,14 @@
                 return;
             }
 
+            // check if product is sold out (if not returning item)
+            this.log(this.dump(item));
+            if (!this._returnMode && item.soldout) {
+                NotifyUtils.warn(_('The item [%S] (%S) is sold out', [item.name, item.no]));
+
+                this._clearAndSubtotal();
+                return;
+            }
             // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 curTransaction = this._newTransaction();
@@ -533,6 +541,11 @@
                 this.setPrice(buf);
             }
 
+            // check if scale item
+            if (item.scale) {
+                if (!this.readScale(null, item.tare)) return;
+            }
+            
             // if we are not in return mode, check if new item is the same as current item. if they are the same,
             // collapse it into the current item if no surcharge/discount/marker has
             // been applied to the current item and price/tax status are the same
@@ -889,6 +902,38 @@
             this.dispatchEvent('afterItemByBarcode', event);
         },
 	
+        addDeptByNumber: function(deptno) {
+
+            if (deptno != null && deptno.length > 0) {
+
+                var depts = GeckoJS.Session.get('categoriesByNo');
+                var dept = depts[deptno];
+
+                if (dept) {
+                    if (dept.cansale) {
+                        dept.cate_no = deptno;
+                        return this.addItem(dept);
+                    }
+                    else {
+                        NotifyUtils.warn(_('Department [%S] (%S) is not a sale department',
+                                         [dept.name, deptno]));
+                    }
+                }
+                else {
+                    NotifyUtils.warn(_('[%S] is not a valid department number', [deptno]));
+                }
+            }
+            else {
+                NotifyUtils.warn(_('Department number not provided'));
+            }
+            var buf = this._getKeypadController().getBuffer(true);
+            this._getKeypadController().clearBuffer();
+
+            this._cancelReturn();
+
+            this.clearAndSubtotal();
+        },
+
         modifyItem: function() {
 
             var index = this._cartView.getSelectedIndex();
@@ -2484,30 +2529,27 @@
                 origin_amount: origin_amount,
                 transaction: curTransaction
             };
-            
-            var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
 
-            if (beforeResult) {
-                var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
+            if (amount > 0) {
+                var beforeResult = this.dispatchEvent('beforeAddPayment', paymentItem);
 
-                paymentedItem.seq = curTransaction.data.seq;
-
-                this.dispatchEvent('afterAddPayment', paymentedItem);
-
-                this._getCartlist().refresh();
-                if (curTransaction.getRemainTotal() <= 0) {
-                    if (!this.submit()) {
-                        // remove last payment
-                        this.voidItem();
-                    }
-                }else {
-                    this._clearAndSubtotal();
+                if (beforeResult) {
+                    var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
+                    paymentedItem.seq = curTransaction.data.seq;
                 }
 
+                this.dispatchEvent('afterAddPayment', paymentedItem);
+            }
+
+            this._getCartlist().refresh();
+            if (curTransaction.getRemainTotal() <= 0) {
+                if (!this.submit()) {
+                    // remove last payment
+                    this.voidItem();
+                }
             }else {
                 this._clearAndSubtotal();
             }
-            
         },
 
         showPaymentStatus: function() {
@@ -2542,7 +2584,7 @@
 
         },
 
-        readScale: function(number) {
+        readScale: function(number, tare) {
             this._getKeypadController().clearBuffer();
 
             number = parseInt(number);
@@ -2550,20 +2592,34 @@
                 number = null;
             }
 
+            tare = parseFloat(tare);
+            if (isNaN(tare)) tare = 0;
+
             var scaleController = GeckoJS.Controller.getInstanceByName('Scale');
             if (scaleController) {
-                var qty = scaleController.readScale(number);
+                var weight = scaleController.readScale(number, tare);
 
-                if (qty == null) {
-                    NotifyUtils.warn(_('Failed to read from scale'))
+                if (weight == null) {
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('Failed to read from scale: no value returned'));
                 }
-                else if (qty <= 0) {
-                    NotifyUtils.warn(_('Illegal weight [%S] returned from scale', [qty]));
+                else if (weight.value == null) {
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('Failed to read from scale: unable to obtain a stable reading'));
                 }
                 else {
-                    this.setQty(qty);
+                    var qty = parseFloat(weight.value);
+                    if (isNaN(qty) || qty < 0) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                                              _('Scale'),
+                                              _('Failed to read from scale: invalid scale reading [%S]', [weight.value]));
+                    }
+                    else {
+                        this.setQty(qty);
+                        NotifyUtils.info(_('Weight read from scale') + ' :' + qty);
+                        return true;
+                    }
                 }
             }
+            return false;
         },
 
         setQty: function(qty) {
@@ -2893,6 +2949,7 @@
             })) {
 
                 // blockUI when saving...
+                var start_time = new Date().getTime();
                 this._blockUI('wait_panel', 'common_wait', _('Saving Order'), 0);
                 
                 oldTransaction.lockItems();
@@ -2933,7 +2990,10 @@
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
-                // unblockUI
+                // unblockUI - make sure wait panel is shown for at least 500 ms
+                var remainder = (start_time + 500000 - new Date().getTime()) / 1000;
+                if (remainder > 0) this.sleep(remainder);
+                
                 this._unblockUI('wait_panel');
 
                 // sleep to allow UI events to update

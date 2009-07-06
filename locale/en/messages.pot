@@ -20,33 +20,6 @@ msgstr "繁體中文 - 台灣 (zh-TW)"
 
 ########################################################################
 #
-# List of Locations (used by setup)
-#
-########################################################################
-
-msgid "vivipos.fec.registry.package-location.generic"
-msgstr "Generic Location"
-
-########################################################################
-#
-# List of Sectors (used by setup)
-#
-########################################################################
-
-msgid "vivipos.fec.registry.package.generic.generic.label"
-msgstr "Generic"
-
-msgid "vivipos.fec.registry.package.generic.generic.description"
-msgstr "If you are not sure what sector to choose, you may want to start with this selection."
-
-msgid "vivipos.fec.registry.package.generic.retail.label"
-msgstr "Retail"
-
-msgid "vivipos.fec.registry.package.generic.retail.description"
-msgstr "This is for general retail."
-
-########################################################################
-#
 # List of Control Panels
 #
 ########################################################################
@@ -336,6 +309,22 @@ msgstr "Return Item"
 
 msgid "returncartitem.name"
 msgstr "Return Item"
+
+#########################
+# Department By Number
+#########################
+
+msgid "deptbyno.desc"
+msgstr ""
+"This function is used to register a sale department by its department number."
+"The parameter must be set to the department number of the sale department "
+"to be registered."
+
+msgid "deptbyno.label"
+msgstr "DEPT"
+
+msgid "deptbyno.name"
+msgstr "Register DEPT"
 
 ###################
 # Item By Barcode
@@ -1952,33 +1941,6 @@ msgstr "Table Manager"
 
 ########################################################################
 #
-# List of Templates
-#
-########################################################################
-
-msgid "Sample Receipt 42c condensed"
-msgstr "Sample Receipt 42c condensed"
-
-msgid "Sample Receipt 42c expanded"
-msgstr "Sample Receipt 42c expanded"
-
-msgid "Sample Kitchen 42c expanded"
-msgstr "Sample Kitchen 42c expanded"
-
-msgid "Sample Guest Check 42c condensed"
-msgstr "Sample Guest Check 42c condensed"
-
-msgid "Sample Label Argox 203TD"
-msgstr "Sample Label Argox 203TD"
-
-msgid "Sample Receipt 24c condensed"
-msgstr "Sample Receipt 24c condensed"
-
-msgid "Internal VFD Template"
-msgstr "Internal VFD Template"
-
-########################################################################
-#
 # List of Ports
 #
 ########################################################################
@@ -2542,6 +2504,46 @@ msgstr "Void Clerk"
 
 msgid "(rpt)Void Time"
 msgstr "Void Time"
+
+########################################################################
+#
+# List of Built-in Templates
+#
+########################################################################
+
+msgid "vivipos.fec.registry.templates.ledger-sample-42c.label"
+msgstr "Sample Ledger Receipt 42c"
+
+msgid "vivipos.fec.registry.templates.ledger-sample-24c.label"
+msgstr "Sample Ledger Receipt 24c"
+
+msgid "vivipos.fec.registry.templates.receipt-sample-condensed-42c.label"
+msgstr "Sample Receipt 42c condensed"
+
+msgid "vivipos.fec.registry.templates.receipt-sample-expanded-42c.label"
+msgstr "Sample Receipt 42c expanded"
+
+msgid "vivipos.fec.registry.templates.kitchen-sample-expanded-42c.label"
+msgstr "Sample Kitchen 42c expanded"
+
+msgid "vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.label"
+msgstr "Sample Guest Check 42c condensed"
+
+msgid "vivipos.fec.registry.templates.label-sample-argox-203td.label"
+msgstr "Sample Label Argox 203TD"
+
+msgid "vivipos.fec.registry.templates.receipt-sample-condensed-24c.label"
+msgstr "Sample Receipt 24c condensed"
+
+msgid "vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.label"
+msgstr "Sample HTML Receipt 24c condensed"
+
+msgid "vivipos.fec.registry.templates.vfd-internal.label"
+msgstr "Internal VFD Template"
+
+msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
+msgstr "Internal VFD (non-en)"
+
 ########################################################################
 #
 # END OF STATIC MESSAGES

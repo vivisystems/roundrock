@@ -1,45 +1,45 @@
 /* preferences relative to devices. */
-pref("vivipos.fec.registry.templates.ledger-sample-42c.label", "Sample Ledger Receipt 42c");
+pref("vivipos.fec.registry.templates.ledger-sample-42c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.ledger-sample-42c.type", "receipt");
 pref("vivipos.fec.registry.templates.ledger-sample-42c.path", "chrome://viviecr/content/devices/templates/ledger-sample-42c.tpl");
 
-pref("vivipos.fec.registry.templates.ledger-sample-24c.label", "Sample Ledger Receipt 24c");
+pref("vivipos.fec.registry.templates.ledger-sample-24c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.ledger-sample-24c.type", "receipt");
 pref("vivipos.fec.registry.templates.ledger-sample-24c.path", "chrome://viviecr/content/devices/templates/ledger-sample-24c.tpl");
 
-pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "chrome://viviecr/locale/messages.properties");"
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");
 
-pref("vivipos.fec.registry.templates.receipt-sample-expanded-42c.label", "Sample Receipt 42c expanded");
+pref("vivipos.fec.registry.templates.receipt-sample-expanded-42c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.receipt-sample-expanded-42c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-expanded-42c.path", "chrome://viviecr/content/devices/templates/receipt-sample-expanded-42c.tpl");
 
-pref("vivipos.fec.registry.templates.kitchen-sample-expanded-42c.label", "Sample Kitchen 42c expanded");
+pref("vivipos.fec.registry.templates.kitchen-sample-expanded-42c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.kitchen-sample-expanded-42c.type", "check");
 pref("vivipos.fec.registry.templates.kitchen-sample-expanded-42c.path", "chrome://viviecr/content/devices/templates/kitchen-sample-expanded-42c.tpl");
 
-pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.label", "Sample Guest Check 42c condensed");
+pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.type", "check");
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/guestcheck-sample-condensed-42c.tpl");
 
-pref("vivipos.fec.registry.templates.label-sample-argox-203td.label", "Sample Label Argox 203TD");
+pref("vivipos.fec.registry.templates.label-sample-argox-203td.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "check");
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.path", "chrome://viviecr/content/devices/templates/label-sample-argox-203td.tpl");
 
-pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "Sample Receipt 24c condensed");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-24c.tpl");
 
-pref("vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.label", "Sample HTML Receipt 24c condensed");
+pref("vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.type", "preview");
 pref("vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.path", "chrome://viviecr/content/devices/templates/receipt-html-sample-condensed-24c.tpl");
 
-pref("vivipos.fec.registry.templates.vfd-internal.label", "Internal VFD Template");
+pref("vivipos.fec.registry.templates.vfd-internal.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.vfd-internal.type", "vfd");
 pref("vivipos.fec.registry.templates.vfd-internal.path", "chrome://viviecr/content/devices/templates/vfd-internal.tpl");
 
-pref("vivipos.fec.registry.templates.vfd-internal-non-en.label", "Internal VFD (non-en)");
+pref("vivipos.fec.registry.templates.vfd-internal-non-en.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.vfd-internal-non-en.type", "vfd");
 pref("vivipos.fec.registry.templates.vfd-internal-non-en.path", "chrome://viviecr/content/devices/templates/vfd-internal-non-en.tpl");
 
@@ -127,3 +127,6 @@ pref("vivipos.fec.registry.devicemodels.excell-aw-30.controller", "ScaleExcellAW
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.label", "Mettler Toledo Tiger II");
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.type", "scale");
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.controller", "ScaleMTTigerIIController");
+pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.iterations", 10);
+pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.stables", 3);
+pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.tries", 5);
