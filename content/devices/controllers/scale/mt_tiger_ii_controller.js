@@ -115,7 +115,7 @@
                 }
                 else {
                     if (weight == lastWeight) {
-                        if (++stableCount == stables) {
+                        if (++stableCount >= stables) {
                             return {value: weight};
                         }
                     }
@@ -146,7 +146,7 @@
             var buf = {};
 
 this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
-            while (weightStr.length < 29 && count < iterations) {
+            while (weightStr.length < 29 && count++ < iterations) {
                 var len = this.readSerialPort(port, buf, 29);
                 if (len > 0) {
                     var str = buf.value;
@@ -165,8 +165,6 @@ this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
                         }
                     }
                 }
-                this.sleep(100);
-                count++;
                 this.log('DEBUG', 'weightStr length: ' + weightStr.length + ', iterations: ' + count);
             }
 

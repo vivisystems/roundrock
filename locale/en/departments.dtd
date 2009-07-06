@@ -4,6 +4,8 @@
 <!ENTITY departments.taxrate "Tax Rate">
 <!ENTITY departments.visible "Show on Menu">
 <!ENTITY departments.sale "Sale Department">
+<!ENTITY departments.scale "Scale Department">
+<!ENTITY departments.sale.unit "Unit of Sale">
 <!ENTITY departments.display_order "Display Order">
 <!ENTITY departments.button.color "Button Color">
 <!ENTITY departments.font.size "Font Size">

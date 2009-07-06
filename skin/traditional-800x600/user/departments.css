@@ -3,14 +3,14 @@
 }
 
 .BtnColors {
-    margin: 0px 20px 8px 20px;
+    margin: 0px 20px 0px 20px;
 }
 .BtnColors label{
     color: white;
 }
 .BtnColors button {
-    min-height: 55px;
-    min-width: 55px;
+    min-height: 50px;
+    min-width: 50px;
 }
 
 .LeftPnl {
@@ -23,11 +23,11 @@
 }
 
 .DataForm {
-    margin: 10px 18px 8px 20px;
+    margin: 0px 10px 0px 20px;
 }
 
 .RightPnlB {
-    margin: 0px 20px 12px 20px;
+    margin: 0px 10px 2px 20px;
 }
 
 .RightPnlB vbox {
@@ -36,11 +36,11 @@
 }
 
 .FontSizeSet {
-    margin: 0px 12px 6px 12px;
+    margin: 0px 12px 0px 12px;
 }
 
 .FontSizeSetHeight button{
-    height: 50px;
+    height: 45px;
 }
 
 .ToolBar {
@@ -144,7 +144,7 @@ vividatetimepicker-timepad {
 }
 
 .RightTabbox {
-    margin: 1px 0 4px 0;
+    margin: 1px 0 1px 0;
 }
 
 /* for system backup use*/

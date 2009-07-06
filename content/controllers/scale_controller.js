@@ -106,7 +106,7 @@
 
             var mainController = GeckoJS.Controller.getInstanceByName('Main');
             var waitPanel = mainController._showWaitPanel('wait_panel', 'common_wait',
-                                                          _('Reading from Scale [%S]', [selectedDevice.number]), 0);
+                                                          _('Reading from Scale [%S]', [selectedDevice.number]), 1);
 
             var weight;
 
@@ -117,7 +117,6 @@
 
             if (waitPanel) waitPanel.hidePopup();
             if (weight != null) {
-                alert('readings from scale: ' + this.dump(weight));
                 if (weight.value != null) {
                     var deviceTare = parseFloat(selectedDevice.tare);
                     if (isNaN(deviceTare)) deviceTare = 0;
