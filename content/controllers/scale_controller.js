@@ -53,7 +53,7 @@
             var device = this.getDeviceController();
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
-                return;
+                return -1;
             }
 
             var number = parseInt(number);
@@ -65,8 +65,8 @@
             if (enabledDevices.length == 0) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Device Status'),
-                                      _('No scale has been enabled!'));
-                return;
+                                      _('There are no active scales!'));
+                return -1;
             }
 
             // notify user which scale is in use if multiple scales are enabled
@@ -87,7 +87,7 @@
                 GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Device Status'),
                                       _('The configured scale model [%S] is not supported', [selectedDevice.devicemodel]));
-                return;
+                return -1;
             }
 
             // device model controller exists?
@@ -97,7 +97,7 @@
                 GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Device Status'),
                                       _('The configured scale model [%S] is not supported', [devicemodel.label]));
-                return;
+                return -1;
             }
 
             var port = this.getPortPath(selectedDevice.port);

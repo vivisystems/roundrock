@@ -36,11 +36,10 @@
             }
 
             var orderModel = new OrderModel();
-            var orders = orderModel.find('all', {
+            var order = orderModel.find('first', {
                 fields: ['id', 'sequence', 'terminal_no', 'branch', 'branch_id', 'status'],
                 conditions: conditions,
                 order: 'transaction_created desc, branch_id, terminal_no, sequence desc',
-                limit: 50,
                 recursive: 0
             });
             if (parseInt(orderModel.lastError) != 0) {
@@ -49,52 +48,41 @@
                 return;
             }
 
-            // list orders
-            var menulist = document.getElementById('orderlist');
-            orders.forEach(function(order) {
-                var branch = (order.branch == null || order.branch == '') ? ((order.branch_id == null || order.branch_id == '') ? '' : order.branch_id)
-                                                                          : order.branch + ((order.branch_id == null || order.branch_id == '') ? '' : ' (' + order.branch_id + ')');
-                var location = (branch == null || branch == '') ? order.terminal_no : (branch + ' [' + order.terminal_no + ']');
-                var statusStr = '';
-                switch(parseInt(order.status)) {
-                    case -2:
-                        statusStr = _('(view)voided');
-                        break;
+            // list order
+            var orderObj = document.getElementById('order');
+            var branch = (order.branch == null || order.branch == '') ? ((order.branch_id == null || order.branch_id == '') ? '' : order.branch_id)
+                                                                      : order.branch + ((order.branch_id == null || order.branch_id == '') ? '' : ' (' + order.branch_id + ')');
+            var location = (branch == null || branch == '') ? order.terminal_no : (branch + ' [' + order.terminal_no + ']');
+            var statusStr = '';
+            switch(parseInt(order.status)) {
+                case -2:
+                    statusStr = _('(view)voided');
+                    break;
 
-                    case -1:
-                        statusStr = _('(view)cancelled');
-                        break;
+                case -1:
+                    statusStr = _('(view)cancelled');
+                    break;
 
-                    case 1:
-                        statusStr = _('(view)completed');
-                        break;
+                case 1:
+                    statusStr = _('(view)completed');
+                    break;
 
-                    case 2:
-                        statusStr = _('(view)stored');
-                        break;
-                }
-                menulist.appendItem(order.sequence + ' [' + statusStr + '] ' + location, order.id, '');
-            });
+                case 2:
+                    statusStr = _('(view)stored');
+                    break;
+            }
 
             // disable void sale button initially
             var voidBtn = document.getElementById('void');
             voidBtn.setAttribute('disabled', true);
             
-            if (orders.length == 1) {
-                this.displayOrder(orders[0].id);
-            }
-            else if (orders.length == 0) {
-                menulist.appendItem(_('No orders matching [%S] found', [inputObj.value]), '', '');
+            if (order) {
+                orderObj.value = order.sequence + ' [' + statusStr + '] ' + location;
+                this.displayOrder(order.id);
             }
             else {
-                if (inputObj.value) {
-                    menulist.insertItemAt(0, _('[%S] orders matching [%S]', [orders.length, inputObj.value]), '');
-                }
-                else {
-                    menulist.insertItemAt(0, _('[%S] orders returned', [orders.length]), '');
-                }
+                orderObj.value = _('No orders matching [%S] found', [inputObj.value]);
             }
-            menulist.selectedIndex = 0;
         },
 
         displayOrder: function (id) {
