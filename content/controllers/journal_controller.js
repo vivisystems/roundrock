@@ -196,6 +196,13 @@
             data.routingGroups = null;
             data.autoPrint = 'submit';
             data.duplicate = true;
+            
+            var encoding =
+            	preview ?
+            	"UTF-8" :
+            	this._device.getSelectedDevices()['receipt-' + printerChoice + '-encoding'];
+            	
+            _templateModifiers(TrimPath, encoding);
             var result = tpl.process(data);
             return result;
         }
