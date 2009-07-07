@@ -144,8 +144,7 @@
 		    
             products.forEach( function( product ) {
                 var stockRecord = {
-                    id: '',
-                    product_no: product.no,
+                    id: product.no,
                     barcode: product.barcode,
                     warehouse: product.warehouse,
                     quantity: product.quantity || 0
@@ -161,7 +160,8 @@
 		
         set: function( stockRecord ) {
             if ( stockRecord ) {
-                this.id = stockRecord.id || '';
+                // id is product_no.
+                this.id = stockRecord.id;
                 var r = this.save( stockRecord );
                 if ( !r ) {
                     this.log(
@@ -218,7 +218,7 @@
         getStockRecordByProductNo: function( product_no ) {
             return this.get( "first", {
                 fields: [ "quantity" ],
-                conditions: "product_no = '" + product_no + "'"
+                conditions: "id = '" + product_no + "'"
             } );
         }
     };

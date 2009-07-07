@@ -364,7 +364,6 @@
         // handle store order events
         storeOrder: function(evt) {
             var txn = evt.data;
-            alert('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
 
             try {
                 // check if receipts need to be printed

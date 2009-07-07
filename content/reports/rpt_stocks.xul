@@ -31,34 +31,43 @@
 		        <caption label="&rptstocks.title;"  class="PageTitle"/>
 		        <hbox>
 		            <hbox flex="1">
-		            <grid class="DataForm" flex="1">
-		                <columns>
-		                    <column  flex="1"/><column  flex="1"/>
-		                </columns>
-		                <rows>
-		                    <row>
-		                    	<vbox>
-				                    <label value="&rptstocks.department;" />
-				                    <menulist id="department" flex="1">
-				                        <menupopup id="department_menupopup"  flex="1">
-				                            <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
-				                        </menupopup>
-				                    </menulist>
-				                </vbox>
-		                        <vbox>
-				                	<label value="&rptstocks.sortby;" />
-						            <menulist id="sortby">
-						                <menupopup id="sortby_menupopup">
-						                    <menuitem selected="true" label="&rptstocks.sortby.no;" value="no" />
-						                    <menuitem selected="false" label="&rptstocks.sortby.name;" value="name" />
-						                    <menuitem selected="false" label="&rptstocks.sortby.stock;" value="stock" />
-						                    <menuitem selected="false" label="&rptstocks.sortby.min_stock;" value="min_stock" />
-						                </menupopup>
-						            </menulist>
-						        </vbox>
-		                    </row>
-		                </rows>
-		            </grid>
+		                <grid class="DataForm" flex="1">
+		                    <columns>
+		                        <column  flex="1"/>
+		                        <column  flex="1"/>
+		                    </columns>
+		                    <rows>
+		                        <row>
+		                        	<vbox>
+				                        <label value="&rptstocks.department;" />
+				                        <menulist id="department" flex="1">
+				                            <menupopup id="department_menupopup"  flex="1">
+				                                <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
+				                            </menupopup>
+				                        </menulist>
+				                    </vbox>
+		                            <vbox>
+				                    	<label value="&rptstocks.sortby;" />
+						                <menulist id="sortby">
+						                    <menupopup id="sortby_menupopup">
+						                        <menuitem selected="true" label="&rptstocks.sortby.no;" value="no" />
+						                        <menuitem selected="false" label="&rptstocks.sortby.name;" value="name" />
+						                        <menuitem selected="false" label="&rptstocks.sortby.stock;" value="stock" />
+						                        <menuitem selected="false" label="&rptstocks.sortby.min_stock;" value="min_stock" />
+						                    </menupopup>
+						                </menulist>
+						            </vbox>
+		                        </row>
+		                        <row>
+		                            <vbox>
+		                                <checkbox id="show_low_stock" label="&rptstocks.show_low_stock;"/>
+		                            </vbox>
+		                            <vbox>
+		                                <checkbox id="show_maintained_ones" label="&rptstocks.show_maintained_ones;"/>
+		                            </vbox>
+		                        </row>
+		                    </rows>
+		                </grid>
 		            </hbox>
 		            <button id="execute" label="&rptstocks.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptStocks');" />
 		        </hbox>
