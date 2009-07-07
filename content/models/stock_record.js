@@ -34,15 +34,13 @@
             }
         },
 
-        requestRemoteService: function(url, key, value, async, callback) {
+        requestRemoteService: function(type, url, data, async, callback) {
 
-            var reqUrl = url + '/' + key;
-
-            if (value != null) reqUrl += '/' + value;
+            var reqUrl = url ;
+            type = type || 'GET';
 
             async = async || false;
             callback = (typeof callback == 'function') ?  callback : null;
-
 
             var username = this.username ;
             var password = this.password ;
@@ -70,9 +68,9 @@
             }, 15000);
 
             /* Start Request with http basic authorization */
-            var seq = -1;
+            var datas = [];
 
-            req.open('GET', reqUrl, true/*, username, password*/);
+            req.open(type, reqUrl, true/*, username, password*/);
 
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
 
@@ -83,14 +81,14 @@
                     if (req.status == 200) {
                         var result = GeckoJS.BaseObject.unserialize(req.responseText);
                         if (result.status == 'ok') {
-                            seq = result.value;
+                            datas = GeckoJS.BaseObject.unserialize(result.response_data);
                         }
                     }
                     // clear resources
                     if (async) {
                         // status 0 -- timeout
                         if (callback) {
-                            callback.call(this, seq);
+                            callback.call(this, datas);
                         }
                         if (timeout) clearTimeout(timeout);
                         if (req) delete req;
@@ -100,6 +98,10 @@
             };
 
             var request_data = null;
+            if (data) {
+                request_data = 'request_data=' + GeckoJS.BaseObject.serialize(data);
+            }
+            
             try {
                 // Bypassing the cache
                 req.channel.loadFlags |= Components.interfaces.nsIRequest.LOAD_BYPASS_CACHE;
@@ -107,8 +109,14 @@
 
                 if (!async) {
                     // block ui until request finish or timeout
+                    var timeoutGuardSec = 15000;
+                    var timeoutGuardNow = Date.now().getTime();
+
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
                     while (!reqStatus.finish) {
+
+                        if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
+                        
                         thread.processNextEvent(true);
                     }
                 }
@@ -125,9 +133,9 @@
 
             }
             if (callback && !async) {
-                callback.call(this, seq);
+                callback.call(this, datas);
             }
-            return seq;
+            return datas;
 
         },
         
