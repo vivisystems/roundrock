@@ -36,7 +36,7 @@ TrainingBehavior.prototype.switchDBConf = function() {
     if ( isTraining ) {
     	this.model.useDbConfig = this.dbConfig;
    	} else {
-   		this.model.useDbConfig = this.model.useDbConfigBak ;
+   		this.model.useDbConfig = this.model.useDbConfigBak;
    	}
    	this.switchRelativeDBConf( this.model );
 };

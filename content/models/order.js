@@ -756,5 +756,5 @@
         }
     };
 
-    var OrderModel = window.OrderModel =  GeckoJS.Model.extend(__model__);
+    var OrderModel = window.OrderModel =  AppModel.extend(__model__);
 })();

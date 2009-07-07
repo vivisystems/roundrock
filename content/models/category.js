@@ -1,3 +1,3 @@
-var CategoryModel = window.CategoryModel = GeckoJS.Model.extend({
+var CategoryModel = window.CategoryModel = AppModel.extend({
     name: 'Category'	
 });

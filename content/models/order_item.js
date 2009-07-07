@@ -1,4 +1,4 @@
-var OrderItemModel = window.OrderItemModel =  GeckoJS.Model.extend({
+var OrderItemModel = window.OrderItemModel =  AppModel.extend({
     name: 'OrderItem',
 
     useDbConfig: 'order',

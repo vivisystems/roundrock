@@ -12,13 +12,16 @@
         _stocksById: {},
 
         _cartController: null,
+
         
         initial: function() {
-            dump('stocks initial \n');
 
             this.syncSettings = (new SyncSetting()).read();
             
             //var productsById = GeckoJS.Session.get('productsById');
+
+            // synchronize mode.
+            this.StockRecord.syncAllStockRecords();
 
             // register Cart Controller 's stock method.
             var cartController = GeckoJS.Controller.getInstanceByName('Cart');
@@ -55,7 +58,6 @@
             this.log('checkStock: ' + item.name + '('+qty+')');
             
             //this.log('checkStock: ' + this.dump(curTransaction.data));
-
             
             var min_stock = parseFloat(item.min_stock);
             var auto_maintain_stock = item.auto_maintain_stock;
@@ -70,12 +72,8 @@
             
             if (auto_maintain_stock) {
                 // get the stock quantity;
-                var stock = null;
-                var stockRecordModel = new StockRecordModel();
-                var stockRecord = stockRecordModel.get( 'first', { conditions: "id = '" + item.no + "'" } );
-                if ( stockRecord ) {
-                    stock = parseFloat( stockRecord.quantity );
-                } else {
+                var stock = this.StockRecord.getStockById(item.no);
+                if ( stock === false ) {
                     NotifyUtils.warn( _( 'The stock record seems not existent!' ) );
                     return false;
                 }
@@ -129,28 +127,32 @@
 
         decStock: function( obj ) {
 
-            //this._productsById = GeckoJS.Session.get( 'productsById' );
-            //this._barcodesIndexes = GeckoJS.Session.get( 'barcodesIndexes' );
-
             var productsById = GeckoJS.Session.get('productsById');
             
             this.log('decStock: ');
-            //return true;
+
+            var datas = [];
+
             try {
+
                 for ( var o in obj.items ) {
                     var ordItem = obj.items[ o ];
                     //var item = this.Product.findById( ordItem.id );
                     var item = productsById[ordItem.id];
                     
                     if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
+
+                        /*
                         // renew the stock record.
                         var stockRecordModel = new StockRecordModel();
                         var stockRecord = stockRecordModel.get( 'first', {
                             conditions: "id = '" + item.no + "'"
                         } );
+
+
                         stockRecord.quantity -= ordItem.current_qty;
                         stockRecordModel.set( stockRecord );
-                        this.log( this.dump( stockRecord ) );
+                        
                         // stock had maintained
                         ordItem.stock_maintained = true;
 
@@ -158,10 +160,21 @@
                         if ( item.min_stock > stockRecord.quantity ) {
                             this.dispatchEvent( 'onLowStock', item );
                         }
-                        
+
                         delete stockRecordModel;
+                        */
+                        // stock had maintained
+                        
+                        datas.push({id: item.no+'', quantity: ordItem.current_qty});
+
+                        ordItem.stock_maintained = true;
+                        
+                        
                     }
                 }
+
+                this.StockRecord.decreaseStockRecords(datas);
+
             } catch ( e ) {
                 dump( e );
                 return false;
