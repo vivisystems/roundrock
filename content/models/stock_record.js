@@ -108,7 +108,8 @@
 
             var request_data = null;
             if (data) {
-                request_data = 'request_data=' + GeckoJS.BaseObject.serialize(data);
+                req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');                 
+                request_data = 'request_data=' + encodeURIComponent(GeckoJS.BaseObject.serialize(data));
             }
             
             try {
@@ -221,6 +222,7 @@
                     var cols = GeckoJS.BaseObject.getKeys(d).join(', ');
                     var vals = GeckoJS.BaseObject.getValues(d).join("', '");
                     sql += "INSERT OR REPLACE INTO stock_records ("+cols+") values ('" + vals + "');\n";
+                    
                 }catch(e) {
                     dump(e + '\n');
                 }
@@ -270,15 +272,25 @@
         },
 
         decreaseStockRecords: function(datas) {
-           alert(this.dump(datas));
 
-            // sync remote stock record to cached .
+            var async = false;
+            var callback = null;
+
             var remoteUrl = this.getRemoteServiceUrl('decreaseStockRecords');
 
             if(remoteUrl) {
 
-                dump('remoteUrl ' + remoteUrl  + '\n') ;
+                var requestUrl = remoteUrl + '/' + this.lastModified;
+                
+                dump('requestUrl = ' + requestUrl + '\n' );
 
+                var remoteStocks = this.requestRemoteService('POST', requestUrl, datas, async, callback);
+
+                var lastModified = this.saveStockRecords(remoteStocks);
+
+                if (lastModified >= this.lastModified) {
+                    this.lastModified = lastModified;
+                }
 
                 
             }else {
@@ -290,13 +302,15 @@
                 datas.forEach( function(d) {
 
                     try{
+
+                        this._cachedRecords[d.id] -= d.quantity;
+
                         d.modified = now;
-                        sql += "UPDATE stock_records SET quantity='"+d.quantity+"', modified='"+d.modified+"' WHERE id = '"+ d.id +"' ;\n";
+                        sql += "UPDATE stock_records SET quantity=quantity-"+d.quantity+", modified='"+d.modified+"' WHERE id = '"+ d.id +"' ;\n";
                     }catch(e) {
                         dump(e + '\n');
                     }
                 }, this);
-
 
                 var sqlWithTransaction = 'BEGIN ; \n' + sql + 'COMMIT; ';
                 dump('sql : ' + sqlWithTransaction + '\n');
@@ -311,6 +325,8 @@
                 }catch(e) {
                     this.log(sqlWithTransaction +",,"+ e);
                 }
+
+                this.lastModified = now;
 
             }
             
@@ -359,12 +375,12 @@
                         this.log(
                             'ERROR',
                             'record saved to backup'
-                        );
+                            );
                     } else {
                         this.log(
                             'ERROR',
                             'record could not be saved to backup\n' + this.dump( stockRecord )
-                        );
+                            );
                         
                         throw {
                             errmsg: _( 'record could not be saved to backup: %S', [ '\n' + this.dump( stockRecord ) ] )
