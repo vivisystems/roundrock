@@ -276,27 +276,38 @@
             //
             this._tableStatusModel.addCheck(evt.data.data);
 
-            this.syncClient();
-
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
+
+            // restore from backup after order was submited/stored
+            var order = new OrderModel();
+            order.restoreOrderFromBackup();
+            delete order;
+
+            this.syncClient();
         },
 
         handleAfterSubmit: function(evt) {
-            //
+
             // is stored order?
             if (evt.data.data.recall == 2) {
 
                 // this._tableStatusModel.removeCheck(evt.data.data);
                 this._tableStatusModel.addCheck(evt.data.data);
-
-                this.syncClient();
+                
             }
 
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
+
+            // restore from backup after order was submited/stored
+            var order = new OrderModel();
+            order.restoreOrderFromBackup();
+            delete order;
+
+            this.syncClient();
         },
 
         handleSplitCheck: function(evt) {
@@ -1232,6 +1243,8 @@
                     txn: oldTransaction
                 })) {
 
+                    oldTransaction.data.status = status;
+                    
                         var submitStatus = parseInt(oldTransaction.submit(status));
                         /*
                          *   1: success
@@ -1247,7 +1260,9 @@
                             return false;
                         }
 
-                    oldTransaction.data.status = status;
+                    
+
+                    this._controller.dispatchEvent('onStore', oldTransaction);
                     this._controller.dispatchEvent('afterSubmit', oldTransaction);
 
                 }

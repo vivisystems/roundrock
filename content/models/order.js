@@ -77,45 +77,57 @@
         saveOrder: function(data) {
             if(!data ) return;
             
-            var r;
             var retObj;
 
             var checksum = "";
 
-            retObj = this.saveToBackup(this.mappingTranToOrderFields(data));
-            checksum += retObj.id + retObj.modified;
+            try {
+                retObj = this.saveToBackup(this.mappingTranToOrderFields(data));
+                checksum += retObj.id + retObj.modified;
 
-            retObj = this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
-            retObj.forEach(function(d){
-                checksum += d.id + d.modified;
-            });
+                retObj = this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
+                retObj.forEach(function(d){
+                    checksum += d.id + d.modified;
+                });
 
-            retObj = this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
-            retObj.forEach(function(d){
-                checksum += d.id + d.modified;
-            });
+                retObj = this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
+                retObj.forEach(function(d){
+                    checksum += d.id + d.modified;
+                });
 
-            retObj = this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
-            retObj.forEach(function(d){
-                checksum += d.id + d.modified;
-            });
+                retObj = this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
+                retObj.forEach(function(d){
+                    checksum += d.id + d.modified;
+                });
 
-            retObj = this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
-            retObj.forEach(function(d){
-                checksum += d.id + d.modified;
-            });
+                retObj = this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
+                retObj.forEach(function(d){
+                    checksum += d.id + d.modified;
+                });
 
-            retObj = this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
-            retObj.forEach(function(d){
-                checksum += d.id + d.modified;
-            });
+                retObj = this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
+                retObj.forEach(function(d){
+                    checksum += d.id + d.modified;
+                });
 
-            retObj = this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
-            retObj.forEach(function(d){
-                checksum += d.id + d.modified;
-            });
+                retObj = this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
+                retObj.forEach(function(d){
+                    checksum += d.id + d.modified;
+                });
 
-            r = true;
+                if (data.status == 2) {
+                    data.checksum = GREUtils.CryptoHash.md5(checksum);
+                    this.serializeOrder(data, true);
+                }
+
+//                return 1;
+
+            } catch(e) {
+//                return -1;
+            }
+
+            /*
+            var r = true;
             r = this.restoreFromBackup();
 
             if (r) r = this.OrderItem.restoreFromBackup();
@@ -126,11 +138,28 @@
             if (r) r = this.OrderPromotion.restoreFromBackup();
 
             if (data.status == 2) {
-                data.checksum = GREUtils.CryptoHash.md5(checksum);
-                this.serializeOrder(data, true);
-            }
+                    data.checksum = GREUtils.CryptoHash.md5(checksum);
+                    this.serializeOrder(data, true);
+                }
 
             return r ? 1 : -1;
+            */
+        },
+
+        restoreOrderFromBackup: function() {
+            var r = true;
+            r = this.restoreFromBackup();
+
+            if (r) r = this.OrderItem.restoreFromBackup();
+            if (r) r = this.OrderAddition.restoreFromBackup();
+            if (r) r = this.OrderPayment.restoreFromBackup();
+            if (r) r = this.OrderAnnotation.restoreFromBackup();
+            if (r) r = this.OrderItemCondiment.restoreFromBackup();
+            if (r) r = this.OrderPromotion.restoreFromBackup();
+
+            if (r) r = this.OrderObject.restoreFromBackup();
+
+            return r;
         },
 
         updateOrderMaster: function(data) {
@@ -531,7 +560,7 @@
                 
                 this.OrderObject.saveToBackup(orderObj);
 
-                this.OrderObject.restoreFromBackup();
+//                this.OrderObject.restoreFromBackup();
                 return true;
             } else {
                 return this.OrderObject.save(orderObj);
