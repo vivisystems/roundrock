@@ -122,7 +122,7 @@
                     var timeoutGuardNow = Date.now().getTime();
 
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                    while (thread.hasPendingEvents() && !reqStatus.finish) {
+                    while (!reqStatus.finish) {
 
                         if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
 

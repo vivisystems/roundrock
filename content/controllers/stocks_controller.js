@@ -72,7 +72,7 @@
                 // get the stock quantity;
                 var stock = null;
                 var stockRecordModel = new StockRecordModel();
-                var stockRecord = stockRecordModel.get( 'first', { conditions: "product_no = '" + item.no + "'" } );
+                var stockRecord = stockRecordModel.get( 'first', { conditions: "id = '" + item.no + "'" } );
                 if ( stockRecord ) {
                     stock = parseFloat( stockRecord.quantity );
                 } else {
@@ -135,7 +135,7 @@
             var productsById = GeckoJS.Session.get('productsById');
             
             this.log('decStock: ');
-            return true;
+            //return true;
             try {
                 for ( var o in obj.items ) {
                     var ordItem = obj.items[ o ];
@@ -146,11 +146,11 @@
                         // renew the stock record.
                         var stockRecordModel = new StockRecordModel();
                         var stockRecord = stockRecordModel.get( 'first', {
-                            conditions: "product_no = '" + item.no + "'"
+                            conditions: "id = '" + item.no + "'"
                         } );
                         stockRecord.quantity -= ordItem.current_qty;
                         stockRecordModel.set( stockRecord );
-                        
+                        this.log( this.dump( stockRecord ) );
                         // stock had maintained
                         ordItem.stock_maintained = true;
 

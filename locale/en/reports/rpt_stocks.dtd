@@ -14,3 +14,5 @@
 <!ENTITY rptstocks.sortby.stock "Stock Level">
 <!ENTITY rptstocks.sortby.min_stock "Low Stock Threshold">
 <!ENTITY rptstocks.all "List All">
+<!ENTITY rptstocks.show_low_stock "Stock-lacking products">
+<!ENTITY rptstocks.show_maintained_ones "Only stock-maintained records">
