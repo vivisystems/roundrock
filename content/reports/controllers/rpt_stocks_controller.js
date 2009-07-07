@@ -77,11 +77,10 @@
             ];
             
             var sql =
-                "SELECT " + fields.join( ", " ) + " FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) " +
+                "SELECT " + fields.join( ", " ) + " FROM products p LEFT JOIN stock_records s ON ( p.no = s.id ) " +
                 "WHERE " + conditions + " ORDER BY " + orderby + " LIMIT " + this._csvLimit + ";";
-            
+            alert( sql );
             var prod = new ProductModel();
-            //var prodRecords = prod.find( 'all', { fields: fields, order: orderby, limit: this._csvLimit } );
             var prodRecords = prod.getDataSource().fetchAll( sql );
 
             prodRecords.forEach( function( o ) {
@@ -104,7 +103,7 @@
                     } );
                 }
             } );
-this.log( this.dump( records ) );
+
 			this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.stocks.label' );
 			this._reportRecords.body = records;
         },
