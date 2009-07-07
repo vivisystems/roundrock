@@ -34,5 +34,4 @@
     }
 
     var OrderReceiptModel = window.OrderReceiptModel =  GeckoJS.Model.extend(__model__);
-
 })();

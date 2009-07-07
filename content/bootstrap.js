@@ -12,7 +12,6 @@ GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties")
 
 // include project models
 include('chrome://viviecr/content/models/app.js');
-include('chrome://viviecr/content/controller/app_controller.js');
 
 include('chrome://viviecr/content/models/behaviors/training.js');
 
