@@ -389,6 +389,8 @@
                     return false;
                 } )
             );
+            
+            GeckoJS.Observer.notify( null, "StockRecords", "commitChanges" );
         	
             this.reload();
         },
