@@ -34,8 +34,6 @@
                 this.username = 'vivipos';
                 this.password = this.syncSettings.password ;
 
-                dump('StockRecord services url ' + this.url + "\n");
-
                 return this.url;
 
             }else {
@@ -54,6 +52,10 @@
             var username = this.username ;
             var password = this.password ;
 
+            this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with method: ' + type);
+
+            // set this reference to self for callback
+            var self = this;
             // for use asynchronize mode like synchronize mode
             // mozilla only
             var reqStatus = {};
@@ -64,17 +66,18 @@
             req.mozBackgroundRequest = true;
 
             /* Request Timeout guard */
+            var timeoutSec = this.timeout * 1000;
             var timeout = null;
             timeout = setTimeout(function() {
 
                 try {
+                    self.log('WARN', 'requestRemoteService url: ' + reqUrl +'  timeout, call req.abort');
                     req.abort();
-
                 }
                 catch(e) {
-                // dump('timeout exception ' + e + "\n");
+                    self.log('ERROR', 'requestRemoteService timeout exception ' + e );
                 }
-            }, 15000);
+            }, timeoutSec);
 
             /* Start Request with http basic authorization */
             var datas = [];
@@ -84,7 +87,7 @@
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
 
             req.onreadystatechange = function (aEvt) {
-                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if (req.status == 200) {
@@ -119,20 +122,20 @@
 
                 if (!async) {
                     // block ui until request finish or timeout
-                    var timeoutGuardSec = 15000;
-                    var timeoutGuardNow = Date.now().getTime();
+                    
+                    var now = Date.now().getTime();
 
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
                     while (!reqStatus.finish) {
 
-                        if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
+                        if (Date.now().getTime() > (now+timeoutSec)) break;
                         
                         thread.processNextEvent(true);
                     }
                 }
 
             }catch(e) {
-            // dump('send exception ' + e + "\n");
+                this.log('ERROR', 'requestRemoteService req.send error ' + e );
             }finally {
 
                 if (!async) {
@@ -152,6 +155,8 @@
         getLastModifiedRecords: function(lastModified) {
             
             lastModified = typeof lastModified == 'undefined' ? 0 : lastModified;
+            
+            this.log('DEBUG', 'getLastModifiedRecords: ' + lastModified);
 
             // get local stock record to cached first.
             var stocks = this.find('all', {
@@ -191,27 +196,37 @@
             if(remoteUrl) {
                 
                 var requestUrl = remoteUrl + '/' + this.lastModified;
+                var self = this;
 
-                dump('requestUrl = ' + requestUrl + '\n' );
+                var cb = function(remoteStocks) {
+                    dump('cb length = ' + remoteStocks.length + '\n');
+                    var lastModified = self.saveStockRecords(remoteStocks);
 
-                var remoteStocks = this.requestRemoteService('GET', requestUrl, null, async, callback);
+                    if (lastModified >= self.lastModified) {
+                        self.lastModified = lastModified;
+                    }
 
-                var lastModified = this.saveStockRecords(remoteStocks);
+                    self.log('DEBUG', 'cachedStockRecords: ' + self.dump(self._cachedRecords));
 
-                if (lastModified >= this.lastModified) {
-                    this.lastModified = lastModified;
+                    if(callback) {
+                        callback.call(self, self.lastModified);
+                    }
+                };
+
+                if (async) {
+                    this.requestRemoteService('GET', requestUrl, null, async, cb);
+                }else {
+                    var remoteStockResults = this.requestRemoteService('GET', requestUrl, null, async, callback);
+                    cb.call(self, remoteStockResults);
                 }
 
             }
 
-            dump(this.dump(this._cachedRecords));
             return this._cachedRecords;
         },
 
         saveStockRecords: function(stocks) {
-            //dump(this.dump(stocks));
 
-            dump('saveStockRecords \n');
             var lastModified = 0;
 
             // use native sql
@@ -233,24 +248,27 @@
                     sql += "INSERT OR REPLACE INTO stock_records ("+cols+") values ('" + vals + "');\n";
                     
                 }catch(e) {
-                    dump(e + '\n');
+                    this.log('ERROR', 'saveStockRecords stocks.forEach error ' + e );
                 }
             }, this);
 
+            if (sql.length > 0) {
+                
+                var sqlWithTransaction = 'BEGIN ; \n' + sql + 'COMMIT; ';
 
-            var sqlWithTransaction = 'BEGIN ; \n' + sql + 'COMMIT; ';
-            dump('sql : ' + sqlWithTransaction + '\n');
+                var datasource = this.getDataSource();
 
-            var datasource = this.getDataSource();
+                try {
 
-            try {
+                    datasource.connect();
+                    if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
 
-                datasource.connect();
-                if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
-
-            }catch(e) {
-                this.log(sqlWithTransaction +",,"+ e);
+                }catch(e) {
+                    this.log(sqlWithTransaction +",,"+ e);
+                }
+                
             }
+
 
             return lastModified;
 
@@ -285,14 +303,14 @@
             var async = false;
             var callback = null;
 
+            this.log('DEBUG', 'decreaseStockRecords datas: ' + this.dump(datas));
+
             var remoteUrl = this.getRemoteServiceUrl('decreaseStockRecords');
 
             if(remoteUrl) {
 
                 var requestUrl = remoteUrl + '/' + this.lastModified;
                 
-                dump('requestUrl = ' + requestUrl + '\n' );
-
                 var remoteStocks = this.requestRemoteService('POST', requestUrl, datas, async, callback);
 
                 var lastModified = this.saveStockRecords(remoteStocks);
@@ -311,28 +329,28 @@
                 datas.forEach( function(d) {
 
                     try{
-
                         this._cachedRecords[d.id] -= d.quantity;
 
                         d.modified = now;
                         sql += "UPDATE stock_records SET quantity=quantity-"+d.quantity+", modified='"+d.modified+"' WHERE id = '"+ d.id +"' ;\n";
                     }catch(e) {
-                        dump(e + '\n');
+                        this.log('ERROR', 'decreaseStockRecords datas.forEach error ' + e );
                     }
                 }, this);
 
-                var sqlWithTransaction = 'BEGIN ; \n' + sql + 'COMMIT; ';
-                dump('sql : ' + sqlWithTransaction + '\n');
+                if (sql.length > 0) {
+                    var sqlWithTransaction = 'BEGIN ; \n' + sql + 'COMMIT; ';
 
-                var datasource = this.getDataSource();
+                    var datasource = this.getDataSource();
 
-                try {
+                    try {
 
-                    datasource.connect();
-                    if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
+                        datasource.connect();
+                        if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
 
-                }catch(e) {
-                    this.log(sqlWithTransaction +",,"+ e);
+                    }catch(e) {
+                        this.log(sqlWithTransaction +",,"+ e);
+                    }
                 }
 
                 this.lastModified = now;

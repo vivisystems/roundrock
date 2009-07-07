@@ -26,6 +26,22 @@
             // synchronize mode.
             this.StockRecord.syncAllStockRecords();
 
+            this.backgroundSyncing = false;
+
+            // sync stockRecords if transaction create.
+            if(Transaction) {
+                // on Transaction object created
+                Transaction.events.addListener('onCreate', function(evt) {
+                    var recoveryMode = evt.data.recoveryMode;
+                    if (!self.backgroundSyncing && !recoveryMode) {
+                        self.backgroundSyncing = true;
+                        self.StockRecord.syncAllStockRecords(true, function(lastModified) {
+                            self.backgroundSyncing = false;
+                        })
+                    }
+                });
+            }
+
             // manager update  observer update
             this.observer = GeckoJS.Observer.newInstance({
                 topics: ['StockRecords'],
@@ -172,11 +188,10 @@
                 }
 
                 // only call model once to decrease stock records .
-                this.log('decreaseStockRecords: ' + this.dump(datas));
                 this.StockRecord.decreaseStockRecords(datas);
 
             } catch ( e ) {
-                dump( e );
+                this.log('ERROR', 'decStock error' +  e );
                 return false;
             } 
             return true;

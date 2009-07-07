@@ -153,6 +153,7 @@
             this.data.autorevalue = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || false;
             this.data.revalueprices = GeckoJS.Configure.read('vivipos.fec.settings.RevaluePrices');
 
+            this.recoveryMode = recoveryMode;
             Transaction.events.dispatch('onCreate', this, this);
         },
 
