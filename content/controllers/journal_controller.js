@@ -67,7 +67,6 @@
                     journal.preview_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.html';
 
                     //produce print file
-                    //var prnContent = this.getSelectedTemplateData(txn, false);
                     var prnContent = GeckoJS.BaseObject.serialize(txn.data);
                     var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file, true);
                     prnFile.open("wb");
@@ -84,7 +83,7 @@
                     this.saveJournal(journal);
                 }
             } catch (e) {
-                alert(e);
+                this.log("Journal Controller submitOrder error: " + e);
             }
         },
 
@@ -99,8 +98,6 @@
 
             try {
                 journal = journalModel.save(journal);
-
-                OsdUtils.info(_('Journal ID %S save success', [journal.id]));
             }catch(e) {
                 NotifyUtils.error(_('Journal save error ' + e));
             }
@@ -147,7 +144,6 @@
                         // 2. data.linkgroup intersects item.link_group
                         // 3. item.link_group does not contain any routing groups and device.printNoRouting is true
                         //
-                        //this.log('item link groups: ' + GeckoJS.BaseObject.dump(item.link_group));
                         if (data.printNoRouting) {
                             if (item.link_group == null || item.link_group == '') {
                                 item.linked = true;
@@ -182,13 +178,9 @@
                         item.linked = item.linked && (data.duplicate || item.batch == data.order.batchCount);
                         if (item.linked) empty = false;
                     }
-                    //this.log('item linked: ' + item.linked);
                 }
 
                 data.hasLinkedItems = !empty;
-                if (empty) {
-                    //this.log('no items linked to this printer; printing terminated');
-                }
             }
 
             data.linkgroups = null;
@@ -196,7 +188,10 @@
             data.routingGroups = null;
             data.autoPrint = 'submit';
             data.duplicate = true;
-            
+
+            var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
+            var printerChoice = selectedDevices['journal-print-template'];
+
             var encoding =
             	preview ?
             	"UTF-8" :

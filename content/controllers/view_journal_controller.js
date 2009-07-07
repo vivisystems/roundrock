@@ -36,7 +36,7 @@
                     this.displayJournal(journal);
                 }
             }catch(e) {
-                alert('load ' + e);
+                this.log('ViewJournal load error:  ' + e);
             }
         },
 
@@ -76,7 +76,7 @@
 
                 
             } catch (e) {
-                alert('displayJournal ' + e);
+                alert('ViewJournal displayJournal error:  ' + e);
             }
         },
 
@@ -85,7 +85,7 @@
                 var id = this._journalId;
 
                 if (!id) return;
-                // invoke Cart.voidSale in main window
+
                 var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
                                                         .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
                 var printController = mainWindow.GeckoJS.Controller.getInstanceByName('Print');
@@ -95,8 +95,8 @@
 
                 if (journal) {
                     var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file);
-                    prnFile.open("r");
-                    var orderData = GeckoJS.BaseObject.unserialize(prnFile.read());
+                    prnFile.open("rb");
+                    var orderData = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(prnFile.read()));
                     prnFile.close();
                 }
 
@@ -127,7 +127,7 @@
 
                 printController.printSlip('receipt', data, template, port, portspeed, handshaking, devicemodel, encoding, devicenumber, copies);
             }catch(e) {
-                alert(e)
+                this.dump(e);
             }
         },
 

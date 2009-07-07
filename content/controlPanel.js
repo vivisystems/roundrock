@@ -33,7 +33,8 @@
                     if(GeckoJS.AclComponent.isUserInRole(el.roles)) {
                         var label = el.label;
                         if (label.indexOf('chrome://') == 0) {
-                            label = GeckoJS.StringBundle.getPrefLocalizedString('vivipos.fec.settings.controlpanels.' + cn + '.' + key + '.label');
+                            var keystr = 'vivipos.fec.settings.controlpanels.' + cn + '.' + key + '.label';
+                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                         }
                         else {
                             label = _(label);

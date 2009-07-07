@@ -112,11 +112,19 @@
     if (order.OrderItemCondiment && order.OrderItemCondiment.length > 0) {
         itemCondiments = order.OrderItemCondiment.filter(function(c) {return c.item_id == item.id});
     }
+    if ((item.sale_unit == null) || (item.sale_unit == 'unit')) {
+        unit = ' X';
+        qty = item.current_qty;
+    }
+    else {
+        qty = item.weight;
+        unit = ' ' + item.sale_unit;
+    }
 {/eval}
     <tr>
         <td style="width: 400px">${indent + prodName}</td>
         <td/>
-        <td style="width: 70px; text-align: right">${item.current_qty} X</td>
+        <td style="width: 70px; text-align: right">${qty}${unit}</td>
         <td style="width: 100px; text-align: right;">{if item.current_price != 0 || indent == ''}${item.current_price}{/if}</td>
         <td style="width: 100px; text-align: right;">{if indent == ''}${item.current_subtotal|viviFormatPrices:true}{/if}</td>
         <td>{if indent == ''}${item.tax_name}{/if}</td>

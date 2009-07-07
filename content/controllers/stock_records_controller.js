@@ -1,6 +1,11 @@
 ( function() {
     // for using the checkMedia method.
     include( 'chrome://viviecr/content/reports/controllers/components/check_media.js' );
+    
+    // including models.
+    include( "chrome://viviecr/content/models/stock_record.js" );
+    include( "chrome://viviecr/content/models/inventory_record.js" );
+    include( "chrome://viviecr/content/models/inventory_commitment.js" );
 
     var __controller__ = {
 
@@ -21,6 +26,14 @@
         _fileName: 'stock.csv',
 
         syncSettings: null,
+        
+        initial: function () {
+            // get handle to Main controller
+            var main = GeckoJS.Controller.getInstanceByName( 'Main' );
+            if ( main ) {
+                main.addEventListener( 'afterTruncateTxnRecords', this._emptyStockRelativeTables, this );
+            }
+        },
 
         getListObj: function() {
             if( this._listObj == null ) {
@@ -184,6 +197,21 @@
             this.reload();
         },
         
+        _emptyStockRelativeTables: function() {
+            try {
+                var r;
+                var stockRecordModel = new StockRecordModel();
+                r = stockRecordModel.execute( "DELETE FROM stock_records;" );
+                var inventoryRecordModel = new InventoryRecordModel();
+                r = inventoryRecordModel.execute( "DELETE FROM inventory_records;" );
+                var inventoryCommitmentModel = new InventoryCommitmentModel();
+                r = inventoryCommitmentModel.execute( "DELETE FROM inventory_commitments;" );
+            } catch ( e ) {
+                dump( e );
+                throw e;
+            }
+        },
+        
         reload: function() {
             this._selectedIndex = -1;
             this.list();
@@ -239,11 +267,12 @@
                 //this._listObj.datasource.tree.rowCountChanged( 0, -oldRowCount );
                 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=420';
             var inputObj = {
                 input0: null,
                 require0: true,
-                numberOnly0: true
+                numberOnly0: true,
+                numpad: true
             };
 
             GREUtils.Dialog.openWindow(
@@ -290,13 +319,6 @@
         },
         
         commitChanges: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Stock Control'), _( 'Are you sure you want to commit all changes?' ) ) )
-                return;
-        		
-            var records = this._records;
-            var stockRecords = [];
-            var user = this.Acl.getUserPrincipal();
-            
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
@@ -304,9 +326,10 @@
                 require0: false,
                 menu: null,
                 menuItems : [
-                    { label: "Check Stock", value: "check_stock", selected: true },
-                    { label: "Procure", value: "procure" },
-                    { label: "Otherwise", value: "otherwise" }
+                    { label: _( "Check Stock" ), value: "check_stock", selected: true },
+                    { label: _( "Procure" ), value: "procure" },
+                    { label: _( "Waste" ), value: "waste" },
+                    { label: _( "Others" ), value: "others" }
                ]
             };
 
@@ -317,17 +340,19 @@
                 aFeatures,
                 _( 'Commit Changes' ),
                 '',
-                _( 'Remark' ) + ':',
+                _( 'Memo' ) + ':',
                 '',
                 inputObj,
                 _( 'Type' ) + ':'
             );
             
             var commitmentType = '';
-            var commitmentRemark = '';
-            if ( inputObj.ok && inputObj.menu && inputObj.input0 ) {
+            var commitmentMemo = '';
+            if ( inputObj.ok && inputObj.menu ) {
                 commitmentType = inputObj.menu;
-                commitmentRemark = inputObj.input0;
+                commitmentMemo = inputObj.input0;
+            } else {// user cancled.
+                return;
             }
             
             var commitmentID = GeckoJS.String.uuid();
@@ -336,8 +361,12 @@
             inventoryCommitmentModel.set( {
                 id: commitmentID,
                 type: commitmentType,
-                remark: commitmentRemark
+                memo: commitmentMemo
             } );
+            
+            var records = this._records;
+            var stockRecords = [];
+            var user = this.Acl.getUserPrincipal();
         	
             for ( record in records ) {
                 stockRecords.push( {
@@ -354,7 +383,12 @@
             stockRecordModel.setAll( stockRecords );
         	
             var inventoryRecordModel = new InventoryRecordModel();
-            inventoryRecordModel.setAll( records );
+            inventoryRecordModel.setAll( records.filter( function( record ) { //When the commit type is not check_stock, we just save the non-zero rows.
+                    if ( commitmentType == "check_stock" || record.qty_difference != 0 )
+                        return true;
+                    return false;
+                } )
+            );
         	
             this.reload();
         },
@@ -458,4 +492,11 @@
     };
     
     GeckoJS.Controller.extend( __controller__ );
+    
+    window.addEventListener( 'load', function() {
+        var main = GeckoJS.Controller.getInstanceByName( 'Main' );
+        if(main) main.addEventListener( 'afterInitial', function() {
+            main.requestCommand( 'initial', null, 'StockRecords' );
+        } );
+    }, false );
 } )();

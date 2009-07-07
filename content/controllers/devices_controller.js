@@ -1251,8 +1251,8 @@
 
                         var label = newTemplate.label;
                         if (label.indexOf('chrome://') == 0) {
-                            var key = 'vivipos.fec.registry.templates.' + tmpl + '.label';
-                            label = GeckoJS.StringBundle.getPrefLocalizedString(key) || key;
+                            var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                         }
                         else {
                             label = _(label);

@@ -409,14 +409,17 @@
                         var price = parseFloat(buf);
 
                         // make sure we have a price
-                        if(!isNaN(price)) {
+                        // @irving - 7/6/09: this check is moved to cart.addItem
+                        //if(!isNaN(price)) {
                             dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
+                        /*
                         }
                         else {
                             NotifyUtils.error(_('Price must be given to register sale of department [%S]', [dep.name]));
                             return;
                         }
+                        */
                     }
 
                     // change pluview panel

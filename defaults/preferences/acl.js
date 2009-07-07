@@ -98,7 +98,6 @@ pref("vivipos.fec.acl.roles.acl_set_price_level_6", "acl_set_price_level_6");
 pref("vivipos.fec.acl.roles.acl_set_price_level_7", "acl_set_price_level_7");
 pref("vivipos.fec.acl.roles.acl_set_price_level_8", "acl_set_price_level_8");
 pref("vivipos.fec.acl.roles.acl_set_price_level_9", "acl_set_price_level_9");
-pref("vivipos.fec.acl.roles.acl_set_tare", "acl_set_tare");
 pref("vivipos.fec.acl.roles.acl_shift_item_tax", "acl_shift_item_tax");
 pref("vivipos.fec.acl.roles.acl_split_check", "acl_split_check");
 pref("vivipos.fec.acl.roles.acl_stock_adjustment", "acl_stock_adjustment");

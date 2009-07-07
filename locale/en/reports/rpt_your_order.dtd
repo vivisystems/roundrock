@@ -1,4 +1,4 @@
-<!ENTITY rptyourorder.title "Your Order Report">
+<!ENTITY rptyourorder.title "Custom Sales Report">
 <!ENTITY rptyourorder.startdate "Start Date:">
 <!ENTITY rptyourorder.enddate "End Date:">
 <!ENTITY rptyourorder.execute "Execute">

@@ -90,7 +90,7 @@
                             <appinfolabel appField="name" />
                             <appinfolabel appField="version" />
                         </hbox>
-                        <hbox>(<appinfolabel appField="buildId" />)</hbox>
+                        <hbox>(<appinfolabel appField="issue" />)</hbox>
                     </vbox>
                     <spacer flex="1"/>
                     

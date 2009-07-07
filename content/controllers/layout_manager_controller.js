@@ -80,7 +80,8 @@
             // get localed label
             var labelStr = "" ;
             if (data.label.indexOf("chrome://") != -1) {
-                labelStr = GeckoJS.StringBundle.getPrefLocalizedString("vivipos.fec.registry.layouts." + value +".label") || "No Label";
+                var keystr = "vivipos.fec.registry.layouts." + value +".label";
+                labelStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }else {
                 // use i18n
                 labelStr = _(data.label);
@@ -91,7 +92,8 @@
             // get localed desc
             var descStr = "" ;
             if (data.desc.indexOf("chrome://") != -1) {
-                descStr = GeckoJS.StringBundle.getPrefLocalizedString("vivipos.fec.registry.layouts." + value +".desc") || "No Desc";
+                var keystr = "vivipos.fec.registry.layouts." + value +".desc";
+                descStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }else {
                 // use i18n
                 descStr = _(data.desc);

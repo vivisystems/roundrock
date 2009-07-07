@@ -360,6 +360,17 @@
                         case 'index':
                             break;
 
+                        case 'current_qty':
+                            if (item['sale_unit'] == 'unit') {
+                                orderItem['current_qty'] = item['current_qty'];
+                                orderItem['weight'] = 0.0;
+                            }
+                            else {
+                                orderItem['current_qty'] = 1;
+                                orderItem['weight'] = item['current_qty'];
+                            }
+                            break;
+
                         default:
                             orderItem[key] = item[key];
                             break;
