@@ -26,9 +26,9 @@
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
-  <script src="chrome://viviecr/content/models/stock_record.js" type="application/x-javascript"/>
+  <!--script src="chrome://viviecr/content/models/stock_record.js" type="application/x-javascript"/>
   <script src="chrome://viviecr/content/models/inventory_record.js" type="application/x-javascript"/>
-  <script src="chrome://viviecr/content/models/inventory_commitment.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/models/inventory_commitment.js" type="application/x-javascript"/-->
 
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/stock_records_controller.js" type="application/x-javascript"/>
