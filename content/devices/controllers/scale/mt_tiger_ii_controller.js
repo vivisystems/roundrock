@@ -100,7 +100,7 @@
 
         readScale: function(port, iterations, stables, tries) {
 
-            GREUtils.log('DEBUG', 'args: ' + port + ', ' + iterations + ', ' + stables + ', ' + tries);
+            this.log('DEBUG', 'args: ' + port + ', ' + iterations + ', ' + stables + ', ' + tries);
             var weight;
             var lastWeight;
             var stableCount = 0;
@@ -108,13 +108,14 @@
 
             // return weight only if the same weight has been read 3 times in a row
             weight = this.readScaleOnce(port, iterations);
-            if (weight) {
-                if (!lastWeight) {
+            this.log('weight from readOnce: ' + weight);
+            while (weight != null) {
+                if (lastWeight == null) {
                     lastWeight = weight;
                 }
                 else {
                     if (weight == lastWeight) {
-                        if (++stableCount == stables) {
+                        if (++stableCount >= stables) {
                             return {value: weight};
                         }
                     }
@@ -129,13 +130,12 @@
                         }
                     }
                 }
+                weight = this.readScaleOnce(port, iterations);
+                this.log('weight from readOnce: ' + weight);
             }
-            else {
-                // fail to read from scale, return immediately
+            // fail to read from scale, return immediately
 
-                return;
-            }
-
+            return;
         },
 
         readScaleOnce: function(port, iterations) {
@@ -146,7 +146,7 @@
             var buf = {};
 
 this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
-            while (weightStr.length < 29 && count < iterations) {
+            while (weightStr.length < 29 && count++ < iterations) {
                 var len = this.readSerialPort(port, buf, 29);
                 if (len > 0) {
                     var str = buf.value;
@@ -165,8 +165,6 @@ this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
                         }
                     }
                 }
-                this.sleep(100);
-                count++;
                 this.log('DEBUG', 'weightStr length: ' + weightStr.length + ', iterations: ' + count);
             }
 

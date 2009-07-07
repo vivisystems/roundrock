@@ -4,6 +4,8 @@
   %Dialog;
   <!ENTITY % Departments SYSTEM "chrome://viviecr/locale/departments.dtd">
   %Departments;
+  <!ENTITY % Products SYSTEM "chrome://viviecr/locale/plus.dtd">
+  %Products;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
@@ -81,17 +83,39 @@
                                 <textbox class="ItemButtonA" id="rate_name" value="" form="deptForm" name="rate_name" readonly="true" default="" onclick="$do('getRate', null,'Departments');" onfocus="this.select()"/>
                             </vbox>
                             <vbox flex="0">
+                                <checkbox id="scale" checked="false" label="&departments.scale;" form="deptForm" name="scale" default="0"/>
+                            </vbox>
+                       </row>
+                        <row>
+                            <vbox>
                                 <label style="width:10em" value="&departments.display_order;" control="display_order"/>
                                 <textbox id="display_order" type="number" value="" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
                                          form="deptForm" name="display_order" default="99999" onfocus="this.select()"/>
                             </vbox>
-                       </row>
+                            <vbox>
+                                <label value="&departments.sale.unit;"/>
+                                <menulist id="sale_unit" form="deptForm" name="sale_unit" value="unit" default="unit">
+                                    <menupopup style="width: 200px;">
+                                        <menuitem label="&plus.sale.unit.individual;" value="unit"/>
+                                        <menuitem label="&plus.sale.unit.gram;" value="g"/>
+                                        <menuitem label="&plus.sale.unit.kilogram;" value="kg"/>
+                                        <menuitem label="&plus.sale.unit.ounce;" value="oz"/>
+                                        <menuitem label="&plus.sale.unit.pound;" value="lb"/>
+                                        <menuitem label="&plus.sale.unit.milliliter;" value="ml"/>
+                                        <menuitem label="&plus.sale.unit.liter;" value="l"/>
+                                        <menuitem label="&plus.sale.unit.pint;" value="pt"/>
+                                        <menuitem label="&plus.sale.unit.quart;" value="qt"/>
+                                        <menuitem label="&plus.sale.unit.gallon;" value="gal"/>
+                                    </menupopup>
+                                </menulist>
+                            </vbox>
+                        </row>
                     </rows>
                 </grid>
                 <hbox class="RightPnlB">
                     <vbox flex="1">
                         <label value="&departments.button.color;" class="SubTitle"/>
-                        <hbox pack="center" align="center" flex="1">
+                        <hbox pack="center" align="center" flex="0">
                             <button_colorpicker id="dept_button_color" form="deptForm" name="button_color"
                                             buttonClass="catbtn" class="BtnColors" 
                                             class-prefix="department-button-color-" default="department-button-color-default"/>
@@ -103,7 +127,6 @@
                                                buttonClass="ItemButtonB" default="medium"/>
                     </vbox>
                 </hbox>
-                <spacer  flex="1" />
                 <hbox flex="1">
                     <hbox class="ToolBar" flex="1">
                         <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Departments');" />

@@ -53,7 +53,7 @@
             var device = this.getDeviceController();
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
-                return;
+                return -1;
             }
 
             var number = parseInt(number);
@@ -65,8 +65,8 @@
             if (enabledDevices.length == 0) {
                 GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Device Status'),
-                                      _('No scale has been enabled!'));
-                return;
+                                      _('There are no active scales!'));
+                return -1;
             }
 
             // notify user which scale is in use if multiple scales are enabled
@@ -87,7 +87,7 @@
                 GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Device Status'),
                                       _('The configured scale model [%S] is not supported', [selectedDevice.devicemodel]));
-                return;
+                return -1;
             }
 
             // device model controller exists?
@@ -97,7 +97,7 @@
                 GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Device Status'),
                                       _('The configured scale model [%S] is not supported', [devicemodel.label]));
-                return;
+                return -1;
             }
 
             var port = this.getPortPath(selectedDevice.port);
@@ -106,7 +106,7 @@
 
             var mainController = GeckoJS.Controller.getInstanceByName('Main');
             var waitPanel = mainController._showWaitPanel('wait_panel', 'common_wait',
-                                                          _('Reading from Scale [%S]', [selectedDevice.number]), 0);
+                                                          _('Reading from Scale [%S]', [selectedDevice.number]), 1);
 
             var weight;
 
@@ -116,12 +116,8 @@
             }
 
             if (waitPanel) waitPanel.hidePopup();
-
             if (weight != null) {
-                if (weight.value == null) {
-                    return weight;
-                }
-                else {
+                if (weight.value != null) {
                     var deviceTare = parseFloat(selectedDevice.tare);
                     if (isNaN(deviceTare)) deviceTare = 0;
 
@@ -131,8 +127,9 @@
                     var multiplier = parseFloat(selectedDevice.multiplier);
                     if (isNaN(multiplier) || multiplier == 0) multiplier = 1;
 
-                    return (weight - deviceTare - productTare) * multiplier;
+                    weight.value = (weight.value - deviceTare - productTare) * multiplier;
                 }
+                return weight;
             }
             else {
                 return;

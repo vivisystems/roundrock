@@ -117,8 +117,15 @@
 
                 if (!async) {
                     // block ui until request finish or timeout
+
+                    var timeoutGuardSec = 15000;
+                    var timeoutGuardNow = Date.now().getTime();
+
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                    while (!reqStatus.finish) {
+                    while (thread.hasPendingEvents() && !reqStatus.finish) {
+
+                        if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
+
                         thread.processNextEvent(true);
                     }
                 }

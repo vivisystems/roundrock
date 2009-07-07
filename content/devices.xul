@@ -1209,6 +1209,7 @@
             <hbox id="dialogButtons" class="dialogbtns" pack="end">
                 <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
                 <spacer flex="1" />
+                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
                 <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
             </hbox>
         </vbox>

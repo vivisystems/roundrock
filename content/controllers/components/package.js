@@ -25,7 +25,8 @@
                 // retrieve localization string bundle if present
                 if (location_label) {
                     if (location_label.indexOf('chrome://') == 0) {
-                        location_label = GeckoJS.StringBundle.getPrefLocalizedString(this._PackageNameKey + '.' + location);
+                        var keystr = this._PackageNameKey + '.' + location;
+                        location_label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                     }
                     else {
                         location_label = _(location_label);
@@ -44,7 +45,8 @@
                         // retrieve localized sector label
                         var label = pkg.label || '';
                         if (label && label.indexOf('chrome://') == 0) {
-                            label = GeckoJS.StringBundle.getPrefLocalizedString(this._PackageKey + '.' + location + '.' + sector + '.label');
+                            var keystr = this._PackageKey + '.' + location + '.' + sector + '.label';
+                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                         }
                         else {
                             label = _('(sector)' + label);
@@ -53,7 +55,8 @@
                         // retrieve localized sector description
                         var desc = pkg.description || '';
                         if (desc && desc.indexOf('chrome://') == 0) {
-                            desc = GeckoJS.StringBundle.getPrefLocalizedString(this._PackageKey + '.' + location + '.' + sector + '.description');
+                            var keystr = this._PackageKey + '.' + location + '.' + sector + '.description';
+                            desc = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                         }
                         else {
                             desc = _(desc);
