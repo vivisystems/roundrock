@@ -4,7 +4,7 @@
 
         name: 'Stocks',
 
-        uses: [ 'Product', 'StockRecord' ],
+        uses: [ /*'Product', */'StockRecord' ],
 
         syncSettings: null,
         
@@ -18,7 +18,7 @@
 
             this.syncSettings = (new SyncSetting()).read();
             
-            var productsById = GeckoJS.Session.get('productsById');
+            //var productsById = GeckoJS.Session.get('productsById');
 
             // register Cart Controller 's stock method.
             var cartController = GeckoJS.Controller.getInstanceByName('Cart');
@@ -37,7 +37,6 @@
 
             // register cart'controller 's checkStock / decStock method.
 
-
         },
 
         destroy: function() {
@@ -54,6 +53,9 @@
             var curTransaction = cart._getTransaction(true);
             
             this.log('checkStock: ' + item.name + '('+qty+')');
+            
+            //this.log('checkStock: ' + this.dump(curTransaction.data));
+
             
             var min_stock = parseFloat(item.min_stock);
             var auto_maintain_stock = item.auto_maintain_stock;
@@ -126,14 +128,20 @@
         },
 
         decStock: function( obj ) {
+
             //this._productsById = GeckoJS.Session.get( 'productsById' );
             //this._barcodesIndexes = GeckoJS.Session.get( 'barcodesIndexes' );
 
+            var productsById = GeckoJS.Session.get('productsById');
+            
             this.log('decStock: ');
+            return true;
             try {
                 for ( var o in obj.items ) {
                     var ordItem = obj.items[ o ];
-                    var item = this.Product.findById( ordItem.id );
+                    //var item = this.Product.findById( ordItem.id );
+                    var item = productsById[ordItem.id];
+                    
                     if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
                         // renew the stock record.
                         var stockRecordModel = new StockRecordModel();
