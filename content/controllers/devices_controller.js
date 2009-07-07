@@ -1245,21 +1245,19 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('receipt') > -1) {
-                        var newTemplate = GREUtils.extend({}, templates[tmpl]);
-                        newTemplate.name = tmpl;
+                    var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                    newTemplate.name = tmpl;
 
-                        var label = newTemplate.label;
-                        if (label.indexOf('chrome://') == 0) {
-                            var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
-                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
-                        }
-                        else {
-                            label = _(label);
-                        }
-                        newTemplate.label = label;
-                        sortedTemplates.push(newTemplate);
+                    var label = newTemplate.label;
+                    if (label.indexOf('chrome://') == 0) {
+                        var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                        label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                     }
+                    else {
+                        label = _(label);
+                    }
+                    newTemplate.label = label;
+                    sortedTemplates.push(newTemplate);
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
@@ -1344,22 +1342,20 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('check') > -1) {
-                        var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                    var newTemplate = GREUtils.extend({}, templates[tmpl]);
 
-                        newTemplate.name = tmpl;
+                    newTemplate.name = tmpl;
 
-                        var label = newTemplate.label;
-                        if (label.indexOf('chrome://') == 0) {
-                            var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
-                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
-                        }
-                        else {
-                            label = _(label);
-                        }
-                        newTemplate.label = label;
-                        sortedTemplates.push(newTemplate);
+                    var label = newTemplate.label;
+                    if (label.indexOf('chrome://') == 0) {
+                        var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                        label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                     }
+                    else {
+                        label = _(label);
+                    }
+                    newTemplate.label = label;
+                    sortedTemplates.push(newTemplate);
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
@@ -1546,22 +1542,20 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('vfd') > -1) {
-                        var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                    var newTemplate = GREUtils.extend({}, templates[tmpl]);
 
-                        newTemplate.name = tmpl;
+                    newTemplate.name = tmpl;
 
-                        var label = newTemplate.label;
-                        if (label.indexOf('chrome://') == 0) {
-                            var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
-                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
-                        }
-                        else {
-                            label = _(label);
-                        }
-                        newTemplate.label = label;
-                        sortedTemplates.push(newTemplate);
+                    var label = newTemplate.label;
+                    if (label.indexOf('chrome://') == 0) {
+                        var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                        label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
                     }
+                    else {
+                        label = _(label);
+                    }
+                    newTemplate.label = label;
+                    sortedTemplates.push(newTemplate);
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
@@ -1696,9 +1690,20 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                        var newTemplate = GREUtils.extend({}, templates[tmpl]);
-                        newTemplate.name = tmpl;
-                        sortedTemplates.push(newTemplate);
+                    var newTemplate = GREUtils.extend({}, templates[tmpl]);
+
+                    newTemplate.name = tmpl;
+
+                    var label = newTemplate.label;
+                    if (label.indexOf('chrome://') == 0) {
+                        var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                        label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                    }
+                    else {
+                        label = _(label);
+                    }
+                    newTemplate.label = label;
+                    sortedTemplates.push(newTemplate);
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 

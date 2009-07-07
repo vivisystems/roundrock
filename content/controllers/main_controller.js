@@ -231,7 +231,7 @@
             var aURL = 'chrome://viviecr/content/plusearch.xul';
             var aName = _('Product Search');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {buffer: buf, item: item};
+            var aArguments = {buffer: buf, item: item, select: addtocart};
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
             if (aArguments.ok) {
