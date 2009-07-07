@@ -1034,6 +1034,7 @@
                     document.getElementById('tableScrollablepanel').invalidate();
                     
                     clearInterval(window.tableStatusRefreshInterval);
+GeckoJS.BaseObject.sleep(100);
                     window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 5000);
 
                     document.getElementById('table_status_timer').startClock();

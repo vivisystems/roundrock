@@ -318,6 +318,13 @@
 // this.log("SplitCheck printChecks:::");
             this.printChecks(evt.data);
 
+            // restore from backup after order was submited/stored
+            var order = new OrderModel();
+            order.restoreOrderFromBackup();
+            delete order;
+
+            this.syncClient();
+
         },
 
         handleMergeCheck: function(evt) {
@@ -327,6 +334,13 @@
             // print check
 // this.log("MergeCheck printChecks:::");
             this.printChecks(evt.data);
+
+            // restore from backup after order was submited/stored
+            var order = new OrderModel();
+            order.restoreOrderFromBackup();
+            delete order;
+
+            this.syncClient();
 
         },
 
@@ -345,9 +359,10 @@
         },
 
         handleNewTransaction: function(evt) {
-
+this.log("NewTransaction:::");
             if ( evt.type == 'newTransaction') {
                 if (this._guestCheck.tableSettings.RequireCheckNo) {
+this.log("NewTransaction newCheck:::");
                     this._controller.newCheck(true);
                 }
             }
@@ -403,13 +418,14 @@
         },
 
         getNewCheckNo: function() {
-
+this.log("GuestCheck:::getNewCheckNo:::");
             var r = this._tableStatusModel.getNewCheckNo();
+this.log("GuestCheck:::getNewCheckNo:::r:::" + r);
             if (r >= 0) {
                 var curTransaction = null;
                 curTransaction = this._controller._getTransaction();
                 if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-
+this.log("GuestCheck:::getNewCheckNo:::null:::");
                     curTransaction = this._controller._getTransaction(true);
                     if (curTransaction == null) {
                         NotifyUtils.warn(_('fatal error!!'));
