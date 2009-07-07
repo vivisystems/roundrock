@@ -16,6 +16,7 @@
         _trainingQueueSession: "training_cart_queue_pool",
         _returnMode: false,
         _returnPersist: false,
+        _decStockBackUp: null,
 
         beforeFilter: function(evt) {
             var cmd = evt.data;
@@ -3764,6 +3765,12 @@
             if ( isTraining ) {
                 this._queueFile = this._trainingQueueFile;
                 this._queueSession = this._trainingQueueSession;
+                
+                // We are not going to maintain stock in training mode.
+                this._decStockBackUp = this.decStock;
+                this.decStock = function() {
+                    return true;
+                };
 
                 this.clear();
             } else {
@@ -3773,6 +3780,9 @@
                 GeckoJS.Session.remove( this._queueSession );
                 this._queueFile = this._defaultQueueFile;
                 this._queueSession = this._defaultQueueSession;
+                
+                // Use the default stock-maintaining method.
+                this.decStock = this._decStockBackUp;
 
                 // clear screen
                 this.subtotal();

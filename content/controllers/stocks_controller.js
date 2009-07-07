@@ -150,7 +150,7 @@
                         } );
                         stockRecord.quantity -= ordItem.current_qty;
                         stockRecordModel.set( stockRecord );
-                        this.log( this.dump( stockRecord ) );
+                        
                         // stock had maintained
                         ordItem.stock_maintained = true;
 
