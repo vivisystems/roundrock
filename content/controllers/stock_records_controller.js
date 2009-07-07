@@ -48,7 +48,7 @@
             
             var sql =
                 "select s.*, p.no as product_no, p.name as product_name, p.min_stock as min_stock, p.auto_maintain_stock as auto_maintain_stock " +
-                "from stock_records s join products p on s.product_no = p.no " +
+                "from stock_records s join products p on s.id = p.no " +
                 "order by product_no;"; // the result must be sorted by product_no for the use of binary search in locateIndex method.
             	
             var stockRecords = stockRecordModel.getDataSource().fetchAll( sql );
@@ -175,7 +175,7 @@
                 var storeContact = GeckoJS.Session.get( 'storeContact' );
                 if ( storeContact )
                     branch_id = storeContact.branch_id;
-                var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON ( p.no = s.product_no ) WHERE s.product_no IS NULL;";
+                var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON ( p.no = s.id ) WHERE s.id IS NULL;";
                 var products = this.Product.getDataSource().fetchAll( sql );
                 
                 var stockRecordModel = new StockRecordModel();
@@ -183,7 +183,7 @@
                 	stockRecordModel.insertNewRecords( products );
                 
                 // remove the products which no longer exist from stock_record table.
-                sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON ( s.product_no = p.no ) WHERE p.no IS NULL;";
+                sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON ( s.id = p.no ) WHERE p.no IS NULL;";
                 var stockRecords = stockRecordModel.getDataSource().fetchAll( sql );
                 if ( stockRecords.length > 0 ) {
                     stockRecords.forEach( function( stockRecord ) {
@@ -370,8 +370,7 @@
         	
             for ( record in records ) {
                 stockRecords.push( {
-                    id: records[ record ].id || '',
-                    product_no: records[ record ].product_no,
+                    id: records[ record ].product_no,
                     warehouse: records[ record ].warehouse,
                     quantity: records[ record ].new_quantity
                 } );
