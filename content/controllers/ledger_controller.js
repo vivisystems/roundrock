@@ -78,46 +78,33 @@
             var expireDate = parseInt(evt.data);
             if (!isNaN(expireDate)) {
                 try {
-                    var r = model.begin();
-                    if (r) {
-                        r = model.restoreFromBackup();
-                        if (!r) {
-                            throw {errno: model.lastError,
-                                   errstr: model.lastErrorString,
-                                   errmsg: _('An error was encountered while expiring backup ledger activity logs (error code %S).', [model.lastError])};
-                        }
-
-                        r = model.execute('delete from ledger_records where created <= ' + expireDate);
-                        if (!r) {
-                            throw {errno: model.lastError,
-                                   errstr: model.lastErrorString,
-                                   errmsg: _('An error was encountered while expiring ledger activity logs (error code %S).', [model.lastError])};
-                        }
-
-                        model = new LedgerReceiptModel();
-                        r = model.restoreFromBackup();
-                        if (!r) {
-                            throw {errno: model.lastError,
-                                   errstr: model.lastErrorString,
-                                   errmsg: _('An error was encountered while expiring backup ledger receipts (error code %S).', [model.lastError])};
-                        }
-
-                        r = model.execute('delete from ledger_receipts where created <= ' + expireDate);
-                        if (!r) {
-                            throw {errno: model.lastError,
-                                   errstr: model.lastErrorString,
-                                   errmsg: _('An error was encountered while expiring ledger receipts (error code %S).', [model.lastError])}
-                        }
-                        if (!model.commit()) {
-                            throw {errno: model.lastError,
-                                   errstr: model.lastErrorString,
-                                   errmsg: _('An error was encountered while removing expired ledger data (error code %S).', [model.lastError])}
-                        }
-                    }
-                    else {
+                    var r = model.restoreFromBackup();
+                    if (!r) {
                         throw {errno: model.lastError,
                                errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while preparing to expire ledger data (error code %S).', [model.lastError])}
+                               errmsg: _('An error was encountered while expiring backup ledger activity logs (error code %S).', [model.lastError])};
+                    }
+
+                    r = model.execute('delete from ledger_records where created <= ' + expireDate);
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring ledger activity logs (error code %S).', [model.lastError])};
+                    }
+
+                    model = new LedgerReceiptModel();
+                    r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup ledger receipts (error code %S).', [model.lastError])};
+                    }
+
+                    r = model.execute('delete from ledger_receipts where created <= ' + expireDate);
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring ledger receipts (error code %S).', [model.lastError])}
                     }
                 }
                 catch(e) {
@@ -130,46 +117,33 @@
         truncateData: function(evt) {
             var model = new LedgerRecordModel();
             try {
-                var r = model.begin();
-                if (r) {
-                    r = model.restoreFromBackup();
-                    if (!r) {
-                        throw {errno: model.lastError,
-                               errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while removing all backup ledger activity logs (error code %S).', [model.lastError])};
-                    }
-
-                    r = model.truncate();
-                    if (!r) {
-                        throw {errno: model.lastError,
-                               errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while removing all ledger activity logs (error code %S).', [model.lastError])};
-                    }
-
-                    model = new LedgerReceiptModel();
-                    r = model.restoreFromBackup();
-                    if (!r) {
-                        throw {errno: model.lastError,
-                               errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while removing all backup ledger receipts (error code %S).', [model.lastError])};
-                    }
-
-                    r = model.truncate();
-                    if (!r) {
-                        throw {errno: model.lastError,
-                               errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while revmoing all ledger receipts (error code %S).', [model.lastError])}
-                    }
-                    if (!model.commit()) {
-                        throw {errno: model.lastError,
-                               errstr: model.lastErrorString,
-                               errmsg: _('An error was encountered while removing all ledger data (error code %S).', [model.lastError])}
-                    }
-                }
-                else {
+                var r = model.restoreFromBackup();
+                if (!r) {
                     throw {errno: model.lastError,
                            errstr: model.lastErrorString,
-                           errmsg: _('An error was encountered while preparing to remove all ledger data (error code %S).', [model.lastError])}
+                           errmsg: _('An error was encountered while removing all backup ledger activity logs (error code %S).', [model.lastError])};
+                }
+
+                r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while removing all ledger activity logs (error code %S).', [model.lastError])};
+                }
+
+                model = new LedgerReceiptModel();
+                r = model.restoreFromBackup();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while removing all backup ledger receipts (error code %S).', [model.lastError])};
+                }
+
+                r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while revmoing all ledger receipts (error code %S).', [model.lastError])}
                 }
             }
             catch(e) {

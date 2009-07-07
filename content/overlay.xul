@@ -101,6 +101,9 @@
             </vbox>
         </vivipanel>
 
+        <vivipanel id="blockui_panel" position="overlap" noautohide="true" pack="center" align="center">
+        </vivipanel>
+
     </box>
 
 </overlay>

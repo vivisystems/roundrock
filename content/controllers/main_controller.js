@@ -15,6 +15,7 @@
         _suspendLoadTest: false,
         _groupPath: [],
         _suspendOperation: false,
+        _suspendKeyboardOperation: false,
         _suspendOperationFilter: null,
         _isTraining: false,
     
@@ -115,9 +116,20 @@
         },
 
         filterOperations: function(evt) {
-            if (this._suspendOperation && evt.data.name != 'Keypad') {
+            if (this._suspendOperation && (this._suspendKeyboardOperation || evt.data.name != 'Keypad')) {
                 evt.preventDefault();
             }
+        },
+
+        suspendOperation: function(all) {
+            this._suspendOperation = true;
+            if (all) {
+                this._suspendKeyboardOpereation = true;
+            }
+        },
+
+        resumeOperation: function() {
+            this._suspendOperation = this._suspendKeyboardOperation = false;
         },
 
         PackageBuilderDialog: function() {

@@ -1,6 +1,7 @@
 ( function() {
 
 	 var __model__ = {
+         
 		name: 'InventoryRecord',
 		
 		useDbConfig: 'default',

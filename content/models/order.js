@@ -13,142 +13,128 @@
 
         autoRestoreFromBackup: true,
 
-
-        _saveAll: function(data, model) {
-
-            var r = true;
-
-            for (var key in data) {
-                var d = data[key];
-                model.create();
-                d = model.save(d);
-
-                if (!d) {
-                    r = false;
-                    break;
-                }
-            }
-
-            return r;
-        },
-
-        removeOldOrder: function(iid) {
-            return true;
-            
-            var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
-            if (r) {
-
-                if (r) r = this.delAll("id='" + iid + "'");
-
-                var cond = "order_id='" + iid + "'";
-        
-                if (r) r = this.OrderItem.delAll(cond);
-                if (r) r = this.OrderAddition.delAll(cond);
-                if (r) r = this.OrderPayment.delAll(cond);
-                if (r) r = this.OrderObject.delAll(cond);
-                if (r) r = this.OrderAnnotation.delAll(cond);
-                if (r) r = this.OrderItemCondiment.delAll(cond);
-                if (r) r = this.OrderPromotion.delAll(cond);
-            }
-
-            return r;
-        },
-
-        removeOldOrderObject: function(iid) {
-            return true;
-
-            var r = this.find('count', {fields: "id", conditions: "id='" + iid + "'", recursive: 0});
-            if (r) {
-
-                var cond = "order_id='" + iid + "'";
-
-                this.OrderObject.delAll(cond);
-            }
-        },
-
         /**
          * return:
-         *   1: success
-         *   null: input data is null
-         *   -1: save fail, save to backup
-         *   -2: remove fail
          *
+         *   true  - if successfully saved to backup
+         *   false - if save to backup failed
          */
         saveOrder: function(data) {
-            if(!data ) return;
+            if (!data ) return true;
             
             var retObj;
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
 
             var checksum = "";
 
             try {
-                retObj = this.saveToBackup(this.mappingTranToOrderFields(data));
+                if (isTraining) {
+                    retObj = this.save(this.mappingTranToOrderFields(data));
+                }
+                else {
+                    retObj = this.saveToBackup(this.mappingTranToOrderFields(data));
+                }
+                if (!retObj) {
+                    throw 'Order';
+                }
                 checksum += retObj.id + retObj.modified;
 
-                retObj = this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
+                if (isTraining) {
+                    retObj = this.OrderItem.save(this.mappingTranToOrderItemsFields(data));
+                }
+                else {
+                    retObj = this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderItem';
+                }
                 retObj.forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
-                retObj = this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
+                if (isTraining) {
+                    retObj = this.OrderAddition.save(this.mappingTranToOrderAdditionsFields(data));
+                }
+                else {
+                    retObj = this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderAddition';
+                }
                 retObj.forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
-                retObj = this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
+                if (isTraining) {
+                    retObj = this.OrderPayment.save(this.mappingTranToOrderPaymentsFields(data));
+                }
+                else {
+                    retObj = this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderPayment';
+                }
                 retObj.forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
-                retObj = this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
+                if (isTraining) {
+                    retObj = this.OrderAnnotation.save(this.mappingTranToOrderAnnotationsFields(data));
+                }
+                else {
+                    retObj = this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderAnnotation';
+                }
                 retObj.forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
-                retObj = this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
+                if (isTraining) {
+                    retObj = this.OrderItemCondiment.save(this.mappingTranToOrderItemCondimentsFields(data));
+                }
+                else {
+                    retObj = this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderItemCondiment';
+                }
                 retObj.forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
-                retObj = this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
+                if (isTraining) {
+                    retObj = this.OrderPromotion.save(this.mappingTranToOrderPromotionsFields(data));
+                }
+                else {
+                    retObj = this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
+                }
+                if (!retObj) {
+                    throw 'OrderPromotion';
+                }
                 retObj.forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
                 if (data.status == 2) {
                     data.checksum = GREUtils.CryptoHash.md5(checksum);
-                    this.serializeOrder(data, true);
+                    if (!this.serializeOrder(data)) {
+                        throw 'OrderObject';
+                    }
                 }
-
-//                return 1;
+                return true;
 
             } catch(e) {
-//                return -1;
+                this.log('ERROR',
+                         'record could not be saved to backup [' + e + ']\n' + this.dump(data));
             }
-
-            /*
-            var r = true;
-            r = this.restoreFromBackup();
-
-            if (r) r = this.OrderItem.restoreFromBackup();
-            if (r) r = this.OrderAddition.restoreFromBackup();
-            if (r) r = this.OrderPayment.restoreFromBackup();
-            if (r) r = this.OrderAnnotation.restoreFromBackup();
-            if (r) r = this.OrderItemCondiment.restoreFromBackup();
-            if (r) r = this.OrderPromotion.restoreFromBackup();
-
-            if (data.status == 2) {
-                    data.checksum = GREUtils.CryptoHash.md5(checksum);
-                    this.serializeOrder(data, true);
-                }
-
-            return r ? 1 : -1;
-            */
+            return false;
         },
 
         restoreOrderFromBackup: function() {
-            var r = true;
-            r = this.restoreFromBackup();
+
+            var r = this.restoreFromBackup();
 
             if (r) r = this.OrderItem.restoreFromBackup();
             if (r) r = this.OrderAddition.restoreFromBackup();
@@ -164,19 +150,20 @@
 
         updateOrderMaster: function(data) {
 
+            this.id = data.id;
             var r = this.save(data);
             if (!r) {
                 this.log('ERROR',
-                         _('An error was encountered while updating order master (error code %S): %S', [this.lastError, this.lastErrorString]));
+                         'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
 
                 //@db saveToBackup
                 r = this.saveToBackup(data);
                 if (r) {
-                    this.log('ERROR', _('record saved to backup'));
+                    this.log('ERROR', 'order master saved to backup');
                 }
                 else {
                     this.log('ERROR',
-                             _('record could not be saved to backup: %S', ['\n' + this.dump(data)]));
+                             'order master could not be saved to backup\n' +  this.dump(data));
                 }
             }
             return r;
@@ -185,85 +172,25 @@
         saveOrderMaster: function(data) {
 
             var orderData  = this.mappingTranToOrderFields(data);
-            // this.id = orderData.id;  // remove id , this will to cause model.exists finding data exists.
+
             this.create();
-            this.save(orderData);
+            var r = this.save(orderData);
+            if (!r) {
+                this.log('ERROR',
+                         'An error was encountered while saving order master (error code ' + this.lastError + '): ' + this.lastErrorString);
 
-            return orderData;
+                //@db saveToBackup
+                r = this.saveToBackup(data);
+                if (r) {
+                    this.log('ERROR', 'order master saved to backup');
+                }
+                else {
+                    this.log('ERROR',
+                             'order master could not be saved to backup\n' +  this.dump(data));
+                }
+            }
+            return r;
             
-        },
-
-        saveOrderItems: function(data) {
-
-            // return this.OrderItem.saveAll(this.mappingTranToOrderItemsFields(data));
-            return this._saveAll(this.mappingTranToOrderItemsFields(data), this.OrderItem);
-
-        },
-
-        saveOrderAdditions: function(data) {
-
-            var orderAdditions  = this.mappingTranToOrderAdditionsFields(data);
-
-            // this.OrderAddition.saveAll(orderAdditions);
-            if (!this._saveAll(orderAdditions, this.OrderAddition)) {
-                return false;
-            };
-            
-            return orderAdditions;
-
-        },
-
-
-        saveOrderPayments: function(data) {
-
-            var orderPayments  = this.mappingTranToOrderPaymentsFields(data);
-
-            // this.OrderPayment.saveAll(orderPayments);
-            if (!this._saveAll(orderPayments, this.OrderPayment)) {
-                return false;
-            };
-
-            return orderPayments;
-
-        },
-
-        saveOrderAnnotations: function(data) {
-
-            var orderAnnotations = this.mappingTranToOrderAnnotationsFields(data);
-
-            // this.OrderAnnotation.saveAll(orderAnnotations);
-            if (!this._saveAll(orderAnnotations, this.OrderAnnotation)) {
-                return false;
-            };
-
-            return orderAnnotations;
-        },
-
-        saveOrderItemCondiments: function(data) {
-
-            var orderItemCondiments = this.mappingTranToOrderItemCondimentsFields(data);
-
-            // this.OrderItemCondiment.saveAll(orderItemCondiments);
-            if (!this._saveAll(orderItemCondiments, this.OrderItemCondiment)) {
-                return false;
-            };
-
-            return orderItemCondiments;
-            
-        },
-
-
-        saveOrderPromotions: function(data) {
-
-            var orderPromotions  = this.mappingTranToOrderPromotionsFields(data);
-
-            // this.OrderPromotion.saveAll(orderPromotions);
-            if (!this._saveAll(orderPromotions, this.OrderPromotion)) {
-                return false;
-            };
-
-            return orderPromotions;
-
         },
 
         mappingTranToOrderFields: function(data) {
@@ -534,18 +461,10 @@
 
         },
 
-        serializeOrder: function (data, toBackup) {
-
-            // always save to backup
-            toBackup = true;
-
-            // add checksum field
-            // data.checksum = this.getOrderChecksum(data.id);
-
-            // remove old order data if exist...
-            // this.removeOldOrderObject(data.id);
+        serializeOrder: function (data) {
 
             // var obj = GREUtils.Gzip.deflate(GeckoJS.BaseObject.serialize(data));
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var obj = GeckoJS.BaseObject.serialize(data);
 
             var orderObj = {
@@ -556,14 +475,11 @@
 
             this.OrderObject.id = orderObj.id;
 
-            if (toBackup) {
-                
-                this.OrderObject.saveToBackup(orderObj);
-
-//                this.OrderObject.restoreFromBackup();
-                return true;
-            } else {
+            if (isTraining) {
                 return this.OrderObject.save(orderObj);
+            }
+            else {
+                return this.OrderObject.saveToBackup(orderObj);
             }
 
         },

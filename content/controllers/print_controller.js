@@ -27,8 +27,7 @@
             // add event listener for onSubmit & onStore events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
-                cart.addEventListener('onSubmit', this.submitOrder, this);
-                cart.addEventListener('onStore', this.storeOrder, this);
+                cart.addEventListener('afterSubmit', this.handleSubmitEvent, this);
             }
 
         },
@@ -318,6 +317,17 @@
                 // failed to save record to db/backup
                 this._dbError(ledgerReceiptModel.lastError, ledgerReceiptModel.lastErrorString,
                               _('An error was encountered while saving ledger receipt log (error code %S).', [ledgerReceiptModel.lastError]));
+            }
+        },
+
+        handleSubmitEvent: function(evt) {
+            var txn = evt.data;
+
+            if (txn.data.status == 1) {
+                this.submitOrder(evt);
+            }
+            else if (txn.data.status == 2) {
+                this.storeOrder(evt);
             }
         },
 
@@ -963,7 +973,7 @@
                 }
             }
             //@debug
-            //alert(GeckoJS.BaseObject.dump(result));
+            alert(GeckoJS.BaseObject.dump(result));
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);

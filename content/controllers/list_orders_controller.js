@@ -7,6 +7,8 @@
 
         name: 'ListOrders',
 
+        _inputData: null,
+
         _orders: [],
 
         _decimal: '.',
@@ -31,6 +33,8 @@
         },
 
         load: function(inputObj) {
+
+            this._inputData = inputObj;
 
             // load matching order(s)
             var conditions = '';
@@ -164,6 +168,9 @@
             var height = GeckoJS.Session.get('screenheight');
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
+
+            // reload list
+            this.load(this._inputData);
         },
         
         _dbError: function(errno, errstr, errmsg) {
