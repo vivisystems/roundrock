@@ -4,7 +4,7 @@
 
         name: 'Stocks',
 
-        uses: [ /*'Product', */'StockRecord' ],
+        uses: [ 'StockRecord' ],
 
         syncSettings: null,
         
@@ -13,15 +13,46 @@
 
         _cartController: null,
 
+        observer: null,
         
         initial: function() {
 
+            var self = this;
+            
             this.syncSettings = (new SyncSetting()).read();
             
             //var productsById = GeckoJS.Session.get('productsById');
 
             // synchronize mode.
             this.StockRecord.syncAllStockRecords();
+
+            this.backgroundSyncing = false;
+
+            // sync stockRecords if transaction create.
+            if(Transaction) {
+                // on Transaction object created
+                Transaction.events.addListener('onCreate', function(evt) {
+                    var recoveryMode = evt.data.recoveryMode;
+                    if (!self.backgroundSyncing && !recoveryMode) {
+                        self.backgroundSyncing = true;
+                        self.StockRecord.syncAllStockRecords(true, function(lastModified) {
+                            self.backgroundSyncing = false;
+                        })
+                    }
+                });
+            }
+
+            // manager update  observer update
+            this.observer = GeckoJS.Observer.newInstance({
+                topics: ['StockRecords'],
+
+                observe: function(aSubject, aTopic, aData) {
+                    if (aData == 'commitChanges') {
+                        self.StockRecord.syncAllStockRecords();
+                    }
+                }
+                
+            }).register();
 
             // register Cart Controller 's stock method.
             var cartController = GeckoJS.Controller.getInstanceByName('Cart');
@@ -44,9 +75,11 @@
 
         destroy: function() {
             dump('stocks destroy \n');
+            this.observer.unregister();
         },
 
         checkStock: function(action, qty, item, clearWarning) {
+            
             if (clearWarning == null) clearWarning = true;
             var obj = {
                 item: item
@@ -54,11 +87,7 @@
             var diff = qty;
             var cart = this._cartController;
             var curTransaction = cart._getTransaction(true);
-            
-            this.log('checkStock: ' + item.name + '('+qty+')');
-            
-            //this.log('checkStock: ' + this.dump(curTransaction.data));
-            
+                     
             var min_stock = parseFloat(item.min_stock);
             var auto_maintain_stock = item.auto_maintain_stock;
             var productsById = GeckoJS.Session.get('productsById');
@@ -77,6 +106,8 @@
                     NotifyUtils.warn( _( 'The stock record seems not existent!' ) );
                     return false;
                 }
+
+                this.log('checkStock: ' + item.name + '('+qty+') , stock = ' + stock);
 
                 if (action != "addItem") {//modifyItem
                     diff = qty - item.current_qty;
@@ -129,8 +160,6 @@
 
             var productsById = GeckoJS.Session.get('productsById');
             
-            this.log('decStock: ');
-
             var datas = [];
 
             try {
@@ -143,25 +172,10 @@
                     if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
 
                         /*
-                        // renew the stock record.
-                        var stockRecordModel = new StockRecordModel();
-                        var stockRecord = stockRecordModel.get( 'first', {
-                            conditions: "id = '" + item.no + "'"
-                        } );
-
-
-                        stockRecord.quantity -= ordItem.current_qty;
-                        stockRecordModel.set( stockRecord );
-                        
-                        // stock had maintained
-                        ordItem.stock_maintained = true;
-
                         // fire onLowStock event...
                         if ( item.min_stock > stockRecord.quantity ) {
                             this.dispatchEvent( 'onLowStock', item );
                         }
-
-                        delete stockRecordModel;
                         */
                         // stock had maintained
                         
@@ -173,10 +187,11 @@
                     }
                 }
 
+                // only call model once to decrease stock records .
                 this.StockRecord.decreaseStockRecords(datas);
 
             } catch ( e ) {
-                dump( e );
+                this.log('ERROR', 'decStock error' +  e );
                 return false;
             } 
             return true;

@@ -1,11 +1,17 @@
-var OrderItemModel = window.OrderItemModel =  AppModel.extend({
-    name: 'OrderItem',
+( function() {
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
 
-    useDbConfig: 'order',
+    var OrderItemModel = window.OrderItemModel =  AppModel.extend({
+        name: 'OrderItem',
 
-    belongsTo: ['Order'],
-    
-    behaviors: ['Sync', 'Training'],
+        useDbConfig: 'order',
 
-    autoRestoreFromBackup: true
-});
+        belongsTo: ['Order'],
+        
+        behaviors: ['Sync', 'Training'],
+
+        autoRestoreFromBackup: true
+    });
+} )();
