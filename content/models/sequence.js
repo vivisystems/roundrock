@@ -156,7 +156,7 @@
             var remoteUrl = this.getRemoteServiceUrl('getSequence');
             var seq = -1;
 
-            var isTraining = GeckoJS.Session.get( "isTraining" );
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
 
             if (remoteUrl && !isTraining) {
             
@@ -176,12 +176,9 @@
                     value: 0
                 };
 
-                if ( isTraining )
-                    return seq.value;
-
                 seq.value++;
                 this.id = seq.id;
-                if (!this.save(seq)) {
+                if (!this.save(seq) && !isTraining) {
                     this.saveToBackup(seq);
                 }
 
@@ -195,7 +192,7 @@
         },
 
         resetSequence: function(key, value, async, callback) {
-            var isTraining = GeckoJS.Session.get( "isTraining" );
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             if (isTraining) return;
 
             key = key || "default";

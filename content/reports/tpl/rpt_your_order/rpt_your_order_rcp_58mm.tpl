@@ -17,7 +17,7 @@ ${head.title|center:24}
 {/eval}
 ------------------------
 {for field in fields}
-${_( ' field.name ) + ':'}
+${_( field.name ) + ':'}
 {if field.datatype == "time"}
 ${detail[ field.value ]|unixTimeToString|right:24}
 {elseif field.datatype == "date"}

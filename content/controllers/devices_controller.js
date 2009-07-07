@@ -1346,7 +1346,20 @@
                 for (var tmpl in templates) {
 //                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('check') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
+
                         newTemplate.name = tmpl;
+
+                        var label = newTemplate.label;
+                        if (label.indexOf('chrome://') == 0) {
+                            var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                        }
+                        else {
+                            label = _(label);
+                        }
+                        newTemplate.label = label;
+                        sortedTemplates.push(newTemplate);
+
                         sortedTemplates.push(newTemplate);
 //                    }
                 }
@@ -1537,7 +1550,18 @@
                 for (var tmpl in templates) {
 //                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('vfd') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
+
                         newTemplate.name = tmpl;
+
+                        var label = newTemplate.label;
+                        if (label.indexOf('chrome://') == 0) {
+                            var keystr = 'vivipos.fec.registry.templates.' + tmpl + '.label';
+                            label = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
+                        }
+                        else {
+                            label = _(label);
+                        }
+                        newTemplate.label = label;
                         sortedTemplates.push(newTemplate);
 //                    }
                 }

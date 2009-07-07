@@ -105,7 +105,7 @@
             var handshaking = selectedDevice.handshaking;
 
             var mainController = GeckoJS.Controller.getInstanceByName('Main');
-            var waitPanel = mainController._showWaitPanel('wait_panel', 'common_wait',
+            var waitPanel = mainController._showWaitPanel('blockui_panel', 'common_wait',
                                                           _('Reading from Scale [%S]', [selectedDevice.number]), 1);
 
             var weight;

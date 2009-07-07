@@ -32,7 +32,7 @@
         },
         
         vacuumTrainingDB: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _('Training Mode'), _( 'Are you sure you want to VACUUM training database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to VACUUM training database?' ) ) )
                 return;
             this._vacuumTrainingDB();
         },
@@ -72,8 +72,6 @@
             if( SyncSetting._setting && this._origSyncActive == 1 ) {
                 SyncSetting._setting.active = 1;
             }
-
-
         },
 
         disableSyncActive: function() {
@@ -81,7 +79,6 @@
             if( SyncSetting._setting && SyncSetting._setting.active == 1 ) {
                 SyncSetting._setting.active = 0;
             }
-            
         },
 
         start: function() {
@@ -126,7 +123,6 @@
                     
                     // disableSyncActive
                     this.disableSyncActive();
-
                 }
             }
         }

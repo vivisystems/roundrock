@@ -344,7 +344,7 @@
                 // tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
                 tab.setAttribute('oncommand', "$do('selectOrderTab', '" + o.id + "', 'SelectTable')");
                 tabs.appendChild(tab);
-            })
+            });
 
             // select first order
             tabs.selectedIndex = 0;

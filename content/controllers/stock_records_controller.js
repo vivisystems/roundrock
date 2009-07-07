@@ -168,8 +168,9 @@
         load: function () {
 
             var isMaster = this.StockRecord.getRemoteServiceUrl('auth') === false;
+            var isTraining = GeckoJS.Session.get( "isTraining" );
             
-            if ( isMaster ) {
+            if ( isMaster && !isTraining ) {
                 // insert untracked products into stock_record table. Take branch ID to be warehouse.
                 var branch_id = '';
                 var storeContact = GeckoJS.Session.get( 'storeContact' );
@@ -191,7 +192,7 @@
                     } );
                 }
             } else {
-                document.getElementById( 'commitchanges' ).setAttribute( 'disabled', !isMaster );
+                document.getElementById( 'commitchanges' ).setAttribute( 'disabled', true );
             }
                         
             this.reload();
@@ -246,7 +247,7 @@
                 if ( inputObj.new_quantity )
                     newQuantity = inputObj.new_quantity.replace( /^\s*/, '' ).replace( /\s*$/, '' );
 
-                document.getElementById( 'modify_stock' ).setAttribute( 'disabled', isNaN( newQuantity || quantity ) );
+                document.getElementById( 'modify_stock' ).setAttribute( 'disabled', isNaN( newQuantity || "If newQty is null, doing this for isNaN to return true." ) );
                 var new_qty = document.getElementById( 'new_quantity' ); 
                 if ( new_qty )
                     new_qty.removeAttribute( 'disabled' );

@@ -1,6 +1,7 @@
 ( function() {
 
 	 var __model__ = {
+         
 		name: 'InventoryCommitment',
 		
 		useDbConfig: 'default',
