@@ -23,6 +23,7 @@
         _tableList: null,
         _tableStatusList: null,
         _tableOrders: null,
+        _tableOrdersOrg: null,
         _tableStatusLastTime: 0,
         _tableOrderLastTime: 0,
         _tableStatusArray: [],
@@ -259,7 +260,8 @@
                 tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 1, order: orderby});
 
             }
-
+//GREUtils.log("getList:::");
+//GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
             // if table status changed, sync database...
             if (tableStatus.length > 0) {
                 this.syncClient();
@@ -272,10 +274,9 @@
 
             var self = this;
 
-            var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
-            
             var tableOrder = this.getTableOrders(this._tableOrderLastTime);
-            
+
+            var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
 
             if (this._tableStatusList && this._tableStatusList.length > 0) {
                 //
@@ -314,10 +315,23 @@
             // var tables = [];
             if (tableStatus) {
                 tableStatus.forEach(function(o) {
+                    delete o.order;
+                    delete o.TableOrder;
+                    o.TableOrder = new GeckoJS.ArrayQuery(this._tableOrders).filter("table_no = '" + o.table_no + "'");
+// GREUtils.log("table_no:::" + o.table_no + " , length:::" + o.TableOrder.length);
+
                     o.seats = o.Table.seats;
                     o.table_name = o.Table.table_name;
                     o.guests = 0;
-                    o.checks = o.TableOrder ? o.TableOrder.length : 0;
+
+                    o.clerk = '';
+                    o.total = 0;
+                    o.check_no = 0;
+                    o.sequence = '';
+                    o.start_time = 0;
+
+                    // o.checks = o.TableOrder ? o.TableOrder.length : 0;
+                    o.checks = o.TableOrder.length;
                     if (o.checks > 0) {
                         o.TableOrder.forEach(function(orderObj){
                             var guests = Math.round(parseInt(orderObj.guests)) || 0;
@@ -345,7 +359,7 @@
 
                     // add orders
 
-                    o.TableOrder = new GeckoJS.ArrayQuery(this._tableOrders).filter("table_no = '" + o.table_no + "'");
+//                    o.TableOrder = new GeckoJS.ArrayQuery(this._tableOrders).filter("table_no = '" + o.table_no + "'");
 
                     // set last status modify time
                     if (o.modified > self._tableStatusLastTime) {
@@ -355,13 +369,14 @@
 
                 }, this);
             }
-
+// GREUtils.log("getTableStatusList:::");
+// GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
             return tableStatus;
 
         },
 
         getTableOrderIdx: function() {
-            this.getTableOrders();
+            this.getTableOrders(this._tableOrderLastTime);
             return this._tableOrderByOrderId;
         },
 
@@ -677,8 +692,6 @@
 
             var self = this;
 
-            lastModified = 0;
-
             var remoteUrl = this.getRemoteService('getTableOrders');
             var tableOrder = null;
 
@@ -713,34 +726,73 @@
 
             }
 
-            // var tableOrders = [];
-
-            tableOrder = new GeckoJS.ArrayQuery(tableOrder).filter("status = 2");
-
-            // if table status changed, sync database...
-            self._tableOrderByOrderId = {};
-            if (tableOrder.length > 0) {
-                this.syncClient();
-                
-                tableOrder.forEach(function(orderObj){
-                    self._tableOrderByOrderId[orderObj.TableOrder.id] =
-                                    {
-                                        status_id: orderObj.TableOrder.table_status_id,
-                                        table_id: orderObj.TableOrder.table_id,
-                                        checksum: orderObj.TableOrder.checksum,
-                                        modified: orderObj.TableOrder.modified,
-                                        terminal_no: orderObj.TableOrder.terminal_no
-                                    }
-                });
-                
-                self._tableOrderLastTime = tableOrder[tableOrder.length - 1].TableOrder.modified;
-            }
-//GREUtils.log("tableOrder:::" + lastModified);
+// GREUtils.log("tableOrder:::" + lastModified);
 //GREUtils.log(GeckoJS.BaseObject.dump(tableOrder));
 
-            this._tableOrders = tableOrder;
+            // first get order list...
+            if (this._tableOrders == null) {
 
-            return tableOrder;
+                // clone table orders...
+                this._tableOrders = tableOrder.concat([]);
+
+                this._tableOrders.forEach(function(orderObj){
+
+                    self._tableOrderLastTime = self._tableOrderLastTime > orderObj.TableOrder.modified ? self._tableOrderLastTime : orderObj.TableOrder.modified;
+
+                }, this);
+
+            } else {
+
+                if (tableOrder.length > 0) {
+
+                    this.syncClient();
+
+                    tableOrder.forEach(function(orderObj){
+
+                        if (self._tableOrderByOrderId[orderObj.TableOrder.id]) {
+
+                            self._tableOrderByOrderId[orderObj.TableOrder.id].status = orderObj.TableOrder.status;
+                            self._tableOrderByOrderId[orderObj.TableOrder.id].table_no = orderObj.TableOrder.table_no;
+                            self._tableOrderByOrderId[orderObj.TableOrder.id].checksum = orderObj.TableOrder.checksum;
+                            self._tableOrderByOrderId[orderObj.TableOrder.id].modified = orderObj.TableOrder.modified;
+                            self._tableOrderByOrderId[orderObj.TableOrder.id].terminal_no = orderObj.TableOrder.terminal_no;
+
+                            self._tableOrders[self._tableOrderByOrderId[orderObj.TableOrder.id].index] = orderObj;
+
+                        } else {
+
+                            self._tableOrders.push(orderObj);
+
+                        }
+
+                        self._tableOrderLastTime = self._tableOrderLastTime > orderObj.TableOrder.modified ? self._tableOrderLastTime : orderObj.TableOrder.modified;
+
+                    }, this);
+                }
+
+            }
+// GREUtils.log("self._tableOrders:::" + lastModified);
+//GREUtils.log(GeckoJS.BaseObject.dump(self._tableOrders));
+            // leave the orders of status = 2
+            self._tableOrders = new GeckoJS.ArrayQuery(self._tableOrders).filter("status = 2");
+
+            // rebuild tableOrder index...
+            var index = 0;
+            self._tableOrderByOrderId = {};
+            self._tableOrders.forEach(function(orderObj){
+                self._tableOrderByOrderId[orderObj.TableOrder.id] =
+                    {
+                        index: index,
+                        status: orderObj.TableOrder.status,
+                        table_no: orderObj.TableOrder.table_no,
+                        checksum: orderObj.TableOrder.checksum,
+                        modified: orderObj.TableOrder.modified,
+                        terminal_no: orderObj.TableOrder.terminal_no
+                    };
+                    index++;
+            }, this);
+
+            return this._tableOrders;
         }
 
     };

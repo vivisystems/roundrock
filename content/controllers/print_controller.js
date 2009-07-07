@@ -27,8 +27,7 @@
             // add event listener for onSubmit & onStore events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
-                cart.addEventListener('onSubmit', this.submitOrder, this);
-                cart.addEventListener('onStore', this.storeOrder, this);
+                cart.addEventListener('afterSubmit', this.handleSubmitEvent, this);
             }
 
         },
@@ -321,6 +320,17 @@
             }
         },
 
+        handleSubmitEvent: function(evt) {
+            var txn = evt.data;
+
+            if (txn.data.status == 1) {
+                this.submitOrder(evt);
+            }
+            else if (txn.data.status == 2) {
+                this.storeOrder(evt);
+            }
+        },
+
         // handle order submit events
         submitOrder: function(evt) {
             var txn = evt.data;
@@ -364,7 +374,6 @@
         // handle store order events
         storeOrder: function(evt) {
             var txn = evt.data;
-            alert('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
 
             try {
                 // check if receipts need to be printed
@@ -964,7 +973,7 @@
                 }
             }
             //@debug
-            //alert(GeckoJS.BaseObject.dump(result));
+            alert(GeckoJS.BaseObject.dump(result));
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);

@@ -12,8 +12,8 @@
 
             var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
 
-            if (this.data[row].order == null) this.data[row].order = {};
-            if (this.data[row].table == null) this.data[row].table = {};
+//            if (this.data[row].order == null) this.data[row].order = {};
+//            if (this.data[row].table == null) this.data[row].table = {};
 
             var seq = this.data[row].sequence || '';
             var check_no = this.data[row].check_no || '';
@@ -564,10 +564,14 @@
 
             try {
 
-                window._tableStatusModel.getTableStatusList();
+                var list = window._tableStatusModel.getTableStatusList();
+//                GREUtils.log("refreshTableStatusLight:::");
+//                GREUtils.log(GeckoJS.BaseObject.dump(list));
 
                 document.getElementById('tableScrollablepanel').invalidate();
-                // GREUtils.log("refreshTableStatusLight:::");
+//                GREUtils.log("refreshTableStatusLight:::");
+
+//                GREUtils.log(GeckoJS.BaseObject.dump(document.getElementById('tableScrollablepanel').datasource));
 
             } catch(e) {}
 

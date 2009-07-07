@@ -117,8 +117,15 @@
 
                 if (!async) {
                     // block ui until request finish or timeout
+
+                    var timeoutGuardSec = 15000;
+                    var timeoutGuardNow = Date.now().getTime();
+
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                    while (!reqStatus.finish) {
+                    while (thread.hasPendingEvents() && !reqStatus.finish) {
+
+                        if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
+
                         thread.processNextEvent(true);
                     }
                 }
@@ -149,7 +156,7 @@
             var remoteUrl = this.getRemoteServiceUrl('getSequence');
             var seq = -1;
 
-            var isTraining = GeckoJS.Session.get( "isTraining" );
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
 
             if (remoteUrl && !isTraining) {
             
@@ -168,17 +175,10 @@
                     key: key,
                     value: 0
                 };
-/*
-                if ( isTraining ) {
-                    if (callback) {
-                        callback.call(this, seq.value);
-                    }
-                    return seq.value;
-                }
-*/
+
                 seq.value++;
                 this.id = seq.id;
-                if (!this.save(seq)) {
+                if (!this.save(seq) && !isTraining) {
                     this.saveToBackup(seq);
                 }
 
@@ -192,7 +192,7 @@
         },
 
         resetSequence: function(key, value, async, callback) {
-            var isTraining = GeckoJS.Session.get( "isTraining" );
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             if (isTraining) return;
 
             key = key || "default";

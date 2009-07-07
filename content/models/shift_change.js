@@ -15,7 +15,7 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
         var s;
         var r = this.saveShiftChangeMaster(data);
         if (r) {
-            s = this.saveShiftChangeDetail(data);
+            s = this.ShiftChangeDetail.saveShiftChangeDetails(data);
             if (s) {
                 return r;
             }
@@ -33,32 +33,24 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
     saveShiftChangeMaster: function(data) {
 
         this.id = '';
+        var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
         var r = this.save(data);
-        if (!r) {
+
+        if (!r && !isTraining) {
+            this.log('ERROR',
+                     'An error was encountered while saving shift change record (error code ' + this.lastError + '): ' + this.lastErrorString);
+
+            //@db saveToBackup
             r = this.saveToBackup(data);
-        }
-        return r;
-    },
-
-    saveShiftChangeDetail: function(data) {
-
-        var s = true;
-        for (var i = 0; s && i < data.shiftChangeDetails.length; i++) {
-            var o = data.shiftChangeDetails[i];
-            var detail = {};
-            detail['shift_change_id'] = this.id;
-            detail['type'] = o.type;
-            detail['name'] = o.name;
-            detail['change'] = o.change;
-            detail['amount'] = o.amount;
-            detail['excess_amount'] = o.excess_amount;
-            detail['count'] = o.count;
-            
-            this.ShiftChangeDetail.id = '';
-            if (!this.ShiftChangeDetail.save(detail)) {
-                s = this.ShiftChangeDetail.saveToBackup(detail);
+            if (r) {
+                this.log('ERROR', 'record saved to backup');
+            }
+            else {
+                this.log('ERROR',
+                         'record could not be saved to backup\n' + this.dump(data));
             }
         }
-        return s;
+        return r;
     }
+
 });

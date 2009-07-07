@@ -5,7 +5,7 @@
 
         name: 'Transaction',
 
-        init: function() {
+        init: function(recoveryMode) {
 
             this.view = null,
 
@@ -86,7 +86,7 @@
                 modified: ''
             };
 
-            this.create();
+            this.create(recoveryMode);
 
 
         },
@@ -107,7 +107,9 @@
             Transaction.events.dispatch('onUnserialize', this, this);
         },
 
-        create: function() {
+        create: function(recoveryMode) {
+
+            recoveryMode = recoveryMode || false;
 
             var self = this;
             
@@ -115,13 +117,16 @@
 
             this.data.terminal_no = GeckoJS.Session.get('terminal_no');
 
-            // SequenceModel will always return a value; even if an error occurred (return value of -1), we
-            // should still allow create to proceed; it's up to the upper layer to decide how to handle
-            // this error condition
-            SequenceModel.getSequence('order_no', true, function(seq) {
-                self.data.seq = (seq+'');
-                GeckoJS.Session.set('vivipos_fec_order_sequence', seq);
-            });
+            if (!recoveryMode) {
+                // SequenceModel will always return a value; even if an error occurred (return value of -1), we
+                // should still allow create to proceed; it's up to the upper layer to decide how to handle
+                // this error condition
+                SequenceModel.getSequence('order_no', true, function(seq) {
+                    self.data.seq = (seq+'');
+                    GeckoJS.Session.set('vivipos_fec_order_sequence', seq);
+                });
+            }
+            
             GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -157,18 +162,39 @@
 
         process: function(status, discard) {
             var self = this;
-            
+
+            // backup origin status if saveOrder error.
+            var orgStatus = this.data.status;
+
             this.data.status = status;
 
             // force and waiting to get sequence
             if (self.data.seq.length == 0) {
 
+                var timeoutGuardSec = 15000;
+                var timeoutGuardNow = Date.now().getTime();
+
                 // block ui until request finish or timeout
                 var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                while (self.data.seq.length == 0) {
+                while (self.data.seq.length == 0 && thread.hasPendingEvents()) {
+
+                    if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
+                    
                     thread.processNextEvent(true);
                 }
                 // dump('length = '+self.data.seq.length+' \n');
+            }
+            
+            if (self.data.seq.length == 0) {
+                // maybe from recovery
+                self.data.seq = SequenceModel.getSequence('order_no', false);
+
+            }
+
+            if (self.data.seq == '-1') {
+                // can't get sequence
+                this.data.status = orgStatus;
+                return -3;
             }
 
             // set sale period and shift number

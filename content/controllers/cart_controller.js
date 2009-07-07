@@ -3011,8 +3011,7 @@
             })) {
 
                 // blockUI when saving...
-                var start_time = new Date().getTime();
-                this._blockUI('wait_panel', 'common_wait', _('Saving Order'), 0);
+                this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
                 
                 oldTransaction.lockItems();
 
@@ -3036,15 +3035,16 @@
                  *   null: input data is null
                  *   -1: save fail, save to backup
                  *   -2: remove fail
+                 *   -3: can't get sequence .
                  */
-                if (submitStatus == -2) {
+                if (submitStatus == -2 || submitStatus == -3 ) {
 
                     GREUtils.Dialog.alert(this.topmostWindow,
                         _('Submit Fail'),
                         _('Current order is not saved successfully, please try again...'));
 
                     // unblockUI
-                    this._unblockUI('wait_panel');
+                    this._unblockUI('blockui_panel');
 
                     return false;
                 }
@@ -3052,14 +3052,8 @@
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
-                // unblockUI - make sure wait panel is shown for at least 500 ms
-                var remainder = (start_time + 500000 - new Date().getTime()) / 1000;
-                if (remainder > 0) this.sleep(remainder);
-                
-                this._unblockUI('wait_panel');
-
                 // sleep to allow UI events to update
-                this.sleep(10);
+                //this.sleep(10);
 
                 //this.dispatchEvent('onClear', 0.00);
                 this._getKeypadController().clearBuffer();
@@ -3077,6 +3071,9 @@
                 else {
                     this.dispatchEvent('onGetSubtotal', oldTransaction);
                 }
+
+                this._unblockUI('blockui_panel');
+
             }
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
@@ -3623,6 +3620,9 @@
                                 payment.proceeds_clerk_displayname = user.description;
                             }
 
+                            // @irving for backward compatibility, don't set memo1 if it's empty
+                            if (payment.memo1 == '') delete payment.memo1;
+                            
                             payment.sale_period = salePeriod;
                             payment.shift_number = shiftNumber;
                             payment.terminal_no = terminalNo;
@@ -4303,7 +4303,7 @@
             }
             var modified = curTransaction.isModified();
             if (modified) {
-                rec
+                // rec    // XXXX why only rec?
                 NotifyUtils.warn(_('This order has been modified and must be stored first'));
             // r = this.GuestCheck.store();
             // this.dispatchEvent('onStore', curTransaction);
@@ -4315,7 +4315,7 @@
         recovery: function(data) {
 
             if(data) {
-                var transaction = new Transaction();
+                var transaction = new Transaction(true);
                 transaction.data = data ;
                 
                 this._setTransactionToView(transaction);

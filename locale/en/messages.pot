@@ -1585,6 +1585,9 @@ msgstr "Scale"
 msgid "acl_internal_access"
 msgstr "For Internal Access Only"
 
+msgid "acl_manage_journal"
+msgstr "Manage Electronic Journal"
+
 msgid "acl_read_scale"
 msgstr "Read Scale"
 

@@ -153,12 +153,13 @@
 		
         set: function( stockRecord ) {
             if ( stockRecord ) {
+                var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
                 this.id = stockRecord.id || '';
                 var r = this.save( stockRecord );
-                if ( !r ) {
+                if ( !r && !isTraining ) {
                     this.log(
                         'ERROR',
-                        _( 'An error was encountered while saving stock record (error code %S): %S', [ this.lastError, this.lastErrorString ] )
+                        'An error was encountered while saving stock record (error code ' + this.lastError + '): ' + this.lastErrorString
                     );
                     
                     throw {
@@ -170,16 +171,16 @@
                     if ( r ) {
                         this.log(
                             'ERROR',
-                            _( 'record saved to backup' )
+                            'record saved to backup'
                         );
                     } else {
                         this.log(
                             'ERROR',
-                            _( 'record could not be saved to backup: %S', [ '\n' + this.dump( data ) ] )
+                            'record could not be saved to backup\n' + this.dump( stockRecord )
                         );
                         
                         throw {
-                            errmsg: _( 'record could not be saved to backup: %S', [ '\n' + this.dump( data ) ] )
+                            errmsg: _( 'record could not be saved to backup: %S', [ '\n' + this.dump( stockRecord ) ] )
                         };
                     }
                 }
@@ -190,7 +191,7 @@
         setAll: function( stockRecords ) {
             if ( stockRecords.length > 0 ) {
                 var r;
-                for ( stockRecord in stockRecords ) {
+                for ( var stockRecord in stockRecords ) {
                     r = this.set( stockRecords[ stockRecord ] );
 					
                     if ( !r )
