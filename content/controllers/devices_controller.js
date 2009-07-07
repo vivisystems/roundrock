@@ -1245,7 +1245,7 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-//                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('receipt') > -1) {
+                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('receipt') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
                         newTemplate.name = tmpl;
 
@@ -1259,7 +1259,7 @@
                         }
                         newTemplate.label = label;
                         sortedTemplates.push(newTemplate);
-//                    }
+                    }
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
@@ -1344,7 +1344,7 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-//                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('check') > -1) {
+                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('check') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
 
                         newTemplate.name = tmpl;
@@ -1359,9 +1359,7 @@
                         }
                         newTemplate.label = label;
                         sortedTemplates.push(newTemplate);
-
-                        sortedTemplates.push(newTemplate);
-//                    }
+                    }
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 
@@ -1548,7 +1546,7 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-//                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('vfd') > -1) {
+                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('vfd') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
 
                         newTemplate.name = tmpl;
@@ -1563,7 +1561,7 @@
                         }
                         newTemplate.label = label;
                         sortedTemplates.push(newTemplate);
-//                    }
+                    }
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
 

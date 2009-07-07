@@ -1,3 +1,4 @@
+{if ledger}
 [&QSON]${store.name|center:24}[&QSOFF][&CR]
 [&DWON]${store.branch|center:24}[&DWOFF][&CR]
 ${store.telephone1|center:42}[&CR]
@@ -28,3 +29,4 @@ ${'Thank you for shopping at'|center:42}[&CR]
 [&CR]
 [&CR]
 [&CR]
+{/if}
