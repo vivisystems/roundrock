@@ -128,5 +128,5 @@ pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.label", "Mettler
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.type", "scale");
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.controller", "ScaleMTTigerIIController");
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.iterations", 10);
-pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.stables", 3);
+pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.stables", 0);
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.tries", 5);

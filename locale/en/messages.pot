@@ -192,7 +192,7 @@ msgid "vivipos.fec.reportpanels.dailysales.label"
 msgstr "Sales Report"
 
 msgid "vivipos.fec.reportpanels.dailysalessummary.label"
-msgstr "Sales Summary"
+msgstr "Daily Sales Summary"
 
 msgid "vivipos.fec.reportpanels.departmentlist.label"
 msgstr "Department List"

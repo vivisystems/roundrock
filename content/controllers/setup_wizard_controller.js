@@ -339,21 +339,22 @@
                     var prefsPath = GREUtils.File.chromeToPath(datapath + '/user.js');
                     GREUtils.File.copy(prefsPath, profPath + '/user.js');
 
+                    // close all existing datasource connections
+                    GeckoJS.ConnectionManager.closeAll();
+
                     // remove existing database files
                     var systemPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                     var dbDir = new GeckoJS.Dir(systemPath + '/databases');
                     dbDir.remove(true);
 
-                    // copy database files to database directory
+                    // copy database files to database and training directories
                     var dbPath = GREUtils.File.chromeToPath(datapath + '/databases/');
                     var dbs = GeckoJS.Dir.readDir(dbPath, {type: 'f'});
 
                     dbs.forEach(function(f) {
                         GREUtils.File.copy(f.path, systemPath + '/databases/');
+                        GREUtils.File.copy(f.path, systemPath + '/training/');
                     })
-
-                    // close all existing datasource connections
-                    GeckoJS.ConnectionManager.closeAll();
                 }
                 catch(e) {
                     return false;

@@ -338,6 +338,17 @@
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
 
+        _isItemInScaleDepartment: function(item) {
+            // retrieve category by cate_no
+            if (item.cate_no != null) {
+                var categoriesByNo = GeckoJS.Session.get('categoriesByNo');
+                if (categoriesByNo && categoriesByNo[item.cate_no] && categoriesByNo[item.cate_no].scale) {
+                    return categoriesByNo[item.cate_no];
+                }
+            }
+            return;
+        },
+
         checkStock: function() {
             // not implemented here
             return true;
@@ -542,7 +553,32 @@
 
             // check if scale item
             if (item.scale) {
-                if (!this.readScale(null, item.tare)) return;
+                // if qty not manually set, read from scale
+                if (GeckoJS.Session.get('cart_set_qty_value') == null) {
+                    if (!this.readScale(null, item.tare)) return;
+                }
+            }
+            else {
+                var dep = this._isItemInScaleDepartment(item);
+                if (dep != null) {
+
+                    // use department's unit of sale if product's not set
+                    if (item.sale_unit == 'unit') {
+                        item.sale_unit  = dep.sale_unit;
+                    }
+                    // if qty not manually set, read from scale
+                    if (GeckoJS.Session.get('cart_set_qty_value') == null) {
+                        if (!this.readScale(null, item.tare)) return;
+                    }
+                }
+            }
+
+            // if item's unit of sale is individually, we convert qty to integer
+            if (item.sale_unit == 'unit') {
+                var qtyCheck = GeckoJS.Session.get('cart_set_qty_value');
+                if (qtyCheck != null) {
+                    this.setQty(qtyCheck, true);
+                }
             }
             
             // if we are not in return mode, check if new item is the same as current item. if they are the same,
@@ -574,6 +610,15 @@
                 }
             }
 
+            // if item is a sale department, check if price is set
+            if (item.cate_no == item.no) {
+                if (GeckoJS.Session.get('cart_set_price_value') == null) {
+                    NotifyUtils.error(_('Price must be given to register sale of department [%S]', [item.name]));
+                    this._clearAndSubtotal();
+                    return;
+                }
+            }
+            
             if (this.dispatchEvent('beforeAddItem', item)) {
                 // check if set item selection is needed
                 if (item.setItemSelectionRequired) {
@@ -582,8 +627,8 @@
                 }
 
                 if (this._returnMode) {
-                    var qty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
-                    GeckoJS.Session.set('cart_set_qty_value', qty);
+                    var newqty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
+                    GeckoJS.Session.set('cart_set_qty_value', newqty);
                 }
                 var addedItem = curTransaction.appendItem(item);
                 var doSIS = plu.single && curTransaction.data.items_count == 1 && !this._returnMode;
@@ -987,7 +1032,6 @@
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
             if (itemDisplay.type != 'item' && itemDisplay.type != 'condiment') {
-                this.dispatchEvent('onModifyItemError', {});
 
                 if (itemDisplay.type == 'setitem') {
 
@@ -1007,7 +1051,13 @@
                 }
             }
 
-            if (itemDisplay.type == 'condiment') {
+            if (itemDisplay.type == 'item') {
+                // convert newQuantity to whole numbers if unit of sale is 'unit'
+                if (itemTrans.sale_unit == 'unit' && newQuantity != null) {
+                    this.setQty(newQuantity, true);
+                }
+            }
+            else if (itemDisplay.type == 'condiment') {
 
                 // check if condiment is open
                 var parentItem = curTransaction.getItemAt(index, true);
@@ -2596,24 +2646,30 @@
 
             var scaleController = GeckoJS.Controller.getInstanceByName('Scale');
             if (scaleController) {
-                var weight = scaleController.readScale(number, tare);
+                var weight = scaleController.readScale(number);
 
-                if (weight == null) {
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('Failed to read from scale: no value returned'));
+                if (weight == -1) {
+                    // configuration error; alert already posted; do nothing here
+                }
+                else if (weight == null) {
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No reading from scale: please make sure scale is powered on and properly connected'));
                 }
                 else if (weight.value == null) {
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('Failed to read from scale: unable to obtain a stable reading'));
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Scale'), _('No stable reading from scale: please remove and re-place item securely on the scale'));
                 }
                 else {
                     var qty = parseFloat(weight.value);
-                    if (isNaN(qty) || qty < 0) {
+                    if (!isNaN(qty)) qty -= tare;
+                    
+                    if (isNaN(qty) || qty <= 0) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                                               _('Scale'),
-                                              _('Failed to read from scale: invalid scale reading [%S]', [weight.value]));
+                                              _('Invalid scale reading [%S]: please remove and re-place item securely on the scale.', [weight.value]));
                     }
                     else {
                         this.setQty(qty);
                         NotifyUtils.info(_('Weight read from scale') + ' :' + qty);
+                        GREUtils.Sound.play('chrome://viviecr/content/sounds/beep1.wav');
                         return true;
                     }
                 }
@@ -2621,9 +2677,16 @@
             return false;
         },
 
-        setQty: function(qty) {
+        setQty: function(qty, force_int) {
 
-            var qty0 = parseInt(qty, 10);
+            var qty0;
+
+            if (force_int)
+                qty0 = parseInt(qty, 10);
+            else
+                qty0 = parseFloat(qty);
+
+            if (isNaN(qty0)) qty0 = 1;
             GeckoJS.Session.set('cart_set_qty_value', qty0);
             this.dispatchEvent('onSetQty', qty0);
 		
@@ -3543,7 +3606,6 @@
 
                     // insert refund payments
                     try {
-                        alert('before void sale begin');
                         var r = paymentModel.begin();
                         if (!r) {
                             throw {
@@ -3574,7 +3636,6 @@
                             payment.terminal_no = terminalNo;
 
                             // save payment record
-                            alert('before saving refund payment');
                             r = paymentModel.save(payment);
                             if (!r) {
                                 throw {
@@ -3603,7 +3664,6 @@
                         order.void_shift_number = shiftNumber;
 
                         orderModel.id = order.id;
-                        alert('before updating order status');
                         r = orderModel.save(order);
                         if (!r) {
                             throw {

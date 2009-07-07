@@ -36,9 +36,7 @@
         <vbox flex="1" class="MainPnl">
             <hbox>
                 <caption label="&vieworder.title;" class="PageTitle" />
-                <menulist id="orderlist" default="" flex="1" oncommand="$do('displayOrder', this.value, 'ViewOrder')">
-                    <menupopup id="orderlist-popup"/>
-                </menulist>
+                <textbox id="order" default="" flex="1" readonly="true"/>
             </hbox>
             <hbox flex="1">
                 <box class="reportbox" flex="1">
