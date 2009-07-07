@@ -13,7 +13,7 @@
 
         scaffold: false,
 
-        uses: [ 'Product' ],
+        uses: [ 'Product', 'StockRecord' ],
 
         _listObj: null,
         _listData: null,
@@ -166,9 +166,9 @@
         },
 
         load: function () {
-            this.syncSettings = ( new SyncSetting() ).read();
+
+            var isMaster = this.StockRecord.getRemoteServiceUrl('auth') === false;
             
-            var isMaster = this.syncSettings.hostname == "localhost"
             if ( isMaster ) {
                 // insert untracked products into stock_record table. Take branch ID to be warehouse.
                 var branch_id = '';

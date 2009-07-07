@@ -3,10 +3,19 @@
 
     var __model__ = {
         name: 'StockRecord',
-		
+
         useDbConfig: 'default',
 
+        _cachedRecords: null,
+
+        syncSettings: null,
+
+        lastModified: 0,
+
+        timeout: 30,
+
         getRemoteServiceUrl: function(method) {
+
             this.syncSettings = (new SyncSetting()).read();
 
             if (this.syncSettings && this.syncSettings.active == 1) {
@@ -25,7 +34,7 @@
                 this.username = 'vivipos';
                 this.password = this.syncSettings.password ;
 
-                //dump('sequence services url ' + this.url + "\n");
+                dump('StockRecord services url ' + this.url + "\n");
 
                 return this.url;
 
@@ -75,13 +84,13 @@
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
 
             req.onreadystatechange = function (aEvt) {
-                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if (req.status == 200) {
                         var result = GeckoJS.BaseObject.unserialize(req.responseText);
                         if (result.status == 'ok') {
-                            datas = GeckoJS.BaseObject.unserialize(result.response_data);
+                            datas = result.response_data;
                         }
                     }
                     // clear resources
@@ -138,7 +147,175 @@
             return datas;
 
         },
-        
+
+
+        syncAllStockRecords: function(async, callback) {
+
+            async = async || false;
+            callback = callback || null;
+
+            if (this._cachedRecords == null) {
+                // initial cached object;
+                this._cachedRecords = {};
+
+                // get local stock record to cached first.
+                var stocks = this.find('all', {
+                    'fields': 'id,quantity,modified',
+                    'recursive':0
+                });
+
+                if (stocks.length > 0) {
+
+                    stocks.forEach(function(d) {
+                        this._cachedRecords[d.id] = d.quantity;
+                        if ( parseInt(d.modified) >= this.lastModified) this.lastModified = parseInt(d.modified);
+                    }, this);
+
+                }
+
+            }
+
+            // sync remote stock record to cached .
+            var remoteUrl = this.getRemoteServiceUrl('getLastModifiedRecords');
+
+            if(remoteUrl) {
+                
+                var requestUrl = remoteUrl + '/' + this.lastModified;
+
+                dump('requestUrl = ' + requestUrl + '\n' );
+
+                var remoteStocks = this.requestRemoteService('GET', requestUrl, null, async, callback);
+
+                var lastModified = this.saveStockRecords(remoteStocks);
+
+                if (lastModified >= this.lastModified) {
+                    this.lastModified = lastModified;
+                }
+
+            }
+
+            dump(this.dump(this._cachedRecords));
+            return this._cachedRecords;
+        },
+
+        saveStockRecords: function(stocks) {
+            //dump(this.dump(stocks));
+
+            dump('saveStockRecords \n');
+            var lastModified = 0;
+
+            // use native sql
+            var sql = "" ;
+            
+            stocks.forEach( function(d) {
+
+                try{
+
+                    this._cachedRecords[d.id] = d.quantity;
+
+                    d.created = d.modified;
+
+                    if (d.modified >= lastModified) {
+                        lastModified = d.modified;
+                    }
+                    var cols = GeckoJS.BaseObject.getKeys(d).join(', ');
+                    var vals = GeckoJS.BaseObject.getValues(d).join("', '");
+                    sql += "INSERT OR REPLACE INTO stock_records ("+cols+") values ('" + vals + "');\n";
+                }catch(e) {
+                    dump(e + '\n');
+                }
+            }, this);
+
+
+            var sqlWithTransaction = 'BEGIN ; \n' + sql + 'COMMIT; ';
+            dump('sql : ' + sqlWithTransaction + '\n');
+
+            var datasource = this.getDataSource();
+
+            try {
+
+                datasource.connect();
+                if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
+
+            }catch(e) {
+                this.log(sqlWithTransaction +",,"+ e);
+            }
+
+            return lastModified;
+
+        },
+
+        getStockById: function(id) {
+
+            var stock = false;
+
+            if (this._cachedRecords) {
+                // use cached
+
+                if (typeof this._cachedRecords[id] != 'undefined') {
+                    stock = parseFloat(this._cachedRecords[id]);
+                }
+
+            }else {
+                var stockRecord = this.get( 'first', { 
+                    conditions: "id = '" + id + "'"
+                } );
+
+                if ( stockRecord ) {
+                    stock = parseFloat( stockRecord.quantity );
+                } 
+
+            }
+            return stock;
+        },
+
+        decreaseStockRecords: function(datas) {
+           alert(this.dump(datas));
+
+            // sync remote stock record to cached .
+            var remoteUrl = this.getRemoteServiceUrl('decreaseStockRecords');
+
+            if(remoteUrl) {
+
+                dump('remoteUrl ' + remoteUrl  + '\n') ;
+
+
+                
+            }else {
+
+                // use native sql
+                var sql = "" ;
+                var now = Math.ceil(Date.now().getTime()/1000);
+
+                datas.forEach( function(d) {
+
+                    try{
+                        d.modified = now;
+                        sql += "UPDATE stock_records SET quantity='"+d.quantity+"', modified='"+d.modified+"' WHERE id = '"+ d.id +"' ;\n";
+                    }catch(e) {
+                        dump(e + '\n');
+                    }
+                }, this);
+
+
+                var sqlWithTransaction = 'BEGIN ; \n' + sql + 'COMMIT; ';
+                dump('sql : ' + sqlWithTransaction + '\n');
+
+                var datasource = this.getDataSource();
+
+                try {
+
+                    datasource.connect();
+                    if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
+
+                }catch(e) {
+                    this.log(sqlWithTransaction +",,"+ e);
+                }
+
+            }
+            
+        },
+
         insertNewRecords: function( products ) {
             var stockRecords = [];
 		    
@@ -155,7 +332,7 @@
             //this.begin();
             //this.delAll( '' );
             this.saveAll( stockRecords );
-            //this.commit();
+        //this.commit();
         },
 		
         set: function( stockRecord ) {
@@ -167,7 +344,7 @@
                     this.log(
                         'ERROR',
                         _( 'An error was encountered while saving stock record (error code %S): %S', [ this.lastError, this.lastErrorString ] )
-                    );
+                        );
                     
                     throw {
                         errmsg: _( 'An error was encountered while saving stock record (error code %S): %S', [ this.lastError, this.lastErrorString ] )
@@ -179,12 +356,12 @@
                         this.log(
                             'ERROR',
                             _( 'record saved to backup' )
-                        );
+                            );
                     } else {
                         this.log(
                             'ERROR',
                             _( 'record could not be saved to backup: %S', [ '\n' + this.dump( data ) ] )
-                        );
+                            );
                         
                         throw {
                             errmsg: _( 'record could not be saved to backup: %S', [ '\n' + this.dump( data ) ] )
