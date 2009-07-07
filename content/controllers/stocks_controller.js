@@ -13,15 +13,30 @@
 
         _cartController: null,
 
+        observer: null,
         
         initial: function() {
 
+            var self = this;
+            
             this.syncSettings = (new SyncSetting()).read();
             
             //var productsById = GeckoJS.Session.get('productsById');
 
             // synchronize mode.
             this.StockRecord.syncAllStockRecords();
+
+            // manager update  observer update
+            this.observer = GeckoJS.Observer.newInstance({
+                topics: ['StockRecords'],
+
+                observe: function(aSubject, aTopic, aData) {
+                    if (aData == 'commitChanges') {
+                        self.StockRecord.syncAllStockRecords();
+                    }
+                }
+                
+            }).register();
 
             // register Cart Controller 's stock method.
             var cartController = GeckoJS.Controller.getInstanceByName('Cart');
@@ -44,6 +59,7 @@
 
         destroy: function() {
             dump('stocks destroy \n');
+            this.observer.unregister();
         },
 
         checkStock: function(action, qty, item, clearWarning) {

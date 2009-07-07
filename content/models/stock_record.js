@@ -149,32 +149,41 @@
 
         },
 
+        getLastModifiedRecords: function(lastModified) {
+            
+            lastModified = typeof lastModified == 'undefined' ? 0 : lastModified;
+
+            // get local stock record to cached first.
+            var stocks = this.find('all', {
+                'fields': 'id,quantity,modified',
+                'recursive':0,
+                'conditions': 'modified > ' + lastModified
+            });
+
+            if (stocks.length > 0) {
+
+                stocks.forEach(function(d) {
+                    this._cachedRecords[d.id] = d.quantity;
+                    if ( parseInt(d.modified) >= this.lastModified) this.lastModified = parseInt(d.modified);
+                }, this);
+
+            }
+
+        },
 
         syncAllStockRecords: function(async, callback) {
 
             async = async || false;
             callback = callback || null;
 
+            // initial cachedRecords
             if (this._cachedRecords == null) {
                 // initial cached object;
                 this._cachedRecords = {};
-
-                // get local stock record to cached first.
-                var stocks = this.find('all', {
-                    'fields': 'id,quantity,modified',
-                    'recursive':0
-                });
-
-                if (stocks.length > 0) {
-
-                    stocks.forEach(function(d) {
-                        this._cachedRecords[d.id] = d.quantity;
-                        if ( parseInt(d.modified) >= this.lastModified) this.lastModified = parseInt(d.modified);
-                    }, this);
-
-                }
-
             }
+
+            // get local stock records first
+            this.getLastModifiedRecords(this.lastModified);
 
             // sync remote stock record to cached .
             var remoteUrl = this.getRemoteServiceUrl('getLastModifiedRecords');
