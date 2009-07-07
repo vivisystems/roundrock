@@ -168,10 +168,14 @@
                     key: key,
                     value: 0
                 };
-
-                if ( isTraining )
+/*
+                if ( isTraining ) {
+                    if (callback) {
+                        callback.call(this, seq.value);
+                    }
                     return seq.value;
-
+                }
+*/
                 seq.value++;
                 this.id = seq.id;
                 if (!this.save(seq)) {

@@ -3603,17 +3603,10 @@
                     var paymentModel = new OrderPaymentModel();
                     var refundTotal = 0;
 
-                    // insert refund payments
+                    var r = true;
+
                     try {
-                        var r = paymentModel.begin();
-                        if (!r) {
-                            throw {
-                                errno: paymentModel.lastError,
-                                errstr: paymentModel.lastErrorString,
-                                errmsg: 'An error was encountered while preparing to void sale; order is not voided.'
-                            };
-                        }
-                    
+                        // insert refund payments
                         for (var i = 0; r && i < inputObj.refunds.length; i++) {
                             var payment = inputObj.refunds[i];
 
@@ -3635,18 +3628,17 @@
                             payment.terminal_no = terminalNo;
 
                             // save payment record
-                            r = paymentModel.save(payment);
+                            r = paymentModel.savePayment(payment);
                             if (!r) {
                                 throw {
                                     errno: paymentModel.lastError,
                                     errstr: paymentModel.lastErrorString,
-                                    errmsg: 'An error was encountered while saving refund payment; order is not voided.'
+                                    errmsg: _('An error was encountered while saving refund payment (error code %S)', [paymentModel.lastError])
                                 };
                             }
 
                             refundTotal += payment.amount;
                         }
-
                         // update order status to voided
                         order.status = -2;
 
@@ -3663,12 +3655,12 @@
                         order.void_shift_number = shiftNumber;
 
                         orderModel.id = order.id;
-                        r = orderModel.save(order);
+                        r = orderModel.updateOrderMaster(order);
                         if (!r) {
                             throw {
-                                errno: paymentModel.lastError,
-                                errstr: paymentModel.lastErrorString,
-                                errmsg: 'An error was encountered while updating order status; order is not voided.'
+                                errno: orderModel.lastError,
+                                errstr: orderModel.lastErrorString,
+                                errmsg: _('An error was encountered while updating order status (error code %S)', [orderModel.lastError])
                             };
                         }
 
@@ -3684,27 +3676,17 @@
                         order.items = order.OrderItem;
 
                         // restore stock
-//                        var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
-//                        alert('before updating stock level');
+                        //var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
+                        //alert('before updating stock level');
                         r = this.decStock(order);
                         if (!r) {
                             throw {
-                                errno: paymentModel.lastError,
-                                errstr: paymentModel.lastErrorString,
-                                errmsg: 'An error was encountered while updating stock level; order is not voided.'
+                                errno: 0,
+                                errstr: '',
+                                errmsg: 'An error was encountered while updating stock level'
                             };
                         }
 
-//                        alert('before committing');
-                        r = paymentModel.commit();
-                        if (!r) {
-                            throw {
-                                errno: paymentModel.lastError,
-                                errstr: paymentModel.lastErrorString,
-                                errmsg: 'An error was encountered while voiding sale; order is not voided.'
-                            };
-                        }
-                        paymentModel.commit();
                         this.dispatchEvent('afterVoidSale', order);
 
                         GREUtils.Dialog.alert(this.topmostWindow,
@@ -3714,8 +3696,6 @@
                         return true;
                     }
                     catch(e) {
-                        paymentModel.rollback();
-
                         this._dbError(e.errno, e.errstr, e.errmsg);
                     }
                 }

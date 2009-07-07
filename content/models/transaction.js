@@ -122,7 +122,6 @@
                 self.data.seq = (seq+'');
                 GeckoJS.Session.set('vivipos_fec_order_sequence', seq);
             });
-            
             GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
 
             var user = new GeckoJS.AclComponent().getUserPrincipal();
