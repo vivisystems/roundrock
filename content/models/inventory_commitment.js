@@ -1,6 +1,10 @@
 ( function() {
+    
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
 
-	 var __model__ = {
+	var __model__ = {
          
 		name: 'InventoryCommitment',
 		
@@ -20,5 +24,5 @@
 		}
 	};
 	
-	var InventoryCommitmentModel = window.InventoryCommitmentModel = GeckoJS.Model.extend( __model__ );
+	var InventoryCommitmentModel = window.InventoryCommitmentModel = AppModel.extend( __model__ );
 } )();

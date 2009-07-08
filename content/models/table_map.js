@@ -1,4 +1,8 @@
 (function() {
+    
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
 
     /**
      * TableMap Model
@@ -29,6 +33,6 @@
 
     };
 
-    var TableMapModel = window.TableMapModel = GeckoJS.Model.extend(__model__);
+    var TableMapModel = window.TableMapModel = AppModel.extend(__model__);
 
 })();

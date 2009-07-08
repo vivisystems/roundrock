@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
         
         name: 'CashdrawerRecord',
@@ -32,6 +36,6 @@
         }
     }
 
-    var CashdrawerRecordModel = window.CashdrawerRecordModel = GeckoJS.Model.extend(__model__);
+    var CashdrawerRecordModel = window.CashdrawerRecordModel = AppModel.extend(__model__);
 
 })();

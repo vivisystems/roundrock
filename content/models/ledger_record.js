@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
 
         name: 'LedgerRecord',
@@ -31,6 +35,6 @@
         }
     };
 
-    var LedgerRecordModel = window.LedgerRecordModel = GeckoJS.Model.extend(__model__);
+    var LedgerRecordModel = window.LedgerRecordModel = AppModel.extend(__model__);
     
 })();

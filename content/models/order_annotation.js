@@ -1,11 +1,18 @@
-var OrderAnnotationModel = window.OrderAnnotationModel =  GeckoJS.Model.extend({
-    name: 'OrderAnnotation',
+( function() {
 
-    useDbConfig: 'order',
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+    
+    var OrderAnnotationModel = window.OrderAnnotationModel =  AppModel.extend({
+        name: 'OrderAnnotation',
 
-    belongsTo: ['Order'],
+        useDbConfig: 'order',
 
-    behaviors: ['Sync', 'Training'],
+        belongsTo: ['Order'],
 
-    autoRestoreFromBackup: true
-});
+        behaviors: ['Sync', 'Training'],
+
+        autoRestoreFromBackup: true
+    });
+} )();
