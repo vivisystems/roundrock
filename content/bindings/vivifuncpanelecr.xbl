@@ -484,12 +484,12 @@
                 <body>
                 <![CDATA[
                     if (hide) {
-                        this.controlWidth = this.controlPanel.boxObject.width;
-                        this.keypadWidth = this.width || this.functionPanel.boxObject.width;
+                        this.controlWidth = 0;
                     }
                     else {
-                        this.keypadWidth = (this.width || this.functionPanel.boxObject.width) - this.controlWidth;
+                        this.controlWidth = this.controlPanel.boxObject.width || 0;
                     }
+                    this.keypadWidth = this.functionPanel.boxObject.width - this.controlWidth;
                     this.controlPanel.setAttribute('hidden', hide);
                     this._clearKeypad();
                     this._refreshCurrentPage();

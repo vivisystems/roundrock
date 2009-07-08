@@ -23,7 +23,7 @@
         _stockRecordsByBarcode: {},
         _barcodesIndexes: null,
         _records: [],
-        _folderName: 'vivipos_stock',
+        _folderName: 'stock_import',
         _fileName: 'stock.csv',
 
         syncSettings: null,
@@ -34,6 +34,7 @@
             if (main) {
                 main.addEventListener('afterTruncateTxnRecords', this._emptyStockRelativeTables, this);
                 main.addEventListener('afterClearOrderData', this._expireStockRelativeTables, this);
+                main.addEventListener('afterPackOrderData', this._packStockRelativeTables, this);
             }
         },
 
@@ -46,18 +47,22 @@
         },
 
         list: function() {
-            var stockRecordModel = new StockRecordModel();
-            
-            var sql =
-                "select s.*, p.no as product_no, p.name as product_name, p.barcode as product_barcode, p.min_stock as min_stock, p.auto_maintain_stock as auto_maintain_stock " +
-                "from stock_records s join products p on s.id = p.no " +
-                "order by product_no;"; // the result must be sorted by product_no for the use of binary search in locateIndex method.
 
-            var ds = stockRecordModel.getDataSource()
-            var stockRecords = ds.fetchAll(sql);
-            if (ds.lastError != 0) {
-                this._dbError(ds.lastError, ds.lastErrorString,
-                              _('An error was encountered while retrieving stock records (error code %S).', [ds.lastError]));
+            var stockRecords = this.StockRecord.find('all', {order: 'products.no', recursive: 1});
+
+            stockRecords.forEach(function(stock) {
+                if (stock.Product) {
+                    stock.product_no = stock.Product.no;
+                    stock.product_name = stock.Product.name;
+                    stock.product_barcode = stock.Product.barcode;
+                    stock.min_stock = stock.Product.min_stock;
+                    stock.auto_maintain_stock = stock.Product.auto_maintain_stock;
+                }
+            }, this);
+            
+            if (this.StockRecord.lastError != 0) {
+                this._dbError(this.StockRecord.lastError, this.StockRecord.lastErrorString,
+                              _('An error was encountered while retrieving stock records (error code %S).', [this.StockRecord.lastError]));
             }
             this._listData = stockRecords;
             
@@ -185,6 +190,12 @@
                 if (storeContact)
                     branch_id = storeContact.branch_id;
 
+                var stockRecordModel = new StockRecordModel();
+
+                // explicitly invoke restoreFromBackup() before calling fetchAll()
+                this.Product.restoreFromBackup();
+                stockRecordModel.restoreFromBackup();
+                
                 var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON (p.no = s.id) WHERE s.id IS NULL;";
                 var ds = this.Product.getDataSource();
                 var products = ds.fetchAll(sql);
@@ -193,7 +204,6 @@
                                   _('An error was encountered while retrieving products (error code %S).', [ds.lastError]));
                 }
 
-                var stockRecordModel = new StockRecordModel();
                 if (products.length > 0) {
                 	if (!stockRecordModel.insertNewRecords(products)) {
                         this._dbError(stockRecordModel.lastError, stockRecordModel.lastErrorString,
@@ -217,16 +227,86 @@
         },
         
         _emptyStockRelativeTables: function() {
-            var stockRecordModel = new StockRecordModel();
-            stockRecordModel.execute("DELETE FROM stock_records;");
+            try {
+                var model = new StockRecordModel();
+                var r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while removing all stock records (error code %S).', [model.lastError])};
+                }
 
-            var inventoryRecordModel = new InventoryRecordModel();
-            inventoryRecordModel.execute("DELETE FROM inventory_records;");
+                model = new InventoryRecordModel();
+                r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: _('An error was encountered while removing all stock adjustment details (error code %S).', [model.lastError])};
+                }
 
-            var inventoryCommitmentModel = new InventoryCommitmentModel();
-            inventoryCommitmentModel.execute("DELETE FROM inventory_commitments;");
+                model = new InventoryCommitmentModel();
+                r = model.truncate();
+                if (!r) {
+                    throw {errno: model.lastError,
+                           errstr: model.lastErrorString,
+                           errmsg: ('An error was encountered while removing stock adjustment records (error code %S).', [model.lastError])};
+                }
+            }
+            catch(e) {
+                this._dbError(e.errno, e.errstr, e.errmsg);
+            }
         },
-        
+
+        _expireStockRelativeTables: function() {
+            
+            var retainDays = GeckoJS.Configure.read('vivipos.fec.settings.InventoryAdjustmentRetainDays') || 0;
+
+            if (retainDays > 0) {
+                try {
+                    var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;
+                    
+                    var model = new InventoryCommitmentModel();
+                    var r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup stock adjustment records (error code %S).', [model.lastError])};
+                    }
+
+                    r = model.execute('delete from inventory_commitments where created <= ' + retainDate);
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring stock adjustment records (error code %S).', [model.lastError])};
+                    }
+
+                    model = new InventoryRecordModel();
+                    r = model.restoreFromBackup();
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring backup stock adjustment details (error code %S).', [model.lastError])};
+                    }
+
+                    r = model.execute('delete from inventory_records where not exists (select 1 from inventory_commitments where inventory_commitments.id == inventory_records.commitment_id)') && r;
+                    if (!r) {
+                        throw {errno: model.lastError,
+                               errstr: model.lastErrorString,
+                               errmsg: _('An error was encountered while expiring stock adjustment details (error code %S).', [model.lastError])};
+                    }
+                }
+                catch(e) {
+                    this._dbError(e.errno, e.errstr, e.errmsg);
+                }
+            }
+        },
+
+        _packStockRelativeTables: function() {
+            var model = new InventoryRecordModel();
+
+            model.execute('VACUUM');
+        },
+
         reload: function() {
             this._selectedIndex = -1;
             this.list();
@@ -288,23 +368,22 @@
             var stockQuantity;
             if (inputObj.ok && inputObj.quantity) {
                 stockQuantity = parseFloat(inputObj.quantity);
-            }
             
-            if (!isNaN(stockQuantity)) {
-                this._records.forEach(function(record) {
-                    record.new_quantity = stockQuantity;
-                    record.qty_difference = record.new_quantity - record.quantity;
-                });
+                if (!isNaN(stockQuantity)) {
+                    this._records.forEach(function(record) {
+                        record.new_quantity = stockQuantity;
+                        record.qty_difference = record.new_quantity - record.quantity;
+                    });
+                }
+                else {
+                    GREUtils.Dialog.alert(
+                        this.topmostWindow,
+                        _('Stock Adjustment'),
+                        _('Cannot reset product stock to [%S]', [inputObj.quantity]));
+                    return;
+                }
+                this.updateStock();
             }
-            else {
-                GREUtils.Dialog.alert(
-                    this.topmostWindow,
-                    _('Stock Adjustment'),
-                    _('Cannot reset product stock to [%S]', [inputObj.quantity]));
-                return;
-            }
-        	
-            this.updateStock();
         },
         
         modifyStock: function() {
@@ -340,7 +419,7 @@
 
             var aURL = 'chrome://viviecr/content/prompt_stockadjustment.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=450,height=560';
-
+            
             // retrieve list of suppliers
             var inventoryCommitmentModel = new InventoryCommitmentModel();
             var suppliers = inventoryCommitmentModel.find('all', {fields: ['supplier'],
@@ -367,9 +446,9 @@
             var adjustmentMemo = '';
             var adjustmentSupplier = '';
             if (inputObj.ok && inputObj.reason) {
-                adjustmentReason = inputObj.reason;
-                adjustmentMemo = inputObj.memo;
-                adjustmentSupplier = inputObj.supplier;
+                adjustmentReason = inputObj.reason || '';
+                adjustmentMemo = inputObj.memo || '';
+                adjustmentSupplier = inputObj.supplier || '';
             } else {// user canceled.
                 return;
             }
@@ -407,10 +486,18 @@
             }
         	
             var stockRecordModel = new StockRecordModel();
-            stockRecordModel.setAll(stockRecords);
+            if (!stockRecordModel.setAll(stockRecords)) {
+                this._dbError(stockRecordModel.lastError, stockRecordModel.lastErrorString,
+                              _('An error was encountered while saving stock records (error code %S).', [stockRecordModel.lastError]));
+                return;
+            }
         	
             var inventoryRecordModel = new InventoryRecordModel();
-            inventoryRecordModel.setAll(records);
+            if (!inventoryRecordModel.setAll(records)) {
+                this._dbError(inventoryRecordModel.lastError, inventoryRecordModel.lastErrorString,
+                              _('An error was encountered while saving stock adjustment details (error code %S).', [inventoryRecordModel.lastError]));
+                return;
+            }
 
             GeckoJS.Observer.notify(null, 'StockRecords', 'commitChanges');
         	
@@ -434,9 +521,10 @@
                 media = media.match(/^\/[^\/]+\/[^\/]+\//);
                 filePath = media + this._folderName + '/' + this._fileName;
             }
-			
-            if (!filePath)
+            else {
+                NotifyUtils.warn( _( 'Media not found!! Please attach the USB thumb drive...' ) );
                 return;
+            }
             
             // Retrieve the content of the comma separated values.
             var file = GREUtils.File.getFile(filePath);
@@ -453,7 +541,7 @@
             var lines = GREUtils.File.readAllLine(file);
             var memo = _('imported from [%S]', [filePath]);
             var unmatchedRecords = [];
-	        
+	        var count = 0;
             lines.forEach(function(line, index) {
 
                 var values = GeckoJS.String.parseCSV(line, ',');
@@ -466,6 +554,7 @@
                         stockRecord.new_quantity = quantity;
                         stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
                         stockRecord.memo = memo;
+                        count++;
                     } else {
                         unmatchedRecords.push({line: index + 1, no: product_no});
                     }
@@ -483,7 +572,12 @@
                     }
                 }
             }
-        	
+
+            GREUtils.Dialog.alert(
+                this.topmostWindow,
+                _('Import Product Stock'),
+                _('Product stock information imported: %S successes, %S failures)', [count, unmatchedRecords.length])
+            );
             // renew the content of the tree.
             this.updateStock();
         },

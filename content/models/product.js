@@ -8,6 +8,8 @@
     var ProductModel = window.ProductModel = AppModel.extend({
         name: 'Product',
         useDbConfig: 'default',
+
+        hasOne: [{name: 'StockRecord', 'primaryKey': 'no', 'foreignKey': 'id'}],
         
         checkUnique: function() {
 	    return 	this.items;

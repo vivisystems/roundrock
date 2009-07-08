@@ -38,18 +38,19 @@
 		},
 		
 		setAll: function( inventoryRecords ) {
+            var r = true;
 			if ( inventoryRecords.length > 0 ) {
-				this.begin();
 				for (var inventoryRecord in inventoryRecords ) {
 					var record = {};
 					for (var field in inventoryRecords[ inventoryRecord ] ) {
 						if (field != 'id')
 							record[field] = inventoryRecords[inventoryRecord][field];
 					}
-					this.set(record);
+					r = this.set(record);
+                    if (!r) break;
 				}
-				this.commit();
 			}
+            return r;
 		},
 		
 		get: function( type, params ) {

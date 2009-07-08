@@ -1017,10 +1017,10 @@
 
                     if (pack || (weeklyPack == today)) {
                         order.execute("VACUUM");
-                    }
 
-                    // dispatch afterPackOrderData event
-                    this.dispatchEvent('afterPackOrderData', retainDate);
+                        // dispatch afterPackOrderData event
+                        this.dispatchEvent('afterPackOrderData', retainDate);
+                    }
 
                     delete order;
 

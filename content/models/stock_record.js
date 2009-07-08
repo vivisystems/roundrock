@@ -10,6 +10,8 @@
 
         useDbConfig: 'default',
 
+        belongsTo: [{name: 'Product', 'primaryKey': 'no', 'foreignKey': 'id'}],
+
         _cachedRecords: null,
 
         syncSettings: null,
@@ -451,7 +453,7 @@
         getStockRecordByProductNo: function(product_no) {
             return this.get('first', {
                 fields: ['quantity'],
-                conditions: '"id = "' + product_no + '"'
+                conditions: 'id = "' + product_no + '"'
             } );
         }
     };

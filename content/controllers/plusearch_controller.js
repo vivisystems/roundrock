@@ -84,12 +84,18 @@
             var fields = [];
             var searchStr = this._queryStringPreprocessor(barcode);
 
-            var conditions = "p.no like '%" + searchStr + "%' or p.barcode like '%" + searchStr + "%' or p.name like '%" + searchStr + "%'";
+            var conditions = "products.no like '%" + searchStr + "%' or products.barcode like '%" + searchStr + "%' or products.name like '%" + searchStr + "%'";
             var prodModel = new ProductModel();
-            //var datas = prodModel.find('all',{fields: fields, conditions: conditions});
-            var sql = "SELECT p.*, s.quantity AS stock FROM products p LEFT JOIN stock_records s ON ( p.no = s.id ) WHERE " + conditions + ";";
-            var datas = prodModel.getDataSource().fetchAll( sql );
-            
+            var datas = prodModel.find('all',{fields: fields, conditions: conditions, recursive: 1});
+
+            datas.forEach(function(prod) {
+                if (prod.StockRecord) {
+                    prod.stock = prod.StockRecord.quantity;
+                }
+                else {
+                    prod.stock = 0;
+                }
+            }, this);
             this._listDatas = datas;
             this.getListObj().datasource = datas;
         },

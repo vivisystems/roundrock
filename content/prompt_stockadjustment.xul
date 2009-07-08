@@ -79,7 +79,7 @@
                             </vbox>
                         </row>
 
-                        <row id="quantity-row">
+                        <row id="quantity-row" class="RightTabbox">
                             <label style="width:6em" value="&stockrecords.commit.quantity.label;" control="quantity"/>
                             <vbox flex="1">
                                 <textbox id="quantity" type="number" decimalplaces="Infinity" min="0" flex="1" value="0" onfocus="this.select()"/>

@@ -31,10 +31,15 @@ var options;
 
         doSetOKCancel(
             function(){
-                inputObj.quantity = document.getElementById('quantity').value;
-                inputObj.reason = document.getElementById('reason').value;
+                if ('commit' in inputObj) {
+                    inputObj.reason = document.getElementById('reason').value;
+                    if (inputObj.reason == 'procure')
+                        inputObj.supplier = GeckoJS.String.trim(document.getElementById('supplier').value);
+                }
+                else {
+                    inputObj.quantity = document.getElementById('quantity').value;
+                }
                 inputObj.memo = GeckoJS.String.trim(document.getElementById('memo').value);
-                inputObj.supplier = GeckoJS.String.trim(document.getElementById('supplier').value);
                 inputObj.ok = true;
                 return true;
             },
