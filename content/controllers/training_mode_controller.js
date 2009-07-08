@@ -2,11 +2,47 @@
     var __controller__ = {
 
         name: "TrainingMode",
-	 	
-        _orderDBConfig: "DATABASE_CONFIG.order",
-        _trainingOrderDBConfig: "DATABASE_CONFIG.training_order",
-        _emptyTrainingOrderDBConfg: "DATABASE_CONFIG.empty_training_order",
-        _defaultTrainingOrderDBConfg: "DATABASE_CONFIG.default_training_order",
+        
+        _actions: {
+            vacuum: "vacuum",
+            takeCurrentDBToBeDefaultDB: "takeCurrentDBToBeDefaultDB",
+            takeDefaultDBToBeTrainingDB: "takeDefaultDBToBeTrainingDB",
+            takeTrainingDBToBeDefaultDB: "takeTrainingDBToBeDefaultDB"
+        },
+        
+        _dbConfigs: [ {
+                origin: "DATABASE_CONFIG.order",
+                training: "DATABASE_CONFIG.training_order",
+                emptyTraining: "DATABASE_CONFIG.empty_training_order",
+                defaultTraining: "DATABASE_CONFIG.default_training_order"
+            }, {
+                origin: "DATABASE_CONFIG.table",
+                training: "DATABASE_CONFIG.training_table",
+                emptyTraining: "DATABASE_CONFIG.empty_training_table",
+                defaultTraining: "DATABASE_CONFIG.default_training_table"
+            }/*, {
+                origin: "DATABASE_CONFIG.default",
+                training: "DATABASE_CONFIG.training_default",
+                emptyTraining: "DATABASE_CONFIG.empty_training_default",
+                defaultTraining: "DATABASE_CONFIG.default_training_default"
+            }, {
+                origin: "DATABASE_CONFIG.acl",
+                training: "DATABASE_CONFIG.training_acl",
+                emptyTraining: "DATABASE_CONFIG.empty_training_acl",
+                defaultTraining: "DATABASE_CONFIG.default_training_acl"
+            }, {
+                origin: "DATABASE_CONFIG.extension",
+                training: "DATABASE_CONFIG.training_extension",
+                emptyTraining: "DATABASE_CONFIG.empty_training_extension",
+                defaultTraining: "DATABASE_CONFIG.default_training_extension"
+            }, {
+                origin: "DATABASE_CONFIG.journal",
+                training: "DATABASE_CONFIG.training_journal",
+                emptyTraining: "DATABASE_CONFIG.empty_training_journal",
+                defaultTraining: "DATABASE_CONFIG.default_training_journal"
+            }*/
+        ],
+        
         _origSyncActive: null,
         
         /**
@@ -27,8 +63,37 @@
             GREUtils.File.run( "/bin/cp", [ pathDBToReplace, pathDBToBeReplaced ], true );
         },
         
+        _replaceDBByAction: function( action ) {
+            var dbToReplace, dbToBeReplaced;
+            switch ( action ) {
+                case this._actions.vacuum:
+                    dbToReplace = "emptyTraining";
+                    dbToBeReplaced = "training";
+                    break;
+                case this._actions.takeCurrentDBToBeDefaultDB:
+                    dbToReplace = "origin";
+                    dbToBeReplaced = "defaultTraining";
+                    break;
+                case this._actions.takeDefaultDBToBeTrainingDB:
+                    dbToReplace = "defaultTraining";
+                    dbToBeReplaced = "training";
+                    break;
+                case this._actions.takeTrainingDBToBeDefaultDB:
+                    dbToReplace = "training";
+                    dbToBeReplaced = "defaultTraining";
+                    break;
+                default:
+                    dbToReplace = null;
+                    dbToBeReplaced = null;
+            }
+            
+            this._dbConfigs.forEach( function( config ) {
+                this._copyToReplaceDB( config[ dbToReplace ], config[ dbToBeReplaced ] );
+            }, this );
+        },
+        
         _vacuumTrainingDB: function() {
-            this._copyToReplaceDB( this._emptyTrainingOrderDBConfg, this._trainingOrderDBConfig );
+            this._replaceDBByAction( this._actions.vacuum );
         },
         
         vacuumTrainingDB: function() {
@@ -38,7 +103,7 @@
         },
         
         _takeCurrentDBToBeDefaultDB: function() {
-            this._copyToReplaceDB( this._orderDBConfig, this._defaultTrainingOrderDBConfg );
+            this._replaceDBByAction( this._actions.takeCurrentDBToBeDefaultDB );
         },
         
         takeCurrentDBToBeDefaultDB: function() {
@@ -48,7 +113,7 @@
         },
         
         _takeDefaultDBToBeTrainingDB: function() {
-            this._copyToReplaceDB( this._defaultTrainingOrderDBConfg, this._trainingOrderDBConfig );
+            this._replaceDBByAction( this._actions.takeDefaultDBToBeTrainingDB );
         },
         
         takeDefaultDBToBeTrainingDB: function() {
@@ -58,7 +123,7 @@
         },
         
         _takeTrainingDBToBeDefaultDB: function() {
-            this._copyToReplaceDB( this._trainingOrderDBConfig, this._defaultTrainingOrderDBConfg );
+            this._replaceDBByAction( this._actions.takeTrainingDBToBeDefaultDB );
         },
         
         takeTrainingDBToBeDefaultDB: function() {
@@ -107,9 +172,11 @@
                 }
             } else {
                 if ( cart.ifHavingOpenedOrder() ) {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Training Mode'),
-                                          _('Please complete or cancel the current order first.'));
+                    GREUtils.Dialog.alert(
+                        this.topmostWindow,
+                        _( 'Training Mode' ),
+                        _( 'Please complete or cancel the current order first.' )
+                    );
                     return;
                 }
 	 			
