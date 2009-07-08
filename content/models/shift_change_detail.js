@@ -18,7 +18,6 @@
         saveShiftChangeDetails: function(data) {
 
             var r = true;
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
 
             for (var i = 0; r && i < data.length; i++) {
                 var o = data[i];
@@ -34,7 +33,7 @@
                 this.id = '';
                 r = this.save(detail);
 
-                if (!r && !isTraining) {
+                if (!r) {
                     this.log('ERROR',
                              'An error was encountered while saving shift change detail (error code ' + this.lastError + '): ' + this.lastErrorString);
 

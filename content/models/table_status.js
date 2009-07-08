@@ -17,7 +17,7 @@
 
         hasMany: ['TableBooking', 'TableOrder'],
 
-        behaviors: ['Sync'], // for local use when connect master fail...
+        behaviors: ['Sync', 'Training'], // for local use when connect master fail...
 
         _checkNoArray: [],
         _tableNoArray: [],

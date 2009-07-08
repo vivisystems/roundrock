@@ -391,15 +391,14 @@
             return true;
         },
 		
-        set: function(stockRecord) {
-            if (stockRecord) {
-                var isTraining = GeckoJS.Session.get('isTraining') || false;
+        set: function( stockRecord ) {
+            if ( stockRecord ) {
 
                 // id is product_no.
                 this.id = stockRecord.id || '';
 
                 var r = this.save(stockRecord);
-                if (!r && !isTraining) {
+                if (!r) {
                     this.log('ERROR',
                              'An error was encountered while saving stock record (error code ' + this.lastError + ': ' + this.lastErrorString);
                     

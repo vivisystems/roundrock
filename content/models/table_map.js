@@ -13,7 +13,7 @@
 
         useDbConfig: 'table',
 
-        belongsTo: ['Table'],
+        belongsTo: ['Table', 'Training'],
 
         // hasMany: ['TableBooking', 'TableOrder'],
         // hasMany: [{name: 'TableBooking', 'primaryKey': 'table_no', 'foreignKey': 'table_no'}],

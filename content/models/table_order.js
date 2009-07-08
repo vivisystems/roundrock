@@ -15,7 +15,7 @@
         
         belongsTo: ['TableStatus'],
 
-        behaviors: ['Sync']
+        behaviors: ['Sync', 'Training']
 
     };
 

@@ -11,6 +11,6 @@
 
     //    hasMany: ['Table'],
 
-        behaviors: ['Sync']
+        behaviors: ['Sync', 'Training']
     });
 } )();

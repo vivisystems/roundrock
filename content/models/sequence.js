@@ -187,7 +187,7 @@
 
                 seq.value++;
                 this.id = seq.id;
-                if (!this.save(seq) && !isTraining) {
+                if (!this.save(seq)) {
                     this.saveToBackup(seq);
                 }
 
