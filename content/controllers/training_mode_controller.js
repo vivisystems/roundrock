@@ -2,11 +2,6 @@
     var __controller__ = {
 
         name: "TrainingMode",
-	 	
-        /*_orderDBConfig: "DATABASE_CONFIG.order",
-        _trainingOrderDBConfig: "DATABASE_CONFIG.training_order",
-        _emptyTrainingOrderDBConfg: "DATABASE_CONFIG.empty_training_order",
-        _defaultTrainingOrderDBConfg: "DATABASE_CONFIG.default_training_order",*/
         
         _actions: {
             vacuum: "vacuum",
@@ -25,7 +20,27 @@
                 training: "DATABASE_CONFIG.training_table",
                 emptyTraining: "DATABASE_CONFIG.empty_training_table",
                 defaultTraining: "DATABASE_CONFIG.default_training_table"
-            }
+            }/*, {
+                origin: "DATABASE_CONFIG.default",
+                training: "DATABASE_CONFIG.training_default",
+                emptyTraining: "DATABASE_CONFIG.empty_training_default",
+                defaultTraining: "DATABASE_CONFIG.default_training_default"
+            }, {
+                origin: "DATABASE_CONFIG.acl",
+                training: "DATABASE_CONFIG.training_acl",
+                emptyTraining: "DATABASE_CONFIG.empty_training_acl",
+                defaultTraining: "DATABASE_CONFIG.default_training_acl"
+            }, {
+                origin: "DATABASE_CONFIG.extension",
+                training: "DATABASE_CONFIG.training_extension",
+                emptyTraining: "DATABASE_CONFIG.empty_training_extension",
+                defaultTraining: "DATABASE_CONFIG.default_training_extension"
+            }, {
+                origin: "DATABASE_CONFIG.journal",
+                training: "DATABASE_CONFIG.training_journal",
+                emptyTraining: "DATABASE_CONFIG.empty_training_journal",
+                defaultTraining: "DATABASE_CONFIG.default_training_journal"
+            }*/
         ],
         
         _origSyncActive: null,
