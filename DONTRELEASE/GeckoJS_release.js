@@ -14,7 +14,7 @@
  * @public
  * @namespace
  */
-var GeckoJS = GeckoJS || {version: "0.9.62"}; // Check to see if already defined in current scope
+var GeckoJS = GeckoJS || {version: "1.0.26"}; // Check to see if already defined in current scope
 
 /**
  * This is a reference to the global context, which is normally the "window" object.
@@ -3730,7 +3730,11 @@ GeckoJS.String.parseCSV = function(text, delim, quote, linedelim) {
  */
 GeckoJS.String.parseBoolean = function(bool) {
 
-    if (typeof bool == 'string' ) {
+    if (bool == 0 || bool == null) {
+        return false;
+    }else if (bool == 1) {
+        return true;
+    }else if (typeof bool == 'string' ) {
         return (bool.length == 0 || bool.toUpperCase() == '0' || bool.toUpperCase() == 'FALSE' || bool.toUpperCase() == 'NULL') ? false : true;
     }else {
         return new Boolean(bool).valueOf();
@@ -9454,9 +9458,10 @@ GeckoJS.BaseModel.prototype.save = function(data, updateTimestamp){
             /* ifdef DEBUG 
             this.log('DEBUG', 'save > exists ') ;
             /* endif DEBUG */
-            this.exists();
+            
+            var isExists = this.exists(true);
 
-            if (!this.__exists && fields.length > 0) {
+            if (!isExists && fields.length > 0) {
                 this.id = false;
             }
             
@@ -9606,6 +9611,10 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
         // force try to get original database schema
         this.getFieldsInfo();
 
+        // backup properties
+        var orgid = this.id;
+        var orgData = this.data;
+        var orgExists = this.__exists;
         var orgUseDbConfig = this.useDbConfig;
 
         var backupDbConfig = 'backup';
@@ -9653,6 +9662,10 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
         this.log('DEBUG', 'saveToBackup > return from  save method ' + result ) ;
         /* endif DEBUG */
 
+        // restore properties
+        this.id = orgid;
+        this.data = orgData;
+        this.__exists = orgExists;
         this.useDbConfig = orgUseDbConfig;
 
         return result;
@@ -9693,7 +9706,7 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
         var backupDatas = newDataSource.querySelect(this, null, null, null, null, 0, 0, 0);
 
         /* ifdef DEBUG 
-        this.log('DEBUG', 'restoreFromBackup > datas length = ') ;
+        this.log('DEBUG', 'restoreFromBackup > datas length = ' + backupDatas.length) ;
         /* endif DEBUG */
 
     }catch(e) {
@@ -9715,6 +9728,11 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
     /* ifdef DEBUG 
     this.log('DEBUG', 'restoreFromBackup > begin ' + this.name + ', useDbConfig ' + this.useDbConfig ) ;
     /* endif DEBUG */
+
+    // backup properties
+    var orgid = this.id;
+    var orgData = this.data;
+    var orgExists = this.__exists;
 
     // get transaction exclusive lock
     var r = this.begin(true);
@@ -9778,6 +9796,11 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
     /* ifdef DEBUG 
     this.log('DEBUG', 'restoreFromBackup return > ' + this.name + ', useDbConfig ' + this.useDbConfig ) ;
     /* endif DEBUG */
+
+    // restore properties
+    this.id = orgid;
+    this.data = orgData;
+    this.__exists = orgExists;
 
     return r;
 
@@ -14360,27 +14383,43 @@ GeckoJS.DatasourceSQLite.prototype.bindParameter = function (stmt, params) {
  */
 GeckoJS.DatasourceSQLite.prototype.getAsType = function(stmt, iCol, iType) {
 
-    if (stmt.getIsNull(iCol)) return null;
     var declaredType = iType.declared;
     var sqliteType = iType.sqlite;
     var convertType = iType.convert;
-
-    if (sqliteType == stmt.VALUE_TYPE_NULL) return null;
 
     var value;
     switch (sqliteType)
     {
         case stmt.VALUE_TYPE_INTEGER:
-            value = stmt.getInt64(iCol);
+            if (stmt.getIsNull(iCol)) {
+                value = 0;
+            }else {
+                value = stmt.getInt64(iCol);
+            }
             break;
         case stmt.VALUE_TYPE_FLOAT:
-            value = stmt.getDouble(iCol);
+            if (stmt.getIsNull(iCol)) {
+                value = 0;
+            }else {
+                value = stmt.getDouble(iCol);
+            }
             break;
         case stmt.VALUE_TYPE_TEXT:
-            value = stmt.getString(iCol);
+            if (stmt.getIsNull(iCol)) {
+                value = '' ;
+            }else {
+                value = stmt.getString(iCol);
+            }
             break;
         case stmt.VALUE_TYPE_BLOB:
-            value = stmt.getString(iCol); // TODO: revisit blobs
+            if (stmt.getIsNull(iCol)) {
+                value = '' ;
+            }else {
+                value = stmt.getString(iCol); // TODO: revisit blobs
+            }
+            break;
+        case stmt.VALUE_TYPE_NULL:
+            value = null;
             break;
         default:
             throw new Exception("SQLite statement returned an unknown data type: " + sqliteType);
@@ -14395,6 +14434,8 @@ GeckoJS.DatasourceSQLite.prototype.getAsType = function(stmt, iCol, iType) {
             value = new Date(value * 1000);
         }else if (parseFloat(value).toFixed(0).length == 13) {
             value = new Date(value);
+        }else {
+            value = new Date(0);
         }
         
     }
@@ -14699,7 +14740,7 @@ GeckoJS.DatasourceSQLite.prototype.getStatementColumnsType = function (statement
                 convertType = "Date";
             }
 
-            // if can't determine
+            // if can't determine or not internal type , force change it to logical type.
             if (sqliteType == statement.VALUE_TYPE_NULL) {
 
                 if (declaredType.match(/char/i)) {
@@ -14717,6 +14758,19 @@ GeckoJS.DatasourceSQLite.prototype.getStatementColumnsType = function (statement
                 if (declaredType.match(/float/i)) {
                     sqliteType = statement.VALUE_TYPE_FLOAT;
                 }
+                if (declaredType.match(/bool/i)) {
+                    sqliteType = statement.VALUE_TYPE_INTEGER;
+                    convertType = "Boolean";
+                }
+                if (declaredType.match(/date/i)) {
+                    sqliteType = statement.VALUE_TYPE_INTEGER;
+                    convertType = "Date";
+                }
+                if (declaredType.match(/time/i)) {
+                    sqliteType = statement.VALUE_TYPE_INTEGER;
+                    convertType = "Date";
+                }
+
             }
 
 
