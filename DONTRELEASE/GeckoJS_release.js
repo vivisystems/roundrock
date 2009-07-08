@@ -9458,9 +9458,10 @@ GeckoJS.BaseModel.prototype.save = function(data, updateTimestamp){
             /* ifdef DEBUG 
             this.log('DEBUG', 'save > exists ') ;
             /* endif DEBUG */
-            this.exists();
+            
+            var isExists = this.exists(true);
 
-            if (!this.__exists && fields.length > 0) {
+            if (!isExists && fields.length > 0) {
                 this.id = false;
             }
             
@@ -9610,6 +9611,10 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
         // force try to get original database schema
         this.getFieldsInfo();
 
+        // backup properties
+        var orgid = this.id;
+        var orgData = this.data;
+        var orgExists = this.__exists;
         var orgUseDbConfig = this.useDbConfig;
 
         var backupDbConfig = 'backup';
@@ -9657,6 +9662,10 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
         this.log('DEBUG', 'saveToBackup > return from  save method ' + result ) ;
         /* endif DEBUG */
 
+        // restore properties
+        this.id = orgid;
+        this.data = orgData;
+        this.__exists = orgExists;
         this.useDbConfig = orgUseDbConfig;
 
         return result;
@@ -9697,7 +9706,7 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
         var backupDatas = newDataSource.querySelect(this, null, null, null, null, 0, 0, 0);
 
         /* ifdef DEBUG 
-        this.log('DEBUG', 'restoreFromBackup > datas length = ') ;
+        this.log('DEBUG', 'restoreFromBackup > datas length = ' + backupDatas.length) ;
         /* endif DEBUG */
 
     }catch(e) {
@@ -9719,6 +9728,11 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
     /* ifdef DEBUG 
     this.log('DEBUG', 'restoreFromBackup > begin ' + this.name + ', useDbConfig ' + this.useDbConfig ) ;
     /* endif DEBUG */
+
+    // backup properties
+    var orgid = this.id;
+    var orgData = this.data;
+    var orgExists = this.__exists;
 
     // get transaction exclusive lock
     var r = this.begin(true);
@@ -9782,6 +9796,11 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
     /* ifdef DEBUG 
     this.log('DEBUG', 'restoreFromBackup return > ' + this.name + ', useDbConfig ' + this.useDbConfig ) ;
     /* endif DEBUG */
+
+    // restore properties
+    this.id = orgid;
+    this.data = orgData;
+    this.__exists = orgExists;
 
     return r;
 
