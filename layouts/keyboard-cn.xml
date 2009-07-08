@@ -46,7 +46,7 @@
     <key>
 	  <default display="5" />
 	  <shifted display="%" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key>
 	  <default display="6" />
@@ -76,7 +76,7 @@
     <key>
 	  <default display="-" />
 	  <shifted display="_" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key>
 	  <default display="=" />
@@ -97,12 +97,12 @@
     <key obey-caps='true'>
 	  <default display="q" />
 	  <shifted display="Q" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key obey-caps='true'>
 	  <default display="w" />
 	  <shifted display="W" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key obey-caps='true'>
 	  <default display="e" />
@@ -122,7 +122,7 @@
     <key obey-caps='true'>
 	  <default display="y" />
 	  <shifted display="Y" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key obey-caps='true'>
 	  <default display="u" />
@@ -147,17 +147,17 @@
     <key>
 	  <default display="[" />
 	  <shifted display="{" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key>
 	  <default display="]" />
 	  <shifted display="}" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key fill="true">
 	  <default display="\" />
 	  <shifted display="|" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
 
   </row>
@@ -169,7 +169,7 @@
     <key obey-caps='true'>
 	  <default display="a" />
 	  <shifted display="A" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key obey-caps='true'>
 	  <default display="s" />
@@ -184,7 +184,7 @@
     <key obey-caps='true'>
 	  <default display="f" />
 	  <shifted display="F" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key obey-caps='true'>
 	  <default display="g" />
@@ -204,22 +204,22 @@
     <key obey-caps='true'>
 	  <default display="k" />
 	  <shifted display="K" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key obey-caps='true'>
 	  <default display="l" />
 	  <shifted display="L" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key>
 	  <default display=";" />
 	  <shifted display=":" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key>
 	  <default display="'" />
 	  <shifted display='"' />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key fill="true">
 	  <default display="Enter" action="return"/>
@@ -234,7 +234,7 @@
     <key obey-caps='true'>
 	  <default display="z" />
 	  <shifted display="Z" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key obey-caps='true'>
 	  <default display="x" />
@@ -249,7 +249,7 @@
     <key obey-caps='true'>
 	  <default display="v" />
 	  <shifted display="V" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key obey-caps='true'>
 	  <default display="b" />
@@ -264,22 +264,22 @@
     <key obey-caps='true'>
 	  <default display="m" />
 	  <shifted display="M" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key>
 	  <default display="," />
 	  <shifted display="&lt;" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key>
 	  <default display="." />
 	  <shifted display="&gt;" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key>
 	  <default display="/" />
 	  <shifted display="?" />
-	  	<mod1 display=" " />
+	  	<mod1 display="" />
     </key>
     <key fill="true">
 	  <default display="Shift" action="modifier:shift"/>
@@ -292,10 +292,10 @@
 	  <default display="Ctrl" action="modifier:ctrl"/>
     </key>
     <key>
-	  <default display="S/W" action="modifier:layout"/>
+	  <default display="切換" action="modifier:layout"/>
     </key>
 	<key fill="true">
-	  <default display="Mode" action="modifier:mod1"/>
+	  <default display="特殊" action="modifier:mod1"/>
     </key>
     <key>
 	  <default display="Alt" action="modifier:alt"/>
@@ -304,10 +304,10 @@
 	  <default display=" " action="space" />
     </key>
     <key>
-	  <default display="↕" action="modifier:position"/>
+	  <default display="移動" action="modifier:position"/>
     </key>
     <key>
-	  <default display="Hide" action="modifier:hide"/>
+	  <default display="隱藏" action="modifier:hide"/>
     </key>
     <key>
 	  <default display="↑" action="up" />
@@ -338,37 +338,37 @@
 	  <shifted display="~" />
     </key>
     <key>
-	  <default display="ㄅ" action="1"/>
+	  <default display="ㄅ 1" action="1"/>
     </key>
     <key>
-	  <default display="ㄉ" action="2"/>
+	  <default display="ㄉ 2" action="2"/>
     </key>
     <key>
-	  <default display="√"  action="3"/>
+	  <default display="√ 3"  action="3"/>
     </key>
     <key>
-	  <default display="ˋ" action="4"/>
+	  <default display="ˋ 4" action="4"/>
     </key>
     <key>
-	  <default display="ㄓ" action="5"/>
+	  <default display="ㄓ 5" action="5"/>
     </key>
     <key>
-	  <default display="ˊ" action="6"/>
+	  <default display="ˊ 6" action="6"/>
     </key>
     <key>
-	  <default display="."  action="7"/>
+	  <default display=". 7"  action="7"/>
     </key>
     <key>
-	  <default display="ㄚ" action="8"/>
+	  <default display="ㄚ 8" action="8"/>
     </key>
     <key>
-	  <default display="ㄞ" action="9"/>
+	  <default display="ㄞ 9" action="9"/>
     </key>
     <key>
-	  <default display="ㄢ" action="0"/>
+	  <default display="ㄢ 0" action="0"/>
     </key>
     <key>
-	  <default display="ㄦ" action="-"/>
+	  <default display="ㄦ -" action="-"/>
     </key>
     <key>
 	  <default display="=" />
@@ -519,7 +519,7 @@
 	  <default display="Ctrl" action="modifier:ctrl"/>
     </key>
 	<key fill="true">
-	  <default display="S/W" action="modifier:layout"/>
+	  <default display="切換" action="modifier:layout"/>
     </key>
     <key>
 	  <default display="Alt" action="modifier:alt"/>
@@ -528,10 +528,234 @@
 	  <default display=" " action="space" />
     </key>
     <key>
-	  <default display="↕" action="modifier:position"/>
+	  <default display="移動" action="modifier:position"/>
     </key>
     <key>
-	  <default display="Hide" action="modifier:hide"/>
+	  <default display="隱藏" action="modifier:hide"/>
+    </key>
+    <key>
+	  <default display="↑" action="up" />
+    </key>
+    <key>
+	  <default display="↓" action="down" />
+    </key>
+    <key>
+	  <default display="←" action="left" />
+    </key>
+    <key>
+	  <default display="→" action="right" />
+    </key>
+
+</row>
+
+</layout>
+
+<layout id="CJ">
+
+  <row>
+
+    <key>
+	  <default display="Esc" action="escape" />
+    </key>
+    <key>
+	  <default display="`" />
+	  <shifted display="~" />
+    </key>
+    <key>
+	  <default display="1" action="1"/>
+    </key>
+    <key>
+	  <default display="2" action="2"/>
+    </key>
+    <key>
+	  <default display="3"  action="3"/>
+    </key>
+    <key>
+	  <default display="4" action="4"/>
+    </key>
+    <key>
+	  <default display="5" action="5"/>
+    </key>
+    <key>
+	  <default display="6" action="6"/>
+    </key>
+    <key>
+	  <default display="7"  action="7"/>
+    </key>
+    <key>
+	  <default display="8" action="8"/>
+    </key>
+    <key>
+	  <default display="9" action="9"/>
+    </key>
+    <key>
+	  <default display="0" action="0"/>
+    </key>
+    <key>
+	  <default display="-" action="-"/>
+    </key>
+    <key>
+	  <default display="=" />
+	  <shifted display="+" />
+    </key>
+    <key fill="true">
+	  <default display="← BKSP" action="backspace"/>
+    </key>
+
+  </row>
+
+  <row>
+
+    <key fill="true">
+	  <default display="Tab" action="tab"/>
+    </key>
+    <key>
+	  <default display="手" action="q"/>
+    </key>
+    <key>
+	  <default display="田" action="w"/>
+    </key>
+    <key>
+	  <default display="水" action="e"/>
+    </key>
+    <key>
+	  <default display="口" action="r"/>
+    </key>
+    <key>
+	  <default display="廿" action="t"/>
+    </key>
+    <key>
+	  <default display="卜" action="y"/>
+    </key>
+    <key>
+	  <default display="山" action="u"/>
+    </key>
+    <key>
+	  <default display="戈" action="i"/>
+    </key>
+    <key>
+	  <default display="人" action="o"/>
+    </key>
+    <key>
+	  <default display="心" action="p"/>
+    </key>
+    <key>
+	  <default display="[" />
+	  <shifted display="{" />
+    </key>
+    <key>
+	  <default display="]" />
+	  <shifted display="}" />
+    </key>
+    <key>
+	  <default display="\" />
+	  <shifted display="|" />
+    </key>
+
+  </row>
+  <row>
+
+    <key fill="true">
+	  <default display="Caps Lock" action="modifier:caps"/>
+    </key>
+    <key>
+	  <default display="日" action="a"/>
+    </key>
+    <key>
+	  <default display="尸" action="s"/>
+    </key>
+    <key>
+	  <default display="木" action="d"/>
+    </key>
+    <key>
+	  <default display="火" action="f"/>
+    </key>
+    <key>
+	  <default display="土" action="g"/>
+    </key>
+    <key>
+	  <default display="竹" action="h"/>
+    </key>
+    <key>
+	  <default display="十" action="j"/>
+    </key>
+    <key>
+	  <default display="大" action="k"/>
+    </key>
+    <key>
+	  <default display="中" action="l"/>
+    </key>
+    <key>
+	  <default display=";" action=";"/>
+    </key>
+    <key>
+	  <default display="'" />
+	  <shifted display='"' />
+    </key>
+    <key fill="true">
+	  <default display="Enter" action="return"/>
+    </key>
+
+  </row>
+  <row>
+    
+    <key fill="true">
+	  <default display="Shift" action="modifier:shift"/>
+    </key>
+    <key>
+	  <default display="重" action="z"/>
+    </key>
+    <key>
+	  <default display="難" action="x"/>
+    </key>
+    <key>
+	  <default display="金" action="c"/>
+    </key>
+    <key>
+	  <default display="女" action="v"/>
+    </key>
+    <key>
+	  <default display="月" action="b"/>
+    </key>
+    <key>
+	  <default display="弓" action="n"/>
+    </key>
+    <key>
+	  <default display="一" action="m"/>
+    </key>
+    <key>
+	  <default display="," action=","/>
+    </key>	
+    <key>
+	  <default display="." action="."/>
+    </key>	
+    <key>
+	  <default display="/" action="/"/>
+    </key>
+    <key fill="true">
+	  <default display="Shift" action="modifier:shift"/>
+    </key>
+
+ </row>
+  <row>
+
+    <key>
+	  <default display="Ctrl" action="modifier:ctrl"/>
+    </key>
+	<key fill="true">
+	  <default display="切換" action="modifier:layout"/>
+    </key>
+    <key>
+	  <default display="Alt" action="modifier:alt"/>
+    </key>
+    <key width="9000">
+	  <default display=" " action="space" />
+    </key>
+    <key>
+	  <default display="移動" action="modifier:position"/>
+    </key>
+    <key>
+	  <default display="隱藏" action="modifier:hide"/>
     </key>
     <key>
 	  <default display="↑" action="up" />
@@ -602,13 +826,13 @@
 
 <row>
     <key>
-	<default display="S/W" action="modifier:layout"/>
+	<default display="切換" action="modifier:layout"/>
     </key>
     <key>
-	<default display="↕" action="modifier:position"/>
+	<default display="移動" action="modifier:position"/>
     </key>
     <key>
-	<default display="Hide" action="modifier:hide"/>
+	<default display="隱藏" action="modifier:hide"/>
     </key>
     <key fill="true">
 	  <default display="Enter" action="return"/>
