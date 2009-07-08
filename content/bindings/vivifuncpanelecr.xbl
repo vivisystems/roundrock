@@ -22,7 +22,7 @@
                                 flex="0"
                                 anonid="control-prev"
                                 xbl:inherits="disabled,class=control_scroll_left_class"
-                                oncommand="next()"
+                                oncommand="prev()"
                                 />
 
                     <!-- Screen Label -->
@@ -46,7 +46,7 @@
                                 flex="0"
                                 anonid="control-next"
                                 xbl:inherits="disabled,class=control_scroll_right_class"
-                                oncommand="prev()"
+                                oncommand="next()"
                                 />
                 </xul:vbox>
 

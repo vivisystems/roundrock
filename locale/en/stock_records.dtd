@@ -1,5 +1,6 @@
 <!ENTITY stockrecords.title "Stock Management">
-<!ENTITY stockrecords.header.no "Product No.">
+<!ENTITY stockrecords.header.no "Product Number">
+<!ENTITY stockrecords.header.barcode "Barcode">
 <!ENTITY stockrecords.header.product "Product Name">
 <!ENTITY stockrecords.header.quantity "Qty.">
 <!ENTITY stockrecords.header.newquantity "New Qty.">
@@ -27,3 +28,7 @@
 <!ENTITY stockrecords.button.action.importrecords "Import">
 <!ENTITY stockrecords.button.action.reset "Reset All">
 <!ENTITY stockrecords.button.action.commitchanges "Commit Changes">
+<!ENTITY stockrecords.import.errors.desc "The following product number(s)/barcode(s) are invalid">
+<!ENTITY stockrecords.import.errors.title "Import Errors">
+<!ENTITY stockrecords.import.line "Line">
+<!ENTITY stockrecords.import.prodno "Product Number">

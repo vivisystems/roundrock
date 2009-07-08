@@ -80,6 +80,14 @@
   color: #372213;
 }
 
+.DataForm .menulist-editable-box{
+    background: none;
+    border: none;
+    -moz-appearance: none;
+    padding: 12px 4px 12px 4px;
+    font-size: 16px;
+}
+
 /* �@�q�� texbox ���� */
 textbox:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd):not(.label_promotions):not(.subtotal_promotions) {
   border: 3px solid;

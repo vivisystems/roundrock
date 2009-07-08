@@ -53,7 +53,9 @@
                     </columns>
                     <rows id="main-rows">
                         <row id="reason-row">
-                            <label style="width:6em" value="&stockrecords.commit.reason.label;" control="reason"/>
+                            <vbox pack="center">
+                                <label style="width:6em" value="&stockrecords.commit.reason.label;" control="reason"/>
+                            </vbox>
                             <vbox>
 			                    <menulist id="reason">
 			                        <menupopup id="reason_menupopup">
@@ -66,7 +68,9 @@
 			                </vbox>
 			            </row>
                         <row id="supplier-row" hidden="true">
-                            <label style="width:6em" value="&stockrecords.commit.supplier.label;" control="supplier"/>
+                            <vbox pack="center">
+                                <label style="width:6em" value="&stockrecords.commit.supplier.label;" control="supplier"/>
+                            </vbox>
                             <vbox flex="1">
 			                    <menulist id="supplier" editable="true">
 			                        <menupopup id="supplier_menupopup">

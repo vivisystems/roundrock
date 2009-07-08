@@ -386,7 +386,7 @@
                 if (!r) {
                     return r;
                 }
-            } );
+            }, this);
             
             return true;
         },

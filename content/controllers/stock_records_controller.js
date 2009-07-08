@@ -19,7 +19,8 @@
         _listData: [],
         _panelView: null,
         _selectedIndex: 0,
-        _stockRecordsByProductNo: null,
+        _stockRecordsByProductNo: {},
+        _stockRecordsByBarcode: {},
         _barcodesIndexes: null,
         _records: [],
         _folderName: 'vivipos_stock',
@@ -48,7 +49,7 @@
             var stockRecordModel = new StockRecordModel();
             
             var sql =
-                "select s.*, p.no as product_no, p.name as product_name, p.min_stock as min_stock, p.auto_maintain_stock as auto_maintain_stock " +
+                "select s.*, p.no as product_no, p.name as product_name, p.barcode as product_barcode, p.min_stock as min_stock, p.auto_maintain_stock as auto_maintain_stock " +
                 "from stock_records s join products p on s.id = p.no " +
                 "order by product_no;"; // the result must be sorted by product_no for the use of binary search in locateIndex method.
 
@@ -60,15 +61,18 @@
             }
             this._listData = stockRecords;
             
-            // construct _stockRecordsByProductNo.
-            this._stockRecordsByProductNo = {};
-            var stockRecordsByProductNo = this._stockRecordsByProductNo;
+            // construct _stockRecordsByProductNo & _stockRecordsByBarcode;
+            var stockRecordsByProductNo = {};
+            var stockRecordsByBarcode = {};
             stockRecords.forEach(function(stockRecord) {
                 stockRecord.new_quantity = stockRecord.quantity;
                 stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
                 stockRecord.memo = '';
                 stockRecordsByProductNo[stockRecord.product_no] = stockRecord;
+                stockRecordsByBarcode[stockRecord.product_barcode] = stockRecord;
             });
+            this._stockRecordsByProductNo = stockRecordsByProductNo;
+            this._stockRecordsByBarcode= stockRecordsByBarcode;
         },
 
         searchPlu: function() {
@@ -76,9 +80,9 @@
             $('#plu').val('').focus();
             if (barcode == '') return;
 
-            var product;
+            var product = this._stockRecordsByProductNo[barcode] || this._stockRecordsByBarcode[barcode];
 
-            if (!this._barcodesIndexes[barcode]) {
+            if (!product) {
                 // barcode notfound
                 GREUtils.Dialog.alert(
                     this.topmostWindow,
@@ -86,7 +90,6 @@
                     _('Product/Barcode Number (%S) not found!', [barcode])
                );
             } else {
-                product = this._stockRecordsByProductNo[barcode];
                 GeckoJS.FormHelper.reset('productForm');
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
 
@@ -415,7 +418,7 @@
                 this.topmostWindow,
                 _('Stock Adjustment'),
                 _('Stock level has been successfully adjusted')
-           );
+            );
 
             this.reload();
         },
@@ -439,41 +442,46 @@
             var file = GREUtils.File.getFile(filePath);
             
             if (!file) {
-                alert(filePath + _(' does not exist.'));
+                GREUtils.Dialog.alert(
+                    this.topmostWindow,
+                    _('Import Product Stock'),
+                    _('File [%S] does not exist', [filePath])
+                );
                 return;
             }
             
-            file = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(file));
-	    
-            var re = /[^\x0A]+/g;
-            var lines = file.match(re);
+            var lines = GREUtils.File.readAllLine(file);
+            var memo = _('imported from [%S]', [filePath]);
+            var unmatchedRecords = [];
 	        
-            // the question mark in the RE makes .* matches non-greedly.
-            re = /".*?"/g;
-	        
-            var self = this;
-            var unmatchableRecords = [];
-	        
-            lines.forEach(function(line) {
-                var values = line.match(re);
-	        	
-                // strip off the enclosing double quotes in a stupid way.
-                var product_no = values[0].substr(1, values[0].length - 2);
-                var quantity = parseInt(values[1].substr(1, values[1].length - 2), 10);
-                var memo = values[2].substr(1, values[2].length - 2);
-	        	
-                var stockRecord = self._stockRecordsByProductNo[product_no];
-                if (stockRecord) {
-                    stockRecord.new_quantity = quantity;
-                    stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
-                    stockRecord.memo = memo;
-                } else {
-                    unmatchableRecords.push(product_no);
+            lines.forEach(function(line, index) {
+
+                var values = GeckoJS.String.parseCSV(line, ',');
+                if (values[0]) {
+                    var product_no = values[0][0] || '';
+                    var quantity = values[0][1] || '';
+
+                    var stockRecord = this._stockRecordsByProductNo[product_no] || this._stockRecordsByBarcode[product_no];
+                    if (stockRecord) {
+                        stockRecord.new_quantity = quantity;
+                        stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+                        stockRecord.memo = memo;
+                    } else {
+                        unmatchedRecords.push({line: index + 1, no: product_no});
+                    }
                 }
-            });
+            }, this);
 	        
-            if (unmatchableRecords.length > 0) {
-                alert(_('The following product numbers do not exist.') + '\n' + unmatchableRecords);
+            if (unmatchedRecords.length > 0) {
+                var errorPanel = document.getElementById('error_panel');
+                if (errorPanel) {
+                    var errorlist = document.getElementById('errorscrollablepanel');
+                    if (errorlist) {
+                        errorlist.datasource = unmatchedRecords;
+
+                        errorPanel.openPopupAtScreen(0, 0);
+                    }
+                }
             }
         	
             // renew the content of the tree.
