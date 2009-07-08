@@ -10,8 +10,6 @@
         * @param {Object} data
         */
         saveToBackup: function( data ) {
-            dump( 'call Save to backup \n' );
-            
             var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             if ( isTraining ) return true;
             

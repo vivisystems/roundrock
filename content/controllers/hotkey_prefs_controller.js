@@ -22,6 +22,8 @@
             'ctrl-$82': true, // ctrl+r
             'ctrl-$83': true, // ctrl+s
             'ctrl-$86': true, // ctrl+v
+            'ctrl-alt-$66': true, // ctrl-alt+b // package builder
+            'ctrl-alt-$80': true, // ctrl-alt+p // screenshot
             '$48': true,
             '$49': true,
             '$50': true,

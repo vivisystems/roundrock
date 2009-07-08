@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
 
         name: 'ClockStamp',
@@ -110,6 +114,6 @@
         }
     }
 
-    var ClockStampModel = window.ClockStampModel = GeckoJS.Model.extend(__model__);
+    var ClockStampModel = window.ClockStampModel = AppModel.extend(__model__);
     
 })();

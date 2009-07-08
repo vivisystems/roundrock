@@ -1,9 +1,16 @@
-var TableBookingModel = window.TableBookingModel = GeckoJS.Model.extend({
-    name: 'TableBooking',
+( function() {
 
-    useDbConfig: 'table',
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+    
+    var TableBookingModel = window.TableBookingModel = AppModel.extend({
+        name: 'TableBooking',
 
-    belongsTo: ['Table'],
+        useDbConfig: 'table',
 
-    behaviors: ['Sync']
-});
+        belongsTo: ['Table'],
+
+        behaviors: ['Sync']
+    });
+} )();

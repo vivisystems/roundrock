@@ -2534,6 +2534,18 @@ msgstr "Internal VFD (non-en)"
 
 ########################################################################
 #
+# List of Import / Export
+#
+########################################################################
+
+msgid "vivipos.fec.registry.import_export.charsets.label"
+msgstr "BIG5,UTF-8"
+
+msgid "vivipos.fec.registry.import_export.charsets.charset"
+msgstr "big5,utf-8"
+
+########################################################################
+#
 # END OF STATIC MESSAGES
 #
 ########################################################################

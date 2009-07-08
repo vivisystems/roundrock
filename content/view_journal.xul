@@ -42,12 +42,12 @@
                     <html:iframe type="content" id="preview_frame" src="tpl/journal_template.html" flex="1"/>
                 </box>
             </hbox>
-            <hbox flex="1">
-                <hbox class="ReportTool">
+            <hbox class="TopPnl">
+                <hbox class="ReportTool" flex="1">
                     <!--vivibutton id="print" disabled="true" class="PrintBtn" oncommand="document.getElementById('preview_frame').contentWindow.print();" /-->
                     <vivibutton id="print" class="PrintBtn" oncommand="$do('printJournal', null, 'ViewJournal')" />
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns">
+                <hbox id="dialogButtons" class="dialogbtns" >
                     <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>

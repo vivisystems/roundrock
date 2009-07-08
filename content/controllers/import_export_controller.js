@@ -231,7 +231,9 @@
                             try {
                                 var result = tableTmp.find('all', {limit:99999});
                                 var saveFile = new GeckoJS.File(fileName, true);
-                                saveFile.setOutputCharset('big5');
+                                var charSet = document.getElementById('import_export_charset').value;
+                                var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
+                                saveFile.setOutputCharset(charSetValues[charSet]);
                                 saveFile.open("w");
 
                                 var isFirstRow = true;
@@ -785,7 +787,9 @@
                         try {
                             // read csv file
                             var file = new GeckoJS.File(fileName);
-                            file.setInputCharset('big5');
+                            var charSet = document.getElementById('import_export_charset').value;
+                            var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
+                            file.setInputCharset(charSetValues[charSet]);
                             file.open("r");
                             var lines = file.readAllLine();
                             file.close();
@@ -1817,6 +1821,26 @@
             
             var panelView = new GeckoJS.NSITreeViewArray(this._datas);
             this.getListObj().datasource = panelView;
+
+            var charsetmenu = document.getElementById('import_export_charset');
+
+            var charSetLabels = _('vivipos.fec.registry.import_export.charsets.label') == 'vivipos.fec.registry.import_export.charsets.label' ? ['UTF-8'] : _('vivipos.fec.registry.import_export.charsets.label').split(',');
+
+            for (var i in charSetLabels) {
+                charsetmenu.appendItem(charSetLabels[i], i, '');
+            }
+
+            var selectedCharSetIndex = GeckoJS.Configure.read('vivipos.fec.registry.import_export.index');
+            if(!selectedCharSetIndex || selectedCharSetIndex > charSetLabels.length - 1) {
+                selectedCharSetIndex = 0;
+                this.saveCharSetIndex(selectedCharSetIndex);
+            }
+
+            charsetmenu.selectedIndex = selectedCharSetIndex;
+        },
+
+        saveCharSetIndex: function (index) {
+            GeckoJS.Configure.write('vivipos.fec.registry.import_export.index', index);
         },
 
         isValidBooleanField: function(field, optional) {

@@ -2465,6 +2465,21 @@ msgstr "Internal VFD Template"
 msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
 msgstr "Internal VFD (non-en)"
 
+# #######################################################################
+#
+# List of Import / Export
+#
+# #######################################################################
+msgid "vivipos.fec.registry.import_export.charsets.label"
+msgstr "BIG5,UTF-8"
+
+msgid "vivipos.fec.registry.import_export.charsets.charset"
+msgstr "big5,utf-8"
+
+#: /tmp/your_order_report.js:1
+msgid "(rpt)Terminal"
+msgstr "Terminal"
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""
