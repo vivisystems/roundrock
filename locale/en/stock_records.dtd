@@ -13,6 +13,15 @@
 <!ENTITY stockrecords.label.name "Name">
 <!ENTITY stockrecords.label.newquantity "New Qty.">
 <!ENTITY stockrecords.label.memo "Memo">
+<!ENTITY stockrecords.commit.title "Stock Adjustment">
+<!ENTITY stockrecords.commit.reason.label "Adjustment Type:">
+<!ENTITY stockrecords.commit.reason.inventory "Inventory">
+<!ENTITY stockrecords.commit.reason.procure "Procure">
+<!ENTITY stockrecords.commit.reason.waste "Waste">
+<!ENTITY stockrecords.commit.reason.other "Other">
+<!ENTITY stockrecords.commit.supplier.label "Supplier:">
+<!ENTITY stockrecords.commit.quantity.label "Reset Quantity to:">
+<!ENTITY stockrecords.commit.memo.label "Memo:">
 <!ENTITY stockrecords.search.label "Search">
 <!ENTITY stockrecords.button.action.modify "Modify">
 <!ENTITY stockrecords.button.action.importrecords "Import">

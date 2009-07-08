@@ -1,7 +1,7 @@
 ( function() {
-    //GeckoJS.include( 'chrome://viviecr/content/models/inventory_record.js' );
 
     var __model__ = {
+
         name: 'StockRecord',
 
         useDbConfig: 'default',
@@ -13,6 +13,8 @@
         lastModified: 0,
 
         timeout: 30,
+
+        autoRestoreFromBackup: true,
 
         getRemoteServiceUrl: function(method) {
 
@@ -164,6 +166,12 @@
                 'recursive':0,
                 'conditions': 'modified > ' + lastModified
             });
+
+            if (this.lastError != 0) {
+                this.log('ERROR',
+                         'An error was encountered while retrieving last modified record (error code ' + this.lastError + '): ' + this.lastErrorString);
+                return;
+            }
 
             if (stocks.length > 0) {
 
@@ -360,88 +368,85 @@
         },
 
         insertNewRecords: function( products ) {
-            var stockRecords = [];
-		    
-            products.forEach( function( product ) {
+            var r;
+            products.forEach(function( product ) {
                 var stockRecord = {
                     id: product.no,
                     barcode: product.barcode,
                     warehouse: product.warehouse,
                     quantity: product.quantity || 0
                 };
-                stockRecords.push( stockRecord );
+                r = this.set(stockRecord);
+                if (!r) {
+                    return r;
+                }
             } );
-			
-            //this.begin();
-            //this.delAll( '' );
-            this.saveAll( stockRecords );
-        //this.commit();
+            
+            return true;
         },
 		
-        set: function( stockRecord ) {
-            if ( stockRecord ) {
-                var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
+        set: function(stockRecord) {
+            if (stockRecord) {
+                var isTraining = GeckoJS.Session.get('isTraining') || false;
 
                 // id is product_no.
                 this.id = stockRecord.id || '';
 
-                var r = this.save( stockRecord );
-                if ( !r && !isTraining ) {
-                    this.log(
-                        'ERROR',
-                        _( 'An error was encountered while saving stock record (error code %S): %S', [ this.lastError, this.lastErrorString ] )
-                        );
+                var r = this.save(stockRecord);
+                if (!r && !isTraining) {
+                    this.log('ERROR',
+                             'An error was encountered while saving stock record (error code ' + this.lastError + ': ' + this.lastErrorString);
                     
-                    throw {
-                        errmsg: _( 'An error was encountered while saving stock record (error code %S): %S', [ this.lastError, this.lastErrorString ] )
-                    };
-
                     //@db saveToBackup
-                    r = this.saveToBackup( stockRecord );
-                    if ( r ) {
-                        this.log(
-                            'ERROR',
-                            'record saved to backup'
-                            );
-                    } else {
-                        this.log(
-                            'ERROR',
-                            'record could not be saved to backup\n' + this.dump( stockRecord )
-                            );
-                        
-                        throw {
-                            errmsg: _( 'record could not be saved to backup: %S', [ '\n' + this.dump( stockRecord ) ] )
-                        };
+                    r = this.saveToBackup(stockRecord);
+                    if (r) {
+                        this.log('ERROR', 'record saved to backup');
+                    }
+                    else {
+                        this.log('ERROR',
+                                 'record could not be saved to backup:' + '\n' + this.dump(stockRecord));
                     }
                 }
                 return r;
             }
+            return true;
         },
 		
-        setAll: function( stockRecords ) {
-            if ( stockRecords.length > 0 ) {
+        setAll: function(stockRecords) {
+            if (stockRecords.length > 0) {
                 var r;
-                for ( var stockRecord in stockRecords ) {
-                    r = this.set( stockRecords[ stockRecord ] );
+                for (var stockRecord in stockRecords) {
+                    r = this.set(stockRecords[ stockRecord ]);
 					
-                    if ( !r )
+                    if (!r)
                         return r;
                 }
             }
+            return true;
         },
 		
-        get: function( type, params ) {
-            return this.find( type, params );
+        get: function(type, params) {
+            var r = this.find(type, params);
+            if (this.lastError != 0) {
+                this.log('ERROR',
+                         'An error was encountered while retrieving stock records (error code ' + this.lastError + '): ' + this.lastErrorString);
+            }
+            return r;
         },
 		
-        getAll: function( type, params) {
-            return this.find( type, params );
+        getAll: function(type, params) {
+            var r = this.find(type, params);
+            if (this.lastError != 0) {
+                this.log('ERROR',
+                         'An error was encountered while retrieving stock records (error code ' + this.lastError + '): ' + this.lastErrorString);
+            }
+            return r;
         },
 		
-        getStockRecordByProductNo: function( product_no ) {
-            return this.get( "first", {
-                fields: [ "quantity" ],
-                conditions: "id = '" + product_no + "'"
+        getStockRecordByProductNo: function(product_no) {
+            return this.get('first', {
+                fields: ['quantity'],
+                conditions: '"id = "' + product_no + '"'
             } );
         }
     };
