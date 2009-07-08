@@ -39,10 +39,9 @@
         saveShiftChangeMaster: function(data) {
 
             this.id = '';
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var r = this.save(data);
 
-            if (!r && !isTraining) {
+            if (!r) {
                 this.log('ERROR',
                          'An error was encountered while saving shift change record (error code ' + this.lastError + '): ' + this.lastErrorString);
 

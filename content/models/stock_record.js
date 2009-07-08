@@ -384,13 +384,12 @@
 		
         set: function( stockRecord ) {
             if ( stockRecord ) {
-                var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
 
                 // id is product_no.
                 this.id = stockRecord.id || '';
 
                 var r = this.save( stockRecord );
-                if ( !r && !isTraining ) {
+                if ( !r ) {
                     this.log(
                         'ERROR',
                         _( 'An error was encountered while saving stock record (error code %S): %S', [ this.lastError, this.lastErrorString ] )
