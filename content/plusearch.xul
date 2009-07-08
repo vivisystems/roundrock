@@ -131,7 +131,21 @@
                                     <row>
                                         <vbox>
                                             <label value="&plus.sale.unit;"/>
-                                            <textbox id="sale_unit" form="productForm" name="sale_unit" readonly="true"/>    
+                                            <menulist id="sale_unit" form="productForm" name="sale_unit" value="" disabled="true">
+                                                <menupopup style="width: 200px;">
+                                                    <menuitem label="" value=""/>
+                                                    <menuitem label="&plus.sale.unit.individual;" value="unit"/>
+                                                    <menuitem label="&plus.sale.unit.gram;" value="g"/>
+                                                    <menuitem label="&plus.sale.unit.kilogram;" value="kg"/>
+                                                    <menuitem label="&plus.sale.unit.ounce;" value="oz"/>
+                                                    <menuitem label="&plus.sale.unit.pound;" value="lb"/>
+                                                    <menuitem label="&plus.sale.unit.milliliter;" value="ml"/>
+                                                    <menuitem label="&plus.sale.unit.liter;" value="l"/>
+                                                    <menuitem label="&plus.sale.unit.pint;" value="pt"/>
+                                                    <menuitem label="&plus.sale.unit.quart;" value="qt"/>
+                                                    <menuitem label="&plus.sale.unit.gallon;" value="gal"/>
+                                                </menupopup>
+                                            </menulist>
                                         </vbox>
                                         <vbox>
                                             
@@ -233,7 +247,7 @@
             </tabbox>
             <hbox>
                 <hbox id="dialogButtons" class="ToolBar" pack="start" flex="1">
-                    <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                    <button id="ok" label="&plus.button.action.select;" default="true" oncommand="doOKButton();" hidden="true"/>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

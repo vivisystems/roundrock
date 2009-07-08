@@ -13,8 +13,9 @@
         autoRestoreFromBackup: true,
 
         saveReceipt: function(data) {
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var r = this.save(data);
-            if (!r) {
+            if (!r && !isTraining) {
                 this.log('ERROR',
                          'An error was encountered while saving order receipt (error code ' + this.lastError + '): ' + this.lastErrorString);
 
@@ -33,5 +34,4 @@
     }
 
     var OrderReceiptModel = window.OrderReceiptModel =  GeckoJS.Model.extend(__model__);
-
 })();

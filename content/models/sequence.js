@@ -15,6 +15,8 @@
         name: 'Sequence',
     
         autoRestoreFromBackup: true,
+
+        timeout: 15,
         
         getRemoteServiceUrl: function(method) {
             this.syncSettings = (new SyncSetting()).read();
@@ -34,8 +36,6 @@
 
                 this.username = 'vivipos';
                 this.password = this.syncSettings.password ;
-
-                //dump('sequence services url ' + this.url + "\n");
 
                 return this.url;
 
@@ -57,6 +57,11 @@
             var username = this.username ;
             var password = this.password ;
 
+            this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with key: ' + key);
+
+            // set this reference to self for callback
+            var self = this;
+
             // for use asynchronize mode like synchronize mode
             // mozilla only
             var reqStatus = {};
@@ -67,17 +72,18 @@
             req.mozBackgroundRequest = true;
 
             /* Request Timeout guard */
+            var timeoutSec = this.timeout * 1000;
             var timeout = null;
             timeout = setTimeout(function() {
                 
                 try {
+                    self.log('WARN', 'requestRemoteService url: ' + reqUrl +'  timeout, call req.abort');
                     req.abort();
-
                 }
                 catch(e) {
-                // dump('timeout exception ' + e + "\n");
+                    self.log('ERROR', 'requestRemoteService timeout exception ' + e );
                 }
-            }, 15000);
+            }, timeoutSec);
 
             /* Start Request with http basic authorization */
             var seq = -1;
@@ -87,7 +93,7 @@
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
 
             req.onreadystatechange = function (aEvt) {
-                dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if (req.status == 200) {
@@ -118,20 +124,19 @@
                 if (!async) {
                     // block ui until request finish or timeout
 
-                    var timeoutGuardSec = 15000;
-                    var timeoutGuardNow = Date.now().getTime();
+                    var now = Date.now().getTime();
 
                     var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                    while (thread.hasPendingEvents() && !reqStatus.finish) {
+                    while (!reqStatus.finish) {
 
-                        if (Date.now().getTime() > (timeoutGuardNow+timeoutGuardSec)) break;
+                        if (Date.now().getTime() > (now+timeoutSec)) break;
 
                         thread.processNextEvent(true);
                     }
                 }
 
             }catch(e) {
-            // dump('send exception ' + e + "\n");
+                this.log('ERROR', 'requestRemoteService req.send error ' + e );
             }finally {
 
                 if (!async) {
@@ -156,7 +161,7 @@
             var remoteUrl = this.getRemoteServiceUrl('getSequence');
             var seq = -1;
 
-            var isTraining = GeckoJS.Session.get( "isTraining" );
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
 
             if (remoteUrl && !isTraining) {
             
@@ -176,12 +181,9 @@
                     value: 0
                 };
 
-                if ( isTraining )
-                    return seq.value;
-
                 seq.value++;
                 this.id = seq.id;
-                if (!this.save(seq)) {
+                if (!this.save(seq) && !isTraining) {
                     this.saveToBackup(seq);
                 }
 
@@ -195,7 +197,7 @@
         },
 
         resetSequence: function(key, value, async, callback) {
-            var isTraining = GeckoJS.Session.get( "isTraining" );
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             if (isTraining) return;
 
             key = key || "default";

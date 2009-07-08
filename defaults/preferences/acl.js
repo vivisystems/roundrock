@@ -111,4 +111,4 @@ pref("vivipos.fec.acl.roles.acl_view_orders", "acl_view_orders");
 pref("vivipos.fec.acl.roles.acl_void_cart_item", "acl_void_cart_item");
 pref("vivipos.fec.acl.roles.acl_void_transactions", "acl_void_transactions");
 pref("vivipos.fec.acl.roles.acl_xterm", "acl_xterm");
-pref("vivipos.fec.acl.roles.journal", "journal");
+pref("vivipos.fec.acl.roles.acl_manage_journal", "acl_manage_journal");

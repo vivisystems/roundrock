@@ -92,6 +92,7 @@
 <!ENTITY plus.button.action.clone "Clone">
 <!ENTITY plus.button.action.delete "Delete">
 <!ENTITY plus.button.action.update.setitem "Update">
+<!ENTITY plus.button.action.select "Select">
 
 <!ENTITY plus.button.numpad.clear "CLEAR">
 <!ENTITY plus.button.numpad.del "DEL">

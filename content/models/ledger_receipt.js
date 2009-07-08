@@ -8,13 +8,14 @@
 
         belongsTo: ['Order'],
 
-        behaviors: ['Sync'],
+        behaviors: ['Sync', 'Training'],
 
         autoRestoreFromBackup: true,
 
         saveReceipt: function(data) {
+            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var r = this.save(data);
-            if (!r) {
+            if (!r && !isTraining) {
                 this.log('ERROR',
                          'An error was encountered while saving ledger receipt (error code ' + this.lastError + '): ' + this.lastErrorString);
 
@@ -25,7 +26,7 @@
                 }
                 else {
                     this.log('ERROR',
-                             'record could not be saved to backup: %S' + '\n' + this.dump(data));
+                             'record could not be saved to backup\n' + this.dump(data));
                 }
             }
             return r;

@@ -15,6 +15,7 @@
         _suspendLoadTest: false,
         _groupPath: [],
         _suspendOperation: false,
+        _suspendKeyboardOperation: false,
         _suspendOperationFilter: null,
         _isTraining: false,
     
@@ -115,9 +116,20 @@
         },
 
         filterOperations: function(evt) {
-            if (this._suspendOperation && evt.data.name != 'Keypad') {
+            if (this._suspendOperation && (this._suspendKeyboardOperation || evt.data.name != 'Keypad')) {
                 evt.preventDefault();
             }
+        },
+
+        suspendOperation: function(all) {
+            this._suspendOperation = true;
+            if (all) {
+                this._suspendKeyboardOpereation = true;
+            }
+        },
+
+        resumeOperation: function() {
+            this._suspendOperation = this._suspendKeyboardOperation = false;
         },
 
         PackageBuilderDialog: function() {
@@ -219,7 +231,7 @@
             var aURL = 'chrome://viviecr/content/plusearch.xul';
             var aName = _('Product Search');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {buffer: buf, item: item};
+            var aArguments = {buffer: buf, item: item, select: addtocart};
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
             if (aArguments.ok) {

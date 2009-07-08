@@ -35,8 +35,8 @@
 
             this._precision = data.precisionPrices;
             this._rounding = data.roundingPrices;
-            
-            this._originalPayments = GeckoJS.Array.objectExtract(data.payments, '{s}');
+
+            this._originalPayments = GeckoJS.Array.objectExtract(data.payments, '{s}') || [];
             
             var seq = 1;
             this._originalPayments.forEach(function(p) {
