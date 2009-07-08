@@ -202,3 +202,8 @@ pref("vivipos.fec.settings.controlpanels.system.journal.icon", "chrome://viviecr
 pref("vivipos.fec.settings.controlpanels.system.journal.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.settings.controlpanels.system.journal.path", "chrome://viviecr/content/reports/journal_report.xul");
 pref("vivipos.fec.settings.controlpanels.system.journal.roles", "acl_manage_journal");
+
+pref("vivipos.fec.settings.controlpanels.system.view_system_log.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.settings.controlpanels.system.view_system_log.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.settings.controlpanels.system.view_system_log.path", "chrome://viviecr/content/view_system_log.xul");
+pref("vivipos.fec.settings.controlpanels.system.view_system_log.roles", "acl_view_system_log");
