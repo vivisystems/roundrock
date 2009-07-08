@@ -203,7 +203,7 @@
                 var self = this;
 
                 var cb = function(remoteStocks) {
-                    dump('cb length = ' + remoteStocks.length + '\n');
+
                     var lastModified = self.saveStockRecords(remoteStocks);
 
                     if (lastModified >= self.lastModified) {
@@ -332,11 +332,13 @@
 
                 datas.forEach( function(d) {
 
-                    try{
+                    try {
+                        
                         this._cachedRecords[d.id] -= d.quantity;
 
                         d.modified = now;
                         sql += "UPDATE stock_records SET quantity=quantity-"+d.quantity+", modified='"+d.modified+"' WHERE id = '"+ d.id +"' ;\n";
+
                     }catch(e) {
                         this.log('ERROR', 'decreaseStockRecords datas.forEach error ' + e );
                     }
