@@ -74,7 +74,7 @@
         },
 
         destroy: function() {
-            dump('stocks destroy \n');
+            // dump('stocks destroy \n');
             this.observer.unregister();
         },
 
@@ -170,20 +170,20 @@
                     var item = productsById[ordItem.id];
                     
                     if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
-
-                        /*
-                        // fire onLowStock event...
-                        if ( item.min_stock > stockRecord.quantity ) {
-                            this.dispatchEvent( 'onLowStock', item );
-                        }
-                        */
-                        // stock had maintained
                         
                         datas.push({id: item.no+'', quantity: ordItem.current_qty});
 
+                        // stock had maintained
                         ordItem.stock_maintained = true;
+
+                         // only check min stock from local cached ..
+                        var stockQty = this.StockRecord.getStockById(item.no);
                         
-                        
+                        if ( item.min_stock > stockQty ) {
+                            // fire onLowStock event...
+                            this.dispatchEvent( 'onLowStock', item );
+                        }
+
                     }
                 }
 
@@ -200,7 +200,7 @@
     
     GeckoJS.Controller.extend( __controller__ );
 
-    // mainWindow register promotions rules
+    // mainWindow register stock initial
     var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
 
     if (mainWindow === window) {

@@ -36,6 +36,8 @@
                     cheapest_itemId = id;
                     cheapest_price = price;
                     cheapest_qty = qty;
+                }else if(price == cheapest_price) {
+                    cheapest_qty += qty;
                 }
 
             }, this);
