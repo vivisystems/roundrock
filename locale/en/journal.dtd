@@ -1,7 +1,8 @@
 <!ENTITY journal.title "Electronic Journal">
 <!ENTITY journal.startdate "Start Date:">
 <!ENTITY journal.enddate "End Date:">
-<!ENTITY journal.execute "Execute">
+<!ENTITY journal.viewlist "View List">
+<!ENTITY journal.exportlist "Export List">
 <!ENTITY rptorderstatus.exportrcp "Print">
 <!ENTITY rptorderstatus.print "Print">
 <!ENTITY rptorderstatus.togglezoom "Toggle Zoom">

@@ -49,8 +49,17 @@
 		                            <label value="&journal.enddate;" />
 		                            <vividatetimepicker id="end_date" value='' type="popup"/>
 		                        </vbox>
-                                <button id="execute" label="&journal.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'JournalReportController');" />
+                                <vbox>
+                                    <button id="execute" label="&journal.viewlist;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'JournalReportController');" />
+                                </vbox>
 		                    </row>
+                            <row>
+                                <vbox></vbox>
+                                <vbox></vbox>
+                                <vbox>
+                                    <button id="execute" label="&journal.exportlist;" disabled="false" class="ExeBtn" oncommand="$do('exportFile', null, 'JournalReportController');" />
+                                </vbox>
+                            </row>
 		                </rows>
 		            </grid>
 		            </hbox>
@@ -68,11 +77,9 @@
                     </arrowscrollbox>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
-
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" id="previewBox" flex="1">

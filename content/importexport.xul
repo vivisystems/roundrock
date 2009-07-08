@@ -55,9 +55,18 @@
                 <!-- progressmeter id="datasprogressmeter" mode="determined" value="0" /-->
             </vbox>
             <spacer style="height: 5px;" />
-            <hbox >
-                <label value="&importexport.media;:" class="NoticeMark"/>
-                <label id="lastMedia" value="" class="NoticeMark" />
+            <hbox>
+                <hbox>
+                    <label value="&importexport.media;:" class="NoticeMark"/>
+                    <label id="lastMedia" value="" class="NoticeMark" />
+                </hbox>
+                <hbox>
+                    <label value="charset selector:"/>
+                    <menulist id="import_export_charset" name="import_export_charset" style="width: 150px;" oncommand="GeckoJS.Configure.write('vivipos.fec.registry.import_export.index', this.value)">
+                        <menupopup id="import_export_charset-popup">
+                        </menupopup>
+                    </menulist>
+                </hbox>
             </hbox>
             <spacer style="height: 5px;" />
             <hbox flex="1">

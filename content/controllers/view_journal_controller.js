@@ -16,11 +16,6 @@
         _journalId: null,
         _orderData: null,
 
-        _queryStringPreprocessor: function( s ) {
-            var re = /\'/g;
-            return s.replace( re, '\'\'' );
-        },
-
         load: function(inputObj) {
             if (this._dataPath == null) {
                 this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
@@ -96,36 +91,24 @@
                 if (journal) {
                     var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file);
                     prnFile.open("rb");
-                    var orderData = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(prnFile.read()));
+                    var template = GREUtils.Gzip.inflate(prnFile.read());
                     prnFile.close();
-                }
-
-                var data = {
-                    order: orderData
                 }
 
                 var deviceController = mainWindow.GeckoJS.Controller.getInstanceByName('Devices');
                 var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
                 var printerChoice = selectedDevices['journal-print-template'];
 
-                var template = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-template'];
                 var encoding = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-encoding'];
                 var port = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-port'];
                 var portspeed = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-portspeed'];
-                var handshaking = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-handshaking'];;
-                var devicemodel = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-devicemodel'];;
+                var handshaking = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-handshaking'];
+                var devicemodel = deviceController.getSelectedDevices()['receipt-' + printerChoice + '-devicemodel'];
                 var devicenumber = printerChoice;
                 var copies = 1;
 
                 _templateModifiers(TrimPath, encoding);
-
-                data.linkgroups = null;
-                data.printNoRouting = 1;
-                data.routingGroups = null;
-                data.autoPrint = true;
-                data.duplicate = true;
-
-                printController.printSlip('receipt', data, template, port, portspeed, handshaking, devicemodel, encoding, devicenumber, copies);
+                printController.printSlip('report', null, template, port, portspeed, handshaking, devicemodel, encoding, devicenumber, copies);
             }catch(e) {
                 this.dump(e);
             }
