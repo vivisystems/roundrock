@@ -213,5 +213,50 @@ function index() {
         exit;
     }
 
+    function transTable() {
+
+	$tableObject = array();
+	if($_REQUEST['request_data']) {
+		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+
+		file_put_contents("/tmp/transTable", serialize($tableObject));
+	}
+
+	if ($tableObject) {
+		$setResult = $this->TableStatus->transTable($tableObject);
+	}else {
+		$setResult = false;
+	}
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $setResult
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+
+
+    }
+
+    function getTableOrders($condition="") {
+
+        $orders = $this->TableStatus->getTableOrders($condition);
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $orders
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+
+
+    }
+
 }
 ?>
