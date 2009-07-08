@@ -625,7 +625,7 @@ class SyncHandlerComponent extends Object {
                 break;
 
             case 'json':
-                $result = json_decode($request);
+                $result = json_decode($request, true);
                 break;
         }
 
@@ -646,7 +646,7 @@ class SyncHandlerComponent extends Object {
                 break;
 
             case 'json':
-                $result = json_decode($request);
+                $result = json_decode($request, true);
                 break;
         }
 
