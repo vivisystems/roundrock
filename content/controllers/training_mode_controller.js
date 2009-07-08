@@ -172,9 +172,11 @@
                 }
             } else {
                 if ( cart.ifHavingOpenedOrder() ) {
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                                          _('Training Mode'),
-                                          _('Please complete or cancel the current order first.'));
+                    GREUtils.Dialog.alert(
+                        this.topmostWindow,
+                        _( 'Training Mode' ),
+                        _( 'Please complete or cancel the current order first.' )
+                    );
                     return;
                 }
 	 			
