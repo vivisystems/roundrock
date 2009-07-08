@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var  __promotion_cart_item_model__ = {
 
         name: 'PromotionCartItem',
@@ -130,6 +134,6 @@
 
     };
 
-    var PromotionCartItemModel = window.PromotionCartItemModel = GeckoJS.Model.extend(__promotion_cart_item_model__);
+    var PromotionCartItemModel = window.PromotionCartItemModel = AppModel.extend(__promotion_cart_item_model__);
 
 })();

@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
 
         name: 'OrderPayment',
@@ -52,6 +56,6 @@
             return r;
         }
     }
-    var OrderPaymentModel = window.OrderPaymentModel =  GeckoJS.Model.extend(__model__);
+    var OrderPaymentModel = window.OrderPaymentModel =  AppModel.extend(__model__);
 
 })();

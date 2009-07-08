@@ -1,4 +1,8 @@
 (function() {
+    
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
 
     var __model__ = {
 
@@ -33,6 +37,6 @@
         }
     }
 
-    var LedgerReceiptModel = window.LedgerReceiptModel =  GeckoJS.Model.extend(__model__);
+    var LedgerReceiptModel = window.LedgerReceiptModel =  AppModel.extend(__model__);
 
 })();

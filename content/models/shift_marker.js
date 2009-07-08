@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
 
         name: 'ShiftMarker',
@@ -31,6 +35,6 @@
         }
     }
     
-    var ShiftMarkerModel = window.ShiftMarkerModel = GeckoJS.Model.extend(__model__);
+    var ShiftMarkerModel = window.ShiftMarkerModel = AppModel.extend(__model__);
 
 })();

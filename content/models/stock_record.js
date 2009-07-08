@@ -1,5 +1,9 @@
 ( function() {
     //GeckoJS.include( 'chrome://viviecr/content/models/inventory_record.js' );
+    
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
 
     var __model__ = {
         name: 'StockRecord',
@@ -446,5 +450,5 @@
         }
     };
 	
-    var StockRecordModel = window.StockRecordModel = GeckoJS.Model.extend( __model__ );
+    var StockRecordModel = window.StockRecordModel = AppModel.extend( __model__ );
 } )();

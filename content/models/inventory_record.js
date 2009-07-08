@@ -1,6 +1,10 @@
 ( function() {
+    
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
 
-	 var __model__ = {
+	var __model__ = {
          
 		name: 'InventoryRecord',
 		
@@ -39,5 +43,5 @@
 		}
 	};
 	
-	var InventoryRecordModel = window.InventoryRecordModel = GeckoJS.Model.extend( __model__ );
+	var InventoryRecordModel = window.InventoryRecordModel = AppModel.extend( __model__ );
 } )();

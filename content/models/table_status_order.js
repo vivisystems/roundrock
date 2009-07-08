@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     /**
      * TableStatusOrder Model
      */
@@ -15,6 +19,6 @@
 
     };
 
-    var TableStatusOrderModel = window.TableStatusOrderModel = GeckoJS.Model.extend(__model__);
+    var TableStatusOrderModel = window.TableStatusOrderModel = AppModel.extend(__model__);
 
 })();
