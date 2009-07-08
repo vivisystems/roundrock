@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
 
         name: 'PromotionApply',
@@ -91,6 +95,6 @@
 
     };
 
-    var PromotionApplyModel = window.PromotionApplyModel = GeckoJS.Model.extend(__model__);
+    var PromotionApplyModel = window.PromotionApplyModel = AppModel.extend(__model__);
 
 })();

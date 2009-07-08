@@ -1,11 +1,18 @@
-var OrderItemCondimentModel = window.OrderItemCondimentModel =  GeckoJS.Model.extend({
-    name: 'OrderItemCondiment',
+( function() {
 
-    useDbConfig: 'order',
-
-    belongsTo: ['Order'],
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
     
-    behaviors: ['Sync', 'Training'],
+    var OrderItemCondimentModel = window.OrderItemCondimentModel =  AppModel.extend({
+        name: 'OrderItemCondiment',
 
-    autoRestoreFromBackup: true
-});
+        useDbConfig: 'order',
+
+        belongsTo: ['Order'],
+        
+        behaviors: ['Sync', 'Training'],
+
+        autoRestoreFromBackup: true
+    });
+} )();

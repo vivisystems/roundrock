@@ -132,4 +132,4 @@ pref("DATABASE_CONFIG.default_training_journal.path", "/data/training");
 pref("DATABASE_CONFIG.default_training_journal.database", "default_vivipos_journal.sqlite");
 pref("DATABASE_CONFIG.default_training_journal.timeout", "30");
 
-/* Please comment here first for what you are going to append below, and leave this reminder in the end of this file. */
+/* Please comment here first on what you are going to append below, and leave this reminder in the end of this file. */

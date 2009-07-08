@@ -1,11 +1,18 @@
-var OrderPromotionModel = window.OrderPromotionModel =  GeckoJS.Model.extend({
-    name: 'OrderPromotion',
+( function() {
 
-    useDbConfig: 'order',
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+    
+    var OrderPromotionModel = window.OrderPromotionModel =  AppModel.extend({
+        name: 'OrderPromotion',
 
-    belongsTo: ['Order'],
+        useDbConfig: 'order',
 
-    behaviors: ['Sync', 'Training'],
+        belongsTo: ['Order'],
 
-    autoRestoreFromBackup: true
-});
+        behaviors: ['Sync', 'Training'],
+
+        autoRestoreFromBackup: true
+    });
+} )();

@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     // declare Transaction Base Object / data encapsulate
     var __model__ = {
 
