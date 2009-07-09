@@ -73,6 +73,13 @@
   
 }
 
+.DataForm .menulist-editable-box{
+    background: none;
+    border: none;
+    -moz-appearance: none;
+    padding: 12px 4px 12px 4px;
+    font-size: 16px;
+}
 
 /* �ϰ���D */
 .DataForm label {

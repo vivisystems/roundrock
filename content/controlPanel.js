@@ -1,5 +1,7 @@
 (function(){
 
+    var isShowing = false;
+
     /**
      * Window Startup
      */
@@ -39,12 +41,14 @@
                         else {
                             label = _(label);
                         }
-                        var entry = {icon: el.icon,
+                        var entry = {
+                            icon: el.icon,
                             path: el.path,
                             roles: el.roles,
                             features: (el.features || null),
                             type:  (el.type || 'uri'),
-                            label: label}
+                            label: label
+                        }
 
                         ctrls2.push(entry);
                     }
@@ -58,62 +62,76 @@
         });
     };
 
-    window.addEventListener('load', startup, true);
 
-})();
+    window.launchControl = function launchControl(panel) {
+        var data = panel.datasource.data;
+        var index = panel.selectedIndex;
 
-function launchControl(panel) {
-    var data = panel.datasource.data;
-    var index = panel.selectedIndex;
+        var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+        var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
 
-    var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-    var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+        if (index > -1 && index < data.length) {
+            var pref = data[index];
 
-    if (index > -1 && index < data.length) {
-        var pref = data[index];
+            var aArguments = "";
+            var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen";
+            features += ",modal,width=" + width + ",height=" + height;
 
-        var aArguments = "";
-        var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen";
-        features += ",modal,width=" + width + ",height=" + height;
-
-        try {
-            $.blockUI({
-                message:$('#loading'),
-                css: {
-                    left: '30%',
-                    border: '0px'
-                }
-            });
-
-            // @hack sleep to make sure the loading panel is rendered
-            GeckoJS.BaseObject.sleep(50);
-            if (pref['type'] == 'uri') {
-
-                window.openDialog(pref['path'], pref['label'], features);
-
+            if (isShowing) {
+            // nothings to do
             }else {
 
-                VirtualKeyboard.show();
+                try {
 
-                var paths = pref['path'].split(' ');
-                var launchAp = paths[0];
-                var args = paths.slice(1);
+                    isShowing = true;
 
-                var fileAp = new GeckoJS.File(launchAp);
-                fileAp.run(args, true);
+                    $.blockUI({
+                        message:$('#loading'),
+                        css: {
+                            left: '30%',
+                            border: '0px'
+                        }
+                    });
 
-                VirtualKeyboard.hide();
+                    // @hack sleep to make sure the loading panel is rendered
+                    GeckoJS.BaseObject.sleep(50);
+                    if (pref['type'] == 'uri') {
+
+                        window.openDialog(pref['path'], pref['label'], features);
+
+                    }else {
+
+                        VirtualKeyboard.show();
+
+                        var paths = pref['path'].split(' ');
+                        var launchAp = paths[0];
+                        var args = paths.slice(1);
+
+                        var fileAp = new GeckoJS.File(launchAp);
+                        fileAp.run(args, true);
+
+                        VirtualKeyboard.hide();
+                    }
+                }
+                catch (e) {
+                }
+                finally {
+                    isShowing = false;
+                    $.unblockUI();
+                }
+
             }
         }
-        catch (e) {
-        }
-        finally {
-            $.unblockUI();
-        }
-    }
-}
+    };
 
-function savePreferences() {
-    // GeckoJS.Configure.savePreferences('vivipos');
-    window.close();
-}
+    window.savePreferences = function savePreferences() {
+        // GeckoJS.Configure.savePreferences('vivipos');
+        window.close();
+    };
+
+
+    window.addEventListener('load', startup, true);
+
+
+
+})();

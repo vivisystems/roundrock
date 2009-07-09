@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __class__ = {
         getSequence: function(key, async, callback) {
             return (new this).getSequence(key, async, callback);
@@ -183,7 +187,7 @@
 
                 seq.value++;
                 this.id = seq.id;
-                if (!this.save(seq) && !isTraining) {
+                if (!this.save(seq)) {
                     this.saveToBackup(seq);
                 }
 
@@ -243,6 +247,6 @@
         }
     }
 
-    var SequenceModel = window.SequenceModel = GeckoJS.Model.extend(__class__, __model__);
+    var SequenceModel = window.SequenceModel = AppModel.extend(__class__, __model__);
     
 })();

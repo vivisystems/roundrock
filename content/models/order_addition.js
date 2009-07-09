@@ -1,11 +1,18 @@
-var OrderAdditionModel = window.OrderAdditionModel =  GeckoJS.Model.extend({
-    name: 'OrderAddition',
+( function() {
 
-    useDbConfig: 'order',
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+    
+    var OrderAdditionModel = window.OrderAdditionModel =  AppModel.extend({
+        name: 'OrderAddition',
 
-    belongsTo: ['Order'],
+        useDbConfig: 'order',
 
-    behaviors: ['Sync', 'Training'],
+        belongsTo: ['Order'],
 
-    autoRestoreFromBackup: true
-});
+        behaviors: ['Sync', 'Training'],
+
+        autoRestoreFromBackup: true
+    });
+} )();

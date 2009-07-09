@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
 
         name: 'LedgerRecord',
@@ -11,9 +15,8 @@
         behaviors: ['Sync', 'Training'],
 
         saveLedgerEntry: function(data) {
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var r = this.save(data);
-            if (!r && !isTraining) {
+            if (!r) {
                 this.log('ERROR',
                          'An error was encountered while saving ledger activity (error code ' + this.lastError + '): ' + this.lastErrorString);
 
@@ -31,6 +34,6 @@
         }
     };
 
-    var LedgerRecordModel = window.LedgerRecordModel = GeckoJS.Model.extend(__model__);
+    var LedgerRecordModel = window.LedgerRecordModel = AppModel.extend(__model__);
     
 })();

@@ -1,5 +1,6 @@
 <!ENTITY stockrecords.title "Stock Management">
-<!ENTITY stockrecords.header.no "Product No.">
+<!ENTITY stockrecords.header.no "Product Number">
+<!ENTITY stockrecords.header.barcode "Barcode">
 <!ENTITY stockrecords.header.product "Product Name">
 <!ENTITY stockrecords.header.quantity "Qty.">
 <!ENTITY stockrecords.header.newquantity "New Qty.">
@@ -13,8 +14,21 @@
 <!ENTITY stockrecords.label.name "Name">
 <!ENTITY stockrecords.label.newquantity "New Qty.">
 <!ENTITY stockrecords.label.memo "Memo">
+<!ENTITY stockrecords.commit.title "Stock Adjustment">
+<!ENTITY stockrecords.commit.reason.label "Adjustment Type:">
+<!ENTITY stockrecords.commit.reason.inventory "Inventory">
+<!ENTITY stockrecords.commit.reason.procure "Procure">
+<!ENTITY stockrecords.commit.reason.waste "Waste">
+<!ENTITY stockrecords.commit.reason.other "Other">
+<!ENTITY stockrecords.commit.supplier.label "Supplier:">
+<!ENTITY stockrecords.commit.quantity.label "Reset Quantity to:">
+<!ENTITY stockrecords.commit.memo.label "Memo:">
 <!ENTITY stockrecords.search.label "Search">
 <!ENTITY stockrecords.button.action.modify "Modify">
 <!ENTITY stockrecords.button.action.importrecords "Import">
 <!ENTITY stockrecords.button.action.reset "Reset All">
 <!ENTITY stockrecords.button.action.commitchanges "Commit Changes">
+<!ENTITY stockrecords.import.errors.desc "The following product number(s)/barcode(s) are invalid">
+<!ENTITY stockrecords.import.errors.title "Import Errors">
+<!ENTITY stockrecords.import.line "Line">
+<!ENTITY stockrecords.import.prodno "Product Number">

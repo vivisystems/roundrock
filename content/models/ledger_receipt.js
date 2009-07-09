@@ -1,4 +1,8 @@
 (function() {
+    
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
 
     var __model__ = {
 
@@ -13,9 +17,8 @@
         autoRestoreFromBackup: true,
 
         saveReceipt: function(data) {
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var r = this.save(data);
-            if (!r && !isTraining) {
+            if (!r) {
                 this.log('ERROR',
                          'An error was encountered while saving ledger receipt (error code ' + this.lastError + '): ' + this.lastErrorString);
 
@@ -33,6 +36,6 @@
         }
     }
 
-    var LedgerReceiptModel = window.LedgerReceiptModel =  GeckoJS.Model.extend(__model__);
+    var LedgerReceiptModel = window.LedgerReceiptModel =  AppModel.extend(__model__);
 
 })();

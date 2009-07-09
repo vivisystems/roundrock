@@ -1,5 +1,10 @@
-//GREUtils.define('ViviPOS.PlugroupModel');
-//ViviPOS.PlugroupModel = GeckoJS.Model.extend({
-var PlugroupModel = window.PlugroupModel = GeckoJS.Model.extend({
-    name: 'Plugroup'
-});
+( function() {
+
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+    
+    var PlugroupModel = window.PlugroupModel = AppModel.extend({
+        name: 'Plugroup'
+    });
+} )();

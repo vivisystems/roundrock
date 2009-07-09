@@ -1,0 +1,5 @@
+<!ENTITY view_system_log.title "View System Log">
+<!ENTITY view_system_log.syslog "System Logs">
+<!ENTITY view_system_log.vivipos "VIVIPOS Log">
+<!ENTITY view_system_log.web "WebServices Log">
+

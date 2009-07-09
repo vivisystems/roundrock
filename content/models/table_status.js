@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     /**
      * TableStatus Model
      */
@@ -13,7 +17,7 @@
 
         hasMany: ['TableBooking', 'TableOrder'],
 
-        behaviors: ['Sync'], // for local use when connect master fail...
+        behaviors: ['Sync', 'Training'], // for local use when connect master fail...
 
         _checkNoArray: [],
         _tableNoArray: [],
@@ -797,6 +801,6 @@
 
     };
 
-    var TableStatusModel = window.TableStatusModel = GeckoJS.Model.extend(__model__);
+    var TableStatusModel = window.TableStatusModel = AppModel.extend(__model__);
 
 })();

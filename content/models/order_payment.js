@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
 
         name: 'OrderPayment',
@@ -13,9 +17,8 @@
         autoRestoreFromBackup: true,
 
         savePayment: function(data) {
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var r = this.save(data);
-            if (!r && !isTraining) {
+            if (!r) {
                 this.log('ERROR',
                          'An error was encountered while saving payment (error code ' + this.lastError + '): ' + this.lastErrorString);
 
@@ -33,9 +36,8 @@
         },
 
         saveLedgerPayment: function(data) {
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var r = this.save(data);
-            if (!r && !isTraining) {
+            if (!r) {
                 this.log('ERROR',
                          'An error was encountered while saving ledger payment (error code ' + this.lastError + '): ' + this.lastErrorString);
 
@@ -52,6 +54,6 @@
             return r;
         }
     }
-    var OrderPaymentModel = window.OrderPaymentModel =  GeckoJS.Model.extend(__model__);
+    var OrderPaymentModel = window.OrderPaymentModel =  AppModel.extend(__model__);
 
 })();

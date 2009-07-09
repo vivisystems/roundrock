@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
         
         name: 'CashdrawerRecord',
@@ -11,10 +15,9 @@
         behaviors: ['Sync', 'Training'],
 
         saveAccessRecord: function(data) {
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var r = this.save(data);
 
-            if (!r && !isTraining) {
+            if (!r) {
                 this.log('ERROR',
                          'An error was encountered while saving cashdrawer activity (error code ' + this.lastError + '): ' + this.lastErrorString);
 
@@ -32,6 +35,6 @@
         }
     }
 
-    var CashdrawerRecordModel = window.CashdrawerRecordModel = GeckoJS.Model.extend(__model__);
+    var CashdrawerRecordModel = window.CashdrawerRecordModel = AppModel.extend(__model__);
 
 })();

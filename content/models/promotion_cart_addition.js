@@ -1,5 +1,9 @@
 (function(){
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
 
         name: 'PromotionCartAddition',
@@ -22,6 +26,6 @@
 
     };
 
-    var PromotionCartAdditionModel = window.PromotionCartAdditionModel = GeckoJS.Model.extend(__model__);
+    var PromotionCartAdditionModel = window.PromotionCartAdditionModel = AppModel.extend(__model__);
 
 })();
