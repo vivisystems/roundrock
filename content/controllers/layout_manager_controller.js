@@ -37,7 +37,6 @@
                 if (layouts[selectedLayout]) {
                     prefsOverlayUri = layouts[selectedLayout]['prefs_overlay_uri'] || prefsOverlayUri;
                 }
-                alert('overlaying ' + prefsOverlayUri);
                 displayPane.src = prefsOverlayUri;
 
                 // always start on first pane to avoid XUL bug where displayPane is not rendered
