@@ -17,6 +17,15 @@
         _importFolder: 'database_import',
         _exportFolder: 'database_export',
 
+        select: function( index ) {
+            var button = document.getElementById('importBtn');
+            if(this._datas[index].type == 'license') {
+                button.setAttribute('disabled', true);
+            } else {
+                button.setAttribute('disabled', false);
+            }
+        },
+
         getListObj: function(type) {
             if(this._listObj == null) {
                 this._listObj = document.getElementById('datasourcescrollablepanel');
@@ -1856,7 +1865,7 @@
                     name: _('License'),
                     type: 'license',
                     filename: '/etc/vivipos.lic',
-                    imported: 'Invalid',
+                    imported: '',
                     exported: ''
                 }
             ];
