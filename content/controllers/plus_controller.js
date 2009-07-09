@@ -141,6 +141,13 @@
             this.productPanelView.setCatePanelIndex(index);
             var category = this.catePanelView.getCurrentIndexData(index);
             if (this._selCateIndex != index && category != null) {
+                if(category.no == null) {
+                    document.getElementById('add_plu').setAttribute('hidden', 'true');
+                    document.getElementById('link_plu').setAttribute('hidden', 'false');
+                } else {
+                    document.getElementById('link_plu').setAttribute('hidden', 'true');
+                    document.getElementById('add_plu').setAttribute('hidden', 'false');
+                }
                 this._selCateNo = category.no;
                 this._selCateName = category.name;
                 this._selCateIndex = index;
