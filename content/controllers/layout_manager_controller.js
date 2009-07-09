@@ -15,17 +15,35 @@
 
         initial: function() {
 
-
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
             var resolution = width + 'x' + height;
 
-            document.getElementById('prefwin').width=width;
-            document.getElementById('prefwin').height=height;
-            document.getElementById('prefwin').dlgbuttons="accept,help";
+            var prefwin = document.getElementById('prefwin');
+            if (prefwin) {
+                prefwin.width=width;
+                prefwin.height=height;
+                prefwin.dlgbuttons="accept,help";
+            }
 
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
+
+            var displayPane = document.getElementById('displaySettingsPane');
+
+            if (displayPane) {
+
+                var prefsOverlayUri = 'chrome://viviecr/content/layouts/traditional/traditionalPrefs.xul'
+                if (layouts[selectedLayout]) {
+                    prefsOverlayUri = layouts[selectedLayout]['prefs_overlay_uri'] || prefsOverlayUri;
+                }
+                alert('overlaying ' + prefsOverlayUri);
+                displayPane.src = prefsOverlayUri;
+
+                // always start on first pane to avoid XUL bug where displayPane is not rendered
+                var firstPane = document.getElementById('panelSettingsPane');
+                if (firstPane && prefwin) prefwin.showPane(firstPane);
+            }
 
             var rbObj = this.getRichlistbox();
 
@@ -179,7 +197,6 @@
             // change button height
             var layout = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
             if (layout) layout.requestCommand('resetLayout', null, 'Layout');
-
 
         }
 

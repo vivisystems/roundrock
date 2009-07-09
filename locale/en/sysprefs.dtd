@@ -60,7 +60,7 @@
 <!ENTITY layout.functionpanel.cols "columns">
 <!ENTITY layout.functionpanel.height "panel height">
 <!ENTITY layout.hidebottombox "Hide status bar">
-<!ENTITY layout.showtoolbar "Show tool bar (may require restart)">
+<!ENTITY layout.showtoolbar "Show tool bar">
 <!ENTITY layout.showclockinicon "Show clock-in icon">
 <!ENTITY layout.showvirtualkeyboardicon "Show virtual keyboard icon">
 <!ENTITY layout.showconfigicon "Show control panel icon">

@@ -1,7 +1,7 @@
 (function(){
 
     function startup() {
-
+        
         var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
         var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
@@ -60,7 +60,7 @@
                 }
             }
         }).register();
-
+        
         $do('initial', null, "Main");
 
         // check if this is first run

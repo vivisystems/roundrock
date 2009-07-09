@@ -3215,6 +3215,9 @@
             this.dispatchEvent('onWarning', _('PRE-FINALIZED'));
 
             // dispatch onSubmit event here manually since submit() won't do it for us
+            this.dispatchEvent('onStore', curTransaction);
+
+            // dispatch onSubmit event here manually since submit() won't do it for us
             this.dispatchEvent('onSubmit', curTransaction);
 
             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));

@@ -20,7 +20,7 @@
         _isTraining: false,
     
         initial: function() {
-
+            
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
@@ -68,7 +68,7 @@
             // ourselves
 
             this.dispatchEvent('afterInitial', null);
-
+            
             // recover queued orders
             this.requestCommand('unserializeQueueFromRecoveryFile', null, 'Cart');
 
