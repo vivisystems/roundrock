@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-09 08:55+0800\n"
+"POT-Creation-Date: 2009-07-09 11:42+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -177,7 +177,7 @@ msgid "vivipos.fec.settings.controlpanels.system.journal.label"
 msgstr "Electronic Journal"
 
 msgid "vivipos.fec.settings.controlpanels.system.view_system_log.label"
-msgstr "System Log"
+msgstr "View System Log"
 
 # #######################################################################
 #
@@ -1862,6 +1862,9 @@ msgstr "Training Mode"
 
 msgid "acl_manage_tableman"
 msgstr "Table Manager"
+
+msgid "acl_view_system_log"
+msgstr "View System Log"
 
 # #######################################################################
 #

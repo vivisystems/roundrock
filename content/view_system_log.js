@@ -1,6 +1,11 @@
 (function(){
 
-    var inputObj = window.arguments[0];
+    var inputObj = null;
+    try{
+        inputObj = window.arguments[0];
+    }catch(e) {
+    }
+    
 
     /**
      * Controller Startup
@@ -14,7 +19,9 @@
             function(){
                 return true;
             }
-        );        
+        );
+
+
         $do('load', inputObj, 'ViewSystemLog');
     };
 

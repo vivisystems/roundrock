@@ -2,8 +2,10 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
-  <!ENTITY % ViewOrder SYSTEM "chrome://viviecr/locale/view_system_log.dtd">
+  <!ENTITY % ViewSystemLog SYSTEM "chrome://viviecr/locale/view_system_log.dtd">
   %ViewSystemLog;
+  <!ENTITY % ImportExport SYSTEM "chrome://viviecr/locale/importexport.dtd">
+  %ImportExport;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
@@ -12,7 +14,7 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="vieworder.title;"
+<window title="&view_system_log.title;"
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -23,7 +25,7 @@
   <script src="chrome://viviecr/content/controllers/view_system_log_controller.js" type="application/x-javascript"/>
 
   <!-- include startup script -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/view_order.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/view_system_log.js" />
 
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
@@ -31,25 +33,55 @@
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
+            <tabbox  flex="1" class="RightTabbox" >
+                <tabs id="main-tabbox">
+                    <tab id="tab_vivipos" label="&view_system_log.vivipos;" value="vivipos" oncommand="$do('logList', null, 'ViewSystemLog')"/>
+                    <tab id="tab_syslog" label="&view_system_log.syslog;" value="syslog" oncommand="$do('logList', null, 'ViewSystemLog')"/>
+                    <tab id="tab_web" label="&view_system_log.web;" value="web" oncommand="$do('logList', null, 'ViewSystemLog')"/>                   
+                    <spacer flex="5" />
+                    <menulist id="logFilesList" flex="1" style="min-width: 200px;" oncommand="$do('viewLog', this.value, 'ViewSystemLog')" >
+                     <menupopup>
+                     </menupopup>
+                    </menulist>
+
+                </tabs>
+
+                <tabpanels flex="1">
+                    <tabpanel id="panel_box" flex="1" oncommand="event.stopPropagation()">
+                        <box class="reportbox" flex="1">
+                            <html:iframe type="content" id="preview_frame" src="about:blank" flex="1"/>
+                        </box>
+                    </tabpanel>
+                </tabpanels>
+                
+            </tabbox>
+
             <hbox>
-                <caption label="vieworder.title;" class="PageTitle" />
-                <textbox id="order" default="" flex="1" readonly="true"/>
-            </hbox>
-            <hbox flex="1">
-                <box class="reportbox" flex="1">
-                    <html:iframe type="content" id="preview_frame" src="about:blank" flex="1"/>
-                </box>
-            </hbox>
-            <hbox flex="1">
-                <hbox class="ToolBar" pack="start" flex="1">
-                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
-                
-                    <vivibutton id="void" class="BtnDel" label="vieworder.button.void;"
-                                oncommand="$do('voidSale', null, 'ViewOrder')" />
-                    </arrowscrollbox>
+                <!--hbox>
+                    <label value="&importexport.media;:" class="NoticeMark"/>
+                    <label id="lastMedia" value="" class="NoticeMark" />
+                </hbox-->
+
+                <hbox>
+                      <hbox id="scrollBtnVBox" hidden="true" oncommand="$do('scroll', event.originalTarget.id, 'ViewSystemLog');">
+                        <vivibutton id="btnScrollTop" class="scrollTopBtn" image="chrome://viviecr/skin/images/top.png" />
+                        <vivibutton id="btnScrollUp" class="scrollUpBtn" image="chrome://viviecr/skin/images/up.png" />
+                        <vivibutton id="btnScrollDown" class="scrollDownBtn" image="chrome://viviecr/skin/images/down.png" />
+                        <vivibutton id="btnScrollBottom" class="scrollBottomBtn" image="chrome://viviecr/skin/images/bottom.png" />
+                      </hbox>
+
+                      <hbox id="scrollBtnHBox" hidden="true" oncommand="$do('scroll', event.originalTarget.id, 'ViewSystemLog');">
+                        <vivibutton id="btnScrollLeftMost" class="scrollLeftMostBtn" image="chrome://viviecr/skin/images/left_most.png"  />
+                        <vivibutton id="btnScrollLeft" class="scrollLeftBtn" image="chrome://viviecr/skin/images/previous.png"  />
+                        <vivibutton id="btnScrollRight" class="scrollRightBtn" image="chrome://viviecr/skin/images/next.png"  />
+                        <vivibutton id="btnScrollRightMost" class="scrollRightMostBtn" image="chrome://viviecr/skin/images/right_most.png" />
+                      </hbox>
+               </hbox>
+               
+                <hbox class="ToolBar" flex="1" oncommand="event.stopPropagation()">
+
                 </hbox>
-                
-                <hbox id="dialogButtons" class="dialogbtns">
+                <hbox id="edit_dialogButtons" class="dialogbtns" pack="center">
                     <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
