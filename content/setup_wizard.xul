@@ -14,10 +14,9 @@
   %Taxes;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/bindings.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/wizard.css" type="text/css"?>
 
-<wizard id="wizard"
+<wizard id="wizard" class="w_main"
         title="&wizard.title;"
         onwizardfinish="return finishSetup()"
         onwizardcancel="return cancelSetup()"
@@ -64,14 +63,30 @@
         rewind="no action"
         >
         <hbox flex="1">
-            <vbox flex="1">
-                <label value="&wizard.page.language.locale;"/>
-                <vivilocaleslistbox id="locale" package="viviecr" rows="6" flex="1"/>
+            <vbox class="step">
+                <label value="&wizard.page.language;" class="current_step"></label>
+                <label value="&wizard.page.location;"></label>
+                <label value="&wizard.page.timezone;"></label>
+                <label value="&wizard.page.datetime;"></label>
+                <label value="&wizard.page.sector;"></label>
+                <label value="&wizard.page.storeinfo;"></label>
+                <label value="&wizard.page.login;"></label>
+                <label value="&wizard.page.tax;"></label>
             </vbox>
-            <spacer width="20px"/>
-            <vbox flex="1">
-                <label value="&wizard.page.language.kbmap;"/>
-                <vivikbmaplistbox id="kbmap" flex="1"/>
+            <vbox class="rightPnl">
+                <vbox class="title_box">
+                    <label class="w_Title" value="01 &wizard.page.language; "></label>
+                    <label class="w_desc" value="&wizard.page.language.description;"></label>
+                </vbox>
+                <vbox class="content_area">
+                    <label value="&wizard.page.language.locale;"/>
+                    <vivilocaleslistbox id="locale" package="viviecr" rows="6" flex="1"/>
+                </vbox>
+                <spacer width="20px"/>
+                <vbox class="content_area keyboardset">
+                    <label value="&wizard.page.language.kbmap;"/>
+                    <vivikbmaplistbox id="kbmap" flex="1"/>
+                </vbox>
             </vbox>
         </hbox>
     </wizardpage>
@@ -87,9 +102,28 @@
         advance="when location selection changes, update default time zone"
         rewind="no action"
         >
-        <box flex="1">
+        <hbox flex="1">
+            <vbox class="step">
+                <label value="&wizard.page.language;"></label>
+                <label value="&wizard.page.location;" class="current_step"></label>
+                <label value="&wizard.page.timezone;"></label>
+                <label value="&wizard.page.datetime;"></label>
+                <label value="&wizard.page.sector;"></label>
+                <label value="&wizard.page.storeinfo;"></label>
+                <label value="&wizard.page.login;"></label>
+                <label value="&wizard.page.tax;"></label>
+            </vbox>
+            <vbox class="rightPnl">
+                <vbox class="title_box">
+                    <label class="w_Title" value="02 &wizard.page.location; "></label>
+                    <label class="w_desc" value="&wizard.page.location.description;"></label>
+                </vbox>
+                <vbox class="content_area">
+                    <label value="&wizard.page.location;"/>
            <listbox id="locationlist" seltype="single" onselect="$do('selectLocation', this.value, 'SetupWizard')"/>
-         </box>
+         </vbox>
+            </vbox>
+        </hbox>
     </wizardpage>
 
     <wizardpage
@@ -101,9 +135,28 @@
         advance="update system timezone if different from previous selection"
         rewind="no action"
         >
-        <box flex="1">
-            <vivitimezones id="timezones" flex="1" class="TimeZone"/>
-        </box>
+        <hbox flex="1">
+            <vbox class="step">
+                <label value="&wizard.page.language;"></label>
+                <label value="&wizard.page.location;"></label>
+                <label value="&wizard.page.timezone;" class="current_step"></label>
+                <label value="&wizard.page.datetime;"></label>
+                <label value="&wizard.page.sector;"></label>
+                <label value="&wizard.page.storeinfo;"></label>
+                <label value="&wizard.page.login;"></label>
+                <label value="&wizard.page.tax;"></label>
+            </vbox>
+            <vbox class="rightPnl">
+                <vbox class="title_box">
+                    <label class="w_Title" value="03 &wizard.page.timezone; "></label>
+                    <label class="w_desc" value="&wizard.page.timezone.description;"></label>
+                </vbox>
+                <vbox class="content_area">
+                    <label value="&wizard.page.timezone;"/>
+                    <vivitimezones id="timezones" flex="1" class="TimeZone"/>
+                </vbox>
+            </vbox>
+        </hbox>
     </wizardpage>
 
     <wizardpage
@@ -117,9 +170,28 @@
         advance="update system date/time"
         rewind="no action"
         >
-        <box flex="1">
-            <vividatetimepicker id="datetime" flex="1" type="embed" class="DateTime"/>
-        </box>
+        <hbox flex="1">
+            <vbox class="step">
+                <label value="&wizard.page.language;"></label>
+                <label value="&wizard.page.location;"></label>
+                <label value="&wizard.page.timezone;"></label>
+                <label value="&wizard.page.datetime;" class="current_step"></label>
+                <label value="&wizard.page.sector;"></label>
+                <label value="&wizard.page.storeinfo;"></label>
+                <label value="&wizard.page.login;"></label>
+                <label value="&wizard.page.tax;"></label>
+            </vbox>
+            <vbox class="rightPnl">
+                <vbox class="title_box">
+                    <label class="w_Title" value="04 &wizard.page.datetime; "></label>
+                    <label class="w_desc" value="&wizard.page.datetime.description;"></label>
+                </vbox>
+                <vbox class="content_area">
+                    <label value="&wizard.page.datetime;"/>
+                    <vividatetimepicker id="datetime" flex="1" type="embed" class="DateTime"/>
+                </vbox>
+            </vbox>
+        </hbox>
     </wizardpage>
 
     <wizardpage
