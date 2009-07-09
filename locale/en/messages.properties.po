@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-08 20:48+0800\n"
+"POT-Creation-Date: 2009-07-09 16:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,6 +175,9 @@ msgstr "XTerm"
 
 msgid "vivipos.fec.settings.controlpanels.system.journal.label"
 msgstr "Electronic Journal"
+
+msgid "vivipos.fec.settings.controlpanels.system.view_system_log.label"
+msgstr "View System Log"
 
 # #######################################################################
 #
@@ -1860,6 +1863,9 @@ msgstr "Training Mode"
 msgid "acl_manage_tableman"
 msgstr "Table Manager"
 
+msgid "acl_view_system_log"
+msgstr "View System Log"
+
 # #######################################################################
 #
 # List of Ports
@@ -2298,6 +2304,21 @@ msgstr "Product item %S @ row %S requires a valid manual adjustment only value"
 
 msgid "Product item %S @ row %S requires a valid append empty buttons value"
 msgstr "Product item %S @ row %S requires a valid append empty buttons value"
+
+msgid "Product item %S @ row %S requires a valid boolean scale value"
+msgstr "Product item %S @ row %S requires a valid boolean scale value"
+
+msgid "Product item %S @ row %S requires a valid tare value"
+msgstr "Product item %S @ row %S requires a valid tare value"
+
+msgid "Product item %S @ row %S requires a valid sale unit"
+msgstr "Product item %S @ row %S requires a valid sale unit"
+
+msgid "Department item %S @ row %S requires a valid boolean scale value"
+msgstr "Department item %S @ row %S requires a valid boolean scale value"
+
+msgid "Department item %S @ row %S requires a valid sale unit"
+msgstr "Department item %S @ row %S requires a valid sale unit"
 
 msgid "Department item %S @ row %S requires a name"
 msgstr "Department item %S @ row %S requires a name"
@@ -3544,7 +3565,7 @@ msgstr ""
 #: ../..//content/controllers/print_controller.js:1214
 #: ../..//content/controllers/setup_wizard_controller.js:690
 #: ../..//content/controllers/shift_changes_controller.js:965
-#: ../..//content/controllers/stock_records_controller.js:494
+#: ../..//content/controllers/stock_records_controller.js:588
 #: ../..//content/controllers/view_journal_controller.js:120
 #: ../..//content/controllers/view_order_controller.js:167
 msgid "Data Operation Error"
@@ -3557,7 +3578,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1178
 #: ../..//content/controllers/setup_wizard_controller.js:691
 #: ../..//content/controllers/shift_changes_controller.js:966
-#: ../..//content/controllers/stock_records_controller.js:495
+#: ../..//content/controllers/stock_records_controller.js:589
 #: ../..//content/controllers/view_journal_controller.js:121
 #: ../..//content/controllers/view_order_controller.js:168
 msgid ""
@@ -4068,6 +4089,7 @@ msgstr ""
 
 #: ../..//content/controllers/export_locale_controller.js:52
 #: ../..//content/controllers/package_builder_controller.js:368
+#: ../..//content/controllers/stock_records_controller.js:525
 #: ../..//content/controllers/systembackup_controller.js:186
 #: ../..//content/controllers/systembackup_controller.js:256
 msgid "Media not found!! Please attach the USB thumb drive..."
@@ -4262,7 +4284,7 @@ msgid "Export Error"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:117
-#: ../..//content/controllers/import_export_controller.js:641
+#: ../..//content/controllers/import_export_controller.js:650
 msgid "Import/Export already in progress"
 msgstr ""
 
@@ -4274,49 +4296,49 @@ msgstr ""
 msgid "Please select a data category to export"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:628
-#: ../..//content/controllers/import_export_controller.js:743
-#: ../..//content/controllers/import_export_controller.js:1688
+#: ../..//content/controllers/import_export_controller.js:637
+#: ../..//content/controllers/import_export_controller.js:748
+#: ../..//content/controllers/import_export_controller.js:1729
 msgid "Yes"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:628
-#: ../..//content/controllers/import_export_controller.js:743
-#: ../..//content/controllers/import_export_controller.js:1688
+#: ../..//content/controllers/import_export_controller.js:637
+#: ../..//content/controllers/import_export_controller.js:748
+#: ../..//content/controllers/import_export_controller.js:1729
 msgid " (%S)"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:641
-#: ../..//content/controllers/import_export_controller.js:646
+#: ../..//content/controllers/import_export_controller.js:650
+#: ../..//content/controllers/import_export_controller.js:655
 msgid "Import Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:646
+#: ../..//content/controllers/import_export_controller.js:655
 msgid "Import device and/or folder not found [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:652
+#: ../..//content/controllers/import_export_controller.js:661
 msgid "Please select a data category to import"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1704
+#: ../..//content/controllers/import_export_controller.js:1745
 msgid "Department"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1712
+#: ../..//content/controllers/import_export_controller.js:1753
 msgid "Product"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1720
+#: ../..//content/controllers/import_export_controller.js:1761
 #: ../..//content/controllers/plus_controller.js:509
 msgid "Product Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1728
+#: ../..//content/controllers/import_export_controller.js:1769
 msgid "Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1736
+#: ../..//content/controllers/import_export_controller.js:1777
 msgid "Condiment"
 msgstr ""
 
@@ -4632,8 +4654,8 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:232
 #: ../..//content/controllers/plus_controller.js:475
 #: ../..//content/controllers/plus_controller.js:937
-#: ../..//content/controllers/plusearch_controller.js:138
-#: ../..//content/controllers/stock_records_controller.js:89
+#: ../..//content/controllers/plusearch_controller.js:144
+#: ../..//content/controllers/stock_records_controller.js:94
 #: ../..//content/controllers/table_man_controller.js:537
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:73
 msgid "Product Search"
@@ -5042,7 +5064,7 @@ msgstr ""
 msgid "Product [%S] cloned successfully"
 msgstr ""
 
-#: ../..//content/controllers/plusearch_controller.js:139
+#: ../..//content/controllers/plusearch_controller.js:145
 msgid "Product [%S] Not Found!"
 msgstr ""
 
@@ -5659,78 +5681,128 @@ msgstr ""
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:60
+#: ../..//content/controllers/stock_records_controller.js:65
 msgid ""
 "An error was encountered while retrieving stock records (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:90
+#: ../..//content/controllers/stock_records_controller.js:95
 msgid "Product/Barcode Number (%S) not found!"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:193
+#: ../..//content/controllers/stock_records_controller.js:204
 msgid "An error was encountered while retrieving products (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:200
+#: ../..//content/controllers/stock_records_controller.js:210
 msgid ""
 "An error was encountered while inserting product stock records (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:272
-msgid "Stock Control"
+#: ../..//content/controllers/stock_records_controller.js:236
+msgid ""
+"An error was encountered while removing all stock records (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:272
-msgid "Are you sure you want to reset stock for all the products?"
+#: ../..//content/controllers/stock_records_controller.js:244
+msgid ""
+"An error was encountered while removing all stock adjustment details (error "
+"code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:282
-msgid "Reset Stock"
+#: ../..//content/controllers/stock_records_controller.js:273
+msgid ""
+"An error was encountered while expiring backup stock adjustment records "
+"(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:302
-#: ../..//content/controllers/stock_records_controller.js:336
-#: ../..//content/controllers/stock_records_controller.js:361
-#: ../..//content/controllers/stock_records_controller.js:419
-msgid "Stock Adjustment"
+#: ../..//content/controllers/stock_records_controller.js:280
+msgid ""
+"An error was encountered while expiring stock adjustment records (error code "
+"%S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:303
-msgid "Cannot reset product stock to [%S]"
+#: ../..//content/controllers/stock_records_controller.js:288
+msgid ""
+"An error was encountered while expiring backup stock adjustment details "
+"(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:337
-msgid "No adjustment has been made"
+#: ../..//content/controllers/stock_records_controller.js:295
+msgid ""
+"An error was encountered while expiring stock adjustment details (error code "
+"%S)."
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:352
+msgid "Stock Control"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:352
+msgid "Are you sure you want to reset stock for all the products?"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:362
+msgid "Reset Stock"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:381
+#: ../..//content/controllers/stock_records_controller.js:415
+#: ../..//content/controllers/stock_records_controller.js:440
+#: ../..//content/controllers/stock_records_controller.js:506
+msgid "Stock Adjustment"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:382
+msgid "Cannot reset product stock to [%S]"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:416
+msgid "No adjustment has been made"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:431
 msgid ""
 "An error was encountered while retrieving stock adjustment records (error "
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:386
+#: ../..//content/controllers/stock_records_controller.js:465
 msgid ""
 "An error was encountered while saving stock adjustment records (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:420
+#: ../..//content/controllers/stock_records_controller.js:491
+msgid "An error was encountered while saving stock records (error code %S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:498
+msgid ""
+"An error was encountered while saving stock adjustment details (error code %"
+"S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:507
 msgid "Stock level has been successfully adjusted"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:447
+#: ../..//content/controllers/stock_records_controller.js:535
+#: ../..//content/controllers/stock_records_controller.js:578
 msgid "Import Product Stock"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:448
+#: ../..//content/controllers/stock_records_controller.js:536
 msgid "File [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:454
+#: ../..//content/controllers/stock_records_controller.js:542
 msgid "imported from [%S]"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:579
+msgid "Product stock information imported: %S successes, %S failures)"
 msgstr ""
 
 #: ../..//content/controllers/stocks_controller.js:106

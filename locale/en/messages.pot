@@ -164,6 +164,9 @@ msgstr "XTerm"
 msgid "vivipos.fec.settings.controlpanels.system.journal.label"
 msgstr "Electronic Journal"
 
+msgid "vivipos.fec.settings.controlpanels.system.view_system_log.label"
+msgstr "View System Log"
+
 ########################################################################
 #
 # List of Reports
@@ -1927,6 +1930,9 @@ msgstr "Training Mode"
 msgid "acl_manage_tableman"
 msgstr "Table Manager"
 
+msgid "acl_view_system_log"
+msgstr "View System Log"
+
 ########################################################################
 #
 # List of Ports
@@ -2366,6 +2372,21 @@ msgstr "Product item %S @ row %S requires a valid manual adjustment only value"
 
 msgid "Product item %S @ row %S requires a valid append empty buttons value"
 msgstr "Product item %S @ row %S requires a valid append empty buttons value"
+
+msgid "Product item %S @ row %S requires a valid boolean scale value"
+msgstr "Product item %S @ row %S requires a valid boolean scale value"
+
+msgid "Product item %S @ row %S requires a valid tare value"
+msgstr "Product item %S @ row %S requires a valid tare value"
+
+msgid "Product item %S @ row %S requires a valid sale unit"
+msgstr "Product item %S @ row %S requires a valid sale unit"
+
+msgid "Department item %S @ row %S requires a valid boolean scale value"
+msgstr "Department item %S @ row %S requires a valid boolean scale value"
+
+msgid "Department item %S @ row %S requires a valid sale unit"
+msgstr "Department item %S @ row %S requires a valid sale unit"
 
 msgid "Department item %S @ row %S requires a name"
 msgstr "Department item %S @ row %S requires a name"
