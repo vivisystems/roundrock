@@ -115,7 +115,7 @@
 // this.log("guest_check syncClient:::");
             try {
                 var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
-                var r = exec.run(["sync"], true);
+                var r = exec.run(["sync"], false);
                 exec.close();
                 return true;
             }
@@ -255,6 +255,7 @@
 
         handleTransTable: function(evt) {
             //
+this.log("TransTable:::");
 //            this._tableStatusModel.transTable(evt.data.data);
 //
 //            this.syncClient();
@@ -274,12 +275,13 @@
 
         handleStore: function(evt) {
             //
+this.log("handleStore1:::");
             this._tableStatusModel.addCheck(evt.data.data);
-
+this.log("handleStore2:::");
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
-
+alert('handleStore');
             // restore from backup after order was submited/stored
             var order = new OrderModel();
             order.restoreOrderFromBackup();
@@ -359,10 +361,10 @@
         },
 
         handleNewTransaction: function(evt) {
-this.log("NewTransaction:::");
+
             if ( evt.type == 'newTransaction') {
                 if (this._guestCheck.tableSettings.RequireCheckNo) {
-this.log("NewTransaction newCheck:::");
+
                     this._controller.newCheck(true);
                 }
             }
@@ -418,14 +420,14 @@ this.log("NewTransaction newCheck:::");
         },
 
         getNewCheckNo: function() {
-this.log("GuestCheck:::getNewCheckNo:::");
+
             var r = this._tableStatusModel.getNewCheckNo();
-this.log("GuestCheck:::getNewCheckNo:::r:::" + r);
+
             if (r >= 0) {
                 var curTransaction = null;
                 curTransaction = this._controller._getTransaction();
                 if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-this.log("GuestCheck:::getNewCheckNo:::null:::");
+
                     curTransaction = this._controller._getTransaction(true);
                     if (curTransaction == null) {
                         NotifyUtils.warn(_('fatal error!!'));
@@ -1240,8 +1242,8 @@ this.log("GuestCheck:::getNewCheckNo:::null:::");
                 */
 
                 // if (crc != tableOrderObj[0].TableOrder.checksum) {
-                if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
-
+                // if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
+                if ((crc != tableOrderObj[0].TableOrder.checksum) && (oldTransaction.data.terminal_no != tableOrderObj[0].TableOrder.terminal_no)) {
                     GREUtils.Dialog.alert(this._controller.topmostWindow,
                                       _('Order Checksum Fail'),
                                       _('Current order checksum fail and may not be submit. Please retry or check this order.'));
@@ -1289,9 +1291,9 @@ this.log("GuestCheck:::getNewCheckNo:::null:::");
         },
 
         doRecallByCheck: function(order_id) {
-
+this.log("doRecallByCheck1:::");
                 var curTransaction = this.unserializeFromOrder(order_id);
-
+this.log("doRecallByCheck2:::");
                 if (curTransaction == false) {
 
                     //@todo OSD
@@ -1390,6 +1392,7 @@ this.log("GuestCheck:::getNewCheckNo:::null:::");
 
         doTransferByCheck: function(sourceTableNo, targetTableNo, orderId) {
             var curTransaction = null;
+this.log("doTransferByCheck0:::");
             curTransaction = this.doRecallByCheck(orderId);
             // curTransaction = this._controller._getTransaction();
 
@@ -1398,17 +1401,17 @@ this.log("GuestCheck:::getNewCheckNo:::null:::");
                 curTransaction.data.table_no = "" + targetTableNo;
 
                 // this.getNewTableNo();
-                this._controller.requestCommand('doRefreshTableStatusLight', null, 'SelectTable');
-
+                // this._controller.requestCommand('doRefreshTableStatusLight', null, 'SelectTable');
+this.log("doTransferByCheck1:::");
                 if (this.doStore(curTransaction)) {
 
                     // @todo OSD
                     NotifyUtils.warn(_('This order has been stored!!'));
 
                 }
-
+this.log("doTransferByCheck2:::");
                 this._tableStatusModel.transTable(curTransaction.data, sourceTableNo);
-
+this.log("doTransferByCheck3:::");
                 // dispatch changeclerk event
                 // this._controller.dispatchEvent('onStore', curTransaction);
                 this._controller.dispatchEvent('onTransTable', curTransaction);

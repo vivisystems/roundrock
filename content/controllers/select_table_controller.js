@@ -573,7 +573,9 @@
 
 //                GREUtils.log(GeckoJS.BaseObject.dump(document.getElementById('tableScrollablepanel').datasource));
 
-            } catch(e) {}
+            } catch(e) {
+                dump(e);
+            }
 
             return;
         },

@@ -202,7 +202,7 @@
             } else {
                 while (true) {
                     i = SequenceModel.getSequence('check_no');
-GREUtils.log("table_status:::getSeq:::" + i);
+
                     if (i > maxCheckNo) {
                         i = 0;
                         SequenceModel.resetSequence('check_no');
@@ -630,8 +630,7 @@ GREUtils.log("table_status:::getSeq:::" + i);
         },
 
         setTableStatus: function(tableStatusObj) {
-//GREUtils.log("table_status_setTableStatus:::");
-//GREUtils.log(GeckoJS.BaseObject.dump(tableStatusObj));
+
             var remoteUrl = this.getRemoteService('setTableStatus');
             var tableStatus = null;
 

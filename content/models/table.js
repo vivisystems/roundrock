@@ -5,7 +5,7 @@ var TableModel = window.TableModel = GeckoJS.Model.extend({
 
     belongsTo: ['TableRegion'],
 
-    // hasOne: [{name: 'TableStatus', 'primaryKey': 'table_no', 'foreignKey': 'table_no'}, 'TableMap'],
+    // hasOne: [{name: 'TableStatus', 'primaryKey': 'table_no', 'foreignKey': 'table_no'}],
     hasOne: ['TableStatus'],
     
     hasMany: ['TableBooking', 'TableOrder'],

@@ -4077,7 +4077,7 @@
                 this._cancelReturn();
             }
             var curTransaction = null;
-this.log("CartController:::newCheck:::");
+
             var r = -1;
             if (no.length == 0) {
                 r = this.GuestCheck.getNewCheckNo();
