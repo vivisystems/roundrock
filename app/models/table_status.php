@@ -110,12 +110,13 @@ class TableStatus extends AppModel {
                 } else {
                     // add new one
                     $this->TableOrder->create();
-                    // $this->TableOrder->id = '';
+                    $this->TableOrder->id = '';
                     // $tableObject['id'] = String::uuid();
-                    $tableObject['id'] = $tableOrderObj['TableOrder']['id'];
+                    $tableObject['id'] = $tableObject['order_id'];
 
                 }
 
+//                $tableObject['id'] = $tableObject['id'];
                 $retObj = $this->TableOrder->save($tableObject);
 		
 		return true;
