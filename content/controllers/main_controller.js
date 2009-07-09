@@ -150,7 +150,7 @@
             var captureScript = dataPath + '/scripts/capture_screen.sh';
             var imageFile = '/tmp/' + uuid + '.png';
             var thumbFile = '/tmp/' + uuid + '-thumbnail.png';
-            var imageGeometry = '640x480';
+            var imageGeometry = this.screenwidth + 'x' + this.screenheight;
             var thumbGeometry = '160x120';
 
             var exec = new GeckoJS.File(captureScript);
@@ -1017,10 +1017,10 @@
 
                     if (pack || (weeklyPack == today)) {
                         order.execute("VACUUM");
-                    }
 
-                    // dispatch afterPackOrderData event
-                    this.dispatchEvent('afterPackOrderData', retainDate);
+                        // dispatch afterPackOrderData event
+                        this.dispatchEvent('afterPackOrderData', retainDate);
+                    }
 
                     delete order;
 

@@ -34,8 +34,6 @@
             var last;
             var r;
 
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
-
             if (!displayname) displayname = username;
             data['username'] = username;
             data['displayname'] = displayname;
@@ -56,7 +54,7 @@
                         // update last time stamp
                         this.id = last.id;
                         r = this.save(last);
-                        if (!r && !isTraining) {
+                        if (!r) {
                             this.log('ERROR',
                                      'An error was encountered while saving clockin timestamp (error code ' + this.lastError + '): ' + this.lastErrorString);
 
@@ -97,7 +95,7 @@
             }
 
             r = this.save(data);
-            if (!r && !isTraining) {
+            if (!r) {
                 this.log('ERROR',
                          'An error was encountered while saving timestamp (error code ' + this.lastError + '): ' + this.lastErrorString);
 

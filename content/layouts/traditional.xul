@@ -10,10 +10,10 @@
 
         <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
 
-            <box id="leftPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel">
+            <vbox id="leftPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel">
                 <box id="categoryPanelContainer" flex="0" class="categoryPanel" />
                 <box id="productPanelContainer" flex="1" class="productPanel" />
-            </box>
+            </vbox>
 
             <spacer id="panelSpacer" flex="1"/>
 

@@ -15,9 +15,8 @@
         behaviors: ['Sync', 'Training'],
 
         saveMarker: function(data) {
-            var isTraining = GeckoJS.Session.get( "isTraining" ) || false;
             var r = this.save(data);
-            if (!r && !isTraining) {
+            if (!r) {
                 this.log('ERROR',
                          'An error was encountered while saving shift marker (error code ' + this.lastError + '): ' + this.lastErrorString);
 

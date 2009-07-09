@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-08 18:23+0800\n"
+"POT-Creation-Date: 2009-07-09 08:55+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2717,7 +2717,6 @@ msgid "Code"
 msgstr ""
 
 #: ../..//content/controllers/annotation_controller.js:57
-#: ../..//content/controllers/stock_records_controller.js:347
 msgid "Type"
 msgstr ""
 
@@ -3471,7 +3470,6 @@ msgid "Add Memo"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3719
-#: ../..//content/controllers/stock_records_controller.js:344
 msgid "Memo"
 msgstr ""
 
@@ -3549,6 +3547,7 @@ msgstr ""
 #: ../..//content/controllers/print_controller.js:1214
 #: ../..//content/controllers/setup_wizard_controller.js:690
 #: ../..//content/controllers/shift_changes_controller.js:965
+#: ../..//content/controllers/stock_records_controller.js:588
 #: ../..//content/controllers/view_journal_controller.js:120
 #: ../..//content/controllers/view_order_controller.js:167
 msgid "Data Operation Error"
@@ -3561,6 +3560,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1178
 #: ../..//content/controllers/setup_wizard_controller.js:691
 #: ../..//content/controllers/shift_changes_controller.js:966
+#: ../..//content/controllers/stock_records_controller.js:589
 #: ../..//content/controllers/view_journal_controller.js:121
 #: ../..//content/controllers/view_order_controller.js:168
 msgid ""
@@ -4071,6 +4071,7 @@ msgstr ""
 
 #: ../..//content/controllers/export_locale_controller.js:52
 #: ../..//content/controllers/package_builder_controller.js:368
+#: ../..//content/controllers/stock_records_controller.js:525
 #: ../..//content/controllers/systembackup_controller.js:186
 #: ../..//content/controllers/systembackup_controller.js:256
 msgid "Media not found!! Please attach the USB thumb drive..."
@@ -4635,8 +4636,8 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:232
 #: ../..//content/controllers/plus_controller.js:475
 #: ../..//content/controllers/plus_controller.js:937
-#: ../..//content/controllers/plusearch_controller.js:138
-#: ../..//content/controllers/stock_records_controller.js:80
+#: ../..//content/controllers/plusearch_controller.js:144
+#: ../..//content/controllers/stock_records_controller.js:94
 #: ../..//content/controllers/table_man_controller.js:537
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:73
 msgid "Product Search"
@@ -5045,7 +5046,7 @@ msgstr ""
 msgid "Product [%S] cloned successfully"
 msgstr ""
 
-#: ../..//content/controllers/plusearch_controller.js:139
+#: ../..//content/controllers/plusearch_controller.js:145
 msgid "Product [%S] Not Found!"
 msgstr ""
 
@@ -5662,58 +5663,128 @@ msgstr ""
 msgid "Check# %S has been successfully split to Check# %S"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:81
+#: ../..//content/controllers/stock_records_controller.js:65
+msgid ""
+"An error was encountered while retrieving stock records (error code %S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:95
 msgid "Product/Barcode Number (%S) not found!"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:263
+#: ../..//content/controllers/stock_records_controller.js:204
+msgid "An error was encountered while retrieving products (error code %S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:210
+msgid ""
+"An error was encountered while inserting product stock records (error code %"
+"S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:236
+msgid ""
+"An error was encountered while removing all stock records (error code %S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:244
+msgid ""
+"An error was encountered while removing all stock adjustment details (error "
+"code %S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:273
+msgid ""
+"An error was encountered while expiring backup stock adjustment records "
+"(error code %S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:280
+msgid ""
+"An error was encountered while expiring stock adjustment records (error code "
+"%S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:288
+msgid ""
+"An error was encountered while expiring backup stock adjustment details "
+"(error code %S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:295
+msgid ""
+"An error was encountered while expiring stock adjustment details (error code "
+"%S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:352
 msgid "Stock Control"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:263
-msgid "Are you sure you want to reset all the stock records?"
+#: ../..//content/controllers/stock_records_controller.js:352
+msgid "Are you sure you want to reset stock for all the products?"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:282
-#: ../..//content/controllers/stock_records_controller.js:284
-msgid "Set All Stock"
+#: ../..//content/controllers/stock_records_controller.js:362
+msgid "Reset Stock"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:286
-msgid "Quantity:"
+#: ../..//content/controllers/stock_records_controller.js:381
+#: ../..//content/controllers/stock_records_controller.js:415
+#: ../..//content/controllers/stock_records_controller.js:440
+#: ../..//content/controllers/stock_records_controller.js:506
+msgid "Stock Adjustment"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:330
-msgid "Check Stock"
+#: ../..//content/controllers/stock_records_controller.js:382
+msgid "Cannot reset product stock to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:331
-msgid "Procure"
-msgstr ""
-
-#: ../..//content/controllers/stock_records_controller.js:332
-msgid "Waste"
-msgstr ""
-
-#: ../..//content/controllers/stock_records_controller.js:333
-msgid "Others"
-msgstr ""
-
-#: ../..//content/controllers/stock_records_controller.js:340
-#: ../..//content/controllers/stock_records_controller.js:342
-msgid "Commit Changes"
+#: ../..//content/controllers/stock_records_controller.js:416
+msgid "No adjustment has been made"
 msgstr ""
 
 #: ../..//content/controllers/stock_records_controller.js:431
-msgid "User canceled or errors occured."
+msgid ""
+"An error was encountered while retrieving stock adjustment records (error "
+"code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:454
-msgid " does not exist."
+#: ../..//content/controllers/stock_records_controller.js:465
+msgid ""
+"An error was encountered while saving stock adjustment records (error code %"
+"S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:488
-msgid "The following product numbers do not exist."
+#: ../..//content/controllers/stock_records_controller.js:491
+msgid "An error was encountered while saving stock records (error code %S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:498
+msgid ""
+"An error was encountered while saving stock adjustment details (error code %"
+"S)."
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:507
+msgid "Stock level has been successfully adjusted"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:535
+#: ../..//content/controllers/stock_records_controller.js:578
+msgid "Import Product Stock"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:536
+msgid "File [%S] does not exist"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:542
+msgid "imported from [%S]"
+msgstr ""
+
+#: ../..//content/controllers/stock_records_controller.js:579
+msgid "Product stock information imported: %S successes, %S failures)"
 msgstr ""
 
 #: ../..//content/controllers/stocks_controller.js:106

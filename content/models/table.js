@@ -16,7 +16,7 @@
         
         hasMany: ['TableBooking', 'TableOrder'],
 
-        behaviors: ['Sync']
+        behaviors: ['Sync', 'Training']
     /*
         createDBTables: function() {
 
