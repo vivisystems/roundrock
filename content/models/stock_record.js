@@ -358,7 +358,6 @@
                 if (lastModified >= this.lastModified) {
                     this.lastModified = lastModified;
                 }
-
                 
             }else {
 

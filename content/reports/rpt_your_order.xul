@@ -145,6 +145,7 @@
 		                <button id="execute" label="&rptyourorder.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptYourOrder');" />
 		                <button id="field_picker" label="&rptyourorder.button.fieldpicker;" disabled="false" class="ExeBtn" oncommand="$do('showFieldPicker', null, 'RptYourOrder');" />
 		                <button id="record_settings" label="&rptyourorder.button.recordsettings;" disabled="false" class="ExeBtn" oncommand="$do('saveSettings', null, 'RptYourOrder');" />
+		                <button id="remove_report" label="&rptyourorder.button.removereport;" disabled="false" class="ExeBtn" oncommand="$do('removeReport', null, 'RptYourOrder');" />
 		            </vbox>
 		        </hbox>
 		    </vbox>

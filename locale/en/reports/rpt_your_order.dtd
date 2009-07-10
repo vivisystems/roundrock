@@ -67,3 +67,4 @@
 <!ENTITY rptyourorder.fieldpicker "Please pick up the fields you want!">
 <!ENTITY rptyourorder.button.fieldpicker "Field Picker">
 <!ENTITY rptyourorder.button.recordsettings "Save Settings">
+<!ENTITY rptyourorder.button.removereport "Remove Me">
