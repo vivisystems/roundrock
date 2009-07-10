@@ -191,17 +191,12 @@
          */
 
         initLocaleKbmap: function() {
-            // show selected locale
-            this.updateLocaleDisplay(this.selectedLocale);
-
+            
             // populate locale popup panel
             var localeList = document.getElementById('localescrollablepanel');
             if (localeList) {
                 localeList.datasource = this.availableLocales;
             }
-
-            // show selected keyboard mapping
-            this.updateKbmapDisplay(this.selectedKbmap);
 
             // populate kbmap popup panel
             var kbmapList = document.getElementById('kbmapscrollablepanel');
@@ -210,203 +205,25 @@
             }
         },
 
-        updateLocaleDisplay: function(locale) {
-            var localeObj = document.getElementById('locale');
-            if (localeObj && locale) {
-                localeObj.label = _('(locale)' + locale);
-                localeObj.image = 'chrome://vivipos/skin/flags/tb_' + locale + '.png';
-            }
-        },
-
-        updateKbmapDisplay: function(kbmap) {
-            var kbmapObj = document.getElementById('kbmap');
-            if (kbmapObj && kbmap) {
-                kbmapObj.label = _('(kbmap)' + kbmap);
-                kbmapObj.image = 'chrome://vivipos/skin/flags/tb_' + kbmap + '.png';
-            }
-        },
-
-        showLocalePopup: function() {
-            var width = 600;
-            var height = 400;
-
-            var localePanel = document.getElementById('localePanel');
-            if (localePanel) {
-                localePanel.sizeTo(width, height);
-                localePanel.openPopupAtScreen((this.screenwidth - width)/2, (this.screenheight - height)/2);
-            }
-        },
-
-        selectLocale: function(index) {
-            var localePanel = document.getElementById('localePanel');
-            if (index > -1 && index < this.availableLocales.length) {
-                var localeData = this.availableLocales[index];
-                if (localeData) {
-                    this.selectedLocale = localeData.value;
-                    this.updateLocaleDisplay(this.selectedLocale);
-                }
-
-                localePanel.hidePopup();
-            }
-        },
-
-        showKbmapPopup: function() {
-            var width = 600;
-            var height = 400;
-
-            var kbmapPanel = document.getElementById('kbmapPanel');
-            if (kbmapPanel) {
-                kbmapPanel.sizeTo(width, height);
-                kbmapPanel.openPopupAtScreen((this.screenwidth - width)/2, (this.screenheight - height)/2);
-            }
-        },
-
-        selectKbmap: function(index) {
-            var kbmapPanel = document.getElementById('kbmapPanel');
-            if (index > -1 && index < this.availableKbmaps.length) {
-                var kbmapData = this.availableKbmaps[index];
-                if (kbmapData) {
-                    this.selectedKbmap = kbmapData.value;
-                    this.updateKbmapDisplay(this.selectedKbmap);
-                }
-
-                kbmapPanel.hidePopup();
-            }
-        },
-
-
-        changeOSLocale: function(newLocale) {
-
-            try {
-                var loc = newLocale.split('-');
-                var langENV = "";
-
-                if (loc.length >=2) {
-                    langENV = loc[0] + '_' + loc[1] + '.UTF-8';
-                }else {
-                    langENV = loc[0] + '.UTF-8';
-                }
-
-                // ubuntu locale environment
-                var envFile = new GeckoJS.File('/etc/environment');
-                var osEnvs ;
-                if (envFile.exists()) {
-                    envFile.open("r");
-                    osEnvs = envFile.readAllLine();
-                    envFile.close();
-                }
-                delete envFile;
-
-                var newEnvs = [];
-                for each(var envBuf in osEnvs) {
-                    if (envBuf.match(/^LANGUAGE=/)) {
-                        var languageString = 'LANGUAGE="' +
-                                         (loc.length >=2 ? (loc[0] + '_' + loc[1] + ':') : "")+
-                                         loc[0] + ':en_US:en"';
-                        newEnvs.push(languageString);
-                    }else if(envBuf.match(/^LANG=/)) {
-                        var langString = 'LANG="'+langENV+'"';
-                        newEnvs.push(langString);
-                    }else {
-                        newEnvs.push(envBuf);
-                    }
-                }
-
-                var newEnvString = newEnvs.join("\n") + "\n";
-
-                // write environment file
-                try {
-                    var envFile2 = new GeckoJS.File('/etc/environment', true);
-                    envFile2.open("w");
-                    envFile2.write(newEnvString);
-                    envFile2.close();
-
-                    delete envFile2;
-
-                }catch(e) {};
-
-
-                // set environment
-                try {
-                    var envSvc = Components.classes["@mozilla.org/process/environment;1"]
-                              .getService(Components.interfaces.nsIEnvironment);
-
-                    envSvc.set('LANG', langENV);
-                    envSvc.set('LC_TIME', langENV);
-                    envSvc.set('LC_MESSAGES', langENV);
-                    envSvc.set('LC_NUMERIC', langENV);
-                    envSvc.set('LC_MONETARY', langENV);
-                    envSvc.set('LC_ALL', langENV);
-
-
-                }catch(e) {
-                }
-
-                // locale gen
-                try {
-                    var localeGenScript = new GeckoJS.File('/data/scripts/locale_gen.sh');
-                    if (localeGenScript.exists()) {
-                        localeGenScript.run([], true); // no arguments and blocking.
-                    }
-                    delete localeGenScript;
-                    localeGenScript = null;
-                }catch(e) {
-                }
-
-                return true;
-
-            } catch(err) {
-            }
-            return false;
-        },
-
-        changeOSKbmap: function(newKbmap) {
-
-            try {
-
-                // write Kbmap file
-                var kbFile = new GeckoJS.File('/etc/kbmap', true);
-                kbFile.open("w");
-                kbFile.write(newKbmap+"\n");
-                kbFile.close();
-                delete kbFile;
-
-            }catch (e) {
-                // maybe permision deny
-            }
-
-            // restart virtual keyboard
-            try {
-                var resetKeyboardScript = new GeckoJS.File('/data/scripts/reset_keyboard.sh');
-                if (resetKeyboardScript.exists()) {
-                resetKeyboardScript.run([], true); // no arguments and blocking.
-                }
-                delete resetKeyboardScript;
-                resetKeyboardScript = null;
-            }catch(e) {
-            }
-        },
-        
         setLocaleKbmap: function() {
 
             var requireRestart = false;
+            var localeObj = document.getElementById('locale');
+            var kbmapObj = document.getElementById('kbmap');
 
             // change XUL and OS locales
-            if (this.selectedLocale != this.currentLocale) {
-                
-                var prefs = Components.classes["@mozilla.org/preferences-service;1"].
-                            getService(Components.interfaces.nsIPrefBranch);
-                prefs.setCharPref("general.useragent.locale", this.selectedLocale);
+            if (localeObj.selectedLocale != localeObj.currentLocale) {
 
-                this.changeOSLocale(this.selectedLocale);
+                localeObj.changeLocale();
+                localeObj.changeOSLocale();
                 
                 requireRestart = true;
             }
             this.currentLocale = this.selectedLocale;
 
             // change keyboard mapping
-            if (this.selectedKbmap != this.currentKbmap) {
-                this.changeOSKbmap(this.selectedKbmap);
+            if (kbmapObj.selectedKbmap != kbmapObj.currentKbmap) {
+                kbmapObj.changeOSKbmap();
                 requireRestart = true;
             }
 

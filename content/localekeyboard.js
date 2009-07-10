@@ -12,6 +12,8 @@
         var locale = $('#locale')[0];
         var kbmap = $('#kbmap')[0];
 
+        $do('selectKbmap', null, 'LocaleKeyboard');
+        
         doSetOKCancel(
             function(){
                 var changed = false;
@@ -36,7 +38,7 @@
                         locale.changeLocale();
 
                         // change keyboard mapping
-                        kbmap.changeOSKbmap();
+                        //kbmap.changeOSKbmap();
 
                         GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
 

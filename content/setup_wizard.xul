@@ -82,12 +82,15 @@
                 </vbox>
                 <vbox class="content_area">
                     <label value="&wizard.page.language.locale;"/>
-                    <button id="locale" oncommand="$do('showLocalePopup', null, 'SetupWizard')"/>
+                    <vivilocaleslistbox id="locale" package="viviecr" flex="1"
+                                        type="button" rows="6" cols="6" popupwidth="720" popupheight="540"
+                                        listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
                 </vbox>
                 <spacer width="20px"/>
                 <vbox class="content_area keyboardset">
-                    <label value="&wizard.page.language.kbmap;"/>
-                    <button id="kbmap" oncommand="$do('showKbmapPopup', null, 'SetupWizard')"/>
+                    <vivikbmaps id="kbmap" flex="1"
+                                type="button" rows="6" cols="6" popupwidth="720" popupheight="540"
+                                listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
                 </vbox>
             </vbox>
         </hbox>
@@ -126,12 +129,9 @@
                                                cols="4" rows="3" labelField="label" imageField="image"
                                                ensureVisible="true"
                                                oncommand="$do('selectLocation',this.selectedIndex, 'SetupWizard');"
-                                               class=""
-                                               buttonClass=""
-                                               scrollUpClass="" scrollDownClass="" >
+                                               class="" buttonClass="" scrollUpClass="" scrollDownClass="" >
                         <spacer flex="1" />
                     </viviscrollablebuttonpanel>
-           <!--listbox id="locationlist" seltype="single" onselect="$do('selectLocation', this.value, 'SetupWizard')"/-->
          </vbox>
             </vbox>
         </hbox>
@@ -164,7 +164,8 @@
                 </vbox>
                 <vbox class="content_area">
                     <label value="&wizard.page.timezone;"/>
-                    <vivitimezones id="timezones" flex="1" class="TimeZone"/>
+                    <vivitimezones id="timezones" flex="1" type="button" cols="4" rows="6" popupwidth="720" popupheight="540"
+                                   timezoneMenuClass="" panelClass="TimeZone" buttonClass="" scrollUpClass="" scrollDownClass=""/>
                 </vbox>
             </vbox>
         </hbox>
@@ -358,18 +359,6 @@
         <box flex="1">
         </box>
     </wizardpage>
-
-    <panel id="localePanel" position="overlap" pack="center" align="center">
-        <viviscrollablebuttonpanel id="localescrollablepanel" flex="1"
-                                   cols="4" rows="4" labelField="label" imageField="image"
-                                   ensureVisible="true"
-                                   oncommand="$do('selectLocale',this.selectedIndex, 'SetupWizard');"
-                                   class=""
-                                   buttonClass=""
-                                   scrollUpClass="" scrollDownClass="" >
-            <spacer flex="1" />
-        </viviscrollablebuttonpanel>
-    </panel>
 
     <panel id="kbmapPanel" position="overlap" pack="center" align="center">
         <viviscrollablebuttonpanel id="kbmapscrollablepanel" flex="1"
