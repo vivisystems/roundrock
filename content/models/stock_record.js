@@ -201,6 +201,9 @@
                 this._cachedRecords = {};
             }
 
+            // set self for this reference
+            var self = this;
+
             // get local stock records first
             this.getLastModifiedRecords(this.lastModified);
 
@@ -210,7 +213,6 @@
             if(remoteUrl) {
                 
                 var requestUrl = remoteUrl + '/' + this.lastModified;
-                var self = this;
 
                 var cb = function(remoteStocks) {
 
@@ -232,6 +234,12 @@
                 }else {
                     var remoteStockResults = this.requestRemoteService('GET', requestUrl, null, async, callback);
                     cb.call(self, remoteStockResults);
+                }
+
+            }else {
+
+                if(callback) {
+                    callback.call(self, self.lastModified);
                 }
 
             }
