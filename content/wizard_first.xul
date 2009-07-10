@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Wizard SYSTEM "chrome://viviecr/locale/wizard.dtd">
+  %Wizard;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/wizard.css" type="text/css"?>
+
+
+<window title=""
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script>
+        
+        function clickStart () {
+            var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+            var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+            var aURL = 'chrome://viviecr/content/setup_wizard.xul';
+            var aName = _('VIVIPOS Setup');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
+            var aArguments = {initialized: false, restart: false, restarted: false};
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
+        }
+    </script>
+    <vbox flex="1" class="wizard_first">
+        <spacer class="topsp"/>
+        <label value="&wizard.page.welcome.title;" class="welcome_title"/>
+        <button id="btnStart" label="" oncommand="clickStart();" />
+        <spacer class="bottomsp"/>
+        <label value="&wizard.page.copyright;" class="copyright" />
+    </vbox>
+</window>
