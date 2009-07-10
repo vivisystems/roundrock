@@ -453,8 +453,8 @@
                     );
                     
                     // refresh the report panel so that ppl can approach the created report.
+                    opener.refreshPanel();
                     doOKButton(); // close this report first.
-                    GeckoJS.Observer.notify( null, "RefreshReportPanel", "refresh" ); // notify reportPanel.js to refresh the report panel.
                 }
             } else {
                 return;
@@ -472,7 +472,9 @@
             } catch ( e ) {
                 dump( e );
             } finally {
-                doOKButton();
+                // refresh the report panel so that ppl can approach the created report.
+                opener.refreshPanel();
+                doOKButton(); // close this report first.
             }
         },
         
