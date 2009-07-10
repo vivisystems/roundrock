@@ -79,7 +79,7 @@
             var sql =
                 "SELECT " + fields.join( ", " ) + " FROM products p LEFT JOIN stock_records s ON ( p.no = s.id ) " +
                 "WHERE " + conditions + " ORDER BY " + orderby + " LIMIT " + this._csvLimit + ";";
-            alert( sql );
+            
             var prod = new ProductModel();
             var prodRecords = prod.getDataSource().fetchAll( sql );
 

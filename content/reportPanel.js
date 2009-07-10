@@ -1,4 +1,4 @@
-(function(){
+( function() {
 
     var width = 0 , height = 0;
     var isShowing = false;
@@ -31,15 +31,30 @@
                 icon: el.icon,
                 path: el.path,
                 roles: el.roles,
-                label: label
-                };
+                label: label,
+                key: key || ""
+            };
             data.push(entry);
         });
         data = new GeckoJS.ArrayQuery(data).orderBy("label asc");
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
 
-        document.getElementById('imagePanel').datasource = window.viewHelper;
+        var imagePanel = document.getElementById('imagePanel');
+        if ( imagePanel )
+            imagePanel.datasource = window.viewHelper;
+        
+        // add Observer to listen to refresh signal from your report panel.
+        var self = this;
+        this.observer = GeckoJS.Observer.newInstance( {
+            topics: [ "RefreshReportPanel" ],
 
+            observe: function( aSubject, aTopic, aData ) {
+                if ( aData == "refresh" ) {
+                    startup(); // renew the data since we have generated a new report.
+                    imagePanel.showPopup();
+                }
+            }
+        } ).register();
     }
 
     window.openModel = function openModel(url, name, args) {
@@ -52,7 +67,7 @@
         var data = panel.datasource.data;
         var index = panel.currentIndex;
         var pref = data[index];
-        var aArguments = "";
+        var aArguments = pref;
 
         if (isShowing) {
             // nothings to do
@@ -62,10 +77,9 @@
             openModel(pref['path'], "Preferences_" + pref['label'], aArguments);
             $('#loading').hide();
             isShowing = false;
-
         }
     };
 
     window.addEventListener('load', startup, true);
 
-})();
+} )();

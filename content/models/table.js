@@ -11,10 +11,10 @@
 
         belongsTo: ['TableRegion'],
 
-        // hasOne: [{name: 'TableStatus', 'primaryKey': 'table_no', 'foreignKey': 'table_no'}, 'TableMap'],
-        hasOne: ['TableStatus'],
+        hasOne: [{name: 'TableStatus', 'primaryKey': 'table_no', 'foreignKey': 'table_no'}],
+        // hasOne: ['TableStatus'],
         
-        hasMany: ['TableBooking', 'TableOrder'],
+        hasMany: ['TableBooking'],
 
         behaviors: ['Sync', 'Training']
     /*

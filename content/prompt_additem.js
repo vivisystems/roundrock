@@ -169,8 +169,10 @@ function validateInput() {
     var validated = false;
     var alphaOnly0 = false;
     var numberOnly0 = false;
+    var alphanumeric0 = false;
     var numberOnly1 = false;
     var numericOnly1 = false;
+    var alphanumeric1 = false;
     var digitOnly0 = false;
     var digitOnly1 = false;
     var alphaRE = /[^-\w]/;
@@ -187,6 +189,8 @@ function validateInput() {
     if ('digitOnly1' in options) digitOnly1 = options.digitOnly1;
     if ('fixedLength0' in options) fixedLength0 = options.fixedLength0;
     if ('fixedLength1' in options) fixedLength1 = options.fixedLength1;
+    if ('alphanumeric0' in options) alphanumeric0 = options.alphanumeric0;
+    if ('alphanumeric1' in options) alphanumeric1 = options.alphanumeric1;
 
     var input0 = document.getElementById('input0').value;
     var input1 = document.getElementById('input1').value;
@@ -222,6 +226,12 @@ function validateInput() {
     }
     if (fixedLength1 > 1) {
         validated = validated && trimmed1.length == fixedLength1;
+    }
+    if (alphanumeric0) {
+        validated = validated && input0.replace(/\w*/, '').length == 0;
+    }
+    if (alphanumeric1) {
+        validated = validated && input1.replace(/\w*/, '').length == 0;
     }
     document.getElementById('ok').setAttribute('disabled', !validated);
 

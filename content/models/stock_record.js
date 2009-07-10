@@ -296,17 +296,35 @@
                 // use cached
 
                 if (typeof this._cachedRecords[id] != 'undefined') {
+
                     stock = parseFloat(this._cachedRecords[id]);
+
+                }else {
+
+                    // dont has stock record auto insert
+                    stock = 0;
+                    this.create();
+                    this.save({id: id, quantity: 0});
                 }
 
             }else {
+
                 var stockRecord = this.get( 'first', { 
                     conditions: "id = '" + id + "'"
                 } );
 
                 if ( stockRecord ) {
+
                     stock = parseFloat( stockRecord.quantity );
-                } 
+                    
+                } else {
+
+                    // dont has stock record auto insert
+                    stock = 0;
+                    this.create();
+                    this.save({id: id, quantity: 0});
+
+                }
 
             }
             return stock;
@@ -332,7 +350,6 @@
                 if (lastModified >= this.lastModified) {
                     this.lastModified = lastModified;
                 }
-
                 
             }else {
 
@@ -453,7 +470,7 @@
         getStockRecordByProductNo: function(product_no) {
             return this.get('first', {
                 fields: ['quantity'],
-                conditions: 'id = "' + product_no + '"'
+                conditions: 'stock_records.id = "' + product_no + '"'
             } );
         }
     };

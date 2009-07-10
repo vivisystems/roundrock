@@ -131,6 +131,8 @@
 
         name: 'SelectTable',
 
+        template: 'order_display_template',
+
         _inputObj: {},
         _tableSettings: {},
         _tables: null,
@@ -154,14 +156,10 @@
         _popupX: 40,
         _popupY: 30,
 
+        _timeout: 5000,
+
         initial: function () {
             //
-//            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
-//            if (screenwidth > 1000) {
-//                document.getElementById('tableScrollablepanel').rows = 5;
-//                document.getElementById('tableScrollablepanel').cols = 5;
-//            }
-
             if (this._cartController == null) {
                 this._cartController = GeckoJS.Controller.getInstanceByName('Cart');
             };
@@ -268,7 +266,8 @@
 
             // load template
             if (this._tpl == null) {
-                var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_display_template.tpl');
+                // var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_display_template.tpl');
+                var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
                 var file = GREUtils.File.getFile(path);
                 this._tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
             }
@@ -303,20 +302,6 @@
             }
 
             // first popup...
-            // promptPanel.showPopup();
-            /*
-            promptPanel.autoPosition = false;
-            if (promptPanel.boxObject.width == 0) {
-                
-                promptPanel.openPopupAtScreen(-1000, 0, true);
-                // promptPanel.openPopup( "" , position , x , y , isContextMenu, attributesOverride );
-                // promptPanel.openPopup(window, "end_before", 2000, 200, false, false);
-                // promptPanel.showPopup();
-
-                this.sleep(100);
-                promptPanel.hidePopup();
-            }
-            */
             if (promptPanel.boxObject.width == 0) {
                 var x = this._popupX;
                 var y = this._popupY;
@@ -561,20 +546,20 @@
 
         doRefreshTableStatusLight: function() {
             //
-
             try {
 
                 var list = window._tableStatusModel.getTableStatusList();
-//                GREUtils.log("refreshTableStatusLight:::");
-//                GREUtils.log(GeckoJS.BaseObject.dump(list));
 
                 document.getElementById('tableScrollablepanel').invalidate();
-//                GREUtils.log("refreshTableStatusLight:::");
 
-//                GREUtils.log(GeckoJS.BaseObject.dump(document.getElementById('tableScrollablepanel').datasource));
 
-            } catch(e) {}
+            } catch(e) {
+                dump(e);
+            }
 
+            clearTimeout(window.tableStatusRefreshInterval);
+            window.tableStatusRefreshInterval = setTimeout('RefreshTableStatusLight()', window.tableStatusRefreshTime);
+            
             return;
         },
 
@@ -1011,17 +996,21 @@
                 },
 
                 init: function(evt) {
+
                     self.initial();
+                    window.tableStatusRefreshTime = self._timeout;
                     window.RefreshTableStatusLight = self.doRefreshTableStatusLight;
                     window._tableStatusModel = self._tableStatusModel;
+                    
+                    inputObj = evt.data[0];
+                    self.load2(inputObj);
 
                 },
 
                 load: function(evt) {
 
-                    inputObj = evt.data[0];
-
-                    self.load2(inputObj);
+                    // inputObj = evt.data[0];
+                    // self.load2(inputObj);
 
                 },
 
@@ -1030,11 +1019,18 @@
                 },
 
                 shown: function(evt) {
+
                     window._tableStatusModel.getTableStatusList();
                     document.getElementById('tableScrollablepanel').invalidate();
-                    
-                    clearInterval(window.tableStatusRefreshInterval);
-                    window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 5000);
+
+                    // clearInterval(window.tableStatusRefreshInterval);
+                    clearTimeout(window.tableStatusRefreshInterval);
+
+                    // release CPU to refresh table status panel ...
+                    GeckoJS.BaseObject.sleep(100);
+
+                    // window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 50000);
+                    window.tableStatusRefreshInterval = setTimeout('RefreshTableStatusLight()', window.tableStatusRefreshTime);
 
                     document.getElementById('table_status_timer').startClock();
 
@@ -1042,7 +1038,8 @@
 
                 hide: function (evt) {
 
-                    clearInterval(window.tableStatusRefreshInterval);
+                    // clearInterval(window.tableStatusRefreshInterval);
+                    clearTimeout(window.tableStatusRefreshInterval);
 
                     document.getElementById('table_status_timer').stopClock();
 
