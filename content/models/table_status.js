@@ -339,7 +339,8 @@
                     delete o.order;
                     delete o.TableOrder;
                     o.TableOrder = new GeckoJS.ArrayQuery(this._tableOrders).filter("table_no = '" + o.table_no + "'");
-// GREUtils.log("table_no:::" + o.table_no + " , length:::" + o.TableOrder.length);
+
+                    o.table_region_id = o.Table.table_region_id;
 
                     o.seats = o.Table.seats;
                     o.table_name = o.Table.table_name;

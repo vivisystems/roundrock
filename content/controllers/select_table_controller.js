@@ -12,9 +12,6 @@
 
             var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
 
-//            if (this.data[row].order == null) this.data[row].order = {};
-//            if (this.data[row].table == null) this.data[row].table = {};
-
             var seq = this.data[row].sequence || '';
             var check_no = this.data[row].check_no || '';
             var checks = this.data[row].checks || '';
@@ -23,20 +20,11 @@
             var seats = this.data[row].Table.seats || '0';
             // var guest_num = this.data[row].order.no_of_customers || '0';
             var guest_num = this.data[row].guests || '0';
-
-            
-
-            /*
-            if (this.data[row].order.length > 0)
-            var subtotal = this.data[row].order[0].total || '0';
-            else var subtotal = '';
-            */
             
             var subtotal = this.data[row].total || '';
 
             var clerk = this.data[row].clerk || '';
             var now = Math.round(new Date().getTime());
-//            var holdby = this.data[row].holdby || '';
             var holdby = this.data[row].hostby || '';
             // var transaction_created = this.data[row].order.transaction_created * 1000 || now;
             // var transaction_created = this.data[row].created * 1000 || now;
@@ -145,6 +133,10 @@
         _selectedCheckNo: null,
         _selectedOrderId: null,
         _isBusy: false,
+
+        _regionTables: null,
+        _regions: null,
+        _regionIndex: 0,
 
         _orderPanel: null,
         _orderDoc: null,
@@ -266,7 +258,6 @@
 
             // load template
             if (this._tpl == null) {
-                // var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_display_template.tpl');
                 var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
                 var file = GREUtils.File.getFile(path);
                 this._tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -274,21 +265,7 @@
             var tpl = this._tpl;
 
             var data = {orders:[]};
-            /*
-            // remove all tabs
-            var tabs = document.getElementById('orders_tab');
-            while (tabs.firstChild) {
-                tabs.removeChild(tabs.firstChild);
-            }
-
-            tableObj.order.forEach(function(o){
-                data.orders.push(o);
-                var tab = document.createElement("tab");
-                tab.setAttribute('label', 'C#' + o.check_no);
-                tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
-                tabs.appendChild(tab);
-            })
-            */
+            
             tableObj.order.forEach(function(o){
                 data.orders.push(o);
             });
@@ -301,7 +278,7 @@
                 doc.innerHTML = result;
             }
 
-            // first popup...
+            // first time popup...
             if (promptPanel.boxObject.width == 0) {
                 var x = this._popupX;
                 var y = this._popupY;
@@ -326,7 +303,6 @@
             tableObj.order.forEach(function(o){
                 var tab = document.createElement("tab");
                 tab.setAttribute('label', 'C#' + o.check_no);
-                // tab.setAttribute('oncommand', "$do('selectOrderTab', " + o.check_no + ", 'SelectTable')");
                 tab.setAttribute('oncommand', "$do('selectOrderTab', '" + o.id + "', 'SelectTable')");
                 tabs.appendChild(tab);
             });
@@ -618,7 +594,7 @@
 
             // @todo check status first, doFunc when match table selected...
             var v = document.getElementById('tableScrollablepanel').value;
-            var selTable = this._tables[v];
+            var selTable = this._regionTables[v];
 
             var r = false;
 
@@ -637,14 +613,15 @@
                     this._hidePromptPanel('prompt_panel');
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._tables[v].table_no;
+                        // this._inputObj.index = this._regionTables[v].table_no;
                         this._inputObj.index = v;
-                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
                         
-                        cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                        // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                        cart.GuestCheck.doSelectTableNo(this._inputObj);
 
                         this._inputObj.action = '';
                         this._sourceTableNo = null;
@@ -678,9 +655,9 @@
                     // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._tables[v].table_no;
+                        // this._inputObj.index = this._regionTables[v].table_no;
                         this._inputObj.index = v;
-                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -723,9 +700,9 @@
                     // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._tables[v].table_no;
+                        // this._inputObj.index = this._regionTables[v].table_no;
                         this._inputObj.index = v;
-                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -761,9 +738,9 @@
                     // alert('doFunc...' + inputObj.action);
 
                     if (this._inputObj.action) {
-                        // this._inputObj.index = this._tables[v].table_no;
+                        // this._inputObj.index = this._regionTables[v].table_no;
                         this._inputObj.index = v;
-                        this._inputObj.tableObj = this._tables[v];
+                        this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
                         var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -795,16 +772,16 @@
                         // alert('doFunc...' + inputObj.action);
 
                         if (this._inputObj.action) {
-                            // this._inputObj.index = this._tables[v].table_no;
+                            // this._inputObj.index = this._regionTables[v].table_no;
                             this._inputObj.index = v;
-                            this._inputObj.tableObj = this._tables[v];
-                            // this._inputObj.tableObj = GREUtils.extend({}, this._tables[v]);
+                            this._inputObj.tableObj = this._regionTables[v];
+                            // this._inputObj.tableObj = GREUtils.extend({}, this._regionTables[v]);
                             this._inputObj.ok = true;
                             // doOKButton();
                             var cart = GeckoJS.Controller.getInstanceByName('Cart');
                             // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
 
-                            var dstTableNo = this._tables[v].table_no;
+                            var dstTableNo = this._regionTables[v].table_no;
                             // cart.GuestCheck.doTransferCheck(srcTableNo, dstTableNo);
                             if (selectedOrderId) {
                                 cart.GuestCheck.doTransferByCheck(srcTableNo, dstTableNo, selectedOrderId);
@@ -830,7 +807,7 @@
                             return;
                         }
                         this._setPromptLabel(null, null, _('Please select the table to transfer to...'), null, 3);
-                        this._sourceTableNo = this._tables[v].table_no;
+                        this._sourceTableNo = this._regionTables[v].table_no;
                         document.getElementById('tableScrollablepanel').invalidate();
                         this._isBusy = false;
                         return;
@@ -840,7 +817,7 @@
                 case 'MergeTable':
                     if (this._sourceTableNo) {
                         //
-                        var i = this._tables[v].table_no;
+                        var i = this._regionTables[v].table_no;
                         var holdby = GeckoJS.BaseObject.clone(this._sourceTable);
 
                         // this._tables = this._tableStatusModel.holdTable(i, holdby.table_no);
@@ -864,8 +841,8 @@
                         }
                         */
                         this._setPromptLabel(null, null, _('Please select an empty table to merge...'), null, 3);
-                        this._sourceTable = this._tables[v];
-                        this._sourceTableNo = this._tables[v].table_no;
+                        this._sourceTable = this._regionTables[v];
+                        this._sourceTableNo = this._regionTables[v].table_no;
 
                         document.getElementById('tableScrollablepanel').invalidate();
                         this._isBusy = false;
@@ -882,8 +859,8 @@
                         return;
                     }
 
-                    var i = this._tables[v].table_no;
-                    var holdby = GeckoJS.BaseObject.clone(this._tables[v]);
+                    var i = this._regionTables[v].table_no;
+                    var holdby = GeckoJS.BaseObject.clone(this._regionTables[v]);
                     holdby.status = -1;
 
                     // this._tables = this._tableStatusModel.holdTable(i, holdby);
@@ -901,10 +878,10 @@
 
                 case 'BookTable':
 
-                    var table_status_id = this._tables[v].id
-                    var table_id = this._tables[v].Table.id;
-                    var table_no = this._tables[v].table_no;
-                    var table_name = this._tables[v].Table.table_name;
+                    var table_status_id = this._regionTables[v].id
+                    var table_id = this._regionTables[v].Table.id;
+                    var table_no = this._regionTables[v].table_no;
+                    var table_name = this._regionTables[v].Table.table_name;
                     var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
                     var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
@@ -931,18 +908,18 @@
                     break;
                 default:
 
-                    var orders = this._cartController.GuestCheck.getCheckList("TableNo", this._tables[v].table_no);
-                    this._tables[v].order = orders.concat([]);
-                    this._showOrderDisplayPanel('order_display_panel', this._tables[v], evt.originalTarget);
+                    var orders = this._cartController.GuestCheck.getCheckList("TableNo", this._regionTables[v].table_no);
+                    this._regionTables[v].order = orders.concat([]);
+                    this._showOrderDisplayPanel('order_display_panel', this._regionTables[v], evt.originalTarget);
                     break;
             }
             this._hidePromptPanel('prompt_panel');
             // alert('doFunc...' + inputObj.action);
             
             if (this._inputObj.action) {
-                // this._inputObj.index = this._tables[v].table_no;
+                // this._inputObj.index = this._regionTables[v].table_no;
                 this._inputObj.index = v;
-                this._inputObj.tableObj = this._tables[v];
+                this._inputObj.tableObj = this._regionTables[v];
                 this._inputObj.ok = true;
                 // doOKButton();
 
@@ -972,6 +949,83 @@
                 document.getElementById('change_clerk').setAttribute('hidden', isNewOrder);
                 document.getElementById('trans_table').setAttribute('hidden', isNewOrder);
             } catch (e) {}
+        },
+
+        setRegionMenuItem: function() {
+
+            var regions = this.getRegionList();
+
+            var regionObj = document.getElementById('table_region_menupopup');
+
+            // remove all child...
+            while (regionObj.firstChild) {
+                regionObj.removeChild(regionObj.firstChild);
+            }
+
+            var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+            menuitem.setAttribute('value', '0');
+            menuitem.setAttribute('label', _('All Regions'));
+            regionObj.appendChild(menuitem);
+
+            var index = 0;
+            regions.forEach(function(data){
+                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                // menuitem.setAttribute('value', data.id);
+                index++
+                menuitem.setAttribute('value', index);
+                menuitem.setAttribute('label', data.name);
+                regionObj.appendChild(menuitem);
+            });
+            
+            this._regionIndex = 0;
+            document.getElementById('table_region').selectedIndex = this._regionIndex;
+        },
+
+        getRegionList: function() {
+            //
+            var regionModel = new TableRegionModel();
+            this._regions = regionModel.find('all', {
+                fields: ['id', 'name']
+                });
+
+            return this._regions;
+        },
+
+        setRegion: function(index) {
+            //
+            // var tables = null;
+            var region_id;
+            if (index == "0") {
+                this._regionTables = this._tables;
+            } else {
+                region_id = this._regions[index - 1].id;
+
+                this._regionTables = new GeckoJS.ArrayQuery(this._tables).filter("table_region_id = '" + region_id + "'");
+            }
+            var tableStatus = new TableStatusView(this._regionTables);
+            tableStatus._controller = this;
+            document.getElementById('tableScrollablepanel').datasource = tableStatus ;
+
+            this._regionIndex = document.getElementById('table_region').selectedIndex;
+
+        },
+
+        priorRegion: function() {
+            //
+            this._regionIndex--
+            this._regionIndex = this._regionIndex < 0 ? this._regions.length : this._regionIndex;
+            document.getElementById('table_region').selectedIndex = this._regionIndex;
+            this.setRegion(this._regionIndex);
+
+        },
+
+        nextRegion: function() {
+            //
+            this._regionIndex++
+            this._regionIndex = this._regionIndex > this._regions.length ? 0 : this._regionIndex;
+            document.getElementById('table_region').selectedIndex = this._regionIndex;
+            this.setRegion(this._regionIndex);
+
         },
 
         load: function(evt) {
@@ -1059,24 +1113,41 @@
             this._enableFuncs(this._isNewOrder);
             }
             
-            // this.initial();
-
-            // var tables = inputObj.tables;
             var tables = this._tableStatusModel.getTableStatusList();
 
             if (this._tables == null) {
-                    // tables = inputObj.tables;
-
+            
+// this.log("Tables:::");
+// this.log(this.dump(tables));
                     this._tables = tables;
                     this._inputObj.tables = tables;
+/*
                     var tableStatus = new TableStatusView(this._tables);
                     tableStatus._controller = this;
                     document.getElementById('tableScrollablepanel').datasource = tableStatus ;
+*/
+                    this.setRegionMenuItem();
+
+                    this.setRegion(0);
+
+                    
+/*
+                    if (this._regions == null) {
+                        var regionModel = new TableRegionModel();
+                        this._regions = regionModel.find("all", {});
+                        delete regionModel;
+this.log("Regions:::");
+this.log(this.dump(this._regions));
+
+                    }
+*/
             } else {
                     this._inputObj.tables = this._tables;
                     tableStatus._controller = this;
                     // document.getElementById('tableScrollablepanel').invalidate();
             }
+
+            
 
         }
 

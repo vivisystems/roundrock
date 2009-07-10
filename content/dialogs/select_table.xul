@@ -27,9 +27,18 @@
 
 
     <vbox flex="1" class="maindialog">
-        <hbox class="EmptyArea" >
-            
-        </hbox>
+        <vbox class="EmptyArea" >
+            <hbox flex="1">
+                <button id="btn_prior_region" label="Prior Region" disabled="false"  oncommand="$do('priorRegion', null, 'SelectTable');" />
+                <menulist id="table_region" flex="1" oncommand="$do('setRegion', this.value, 'SelectTable');">
+                    <menupopup id="table_region_menupopup">
+
+                    </menupopup>
+                </menulist>
+                <button id="btn_next_region" label="Next Region" disabled="false"  oncommand="$do('nextRegion', null, 'SelectTable');" />
+            </hbox>
+            <spacer flex="1" />
+        </vbox>
         <stack flex="1" class="MainPanel">
             
             <label id="queues" hidden="true" value="" />
