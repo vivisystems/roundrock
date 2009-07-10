@@ -95,6 +95,7 @@ class StocksController extends AppController {
 
         if (is_array($requests)) {
 
+            $stocks = $this->StockRecord->getLastModifiedRecords($lastModified);
 
             $result = array('status' => 'ok', 'code' => 200 );
             $result['response_data'] = $stocks;
@@ -114,9 +115,6 @@ class StocksController extends AppController {
         $requestData = $_REQUEST['request_data'];
 
         $requests = $this->SyncHandler->parseRequest($requestData, 'json');
-
-
-       file_put_contents('/tmp/aaa.txt', var_export($requests, true));
 
         $result = array('status' => 'error', 'code' => 400 );
 

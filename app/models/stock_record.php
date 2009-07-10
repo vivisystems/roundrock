@@ -24,27 +24,66 @@ class StockRecord extends AppModel {
 
     }
 
+    function checkRecordsExists($ids=array()) {
+
+        try {
+
+            $idString = implode("','", $ids);
+
+            //$idString = '002005';
+            //$sql = "SELECT id from stock_records WHERE id IN ('$idString')";
+
+            $dd = $this->find('all', array('fields'=>'id', 'conditions' => "id IN ('$idString')", 'recursive'=>0));
+            $idsExists = Set::classicExtract($dd, '{n}.StockRecord.id');
+
+            // record not the same , create it.
+            if (count($ids) != count($idsExists)) {
+                $idsDiff = array_diff($ids, $idsExists);
+
+                for ($i =0 ; $i < count($idsDiff); $i++) {
+                    // auto create
+                    $this->create();
+                    $this->save(array('id'=> $idsDiff[$i], 'quantity'=>0));
+
+                }
+            }
+
+        }catch (Exception $e) {
+
+        }
+
+        return ;
+
+    }
+
     function decreaseStockRecords($datas=array()) {
 
         $now = time();
         $sql = "" ;
 
+        $ids = array();
+
         foreach ($datas as $d) {
+
+            $ids[] = $d['id'];
+
             $sql .= "UPDATE stock_records SET quantity=quantity-".$d['quantity'].", modified='".$now."' WHERE id = '".$d['id']."' ;\n";
         }
 
-        file_put_contents('/tmp/aaa.sql', $sql);
+        // check stock first
+        $this->checkRecordsExists($ids);
 
-        $datasource =& $this->getDataSource();
 
         try {
 
+            $datasource =& $this->getDataSource();
             $datasource->connection->beginTransaction();
             $datasource->connection->exec($sql);
             $datasource->connection->commit();
 
         }  catch(Exception $e) {
-        // always rollback
+            
+            // always rollback
             $datasource->connection->rollback();
             return false;
 
