@@ -115,7 +115,7 @@
 // this.log("guest_check syncClient:::");
             try {
                 var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
-                var r = exec.run(["sync"], true);
+                var r = exec.run(["sync"], false);
                 exec.close();
                 return true;
             }
@@ -318,6 +318,13 @@
 // this.log("SplitCheck printChecks:::");
             this.printChecks(evt.data);
 
+            // restore from backup after order was submited/stored
+            var order = new OrderModel();
+            order.restoreOrderFromBackup();
+            delete order;
+
+            this.syncClient();
+
         },
 
         handleMergeCheck: function(evt) {
@@ -327,6 +334,13 @@
             // print check
 // this.log("MergeCheck printChecks:::");
             this.printChecks(evt.data);
+
+            // restore from backup after order was submited/stored
+            var order = new OrderModel();
+            order.restoreOrderFromBackup();
+            delete order;
+
+            this.syncClient();
 
         },
 
@@ -348,6 +362,7 @@
 
             if ( evt.type == 'newTransaction') {
                 if (this._guestCheck.tableSettings.RequireCheckNo) {
+
                     this._controller.newCheck(true);
                 }
             }
@@ -405,6 +420,7 @@
         getNewCheckNo: function() {
 
             var r = this._tableStatusModel.getNewCheckNo();
+
             if (r >= 0) {
                 var curTransaction = null;
                 curTransaction = this._controller._getTransaction();
@@ -821,19 +837,20 @@
             var order = new OrderModel();
 
             var fields = null;
+            var conditions = null;
             
             switch (key) {
                 case 'CheckNo':
-                    var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
+                    conditions = "orders.check_no='" + no + "' AND orders.status='2'";
                     break;
                 case 'TableNo':
-                    var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
+                    conditions = "orders.table_no='" + no + "' AND orders.status='2'";
                     break;
                 case 'AllCheck':
-                    var conditions = "orders.status='2'";
+                    conditions = "orders.status='2'";
                     break;
                 case 'OrderNo':
-                    var conditions = null;
+                    conditions = "orders.sequence='" + no + "' AND orders.status='2'";
                     break;
             }
             
@@ -842,8 +859,8 @@
             // return all store checks...
             if (notCheckStatus) return ord;
 
-            var tables = this._tableStatusModel.getTableStatusList();
-
+            // var tables = this._tableStatusModel.getTableStatusList();
+            
             var tableOrderIdx = this._tableStatusModel.getTableOrderIdx();
 
             var ordChecked = [];
@@ -1224,8 +1241,8 @@
                 */
 
                 // if (crc != tableOrderObj[0].TableOrder.checksum) {
-                if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
-
+                // if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
+                if ((crc != tableOrderObj[0].TableOrder.checksum) && (oldTransaction.data.terminal_no != tableOrderObj[0].TableOrder.terminal_no)) {
                     GREUtils.Dialog.alert(this._controller.topmostWindow,
                                       _('Order Checksum Fail'),
                                       _('Current order checksum fail and may not be submit. Please retry or check this order.'));
@@ -1374,6 +1391,7 @@
 
         doTransferByCheck: function(sourceTableNo, targetTableNo, orderId) {
             var curTransaction = null;
+
             curTransaction = this.doRecallByCheck(orderId);
             // curTransaction = this._controller._getTransaction();
 
@@ -1382,7 +1400,7 @@
                 curTransaction.data.table_no = "" + targetTableNo;
 
                 // this.getNewTableNo();
-                this._controller.requestCommand('doRefreshTableStatusLight', null, 'SelectTable');
+                // this._controller.requestCommand('doRefreshTableStatusLight', null, 'SelectTable');
 
                 if (this.doStore(curTransaction)) {
 
@@ -1606,7 +1624,7 @@
 
         unserializeFromOrder: function(order_id) {
 
-            var curTransaction = new Transaction();
+            var curTransaction = new Transaction(true); // do not get new sequence
             curTransaction.unserializeFromOrder(order_id);
 
             if (curTransaction.data == null) {

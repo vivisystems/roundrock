@@ -52,7 +52,7 @@
                 if (!retObj) {
                     throw 'OrderItem';
                 }
-                retObj.forEach(function(d){
+                (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
@@ -65,7 +65,7 @@
                 if (!retObj) {
                     throw 'OrderAddition';
                 }
-                retObj.forEach(function(d){
+                (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
@@ -78,7 +78,7 @@
                 if (!retObj) {
                     throw 'OrderPayment';
                 }
-                retObj.forEach(function(d){
+                (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
@@ -91,7 +91,7 @@
                 if (!retObj) {
                     throw 'OrderAnnotation';
                 }
-                retObj.forEach(function(d){
+                (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
@@ -104,7 +104,7 @@
                 if (!retObj) {
                     throw 'OrderItemCondiment';
                 }
-                retObj.forEach(function(d){
+                (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
@@ -117,11 +117,12 @@
                 if (!retObj) {
                     throw 'OrderPromotion';
                 }
-                retObj.forEach(function(d){
+                (new GeckoJS.ArrayQuery(retObj).orderBy("id asc")).forEach(function(d){
                     checksum += d.id + d.modified;
                 });
 
                 if (data.status == 2) {
+
                     data.checksum = GREUtils.CryptoHash.md5(checksum);
                     if (!this.serializeOrder(data)) {
                         throw 'OrderObject';
@@ -726,32 +727,32 @@
               checksum += d.id + d.modified;
             });
 
-            datas = ds.fetchAll("SELECT id,modified from order_items where order_id = '"+id+"'");
+            datas = ds.fetchAll("SELECT id,modified from order_items where order_id = '"+id+"' ORDER BY id");
             datas.forEach(function (d) {
               checksum += d.id + d.modified;
             });
 
-            datas = ds.fetchAll("SELECT id,modified from order_additions where order_id = '"+id+"'");
+            datas = ds.fetchAll("SELECT id,modified from order_additions where order_id = '"+id+"' ORDER BY id");
             datas.forEach(function (d) {
               checksum += d.id + d.modified;
             });
 
-            datas = ds.fetchAll("SELECT id,modified from order_payments where order_id = '"+id+"'");
+            datas = ds.fetchAll("SELECT id,modified from order_payments where order_id = '"+id+"' ORDER BY id");
             datas.forEach(function (d) {
               checksum += d.id + d.modified;
             });
 
-            datas = ds.fetchAll("SELECT id,modified from order_annotations where order_id = '"+id+"'");
+            datas = ds.fetchAll("SELECT id,modified from order_annotations where order_id = '"+id+"' ORDER BY id");
             datas.forEach(function (d) {
               checksum += d.id + d.modified;
             });
 
-            datas = ds.fetchAll("SELECT id,modified from order_item_condiments where order_id = '"+id+"'");
+            datas = ds.fetchAll("SELECT id,modified from order_item_condiments where order_id = '"+id+"' ORDER BY id");
             datas.forEach(function (d) {
               checksum += d.id + d.modified;
             });
 
-            datas = ds.fetchAll("SELECT id,modified from order_promotions where order_id = '"+id+"'");
+            datas = ds.fetchAll("SELECT id,modified from order_promotions where order_id = '"+id+"' ORDER BY id");
             datas.forEach(function (d) {
               checksum += d.id + d.modified;
             });

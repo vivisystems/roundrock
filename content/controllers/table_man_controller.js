@@ -146,7 +146,8 @@
                 newTable = tableModel.save(newTable);
 
                 // add table_status
-                var newTableStatus = {table_id:newTable.id, table_no: table_no};
+                // var newTableStatus = {table_id:newTable.id, table_no: table_no};
+                var newTableStatus = {table_no: table_no};
                 this._getTableStatusModel().id = '';
                 newTableStatus = this._getTableStatusModel().save(newTableStatus);
 
@@ -200,7 +201,8 @@
                 newTableStatus = tableStatusModel.save(newTableStatus);
                 delete tableStatusModel;
                 */
-                var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
+                // var newTableStatus = {id:table.table_status_id ,table_id:table.id, table_no: table.table_no};
+                var newTableStatus = {id:table.table_status_id, table_no: table.table_no};
                 this._getTableStatusModel().id = table.table_status_id;
                 this._getTableStatusModel().save(newTableStatus);
 

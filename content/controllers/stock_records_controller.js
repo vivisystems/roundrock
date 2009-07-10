@@ -48,6 +48,9 @@
 
         list: function() {
 
+            // sync stock record before list, if machine not master.
+            this.StockRecord.syncAllStockRecords();
+            
             var stockRecords = this.StockRecord.find('all', {order: 'products.no', recursive: 1});
 
             stockRecords.forEach(function(stock) {
@@ -591,11 +594,18 @@
     };
     
     GeckoJS.Controller.extend(__controller__);
+
+    // mainWindow register stock initial
+    var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+
+    if (mainWindow === window) {
+
+        window.addEventListener('load', function() {
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if(main) main.addEventListener('afterInitial', function() {
+                main.requestCommand('initial', null, 'StockRecords');
+            });
+        }, false);
+    }
     
-    window.addEventListener('load', function() {
-        var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('afterInitial', function() {
-            main.requestCommand('initial', null, 'StockRecords');
-        });
-    }, false);
 })();

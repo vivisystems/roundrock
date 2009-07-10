@@ -10,20 +10,29 @@
         
         _fileName: 'rpt_your_order',
         
+        _report_title: '',
+        _report_title_message: 'vivipos.fec.reportpanels.yourorder.label',
+        
         _reportWidthTextBoxId: 'report_width',
         
         _fieldPickerScrollPanelId: 'fieldpickerscrollpanel',
         _fieldPickerPanelId: 'field_picker_panel',
         _fieldPickerBox: 'field_picker_box',
+        _removeReportButtonId: 'remove_report',
         
+        _preference_key: 'yourorder',
         _field_pref_prefix: 'vivipos.fec.report.yourorder.field',
         _setting_pref: 'vivipos.fec.report.yourorder.settings',
+        _selected_indices_pref: 'vivipos.fec.report.yourorder.selectedindices',
+        _file_name_pref: 'vivipos.fec.report.yourorder.filename',
+        _report_panel_pref_prefix: 'vivipos.fec.reportpanels',
+        _reportPanelPreference: {},
         
         _setting_form: 'settings',
         
         _fields: null,
         _fields_array: null,
-        _selectedFieldIncies: null,
+        _selectedFieldIndecies: null,
         _pickedFields: null,
 
         _set_reportRecords: function( limit ) {
@@ -229,12 +238,12 @@
             // contruct pickedFields array.
             this._readFieldsFromPref();
             var pickedFields = this._pickedFields = [];
-            this._fields_array.forEach( function( field ) {
-                if ( field.ispicked == "true" )
-                    pickedFields.push( field );
-            } );
             
-            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.yourorder.label' );
+            this._selectedFieldIndecies.forEach( function( index ) {
+                pickedFields.push( this._fields_array[ parseInt( index, 10 ) ] );
+            }, this );
+            
+            this._reportRecords.head.title = this._report_title;
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminal_no;
@@ -331,14 +340,15 @@
                 this._fields = GeckoJS.Configure.read( this._field_pref_prefix );
                 if ( this._fields )
                     this._fields_array = GeckoJS.BaseObject.getValues( this._fields );
-                    
-                this._fields_array.sort( function( a, b ) {
-                    a = parseInt( a.order, 10 );
-                    b = parseInt( b.order, 10 );
-                    if ( a > b ) return 1;
-                    else if ( a < b ) return -1;
-                    return 0;
-                } );
+                if ( this._fields_array ) {
+                    this._fields_array.sort( function( a, b ) {
+                        a = parseInt( a.order, 10 );
+                        b = parseInt( b.order, 10 );
+                        if ( a > b ) return 1;
+                        else if ( a < b ) return -1;
+                        return 0;
+                    } );
+                }
             }
         },
         
@@ -348,25 +358,11 @@
             
             this._readFieldsFromPref();
             
-            this._selectedFieldIncies = [];
-            for ( var i = 0; i < this._fields_array.length; i++ )
-                if ( this._fields_array[ i ].ispicked == "true" )
-                    this._selectedFieldIncies.push( i );
+            this._selectedFieldIndecies = GeckoJS.BaseObject.unserialize(
+                GeckoJS.Configure.read( this._selected_indices_pref )
+            );
 
-            $.popupPanel ( this._fieldPickerPanelId, { fields: this._fields_array, selectedItems: this._selectedFieldIncies } );
-            /*
-            var fieldPickerPanelView = new GeckoJS.NSITreeViewArray( this._fields_array );
-            fieldPickerScrollPanel.datasource = fieldPickerPanelView;
-            fieldPickerScrollPanel.selectedItems = this._selectedFieldIncies;
-            
-            var fieldPickerBox = document.getElementById( this._fieldPickerBox );
-            fieldPickerBox.width = this._mainScreenWidth + 'px';
-            fieldPickerBox.height = this._mainScreenHeight + 'px';
-            
-            var fieldPickerPanel = document.getElementById( this._fieldPickerPanelId );
-            //fieldPickerPanel.sizeTo( this._mainScreenWidth, this._mainScreenHeight );
-            fieldPickerPanel.openPopup();
-            */
+            $.popupPanel( this._fieldPickerPanelId, { fields: this._fields_array, selectedItems: this._selectedFieldIndecies } );
         },
         
         dismissFieldPicker: function() {
@@ -374,25 +370,112 @@
             var fieldPickerScrollPanel = document.getElementById( this._fieldPickerScrollPanelId );
             var selectedItems = fieldPickerScrollPanel.selectedItems;
             
-            this._fields_array.forEach( function( field ) {
-                field.ispicked = "";
-            } );
-            
-            var fields = this._fields_array;
-            selectedItems.forEach( function( item ) {
-                fields[ parseInt( item, 10 ) ].ispicked = "true";
-            } );
-            
-            GeckoJS.Configure.write( this._field_pref_prefix, this._fields );
+            GeckoJS.Configure.write(
+                this._selected_indices_pref,
+                GeckoJS.BaseObject.serialize( selectedItems )
+            );
 
             $.hidePanel( this._fieldPickerPanelId, true );
         },
         
         saveSettings: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to save these settings?' ) ) )
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
+            var inputObj = {
+                input0: this._reportPanelPreference.label || "",
+                require0: true,
+                input1: this._exportedFileName,
+                require1: true,
+                alphanumeric1: true
+            };
+
+            GREUtils.Dialog.openWindow(
+                this.topmostWindow,
+                aURL,
+                _( 'Saving Properties' ),
+                features,
+                _( 'Saving Properties' ),
+                '',
+                _( 'Report Name' ),
+                _( 'Report ID(Alphanumeric)' ),
+                inputObj
+            );
+            
+            if ( inputObj.ok && inputObj.input0 && inputObj.input1 ) {
+                var settingPref = this._setting_pref;
+                
+                // for file name.
+                var fileNamePref;
+                var fileName = inputObj.input1;
+                
+                // flag indicating if we are going to create a new report.
+                var isCreatingReport = inputObj.input0 != this._reportPanelPreference.label;
+                
+                if ( isCreatingReport ) {
+                    var label = inputObj.input0;
+                    
+                    var newReportPrefKey = GeckoJS.String.uuid();
+                    
+                    settingPref = settingPref.replace( this._preference_key, newReportPrefKey );
+                    var reportPanelPref = this._report_panel_pref_prefix + "." + newReportPrefKey;
+                    
+                    // Register new report by adding preference.
+                    // for report panel.
+                    var reportPanelPreference = GREUtils.extend( {}, this._reportPanelPreference ); // not doing so will bring about reference problem.
+                    reportPanelPreference.label = label;
+                    reportPanelPreference.key = newReportPrefKey;
+                    GeckoJS.Configure.write( reportPanelPref, reportPanelPreference );
+                    
+                    // for selected fields.
+                    var selectedIndices = GeckoJS.Configure.read( this._selected_indices_pref );
+                    var selectedIndicesPref = this._selected_indices_pref.replace( this._preference_key, newReportPrefKey );
+                    GeckoJS.Configure.write( selectedIndicesPref, selectedIndices );
+                    
+                    // for fileName.
+                    fileNamePref = this._file_name_pref.replace( this._preference_key, newReportPrefKey );
+                } else { // not gonna generate a new report.
+                    // for fileName.
+                    fileNamePref = this._file_name_pref.replace( this._preference_key, this._reportPanelPreference.key );
+                    this._exportedFileName = fileName;
+                }
+                
+                // for fileName.
+                GeckoJS.Configure.write( fileNamePref, fileName );
+                
+                // for setting.
+                GeckoJS.Configure.write( settingPref, GeckoJS.FormHelper.serialize( this._setting_form ) );
+                
+                if ( isCreatingReport ) {
+                    GREUtils.Dialog.alert(
+                        this.topmostWindow,
+                        '',
+                        _( 'New report' ) + ' ' + label + ' ' + _( 'has been generated' ) + '.'
+                    );
+                    
+                    // refresh the report panel so that ppl can approach the created report.
+                    opener.refreshPanel();
+                    doOKButton(); // close this report first.
+                }
+            } else {
+                return;
+            }
+        },
+        
+        removeReport: function() {
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, '', _( 'Are you sure you want to remove this report?' ) ) )
                 return;
                 
-            GeckoJS.Configure.write( this._setting_pref, GeckoJS.FormHelper.serialize( this._setting_form ) );
+            try {
+                GeckoJS.Configure.remove( this._setting_pref ); // remove settings.
+                GeckoJS.Configure.remove( this._selected_indices_pref ); // remove info. about selected fields.
+                GeckoJS.Configure.remove( this._report_panel_pref_prefix + '.' + this._preference_key ); // remove report button.
+            } catch ( e ) {
+                dump( e );
+            } finally {
+                // refresh the report panel so that ppl can approach the created report.
+                opener.refreshPanel();
+                doOKButton(); // close this report first.
+            }
         },
         
         load: function() {
@@ -410,6 +493,34 @@
             document.getElementById( 'end_date' ).value = end;
             
             document.getElementById( this._reportWidthTextBoxId ).disabled = true;
+            
+            // Get preferences from report.js for this report.
+            this._reportPanelPreference = window.arguments[ 0 ];
+            
+            if ( this._reportPanelPreference.key == this._preference_key ) { // if it is the root report, say, origin your order report.
+                document.getElementById( this._removeReportButtonId ).hidden = true;
+                // Use proper report title.
+                this._report_title = _( this._report_title_message );
+            } else {
+                // Use proper preference key.
+                this._selected_indices_pref = this._selected_indices_pref.replace( this._preference_key, this._reportPanelPreference.key );
+                this._setting_pref =  this._setting_pref.replace( this._preference_key, this._reportPanelPreference.key );
+                this._file_name_pref =  this._file_name_pref.replace( this._preference_key, this._reportPanelPreference.key );
+                this._preference_key = this._reportPanelPreference.key;
+                
+                // Use proper report title.
+                this._report_title = this._reportPanelPreference.label;
+            }
+            
+            // Use proper file name.
+            var fileName = GeckoJS.Configure.read( this._file_name_pref );
+            if ( fileName )
+                this._exportedFileName = fileName;
+                
+            // Retrieve field indices.
+            this._selectedFieldIndecies = GeckoJS.BaseObject.unserialize(
+                GeckoJS.Configure.read( this._selected_indices_pref )
+            );
             
             // initialize the settings according to the preference.
             var settings = GeckoJS.Configure.read( this._setting_pref );
