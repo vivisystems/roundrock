@@ -8,12 +8,10 @@
         // determine if initialization has taken place by checking for the presence
         // of '.initialized' file under user profile
         var profPath = GeckoJS.Configure.read('ProfD');
-        var initMarker = new GeckoJS.File(profPath + '/.initialized');
+        var initMarker = new GeckoJS.File(profPath + '/.runsetup');
         var firstRunMarker = new GeckoJS.File(profPath + '/.firstrun');
 
-        if (!initMarker.exists()) {
-
-            //alert('test');
+        if (initMarker.exists()) {
             
             var aURL = 'chrome://viviecr/content/setup_wizard.xul';
             var aName = _('VIVIPOS Setup');
@@ -21,6 +19,7 @@
             var aArguments = {initialized: false, restart: false, restarted: false};
 
             GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
+            
             while (aArguments.restart) {
                 aArguments.restart = false;
                 aArguments.restarted = true;
@@ -33,7 +32,7 @@
 
             if (aArguments.initialized) {
                 // carry out initialization tasks and restart application
-                initMarker.create();
+                initMarker.remove();
 
                 // create first run marker
                 firstRunMarker.create();
@@ -70,10 +69,12 @@
         if (firstRunMarker.exists()) {
             firstRunMarker.remove();
 
+            var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
+
             // remove user.js
             GREUtils.File.remove(profPath + '/user.js');
             
-            if (GREUtils.Dialog.confirm(this.topmostWindow,
+            if (GREUtils.Dialog.confirm(topwin,
                                          _('Initial Setup'),
                                          _('Welcome to VIVIPOS. If you have prepared product data in comma-separated vector (CSV) format, ' +
                                            'you can easily import them into the terminal. Would you like to go to product import/export screen now?'))) {
