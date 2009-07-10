@@ -453,11 +453,8 @@
                     );
                     
                     // refresh the report panel so that ppl can approach the created report.
-                    
-                    //window.launchReport( opener );
-                    this.log( this.dump( opener.window ) );
-                    //opener.window.launchReport( opener.window.document );doOKButton();
-                    //opener.doOKButton();
+                    doOKButton(); // close this report first.
+                    GeckoJS.Observer.notify( null, "RefreshReportPanel", "refresh" ); // notify reportPanel.js to refresh the report panel.
                 }
             } else {
                 return;

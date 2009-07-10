@@ -1,4 +1,4 @@
-(function(){
+( function() {
 
     var width = 0 , height = 0;
     var isShowing = false;
@@ -39,7 +39,22 @@
         data = new GeckoJS.ArrayQuery(data).orderBy("label asc");
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
 
-        document.getElementById('imagePanel').datasource = window.viewHelper;
+        var imagePanel = document.getElementById('imagePanel');
+        if ( imagePanel )
+            imagePanel.datasource = window.viewHelper;
+        
+        // add Observer to listen to refresh signal from your report panel.
+        var self = this;
+        this.observer = GeckoJS.Observer.newInstance( {
+            topics: [ "RefreshReportPanel" ],
+
+            observe: function( aSubject, aTopic, aData ) {
+                if ( aData == "refresh" ) {
+                    startup(); // renew the data since we have generated a new report.
+                    imagePanel.showPopup();
+                }
+            }
+        } ).register();
     }
 
     window.openModel = function openModel(url, name, args) {
@@ -67,4 +82,4 @@
 
     window.addEventListener('load', startup, true);
 
-})();
+} )();
