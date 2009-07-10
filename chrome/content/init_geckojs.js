@@ -135,12 +135,17 @@
  
         try {
             if (GREUtils.isLinux()) {
-                GREUtils.File.run("/sbin/shutdown", ["-P", "now"], true);
+                // waiting 3 secs for dispatch shutdownEvent.
+                // GREUtils.File.run("/sbin/shutdown", ["-P", "now"], true);
+                GREUtils.File.run( "/bin/sh", [ '-c', '/bin/sync; /bin/sleep 3; /sbin/shutdown -P now;' ], false );
             }else if (GREUtils.isWindow()) {
-                GREUtils.File.run("C:\\Windows\\System32\\shutdown.exe", ["-s","-t", "3"], true);
+                GREUtils.File.run("C:\\Windows\\System32\\shutdown.exe", ["-s","-t", "3"], false);
             }else {
-                
+
             }
+            // quit application
+            GREUtils.quitApplication();
+
             return true;
         }catch (e) {
             alert(e);

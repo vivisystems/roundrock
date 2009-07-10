@@ -5722,7 +5722,18 @@ GeckoJS.Configure.prototype.remove = function(key, savePref){
         prefServices.deleteBranch(key);
         
     }
-    
+
+    var mPrefService = this.mPrefService ;
+
+    // Save preference file after one 1/2 second to delay in case another preference changes at same time as first
+    this.mTimer.cancel();
+    this.mTimer.initWithCallback({
+        notify:function (aTimer) {
+            mPrefService.savePrefFile(null);
+        }
+        }, 500, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
+
+
     this.events.dispatch("remove", key);
 };
 
@@ -11415,11 +11426,14 @@ GeckoJS.ArrayQuery.prototype.buildFilterFunction = function (condition) {
                     var tt = custO[sa]["condCol"].split('.');
                     
                     try {
+                        var rr = null;
                         tt.forEach(function(tcol){
-                            if(r1[tcol]) {
-                                x = r1[tcol];
+                            if(rr == null) rr = r1;
+                            if(rr[tcol]) {
+                                rr = rr[tcol];
                             }
                         });
+                        x = rr;
                     }catch(e){
                         
                     }

@@ -250,6 +250,15 @@
             }
 
 
+            //
+            // Try to kill osd from run_vivipos script
+            // XXXX has better way?
+            try {
+                GREUtils.File.run( "/bin/sh", [ '-c', '/usr/bin/pkill aosd_cat;' ], true );
+            }catch(e) {
+            }
+            
+
         },
     
         shutdown: function(){

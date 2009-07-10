@@ -9,6 +9,7 @@ RETVAL=127;
 DIR=`dirname $0`
 DATABASE=/data/databases
 SQLITE3=/usr/bin/sqlite3
+export DISPLAY=:0
 
 #
 # do sqlite vacuum 
@@ -33,13 +34,18 @@ do_integrity_check()
     for i in $DATABASE/*.sqlite; do
                 dbname=`basename $i`
                 /usr/bin/aosd_cat -F "Sans 20"  -y -120 -d 600000 "integrity check (${dbname})..." &
+                echo "`date +"%Y-%m-%d %H:%M:%S"` :   integrity_check [${dbname}]" >> ${DIR}/log/vivipos.log
+
 		result=`$SQLITE3 $i "PRAGMA integrity_check"`
                 pkill aosd_cat
 		if [ "$result" != "ok" ]; then
-                    /usr/bin/aosd_cat -y -120 -d 4000 "Rebuilding ..." &
-			$SQLITE3 $i ".dump" | $SQLITE3 $i.tmp
-                        cp $i.tmp $i
-                        rm -f $i.tmp
+                    /usr/bin/aosd_cat -F "Sans 20"  -y -80 -d 600000 "Rebuilding (${dbname})..." &
+                    echo "`date +"%Y-%m-%d %H:%M:%S"` :   rebuilding [${dbname}]" >> ${DIR}/log/vivipos.log
+
+                    $SQLITE3 $i ".dump" | $SQLITE3 $i.tmp
+                    cp $i.tmp $i
+                    rm -f $i.tmp
+                    pkill aosd_cat
 		fi
     done
 
@@ -58,7 +64,8 @@ do_disk_usage_check()
 
 # for loop runing vivipos forever
 while [ $RETVAL != 0 ]; do
-    /usr/bin/aosd_cat -d 8000 "Starting VIVIPOS ......" &
+
+    echo "`date +"%Y-%m-%d %H:%M:%S"` : Starting VIVIPOS FROM [run_vivipos]" >> ${DIR}/log/vivipos.log
 
     # do_vacuum
 
@@ -67,8 +74,13 @@ while [ $RETVAL != 0 ]; do
 
 	do_disk_usage_check
 
+    echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" >> ${DIR}/log/vivipos.log
+
+    /usr/bin/aosd_cat -F "Sans 24" -y -320 -d 800000  "Starting VIVIPOS ......" &
     ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
     RETVAL=$?
+
+    echo "`date +"%Y-%m-%d %H:%M:%S"` : Exit VIVIPOS [${RETVAL}]" >> ${DIR}/log/vivipos.log
 
 done
 
