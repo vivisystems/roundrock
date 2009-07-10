@@ -235,173 +235,168 @@
                     case "model": {
                             try {
                                 var result = tableTmp.find('all', {limit:99999});
+
                                 var saveFile = new GeckoJS.File(fileName, true);
                                 var charSet = document.getElementById('import_export_charset').value;
                                 var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
                                 saveFile.setOutputCharset(charSetValues[charSet]);
                                 saveFile.open("w");
 
-                                var isFirstRow = true;
                                 var columns = [];
+
+                                var buf = "";
+                                switch(model) {
+                                    case "condiments": {
+                                            columns = [
+                                                'name',
+                                                'condiment_group_id',
+                                                'price',
+                                                'id',
+                                                'button_color',
+                                                'font_size',
+                                                'preset'
+                                            ];
+                                            break;
+                                    }
+                                    case "condimentgroups": {
+                                            columns = [
+                                                'name',
+                                                'id',
+                                                'seltype',
+                                                'newline'
+                                            ];
+                                            break;
+                                    }
+                                    case "plugroups": {
+                                            columns = [
+                                                'name',
+                                                'id',
+                                                'description',
+                                                'visible',
+                                                'link_department',
+                                                'link_group',
+                                                'display_order',
+                                                'button_color',
+                                                'font_size',
+                                                'routing'
+                                            ];
+                                            break;
+                                    }
+                                    case "products": {
+                                            columns = [
+                                                'no',
+                                                'name',
+                                                'cate_no',
+                                                'rate',
+                                                'id',
+                                                'cond_group',
+                                                'link_group',
+                                                'barcode',
+                                                'buy_price',
+                                                'stock',
+                                                'min_stock',
+                                                'memo',
+                                                'min_sale_qty',
+                                                'sale_unit',
+                                                'tare',
+                                                'scale',
+                                                'setmenu',
+                                                'level_enable1',
+                                                'price_level1',
+                                                'halo1',
+                                                'lalo1',
+                                                'level_enable2',
+                                                'price_level2',
+                                                'halo2',
+                                                'lalo2',
+                                                'level_enable3',
+                                                'price_level3',
+                                                'halo3',
+                                                'lalo3',
+                                                'level_enable4',
+                                                'price_level4',
+                                                'halo4',
+                                                'lalo4',
+                                                'level_enable5',
+                                                'price_level5',
+                                                'halo5',
+                                                'lalo5',
+                                                'level_enable6',
+                                                'price_level6',
+                                                'halo6',
+                                                'lalo6',
+                                                'level_enable7',
+                                                'price_level7',
+                                                'halo7',
+                                                'lalo7',
+                                                'level_enable8',
+                                                'price_level8',
+                                                'halo8',
+                                                'lalo8',
+                                                'level_enable9',
+                                                'price_level9',
+                                                'halo9',
+                                                'lalo9',
+                                                'auto_maintain_stock',
+                                                'return_stock',
+                                                'force_condiment',
+                                                'force_memo',
+                                                'single',
+                                                'visible',
+                                                'button_color',
+                                                'font_size',
+                                                'age_verification',
+                                                'icon_only',
+                                                'alt_name1',
+                                                'alt_name2',
+                                                'manual_adjustment_only',
+                                                'append_empty_btns',
+                                                'display_order'
+                                            ];
+                                            break;
+                                    }
+                                    case "categories": {
+                                            columns = [
+                                                'no',
+                                                'name',
+                                                'rate',
+                                                'id',
+                                                'visible',
+                                                'sale_unit',
+                                                'scale',
+                                                'button_color',
+                                                'font_size',
+                                                'cansale',
+                                                'display_order'
+                                            ];
+                                            break;
+                                    }
+                                    case "setitems": {
+                                            columns = [
+                                                "pluset_no",
+                                                "label",
+                                                "sequence",
+                                                "id",
+                                                "preset_no",
+                                                "quantity",
+                                                "baseprice",
+                                                "linkgroup_id",
+                                                "reduction"
+                                            ];
+                                            break;
+                                    }
+                                    default: {
+                                            columns = GeckoJS.BaseObject.getKeys(row[tableTmp.name]);
+                                    }
+                                }
+
+                                buf = columns.join('","');
+                                buf = '"'+buf+'"';
+
+                                saveFile.write(buf+"\n");
 
                                 result.forEach(function(row) {
                                     updateProgress();
-
-                                    var buf = "";
-                                    if (isFirstRow) {
-                                        switch(model) {
-                                            case "condiments": {
-                                                    columns = [
-                                                        'name',
-                                                        'condiment_group_id',
-                                                        'price',
-                                                        'id',
-                                                        'button_color',
-                                                        'font_size',
-                                                        'preset'
-                                                    ];
-                                                    break;
-                                            }
-                                            case "condimentgroups": {
-                                                    columns = [
-                                                        'name',
-                                                        'id',
-                                                        'seltype',
-                                                        'newline'
-                                                    ];
-                                                    break;
-                                            }
-                                            case "plugroups": {
-                                                    columns = [
-                                                        'name',
-                                                        'description',
-                                                        'visible',
-                                                        'link_department',
-                                                        'link_group',
-                                                        'display_order',
-                                                        'id',
-                                                        'button_color',
-                                                        'font_size',
-                                                        'routing'
-                                                    ];
-                                                    break;
-                                            }
-                                            case "products": {
-                                                    columns = [
-                                                        'name',
-                                                        'no',
-                                                        'cate_no',
-                                                        'rate',
-                                                        'cond_group',
-                                                        'link_group',
-                                                        'id',
-                                                        'barcode',
-                                                        'buy_price',
-                                                        'stock',
-                                                        'min_stock',
-                                                        'memo',
-                                                        'min_sale_qty',
-                                                        'sale_unit',
-                                                        'tare',
-                                                        'scale',
-                                                        'setmenu',
-                                                        'level_enable1',
-                                                        'price_level1',
-                                                        'halo1',
-                                                        'lalo1',
-                                                        'level_enable2',
-                                                        'price_level2',
-                                                        'halo2',
-                                                        'lalo2',
-                                                        'level_enable3',
-                                                        'price_level3',
-                                                        'halo3',
-                                                        'lalo3',
-                                                        'level_enable4',
-                                                        'price_level4',
-                                                        'halo4',
-                                                        'lalo4',
-                                                        'level_enable5',
-                                                        'price_level5',
-                                                        'halo5',
-                                                        'lalo5',
-                                                        'level_enable6',
-                                                        'price_level6',
-                                                        'halo6',
-                                                        'lalo6',
-                                                        'level_enable7',
-                                                        'price_level7',
-                                                        'halo7',
-                                                        'lalo7',
-                                                        'level_enable8',
-                                                        'price_level8',
-                                                        'halo8',
-                                                        'lalo8',
-                                                        'level_enable9',
-                                                        'price_level9',
-                                                        'halo9',
-                                                        'lalo9',
-                                                        'auto_maintain_stock',
-                                                        'return_stock',
-                                                        'force_condiment',
-                                                        'force_memo',
-                                                        'single',
-                                                        'visible',
-                                                        'button_color',
-                                                        'font_size',
-                                                        'age_verification',
-                                                        'icon_only',
-                                                        'alt_name1',
-                                                        'alt_name2',
-                                                        'manual_adjustment_only',
-                                                        'append_empty_btns',
-                                                        'display_order'
-                                                    ];
-                                                    break;
-                                            }
-                                            case "categories": {
-                                                    columns = [
-                                                        'no',
-                                                        'name',
-                                                        'visible',
-                                                        'id',
-                                                        'rate',
-                                                        'sale_unit',
-                                                        'scale',
-                                                        'button_color',
-                                                        'font_size',
-                                                        'cansale',
-                                                        'display_order'
-                                                    ];
-                                                    break;
-                                            }
-                                            case "setitems": {
-                                                    columns = [
-                                                        "pluset_no",
-                                                        "sequence",
-                                                        "label",
-                                                        "preset_no",
-                                                        "quantity",
-                                                        "baseprice",
-                                                        "linkgroup_id",
-                                                        "reduction",
-                                                        "id"
-                                                    ];
-                                                    break;
-                                            }
-                                            default: {
-                                                    columns = GeckoJS.BaseObject.getKeys(row[tableTmp.name]);
-                                            }
-                                        }
-
-                                        buf = columns.join('","');
-                                        buf = '"'+buf+'"';
-
-                                        saveFile.write(buf+"\n");
-
-                                        isFirstRow = false;
-                                    }
-
                                     var data =[];
                                     
                                     columns.forEach(function(col){
@@ -1027,10 +1022,10 @@
                                             if(!self.isValidFontSizeField(rowdata['font_size'], true)) {
                                                 errorMsgs.push(_("Product Group item %S @ row %S requires a valid font size", [pluGrpNm, i + 2]));
                                             }
-                                            if(!self.isValidBooleanField(rowdata['visible'])) {
+                                            if(!self.isValidBooleanField(rowdata['visible'], true)) {
                                                 errorMsgs.push(_("Product Group item %S @ row %S requires a valid boolean visible value", [pluGrpNm, i + 2]));
                                             }
-                                            if(!self.isValidBooleanField(rowdata['routing'])) {
+                                            if(!self.isValidBooleanField(rowdata['routing'], true)) {
                                                 errorMsgs.push(_("Product Group item %S @ row %S requires a valid routing field", [pluGrpNm, i + 2]));
                                             }
                                             if(rowdata['link_department'].length > 0) {
@@ -1192,13 +1187,13 @@
                                             if(rowdata["append_empty_btns"].length > 0 && isNaN(rowdata["append_empty_btns"])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid append empty buttons value", [prodNm, i + 2]));
                                             }
-                                            if(!self.isValidBooleanField(rowdata['scale'], false)) {
+                                            if(!self.isValidBooleanField(rowdata['scale'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid boolean scale value", [prodNm, i + 2]));
                                             }
                                             if(isNaN(rowdata['tare'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid tare value", [prodNm, i + 2]));
                                             }
-                                            if(!self.isValidSaleUnitField(rowdata['sale_unit'], false)) {
+                                            if(!self.isValidSaleUnitField(rowdata['sale_unit'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid sale unit", [prodNm, i + 2]));
                                             }
                                             break;
@@ -1231,10 +1226,10 @@
                                                     cateIds.push(rowdata['id']);
                                                 }
                                             }
-                                            if(!self.isValidBooleanField(rowdata['visible'])) {
+                                            if(!self.isValidBooleanField(rowdata['visible'], true)) {
                                                 errorMsgs.push(_("Department item %S @ row %S requires a valid boolean visible value", [cateNm, i + 2]));
                                             }
-                                            if(!self.isValidBooleanField(rowdata['cansale'])) {
+                                            if(!self.isValidBooleanField(rowdata['cansale'], true)) {
                                                 errorMsgs.push(_("Department item %S @ row %S requires a valid boolean cansale value", [cateNm, i + 2]));
                                             }
                                             if(!self.isValidButtonColorField(rowdata['button_color'], "department", true)) {
@@ -1252,10 +1247,10 @@
                                                     errorMsgs.push(_("Department item %S @ row %S requires a valid tax rate", [cateNm, i + 2]));
                                                 }
                                             }
-                                            if(!self.isValidBooleanField(rowdata['scale'], false)) {
+                                            if(!self.isValidBooleanField(rowdata['scale'], true)) {
                                                 errorMsgs.push(_("Department item %S @ row %S requires a valid boolean scale value", [cateNm, i + 2]));
                                             }
-                                            if(!self.isValidSaleUnitField(rowdata['sale_unit'], false)) {
+                                            if(!self.isValidSaleUnitField(rowdata['sale_unit'], true)) {
                                                 errorMsgs.push(_("Department item %S @ row %S requires a valid sale unit", [cateNm, i + 2]));
                                             }
                                             break;
@@ -1704,6 +1699,8 @@
             catch (e) {
                 NotifyUtils.error(_('Format error detected in import file [%S]!', [this._datas[index].filename]));
                 this.log(e);
+                waitPanel.hidePopup();
+                return;
             }
             finally {
                 
