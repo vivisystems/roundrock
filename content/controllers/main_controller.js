@@ -1080,6 +1080,15 @@
             }
         },
 
+        wizardTest: function() {
+            var aURL = 'chrome://viviecr/content/setup_wizard.xul';
+            var aName = _('VIVIPOS Setup');
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var aArguments = {initialized: false, restart: false, restarted: false};
+            
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
+        },
+        
         suspendLoadTest: function(data) {
             this._suspendLoadTest = true;
         },
