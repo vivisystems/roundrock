@@ -59,7 +59,6 @@
         pageid="language"
 		label="&wizard.page.language;"
 		description="&wizard.page.language.description;"
-        onpageshow="$do('initLocaleKbmap', null, 'SetupWizard')"
         onpageadvanced="$do('setLocaleKbmap', null, 'SetupWizard')"
         entry="display list of supported locales"
         advance="activate selected locale if different from previous selection"
