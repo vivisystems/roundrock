@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-
-<?xml-stylesheet href="chrome://viviecr/skin/user/numberpad.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/layout.css" type="text/css"?>
+
+<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
+
+<?xul-overlay href="chrome://viviecr/content/overlays/Retail_functionPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/Retail_toolbarOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/Retail_numberPadOverlay.xul" ?>
 
 <overlay id="retailLayoutOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script src='chrome://viviecr/content/layouts/retail/retail_layout_controller.js'/>
 
     <box id="main-container">
 
@@ -30,9 +45,7 @@
 
             <box id="rightPanel" class="block-gd" orient="vertical" flex="1">
                 <box orient="vertical" class="block-u" flex="1">
-                    <box class="nopad">
-                    <numberpad id="multinumberpad" class="fe-numberpad" target="null" onkeypress="$do('keypress', event, 'Keypad');" />
-                    </box>
+                    <box id="retailNumberPadContainer" flex="1" />
                     <box id="retailFunctionPanelContainer" flex="1" />
                 </box>
             </box>

@@ -25,11 +25,13 @@
 
             this._device = GeckoJS.Controller.getInstanceByName('Devices');
             var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
-            var printerChoice = selectedDevices['journal-print-template'];
+            if (selectedDevices) {
+                var printerChoice = selectedDevices['journal-print-template'];
 
-            this._printTemplate = this._device.getSelectedDevices()['receipt-' + printerChoice + '-template'];
-            this._previewTemplate = selectedDevices['journal-preview-template'];
-
+                this._printTemplate = this._device.getSelectedDevices()['receipt-' + printerChoice + '-template'];
+                this._previewTemplate = selectedDevices['journal-preview-template'];
+            }
+            
             // add Observer for startTrainingMode event.
             var self = this;
             this.observer = GeckoJS.Observer.newInstance( {

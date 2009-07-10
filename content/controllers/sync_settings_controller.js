@@ -56,7 +56,7 @@
 
             try {
 
-                var ntpConf = new GeckoJS.File('/tmp/ntp.conf');
+                var ntpConf = new GeckoJS.File('/etc/ntp.conf');
                 ntpConf.open("r");
                 var ntpBuf = ntpConf.read();
                 ntpConf.close();

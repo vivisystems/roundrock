@@ -75,7 +75,7 @@
 
         destroy: function() {
             // dump('stocks destroy \n');
-            this.observer.unregister();
+            if (this.observer) this.observer.unregister();
         },
 
         checkStock: function(action, qty, item, clearWarning) {
@@ -103,8 +103,8 @@
                 // get the stock quantity;
                 var stock = this.StockRecord.getStockById(item.no);
                 if ( stock === false ) {
-                    NotifyUtils.warn( _( 'The stock record seems not existent!' ) );
-                    return false;
+                    NotifyUtils.warn( _( 'Stock control is active for this item [%S] but stock information does not exist', [item.name] ) );
+                    return true;
                 }
 
                 this.log('checkStock: ' + item.name + '('+qty+') , stock = ' + stock);
@@ -168,7 +168,7 @@
                     var ordItem = obj.items[ o ];
                     //var item = this.Product.findById( ordItem.id );
                     var item = productsById[ordItem.id];
-                    
+                    alert(this.dump(item));
                     if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
                         
                         datas.push({id: item.no+'', quantity: ordItem.current_qty});
@@ -188,7 +188,8 @@
                 }
 
                 // only call model once to decrease stock records .
-                this.StockRecord.decreaseStockRecords(datas);
+                if (datas && datas.length > 0)
+                    this.StockRecord.decreaseStockRecords(datas);
 
             } catch ( e ) {
                 this.log('ERROR', 'decStock error' +  e );

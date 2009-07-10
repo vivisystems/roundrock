@@ -1,27 +1,30 @@
 <!ENTITY wizard.title "VIVIPOS Setup">
 <!ENTITY wizard.page.welcome "VIVIPOS Setup - Welcome">
+<!ENTITY wizard.page.welcome.title "Welcome to the Setup Wizard">
 <!ENTITY wizard.page.welcome.description "This screen displays corporate logo and misc. legal/corporate disclaimers/announcements in English">
-<!ENTITY wizard.page.language "VIVIPOS Setup - Language Selection">
+<!ENTITY wizard.page.language "Language Selection">
 <!ENTITY wizard.page.language.description "This screen allows user to choose from a list of supported locales and keyboard mappings">
 <!ENTITY wizard.page.language.locale "Locale">
 <!ENTITY wizard.page.language.kbmap "Keyboard">
-<!ENTITY wizard.page.location "VIVIPOS Setup - Location Selection">
+<!ENTITY wizard.page.language.more "MORE...">
+<!ENTITY wizard.page.location "Location Selection">
 <!ENTITY wizard.page.location.description "This screen allows user to choose from a list of locations with custom configurations">
-<!ENTITY wizard.page.timezone "VIVIPOS Setup - Timezone">
+<!ENTITY wizard.page.timezone "Timezone">
 <!ENTITY wizard.page.timezone.description "This screen allows user to set timezone">
-<!ENTITY wizard.page.datetime "VIVIPOS Setup - Date/Time">
+<!ENTITY wizard.page.datetime "Date/Time">
 <!ENTITY wizard.page.datetime.description "This screen allows user to set date/time">
-<!ENTITY wizard.page.sector "VIVIPOS Setup - Sector Selection">
+<!ENTITY wizard.page.sector "Sector Selection">
 <!ENTITY wizard.page.sector.description "This screen allows user to select a sector-specific configuration">
 <!ENTITY wizard.page.sector.screenshot "Screen Shot">
-<!ENTITY wizard.page.storeinfo "VIVIPOS Setup - Store Information">
+<!ENTITY wizard.page.storeinfo "Store Information">
 <!ENTITY wizard.page.storeinfo.description "This screen allows user to fill in store information">
-<!ENTITY wizard.page.login "VIVIPOS Setup - User Accounts">
+<!ENTITY wizard.page.login "User Accounts">
 <!ENTITY wizard.page.login.description "This screen prompts the user to select default login account and set administrator password">
 <!ENTITY wizard.page.login.defaultuser "You can select an account to automatically log into.">
 <!ENTITY wizard.page.login.adminpassword "Please set the administrator password">
-<!ENTITY wizard.page.tax "VIVIPOS Setup - Tax Information">
+<!ENTITY wizard.page.tax "Tax Information">
 <!ENTITY wizard.page.tax.description "This screen allows user to select a default tax rate">
 <!ENTITY wizard.page.tax.defaulttax "You can select a default tax rate to apply to products and departments.">
 <!ENTITY wizard.page.finish "VIVIPOS Setup - Finish">
 <!ENTITY wizard.page.finish.description "Congratulations! You have successfully completed the setup process. Please press 'Finish' to proceed.">
+<!ENTITY wizard.page.copyright "copyright c 2009 Firich Enterprises Co., Ltd. All Rights Reserved.">

@@ -8,14 +8,100 @@
 
         // configuration keys
         PackageKey: 'vivipos.fec.registry.package',
+        BasePackage: 'viviecr',
 
         // package configuration
         Packages: [],
         Locations: [],
         Sectors: {},
 
+        screenwidth: GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800,
+        screenheight: GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600,
+
+        currentLocale: null,
         selectedLocale: null,
+        availabelLocales: [],
+
+        currentKbmap: null,
         selectedKbmap: null,
+        availableKbmaps: [  {label: _('(kbmap)Albania'), value: 'al', image: ''},
+                            {label: _('(kbmap)Andorra'), value: 'ad', image: ''},
+                            {label: _('(kbmap)Arabic'), value: 'ara', image: ''},
+                            {label: _('(kbmap)Armenia'), value: 'am', image: ''},
+                            {label: _('(kbmap)Azerbaijan'), value: 'az', image: ''},
+                            {label: _('(kbmap)Bangladesh'), value: 'bd', image: ''},
+                            {label: _('(kbmap)Belarus'), value: 'by', image: ''},
+                            {label: _('(kbmap)Belgium'), value: 'be', image: ''},
+                            {label: _('(kbmap)Bosnia and Herzegovina'), value: 'ba', image: ''},
+                            {label: _('(kbmap)Brazil'), value: 'br', image: ''},
+                            {label: _('(kbmap)Bulgaria'), value: 'bg', image: ''},
+                            {label: _('(kbmap)Canada'), value: 'ca', image: ''},
+                            {label: _('(kbmap)China'), value: 'cn', image: ''},
+                            {label: _('(kbmap)Congo, Democratic Republic of the'), value: 'cd', image: ''},
+                            {label: _('(kbmap)Croatia'), value: 'hr', image: ''},
+                            {label: _('(kbmap)Czechia'), value: 'cz', image: ''},
+                            {label: _('(kbmap)Denmark'), value: 'dk', image: ''},
+                            {label: _('(kbmap)Esperanto'), value: 'epo', image: ''},
+                            {label: _('(kbmap)Estonia'), value: 'ee', image: ''},
+                            {label: _('(kbmap)Ethiopia'), value: 'et', image: ''},
+                            {label: _('(kbmap)Faroe Islands'), value: 'fo', image: ''},
+                            {label: _('(kbmap)Finland'), value: 'fi', image: ''},
+                            {label: _('(kbmap)France'), value: 'fr', image: ''},
+                            {label: _('(kbmap)Georgia'), value: 'ge', image: ''},
+                            {label: _('(kbmap)Germany'), value: 'de', image: ''},
+                            {label: _('(kbmap)Ghana'), value: 'gh', image: ''},
+                            {label: _('(kbmap)Greece'), value: 'gr', image: ''},
+                            {label: _('(kbmap)Guinea'), value: 'gn', image: ''},
+                            {label: _('(kbmap)Hungary'), value: 'hu', image: ''},
+                            {label: _('(kbmap)Iceland'), value: 'is', image: ''},
+                            {label: _('(kbmap)India'), value: 'in', image: ''},
+                            {label: _('(kbmap)Iran'), value: 'ir', image: ''},
+                            {label: _('(kbmap)Iraq'), value: 'iq', image: ''},
+                            {label: _('(kbmap)Ireland'), value: 'ie', image: ''},
+                            {label: _('(kbmap)Israel'), value: 'il', image: ''},
+                            {label: _('(kbmap)Italy'), value: 'it', image: ''},
+                            {label: _('(kbmap)Japan'), value: 'jp', image: ''},
+                            {label: _('(kbmap)Japan (PC-98xx Series)'), value: 'nec_vndr_jp', image: ''},
+                            {label: _('(kbmap)Kazakhstan'), value: 'kz', image: ''},
+                            {label: _('(kbmap)Korea, Republic of'), value: 'kr', image: ''},
+                            {label: _('(kbmap)Kyrgyzstan'), value: 'kg', image: ''},
+                            {label: _('(kbmap)Laos'), value: 'la', image: ''},
+                            {label: _('(kbmap)Latin American'), value: 'latam', image: ''},
+                            {label: _('(kbmap)Lithuania'), value: 'lt', image: ''},
+                            {label: _('(kbmap)Latvia'), value: 'lv', image: ''},
+                            {label: _('(kbmap)Macedonia'), value: 'mk', image: ''},
+                            {label: _('(kbmap)Maldives'), value: 'mv', image: ''},
+                            {label: _('(kbmap)Malta'), value: 'mt', image: ''},
+                            {label: _('(kbmap)Maori'), value: 'mao', image: ''},
+                            {label: _('(kbmap)Mongolia'), value: 'mn', image: ''},
+                            {label: _('(kbmap)Montenegro'), value: 'me', image: ''},
+                            {label: _('(kbmap)Morocco'), value: 'ma', image: ''},
+                            {label: _('(kbmap)Nepal'), value: 'np', image: ''},
+                            {label: _('(kbmap)Netherlands'), value: 'nl', image: ''},
+                            {label: _('(kbmap)Nigeria'), value: 'ng', image: ''},
+                            {label: _('(kbmap)Norway'), value: 'no', image: ''},
+                            {label: _('(kbmap)Pakistan'), value: 'pk', image: ''},
+                            {label: _('(kbmap)Poland'), value: 'pl', image: ''},
+                            {label: _('(kbmap)Portugal'), value: 'pt', image: ''},
+                            {label: _('(kbmap)Romania'), value: 'ro', image: ''},
+                            {label: _('(kbmap)Russia'), value: 'ru', image: ''},
+                            {label: _('(kbmap)Serbia'), value: 'rs', image: ''},
+                            {label: _('(kbmap)Slovakia'), value: 'sk', image: ''},
+                            {label: _('(kbmap)Slovenia'), value: 'si', image: ''},
+                            {label: _('(kbmap)South Africa'), value: 'za', image: ''},
+                            {label: _('(kbmap)Spain'), value: 'es', image: ''},
+                            {label: _('(kbmap)Sweden'), value: 'se', image: ''},
+                            {label: _('(kbmap)Switzerland'), value: 'ch', image: ''},
+                            {label: _('(kbmap)Syria'), value: 'sy', image: ''},
+                            {label: _('(kbmap)Tajikistan'), value: 'tj', image: ''},
+                            {label: _('(kbmap)Thailand'), value: 'th', image: ''},
+                            {label: _('(kbmap)Turkey'), value: 'tr', image: ''},
+                            {label: _('(kbmap)Ukraine'), value: 'ua', image: ''},
+                            {label: _('(kbmap)United Kingdom'), value: 'gb', image: ''},
+                            {label: _('(kbmap)USA'), value: 'us', image: ''},
+                            {label: _('(kbmap)Uzbekistan'), value: 'uz', image: ''},
+                            {label: _('(kbmap)Vietnam'), value: 'vn', image: ''} ],
+
         selectedLocation: null,
         selectedTimezone: null,
         selectedSector: null,
@@ -28,27 +114,61 @@
 
         args: null,
 
-        screenwidth: GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800,
-        screenheight: GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600,
-
         /*
          * load
          */
 
         load: function(args) {
-
+            
             this.args = args;
 
             var locationListObj = document.getElementById('locationlist');
             var resolution = this.screenwidth + 'x' + this.screenheight;
 
+            // initialize locales
+            var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
+            var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+            var toolkitChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIToolkitChromeRegistry);
+
+            this.selectedLocale = xulChromeReg.getSelectedLocale(this.BasePackage);
+            this.currentLocale = this.selectedLocale;
+
+            var availableLocaleElements = toolkitChromeReg.getLocalesForPackage(this.BasePackage);
+            var availableLocales = [];
+            while(availableLocaleElements.hasMore()) {
+
+                var locale = availableLocaleElements.getNext();
+
+                availableLocales.push({value: locale,
+                                       label: _('(locale)' + locale),
+                                       image: 'chrome://vivipos/skin/flags/tb_' + locale + '.png'});
+            }
+            this.availableLocales = availableLocales;
+            
+            // initialize kbmaps
+            var kb = 'us';
+            try {
+                var kbFile = new GeckoJS.File('/etc/kbmap');
+                if (kbFile.exists()) {
+                    kbFile.open('r');
+                    kb =  kbFile.readLine() || 'us';
+                    kbFile.close();
+                }
+                delete kbFile
+            }catch(e) {
+            }
+
+            this.selectedKbmap = kb;
+            this.currentKbmap = kb;
+            
             // initialize locations
             var data = this.Package.loadData(resolution);
             this.Packages = data.packages;
             this.Locations = data.locations;
             this.Sectors = data.sectors;
-            
-            this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
+
+            locationListObj.datasource = this.Locations;
+            //this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
 
             // initialize timezone
             var timezones = document.getElementById('timezones');
@@ -59,6 +179,7 @@
                 var wizard = document.getElementById('wizard');
                 wizard.advance('language');
             }
+
         },
 
         advanceOK: function() {
@@ -66,38 +187,45 @@
             wizard.canAdvance = true;
         },
 
+        
         /*
          *  wizard page "language"
          */
 
         initLocaleKbmap: function() {
-            // make sure selectedItem is visible
-            var locale = document.getElementById('locale');
-            locale.listbox.ensureIndexIsVisible(locale.selectedIndex);
+            
+            // populate locale popup panel
+            var localeList = document.getElementById('localescrollablepanel');
+            if (localeList) {
+                localeList.datasource = this.availableLocales;
+            }
 
-            // make sure selectedItem is visible
-            var kbmap = document.getElementById('kbmap');
-            kbmap.listbox.ensureIndexIsVisible(kbmap.selectedIndex);
+            // populate kbmap popup panel
+            var kbmapList = document.getElementById('kbmapscrollablepanel');
+            if (kbmapList) {
+                kbmapList.datasource = this.availableKbmaps;
+            }
         },
 
         setLocaleKbmap: function() {
 
-            var locale = document.getElementById('locale');
-            var kbmap = document.getElementById('kbmap');
             var requireRestart = false;
+            var localeObj = document.getElementById('locale');
+            var kbmapObj = document.getElementById('kbmap');
 
-            this.selectedLocale = locale.selectedLocale;
             // change XUL and OS locales
-            if (this.selectedLocale != locale.currentLocale) {
-                locale.changeOSLocale();
-                locale.changeLocale();
+            if (localeObj.selectedLocale != localeObj.currentLocale) {
+
+                localeObj.changeLocale();
+                localeObj.changeOSLocale();
+                
                 requireRestart = true;
             }
+            this.currentLocale = this.selectedLocale;
 
-            this.selectedKbmap = kbmap.selectedKbmap;
             // change keyboard mapping
-            if (this.selectedKbmap != kbmap.currentKbmap) {
-                kbmap.changeOSKbmap();
+            if (kbmapObj.selectedKbmap != kbmapObj.currentKbmap) {
+                kbmapObj.changeOSKbmap();
                 requireRestart = true;
             }
 
@@ -117,7 +245,7 @@
 
         checkLocationSelection: function() {
             var wizard = document.getElementById('wizard');
-            wizard.canAdvance = this.lastLocation;
+            return wizard.canAdvance = this.lastLocation;
         },
 
         selectLocation: function (index) {
@@ -127,7 +255,10 @@
             else {
                 this.lastLocation = null;
             }
-            this.checkLocationSelection();
+            if (this.checkLocationSelection()) {
+                var wizard = document.getElementById('wizard');
+                if (wizard) wizard.advance();
+            }
         },
 
         setLocation: function() {
@@ -141,7 +272,6 @@
             }
 
             this.selectedLocation = this.lastLocation;
-            var location = this.selectedLocation.location;
 
             // read timezone
             if (this.selectedLocation.timezone) {
@@ -415,7 +545,10 @@
         },
         
         loadUsers: function() {
-            var userListObj = document.getElementById('userlist');
+            var userListObj = document.getElementById('userscrollablepanel');
+
+            this.selectedDefaultUser = null;
+            
             var model = new UserModel();
             var users = model.find('all', {order: 'displayname'});
 
@@ -424,16 +557,19 @@
                               _('An error was encountered while retrieving user accounts (error code %S).', [model.lastError]));
                 return;
             }
-
-            userListObj.selectedIndex = -1;
-            while (userListObj.getRowCount() > 0) {
-                userListObj.removeItemAt(0);
+            
+            if (userListObj) {
+                userListObj.datasource = users;
             }
+        },
 
-            if (users) {
-                users.forEach(function(user) {
-                    userListObj.appendItem(user.displayname, user.id);
-                }, this)
+        selectUser: function(index) {
+            var userListObj = document.getElementById('userscrollablepanel');
+            if (userListObj) {
+                var users = userListObj.datasource.data;
+                if (users && users.length > 0 && index > -1 && index < users.length) {
+                    this.selectedDefaultUser = users[index].id;
+                }
             }
         },
 
@@ -481,10 +617,7 @@
         },
 
         setLogin: function() {
-            // get default user
-            var userListObj = document.getElementById('userlist');
-            this.selectedDefaultUser = userListObj.value;
-
+            
             var passwordTextbox = document.getElementById('admin_password');
 
             if (passwordTextbox) this.adminPassword = passwordTextbox.value;
@@ -505,7 +638,7 @@
             var taxListObj = document.getElementById('taxlist');
             var taxes = this.Tax.getTaxList();
             var taxEntries = [];
-
+            
             var type_str;
             var rate_str;
             var rate_type_str;
@@ -672,7 +805,7 @@
 
         cancelSetup: function(data) {
 
-            if (GREUtils.Dialog.confirm(window, _('VIVIPOS Setup'),
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('VIVIPOS Setup'),
                                         _('Unless you plan to restore the terminal from a previously taken backup, ' +
                                           'you are strongly advised to complete the setup process to ensure that the terminal operates properly. ' +
                                           'Are you sure you want to cancel and exit from the setup wizard now?'))) {
