@@ -31,8 +31,9 @@
                 icon: el.icon,
                 path: el.path,
                 roles: el.roles,
-                label: label
-                };
+                label: label,
+                key: key || ""
+            };
             data.push(entry);
         });
         data = new GeckoJS.ArrayQuery(data).orderBy("label asc");
@@ -52,7 +53,7 @@
         var data = panel.datasource.data;
         var index = panel.currentIndex;
         var pref = data[index];
-        var aArguments = "";
+        var aArguments = pref;
 
         if (isShowing) {
             // nothings to do

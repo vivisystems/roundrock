@@ -332,7 +332,6 @@
                 if (lastModified >= this.lastModified) {
                     this.lastModified = lastModified;
                 }
-
                 
             }else {
 
@@ -453,7 +452,7 @@
         getStockRecordByProductNo: function(product_no) {
             return this.get('first', {
                 fields: ['quantity'],
-                conditions: 'id = "' + product_no + '"'
+                conditions: 'stock_records.id = "' + product_no + '"'
             } );
         }
     };
