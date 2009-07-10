@@ -294,9 +294,9 @@
 
             var tableOrder = this.getTableOrders(this._tableOrderLastTime);
 
-            if (this._tableStatuses)
-                var tableStatus = this._tableStatuses;
-            else
+//            if (this._tableStatuses)
+//                var tableStatus = this._tableStatuses;
+//            else
                 var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
 
             if (this._tableStatusList && this._tableStatusList.length > 0) {
