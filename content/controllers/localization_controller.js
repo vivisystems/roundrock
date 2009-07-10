@@ -427,7 +427,7 @@
                     // remove existing items
                     localelist.removeAllItems();
 
-                    // add available packages
+                    // add available locales
                     for (var i = 0; i < pkg.locales.length; i++) {
                         var locale = pkg.locales[i];
                         var item = localelist.appendItem(locale, locale);
@@ -502,9 +502,15 @@
                 var text = workingObj.value;
                 var index = this._currentEntryIndex;
                 var pkg = this._currentPkg;
-
+                var re = /[<>&"\\]/;
                 if (text != null) text = GeckoJS.String.trim(text);
-                
+                if (re.test(text)) {
+                    if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                                 _('Localization Editor'),
+                                                 _('You have entered one or more special characters (<>&"\\) that may cause display problems. Are you sure you still want to modify this translation?'))) {
+                        return;
+                    }
+                }
                 if (index > -1 && pkg && this._strings) {
                     var strEntry = this._strings[index];
                     if (strEntry) {
