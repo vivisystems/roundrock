@@ -40,7 +40,6 @@
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
 
         document.getElementById('imagePanel').datasource = window.viewHelper;
-
     }
 
     window.openModel = function openModel(url, name, args) {
@@ -63,7 +62,6 @@
             openModel(pref['path'], "Preferences_" + pref['label'], aArguments);
             $('#loading').hide();
             isShowing = false;
-
         }
     };
 

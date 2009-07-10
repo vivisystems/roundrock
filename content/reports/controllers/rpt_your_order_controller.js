@@ -23,6 +23,7 @@
         _preference_key: 'yourorder',
         _field_pref_prefix: 'vivipos.fec.report.yourorder.field',
         _setting_pref: 'vivipos.fec.report.yourorder.settings',
+        _selected_indices_pref: 'vivipos.fec.report.yourorder.selectedindices',
         _file_name_pref: 'vivipos.fec.report.yourorder.filename',
         _report_panel_pref_prefix: 'vivipos.fec.reportpanels',
         _reportPanelPreference: {},
@@ -31,7 +32,7 @@
         
         _fields: null,
         _fields_array: null,
-        _selectedFieldIncies: null,
+        _selectedFieldIndecies: null,
         _pickedFields: null,
 
         _set_reportRecords: function( limit ) {
@@ -237,10 +238,10 @@
             // contruct pickedFields array.
             this._readFieldsFromPref();
             var pickedFields = this._pickedFields = [];
-            this._fields_array.forEach( function( field ) {
-                if ( field.ispicked == "true" )
-                    pickedFields.push( field );
-            } );
+            
+            this._selectedFieldIndecies.forEach( function( index ) {
+                pickedFields.push( this._fields_array[ parseInt( index, 10 ) ] );
+            }, this );
             
             this._reportRecords.head.title = this._report_title;
             this._reportRecords.head.start_time = start_str;
@@ -357,25 +358,11 @@
             
             this._readFieldsFromPref();
             
-            this._selectedFieldIncies = [];
-            for ( var i = 0; i < this._fields_array.length; i++ )
-                if ( this._fields_array[ i ].ispicked == "true" )
-                    this._selectedFieldIncies.push( i );
+            this._selectedFieldIndecies = GeckoJS.BaseObject.unserialize(
+                GeckoJS.Configure.read( this._selected_indices_pref )
+            );
 
-            $.popupPanel( this._fieldPickerPanelId, { fields: this._fields_array, selectedItems: this._selectedFieldIncies } );
-            /*
-            var fieldPickerPanelView = new GeckoJS.NSITreeViewArray( this._fields_array );
-            fieldPickerScrollPanel.datasource = fieldPickerPanelView;
-            fieldPickerScrollPanel.selectedItems = this._selectedFieldIncies;
-            
-            var fieldPickerBox = document.getElementById( this._fieldPickerBox );
-            fieldPickerBox.width = this._mainScreenWidth + 'px';
-            fieldPickerBox.height = this._mainScreenHeight + 'px';
-            
-            var fieldPickerPanel = document.getElementById( this._fieldPickerPanelId );
-            //fieldPickerPanel.sizeTo( this._mainScreenWidth, this._mainScreenHeight );
-            fieldPickerPanel.openPopup();
-            */
+            $.popupPanel( this._fieldPickerPanelId, { fields: this._fields_array, selectedItems: this._selectedFieldIndecies } );
         },
         
         dismissFieldPicker: function() {
@@ -383,16 +370,10 @@
             var fieldPickerScrollPanel = document.getElementById( this._fieldPickerScrollPanelId );
             var selectedItems = fieldPickerScrollPanel.selectedItems;
             
-            this._fields_array.forEach( function( field ) {
-                field.ispicked = "";
-            } );
-            
-            var fields = this._fields_array;
-            selectedItems.forEach( function( item ) {
-                fields[ parseInt( item, 10 ) ].ispicked = "true";
-            } );
-            
-            GeckoJS.Configure.write( this._field_pref_prefix, this._fields );
+            GeckoJS.Configure.write(
+                this._selected_indices_pref,
+                GeckoJS.BaseObject.serialize( selectedItems )
+            );
 
             $.hidePanel( this._fieldPickerPanelId, true );
         },
@@ -427,7 +408,10 @@
                 var fileNamePref;
                 var fileName = inputObj.input1;
                 
-                if ( inputObj.input0 != this._reportPanelPreference.label ) {
+                // flag indicating if we are going to create a new report.
+                var isCreatingReport = inputObj.input0 != this._reportPanelPreference.label;
+                
+                if ( isCreatingReport ) {
                     var label = inputObj.input0;
                     
                     var newReportPrefKey = GeckoJS.String.uuid();
@@ -442,29 +426,14 @@
                     reportPanelPreference.key = newReportPrefKey;
                     GeckoJS.Configure.write( reportPanelPref, reportPanelPreference );
                     
-                    // for fields.
-                    var fields = GeckoJS.Configure.read( this._field_pref_prefix );
-                    var fieldPrefPrefix = this._field_pref_prefix.replace( this._preference_key, newReportPrefKey );
-                    
-                    var new_fields = {};
-                    for ( field in fields )
-                        new_fields[ field ] = GREUtils.extend( {}, fields[ field ] );
-                    GeckoJS.Configure.write( fieldPrefPrefix, new_fields );
+                    // for selected fields.
+                    var selectedIndices = GeckoJS.Configure.read( this._selected_indices_pref );
+                    var selectedIndicesPref = this._selected_indices_pref.replace( this._preference_key, newReportPrefKey );
+                    GeckoJS.Configure.write( selectedIndicesPref, selectedIndices );
                     
                     // for fileName.
                     fileNamePref = this._file_name_pref.replace( this._preference_key, newReportPrefKey );
-                    
-                    GREUtils.Dialog.alert(
-                        this.topmostWindow,
-                        '',
-                        _( 'New report' ) + ' ' + label + ' ' + _( 'has been generated' ) + '.'
-                    );
-                    
-                    // refresh the report panel.
-                    //opener.viewHelper.tree.invalidate();
-                    opener.doOKButton();
                 } else { // not gonna generate a new report.
-                
                     // for fileName.
                     fileNamePref = this._file_name_pref.replace( this._preference_key, this._reportPanelPreference.key );
                     this._exportedFileName = fileName;
@@ -475,6 +444,21 @@
                 
                 // for setting.
                 GeckoJS.Configure.write( settingPref, GeckoJS.FormHelper.serialize( this._setting_form ) );
+                
+                if ( isCreatingReport ) {
+                    GREUtils.Dialog.alert(
+                        this.topmostWindow,
+                        '',
+                        _( 'New report' ) + ' ' + label + ' ' + _( 'has been generated' ) + '.'
+                    );
+                    
+                    // refresh the report panel so that ppl can approach the created report.
+                    
+                    //window.launchReport( opener );
+                    this.log( this.dump( opener.window ) );
+                    //opener.window.launchReport( opener.window.document );doOKButton();
+                    //opener.doOKButton();
+                }
             } else {
                 return;
             }
@@ -485,9 +469,9 @@
                 return;
                 
             try {
-                GeckoJS.Configure.remove( this._setting_pref );
-                GeckoJS.Configure.remove( this._field_pref_prefix );
-                GeckoJS.Configure.remove( this._report_panel_pref_prefix + '.' + this._preference_key );
+                GeckoJS.Configure.remove( this._setting_pref ); // remove settings.
+                GeckoJS.Configure.remove( this._selected_indices_pref ); // remove info. about selected fields.
+                GeckoJS.Configure.remove( this._report_panel_pref_prefix + '.' + this._preference_key ); // remove report button.
             } catch ( e ) {
                 dump( e );
             } finally {
@@ -520,7 +504,7 @@
                 this._report_title = _( this._report_title_message );
             } else {
                 // Use proper preference key.
-                this._field_pref_prefix = this._field_pref_prefix.replace( this._preference_key, this._reportPanelPreference.key );
+                this._selected_indices_pref = this._selected_indices_pref.replace( this._preference_key, this._reportPanelPreference.key );
                 this._setting_pref =  this._setting_pref.replace( this._preference_key, this._reportPanelPreference.key );
                 this._file_name_pref =  this._file_name_pref.replace( this._preference_key, this._reportPanelPreference.key );
                 this._preference_key = this._reportPanelPreference.key;
@@ -533,6 +517,11 @@
             var fileName = GeckoJS.Configure.read( this._file_name_pref );
             if ( fileName )
                 this._exportedFileName = fileName;
+                
+            // Retrieve field indices.
+            this._selectedFieldIndecies = GeckoJS.BaseObject.unserialize(
+                GeckoJS.Configure.read( this._selected_indices_pref )
+            );
             
             // initialize the settings according to the preference.
             var settings = GeckoJS.Configure.read( this._setting_pref );
