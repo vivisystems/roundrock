@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-09 11:42+0800\n"
+"POT-Creation-Date: 2009-07-09 16:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2305,6 +2305,21 @@ msgstr "Product item %S @ row %S requires a valid manual adjustment only value"
 msgid "Product item %S @ row %S requires a valid append empty buttons value"
 msgstr "Product item %S @ row %S requires a valid append empty buttons value"
 
+msgid "Product item %S @ row %S requires a valid boolean scale value"
+msgstr "Product item %S @ row %S requires a valid boolean scale value"
+
+msgid "Product item %S @ row %S requires a valid tare value"
+msgstr "Product item %S @ row %S requires a valid tare value"
+
+msgid "Product item %S @ row %S requires a valid sale unit"
+msgstr "Product item %S @ row %S requires a valid sale unit"
+
+msgid "Department item %S @ row %S requires a valid boolean scale value"
+msgstr "Department item %S @ row %S requires a valid boolean scale value"
+
+msgid "Department item %S @ row %S requires a valid sale unit"
+msgstr "Department item %S @ row %S requires a valid sale unit"
+
 msgid "Department item %S @ row %S requires a name"
 msgstr "Department item %S @ row %S requires a name"
 
@@ -4269,7 +4284,7 @@ msgid "Export Error"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:117
-#: ../..//content/controllers/import_export_controller.js:641
+#: ../..//content/controllers/import_export_controller.js:650
 msgid "Import/Export already in progress"
 msgstr ""
 
@@ -4281,49 +4296,49 @@ msgstr ""
 msgid "Please select a data category to export"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:628
-#: ../..//content/controllers/import_export_controller.js:743
-#: ../..//content/controllers/import_export_controller.js:1688
+#: ../..//content/controllers/import_export_controller.js:637
+#: ../..//content/controllers/import_export_controller.js:748
+#: ../..//content/controllers/import_export_controller.js:1729
 msgid "Yes"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:628
-#: ../..//content/controllers/import_export_controller.js:743
-#: ../..//content/controllers/import_export_controller.js:1688
+#: ../..//content/controllers/import_export_controller.js:637
+#: ../..//content/controllers/import_export_controller.js:748
+#: ../..//content/controllers/import_export_controller.js:1729
 msgid " (%S)"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:641
-#: ../..//content/controllers/import_export_controller.js:646
+#: ../..//content/controllers/import_export_controller.js:650
+#: ../..//content/controllers/import_export_controller.js:655
 msgid "Import Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:646
+#: ../..//content/controllers/import_export_controller.js:655
 msgid "Import device and/or folder not found [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:652
+#: ../..//content/controllers/import_export_controller.js:661
 msgid "Please select a data category to import"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1704
+#: ../..//content/controllers/import_export_controller.js:1745
 msgid "Department"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1712
+#: ../..//content/controllers/import_export_controller.js:1753
 msgid "Product"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1720
+#: ../..//content/controllers/import_export_controller.js:1761
 #: ../..//content/controllers/plus_controller.js:509
 msgid "Product Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1728
+#: ../..//content/controllers/import_export_controller.js:1769
 msgid "Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1736
+#: ../..//content/controllers/import_export_controller.js:1777
 msgid "Condiment"
 msgstr ""
 

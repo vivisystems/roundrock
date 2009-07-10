@@ -85,7 +85,7 @@
                     var importDir = new GeckoJS.Dir(deviceMount+'/' + this._importFolder, true);
                     var exportDir = new GeckoJS.Dir(deviceMount+'/' + this._exportFolder + '/' + terminalPath, true);
                     var rootDir = new GeckoJS.Dir(deviceMount+'/', true);
-                    var scriptDir = new GeckoJS.Dir('/data/scripts', true);
+                    var scriptDir = new GeckoJS.Dir('/data/scripts/import_export', true);
 
                     if (importDir.exists() && exportDir.exists() && rootDir.exists() && scriptDir.exists()) {
 
@@ -167,10 +167,6 @@
                             }
                             case "condiments": {
                                     var tableTmp = new CondimentModel();
-                                    break;
-                            }
-                            case "promotions": {
-                                    var tableTmp = new PromotionModel();
                                     break;
                             }
                             case "setitems": {
@@ -297,6 +293,8 @@
                                                         'memo',
                                                         'min_sale_qty',
                                                         'sale_unit',
+                                                        'tare',
+                                                        'scale',
                                                         'setmenu',
                                                         'level_enable1',
                                                         'price_level1',
@@ -359,6 +357,8 @@
                                                         'visible',
                                                         'id',
                                                         'rate',
+                                                        'sale_unit',
+                                                        'scale',
                                                         'button_color',
                                                         'font_size',
                                                         'cansale',
@@ -539,6 +539,15 @@
                                                                     }catch(e){
                                                                         var val = "";
                                                                     }
+                                                                    if(val == "") {
+                                                                        var queryString = "SELECT name FROM plugroups WHERE id ='" + row[tableTmp.name][col] + "';";
+                                                                        var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                                        try {
+                                                                            var val = result[0].name;
+                                                                        }catch(e){
+                                                                            var val = "";
+                                                                        }
+                                                                    }
                                                                 }
                                                                 break;
                                                         }
@@ -689,10 +698,6 @@
                             }
                             case "condiments": {
                                     var tableTmp = new CondimentModel();
-                                    break;
-                            }
-                            case "promotions": {
-                                    var tableTmp = new PromotionModel();
                                     break;
                             }
                             case "setitems": {
@@ -1178,6 +1183,15 @@
                                             if(rowdata["append_empty_btns"].length > 0 && isNaN(rowdata["append_empty_btns"])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid append empty buttons value", [prodNm, i + 2]));
                                             }
+                                            if(!self.isValidBooleanField(rowdata['scale'], false)) {
+                                                errorMsgs.push(_("Product item %S @ row %S requires a valid boolean scale value", [prodNm, i + 2]));
+                                            }
+                                            if(isNaN(rowdata['tare'])) {
+                                                errorMsgs.push(_("Product item %S @ row %S requires a valid tare value", [prodNm, i + 2]));
+                                            }
+                                            if(!self.isValidSaleUnitField(rowdata['sale_unit'], false)) {
+                                                errorMsgs.push(_("Product item %S @ row %S requires a valid sale unit", [prodNm, i + 2]));
+                                            }
                                             break;
                                     }
                                     case "categories": {
@@ -1229,6 +1243,12 @@
                                                     errorMsgs.push(_("Department item %S @ row %S requires a valid tax rate", [cateNm, i + 2]));
                                                 }
                                             }
+                                            if(!self.isValidBooleanField(rowdata['scale'], false)) {
+                                                errorMsgs.push(_("Department item %S @ row %S requires a valid boolean scale value", [cateNm, i + 2]));
+                                            }
+                                            if(!self.isValidSaleUnitField(rowdata['sale_unit'], false)) {
+                                                errorMsgs.push(_("Department item %S @ row %S requires a valid sale unit", [cateNm, i + 2]));
+                                            }
                                             break;
                                     }
                                     case "setitems": {
@@ -1247,9 +1267,7 @@
                                                     }
                                                 }
                                             }
-                                            if(!self.isValidRequiredField(presetNo)) {
-                                                errorMsgs.push(_("Set item @ row %S requires a preset product number", [i + 2]));
-                                            } else {
+                                            if(presetNo.length > 0) {
                                                 var queryString = "SELECT id FROM products WHERE no ='" + presetNo + "';";
                                                 var result = tableTmp.getDataSource().fetchAll(queryString);
                                                 if(!result[0]) {
@@ -1273,7 +1291,11 @@
                                                 var queryString = "SELECT id FROM categories WHERE name='" + rowdata['linkgroup_id'] + "';";
                                                 var result = tableTmp.getDataSource().fetchAll(queryString);
                                                 if(!result[0]){
-                                                    errorMsgs.push(_("Set item @ row %S requires a valid category link", [i + 2]));
+                                                    var queryString2 = "SELECT id FROM plugroups WHERE name ='" + rowdata['linkgroup_id'] + "';";
+                                                    var result2 = tableTmp.getDataSource().fetchAll(queryString2);
+                                                    if(!result2[0]) {
+                                                        errorMsgs.push(_("Set item @ row %S requires a valid category link", [i + 2]));
+                                                    }
                                                 }
                                             }
                                             if(!rowdata['quantity'] || isNaN(rowdata['quantity'])) {
@@ -1422,6 +1444,12 @@
                                             if(rowdata['visible'].length < 1) {
                                                 rowdata['visible'] = "0";
                                             }
+                                            if(rowdata['scale'].length < 1) {
+                                                rowdata['scale'] = "0";
+                                            }
+                                            if(rowdata['sale_unit'].length < 1) {
+                                                rowdata['sale_unit'] = "0";
+                                            }
                                             break;
                                     }
                                     case "products": {
@@ -1484,7 +1512,13 @@
                                                 rowdata['min_sale_qty'] = "0";
                                             }
                                             if(rowdata['sale_unit'].length < 1) {
-                                                rowdata['sale_unit'] = "individually";
+                                                rowdata['sale_unit'] = "unit";
+                                            }
+                                            if(rowdata['tare'].length < 1) {
+                                                rowdata['tare'] = "0";
+                                            }
+                                            if(rowdata['scale'].length < 1) {
+                                                rowdata['scale'] = "0";
                                             }
                                             for(var y = 1;y < 10;y++) {
                                                 if(rowdata['level_enable' + y].length < 1) {
@@ -1585,6 +1619,12 @@
                                             try{
                                                 rowdata['linkgroup_id'] = data[0].id;
                                             } catch(e) {
+                                                var queryString2 = "SELECT id FROM plugroups WHERE name='" + cateNm + "';";
+                                                var data2 = tableTmp.getDataSource().fetchAll(queryString2);
+                                                try {
+                                                    rowdata['linkgroup_id'] = data[0].id;
+                                                } catch (e) {
+                                                }
                                             }
                                     }
                                     default: {
@@ -1654,6 +1694,7 @@
             }
             catch (e) {
                 NotifyUtils.error(_('Format error detected in import file [%S]!', [this._datas[index].filename]));
+                this.log(e);
             }
             finally {
                 
@@ -1778,9 +1819,10 @@
                 },
                 {
                     name: _('Promotions'),
-                    type: 'model',
-                    model: 'promotions',
-                    filename: 'promotions.csv',
+                    type: 'data',
+                    database: "/data/databases/vivipos.sqlite",
+                    filename: '',
+                    table: ["promotions"],
                     imported: '',
                     exported: ''
                 },
@@ -1800,7 +1842,7 @@
                     filename: '',
                     table: ["tables", "table_statuses", "table_regions", "table_orders", "table_bookings"],
                     imported: '',
-                    exported: '',
+                    exported: ''
                 },
                 {
                     name: _('Set Items'),
@@ -1857,11 +1899,28 @@
                 "0",
                 "1",
                 "true",
-                "false"
+                "false",
+                "null"
             ]) == -1) {
                 return false;
             }
             return true;
+        },
+
+        isValidSaleUnitField: function(field, optional) {
+            var selection = [
+                "unit",
+                "g",
+                "kg",
+                "oz",
+                "lb",
+                "ml",
+                "l",
+                "pt",
+                "qt",
+                "gal"
+            ];
+            return this.isValidChoiceField(field, selection, optional);
         },
 
         isValidFontSizeField: function(field, optional) {
