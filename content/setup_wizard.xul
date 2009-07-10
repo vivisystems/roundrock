@@ -14,6 +14,8 @@
   %Taxes;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/bindings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/wizard.css" type="text/css"?>
 
 <wizard id="wizard" class="w_main"
@@ -118,9 +120,18 @@
                     <label class="w_Title" value="02 &wizard.page.location; "></label>
                     <label class="w_desc" value="&wizard.page.location.description;"></label>
                 </vbox>
-                <vbox class="content_area">
+                <vbox class="content_area" flex="1">
                     <label value="&wizard.page.location;"/>
-           <listbox id="locationlist" seltype="single" onselect="$do('selectLocation', this.value, 'SetupWizard')"/>
+                    <viviscrollablebuttonpanel id="locationlist" flex="1"
+                                               cols="4" rows="3" labelField="label" imageField="image"
+                                               ensureVisible="true"
+                                               oncommand="$do('selectLocation',this.selectedIndex, 'SetupWizard');"
+                                               class=""
+                                               buttonClass=""
+                                               scrollUpClass="" scrollDownClass="" >
+                        <spacer flex="1" />
+                    </viviscrollablebuttonpanel>
+           <!--listbox id="locationlist" seltype="single" onselect="$do('selectLocation', this.value, 'SetupWizard')"/-->
          </vbox>
             </vbox>
         </hbox>
@@ -294,13 +305,13 @@
                         <rows>
                             <row>
                                 <label value="&users.password;" control="password"/>
-                                <textbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                <vivitextbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
                                              type="password" id="admin_password" value="" form="userForm" name="password" oninput="$do('checkPassword', null, 'SetupWizard')"
                                              onenter="event.stopPropagation(); event.preventDefault(); document.getElementById('wizard').advance('tax')"/>
                             </row>
                             <row>
                                 <label value="&users.confirm;" control="confirm"/>
-                                <textbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                <vivitextbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
                                              type="password" id="admin_confirm" value="" form="userForm" name="confirm" oninput="$do('checkPassword', null, 'SetupWizard')"
                                              onenter="event.stopPropagation(); event.preventDefault(); document.getElementById('wizard').advance('tax')"/>
                             </row>

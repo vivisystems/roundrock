@@ -114,9 +114,6 @@
 
         args: null,
 
-        screenwidth: GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800,
-        screenheight: GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600,
-
         /*
          * load
          */
@@ -169,8 +166,9 @@
             this.Packages = data.packages;
             this.Locations = data.locations;
             this.Sectors = data.sectors;
-            
-            this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
+
+            locationListObj.datasource = this.Locations;
+            //this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
 
             // initialize timezone
             var timezones = document.getElementById('timezones');
@@ -428,7 +426,7 @@
 
         checkLocationSelection: function() {
             var wizard = document.getElementById('wizard');
-            wizard.canAdvance = this.lastLocation;
+            return wizard.canAdvance = this.lastLocation;
         },
 
         selectLocation: function (index) {
@@ -438,7 +436,10 @@
             else {
                 this.lastLocation = null;
             }
-            this.checkLocationSelection();
+            if (this.checkLocationSelection()) {
+                var wizard = document.getElementById('wizard');
+                if (wizard) wizard.advance();
+            }
         },
 
         setLocation: function() {
