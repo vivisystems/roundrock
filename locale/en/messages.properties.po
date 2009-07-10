@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-10 17:30+0800\n"
+"POT-Creation-Date: 2009-07-10 17:57+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2680,7 +2680,7 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:249
 #: ../..//content/controllers/jobs_controller.js:140
 #: ../..//content/controllers/plugroups_controller.js:179
-#: ../..//content/controllers/plus_controller.js:903
+#: ../..//content/controllers/plus_controller.js:910
 #: ../..//content/controllers/promotions_manager_controller.js:359
 #: ../..//content/controllers/taxes_controller.js:214
 #: ../..//content/controllers/users_controller.js:245
@@ -2694,7 +2694,7 @@ msgstr ""
 #: ../..//content/controllers/jobs_controller.js:140
 #: ../..//content/controllers/ledger_entry_types_controller.js:90
 #: ../..//content/controllers/plugroups_controller.js:179
-#: ../..//content/controllers/plus_controller.js:903
+#: ../..//content/controllers/plus_controller.js:910
 #: ../..//content/controllers/pricelevelschedule_controller.js:154
 #: ../..//content/controllers/promotions_manager_controller.js:359
 #: ../..//content/controllers/taxes_controller.js:214
@@ -4180,19 +4180,19 @@ msgid "An error occurred while searching for Hot Key [%S]."
 msgstr ""
 
 #: ../..//content/controllers/image_manager_controller.js:77
-#: ../..//content/controllers/import_export_controller.js:47
+#: ../..//content/controllers/import_export_controller.js:57
 #: ../..//content/controllers/systembackup_controller.js:139
 #: ../..//content/reports/controllers/components/csv_export.js:17
 msgid "Failed to execute command (%S)."
 msgstr ""
 
 #: ../..//content/controllers/image_manager_controller.js:135
-#: ../..//content/controllers/import_export_controller.js:105
+#: ../..//content/controllers/import_export_controller.js:115
 msgid "Media Not Found!"
 msgstr ""
 
 #: ../..//content/controllers/image_manager_controller.js:136
-#: ../..//content/controllers/import_export_controller.js:106
+#: ../..//content/controllers/import_export_controller.js:116
 msgid "Please attach the USB thumb drive..."
 msgstr ""
 
@@ -4278,67 +4278,67 @@ msgstr ""
 msgid "Rename Image (%S) Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:117
-#: ../..//content/controllers/import_export_controller.js:122
+#: ../..//content/controllers/import_export_controller.js:127
+#: ../..//content/controllers/import_export_controller.js:132
 msgid "Export Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:117
-#: ../..//content/controllers/import_export_controller.js:650
+#: ../..//content/controllers/import_export_controller.js:127
+#: ../..//content/controllers/import_export_controller.js:654
 msgid "Import/Export already in progress"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:122
+#: ../..//content/controllers/import_export_controller.js:132
 msgid "Export device and/or folder not found [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:128
+#: ../..//content/controllers/import_export_controller.js:138
 msgid "Please select a data category to export"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:637
-#: ../..//content/controllers/import_export_controller.js:748
-#: ../..//content/controllers/import_export_controller.js:1729
+#: ../..//content/controllers/import_export_controller.js:641
+#: ../..//content/controllers/import_export_controller.js:752
+#: ../..//content/controllers/import_export_controller.js:1751
 msgid "Yes"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:637
-#: ../..//content/controllers/import_export_controller.js:748
-#: ../..//content/controllers/import_export_controller.js:1729
+#: ../..//content/controllers/import_export_controller.js:641
+#: ../..//content/controllers/import_export_controller.js:752
+#: ../..//content/controllers/import_export_controller.js:1751
 msgid " (%S)"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:650
-#: ../..//content/controllers/import_export_controller.js:655
+#: ../..//content/controllers/import_export_controller.js:654
+#: ../..//content/controllers/import_export_controller.js:659
 msgid "Import Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:655
+#: ../..//content/controllers/import_export_controller.js:659
 msgid "Import device and/or folder not found [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:661
+#: ../..//content/controllers/import_export_controller.js:665
 msgid "Please select a data category to import"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1745
+#: ../..//content/controllers/import_export_controller.js:1767
 msgid "Department"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1753
+#: ../..//content/controllers/import_export_controller.js:1775
 msgid "Product"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1761
-#: ../..//content/controllers/plus_controller.js:509
+#: ../..//content/controllers/import_export_controller.js:1783
+#: ../..//content/controllers/plus_controller.js:516
 msgid "Product Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1769
+#: ../..//content/controllers/import_export_controller.js:1791
 msgid "Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1777
+#: ../..//content/controllers/import_export_controller.js:1799
 msgid "Condiment"
 msgstr ""
 
@@ -4643,8 +4643,8 @@ msgid "Clock In/Out"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:232
-#: ../..//content/controllers/plus_controller.js:475
-#: ../..//content/controllers/plus_controller.js:937
+#: ../..//content/controllers/plus_controller.js:482
+#: ../..//content/controllers/plus_controller.js:944
 #: ../..//content/controllers/plusearch_controller.js:144
 #: ../..//content/controllers/stock_records_controller.js:97
 #: ../..//content/controllers/table_man_controller.js:539
@@ -4926,132 +4926,132 @@ msgstr ""
 msgid "Product Group [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:411
+#: ../..//content/controllers/plus_controller.js:418
 msgid "Add New Set Item"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:411
+#: ../..//content/controllers/plus_controller.js:418
 msgid "Set Item"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:411
+#: ../..//content/controllers/plus_controller.js:418
 msgid "Label"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:487
+#: ../..//content/controllers/plus_controller.js:494
 msgid ""
 "[%S] (%S) is a product set and may not be a member of another product set."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:490
+#: ../..//content/controllers/plus_controller.js:497
 msgid "[%S] (%S) may not be a member of its own product set."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:632
+#: ../..//content/controllers/plus_controller.js:639
 msgid "Product No. must not be empty."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:636
+#: ../..//content/controllers/plus_controller.js:643
 msgid "Product Name must not be empty."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:643
+#: ../..//content/controllers/plus_controller.js:650
 msgid "The Product No. [%S] already exists; product not added"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:647
+#: ../..//content/controllers/plus_controller.js:654
 msgid ""
 "The Product Name [%S] already exists in department [%S]; product not added"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:651
+#: ../..//content/controllers/plus_controller.js:658
 msgid ""
 "The Product Name [%S] already exists in department [%S]; product not modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:660
+#: ../..//content/controllers/plus_controller.js:667
 msgid ""
 "Condiment is required but no condiment group selected; product not modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:673
+#: ../..//content/controllers/plus_controller.js:680
 msgid ""
 "Price level %S preset price [%S] is larger than HALO [%S]; product not "
 "modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:677
+#: ../..//content/controllers/plus_controller.js:684
 msgid ""
 "Price level %S preset price [%S] is less than LALO [%S]; product not modified"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:692
+#: ../..//content/controllers/plus_controller.js:699
 msgid ""
 "This product is part of product set [%S] and may not itself be a product set"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:701
+#: ../..//content/controllers/plus_controller.js:708
 msgid ""
 "Product set item [%S] does not have either default item or group configured"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:759
+#: ../..//content/controllers/plus_controller.js:766
 msgid "Add New Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:759
+#: ../..//content/controllers/plus_controller.js:766
 msgid "New Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:759
+#: ../..//content/controllers/plus_controller.js:766
 msgid "Product No."
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:759
+#: ../..//content/controllers/plus_controller.js:766
 msgid "Product Name"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:798
+#: ../..//content/controllers/plus_controller.js:805
 msgid "Product [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:864
+#: ../..//content/controllers/plus_controller.js:871
 msgid "Product [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:899
+#: ../..//content/controllers/plus_controller.js:906
 msgid "Product [%S] is part of a product set [%S] and may not be removed"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:929
+#: ../..//content/controllers/plus_controller.js:936
 msgid "Product [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:950
+#: ../..//content/controllers/plus_controller.js:957
 msgid "Product [%S] already linked to to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:964
+#: ../..//content/controllers/plus_controller.js:971
 msgid "Selected products successfully linked to product group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1367
+#: ../..//content/controllers/plus_controller.js:1374
 msgid "Product Group [%S]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1375
+#: ../..//content/controllers/plus_controller.js:1382
 msgid "Department [%S (%S)]"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1391
+#: ../..//content/controllers/plus_controller.js:1398
 msgid "Product to Clone"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1396
+#: ../..//content/controllers/plus_controller.js:1403
 msgid "Clone Product"
 msgstr ""
 
-#: ../..//content/controllers/plus_controller.js:1459
+#: ../..//content/controllers/plus_controller.js:1466
 msgid "Product [%S] cloned successfully"
 msgstr ""
 

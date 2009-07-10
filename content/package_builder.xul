@@ -74,7 +74,7 @@
                             <spacer width="5px"/>
 
                             <vbox flex="1">
-                                <vivilocaleslistbox id="localelist" package="viviecr" flex="1" seltype="multiple"/>
+                                <vivilocaleslistbox id="localelist" package="viviecr" flex="1" seltype="multiple" type="listbox"/>
                                 <textbox id="locales" default=""/>
                             </vbox>
                         </hbox>
