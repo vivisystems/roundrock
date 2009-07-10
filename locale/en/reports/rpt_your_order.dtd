@@ -12,7 +12,6 @@
 <!ENTITY rptyourorder.sortby.terminal_no "Terminal">
 <!ENTITY rptyourorder.sortby.time "Time">
 <!ENTITY rptyourorder.sortby.sequence "Sequence">
-<!ENTITY rptyourorder.sortby.invoice_no "Invoice Number">
 <!ENTITY rptyourorder.sortby.tax_subtotal "Add-on Tax">
 <!ENTITY rptyourorder.sortby.total "Net Sales">
 <!ENTITY rptyourorder.sortby.item_subtotal "Gross Sales">
