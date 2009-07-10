@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     /**
      * TableStatus Model
      */
@@ -13,7 +17,9 @@
 
         hasMany: ['TableBooking', 'TableOrder'],
 
-        behaviors: ['Sync'], // for local use when connect master fail...
+        behaviors: ['Sync', 'Training'], // for local use when connect master fail...
+
+        timeout: 15,
 
         _checkNoArray: [],
         _tableNoArray: [],
@@ -22,6 +28,7 @@
         _checkList: null,
         _tableList: null,
         _tableStatusList: null,
+        _tableStatuses: null,
         _tableOrders: null,
         _tableOrdersOrg: null,
         _tableStatusLastTime: 0,
@@ -79,7 +86,7 @@
         },
 
         requestRemoteService: function(method, url, value) {
-
+// GREUtils.log(Date.now().getTime() + " : begin requestRemoteService:::" + url);
             var reqUrl = url ;
 
             var username = this.username ;
@@ -95,6 +102,7 @@
             req.mozBackgroundRequest = true;
 
             /* Request Timeout guard */
+            var timeoutSec = this.timeout * 1000;
             var timeout = null;
             timeout = setTimeout(function() {
                 try {
@@ -103,7 +111,7 @@
                 }catch(e) {
                     // dump('timeout exception ' + e + "\n");
                 }
-            }, 15000);
+            }, timeoutSec);
 
             /* Start Request with http basic authorization */
             var data = [];
@@ -136,12 +144,19 @@
             try {
                 // Bypassing the cache
                 req.channel.loadFlags |= Components.interfaces.nsIRequest.LOAD_BYPASS_CACHE;
-
                 req.send(request_data);
                 
                 // block ui until request finish or timeout
+                var now = Date.now().getTime();
+
                 var thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
                 while(!reqStatus.finish) {
+                    thread.processNextEvent(true);
+                }
+                while (!reqStatus.finish) {
+
+                    if (Date.now().getTime() > (now+timeoutSec)) break;
+
                     thread.processNextEvent(true);
                 }
 
@@ -154,6 +169,7 @@
                 if(req)                 delete req;
                 if (reqStatus) delete reqStatus;
             }
+// GREUtils.log(Date.now().getTime() + " : end requestRemoteService:::" + url);
             return data;
 
         },
@@ -260,6 +276,8 @@
                 tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 1, order: orderby});
 
             }
+
+            this._tableStatuses = tableStatus;
 //GREUtils.log("getList:::");
 //GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
             // if table status changed, sync database...
@@ -276,7 +294,10 @@
 
             var tableOrder = this.getTableOrders(this._tableOrderLastTime);
 
-            var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
+            if (this._tableStatuses)
+                var tableStatus = this._tableStatuses;
+            else
+                var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
 
             if (this._tableStatusList && this._tableStatusList.length > 0) {
                 //
@@ -458,7 +479,7 @@
 
         transTable: function(checkObj, sourceTableNo) {
             // GREUtils.log("DEBUG", "add check...");
-
+return;
             var index = -1;
             var i = 0;
 
@@ -796,6 +817,6 @@
 
     };
 
-    var TableStatusModel = window.TableStatusModel = GeckoJS.Model.extend(__model__);
+    var TableStatusModel = window.TableStatusModel = AppModel.extend(__model__);
 
 })();

@@ -1,4 +1,8 @@
 (function() {
+    
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
 
     var __model__ = {
 
@@ -8,7 +12,7 @@
 
         belongsTo: ['Order'],
 
-        behaviors: ['Sync'],
+        behaviors: ['Sync', 'Training'],
 
         autoRestoreFromBackup: true,
 
@@ -25,13 +29,13 @@
                 }
                 else {
                     this.log('ERROR',
-                             'record could not be saved to backup: %S' + '\n' + this.dump(data));
+                             'record could not be saved to backup\n' + this.dump(data));
                 }
             }
             return r;
         }
     }
 
-    var LedgerReceiptModel = window.LedgerReceiptModel =  GeckoJS.Model.extend(__model__);
+    var LedgerReceiptModel = window.LedgerReceiptModel =  AppModel.extend(__model__);
 
 })();

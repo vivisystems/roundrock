@@ -1,9 +1,16 @@
-var OrderObjectModel = window.OrderObjectModel =  GeckoJS.Model.extend({
-    name: 'OrderObject',
+( function() {
 
-    useDbConfig: 'order',
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
     
-    belongsTo: ['Order'],
+    var OrderObjectModel = window.OrderObjectModel =  AppModel.extend({
+        name: 'OrderObject',
 
-    behaviors: ['Sync', 'Training']
-});
+        useDbConfig: 'order',
+        
+        belongsTo: ['Order'],
+
+        behaviors: ['Sync', 'Training']
+    });
+} )();

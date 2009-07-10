@@ -32,6 +32,10 @@
                 var tree = document.getElementById('plusearchscrollablepanel');
                 if (tree) tree.setAttribute('seltype', inputObj.seltype);
             }
+
+            var okBtn = document.getElementById('ok');
+            if (okBtn)
+                okBtn.setAttribute('hidden', !inputObj.select);
             
             var buf = inputObj.buffer;
             var item = inputObj.item;

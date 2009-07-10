@@ -81,13 +81,21 @@
         },
 
         load: function(barcode) {
-            
             var fields = [];
             var searchStr = this._queryStringPreprocessor(barcode);
 
             var conditions = "products.no like '%" + searchStr + "%' or products.barcode like '%" + searchStr + "%' or products.name like '%" + searchStr + "%'";
             var prodModel = new ProductModel();
-            var datas = prodModel.find('all',{fields: fields, conditions: conditions});
+            var datas = prodModel.find('all',{fields: fields, conditions: conditions, recursive: 1});
+
+            datas.forEach(function(prod) {
+                if (prod.StockRecord) {
+                    prod.stock = prod.StockRecord.quantity;
+                }
+                else {
+                    prod.stock = 0;
+                }
+            }, this);
             this._listDatas = datas;
             this.getListObj().datasource = datas;
         },
@@ -137,6 +145,7 @@
                                       _('Product [%S] Not Found!', [barcode]));
             } else if (this._listDatas.length == 1) {
                 var product = this._listDatas[0];
+                
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
                 // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
                 if (window.arguments && window.arguments[0]) {

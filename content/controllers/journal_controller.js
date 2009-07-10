@@ -29,61 +29,80 @@
 
             this._printTemplate = this._device.getSelectedDevices()['receipt-' + printerChoice + '-template'];
             this._previewTemplate = selectedDevices['journal-preview-template'];
+
+            // add Observer for startTrainingMode event.
+            var self = this;
+            this.observer = GeckoJS.Observer.newInstance( {
+                topics: [ "TrainingMode" ],
+
+                observe: function( aSubject, aTopic, aData ) {
+                    if ( aData == "start" ) {
+                        self.isTraining = true;
+                    } else if ( aData == "exit" ) {
+                        self.isTraining = false;
+                    }
+                }
+            } ).register();
         },
 
         voidOrder: function(evt) {
-            var txn = evt;
-            var order_id = txn.data.id;
-            var journal = this.getJournalByOrderId(order_id);
+            if(!this.isTraining) {
+                var txn = evt;
+                var order_id = txn.data.id;
+                var journal = this.getJournalByOrderId(order_id);
 
-            journal.void_clerk_displayname = txn.data.void_clerk_displayname;
-            journal.void_time = new Date().toGMTString() / 1000;
-            journal.void_terminal_no = GeckoJS.Session.get('terminal_no');
-            journal.status = txn.data.status;
+                journal.void_clerk_displayname = txn.data.void_clerk_displayname;
+                journal.void_time = parseInt(new Date().getTime() / 1000);
+                journal.void_terminal_no = GeckoJS.Session.get('terminal_no');
+                journal.status = txn.data.status;
 
-            this.saveJournal(journal);
+                this.saveJournal(journal);
+            }
         },
 
         submitOrder: function(evt) {
-            try{
-                var txn = evt.data;
+            if(!this.isTraining) {
+                try{
+                    var txn = evt.data;
 
-                if (txn.data.status != 1 || !txn.isClosed()) {
-                    var journal = {};
-                    journal.id = null;
-                    journal.branch = txn.data.branch;
-                    journal.terminal_no = txn.data.terminal_no;
-                    journal.order_id = txn.data.id;
-                    journal.status = txn.data.status;
-                    journal.invoice_no = txn.data.invoice_no;
-                    journal.sequence = txn.data.seq;
+                    if (txn.data.status != 1 || !txn.isClosed()) {
+                        var journal = {};
+                        journal.id = null;
+                        journal.branch = txn.data.branch;
+                        journal.terminal_no = txn.data.terminal_no;
+                        journal.order_id = txn.data.id;
+                        journal.status = txn.data.status;
+                        journal.invoice_no = txn.data.invoice_no;
+                        journal.sequence = txn.data.seq;
 
-                    //determine which directory to plan the files in
-                    var orderDate = new Date(txn.data.created * 1000);
-                    var year = orderDate.getYear() + 1900;
-                    var month = GeckoJS.String.padLeft((orderDate.getMonth() + 1), 2, 0);
-                    var date = GeckoJS.String.padLeft(orderDate.getDate(), 2, 0);
-                    journal.prn_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.prn';
-                    journal.preview_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.html';
+                        //determine which directory to plan the files in
+                        var orderDate = new Date(txn.data.created * 1000);
+                        var year = orderDate.getYear() + 1900;
+                        var month = GeckoJS.String.padLeft((orderDate.getMonth() + 1), 2, 0);
+                        var date = GeckoJS.String.padLeft(orderDate.getDate(), 2, 0);
+                        journal.prn_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.prn';
+                        journal.preview_file = year + '/' + month + '/' + date + '/' + journal.sequence + '.html';
 
-                    //produce print file
-                    var prnContent = GeckoJS.BaseObject.serialize(txn.data);
-                    var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file, true);
-                    prnFile.open("wb");
-                    prnFile.write(GREUtils.Gzip.deflate(prnContent));
-                    prnFile.close();
+                        //produce preview file
+                        var previewContent = this.getSelectedTemplateData(txn, true);
+                        var previewFile = new GeckoJS.File(this._journalPath + journal.preview_file, true);
+                        previewFile.open("wb");
+                        previewFile.write(GREUtils.Gzip.deflate(previewContent));
+                        previewFile.close();
 
-                    //produce preview file
-                    var previewContent = this.getSelectedTemplateData(txn, true);
-                    var previewFile = new GeckoJS.File(this._journalPath + journal.preview_file, true);
-                    previewFile.open("wb");
-                    previewFile.write(GREUtils.Gzip.deflate(previewContent));
-                    previewFile.close();
+                        //produce print file
+                        var prnContent = this.getSelectedTemplateData(txn, false);
+                        //var prnContent = GeckoJS.BaseObject.serialize(txn.data);
+                        var prnFile = new GeckoJS.File(this._journalPath + journal.prn_file, true);
+                        prnFile.open("wb");
+                        prnFile.write(GREUtils.Gzip.deflate(prnContent));
+                        prnFile.close();
 
-                    this.saveJournal(journal);
+                        this.saveJournal(journal);
+                    }
+                } catch (e) {
+                    this.log(-('Journal Controller submitOrder error: %', [e]));
                 }
-            } catch (e) {
-                this.log("Journal Controller submitOrder error: " + e);
             }
         },
 
@@ -99,7 +118,7 @@
             try {
                 journal = journalModel.save(journal);
             }catch(e) {
-                NotifyUtils.error(_('Journal save error ' + e));
+                this.log(_('Journal save error: %', [e]));
             }
         },
 

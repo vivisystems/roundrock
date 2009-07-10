@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     var __model__ = {
 
         name: 'ClockStamp',
@@ -17,7 +21,7 @@
             var result = this.find('first', {conditions: "username='"+username+"'", order: "created DESC"});
             if (parseInt(this.lastError) != 0) {
                 this.log('ERROR',
-                         _('An error was encountered while retrieving last timestamp (error code %S): %S', [this.lastError, this.lastErrorString]));
+                         'An error was encountered while retrieving last timestamp (error code ' + this.lastError + '): ' + this.lastErrorString);
                 return -1;
             }
             return result;
@@ -52,15 +56,15 @@
                         r = this.save(last);
                         if (!r) {
                             this.log('ERROR',
-                                     _('An error was encountered while saving clockin timestamp (error code %S): %S', [this.lastError, this.lastErrorString]));
+                                     'An error was encountered while saving clockin timestamp (error code ' + this.lastError + '): ' + this.lastErrorString);
 
                             //@db saveToBackup
                             r = this.saveToBackup(last);
                             if (r) {
-                                this.log('ERROR', _('record saved to backup'));
+                                this.log('ERROR', 'record saved to backup');
                             }
                             else {
-                                this.log('ERROR', _('record could not be saved to backup %S', ['\n' + this.dump(last)]));
+                                this.log('ERROR', 'record could not be saved to backup:\n' + this.dump(last));
                                 return false;
                             }
                         }
@@ -93,21 +97,21 @@
             r = this.save(data);
             if (!r) {
                 this.log('ERROR',
-                         _('An error was encountered while saving timestamp (error code %S): %S', [this.lastError, this.lastErrorString]));
+                         'An error was encountered while saving timestamp (error code ' + this.lastError + '): ' + this.lastErrorString);
 
                 //@db saveToBackup
                 r = this.saveToBackup(data);
                 if (r) {
-                    this.log('ERROR', _('record saved to backup'));
+                    this.log('ERROR', 'record saved to backup');
                 }
                 else {
-                    this.log('ERROR', _('record could not be saved to backup %S', ['\n' + this.dump(data)]));
+                    this.log('ERROR', 'record could not be saved to backup\n' + this.dump(data));
                 }
             }
             return r;
         }
     }
 
-    var ClockStampModel = window.ClockStampModel = GeckoJS.Model.extend(__model__);
+    var ClockStampModel = window.ClockStampModel = AppModel.extend(__model__);
     
 })();

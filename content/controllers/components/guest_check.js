@@ -255,7 +255,6 @@
 
         handleTransTable: function(evt) {
             //
-this.log("TransTable:::");
 //            this._tableStatusModel.transTable(evt.data.data);
 //
 //            this.syncClient();
@@ -275,13 +274,12 @@ this.log("TransTable:::");
 
         handleStore: function(evt) {
             //
-this.log("handleStore1:::");
             this._tableStatusModel.addCheck(evt.data.data);
-this.log("handleStore2:::");
+
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
-alert('handleStore');
+
             // restore from backup after order was submited/stored
             var order = new OrderModel();
             order.restoreOrderFromBackup();
@@ -839,19 +837,20 @@ alert('handleStore');
             var order = new OrderModel();
 
             var fields = null;
+            var conditions = null;
             
             switch (key) {
                 case 'CheckNo':
-                    var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
+                    conditions = "orders.check_no='" + no + "' AND orders.status='2'";
                     break;
                 case 'TableNo':
-                    var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
+                    conditions = "orders.table_no='" + no + "' AND orders.status='2'";
                     break;
                 case 'AllCheck':
-                    var conditions = "orders.status='2'";
+                    conditions = "orders.status='2'";
                     break;
                 case 'OrderNo':
-                    var conditions = null;
+                    conditions = "orders.sequence='" + no + "' AND orders.status='2'";
                     break;
             }
             
@@ -860,8 +859,8 @@ alert('handleStore');
             // return all store checks...
             if (notCheckStatus) return ord;
 
-            var tables = this._tableStatusModel.getTableStatusList();
-
+            // var tables = this._tableStatusModel.getTableStatusList();
+            
             var tableOrderIdx = this._tableStatusModel.getTableOrderIdx();
 
             var ordChecked = [];
@@ -1291,9 +1290,9 @@ alert('handleStore');
         },
 
         doRecallByCheck: function(order_id) {
-this.log("doRecallByCheck1:::");
+
                 var curTransaction = this.unserializeFromOrder(order_id);
-this.log("doRecallByCheck2:::");
+
                 if (curTransaction == false) {
 
                     //@todo OSD
@@ -1392,7 +1391,7 @@ this.log("doRecallByCheck2:::");
 
         doTransferByCheck: function(sourceTableNo, targetTableNo, orderId) {
             var curTransaction = null;
-this.log("doTransferByCheck0:::");
+
             curTransaction = this.doRecallByCheck(orderId);
             // curTransaction = this._controller._getTransaction();
 
@@ -1402,16 +1401,16 @@ this.log("doTransferByCheck0:::");
 
                 // this.getNewTableNo();
                 // this._controller.requestCommand('doRefreshTableStatusLight', null, 'SelectTable');
-this.log("doTransferByCheck1:::");
+
                 if (this.doStore(curTransaction)) {
 
                     // @todo OSD
                     NotifyUtils.warn(_('This order has been stored!!'));
 
                 }
-this.log("doTransferByCheck2:::");
+
                 this._tableStatusModel.transTable(curTransaction.data, sourceTableNo);
-this.log("doTransferByCheck3:::");
+
                 // dispatch changeclerk event
                 // this._controller.dispatchEvent('onStore', curTransaction);
                 this._controller.dispatchEvent('onTransTable', curTransaction);
@@ -1625,7 +1624,7 @@ this.log("doTransferByCheck3:::");
 
         unserializeFromOrder: function(order_id) {
 
-            var curTransaction = new Transaction();
+            var curTransaction = new Transaction(true); // do not get new sequence
             curTransaction.unserializeFromOrder(order_id);
 
             if (curTransaction.data == null) {

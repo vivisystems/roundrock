@@ -1,9 +1,16 @@
-var TableRegionModel = window.TableRegionModel = GeckoJS.Model.extend({
-    name: 'TableRegion',
+( function() {
 
-    useDbConfig: 'table',
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+    
+    var TableRegionModel = window.TableRegionModel = AppModel.extend({
+        name: 'TableRegion',
 
-//    hasMany: ['Table'],
+        useDbConfig: 'table',
 
-    behaviors: ['Sync']
-});
+    //    hasMany: ['Table'],
+
+        behaviors: ['Sync', 'Training']
+    });
+} )();

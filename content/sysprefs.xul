@@ -400,6 +400,7 @@
 
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
             <preference id="pref_orderweeklypack" name="vivipos.fec.settings.OrderWeeklyPack" type="int"/>
+            <preference id="pref_inventory_adjustment_retaindays" name="vivipos.fec.settings.InventoryAdjustmentRetainDays" type="int"/>
 
             <preference id="pref_requirecheckno" name="vivipos.fec.settings.RequireCheckNo" type="bool"/>
             <preference id="pref_requiretableno" name="vivipos.fec.settings.RequireTableNo" type="bool"/>
@@ -426,12 +427,10 @@
                         </menupopup>
                     </menulist>
                 </row>
-
-                <!-- row>
-                    <checkbox id="requireCheckNo" label="&orderdata.requirecheckno;" preference="pref_requirecheckno"/>
-                    <checkbox id="requireTableNo" label="&orderdata.requiretableno;" preference="pref_requiretableno"/>
-                </row -->
-
+                <row>
+                    <label value="&orderdata.inventory.adjustment.retaindays;" />
+                    <textbox preference="pref_inventory_adjustment_retaindays" id="inventoryAdjustmentRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>
+                </row>
             </rows>
         </grid>
 

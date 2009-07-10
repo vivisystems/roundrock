@@ -44,7 +44,7 @@
         <vbox flex="1" class="MainPnl">
             <tabbox class="RightTabbox" flex="1">
 
-                <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                <arrowscrollbox orient="horizontal" class="arrowScrollBox">
                     <tabs>
                         <tab id="receipt-tab" label="&devices.tab.receipt.label;"/>
                         <tab id="check1-tab" label="&devices.tab.check1.label;"/>

@@ -1,6 +1,10 @@
 (function(){
 
-    var PromotionModel = window.PromotionModel = GeckoJS.Model.extend({
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
+    var PromotionModel = window.PromotionModel = AppModel.extend({
         name: 'Promotion',
 
         getActivedPromotions: function() {

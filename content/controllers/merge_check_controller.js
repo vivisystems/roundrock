@@ -199,11 +199,13 @@
             this._sourceCheck.status = -3;
             order.saveOrder(this._sourceCheck);
             this._getTableStatusModel().addCheck(this._sourceCheck);
-
+this.log("before:::");
+this.log(this.dump(this._mergedCheck));
             // save merged check...
             order.saveOrder(this._mergedCheck);
             this.getCartController().dispatchEvent('onMergeCheck', this._mergedCheck);
-
+this.log("after:::");
+this.log(this.dump(this._mergedCheck));
             // update table status
             this._getTableStatusModel().addCheck(this._mergedCheck);
             

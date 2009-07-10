@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+    
     var __model__ = {
 
         name: 'OrderReceipt',
@@ -32,6 +36,5 @@
         }
     }
 
-    var OrderReceiptModel = window.OrderReceiptModel =  GeckoJS.Model.extend(__model__);
-
+    var OrderReceiptModel = window.OrderReceiptModel =  AppModel.extend(__model__);
 })();

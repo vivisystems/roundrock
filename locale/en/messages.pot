@@ -164,6 +164,9 @@ msgstr "XTerm"
 msgid "vivipos.fec.settings.controlpanels.system.journal.label"
 msgstr "Electronic Journal"
 
+msgid "vivipos.fec.settings.controlpanels.system.view_system_log.label"
+msgstr "View System Log"
+
 ########################################################################
 #
 # List of Reports
@@ -1585,6 +1588,9 @@ msgstr "Scale"
 msgid "acl_internal_access"
 msgstr "For Internal Access Only"
 
+msgid "acl_manage_journal"
+msgstr "Manage Electronic Journal"
+
 msgid "acl_read_scale"
 msgstr "Read Scale"
 
@@ -1923,6 +1929,9 @@ msgstr "Training Mode"
 
 msgid "acl_manage_tableman"
 msgstr "Table Manager"
+
+msgid "acl_view_system_log"
+msgstr "View System Log"
 
 ########################################################################
 #
@@ -2528,6 +2537,18 @@ msgstr "Internal VFD Template"
 
 msgid "vivipos.fec.registry.templates.vfd-internal-non-en.label"
 msgstr "Internal VFD (non-en)"
+
+########################################################################
+#
+# List of Import / Export
+#
+########################################################################
+
+msgid "vivipos.fec.registry.import_export.charsets.label"
+msgstr "BIG5,UTF-8"
+
+msgid "vivipos.fec.registry.import_export.charsets.charset"
+msgstr "big5,utf-8"
 
 ########################################################################
 #

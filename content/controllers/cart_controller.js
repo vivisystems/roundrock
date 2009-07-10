@@ -16,6 +16,7 @@
         _trainingQueueSession: "training_cart_queue_pool",
         _returnMode: false,
         _returnPersist: false,
+        _decStockBackUp: null,
 
         beforeFilter: function(evt) {
             var cmd = evt.data;
@@ -3012,8 +3013,7 @@
             })) {
 
                 // blockUI when saving...
-                var start_time = new Date().getTime();
-                this._blockUI('wait_panel', 'common_wait', _('Saving Order'), 1);
+                this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
                 
                 oldTransaction.lockItems();
 
@@ -3046,7 +3046,7 @@
                         _('Current order is not saved successfully, please try again...'));
 
                     // unblockUI
-                    this._unblockUI('wait_panel');
+                    this._unblockUI('blockui_panel');
 
                     return false;
                 }
@@ -3054,14 +3054,8 @@
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
 
-                // unblockUI - make sure wait panel is shown for at least 500 ms
-                //var remainder = (start_time + 500000 - new Date().getTime()) / 1000;
-                //if (remainder > 0) this.sleep(remainder);
-                
-                this._unblockUI('wait_panel');
-
                 // sleep to allow UI events to update
-                this.sleep(10);
+                //this.sleep(10);
 
                 //this.dispatchEvent('onClear', 0.00);
                 this._getKeypadController().clearBuffer();
@@ -3079,6 +3073,9 @@
                 else {
                     this.dispatchEvent('onGetSubtotal', oldTransaction);
                 }
+
+                this._unblockUI('blockui_panel');
+
             }
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
@@ -3605,17 +3602,10 @@
                     var paymentModel = new OrderPaymentModel();
                     var refundTotal = 0;
 
-                    // insert refund payments
+                    var r = true;
+
                     try {
-                        var r = paymentModel.begin();
-                        if (!r) {
-                            throw {
-                                errno: paymentModel.lastError,
-                                errstr: paymentModel.lastErrorString,
-                                errmsg: 'An error was encountered while preparing to void sale; order is not voided.'
-                            };
-                        }
-                    
+                        // insert refund payments
                         for (var i = 0; r && i < inputObj.refunds.length; i++) {
                             var payment = inputObj.refunds[i];
 
@@ -3632,23 +3622,25 @@
                                 payment.proceeds_clerk_displayname = user.description;
                             }
 
+                            // @irving for backward compatibility, don't set memo1 if it's empty
+                            if (payment.memo1 == '') delete payment.memo1;
+                            
                             payment.sale_period = salePeriod;
                             payment.shift_number = shiftNumber;
                             payment.terminal_no = terminalNo;
 
                             // save payment record
-                            r = paymentModel.save(payment);
+                            r = paymentModel.savePayment(payment);
                             if (!r) {
                                 throw {
                                     errno: paymentModel.lastError,
                                     errstr: paymentModel.lastErrorString,
-                                    errmsg: 'An error was encountered while saving refund payment; order is not voided.'
+                                    errmsg: _('An error was encountered while saving refund payment (error code %S)', [paymentModel.lastError])
                                 };
                             }
 
                             refundTotal += payment.amount;
                         }
-
                         // update order status to voided
                         order.status = -2;
 
@@ -3665,12 +3657,12 @@
                         order.void_shift_number = shiftNumber;
 
                         orderModel.id = order.id;
-                        r = orderModel.save(order);
+                        r = orderModel.updateOrderMaster(order);
                         if (!r) {
                             throw {
-                                errno: paymentModel.lastError,
-                                errstr: paymentModel.lastErrorString,
-                                errmsg: 'An error was encountered while updating order status; order is not voided.'
+                                errno: orderModel.lastError,
+                                errstr: orderModel.lastErrorString,
+                                errmsg: _('An error was encountered while updating order status (error code %S)', [orderModel.lastError])
                             };
                         }
 
@@ -3686,27 +3678,17 @@
                         order.items = order.OrderItem;
 
                         // restore stock
-//                        var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
-//                        alert('before updating stock level');
+                        //var stockController = GeckoJS.Controller.getInstanceByName( 'StockRecords' );
+                        //alert('before updating stock level');
                         r = this.decStock(order);
                         if (!r) {
                             throw {
-                                errno: paymentModel.lastError,
-                                errstr: paymentModel.lastErrorString,
-                                errmsg: 'An error was encountered while updating stock level; order is not voided.'
+                                errno: 0,
+                                errstr: '',
+                                errmsg: 'An error was encountered while updating stock level'
                             };
                         }
 
-//                        alert('before committing');
-                        r = paymentModel.commit();
-                        if (!r) {
-                            throw {
-                                errno: paymentModel.lastError,
-                                errstr: paymentModel.lastErrorString,
-                                errmsg: 'An error was encountered while voiding sale; order is not voided.'
-                            };
-                        }
-                        paymentModel.commit();
                         this.dispatchEvent('afterVoidSale', order);
 
                         GREUtils.Dialog.alert(this.topmostWindow,
@@ -3716,8 +3698,6 @@
                         return true;
                     }
                     catch(e) {
-                        paymentModel.rollback();
-
                         this._dbError(e.errno, e.errstr, e.errmsg);
                     }
                 }
@@ -3765,6 +3745,12 @@
             if ( isTraining ) {
                 this._queueFile = this._trainingQueueFile;
                 this._queueSession = this._trainingQueueSession;
+                
+                // We are not going to maintain stock in training mode.
+                this._decStockBackUp = this.decStock;
+                this.decStock = function() {
+                    return true;
+                };
 
                 this.clear();
             } else {
@@ -3774,6 +3760,9 @@
                 GeckoJS.Session.remove( this._queueSession );
                 this._queueFile = this._defaultQueueFile;
                 this._queueSession = this._defaultQueueSession;
+                
+                // Use the default stock-maintaining method.
+                this.decStock = this._decStockBackUp;
 
                 // clear screen
                 this.subtotal();

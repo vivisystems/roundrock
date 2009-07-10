@@ -473,12 +473,12 @@
             
             var aURL = "chrome://viviecr/content/plusearch.xul";
             var aName = _('Product Search');
-            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var width = this.screenwidth;
             var height = this.screenheight;
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var pluNo = document.getElementById('setitem_preset_no').value;
             var productNo = document.getElementById('product_no').value;
-            var inputObj = {buffer: pluNo};
+            var inputObj = {buffer: pluNo, select: true};
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
             if (inputObj.ok) {
@@ -507,9 +507,9 @@
 
             var aURL = "chrome://viviecr/content/select_product_group.xul";
             var aName = _('Product Group');
-            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var width = this.screenwidth;
             var height = this.screenheight;
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var groupNameObj = document.getElementById('setitem_linkgroup');
             var groupIdObj = document.getElementById('setitem_linkgroup_id');
 

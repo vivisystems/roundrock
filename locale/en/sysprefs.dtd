@@ -84,9 +84,6 @@
 <!ENTITY sound.beepOnTrayMarker "Beep on Tray Marker">
 <!ENTITY sound.volume.label "Volume">
 <!ENTITY button.close.label "Close">
-<!ENTITY orderdata.orderretaindays "Number of days to retain order data">
-<!ENTITY orderdata.diskunused "Available disk space">
-<!ENTITY orderdata.orderweeklypack "Pack order data on">
 <!ENTITY formats.autogenerate "Auto-generate product numbers">
 <!ENTITY formats.prodnolength "Length of product numbers">
 <!ENTITY formats.precisionprices "Number of decimal places for Prices">
@@ -107,10 +104,12 @@
 <!ENTITY formats.sequence.number.length "Sequence number length">
 <!ENTITY formats.revalueprices "Rounding value to use for Revalue Prices">
 <!ENTITY formats.autorevalueprices "Auto-Revalue subtotal prices">
-<!ENTITY orderdata.requirecheckno "Require check no">
-<!ENTITY orderdata.requiretableno "Require table no">
+<!ENTITY orderdata.orderretaindays "Number of days to retain order data">
+<!ENTITY orderdata.diskunused "Available disk space">
+<!ENTITY orderdata.orderweeklypack "Pack order data on">
 <!ENTITY orderdata.rebuilddatabase "Rebuild Database">
 <!ENTITY orderdata.vacuumtrainingdb "Vacuum Training DB">
 <!ENTITY orderdata.takecurrentdbtobedefaultdb "Take current DB to be default DB">
 <!ENTITY orderdata.takedefaultdbtobetrainingdb "Take default DB to be training DB">
 <!ENTITY orderdata.taketrainingdbtobedefaultdb "Set Current Training DB Default">
+<!ENTITY orderdata.inventory.adjustment.retaindays "Number of days to retain inventory adjustment records">

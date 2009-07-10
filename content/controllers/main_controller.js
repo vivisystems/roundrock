@@ -15,6 +15,7 @@
         _suspendLoadTest: false,
         _groupPath: [],
         _suspendOperation: false,
+        _suspendKeyboardOperation: false,
         _suspendOperationFilter: null,
         _isTraining: false,
     
@@ -115,9 +116,20 @@
         },
 
         filterOperations: function(evt) {
-            if (this._suspendOperation && evt.data.name != 'Keypad') {
+            if (this._suspendOperation && (this._suspendKeyboardOperation || evt.data.name != 'Keypad')) {
                 evt.preventDefault();
             }
+        },
+
+        suspendOperation: function(all) {
+            this._suspendOperation = true;
+            if (all) {
+                this._suspendKeyboardOpereation = true;
+            }
+        },
+
+        resumeOperation: function() {
+            this._suspendOperation = this._suspendKeyboardOperation = false;
         },
 
         PackageBuilderDialog: function() {
@@ -138,7 +150,7 @@
             var captureScript = dataPath + '/scripts/capture_screen.sh';
             var imageFile = '/tmp/' + uuid + '.png';
             var thumbFile = '/tmp/' + uuid + '-thumbnail.png';
-            var imageGeometry = '640x480';
+            var imageGeometry = this.screenwidth + 'x' + this.screenheight;
             var thumbGeometry = '160x120';
 
             var exec = new GeckoJS.File(captureScript);
@@ -219,7 +231,7 @@
             var aURL = 'chrome://viviecr/content/plusearch.xul';
             var aName = _('Product Search');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var aArguments = {buffer: buf, item: item};
+            var aArguments = {buffer: buf, item: item, select: addtocart};
             
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
             if (aArguments.ok) {
@@ -1005,10 +1017,10 @@
 
                     if (pack || (weeklyPack == today)) {
                         order.execute("VACUUM");
-                    }
 
-                    // dispatch afterPackOrderData event
-                    this.dispatchEvent('afterPackOrderData', retainDate);
+                        // dispatch afterPackOrderData event
+                        this.dispatchEvent('afterPackOrderData', retainDate);
+                    }
 
                     delete order;
 

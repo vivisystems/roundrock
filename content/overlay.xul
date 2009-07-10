@@ -31,8 +31,11 @@
   <script src='chrome://viviecr/content/controllers/components/barcode.js'/>
   <script src='chrome://viviecr/content/controllers/components/tax.js'/>
   <script src='chrome://viviecr/content/controllers/components/guest_check.js'/>
+  
+  <!-- include base controller -->
+  <script src='chrome://viviecr/content/controller/app_controller.js'/>
 
-    <!-- front-end UI controllers -->
+  <!-- front-end UI controllers -->
   <script src='chrome://viviecr/content/controllers/main_controller.js'/>
   <script src='chrome://viviecr/content/controllers/cart_controller.js' type='application/x-javascript;version=1.7'/>
   <script src='chrome://viviecr/content/controllers/keypad_controller.js'/>
@@ -99,6 +102,9 @@
                     </vbox>
                 </vbox>
             </vbox>
+        </vivipanel>
+
+        <vivipanel id="blockui_panel" position="overlap" noautohide="true" pack="center" align="center">
         </vivipanel>
 
     </box>

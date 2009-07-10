@@ -9,6 +9,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/stocks.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/stock.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -42,8 +43,8 @@
                 <caption label="&stockrecords.title;"  class="PageTitle" />
                 <vbox pack="start" flex="1" class="LeftPnl">
                     <vivitree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true"
-                                        headers="&stockrecords.header.no;,&stockrecords.header.product;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.qtydifference;,&stockrecords.header.minstock;,&stockrecords.header.memo;"
-                                        fields="product_no,product_name,quantity,new_quantity,qty_difference,min_stock,memo"
+                                        headers="&stockrecords.header.no;,&stockrecords.header.barcode;,&stockrecords.header.product;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.qtydifference;,&stockrecords.header.minstock;,&stockrecords.header.memo;"
+                                        fields="product_no,barcode,product_name,quantity,new_quantity,qty_difference,min_stock,memo"
                                         onclick="$do('select',this.selectedIndex, 'StockRecords');"
                                         class="plupnl ListPnl showscrollbar"
                                         scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" />
@@ -115,4 +116,23 @@
             </vbox>
         </hbox>
     </vbox>
+
+    <vivipanel id="error_panel" position="overlap" noautohide="f" pack="center" align="center">
+        <vbox flex="1" class="errorPanel" pack="center" align="center">
+            <vbox flex="1" pack="start" class="errorDialog">
+                <caption label="&stockrecords.import.errors.title;" class="PageTitle"/>
+                <vbox pack="start" flex="1" class="LeftPnl">
+                    <label value="&stockrecords.import.errors.desc;"/>
+                    <vivitree id="errorscrollablepanel" flex="1" rows="10"
+                              headers="&stockrecords.import.line;,&stockrecords.import.prodno;"
+                              fields="line,no" hidecolumnpicker="true"
+                              class="ListPnl showscrollbar"
+                              />
+                </vbox>
+                <hbox id="errorPanelButtons" class="dialogbtns" pack="end">
+                    <button class="ExitBtn" id="errorPanelOk" label="&dialog.closeButton.label;" default="true" oncommand="document.getElementById('error_panel').hidePopup()"/>
+                </hbox>
+            </vbox>
+        </vbox>
+    </vivipanel>
 </window>

@@ -1,5 +1,9 @@
 (function() {
 
+    if(typeof AppModel == 'undefined') {
+        include( 'chrome://viviecr/content/models/app.js' );
+    }
+
     // declare Transaction Base Object / data encapsulate
     var __model__ = {
 
@@ -153,6 +157,7 @@
             this.data.autorevalue = GeckoJS.Configure.read('vivipos.fec.settings.AutoRevaluePrices') || false;
             this.data.revalueprices = GeckoJS.Configure.read('vivipos.fec.settings.RevaluePrices');
 
+            this.recoveryMode = recoveryMode;
             Transaction.events.dispatch('onCreate', this, this);
         },
 

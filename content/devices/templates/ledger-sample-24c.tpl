@@ -1,3 +1,4 @@
+{if typeof ledger != 'undefined'}
 [&QSON]${store.name|center:12}[&QSOFF][&CR]
 [&DWON]${store.branch|center:12}[&DWOFF][&CR]
 ${store.telephone1|center:24}[&CR]
@@ -30,3 +31,4 @@ ${'Thank you for shopping at'|center:24}[&CR]
 [&CR]
 [&CR]
 [&CR]
+{/if}
