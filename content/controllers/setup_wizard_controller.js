@@ -638,7 +638,7 @@
             var taxListObj = document.getElementById('taxlist');
             var taxes = this.Tax.getTaxList();
             var taxEntries = [];
-
+            
             var type_str;
             var rate_str;
             var rate_type_str;

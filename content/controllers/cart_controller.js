@@ -2963,7 +2963,7 @@
                 // if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
                 if ((crc != tableOrderObj[0].TableOrder.checksum) && (oldTransaction.data.terminal_no != tableOrderObj[0].TableOrder.terminal_no)) {
 
-                    GREUtils.Dialog.alert(window,
+                    GREUtils.Dialog.alert(this.topmostWindow,
                                       _('Order Checksum Fail'),
                                       _('Current order checksum fail and may not be submit. Please retry or check this order.'));
 
@@ -4377,7 +4377,7 @@
 
         
         destroy: function() {
-            this.observer.unregister();
+            if (this.observer) this.observer.unregister();
         }
     };
 

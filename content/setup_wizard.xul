@@ -418,7 +418,7 @@
                 <vbox class="content_area">
                    
                 <label value="&wizard.page.tax.defaulttax;"/>
-                <vivitree id="taxlist" flex="1"
+                <vivitree id="taxlist" flex="1" rows="6"
                           headers="&taxes.code;,&taxes.type;,&taxes.name;,&taxes.rate_type;,&taxes.rate;,&taxes.threshold;"
                           fields="no,type_str,name,rate_type_str,rate_str,threshold_str" hidecolumnpicker="true"
                           class="showscrollbar">

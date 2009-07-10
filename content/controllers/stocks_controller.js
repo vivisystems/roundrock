@@ -75,7 +75,7 @@
 
         destroy: function() {
             // dump('stocks destroy \n');
-            this.observer.unregister();
+            if (this.observer) this.observer.unregister();
         },
 
         checkStock: function(action, qty, item, clearWarning) {

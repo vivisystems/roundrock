@@ -45,6 +45,8 @@
                 
                 GREUtils.restartApplication();
 
+                GeckoJS.Session.set('restarting', true);
+                return;
             }
         }
 
@@ -62,19 +64,22 @@
                 }
             }
         }).register();
-        
-        $do('initial', null, "Main");
 
         // check if this is first run
+        var firstrun;
         if (firstRunMarker.exists()) {
             firstRunMarker.remove();
 
-            var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
-
             // remove user.js
             GREUtils.File.remove(profPath + '/user.js');
-            
-            if (GREUtils.Dialog.confirm(topwin,
+
+            var firstrun = true;
+        }
+
+        $do('initial', firstrun, "Main");
+
+        if (firstrun) {
+            if (GREUtils.Dialog.confirm(null,
                                          _('Initial Setup'),
                                          _('Welcome to VIVIPOS. If you have prepared product data in comma-separated vector (CSV) format, ' +
                                            'you can easily import them into the terminal. Would you like to go to product import/export screen now?'))) {
@@ -82,13 +87,13 @@
                 var aName = _('Initial Setup');
                 var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
 
-                GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures);
+                GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures);
             }
         }
     }
 
     function destroy() {
-        this.observer.unregister();
+        if (this.observer) this.observer.unregister();
         $do('destroy', null, "Main");
         $do('destroy', null, "Cart");
         $do('destroy', null, "VFD");

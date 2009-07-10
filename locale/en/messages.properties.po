@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: ../..//content/controllers/setup_wizard_controller.js:479
+#: ../..//content/controllers/setup_wizard_controller.js:615
 #, fuzzy
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-10 17:57+0800\n"
+"POT-Creation-Date: 2009-07-10 19:52+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2497,81 +2497,82 @@ msgstr "BIG5,UTF-8"
 msgid "vivipos.fec.registry.import_export.charsets.charset"
 msgstr "big5,utf-8"
 
-#: ../..//content/datetime.js:27
+#: ../..//content/datetime.js:29
 msgid "confirm timezone change"
 msgstr ""
 
-#: ../..//content/datetime.js:28
+#: ../..//content/datetime.js:30
 msgid ""
 "Timezone change requires system restart to take effect. If you save the "
 "changes now, the system will restart automatically after you return to the "
 "Main Screen. Do you want to save your changes?"
 msgstr ""
 
-#: ../..//content/datetime.js:51
+#: ../..//content/datetime.js:53
 msgid "Failed to set date/time"
 msgstr ""
 
-#: ../..//content/localekeyboard.js:31
+#: ../..//content/localekeyboard.js:35
 msgid "confirm language and keyboard mapping change"
 msgstr ""
 
-#: ../..//content/localekeyboard.js:32
+#: ../..//content/localekeyboard.js:36
 msgid ""
 "Language and Keyboard mapping changes require system restart to take effect. "
 "If you save the changes now, the system will restart automatically after you "
 "return to the Main Screen. Do you want to save your changes?"
 msgstr ""
 
-#: ../..//content/overlay.js:16
-#: ../..//content/controllers/setup_wizard_controller.js:675
+#: ../..//content/overlay.js:17
+#: ../..//content/controllers/main_controller.js:1086
+#: ../..//content/controllers/setup_wizard_controller.js:808
 msgid "VIVIPOS Setup"
 msgstr ""
 
-#: ../..//content/overlay.js:74 ../..//content/overlay.js:78
+#: ../..//content/overlay.js:83 ../..//content/overlay.js:87
 msgid "Initial Setup"
 msgstr ""
 
-#: ../..//content/overlay.js:75
+#: ../..//content/overlay.js:84
 msgid ""
 "Welcome to VIVIPOS. If you have prepared product data in comma-separated "
 "vector (CSV) format, "
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:114
-#: ../..//content/prompt_doshiftchange.js:118
+#: ../..//content/prompt_doshiftchange.js:115
+#: ../..//content/prompt_doshiftchange.js:119
 msgid "confirm end sale period"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:114
+#: ../..//content/prompt_doshiftchange.js:115
 msgid "Change may not be left in the drawer at the end of sale period"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:118
+#: ../..//content/prompt_doshiftchange.js:119
 msgid "Please confirm end of sale period"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:132
-#: ../..//content/prompt_doshiftchange.js:137
+#: ../..//content/prompt_doshiftchange.js:134
+#: ../..//content/prompt_doshiftchange.js:139
 msgid "confirm shift change"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:132
+#: ../..//content/prompt_doshiftchange.js:134
 msgid "Drawer change may not be negative"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:137
+#: ../..//content/prompt_doshiftchange.js:139
 msgid "Please confirm shift change"
 msgstr ""
 
-#: ../..//content/refund_payment.js:17
-#: ../..//content/controllers/cart_controller.js:3563
-#: ../..//content/controllers/cart_controller.js:3570
-#: ../..//content/controllers/cart_controller.js:3695
+#: ../..//content/refund_payment.js:19
+#: ../..//content/controllers/cart_controller.js:3566
+#: ../..//content/controllers/cart_controller.js:3573
+#: ../..//content/controllers/cart_controller.js:3698
 msgid "Void Sale"
 msgstr ""
 
-#: ../..//content/refund_payment.js:18
+#: ../..//content/refund_payment.js:20
 msgid ""
 "Are you sure you want to void transaction [%S] (payment [%S], refund [%S])?"
 msgstr ""
@@ -2621,11 +2622,11 @@ msgstr ""
 msgid "Can not select this order!!"
 msgstr ""
 
-#: ../..//content/sync_settings.js:17
+#: ../..//content/sync_settings.js:18
 msgid "confirm synchronize settings change"
 msgstr ""
 
-#: ../..//content/sync_settings.js:18
+#: ../..//content/sync_settings.js:19
 msgid ""
 "Synchronize settings changes require system restart to take effect. If you "
 "save the changes now, the system will restart automatically after you return "
@@ -2814,7 +2815,7 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1011
 #: ../..//content/controllers/cart_controller.js:1175
 #: ../..//content/controllers/cart_controller.js:1297
-#: ../..//content/controllers/cart_controller.js:3292
+#: ../..//content/controllers/cart_controller.js:3295
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
@@ -2826,15 +2827,15 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1656
 #: ../..//content/controllers/cart_controller.js:1827
 #: ../..//content/controllers/cart_controller.js:2728
-#: ../..//content/controllers/cart_controller.js:3299
-#: ../..//content/controllers/cart_controller.js:3500
+#: ../..//content/controllers/cart_controller.js:3302
+#: ../..//content/controllers/cart_controller.js:3503
 msgid "Please select an item first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:396
 #: ../..//content/controllers/cart_controller.js:1026
-#: ../..//content/controllers/cart_controller.js:3307
-#: ../..//content/controllers/cart_controller.js:3508
+#: ../..//content/controllers/cart_controller.js:3310
+#: ../..//content/controllers/cart_controller.js:3511
 msgid "Stored items may not be modified"
 msgstr ""
 
@@ -2994,12 +2995,12 @@ msgid "Cannot VOID an entry that has been subtotaled"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1354
-#: ../..//content/controllers/cart_controller.js:3336
+#: ../..//content/controllers/cart_controller.js:3339
 msgid "Please void discount on item [%S] first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1360
-#: ../..//content/controllers/cart_controller.js:3342
+#: ../..//content/controllers/cart_controller.js:3345
 msgid "Please void surcharge on item [%S] first"
 msgstr ""
 
@@ -3428,142 +3429,142 @@ msgid "PRE-FINALIZED"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3198
-#: ../..//content/controllers/cart_controller.js:3221
+#: ../..//content/controllers/cart_controller.js:3224
 msgid "Order# [%S] has been pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3271
-#: ../..//content/controllers/cart_controller.js:3283
+#: ../..//content/controllers/cart_controller.js:3274
+#: ../..//content/controllers/cart_controller.js:3286
 msgid "Not an open order; cannot add condiment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3324
+#: ../..//content/controllers/cart_controller.js:3327
 msgid "Condiments may not be added to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3330
+#: ../..//content/controllers/cart_controller.js:3333
 msgid "Cannot add condiments to an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3365
+#: ../..//content/controllers/cart_controller.js:3368
 msgid "No Condiment group associated with item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3493
+#: ../..//content/controllers/cart_controller.js:3496
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3557
+#: ../..//content/controllers/cart_controller.js:3560
 msgid ""
 "An error was encountered while retrieving order payment records (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3564
+#: ../..//content/controllers/cart_controller.js:3567
 msgid "Failed to void: the selected order no longer exists"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3571
+#: ../..//content/controllers/cart_controller.js:3574
 msgid "Failed to void: the selected order is not stored or finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3589
+#: ../..//content/controllers/cart_controller.js:3592
 msgid "Payment Refund"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3638
+#: ../..//content/controllers/cart_controller.js:3641
 msgid "An error was encountered while saving refund payment (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3665
+#: ../..//content/controllers/cart_controller.js:3668
 msgid "An error was encountered while updating order status (error code %S)"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3696
+#: ../..//content/controllers/cart_controller.js:3699
 msgid "Transaction [%S] successfully voided"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3718
+#: ../..//content/controllers/cart_controller.js:3721
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3720
+#: ../..//content/controllers/cart_controller.js:3723
 msgid "Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3904
+#: ../..//content/controllers/cart_controller.js:3907
 msgid "No order to queue"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3912
+#: ../..//content/controllers/cart_controller.js:3915
 msgid "Cannot queue the recalled order!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3952
+#: ../..//content/controllers/cart_controller.js:3955
 msgid "Order is not queued because it is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4039
+#: ../..//content/controllers/cart_controller.js:4042
 msgid "The order object does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4092
+#: ../..//content/controllers/cart_controller.js:4095
 msgid "This order must be stored first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4146
-#: ../..//content/controllers/cart_controller.js:4189
-#: ../..//content/controllers/cart_controller.js:4221
-#: ../..//content/controllers/cart_controller.js:4263
-#: ../..//content/controllers/cart_controller.js:4299
+#: ../..//content/controllers/cart_controller.js:4149
+#: ../..//content/controllers/cart_controller.js:4192
+#: ../..//content/controllers/cart_controller.js:4224
+#: ../..//content/controllers/cart_controller.js:4266
+#: ../..//content/controllers/cart_controller.js:4302
 msgid "Not an open order; unable to store"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4151
-#: ../..//content/controllers/cart_controller.js:4227
-#: ../..//content/controllers/cart_controller.js:4268
-#: ../..//content/controllers/cart_controller.js:4304
+#: ../..//content/controllers/cart_controller.js:4154
+#: ../..//content/controllers/cart_controller.js:4230
+#: ../..//content/controllers/cart_controller.js:4271
+#: ../..//content/controllers/cart_controller.js:4307
 msgid "This order has been submitted"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4156
-#: ../..//content/controllers/cart_controller.js:4232
-#: ../..//content/controllers/cart_controller.js:4272
-#: ../..//content/controllers/cart_controller.js:4308
+#: ../..//content/controllers/cart_controller.js:4159
+#: ../..//content/controllers/cart_controller.js:4235
+#: ../..//content/controllers/cart_controller.js:4275
+#: ../..//content/controllers/cart_controller.js:4311
 msgid "This order is closed pending payment and may only be finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4161
-#: ../..//content/controllers/cart_controller.js:4237
-#: ../..//content/controllers/cart_controller.js:4276
-#: ../..//content/controllers/cart_controller.js:4312
+#: ../..//content/controllers/cart_controller.js:4164
+#: ../..//content/controllers/cart_controller.js:4240
+#: ../..//content/controllers/cart_controller.js:4279
+#: ../..//content/controllers/cart_controller.js:4315
 msgid "This order is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4174
+#: ../..//content/controllers/cart_controller.js:4177
 msgid "No change to store"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4198
+#: ../..//content/controllers/cart_controller.js:4201
 msgid "fatal error!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4243
-#: ../..//content/controllers/cart_controller.js:4281
-#: ../..//content/controllers/cart_controller.js:4318
+#: ../..//content/controllers/cart_controller.js:4246
+#: ../..//content/controllers/cart_controller.js:4284
+#: ../..//content/controllers/cart_controller.js:4321
 msgid "This order has been modified and must be stored first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4347
+#: ../..//content/controllers/cart_controller.js:4350
 #: ../..//content/controllers/cashdrawer_controller.js:336
 #: ../..//content/controllers/changeuser_controller.js:105
 #: ../..//content/controllers/clockinout_controller.js:285
 #: ../..//content/controllers/ledger_controller.js:310
 #: ../..//content/controllers/list_orders_controller.js:179
 #: ../..//content/controllers/main_controller.js:933
-#: ../..//content/controllers/main_controller.js:1177
+#: ../..//content/controllers/main_controller.js:1188
 #: ../..//content/controllers/print_controller.js:1214
-#: ../..//content/controllers/setup_wizard_controller.js:690
+#: ../..//content/controllers/setup_wizard_controller.js:823
 #: ../..//content/controllers/shift_changes_controller.js:965
 #: ../..//content/controllers/stock_records_controller.js:591
 #: ../..//content/controllers/view_journal_controller.js:120
@@ -3571,12 +3572,12 @@ msgstr ""
 msgid "Data Operation Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:4348
+#: ../..//content/controllers/cart_controller.js:4351
 #: ../..//content/controllers/ledger_controller.js:311
 #: ../..//content/controllers/list_orders_controller.js:180
 #: ../..//content/controllers/main_controller.js:935
-#: ../..//content/controllers/main_controller.js:1178
-#: ../..//content/controllers/setup_wizard_controller.js:691
+#: ../..//content/controllers/main_controller.js:1189
+#: ../..//content/controllers/setup_wizard_controller.js:824
 #: ../..//content/controllers/shift_changes_controller.js:966
 #: ../..//content/controllers/stock_records_controller.js:592
 #: ../..//content/controllers/view_journal_controller.js:121
@@ -3982,98 +3983,104 @@ msgstr ""
 msgid "Price Level changed from [%S] to [%S] for destination [%S]"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:52
-#: ../..//content/controllers/devices_controller.js:70
-#: ../..//content/controllers/devices_controller.js:1817
-#: ../..//content/controllers/devices_controller.js:1835
+#: ../..//content/controllers/devices_controller.js:53
+#: ../..//content/controllers/devices_controller.js:58
+#: ../..//content/controllers/devices_controller.js:77
+#: ../..//content/controllers/devices_controller.js:1824
+#: ../..//content/controllers/devices_controller.js:1842
 #: ../..//content/controllers/scale_controller.js:67
 #: ../..//content/controllers/scale_controller.js:88
 #: ../..//content/controllers/scale_controller.js:98
 msgid "Device Status"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:53
-#: ../..//content/controllers/devices_controller.js:1818
+#: ../..//content/controllers/devices_controller.js:54
+msgid ""
+"Please remember to configure devices to enable receipt and check printing"
+msgstr ""
+
+#: ../..//content/controllers/devices_controller.js:59
+#: ../..//content/controllers/devices_controller.js:1825
 msgid "No device has been enabled for receipt and/or check printing!"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:63
-#: ../..//content/controllers/devices_controller.js:1828
+#: ../..//content/controllers/devices_controller.js:70
+#: ../..//content/controllers/devices_controller.js:1835
 msgid "Device"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:63
-#: ../..//content/controllers/devices_controller.js:1828
+#: ../..//content/controllers/devices_controller.js:70
+#: ../..//content/controllers/devices_controller.js:1835
 msgid "Port"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:71
+#: ../..//content/controllers/devices_controller.js:78
 msgid ""
 "The following enabled devices appear to be offline, please ensure that they "
 "are functioning correctly"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:449
-#: ../..//content/controllers/devices_controller.js:453
-#: ../..//content/controllers/devices_controller.js:455
-#: ../..//content/controllers/devices_controller.js:471
-#: ../..//content/controllers/devices_controller.js:475
-#: ../..//content/controllers/devices_controller.js:477
+#: ../..//content/controllers/devices_controller.js:456
+#: ../..//content/controllers/devices_controller.js:460
+#: ../..//content/controllers/devices_controller.js:462
+#: ../..//content/controllers/devices_controller.js:478
+#: ../..//content/controllers/devices_controller.js:482
+#: ../..//content/controllers/devices_controller.js:484
 msgid "Receipt Printer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:493
-#: ../..//content/controllers/devices_controller.js:497
-#: ../..//content/controllers/devices_controller.js:499
-#: ../..//content/controllers/devices_controller.js:515
-#: ../..//content/controllers/devices_controller.js:519
-#: ../..//content/controllers/devices_controller.js:521
-#: ../..//content/controllers/devices_controller.js:537
-#: ../..//content/controllers/devices_controller.js:541
-#: ../..//content/controllers/devices_controller.js:543
-#: ../..//content/controllers/devices_controller.js:559
-#: ../..//content/controllers/devices_controller.js:563
-#: ../..//content/controllers/devices_controller.js:565
+#: ../..//content/controllers/devices_controller.js:500
+#: ../..//content/controllers/devices_controller.js:504
+#: ../..//content/controllers/devices_controller.js:506
+#: ../..//content/controllers/devices_controller.js:522
+#: ../..//content/controllers/devices_controller.js:526
+#: ../..//content/controllers/devices_controller.js:528
+#: ../..//content/controllers/devices_controller.js:544
+#: ../..//content/controllers/devices_controller.js:548
+#: ../..//content/controllers/devices_controller.js:550
+#: ../..//content/controllers/devices_controller.js:566
+#: ../..//content/controllers/devices_controller.js:570
+#: ../..//content/controllers/devices_controller.js:572
 msgid "Check Printer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:581
-#: ../..//content/controllers/devices_controller.js:585
-#: ../..//content/controllers/devices_controller.js:587
-#: ../..//content/controllers/devices_controller.js:603
-#: ../..//content/controllers/devices_controller.js:607
-#: ../..//content/controllers/devices_controller.js:609
+#: ../..//content/controllers/devices_controller.js:588
+#: ../..//content/controllers/devices_controller.js:592
+#: ../..//content/controllers/devices_controller.js:594
+#: ../..//content/controllers/devices_controller.js:610
+#: ../..//content/controllers/devices_controller.js:614
+#: ../..//content/controllers/devices_controller.js:616
 msgid "Report Printer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:625
-#: ../..//content/controllers/devices_controller.js:629
-#: ../..//content/controllers/devices_controller.js:631
-#: ../..//content/controllers/devices_controller.js:646
-#: ../..//content/controllers/devices_controller.js:650
-#: ../..//content/controllers/devices_controller.js:652
+#: ../..//content/controllers/devices_controller.js:632
+#: ../..//content/controllers/devices_controller.js:636
+#: ../..//content/controllers/devices_controller.js:638
+#: ../..//content/controllers/devices_controller.js:653
+#: ../..//content/controllers/devices_controller.js:657
+#: ../..//content/controllers/devices_controller.js:659
 msgid "VFD %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:672
-#: ../..//content/controllers/devices_controller.js:676
-#: ../..//content/controllers/devices_controller.js:678
-#: ../..//content/controllers/devices_controller.js:699
-#: ../..//content/controllers/devices_controller.js:703
-#: ../..//content/controllers/devices_controller.js:705
+#: ../..//content/controllers/devices_controller.js:679
+#: ../..//content/controllers/devices_controller.js:683
+#: ../..//content/controllers/devices_controller.js:685
+#: ../..//content/controllers/devices_controller.js:706
+#: ../..//content/controllers/devices_controller.js:710
+#: ../..//content/controllers/devices_controller.js:712
 msgid "Cash Drawer %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:720
-#: ../..//content/controllers/devices_controller.js:724
-#: ../..//content/controllers/devices_controller.js:726
-#: ../..//content/controllers/devices_controller.js:746
-#: ../..//content/controllers/devices_controller.js:750
-#: ../..//content/controllers/devices_controller.js:752
+#: ../..//content/controllers/devices_controller.js:727
+#: ../..//content/controllers/devices_controller.js:731
+#: ../..//content/controllers/devices_controller.js:733
+#: ../..//content/controllers/devices_controller.js:753
+#: ../..//content/controllers/devices_controller.js:757
+#: ../..//content/controllers/devices_controller.js:759
 msgid "Scale %S"
 msgstr ""
 
-#: ../..//content/controllers/devices_controller.js:1836
+#: ../..//content/controllers/devices_controller.js:1843
 msgid ""
 "The following enabled devices appear to be offline, do you still want to "
 "save the new configuration?"
@@ -4381,21 +4388,21 @@ msgstr ""
 msgid "Job [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:121
+#: ../..//content/controllers/journal_controller.js:123
 msgid "Journal save error: %"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:161
+#: ../..//content/controllers/layout_manager_controller.js:178
 msgid "Do you want to change layout"
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:161
+#: ../..//content/controllers/layout_manager_controller.js:178
 msgid ""
 "If you change layout now, the system will restart automatically after you "
 "return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/layout_manager_controller.js:163
+#: ../..//content/controllers/layout_manager_controller.js:180
 msgid "Confirm Change Layout"
 msgstr ""
 
@@ -5413,59 +5420,373 @@ msgstr ""
 msgid "This table had not been hold!!"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:424
+#: ../..//content/controllers/setup_wizard_controller.js:27
+msgid "(kbmap)Albania"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:28
+msgid "(kbmap)Andorra"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:29
+msgid "(kbmap)Arabic"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:30
+msgid "(kbmap)Armenia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:31
+msgid "(kbmap)Azerbaijan"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:32
+msgid "(kbmap)Bangladesh"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:33
+msgid "(kbmap)Belarus"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:34
+msgid "(kbmap)Belgium"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:35
+msgid "(kbmap)Bosnia and Herzegovina"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:36
+msgid "(kbmap)Brazil"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:37
+msgid "(kbmap)Bulgaria"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:38
+msgid "(kbmap)Canada"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:39
+msgid "(kbmap)China"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:40
+msgid "(kbmap)Congo, Democratic Republic of the"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:41
+msgid "(kbmap)Croatia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:42
+msgid "(kbmap)Czechia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:43
+msgid "(kbmap)Denmark"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:44
+msgid "(kbmap)Esperanto"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:45
+msgid "(kbmap)Estonia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:46
+msgid "(kbmap)Ethiopia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:47
+msgid "(kbmap)Faroe Islands"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:48
+msgid "(kbmap)Finland"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:49
+msgid "(kbmap)France"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:50
+msgid "(kbmap)Georgia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:51
+msgid "(kbmap)Germany"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:52
+msgid "(kbmap)Ghana"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:53
+msgid "(kbmap)Greece"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:54
+msgid "(kbmap)Guinea"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:55
+msgid "(kbmap)Hungary"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:56
+msgid "(kbmap)Iceland"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:57
+msgid "(kbmap)India"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:58
+msgid "(kbmap)Iran"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:59
+msgid "(kbmap)Iraq"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:60
+msgid "(kbmap)Ireland"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:61
+msgid "(kbmap)Israel"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:62
+msgid "(kbmap)Italy"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:63
+msgid "(kbmap)Japan"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:64
+msgid "(kbmap)Japan (PC-98xx Series)"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:65
+msgid "(kbmap)Kazakhstan"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:66
+msgid "(kbmap)Korea, Republic of"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:67
+msgid "(kbmap)Kyrgyzstan"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:68
+msgid "(kbmap)Laos"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:69
+msgid "(kbmap)Latin American"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:70
+msgid "(kbmap)Lithuania"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:71
+msgid "(kbmap)Latvia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:72
+msgid "(kbmap)Macedonia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:73
+msgid "(kbmap)Maldives"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:74
+msgid "(kbmap)Malta"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:75
+msgid "(kbmap)Maori"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:76
+msgid "(kbmap)Mongolia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:77
+msgid "(kbmap)Montenegro"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:78
+msgid "(kbmap)Morocco"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:79
+msgid "(kbmap)Nepal"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:80
+msgid "(kbmap)Netherlands"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:81
+msgid "(kbmap)Nigeria"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:82
+msgid "(kbmap)Norway"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:83
+msgid "(kbmap)Pakistan"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:84
+msgid "(kbmap)Poland"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:85
+msgid "(kbmap)Portugal"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:86
+msgid "(kbmap)Romania"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:87
+msgid "(kbmap)Russia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:88
+msgid "(kbmap)Serbia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:89
+msgid "(kbmap)Slovakia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:90
+msgid "(kbmap)Slovenia"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:91
+msgid "(kbmap)South Africa"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:92
+msgid "(kbmap)Spain"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:93
+msgid "(kbmap)Sweden"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:94
+msgid "(kbmap)Switzerland"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:95
+msgid "(kbmap)Syria"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:96
+msgid "(kbmap)Tajikistan"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:97
+msgid "(kbmap)Thailand"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:98
+msgid "(kbmap)Turkey"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:99
+msgid "(kbmap)Ukraine"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:100
+msgid "(kbmap)United Kingdom"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:101
+msgid "(kbmap)USA"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:102
+msgid "(kbmap)Uzbekistan"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:103
+msgid "(kbmap)Vietnam"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:143
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivilocaleslistbox.xbl:131
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivilocaleslistbox.xbl:161
+msgid "(locale)"
+msgstr ""
+
+#: ../..//content/controllers/setup_wizard_controller.js:557
 msgid ""
 "An error was encountered while retrieving user accounts (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:457
+#: ../..//content/controllers/setup_wizard_controller.js:593
 msgid "Please enter the administrator password"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:463
+#: ../..//content/controllers/setup_wizard_controller.js:599
 msgid "Password must only contain 0-9"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:469
+#: ../..//content/controllers/setup_wizard_controller.js:605
 msgid "Please enter the password again to confirm"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:475
+#: ../..//content/controllers/setup_wizard_controller.js:611
 msgid "Passwords do not match"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:516
+#: ../..//content/controllers/setup_wizard_controller.js:649
 #: ../..//content/controllers/taxes_controller.js:70
 msgid "(taxType)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:528
+#: ../..//content/controllers/setup_wizard_controller.js:661
 msgid "(taxRateType)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:615
+#: ../..//content/controllers/setup_wizard_controller.js:748
 msgid ""
 "An error was encountered while accessing administrator account (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:623
+#: ../..//content/controllers/setup_wizard_controller.js:756
 msgid ""
 "An error was encountered while updating administrator password (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:636
+#: ../..//content/controllers/setup_wizard_controller.js:769
 msgid ""
 "An error was encountered while accessing store information (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:649
+#: ../..//content/controllers/setup_wizard_controller.js:782
 msgid ""
 "An error was encountered while updating store information (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:676
+#: ../..//content/controllers/setup_wizard_controller.js:809
 msgid ""
 "Unless you plan to restore the terminal from a previously taken backup, "
 msgstr ""
@@ -5797,7 +6118,9 @@ msgid "Product stock information imported: %S successes, %S failures)"
 msgstr ""
 
 #: ../..//content/controllers/stocks_controller.js:106
-msgid "The stock record seems not existent!"
+msgid ""
+"Stock control is active for this item [%S] but stock information does not "
+"exist"
 msgstr ""
 
 #: ../..//content/controllers/stocks_controller.js:126
@@ -6251,11 +6574,6 @@ msgstr ""
 msgid "Are you sure you want to print this order?"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivilocaleslistbox.xbl:131
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivilocaleslistbox.xbl:161
-msgid "(locale)"
-msgstr ""
-
 #: ../..//content/helpers/nsi_condiments_view.js:145
 #: ../..//content/helpers/nsi_departments_view.js:209
 #: ../..//content/helpers/nsi_plus_view.js:156
@@ -6325,51 +6643,51 @@ msgstr ""
 msgid "Your Saving"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1903
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1904
 msgid "Scroll Forward"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1904
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1905
 msgid "Next"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1905
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1906
 msgid "This function scrolls the function panel to the next page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1913
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1914
 msgid "Scroll Backward"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1914
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1915
 msgid "Back"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1915
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1916
 msgid "This function scrolls the function panel to the previous page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1923
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1924
 msgid "Home Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1924
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1925
 msgid "Home"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1925
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1926
 msgid "This function scrolls the function panel to the home page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1933
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1934
 msgid "Jump to Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1934
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1935
 msgid "Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1935
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1936
 msgid ""
 "This function scrolls the function panel to the page indicated in the "
 "parameter field"
