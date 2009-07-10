@@ -360,7 +360,7 @@
             
             this._selectedFieldIndecies = GeckoJS.BaseObject.unserialize(
                 GeckoJS.Configure.read( this._selected_indices_pref )
-            );
+            ) || [];
 
             $.popupPanel( this._fieldPickerPanelId, { fields: this._fields_array, selectedItems: this._selectedFieldIndecies } );
         },
