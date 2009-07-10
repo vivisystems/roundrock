@@ -18,74 +18,82 @@
         </resources>
 
         <content>
-                <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex,popupheight,popupwidth">
-                    <xul:menulist anonid="timezone-menulist" oncommand="updateTimezone(this.selectedIndex)" hidden="true"
-                                  xbl:inherits="class=timezoneMenuClass">
-                        <xul:menupopup style="height: 460px;">
-                        </xul:menupopup>
-                    </xul:menulist>
+            <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex,popupheight,popupwidth">
+                <xul:menulist anonid="timezone-menulist" oncommand="updateTimezone(this.selectedIndex)" hidden="true"
+                              xbl:inherits="class=listboxClass">
+                    <xul:menupopup style="height: 460px;">
+                    </xul:menupopup>
+                </xul:menulist>
 
-                    <xul:button anonid="timezone-button" oncommand="showTimezonePanel()" hidden="false"
-                                xbl:inherits="class=timezoneButtonClass"/>
+                <xul:button anonid="timezone-button" oncommand="showTimezonePanel()" hidden="false"
+                            xbl:inherits="class=timezoneButtonClass"/>
 
-                    <xul:stack anonid="timezone-stack">
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_map.png"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_0h.png" offset="0" tzid="+0000" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_1h.png" offset="3600" tzid="+0100" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_2h.png" offset="7200" tzid="+0200" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_3h30.png" offset="12600" tzid="+0330" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_3h.png" offset="10800" tzid="+0300" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_4h30.png" offset="16200" tzid="+0430" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_4h.png" offset="14400" tzid="+0400" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_5h30.png" offset="19800" tzid="+0530" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_5h45.png" offset="20700" tzid="+0545" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_5h.png" offset="18000" tzid="+0500" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_6h30.png" offset="23400" tzid="+0630" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_6h.png" offset="21600" tzid="+0600" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_7h.png" offset="25200" tzid="+0700" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_8h.png" offset="28800" tzid="+0800" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_9h30.png" offset="34200" tzid="+0930" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_9h.png" offset="32400" tzid="+0900" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_10h30.png" offset="37800" tzid="+1030" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_10h.png" offset="36000" tzid="+1000" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_11h30.png" offset="41400" tzid="+1130" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_11h.png" offset="39600" tzid="+1100" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_12h45.png" offset="45900" tzid="+1245" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_12h.png" offset="43200" tzid="+1200" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_13h.png" offset="46800" tzid="+1300" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_14h.png" offset="50400" tzid="+1400" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-1h.png" offset="-3600" tzid="-0100" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-2h.png" offset="-7200" tzid="-0200" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-3h30.png" offset="-12600" tzid="-0330" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-3h.png" offset="-10800" tzid="-0300" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-4h.png" offset="-14400" tzid="-0400" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-5h.png" offset="-18000" tzid="-0500" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-6h.png" offset="-21600" tzid="-0600" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-7h.png" offset="-25200" tzid="-0700" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-8h30.png" offset="-30600" tzid="-0830" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-8h.png" offset="-28800" tzid="-0800" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-9h30.png" offset="-34200" tzid="-0930" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-9h.png" offset="-32400" tzid="-0900" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-10h.png" offset="-36000" tzid="-1000" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-11h.png" offset="-39600" tzid="-1100" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-12h45.png" offset="-45900" tzid="-1245" hidden="true"/>
-                        <xul:image src="chrome://vivipos/skin/timezones/timezone_-12h.png" offset="-43200" tzid="-1200" hidden="true"/>
-                    </xul:stack>
+                <xul:stack anonid="timezone-stack">
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_map.png"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_0h.png" offset="0" tzid="+0000" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_1h.png" offset="3600" tzid="+0100" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_2h.png" offset="7200" tzid="+0200" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_3h30.png" offset="12600" tzid="+0330" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_3h.png" offset="10800" tzid="+0300" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_4h30.png" offset="16200" tzid="+0430" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_4h.png" offset="14400" tzid="+0400" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_5h30.png" offset="19800" tzid="+0530" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_5h45.png" offset="20700" tzid="+0545" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_5h.png" offset="18000" tzid="+0500" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_6h30.png" offset="23400" tzid="+0630" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_6h.png" offset="21600" tzid="+0600" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_7h.png" offset="25200" tzid="+0700" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_8h.png" offset="28800" tzid="+0800" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_9h30.png" offset="34200" tzid="+0930" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_9h.png" offset="32400" tzid="+0900" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_10h30.png" offset="37800" tzid="+1030" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_10h.png" offset="36000" tzid="+1000" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_11h30.png" offset="41400" tzid="+1130" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_11h.png" offset="39600" tzid="+1100" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_12h45.png" offset="45900" tzid="+1245" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_12h.png" offset="43200" tzid="+1200" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_13h.png" offset="46800" tzid="+1300" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_14h.png" offset="50400" tzid="+1400" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-1h.png" offset="-3600" tzid="-0100" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-2h.png" offset="-7200" tzid="-0200" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-3h30.png" offset="-12600" tzid="-0330" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-3h.png" offset="-10800" tzid="-0300" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-4h.png" offset="-14400" tzid="-0400" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-5h.png" offset="-18000" tzid="-0500" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-6h.png" offset="-21600" tzid="-0600" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-7h.png" offset="-25200" tzid="-0700" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-8h30.png" offset="-30600" tzid="-0830" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-8h.png" offset="-28800" tzid="-0800" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-9h30.png" offset="-34200" tzid="-0930" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-9h.png" offset="-32400" tzid="-0900" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-10h.png" offset="-36000" tzid="-1000" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-11h.png" offset="-39600" tzid="-1100" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-12h45.png" offset="-45900" tzid="-1245" hidden="true"/>
+                    <xul:image src="chrome://vivipos/skin/timezones/timezone_-12h.png" offset="-43200" tzid="-1200" hidden="true"/>
+                </xul:stack>
 
-                </xul:vbox>
+            </xul:vbox>
 
-                <xul:panel anonid="timezone-panel" position="overlap" pack="center" align="center" noautohide="true">
-                    <xul:viviscrollablebuttonpanel anonid="timezone-buttonpanel" flex="1"
-                                                   cols="4" rows="4" labelField="label"
-                                                   ensureVisible="true"
-                                                   oncommand="updateTimezone(this.selectedIndex); hideTimezonePanel();"
-                                                   xbl:inherits="cols,rows,class=panelClass,buttonClass,scrollUpClass,scrollDownClass">
-                        <xul:spacer flex="1" />
-                    </xul:viviscrollablebuttonpanel>
-                </xul:panel>
+            <xul:panel anonid="timezone-panel" position="overlap" pack="center" align="center">
+                <xul:viviscrollablebuttonpanel anonid="timezone-buttonpanel" flex="1"
+                                               cols="4" rows="4" labelField="label"
+                                               ensureVisible="true"
+                                               oncommand="updateTimezone(this.selectedIndex); hideTimezonePanel();"
+                                               xbl:inherits="cols,rows,class=panelClass,buttonClass,scrollUpClass,scrollDownClass">
+                    <xul:spacer flex="1" />
+                </xul:viviscrollablebuttonpanel>
+            </xul:panel>
         </content>
 
         <xbl:implementation>
+
+            <field name="button">
+            document.getAnonymousElementByAttribute(this, "anonid", "timezone-button");
+            </field>
+
+            <field name="type">
+                this.getAttribute("type") || 'button';
+            </field>
 
             <field name="panel">
             document.getAnonymousElementByAttribute(this, "anonid", "timezone-panel");
@@ -99,23 +107,15 @@
             document.getAnonymousElementByAttribute(this, "anonid", "timezone-menulist");
             </field>
 
-            <field name="button">
-            document.getAnonymousElementByAttribute(this, "anonid", "timezone-button");
-            </field>
-
-            <field name="type">
-                this.getAttribute("type") || 'button';
-            </field>
-
             <field name="stack">
             document.getAnonymousElementByAttribute(this, "anonid", "timezone-stack");
             </field>
 
             <property name="currentTimezone" onget="return this._currentTimezone;" readonly="true" />
 
-            <property name="selectedTimezone" onget="return this._selectedTimezone;" onset="this._selectedTimezone=val; this._selectedIndex=this.findTimezone(val);" />
+            <property name="selectedTimezone" onget="return this._selectedTimezone;" onset="this._selectedTimezone=val; this._selectedIndex=this.findTimezone(val); return val;" />
 
-            <property name="selectedIndex" onget="return this._selectedIndex;" onset="this._selectedIndex=val;" />
+            <property name="selectedIndex" onget="return this._selectedIndex;" onset="this._selectedIndex=val; return val;" />
 
             <field name="timezones">
                 [

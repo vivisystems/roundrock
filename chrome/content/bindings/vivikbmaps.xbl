@@ -3,8 +3,8 @@
 <!DOCTYPE bindings [
   <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
   %globalDTD;
-  <!ENTITY % timezonesDTD SYSTEM "chrome://vivipos/locale/timezones.dtd">
-  %timezonesDTD;
+  <!ENTITY % kbmapsDTD SYSTEM "chrome://vivipos/locale/kbmaps.dtd">
+  %kbmapsDTD;
 ]>
 
 <bindings xmlns="http://www.mozilla.org/xbl"
@@ -18,95 +18,130 @@
         </resources>
 
         <content>
-            <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex">
-                <xul:menulist anonid="kbmaps-menulist" oncommand="updateKbmap(event)">
+            <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex,popupheight,popupwidth">
+                <xul:menulist anonid="kbmaps-menulist" oncommand="updateKbmap(this.selectedIndex)" hidden="true"
+                              xbl:inherits="class=listboxClass">
                     <xul:menupopup style="height: 300px;">
-                        <xul:menuitem label="Albania" value="al" />
-                        <xul:menuitem label="Andorra" value="ad" />
-                        <xul:menuitem label="Arabic" value="ara" />
-                        <xul:menuitem label="Armenia" value="am" />
-                        <xul:menuitem label="Azerbaijan" value="az" />
-                        <xul:menuitem label="Bangladesh" value="bd" />
-                        <xul:menuitem label="Belarus" value="by" />
-                        <xul:menuitem label="Belgium" value="be" />
-                        <xul:menuitem label="Bosnia and Herzegovina" value="ba" />
-                        <xul:menuitem label="Brazil" value="br" />
-                        <xul:menuitem label="Bulgaria" value="bg" />
-                        <xul:menuitem label="Canada" value="ca" />
-                        <xul:menuitem label="China" value="cn" />
-                        <xul:menuitem label="Congo, Democratic Republic of the" value="cd" />
-                        <xul:menuitem label="Croatia" value="hr" />
-                        <xul:menuitem label="Czechia" value="cz" />
-                        <xul:menuitem label="Denmark" value="dk" />
-                        <xul:menuitem label="Esperanto" value="epo" />
-                        <xul:menuitem label="Estonia" value="ee" />
-                        <xul:menuitem label="Ethiopia" value="et" />
-                        <xul:menuitem label="Faroe Islands" value="fo" />
-                        <xul:menuitem label="Finland" value="fi" />
-                        <xul:menuitem label="France" value="fr" />
-                        <xul:menuitem label="Georgia" value="ge" />
-                        <xul:menuitem label="Germany" value="de" />
-                        <xul:menuitem label="Ghana" value="gh" />
-                        <xul:menuitem label="Greece" value="gr" />
-                        <xul:menuitem label="Guinea" value="gn" />
-                        <xul:menuitem label="Hungary" value="hu" />
-                        <xul:menuitem label="Iceland" value="is" />
-                        <xul:menuitem label="India" value="in" />
-                        <xul:menuitem label="Iran" value="ir" />
-                        <xul:menuitem label="Iraq" value="iq" />
-                        <xul:menuitem label="Ireland" value="ie" />
-                        <xul:menuitem label="Israel" value="il" />
-                        <xul:menuitem label="Italy" value="it" />
-                        <xul:menuitem label="Japan" value="jp" />
-                        <xul:menuitem label="Japan (PC-98xx Series)" value="nec_vndr_jp" />
-                        <xul:menuitem label="Kazakhstan" value="kz" />
-                        <xul:menuitem label="Korea, Republic of" value="kr" />
-                        <xul:menuitem label="Kyrgyzstan" value="kg" />
-                        <xul:menuitem label="Laos" value="la" />
-                        <xul:menuitem label="Latin American" value="latam" />
-                        <xul:menuitem label="Lithuania" value="lt" />
-                        <xul:menuitem label="Latvia" value="lv" />
-                        <xul:menuitem label="Macedonia" value="mk" />
-                        <xul:menuitem label="Maldives" value="mv" />
-                        <xul:menuitem label="Malta" value="mt" />
-                        <xul:menuitem label="Maori" value="mao" />
-                        <xul:menuitem label="Mongolia" value="mn" />
-                        <xul:menuitem label="Montenegro" value="me" />
-                        <xul:menuitem label="Morocco" value="ma" />
-                        <xul:menuitem label="Nepal" value="np" />
-                        <xul:menuitem label="Netherlands" value="nl" />
-                        <xul:menuitem label="Nigeria" value="ng" />
-                        <xul:menuitem label="Norway" value="no" />
-                        <xul:menuitem label="Pakistan" value="pk" />
-                        <xul:menuitem label="Poland" value="pl" />
-                        <xul:menuitem label="Portugal" value="pt" />
-                        <xul:menuitem label="Romania" value="ro" />
-                        <xul:menuitem label="Russia" value="ru" />
-                        <xul:menuitem label="Serbia" value="rs" />
-                        <xul:menuitem label="Slovakia" value="sk" />
-                        <xul:menuitem label="Slovenia" value="si" />
-                        <xul:menuitem label="South Africa" value="za" />
-                        <xul:menuitem label="Spain" value="es" />
-                        <xul:menuitem label="Sweden" value="se" />
-                        <xul:menuitem label="Switzerland" value="ch" />
-                        <xul:menuitem label="Syria" value="sy" />
-                        <xul:menuitem label="Tajikistan" value="tj" />
-                        <xul:menuitem label="Thailand" value="th" />
-                        <xul:menuitem label="Turkey" value="tr" />
-                        <xul:menuitem label="Ukraine" value="ua" />
-                        <xul:menuitem label="United Kingdom" value="gb" />
-                        <xul:menuitem label="USA" value="us" />
-                        <xul:menuitem label="Uzbekistan" value="uz" />
-                        <xul:menuitem label="Vietnam" value="vn" />
                     </xul:menupopup>
                 </xul:menulist>
 
+                <xul:button anonid="kbmaps-button" oncommand="showKbmapPanel()" hidden="false"
+                            xbl:inherits="class=kbmapButtonClass"/>
+
                 <xul:stack anonid="kbmaps-stack">
                 </xul:stack>
+
             </xul:vbox>
+
+            <xul:panel anonid="kbmaps-panel" position="overlap" pack="center" align="center">
+                <xul:viviscrollablebuttonpanel anonid="kbmaps-buttonpanel" flex="1"
+                                               cols="4" rows="4" labelField="label" imageField="image"
+                                               ensureVisible="true"
+                                               oncommand="updateKbmap(this.selectedIndex); hideKbmapPanel();"
+                                               xbl:inherits="cols,rows,class=panelClass,buttonClass,scrollUpClass,scrollDownClass">
+                    <xul:spacer flex="1" />
+                </xul:viviscrollablebuttonpanel>
+            </xul:panel>
         </content>
 
         <xbl:implementation>
+
+            <field name="kbmaps">
+                [
+                        {label: "&kbmap.Albania;", value: "al", image: ""},
+                        {label: "&kbmap.Andorra;", value: "ad", image: ""},
+                        {label: "&kbmap.Arabic;", value: "ara", image: ""},
+                        {label: "&kbmap.Armenia;", value: "am", image: ""},
+                        {label: "&kbmap.Azerbaijan;", value: "az", image: ""},
+                        {label: "&kbmap.Bangladesh;", value: "bd", image: ""},
+                        {label: "&kbmap.Belarus;", value: "by", image: ""},
+                        {label: "&kbmap.Belgium;", value: "be", image: ""},
+                        {label: "&kbmap.Bosnia_and_Herzegovina;", value: "ba", image: ""},
+                        {label: "&kbmap.Brazil;", value: "br", image: ""},
+                        {label: "&kbmap.Bulgaria;", value: "bg", image: ""},
+                        {label: "&kbmap.Canada;", value: "ca", image: ""},
+                        {label: "&kbmap.China;", value: "cn", image: ""},
+                        {label: "&kbmap.Congo_Democratic_Republic_of_the;", value: "cd", image: ""},
+                        {label: "&kbmap.Croatia;", value: "hr", image: ""},
+                        {label: "&kbmap.Czechia;", value: "cz", image: ""},
+                        {label: "&kbmap.Denmark;", value: "dk", image: ""},
+                        {label: "&kbmap.Esperanto;", value: "epo", image: ""},
+                        {label: "&kbmap.Estonia;", value: "ee", image: ""},
+                        {label: "&kbmap.Ethiopia;", value: "et", image: ""},
+                        {label: "&kbmap.Faroe_Islands;", value: "fo", image: ""},
+                        {label: "&kbmap.Finland;", value: "fi", image: ""},
+                        {label: "&kbmap.France;", value: "fr", image: ""},
+                        {label: "&kbmap.Georgia;", value: "ge", image: ""},
+                        {label: "&kbmap.Germany;", value: "de", image: ""},
+                        {label: "&kbmap.Ghana;", value: "gh", image: ""},
+                        {label: "&kbmap.Greece;", value: "gr", image: ""},
+                        {label: "&kbmap.Guinea;", value: "gn", image: ""},
+                        {label: "&kbmap.Hungary;", value: "hu", image: ""},
+                        {label: "&kbmap.Iceland;", value: "is", image: ""},
+                        {label: "&kbmap.India;", value: "in", image: ""},
+                        {label: "&kbmap.Iran;", value: "ir", image: ""},
+                        {label: "&kbmap.Iraq;", value: "iq", image: ""},
+                        {label: "&kbmap.Ireland;", value: "ie", image: ""},
+                        {label: "&kbmap.Israel;", value: "il", image: ""},
+                        {label: "&kbmap.Italy;", value: "it", image: ""},
+                        {label: "&kbmap.Japan;", value: "jp", image: ""},
+                        {label: "&kbmap.Japan_PC_98xx_Series;", value: "nec_vndr_jp", image: ""},
+                        {label: "&kbmap.Kazakhstan;", value: "kz", image: ""},
+                        {label: "&kbmap.Korea_Republic_of;", value: "kr", image: ""},
+                        {label: "&kbmap.Kyrgyzstan;", value: "kg", image: ""},
+                        {label: "&kbmap.Laos;", value: "la", image: ""},
+                        {label: "&kbmap.Latin_American;", value: "latam", image: ""},
+                        {label: "&kbmap.Lithuania;", value: "lt", image: ""},
+                        {label: "&kbmap.Latvia;", value: "lv", image: ""},
+                        {label: "&kbmap.Macedonia;", value: "mk", image: ""},
+                        {label: "&kbmap.Maldives;", value: "mv", image: ""},
+                        {label: "&kbmap.Malta;", value: "mt", image: ""},
+                        {label: "&kbmap.Maori;", value: "mao", image: ""},
+                        {label: "&kbmap.Mongolia;", value: "mn", image: ""},
+                        {label: "&kbmap.Montenegro;", value: "me", image: ""},
+                        {label: "&kbmap.Morocco;", value: "ma", image: ""},
+                        {label: "&kbmap.Nepal;", value: "np", image: ""},
+                        {label: "&kbmap.Netherlands;", value: "nl", image: ""},
+                        {label: "&kbmap.Nigeria;", value: "ng", image: ""},
+                        {label: "&kbmap.Norway;", value: "no", image: ""},
+                        {label: "&kbmap.Pakistan;", value: "pk", image: ""},
+                        {label: "&kbmap.Poland;", value: "pl", image: ""},
+                        {label: "&kbmap.Portugal;", value: "pt", image: ""},
+                        {label: "&kbmap.Romania;", value: "ro", image: ""},
+                        {label: "&kbmap.Russia;", value: "ru", image: ""},
+                        {label: "&kbmap.Serbia;", value: "rs", image: ""},
+                        {label: "&kbmap.Slovakia;", value: "sk", image: ""},
+                        {label: "&kbmap.Slovenia;", value: "si", image: ""},
+                        {label: "&kbmap.South_Africa;", value: "za", image: ""},
+                        {label: "&kbmap.Spain;", value: "es", image: ""},
+                        {label: "&kbmap.Sweden;", value: "se", image: ""},
+                        {label: "&kbmap.Switzerland;", value: "ch", image: ""},
+                        {label: "&kbmap.Syria;", value: "sy", image: ""},
+                        {label: "&kbmap.Tajikistan;", value: "tj", image: ""},
+                        {label: "&kbmap.Thailand;", value: "th", image: ""},
+                        {label: "&kbmap.Turkey;", value: "tr", image: ""},
+                        {label: "&kbmap.Ukraine;", value: "ua", image: ""},
+                        {label: "&kbmap.United_Kingdom;", value: "gb", image: ""},
+                        {label: "&kbmap.USA;", value: "us", image: ""},
+                        {label: "&kbmap.Uzbekistan;", value: "uz", image: ""},
+                        {label: "&kbmap.Vietnam;", value: "vn", image: ""}
+                ]
+            </field>
+            <field name="button">
+            document.getAnonymousElementByAttribute(this, "anonid", "kbmaps-button");
+            </field>
+
+            <field name="type">
+                this.getAttribute("type") || 'button';
+            </field>
+
+            <field name="panel">
+            document.getAnonymousElementByAttribute(this, "anonid", "kbmaps-panel");
+            </field>
+
+            <field name="buttonpanel">
+            document.getAnonymousElementByAttribute(this, "anonid", "kbmaps-buttonpanel");
+            </field>
 
             <field name="menulist">
             document.getAnonymousElementByAttribute(this, "anonid", "kbmaps-menulist");
@@ -118,9 +153,9 @@
 
             <property name="currentKbmap" onget="return this._currentKbmap;" readonly="true" />
 
-            <property name="selectedIndex" onget="return this.menulist.selectedIndex;" onset="this.menulist.selectedIndex=val; return val;" />
+            <property name="selectedIndex" onget="return this._selectedIndex;" onset="this._selectedIndex=val; return val;" />
 
-            <property name="selectedKbmap" onget="return this.menulist.selectedItem.getAttribute('value');" onset="this.menulist.selectedIndex=this.findKbmap(val);" />
+            <property name="selectedKbmap" onget="return this._selectedKbmap;" onset="this._selectedKbmap=val; this._selectedIndex=this.findKbmap(val); return val;" />
 
             <xbl:constructor><![CDATA[
                 var self = this;
@@ -153,14 +188,60 @@
                 }catch(e) {
                 }
 
+                this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+                this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
                 this._currentKbmap = kb;
+                this.selectedKbmap = null;
+                this.selectedIndex = -1;
 
                 var index = this.findKbmap(kb);
 
+                // use menu or button
                 var menulist = this.menulist;
-                menulist.selectedIndex = index;
+                var button = this.button;
 
-                this.updateKbmap();
+                if (this.type == 'button') {
+                    menulist.hidden = true;
+                    button.hidden = false;
+                }
+                else {
+                    menulist.hidden = false;
+                    button.hidden = true;
+
+                    this.kbmaps.forEach(function(kbmap) {
+                        menulist.appendItem(kbmap.label, kbmap.value);
+                    }, this);
+
+                    menulist.selectedIndex = index;
+                }
+
+                this.updateKbmap(index);
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="showKbmapPanel">
+                <xbl:body><![CDATA[
+
+                this.buttonpanel.datasource = this.kbmaps;
+                this.buttonpanel.selectedIndex = this.selectedIndex;
+                this.buttonpanel.selectedItems = [this.selectedIndex];
+                this.buttonpanel.ensureIndexIsVisible(this.selectedIndex);
+
+                var width = this.getAttribute('popupwidth') || this.screenwidth;
+                var height = this.getAttribute('popupheight') || this.screenheight;
+
+                this.panel.sizeTo(width, height);
+                this.panel.openPopupAtScreen((this.screenwidth - width) / 2, (this.screenheight - height) / 2);
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="hideKbmapPanel">
+                <xbl:body><![CDATA[
+
+                this.panel.hidePopup();
                 ]]>
                 </xbl:body>
             </xbl:method>
@@ -168,25 +249,42 @@
             <xbl:method name="findKbmap">
                 <xbl:parameter name="layout"/>
                 <xbl:body><![CDATA[
-                    var menulist = this.menulist;
-                    var numChilds = menulist.childNodes[0].childNodes.length;
-                    for (var i=0; i<numChilds; i++) {
-                        var menuitem = menulist.childNodes[0].childNodes[i];
-                        if (menuitem.getAttribute("value") == layout) {
-                            return i;
-                        }
+                for (var i = 0; i < this.kbmaps.length; i++) {
+                    if (this.kbmaps[i].value == layout) {
+                        return i;
                     }
-                    return -1;
+                }
+                return -1;
                 ]]>
                 </xbl:body>
             </xbl:method>
 
+
             <xbl:method name="updateKbmap">
-                <xbl:parameter name="event"/>
+                <xbl:parameter name="index"/>
                 <xbl:body><![CDATA[
 
-                    var menuitem = this.menulist.selectedItem;
-                    var layout = menuitem.getAttribute("value");
+                var label = '';
+                var kbmap = '';
+                var image = '';
+
+                if (index == null) index = this.selectedIndex;
+                if (index > -1 && index < this.kbmaps.length) {
+                    label = this.kbmaps[index].label;
+                    kbmap = this.kbmaps[index].value;
+                    image = this.kbmaps[index].image;
+
+                    this.selectedKbmap = kbmap;
+                }
+                else {
+                    this.selectedKbmap = this.currentKbmap;
+                }
+                this.selectedIndex = index;
+
+                if (this.type == 'button') {
+                    this.button.label = label;
+                    this.button.image = 'chrome://vivipos/skin/flags/tb_' + kbmap + '.png';
+                }
 
                 ]]>
                 </xbl:body>
