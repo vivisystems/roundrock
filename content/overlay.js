@@ -12,6 +12,9 @@
         var firstRunMarker = new GeckoJS.File(profPath + '/.firstrun');
 
         if (!initMarker.exists()) {
+
+            //alert('test');
+            
             var aURL = 'chrome://viviecr/content/setup_wizard.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;

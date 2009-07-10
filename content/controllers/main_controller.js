@@ -1081,11 +1081,13 @@
         },
 
         wizardTest: function() {
-            var aURL = 'chrome://viviecr/content/setup_wizard.xul';
+            //var aURL = 'chrome://viviecr/content/setup_wizard.xul';
+            var aURL = 'chrome://viviecr/content/wizard_first.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var aArguments = {initialized: false, restart: false, restarted: false};
-            
+
+            //alert('splash screen');
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
         },
         

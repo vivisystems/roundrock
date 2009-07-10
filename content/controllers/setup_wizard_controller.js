@@ -179,6 +179,7 @@
                 var wizard = document.getElementById('wizard');
                 wizard.advance('language');
             }
+
         },
 
         advanceOK: function() {
@@ -186,6 +187,7 @@
             wizard.canAdvance = true;
         },
 
+        
         /*
          *  wizard page "language"
          */
@@ -211,18 +213,20 @@
         },
 
         updateLocaleDisplay: function(locale) {
-            var localeObj = document.getElementById('locale');
+            var localeObj = document.getElementById('selLocale');
             if (localeObj && locale) {
-                localeObj.label = _('(locale)' + locale);
-                localeObj.image = 'chrome://vivipos/skin/flags/tb_' + locale + '.png';
+                localeObj.value = _('(locale)' + locale);
+                var flagObj = document.getElementById("selFlagl");
+                flagObj.src = 'chrome://vivipos/skin/flags/tb_' + locale + '.png';
             }
         },
 
         updateKbmapDisplay: function(kbmap) {
-            var kbmapObj = document.getElementById('kbmap');
+            var kbmapObj = document.getElementById('selKbmap');
             if (kbmapObj && kbmap) {
-                kbmapObj.label = _('(kbmap)' + kbmap);
-                kbmapObj.image = 'chrome://vivipos/skin/flags/tb_' + kbmap + '.png';
+                kbmapObj.value = _('(kbmap)' + kbmap);
+                var flagObj = document.getElementById("selFlagk");
+                flagObj.src = 'chrome://vivipos/skin/flags/tb_' + kbmap + '.png';
             }
         },
 
