@@ -2669,7 +2669,7 @@
                     }
                     else {
                         this.setQty(qty);
-                        NotifyUtils.info(_('Weight read from scale') + ' :' + qty);
+                        NotifyUtils.info(_('Weight read from scale') + ' :' + qty + ' ' + weight.unit);
                         GREUtils.Sound.play('chrome://viviecr/content/sounds/beep1.wav');
                         return true;
                     }

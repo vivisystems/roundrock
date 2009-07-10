@@ -108,22 +108,22 @@
 
             // return weight only if the same weight has been read 3 times in a row
             weight = this.readScaleOnce(port, iterations);
-            this.log('weight from readOnce: ' + weight);
+            this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
             while (weight != null) {
                 if (lastWeight == null) {
-                    lastWeight = weight;
+                    lastWeight = weight.value;
                 }
                 else {
-                    if (weight == lastWeight) {
+                    if (weight.value == lastWeight) {
                         if (++stableCount >= stables) {
-                            return {value: weight};
+                            return {value: weight.value, unit: weight.unit};
                         }
                     }
                     else {
                         // weight has changed
-                        lastWeight = weight;
+                        lastWeight = weight.value;
                         if (++tryCount == tries) {
-                            return {value: null};
+                            return {value: null, unit: null};
                         }
                         else {
                             stableCount = 0;
@@ -131,7 +131,7 @@
                     }
                 }
                 weight = this.readScaleOnce(port, iterations);
-                this.log('weight from readOnce: ' + weight);
+                this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
             }
             // fail to read from scale, return immediately
 
@@ -169,14 +169,18 @@ this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
             }
 
             if (weightStr.length >= 29) {
-                weight = weightStr.substr(1, 7);
-                this.log('DEBUG', 'scale value: ' + weight);
-                if (isNaN(weight)) {
+                var value = weightStr.substr(1, 7);
+                var unit = weightStr.substr(9, 2);
+                this.log('DEBUG', 'scale value: ' + value + ', unit: ' + unit);
+                if (isNaN(value)) {
                     weight = null;
                 }
-                this.log('DEBUG', 'scale value: ' + weight);
+                else {
+                    weight = {value: value, unit: unit};
+                }
+                this.log('DEBUG', 'scale value: ' + value + ', unit: ' + unit);
             }
-            this.log('DEBUG', 'readScale: [' + weight + ']');
+            this.log('DEBUG', 'readScale: ' + this.dump(weight));
             return weight;
         }
     };
