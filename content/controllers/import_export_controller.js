@@ -7,6 +7,7 @@
         scaffold: true,
 
         uses: ["Product"],
+        components: ['Tax'],
 	
         _listObj: null,
         _importDir: null,
@@ -287,7 +288,6 @@
                                                 'no',
                                                 'name',
                                                 'cate_no',
-                                                'rate',
                                                 'id',
                                                 'cond_group',
                                                 'link_group',
@@ -295,6 +295,7 @@
                                                 'buy_price',
                                                 'stock',
                                                 'min_stock',
+                                                'rate',
                                                 'memo',
                                                 'min_sale_qty',
                                                 'sale_unit',
@@ -359,11 +360,11 @@
                                             columns = [
                                                 'no',
                                                 'name',
-                                                'rate',
                                                 'id',
                                                 'visible',
                                                 'sale_unit',
                                                 'scale',
+                                                'rate',
                                                 'button_color',
                                                 'font_size',
                                                 'cansale',
@@ -632,7 +633,6 @@
                 progmeter.value = 100;
                 this.sleep(200);
                 // reset max script run time...
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                 // progmeter.value = 0;
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
@@ -1089,9 +1089,7 @@
                                                 }
                                                 prodNos.push(rowdata['no']);
                                             }
-                                            if(!self.isValidRequiredField(rowdata['rate'])) {
-                                                errorMsgs.push(_("Product item %S @ row %S requires a tax rate", [prodNm, i + 2]));
-                                            } else {
+                                            if(rowdata['rate'].length > 0) {
                                                 var queryString = "SELECT id FROM taxes WHERE no ='" + rowdata['rate'] + "';";
                                                 var result = tableTmp.getDataSource().fetchAll(queryString);
                                                 if(!result[0]) {
@@ -1238,9 +1236,7 @@
                                             if(!self.isValidFontSizeField(rowdata['font_size'], true)) {
                                                 errorMsgs.push(_("Department item %S @ row %S requires a valid font size", [cateNm, i + 2]));
                                             }
-                                            if(!self.isValidRequiredField(rowdata['rate'])) {
-                                                errorMsgs.push(_("Department item %S @ row %S requires a tax rate", [cateNm, i + 2]));
-                                            } else {
+                                            if(rowdata['rate'].length > 0) {
                                                 var queryString = "SELECT id FROM taxes WHERE no ='" + rowdata['rate'] + "';";
                                                 var result = tableTmp.getDataSource().fetchAll(queryString);
                                                 if(!result[0]) {
@@ -1454,6 +1450,16 @@
                                             if(rowdata['sale_unit'].length < 1) {
                                                 rowdata['sale_unit'] = "0";
                                             }
+                                            if(rowdata['rate'].length < 1) {
+                                                var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                                                if (defaultRate != null) {
+                                                    rowdata['rate'] = defaultRate;
+                                                }  else {
+                                                    var taxes = GeckoJS.Session.get('taxes');
+                                                    if (taxes == null) taxes = this.Tax.getTaxList();
+                                                    if (taxes != null) rowdata['rate'] = taxes[0].no;
+                                                }
+                                            }
                                             break;
                                     }
                                     case "products": {
@@ -1570,6 +1576,16 @@
                                             }
                                             if(rowdata['append_empty_btns'].length < 1) {
                                                 rowdata['append_empty_btns'] = "0";
+                                            }
+                                            if(rowdata['rate'].length < 1) {
+                                                var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                                                if (defaultRate != null) {
+                                                    rowdata['rate'] = defaultRate;
+                                                }  else {
+                                                    var taxes = GeckoJS.Session.get('taxes');
+                                                    if (taxes == null) taxes = this.Tax.getTaxList();
+                                                    if (taxes != null) rowdata['rate'] = taxes[0].no;
+                                                }
                                             }
                                             break;
                                     }
