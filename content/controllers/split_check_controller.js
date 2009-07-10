@@ -212,8 +212,8 @@
 
             // this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(data));
 
-            var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
-            var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0;
+            var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0, qty_subtotal=0;
+            var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0, promotion_subtotal=0;
 
             // item subtotal and grouping
             data.items_count = 0;
@@ -221,23 +221,37 @@
             for(var itemIndex in data.items ) {
                 var item = data.items[itemIndex];
 
-                tax_subtotal += parseFloat(item.current_tax);
-                included_tax_subtotal += parseFloat(item.included_tax);
+                // don't include set items in calculations
+                if (!item.parent_index) {
+                    tax_subtotal += parseFloat(item.current_tax);
+                    included_tax_subtotal += parseFloat(item.included_tax);
 
-                item_surcharge_subtotal += parseFloat(item.current_surcharge);
-                item_discount_subtotal += parseFloat(item.current_discount);
-                item_subtotal += parseFloat(item.current_subtotal);
+                    item_surcharge_subtotal += parseFloat(item.current_surcharge);
+                    item_discount_subtotal += parseFloat(item.current_discount);
+                    item_subtotal += parseFloat(item.current_subtotal);
+
+                    qty_subtotal += (item.sale_unit == 'unit') ? item.current_qty : 1;
+                }
 
                 // summary it
                 var item_id = item.id;
-                let sumItem = data.items_summary[item_id] || {id: item_id, name: item.name,
-                    qty_subtotal: 0, subtotal: 0, discount_subtotal: 0, surcharge_subtotal: 0};
+                var sumItem = GREUtils.extend({}, (data.items_summary[item_id] || {
+                    id: item_id,
+                    name: item.name,
+                    qty_subtotal: 0,
+                    subtotal: 0,
+                    discount_subtotal: 0,
+                    surcharge_subtotal: 0
+                }));
 
-                sumItem.qty_subtotal += item.current_qty;
-                sumItem.subtotal += parseFloat(item.current_subtotal);
-                sumItem.discount_subtotal += parseFloat(item.current_discount);
-                sumItem.surcharge_subtotal += parseFloat(item.current_surcharge);
+                // include set items in quantity summation
+                sumItem.qty_subtotal += (item.sale_unit == 'unit') ? item.current_qty : 1;
 
+                if (!item.parent_index) {
+                    sumItem.subtotal += parseFloat(item.current_subtotal);
+                    sumItem.discount_subtotal += parseFloat(item.current_discount);
+                    sumItem.surcharge_subtotal += parseFloat(item.current_surcharge);
+                }
                 data.items_summary[item_id] = sumItem;
 
                 data.items_count++;
@@ -259,11 +273,27 @@
                 payment_subtotal += parseFloat(payItem.amount);
             }
 
+            promotion_subtotal = data.promotion_subtotal ;
+
             total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal;
             remain = total - payment_subtotal;
 
+            // revalue
+            if(data.autorevalue && data.revalueprices != 0) {
+                if(total>=0) {
+                    data.revalue_subtotal = 0 - parseFloat(total % data.revalueprices);
+                }else {
+                    data.revalue_subtotal = parseFloat((0 - total) % data.revalueprices);
+                    if (data.revalue_subtotal != 0)
+                        data.revalue_subtotal -= data.revalueprices;
+                }
+                total = total + data.revalue_subtotal;
+                remain = total - payment_subtotal;
+            }
+
             data.total = this.getRoundedPrice(total, data.precision_prices, data.rounding_prices);
             data.remain = this.getRoundedPrice(remain, data.precision_prices, data.rounding_prices);
+            data.qty_subtotal = qty_subtotal;
             data.tax_subtotal = this.getRoundedTax(tax_subtotal, data.precision_taxes, data.rounding_taxes);
             data.item_subtotal = this.getRoundedPrice(item_subtotal, data.precision_prices, data.rounding_prices);
             data.included_tax_subtotal = this.getRoundedTax(included_tax_subtotal, data.precision_prices, data.rounding_prices);
