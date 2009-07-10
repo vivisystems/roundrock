@@ -2939,7 +2939,7 @@
                 }
                 GREUtils.Dialog.alert(this.topmostWindow,
                     _('Order Finalization'),
-                    _('Current order is no longer available for finalization (status = %S)', [statusStr]));
+                    _('Current order is no longer available for finalization (status: %S)', [statusStr]));
                 return false;
             }
             if (status == null) status = 1;

@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-10 23:22+0800\n"
+"POT-Creation-Date: 2009-07-11 02:44+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3353,7 +3353,7 @@ msgid "Order Finalization"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2942
-msgid "Current order is no longer available for finalization (status = %S)"
+msgid "Current order is no longer available for finalization (status: %S)"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2949
@@ -4115,7 +4115,7 @@ msgid "Locale package [%S] successfully exported"
 msgstr ""
 
 #: ../..//content/controllers/export_locale_controller.js:104
-#: ../..//content/controllers/localization_controller.js:661
+#: ../..//content/controllers/localization_controller.js:687
 msgid "Export Locale"
 msgstr ""
 
@@ -4566,58 +4566,59 @@ msgstr ""
 msgid "Order Details"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:56
-#: ../..//content/controllers/localization_controller.js:159
+#: ../..//content/controllers/localization_controller.js:58
+#: ../..//content/controllers/localization_controller.js:161
 msgid ""
 "Path [%S] for package [%S] locale [%S] is either non-existent or is not a "
 "directory"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:318
+#: ../..//content/controllers/localization_controller.js:324
 msgid "Localization"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:319
+#: ../..//content/controllers/localization_controller.js:325
 msgid "Translations have been modified; save changes?"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:320
+#: ../..//content/controllers/localization_controller.js:326
 msgid "Save"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:320
+#: ../..//content/controllers/localization_controller.js:326
 #: ../..//content/controllers/main_controller.js:778
 #: ../..//content/controllers/main_controller.js:804
 msgid "Discard"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:509
+#: ../..//content/controllers/localization_controller.js:520
 msgid "Localization Editor"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:510
+#: ../..//content/controllers/localization_controller.js:521
 msgid ""
-"You have entered one or more special characters (<>&\"\\) that may cause "
-"display problems. Are you sure you still want to modify this translation?"
+"The text you entered contains one or more special characters (%, &, \") that "
+"should be used with extreme care. Mis-use may lead to non-functional "
+"screens. Are you sure you still want to modify this translation?"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:587
+#: ../..//content/controllers/localization_controller.js:613
 msgid "DTD file [%S] successfully updated"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:591
+#: ../..//content/controllers/localization_controller.js:617
 msgid "Failed to write DTD to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:606
+#: ../..//content/controllers/localization_controller.js:632
 msgid "Properties file [%S] successfully updated"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:609
+#: ../..//content/controllers/localization_controller.js:635
 msgid "Failed to write Properties to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:651
+#: ../..//content/controllers/localization_controller.js:677
 msgid "Failed to load install.rdf for package:locale [%S:%S] at path [%S]"
 msgstr ""
 

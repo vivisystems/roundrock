@@ -70,6 +70,9 @@
 
                     <row>
                         <hbox pack="end">
+                            <label value="&localization.label.filetype;"/>
+                            <label id="file_type"/>
+                            <spacer flex="1"/>
                             <label value="&localization.label.index;"/>
                             <label id="index" readonly="true" disabled="true"/>
                             <spacer width="5px"/>
@@ -79,7 +82,7 @@
                     </row>
                     <row>
                         <hbox>
-                            <textbox id="edit_base" readonly="true" disabled="true" flex="1" multiline="true" wrap="true"/>
+                            <textbox id="edit_base" readonly="true" disabled="true" flex="1" wrap="true"/>
                             <spacer width="5px"/>
                             <textbox id="edit_working" disabled="true" flex="2" multiline="true" rows="1"/>
                         </hbox>

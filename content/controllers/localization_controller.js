@@ -17,6 +17,8 @@
         _currentPkgIndex: -1,
         _selectedLocale: null,
         _strings: [],
+        _files: [],
+        _filetype: null,
 
         load: function() {            
             var self = this;
@@ -216,7 +218,7 @@
                 }
             }
             else if (ext == 'properties') {
-                var regexProp = /^\s*([^#].*)=(.*)\s*$/gm;
+                var regexProp = /^\s*([^#].*?)=(.*)\s*$/gm;
                 while ((match = regexProp.exec(buf)) != null) {
                     entries[match[1]] = {base: match[2]};
                 }
@@ -236,6 +238,10 @@
                 for (var index = 0; index < pkg.files.length; index++) {
                     var f = pkg.files[index];
 
+                    // first, clear existing translations, if any
+                    var strings = GeckoJS.BaseObject.getValues(f.baseStrings);
+                    strings.forEach(function(str) {delete str.translation;});
+                    
                     var file = pkg.currentPath + '/' + f.file;
 
                     try {
@@ -254,7 +260,7 @@
                             }
                             else if (f.ext == 'properties') {
                                 buf = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(file));
-                                var regexProp = /^\s*([^#].*)=(.*)\s*$/gm;
+                                var regexProp = /^\s*([^#].*?)=(.*)\s*$/gm;
                                 while ((match = regexProp.exec(buf)) != null) {
                                     if (f.baseStrings[match[1]]) {
                                         f.baseStrings[match[1]].translation = match[2];
@@ -327,6 +333,7 @@
             // set to displayTree's data source
             this._list.datasource = strings;
             this._strings = strings;
+            this._files = pkg.files;
 
             // update total count
 
@@ -428,13 +435,18 @@
                     localelist.removeAllItems();
 
                     // add available locales
+                    var selectedIndex = -1;
                     for (var i = 0; i < pkg.locales.length; i++) {
                         var locale = pkg.locales[i];
                         var item = localelist.appendItem(locale, locale);
                         item.setAttribute('style', 'text-align:left;');
-                        if (locale == this._selectedLocale) localelist.selectedIndex = i;
+                        if (locale == this._selectedLocale) selectedIndex = i;
                     };
-                    this.selectLocale(this._selectedLocale);
+                    if (selectedIndex == -1) {
+                        selectedIndex = 0;
+                    }
+                    localelist.selectedIndex = selectedIndex;
+                    this.selectLocale(pkg.locales[selectedIndex]);
                 }
             }
         },
@@ -478,6 +490,7 @@
             var indexObj = document.getElementById('index');
             var baseObj = document.getElementById('edit_base');
             var workingObj = document.getElementById('edit_working');
+            var filetypeObj = document.getElementById('file_type');
 
             var entry = this._strings[index];
             if (entry) {
@@ -488,12 +501,27 @@
                     workingObj.removeAttribute('disabled');
                 }
                 this._currentEntryIndex = index;
+                this._filetype = this._files[entry.index].ext;
             }
             else {
                 if (indexObj) indexObj.value = '0/0';
+                this._filetype = null;
             }
-
+            if (filetypeObj) filetypeObj.value = this._filetype;
+            
             this._validateForm();
+        },
+
+        validateText: function(text, filetype) {
+            if (filetype == 'dtd') {
+                var re = /[%&\"]/;
+                if (re.test(text)) {
+                    return GREUtils.Dialog.confirm(this.topmostWindow,
+                                                   _('Localization Editor'),
+                                                   _('The text you entered contains one or more special characters (%, &, ") that should be used with extreme care. Mis-use may lead to non-functional screens. Are you sure you still want to modify this translation?'));
+                }
+            }
+            return true;
         },
 
         modify: function() {
@@ -502,14 +530,12 @@
                 var text = workingObj.value;
                 var index = this._currentEntryIndex;
                 var pkg = this._currentPkg;
-                var re = /[<>&"\\]/;
+
+                alert('validating [' + text + '] for file type [' + this._filetype + ']');
+
                 if (text != null) text = GeckoJS.String.trim(text);
-                if (re.test(text)) {
-                    if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                                                 _('Localization Editor'),
-                                                 _('You have entered one or more special characters (<>&"\\) that may cause display problems. Are you sure you still want to modify this translation?'))) {
-                        return;
-                    }
+                if (!this.validateText(text, this._filetype)) {
+                    return;
                 }
                 if (index > -1 && pkg && this._strings) {
                     var strEntry = this._strings[index];
