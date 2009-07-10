@@ -51,6 +51,7 @@
         rewind="n/a"
         >
         <vbox flex="1">
+            
         </vbox>
     </wizardpage>
 
@@ -82,15 +83,26 @@
                 </vbox>
                 <vbox class="content_area">
                     <label value="&wizard.page.language.locale;"/>
-                    <vivilocaleslistbox id="locale" package="viviecr" flex="1"
-                                        type="button" rows="6" cols="6" popupwidth="720" popupheight="540"
-                                        listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
+                    <hbox class="selArea">
+                        <image id="selFlagl" width="16px" height="11px" />
+                        <label id="selLocale" />
+                        <spacer flex="1" />
+                        <vivilocaleslistbox id="locale" package="viviecr" flex="1"
+                                            type="button" rows="6" cols="6" popupwidth="720" popupheight="540"
+                                            listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
+                    </hbox>
                 </vbox>
                 <spacer width="20px"/>
                 <vbox class="content_area keyboardset">
-                    <vivikbmaps id="kbmap" flex="1"
-                                type="button" rows="6" cols="6" popupwidth="720" popupheight="540"
-                                listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
+                    <label value="&wizard.page.language.kbmap;"/>
+                    <hbox class="selArea">
+                        <image id="selFlagk" width="16px" height="11px" />
+                        <label id="selKbmap"/>
+                        <spacer flex="1" />
+                        <vivikbmaps id="kbmap" flex="1"
+                                    type="button" rows="6" cols="6" popupwidth="720" popupheight="540"
+                                    listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
+                    </hbox>
                 </vbox>
             </vbox>
         </hbox>
@@ -217,13 +229,32 @@
         advance="replace existing db with location/sector specific db"
         rewind="set initDB flag"
         >
-        <vbox flex="1">
+        <hbox flex="1">
+            <vbox class="step">
+                <label value="&wizard.page.language;"></label>
+                <label value="&wizard.page.location;"></label>
+                <label value="&wizard.page.timezone;"></label>
+                <label value="&wizard.page.datetime;"></label>
+                <label value="&wizard.page.sector;" class="current_step"></label>
+                <label value="&wizard.page.storeinfo;"></label>
+                <label value="&wizard.page.login;"></label>
+                <label value="&wizard.page.tax;"></label>
+            </vbox>
+            <vbox class="rightPnl">
+                <vbox class="title_box">
+                    <label class="w_Title" value="05 &wizard.page.sector; "></label>
+                    <label class="w_desc" value="&wizard.page.sector.description;"></label>
+                </vbox>
+                <vbox class="content_area">
+                    <label value="&wizard.page.sector;"/>
             <deck id="sector_deck" selectedIndex="0" flex="1">
                 <richlistbox id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
                 </richlistbox>
                 <image id="sector_screenshot" flex="1" src="" onclick="$do('hideScreenShot', null, 'SetupWizard')"/>
             </deck>
-        </vbox>
+            </vbox>
+            </vbox>
+        </hbox>
     </wizardpage>
 
     <wizardpage
@@ -237,41 +268,52 @@
         advance="update db with store information; keep store information in memory"
         rewind="no action"
         >
-        <grid>
-            <columns>
-                <column flex="1" />
-            </columns>
-            <rows>
-                <row>
+            <hbox flex="1">
+        <vbox class="step">
+                <label value="&wizard.page.language;"></label>
+                <label value="&wizard.page.location;"></label>
+                <label value="&wizard.page.timezone;"></label>
+                <label value="&wizard.page.datetime;"></label>
+                <label value="&wizard.page.sector;"></label>
+                <label value="&wizard.page.storeinfo;" class="current_step"></label>
+                <label value="&wizard.page.login;"></label>
+                <label value="&wizard.page.tax;"></label>
+            </vbox>
+            <vbox class="rightPnl">
+                <vbox class="title_box">
+                    <label class="w_Title" value="06 &wizard.page.storeinfo; "></label>
+                    <label class="w_desc" value="&wizard.page.storeinfo.description;"></label>
+                </vbox>
+                <vbox class="content_area">
+                    <label value="&wizard.page.storeinfo;"/>
+        
                     <vbox>
                         <label value="&storecontact.name;" />
                         <textbox id="name" value="" form="storecontactForm" name="name"
                                  oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
                     </vbox>
-                </row>
-                <row>
+                
                     <vbox>
                         <label value="&storecontact.branch;" />
                         <textbox id="branch" value="" form="storecontactForm" name="branch"
                                  oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
                     </vbox>
-                </row>
-                <row>
+                
                     <vbox>
                         <label value="&storecontact.branch.id;" />
                         <textbox id="branch_id" value="" form="storecontactForm" name="branch_id"
                                  oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
                     </vbox>
-                </row>
-                <row>
+                
                     <vbox>
                         <label value="&storecontact.terminal.no; (a-z, A-Z, 0-9)" />
                         <textbox id="terminal_no" value="" form="storecontactForm" name="terminal_no"
                                  oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
                     </vbox>
-                </row>
-            </rows>
-        </grid>
+                
+        </vbox>
+            </vbox>
+            </hbox>
     </wizardpage>
 
     <wizardpage
@@ -285,47 +327,66 @@
         advance="no action"
         rewind="no action"
         >
-        <vbox flex="1">
-            <label value="&wizard.page.login.defaultuser;"/>
-            <viviscrollablebuttonpanel id="userscrollablepanel" flex="1"
-                                       cols="4" rows="3" labelField="displayname" imageField="image"
-                                       ensureVisible="true"
-                                       oncommand="$do('selectUser',this.selectedIndex, 'SetupWizard');"
-                                       class=""
-                                       buttonClass=""
-                                       scrollUpClass="" scrollDownClass="" >
-                <spacer flex="1" />
-            </viviscrollablebuttonpanel>
-            <hbox flex="1">
-                <vbox flex="1">
-                    <label value="&wizard.page.login.adminpassword;"/>
-                    <grid flex="1">
-                        <columns>
-                            <column flex="1" />
-                        </columns>
-                        <rows>
-                            <row>
-                                <label value="&users.password;" control="password"/>
-                                <vivitextbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
-                                             type="password" id="admin_password" value="" form="userForm" name="password" oninput="$do('checkPassword', null, 'SetupWizard')"
-                                             onenter="event.stopPropagation(); event.preventDefault(); document.getElementById('wizard').advance('tax')"/>
-                            </row>
-                            <row>
-                                <label value="&users.confirm;" control="confirm"/>
-                                <vivitextbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
-                                             type="password" id="admin_confirm" value="" form="userForm" name="confirm" oninput="$do('checkPassword', null, 'SetupWizard')"
-                                             onenter="event.stopPropagation(); event.preventDefault(); document.getElementById('wizard').advance('tax')"/>
-                            </row>
-                            <row>
-                                <label id="password_check" value=""/>
-                            </row>
-                        </rows>
-                    </grid>
+        <hbox flex="1">
+            <vbox class="step">
+                <label value="&wizard.page.language;"></label>
+                <label value="&wizard.page.location;"></label>
+                <label value="&wizard.page.timezone;"></label>
+                <label value="&wizard.page.datetime;"></label>
+                <label value="&wizard.page.sector;"></label>
+                <label value="&wizard.page.storeinfo;"></label>
+                <label value="&wizard.page.login;" class="current_step"></label>
+                <label value="&wizard.page.tax;"></label>
+            </vbox>
+            <vbox class="rightPnl">
+                <vbox class="title_box">
+                    <label class="w_Title" value="07 &wizard.page.login; "></label>
+                    <label class="w_desc" value="&wizard.page.login.description;"></label>
                 </vbox>
+                <vbox class="content_area">
+                            <hbox>
+                            <label class="contentTitle" value="&wizard.page.login.adminpassword;"/>
+                            <label value=" *" class="need" /></hbox>
+                            <grid flex="1">
+                                <columns>
+                                    <column flex="1" />
+                                </columns>
+                                <rows>
+                                    <row>
+                                        <label value="&users.password;" control="password"/>
+                                        <vivitextbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                                     type="password" id="admin_password" value="" form="userForm" name="password" oninput="$do('checkPassword', null, 'SetupWizard')"
+                                                     onenter="event.stopPropagation(); event.preventDefault(); document.getElementById('wizard').advance('tax')"/>
+                                    </row>
+                                    <row>
+                                        <label value="&users.confirm;" control="confirm"/>
+                                        <vivitextbox numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                                     type="password" id="admin_confirm" value="" form="userForm" name="confirm" oninput="$do('checkPassword', null, 'SetupWizard')"
+                                                     onenter="event.stopPropagation(); event.preventDefault(); document.getElementById('wizard').advance('tax')"/>
+                                    </row>
+                                    <row>
+                                        <label id="password_check" value=""/>
+                                    </row>
+                                </rows>
+                            </grid>
 
-                <numpad/>
-            </hbox>
+                        <numpad/>
+                </vbox>
+                <vbox class="content_area">
+                    <label value="&wizard.page.login.defaultuser;"/>
+                    <viviscrollablebuttonpanel id="userscrollablepanel" flex="1"
+                                               cols="4" rows="1" labelField="displayname" imageField="image"
+                                               ensureVisible="true"
+                                               oncommand="$do('selectUser',this.selectedIndex, 'SetupWizard');"
+                                               class="selList"
+                                               buttonClass="selBtns"
+                                               scrollUpClass="listUp" scrollDownClass="listDown" >
+                        <spacer flex="1" />
+                    </viviscrollablebuttonpanel>
+                </vbox>
+            
         </vbox>
+            </hbox>
     </wizardpage>
 
     <wizardpage
@@ -338,14 +399,33 @@
         advance="no action"
         rewind="no action"
         >
-        <vbox flex="1">
-            <label value="&wizard.page.tax.defaulttax;"/>
-            <vivitree id="taxlist" flex="1"
-                      headers="&taxes.code;,&taxes.type;,&taxes.name;,&taxes.rate_type;,&taxes.rate;,&taxes.threshold;"
-                      fields="no,type_str,name,rate_type_str,rate_str,threshold_str" hidecolumnpicker="true"
-                      class="showscrollbar">
-            </vivitree>
-        </vbox>
+        <hbox flex="1">
+            <vbox class="step">
+                <label value="&wizard.page.language;"></label>
+                <label value="&wizard.page.location;"></label>
+                <label value="&wizard.page.timezone;"></label>
+                <label value="&wizard.page.datetime;"></label>
+                <label value="&wizard.page.sector;"></label>
+                <label value="&wizard.page.storeinfo;"></label>
+                <label value="&wizard.page.login;"></label>
+                <label value="&wizard.page.tax;" class="current_step"></label>
+            </vbox>
+            <vbox class="rightPnl">
+                <vbox class="title_box">
+                    <label class="w_Title" value="08 &wizard.page.tax; "></label>
+                    <label class="w_desc" value="&wizard.page.tax.description;"></label>
+                </vbox>
+                <vbox class="content_area">
+                   
+                <label value="&wizard.page.tax.defaulttax;"/>
+                <vivitree id="taxlist" flex="1"
+                          headers="&taxes.code;,&taxes.type;,&taxes.name;,&taxes.rate_type;,&taxes.rate;,&taxes.threshold;"
+                          fields="no,type_str,name,rate_type_str,rate_str,threshold_str" hidecolumnpicker="true"
+                          class="showscrollbar">
+                </vivitree>
+                </vbox>
+            </vbox>
+        </hbox>
     </wizardpage>
 
     <wizardpage
@@ -359,18 +439,6 @@
         <box flex="1">
         </box>
     </wizardpage>
-
-    <panel id="kbmapPanel" position="overlap" pack="center" align="center">
-        <viviscrollablebuttonpanel id="kbmapscrollablepanel" flex="1"
-                                   cols="6" rows="6" labelField="label" imageField="image"
-                                   ensureVisible="true"
-                                   oncommand="$do('selectKbmap',this.selectedIndex, 'SetupWizard');"
-                                   class=""
-                                   buttonClass=""
-                                   scrollUpClass="" scrollDownClass="" >
-            <spacer flex="1" />
-        </viviscrollablebuttonpanel>
-    </panel>
 
 </wizard>
 

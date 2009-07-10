@@ -179,6 +179,7 @@
                 var wizard = document.getElementById('wizard');
                 wizard.advance('language');
             }
+
         },
 
         advanceOK: function() {
@@ -186,6 +187,7 @@
             wizard.canAdvance = true;
         },
 
+        
         /*
          *  wizard page "language"
          */
