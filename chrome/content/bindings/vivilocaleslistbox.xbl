@@ -16,8 +16,24 @@
         </resources>
 
         <content>
-            <xul:listbox anonid="locales-listbox" crop="none" xbl:inherits="rows,flex,class,crop,dir,pack,align,seltype">
-            </xul:listbox>
+            <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex,popupheight,popupwidth">
+                <xul:listbox anonid="locales-listbox" crop="none" xbl:inherits="rows,flex,class=listboxClass,crop,dir,pack,align,seltype"
+                             onselect="updateLocale(this.selectedIndex)">
+                </xul:listbox>
+
+                <xul:button anonid="locales-button" oncommand="showLocalesPanel()" hidden="false"
+                            xbl:inherits="class=localeButtonClass"/>
+            </xul:vbox>
+
+            <xul:panel anonid="locales-panel" position="overlap" pack="center" align="center">
+                <xul:viviscrollablebuttonpanel anonid="locales-buttonpanel" flex="1"
+                                               cols="4" rows="4" labelField="label" imageField="image"
+                                               ensureVisible="true"
+                                               oncommand="updateLocale(this.selectedIndex); hideLocalesPanel();"
+                                               xbl:inherits="cols,rows,class=panelClass,buttonClass,scrollUpClass,scrollDownClass">
+                    <xul:spacer flex="1" />
+                </xul:viviscrollablebuttonpanel>
+            </xul:panel>
         </content>
 
         <xbl:implementation>
@@ -26,11 +42,29 @@
             document.getAnonymousElementByAttribute(this, "anonid", "locales-listbox");
             </field>
 
+            <field name="type">
+                this.getAttribute("type") || "button";
+            </field>
+
+            <field name="panel">
+            document.getAnonymousElementByAttribute(this, "anonid", "locales-panel");
+            </field>
+
+            <field name="button">
+            document.getAnonymousElementByAttribute(this, "anonid", "locales-button");
+            </field>
+
+            <field name="buttonpanel">
+            document.getAnonymousElementByAttribute(this, "anonid", "locales-buttonpanel");
+            </field>
+
             <property name="package" onget="return this.getAttribute('package')" onset="this.setAttribute('package', val); return val;"/>
 
             <property name="currentLocale" onget="return this._currentLocale;" readonly="true" />
             
-            <property name="selectedLocale" onget="return this.listbox.selectedItem.value;" readonly="true" />
+            <property name="selectedIndex" onget="return this._selectedIndex;" readonly="true" />
+
+            <property name="selectedLocale" onget="return this._selectedLocale;" readonly="true" />
 
             <xbl:constructor><![CDATA[
                 var self = this;
@@ -40,7 +74,7 @@
 
                 this.ready = function() {
                     if(!self.readyRuned) {
-                        self.initListbox();
+                        self.init();
                         self.readyRuned = true;
                     }
                 };
@@ -64,16 +98,17 @@
             ]]>
             </destructor>
 
-            <xbl:method name="initListbox">
+            <xbl:method name="init">
                 <xbl:body><![CDATA[
                 var package = this.package;
                 var listbox = this.listbox;
+                var button = this.button;
 
                 if (!package) return;
 
-                // already initial
-                if (this.listbox.childNodes.length >0) return;
-
+                this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+                this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+                
                 // Query available and selected locales
                 var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
                 var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
@@ -82,39 +117,112 @@
                 var selectedLocale = xulChromeReg.getSelectedLocale(package);
 
                 this._currentLocale = selectedLocale;
+                this._selectedLocale = selectedLocale;
+                this._selectedIndex = -1;
 
                 var availableLocales = toolkitChromeReg.getLocalesForPackage(package);
 
-                // Render locale menulist
-                const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-
-                listbox.selectedIndex = -1;
-
-                var selectedItem = null;
-
+                // convert locales into array
+                var locales = [];
+                var index = 0;
                 while(availableLocales.hasMore()) {
-
                     var locale = availableLocales.getNext();
 
-                    var listitem = document.createElementNS(XUL_NS, "listitem");
-                    listitem.setAttribute("value", locale);
-                    listitem.setAttribute("label", _('(locale)' + locale));
-                    listitem.setAttribute("class", "listitem-iconic");
-                    listitem.setAttribute("image", "chrome://vivipos/skin/flags/tb_" + locale + ".png");
+                    locales.push({label: _('(locale)' + locale),
+                                  value: locale,
+                                  image: 'chrome://vivipos/skin/flags/tb_' + locale + '.png'});
 
                     if (locale == selectedLocale) {
-                        // Is this the current locale?
-                        selectedItem = listitem;
+                        this._selectedIndex = index;
                     }
-
-                    listbox.appendChild(listitem);
+                    
+                    index++;
                 }
 
-                // Highlight current locale
-                if (selectedItem) {
-                    listbox.selectedItem = selectedItem;
+                this.locales = locales;
+
+                if (this.type == 'button') {
+                    // hide listbox
+                    button.hidden = false;
+                    listbox.hidden = true;
+                }
+                else {
+
+                    // hide button
+                    button.hidden = true;
+                    listbox.hidden = false;
+                    
+                    // Render locale menulist
+                    const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+
+                    locales.forEach(function(locale) {
+                        var listitem = document.createElementNS(XUL_NS, "listitem");
+                        listitem.setAttribute("value", locale.value);
+                        listitem.setAttribute("label", _('(locale)' + locale.value));
+                        listitem.setAttribute("class", "listitem-iconic");
+                        listitem.setAttribute("image", "chrome://vivipos/skin/flags/tb_" + locale.value + ".png");
+
+                        listbox.appendChild(listitem);
+                    }, this);
+
+                    // Highlight current locale
+                    if (this.selectedIndex > -1) {
+                        listbox.selectedIndex = this.selectedIndex;
+                    }
+                }
+                this.updateLocale(this.selectedIndex);
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="updateLocale">
+                <xbl:parameter name="index"/>
+                <xbl:body><![CDATA[
+                if (index == null) {
+                    this.selectedLocale == this.currentLocale;
+                    this.selectedIndex = -1;
+                }
+                else {
+                    this._selectedIndex = index;
                 }
 
+                if (index > -1 && index < this.locales.length) {
+                    this._selectedLocale = this.locales[index].value;
+
+                    if (this.type == 'button') {
+                        var button = this.button;
+
+                        this.button.label = this.locales[index].label;
+                        this.button.image = "chrome://vivipos/skin/flags/tb_" + this.locales[index].value + ".png";
+                    }
+                }
+                else if (this.type == 'button') {
+                    this.button.label = '';
+                    this.button.image = '';
+                }
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="showLocalesPanel">
+                <xbl:body><![CDATA[
+                this.buttonpanel.datasource = this.locales;
+                this.buttonpanel.selectedIndex = this.selectedIndex;
+                this.buttonpanel.selectedItems = [this.selectedIndex];
+                this.buttonpanel.ensureIndexIsVisible(this.selectedIndex);
+
+                var width = this.getAttribute('popupwidth') || this.screenwidth;
+                var height = this.getAttribute('popupheight') || this.screenheight;
+                this.panel.sizeTo(width, height);
+                this.panel.openPopupAtScreen((this.screenwidth - width) / 2, (this.screenheight - height) / 2);
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="hideLocalesPanel">
+                <xbl:body><![CDATA[
+
+                this.panel.hidePopup();
                 ]]>
                 </xbl:body>
             </xbl:method>
@@ -139,7 +247,6 @@
 
                     try {
                         // Which locale did the user select?
-                        var listbox = this.listbox;
                         var newLocale = this.selectedLocale;
 
                         // Write preferred locale to local user config
@@ -158,9 +265,6 @@
                 <xbl:body><![CDATA[
 
                     try {
-
-                        // Which locale did the user select?
-                        var listbox = this.listbox;
                         var newLocale = this.selectedLocale;
 
                         var loc = newLocale.split('-');

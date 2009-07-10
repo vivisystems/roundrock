@@ -18,413 +18,15 @@
         </resources>
 
         <content>
-            <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex">
-                <xul:menulist anonid="timezone-menulist" oncommand="updateTimezone(event)">
+            <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex,popupheight,popupwidth">
+                <xul:menulist anonid="timezone-menulist" oncommand="updateTimezone(this.selectedIndex)" hidden="true"
+                              xbl:inherits="class=listboxClass">
                     <xul:menupopup style="height: 460px;">
-                        <xul:menuitem label="&timezone.Africa.Abidjan;" value="Africa/Abidjan" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Accra;" value="Africa/Accra" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Addis_Ababa;" value="Africa/Addis_Ababa" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Africa.Algiers;" value="Africa/Algiers" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Asmara;" value="Africa/Asmara" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Africa.Bamako;" value="Africa/Bamako" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Bangui;" value="Africa/Bangui" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Banjul;" value="Africa/Banjul" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Bissau;" value="Africa/Bissau" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Blantyre;" value="Africa/Blantyre" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Brazzaville;" value="Africa/Brazzaville" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Bujumbura;" value="Africa/Bujumbura" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Cairo;" value="Africa/Cairo" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Casablanca;" value="Africa/Casablanca" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Ceuta;" value="Africa/Ceuta" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Conakry;" value="Africa/Conakry" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Dakar;" value="Africa/Dakar" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Dar_es_Salaam;" value="Africa/Dar_es_Salaam" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Africa.Djibouti;" value="Africa/Djibouti" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Africa.Douala;" value="Africa/Douala" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.El_Aaiun;" value="Africa/El_Aaiun" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Freetown;" value="Africa/Freetown" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Gaborone;" value="Africa/Gaborone" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Harare;" value="Africa/Harare" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Johannesburg;" value="Africa/Johannesburg" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Kampala;" value="Africa/Kampala" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Africa.Khartoum;" value="Africa/Khartoum" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Africa.Kigali;" value="Africa/Kigali" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Kinshasa;" value="Africa/Kinshasa" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Lagos;" value="Africa/Lagos" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Libreville;" value="Africa/Libreville" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Lome;" value="Africa/Lome" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Luanda;" value="Africa/Luanda" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Lubumbashi;" value="Africa/Lubumbashi" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Lusaka;" value="Africa/Lusaka" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Malabo;" value="Africa/Malabo" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Maputo;" value="Africa/Maputo" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Maseru;" value="Africa/Maseru" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Mbabane;" value="Africa/Mbabane" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Mogadishu;" value="Africa/Mogadishu" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Africa.Monrovia;" value="Africa/Monrovia" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Nairobi;" value="Africa/Nairobi" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Africa.Ndjamena;" value="Africa/Ndjamena" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Niamey;" value="Africa/Niamey" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Nouakchott;" value="Africa/Nouakchott" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Ouagadougou;" value="Africa/Ouagadougou" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Porto-Novo;" value="Africa/Porto-Novo" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Sao_Tome;" value="Africa/Sao_Tome" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Africa.Tripoli;" value="Africa/Tripoli" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Africa.Tunis;" value="Africa/Tunis" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Africa.Windhoek;" value="Africa/Windhoek" tzid="+0100" />
-                        <xul:menuitem label="&timezone.America.Adak;" value="America/Adak" tzid="-1000" />
-                        <xul:menuitem label="&timezone.America.Anchorage;" value="America/Anchorage" tzid="-0900" />
-                        <xul:menuitem label="&timezone.America.Anguilla;" value="America/Anguilla" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Antigua;" value="America/Antigua" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Araguaina;" value="America/Araguaina" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Argentina.Buenos_Aires;" value="America/Argentina/Buenos_Aires" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Argentina.Catamarca;" value="America/Argentina/Catamarca" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Argentina.Cordoba;" value="America/Argentina/Cordoba" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Argentina.Jujuy;" value="America/Argentina/Jujuy" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Argentina.La_Rioja;" value="America/Argentina/La_Rioja" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Argentina.Mendoza;" value="America/Argentina/Mendoza" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Argentina.Rio_Gallegos;" value="America/Argentina/Rio_Gallegos" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Argentina.San_Juan;" value="America/Argentina/San_Juan" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Argentina.San_Luis;" value="America/Argentina/San_Luis" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Argentina.Tucuman;" value="America/Argentina/Tucuman" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Argentina.Ushuaia;" value="America/Argentina/Ushuaia" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.Aruba;" value="America/Aruba" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Asuncion;" value="America/Asuncion" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Atikokan;" value="America/Atikokan" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Bahia;" value="America/Bahia" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Barbados;" value="America/Barbados" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Belem;" value="America/Belem" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Belize;" value="America/Belize" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Blanc-Sablon;" value="America/Blanc-Sablon" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Boa_Vista;" value="America/Boa_Vista" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Bogota;" value="America/Bogota" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Boise;" value="America/Boise" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Cambridge_Bay;" value="America/Cambridge_Bay" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Campo_Grande;" value="America/Campo_Grande" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Cancun;" value="America/Cancun" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Caracas;" value="America/Caracas" tzid="-0430" />
-                        <xul:menuitem label="&timezone.America.Cayenne;" value="America/Cayenne" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Cayman;" value="America/Cayman" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Chicago;" value="America/Chicago" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Chihuahua;" value="America/Chihuahua" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Costa_Rica;" value="America/Costa_Rica" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Cuiaba;" value="America/Cuiaba" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Curacao;" value="America/Curacao" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Danmarkshavn;" value="America/Danmarkshavn" tzid="+0000" />
-                        <xul:menuitem label="&timezone.America.Dawson;" value="America/Dawson" tzid="-0800" />
-                        <xul:menuitem label="&timezone.America.Dawson_Creek;" value="America/Dawson_Creek" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Denver;" value="America/Denver" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Detroit;" value="America/Detroit" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Dominica;" value="America/Dominica" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Edmonton;" value="America/Edmonton" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Eirunepe;" value="America/Eirunepe" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.El_Salvador;" value="America/El_Salvador" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Fortaleza;" value="America/Fortaleza" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Glace_Bay;" value="America/Glace_Bay" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Godthab;" value="America/Godthab" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Goose_Bay;" value="America/Goose_Bay" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Grand_Turk;" value="America/Grand_Turk" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Grenada;" value="America/Grenada" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Guadeloupe;" value="America/Guadeloupe" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Guatemala;" value="America/Guatemala" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Guayaquil;" value="America/Guayaquil" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Guyana;" value="America/Guyana" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Halifax;" value="America/Halifax" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Havana;" value="America/Havana" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Hermosillo;" value="America/Hermosillo" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Indiana.Indianapolis;" value="America/Indiana/Indianapolis" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Indiana.Knox;" value="America/Indiana/Knox" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Indiana.Marengo;" value="America/Indiana/Marengo" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Indiana.Petersburg;" value="America/Indiana/Petersburg" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Indiana.Tell_City;" value="America/Indiana/Tell_City" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Indiana.Vevay;" value="America/Indiana/Vevay" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Indiana.Vincennes;" value="America/Indiana/Vincennes" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Indiana.Winamac;" value="America/Indiana/Winamac" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Inuvik;" value="America/Inuvik" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Iqaluit;" value="America/Iqaluit" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Jamaica;" value="America/Jamaica" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Juneau;" value="America/Juneau" tzid="-0900" />
-                        <xul:menuitem label="&timezone.America.Kentucky.Louisville;" value="America/Kentucky/Louisville" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Kentucky.Monticello;" value="America/Kentucky/Monticello" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.La_Paz;" value="America/La_Paz" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Lima;" value="America/Lima" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Los_Angeles;" value="America/Los_Angeles" tzid="-0800" />
-                        <xul:menuitem label="&timezone.America.Maceio;" value="America/Maceio" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Managua;" value="America/Managua" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Manaus;" value="America/Manaus" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Marigot;" value="America/Marigot" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Martinique;" value="America/Martinique" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Mazatlan;" value="America/Mazatlan" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Menominee;" value="America/Menominee" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Merida;" value="America/Merida" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Mexico_City;" value="America/Mexico_City" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Miquelon;" value="America/Miquelon" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Moncton;" value="America/Moncton" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Monterrey;" value="America/Monterrey" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Montevideo;" value="America/Montevideo" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Montreal;" value="America/Montreal" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Montserrat;" value="America/Montserrat" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Nassau;" value="America/Nassau" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.New_York;" value="America/New_York" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Nipigon;" value="America/Nipigon" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Nome;" value="America/Nome" tzid="-0900" />
-                        <xul:menuitem label="&timezone.America.Noronha;" value="America/Noronha" tzid="-0200" />
-                        <xul:menuitem label="&timezone.America.North_Dakota.Center;" value="America/North_Dakota/Center" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.North_Dakota.New_Salem;" value="America/North_Dakota/New_Salem" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Panama;" value="America/Panama" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Pangnirtung;" value="America/Pangnirtung" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Paramaribo;" value="America/Paramaribo" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Phoenix;" value="America/Phoenix" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Port-au-Prince;" value="America/Port-au-Prince" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Port_of_Spain;" value="America/Port_of_Spain" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Porto_Velho;" value="America/Porto_Velho" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Puerto_Rico;" value="America/Puerto_Rico" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Rainy_River;" value="America/Rainy_River" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Rankin_Inlet;" value="America/Rankin_Inlet" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Recife;" value="America/Recife" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Regina;" value="America/Regina" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Resolute;" value="America/Resolute" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Rio_Branco;" value="America/Rio_Branco" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Santarem;" value="America/Santarem" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Santiago;" value="America/Santiago" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Santo_Domingo;" value="America/Santo_Domingo" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Sao_Paulo;" value="America/Sao_Paulo" tzid="-0300" />
-                        <xul:menuitem label="&timezone.America.Scoresbysund;" value="America/Scoresbysund" tzid="-0100" />
-                        <xul:menuitem label="&timezone.America.Shiprock;" value="America/Shiprock" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.St_Barthelemy;" value="America/St_Barthelemy" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.St_Johns;" value="America/St_Johns" tzid="-0330" />
-                        <xul:menuitem label="&timezone.America.St_Kitts;" value="America/St_Kitts" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.St_Lucia;" value="America/St_Lucia" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.St_Thomas;" value="America/St_Thomas" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.St_Vincent;" value="America/St_Vincent" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Swift_Current;" value="America/Swift_Current" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Tegucigalpa;" value="America/Tegucigalpa" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Thule;" value="America/Thule" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Thunder_Bay;" value="America/Thunder_Bay" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Tijuana;" value="America/Tijuana" tzid="-0700" />
-                        <xul:menuitem label="&timezone.America.Toronto;" value="America/Toronto" tzid="-0500" />
-                        <xul:menuitem label="&timezone.America.Tortola;" value="America/Tortola" tzid="-0400" />
-                        <xul:menuitem label="&timezone.America.Vancouver;" value="America/Vancouver" tzid="-0800" />
-                        <xul:menuitem label="&timezone.America.Whitehorse;" value="America/Whitehorse" tzid="-0800" />
-                        <xul:menuitem label="&timezone.America.Winnipeg;" value="America/Winnipeg" tzid="-0600" />
-                        <xul:menuitem label="&timezone.America.Yakutat;" value="America/Yakutat" tzid="-0900" />
-                        <xul:menuitem label="&timezone.America.Yellowknife;" value="America/Yellowknife" tzid="-0700" />
-                        <xul:menuitem label="&timezone.Antarctica.Casey;" value="Antarctica/Casey" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Antarctica.Davis;" value="Antarctica/Davis" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Antarctica.DumontDUrville;" value="Antarctica/DumontDUrville" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Antarctica.Mawson;" value="Antarctica/Mawson" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Antarctica.McMurdo;" value="Antarctica/McMurdo" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Antarctica.Palmer;" value="Antarctica/Palmer" tzid="-0400" />
-                        <xul:menuitem label="&timezone.Antarctica.Rothera;" value="Antarctica/Rothera" tzid="-0300" />
-                        <xul:menuitem label="&timezone.Antarctica.South_Pole;" value="Antarctica/South_Pole" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Antarctica.Syowa;" value="Antarctica/Syowa" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Antarctica.Vostok;" value="Antarctica/Vostok" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Arctic.Longyearbyen;" value="Arctic/Longyearbyen" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Asia.Aden;" value="Asia/Aden" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Asia.Almaty;" value="Asia/Almaty" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Asia.Amman;" value="Asia/Amman" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Asia.Anadyr;" value="Asia/Anadyr" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Asia.Aqtau;" value="Asia/Aqtau" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Asia.Aqtobe;" value="Asia/Aqtobe" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Asia.Ashgabat;" value="Asia/Ashgabat" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Asia.Baghdad;" value="Asia/Baghdad" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Asia.Bahrain;" value="Asia/Bahrain" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Asia.Baku;" value="Asia/Baku" tzid="+0400" />
-                        <xul:menuitem label="&timezone.Asia.Bangkok;" value="Asia/Bangkok" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Asia.Beirut;" value="Asia/Beirut" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Asia.Bishkek;" value="Asia/Bishkek" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Asia.Brunei;" value="Asia/Brunei" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Choibalsan;" value="Asia/Choibalsan" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Chongqing;" value="Asia/Chongqing" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Colombo;" value="Asia/Colombo" tzid="+0530" />
-                        <xul:menuitem label="&timezone.Asia.Damascus;" value="Asia/Damascus" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Asia.Dhaka;" value="Asia/Dhaka" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Asia.Dili;" value="Asia/Dili" tzid="+0900" />
-                        <xul:menuitem label="&timezone.Asia.Dubai;" value="Asia/Dubai" tzid="+0400" />
-                        <xul:menuitem label="&timezone.Asia.Dushanbe;" value="Asia/Dushanbe" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Asia.Gaza;" value="Asia/Gaza" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Asia.Harbin;" value="Asia/Harbin" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Ho_Chi_Minh;" value="Asia/Ho_Chi_Minh" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Asia.Hong_Kong;" value="Asia/Hong_Kong" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Hovd;" value="Asia/Hovd" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Asia.Irkutsk;" value="Asia/Irkutsk" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Istanbul;" value="Asia/Istanbul" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Asia.Jakarta;" value="Asia/Jakarta" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Asia.Jayapura;" value="Asia/Jayapura" tzid="+0900" />
-                        <xul:menuitem label="&timezone.Asia.Jerusalem;" value="Asia/Jerusalem" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Asia.Kabul;" value="Asia/Kabul" tzid="+0430" />
-                        <xul:menuitem label="&timezone.Asia.Kamchatka;" value="Asia/Kamchatka" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Asia.Karachi;" value="Asia/Karachi" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Asia.Kashgar;" value="Asia/Kashgar" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Katmandu;" value="Asia/Katmandu" tzid="+0545" />
-                        <xul:menuitem label="&timezone.Asia.Kolkata;" value="Asia/Kolkata" tzid="+0530" />
-                        <xul:menuitem label="&timezone.Asia.Krasnoyarsk;" value="Asia/Krasnoyarsk" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Asia.Kuala_Lumpur;" value="Asia/Kuala_Lumpur" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Kuching;" value="Asia/Kuching" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Kuwait;" value="Asia/Kuwait" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Asia.Macau;" value="Asia/Macau" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Magadan;" value="Asia/Magadan" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Asia.Makassar;" value="Asia/Makassar" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Manila;" value="Asia/Manila" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Muscat;" value="Asia/Muscat" tzid="+0400" />
-                        <xul:menuitem label="&timezone.Asia.Nicosia;" value="Asia/Nicosia" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Asia.Novosibirsk;" value="Asia/Novosibirsk" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Asia.Omsk;" value="Asia/Omsk" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Asia.Oral;" value="Asia/Oral" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Asia.Phnom_Penh;" value="Asia/Phnom_Penh" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Asia.Pontianak;" value="Asia/Pontianak" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Asia.Pyongyang;" value="Asia/Pyongyang" tzid="+0900" />
-                        <xul:menuitem label="&timezone.Asia.Qatar;" value="Asia/Qatar" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Asia.Qyzylorda;" value="Asia/Qyzylorda" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Asia.Rangoon;" value="Asia/Rangoon" tzid="+0630" />
-                        <xul:menuitem label="&timezone.Asia.Riyadh;" value="Asia/Riyadh" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Asia.Sakhalin;" value="Asia/Sakhalin" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Asia.Samarkand;" value="Asia/Samarkand" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Asia.Seoul;" value="Asia/Seoul" tzid="+0900" />
-                        <xul:menuitem label="&timezone.Asia.Shanghai;" value="Asia/Shanghai" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Singapore;" value="Asia/Singapore" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Taipei;" value="Asia/Taipei" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Tashkent;" value="Asia/Tashkent" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Asia.Tbilisi;" value="Asia/Tbilisi" tzid="+0400" />
-                        <xul:menuitem label="&timezone.Asia.Tehran;" value="Asia/Tehran" tzid="+0330" />
-                        <xul:menuitem label="&timezone.Asia.Thimphu;" value="Asia/Thimphu" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Asia.Tokyo;" value="Asia/Tokyo" tzid="+0900" />
-                        <xul:menuitem label="&timezone.Asia.Ulaanbaatar;" value="Asia/Ulaanbaatar" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Urumqi;" value="Asia/Urumqi" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Asia.Vientiane;" value="Asia/Vientiane" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Asia.Vladivostok;" value="Asia/Vladivostok" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Asia.Yakutsk;" value="Asia/Yakutsk" tzid="+0900" />
-                        <xul:menuitem label="&timezone.Asia.Yekaterinburg;" value="Asia/Yekaterinburg" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Asia.Yerevan;" value="Asia/Yerevan" tzid="+0400" />
-                        <xul:menuitem label="&timezone.Atlantic.Azores;" value="Atlantic/Azores" tzid="-0100" />
-                        <xul:menuitem label="&timezone.Atlantic.Bermuda;" value="Atlantic/Bermuda" tzid="-0400" />
-                        <xul:menuitem label="&timezone.Atlantic.Canary;" value="Atlantic/Canary" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Atlantic.Cape_Verde;" value="Atlantic/Cape_Verde" tzid="-0100" />
-                        <xul:menuitem label="&timezone.Atlantic.Faroe;" value="Atlantic/Faroe" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Atlantic.Madeira;" value="Atlantic/Madeira" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Atlantic.Reykjavik;" value="Atlantic/Reykjavik" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Atlantic.South_Georgia;" value="Atlantic/South_Georgia" tzid="-0200" />
-                        <xul:menuitem label="&timezone.Atlantic.St_Helena;" value="Atlantic/St_Helena" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Atlantic.Stanley;" value="Atlantic/Stanley" tzid="-0300" />
-                        <xul:menuitem label="&timezone.Australia.Adelaide;" value="Australia/Adelaide" tzid="+1030" />
-                        <xul:menuitem label="&timezone.Australia.Brisbane;" value="Australia/Brisbane" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Australia.Broken_Hill;" value="Australia/Broken_Hill" tzid="+1030" />
-                        <xul:menuitem label="&timezone.Australia.Currie;" value="Australia/Currie" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Australia.Darwin;" value="Australia/Darwin" tzid="+0930" />
-                        <xul:menuitem label="&timezone.Australia.Eucla;" value="Australia/Eucla" tzid="+0845" />
-                        <xul:menuitem label="&timezone.Australia.Hobart;" value="Australia/Hobart" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Australia.Lindeman;" value="Australia/Lindeman" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Australia.Lord_Howe;" value="Australia/Lord_Howe" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Australia.Melbourne;" value="Australia/Melbourne" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Australia.Perth;" value="Australia/Perth" tzid="+0800" />
-                        <xul:menuitem label="&timezone.Australia.Sydney;" value="Australia/Sydney" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Europe.Amsterdam;" value="Europe/Amsterdam" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Andorra;" value="Europe/Andorra" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Athens;" value="Europe/Athens" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Belgrade;" value="Europe/Belgrade" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Berlin;" value="Europe/Berlin" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Bratislava;" value="Europe/Bratislava" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Brussels;" value="Europe/Brussels" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Bucharest;" value="Europe/Bucharest" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Budapest;" value="Europe/Budapest" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Chisinau;" value="Europe/Chisinau" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Copenhagen;" value="Europe/Copenhagen" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Dublin;" value="Europe/Dublin" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Europe.Gibraltar;" value="Europe/Gibraltar" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Guernsey;" value="Europe/Guernsey" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Europe.Helsinki;" value="Europe/Helsinki" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Isle_of_Man;" value="Europe/Isle_of_Man" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Europe.Istanbul;" value="Europe/Istanbul" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Jersey;" value="Europe/Jersey" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Europe.Kaliningrad;" value="Europe/Kaliningrad" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Kiev;" value="Europe/Kiev" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Lisbon;" value="Europe/Lisbon" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Ljubljana;" value="Europe/Ljubljana" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.London;" value="Europe/London" tzid="+0000" />
-                        <xul:menuitem label="&timezone.Europe.Luxembourg;" value="Europe/Luxembourg" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Madrid;" value="Europe/Madrid" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Malta;" value="Europe/Malta" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Mariehamn;" value="Europe/Mariehamn" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Minsk;" value="Europe/Minsk" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Monaco;" value="Europe/Monaco" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Moscow;" value="Europe/Moscow" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Europe.Nicosia;" value="Europe/Nicosia" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Europe.Oslo;" value="Europe/Oslo" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Paris;" value="Europe/Paris" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Podgorica;" value="Europe/Podgorica" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Prague;" value="Europe/Prague" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Riga;" value="Europe/Riga" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Rome;" value="Europe/Rome" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Samara;" value="Europe/Samara" tzid="+0400" />
-                        <xul:menuitem label="&timezone.Europe.San_Marino;" value="Europe/San_Marino" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Sarajevo;" value="Europe/Sarajevo" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Simferopol;" value="Europe/Simferopol" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Europe.Skopje;" value="Europe/Skopje" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Sofia;" value="Europe/Sofia" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Stockholm;" value="Europe/Stockholm" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Tallinn;" value="Europe/Tallinn" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Tirane;" value="Europe/Tirane" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Uzhgorod;" value="Europe/Uzhgorod" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Vaduz;" value="Europe/Vaduz" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Vatican;" value="Europe/Vatican" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Vienna;" value="Europe/Vienna" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Vilnius;" value="Europe/Vilnius" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Volgograd;" value="Europe/Volgograd" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Europe.Warsaw;" value="Europe/Warsaw" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Zagreb;" value="Europe/Zagreb" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Europe.Zaporozhye;" value="Europe/Zaporozhye" tzid="+0200" />
-                        <xul:menuitem label="&timezone.Europe.Zurich;" value="Europe/Zurich" tzid="+0100" />
-                        <xul:menuitem label="&timezone.Indian.Antananarivo;" value="Indian/Antananarivo" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Indian.Chagos;" value="Indian/Chagos" tzid="+0600" />
-                        <xul:menuitem label="&timezone.Indian.Christmas;" value="Indian/Christmas" tzid="+0700" />
-                        <xul:menuitem label="&timezone.Indian.Cocos;" value="Indian/Cocos" tzid="+0630" />
-                        <xul:menuitem label="&timezone.Indian.Comoro;" value="Indian/Comoro" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Indian.Kerguelen;" value="Indian/Kerguelen" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Indian.Mahe;" value="Indian/Mahe" tzid="+0400" />
-                        <xul:menuitem label="&timezone.Indian.Maldives;" value="Indian/Maldives" tzid="+0500" />
-                        <xul:menuitem label="&timezone.Indian.Mauritius;" value="Indian/Mauritius" tzid="+0400" />
-                        <xul:menuitem label="&timezone.Indian.Mayotte;" value="Indian/Mayotte" tzid="+0300" />
-                        <xul:menuitem label="&timezone.Indian.Reunion;" value="Indian/Reunion" tzid="+0400" />
-                        <xul:menuitem label="&timezone.Pacific.Apia;" value="Pacific/Apia" tzid="-1100" />
-                        <xul:menuitem label="&timezone.Pacific.Auckland;" value="Pacific/Auckland" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Pacific.Chatham;" value="Pacific/Chatham" tzid="+1245" />
-                        <xul:menuitem label="&timezone.Pacific.Easter;" value="Pacific/Easter" tzid="-0600" />
-                        <xul:menuitem label="&timezone.Pacific.Efate;" value="Pacific/Efate" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Pacific.Enderbury;" value="Pacific/Enderbury" tzid="+1300" />
-                        <xul:menuitem label="&timezone.Pacific.Fakaofo;" value="Pacific/Fakaofo" tzid="-1000" />
-                        <xul:menuitem label="&timezone.Pacific.Fiji;" value="Pacific/Fiji" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Pacific.Funafuti;" value="Pacific/Funafuti" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Pacific.Galapagos;" value="Pacific/Galapagos" tzid="-0600" />
-                        <xul:menuitem label="&timezone.Pacific.Gambier;" value="Pacific/Gambier" tzid="-0900" />
-                        <xul:menuitem label="&timezone.Pacific.Guadalcanal;" value="Pacific/Guadalcanal" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Pacific.Guam;" value="Pacific/Guam" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Pacific.Honolulu;" value="Pacific/Honolulu" tzid="-1000" />
-                        <xul:menuitem label="&timezone.Pacific.Johnston;" value="Pacific/Johnston" tzid="-1000" />
-                        <xul:menuitem label="&timezone.Pacific.Kiritimati;" value="Pacific/Kiritimati" tzid="+1400" />
-                        <xul:menuitem label="&timezone.Pacific.Kosrae;" value="Pacific/Kosrae" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Pacific.Kwajalein;" value="Pacific/Kwajalein" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Pacific.Majuro;" value="Pacific/Majuro" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Pacific.Marquesas;" value="Pacific/Marquesas" tzid="-0930" />
-                        <xul:menuitem label="&timezone.Pacific.Midway;" value="Pacific/Midway" tzid="-1100" />
-                        <xul:menuitem label="&timezone.Pacific.Nauru;" value="Pacific/Nauru" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Pacific.Niue;" value="Pacific/Niue" tzid="-1100" />
-                        <xul:menuitem label="&timezone.Pacific.Norfolk;" value="Pacific/Norfolk" tzid="+1130" />
-                        <xul:menuitem label="&timezone.Pacific.Noumea;" value="Pacific/Noumea" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Pacific.Pago_Pago;" value="Pacific/Pago_Pago" tzid="-1100" />
-                        <xul:menuitem label="&timezone.Pacific.Palau;" value="Pacific/Palau" tzid="+0900" />
-                        <xul:menuitem label="&timezone.Pacific.Pitcairn;" value="Pacific/Pitcairn" tzid="-0800" />
-                        <xul:menuitem label="&timezone.Pacific.Ponape;" value="Pacific/Ponape" tzid="+1100" />
-                        <xul:menuitem label="&timezone.Pacific.Port_Moresby;" value="Pacific/Port_Moresby" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Pacific.Rarotonga;" value="Pacific/Rarotonga" tzid="-1000" />
-                        <xul:menuitem label="&timezone.Pacific.Saipan;" value="Pacific/Saipan" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Pacific.Tahiti;" value="Pacific/Tahiti" tzid="-1000" />
-                        <xul:menuitem label="&timezone.Pacific.Tarawa;" value="Pacific/Tarawa" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Pacific.Tongatapu;" value="Pacific/Tongatapu" tzid="+1300" />
-                        <xul:menuitem label="&timezone.Pacific.Truk;" value="Pacific/Truk" tzid="+1000" />
-                        <xul:menuitem label="&timezone.Pacific.Wake;" value="Pacific/Wake" tzid="+1200" />
-                        <xul:menuitem label="&timezone.Pacific.Wallis;" value="Pacific/Wallis" tzid="+1200" />
                     </xul:menupopup>
                 </xul:menulist>
+
+                <xul:button anonid="timezone-button" oncommand="showTimezonePanel()" hidden="false"
+                            xbl:inherits="class=timezoneButtonClass"/>
 
                 <xul:stack anonid="timezone-stack">
                     <xul:image src="chrome://vivipos/skin/timezones/timezone_map.png"/>
@@ -469,10 +71,37 @@
                     <xul:image src="chrome://vivipos/skin/timezones/timezone_-12h45.png" offset="-45900" tzid="-1245" hidden="true"/>
                     <xul:image src="chrome://vivipos/skin/timezones/timezone_-12h.png" offset="-43200" tzid="-1200" hidden="true"/>
                 </xul:stack>
+
             </xul:vbox>
+
+            <xul:panel anonid="timezone-panel" position="overlap" pack="center" align="center">
+                <xul:viviscrollablebuttonpanel anonid="timezone-buttonpanel" flex="1"
+                                               cols="4" rows="4" labelField="label"
+                                               ensureVisible="true"
+                                               oncommand="updateTimezone(this.selectedIndex); hideTimezonePanel();"
+                                               xbl:inherits="cols,rows,class=panelClass,buttonClass,scrollUpClass,scrollDownClass">
+                    <xul:spacer flex="1" />
+                </xul:viviscrollablebuttonpanel>
+            </xul:panel>
         </content>
 
         <xbl:implementation>
+
+            <field name="button">
+            document.getAnonymousElementByAttribute(this, "anonid", "timezone-button");
+            </field>
+
+            <field name="type">
+                this.getAttribute("type") || 'button';
+            </field>
+
+            <field name="panel">
+            document.getAnonymousElementByAttribute(this, "anonid", "timezone-panel");
+            </field>
+
+            <field name="buttonpanel">
+            document.getAnonymousElementByAttribute(this, "anonid", "timezone-buttonpanel");
+            </field>
 
             <field name="menulist">
             document.getAnonymousElementByAttribute(this, "anonid", "timezone-menulist");
@@ -484,9 +113,416 @@
 
             <property name="currentTimezone" onget="return this._currentTimezone;" readonly="true" />
 
-            <property name="selectedIndex" onget="return this.menulist.selectedIndex;" onset="this.menulist.selectedIndex=val; return val;" />
+            <property name="selectedTimezone" onget="return this._selectedTimezone;" onset="this._selectedTimezone=val; this._selectedIndex=this.findTimezone(val); return val;" />
 
-            <property name="selectedTimezone" onget="return this.menulist.selectedItem.getAttribute('value');" onset="this.menulist.selectedIndex=this.findTimezone(val);" />
+            <property name="selectedIndex" onget="return this._selectedIndex;" onset="this._selectedIndex=val; return val;" />
+
+            <field name="timezones">
+                [
+                        {label: "&timezone.Africa.Abidjan;", value: "Africa/Abidjan", tzid: "+0000" },
+                        {label: "&timezone.Africa.Accra;", value: "Africa/Accra", tzid: "+0000" },
+                        {label: "&timezone.Africa.Addis_Ababa;", value: "Africa/Addis_Ababa", tzid: "+0300" },
+                        {label: "&timezone.Africa.Algiers;", value: "Africa/Algiers", tzid: "+0100" },
+                        {label: "&timezone.Africa.Asmara;", value: "Africa/Asmara", tzid: "+0300" },
+                        {label: "&timezone.Africa.Bamako;", value: "Africa/Bamako", tzid: "+0000" },
+                        {label: "&timezone.Africa.Bangui;", value: "Africa/Bangui", tzid: "+0100" },
+                        {label: "&timezone.Africa.Banjul;", value: "Africa/Banjul", tzid: "+0000" },
+                        {label: "&timezone.Africa.Bissau;", value: "Africa/Bissau", tzid: "+0000" },
+                        {label: "&timezone.Africa.Blantyre;", value: "Africa/Blantyre", tzid: "+0200" },
+                        {label: "&timezone.Africa.Brazzaville;", value: "Africa/Brazzaville", tzid: "+0100" },
+                        {label: "&timezone.Africa.Bujumbura;", value: "Africa/Bujumbura", tzid: "+0200" },
+                        {label: "&timezone.Africa.Cairo;", value: "Africa/Cairo", tzid: "+0200" },
+                        {label: "&timezone.Africa.Casablanca;", value: "Africa/Casablanca", tzid: "+0000" },
+                        {label: "&timezone.Africa.Ceuta;", value: "Africa/Ceuta", tzid: "+0100" },
+                        {label: "&timezone.Africa.Conakry;", value: "Africa/Conakry", tzid: "+0000" },
+                        {label: "&timezone.Africa.Dakar;", value: "Africa/Dakar", tzid: "+0000" },
+                        {label: "&timezone.Africa.Dar_es_Salaam;", value: "Africa/Dar_es_Salaam", tzid: "+0300" },
+                        {label: "&timezone.Africa.Djibouti;", value: "Africa/Djibouti", tzid: "+0300" },
+                        {label: "&timezone.Africa.Douala;", value: "Africa/Douala", tzid: "+0100" },
+                        {label: "&timezone.Africa.El_Aaiun;", value: "Africa/El_Aaiun", tzid: "+0000" },
+                        {label: "&timezone.Africa.Freetown;", value: "Africa/Freetown", tzid: "+0000" },
+                        {label: "&timezone.Africa.Gaborone;", value: "Africa/Gaborone", tzid: "+0200" },
+                        {label: "&timezone.Africa.Harare;", value: "Africa/Harare", tzid: "+0200" },
+                        {label: "&timezone.Africa.Johannesburg;", value: "Africa/Johannesburg", tzid: "+0200" },
+                        {label: "&timezone.Africa.Kampala;", value: "Africa/Kampala", tzid: "+0300" },
+                        {label: "&timezone.Africa.Khartoum;", value: "Africa/Khartoum", tzid: "+0300" },
+                        {label: "&timezone.Africa.Kigali;", value: "Africa/Kigali", tzid: "+0200" },
+                        {label: "&timezone.Africa.Kinshasa;", value: "Africa/Kinshasa", tzid: "+0100" },
+                        {label: "&timezone.Africa.Lagos;", value: "Africa/Lagos", tzid: "+0100" },
+                        {label: "&timezone.Africa.Libreville;", value: "Africa/Libreville", tzid: "+0100" },
+                        {label: "&timezone.Africa.Lome;", value: "Africa/Lome", tzid: "+0000" },
+                        {label: "&timezone.Africa.Luanda;", value: "Africa/Luanda", tzid: "+0100" },
+                        {label: "&timezone.Africa.Lubumbashi;", value: "Africa/Lubumbashi", tzid: "+0200" },
+                        {label: "&timezone.Africa.Lusaka;", value: "Africa/Lusaka", tzid: "+0200" },
+                        {label: "&timezone.Africa.Malabo;", value: "Africa/Malabo", tzid: "+0100" },
+                        {label: "&timezone.Africa.Maputo;", value: "Africa/Maputo", tzid: "+0200" },
+                        {label: "&timezone.Africa.Maseru;", value: "Africa/Maseru", tzid: "+0200" },
+                        {label: "&timezone.Africa.Mbabane;", value: "Africa/Mbabane", tzid: "+0200" },
+                        {label: "&timezone.Africa.Mogadishu;", value: "Africa/Mogadishu", tzid: "+0300" },
+                        {label: "&timezone.Africa.Monrovia;", value: "Africa/Monrovia", tzid: "+0000" },
+                        {label: "&timezone.Africa.Nairobi;", value: "Africa/Nairobi", tzid: "+0300" },
+                        {label: "&timezone.Africa.Ndjamena;", value: "Africa/Ndjamena", tzid: "+0100" },
+                        {label: "&timezone.Africa.Niamey;", value: "Africa/Niamey", tzid: "+0100" },
+                        {label: "&timezone.Africa.Nouakchott;", value: "Africa/Nouakchott", tzid: "+0000" },
+                        {label: "&timezone.Africa.Ouagadougou;", value: "Africa/Ouagadougou", tzid: "+0000" },
+                        {label: "&timezone.Africa.Porto-Novo;", value: "Africa/Porto-Novo", tzid: "+0100" },
+                        {label: "&timezone.Africa.Sao_Tome;", value: "Africa/Sao_Tome", tzid: "+0000" },
+                        {label: "&timezone.Africa.Tripoli;", value: "Africa/Tripoli", tzid: "+0200" },
+                        {label: "&timezone.Africa.Tunis;", value: "Africa/Tunis", tzid: "+0100" },
+                        {label: "&timezone.Africa.Windhoek;", value: "Africa/Windhoek", tzid: "+0100" },
+                        {label: "&timezone.America.Adak;", value: "America/Adak", tzid: "-1000" },
+                        {label: "&timezone.America.Anchorage;", value: "America/Anchorage", tzid: "-0900" },
+                        {label: "&timezone.America.Anguilla;", value: "America/Anguilla", tzid: "-0400" },
+                        {label: "&timezone.America.Antigua;", value: "America/Antigua", tzid: "-0400" },
+                        {label: "&timezone.America.Araguaina;", value: "America/Araguaina", tzid: "-0300" },
+                        {label: "&timezone.America.Argentina.Buenos_Aires;", value: "America/Argentina/Buenos_Aires", tzid: "-0200" },
+                        {label: "&timezone.America.Argentina.Catamarca;", value: "America/Argentina/Catamarca", tzid: "-0200" },
+                        {label: "&timezone.America.Argentina.Cordoba;", value: "America/Argentina/Cordoba", tzid: "-0200" },
+                        {label: "&timezone.America.Argentina.Jujuy;", value: "America/Argentina/Jujuy", tzid: "-0200" },
+                        {label: "&timezone.America.Argentina.La_Rioja;", value: "America/Argentina/La_Rioja", tzid: "-0200" },
+                        {label: "&timezone.America.Argentina.Mendoza;", value: "America/Argentina/Mendoza", tzid: "-0200" },
+                        {label: "&timezone.America.Argentina.Rio_Gallegos;", value: "America/Argentina/Rio_Gallegos", tzid: "-0200" },
+                        {label: "&timezone.America.Argentina.San_Juan;", value: "America/Argentina/San_Juan", tzid: "-0200" },
+                        {label: "&timezone.America.Argentina.San_Luis;", value: "America/Argentina/San_Luis", tzid: "-0300" },
+                        {label: "&timezone.America.Argentina.Tucuman;", value: "America/Argentina/Tucuman", tzid: "-0200" },
+                        {label: "&timezone.America.Argentina.Ushuaia;", value: "America/Argentina/Ushuaia", tzid: "-0200" },
+                        {label: "&timezone.America.Aruba;", value: "America/Aruba", tzid: "-0400" },
+                        {label: "&timezone.America.Asuncion;", value: "America/Asuncion", tzid: "-0400" },
+                        {label: "&timezone.America.Atikokan;", value: "America/Atikokan", tzid: "-0500" },
+                        {label: "&timezone.America.Bahia;", value: "America/Bahia", tzid: "-0300" },
+                        {label: "&timezone.America.Barbados;", value: "America/Barbados", tzid: "-0400" },
+                        {label: "&timezone.America.Belem;", value: "America/Belem", tzid: "-0300" },
+                        {label: "&timezone.America.Belize;", value: "America/Belize", tzid: "-0600" },
+                        {label: "&timezone.America.Blanc-Sablon;", value: "America/Blanc-Sablon", tzid: "-0400" },
+                        {label: "&timezone.America.Boa_Vista;", value: "America/Boa_Vista", tzid: "-0400" },
+                        {label: "&timezone.America.Bogota;", value: "America/Bogota", tzid: "-0500" },
+                        {label: "&timezone.America.Boise;", value: "America/Boise", tzid: "-0700" },
+                        {label: "&timezone.America.Cambridge_Bay;", value: "America/Cambridge_Bay", tzid: "-0700" },
+                        {label: "&timezone.America.Campo_Grande;", value: "America/Campo_Grande", tzid: "-0400" },
+                        {label: "&timezone.America.Cancun;", value: "America/Cancun", tzid: "-0600" },
+                        {label: "&timezone.America.Caracas;", value: "America/Caracas", tzid: "-0430" },
+                        {label: "&timezone.America.Cayenne;", value: "America/Cayenne", tzid: "-0300" },
+                        {label: "&timezone.America.Cayman;", value: "America/Cayman", tzid: "-0500" },
+                        {label: "&timezone.America.Chicago;", value: "America/Chicago", tzid: "-0600" },
+                        {label: "&timezone.America.Chihuahua;", value: "America/Chihuahua", tzid: "-0700" },
+                        {label: "&timezone.America.Costa_Rica;", value: "America/Costa_Rica", tzid: "-0600" },
+                        {label: "&timezone.America.Cuiaba;", value: "America/Cuiaba", tzid: "-0400" },
+                        {label: "&timezone.America.Curacao;", value: "America/Curacao", tzid: "-0400" },
+                        {label: "&timezone.America.Danmarkshavn;", value: "America/Danmarkshavn", tzid: "+0000" },
+                        {label: "&timezone.America.Dawson;", value: "America/Dawson", tzid: "-0800" },
+                        {label: "&timezone.America.Dawson_Creek;", value: "America/Dawson_Creek", tzid: "-0700" },
+                        {label: "&timezone.America.Denver;", value: "America/Denver", tzid: "-0700" },
+                        {label: "&timezone.America.Detroit;", value: "America/Detroit", tzid: "-0500" },
+                        {label: "&timezone.America.Dominica;", value: "America/Dominica", tzid: "-0400" },
+                        {label: "&timezone.America.Edmonton;", value: "America/Edmonton", tzid: "-0700" },
+                        {label: "&timezone.America.Eirunepe;", value: "America/Eirunepe", tzid: "-0400" },
+                        {label: "&timezone.America.El_Salvador;", value: "America/El_Salvador", tzid: "-0600" },
+                        {label: "&timezone.America.Fortaleza;", value: "America/Fortaleza", tzid: "-0300" },
+                        {label: "&timezone.America.Glace_Bay;", value: "America/Glace_Bay", tzid: "-0400" },
+                        {label: "&timezone.America.Godthab;", value: "America/Godthab", tzid: "-0300" },
+                        {label: "&timezone.America.Goose_Bay;", value: "America/Goose_Bay", tzid: "-0400" },
+                        {label: "&timezone.America.Grand_Turk;", value: "America/Grand_Turk", tzid: "-0500" },
+                        {label: "&timezone.America.Grenada;", value: "America/Grenada", tzid: "-0400" },
+                        {label: "&timezone.America.Guadeloupe;", value: "America/Guadeloupe", tzid: "-0400" },
+                        {label: "&timezone.America.Guatemala;", value: "America/Guatemala", tzid: "-0600" },
+                        {label: "&timezone.America.Guayaquil;", value: "America/Guayaquil", tzid: "-0500" },
+                        {label: "&timezone.America.Guyana;", value: "America/Guyana", tzid: "-0400" },
+                        {label: "&timezone.America.Halifax;", value: "America/Halifax", tzid: "-0400" },
+                        {label: "&timezone.America.Havana;", value: "America/Havana", tzid: "-0400" },
+                        {label: "&timezone.America.Hermosillo;", value: "America/Hermosillo", tzid: "-0700" },
+                        {label: "&timezone.America.Indiana.Indianapolis;", value: "America/Indiana/Indianapolis", tzid: "-0500" },
+                        {label: "&timezone.America.Indiana.Knox;", value: "America/Indiana/Knox", tzid: "-0600" },
+                        {label: "&timezone.America.Indiana.Marengo;", value: "America/Indiana/Marengo", tzid: "-0500" },
+                        {label: "&timezone.America.Indiana.Petersburg;", value: "America/Indiana/Petersburg", tzid: "-0500" },
+                        {label: "&timezone.America.Indiana.Tell_City;", value: "America/Indiana/Tell_City", tzid: "-0600" },
+                        {label: "&timezone.America.Indiana.Vevay;", value: "America/Indiana/Vevay", tzid: "-0500" },
+                        {label: "&timezone.America.Indiana.Vincennes;", value: "America/Indiana/Vincennes", tzid: "-0500" },
+                        {label: "&timezone.America.Indiana.Winamac;", value: "America/Indiana/Winamac", tzid: "-0400" },
+                        {label: "&timezone.America.Inuvik;", value: "America/Inuvik", tzid: "-0700" },
+                        {label: "&timezone.America.Iqaluit;", value: "America/Iqaluit", tzid: "-0500" },
+                        {label: "&timezone.America.Jamaica;", value: "America/Jamaica", tzid: "-0500" },
+                        {label: "&timezone.America.Juneau;", value: "America/Juneau", tzid: "-0900" },
+                        {label: "&timezone.America.Kentucky.Louisville;", value: "America/Kentucky/Louisville", tzid: "-0500" },
+                        {label: "&timezone.America.Kentucky.Monticello;", value: "America/Kentucky/Monticello", tzid: "-0500" },
+                        {label: "&timezone.America.La_Paz;", value: "America/La_Paz", tzid: "-0400" },
+                        {label: "&timezone.America.Lima;", value: "America/Lima", tzid: "-0500" },
+                        {label: "&timezone.America.Los_Angeles;", value: "America/Los_Angeles", tzid: "-0800" },
+                        {label: "&timezone.America.Maceio;", value: "America/Maceio", tzid: "-0300" },
+                        {label: "&timezone.America.Managua;", value: "America/Managua", tzid: "-0600" },
+                        {label: "&timezone.America.Manaus;", value: "America/Manaus", tzid: "-0400" },
+                        {label: "&timezone.America.Marigot;", value: "America/Marigot", tzid: "-0400" },
+                        {label: "&timezone.America.Martinique;", value: "America/Martinique", tzid: "-0400" },
+                        {label: "&timezone.America.Mazatlan;", value: "America/Mazatlan", tzid: "-0700" },
+                        {label: "&timezone.America.Menominee;", value: "America/Menominee", tzid: "-0600" },
+                        {label: "&timezone.America.Merida;", value: "America/Merida", tzid: "-0600" },
+                        {label: "&timezone.America.Mexico_City;", value: "America/Mexico_City", tzid: "-0600" },
+                        {label: "&timezone.America.Miquelon;", value: "America/Miquelon", tzid: "-0300" },
+                        {label: "&timezone.America.Moncton;", value: "America/Moncton", tzid: "-0400" },
+                        {label: "&timezone.America.Monterrey;", value: "America/Monterrey", tzid: "-0600" },
+                        {label: "&timezone.America.Montevideo;", value: "America/Montevideo", tzid: "-0300" },
+                        {label: "&timezone.America.Montreal;", value: "America/Montreal", tzid: "-0500" },
+                        {label: "&timezone.America.Montserrat;", value: "America/Montserrat", tzid: "-0400" },
+                        {label: "&timezone.America.Nassau;", value: "America/Nassau", tzid: "-0500" },
+                        {label: "&timezone.America.New_York;", value: "America/New_York", tzid: "-0500" },
+                        {label: "&timezone.America.Nipigon;", value: "America/Nipigon", tzid: "-0500" },
+                        {label: "&timezone.America.Nome;", value: "America/Nome", tzid: "-0900" },
+                        {label: "&timezone.America.Noronha;", value: "America/Noronha", tzid: "-0200" },
+                        {label: "&timezone.America.North_Dakota.Center;", value: "America/North_Dakota/Center", tzid: "-0600" },
+                        {label: "&timezone.America.North_Dakota.New_Salem;", value: "America/North_Dakota/New_Salem", tzid: "-0600" },
+                        {label: "&timezone.America.Panama;", value: "America/Panama", tzid: "-0500" },
+                        {label: "&timezone.America.Pangnirtung;", value: "America/Pangnirtung", tzid: "-0500" },
+                        {label: "&timezone.America.Paramaribo;", value: "America/Paramaribo", tzid: "-0300" },
+                        {label: "&timezone.America.Phoenix;", value: "America/Phoenix", tzid: "-0700" },
+                        {label: "&timezone.America.Port-au-Prince;", value: "America/Port-au-Prince", tzid: "-0500" },
+                        {label: "&timezone.America.Port_of_Spain;", value: "America/Port_of_Spain", tzid: "-0400" },
+                        {label: "&timezone.America.Porto_Velho;", value: "America/Porto_Velho", tzid: "-0400" },
+                        {label: "&timezone.America.Puerto_Rico;", value: "America/Puerto_Rico", tzid: "-0400" },
+                        {label: "&timezone.America.Rainy_River;", value: "America/Rainy_River", tzid: "-0600" },
+                        {label: "&timezone.America.Rankin_Inlet;", value: "America/Rankin_Inlet", tzid: "-0600" },
+                        {label: "&timezone.America.Recife;", value: "America/Recife", tzid: "-0300" },
+                        {label: "&timezone.America.Regina;", value: "America/Regina", tzid: "-0600" },
+                        {label: "&timezone.America.Resolute;", value: "America/Resolute", tzid: "-0500" },
+                        {label: "&timezone.America.Rio_Branco;", value: "America/Rio_Branco", tzid: "-0400" },
+                        {label: "&timezone.America.Santarem;", value: "America/Santarem", tzid: "-0300" },
+                        {label: "&timezone.America.Santiago;", value: "America/Santiago", tzid: "-0400" },
+                        {label: "&timezone.America.Santo_Domingo;", value: "America/Santo_Domingo", tzid: "-0400" },
+                        {label: "&timezone.America.Sao_Paulo;", value: "America/Sao_Paulo", tzid: "-0300" },
+                        {label: "&timezone.America.Scoresbysund;", value: "America/Scoresbysund", tzid: "-0100" },
+                        {label: "&timezone.America.Shiprock;", value: "America/Shiprock", tzid: "-0700" },
+                        {label: "&timezone.America.St_Barthelemy;", value: "America/St_Barthelemy", tzid: "-0400" },
+                        {label: "&timezone.America.St_Johns;", value: "America/St_Johns", tzid: "-0330" },
+                        {label: "&timezone.America.St_Kitts;", value: "America/St_Kitts", tzid: "-0400" },
+                        {label: "&timezone.America.St_Lucia;", value: "America/St_Lucia", tzid: "-0400" },
+                        {label: "&timezone.America.St_Thomas;", value: "America/St_Thomas", tzid: "-0400" },
+                        {label: "&timezone.America.St_Vincent;", value: "America/St_Vincent", tzid: "-0400" },
+                        {label: "&timezone.America.Swift_Current;", value: "America/Swift_Current", tzid: "-0600" },
+                        {label: "&timezone.America.Tegucigalpa;", value: "America/Tegucigalpa", tzid: "-0600" },
+                        {label: "&timezone.America.Thule;", value: "America/Thule", tzid: "-0400" },
+                        {label: "&timezone.America.Thunder_Bay;", value: "America/Thunder_Bay", tzid: "-0500" },
+                        {label: "&timezone.America.Tijuana;", value: "America/Tijuana", tzid: "-0700" },
+                        {label: "&timezone.America.Toronto;", value: "America/Toronto", tzid: "-0500" },
+                        {label: "&timezone.America.Tortola;", value: "America/Tortola", tzid: "-0400" },
+                        {label: "&timezone.America.Vancouver;", value: "America/Vancouver", tzid: "-0800" },
+                        {label: "&timezone.America.Whitehorse;", value: "America/Whitehorse", tzid: "-0800" },
+                        {label: "&timezone.America.Winnipeg;", value: "America/Winnipeg", tzid: "-0600" },
+                        {label: "&timezone.America.Yakutat;", value: "America/Yakutat", tzid: "-0900" },
+                        {label: "&timezone.America.Yellowknife;", value: "America/Yellowknife", tzid: "-0700" },
+                        {label: "&timezone.Antarctica.Casey;", value: "Antarctica/Casey", tzid: "+0800" },
+                        {label: "&timezone.Antarctica.Davis;", value: "Antarctica/Davis", tzid: "+0700" },
+                        {label: "&timezone.Antarctica.DumontDUrville;", value: "Antarctica/DumontDUrville", tzid: "+1000" },
+                        {label: "&timezone.Antarctica.Mawson;", value: "Antarctica/Mawson", tzid: "+0600" },
+                        {label: "&timezone.Antarctica.McMurdo;", value: "Antarctica/McMurdo", tzid: "+1200" },
+                        {label: "&timezone.Antarctica.Palmer;", value: "Antarctica/Palmer", tzid: "-0400" },
+                        {label: "&timezone.Antarctica.Rothera;", value: "Antarctica/Rothera", tzid: "-0300" },
+                        {label: "&timezone.Antarctica.South_Pole;", value: "Antarctica/South_Pole", tzid: "+1200" },
+                        {label: "&timezone.Antarctica.Syowa;", value: "Antarctica/Syowa", tzid: "+0300" },
+                        {label: "&timezone.Antarctica.Vostok;", value: "Antarctica/Vostok", tzid: "+0600" },
+                        {label: "&timezone.Arctic.Longyearbyen;", value: "Arctic/Longyearbyen", tzid: "+0100" },
+                        {label: "&timezone.Asia.Aden;", value: "Asia/Aden", tzid: "+0300" },
+                        {label: "&timezone.Asia.Almaty;", value: "Asia/Almaty", tzid: "+0600" },
+                        {label: "&timezone.Asia.Amman;", value: "Asia/Amman", tzid: "+0200" },
+                        {label: "&timezone.Asia.Anadyr;", value: "Asia/Anadyr", tzid: "+1200" },
+                        {label: "&timezone.Asia.Aqtau;", value: "Asia/Aqtau", tzid: "+0500" },
+                        {label: "&timezone.Asia.Aqtobe;", value: "Asia/Aqtobe", tzid: "+0500" },
+                        {label: "&timezone.Asia.Ashgabat;", value: "Asia/Ashgabat", tzid: "+0500" },
+                        {label: "&timezone.Asia.Baghdad;", value: "Asia/Baghdad", tzid: "+0300" },
+                        {label: "&timezone.Asia.Bahrain;", value: "Asia/Bahrain", tzid: "+0300" },
+                        {label: "&timezone.Asia.Baku;", value: "Asia/Baku", tzid: "+0400" },
+                        {label: "&timezone.Asia.Bangkok;", value: "Asia/Bangkok", tzid: "+0700" },
+                        {label: "&timezone.Asia.Beirut;", value: "Asia/Beirut", tzid: "+0200" },
+                        {label: "&timezone.Asia.Bishkek;", value: "Asia/Bishkek", tzid: "+0600" },
+                        {label: "&timezone.Asia.Brunei;", value: "Asia/Brunei", tzid: "+0800" },
+                        {label: "&timezone.Asia.Choibalsan;", value: "Asia/Choibalsan", tzid: "+0800" },
+                        {label: "&timezone.Asia.Chongqing;", value: "Asia/Chongqing", tzid: "+0800" },
+                        {label: "&timezone.Asia.Colombo;", value: "Asia/Colombo", tzid: "+0530" },
+                        {label: "&timezone.Asia.Damascus;", value: "Asia/Damascus", tzid: "+0200" },
+                        {label: "&timezone.Asia.Dhaka;", value: "Asia/Dhaka", tzid: "+0600" },
+                        {label: "&timezone.Asia.Dili;", value: "Asia/Dili", tzid: "+0900" },
+                        {label: "&timezone.Asia.Dubai;", value: "Asia/Dubai", tzid: "+0400" },
+                        {label: "&timezone.Asia.Dushanbe;", value: "Asia/Dushanbe", tzid: "+0500" },
+                        {label: "&timezone.Asia.Gaza;", value: "Asia/Gaza", tzid: "+0200" },
+                        {label: "&timezone.Asia.Harbin;", value: "Asia/Harbin", tzid: "+0800" },
+                        {label: "&timezone.Asia.Ho_Chi_Minh;", value: "Asia/Ho_Chi_Minh", tzid: "+0700" },
+                        {label: "&timezone.Asia.Hong_Kong;", value: "Asia/Hong_Kong", tzid: "+0800" },
+                        {label: "&timezone.Asia.Hovd;", value: "Asia/Hovd", tzid: "+0700" },
+                        {label: "&timezone.Asia.Irkutsk;", value: "Asia/Irkutsk", tzid: "+0800" },
+                        {label: "&timezone.Asia.Istanbul;", value: "Asia/Istanbul", tzid: "+0200" },
+                        {label: "&timezone.Asia.Jakarta;", value: "Asia/Jakarta", tzid: "+0700" },
+                        {label: "&timezone.Asia.Jayapura;", value: "Asia/Jayapura", tzid: "+0900" },
+                        {label: "&timezone.Asia.Jerusalem;", value: "Asia/Jerusalem", tzid: "+0200" },
+                        {label: "&timezone.Asia.Kabul;", value: "Asia/Kabul", tzid: "+0430" },
+                        {label: "&timezone.Asia.Kamchatka;", value: "Asia/Kamchatka", tzid: "+1200" },
+                        {label: "&timezone.Asia.Karachi;", value: "Asia/Karachi", tzid: "+0500" },
+                        {label: "&timezone.Asia.Kashgar;", value: "Asia/Kashgar", tzid: "+0800" },
+                        {label: "&timezone.Asia.Katmandu;", value: "Asia/Katmandu", tzid: "+0545" },
+                        {label: "&timezone.Asia.Kolkata;", value: "Asia/Kolkata", tzid: "+0530" },
+                        {label: "&timezone.Asia.Krasnoyarsk;", value: "Asia/Krasnoyarsk", tzid: "+0700" },
+                        {label: "&timezone.Asia.Kuala_Lumpur;", value: "Asia/Kuala_Lumpur", tzid: "+0800" },
+                        {label: "&timezone.Asia.Kuching;", value: "Asia/Kuching", tzid: "+0800" },
+                        {label: "&timezone.Asia.Kuwait;", value: "Asia/Kuwait", tzid: "+0300" },
+                        {label: "&timezone.Asia.Macau;", value: "Asia/Macau", tzid: "+0800" },
+                        {label: "&timezone.Asia.Magadan;", value: "Asia/Magadan", tzid: "+1100" },
+                        {label: "&timezone.Asia.Makassar;", value: "Asia/Makassar", tzid: "+0800" },
+                        {label: "&timezone.Asia.Manila;", value: "Asia/Manila", tzid: "+0800" },
+                        {label: "&timezone.Asia.Muscat;", value: "Asia/Muscat", tzid: "+0400" },
+                        {label: "&timezone.Asia.Nicosia;", value: "Asia/Nicosia", tzid: "+0300" },
+                        {label: "&timezone.Asia.Novosibirsk;", value: "Asia/Novosibirsk", tzid: "+0600" },
+                        {label: "&timezone.Asia.Omsk;", value: "Asia/Omsk", tzid: "+0600" },
+                        {label: "&timezone.Asia.Oral;", value: "Asia/Oral", tzid: "+0500" },
+                        {label: "&timezone.Asia.Phnom_Penh;", value: "Asia/Phnom_Penh", tzid: "+0700" },
+                        {label: "&timezone.Asia.Pontianak;", value: "Asia/Pontianak", tzid: "+0700" },
+                        {label: "&timezone.Asia.Pyongyang;", value: "Asia/Pyongyang", tzid: "+0900" },
+                        {label: "&timezone.Asia.Qatar;", value: "Asia/Qatar", tzid: "+0300" },
+                        {label: "&timezone.Asia.Qyzylorda;", value: "Asia/Qyzylorda", tzid: "+0600" },
+                        {label: "&timezone.Asia.Rangoon;", value: "Asia/Rangoon", tzid: "+0630" },
+                        {label: "&timezone.Asia.Riyadh;", value: "Asia/Riyadh", tzid: "+0300" },
+                        {label: "&timezone.Asia.Sakhalin;", value: "Asia/Sakhalin", tzid: "+1100" },
+                        {label: "&timezone.Asia.Samarkand;", value: "Asia/Samarkand", tzid: "+0500" },
+                        {label: "&timezone.Asia.Seoul;", value: "Asia/Seoul", tzid: "+0900" },
+                        {label: "&timezone.Asia.Shanghai;", value: "Asia/Shanghai", tzid: "+0800" },
+                        {label: "&timezone.Asia.Singapore;", value: "Asia/Singapore", tzid: "+0800" },
+                        {label: "&timezone.Asia.Taipei;", value: "Asia/Taipei", tzid: "+0800" },
+                        {label: "&timezone.Asia.Tashkent;", value: "Asia/Tashkent", tzid: "+0500" },
+                        {label: "&timezone.Asia.Tbilisi;", value: "Asia/Tbilisi", tzid: "+0400" },
+                        {label: "&timezone.Asia.Tehran;", value: "Asia/Tehran", tzid: "+0330" },
+                        {label: "&timezone.Asia.Thimphu;", value: "Asia/Thimphu", tzid: "+0600" },
+                        {label: "&timezone.Asia.Tokyo;", value: "Asia/Tokyo", tzid: "+0900" },
+                        {label: "&timezone.Asia.Ulaanbaatar;", value: "Asia/Ulaanbaatar", tzid: "+0800" },
+                        {label: "&timezone.Asia.Urumqi;", value: "Asia/Urumqi", tzid: "+0800" },
+                        {label: "&timezone.Asia.Vientiane;", value: "Asia/Vientiane", tzid: "+0700" },
+                        {label: "&timezone.Asia.Vladivostok;", value: "Asia/Vladivostok", tzid: "+1000" },
+                        {label: "&timezone.Asia.Yakutsk;", value: "Asia/Yakutsk", tzid: "+0900" },
+                        {label: "&timezone.Asia.Yekaterinburg;", value: "Asia/Yekaterinburg", tzid: "+0500" },
+                        {label: "&timezone.Asia.Yerevan;", value: "Asia/Yerevan", tzid: "+0400" },
+                        {label: "&timezone.Atlantic.Azores;", value: "Atlantic/Azores", tzid: "-0100" },
+                        {label: "&timezone.Atlantic.Bermuda;", value: "Atlantic/Bermuda", tzid: "-0400" },
+                        {label: "&timezone.Atlantic.Canary;", value: "Atlantic/Canary", tzid: "+0000" },
+                        {label: "&timezone.Atlantic.Cape_Verde;", value: "Atlantic/Cape_Verde", tzid: "-0100" },
+                        {label: "&timezone.Atlantic.Faroe;", value: "Atlantic/Faroe", tzid: "+0000" },
+                        {label: "&timezone.Atlantic.Madeira;", value: "Atlantic/Madeira", tzid: "+0000" },
+                        {label: "&timezone.Atlantic.Reykjavik;", value: "Atlantic/Reykjavik", tzid: "+0000" },
+                        {label: "&timezone.Atlantic.South_Georgia;", value: "Atlantic/South_Georgia", tzid: "-0200" },
+                        {label: "&timezone.Atlantic.St_Helena;", value: "Atlantic/St_Helena", tzid: "+0000" },
+                        {label: "&timezone.Atlantic.Stanley;", value: "Atlantic/Stanley", tzid: "-0300" },
+                        {label: "&timezone.Australia.Adelaide;", value: "Australia/Adelaide", tzid: "+1030" },
+                        {label: "&timezone.Australia.Brisbane;", value: "Australia/Brisbane", tzid: "+1000" },
+                        {label: "&timezone.Australia.Broken_Hill;", value: "Australia/Broken_Hill", tzid: "+1030" },
+                        {label: "&timezone.Australia.Currie;", value: "Australia/Currie", tzid: "+1000" },
+                        {label: "&timezone.Australia.Darwin;", value: "Australia/Darwin", tzid: "+0930" },
+                        {label: "&timezone.Australia.Eucla;", value: "Australia/Eucla", tzid: "+0845" },
+                        {label: "&timezone.Australia.Hobart;", value: "Australia/Hobart", tzid: "+1000" },
+                        {label: "&timezone.Australia.Lindeman;", value: "Australia/Lindeman", tzid: "+1000" },
+                        {label: "&timezone.Australia.Lord_Howe;", value: "Australia/Lord_Howe", tzid: "+1100" },
+                        {label: "&timezone.Australia.Melbourne;", value: "Australia/Melbourne", tzid: "+1100" },
+                        {label: "&timezone.Australia.Perth;", value: "Australia/Perth", tzid: "+0800" },
+                        {label: "&timezone.Australia.Sydney;", value: "Australia/Sydney", tzid: "+1100" },
+                        {label: "&timezone.Europe.Amsterdam;", value: "Europe/Amsterdam", tzid: "+0100" },
+                        {label: "&timezone.Europe.Andorra;", value: "Europe/Andorra", tzid: "+0100" },
+                        {label: "&timezone.Europe.Athens;", value: "Europe/Athens", tzid: "+0200" },
+                        {label: "&timezone.Europe.Belgrade;", value: "Europe/Belgrade", tzid: "+0100" },
+                        {label: "&timezone.Europe.Berlin;", value: "Europe/Berlin", tzid: "+0100" },
+                        {label: "&timezone.Europe.Bratislava;", value: "Europe/Bratislava", tzid: "+0100" },
+                        {label: "&timezone.Europe.Brussels;", value: "Europe/Brussels", tzid: "+0100" },
+                        {label: "&timezone.Europe.Bucharest;", value: "Europe/Bucharest", tzid: "+0200" },
+                        {label: "&timezone.Europe.Budapest;", value: "Europe/Budapest", tzid: "+0100" },
+                        {label: "&timezone.Europe.Chisinau;", value: "Europe/Chisinau", tzid: "+0200" },
+                        {label: "&timezone.Europe.Copenhagen;", value: "Europe/Copenhagen", tzid: "+0100" },
+                        {label: "&timezone.Europe.Dublin;", value: "Europe/Dublin", tzid: "+0000" },
+                        {label: "&timezone.Europe.Gibraltar;", value: "Europe/Gibraltar", tzid: "+0100" },
+                        {label: "&timezone.Europe.Guernsey;", value: "Europe/Guernsey", tzid: "+0000" },
+                        {label: "&timezone.Europe.Helsinki;", value: "Europe/Helsinki", tzid: "+0200" },
+                        {label: "&timezone.Europe.Isle_of_Man;", value: "Europe/Isle_of_Man", tzid: "+0000" },
+                        {label: "&timezone.Europe.Istanbul;", value: "Europe/Istanbul", tzid: "+0200" },
+                        {label: "&timezone.Europe.Jersey;", value: "Europe/Jersey", tzid: "+0000" },
+                        {label: "&timezone.Europe.Kaliningrad;", value: "Europe/Kaliningrad", tzid: "+0200" },
+                        {label: "&timezone.Europe.Kiev;", value: "Europe/Kiev", tzid: "+0200" },
+                        {label: "&timezone.Europe.Lisbon;", value: "Europe/Lisbon", tzid: "+0100" },
+                        {label: "&timezone.Europe.Ljubljana;", value: "Europe/Ljubljana", tzid: "+0100" },
+                        {label: "&timezone.Europe.London;", value: "Europe/London", tzid: "+0000" },
+                        {label: "&timezone.Europe.Luxembourg;", value: "Europe/Luxembourg", tzid: "+0100" },
+                        {label: "&timezone.Europe.Madrid;", value: "Europe/Madrid", tzid: "+0100" },
+                        {label: "&timezone.Europe.Malta;", value: "Europe/Malta", tzid: "+0100" },
+                        {label: "&timezone.Europe.Mariehamn;", value: "Europe/Mariehamn", tzid: "+0200" },
+                        {label: "&timezone.Europe.Minsk;", value: "Europe/Minsk", tzid: "+0200" },
+                        {label: "&timezone.Europe.Monaco;", value: "Europe/Monaco", tzid: "+0100" },
+                        {label: "&timezone.Europe.Moscow;", value: "Europe/Moscow", tzid: "+0300" },
+                        {label: "&timezone.Europe.Nicosia;", value: "Europe/Nicosia", tzid: "+0300" },
+                        {label: "&timezone.Europe.Oslo;", value: "Europe/Oslo", tzid: "+0100" },
+                        {label: "&timezone.Europe.Paris;", value: "Europe/Paris", tzid: "+0100" },
+                        {label: "&timezone.Europe.Podgorica;", value: "Europe/Podgorica", tzid: "+0100" },
+                        {label: "&timezone.Europe.Prague;", value: "Europe/Prague", tzid: "+0100" },
+                        {label: "&timezone.Europe.Riga;", value: "Europe/Riga", tzid: "+0200" },
+                        {label: "&timezone.Europe.Rome;", value: "Europe/Rome", tzid: "+0100" },
+                        {label: "&timezone.Europe.Samara;", value: "Europe/Samara", tzid: "+0400" },
+                        {label: "&timezone.Europe.San_Marino;", value: "Europe/San_Marino", tzid: "+0100" },
+                        {label: "&timezone.Europe.Sarajevo;", value: "Europe/Sarajevo", tzid: "+0100" },
+                        {label: "&timezone.Europe.Simferopol;", value: "Europe/Simferopol", tzid: "+0300" },
+                        {label: "&timezone.Europe.Skopje;", value: "Europe/Skopje", tzid: "+0100" },
+                        {label: "&timezone.Europe.Sofia;", value: "Europe/Sofia", tzid: "+0200" },
+                        {label: "&timezone.Europe.Stockholm;", value: "Europe/Stockholm", tzid: "+0100" },
+                        {label: "&timezone.Europe.Tallinn;", value: "Europe/Tallinn", tzid: "+0200" },
+                        {label: "&timezone.Europe.Tirane;", value: "Europe/Tirane", tzid: "+0100" },
+                        {label: "&timezone.Europe.Uzhgorod;", value: "Europe/Uzhgorod", tzid: "+0200" },
+                        {label: "&timezone.Europe.Vaduz;", value: "Europe/Vaduz", tzid: "+0100" },
+                        {label: "&timezone.Europe.Vatican;", value: "Europe/Vatican", tzid: "+0100" },
+                        {label: "&timezone.Europe.Vienna;", value: "Europe/Vienna", tzid: "+0100" },
+                        {label: "&timezone.Europe.Vilnius;", value: "Europe/Vilnius", tzid: "+0200" },
+                        {label: "&timezone.Europe.Volgograd;", value: "Europe/Volgograd", tzid: "+0300" },
+                        {label: "&timezone.Europe.Warsaw;", value: "Europe/Warsaw", tzid: "+0100" },
+                        {label: "&timezone.Europe.Zagreb;", value: "Europe/Zagreb", tzid: "+0100" },
+                        {label: "&timezone.Europe.Zaporozhye;", value: "Europe/Zaporozhye", tzid: "+0200" },
+                        {label: "&timezone.Europe.Zurich;", value: "Europe/Zurich", tzid: "+0100" },
+                        {label: "&timezone.Indian.Antananarivo;", value: "Indian/Antananarivo", tzid: "+0300" },
+                        {label: "&timezone.Indian.Chagos;", value: "Indian/Chagos", tzid: "+0600" },
+                        {label: "&timezone.Indian.Christmas;", value: "Indian/Christmas", tzid: "+0700" },
+                        {label: "&timezone.Indian.Cocos;", value: "Indian/Cocos", tzid: "+0630" },
+                        {label: "&timezone.Indian.Comoro;", value: "Indian/Comoro", tzid: "+0300" },
+                        {label: "&timezone.Indian.Kerguelen;", value: "Indian/Kerguelen", tzid: "+0500" },
+                        {label: "&timezone.Indian.Mahe;", value: "Indian/Mahe", tzid: "+0400" },
+                        {label: "&timezone.Indian.Maldives;", value: "Indian/Maldives", tzid: "+0500" },
+                        {label: "&timezone.Indian.Mauritius;", value: "Indian/Mauritius", tzid: "+0400" },
+                        {label: "&timezone.Indian.Mayotte;", value: "Indian/Mayotte", tzid: "+0300" },
+                        {label: "&timezone.Indian.Reunion;", value: "Indian/Reunion", tzid: "+0400" },
+                        {label: "&timezone.Pacific.Apia;", value: "Pacific/Apia", tzid: "-1100" },
+                        {label: "&timezone.Pacific.Auckland;", value: "Pacific/Auckland", tzid: "+1200" },
+                        {label: "&timezone.Pacific.Chatham;", value: "Pacific/Chatham", tzid: "+1245" },
+                        {label: "&timezone.Pacific.Easter;", value: "Pacific/Easter", tzid: "-0600" },
+                        {label: "&timezone.Pacific.Efate;", value: "Pacific/Efate", tzid: "+1100" },
+                        {label: "&timezone.Pacific.Enderbury;", value: "Pacific/Enderbury", tzid: "+1300" },
+                        {label: "&timezone.Pacific.Fakaofo;", value: "Pacific/Fakaofo", tzid: "-1000" },
+                        {label: "&timezone.Pacific.Fiji;", value: "Pacific/Fiji", tzid: "+1200" },
+                        {label: "&timezone.Pacific.Funafuti;", value: "Pacific/Funafuti", tzid: "+1200" },
+                        {label: "&timezone.Pacific.Galapagos;", value: "Pacific/Galapagos", tzid: "-0600" },
+                        {label: "&timezone.Pacific.Gambier;", value: "Pacific/Gambier", tzid: "-0900" },
+                        {label: "&timezone.Pacific.Guadalcanal;", value: "Pacific/Guadalcanal", tzid: "+1100" },
+                        {label: "&timezone.Pacific.Guam;", value: "Pacific/Guam", tzid: "+1000" },
+                        {label: "&timezone.Pacific.Honolulu;", value: "Pacific/Honolulu", tzid: "-1000" },
+                        {label: "&timezone.Pacific.Johnston;", value: "Pacific/Johnston", tzid: "-1000" },
+                        {label: "&timezone.Pacific.Kiritimati;", value: "Pacific/Kiritimati", tzid: "+1400" },
+                        {label: "&timezone.Pacific.Kosrae;", value: "Pacific/Kosrae", tzid: "+1100" },
+                        {label: "&timezone.Pacific.Kwajalein;", value: "Pacific/Kwajalein", tzid: "+1200" },
+                        {label: "&timezone.Pacific.Majuro;", value: "Pacific/Majuro", tzid: "+1200" },
+                        {label: "&timezone.Pacific.Marquesas;", value: "Pacific/Marquesas", tzid: "-0930" },
+                        {label: "&timezone.Pacific.Midway;", value: "Pacific/Midway", tzid: "-1100" },
+                        {label: "&timezone.Pacific.Nauru;", value: "Pacific/Nauru", tzid: "+1200" },
+                        {label: "&timezone.Pacific.Niue;", value: "Pacific/Niue", tzid: "-1100" },
+                        {label: "&timezone.Pacific.Norfolk;", value: "Pacific/Norfolk", tzid: "+1130" },
+                        {label: "&timezone.Pacific.Noumea;", value: "Pacific/Noumea", tzid: "+1100" },
+                        {label: "&timezone.Pacific.Pago_Pago;", value: "Pacific/Pago_Pago", tzid: "-1100" },
+                        {label: "&timezone.Pacific.Palau;", value: "Pacific/Palau", tzid: "+0900" },
+                        {label: "&timezone.Pacific.Pitcairn;", value: "Pacific/Pitcairn", tzid: "-0800" },
+                        {label: "&timezone.Pacific.Ponape;", value: "Pacific/Ponape", tzid: "+1100" },
+                        {label: "&timezone.Pacific.Port_Moresby;", value: "Pacific/Port_Moresby", tzid: "+1000" },
+                        {label: "&timezone.Pacific.Rarotonga;", value: "Pacific/Rarotonga", tzid: "-1000" },
+                        {label: "&timezone.Pacific.Saipan;", value: "Pacific/Saipan", tzid: "+1000" },
+                        {label: "&timezone.Pacific.Tahiti;", value: "Pacific/Tahiti", tzid: "-1000" },
+                        {label: "&timezone.Pacific.Tarawa;", value: "Pacific/Tarawa", tzid: "+1200" },
+                        {label: "&timezone.Pacific.Tongatapu;", value: "Pacific/Tongatapu", tzid: "+1300" },
+                        {label: "&timezone.Pacific.Truk;", value: "Pacific/Truk", tzid: "+1000" },
+                        {label: "&timezone.Pacific.Wake;", value: "Pacific/Wake", tzid: "+1200" },
+                        {label: "&timezone.Pacific.Wallis;", value: "Pacific/Wallis", tzid: "+1200" }
+                        ]
+            </field>
 
             <xbl:constructor><![CDATA[
                 var self = this;
@@ -519,14 +555,60 @@
                 }catch(e) {
                 }
 
+                this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+                this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+                
                 this._currentTimezone = tz;
-
+                this.selectedTimezone = null;
+                this.selectedIndex = -1;
+                
                 var index = this.findTimezone(tz);
 
+                // use menu or button
                 var menulist = this.menulist;
-                menulist.selectedIndex = index;
+                var button = this.button;
 
-                this.updateTimezone();
+                if (this.type == 'button') {
+                    menulist.hidden = true;
+                    button.hidden = false;
+                }
+                else {
+                    menulist.hidden = false;
+                    button.hidden = true;
+
+                    this.timezones.forEach(function(timezone) {
+                        menulist.appendItem(timezone.label, timezone.value);
+                    }, this);
+
+                    menulist.selectedIndex = index;
+                }
+
+                this.updateTimezone(index);
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="showTimezonePanel">
+                <xbl:body><![CDATA[
+
+                this.buttonpanel.datasource = this.timezones;
+                this.buttonpanel.selectedIndex = this.selectedIndex;
+                this.buttonpanel.selectedItems = [this.selectedIndex];
+                this.buttonpanel.ensureIndexIsVisible(this.selectedIndex);
+                
+                var width = this.getAttribute('popupwidth') || this.screenwidth;
+                var height = this.getAttribute('popupheight') || this.screenheight;
+
+                this.panel.sizeTo(width, height);
+                this.panel.openPopupAtScreen((this.screenwidth - width) / 2, (this.screenheight - height) / 2);
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="hideTimezonePanel">
+                <xbl:body><![CDATA[
+
+                this.panel.hidePopup();
                 ]]>
                 </xbl:body>
             </xbl:method>
@@ -534,26 +616,32 @@
             <xbl:method name="findTimezone">
                 <xbl:parameter name="timezone"/>
                 <xbl:body><![CDATA[
-                    var menulist = this.menulist;
-                    var numChilds = menulist.childNodes[0].childNodes.length;
-                    for (var i=0; i<numChilds; i++) {
-                        var menuitem = menulist.childNodes[0].childNodes[i];
-                        if (menuitem.getAttribute("value") == timezone) {
-                            return i;
-                        }
+                
+                for (var i = 0; i < this.timezones.length; i++) {
+                    if (this.timezones[i].value == timezone) {
+                        return i;
                     }
-                    return -1;
+                }
+                return -1;
                 ]]>
                 </xbl:body>
             </xbl:method>
 
             <xbl:method name="updateTimezone">
-                <xbl:parameter name="event"/>
+                <xbl:parameter name="index"/>
                 <xbl:body><![CDATA[
+                
+                var label = '';
+                var timezone = '';
+                var tzid = '';
 
-                    var menuitem = this.menulist.selectedItem;
-                    var timezone = menuitem.getAttribute("value");
-                    var tzid = menuitem.getAttribute("tzid");
+                if (index == null) index = this.selectedIndex;                
+                if (index > -1 && index < this.timezones.length) {
+                    label = this.timezones[index].label;
+                    timezone = this.timezones[index].value;
+                    tzid = this.timezones[index].tzid;
+                    
+                    this.selectedTimezone = timezone;
 
                     var stack = this.stack;
                     var numChilds = stack.childNodes.length;
@@ -568,6 +656,21 @@
                             }
                         }
                     }
+                }
+                else {
+                    this.selectedTimezone = this.currentTimezone;
+                }
+                this.selectedIndex = index;
+                
+                if (this.type == 'button') {
+                    var str = label
+
+                    if (tzid != '') {
+                        str += ' (' + tzid + ')';
+                    }
+
+                    this.button.label = str;
+                }
 
                 ]]>
                 </xbl:body>
