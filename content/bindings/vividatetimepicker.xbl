@@ -572,7 +572,7 @@
 
         <content align="center">
             <xul:box flex="1">
-                <xul:vbox align="center" flex="1">
+                <xul:vbox align="center" flex="1" class="TimeBox">
                     <xul:hbox>
                         <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(1);"/>
                         <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+0:15" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(15);"/>
@@ -1160,7 +1160,7 @@
            extends="vividatetimepicker.xbl#vividatetimepicker-date">
 
     <content>
-      <vbox class="datepicker-mainbox"
+      <vbox class="datepicker-mainbox" flex="1"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
         <hbox>
             <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+&datetimepicker.year;" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMonth(12);"/>
