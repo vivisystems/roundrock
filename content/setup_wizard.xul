@@ -65,6 +65,8 @@
         rewind="no action"
         >
         <hbox flex="1">
+            <vbox>
+            <vbox class="logo" />
             <vbox class="step">
                 <label value="&wizard.page.language;" class="current_step"></label>
                 <label value="&wizard.page.location;"></label>
@@ -74,6 +76,8 @@
                 <label value="&wizard.page.storeinfo;"></label>
                 <label value="&wizard.page.login;"></label>
                 <label value="&wizard.page.tax;"></label>
+                <hbox class="endstep" />
+            </vbox>
             </vbox>
             <vbox class="rightPnl">
                 <vbox class="title_box">
@@ -83,7 +87,7 @@
                 <vbox class="content_area langpnl">
                     <label value="&wizard.page.language.locale;"/>
                     <vivilocaleslistbox id="locale" package="viviecr" flex="1" class="selArea" label="&wizard.page.language.more;"
-                                    popTitle="&wizard.page.language.locale;"
+                                    popTitle="&wizard.page.language.locale;" spaceClass="arr" labelClass="langlabel"
                                     type="button" rows="5" cols="5" popupwidth="680" popupheight="500" popupClass="popup"
                                     listboxClass="" panelClass="selList" buttonClass="selBtns fitbtnw" scrollUpClass="listUp" scrollDownClass="listDown"/>
                 </vbox>
@@ -91,8 +95,9 @@
                 <vbox class="content_area langpnl">
                     <label value="&wizard.page.language.kbmap;"/>
                     <vivikbmaps id="kbmap" flex="1"  class="selArea" label="&wizard.page.language.more;" popTitle="&wizard.page.language.kbmap;"
-                                    type="button" rows="5" cols="5" popupwidth="680" popupheight="500" popupClass="popup"
-                                    listboxClass="" panelClass="selList" buttonClass="selBtns fitbtnw" scrollUpClass="listUp" scrollDownClass="listDown"/>
+                                    type="button" rows="5" cols="5" popupwidth="680" popupheight="500" popupClass="popup" spaceClass="arr"
+                                    listboxClass="" panelClass="selList" buttonClass="selBtns fitbtnw" labelClass="langlabel"
+                                    scrollUpClass="listUp" scrollDownClass="listDown"/>
                 </vbox>
             </vbox>
         </hbox>
@@ -110,6 +115,8 @@
         rewind="no action"
         >
         <hbox flex="1">
+            <vbox>
+            <vbox class="logo" />
             <vbox class="step">
                 <label value="&wizard.page.language;"></label>
                 <label value="&wizard.page.location;" class="current_step"></label>
@@ -119,13 +126,14 @@
                 <label value="&wizard.page.storeinfo;"></label>
                 <label value="&wizard.page.login;"></label>
                 <label value="&wizard.page.tax;"></label>
-            </vbox>
+                <hbox class="endstep" />
+            </vbox></vbox>
             <vbox class="rightPnl">
                 <vbox class="title_box">
                     <label class="w_Title" value="02 &wizard.page.location; "></label>
                     <label class="w_desc" value="&wizard.page.location.description;"></label>
                 </vbox>
-                <vbox class="content_area" flex="1">
+                <vbox class="content_area">
                     <label value="&wizard.page.location;"/>
                     <viviscrollablebuttonpanel id="locationlist" flex="1"
                                                cols="4" rows="3" labelField="label" imageField="image"
@@ -149,6 +157,8 @@
         rewind="no action"
         >
         <hbox flex="1">
+            <vbox>
+            <vbox class="logo" />
             <vbox class="step">
                 <label value="&wizard.page.language;"></label>
                 <label value="&wizard.page.location;"></label>
@@ -158,7 +168,8 @@
                 <label value="&wizard.page.storeinfo;"></label>
                 <label value="&wizard.page.login;"></label>
                 <label value="&wizard.page.tax;"></label>
-            </vbox>
+                <hbox class="endstep" />
+            </vbox></vbox>
             <vbox class="rightPnl">
                 <vbox class="title_box">
                     <label class="w_Title" value="03 &wizard.page.timezone; "></label>
@@ -168,8 +179,8 @@
                     <label value="&wizard.page.timezone;"/>
                     <vivitimezones id="timezones" flex="1" type="button" cols="5" rows="5" popupwidth="680" popupheight="500"
                                    timezoneMenuClass="selList" panelClass="selList" buttonClass="selBtns fitbtnw" 
-                                   SelClass="timeZoneSel" btnLabel="&wizard.page.language.more;"
-                                   timezoneButtonClass="timezonebtn" popTitle="&wizard.page.timezone;" popupClass="popup"
+                                   SelClass="selArea" btnLabel="&wizard.page.language.more;" spaceClass="arr"
+                                   timezoneButtonClass="" popTitle="&wizard.page.timezone;" popupClass="popup" labelClass="langlabel"
                                    scrollUpClass="listUp" scrollDownClass="listDown" ImgClass="ZomeImg"/>
                 </vbox>
             </vbox>
@@ -188,6 +199,8 @@
         rewind="no action"
         >
         <hbox flex="1">
+            <vbox>
+            <vbox class="logo" />
             <vbox class="step">
                 <label value="&wizard.page.language;"></label>
                 <label value="&wizard.page.location;"></label>
@@ -197,7 +210,8 @@
                 <label value="&wizard.page.storeinfo;"></label>
                 <label value="&wizard.page.login;"></label>
                 <label value="&wizard.page.tax;"></label>
-            </vbox>
+                <hbox class="endstep" />
+            </vbox></vbox>
             <vbox class="rightPnl">
                 <vbox class="title_box">
                     <label class="w_Title" value="04 &wizard.page.datetime; "></label>
@@ -223,6 +237,8 @@
         rewind="set initDB flag"
         >
         <hbox flex="1">
+            <vbox>
+            <vbox class="logo" />
             <vbox class="step">
                 <label value="&wizard.page.language;"></label>
                 <label value="&wizard.page.location;"></label>
@@ -232,7 +248,8 @@
                 <label value="&wizard.page.storeinfo;"></label>
                 <label value="&wizard.page.login;"></label>
                 <label value="&wizard.page.tax;"></label>
-            </vbox>
+                <hbox class="endstep" />
+            </vbox></vbox>
             <vbox class="rightPnl">
                 <vbox class="title_box">
                     <label class="w_Title" value="05 &wizard.page.sector; "></label>
@@ -262,6 +279,8 @@
         rewind="no action"
         >
             <hbox flex="1">
+                <vbox>
+            <vbox class="logo" />
         <vbox class="step">
                 <label value="&wizard.page.language;"></label>
                 <label value="&wizard.page.location;"></label>
@@ -271,7 +290,8 @@
                 <label value="&wizard.page.storeinfo;" class="current_step"></label>
                 <label value="&wizard.page.login;"></label>
                 <label value="&wizard.page.tax;"></label>
-            </vbox>
+                <hbox class="endstep" />
+            </vbox></vbox>
             <vbox class="rightPnl">
                 <vbox class="title_box">
                     <label class="w_Title" value="06 &wizard.page.storeinfo; "></label>
@@ -326,6 +346,8 @@
         rewind="no action"
         >
         <hbox flex="1">
+            <vbox>
+            <vbox class="logo" />
             <vbox class="step">
                 <label value="&wizard.page.language;"></label>
                 <label value="&wizard.page.location;"></label>
@@ -335,7 +357,8 @@
                 <label value="&wizard.page.storeinfo;"></label>
                 <label value="&wizard.page.login;" class="current_step"></label>
                 <label value="&wizard.page.tax;"></label>
-            </vbox>
+                <hbox class="endstep" />
+            </vbox></vbox>
             <vbox class="rightPnl">
                 <vbox class="title_box">
                     <label class="w_Title" value="07 &wizard.page.login; "></label>
@@ -398,6 +421,8 @@
         rewind="no action"
         >
         <hbox flex="1">
+            <vbox>
+            <vbox class="logo" />
             <vbox class="step">
                 <label value="&wizard.page.language;"></label>
                 <label value="&wizard.page.location;"></label>
@@ -407,7 +432,8 @@
                 <label value="&wizard.page.storeinfo;"></label>
                 <label value="&wizard.page.login;"></label>
                 <label value="&wizard.page.tax;" class="current_step"></label>
-            </vbox>
+                <hbox class="endstep" />
+            </vbox></vbox>
             <vbox class="rightPnl">
                 <vbox class="title_box">
                     <label class="w_Title" value="08 &wizard.page.tax; "></label>
@@ -435,8 +461,14 @@
         rewind="no action"
         >
         <vbox flex="1" class="w_finish">
-            <description >&wizard.page.finish.description;</description>
-            <spacer height="30px" />
+            <label value="&wizard.page.finish.congratulation;"/>
+            <spacer class="end_space1" />
+            <label value="&wizard.page.finish.str1;" />
+            <hbox align="center" pack="center">
+                <label value="&wizard.page.finish.str2;" />
+                <hbox class="smile" />
+            </hbox>
+            <spacer class="end_space2" />
         </vbox>
     </wizardpage>
 
