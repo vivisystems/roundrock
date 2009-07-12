@@ -19,11 +19,11 @@
         _suspendOperationFilter: null,
         _isTraining: false,
     
-        initial: function() {
-            
+        initial: function(firstrun) {
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
+            if (firstrun) GeckoJS.Session.set('firstrun', firstrun);
             GeckoJS.Session.set('screenwidth', this.screenwidth);
             GeckoJS.Session.set('screenheight', this.screenheight);
 
@@ -108,7 +108,7 @@
         },
 
         destroy: function() {
-            this.observer.unregister();
+            if (this.observer) this.observer.unregister();
         },
 
         _getKeypadController: function() {

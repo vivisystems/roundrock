@@ -14,12 +14,12 @@
                 <preference id="pref_clockinenabled" name="vivipos.fec.settings.ClockInEnabled" type="bool" />
                 <preference id="pref_showvirtualkeyboardicon" name="vivipos.fec.settings.ShowVKIcon" type="bool" />
                 <preference id="pref_showconfigicon" name="vivipos.fec.settings.ShowConfigIcon" type="bool" />
+                <preference id="pref_showplugroupsfirst" name="vivipos.fec.settings.ShowPlugroupsFirst" type="bool"/>
                 
                 <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.layout.retail.HideTagColumn" type="bool"/>
                 <preference id="pref_hidebottombox" name="vivipos.fec.settings.layout.retail.HideBottomBox" type="bool" />
                 <preference id="pref_crop_dept_label" name="vivipos.fec.settings.layout.retail.CropDeptLabel" type="bool"/>
                 <preference id="pref_crop_plu_label" name="vivipos.fec.settings.layout.retail.CropPLULabel" type="bool"/>
-                <preference id="pref_showplugroupsfirst" name="vivipos.fec.settings.layout.retail.ShowPlugroupsFirst" type="bool"/>
                 <preference id="pref_checktrackingmode" name="vivipos.fec.settings.layout.retail.CheckTrackingMode" type="bool"/>
 
                 <preference id="pref_showtoolbar" name="vivipos.fec.settings.layout.retail.ShowToolbar" type="bool" />
