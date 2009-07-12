@@ -490,8 +490,8 @@
             prefs = new GeckoJS.File(prefsPath + '/localization.js', true);
             prefs.open('w');
             /* localization */
-            prefs.write('pref("vivipos.fec.registry.localization.package.' + package_id + '.base", "en");');
-            prefs.write('pref("vivipos.fec.registry.localization.package.' + package_id + '.ext", "dtd,properties");');
+            prefs.write('pref("vivipos.fec.registry.localization.package.' + package_id + '.base", "en");\n');
+            prefs.write('pref("vivipos.fec.registry.localization.package.' + package_id + '.ext", "dtd,properties");\n');
 
             // create XPI and move to media
             var xpiFile = 'package_' + data.location + '_' + data.sector + '_' + package_version + '.xpi'

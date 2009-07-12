@@ -109,13 +109,14 @@ var options;
 })();
 
 function confirmEndSalePeriod() {
+    var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
     var amount = parseFloat(document.getElementById('amount').value);
     if (!isNaN(amount) && amount != 0) {
-        GREUtils.Dialog.alert(window, _('confirm end sale period'), _('Change may not be left in the drawer at the end of sale period'));
+        GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Change may not be left in the drawer at the end of sale period'));
         return false;
     }
     else {
-        if (GREUtils.Dialog.confirm(window, _('confirm end sale period'), _('Please confirm end of sale period'))) {
+        if (GREUtils.Dialog.confirm(topwin, _('confirm end sale period'), _('Please confirm end of sale period'))) {
             options.end = true;
             return true;
         }
@@ -127,14 +128,15 @@ function confirmEndSalePeriod() {
 }
 
 function confirmEndShift() {
+    var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
     var amount = parseFloat(document.getElementById('amount').value);
     if (!isNaN(amount) && amount < 0) {
-        GREUtils.Dialog.alert(window, _('confirm shift change'), _('Drawer change may not be negative'));
+        GREUtils.Dialog.alert(topwin, _('confirm shift change'), _('Drawer change may not be negative'));
         return false;
     }
     else {
         options.end = false;
-        if (GREUtils.Dialog.confirm(window, _('confirm shift change'), _('Please confirm shift change'))) {
+        if (GREUtils.Dialog.confirm(topwin, _('confirm shift change'), _('Please confirm shift change'))) {
             return true;
         }
         else {

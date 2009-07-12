@@ -7,7 +7,7 @@ SDK_DIR="$APP_DIR../../vivipos_sdk";
 #
 grep -e "vivipos.fec.report.yourorder.field.[^.]*.name\"" $APP_DIR/defaults/preferences/your_order_report.js  > /tmp/your_order_report.js
 
-xgettext -o messages1.po --from-code UTF-8 --msgid-bugs-address=irving.hsu@firich.com.tw -Lpython -k_:1 $APP_DIR/content/*.js $APP_DIR/content/controllers/*.js $SDK_DIR/chrome/content/bindings/*.xbl  $APP_DIR/content/helpers/*.js $APP_DIR/content/bindings/*.xbl $APP_DIR/content/reports/controllers/*.js $APP_DIR/content/reports/controllers/components/*.js $APP_DIR/content/reports/tpl/*/*.tpl $APP_DIR/content/tpl/*.html $APP_DIR/content/*.tpl $APP_DIR/content/promotions/*.js $APP_DIR/content/promotions/controllers/*.js $APP_DIR/content/promotions/triggers/*.js $APP_DIR/content/promotions/types/*.js
+xgettext -o messages1.po --from-code UTF-8 --msgid-bugs-address=irving.hsu@firich.com.tw -Lpython -k_:1 $APP_DIR/content/*.js $APP_DIR/content/controllers/*.js $SDK_DIR/chrome/content/bindings/*.xbl  $APP_DIR/content/helpers/*.js $APP_DIR/content/bindings/*.xbl $APP_DIR/content/reports/controllers/*.js $APP_DIR/content/reports/controllers/components/*.js $APP_DIR/content/reports/tpl/*/*.tpl $APP_DIR/content/tpl/*.html $APP_DIR/content/promotions/*.js $APP_DIR/content/promotions/controllers/*.js $APP_DIR/content/promotions/triggers/*.js $APP_DIR/content/promotions/types/*.js
 
 sed 's/charset=CHARSET/charset=UTF-8/g' messages1.po > messages.po
 

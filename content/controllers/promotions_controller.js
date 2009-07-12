@@ -136,7 +136,7 @@
 
         destroy: function() {
 
-            this.observer.unregister();
+            if (this.observer) this.observer.unregister();
             
         },
 

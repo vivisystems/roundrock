@@ -172,6 +172,14 @@
                                     <textbox class="descbox_keymap" id="stock_hostname_desc" wrap="true"
                                          readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.stock_hostname;" />
                                 </row>
+                                <row>
+                                    <vbox>
+                                        <label value="&sync_settings.label.ntp_hostname;" />
+                                        <textbox form="syncSettingForm" name="ntp_hostname" value="localhost"/>
+                                    </vbox>
+                                    <textbox class="descbox_keymap" id="ntp_hostname_desc" wrap="true"
+                                         readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.ntp_hostname;" />
+                                </row>
                             </rows>
                         </grid>
 

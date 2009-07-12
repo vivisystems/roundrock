@@ -48,7 +48,8 @@
             }
         },
         
-        _fileName: '', // appellation for the exported files.
+        _fileName: '', // for use of template file.
+        _exportedFileName: '', // appellation for the exported files.
         
         getCaptionId: function() {
             return this._waiting_caption_id;
@@ -192,7 +193,7 @@
                 this._setTemplateDataFoot();
                 this._exploit_reportRecords();
             } catch ( e ) {
-                alert(GeckoJS.BaseObject.dump(e));
+                this.log('ERROR', GeckoJS.BaseObject.dump(e));
             } finally {
                 // Reset the timeout limit to the default value.
                 GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
@@ -245,7 +246,7 @@
                 var progress = document.getElementById( this._progress_bar_id );
                 var caption = document.getElementById( this.getCaptionId() );
 				
-                var fileName = this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.pdf';
+                var fileName = this._exportedFileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.pdf';
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
                 var self = this;
@@ -313,7 +314,7 @@
                     this._reportRecords.foot.gen_time = ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' );
                 }
 
-                var fileName = this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv';
+                var fileName = this._exportedFileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.csv';
                 var targetDir = media_path;
                 var tmpFile = this._tmpFileDir + fileName;
                 
@@ -630,6 +631,9 @@
             this._enableButton( false );
             this._mainScreenWidth = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.width' ) || 800;
             this._mainScreenHeight = GeckoJS.Configure.read( 'vivipos.fec.mainscreen.height' ) || 600;
+            
+            // they are the same in default.
+            this._exportedFileName = this._fileName;
         }
     };
     

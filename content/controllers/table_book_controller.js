@@ -158,7 +158,7 @@
 
                 var region = this._bookingListDatas[index];
 
-                if (!GREUtils.Dialog.confirm(null, _('confirm delete booking [%S (%S)]', [inputObj.contact, inputObj.table_no]),
+                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete booking [%S (%S)]', [inputObj.contact, inputObj.table_no]),
                                              _('Are you sure you want to delete booking [%S (%S)]?', [inputObj.contact, inputObj.table_no]))) {
                     return;
                 }

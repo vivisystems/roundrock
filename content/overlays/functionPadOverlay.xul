@@ -3,12 +3,12 @@
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/numberpad.dtd">
 
-<overlay id="numberpadPanelOverlay"
+<overlay id="functionPadOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <hbox id="numberpadPanelContainer" flex="0">
+    <hbox id="functionPadContainer" flex="0">
 
         <vbox flex="1" pack="start" align="center">
             <deck id="fixedbtnrow" selectedIndex="1" flex="0">

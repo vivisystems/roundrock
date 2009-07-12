@@ -8,7 +8,6 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -40,7 +39,8 @@
                                 />
                     </tabpanel>
                     <tabpanel flex="1">
-                        <vivitimezones id="timezones" flex="1" class="TimeZone"/>
+                        <vivitimezones id="timezones" flex="1" type="listbox" cols="4" rows="6" popupwidth="720" popupheight="540"
+                                       listboxClass="" panelClass="TimeZone" buttonClass="" scrollUpClass="" scrollDownClass=""/>
                     </tabpanel>
                 </tabpanels>
             </tabbox>
