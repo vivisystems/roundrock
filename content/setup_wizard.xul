@@ -41,7 +41,7 @@
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/setup_wizard.js" />
 
-    <wizardpage
+    <!--wizardpage
         pageid="welcome"
 		label="&wizard.page.welcome;"
 		description="&wizard.page.welcome.description;"
@@ -52,7 +52,7 @@
         <vbox flex="1">
             
         </vbox>
-    </wizardpage>
+    </wizardpage-->
 
     <wizardpage
         pageid="language"
@@ -477,7 +477,7 @@
             <label value="&wizard.page.finish.str1;" />
             <hbox align="center" pack="center">
                 <label value="&wizard.page.finish.str2;" />
-                <hbox class="smile" />
+                <!--hbox class="smile" /-->
             </hbox>
             <spacer class="end_space2" />
         </vbox>

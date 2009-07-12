@@ -98,11 +98,12 @@
             this.selectedTimezone = timezones.currentTimezone;
 
             // if restarted, jump to location selection
+            /*
             if (args.restarted) {
                 var wizard = document.getElementById('wizard');
                 wizard.advance('language');
             }
-
+            */
         },
 
         advanceOK: function() {

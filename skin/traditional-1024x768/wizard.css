@@ -497,10 +497,6 @@ richlistitem[selected] vbox > label:first-child {
     margin-bottom: 20px;
 }
 
-.viviDateTimeLabel {
-    margin: 10px;
-    font-size: 11pt;
-}
 .TimeLabelBox {
     margin: 10px;
     min-width: 270px;

@@ -32,4 +32,4 @@
 <!ENTITY wizard.page.finish.congratulation "Congratulations!">
 <!ENTITY wizard.page.finish.str1 "You have successfully completed the setup process.">
 <!ENTITY wizard.page.finish.str2 "Please press 'Finish' to proceed.">
-<!ENTITY wizard.page.copyright "copyright c 2009 Firich Enterprises Co., Ltd. All Rights Reserved.">
+<!ENTITY wizard.page.copyright "2009 Firich Enterprises Co., Ltd.">

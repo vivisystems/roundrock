@@ -35,7 +35,7 @@
                 else {
                     location_label = _('(location)' + location)
                 }
-
+this.log('package: ' + location + ', label: ' + location_label);
                 var location_tz = GeckoJS.Configure.read(this._PackageTimezoneKey + '.' + location);
 
                 for (var sector in packages) {
