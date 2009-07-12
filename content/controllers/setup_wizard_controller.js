@@ -564,7 +564,7 @@
          * wizard finish/cancel
          */
 
-        finishSetup: function() {
+        finishSetup: function(data) {
             // completion tasks:
 
             // 1. configure selectedSkin and layout
@@ -670,8 +670,7 @@
                     exec.close();
                 }
             }
-
-            this.args.initialized = true;
+            data.initialized = true;
             return true;
         },
 

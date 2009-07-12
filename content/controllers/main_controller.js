@@ -68,7 +68,7 @@
             // ourselves
 
             this.dispatchEvent('afterInitial', null);
-            
+
             // recover queued orders
             this.requestCommand('unserializeQueueFromRecoveryFile', null, 'Cart');
 

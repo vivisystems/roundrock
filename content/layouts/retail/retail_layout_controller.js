@@ -205,10 +205,8 @@
 
     // register onload
     window.addEventListener('load', function() {
-        var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('afterInitial', function() {
-                                            main.requestCommand('initial', null, 'Layout');
-                                      });
+        var layout = GeckoJS.Controller.getInstanceByName('Layout');
+        if (layout) layout.initial();
 
     }, false);
 })()
