@@ -53,10 +53,10 @@
                 $buttonPanel[ 0 ].datasource = fields;
                 $buttonPanel[ 0 ].selectedItems = selectedItems;
                 $buttonPanel[ 0 ].vivibuttonpanel.resizeButtons();
-                //$buttonPanel[ 0 ].vivibuttonpanel.invalidate();
+                $buttonPanel[ 0 ].vivibuttonpanel.invalidate();
                 $buttonPanel[ 0 ].scrollToRow( 0 );
             } 
-        } ); 
+        } );
     }
 
     window.addEventListener( 'load', startup, false );

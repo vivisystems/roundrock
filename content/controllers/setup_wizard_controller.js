@@ -24,83 +24,6 @@
 
         currentKbmap: null,
         selectedKbmap: null,
-        availableKbmaps: [  {label: _('(kbmap)Albania'), value: 'al', image: ''},
-                            {label: _('(kbmap)Andorra'), value: 'ad', image: ''},
-                            {label: _('(kbmap)Arabic'), value: 'ara', image: ''},
-                            {label: _('(kbmap)Armenia'), value: 'am', image: ''},
-                            {label: _('(kbmap)Azerbaijan'), value: 'az', image: ''},
-                            {label: _('(kbmap)Bangladesh'), value: 'bd', image: ''},
-                            {label: _('(kbmap)Belarus'), value: 'by', image: ''},
-                            {label: _('(kbmap)Belgium'), value: 'be', image: ''},
-                            {label: _('(kbmap)Bosnia and Herzegovina'), value: 'ba', image: ''},
-                            {label: _('(kbmap)Brazil'), value: 'br', image: ''},
-                            {label: _('(kbmap)Bulgaria'), value: 'bg', image: ''},
-                            {label: _('(kbmap)Canada'), value: 'ca', image: ''},
-                            {label: _('(kbmap)China'), value: 'cn', image: ''},
-                            {label: _('(kbmap)Congo, Democratic Republic of the'), value: 'cd', image: ''},
-                            {label: _('(kbmap)Croatia'), value: 'hr', image: ''},
-                            {label: _('(kbmap)Czechia'), value: 'cz', image: ''},
-                            {label: _('(kbmap)Denmark'), value: 'dk', image: ''},
-                            {label: _('(kbmap)Esperanto'), value: 'epo', image: ''},
-                            {label: _('(kbmap)Estonia'), value: 'ee', image: ''},
-                            {label: _('(kbmap)Ethiopia'), value: 'et', image: ''},
-                            {label: _('(kbmap)Faroe Islands'), value: 'fo', image: ''},
-                            {label: _('(kbmap)Finland'), value: 'fi', image: ''},
-                            {label: _('(kbmap)France'), value: 'fr', image: ''},
-                            {label: _('(kbmap)Georgia'), value: 'ge', image: ''},
-                            {label: _('(kbmap)Germany'), value: 'de', image: ''},
-                            {label: _('(kbmap)Ghana'), value: 'gh', image: ''},
-                            {label: _('(kbmap)Greece'), value: 'gr', image: ''},
-                            {label: _('(kbmap)Guinea'), value: 'gn', image: ''},
-                            {label: _('(kbmap)Hungary'), value: 'hu', image: ''},
-                            {label: _('(kbmap)Iceland'), value: 'is', image: ''},
-                            {label: _('(kbmap)India'), value: 'in', image: ''},
-                            {label: _('(kbmap)Iran'), value: 'ir', image: ''},
-                            {label: _('(kbmap)Iraq'), value: 'iq', image: ''},
-                            {label: _('(kbmap)Ireland'), value: 'ie', image: ''},
-                            {label: _('(kbmap)Israel'), value: 'il', image: ''},
-                            {label: _('(kbmap)Italy'), value: 'it', image: ''},
-                            {label: _('(kbmap)Japan'), value: 'jp', image: ''},
-                            {label: _('(kbmap)Japan (PC-98xx Series)'), value: 'nec_vndr_jp', image: ''},
-                            {label: _('(kbmap)Kazakhstan'), value: 'kz', image: ''},
-                            {label: _('(kbmap)Korea, Republic of'), value: 'kr', image: ''},
-                            {label: _('(kbmap)Kyrgyzstan'), value: 'kg', image: ''},
-                            {label: _('(kbmap)Laos'), value: 'la', image: ''},
-                            {label: _('(kbmap)Latin American'), value: 'latam', image: ''},
-                            {label: _('(kbmap)Lithuania'), value: 'lt', image: ''},
-                            {label: _('(kbmap)Latvia'), value: 'lv', image: ''},
-                            {label: _('(kbmap)Macedonia'), value: 'mk', image: ''},
-                            {label: _('(kbmap)Maldives'), value: 'mv', image: ''},
-                            {label: _('(kbmap)Malta'), value: 'mt', image: ''},
-                            {label: _('(kbmap)Maori'), value: 'mao', image: ''},
-                            {label: _('(kbmap)Mongolia'), value: 'mn', image: ''},
-                            {label: _('(kbmap)Montenegro'), value: 'me', image: ''},
-                            {label: _('(kbmap)Morocco'), value: 'ma', image: ''},
-                            {label: _('(kbmap)Nepal'), value: 'np', image: ''},
-                            {label: _('(kbmap)Netherlands'), value: 'nl', image: ''},
-                            {label: _('(kbmap)Nigeria'), value: 'ng', image: ''},
-                            {label: _('(kbmap)Norway'), value: 'no', image: ''},
-                            {label: _('(kbmap)Pakistan'), value: 'pk', image: ''},
-                            {label: _('(kbmap)Poland'), value: 'pl', image: ''},
-                            {label: _('(kbmap)Portugal'), value: 'pt', image: ''},
-                            {label: _('(kbmap)Romania'), value: 'ro', image: ''},
-                            {label: _('(kbmap)Russia'), value: 'ru', image: ''},
-                            {label: _('(kbmap)Serbia'), value: 'rs', image: ''},
-                            {label: _('(kbmap)Slovakia'), value: 'sk', image: ''},
-                            {label: _('(kbmap)Slovenia'), value: 'si', image: ''},
-                            {label: _('(kbmap)South Africa'), value: 'za', image: ''},
-                            {label: _('(kbmap)Spain'), value: 'es', image: ''},
-                            {label: _('(kbmap)Sweden'), value: 'se', image: ''},
-                            {label: _('(kbmap)Switzerland'), value: 'ch', image: ''},
-                            {label: _('(kbmap)Syria'), value: 'sy', image: ''},
-                            {label: _('(kbmap)Tajikistan'), value: 'tj', image: ''},
-                            {label: _('(kbmap)Thailand'), value: 'th', image: ''},
-                            {label: _('(kbmap)Turkey'), value: 'tr', image: ''},
-                            {label: _('(kbmap)Ukraine'), value: 'ua', image: ''},
-                            {label: _('(kbmap)United Kingdom'), value: 'gb', image: ''},
-                            {label: _('(kbmap)USA'), value: 'us', image: ''},
-                            {label: _('(kbmap)Uzbekistan'), value: 'uz', image: ''},
-                            {label: _('(kbmap)Vietnam'), value: 'vn', image: ''} ],
 
         selectedLocation: null,
         selectedTimezone: null,
@@ -113,9 +36,6 @@
         lastSector: null,
 
         args: null,
-
-        screenwidth: GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800,
-        screenheight: GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600,
 
         /*
          * load
@@ -169,18 +89,21 @@
             this.Packages = data.packages;
             this.Locations = data.locations;
             this.Sectors = data.sectors;
-            
-            this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
+
+            locationListObj.datasource = this.Locations;
+            //this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
 
             // initialize timezone
             var timezones = document.getElementById('timezones');
             this.selectedTimezone = timezones.currentTimezone;
 
             // if restarted, jump to location selection
+            /*
             if (args.restarted) {
                 var wizard = document.getElementById('wizard');
                 wizard.advance('language');
             }
+            */
         },
 
         advanceOK: function() {
@@ -188,22 +111,18 @@
             wizard.canAdvance = true;
         },
 
+        
         /*
          *  wizard page "language"
          */
 
         initLocaleKbmap: function() {
-            // show selected locale
-            this.updateLocaleDisplay(this.selectedLocale);
-
+            
             // populate locale popup panel
             var localeList = document.getElementById('localescrollablepanel');
             if (localeList) {
                 localeList.datasource = this.availableLocales;
             }
-
-            // show selected keyboard mapping
-            this.updateKbmapDisplay(this.selectedKbmap);
 
             // populate kbmap popup panel
             var kbmapList = document.getElementById('kbmapscrollablepanel');
@@ -212,203 +131,25 @@
             }
         },
 
-        updateLocaleDisplay: function(locale) {
-            var localeObj = document.getElementById('locale');
-            if (localeObj && locale) {
-                localeObj.label = _('(locale)' + locale);
-                localeObj.image = 'chrome://vivipos/skin/flags/tb_' + locale + '.png';
-            }
-        },
-
-        updateKbmapDisplay: function(kbmap) {
-            var kbmapObj = document.getElementById('kbmap');
-            if (kbmapObj && kbmap) {
-                kbmapObj.label = _('(kbmap)' + kbmap);
-                kbmapObj.image = 'chrome://vivipos/skin/flags/tb_' + kbmap + '.png';
-            }
-        },
-
-        showLocalePopup: function() {
-            var width = 600;
-            var height = 400;
-
-            var localePanel = document.getElementById('localePanel');
-            if (localePanel) {
-                localePanel.sizeTo(width, height);
-                localePanel.openPopupAtScreen((this.screenwidth - width)/2, (this.screenheight - height)/2);
-            }
-        },
-
-        selectLocale: function(index) {
-            var localePanel = document.getElementById('localePanel');
-            if (index > -1 && index < this.availableLocales.length) {
-                var localeData = this.availableLocales[index];
-                if (localeData) {
-                    this.selectedLocale = localeData.value;
-                    this.updateLocaleDisplay(this.selectedLocale);
-                }
-
-                localePanel.hidePopup();
-            }
-        },
-
-        showKbmapPopup: function() {
-            var width = 600;
-            var height = 400;
-
-            var kbmapPanel = document.getElementById('kbmapPanel');
-            if (kbmapPanel) {
-                kbmapPanel.sizeTo(width, height);
-                kbmapPanel.openPopupAtScreen((this.screenwidth - width)/2, (this.screenheight - height)/2);
-            }
-        },
-
-        selectKbmap: function(index) {
-            var kbmapPanel = document.getElementById('kbmapPanel');
-            if (index > -1 && index < this.availableKbmaps.length) {
-                var kbmapData = this.availableKbmaps[index];
-                if (kbmapData) {
-                    this.selectedKbmap = kbmapData.value;
-                    this.updateKbmapDisplay(this.selectedKbmap);
-                }
-
-                kbmapPanel.hidePopup();
-            }
-        },
-
-
-        changeOSLocale: function(newLocale) {
-
-            try {
-                var loc = newLocale.split('-');
-                var langENV = "";
-
-                if (loc.length >=2) {
-                    langENV = loc[0] + '_' + loc[1] + '.UTF-8';
-                }else {
-                    langENV = loc[0] + '.UTF-8';
-                }
-
-                // ubuntu locale environment
-                var envFile = new GeckoJS.File('/etc/environment');
-                var osEnvs ;
-                if (envFile.exists()) {
-                    envFile.open("r");
-                    osEnvs = envFile.readAllLine();
-                    envFile.close();
-                }
-                delete envFile;
-
-                var newEnvs = [];
-                for each(var envBuf in osEnvs) {
-                    if (envBuf.match(/^LANGUAGE=/)) {
-                        var languageString = 'LANGUAGE="' +
-                                         (loc.length >=2 ? (loc[0] + '_' + loc[1] + ':') : "")+
-                                         loc[0] + ':en_US:en"';
-                        newEnvs.push(languageString);
-                    }else if(envBuf.match(/^LANG=/)) {
-                        var langString = 'LANG="'+langENV+'"';
-                        newEnvs.push(langString);
-                    }else {
-                        newEnvs.push(envBuf);
-                    }
-                }
-
-                var newEnvString = newEnvs.join("\n") + "\n";
-
-                // write environment file
-                try {
-                    var envFile2 = new GeckoJS.File('/etc/environment', true);
-                    envFile2.open("w");
-                    envFile2.write(newEnvString);
-                    envFile2.close();
-
-                    delete envFile2;
-
-                }catch(e) {};
-
-
-                // set environment
-                try {
-                    var envSvc = Components.classes["@mozilla.org/process/environment;1"]
-                              .getService(Components.interfaces.nsIEnvironment);
-
-                    envSvc.set('LANG', langENV);
-                    envSvc.set('LC_TIME', langENV);
-                    envSvc.set('LC_MESSAGES', langENV);
-                    envSvc.set('LC_NUMERIC', langENV);
-                    envSvc.set('LC_MONETARY', langENV);
-                    envSvc.set('LC_ALL', langENV);
-
-
-                }catch(e) {
-                }
-
-                // locale gen
-                try {
-                    var localeGenScript = new GeckoJS.File('/data/scripts/locale_gen.sh');
-                    if (localeGenScript.exists()) {
-                        localeGenScript.run([], true); // no arguments and blocking.
-                    }
-                    delete localeGenScript;
-                    localeGenScript = null;
-                }catch(e) {
-                }
-
-                return true;
-
-            } catch(err) {
-            }
-            return false;
-        },
-
-        changeOSKbmap: function(newKbmap) {
-
-            try {
-
-                // write Kbmap file
-                var kbFile = new GeckoJS.File('/etc/kbmap', true);
-                kbFile.open("w");
-                kbFile.write(newKbmap+"\n");
-                kbFile.close();
-                delete kbFile;
-
-            }catch (e) {
-                // maybe permision deny
-            }
-
-            // restart virtual keyboard
-            try {
-                var resetKeyboardScript = new GeckoJS.File('/data/scripts/reset_keyboard.sh');
-                if (resetKeyboardScript.exists()) {
-                resetKeyboardScript.run([], true); // no arguments and blocking.
-                }
-                delete resetKeyboardScript;
-                resetKeyboardScript = null;
-            }catch(e) {
-            }
-        },
-        
         setLocaleKbmap: function() {
 
             var requireRestart = false;
+            var localeObj = document.getElementById('locale');
+            var kbmapObj = document.getElementById('kbmap');
 
             // change XUL and OS locales
-            if (this.selectedLocale != this.currentLocale) {
-                
-                var prefs = Components.classes["@mozilla.org/preferences-service;1"].
-                            getService(Components.interfaces.nsIPrefBranch);
-                prefs.setCharPref("general.useragent.locale", this.selectedLocale);
+            if (localeObj.selectedLocale != localeObj.currentLocale) {
 
-                this.changeOSLocale(this.selectedLocale);
+                localeObj.changeLocale();
+                localeObj.changeOSLocale();
                 
                 requireRestart = true;
             }
             this.currentLocale = this.selectedLocale;
 
             // change keyboard mapping
-            if (this.selectedKbmap != this.currentKbmap) {
-                this.changeOSKbmap(this.selectedKbmap);
+            if (kbmapObj.selectedKbmap != kbmapObj.currentKbmap) {
+                kbmapObj.changeOSKbmap();
                 requireRestart = true;
             }
 
@@ -428,7 +169,7 @@
 
         checkLocationSelection: function() {
             var wizard = document.getElementById('wizard');
-            wizard.canAdvance = this.lastLocation;
+            return wizard.canAdvance = this.lastLocation;
         },
 
         selectLocation: function (index) {
@@ -438,7 +179,10 @@
             else {
                 this.lastLocation = null;
             }
-            this.checkLocationSelection();
+            if (this.checkLocationSelection()) {
+                var wizard = document.getElementById('wizard');
+                if (wizard) wizard.advance();
+            }
         },
 
         setLocation: function() {
@@ -452,7 +196,6 @@
             }
 
             this.selectedLocation = this.lastLocation;
-            var location = this.selectedLocation.location;
 
             // read timezone
             if (this.selectedLocation.timezone) {
@@ -522,8 +265,6 @@
 
         initSectorList: function() {
 
-            // initialize sector list - need to
-
             this.selectedSector = null;
             this.lastSector = null;
 
@@ -533,76 +274,26 @@
                 var sectors = this.Sectors[location];
                 if (sectors && sectors.length > 0) {
 
-                    var sectorListObj = document.getElementById('sectorlist');
-                    while (sectorListObj.getRowCount() > 0) {
-                        sectorListObj.removeItemAt(0);
-                    }
-                    sectors.forEach(function(sector, index) {
-                        this.appendSectorItem(sectorListObj, sector, index);
-                    }, this);
+                    var sectorListObj = document.getElementById('sectorscrollablepanel');
+                    sectorListObj.datasource = sectors;
+
+                    sectorListObj.refresh();
                 }
             }
         },
 
-        displayScreenShot: function(image) {
+        displaySectorScreen: function(image, description) {
             var deck = document.getElementById('sector_deck');
+            var desc = document.getElementById('sector_description');
             var screenshot = document.getElementById('sector_screenshot');
             if (screenshot) screenshot.src = image;
+            if (desc) desc.value = description;
             deck.selectedIndex = 1;
         },
 
-        hideScreenShot: function() {
+        hideSectorScreen: function() {
             var deck = document.getElementById('sector_deck');
             deck.selectedIndex = 0;
-        },
-
-        appendSectorItem: function(box, data, value) {
-
-            /*
-             *              <richlistitem value="" >
-                                <hbox flex="1">
-                                    <image src="" />
-                                    <vbox flex="1">
-                                    <label value="label" />
-                                    <label value="desc" />
-                                    </vbox>
-                                </hbox>
-                            </richlistitem>
-
-             *
-             */
-
-            var item = document.createElement('richlistitem');
-            item.setAttribute('value', value);
-
-            var hbox = document.createElement('hbox');
-            hbox.setAttribute('flex', "1");
-
-            var image = document.createElement('image');
-            image.setAttribute('src', data.icon);
-            image.setAttribute('onclick', '$do("displayScreenShot", "' + data.fullimage + '", "SetupWizard")');
-
-            var vbox = document.createElement('vbox');
-            vbox.setAttribute('flex', "1");
-
-            // get localed label
-            var label = document.createElement('label');
-            label.setAttribute('value', data.label);
-
-            // get localed desc
-            var desc = document.createElement('label');
-            desc.setAttribute('value', data.description);
-
-            // maintaince DOM
-            vbox.appendChild(label);
-            vbox.appendChild(desc);
-            hbox.appendChild(image);
-            hbox.appendChild(vbox);
-            item.appendChild(hbox);
-            box.appendChild(item);
-
-            return;
-
         },
 
         checkSectorSelection: function() {
@@ -623,6 +314,7 @@
                         }
                         else {
                             this.lastSector = sectors[index];
+                            this.displaySectorScreen(this.lastSector.fullimage, this.lastSector.description);
                         }
                     }
                 }
@@ -819,7 +511,7 @@
             var taxListObj = document.getElementById('taxlist');
             var taxes = this.Tax.getTaxList();
             var taxEntries = [];
-
+            
             var type_str;
             var rate_str;
             var rate_type_str;
@@ -873,7 +565,7 @@
          * wizard finish/cancel
          */
 
-        finishSetup: function() {
+        finishSetup: function(data) {
             // completion tasks:
 
             // 1. configure selectedSkin and layout
@@ -979,19 +671,22 @@
                     exec.close();
                 }
             }
-
-            this.args.initialized = true;
+            data.initialized = true;
             return true;
         },
 
         cancelSetup: function(data) {
 
-            if (GREUtils.Dialog.confirm(window, _('VIVIPOS Setup'),
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('VIVIPOS Setup'),
                                         _('Unless you plan to restore the terminal from a previously taken backup, ' +
                                           'you are strongly advised to complete the setup process to ensure that the terminal operates properly. ' +
                                           'Are you sure you want to cancel and exit from the setup wizard now?'))) {
                 data.initialized = false;
                 data.cancelled = true;
+
+                // clean up user.js
+                var profPath = GeckoJS.Configure.read('ProfD');
+                GREUtils.File.remove(profPath + '/user.js');
             }
             else {
                 data.cancelled = false;

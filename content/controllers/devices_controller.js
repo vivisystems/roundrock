@@ -16,7 +16,7 @@
         // load device configuration and selections
         initial: function (warn) {
             if (warn == null) warn = true;
-            
+
             // load templates
             this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
 
@@ -48,9 +48,16 @@
                 var statusResult = this.checkStatusAll();
 
                 if (!statusResult.printerEnabled) {
-                    GREUtils.Dialog.alert(win,
-                                          _('Device Status'),
-                                          _('No device has been enabled for receipt and/or check printing!'));
+                    if (GeckoJS.Session.get('firstrun')) {
+                        GREUtils.Dialog.alert(win,
+                                              _('Device Status'),
+                                              _('Please remember to configure devices to enable receipt and check printing'));
+                    }
+                    else {
+                        GREUtils.Dialog.alert(win,
+                                              _('Device Status'),
+                                              _('No device has been enabled for receipt and/or check printing!'));
+                    }
                 }
 
                 var statusStr = '';

@@ -19,11 +19,11 @@
         _suspendOperationFilter: null,
         _isTraining: false,
     
-        initial: function() {
-            
+        initial: function(firstrun) {
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
+            if (firstrun) GeckoJS.Session.set('firstrun', firstrun);
             GeckoJS.Session.set('screenwidth', this.screenwidth);
             GeckoJS.Session.set('screenheight', this.screenheight);
 
@@ -68,7 +68,7 @@
             // ourselves
 
             this.dispatchEvent('afterInitial', null);
-            
+
             // recover queued orders
             this.requestCommand('unserializeQueueFromRecoveryFile', null, 'Cart');
 
@@ -108,7 +108,7 @@
         },
 
         destroy: function() {
-            this.observer.unregister();
+            if (this.observer) this.observer.unregister();
         },
 
         _getKeypadController: function() {
@@ -1081,11 +1081,13 @@
         },
 
         wizardTest: function() {
-            var aURL = 'chrome://viviecr/content/setup_wizard.xul';
+            //var aURL = 'chrome://viviecr/content/setup_wizard.xul';
+            var aURL = 'chrome://viviecr/content/wizard_first.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var aArguments = {initialized: false, restart: false, restarted: false};
-            
+
+            //alert('splash screen');
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
         },
         

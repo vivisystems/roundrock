@@ -75,7 +75,7 @@
 
         destroy: function() {
             // dump('stocks destroy \n');
-            this.observer.unregister();
+            if (this.observer) this.observer.unregister();
         },
 
         checkStock: function(action, qty, item, clearWarning) {
@@ -168,7 +168,6 @@
                     var ordItem = obj.items[ o ];
                     //var item = this.Product.findById( ordItem.id );
                     var item = productsById[ordItem.id];
-                    alert(this.dump(item));
                     if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
                         
                         datas.push({id: item.no+'', quantity: ordItem.current_qty});

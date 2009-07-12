@@ -71,7 +71,7 @@
 
                 
             } catch (e) {
-                alert('ViewJournal displayJournal error:  ' + e);
+                this.log('ERROR', 'ViewJournal displayJournal error:  ' + e);
             }
         },
 

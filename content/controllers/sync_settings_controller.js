@@ -54,6 +54,30 @@
 
             (new SyncSetting()).save(obj);
 
+            try {
+
+                var ntpConf = new GeckoJS.File('/etc/ntp.conf');
+                ntpConf.open("r");
+                var ntpBuf = ntpConf.read();
+                ntpConf.close();
+
+                // token  # VIVIPOS MASTER SERVER START   # VIVIPOS END
+                var t1 = ntpBuf.split('# VIVIPOS MASTER SERVER START');
+                var t2 = t1[1].split('# VIVIPOS END');
+
+                var ntp_server = '';
+                if (obj.ntp_hostname != '127.0.0.1' && obj.ntp_hostname != 'localhost') {
+                    ntp_server = 'server ' + obj.ntp_hostname;
+                }
+
+                ntpConf.open("w");
+                ntpConf.write(t1[0] + '# VIVIPOS MASTER SERVER START\n' + ntp_server +'\n' + '# VIVIPOS END\n' + t2[1] );
+                ntpConf.close();
+
+            }catch(e){
+                
+            }
+
             // restart sync_client
             try {
                 var syncClientScript = new GeckoJS.File('/etc/init.d/sync_client');
