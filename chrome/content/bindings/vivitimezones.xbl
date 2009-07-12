@@ -24,11 +24,14 @@
                     <xul:menupopup style="height: 460px;">
                     </xul:menupopup>
                 </xul:menulist>
-
+                <xul:hbox xbl:inherits="class=SelClass">
+                <xul:label anonid="timezone-label" />
+                <xul:spacer flex="1" />
                 <xul:button anonid="timezone-button" oncommand="showTimezonePanel()" hidden="false"
-                            xbl:inherits="class=timezoneButtonClass"/>
+                            xbl:inherits="class=timezoneButtonClass, label=btnLabel"/>
+                </xul:hbox>
 
-                <xul:stack anonid="timezone-stack">
+                <xul:stack anonid="timezone-stack" xbl:inherits="class=ImgClass">
                     <xul:image src="chrome://vivipos/skin/timezones/timezone_map.png"/>
                     <xul:image src="chrome://vivipos/skin/timezones/timezone_0h.png" offset="0" tzid="+0000" hidden="true"/>
                     <xul:image src="chrome://vivipos/skin/timezones/timezone_1h.png" offset="3600" tzid="+0100" hidden="true"/>
@@ -74,14 +77,16 @@
 
             </xul:vbox>
 
-            <xul:panel anonid="timezone-panel" position="overlap" pack="center" align="center">
+            <xul:panel anonid="timezone-panel" position="overlap" pack="center" align="center"  xbl:inherits="class=popupClass">
+                <xul:vbox>
+                <xul:label xbl:inherits="value=popTitle" />
                 <xul:viviscrollablebuttonpanel anonid="timezone-buttonpanel" flex="1"
                                                cols="4" rows="4" labelField="label"
                                                ensureVisible="true"
                                                oncommand="updateTimezone(this.selectedIndex); hideTimezonePanel();"
                                                xbl:inherits="cols,rows,class=panelClass,buttonClass,scrollUpClass,scrollDownClass">
                     <xul:spacer flex="1" />
-                </xul:viviscrollablebuttonpanel>
+                </xul:viviscrollablebuttonpanel></xul:vbox>
             </xul:panel>
         </content>
 
@@ -89,6 +94,10 @@
 
             <field name="button">
             document.getAnonymousElementByAttribute(this, "anonid", "timezone-button");
+            </field>
+
+            <field name="tlabel">
+            document.getAnonymousElementByAttribute(this, "anonid", "timezone-label");
             </field>
 
             <field name="type">
@@ -669,7 +678,9 @@
                         str += ' (' + tzid + ')';
                     }
 
-                    this.button.label = str;
+                    var tlabel = this.tlabel;
+                    this.tlabel.value = str;
+                    //this.button.label = str;
                 }
 
                 ]]>

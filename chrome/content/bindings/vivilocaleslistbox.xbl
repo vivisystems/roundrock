@@ -16,23 +16,27 @@
         </resources>
 
         <content>
-            <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex,popupheight,popupwidth">
+            <xul:hbox xbl:inherits="class,pack,width,height,disabled,flex,popupheight,popupwidth">
                 <xul:listbox anonid="locales-listbox" crop="none" xbl:inherits="rows,flex,class=listboxClass,crop,dir,pack,align,seltype"
                              onselect="updateLocale(this.selectedIndex)">
                 </xul:listbox>
+                <xul:image anonid="locales-image" />
+                <xul:label anonid="locales-label" />
+                <xul:spacer flex="1" />
+                <xul:button anonid="locales-button" oncommand="showLocalesPanel()" hidden="false" 
+                            xbl:inherits="class=localeButtonClass,label"/>
+            </xul:hbox>
 
-                <xul:button anonid="locales-button" oncommand="showLocalesPanel()" hidden="false"
-                            xbl:inherits="class=localeButtonClass"/>
-            </xul:vbox>
-
-            <xul:panel anonid="locales-panel" position="overlap" pack="center" align="center">
+            <xul:panel anonid="locales-panel" position="overlap" pack="center" align="center" xbl:inherits="class=popupClass">
+                <xul:vbox>
+                <xul:label xbl:inherits="value=popTitle" />
                 <xul:viviscrollablebuttonpanel anonid="locales-buttonpanel" flex="1"
                                                cols="4" rows="4" labelField="label" imageField="image"
                                                ensureVisible="true"
                                                oncommand="updateLocale(this.selectedIndex); hideLocalesPanel();"
                                                xbl:inherits="cols,rows,class=panelClass,buttonClass,scrollUpClass,scrollDownClass">
                     <xul:spacer flex="1" />
-                </xul:viviscrollablebuttonpanel>
+                </xul:viviscrollablebuttonpanel></xul:vbox>
             </xul:panel>
         </content>
 
@@ -52,6 +56,14 @@
 
             <field name="button">
             document.getAnonymousElementByAttribute(this, "anonid", "locales-button");
+            </field>
+
+            <field name="label">
+            document.getAnonymousElementByAttribute(this, "anonid", "locales-label");
+            </field>
+
+            <field name="image">
+            document.getAnonymousElementByAttribute(this, "anonid", "locales-image");
             </field>
 
             <field name="buttonpanel">
@@ -191,14 +203,20 @@
 
                     if (this.type == 'button') {
                         var button = this.button;
+                        var label = this.label;
+                        var image = this.image;
 
-                        this.button.label = this.locales[index].label;
-                        this.button.image = "chrome://vivipos/skin/flags/tb_" + this.locales[index].value + ".png";
+                        this.label.value = this.locales[index].label;
+                        this.image.src = "chrome://vivipos/skin/flags/tb_" + this.locales[index].value + ".png";
+                        //this.button.label = this.locales[index].label;
+                        //this.button.image = "chrome://vivipos/skin/flags/tb_" + this.locales[index].value + ".png";
                     }
                 }
                 else if (this.type == 'button') {
-                    this.button.label = '';
-                    this.button.image = '';
+                    //this.button.label = '';
+                    //this.button.image = '';
+                    this.label.value = '';
+                    this.image.src = '';
                 }
                 ]]>
                 </xbl:body>
