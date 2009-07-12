@@ -264,8 +264,6 @@
 
         initSectorList: function() {
 
-            // initialize sector list - need to
-
             this.selectedSector = null;
             this.lastSector = null;
 
@@ -275,76 +273,26 @@
                 var sectors = this.Sectors[location];
                 if (sectors && sectors.length > 0) {
 
-                    var sectorListObj = document.getElementById('sectorlist');
-                    while (sectorListObj.getRowCount() > 0) {
-                        sectorListObj.removeItemAt(0);
-                    }
-                    sectors.forEach(function(sector, index) {
-                        this.appendSectorItem(sectorListObj, sector, index);
-                    }, this);
+                    var sectorListObj = document.getElementById('sectorscrollablepanel');
+                    sectorListObj.datasource = sectors;
+
+                    sectorListObj.refresh();
                 }
             }
         },
 
-        displayScreenShot: function(image) {
+        displaySectorScreen: function(image, description) {
             var deck = document.getElementById('sector_deck');
+            var desc = document.getElementById('sector_description');
             var screenshot = document.getElementById('sector_screenshot');
             if (screenshot) screenshot.src = image;
+            if (desc) desc.value = description;
             deck.selectedIndex = 1;
         },
 
-        hideScreenShot: function() {
+        hideSectorScreen: function() {
             var deck = document.getElementById('sector_deck');
             deck.selectedIndex = 0;
-        },
-
-        appendSectorItem: function(box, data, value) {
-
-            /*
-             *              <richlistitem value="" >
-                                <hbox flex="1">
-                                    <image src="" />
-                                    <vbox flex="1">
-                                    <label value="label" />
-                                    <label value="desc" />
-                                    </vbox>
-                                </hbox>
-                            </richlistitem>
-
-             *
-             */
-
-            var item = document.createElement('richlistitem');
-            item.setAttribute('value', value);
-
-            var hbox = document.createElement('hbox');
-            hbox.setAttribute('flex', "1");
-
-            var image = document.createElement('image');
-            image.setAttribute('src', data.icon);
-            image.setAttribute('onclick', '$do("displayScreenShot", "' + data.fullimage + '", "SetupWizard")');
-
-            var vbox = document.createElement('vbox');
-            vbox.setAttribute('flex', "1");
-
-            // get localed label
-            var label = document.createElement('label');
-            label.setAttribute('value', data.label);
-
-            // get localed desc
-            var desc = document.createElement('label');
-            desc.setAttribute('value', data.description);
-
-            // maintaince DOM
-            vbox.appendChild(label);
-            vbox.appendChild(desc);
-            hbox.appendChild(image);
-            hbox.appendChild(vbox);
-            item.appendChild(hbox);
-            box.appendChild(item);
-
-            return;
-
         },
 
         checkSectorSelection: function() {
@@ -365,6 +313,7 @@
                         }
                         else {
                             this.lastSector = sectors[index];
+                            this.displaySectorScreen(this.lastSector.fullimage, this.lastSector.description);
                         }
                     }
                 }

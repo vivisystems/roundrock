@@ -257,9 +257,21 @@
                 <vbox class="content_area">
                     <label value="&wizard.page.sector;"/>
             <deck id="sector_deck" selectedIndex="0" flex="1">
-                <richlistbox class="sectorlist" id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
-                </richlistbox>
-                <image id="sector_screenshot" flex="1" src="" onclick="$do('hideScreenShot', null, 'SetupWizard')"/>
+                <!--richlistbox class="sectorlist" id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
+                </richlistbox-->
+                <viviscrollablebuttonpanel id="sectorscrollablepanel" flex="1"
+                                           cols="3" rows="2" labelField="label" imageField="icon"
+                                           ensureVisible="true"
+                                           oncommand="$do('selectSector',this.selectedIndex, 'SetupWizard');"
+                                           class="selList"
+                                           buttonClass="selBtns"
+                                           scrollUpClass="listUp" scrollDownClass="listDown" >
+                    <spacer flex="1" />
+                </viviscrollablebuttonpanel>
+                <vbox flex="1">
+                    <image id="sector_screenshot" flex="1" src="" onclick="$do('hideSectorScreen', null, 'SetupWizard')"/>
+                    <textbox id="sector_description" readonly="true" multiline="true" rows="3"/>
+                </vbox>
             </deck>
             </vbox>
             </vbox>
