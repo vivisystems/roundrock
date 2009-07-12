@@ -82,9 +82,9 @@
                     </row>
                     <row>
                         <hbox>
-                            <textbox id="edit_base" readonly="true" disabled="true" flex="1" wrap="true"/>
+                            <textbox id="edit_base" readonly="true" disabled="true" flex="0" wrap="true"/>
                             <spacer width="5px"/>
-                            <textbox id="edit_working" disabled="true" flex="2" multiline="true" rows="1"/>
+                            <textbox id="edit_working" disabled="true" flex="1"/>
                         </hbox>
                     </row>
                 </rows>
