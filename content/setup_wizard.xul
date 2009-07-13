@@ -256,7 +256,7 @@
                 </vbox>
                 <vbox class="content_area">
                     <label value="&wizard.page.sector;"/>
-            <deck id="sector_deck" selectedIndex="0" flex="1">
+            <deck id="sector_deck" selectedIndex="0"  class="previewArea">
                 <!--richlistbox class="sectorlist" id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
                 </richlistbox-->
                 <viviscrollablebuttonpanel id="sectorscrollablepanel" flex="1"
@@ -270,7 +270,7 @@
                 </viviscrollablebuttonpanel>
                 <vbox flex="1">
                     <image id="sector_screenshot" flex="1" src="" onclick="$do('hideSectorScreen', null, 'SetupWizard')"/>
-                    <textbox id="sector_description" readonly="true" multiline="true" rows="3"/>
+                    <textbox id="sector_description" readonly="true" multiline="true" rows="2"/>
                 </vbox>
             </deck>
             </vbox>
