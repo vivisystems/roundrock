@@ -412,7 +412,7 @@
                 var fileNamePref;
                 var fileName = inputObj.input1;
                 
-                // flag indicating if we are going to create a new report.
+                // flag indicating if we are going to create a new report. When user try to use a file name other than the original one, a new report will be generated.
                 var isCreatingReport = inputObj.input0 != this._reportPanelPreference.label;
                 
                 if ( isCreatingReport ) {
@@ -499,9 +499,12 @@
             document.getElementById( this._reportWidthTextBoxId ).disabled = true;
             
             // Get preferences from report.js for this report.
-            this._reportPanelPreference = window.arguments[ 0 ];
+            this._reportPanelPreference = GREUtils.extend( {}, window.arguments[ 0 ] );
             
-            if ( this._reportPanelPreference.key == this._preference_key ) { // if it is the root report, say, origin your order report.
+            // remove the ( custom ) marker added in reportPanel.js.
+            this._reportPanelPreference.label = this._reportPanelPreference.label.replace( /^\(\ custom\ \)/, '' );
+            
+            if ( this._reportPanelPreference.key == this._preference_key ) { // if it is the root report, say, original your order report.
                 document.getElementById( this._removeReportButtonId ).hidden = true;
                 // Use proper report title.
                 this._report_title = _( this._report_title_message );

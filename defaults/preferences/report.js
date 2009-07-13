@@ -98,7 +98,7 @@ pref("vivipos.fec.reportpanels.userlist.label", "chrome://viviecr/locale/message
 pref("vivipos.fec.reportpanels.userlist.path", "chrome://viviecr/content/reports/rpt_users.xul");
 pref("vivipos.fec.reportpanels.userlist.roles", "acl_run_report");
 
-pref("vivipos.fec.reportpanels.yourorder.icon", "chrome://viviecr/content/skin/icons/reporticon_daily.png");
+pref("vivipos.fec.reportpanels.yourorder.icon", "chrome://viviecr/content/skin/icons/reporticon_custom.png");
 pref("vivipos.fec.reportpanels.yourorder.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.reportpanels.yourorder.path", "chrome://viviecr/content/reports/rpt_your_order.xul");
 pref("vivipos.fec.reportpanels.yourorder.roles", "acl_run_report");
