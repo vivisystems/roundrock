@@ -344,7 +344,9 @@
 
                 try {
                     // check if receipts need to be printed
-                    if (txn.data.batchPaymentCount > 0 || txn.isClosed()) {
+                    if ((txn.data.batchPaymentCount > 0) ||
+                        (txn.data.status == 1 && !txn.isClosed()) ||
+                        (txn.data.status != 1 && txn.isClosed())) {
                         this.printReceipts(evt.data, null, 'submit');
                     }
                     // allow UI to catch up
@@ -361,7 +363,7 @@
             }
             
             // @todo delay saving order to database til after print jobs have all been scheduled
-            this.scheduleOrderCommit(txn);
+            //this.scheduleOrderCommit(txn);
 
             // clear dashboard settings
             this.resetDashboardSettings();

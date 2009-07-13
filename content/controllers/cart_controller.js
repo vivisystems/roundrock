@@ -2964,8 +2964,8 @@
                 if ((crc != tableOrderObj[0].TableOrder.checksum) && (oldTransaction.data.terminal_no != tableOrderObj[0].TableOrder.terminal_no)) {
 
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Order Checksum Fail'),
-                                      _('Current order checksum fail and may not be submit. Please retry or check this order.'));
+                                          _('Order Finalization'),
+                                          _('This order appears to have been updated on another terminal; please select the order again before working on it'));
 
                     // sync database
                     this.GuestCheck.syncClient();
