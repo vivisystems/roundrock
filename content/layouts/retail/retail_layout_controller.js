@@ -51,10 +51,10 @@
             var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
             if (fnCols == null) fnCols = 4;
 
+            var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.retail.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.retail.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.retail.HideFPScrollbar');
-            var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.layout.retail.ShowPlugroupsFirst');
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.retail.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.retail.CropPLULabel') || false;
 
@@ -86,6 +86,7 @@
                     deptPanel.setAttribute('hidden', false);
                     deptPanel.initGrid();
 
+                    deptPanel.datasource.refreshView();
                     deptPanel.vivibuttonpanel.refresh();
                 }
                 else {
@@ -130,10 +131,9 @@
                 // check if rows/columns have changed
                 var currentRows = fnPanel.rows;
                 var currentColumns = fnPanel.columns;
-                var currentHeight = fnPanel.height;
 
                 if (initial || (currentRows != fnRows) ||
-                    (currentColumns != fnCols) || (currentHeight != fnHeight)) {
+                    (currentColumns != fnCols)) {
 
                     // need to change layout, first retrieve h/vspacing
 
@@ -205,10 +205,8 @@
 
     // register onload
     window.addEventListener('load', function() {
-        var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('afterInitial', function() {
-                                            main.requestCommand('initial', null, 'Layout');
-                                      });
+        var layout = GeckoJS.Controller.getInstanceByName('Layout');
+        if (layout) layout.initial();
 
     }, false);
 })()

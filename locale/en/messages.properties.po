@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: ../..//content/controllers/setup_wizard_controller.js:615
+#: ../..//content/controllers/setup_wizard_controller.js:538
 #, fuzzy
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-10 20:34+0800\n"
+"POT-Creation-Date: 2009-07-11 02:44+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2525,7 +2525,7 @@ msgstr ""
 
 #: ../..//content/overlay.js:17
 #: ../..//content/controllers/main_controller.js:1086
-#: ../..//content/controllers/setup_wizard_controller.js:808
+#: ../..//content/controllers/setup_wizard_controller.js:731
 msgid "VIVIPOS Setup"
 msgstr ""
 
@@ -3353,7 +3353,7 @@ msgid "Order Finalization"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2942
-msgid "Current order is no longer available for finalization (status = %S)"
+msgid "Current order is no longer available for finalization (status: %S)"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2949
@@ -3564,7 +3564,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:933
 #: ../..//content/controllers/main_controller.js:1188
 #: ../..//content/controllers/print_controller.js:1214
-#: ../..//content/controllers/setup_wizard_controller.js:823
+#: ../..//content/controllers/setup_wizard_controller.js:750
 #: ../..//content/controllers/shift_changes_controller.js:965
 #: ../..//content/controllers/stock_records_controller.js:591
 #: ../..//content/controllers/view_journal_controller.js:120
@@ -3577,7 +3577,7 @@ msgstr ""
 #: ../..//content/controllers/list_orders_controller.js:180
 #: ../..//content/controllers/main_controller.js:935
 #: ../..//content/controllers/main_controller.js:1189
-#: ../..//content/controllers/setup_wizard_controller.js:824
+#: ../..//content/controllers/setup_wizard_controller.js:751
 #: ../..//content/controllers/shift_changes_controller.js:966
 #: ../..//content/controllers/stock_records_controller.js:592
 #: ../..//content/controllers/view_journal_controller.js:121
@@ -4115,7 +4115,7 @@ msgid "Locale package [%S] successfully exported"
 msgstr ""
 
 #: ../..//content/controllers/export_locale_controller.js:104
-#: ../..//content/controllers/localization_controller.js:655
+#: ../..//content/controllers/localization_controller.js:687
 msgid "Export Locale"
 msgstr ""
 
@@ -4566,48 +4566,59 @@ msgstr ""
 msgid "Order Details"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:56
-#: ../..//content/controllers/localization_controller.js:159
+#: ../..//content/controllers/localization_controller.js:58
+#: ../..//content/controllers/localization_controller.js:161
 msgid ""
 "Path [%S] for package [%S] locale [%S] is either non-existent or is not a "
 "directory"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:318
+#: ../..//content/controllers/localization_controller.js:324
 msgid "Localization"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:319
+#: ../..//content/controllers/localization_controller.js:325
 msgid "Translations have been modified; save changes?"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:320
+#: ../..//content/controllers/localization_controller.js:326
 msgid "Save"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:320
+#: ../..//content/controllers/localization_controller.js:326
 #: ../..//content/controllers/main_controller.js:778
 #: ../..//content/controllers/main_controller.js:804
 msgid "Discard"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:581
+#: ../..//content/controllers/localization_controller.js:520
+msgid "Localization Editor"
+msgstr ""
+
+#: ../..//content/controllers/localization_controller.js:521
+msgid ""
+"The text you entered contains one or more special characters (%, &, \") that "
+"should be used with extreme care. Mis-use may lead to non-functional "
+"screens. Are you sure you still want to modify this translation?"
+msgstr ""
+
+#: ../..//content/controllers/localization_controller.js:613
 msgid "DTD file [%S] successfully updated"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:585
+#: ../..//content/controllers/localization_controller.js:617
 msgid "Failed to write DTD to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:600
+#: ../..//content/controllers/localization_controller.js:632
 msgid "Properties file [%S] successfully updated"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:603
+#: ../..//content/controllers/localization_controller.js:635
 msgid "Failed to write Properties to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:645
+#: ../..//content/controllers/localization_controller.js:677
 msgid "Failed to load install.rdf for package:locale [%S:%S] at path [%S]"
 msgstr ""
 
@@ -5420,373 +5431,65 @@ msgstr ""
 msgid "This table had not been hold!!"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:27
-msgid "(kbmap)Albania"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:28
-msgid "(kbmap)Andorra"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:29
-msgid "(kbmap)Arabic"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:30
-msgid "(kbmap)Armenia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:31
-msgid "(kbmap)Azerbaijan"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:32
-msgid "(kbmap)Bangladesh"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:33
-msgid "(kbmap)Belarus"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:34
-msgid "(kbmap)Belgium"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:35
-msgid "(kbmap)Bosnia and Herzegovina"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:36
-msgid "(kbmap)Brazil"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:37
-msgid "(kbmap)Bulgaria"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:38
-msgid "(kbmap)Canada"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:39
-msgid "(kbmap)China"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:40
-msgid "(kbmap)Congo, Democratic Republic of the"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:41
-msgid "(kbmap)Croatia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:42
-msgid "(kbmap)Czechia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:43
-msgid "(kbmap)Denmark"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:44
-msgid "(kbmap)Esperanto"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:45
-msgid "(kbmap)Estonia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:46
-msgid "(kbmap)Ethiopia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:47
-msgid "(kbmap)Faroe Islands"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:48
-msgid "(kbmap)Finland"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:49
-msgid "(kbmap)France"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:50
-msgid "(kbmap)Georgia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:51
-msgid "(kbmap)Germany"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:52
-msgid "(kbmap)Ghana"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:53
-msgid "(kbmap)Greece"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:54
-msgid "(kbmap)Guinea"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:55
-msgid "(kbmap)Hungary"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:56
-msgid "(kbmap)Iceland"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:57
-msgid "(kbmap)India"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:58
-msgid "(kbmap)Iran"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:59
-msgid "(kbmap)Iraq"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:60
-msgid "(kbmap)Ireland"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:61
-msgid "(kbmap)Israel"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:62
-msgid "(kbmap)Italy"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:63
-msgid "(kbmap)Japan"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:64
-msgid "(kbmap)Japan (PC-98xx Series)"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:65
-msgid "(kbmap)Kazakhstan"
-msgstr ""
-
 #: ../..//content/controllers/setup_wizard_controller.js:66
-msgid "(kbmap)Korea, Republic of"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:67
-msgid "(kbmap)Kyrgyzstan"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:68
-msgid "(kbmap)Laos"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:69
-msgid "(kbmap)Latin American"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:70
-msgid "(kbmap)Lithuania"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:71
-msgid "(kbmap)Latvia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:72
-msgid "(kbmap)Macedonia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:73
-msgid "(kbmap)Maldives"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:74
-msgid "(kbmap)Malta"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:75
-msgid "(kbmap)Maori"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:76
-msgid "(kbmap)Mongolia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:77
-msgid "(kbmap)Montenegro"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:78
-msgid "(kbmap)Morocco"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:79
-msgid "(kbmap)Nepal"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:80
-msgid "(kbmap)Netherlands"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:81
-msgid "(kbmap)Nigeria"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:82
-msgid "(kbmap)Norway"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:83
-msgid "(kbmap)Pakistan"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:84
-msgid "(kbmap)Poland"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:85
-msgid "(kbmap)Portugal"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:86
-msgid "(kbmap)Romania"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:87
-msgid "(kbmap)Russia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:88
-msgid "(kbmap)Serbia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:89
-msgid "(kbmap)Slovakia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:90
-msgid "(kbmap)Slovenia"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:91
-msgid "(kbmap)South Africa"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:92
-msgid "(kbmap)Spain"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:93
-msgid "(kbmap)Sweden"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:94
-msgid "(kbmap)Switzerland"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:95
-msgid "(kbmap)Syria"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:96
-msgid "(kbmap)Tajikistan"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:97
-msgid "(kbmap)Thailand"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:98
-msgid "(kbmap)Turkey"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:99
-msgid "(kbmap)Ukraine"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:100
-msgid "(kbmap)United Kingdom"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:101
-msgid "(kbmap)USA"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:102
-msgid "(kbmap)Uzbekistan"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:103
-msgid "(kbmap)Vietnam"
-msgstr ""
-
-#: ../..//content/controllers/setup_wizard_controller.js:143
 #: ../../../../vivipos_sdk/chrome/content/bindings/vivilocaleslistbox.xbl:131
 #: ../../../../vivipos_sdk/chrome/content/bindings/vivilocaleslistbox.xbl:161
 msgid "(locale)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:557
+#: ../..//content/controllers/setup_wizard_controller.js:480
 msgid ""
 "An error was encountered while retrieving user accounts (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:593
+#: ../..//content/controllers/setup_wizard_controller.js:516
 msgid "Please enter the administrator password"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:599
+#: ../..//content/controllers/setup_wizard_controller.js:522
 msgid "Password must only contain 0-9"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:605
+#: ../..//content/controllers/setup_wizard_controller.js:528
 msgid "Please enter the password again to confirm"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:611
+#: ../..//content/controllers/setup_wizard_controller.js:534
 msgid "Passwords do not match"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:649
+#: ../..//content/controllers/setup_wizard_controller.js:572
 #: ../..//content/controllers/taxes_controller.js:70
 msgid "(taxType)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:661
+#: ../..//content/controllers/setup_wizard_controller.js:584
 msgid "(taxRateType)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:748
+#: ../..//content/controllers/setup_wizard_controller.js:671
 msgid ""
 "An error was encountered while accessing administrator account (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:756
+#: ../..//content/controllers/setup_wizard_controller.js:679
 msgid ""
 "An error was encountered while updating administrator password (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:769
+#: ../..//content/controllers/setup_wizard_controller.js:692
 msgid ""
 "An error was encountered while accessing store information (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:782
+#: ../..//content/controllers/setup_wizard_controller.js:705
 msgid ""
 "An error was encountered while updating store information (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:809
+#: ../..//content/controllers/setup_wizard_controller.js:732
 msgid ""
 "Unless you plan to restore the terminal from a previously taken backup, "
 msgstr ""

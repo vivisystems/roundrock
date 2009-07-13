@@ -599,9 +599,85 @@ spinbuttons {
 
 }
 
-.TimeLabelBox label {
+/* for Date Time & Time Zone use*/
+.TimeZone menulist{
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.DateTime .textbox-input-box {
+    -moz-appearance: none;
+    background: none;
+    border: none;
+}
+
+vividatetimepicker-datepad {
+   /* background: #f1ede5;*/
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.datepicker-mainbox {
+    /*background: ;*/
+    font-size: 11pt;
+}
+.datepicker-monthbox {
     font-size: 12pt;
-    margin: 5px;
+    background: #f1ede5;
+    padding: 5px;
+    margin-top: 5px;
+}
+.datepicker-mainbox grid row {
+    padding: 3px;
+    border: 1px solid #f1ede5;
+}
+.datepicker-mainbox grid column {
+    padding: 3px;
+    border: 1px solid #f1ede5;
+}
+
+vividatetimepicker-timepad {
+    padding: 10px;
+    -moz-box-align: start;
+}
+
+.DateTime button {
+    border: 3px solid;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+	  -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+	  -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 36px;
+    color: #372213;
+    margin: 3px;
+    cursor: pointer;
+    -moz-border-radius: 6px;
+}
+.DateTime button:hover {
+    border: 3px solid;
+	  -moz-border-top-colors: #f0efe8 #e8e8e1 #00aeef;
+	  -moz-border-right-colors: #d9d9d2 #c3c2bc #00aeef;
+	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #00aeef;
+	  -moz-border-left-colors: #f0efe8 #e8e8e1 #00aeef;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+}
+.DateTime button:active {
+    border: 2px solid;
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+    background: white url(../images/itembtnB_sel.png) left center repeat-x;
+    -moz-appearance: none;
+    color: #32787a;
+}
+
+.viviDateTimeLabel {
+    font-size: 12pt;
+    margin: 10px;
     font-weight: bold;
     color: #534741;
 }

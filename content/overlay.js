@@ -13,12 +13,13 @@
 
         if (initMarker.exists()) {
             
-            var aURL = 'chrome://viviecr/content/setup_wizard.xul';
+            var aURL = 'chrome://viviecr/content/wizard_first.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
-            var aArguments = {initialized: false, restart: false, restarted: false};
+            var aArguments = {initialized: false, restart: false, restarted: false, test: 123};
 
             GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
+            var aURL = 'chrome://viviecr/content/setup_wizard.xul';
             
             while (aArguments.restart) {
                 aArguments.restart = false;
@@ -75,7 +76,6 @@
 
             var firstrun = true;
         }
-
         $do('initial', firstrun, "Main");
 
         if (firstrun) {

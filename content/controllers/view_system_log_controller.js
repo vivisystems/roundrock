@@ -23,15 +23,20 @@
             // load default tag and list log files.
             var tabValue = document.getElementById('main-tabbox').value;
 
+            var lists = [];
+            
             switch (tabValue) {
                 default:
                 case 'syslog':
-                    var lists = GeckoJS.Dir.readDir('/var/log/', {
+                    var lists1 = GeckoJS.Dir.readDir('/var/log/', {
                         type: 'f',
                         name: /dmesg*|messages*|syslog*/ ,
                         recursive: false
                     });
 
+                    if (lists1 && lists1.length >0) {
+                        lists = lists.concat(lists1);
+                    }
                     break;
 
                 case 'web':
@@ -40,6 +45,9 @@
                         //name: /\.log*/ ,
                         recursive: false
                     });
+                    if (lists1 && lists1.length >0) {
+                        lists = lists.concat(lists1);
+                    }
 
                     var lists2 = GeckoJS.Dir.readDir('/var/log/', {
                         type: 'f',
@@ -47,19 +55,27 @@
                         recursive: false
                     });
 
-                    var lists = lists1.concat(lists2);
+                    if (lists2 && lists2.length >0) {
+                        lists = lists.concat(lists2);
+                    }
 
                     break;
 
                 case 'vivipos':
-                    var lists = GeckoJS.Dir.readDir('/data/vivipos_sdk/log/', {
+                    var lists1 = GeckoJS.Dir.readDir('/data/vivipos_sdk/log/', {
                         type: 'f',
                         //name: /\.log*/ ,
                         recursive: false
                     });
+                    if (lists1 && lists1.length >0) {
+                        lists = lists.concat(lists1);
+                    }
+
                     break;
 
             }
+
+            lists = this.sortByName(lists);
 
             var logFilesObj = document.getElementById('logFilesList');
 
@@ -81,7 +97,7 @@
         },
 
         viewLog: function(idx) {
-        
+
             var file = this._lists[idx];
 
             if (!file) return;
@@ -120,6 +136,19 @@
 
             this.resizeScrollButtons();
             
+        },
+
+        sortByName: function (lists) {
+            var listsByName = [];
+            var lists2 = [];
+            lists.forEach(function(f,i) {
+                listsByName.push({name: f.leafName, idx: i});
+            });
+            var ll = (new GeckoJS.ArrayQuery(listsByName)).orderBy('name');
+            ll.forEach(function(f){
+               lists2.push(lists[f.idx]);
+            });
+            return lists2;
         },
 
         resizeScrollButtons: function() {

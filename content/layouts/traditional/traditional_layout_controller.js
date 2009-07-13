@@ -106,11 +106,11 @@
             var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
             if (fnCols == null) fnCols = 4;
 
+            var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideFPScrollbar');
 
-            var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ShowPlugroupsFirst');
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CropPLULabel') || false;
 
@@ -159,6 +159,7 @@
                     deptPanel.setAttribute('hidden', false);
                     deptPanel.initGrid();
 
+                    deptPanel.datasource.refreshView();
                     deptPanel.vivibuttonpanel.refresh();
                 }
                 else {
@@ -303,10 +304,8 @@
 
     // register onload
     window.addEventListener('load', function() {
-        var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('afterInitial', function() {
-                                            main.requestCommand('initial', null, 'Layout');
-                                      });
+        var layout = GeckoJS.Controller.getInstanceByName('Layout');
+        if (layout) layout.initial();
 
     }, false);
 })();
