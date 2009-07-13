@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: ../..//content/controllers/setup_wizard_controller.js:488
+#: ../..//content/controllers/setup_wizard_controller.js:486
 #, fuzzy
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-13 17:00+0800\n"
+"POT-Creation-Date: 2009-07-13 19:51+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2531,18 +2531,19 @@ msgstr ""
 
 #: ../..//content/overlay.js:17
 #: ../..//content/controllers/main_controller.js:1086
-#: ../..//content/controllers/setup_wizard_controller.js:680
+#: ../..//content/controllers/setup_wizard_controller.js:678
 msgid "VIVIPOS Setup"
 msgstr ""
 
-#: ../..//content/overlay.js:83 ../..//content/overlay.js:87
+#: ../..//content/overlay.js:83 ../..//content/overlay.js:86
 msgid "Initial Setup"
 msgstr ""
 
 #: ../..//content/overlay.js:84
 msgid ""
 "Welcome to VIVIPOS. If you have prepared product data in comma-separated "
-"vector (CSV) format, "
+"vector (CSV) format, you can easily import them into the terminal. Would you "
+"like to go to product import/export screen now?"
 msgstr ""
 
 #: ../..//content/prompt_doshiftchange.js:115
@@ -3541,7 +3542,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:933
 #: ../..//content/controllers/main_controller.js:1188
 #: ../..//content/controllers/print_controller.js:1216
-#: ../..//content/controllers/setup_wizard_controller.js:697
+#: ../..//content/controllers/setup_wizard_controller.js:695
 #: ../..//content/controllers/shift_changes_controller.js:965
 #: ../..//content/controllers/stock_records_controller.js:591
 #: ../..//content/controllers/view_journal_controller.js:120
@@ -3554,7 +3555,7 @@ msgstr ""
 #: ../..//content/controllers/list_orders_controller.js:180
 #: ../..//content/controllers/main_controller.js:935
 #: ../..//content/controllers/main_controller.js:1189
-#: ../..//content/controllers/setup_wizard_controller.js:698
+#: ../..//content/controllers/setup_wizard_controller.js:696
 #: ../..//content/controllers/shift_changes_controller.js:966
 #: ../..//content/controllers/stock_records_controller.js:592
 #: ../..//content/controllers/view_journal_controller.js:121
@@ -5418,59 +5419,59 @@ msgstr ""
 msgid "(locale)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:430
+#: ../..//content/controllers/setup_wizard_controller.js:428
 msgid ""
 "An error was encountered while retrieving user accounts (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:466
+#: ../..//content/controllers/setup_wizard_controller.js:464
 msgid "Please enter the administrator password"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:472
+#: ../..//content/controllers/setup_wizard_controller.js:470
 msgid "Password must only contain 0-9"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:478
+#: ../..//content/controllers/setup_wizard_controller.js:476
 msgid "Please enter the password again to confirm"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:484
+#: ../..//content/controllers/setup_wizard_controller.js:482
 msgid "Passwords do not match"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:522
+#: ../..//content/controllers/setup_wizard_controller.js:520
 #: ../..//content/controllers/taxes_controller.js:70
 msgid "(taxType)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:534
+#: ../..//content/controllers/setup_wizard_controller.js:532
 msgid "(taxRateType)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:621
+#: ../..//content/controllers/setup_wizard_controller.js:619
 msgid ""
 "An error was encountered while accessing administrator account (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:629
+#: ../..//content/controllers/setup_wizard_controller.js:627
 msgid ""
 "An error was encountered while updating administrator password (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:642
+#: ../..//content/controllers/setup_wizard_controller.js:640
 msgid ""
 "An error was encountered while accessing store information (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:655
+#: ../..//content/controllers/setup_wizard_controller.js:653
 msgid ""
 "An error was encountered while updating store information (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:681
+#: ../..//content/controllers/setup_wizard_controller.js:679
 msgid ""
 "Unless you plan to restore the terminal from a previously taken backup, you "
 "are strongly advised to complete the setup process to ensure that the "
