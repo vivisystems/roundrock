@@ -305,7 +305,10 @@
                     var index = self._tableStatusIdxById[o.id];
 
                     if (self._tableStatusList[index]) {
-                        self._tableStatusList[index] = o;
+                        // self._tableStatusList[index] = o;
+                        for (var key in o) {
+                            self._tableStatusList[index][key] = o[key];
+                        }
                     }
 
                 });

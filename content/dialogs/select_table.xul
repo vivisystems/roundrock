@@ -29,13 +29,14 @@
     <vbox flex="1" class="maindialog">
         <vbox class="EmptyArea" >
             <hbox flex="1">
-                <button id="btn_prior_region" label="Prior Region" disabled="false"  oncommand="$do('priorRegion', null, 'SelectTable');" />
+                <spacer flex = "1" />
+                <button id="btn_prior_region" class="fixedbtn" label="Prior Region" disabled="false"  oncommand="$do('_menuPriorRegion', null, 'SelectTable');" />
                 <menulist id="table_region" flex="1" oncommand="$do('setRegion', this.value, 'SelectTable');">
                     <menupopup id="table_region_menupopup">
 
                     </menupopup>
                 </menulist>
-                <button id="btn_next_region" label="Next Region" disabled="false"  oncommand="$do('nextRegion', null, 'SelectTable');" />
+                <button id="btn_next_region" class="fixedbtn" label="Next Region" disabled="false"  oncommand="$do('_menuNextRegion', null, 'SelectTable');" />
             </hbox>
             <spacer flex="1" />
         </vbox>

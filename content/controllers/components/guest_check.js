@@ -101,7 +101,6 @@
 
         syncClient: function() {
             // sync data
-// this.log("guest_check syncClient:::");
             try {
                 var exec = new GeckoJS.File("/data/vivipos_webapp/sync_client");
                 var r = exec.run(["sync"], false);
@@ -194,7 +193,6 @@
 
                 var minimum_charge = Math.max(minimum_charge_per_table, minimum_charge_per_guest * guests);
 
-// this.log(_("tableNo: %S, guests: %S, minChargeTable: %S, minChargeGuest: %S, total: %S, minimumCharge: %S", [table_no, guests, minimum_charge_per_table, minimum_charge_per_guest, total, minimum_charge]));
                 if (total < minimum_charge) {
 
                     if (GREUtils.Dialog.confirm(this._controller.topmostWindow,
@@ -350,6 +348,7 @@
         handleNewTransaction: function(evt) {
 
             if ( evt.type == 'newTransaction') {
+                this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
                 if (this._guestCheck.tableSettings.RequireCheckNo) {
 
                     this._controller.newCheck(true);
@@ -548,29 +547,7 @@ this.log("doSelectTableFuncs:::SplitCheck:::");
 this.log("doSelectTableFuncs:::MergeCheck:::");
                         break;
                     case 'SelectTableNo':
-
-                        if (table_no >= 0) {
-
-                            var curTransaction = null;
-                            curTransaction = this._controller._getTransaction();
-                            if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel() || curTransaction.isStored()) {
-
-                                this._controller.cancel(true);
-
-                                curTransaction = this._controller._getTransaction(true);
-                                if (curTransaction == null) {
-                                    NotifyUtils.warn(_('fatal error!!'));
-                                    return; // fatal error ?
-                                }
-                            }
-                            GeckoJS.Session.set('vivipos_fec_table_number', table_no);
-                            curTransaction.data.table_no = "" + table_no;
-                            r = table_no;
-
-                            // set destination
-                            if (destination)
-                                this.requestCommand('setDestination', destination, 'Destinations');
-                        }
+this.log("doSelectTableFuncs:::SelectTableNo:::");
                         break;
                     case 'ChangeClerk':
 this.log("doSelectTableFuncs:::ChangeClerk:::");
@@ -734,12 +711,12 @@ this.log("doSelectTableFuncs:::TransTable:::");
 //                        ordChecked.push(o);
 
                     } else if ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified)) {
-//                        self.log("checksum error:::" + o.id);
+
                         o.table_order_status = 1;
                         ordChecked.push(o);
                     }
                 } else {
-//                    self.log("not in list:::" + o.id);
+
                     o.table_order_status = 2;
                     ordChecked.push(o);
                 }
