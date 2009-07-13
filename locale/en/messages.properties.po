@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-13 17:00+0800\n"
+"POT-Creation-Date: 2009-07-13 20:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,6 +243,9 @@ msgstr "Employee List"
 
 msgid "vivipos.fec.reportpanels.yourorder.label"
 msgstr "Custom Sales Report"
+
+msgid "vivipos.fec.reportpanels.inventorycommitments.label"
+msgstr "Inventory Commitment"
 
 # #######################################################################
 #
@@ -2583,6 +2586,10 @@ msgid ""
 "Are you sure you want to void transaction [%S] (payment [%S], refund [%S])?"
 msgstr ""
 
+#: ../..//content/reportPanel.js:66
+msgid "custom"
+msgstr ""
+
 #: ../..//content/select_checks.js:44
 #: ../..//content/controllers/select_table_controller.js:52
 msgid "B#"
@@ -3543,7 +3550,7 @@ msgstr ""
 #: ../..//content/controllers/print_controller.js:1216
 #: ../..//content/controllers/setup_wizard_controller.js:697
 #: ../..//content/controllers/shift_changes_controller.js:965
-#: ../..//content/controllers/stock_records_controller.js:591
+#: ../..//content/controllers/stock_records_controller.js:598
 #: ../..//content/controllers/view_journal_controller.js:120
 #: ../..//content/controllers/view_order_controller.js:167
 msgid "Data Operation Error"
@@ -3556,7 +3563,7 @@ msgstr ""
 #: ../..//content/controllers/main_controller.js:1189
 #: ../..//content/controllers/setup_wizard_controller.js:698
 #: ../..//content/controllers/shift_changes_controller.js:966
-#: ../..//content/controllers/stock_records_controller.js:592
+#: ../..//content/controllers/stock_records_controller.js:599
 #: ../..//content/controllers/view_journal_controller.js:121
 #: ../..//content/controllers/view_order_controller.js:168
 msgid ""
@@ -4073,7 +4080,7 @@ msgstr ""
 
 #: ../..//content/controllers/export_locale_controller.js:52
 #: ../..//content/controllers/package_builder_controller.js:368
-#: ../..//content/controllers/stock_records_controller.js:528
+#: ../..//content/controllers/stock_records_controller.js:533
 #: ../..//content/controllers/systembackup_controller.js:186
 #: ../..//content/controllers/systembackup_controller.js:256
 msgid "Media not found!! Please attach the USB thumb drive..."
@@ -4641,7 +4648,7 @@ msgstr ""
 #: ../..//content/controllers/plus_controller.js:482
 #: ../..//content/controllers/plus_controller.js:944
 #: ../..//content/controllers/plusearch_controller.js:144
-#: ../..//content/controllers/stock_records_controller.js:97
+#: ../..//content/controllers/stock_records_controller.js:98
 #: ../..//content/controllers/table_man_controller.js:539
 #: ../..//content/promotions/controllers/individual_plu_trigger_setting_controller.js:73
 msgid "Product Search"
@@ -5685,122 +5692,122 @@ msgid ""
 "An error was encountered while retrieving stock records (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:98
+#: ../..//content/controllers/stock_records_controller.js:99
 msgid "Product/Barcode Number (%S) not found!"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:207
+#: ../..//content/controllers/stock_records_controller.js:208
 msgid "An error was encountered while retrieving products (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:213
+#: ../..//content/controllers/stock_records_controller.js:214
 msgid ""
 "An error was encountered while inserting product stock records (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:239
+#: ../..//content/controllers/stock_records_controller.js:240
 msgid ""
 "An error was encountered while removing all stock records (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:247
+#: ../..//content/controllers/stock_records_controller.js:248
 msgid ""
 "An error was encountered while removing all stock adjustment details (error "
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:276
+#: ../..//content/controllers/stock_records_controller.js:277
 msgid ""
 "An error was encountered while expiring backup stock adjustment records "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:283
+#: ../..//content/controllers/stock_records_controller.js:284
 msgid ""
 "An error was encountered while expiring stock adjustment records (error code "
 "%S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:291
+#: ../..//content/controllers/stock_records_controller.js:292
 msgid ""
 "An error was encountered while expiring backup stock adjustment details "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:298
+#: ../..//content/controllers/stock_records_controller.js:299
 msgid ""
 "An error was encountered while expiring stock adjustment details (error code "
 "%S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:355
+#: ../..//content/controllers/stock_records_controller.js:356
 msgid "Stock Control"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:355
+#: ../..//content/controllers/stock_records_controller.js:356
 msgid "Are you sure you want to reset stock for all the products?"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:365
+#: ../..//content/controllers/stock_records_controller.js:366
 msgid "Reset Stock"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:384
-#: ../..//content/controllers/stock_records_controller.js:418
-#: ../..//content/controllers/stock_records_controller.js:443
-#: ../..//content/controllers/stock_records_controller.js:509
+#: ../..//content/controllers/stock_records_controller.js:385
+#: ../..//content/controllers/stock_records_controller.js:423
+#: ../..//content/controllers/stock_records_controller.js:448
+#: ../..//content/controllers/stock_records_controller.js:514
 msgid "Stock Adjustment"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:385
+#: ../..//content/controllers/stock_records_controller.js:386
 msgid "Cannot reset product stock to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:419
+#: ../..//content/controllers/stock_records_controller.js:424
 msgid "No adjustment has been made"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:434
+#: ../..//content/controllers/stock_records_controller.js:439
 msgid ""
 "An error was encountered while retrieving stock adjustment records (error "
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:468
+#: ../..//content/controllers/stock_records_controller.js:473
 msgid ""
 "An error was encountered while saving stock adjustment records (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:494
+#: ../..//content/controllers/stock_records_controller.js:499
 msgid "An error was encountered while saving stock records (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:501
+#: ../..//content/controllers/stock_records_controller.js:506
 msgid ""
 "An error was encountered while saving stock adjustment details (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:510
+#: ../..//content/controllers/stock_records_controller.js:515
 msgid "Stock level has been successfully adjusted"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:538
-#: ../..//content/controllers/stock_records_controller.js:581
+#: ../..//content/controllers/stock_records_controller.js:543
+#: ../..//content/controllers/stock_records_controller.js:588
 msgid "Import Product Stock"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:539
+#: ../..//content/controllers/stock_records_controller.js:544
 msgid "File [%S] does not exist"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:545
+#: ../..//content/controllers/stock_records_controller.js:550
 msgid "imported from [%S]"
 msgstr ""
 
-#: ../..//content/controllers/stock_records_controller.js:582
+#: ../..//content/controllers/stock_records_controller.js:589
 msgid "Product stock information imported: %S successes, %S failures)"
 msgstr ""
 
@@ -6439,6 +6446,12 @@ msgstr ""
 msgid "vivipos.fec.reportpanels.dailysalesdetail"
 msgstr ""
 
+#: ../..//content/reports/controllers/rpt_inventory_commitments_controller.js:114
+#: ../..//content/reports/controllers/rpt_products_controller.js:64
+#: ../..//content/reports/controllers/rpt_stocks_controller.js:114
+msgid "(rpt)Obsolete Department"
+msgstr ""
+
 #: ../..//content/reports/controllers/rpt_order_annotation_controller.js:143
 #: ../..//content/reports/controllers/rpt_order_status_controller.js:149
 #: ../..//content/reports/controllers/rpt_your_order_controller.js:141
@@ -6455,11 +6468,6 @@ msgstr ""
 #: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:118
 #: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:119
 msgid "Obsolete"
-msgstr ""
-
-#: ../..//content/reports/controllers/rpt_products_controller.js:64
-#: ../..//content/reports/controllers/rpt_stocks_controller.js:114
-msgid "(rpt)Obsolete Department"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_sales_summary_controller.js:361
@@ -6589,6 +6597,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_58mm.tpl:14
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:4
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:10
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:10
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:5
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:4
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:10
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:29
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:5
@@ -6669,6 +6680,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl:11
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_58mm.tpl:6
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:4
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:11
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:6
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:4
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:11
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:30
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:6
@@ -6716,6 +6730,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments.tpl:17
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax.tpl:17
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl:17
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:17
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:17
 #: ../..//content/reports/tpl/rpt_order_status/rpt_order_status.tpl:17
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:17
@@ -7317,6 +7332,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl:57
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_58mm.tpl:35
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:22
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:45
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:27
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:16
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:85
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:102
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:59
@@ -7745,6 +7763,8 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl:71
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_58mm.tpl:51
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_80mm.tpl:34
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:27
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:17
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:28
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:13
@@ -7759,6 +7779,8 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl:72
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_58mm.tpl:53
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_80mm.tpl:35
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:28
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:19
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:29
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:18
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:14
@@ -7811,6 +7833,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments.tpl:25
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_58mm.tpl:11
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_80mm.tpl:8
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:11
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:11
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:11
 msgid "(rpt)Department Number"
@@ -7819,6 +7842,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments.tpl:26
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_58mm.tpl:13
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_80mm.tpl:8
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:13
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:13
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:13
 msgid "(rpt)Department Name"
@@ -7905,6 +7929,30 @@ msgstr ""
 msgid "(rpt)Net Sales/Order"
 msgstr ""
 
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:29
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:21
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:13
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:34
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:29
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:18
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:29
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:21
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:13
+msgid "(rpt)Stock Level"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:30
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:23
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:13
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:35
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:31
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:19
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:30
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:23
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:13
+msgid "(rpt)Low Stock Threshold"
+msgstr ""
+
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:30
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:20
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:15
@@ -7941,24 +7989,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:27
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:17
 msgid "(rpt)Tax Code"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:34
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:29
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:18
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:29
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:21
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:13
-msgid "(rpt)Stock Level"
-msgstr ""
-
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:35
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:31
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:19
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:30
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:23
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:13
-msgid "(rpt)Low Stock Threshold"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:79

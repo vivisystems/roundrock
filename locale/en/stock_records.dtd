@@ -1,10 +1,8 @@
 <!ENTITY stockrecords.title "Stock Management">
-<!ENTITY stockrecords.header.no "Product Number">
-<!ENTITY stockrecords.header.barcode "Barcode">
+<!ENTITY stockrecords.header.no "Product No.">
 <!ENTITY stockrecords.header.product "Product Name">
 <!ENTITY stockrecords.header.quantity "Qty.">
 <!ENTITY stockrecords.header.newquantity "New Qty.">
-<!ENTITY stockrecords.header.minstock "Min. Stock">
 <!ENTITY stockrecords.header.qtydifference "Qty. Diff.">
 <!ENTITY stockrecords.header.memo "Memo">
 <!ENTITY stockrecords.show.low.only "Stock-lacking products">
@@ -14,6 +12,9 @@
 <!ENTITY stockrecords.label.name "Name">
 <!ENTITY stockrecords.label.newquantity "New Qty.">
 <!ENTITY stockrecords.label.memo "Memo">
+<!ENTITY stockrecords.label.price "Purchase Price">
+<!ENTITY stockrecords.label.minstock "Min. Stock">
+<!ENTITY stockrecords.label.barcode "Barcode">
 <!ENTITY stockrecords.commit.title "Stock Adjustment">
 <!ENTITY stockrecords.commit.reason.label "Adjustment Type:">
 <!ENTITY stockrecords.commit.reason.inventory "Inventory">

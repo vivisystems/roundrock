@@ -1,0 +1,13 @@
+<!ENTITY rptinventorycommitments.title "Inventory Commitments">
+<!ENTITY rptinventorycommitments.startdate "Start Date:">
+<!ENTITY rptinventorycommitments.enddate "End Date:">
+<!ENTITY rptinventorycommitments.execute "Execute">
+<!ENTITY rptinventorycommitments.exportpdf "Export to PDF">
+<!ENTITY rptinventorycommitments.exportcsv "Export to CSV">
+<!ENTITY rptinventorycommitments.exportrcp "Print">
+<!ENTITY rptinventorycommitments.print "Print">
+<!ENTITY rptinventorycommitments.togglezoom "Toggle Zoom">
+<!ENTITY rptinventorycommitments.periodtype "Period Type:">
+<!ENTITY rptinventorycommitments.realtime "Real Time">
+<!ENTITY rptinventorycommitments.saleperiod "Sale Period">
+<!ENTITY rptinventorycommitments.shiftno "Shift:">
