@@ -57,6 +57,7 @@
                 var prodModel = new ProductModel();
                 products = prodModel.find('all', {
                     order: "cate_no, display_order, name, no",
+                    recursive: 0,
                     limit: 3000000
                 });
                 if (products && products.length > 0) GeckoJS.Session.add('products', products);
