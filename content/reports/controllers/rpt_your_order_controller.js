@@ -348,6 +348,10 @@
                         else if ( a < b ) return -1;
                         return 0;
                     } );
+                    // for language localization.
+                    this._fields_array.forEach( function( field ) {
+                        field.name = _( field.name );
+                    } );
                 }
             }
         },

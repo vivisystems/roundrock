@@ -531,8 +531,6 @@
                 var index = this._currentEntryIndex;
                 var pkg = this._currentPkg;
 
-                alert('validating [' + text + '] for file type [' + this._filetype + ']');
-
                 if (text != null) text = GeckoJS.String.trim(text);
                 if (!this.validateText(text, this._filetype)) {
                     return;
@@ -684,7 +682,7 @@
 
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, _('Export Locale'), features,
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Export Locale'), features,
                                        [pkg.pkgName, locale, pkg.installPath, pkg.installName, rdf]);
         },
 

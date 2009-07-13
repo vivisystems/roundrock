@@ -2,7 +2,7 @@
 
     var __controller__ = {
 
-        name: 'ScaleMTTigerIIController',
+        name: 'ScaleExcellAW30Controller',
 
         _device: null,
 
@@ -100,38 +100,26 @@
 
         readScale: function(port, iterations, stables, tries) {
 
-            //this.log('DEBUG', 'args: ' + port + ', ' + iterations + ', ' + stables + ', ' + tries);
+            this.log('DEBUG', 'args: ' + port + ', ' + iterations + ', ' + stables + ', ' + tries);
             var weight;
             var lastWeight;
-            var stableCount = 0;
             var tryCount = 0;
 
-            // return weight only if the same weight has been read #stables times in a row
+            // return weight only if the same weight has been read 3 times in a row
             weight = this.readScaleOnce(port, iterations);
-            //this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
+
+            this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
             while (weight != null) {
-                if (lastWeight == null) {
-                    lastWeight = weight.value;
+                if (weight.value) {
+                    return {value: weight.value, unit: weight.unit};
                 }
                 else {
-                    if (weight.value == lastWeight) {
-                        if (++stableCount >= stables) {
-                            return {value: weight.value, unit: weight.unit};
-                        }
-                    }
-                    else {
-                        // weight has changed
-                        lastWeight = weight.value;
-                        if (++tryCount == tries) {
-                            return {value: null, unit: null};
-                        }
-                        else {
-                            stableCount = 0;
-                        }
+                    if (++tryCount == tries) {
+                        return {value: null, unit: null};
                     }
                 }
                 weight = this.readScaleOnce(port, iterations);
-                //this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
+                this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
             }
             // fail to read from scale, return immediately
 
@@ -145,40 +133,43 @@
             var count = 0;
             var buf = {};
 
-//this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
-            while (weightStr.length < 29 && count++ < iterations) {
-                var len = this.readSerialPort(port, buf, 29);
+this.log('DEBUG', 'port: ' + port + ', iterations: ' + iterations);
+            while (weightStr.length < 18 && count++ < iterations) {
+                var len = this.readSerialPort(port, buf, 19);
                 if (len > 0) {
                     var str = buf.value;
                     //this.log('DEBUG', 'read from port (' + len + '): [' + str + ']');
-                    // look for STX
                     if (weightStr) {
                         //this.log('DEBUG', 'appending to buffer');
                         weightStr += str;
                     }
                     else {
-                        var index = str.indexOf('\u0002');
+                        // look for LF
+                        var index = str.indexOf('\u000A');
                         if (index > -1) {
-                            //this.log('DEBUG', 'STX found: ' + index);
+                            //this.log('DEBUG', 'LF found: ' + index);
 
                             weightStr = str.substr(index);
                         }
                     }
                 }
-                //this.log('DEBUG', 'weightStr length: ' + weightStr.length + ', iterations: ' + count);
+                this.log('DEBUG', 'weightStr length: ' + weightStr.length + ', iterations: ' + count);
             }
 
-            if (weightStr.length >= 29) {
-                var value = weightStr.substr(1, 7);
-                var unit = weightStr.substr(9, 2);
+            if (weightStr.length >= 19) {
+                var head1 = weightStr.substr(1, 2);
+                var value = weightStr.substr(7, 1);
+                var value = weightStr.substr(8, 7);
+                var unit = weightStr.substr(15, 2);
                 //this.log('DEBUG', 'scale value: ' + value + ', unit: ' + unit);
-                if (isNaN(value)) {
+                if (head1 != 'ST' || isNaN(value)) {
                     weight = null;
                 }
                 else {
                     weight = {value: value, unit: unit};
                 }
-                //this.log('DEBUG', 'scale value: ' + value + ', unit: ' + unit);
+                this.log('DEBUG', 'scale value: ' + value + ', unit: ' + unit);
+                return weight;
             }
             //this.log('DEBUG', 'readScale: ' + this.dump(weight));
             return weight;

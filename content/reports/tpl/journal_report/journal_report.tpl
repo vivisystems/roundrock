@@ -36,11 +36,11 @@
                     <td style="text-align: center;">${detail.created|unixTimeToString}</td>
                     <td style="text-align: center;" class="hyperlink">${detail.sequence}</td>
                     <td style="text-align: center;">${detail.invoice_no|default:''}</td>
-                    <td style="text-align: center;">${detail.terminal_no}</td>
                     <td style="text-align: center;">${detail.branch}</td>
+                    <td style="text-align: center;">${detail.terminal_no}</td>
                     <td style="text-align: center;">${detail.status}</td>
                     <td style="text-align: center;">${detail.void_clerk_displayname|default:''}</td>
-                    <td style="text-align: center;">${detail.void_time|unixTimeToString}</td>
+                    <td style="text-align: center;">{if detail.void_time}${detail.void_time|unixTimeToString}{else}''{/if}</td>
                 </tr>
 {/for}
             </tbody>

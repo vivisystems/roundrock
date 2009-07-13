@@ -11,14 +11,18 @@
      * Controller Startup
      */
     function startup() {
-		var processedTpl = window.arguments[ 0 ];
-		var parameters = window.arguments[ 1 ];
+		//var processedTpl = window.arguments[ 0 ];
+		//var parameters = window.arguments[ 1 ];
+		var parameters = window.arguments[ 0 ];
 		
-		var bw = document.getElementById( 'preview_frame' );
-        var doc = bw.contentWindow.document.getElementById( 'abody' );
-        doc.innerHTML = processedTpl;
+		//var bw = document.getElementById( 'preview_frame' );
+        //var doc = bw.contentWindow.document.getElementById( 'abody' );
+        //doc.innerHTML = processedTpl;
         
         $do( 'set_reportRecords', parameters, 'RptCashByClerk' );
+        $do( '_setTemplateDataHead', null, 'RptCashByClerk' );
+        $do( '_setTemplateDataFoot', null, 'RptCashByClerk' );
+        $do( '_exploit_reportRecords', null, 'RptCashByClerk' );
     };
 
     window.addEventListener('load', startup, false);
