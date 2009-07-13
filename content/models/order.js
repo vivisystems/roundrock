@@ -124,6 +124,7 @@
                 if (data.status == 2) {
 
                     data.checksum = GREUtils.CryptoHash.md5(checksum);
+
                     if (!this.serializeOrder(data)) {
                         throw 'OrderObject';
                     }

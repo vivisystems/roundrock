@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/cart.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/promotions_status.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/cart.dtd">
+
+<overlay id="cartlistPanelOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <box id="cartlistPanelContainer" flex="1" orient="vertical">
+
+            <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
+                                primary="name" scrollMode="cursor"
+                                headers="'',&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
+                                fields="tag,name,current_qty,current_price,current_subtotal,current_tax"
+                                scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown">
+                <vbox id="cartsidebar">
+                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="systoolbtn mediumimagebtn plusbtn" roles="acl_modify_quantity" action="display"/>
+                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="systoolbtn mediumimagebtn minusbtn" roles="acl_modify_quantity" action="display"/>
+                    <!--vivibutton id="btnPayment" label="&cart.button.payments;" oncommand="$do('showPaymentStatus', null, 'Cart');"  class="systoolbtn mediumimagebtn paymentdetailsbtn"/-->
+                </vbox>
+            </viviscrollabletree>
+
+    </box>
+</overlay>

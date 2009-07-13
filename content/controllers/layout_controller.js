@@ -28,7 +28,7 @@
             try {
                 document.loadOverlay(layoutOverlayUri, observer);
             }catch(e) {
-                if (layoutOverlayUri != 'chrome://viviecr/content/layouts/traditional/traditional.xul', null) {
+                if (layoutOverlayUri != 'chrome://viviecr/content/layouts/traditional/traditional.xul') {
                     // try load default
                     document.loadOverlay('chrome://viviecr/content/layouts/traditional/traditional.xul', observer);
                 }
@@ -39,7 +39,7 @@
     GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('ViviposStartup', function() {
-        // trip, invoke directly
+        // trick, invoke directly
         __controller__.loadOverlay.apply(__controller__);
 
     }, false);
