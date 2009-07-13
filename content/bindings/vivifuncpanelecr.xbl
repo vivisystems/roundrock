@@ -1224,10 +1224,10 @@
                             if (dir == 'reverse') posX += adjustX;;
 
                             btn.setAttribute('flex', 0);
-                            btn.setAttribute('top', posY);
-                            btn.setAttribute('left', posX);
-                            btn.setAttribute('height', lastH);
-                            btn.setAttribute('width', lastW);
+                            btn.setAttribute('top', Math.floor(posY));
+                            btn.setAttribute('left', Math.floor(posX));
+                            btn.setAttribute('height', Math.floor(lastH));
+                            btn.setAttribute('width', Math.floor(lastW));
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
                             btn.disabled = true;
@@ -1306,13 +1306,13 @@
                             posWidth = cellWidth + (width - 1) * (cellWidth + hs);
                             posHeight = cellHeight + (height - 1) * (cellHeight + vs);
 
-                            // GREUtils.log('[CUSTOM]: custom button size <' + posX + ',' + posY + '>x<' + posWidth + ',' + posHeight + '>');
+                            //GREUtils.log('[CUSTOM]: custom button size <' + posX + ',' + posY + '>x<' + posWidth + ',' + posHeight + '>');
 
                             btn.setAttribute('flex', 0);
-                            btn.setAttribute('top', posY);
-                            btn.setAttribute('left', posX);
-                            btn.setAttribute('height', posHeight);
-                            btn.setAttribute('width', posWidth);
+                            btn.setAttribute('top', Math.floor(posY));
+                            btn.setAttribute('left', Math.floor(posX));
+                            btn.setAttribute('height', Math.floor(posHeight));
+                            btn.setAttribute('width', Math.floor(posWidth));
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', row + 'x' + column);
                             btn.disabled = true;

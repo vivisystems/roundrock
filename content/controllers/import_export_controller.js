@@ -896,6 +896,7 @@
                                         var prodNos = [];
                                         var barcodes = [];
                                         var prodIds = [];
+                                        var prodCatCache = [];
                                         break;
                                 }
                                 case "categories": {
@@ -1059,26 +1060,35 @@
                                             if(!self.isValidRequiredField(rowdata['cate_no'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a department", [prodNm, i + 2]));
                                             } else {
-                                                var departmentNo = GeckoJS.String.trim(rowdata['cate_no'].substr(1,rowdata['cate_no'].length));
-                                                var queryString = "SELECT id FROM categories WHERE no ='" + departmentNo + "';";
-                                                var result = tableTmp.getDataSource().fetchAll(queryString);
-                                                if(result.length < 1) {
-                                                    errorMsgs.push(_("Product item %S @ row %S requires a valid department", [prodNm, i + 2]));
+                                                var departmentNo = rowdata['cate_no'].substr(0,1) == "'" ? GeckoJS.String.trim(rowdata['cate_no'].substr(1,rowdata['cate_no'].length)) : rowdata['cate_no'];
+                                                if(GeckoJS.Array.inArray(departmentNo, prodCatCache) != 1) {
+
                                                 } else {
+                                                    var queryString = "SELECT id FROM categories WHERE no ='" + departmentNo + "';";
+                                                    var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                    if(result.length < 1) {
+                                                        errorMsgs.push(_("Product item %S @ row %S requires a valid department", [prodNm, i + 2]));
+                                                    } else {
+                                                        prodCatCache.push(rowdata[departmentNo]);
+                                                    }
+                                                }
+                                                /* else {
                                                     if(GeckoJS.Array.inArray(rowdata['name'], departments[departmentNo]) != -1){
                                                         errorMsgs.push(_("Product item %S @ row %S has name duplication under the department %S", [prodNm, i + 2, departmentNo]));
                                                     }
                                                     departments[departmentNo].push(rowdata['name']);
-                                                }
+                                                }*/
                                             }
-                                            if(!self.isValidUUID(rowdata['id'])) {
-                                                errorMsgs.push(_("Product item %S @row %S requires a valid UUID", [prodNm, i + 2]));
-                                            } else {
-                                                if(rowdata['id'].length != 0) {
-                                                    if(GeckoJS.Array.inArray(rowdata['id'], prodIds) != -1) {
-                                                        errorMsgs.push(_("Product item %S @ row %S contains a duplicated ID", [prodNm, i + 2]));
+                                            if(rowdata['id']) {
+                                                if(!self.isValidUUID(rowdata['id'])) {
+                                                    errorMsgs.push(_("Product item %S @row %S requires a valid UUID", [prodNm, i + 2]));
+                                                } else {
+                                                    if(rowdata['id'].length != 0) {
+                                                        if(GeckoJS.Array.inArray(rowdata['id'], prodIds) != -1) {
+                                                            errorMsgs.push(_("Product item %S @ row %S contains a duplicated ID", [prodNm, i + 2]));
+                                                        }
+                                                        prodIds.push(rowdata['id']);
                                                     }
-                                                    prodIds.push(rowdata['id']);
                                                 }
                                             }
                                             if(!self.isValidRequiredField(rowdata['no'])) {
@@ -1089,14 +1099,14 @@
                                                 }
                                                 prodNos.push(rowdata['no']);
                                             }
-                                            if(rowdata['rate'].length > 0) {
+                                            if(rowdata['rate'] && rowdata['rate'].length > 0) {
                                                 var queryString = "SELECT id FROM taxes WHERE no ='" + rowdata['rate'] + "';";
                                                 var result = tableTmp.getDataSource().fetchAll(queryString);
                                                 if(!result[0]) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid tax rate", [prodNm, i + 2]));
                                                 }
                                             }
-                                            if(rowdata['cond_group'].length > 0) {
+                                            if(rowdata['cond_group'] && rowdata['cond_group'].length > 0) {
                                                 var _condNms = rowdata['cond_group'].split(',');
                                                 _condNms.forEach(function(name) {
                                                     if(name.length > 0) {
@@ -1108,7 +1118,7 @@
                                                     }
                                                 },this);
                                             }
-                                            if(rowdata['link_group'].length > 0) {
+                                            if(rowdata['link_group'] && rowdata['link_group'].length > 0) {
                                                 var _grpNms = rowdata['link_group'].split(',');
                                                 _grpNms.forEach(function(name) {
                                                     if(name.length > 0) {
@@ -1120,35 +1130,35 @@
                                                     }
                                                 },this);
                                             }
-                                            if(rowdata['barcode'].length > 0) {
+                                            if(rowdata['barcode'] && rowdata['barcode'].length > 0) {
                                                 if(GeckoJS.Array.inArray(rowdata['barcode'], barcodes) != -1) {
                                                     errorMsgs.push(_("Product item %S @ row %S contains duplicated barcode", [prodNm, i + 2]));
                                                 }
                                                 barcodes.push(rowdata['barcode']);
                                             }
-                                            if(isNaN(rowdata['buy_price'])) {
+                                            if(rowdata['buy_price'] && isNaN(rowdata['buy_price'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid buy price value", [prodNm, i + 2]));
                                             }
-                                            if(isNaN(rowdata['stock'])) {
+                                            if(rowdata['stock'] && isNaN(rowdata['stock'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid stock value", [prodNm, i + 2]));
                                             }
-                                            if(isNaN(rowdata['min_stock'])) {
+                                            if(rowdata['min_stock'] && isNaN(rowdata['min_stock'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid minimum stock value", [prodNm, i + 2]));
                                             }
-                                            if(isNaN(rowdata['min_sale_qty'])) {
+                                            if(rowdata['min_sale_qty'] && isNaN(rowdata['min_sale_qty'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid minimum sale quantity value", [prodNm, i + 2]));
                                             }
                                             for(var x = 1;x < 10;x++) {
                                                 if(!self.isValidBooleanField(rowdata["level_enable" + x], true)) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid level enable %S", [prodNm, i + 2, x]));
                                                 }
-                                                if(rowdata["price_level" + x].length > 0 && isNaN(rowdata["price_level" + x])) {
+                                                if(rowdata["price_level" + x] && isNaN(rowdata["price_level" + x])) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid price level %S", [prodNm, i + 2, x]));
                                                 }
-                                                if(rowdata["halo" + x].length > 0 && isNaN(rowdata["halo" + x])) {
+                                                if(rowdata["halo" + x] && isNaN(rowdata["halo" + x])) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid halo %S", [prodNm, i + 2, x]));
                                                 }
-                                                if(rowdata["lalo" + x].length > 0 && isNaN(rowdata["lalo" + x])) {
+                                                if(rowdata["lalo" + x] && isNaN(rowdata["lalo" + x])) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid lalo %S", [prodNm, i + 2, x]));
                                                 }
                                             }
@@ -1182,13 +1192,13 @@
                                             if(!self.isValidBooleanField(rowdata['manual_adjustment_only'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid manual adjustment only value", [prodNm, i + 2]));
                                             }
-                                            if(rowdata["append_empty_btns"].length > 0 && isNaN(rowdata["append_empty_btns"])) {
+                                            if(rowdata["append_empty_btns"] && isNaN(rowdata["append_empty_btns"])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid append empty buttons value", [prodNm, i + 2]));
                                             }
                                             if(!self.isValidBooleanField(rowdata['scale'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid boolean scale value", [prodNm, i + 2]));
                                             }
-                                            if(isNaN(rowdata['tare'])) {
+                                            if(rowdata['tare'] && isNaN(rowdata['tare'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid tare value", [prodNm, i + 2]));
                                             }
                                             if(!self.isValidSaleUnitField(rowdata['sale_unit'], true)) {
@@ -1214,14 +1224,16 @@
                                                 }
                                                 cateNos.push(rowdata['no']);
                                             }
-                                            if(!self.isValidUUID(rowdata['id'])) {
-                                                errorMsgs.push(_("Department item %S @row %S requires a valid UUID", [cateNm, i + 2]));
-                                            } else {
-                                                if(rowdata['id'].length != 0) {
-                                                    if(GeckoJS.Array.inArray(rowdata['id'], cateIds) != -1) {
-                                                        errorMsgs.push(_("Department item %S @ row %S contains a duplicated ID", [cateNm, i + 2]));
+                                            if(rowdata['id']) {
+                                                if(!self.isValidUUID(rowdata['id'])) {
+                                                    errorMsgs.push(_("Department item %S @row %S requires a valid UUID", [cateNm, i + 2]));
+                                                } else {
+                                                    if(rowdata['id'].length != 0) {
+                                                        if(GeckoJS.Array.inArray(rowdata['id'], cateIds) != -1) {
+                                                            errorMsgs.push(_("Department item %S @ row %S contains a duplicated ID", [cateNm, i + 2]));
+                                                        }
+                                                        cateIds.push(rowdata['id']);
                                                     }
-                                                    cateIds.push(rowdata['id']);
                                                 }
                                             }
                                             if(!self.isValidBooleanField(rowdata['visible'], true)) {
@@ -1236,7 +1248,7 @@
                                             if(!self.isValidFontSizeField(rowdata['font_size'], true)) {
                                                 errorMsgs.push(_("Department item %S @ row %S requires a valid font size", [cateNm, i + 2]));
                                             }
-                                            if(rowdata['rate'].length > 0) {
+                                            if(rowdata['rate'] && rowdata['rate'].length > 0) {
                                                 var queryString = "SELECT id FROM taxes WHERE no ='" + rowdata['rate'] + "';";
                                                 var result = tableTmp.getDataSource().fetchAll(queryString);
                                                 if(!result[0]) {
@@ -1395,62 +1407,66 @@
                                 //let's process new manual data entry here'
                                 switch(model) {
                                     case "plugroups": {
-                                            if(rowdata['routing'].length < 1) {
+                                            if(!rowdata['routing'] || rowdata['routing'].length < 1) {
                                                 rowdata['routing'] = "0";
                                             }
-                                            if(rowdata['visible'].length < 1) {
+                                            if(!rowdata['visible'] || rowdata['visible'].length < 1) {
                                                 rowdata['visible'] = "0";
                                             }
-                                            if(rowdata['button_color'].length < 1) {
+                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1) {
                                                 rowdata['button_color'] = "plugroup-button-color-default";
                                             }
-                                            if(rowdata['font_size'].length < 1) {
+                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1) {
                                                 rowdata['font_size'] = "medium";
                                             }
                                             //unpack link_department names into ids
-                                            var _departmentNms = rowdata['link_department'].length > 0 ? rowdata['link_department'].split(',') : [];
-                                            var vals = [];
-                                            _departmentNms.forEach(function(name) {
-                                                if(name.length > 0) {
-                                                    var queryString = "SELECT id FROM categories WHERE name ='" + name + "';";
-                                                    var result = tableTmp.getDataSource().fetchAll(queryString);
-                                                    try {
-                                                        vals.push(result[0].id);
-                                                    } catch (e) {
+                                            if(rowdata['link_department']) {
+                                                var _departmentNms = rowdata['link_department'].length > 0 ? rowdata['link_department'].split(',') : [];
+                                                var vals = [];
+                                                _departmentNms.forEach(function(name) {
+                                                    if(name.length > 0) {
+                                                        var queryString = "SELECT id FROM categories WHERE name ='" + name + "';";
+                                                        var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                        try {
+                                                            vals.push(result[0].id);
+                                                        } catch (e) {
+                                                        }
                                                     }
+                                                },this);
+                                                var val = "";
+                                                for(var i = 0;i < vals.length;i++) {
+                                                    val += vals[i];
+                                                    val += i != (vals.length - 1) ? "," : "";
                                                 }
-                                            },this);
-                                            var val = "";
-                                            for(var i = 0;i < vals.length;i++) {
-                                                val += vals[i];
-                                                val += i != (vals.length - 1) ? "," : "";
+                                                rowdata['link_department'] = val;
+                                            } else {
+                                                rowdata['link_department'] = "";
                                             }
-                                            rowdata['link_department'] = val;
                                             break;
                                     }
                                     case "categories": {
                                             if(rowdata['no'].substr(0,1) == "'") {
                                                 rowdata['no'] = rowdata['no'].substr(1,(rowdata['no'].length - 1));
                                             }
-                                            if(rowdata['button_color'].length < 1) {
+                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1) {
                                                 rowdata['button_color'] = "department-button-color-default";
                                             }
-                                            if(rowdata['font_size'].length < 1) {
+                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1) {
                                                 rowdata['font_size'] = "medium";
                                             }
-                                            if(rowdata['cansale'].length < 1) {
+                                            if(!rowdata['cansale'] || rowdata['cansale'].length < 1) {
                                                 rowdata['cansale'] = "0";
                                             }
-                                            if(rowdata['visible'].length < 1) {
+                                            if(!rowdata['visible'] || rowdata['visible'].length < 1) {
                                                 rowdata['visible'] = "0";
                                             }
-                                            if(rowdata['scale'].length < 1) {
+                                            if(!rowdata['scale'] || rowdata['scale'].length < 1) {
                                                 rowdata['scale'] = "0";
                                             }
-                                            if(rowdata['sale_unit'].length < 1) {
+                                            if(!rowdata['sale_unit'] || rowdata['sale_unit'].length < 1) {
                                                 rowdata['sale_unit'] = "0";
                                             }
-                                            if(rowdata['rate'].length < 1) {
+                                            if(!rowdata['rate'] || rowdata['rate'].length < 1) {
                                                 var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
                                                 if (defaultRate != null) {
                                                     rowdata['rate'] = defaultRate;
@@ -1469,115 +1485,127 @@
                                             if(rowdata['no'].substr(0,1) == "'") {
                                                 rowdata['no'] = rowdata['no'].substr(1,(rowdata['no'].length - 1));
                                             }
-                                            if(rowdata['barcode'].substr(0,1) == "'") {
-                                                rowdata['barcode'] = rowdata['barcode'].substr(1,(rowdata['barcode'].length - 1));
-                                            }
-                                            var _condNms = rowdata['cond_group'].length > 0 ? rowdata['cond_group'].split(',') : [];
-                                            var vals = [];
-                                            _condNms.forEach(function(name) {
-                                                if(name.length > 0) {
-                                                    var queryString = "SELECT id FROM condiment_groups WHERE name ='" + name + "';";
-                                                    var data = tableTmp.getDataSource().fetchAll(queryString);
-                                                    try {
-                                                        vals.push(data[0].id);
-                                                    } catch(e) {
-                                                    }
+                                            if(rowdata['barcode']) {
+                                                if(rowdata['barcode'].substr(0,1) == "'") {
+                                                    rowdata['barcode'] = rowdata['barcode'].substr(1,(rowdata['barcode'].length - 1));
                                                 }
-                                            },this);
-                                            var val = "";
-                                            for(var i = 0;i < vals.length;i++) {
-                                                val += vals[i];
-                                                val += i != (vals.length - 1) ? "," : "";
+                                            } else {
+                                                rowdata['barcode'] = "";
                                             }
-                                            rowdata['cond_group'] = val;
-                                            var _departmentNms = rowdata['link_group'].length > 0 ? rowdata['link_group'].split(',') : [];
-                                            var vals = [];
-                                            _departmentNms.forEach(function(name) {
-                                                if(name.length > 0) {
-                                                    var queryString = "SELECT id FROM plugroups WHERE name ='" + name + "';";
-                                                    var data = tableTmp.getDataSource().fetchAll(queryString);
-                                                    try {
-                                                        vals.push(data[0].id);
-                                                    } catch(e) {
+                                            if(rowdata['cond_group']) {
+                                                var _condNms = rowdata['cond_group'].length > 0 ? rowdata['cond_group'].split(',') : [];
+                                                var vals = [];
+                                                _condNms.forEach(function(name) {
+                                                    if(name.length > 0) {
+                                                        var queryString = "SELECT id FROM condiment_groups WHERE name ='" + name + "';";
+                                                        var data = tableTmp.getDataSource().fetchAll(queryString);
+                                                        try {
+                                                            vals.push(data[0].id);
+                                                        } catch(e) {
+                                                        }
+                                                    }
+                                                },this);
+                                                var val = "";
+                                                for(var i = 0;i < vals.length;i++) {
+                                                    val += vals[i];
+                                                    val += i != (vals.length - 1) ? "," : "";
+                                                }
+                                                rowdata['cond_group'] = val;
+                                            } else {
+                                                rowdata['cond_group'] = "";
+                                            }
+                                            if(rowdata['link_group']) {
+                                                var _departmentNms = rowdata['link_group'].length > 0 ? rowdata['link_group'].split(',') : [];
+                                                var vals = [];
+                                                _departmentNms.forEach(function(name) {
+                                                    if(name.length > 0) {
+                                                        var queryString = "SELECT id FROM plugroups WHERE name ='" + name + "';";
+                                                        var data = tableTmp.getDataSource().fetchAll(queryString);
+                                                        try {
+                                                            vals.push(data[0].id);
+                                                        } catch(e) {
 
+                                                        }
                                                     }
+                                                },this);
+                                                var val = "";
+                                                for(var i = 0;i < vals.length;i++) {
+                                                    val += vals[i];
+                                                    val += i != (vals.length - 1) ? "," : "";
                                                 }
-                                            },this);
-                                            var val = "";
-                                            for(var i = 0;i < vals.length;i++) {
-                                                val += vals[i];
-                                                val += i != (vals.length - 1) ? "," : "";
+                                                rowdata['link_group'] = val;
+                                            } else {
+                                                rowdata['link_group'] = "";
                                             }
-                                            rowdata['link_group'] = val;
-                                            if(rowdata['buy_price'].length < 1) {
+                                            if(!rowdata['buy_price'] || rowdata['buy_price'].length < 1) {
                                                 rowdata['buy_price'] = "0";
                                             }
-                                            if(rowdata['stock'].length < 1) {
+                                            if(!rowdata['stock'] || rowdata['stock'].length < 1) {
                                                 rowdata['stock'] = "0";
                                             }
-                                            if(rowdata['min_stock'].length < 1) {
+                                            if(!rowdata['min_stock'] || rowdata['min_stock'].length < 1) {
                                                 rowdata['min_stock'] = "0";
                                             }
-                                            if(rowdata['min_sale_qty'].length < 1) {
+                                            if(!rowdata['min_sale_qty'] || rowdata['min_sale_qty'].length < 1) {
                                                 rowdata['min_sale_qty'] = "0";
                                             }
-                                            if(rowdata['sale_unit'].length < 1) {
+                                            if(!rowdata['sale_unit'] || rowdata['sale_unit'].length < 1) {
                                                 rowdata['sale_unit'] = "unit";
                                             }
-                                            if(rowdata['tare'].length < 1) {
+                                            if(!rowdata['tare'] || rowdata['tare'].length < 1) {
                                                 rowdata['tare'] = "0";
                                             }
-                                            if(rowdata['scale'].length < 1) {
+                                            if(!rowdata['scale'] || rowdata['scale'].length < 1) {
                                                 rowdata['scale'] = "0";
                                             }
                                             for(var y = 1;y < 10;y++) {
-                                                if(rowdata['level_enable' + y].length < 1) {
+                                                if(!rowdata['level_enable' + y] || rowdata['level_enable' + y].length < 1) {
                                                     rowdata['level_enable' + y] = "0";
                                                 }
-                                                if(rowdata['price_level' + y].length < 1) {
+                                                if(!rowdata['price_level' + y] || rowdata['price_level' + y].length < 1) {
                                                     rowdata['price_level' + y] = "0";
                                                 }
-                                                if(rowdata['halo' + y].length < 1) {
+                                                if(!rowdata['halo' + y] || rowdata['halo' + y].length < 1) {
                                                     rowdata['halo' + y] = "0";
                                                 }
-                                                if(rowdata['lalo' + y].length < 1) {
+                                                if(!rowdata['lalo' + y] || rowdata['lalo' + y].length < 1) {
                                                     rowdata['lalo' + y] = "0";
                                                 }
                                             }
-                                            if(rowdata['auto_maintain_stock'].length < 1) {
+                                            if(!rowdata['auto_maintain_stock'] || rowdata['auto_maintain_stock'].length < 1) {
                                                 rowdata['auto_maintain_stock'] = "0";
                                             }
-                                            if(rowdata['return_stock'].length < 1) {
+                                            if(!rowdata['return_stock'] || rowdata['return_stock'].length < 1) {
                                                 rowdata['return_stock'] = "0";
                                             }
-                                            if(rowdata['force_condiment'].length < 1) {
+                                            if(!rowdata['force_condiment'] || rowdata['force_condiment'].length < 1) {
                                                 rowdata['force_condiment'] = "0";
                                             }
-                                            if(rowdata['single'].length < 1) {
+                                            if(!rowdata['single'] || rowdata['single'].length < 1) {
                                                 rowdata['single'] = "0";
                                             }
-                                            if(rowdata['visible'].length < 1) {
+                                            if(!rowdata['visible'] || rowdata['visible'].length < 1) {
                                                 rowdata['visible'] = "0";
                                             }
-                                            if(rowdata['button_color'].length < 1) {
+                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1) {
                                                 rowdata['button_color'] = "product-button-color-default";
                                             }
-                                            if(rowdata['font_size'].length < 1) {
+                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1) {
                                                 rowdata['font_size'] = "medium";
                                             }
-                                            if(rowdata['age_verification'].length < 1) {
+                                            if(!rowdata['age_verification'] || rowdata['age_verification'].length < 1) {
                                                 rowdata['age_verification'] = "0";
                                             }
-                                            if(rowdata['icon_only'].length < 1) {
+                                            if(!rowdata['icon_only'] || rowdata['icon_only'].length < 1) {
                                                 rowdata['icon_only'] = "0";
                                             }
-                                            if(rowdata['manual_adjustment_only'].length < 1) {
+                                            if(!rowdata['manual_adjustment_only'] || rowdata['manual_adjustment_only'].length < 1) {
                                                 rowdata['manual_adjustment_only'] = "0";
                                             }
-                                            if(rowdata['append_empty_btns'].length < 1) {
+                                            if(!rowdata['append_empty_btns'] || rowdata['append_empty_btns'].length < 1) {
                                                 rowdata['append_empty_btns'] = "0";
                                             }
-                                            if(rowdata['rate'].length < 1) {
+                                            if(!rowdata['rate'] || rowdata['rate'].length < 1) {
                                                 var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
                                                 if (defaultRate != null) {
                                                     rowdata['rate'] = defaultRate;
@@ -1597,22 +1625,22 @@
                                                 rowdata['condiment_group_id'] = data[0].id;
                                             } catch(e) {
                                             }
-                                            if(rowdata['button_color'].length < 1) {
+                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1) {
                                                 rowdata['button_color'] = "condiment-button-color-default";
                                             }
-                                            if(rowdata['font_size'].length < 1) {
+                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1) {
                                                 rowdata['font_size'] = "medium";
                                             }
-                                            if(rowdata['preset'].length < 1) {
+                                            if(!rowdata['preset'] || rowdata['preset'].length < 1) {
                                                 rowdata['preset'] = "0";
                                             }
                                             break;
                                     }
                                     case "condimentgroups": {
-                                            if(rowdata['seltype'].length < 1) {
+                                            if(!rowdata['seltype'] || rowdata['seltype'].length < 1) {
                                                 rowdata['seltype'] = "single";
                                             }
-                                            if(rowdata['newline'].length < 1) {
+                                            if(!rowdata['newline'] || rowdata['newline'].length < 1) {
                                                 rowdata['newline'] = "0";
                                             }
                                             break;
@@ -1621,30 +1649,36 @@
                                             if(rowdata['pluset_no'].substr(0,1) == "'") {
                                                 rowdata['pluset_no'] = rowdata['pluset_no'].substr(1,(rowdata['pluset_no'].length - 1));
                                             }
-                                            if(rowdata['preset_no'].substr(0,1) == "'") {
-                                                rowdata['preset_no'] = rowdata['preset_no'].substr(1,(rowdata['preset_no'].length - 1));
+                                            if(rowdata['preset_no']) {
+                                                if(rowdata['preset_no'].substr(0,1) == "'") {
+                                                    rowdata['preset_no'] = rowdata['preset_no'].substr(1,(rowdata['preset_no'].length - 1));
+                                                }
                                             }
-                                            if(rowdata['quantity'].length < 1) {
+                                            if(!rowdata['quantity'] || rowdata['quantity'].length < 1) {
                                                 rowdata['quantity'] = "0";
                                             }
-                                            if(rowdata['baseprice'].length < 1) {
+                                            if(!rowdata['baseprice'] || rowdata['baseprice'].length < 1) {
                                                 rowdata['baseprice'] = "0";
                                             }
-                                            if(rowdata['reduction'].length < 1) {
+                                            if(!rowdata['reduction'] || rowdata['reduction'].length < 1) {
                                                 rowdata['reduction'] = "0";
                                             }
-                                            var cateNm = rowdata['linkgroup_id'];
-                                            var queryString = "SELECT id FROM categories WHERE name ='" + cateNm + "';";
-                                            var data = tableTmp.getDataSource().fetchAll(queryString);
-                                            try{
-                                                rowdata['linkgroup_id'] = data[0].id;
-                                            } catch(e) {
-                                                var queryString2 = "SELECT id FROM plugroups WHERE name='" + cateNm + "';";
-                                                var data2 = tableTmp.getDataSource().fetchAll(queryString2);
-                                                try {
+                                            if(rowdata['linkgroup_id']) {
+                                                var cateNm = rowdata['linkgroup_id'];
+                                                var queryString = "SELECT id FROM categories WHERE name ='" + cateNm + "';";
+                                                var data = tableTmp.getDataSource().fetchAll(queryString);
+                                                try{
                                                     rowdata['linkgroup_id'] = data[0].id;
-                                                } catch (e) {
+                                                } catch(e) {
+                                                    var queryString2 = "SELECT id FROM plugroups WHERE name='" + cateNm + "';";
+                                                    var data2 = tableTmp.getDataSource().fetchAll(queryString2);
+                                                    try {
+                                                        rowdata['linkgroup_id'] = data[0].id;
+                                                    } catch (e) {
+                                                    }
                                                 }
+                                            } else {
+                                                rowdata['linkgroup_id'] = "";
                                             }
                                     }
                                     default: {
@@ -1999,6 +2033,9 @@
         },
 
         isValidUUID: function(field) {
+            if(!field) {
+                return true;
+            }
             if(field.length == 0) {
                 return true;
             } else {
