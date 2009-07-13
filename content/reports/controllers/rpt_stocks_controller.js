@@ -27,19 +27,19 @@
             if ( show_maintained_ones == true )
                 conditions += " AND p.auto_maintain_stock = 1"
 
-            if (department != "all") {
+            if ( department != "all" ) {
                 var cate = new CategoryModel();
-                var cateRecords = cate.find('all', {
-                    fields: ['no','name'],
+                var cateRecords = cate.find( 'all', {
+                    fields: [ 'no', 'name' ],
                     conditions: "categories.no LIKE '" + this._queryStringPreprocessor( department ) + "%'",
                     order: 'no, name'
-                    });
+                } );
             } else {
                 var cate = new CategoryModel();
-                var cateRecords = cate.find('all', {
-                    fields: ['no','name'],
+                var cateRecords = cate.find( 'all', {
+                    fields: [ 'no', 'name' ],
                     order: 'no, name'
-                    });                
+                } );                
             }
             
             var records = [];
@@ -73,6 +73,7 @@
                 'p.name',
                 'p.min_stock',
                 'p.auto_maintain_stock',
+                'p.link_group',
                 's.quantity'
             ];
             
@@ -82,6 +83,29 @@
             
             var prod = new ProductModel();
             var prodRecords = prod.getDataSource().fetchAll( sql );
+            
+            // retrieve all product groups.
+            /*var pluGroupModel = new PlugroupModel();
+            var pluGroups = pluGroupModel.find( "all", {
+                fields: [ "id", "name" ]
+            } );
+            
+            var pluGroupRecords = {};
+            
+            pluGroups.forEach( function( pluGroup ) {
+                pluGroupRecords[ pluGroup.id ] = {
+                    no: "Linking Group",
+                    name: pluGroup.name,
+                    plu: []
+                };
+            } );
+            
+            var otherLinkGroup = "others";
+            pluGroupRecords[ otherLinkGroup ] = {
+                no: "Linking Group",
+                name: "Others",
+                plu: []
+            };*/
 
             prodRecords.forEach( function( o ) {
                 if ( !( o.cate_no in records ) && department == 'all' ) {
@@ -102,10 +126,27 @@
                         min_stock:o.min_stock
                     } );
                 }
-            } );
+                
+                /*var product = {
+                    cate_no:o.cate_no,
+                    no:o.no,
+                    name:o.name,
+                    stock:o.quantity,
+                    min_stock:o.min_stock
+                };
+                
+                if ( o.link_group ) {
+                    var linkGroups = o.link_group.split( ',' );
+                    linkGroups.forEach( function( linkGroup ) {
+                        pluGroupRecords[ linkGroup ].plu.push( product );
+                    } );
+                } else {
+                    pluGroupRecords[ otherLinkGroup ].plu.push( product );
+                }*/
+            }, this );
 
 			this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.stocks.label' );
-			this._reportRecords.body = records;
+			this._reportRecords.body = records;//pluGroupRecords;
         },
 
         exportCsv: function() {

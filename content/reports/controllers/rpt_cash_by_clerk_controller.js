@@ -103,7 +103,7 @@
         	this._set_reportData( start, end, shiftNo, terminalNo );
         	this._setTemplateDataHead();
 
-            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
+            var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
             
