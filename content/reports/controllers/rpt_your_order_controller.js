@@ -502,7 +502,7 @@
             this._reportPanelPreference = GREUtils.extend( {}, window.arguments[ 0 ] );
             
             // remove the ( custom ) marker added in reportPanel.js.
-            this._reportPanelPreference.label = this._reportPanelPreference.label.replace( /^\(\ custom\ \)/, '' );
+            this._reportPanelPreference.label = this._reportPanelPreference.label.replace( /^\(\ .*?\ \)/, '' );
             
             if ( this._reportPanelPreference.key == this._preference_key ) { // if it is the root report, say, original your order report.
                 document.getElementById( this._removeReportButtonId ).hidden = true;
