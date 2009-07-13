@@ -76,6 +76,7 @@
                 stockRecord.new_quantity = stockRecord.quantity;
                 stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
                 stockRecord.memo = '';
+                stockRecord.price = null;
                 stockRecordsByProductNo[stockRecord.product_no] = stockRecord;
                 stockRecordsByBarcode[stockRecord.product_barcode] = stockRecord;
             });
@@ -393,12 +394,14 @@
             var product_no = document.getElementById('product_no').value;
             var newQuantity = parseFloat(document.getElementById('new_quantity').value);
             var memo = document.getElementById('memo').value;
+            var price = document.getElementById('price').value;
         	
             if (!isNaN(newQuantity)) {
                 var stockRecord = this._stockRecordsByProductNo[product_no];
                 stockRecord.new_quantity = newQuantity;
                 stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
                 stockRecord.memo = memo;
+                stockRecord.price = price;
 
                 this.updateStock();
             }
@@ -409,7 +412,9 @@
             // check if there are changes to commit
             var changed = false;
             for (var i = 0; !changed && i < this._records.length; i++) {
-                changed = (this._records[i].qty_difference != 0)
+                changed = (this._records[i].qty_difference != 0);
+                changed = changed || this._records[i].memo.length > 0;
+                changed = changed || this._records[i].price;
             }
 
             if (!changed) {
@@ -551,11 +556,13 @@
                 if (values[0]) {
                     var product_no = values[0][0] || '';
                     var quantity = values[0][1] || '';
+                    var price = values[0][2] || '';
 
                     var stockRecord = this._stockRecordsByProductNo[product_no] || this._stockRecordsByBarcode[product_no];
                     if (stockRecord) {
                         stockRecord.new_quantity = quantity;
                         stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+                        stockRecord.price = price || null;
                         stockRecord.memo = memo;
                         count++;
                     } else {
