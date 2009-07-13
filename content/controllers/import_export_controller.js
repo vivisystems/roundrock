@@ -896,6 +896,7 @@
                                         var prodNos = [];
                                         var barcodes = [];
                                         var prodIds = [];
+                                        var prodCatCache = [];
                                         break;
                                 }
                                 case "categories": {
@@ -1059,26 +1060,35 @@
                                             if(!self.isValidRequiredField(rowdata['cate_no'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a department", [prodNm, i + 2]));
                                             } else {
-                                                var departmentNo = GeckoJS.String.trim(rowdata['cate_no'].substr(1,rowdata['cate_no'].length));
-                                                var queryString = "SELECT id FROM categories WHERE no ='" + departmentNo + "';";
-                                                var result = tableTmp.getDataSource().fetchAll(queryString);
-                                                if(result.length < 1) {
-                                                    errorMsgs.push(_("Product item %S @ row %S requires a valid department", [prodNm, i + 2]));
+                                                var departmentNo = rowdata['cate_no'].substr(0,1) == "'" ? GeckoJS.String.trim(rowdata['cate_no'].substr(1,rowdata['cate_no'].length)) : rowdata['cate_no'];
+                                                if(GeckoJS.Array.inArray(departmentNo, prodCatCache) != 1) {
+
                                                 } else {
+                                                    var queryString = "SELECT id FROM categories WHERE no ='" + departmentNo + "';";
+                                                    var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                    if(result.length < 1) {
+                                                        errorMsgs.push(_("Product item %S @ row %S requires a valid department", [prodNm, i + 2]));
+                                                    } else {
+                                                        prodCatCache.push(rowdata[departmentNo]);
+                                                    }
+                                                }
+                                                /* else {
                                                     if(GeckoJS.Array.inArray(rowdata['name'], departments[departmentNo]) != -1){
                                                         errorMsgs.push(_("Product item %S @ row %S has name duplication under the department %S", [prodNm, i + 2, departmentNo]));
                                                     }
                                                     departments[departmentNo].push(rowdata['name']);
-                                                }
+                                                }*/
                                             }
-                                            if(!self.isValidUUID(rowdata['id'])) {
-                                                errorMsgs.push(_("Product item %S @row %S requires a valid UUID", [prodNm, i + 2]));
-                                            } else {
-                                                if(rowdata['id'].length != 0) {
-                                                    if(GeckoJS.Array.inArray(rowdata['id'], prodIds) != -1) {
-                                                        errorMsgs.push(_("Product item %S @ row %S contains a duplicated ID", [prodNm, i + 2]));
+                                            if(rowdata['id']) {
+                                                if(!self.isValidUUID(rowdata['id'])) {
+                                                    errorMsgs.push(_("Product item %S @row %S requires a valid UUID", [prodNm, i + 2]));
+                                                } else {
+                                                    if(rowdata['id'].length != 0) {
+                                                        if(GeckoJS.Array.inArray(rowdata['id'], prodIds) != -1) {
+                                                            errorMsgs.push(_("Product item %S @ row %S contains a duplicated ID", [prodNm, i + 2]));
+                                                        }
+                                                        prodIds.push(rowdata['id']);
                                                     }
-                                                    prodIds.push(rowdata['id']);
                                                 }
                                             }
                                             if(!self.isValidRequiredField(rowdata['no'])) {
@@ -1089,14 +1099,14 @@
                                                 }
                                                 prodNos.push(rowdata['no']);
                                             }
-                                            if(rowdata['rate'].length > 0) {
+                                            if(rowdata['rate'] && rowdata['rate'].length > 0) {
                                                 var queryString = "SELECT id FROM taxes WHERE no ='" + rowdata['rate'] + "';";
                                                 var result = tableTmp.getDataSource().fetchAll(queryString);
                                                 if(!result[0]) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid tax rate", [prodNm, i + 2]));
                                                 }
                                             }
-                                            if(rowdata['cond_group'].length > 0) {
+                                            if(rowdata['cond_group'] && rowdata['cond_group'].length > 0) {
                                                 var _condNms = rowdata['cond_group'].split(',');
                                                 _condNms.forEach(function(name) {
                                                     if(name.length > 0) {
@@ -1108,7 +1118,7 @@
                                                     }
                                                 },this);
                                             }
-                                            if(rowdata['link_group'].length > 0) {
+                                            if(rowdata['link_group'] && rowdata['link_group'].length > 0) {
                                                 var _grpNms = rowdata['link_group'].split(',');
                                                 _grpNms.forEach(function(name) {
                                                     if(name.length > 0) {
@@ -1120,35 +1130,35 @@
                                                     }
                                                 },this);
                                             }
-                                            if(rowdata['barcode'].length > 0) {
+                                            if(rowdata['barcode'] && rowdata['barcode'].length > 0) {
                                                 if(GeckoJS.Array.inArray(rowdata['barcode'], barcodes) != -1) {
                                                     errorMsgs.push(_("Product item %S @ row %S contains duplicated barcode", [prodNm, i + 2]));
                                                 }
                                                 barcodes.push(rowdata['barcode']);
                                             }
-                                            if(isNaN(rowdata['buy_price'])) {
+                                            if(rowdata['buy_price'] && isNaN(rowdata['buy_price'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid buy price value", [prodNm, i + 2]));
                                             }
-                                            if(isNaN(rowdata['stock'])) {
+                                            if(rowdata['stock'] && isNaN(rowdata['stock'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid stock value", [prodNm, i + 2]));
                                             }
-                                            if(isNaN(rowdata['min_stock'])) {
+                                            if(rowdata['min_stock'] && isNaN(rowdata['min_stock'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid minimum stock value", [prodNm, i + 2]));
                                             }
-                                            if(isNaN(rowdata['min_sale_qty'])) {
+                                            if(rowdata['min_sale_qty'] && isNaN(rowdata['min_sale_qty'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid minimum sale quantity value", [prodNm, i + 2]));
                                             }
                                             for(var x = 1;x < 10;x++) {
                                                 if(!self.isValidBooleanField(rowdata["level_enable" + x], true)) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid level enable %S", [prodNm, i + 2, x]));
                                                 }
-                                                if(rowdata["price_level" + x].length > 0 && isNaN(rowdata["price_level" + x])) {
+                                                if(rowdata["price_level" + x] && isNaN(rowdata["price_level" + x])) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid price level %S", [prodNm, i + 2, x]));
                                                 }
-                                                if(rowdata["halo" + x].length > 0 && isNaN(rowdata["halo" + x])) {
+                                                if(rowdata["halo" + x] && isNaN(rowdata["halo" + x])) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid halo %S", [prodNm, i + 2, x]));
                                                 }
-                                                if(rowdata["lalo" + x].length > 0 && isNaN(rowdata["lalo" + x])) {
+                                                if(rowdata["lalo" + x] && isNaN(rowdata["lalo" + x])) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid lalo %S", [prodNm, i + 2, x]));
                                                 }
                                             }
@@ -1182,13 +1192,13 @@
                                             if(!self.isValidBooleanField(rowdata['manual_adjustment_only'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid manual adjustment only value", [prodNm, i + 2]));
                                             }
-                                            if(rowdata["append_empty_btns"].length > 0 && isNaN(rowdata["append_empty_btns"])) {
+                                            if(rowdata["append_empty_btns"] && isNaN(rowdata["append_empty_btns"])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid append empty buttons value", [prodNm, i + 2]));
                                             }
                                             if(!self.isValidBooleanField(rowdata['scale'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid boolean scale value", [prodNm, i + 2]));
                                             }
-                                            if(isNaN(rowdata['tare'])) {
+                                            if(rowdata['tare'] && isNaN(rowdata['tare'])) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid tare value", [prodNm, i + 2]));
                                             }
                                             if(!self.isValidSaleUnitField(rowdata['sale_unit'], true)) {
@@ -1214,14 +1224,16 @@
                                                 }
                                                 cateNos.push(rowdata['no']);
                                             }
-                                            if(!self.isValidUUID(rowdata['id'])) {
-                                                errorMsgs.push(_("Department item %S @row %S requires a valid UUID", [cateNm, i + 2]));
-                                            } else {
-                                                if(rowdata['id'].length != 0) {
-                                                    if(GeckoJS.Array.inArray(rowdata['id'], cateIds) != -1) {
-                                                        errorMsgs.push(_("Department item %S @ row %S contains a duplicated ID", [cateNm, i + 2]));
+                                            if(rowdata['id']) {
+                                                if(!self.isValidUUID(rowdata['id'])) {
+                                                    errorMsgs.push(_("Department item %S @row %S requires a valid UUID", [cateNm, i + 2]));
+                                                } else {
+                                                    if(rowdata['id'].length != 0) {
+                                                        if(GeckoJS.Array.inArray(rowdata['id'], cateIds) != -1) {
+                                                            errorMsgs.push(_("Department item %S @ row %S contains a duplicated ID", [cateNm, i + 2]));
+                                                        }
+                                                        cateIds.push(rowdata['id']);
                                                     }
-                                                    cateIds.push(rowdata['id']);
                                                 }
                                             }
                                             if(!self.isValidBooleanField(rowdata['visible'], true)) {
@@ -1236,7 +1248,7 @@
                                             if(!self.isValidFontSizeField(rowdata['font_size'], true)) {
                                                 errorMsgs.push(_("Department item %S @ row %S requires a valid font size", [cateNm, i + 2]));
                                             }
-                                            if(rowdata['rate'].length > 0) {
+                                            if(rowdata['rate'] && rowdata['rate'].length > 0) {
                                                 var queryString = "SELECT id FROM taxes WHERE no ='" + rowdata['rate'] + "';";
                                                 var result = tableTmp.getDataSource().fetchAll(queryString);
                                                 if(!result[0]) {
@@ -2021,6 +2033,9 @@
         },
 
         isValidUUID: function(field) {
+            if(!field) {
+                return true;
+            }
             if(field.length == 0) {
                 return true;
             } else {
