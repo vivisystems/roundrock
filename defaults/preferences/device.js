@@ -123,6 +123,8 @@ pref("vivipos.fec.registry.devicemodels.vfdgeneric.encodings", "English=US-ASCII
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.label", "Excell AW-30");
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.type", "scale");
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.controller", "ScaleExcellAW30Controller");
+pref("vivipos.fec.registry.devicemodels.excell-aw-30.iterations", "10");
+pref("vivipos.fec.registry.devicemodels.excell-aw-30.tries", "5");
 
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.label", "Mettler Toledo Tiger II");
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.type", "scale");

@@ -678,9 +678,7 @@
         cancelSetup: function(data) {
 
             if (GREUtils.Dialog.confirm(this.topmostWindow, _('VIVIPOS Setup'),
-                                        _('Unless you plan to restore the terminal from a previously taken backup, ' +
-                                          'you are strongly advised to complete the setup process to ensure that the terminal operates properly. ' +
-                                          'Are you sure you want to cancel and exit from the setup wizard now?'))) {
+                                        _('Unless you plan to restore the terminal from a previously taken backup, you are strongly advised to complete the setup process to ensure that the terminal operates properly. Are you sure you want to cancel and exit from the setup wizard now?'))) {
                 data.initialized = false;
                 data.cancelled = true;
 

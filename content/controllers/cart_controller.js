@@ -107,11 +107,17 @@
 
                 if (cart._cartView.tree) {
                     cart.dispatchEvent('onClear', curTransaction);
-                    cart._cartView.empty();
+                    //cart._cartView.empty();
+                    cart.cartViewEmpty();
                 }
                 GeckoJS.Session.remove('current_transaction');
                 return ;
             }
+        },
+
+        cartViewEmpty: function() {
+            this._cartView.empty();           
+            this.dispatchEvent('onCartViewEmpty', null);
         },
 
         clearWarning: function (evt) {
@@ -2800,7 +2806,8 @@
             this.dispatchEvent('onClear', curTransaction);
 
             if (!this.ifHavingOpenedOrder()) {
-                this._cartView.empty();
+                //this._cartView.empty();
+                this.cartViewEmpty();
                 GeckoJS.Session.remove('current_transaction');
                 return ;
             }
@@ -2851,7 +2858,8 @@
                         _('confirm cancel'),
                         _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
-                    this._cartView.empty();
+                    //this._cartView.empty();
+                    this.cartViewEmpty();
 
                     this.clear();
                 }
@@ -2861,6 +2869,7 @@
             }
             else {
                 curTransaction.cancel();
+                this.cartViewEmpty();
             }
             
             GeckoJS.Session.remove('current_transaction');
@@ -2901,47 +2910,6 @@
             
             if(oldTransaction == null) return false;
 
-            //var submitStatus = parseInt(oldTransaction.submit(status));
-            //return;
-
-            // make sure the order has not yet been voided or submitted
-            var orderModel = new OrderModel();
-            var existingOrder = orderModel.findById(oldTransaction.data.id, 0, "id,status");
-            if (parseInt(orderModel.lastError) != 0) {
-                this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                    _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
-                return false;
-            }
-
-            if (existingOrder && existingOrder.status != 2) {
-                oldTransaction.data.status = existingOrder.status;
-                var statusStr;
-                switch(parseInt(existingOrder.status)) {
-                    case 1:
-                        statusStr = _('completed');
-                        break;
-
-                    case 2:
-                        statusStr = _('stored');
-                        break;
-
-                    case -1:
-                        statusStr = _('cancelled');
-                        break;
-
-                    case -2:
-                        statusStr = _('voided');
-                        break;
-
-                    default:
-                        statusStr = existingOrder.status;
-                        break;
-                }
-                GREUtils.Dialog.alert(this.topmostWindow,
-                    _('Order Finalization'),
-                    _('Current order is no longer available for finalization (status: %S)', [statusStr]));
-                return false;
-            }
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) {
                 GREUtils.Dialog.alert(this.topmostWindow,
@@ -2950,7 +2918,6 @@
                 return false;
             }
 
-
             // get checksum if recall == 2
             if (oldTransaction.data.recall == 2) {
                 //
@@ -2958,14 +2925,15 @@
 
                 if (tableOrderObj.length <= 0) return false;
 
+                var orderModel = new OrderModel();
                 var crc = orderModel.getOrderChecksum(oldTransaction.data.id);
                 // if (crc != tableOrderObj[0].TableOrder.checksum) {
                 // if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
                 if ((crc != tableOrderObj[0].TableOrder.checksum) && (oldTransaction.data.terminal_no != tableOrderObj[0].TableOrder.terminal_no)) {
 
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Order Checksum Fail'),
-                                      _('Current order checksum fail and may not be submit. Please retry or check this order.'));
+                                          _('Order Finalization'),
+                                          _('This order appears to have been updated on another terminal; please cancel the order to discard the changes you have made'));
 
                     // sync database
                     this.GuestCheck.syncClient();
@@ -3004,7 +2972,6 @@
                     }
 
                 }
-
             }
 
             if (this.dispatchEvent('beforeSubmit', {
@@ -3063,7 +3030,8 @@
 
                 // clear register screen if needed
                 if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                    this._cartView.empty();
+                    //this._cartView.empty();
+                    this.cartViewEmpty();
                 }
 
                 if (status != 2) {
@@ -3193,7 +3161,13 @@
                             self.dispatchEvent('onWarning', _('PRE-FINALIZED'));
 
                             // dispatch onSubmit event here manually since submit() won't do it for us
+                            this.dispatchEvent('onStore', curTransaction);
+
+                            // dispatch onSubmit event here manually since submit() won't do it for us
                             self.dispatchEvent('onSubmit', curTransaction);
+
+                            // dispatch onStore event here to update order status
+                            this.dispatchEvent('onStore', curTransaction);
 
                             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
 
@@ -3208,6 +3182,7 @@
                 }
                 this._cancelReturn(true);
             }
+
             // lastly, close the transaction and store the order to generate the
             // appropriate printouts
 
@@ -3218,7 +3193,7 @@
             // dispatch onSubmit event here manually since submit() won't do it for us
             this.dispatchEvent('onStore', curTransaction);
 
-            // dispatch onSubmit event here manually since submit() won't do it for us
+            // dispatch onStore event here to update order status
             this.dispatchEvent('onSubmit', curTransaction);
 
             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));

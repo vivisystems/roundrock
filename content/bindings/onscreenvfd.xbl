@@ -37,6 +37,7 @@
             <field name="_label0_1">null</field>
             <field name="_label1_0">null</field>
             <field name="_label1_1">null</field>
+            <field name="_inputController">null</field>
 
             <constructor>
             <![CDATA[
@@ -82,7 +83,13 @@
                 }
 
                 this.onAddBuffer = function(evt) {
-                    self.setText1_1((self.hideInput ? '' : _('I') + ': ') + evt.data);
+
+                    if(self._inputController) {
+
+                        self._inputController.value = evt.data;
+                    }else {
+                        self.setText1_1((self.hideInput ? '' : _('I') + ': ') + evt.data);
+                    }
                 }
 
                 this.onSetQty = function(evt) {
@@ -178,11 +185,20 @@
                 this.onEnterPassword = function(evt) {
                     self.hideInput = true;
                     this.onClear();
+
+                    if (self._inputController) {
+                        self._inputController.type = 'password';
+                    }
                 }
 
                 this.onExitPassword = function(evt) {
                     self.hideInput = false;
                     this.onClear();
+
+                    if (self._inputController) {
+                        self._inputController.type = 'textbox';
+                    }
+
                 }
 
                 this.format = function(number) {
@@ -234,12 +250,19 @@
                     }
                 } ).register();
 
-                //this.ready = function() {
-                    self.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-                    self.onClear({data: null});
-                //}
+                self.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+                self.onClear({data: null});
 
-                //window.addEventListener('DOMContentLoaded', this.ready, true);
+                this.ready = function() {
+                    self._inputController = document.getElementById(self.getAttribute('inputController'));
+
+                    if (self._inputController) {
+                        self.keypadevents.addListener('onClearBuffer', self.onAddBuffer, self);
+                    }
+
+                }
+
+                window.addEventListener('load', this.ready, true);
 
             ]]>
             </constructor>
@@ -269,6 +292,7 @@
                 this.observer.unregister();
 
                 //window.removeEventListener('DOMContentLoaded', this.ready, true);
+                window.removeEventListener('load', this.ready, true);
 
             ]]>
             </destructor>

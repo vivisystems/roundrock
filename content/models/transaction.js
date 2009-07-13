@@ -244,7 +244,7 @@
             // set status = -1
             var r = this.process(-1);
 
-            this.emptyView();
+            //this.emptyView();
 
             return r;
         },
