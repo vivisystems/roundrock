@@ -193,7 +193,7 @@
                 this._setTemplateDataFoot();
                 this._exploit_reportRecords();
             } catch ( e ) {
-                this.log('ERROR', GeckoJS.BaseObject.dump(e));
+                this.log( 'ERROR', GeckoJS.BaseObject.dump( e ) );
             } finally {
                 // Reset the timeout limit to the default value.
                 GREUtils.Pref.setPref( this._maxRuntimePreference, oldLimit );
