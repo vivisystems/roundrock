@@ -233,10 +233,6 @@
                                         </row>
                                         <row>
                                             <vbox>
-                                                <label value="&plus.purchase.price;" control="buy_price"/>
-                                                <textbox id="buy_price" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="buy_price" onfocus="this.select()"/>
-                                            </vbox>
-                                            <vbox>
                                                 <label value="&plus.memo;" control="product_memo"/>
                                                 <textbox id="product_memo" form="productForm" name="memo" onfocus="this.select()"/>
                                             </vbox>

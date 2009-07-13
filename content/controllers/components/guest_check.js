@@ -867,7 +867,7 @@
             ord.forEach(function(o){
 
                 var crc = order.getOrderChecksum(o.id);
-
+                
                 if (tableOrderIdx[o.id]) {
                     // if ((crc == tableOrderIdx[o.id].checksum) || ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified))) {
                     if (crc == tableOrderIdx[o.id].checksum) {

@@ -127,6 +127,7 @@
                     if (!this.serializeOrder(data)) {
                         throw 'OrderObject';
                     }
+                    this.log(data.id + ': ' + data.checksum);
                 }
                 return true;
 
@@ -153,16 +154,16 @@
             return r;
         },
 
-        updateOrderMaster: function(data) {
+        updateOrderMaster: function(data, updateTimestamp) {
 
             this.id = data.id;
-            var r = this.save(data);
+            var r = this.save(data, updateTimestamp);
             if (!r) {
                 this.log('ERROR',
                          'An error was encountered while updating order master (error code ' + this.lastError + '): ' + this.lastErrorString);
 
                 //@db saveToBackup
-                r = this.saveToBackup(data);
+                r = this.saveToBackup(data, updateTimestamp);
                 if (r) {
                     this.log('ERROR', 'order master saved to backup');
                 }
