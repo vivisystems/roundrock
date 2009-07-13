@@ -16,24 +16,6 @@
    
         centerWindowOnScreen();
         
-        /*
-        // add Observer to listen to refresh signal from your report panel.
-        var self = this;
-        this.observer = GeckoJS.Observer.newInstance( {
-            topics: [ "RefreshReportPanel" ],
-
-            observe: function( aSubject, aTopic, aData ) {
-                if ( aData == "refresh" ) {
-                    startup(); // renew the data since we have generated a new report.
-                    var imagePanel = document.getElementById('imagePanel');
-                    imagePanel.showPopup();
-                    self.observer.unregister(); // release the system resource.
-                }
-            }
-        } ).register();
-        
-        */
-        
         refreshPanel();
         
     }
@@ -44,7 +26,7 @@
     };
 
 
-    window.launchReport =  function launchReport (panel) {
+    window.launchReport =  function launchReport(panel) {
         var data = panel.datasource.data;
         var index = panel.currentIndex;
         var pref = data[index];
@@ -77,6 +59,12 @@
             else {
                 label = _(label);
             }
+            
+            // "( Custom )" will be followed by the label to indicate that the report is custom one.
+            var re = /([a-z0-9]+-){4}[a-z0-9]+/;// regular expression for recognizing uuid which is the key of a custom report.
+            if ( re.test( key ) )
+               label = "( " + _( "custom" ) + " )" + label;
+            
             var entry = {
                 icon: el.icon,
                 path: el.path,
