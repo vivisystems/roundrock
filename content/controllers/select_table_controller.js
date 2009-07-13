@@ -136,6 +136,8 @@
 
         _regionTables: null,
         _regions: null,
+        _regionsById: {},
+
         _regionIndex: 0,
 
         _orderPanel: null,
@@ -914,7 +916,6 @@
                     break;
             }
             this._hidePromptPanel('prompt_panel');
-            // alert('doFunc...' + inputObj.action);
             
             if (this._inputObj.action) {
                 // this._inputObj.index = this._regionTables[v].table_no;
@@ -924,7 +925,8 @@
                 // doOKButton();
 
                 var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                // var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                this.log("DEBUG", "do not call to doSelectTableFuncs with action:" + this._inputObj.action);
 
                 if (r) {
                 
@@ -981,12 +983,30 @@
             document.getElementById('table_region').selectedIndex = this._regionIndex;
         },
 
+        _menuPriorRegion: function(){
+            //
+            document.getElementById('table_region').selectedIndex = this.priorRegion();
+        },
+
+        _menuNextRegion: function() {
+            //
+            document.getElementById('table_region').selectedIndex = this.nextRegion();
+        },
+
         getRegionList: function() {
             //
+            if (this._regions) return this._regions;
+            
             var regionModel = new TableRegionModel();
             this._regions = regionModel.find('all', {
                 fields: ['id', 'name']
                 });
+
+            var index = 0;
+            this._regions.forEach(function(regionObj){
+                this._regionsById[regionObj.id] = index++;
+                regionObj['regionTables'] = [];
+            }, this);
 
             return this._regions;
         },
@@ -997,16 +1017,18 @@
             var region_id;
             if (index == "0") {
                 this._regionTables = this._tables;
+
             } else {
                 region_id = this._regions[index - 1].id;
 
-                this._regionTables = new GeckoJS.ArrayQuery(this._tables).filter("table_region_id = '" + region_id + "'");
+                // this._regionTables = new GeckoJS.ArrayQuery(this._tables).filter("table_region_id = '" + region_id + "'");
+                this._regionTables = this._regions[index - 1].regionTables;
+
             }
+
             var tableStatus = new TableStatusView(this._regionTables);
             tableStatus._controller = this;
             document.getElementById('tableScrollablepanel').datasource = tableStatus ;
-
-            this._regionIndex = document.getElementById('table_region').selectedIndex;
 
         },
 
@@ -1014,8 +1036,9 @@
             //
             this._regionIndex--
             this._regionIndex = this._regionIndex < 0 ? this._regions.length : this._regionIndex;
-            document.getElementById('table_region').selectedIndex = this._regionIndex;
             this.setRegion(this._regionIndex);
+
+            return this._regionIndex;
 
         },
 
@@ -1023,8 +1046,9 @@
             //
             this._regionIndex++
             this._regionIndex = this._regionIndex > this._regions.length ? 0 : this._regionIndex;
-            document.getElementById('table_region').selectedIndex = this._regionIndex;
             this.setRegion(this._regionIndex);
+
+            return this._regionIndex;
 
         },
 
@@ -1117,33 +1141,33 @@
 
             if (this._tables == null) {
             
-// this.log("Tables:::");
-// this.log(this.dump(tables));
                     this._tables = tables;
                     this._inputObj.tables = tables;
-/*
-                    var tableStatus = new TableStatusView(this._tables);
-                    tableStatus._controller = this;
-                    document.getElementById('tableScrollablepanel').datasource = tableStatus ;
-*/
+
                     this.setRegionMenuItem();
+
+/*
+                    //var regs = [];
+                    this._tables.forEach(function(tableObj) {
+                        tableObj.regionTables = [];
+                    }, this);
+*/
+                    // make tables of regions to reference to all tables
+                    this._tables.forEach(function(tableObj){
+                        //
+                        var index = this._regionsById[tableObj.Table.table_region_id];
+
+                        if (index >= 0) {
+                            this._regions[index].regionTables[this._regions[index].regionTables.length] = tableObj;
+
+                        }
+                    }, this);
 
                     this.setRegion(0);
 
-                    
-/*
-                    if (this._regions == null) {
-                        var regionModel = new TableRegionModel();
-                        this._regions = regionModel.find("all", {});
-                        delete regionModel;
-this.log("Regions:::");
-this.log(this.dump(this._regions));
-
-                    }
-*/
             } else {
                     this._inputObj.tables = this._tables;
-                    tableStatus._controller = this;
+                    // tableStatus._controller = this;
                     // document.getElementById('tableScrollablepanel').invalidate();
             }
 

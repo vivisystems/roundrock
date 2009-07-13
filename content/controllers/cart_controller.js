@@ -3203,6 +3203,9 @@
                             self.dispatchEvent('onWarning', _('PRE-FINALIZED'));
 
                             // dispatch onSubmit event here manually since submit() won't do it for us
+                            this.dispatchEvent('onStore', curTransaction);
+
+                            // dispatch onSubmit event here manually since submit() won't do it for us
                             self.dispatchEvent('onSubmit', curTransaction);
 
                             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
@@ -3218,6 +3221,7 @@
                 }
                 this._cancelReturn(true);
             }
+
             // lastly, close the transaction and store the order to generate the
             // appropriate printouts
 
