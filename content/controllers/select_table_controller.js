@@ -1017,6 +1017,8 @@
             document.getElementById('table_region').selectedIndex = this._regionIndex;
             this.setRegion(this._regionIndex);
 
+            return this._regionIndex;
+
         },
 
         nextRegion: function() {
@@ -1025,6 +1027,8 @@
             this._regionIndex = this._regionIndex > this._regions.length ? 0 : this._regionIndex;
             document.getElementById('table_region').selectedIndex = this._regionIndex;
             this.setRegion(this._regionIndex);
+
+            return this._regionIndex;
 
         },
 
