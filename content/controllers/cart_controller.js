@@ -107,11 +107,17 @@
 
                 if (cart._cartView.tree) {
                     cart.dispatchEvent('onClear', curTransaction);
-                    cart._cartView.empty();
+                    //cart._cartView.empty();
+                    cart.cartViewEmpty();
                 }
                 GeckoJS.Session.remove('current_transaction');
                 return ;
             }
+        },
+
+        cartViewEmpty: function() {
+            this._cartView.empty();           
+            this.dispatchEvent('onCartViewEmpty', null);
         },
 
         clearWarning: function (evt) {
@@ -2800,7 +2806,8 @@
             this.dispatchEvent('onClear', curTransaction);
 
             if (!this.ifHavingOpenedOrder()) {
-                this._cartView.empty();
+                //this._cartView.empty();
+                this.cartViewEmpty();
                 GeckoJS.Session.remove('current_transaction');
                 return ;
             }
@@ -2851,7 +2858,8 @@
                         _('confirm cancel'),
                         _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
-                    this._cartView.empty();
+                    //this._cartView.empty();
+                    this.cartViewEmpty();
 
                     this.clear();
                 }
@@ -2861,6 +2869,7 @@
             }
             else {
                 curTransaction.cancel();
+                this.cartViewEmpty();
             }
             
             GeckoJS.Session.remove('current_transaction');
@@ -3063,7 +3072,8 @@
 
                 // clear register screen if needed
                 if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                    this._cartView.empty();
+                    //this._cartView.empty();
+                    this.cartViewEmpty();
                 }
 
                 if (status != 2) {

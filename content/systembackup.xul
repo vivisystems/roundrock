@@ -44,11 +44,11 @@
 
                 <vbox flex="1" class="ImgTool">
                     <spacer flex="1" />
-                    <vivibutton id="backuptolocal" label="&systembackup.backuptolocal;"  oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
-                    <vivibutton id="backuptostick" label="&systembackup.backuptostick;"  oncommand="$do('backupToStick',null, 'SystemBackup');"/>
+                    <vivibutton id="backuptolocal" label="&systembackup.backuptolocal;" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
+                    <vivibutton id="backuptostick" label="&systembackup.backuptostick;" oncommand="$do('backupToStick',null, 'SystemBackup');"/>
                     <spacer style="height:50px;" />
-                    <vivibutton id="restorefromlocal" label="&systembackup.restorefromlocal;"  oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
-                    <vivibutton id="restorefromstick" label="&systembackup.restorefromstick;"  oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
+                    <vivibutton id="restorefromlocal" label="&systembackup.restorefromlocal;" oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
+                    <vivibutton id="restorefromstick" label="&systembackup.restorefromstick;" oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
                     <spacer flex="1" />
                     <checkbox label="&systembackup.restorewithsystem;" id="restoreWithSystem"/>
                 </vbox>

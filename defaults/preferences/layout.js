@@ -37,3 +37,12 @@ pref("vivipos.fec.registry.layouts.retail.icon", "chrome://viviecr/content/layou
 pref("vivipos.fec.registry.layouts.retail.resolutions", "800x600,1024x768");
 pref("vivipos.fec.registry.layouts.retail.disabled_features", "fnheightFeature,condimentPanelFeature");
 pref("vivipos.fec.registry.layouts.retail.skin", "retail-${width}x${height}/1.0");
+
+pref("vivipos.fec.registry.layouts.simple_retail.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.layouts.simple_retail.desc", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.registry.layouts.simple_retail.overlay_uri", "chrome://viviecr/content/layouts/simple_retail/simple_retail.xul");
+pref("vivipos.fec.registry.layouts.simple_retail.prefs_overlay_uri", "chrome://viviecr/content/layouts/simple_retail/simpleRetailPrefs.xul");
+pref("vivipos.fec.registry.layouts.simple_retail.icon", "chrome://viviecr/content/layouts/simple_retail/simple_retail.png");
+pref("vivipos.fec.registry.layouts.simple_retail.resolutions", "800x600,1024x768");
+pref("vivipos.fec.registry.layouts.simple_retail.disabled_features", "");
+pref("vivipos.fec.registry.layouts.simple_retail.skin", "traditional-${width}x${height}/1.0");
