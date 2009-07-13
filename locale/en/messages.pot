@@ -2133,6 +2133,12 @@ msgstr "Retail Layout"
 msgid "vivipos.fec.registry.layouts.retail.desc"
 msgstr "Retail Layout (for conceptual demonstration only)"
 
+msgid "vivipos.fec.registry.layouts.simple_retail.label"
+msgstr "Simple Retail Layout"
+
+msgid "vivipos.fec.registry.layouts.simple_retail.desc"
+msgstr "Simple Retail Layout (for barcode only and support plu image)"
+
 ########################################################################
 #
 # Tax Types & Rate Types
