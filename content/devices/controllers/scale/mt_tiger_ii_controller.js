@@ -106,7 +106,7 @@
             var stableCount = 0;
             var tryCount = 0;
 
-            // return weight only if the same weight has been read 3 times in a row
+            // return weight only if the same weight has been read #stables times in a row
             weight = this.readScaleOnce(port, iterations);
             //this.log('DEBUG', 'weight from readOnce: ' + this.dump(weight));
             while (weight != null) {
