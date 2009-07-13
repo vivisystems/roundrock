@@ -9611,8 +9611,9 @@ GeckoJS.BaseModel.prototype.saveAll = function(data, updateTimestamp) {
  * @public
  * @function
  * @param {Object} data
+ * @param {Boolean} updateTimestamp auto update created/modified fields
  */
-GeckoJS.BaseModel.prototype.saveToBackup = function(data){
+GeckoJS.BaseModel.prototype.saveToBackup = function(data, updateTimestamp){
 
     try {
         /* ifdef DEBUG 
@@ -9647,7 +9648,7 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
             result = [];
             data.forEach(function(d) {
                 self.create();
-                result.push(self.save(d));
+                result.push(self.save(d, updateTimestamp));
             });
             
         }else if(typeof data == 'object') {
@@ -9656,7 +9657,7 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
             this.log('DEBUG', 'saveToBackup > save data, object' ) ;
             /* endif DEBUG */
 
-            result = self.save(data);
+            result = self.save(data, updateTimestamp);
 
         }else {
 
@@ -9666,7 +9667,7 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data){
 
             // nothings to do!!
             // XXXX
-            result = self.save(data);
+            result = self.save(data, updateTimestamp);
         }
 
         /* ifdef DEBUG 
