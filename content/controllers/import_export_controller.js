@@ -798,8 +798,8 @@
                             var file = new GeckoJS.File(fileName);
                             var charSet = document.getElementById('import_export_charset').value;
                             var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
-                            file.setInputCharset(charSetValues[charSet]);
                             file.open("r");
+                            file.setInputCharset(charSetValues[charSet]);
                             var lines = file.readAllLine();
                             file.close();
                             if (lines.length <= 0) return;

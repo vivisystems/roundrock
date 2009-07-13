@@ -347,8 +347,6 @@
 
                     // remove existing database files
                     var systemPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-                    var dbDir = new GeckoJS.Dir(systemPath + '/databases');
-                    dbDir.remove(true);
 
                     // copy database files to database and training directories
                     var dbPath = GREUtils.File.chromeToPath(datapath + '/databases/');
