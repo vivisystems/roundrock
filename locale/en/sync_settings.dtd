@@ -35,3 +35,6 @@
 
 <!ENTITY sync_settings.label.stock_hostname "stock services server hostname/ip.">
 <!ENTITY sync_settings.desc.stock_hostname "Provide realtime stock service's server. Local Network master or localhost">
+
+<!ENTITY sync_settings.label.ntp_hostname "Network Time Protocol server hostname/ip.">
+<!ENTITY sync_settings.desc.ntp_hostname "Network Time Protocol service's server. Local Network master or localhost">

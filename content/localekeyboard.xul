@@ -39,15 +39,17 @@
                 <tabpanels>
                     <tabpanel flex="1">
                         <label value="&localekeyboard.locale.title;" class="SubTitle"/>
-                        <vivilocaleslistbox id="locale" package="viviecr" rows="6" flex="1"/>
+                        <vivilocaleslistbox id="locale" package="viviecr" flex="1"
+                                            type="listbox" rows="6" cols="6" popupwidth="720" popupheight="540"
+                                            listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
                     </tabpanel>
                           
                     <tabpanel flex="1">
                         <vbox flex="1" pack="start">
                             <hbox flex="1">
                                 <label value="&localekeyboard.keyboard.title;" class="SubTitle"/>
-                                <vivikbmaps id="kbmap" flex="1"
-                                    oncommand="$do('selectKbmap', null, 'LocaleKeyboard')" />
+                                <vivikbmaps id="kbmap" flex="1" type="listbox"
+                                            listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
                                 <spacer width="10px"/>
                             </hbox>
                             <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"

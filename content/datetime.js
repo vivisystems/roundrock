@@ -22,11 +22,13 @@
                 var newTimezone = timezonepicker.selectedTimezone;
                 var timezoneChanged = oldTimezone != newTimezone;
 
+                var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
+
                 if (timezoneChanged) {
                     // confirm date/time/timezone change
-                    if (!GREUtils.Dialog.confirm(null, _('confirm timezone change'),
-                                                      _('Timezone change requires system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
-                                                      )) {
+                    if (!GREUtils.Dialog.confirm(topwin, _('confirm timezone change'),
+                                                         _('Timezone change requires system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
+                                                         )) {
                         return false;
                     }
 

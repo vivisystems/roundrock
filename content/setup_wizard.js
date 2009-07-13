@@ -16,7 +16,8 @@ var data = window.arguments[0];
 })();
 
 function finishSetup() {
-    $do('finishSetup', null, 'SetupWizard');
+
+    $do('finishSetup', data, 'SetupWizard');
 
     data.restart = false;
     

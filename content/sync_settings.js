@@ -14,7 +14,8 @@
                 $do('validateForm', data, 'SyncSettings');
 
                 if (data.changed) {
-                    if (GREUtils.Dialog.confirm(window, _('confirm synchronize settings change'),
+                    var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
+                    if (GREUtils.Dialog.confirm(topwin, _('confirm synchronize settings change'),
                         _('Synchronize settings changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
                         )) {
 

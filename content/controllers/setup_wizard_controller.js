@@ -8,14 +8,23 @@
 
         // configuration keys
         PackageKey: 'vivipos.fec.registry.package',
+        BasePackage: 'viviecr',
 
         // package configuration
         Packages: [],
         Locations: [],
         Sectors: {},
 
+        screenwidth: GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800,
+        screenheight: GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600,
+
+        currentLocale: null,
         selectedLocale: null,
+        availabelLocales: [],
+
+        currentKbmap: null,
         selectedKbmap: null,
+
         selectedLocation: null,
         selectedTimezone: null,
         selectedSector: null,
@@ -28,37 +37,73 @@
 
         args: null,
 
-        screenwidth: GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800,
-        screenheight: GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600,
-
         /*
          * load
          */
 
         load: function(args) {
-
+            
             this.args = args;
 
             var locationListObj = document.getElementById('locationlist');
             var resolution = this.screenwidth + 'x' + this.screenheight;
 
+            // initialize locales
+            var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
+            var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+            var toolkitChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIToolkitChromeRegistry);
+
+            this.selectedLocale = xulChromeReg.getSelectedLocale(this.BasePackage);
+            this.currentLocale = this.selectedLocale;
+
+            var availableLocaleElements = toolkitChromeReg.getLocalesForPackage(this.BasePackage);
+            var availableLocales = [];
+            while(availableLocaleElements.hasMore()) {
+
+                var locale = availableLocaleElements.getNext();
+
+                availableLocales.push({value: locale,
+                                       label: _('(locale)' + locale),
+                                       image: 'chrome://vivipos/skin/flags/tb_' + locale + '.png'});
+            }
+            this.availableLocales = availableLocales;
+            
+            // initialize kbmaps
+            var kb = 'us';
+            try {
+                var kbFile = new GeckoJS.File('/etc/kbmap');
+                if (kbFile.exists()) {
+                    kbFile.open('r');
+                    kb =  kbFile.readLine() || 'us';
+                    kbFile.close();
+                }
+                delete kbFile
+            }catch(e) {
+            }
+
+            this.selectedKbmap = kb;
+            this.currentKbmap = kb;
+            
             // initialize locations
             var data = this.Package.loadData(resolution);
             this.Packages = data.packages;
             this.Locations = data.locations;
             this.Sectors = data.sectors;
-            
-            this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
+
+            locationListObj.datasource = this.Locations;
+            //this.Locations.forEach(function(location, index) {locationListObj.appendItem(location.label, index);})
 
             // initialize timezone
             var timezones = document.getElementById('timezones');
             this.selectedTimezone = timezones.currentTimezone;
 
             // if restarted, jump to location selection
+            /*
             if (args.restarted) {
                 var wizard = document.getElementById('wizard');
                 wizard.advance('language');
             }
+            */
         },
 
         advanceOK: function() {
@@ -66,38 +111,45 @@
             wizard.canAdvance = true;
         },
 
+        
         /*
          *  wizard page "language"
          */
 
         initLocaleKbmap: function() {
-            // make sure selectedItem is visible
-            var locale = document.getElementById('locale');
-            locale.listbox.ensureIndexIsVisible(locale.selectedIndex);
+            
+            // populate locale popup panel
+            var localeList = document.getElementById('localescrollablepanel');
+            if (localeList) {
+                localeList.datasource = this.availableLocales;
+            }
 
-            // make sure selectedItem is visible
-            var kbmap = document.getElementById('kbmap');
-            kbmap.listbox.ensureIndexIsVisible(kbmap.selectedIndex);
+            // populate kbmap popup panel
+            var kbmapList = document.getElementById('kbmapscrollablepanel');
+            if (kbmapList) {
+                kbmapList.datasource = this.availableKbmaps;
+            }
         },
 
         setLocaleKbmap: function() {
 
-            var locale = document.getElementById('locale');
-            var kbmap = document.getElementById('kbmap');
             var requireRestart = false;
+            var localeObj = document.getElementById('locale');
+            var kbmapObj = document.getElementById('kbmap');
 
-            this.selectedLocale = locale.selectedLocale;
             // change XUL and OS locales
-            if (this.selectedLocale != locale.currentLocale) {
-                locale.changeOSLocale();
-                locale.changeLocale();
+            if (localeObj.selectedLocale != localeObj.currentLocale) {
+
+                localeObj.changeLocale();
+                localeObj.changeOSLocale();
+                
                 requireRestart = true;
             }
+            this.currentLocale = this.selectedLocale;
 
-            this.selectedKbmap = kbmap.selectedKbmap;
             // change keyboard mapping
-            if (this.selectedKbmap != kbmap.currentKbmap) {
-                kbmap.changeOSKbmap();
+            if (kbmapObj.selectedKbmap != kbmapObj.currentKbmap) {
+                kbmapObj.changeOSKbmap();
                 requireRestart = true;
             }
 
@@ -117,7 +169,7 @@
 
         checkLocationSelection: function() {
             var wizard = document.getElementById('wizard');
-            wizard.canAdvance = this.lastLocation;
+            return wizard.canAdvance = this.lastLocation;
         },
 
         selectLocation: function (index) {
@@ -127,7 +179,10 @@
             else {
                 this.lastLocation = null;
             }
-            this.checkLocationSelection();
+            if (this.checkLocationSelection()) {
+                var wizard = document.getElementById('wizard');
+                if (wizard) wizard.advance();
+            }
         },
 
         setLocation: function() {
@@ -141,7 +196,6 @@
             }
 
             this.selectedLocation = this.lastLocation;
-            var location = this.selectedLocation.location;
 
             // read timezone
             if (this.selectedLocation.timezone) {
@@ -211,8 +265,6 @@
 
         initSectorList: function() {
 
-            // initialize sector list - need to
-
             this.selectedSector = null;
             this.lastSector = null;
 
@@ -222,76 +274,26 @@
                 var sectors = this.Sectors[location];
                 if (sectors && sectors.length > 0) {
 
-                    var sectorListObj = document.getElementById('sectorlist');
-                    while (sectorListObj.getRowCount() > 0) {
-                        sectorListObj.removeItemAt(0);
-                    }
-                    sectors.forEach(function(sector, index) {
-                        this.appendSectorItem(sectorListObj, sector, index);
-                    }, this);
+                    var sectorListObj = document.getElementById('sectorscrollablepanel');
+                    sectorListObj.datasource = sectors;
+
+                    sectorListObj.refresh();
                 }
             }
         },
 
-        displayScreenShot: function(image) {
+        displaySectorScreen: function(image, description) {
             var deck = document.getElementById('sector_deck');
+            var desc = document.getElementById('sector_description');
             var screenshot = document.getElementById('sector_screenshot');
             if (screenshot) screenshot.src = image;
+            if (desc) desc.value = description;
             deck.selectedIndex = 1;
         },
 
-        hideScreenShot: function() {
+        hideSectorScreen: function() {
             var deck = document.getElementById('sector_deck');
             deck.selectedIndex = 0;
-        },
-
-        appendSectorItem: function(box, data, value) {
-
-            /*
-             *              <richlistitem value="" >
-                                <hbox flex="1">
-                                    <image src="" />
-                                    <vbox flex="1">
-                                    <label value="label" />
-                                    <label value="desc" />
-                                    </vbox>
-                                </hbox>
-                            </richlistitem>
-
-             *
-             */
-
-            var item = document.createElement('richlistitem');
-            item.setAttribute('value', value);
-
-            var hbox = document.createElement('hbox');
-            hbox.setAttribute('flex', "1");
-
-            var image = document.createElement('image');
-            image.setAttribute('src', data.icon);
-            image.setAttribute('onclick', '$do("displayScreenShot", "' + data.fullimage + '", "SetupWizard")');
-
-            var vbox = document.createElement('vbox');
-            vbox.setAttribute('flex', "1");
-
-            // get localed label
-            var label = document.createElement('label');
-            label.setAttribute('value', data.label);
-
-            // get localed desc
-            var desc = document.createElement('label');
-            desc.setAttribute('value', data.description);
-
-            // maintaince DOM
-            vbox.appendChild(label);
-            vbox.appendChild(desc);
-            hbox.appendChild(image);
-            hbox.appendChild(vbox);
-            item.appendChild(hbox);
-            box.appendChild(item);
-
-            return;
-
         },
 
         checkSectorSelection: function() {
@@ -312,6 +314,7 @@
                         }
                         else {
                             this.lastSector = sectors[index];
+                            this.displaySectorScreen(this.lastSector.fullimage, this.lastSector.description);
                         }
                     }
                 }
@@ -415,7 +418,10 @@
         },
         
         loadUsers: function() {
-            var userListObj = document.getElementById('userlist');
+            var userListObj = document.getElementById('userscrollablepanel');
+
+            this.selectedDefaultUser = null;
+            
             var model = new UserModel();
             var users = model.find('all', {order: 'displayname'});
 
@@ -424,16 +430,19 @@
                               _('An error was encountered while retrieving user accounts (error code %S).', [model.lastError]));
                 return;
             }
-
-            userListObj.selectedIndex = -1;
-            while (userListObj.getRowCount() > 0) {
-                userListObj.removeItemAt(0);
+            
+            if (userListObj) {
+                userListObj.datasource = users;
             }
+        },
 
-            if (users) {
-                users.forEach(function(user) {
-                    userListObj.appendItem(user.displayname, user.id);
-                }, this)
+        selectUser: function(index) {
+            var userListObj = document.getElementById('userscrollablepanel');
+            if (userListObj) {
+                var users = userListObj.datasource.data;
+                if (users && users.length > 0 && index > -1 && index < users.length) {
+                    this.selectedDefaultUser = users[index].id;
+                }
             }
         },
 
@@ -481,10 +490,7 @@
         },
 
         setLogin: function() {
-            // get default user
-            var userListObj = document.getElementById('userlist');
-            this.selectedDefaultUser = userListObj.value;
-
+            
             var passwordTextbox = document.getElementById('admin_password');
 
             if (passwordTextbox) this.adminPassword = passwordTextbox.value;
@@ -505,7 +511,7 @@
             var taxListObj = document.getElementById('taxlist');
             var taxes = this.Tax.getTaxList();
             var taxEntries = [];
-
+            
             var type_str;
             var rate_str;
             var rate_type_str;
@@ -559,7 +565,7 @@
          * wizard finish/cancel
          */
 
-        finishSetup: function() {
+        finishSetup: function(data) {
             // completion tasks:
 
             // 1. configure selectedSkin and layout
@@ -665,19 +671,22 @@
                     exec.close();
                 }
             }
-
-            this.args.initialized = true;
+            data.initialized = true;
             return true;
         },
 
         cancelSetup: function(data) {
 
-            if (GREUtils.Dialog.confirm(window, _('VIVIPOS Setup'),
+            if (GREUtils.Dialog.confirm(this.topmostWindow, _('VIVIPOS Setup'),
                                         _('Unless you plan to restore the terminal from a previously taken backup, ' +
                                           'you are strongly advised to complete the setup process to ensure that the terminal operates properly. ' +
                                           'Are you sure you want to cancel and exit from the setup wizard now?'))) {
                 data.initialized = false;
                 data.cancelled = true;
+
+                // clean up user.js
+                var profPath = GeckoJS.Configure.read('ProfD');
+                GREUtils.File.remove(profPath + '/user.js');
             }
             else {
                 data.cancelled = false;

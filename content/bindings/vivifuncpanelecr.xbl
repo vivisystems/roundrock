@@ -489,7 +489,8 @@
                     else {
                         this.controlWidth = this.controlPanel.boxObject.width || 0;
                     }
-                    this.keypadWidth = this.functionPanel.boxObject.width - this.controlWidth;
+                    if (this.width == null || this.width == '') this.width = this.functionPanel.boxObject.width;
+                    this.keypadWidth = this.width - this.controlWidth;
                     this.controlPanel.setAttribute('hidden', hide);
                     this._clearKeypad();
                     this._refreshCurrentPage();
