@@ -19,6 +19,7 @@
         _decStockBackUp: null,
 
         beforeFilter: function(evt) {
+
             var cmd = evt.data;
             if (cmd != 'cancel') {
                 this._lastCancelInvoke = false;
@@ -3239,6 +3240,7 @@
         },
 
         addCondiment: function(plu, condiments, immediateMode) {
+
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 

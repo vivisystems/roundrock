@@ -49,104 +49,22 @@
         },
 
         updateProducts: function() {
+
             this._data = [];
+
             var products = GeckoJS.Session.get('products');
+
+            var prodModel = new ProductModel();
 
             if (products == null) {
                 // find all product and update session.
-                var prodModel = new ProductModel();
-                products = prodModel.find('all', {
-                    order: "cate_no, display_order, name, no",
-                    recursive: 0,
-                    limit: 3000000
-                });
-                if (products && products.length > 0) GeckoJS.Session.add('products', products);
+                // only minimal datas
+                products = prodModel.getProducts();
             }
-
-            var byId ={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
             
-            if (products) products.forEach(function(product) {
+            prodModel.prepareProductCached(products);
 
-                // load set items
-                var setItemModel = new SetItemModel();
-                var setitems = setItemModel.findByIndex('all', {
-                    index: 'pluset_no',
-                    value: product.no,
-                    order: 'sequence'
-                });
 
-                product.SetItem = setitems;
-
-                if (product.barcode == null) {
-                    product.barcode = "";
-                }
-
-                if (product.id.length > 0) {
-                    byId[product.id] = product;
-                }
-
-                if (product.barcode.length > 0) {
-                    indexBarcode[product.barcode] = product.id;
-                }
-
-                if (product.no.length > 0 && (product.barcode != product.no) ) {
-                    indexBarcode[product.no] = product.id;
-                }
-                if (product.cate_no.length > 0) {
-                    if (typeof indexCate[product.cate_no] == 'undefined') {
-                        indexCate[product.cate_no] = [];
-                        indexCateAll[product.cate_no] = [];
-                    }
-                    indexCateAll[(product.cate_no+"")].push((product.id+""));
-
-                    /* administractor dont display empty button
-                    if (product.append_empty_btns > 0) {
-                        for (var ii=0; ii<product.append_empty_btns; ii++ ) {
-                            indexCateAll[(product.cate_no+"")].push("");
-                        }
-                    }*/
-
-                    if(GeckoJS.String.parseBoolean(product.visible)) {
-                        indexCate[(product.cate_no+"")].push((product.id+""));
-                        if (product.append_empty_btns && product.append_empty_btns > 0) {
-                            for (var jj=0; jj<product.append_empty_btns; jj++ ) {
-                                indexCate[(product.cate_no+"")].push("");
-                            }
-                        }
-                    }
-                }
-
-                if (product.link_group && product.link_group.length > 0) {
-                    var groups = product.link_group.split(',');
-
-                    groups.forEach(function(group) {
-
-                        if (typeof indexLinkGroup[group] == 'undefined') {
-                            indexLinkGroup[group] = [];
-                            indexLinkGroupAll[group] = [];
-                        }
-                        indexLinkGroupAll[(group+"")].push((product.id+""));
-                        if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
-                        
-                    });
-                }
-            });
-
-            GeckoJS.Session.add('productsById', byId);
-            GeckoJS.Session.add('barcodesIndexes', indexBarcode);
-            GeckoJS.Session.add('productsIndexesByCate', indexCate);
-            GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
-            GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
-            GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
-
-            /*
-            this.log(this.dump(GeckoJS.Session.get('productsById')));
-            this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
-            this.log(this.dump(GeckoJS.Session.get('productsIndexesByCateAll')));
-            this.log(this.dump(GeckoJS.Session.get('barcodesIndexes')));
-            this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroup')));
-            this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroupAll')));
-            */
         },
 
         setCatePanelView: function(cateView) {
