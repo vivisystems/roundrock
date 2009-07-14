@@ -23,24 +23,33 @@
             cart.addEventListener('afterSubmit', this.submitOrder, this);
             cart.addEventListener('afterVoidSale', this.voidOrder, this);
 
+            var doSave = false;
             this._device = GeckoJS.Controller.getInstanceByName('Devices');
-            var printerChoice = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices.journal-print-template');
-            if(printerChoice) {
-                printerChoice = '1';
-                GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices.journal-print-template', printerChoice);
+            var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
+            if(selectedDevices['journal-print-template']) {
+                this._printTemplate = selectedDevices['journal-print-template'];
+            } else {
+                this._printTemplate = selectedDevices['journal-print-template'] = 1;
+                doSave = true;
             }
-            var previewChoice = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices.journal-preview-template');
-            if(previewChoice) {
+            if(selectedDevices['journal-preview-template']) {
+                this._previewTemplate = selectedDevices['journal-preview-template'];
+                
+            } else {
                 var templates = this._device.getTemplates('preview');
                 for(var tmp in templates) {
-                    this._previewTemplate = tmp;
+                    this.previewTemplate = selectedDevices['journal-preview-template'] = tmp;
+                    doSave = true;
                     break;
+                }
+                if(!this.previewTemplate) {
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed.'));
                 }
             }
 
-            var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
-            if (selectedDevices) {
-                this._printTemplate = this._device.getSelectedDevices()['receipt-' + printerChoice + '-template'];               
+            if(doSave) {
+                GeckoJS.Configure.remove('vivipos.fec.settings.selectedDevices');
+                GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices', GeckoJS.BaseObject.serialize(selectedDevices));
             }
             
             // add Observer for startTrainingMode event.

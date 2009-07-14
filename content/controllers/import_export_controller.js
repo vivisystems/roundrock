@@ -1468,8 +1468,8 @@
                                             if(!rowdata['scale'] || rowdata['scale'].length < 1) {
                                                 rowdata['scale'] = "0";
                                             }
-                                            if(!rowdata['sale_unit'] || rowdata['sale_unit'].length < 1) {
-                                                rowdata['sale_unit'] = "0";
+                                            if(!rowdata['sale_unit'] || rowdata['sale_unit'].length < 1 || rowdata['sale_unit'] == 'null') {
+                                                rowdata['sale_unit'] = "unit";
                                             }
                                             if(!rowdata['rate'] || rowdata['rate'].length < 1) {
                                                 var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
@@ -1554,7 +1554,7 @@
                                             if(!rowdata['min_sale_qty'] || rowdata['min_sale_qty'].length < 1) {
                                                 rowdata['min_sale_qty'] = "0";
                                             }
-                                            if(!rowdata['sale_unit'] || rowdata['sale_unit'].length < 1) {
+                                            if(!rowdata['sale_unit'] || rowdata['sale_unit'].length < 1 || rowdata['sale_unit'] == 'null') {
                                                 rowdata['sale_unit'] = "unit";
                                             }
                                             if(!rowdata['tare'] || rowdata['tare'].length < 1) {
