@@ -5,6 +5,8 @@
         name: 'Cart',
 
         components: ['Tax', 'GuestCheck', 'Barcode'],
+
+        uses: ['Product'],
         
         _cartView: null,
         _queuePool: null,

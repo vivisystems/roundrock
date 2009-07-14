@@ -11,6 +11,8 @@
             this._cateView = false;
             this._currentCateIndex = 0;
 
+            this.Product = new ProductModel();
+
             if (GeckoJS.Session.get('products') == null) {
                 this.updateProducts();
             }
@@ -42,7 +44,6 @@
                 if (evt.data.key == 'products') {
                     //self.updateProducts();
                     if(self._cateView) self.setCatePanelIndex(self._currentCateIndex);
-                    self._productsById = GeckoJS.Session.get('productsById');
                 }
             });
             
@@ -54,15 +55,13 @@
 
             var products = GeckoJS.Session.get('products');
 
-            var prodModel = new ProductModel();
-
             if (products == null) {
                 // find all product and update session.
                 // only minimal datas
-                products = prodModel.getProducts();
+                products = this.Product.getProductsWithSession();
             }
             
-            prodModel.prepareProductCached(products);
+            this.Product.prepareProductCached(products);
 
 
         },
@@ -134,16 +133,20 @@
         getCurrentIndexData: function (row) {
             
             var id = this.data[row];
-            var products = GeckoJS.Session.get('productsById');
+
+            //var products = GeckoJS.Session.get('productsById');
+            //return products[id];
+
+            return this.Product.getProductById(id);
+
             
-            return products[id];
         },
 
         getCellValue: function(row, col) {
             
             // this.log(row +","+col);
             // var products = GeckoJS.Session.get('productsById');
-            var products = GeckoJS.Session.get('productsById');
+            //var products = GeckoJS.Session.get('productsById');
 
             var sResult;
             var id;
@@ -154,9 +157,10 @@
                 key = col.id;
                 id = this.data[row];
                 if (id == "") return "";
-                
-                sResult= products[id][key];
-                // this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
+
+                var product = this.Product.getProductById(id);
+                sResult= product[key];
+                this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
             }
             catch (e) {
                 return "";
@@ -165,28 +169,32 @@
 
         },
 
-        getImageSrc: function(row, col) {
+        getImageSrcq: function(row, col) {
 
-            var products = GeckoJS.Session.get('productsById');
+            //var products = GeckoJS.Session.get('productsById');
 
             var cachedKey = 'pluimages' ;
             var colKey = col.id;
             var pid = this.data[row];
 
             if (pid == "") return null;
-            if(!products[pid]) return null;
-            if (products[pid][cachedKey] === false ) return null;
+
+            var product = this.Product.getProductById(pid);
+
+
+            if(!product) return null;
+            if (product[cachedKey] === false ) return null;
 
             var aDstFile = false;
 
-            if (products[pid][cachedKey]) {
+            if (product[cachedKey]) {
 
-                aDstFile = products[pid][cachedKey];
+                aDstFile = product[cachedKey];
                 return 'file://' + aDstFile ;
                 
             }else {
 
-                var val = products[pid][colKey];
+                var val = productproduct[colKey];
                 // var val = this.getCellValue(row, col);
                 var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                 var sPluDir = datapath + "/images/pluimages/";
@@ -196,11 +204,11 @@
                 aDstFile = sPluDir + val + ".png";
 
                 if (GREUtils.File.exists(aDstFile)) {
-                    products[pid][cachedKey] = aDstFile;
+                    product[cachedKey] = aDstFile;
                     return 'file://' + aDstFile  /*+ "?"+ Math.random()*/;
 
                 }else {
-                    products[pid][cachedKey] = false;
+                    product[cachedKey] = false;
                     return null;
                 }
             }
