@@ -353,6 +353,7 @@
                     var dbs = GeckoJS.Dir.readDir(dbPath, {type: 'f'});
 
                     dbs.forEach(function(f) {
+                        GREUtils.File.remove(systemPath + '/databases/' + f.leafName);
                         GREUtils.File.copy(f.path, systemPath + '/databases/');
                         GREUtils.File.copy(f.path, systemPath + '/training/');
                     })
