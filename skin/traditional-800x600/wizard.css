@@ -305,6 +305,9 @@
     -moz-box-orient: vertical;
     word-wrap: break-word;
 }
+.selBtns image{
+    max-height: 100px;
+}
 .selBtns:active, .selArea button:active,
 .button_vividatetimepicker:active{
     border: 1px solid #a1a1a1;
