@@ -93,10 +93,12 @@ pref("vivipos.fec.reportpanels.stocks.label", "chrome://viviecr/locale/messages.
 pref("vivipos.fec.reportpanels.stocks.path", "chrome://viviecr/content/reports/rpt_stocks.xul");
 pref("vivipos.fec.reportpanels.stocks.roles", "acl_run_report");
 
+/*
 pref("vivipos.fec.reportpanels.inventorycommitments.icon", "chrome://viviecr/content/skin/icons/reporticon_plu.png");
 pref("vivipos.fec.reportpanels.inventorycommitments.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.reportpanels.inventorycommitments.path", "chrome://viviecr/content/reports/rpt_inventory_commitments.xul");
 pref("vivipos.fec.reportpanels.inventorycommitments.roles", "acl_run_report");
+*/
 
 pref("vivipos.fec.reportpanels.userlist.icon", "chrome://viviecr/content/skin/icons/reporticon_user.png");
 pref("vivipos.fec.reportpanels.userlist.label", "chrome://viviecr/locale/messages.properties");
