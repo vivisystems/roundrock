@@ -233,6 +233,9 @@ msgstr "Employee List"
 msgid "vivipos.fec.reportpanels.yourorder.label"
 msgstr "Custom Sales Report"
 
+msgid "vivipos.fec.reportpanels.inventorycommitments.label"
+msgstr "Inventory Commitment"
+
 ########################################################################
 #
 # Register Display - Payments

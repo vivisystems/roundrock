@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % product_sales SYSTEM "chrome://viviecr/locale/reports/rpt_inventory_commitments.dtd">
+  %product_sales;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
+<?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
+
+<window id="main"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_inventory_commitments.js" />
+
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+		    <vbox>
+		        <caption label="&rptinventorycommitments.title;" class="PageTitle"/>
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <vbox>
+		                            <label value="&rptinventorycommitments.startdate;" />
+		                            <vividatetimepicker id="start_date" value='' type="popup" />  
+		                        </vbox>
+		                        <vbox>
+		                            <label value="&rptinventorycommitments.enddate;" />
+		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                        </vbox>
+		                    </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&rptinventorycommitments.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptInventoryCommitments');" />
+		        </hbox>
+            </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+            <hbox class="TopPnl">
+                <hbox class="ReportTool" flex="1" style="overflow: auto;">
+                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                        <tabs id="tabs" >
+                            <vivibutton id="export_pdf" label="&rptinventorycommitments.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptInventoryCommitments');" />
+                            <vivibutton id="export_csv" label="&rptinventorycommitments.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptInventoryCommitments');" />
+                            <vivibutton id="export_rcp" label="&rptinventorycommitments.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptInventoryCommitments');" />
+                            <vivibutton id="print" label="&rptinventorycommitments.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptInventoryCommitments');" />
+                        </tabs>
+                    </arrowscrollbox>
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+            
+			<hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" id="previewBox" flex="1">
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1" />
+					</box>
+                </groupbox>
+            </hbox>
+        </vbox>
+    </vbox>
+  
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs" />
+</window>

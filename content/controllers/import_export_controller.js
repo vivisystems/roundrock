@@ -240,6 +240,7 @@
                                 var saveFile = new GeckoJS.File(fileName, true);
                                 var charSet = document.getElementById('import_export_charset').value;
                                 var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
+                                
                                 saveFile.setOutputCharset(charSetValues[charSet]);
                                 saveFile.open("w");
 
@@ -798,8 +799,10 @@
                             var file = new GeckoJS.File(fileName);
                             var charSet = document.getElementById('import_export_charset').value;
                             var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
+                            
                             file.setInputCharset(charSetValues[charSet]);
                             file.open("r");
+                            
                             var lines = file.readAllLine();
                             file.close();
                             if (lines.length <= 0) return;
@@ -942,17 +945,19 @@
                                                     condimentGrps[rowdata['condiment_group_id']].push(rowdata['name']);
                                                 }
                                             }
-                                            if(!self.isValidUUID(rowdata['id'])) {
-                                                errorMsgs.push(_("Condiment item %S @row %S requires a valid UUID", [condNm, i + 2]));
-                                            } else {
-                                                if(rowdata['id'].length != 0) {
-                                                    if(GeckoJS.Array.inArray(rowdata['id'], condimentIds) != -1) {
-                                                        errorMsgs.push(_("Condiment item %S @ row %S contains a duplicated ID", [condNm, i + 2]));
+                                            if(rowdata['id']) {
+                                                if(!self.isValidUUID(rowdata['id'])) {
+                                                    errorMsgs.push(_("Condiment item %S @row %S requires a valid UUID", [condNm, i + 2]));
+                                                } else {
+                                                    if(rowdata['id'].length != 0) {
+                                                        if(GeckoJS.Array.inArray(rowdata['id'], condimentIds) != -1) {
+                                                            errorMsgs.push(_("Condiment item %S @ row %S contains a duplicated ID", [condNm, i + 2]));
+                                                        }
+                                                        condimentIds.push(rowdata['id']);
                                                     }
-                                                    condimentIds.push(rowdata['id']);
                                                 }
                                             }
-                                            if(!rowdata['price'] || isNaN(rowdata['price'])) {
+                                            if(!self.isValidNumberField(rowdata['price'], true)) {
                                                 errorMsgs.push(_("Condiment item %S @ row %S requires a valid price", [condNm, i + 2]));
                                             }
                                             if(!self.isValidButtonColorField(rowdata['button_color'], "condiment", true)) {
@@ -1136,29 +1141,29 @@
                                                 }
                                                 barcodes.push(rowdata['barcode']);
                                             }
-                                            if(rowdata['buy_price'] && isNaN(rowdata['buy_price'])) {
+                                            if(!self.isValidNumberField(rowdata['buy_price'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid buy price value", [prodNm, i + 2]));
                                             }
-                                            if(rowdata['stock'] && isNaN(rowdata['stock'])) {
+                                            if(!self.isValidNumberField(rowdata['stock'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid stock value", [prodNm, i + 2]));
                                             }
-                                            if(rowdata['min_stock'] && isNaN(rowdata['min_stock'])) {
+                                            if(!self.isValidNumberField(rowdata['min_stock'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid minimum stock value", [prodNm, i + 2]));
                                             }
-                                            if(rowdata['min_sale_qty'] && isNaN(rowdata['min_sale_qty'])) {
+                                            if(!self.isValidNumberField(rowdata['min_sale_qty'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid minimum sale quantity value", [prodNm, i + 2]));
                                             }
                                             for(var x = 1;x < 10;x++) {
                                                 if(!self.isValidBooleanField(rowdata["level_enable" + x], true)) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid level enable %S", [prodNm, i + 2, x]));
                                                 }
-                                                if(rowdata["price_level" + x] && isNaN(rowdata["price_level" + x])) {
+                                                if(!self.isValidNumberField(rowdata["price_level" + x], true)) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid price level %S", [prodNm, i + 2, x]));
                                                 }
-                                                if(rowdata["halo" + x] && isNaN(rowdata["halo" + x])) {
+                                                if(!self.isValidNumberField(rowdata["halo" + x], true)) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid halo %S", [prodNm, i + 2, x]));
                                                 }
-                                                if(rowdata["lalo" + x] && isNaN(rowdata["lalo" + x])) {
+                                                if(!self.isValidNumberField(rowdata["lalo" + x], true)) {
                                                     errorMsgs.push(_("Product item %S @ row %S requires a valid lalo %S", [prodNm, i + 2, x]));
                                                 }
                                             }
@@ -1192,13 +1197,13 @@
                                             if(!self.isValidBooleanField(rowdata['manual_adjustment_only'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid manual adjustment only value", [prodNm, i + 2]));
                                             }
-                                            if(rowdata["append_empty_btns"] && isNaN(rowdata["append_empty_btns"])) {
+                                            if(!self.isValidNumberField(rowdata["append_empty_btns"], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid append empty buttons value", [prodNm, i + 2]));
                                             }
                                             if(!self.isValidBooleanField(rowdata['scale'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid boolean scale value", [prodNm, i + 2]));
                                             }
-                                            if(rowdata['tare'] && isNaN(rowdata['tare'])) {
+                                            if(!self.isValidNumberField(rowdata['tare'], true)) {
                                                 errorMsgs.push(_("Product item %S @ row %S requires a valid tare value", [prodNm, i + 2]));
                                             }
                                             if(!self.isValidSaleUnitField(rowdata['sale_unit'], true)) {
@@ -1310,16 +1315,16 @@
                                                     }
                                                 }
                                             }
-                                            if(!rowdata['quantity'] || isNaN(rowdata['quantity'])) {
+                                            if(!self.isValidNumberField(rowdata['quantity'], true)) {
                                                 errorMsgs.push(_("Set item @ row %S requires a valid quantity", [i + 2]));
                                             }
-                                            if(!rowdata['baseprice'] || isNaN(rowdata['baseprice'])) {
+                                            if(!self.isValidNumberField(rowdata['baseprice'], true)) {
                                                 errorMsgs.push(_("Set item @ row %S requires a valid base price value", [i + 2]));
                                             }
                                             if(!self.isValidRequiredField(rowdata['sequence'])) {
                                                 errorMsgs.push(_("Set item @ row %S requires a sequence", [i + 2]));
                                             } else {
-                                                if(isNaN(rowdata['sequence'])) {
+                                                if(!self.isValidNumberField(rowdata['sequence'], false)) {
                                                     errorMsgs.push(_("Set item @ row %S requires a valid sequence value", [i + 2]));
                                                 } else {
                                                     if(setSets[plusetNo] == null){
@@ -1806,22 +1811,6 @@
                     exported: ''
                 },
                 {
-                    name: _('Product'),
-                    type: 'model',
-                    model: 'products',
-                    filename: 'products.csv',
-                    imported: '',
-                    exported: ''
-                },
-                {
-                    name: _('Product Group'),
-                    type: 'model',
-                    model: 'plugroups',
-                    filename: 'plugroups.csv',
-                    imported: '',
-                    exported: ''
-                },
-                {
                     name: _('Condiment Group'),
                     type: 'model',
                     model: 'condimentgroups',
@@ -1834,6 +1823,22 @@
                     type: 'model',
                     model: 'condiments',
                     filename: 'condiments.csv',
+                    imported: '',
+                    exported: ''
+                },
+                {
+                    name: _('Product Group'),
+                    type: 'model',
+                    model: 'plugroups',
+                    filename: 'plugroups.csv',
+                    imported: '',
+                    exported: ''
+                },
+                {
+                    name: _('Product'),
+                    type: 'model',
+                    model: 'products',
+                    filename: 'products.csv',
                     imported: '',
                     exported: ''
                 },
@@ -1965,6 +1970,7 @@
 
         isValidSaleUnitField: function(field, optional) {
             var selection = [
+                "null",
                 "unit",
                 "g",
                 "kg",
@@ -2003,11 +2009,11 @@
 
         isValidChoiceField: function(field, selection, optional) {
             if(!optional) {
-                if(!field || field.length < 1) {
+                if(!field || field.length < 1 || field == "null") {
                     return false;
                 }
             } else {
-                if(!field || field.length < 1) {
+                if(!field || field.length < 1 || field == "null") {
                     return true;
                 }
             }
@@ -2015,6 +2021,24 @@
             if(GeckoJS.Array.inArray(field, selection) == -1) {
                 return false;
             }
+            return true;
+        },
+
+        isValidNumberField: function(field, optional) {
+            if(!optional) {
+                if(!field || field.length < 1 || field == "null") {
+                    return false;
+                }
+            } else {
+                if(!field || field.length < 1 || field == "null") {
+                    return true;
+                }
+            }
+
+            if(isNaN(field)) {
+                return false;
+            }
+
             return true;
         },
 
