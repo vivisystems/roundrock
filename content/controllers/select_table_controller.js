@@ -152,6 +152,8 @@
 
         _timeout: 5000,
 
+        _tableDock: false,
+
         initial: function () {
             //
             if (this._cartController == null) {
@@ -581,6 +583,7 @@
                 this._sourceTableNo = null;
             } else {
                 // doCancelButton();
+                if (!this._tableDock)
                 $.hidePanel('selectTablePanel', false);
             }
         },
@@ -627,7 +630,8 @@
 
                         this._inputObj.action = '';
                         this._sourceTableNo = null;
-                        
+
+                        if (!this._tableDock)
                         $.hidePanel('selectTablePanel', true);
 
                         this._isBusy = false;
@@ -674,6 +678,7 @@
 
                         if (r) {
 
+                            if (!this._tableDock)
                             $.hidePanel('selectTablePanel', true)
                         }
 
@@ -719,6 +724,7 @@
 
                         if (r) {
 
+                            if (!this._tableDock)
                             $.hidePanel('selectTablePanel', true)
                         }
 
@@ -897,7 +903,7 @@
                         tables: null
                     };
 
-                    GREUtils.Dialog.openWindow(this.topmostWindowaURL, 'table_book', aFeatures, inputObj);
+                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'table_book', aFeatures, inputObj);
 
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
@@ -929,7 +935,7 @@
                 this.log("DEBUG", "do not call to doSelectTableFuncs with action:" + this._inputObj.action);
 
                 if (r) {
-                
+                    if (!this._tableDock)
                     $.hidePanel('selectTablePanel', true)
                 }
                 this._inputObj.action = '';
@@ -993,6 +999,12 @@
             document.getElementById('table_region').selectedIndex = this.nextRegion();
         },
 
+        _menuSetRegion: function(index) {
+            //
+            document.getElementById('table_region').selectedIndex = index;
+            this.setRegion(index);
+        },
+
         getRegionList: function() {
             //
             if (this._regions) return this._regions;
@@ -1030,6 +1042,8 @@
             tableStatus._controller = this;
             document.getElementById('tableScrollablepanel').datasource = tableStatus ;
 
+            return this._regionIndex = index;
+
         },
 
         priorRegion: function() {
@@ -1053,6 +1067,11 @@
         },
 
         load: function(evt) {
+            var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
+            if (selectedLayout == "mrpizza") {
+                this._tableDock = true;
+            }
+
             var inputObj = window.arguments[0];
             var self = this;
 
@@ -1069,8 +1088,20 @@
                     top: 0,
                     left: 0,
 
-                    width: screenwidth,
-                    height: screenheight
+                    // width: screenwidth,
+                    // height: screenheight
+                    width: 400,
+                    height: 400
+                },
+
+                overlayCSS: {
+                    top: 0,
+                    left: 0,
+
+                    // width: screenwidth,
+                    // height: screenheight
+                    width: 400,
+                    height: 400
                 },
 
                 init: function(evt) {
@@ -1110,7 +1141,8 @@
                     // window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 50000);
                     window.tableStatusRefreshInterval = setTimeout('RefreshTableStatusLight()', window.tableStatusRefreshTime);
 
-                    document.getElementById('table_status_timer').startClock();
+                    if (document.getElementById('table_status_timer'))
+                        document.getElementById('table_status_timer').startClock();
 
                 },
 
@@ -1119,7 +1151,8 @@
                     // clearInterval(window.tableStatusRefreshInterval);
                     clearTimeout(window.tableStatusRefreshInterval);
 
-                    document.getElementById('table_status_timer').stopClock();
+                    if (document.getElementById('table_status_timer'))
+                        document.getElementById('table_status_timer').stopClock();
 
                 }
 

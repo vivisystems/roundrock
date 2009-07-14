@@ -23,6 +23,7 @@
         _tableStatusModel: null,
         _tableList: null,
         _printController: null,
+        _firstRun: true,
 
         init: function (c) {
             // inherit Cart controller constructor
@@ -340,6 +341,13 @@
 
         handleFirstLoad: function(evt) {
             //
+
+            if (this._firstRun) {
+                this._firstRun = false;
+                $do('load', null, 'SelectTable');
+
+            }
+
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }

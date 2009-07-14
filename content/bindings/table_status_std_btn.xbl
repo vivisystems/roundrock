@@ -1,0 +1,429 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+  <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
+  %bindingsDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="table_status_btn" display="xul:button"
+           extends="chrome://global/content/bindings/button.xml#button-base">
+  <resources>
+  	<stylesheet src="chrome://viviecr/skin/buttons.css" />
+    <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
+    <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
+    <stylesheet src="chrome://viviecr/skin/user/table_status_btn.css" />
+    <stylesheet src="chrome://viviecr/skin/user/TableStyle.css" />
+  </resources>
+
+  <content>
+    <xul:hbox xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
+
+        <!-- html:div anonid="face_div" class="style04">
+            <html:div anonid="table_status" class="greentable">
+                <html:div class="thumbtack"></html:div>
+                <html:div class="time">
+                    <html:span anonid="period">12:00</html:span>
+                </html:div>
+                <html:div class="checkNum">
+                    <html:span anonid="checks"></html:span>
+                </html:div>
+		<html:div class="topItem">
+                    <html:div class="tableData">
+                        <html:div class="tableNo">
+                            <html:span anonid="table_no"></html:span>
+                        </html:div>
+                        <html:div class="tableName">
+                                <html:span anonid="table_label"></html:span><html:br />
+                        </html:div>
+			<html:div class="tableInfo">
+                            <html:div class="checkNo">
+                                <html:span anonid="check_no" class="check_no">C#36</html:span>
+                            </html:div>
+                            <html:div class="total">
+				<html:span anonid="subtotal" class="subtotal">T#785</html:span>
+                            </html:div>
+                            <html:div class="remark">
+                                <html:span anonid="seq_no" class="seq_no">S#200903212324</html:span>
+                            </html:div>
+                            <html:div class="remark">
+                                <html:span anonid="booking" class="booking">B#17:30</html:span>
+                            </html:div>
+                            <html:div class="remark">
+                                <html:span anonid="caption" class="tdb_green"></html:span>
+                            </html:div>
+			</html:div>
+                    </html:div>
+                </html:div>
+                <html:div class="bgItem">
+                        <html:span anonid="bg_table_no">12</html:span>
+                </html:div>
+                <html:div class="bottomItem">
+                        <html:div class="people">
+                                        <html:span anonid="capacity"></html:span>
+                        </html:div>
+                </html:div>
+            </html:div>
+	</html:div -->
+
+        <html:div anonid="face_div" class="style04">
+            <html:div anonid="table_status" class="greentable">
+                <html:div class="thumbtack"></html:div>
+                <html:div class="time">
+                    <html:span anonid="period">12:00</html:span>
+                </html:div>
+                <html:div class="checkNum">
+                    <html:span anonid="checks"></html:span>
+                </html:div>
+		<html:div class="topItem">
+                    <html:div class="tableData">
+                        <html:div class="tableNo">
+                            <html:span anonid="table_no"></html:span>
+                        </html:div>
+                        <html:div class="tableName">
+                                <html:span anonid="table_label"></html:span><html:br />
+                        </html:div>
+			<html:div class="tableInfo">
+                            <html:div class="checkNo">
+                                <html:span anonid="check_no" class="check_no">C#36</html:span>
+                            </html:div>
+                            <html:div class="total">
+				<html:span anonid="subtotal" class="subtotal">T#785</html:span>
+                            </html:div>
+                            <html:div class="remark">
+                                <html:span anonid="seq_no" class="seq_no">S#200903212324</html:span>
+                            </html:div>
+                            <html:div class="remark">
+                                <html:span anonid="booking" class="booking">B#17:30</html:span>
+                            </html:div>
+                            <html:div class="remark">
+                                <html:span anonid="caption" class="tdb_green"></html:span>
+                            </html:div>
+			</html:div>
+                    </html:div>
+                </html:div>
+                <html:div class="bgItem">
+                        <html:span anonid="bg_table_no">12</html:span>
+                </html:div>
+                <html:div class="bottomItem">
+                    <html:div class="people">
+                        <html:span anonid="capacity"></html:span>
+                    </html:div>
+                </html:div>
+            </html:div>
+	</html:div>
+
+
+  </xul:hbox>
+
+  </content>
+
+  <xbl:implementation>
+
+
+    <field name="_main_container">
+        document.getAnonymousElementByAttribute(this, "anonid", "boxContainer");
+    </field>
+    <field name="_table_status">
+        document.getAnonymousElementByAttribute(this, "anonid", "table_status");
+    </field>
+    <field name="_caption">
+        document.getAnonymousElementByAttribute(this, "anonid", "caption");
+    </field>
+    <field name="_bg_table_no">
+        document.getAnonymousElementByAttribute(this, "anonid", "bg_table_no");
+    </field>
+    <field name="_face_div">
+        document.getAnonymousElementByAttribute(this, "anonid", "face_div");
+    </field>
+    <!-- field name="_bg_div">
+        document.getAnonymousElementByAttribute(this, "anonid", "bg_div");
+    </field -->
+    <field name="_table_no">
+        document.getAnonymousElementByAttribute(this, "anonid", "table_no");
+    </field>
+    <field name="_table_label">
+        document.getAnonymousElementByAttribute(this, "anonid", "table_label");
+    </field>
+    <field name="_checks">
+        document.getAnonymousElementByAttribute(this, "anonid", "checks");
+    </field>
+    <field name="_check_no">
+        document.getAnonymousElementByAttribute(this, "anonid", "check_no");
+    </field>
+    <field name="_period">
+        document.getAnonymousElementByAttribute(this, "anonid", "period");
+    </field>
+    <field name="_seq_no">
+        document.getAnonymousElementByAttribute(this, "anonid", "seq_no");
+    </field>
+    <field name="_booking">
+        document.getAnonymousElementByAttribute(this, "anonid", "booking");
+    </field>
+    <field name="_subtotal">
+        document.getAnonymousElementByAttribute(this, "anonid", "subtotal");
+    </field>
+    <field name="_capacity">
+        document.getAnonymousElementByAttribute(this, "anonid", "capacity");
+    </field>
+
+    <property name="table_no" onget="return this._table_no.textContent;">
+        <setter>
+            <![CDATA[
+                this._table_no.textContent = val;
+                this._bg_table_no.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+    <property name="table_label" onget="return this._table_label.textContent;">
+        <setter>
+            <![CDATA[
+                this._table_label.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+    <property name="checks" onget="return this._checks.textContent;">
+        <setter>
+            <![CDATA[
+                this._checks.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+    <property name="check_no" onget="return this._check_no.textContent;">
+        <setter>
+            <![CDATA[
+                this._check_no.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+    <property name="period" onget="return this._period.textContent;">
+        <setter>
+            <![CDATA[
+                this._period.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+    <property name="seq_no" onget="return this._seq_no.textContent;">
+        <setter>
+            <![CDATA[
+                this._seq_no.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+    <property name="booking" onget="return this._booking.textContent;">
+        <setter>
+            <![CDATA[
+                this._booking.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+    <property name="subtotal" onget="return this._subtotal.textContent;">
+        <setter>
+            <![CDATA[
+                this._subtotal.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+    <property name="capacity" onget="return this._capacity.textContent;">
+        <setter>
+            <![CDATA[
+                this._capacity.textContent = val;
+                return val;
+            ]]>
+        </setter>
+    </property>
+
+    <property name="boxContainer" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'boxContainer');" readonly="true"/>
+
+	<xbl:constructor><![CDATA[
+
+            var self = this;
+            if (self._main_container.boxObject.width != 0) {
+                    self._face_div.setAttribute('style', "position: relative; width: " + self._main_container.boxObject.width + "px;");
+            }
+
+            // resizeButton
+            this.ready = false;
+            this.readyRuned = false;
+
+            this.ready = function() {
+                if(!self.readyRuned) {
+                    if (self._main_container.boxObject.width != 0) {
+                    self._face_div.setAttribute('style', "position: relative; width: " + self._main_container.boxObject.width + "px;");
+                    // self.resizeButtons();
+                    self.readyRuned = true;
+                    }
+                }
+            };
+
+            // createElement
+            this.addEventListener('load', this.ready, true);
+
+            // static .xul
+            window.addEventListener('load', this.ready, true);
+
+         ]]>
+	</xbl:constructor>
+
+    <xbl:destructor>
+    
+    </xbl:destructor>
+
+    <method name="setLabel">
+        <parameter name="label"/>
+      <body><![CDATA[
+
+        if (label.length==0) {
+            try {
+                this.seq_no = '';
+                this._main_container.hidden = true;
+            } catch (e) {}
+        } else {
+            this._main_container.hidden = false;
+        }
+
+      ]]>
+      </body>
+    </method>
+
+    <method name="setImage">
+        <parameter name="label"/>
+      <body><![CDATA[
+
+        if (label.length==0) {
+            
+        }
+
+      ]]>
+      </body>
+    </method>
+
+     <method name="_fireEvent">
+        <parameter name="aTarget"/>
+        <parameter name="aEventName"/>
+        <body>
+        <![CDATA[
+          try {
+            var event = document.createEvent("Events");
+            event.initEvent(aEventName, true, true);
+            var cancel = !aTarget.dispatchEvent(event);
+            if (aTarget.hasAttribute("on" + aEventName)) {
+              var fn = new Function ("event", aTarget.getAttribute("on" + aEventName));
+              var rv = fn.call(aTarget, event);
+              if (rv == false)
+                cancel = true;
+            }
+            return !cancel;
+          }
+          catch (e) {
+            Components.utils.reportError(e);
+          }
+          return false;
+        ]]>
+        </body>
+      </method>
+
+    <method name="setTableStatus">
+        <parameter name="status"/>
+        <body><![CDATA[
+        switch (status) {
+        case 0:
+            this._table_status.className = "greentable";
+            break;
+        case 1:
+            this._table_status.className = "redtable";
+            break;
+        case 2:
+            this._table_status.className = "bluetable";
+            break;
+        }
+        return;
+        switch (status) {
+        case 0:
+            this._table_no.className = "table_no table_green";
+            this._caption.className = "tdb_green";
+            break;
+        case 1:
+            this._table_no.className = "table_no table_red";
+            this._caption.className = "tdb_red";
+            break;
+        case 2:
+            this._table_no.className = "table_no table_blue";
+            this._caption.className = "tdb_blue";
+            break;
+        }
+        ]]>
+        </body>
+    </method>
+
+    <method name="setPeriodStatus">
+        <parameter name="status"/>
+        <body><![CDATA[
+        
+        switch (status) {
+        case 0:
+            this._period.className = "period";
+            break;
+        case 1:
+            this._period.className = "period";
+            break;
+        case 2:
+            this._period.className = "period overtime";
+            break;
+        }
+        ]]>
+        </body>
+    </method>
+
+    <method name="setCapacityStatus">
+        <parameter name="status"/>
+        <body><![CDATA[
+        
+        switch (status) {
+        case 0:
+            this._capacity.className = "capacity";
+            break;
+        case 1:
+            this._capacity.className = "capacity";
+            break;
+        case 2:
+            this._capacity.className = "capacity overpeople";
+            break;
+        }
+        ]]>
+        </body>
+    </method>
+
+
+  </xbl:implementation>
+
+  <handlers>
+    <handler event="click77" button="0"><![CDATA[
+/*
+        if(event.target == this) event.stopPropagation();
+
+		alert('in table click');
+//		this._fireEvent(this, "click");
+		this._fireEvent(this, "command");
+*/
+    ]]>
+    </handler>
+  </handlers>
+
+</binding>
+
+</bindings>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % SelectTable SYSTEM "chrome://viviecr/locale/select_table.dtd">
+  %SelectTable;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/table_win.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/order_display_template.css" type="text/css"?>
+
+<!-- ?xul-overlay href="chrome://global/content/dialogOverlay.xul" ? -->
+
+<overlay id="selectTableDialogOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_table.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/select_table_controller.js" />
+    
+    <!-- script type="application/x-javascript" src="chrome://viviecr/content/table_book.js" / -->
+
+    <popupset id="dialogs">
+        <vivipanel id="selectTablePanel" noautohide="false">
+
+
+    <vbox class="maindialog" style="width: 660px;">
+        <vbox class="EmptyArea" style="width: 660px;" >
+            <hbox flex="1">
+
+                <button id="btn_prior_region" class="fixedbtn" label="Prior Region" disabled="false"  oncommand="$do('_menuPriorRegion', null, 'SelectTable');" />
+                <menulist id="table_region" flex="1" oncommand="$do('setRegion', this.value, 'SelectTable');">
+                    <menupopup id="table_region_menupopup">
+
+                    </menupopup>
+                </menulist>
+                <button id="btn_next_region" class="fixedbtn" label="Next Region" disabled="false"  oncommand="$do('_menuNextRegion', null, 'SelectTable');" />
+            </hbox>
+            <spacer flex="1" />
+        </vbox>
+        <stack flex="1" class="MainPanel">
+            
+            <label id="queues" hidden="true" value="" />
+            <hbox >
+                <viviscrollablebuttonpanel id="tableScrollablepanel" pre="true" cols="4" rows="4"  seltype="single" labelField="table_no"
+                                           class="TablePanel"
+                                           buttonClass="tbButton"
+                                           buttonTagName="table_status_std_btn"
+                                           scrollUpClass="tbScrollUp"
+                                           scrollDownClass="tbScrollDown"
+                                           buttonPopup2="order_display_panel"
+                                           oncommand="$do('doFunc', event, 'SelectTable');">
+                    
+                </viviscrollablebuttonpanel>
+            </hbox>
+            <!-- vbox class="TableBtns" flex="1">
+                <button class="selectBtn" id="ok" label="&selecttable.selectno;" default="true" type="radio" group="func" oncommand="$do('doSelectTableNo', null, 'SelectTable');"/>
+                <button class="mergeBtn" id="merge_table" label="&selecttable.mergetable;" type="radio" group="func" default="false" oncommand="$do('doMergeTable', null, 'SelectTable');"/>
+                <button class="unmergeBtn" id="unmerge_table" label="&selecttable.unmergetable;" type="radio" group="func" default="false" oncommand="$do('doUnmergeTable', null, 'SelectTable');"/>
+                <button class="bookcBtn2" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/>
+            </vbox -->
+            
+            <!-- spacer flex="1" / -->
+            
+            
+        </stack>
+        <vbox>
+            <hbox>
+                <button id="ok" class="fixedbtn" label="&selecttable.selectno;" disabled="false"  oncommand="$do('doSelectTableNo', null, 'SelectTable');" />
+                <button id="merge_table" class="fixedbtn" label="&selecttable.mergetable;" disabled="false"  oncommand="$do('doMergeTable', null, 'SelectTable');" />
+                <button id="unmerge_table" class="fixedbtn" label="&selecttable.unmergetable;" disabled="false"  oncommand="$do('doUnmergeTable', null, 'SelectTable');" />
+                <button id="booking_table" class="fixedbtn" label="&selecttable.bookingtable;" disabled="false"  oncommand="$do('doBookingTable', null, 'SelectTable');" />
+            </hbox>
+        </vbox>
+    </vbox>
+
+    <panel id="prompt_panel" position="overlap" noautohide="true" class="MsgPnl">
+        <hbox flex="1" >
+            <vbox class="PromptBox" flex="1">
+                <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
+                <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
+                <label id="prompt_3" value="prompt 3" class="PromptLabel2" />
+                <spacer flex="1" />
+                <label id="prompt_4" value="prompt 4" class="PromptLabel3" />
+            </vbox>
+            <vbox pack="end">
+                <button class="CancelBtn" label="Cancel" oncommand="$do('doClosePromptPanel', null, 'SelectTable');"/>
+            </vbox>
+        </hbox>
+    </panel>
+
+    <panel id="order_display_panel" position="after_start" noautohide="false" class="PromptPnl"
+            onpopupshown="$do('popupOrderPanel', null, 'SelectTable');"
+            onpopuphidden="$do('hideOrderPanel', null, 'SelectTable');">
+        <hbox flex="1" class="PromptPnlBg">
+            <!-- tabbox class="CheckTabbox" flex="1">
+            <tabs id="orders_tab">
+                <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
+                <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
+                <tab linkedpanel="panel_${order.check_no}" label="C# {order.check_no}"/>
+            </tabs -->
+
+            <html:div id="order_display_div" />
+
+            <!-- /tabbox -->
+            <vbox flex="1" class="CheckBtns">
+                <button class="closecBtn" oncommand="$do('doCloseOrderPanel', null, 'SelectTable');"/>
+                <spacer height="30px" />
+                <button class="selectcBtn" id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="$do('doRecallCheck', null, 'SelectTable');"/>
+                <button class="splitcBtn" id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="$do('doSplitCheck', null, 'SelectTable');"/>
+                <button class="mergecBtn" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/>
+                <button class="changeBtn" id="trans_table" label="&selecttable.transtable;" type="radio" group="func" default="false" oncommand="$do('doTransTable', null, 'SelectTable');"/>
+                <!-- button class="bookcBtn" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/ -->
+                <spacer height="80px" />
+                <button class="clerkBtn" id="change_clerk" label="&selecttable.changeclerk;" type="radio" group="func" default="false" oncommand="$do('doChangeClerk', null, 'SelectTable');"/>
+                <!-- button class="clerkBtn" / -->
+            </vbox>
+        </hbox>
+    </panel>
+
+        </vivipanel>
+    </popupset>
+</overlay>
