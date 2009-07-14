@@ -139,11 +139,26 @@
             */
             
         },
+
+        setProductToSession: function (id, new_product) {
+            
+            // var products = this.getProductsWithSession(true);
+            var productsById = GeckoJS.Session.get('productsById');
+            var product = null;
+
+            if (new_product) {
+                if(!productsById[id]) productsById[id] = {};
+                product = GREUtils.extend(productsById[id], new_product);
+                delete product._full_object_;
+            }
+
+            return product;
+        },
         
         getProductById: function(id, useDb) {
             useDb = useDb || false;
 
-            var products = this.getProductsWithSession(true);
+            // var products = this.getProductsWithSession(true);
             var productsById = GeckoJS.Session.get('productsById');
             var product = null;
 
@@ -158,10 +173,9 @@
 
             if (useDb) {
                 var productObj = this.findById(id, {recursive: 0});
+
                 if (productObj) {
-                    if(!productsById[id]) productsById[id] = {};
-                    product = GREUtils.extend(productsById[id], productObj.Product);
-                    delete product._full_object_;
+                    product = this.setProductToSession(id, productObj.Product);
                 }
             }
 
@@ -169,25 +183,30 @@
             
         },
 
-        getProductByNo: function(id, useDb) {
+        getProductByNo: function(no, useDb) {
             useDb = useDb || false;
 
-            var products = this.getProductsWithSession(true);
+            // var products = this.getProductsWithSession(true);
             var productsById = GeckoJS.Session.get('productsById');
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var product = null;
 
             if (!useDb) {
+                if(barcodesIndexes[no]) {
+                    product = productsById[barcodesIndexes[no]];
 
-                product = productsById[id];
-
-                if (!product || product._full_object_ === false) {
+                    if (!product || product._full_object_ === false) {
+                        useDb = true;
+                    }
+                }else {
                     useDb = true;
                 }
             }
 
             if (useDb) {
-                var productObj = this.findById(id, {recursive: 0});
+                var productObj = this.find('first', {conditions: "no='"+no+"'", recursive: 0});
                 if (productObj) {
+                    var id = productObj.id;
                     if(!productsById[id]) productsById[id] = {};
                     product = GREUtils.extend(productsById[id], productObj.Product);
                     delete product._full_object_;
@@ -197,25 +216,31 @@
             return product;
         },
 
-        getProductByBarcode: function(id, useDb) {
+        getProductByBarcode: function(barcode, useDb) {
+
             useDb = useDb || false;
 
-            var products = this.getProductsWithSession(true);
+            // var products = this.getProductsWithSession(true);
             var productsById = GeckoJS.Session.get('productsById');
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var product = null;
 
             if (!useDb) {
+                if(barcodesIndexes[barcode]) {
+                    product = productsById[barcodesIndexes[barcode]];
 
-                product = productsById[id];
-
-                if (!product || product._full_object_ === false) {
+                    if (!product || product._full_object_ === false) {
+                        useDb = true;
+                    }
+                }else {
                     useDb = true;
                 }
             }
 
             if (useDb) {
-                var productObj = this.findById(id, {recursive: 0});
+                var productObj = this.find('first', {conditions: "barcode='"+barcode+"'", recursive: 0});
                 if (productObj) {
+                    var id = productObj.id;
                     if(!productsById[id]) productsById[id] = {};
                     product = GREUtils.extend(productsById[id], productObj.Product);
                     delete product._full_object_;

@@ -158,6 +158,12 @@
             this.data.revalueprices = GeckoJS.Configure.read('vivipos.fec.settings.RevaluePrices');
 
             this.recoveryMode = recoveryMode;
+
+            // use CartController's Product Model. is a good way ?
+            // XXXX
+            var cartController = GeckoJS.Controller.getInstanceByName('Cart');
+            this.Product = cartController.Product;
+            
             Transaction.events.dispatch('onCreate', this, this);
         },
 
@@ -675,7 +681,7 @@
             var self = this;
             setitems.forEach(function(setitem) {
                 var setItemProductId = barcodesIndexes[setitem.preset_no];
-                var setItemProduct = productsById[setItemProductId];
+                var setItemProduct = self.Product.getProductById(setItemProductId);
 
                 //alert(setItemProductId + ':' + self.dump(setItemProduct));
 

@@ -134,19 +134,13 @@
             
             var id = this.data[row];
 
-            //var products = GeckoJS.Session.get('productsById');
-            //return products[id];
-
             return this.Product.getProductById(id);
-
             
         },
 
         getCellValue: function(row, col) {
             
             // this.log(row +","+col);
-            // var products = GeckoJS.Session.get('productsById');
-            //var products = GeckoJS.Session.get('productsById');
 
             var sResult;
             var id;
@@ -171,8 +165,6 @@
 
         getImageSrcq: function(row, col) {
 
-            //var products = GeckoJS.Session.get('productsById');
-
             var cachedKey = 'pluimages' ;
             var colKey = col.id;
             var pid = this.data[row];
@@ -180,7 +172,6 @@
             if (pid == "") return null;
 
             var product = this.Product.getProductById(pid);
-
 
             if(!product) return null;
             if (product[cachedKey] === false ) return null;
