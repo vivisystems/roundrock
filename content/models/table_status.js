@@ -36,6 +36,7 @@
         _tableStatusArray: [],
         _tableStatusIdxById: {},
         _tableOrderByOrderId: {},
+        _tableBookings: null,
 
         initial: function (c) {
             if (!this._tableStatusList) {
@@ -290,6 +291,8 @@
 
             var self = this;
 
+            var tableBooking = this.getTableBookings();
+
             var tableOrder = this.getTableOrders(this._tableOrderLastTime);
 
 //            if (this._tableStatuses)
@@ -340,6 +343,9 @@
                     delete o.order;
                     delete o.TableOrder;
                     o.TableOrder = new GeckoJS.ArrayQuery(this._tableOrders).filter("table_no = '" + o.table_no + "'");
+
+                    delete o.TableBooking;
+                    o.TableBooking = new GeckoJS.ArrayQuery(this._TableBookings).filter("table_no = '" + o.table_no + "'");
 
                     o.table_region_id = o.Table.table_region_id;
 
@@ -690,6 +696,22 @@ return;
             this.TableOrder.save(tableStatusObj);
 
             return;
+
+        },
+
+        getTableBookings: function() {
+            var now = Math.round(new Date().getTime());
+            var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+            var remindTime = (now + tableSettings.TableRemindTime * 60 * 1000) / 1000;
+
+            var bookTimeOut = (tableSettings.TableBookingTimeout * 60 *1000) / 1000;
+            var bookNow =  now / 1000 - bookTimeOut;
+            var justNow = now / 1000;
+
+            var conditions = "table_bookings.booking < '" + remindTime + "' AND table_bookings.booking > '" + bookNow + "'";
+
+            var orderby = "table_bookings.booking";
+            this._TableBookings = this.TableBooking.find("all", {conditions: conditions, order: orderby});
 
         },
 

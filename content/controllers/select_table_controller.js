@@ -272,6 +272,8 @@
                 data.orders.push(o);
             });
 
+            if (!(tableObj.order && tableObj.order.length > 0)) return;
+
             data.sequence = order.seq;
 
             var result = tpl.process(data);
@@ -642,6 +644,27 @@
                         return;
                     }
 
+                    if (this._inputObj.action) {
+                        // this._inputObj.index = this._regionTables[v].table_no;
+                        this._inputObj.index = v;
+                        this._inputObj.tableObj = this._regionTables[v];
+                        this._inputObj.ok = true;
+                        // doOKButton();
+
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        // var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                        var r = cart.GuestCheck.doRecallCheck(this._inputObj);
+        //                this.log("DEBUG", "do not call to doSelectTableFuncs with action:" + this._inputObj.action);
+
+                        if (r) {
+
+                            $.hidePanel('selectTablePanel', true)
+                        }
+                        this._inputObj.action = '';
+                        this._sourceTableNo = null;
+
+                    }
+
                     break;
                 case 'SplitCheck':
                     if (!selTable.sequence) {
@@ -673,8 +696,9 @@
                         }
 
                         if (r) {
-
-                            $.hidePanel('selectTablePanel', true)
+                            if (r == 1){
+                                $.hidePanel('selectTablePanel', true);
+                            }
                         }
 
                         this._inputObj.action = '';
@@ -685,7 +709,6 @@
                         this._isBusy = false;
                         return;
                     }
-                    
                    
                     break;
                 case 'MergeCheck':
@@ -718,8 +741,9 @@
                         }
 
                         if (r) {
-
-                            $.hidePanel('selectTablePanel', true)
+                            if (r == 1){
+                                $.hidePanel('selectTablePanel', true);
+                            }
                         }
 
                         this._inputObj.action = '';
@@ -897,7 +921,7 @@
                         tables: null
                     };
 
-                    GREUtils.Dialog.openWindow(this.topmostWindowaURL, 'table_book', aFeatures, inputObj);
+                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'table_book', aFeatures, inputObj);
 
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
@@ -1030,6 +1054,7 @@
             tableStatus._controller = this;
             document.getElementById('tableScrollablepanel').datasource = tableStatus ;
 
+            return this._regionIndex = index;
         },
 
         priorRegion: function() {
@@ -1110,7 +1135,8 @@
                     // window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 50000);
                     window.tableStatusRefreshInterval = setTimeout('RefreshTableStatusLight()', window.tableStatusRefreshTime);
 
-                    document.getElementById('table_status_timer').startClock();
+                    if (document.getElementById('table_status_timer'))
+                        document.getElementById('table_status_timer').startClock();
 
                 },
 
@@ -1119,7 +1145,8 @@
                     // clearInterval(window.tableStatusRefreshInterval);
                     clearTimeout(window.tableStatusRefreshInterval);
 
-                    document.getElementById('table_status_timer').stopClock();
+                    if (document.getElementById('table_status_timer'))
+                        document.getElementById('table_status_timer').stopClock();
 
                 }
 

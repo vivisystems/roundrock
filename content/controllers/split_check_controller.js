@@ -504,6 +504,7 @@
             inputObj.ok = true;
             inputObj.id = retOrder.id;
             inputObj.check_no = retOrder.check_no;
+            inputObj.payit = false;
 
             window.close();
         },
@@ -514,19 +515,25 @@
             window.close();
         },
 
-        paythis: function() {
+        paythis: function(src) {
             if (!this._splitItems || this._splitItems.length <= 0) {
                 //
                 return;
             }
-            
-            var retOrder = this._saveOrders(this._splitedIndex);
+            if (src) {
+                var retOrder = this._saveOrders();
+            } else {
+                var retOrder = this._saveOrders(this._splitedIndex);
+            }
             var inputObj = window.arguments[0];
             inputObj.ok = true;
             inputObj.id = retOrder.id;
             inputObj.check_no = retOrder.check_no;
+            inputObj.payit = true;
 
             window.close();
+
+            return src;
         },
 
         load: function() {
