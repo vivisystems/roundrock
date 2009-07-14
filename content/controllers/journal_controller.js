@@ -24,12 +24,23 @@
             cart.addEventListener('afterVoidSale', this.voidOrder, this);
 
             this._device = GeckoJS.Controller.getInstanceByName('Devices');
+            var printerChoice = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices.journal-print-template');
+            if(printerChoice) {
+                printerChoice = '1';
+                GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices.journal-print-template', printerChoice);
+            }
+            var previewChoice = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices.journal-preview-template');
+            if(previewChoice) {
+                var templates = this._device.getTemplates('preview');
+                for(var tmp in templates) {
+                    this._previewTemplate = tmp;
+                    break;
+                }
+            }
+
             var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
             if (selectedDevices) {
-                var printerChoice = selectedDevices['journal-print-template'];
-
-                this._printTemplate = this._device.getSelectedDevices()['receipt-' + printerChoice + '-template'];
-                this._previewTemplate = selectedDevices['journal-preview-template'];
+                this._printTemplate = this._device.getSelectedDevices()['receipt-' + printerChoice + '-template'];               
             }
             
             // add Observer for startTrainingMode event.

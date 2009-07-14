@@ -1811,22 +1811,6 @@
                     exported: ''
                 },
                 {
-                    name: _('Product'),
-                    type: 'model',
-                    model: 'products',
-                    filename: 'products.csv',
-                    imported: '',
-                    exported: ''
-                },
-                {
-                    name: _('Product Group'),
-                    type: 'model',
-                    model: 'plugroups',
-                    filename: 'plugroups.csv',
-                    imported: '',
-                    exported: ''
-                },
-                {
                     name: _('Condiment Group'),
                     type: 'model',
                     model: 'condimentgroups',
@@ -1839,6 +1823,22 @@
                     type: 'model',
                     model: 'condiments',
                     filename: 'condiments.csv',
+                    imported: '',
+                    exported: ''
+                },
+                {
+                    name: _('Product Group'),
+                    type: 'model',
+                    model: 'plugroups',
+                    filename: 'plugroups.csv',
+                    imported: '',
+                    exported: ''
+                },
+                {
+                    name: _('Product'),
+                    type: 'model',
+                    model: 'products',
+                    filename: 'products.csv',
                     imported: '',
                     exported: ''
                 },

@@ -27,6 +27,9 @@ var options;
 
             // hide supplier row
             document.getElementById('supplier-row').hidden = true;
+            
+            // hide memo row
+            document.getElementById('memo-row').hidden = true;
         }
 
         doSetOKCancel(
