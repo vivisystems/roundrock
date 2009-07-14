@@ -214,7 +214,7 @@
 
         },
 
-        confirm: function() {
+        confirm: function(paythis) {
 
             // var datasource = document.getElementById('sourcecheckscrollablepanel').datasource;
             var rows = document.getElementById('sourcecheckscrollablepanel').rowCount;
@@ -230,13 +230,10 @@
             this._sourceCheck.status = -3;
             order.saveOrder(this._sourceCheck);
             this._getTableStatusModel().addCheck(this._sourceCheck);
-this.log("before:::");
-this.log(this.dump(this._mergedCheck));
             // save merged check...
             order.saveOrder(this._mergedCheck);
             this.getCartController().dispatchEvent('onMergeCheck', this._mergedCheck);
-this.log("after:::");
-this.log(this.dump(this._mergedCheck));
+
             // update table status
             this._getTableStatusModel().addCheck(this._mergedCheck);
             
@@ -246,6 +243,7 @@ this.log(this.dump(this._mergedCheck));
             inputObj.ok = true;
             inputObj.id = this._mergedCheck.id;
             inputObj.check_no = this._mergedCheck.check_no;
+            inputObj.payit = paythis;
 
             window.close();
         },
