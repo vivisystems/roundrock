@@ -46,4 +46,3 @@ pref("vivipos.fec.registry.layouts.mrpizza.icon", "chrome://viviecr/content/layo
 pref("vivipos.fec.registry.layouts.mrpizza.resolutions", "1024x768");
 pref("vivipos.fec.registry.layouts.mrpizza.disabled_features", "");
 pref("vivipos.fec.registry.layouts.mrpizza.skin", "mrpizza-${width}x${height}/1.0");
-//pref("vivipos.fec.registry.layouts.mrpizza.skin", "traditional-${width}x${height}/1.0");
