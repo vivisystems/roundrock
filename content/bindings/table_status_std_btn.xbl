@@ -18,7 +18,7 @@
   	<stylesheet src="chrome://viviecr/skin/buttons.css" />
     <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
     <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
-    <stylesheet src="chrome://viviecr/skin/user/table_status_btn.css" />
+    <stylesheet src="chrome://viviecr/skin/user/table_status_std_btn.css" />
     <stylesheet src="chrome://viviecr/skin/user/TableStyle.css" />
   </resources>
 
@@ -78,9 +78,7 @@
                 <html:div class="time">
                     <html:span anonid="period">12:00</html:span>
                 </html:div>
-                <html:div class="checkNum">
-                    <html:span anonid="checks"></html:span>
-                </html:div>
+                <!--Mickey. checkNum-->
 		<html:div class="topItem">
                     <html:div class="tableData">
                         <html:div class="tableNo">
@@ -112,6 +110,10 @@
                         <html:span anonid="bg_table_no">12</html:span>
                 </html:div>
                 <html:div class="bottomItem">
+                    <!--Mickey-->
+                    <html:div class="checkNum">
+                        <html:span anonid="checks"></html:span>
+                    </html:div>
                     <html:div class="people">
                         <html:span anonid="capacity"></html:span>
                     </html:div>
