@@ -1,17 +1,16 @@
 ( function() {
     /**
-     * Product Sales Controller
+     * Inventory Commitment Controller
      */
-    
+    //_( "If someone see this while translating, please let Mickey know. Thanks in advance." );
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     var __controller__ = {
-
         name: 'RptInventoryCommitments',
         
         _fileName: "rpt_inventory_commitments",
         
-        _setData: function( start, end, limit ) {
+        _setData: function( start, end, type, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
@@ -19,8 +18,9 @@
             end = parseInt( end / 1000, 10 );
 
             var fields = [
+                "ic.id",
                 "ic.type",
-                "ic.memo",
+                "ic.memo AS commitment_memo",
                 "ic.created",
                 "ic.supplier",
                 "ir.product_no",
@@ -36,10 +36,13 @@
             
             var conditions = "ic.created >= '" + start +
                 "' AND ic.created <= '" + end + "'";
+                
+            if ( type != "all" )
+                conditions += " AND ic.type = '" + type + "'";
 
             var groupby = "";
 
-            var orderby = "ic.created";
+            var orderby = "ic.created DESC";
             
             var sql =
             	"SELECT " + fields.join( ", " ) + " FROM inventory_commitments ic JOIN inventory_records ir ON ( " +
@@ -48,12 +51,39 @@
             var inventoryCommitmentModel = new InventoryCommitmentModel();
             var records = inventoryCommitmentModel.getDataSource().fetchAll( sql );
             
+            var inventoryCommitments = {};
+            var old_id = null;
+            var currentCommit;
+            records.forEach( function( record ) {
+                var id = record.id;
+                if ( id != old_id ) {
+                    currentCommit = inventoryCommitments[ id ] = {
+                        created: record.created,
+                        type: record.type,
+                        commitment_memo: record.commitment_memo,
+                        products: [],
+                        summary: {
+                            quantity: 0,
+                            new_quantity: 0,
+                            price: 0
+                        }
+                    };
+                    old_id = id;
+                }
+                
+                currentCommit.summary.quantity += record.quantity;
+                currentCommit.summary.new_quantity += record.new_quantity;
+                currentCommit.summary.price += record.price || 0;
+                    
+                currentCommit.products.push( record );
+            } );
+            
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.inventorycommitments.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             //this._reportRecords.head.terminal_no = terminalNo;
 		    
-            this._reportRecords.body = records;
+            this._reportRecords.body = inventoryCommitments;
         },
 
         _set_reportRecords: function( limit ) {
@@ -63,8 +93,10 @@
 
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
+            
+            var type = document.getElementById( 'type' ).value;
 
-            this._setData( start, end, limit );
+            this._setData( start, end, type, limit );
         },
         
         exportCsv: function() {

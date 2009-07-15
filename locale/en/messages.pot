@@ -236,6 +236,9 @@ msgstr "Custom Sales Report"
 msgid "vivipos.fec.reportpanels.inventorycommitments.label"
 msgstr "Inventory Commitment"
 
+msgid "vivipos.fec.reportpanels.purchasehistory.label"
+msgstr "Purchase History"
+
 ########################################################################
 #
 # Register Display - Payments

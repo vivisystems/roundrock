@@ -98,6 +98,11 @@ pref("vivipos.fec.reportpanels.inventorycommitments.label", "chrome://viviecr/lo
 pref("vivipos.fec.reportpanels.inventorycommitments.path", "chrome://viviecr/content/reports/rpt_inventory_commitments.xul");
 pref("vivipos.fec.reportpanels.inventorycommitments.roles", "acl_run_report");
 
+pref("vivipos.fec.reportpanels.purchasehistory.icon", "chrome://viviecr/content/skin/icons/reporticon_plu.png");
+pref("vivipos.fec.reportpanels.purchasehistory.label", "chrome://viviecr/locale/messages.properties");
+pref("vivipos.fec.reportpanels.purchasehistory.path", "chrome://viviecr/content/reports/rpt_purchase_history.xul");
+pref("vivipos.fec.reportpanels.purchasehistory.roles", "acl_run_report");
+
 pref("vivipos.fec.reportpanels.userlist.icon", "chrome://viviecr/content/skin/icons/reporticon_user.png");
 pref("vivipos.fec.reportpanels.userlist.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.reportpanels.userlist.path", "chrome://viviecr/content/reports/rpt_users.xul");

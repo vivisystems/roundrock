@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-13 20:16+0800\n"
+"POT-Creation-Date: 2009-07-14 10:55+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -246,6 +246,9 @@ msgstr "Custom Sales Report"
 
 msgid "vivipos.fec.reportpanels.inventorycommitments.label"
 msgstr "Inventory Commitment"
+
+msgid "vivipos.fec.reportpanels.purchasehistory.label"
+msgstr "Purchase History"
 
 # #######################################################################
 #
@@ -4275,7 +4278,7 @@ msgid "Export Error"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:127
-#: ../..//content/controllers/import_export_controller.js:654
+#: ../..//content/controllers/import_export_controller.js:655
 msgid "Import/Export already in progress"
 msgstr ""
 
@@ -4287,50 +4290,50 @@ msgstr ""
 msgid "Please select a data category to export"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:641
-#: ../..//content/controllers/import_export_controller.js:752
-#: ../..//content/controllers/import_export_controller.js:1785
+#: ../..//content/controllers/import_export_controller.js:642
+#: ../..//content/controllers/import_export_controller.js:753
+#: ../..//content/controllers/import_export_controller.js:1790
 msgid "Yes"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:641
-#: ../..//content/controllers/import_export_controller.js:752
-#: ../..//content/controllers/import_export_controller.js:1785
+#: ../..//content/controllers/import_export_controller.js:642
+#: ../..//content/controllers/import_export_controller.js:753
+#: ../..//content/controllers/import_export_controller.js:1790
 msgid " (%S)"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:654
-#: ../..//content/controllers/import_export_controller.js:659
+#: ../..//content/controllers/import_export_controller.js:655
+#: ../..//content/controllers/import_export_controller.js:660
 msgid "Import Error"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:659
+#: ../..//content/controllers/import_export_controller.js:660
 msgid "Import device and/or folder not found [%S]"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:665
+#: ../..//content/controllers/import_export_controller.js:666
 msgid "Please select a data category to import"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1801
+#: ../..//content/controllers/import_export_controller.js:1806
 msgid "Department"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1809
-msgid "Product"
+#: ../..//content/controllers/import_export_controller.js:1814
+msgid "Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1817
+#: ../..//content/controllers/import_export_controller.js:1822
+msgid "Condiment"
+msgstr ""
+
+#: ../..//content/controllers/import_export_controller.js:1830
 #: ../..//content/controllers/plus_controller.js:516
 msgid "Product Group"
 msgstr ""
 
-#: ../..//content/controllers/import_export_controller.js:1825
-msgid "Condiment Group"
-msgstr ""
-
-#: ../..//content/controllers/import_export_controller.js:1833
-msgid "Condiment"
+#: ../..//content/controllers/import_export_controller.js:1838
+msgid "Product"
 msgstr ""
 
 #: ../..//content/controllers/jobs_controller.js:33
@@ -4372,7 +4375,7 @@ msgstr ""
 msgid "Job [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:123
+#: ../..//content/controllers/journal_controller.js:134
 msgid "Journal save error: %"
 msgstr ""
 
@@ -6446,12 +6449,6 @@ msgstr ""
 msgid "vivipos.fec.reportpanels.dailysalesdetail"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_inventory_commitments_controller.js:114
-#: ../..//content/reports/controllers/rpt_products_controller.js:64
-#: ../..//content/reports/controllers/rpt_stocks_controller.js:114
-msgid "(rpt)Obsolete Department"
-msgstr ""
-
 #: ../..//content/reports/controllers/rpt_order_annotation_controller.js:143
 #: ../..//content/reports/controllers/rpt_order_status_controller.js:149
 #: ../..//content/reports/controllers/rpt_your_order_controller.js:141
@@ -6468,6 +6465,11 @@ msgstr ""
 #: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:118
 #: ../..//content/reports/controllers/rpt_promotion_summary_controller.js:119
 msgid "Obsolete"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_products_controller.js:64
+#: ../..//content/reports/controllers/rpt_stocks_controller.js:114
+msgid "(rpt)Obsolete Department"
 msgstr ""
 
 #: ../..//content/reports/controllers/rpt_sales_summary_controller.js:361
@@ -6598,8 +6600,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:4
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:10
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:10
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:5
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:4
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:5
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:10
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:29
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:5
@@ -6681,8 +6682,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_58mm.tpl:6
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:4
 #: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:11
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:6
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:4
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:33
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:6
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:4
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:11
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:30
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:6
@@ -6933,6 +6935,10 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_58mm.tpl:98
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:40
 #: ../..//content/reports/tpl/rpt_detailed_tax/rpt_detailed_tax_rcp_80mm.tpl:67
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:24
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:35
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:17
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:25
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:36
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:37
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:62
@@ -7241,6 +7247,10 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_58mm.tpl:39
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:14
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:26
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:26
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:37
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:18
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:26
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:42
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:49
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:74
@@ -7332,9 +7342,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl:57
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_58mm.tpl:35
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:22
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:45
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:27
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:16
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:57
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:30
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:21
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:85
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:102
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:59
@@ -7383,6 +7393,8 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl:61
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_58mm.tpl:38
 #: ../..//content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl:25
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:32
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:23
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation.tpl:86
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_58mm.tpl:61
 #: ../..//content/reports/tpl/rpt_order_annotation/rpt_order_annotation_rcp_80mm.tpl:42
@@ -7763,8 +7775,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl:71
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_58mm.tpl:51
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_80mm.tpl:34
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:27
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:17
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:29
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:16
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:13
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:28
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:16
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:13
@@ -7779,8 +7792,9 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl:72
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_58mm.tpl:53
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_80mm.tpl:35
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:28
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:19
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:30
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:18
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:14
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:29
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:18
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:14
@@ -7811,6 +7825,7 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl:77
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_58mm.tpl:63
 #: ../..//content/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail_rcp_80mm.tpl:40
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:35
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:192
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl:220
 #: ../..//content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl:103
@@ -7833,7 +7848,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments.tpl:25
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_58mm.tpl:11
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_80mm.tpl:8
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:11
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:11
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:11
 msgid "(rpt)Department Number"
@@ -7842,7 +7856,6 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments.tpl:26
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_58mm.tpl:13
 #: ../..//content/reports/tpl/rpt_departments/rpt_departments_rcp_80mm.tpl:8
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:13
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:13
 #: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:13
 msgid "(rpt)Department Name"
@@ -7929,36 +7942,41 @@ msgstr ""
 msgid "(rpt)Net Sales/Order"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:29
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:21
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:13
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:34
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:29
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:18
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:29
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:21
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:13
-msgid "(rpt)Stock Level"
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:31
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:32
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:25
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:16
+msgid "(rpt)Barcode"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:30
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_58mm.tpl:23
-#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_rcp_80mm.tpl:13
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:35
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:31
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:19
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:30
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:23
-#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:13
-msgid "(rpt)Low Stock Threshold"
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:32
+msgid "(rpt)Warehouse"
 msgstr ""
 
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:34
+msgid "(rpt)Memo"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:36
+msgid "(rpt)New Quantity"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments.tpl:37
+msgid "(rpt)Purchase Price"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:20
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:15
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:30
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:20
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl:15
 msgid "(rpt)Average Price"
 msgstr ""
 
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:22
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_58mm.tpl:33
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:16
+#: ../..//content/reports/tpl/rpt_inventory_commitments/rpt_inventory_commitments_80mm.tpl:24
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl:31
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:22
 #: ../..//content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_58mm.tpl:33
@@ -7979,16 +7997,28 @@ msgstr ""
 msgid "(rpt)Alt Name2"
 msgstr ""
 
-#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:32
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:25
-#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:16
-msgid "(rpt)Barcode"
-msgstr ""
-
 #: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:33
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:27
 #: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:17
 msgid "(rpt)Tax Code"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:34
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:29
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:18
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:29
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:21
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:13
+msgid "(rpt)Stock Level"
+msgstr ""
+
+#: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:35
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_58mm.tpl:31
+#: ../..//content/reports/tpl/rpt_products/rpt_products_rcp_80mm.tpl:19
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks.tpl:30
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_58mm.tpl:23
+#: ../..//content/reports/tpl/rpt_stocks/rpt_stocks_rcp_80mm.tpl:13
+msgid "(rpt)Low Stock Threshold"
 msgstr ""
 
 #: ../..//content/reports/tpl/rpt_products/rpt_products.tpl:79
