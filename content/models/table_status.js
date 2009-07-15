@@ -36,6 +36,7 @@
         _tableStatusArray: [],
         _tableStatusIdxById: {},
         _tableOrderByOrderId: {},
+        _tableBookings: null,
 
         initial: function (c) {
             if (!this._tableStatusList) {
@@ -290,6 +291,8 @@
 
             var self = this;
 
+            var tableBooking = this.getTableBookings();
+
             var tableOrder = this.getTableOrders(this._tableOrderLastTime);
 
 //            if (this._tableStatuses)
@@ -340,6 +343,9 @@
                     delete o.order;
                     delete o.TableOrder;
                     o.TableOrder = new GeckoJS.ArrayQuery(this._tableOrders).filter("table_no = '" + o.table_no + "'");
+
+                    delete o.TableBooking;
+                    o.TableBooking = new GeckoJS.ArrayQuery(this._tableBookings).filter("table_no = '" + o.table_no + "'");
 
                     o.table_region_id = o.Table.table_region_id;
 
@@ -599,6 +605,40 @@ return;
             }
         },
 
+        setTableMark: function(table_no, mark) {
+
+            var remoteUrl = this.getRemoteService('setTableMark');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                // tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({table_no: table_no, holdTable: holdTable}));
+                tableStatus = this.requestRemoteService('GET', remoteUrl + '/' + table_no + '/' + markTable, null);
+
+                return ;
+            }
+
+            var conditions = "table_statuses.table_no='" + table_no + "'";
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions
+            });
+
+            var markObj = null;
+            if (mark) {
+                markObj = {mark: mark};
+            }
+            else {
+                markObj = {mark: ''};
+            }
+
+            // tableStatus record exist
+            if (tableStatusObjTmp) {
+
+                this.id = tableStatusObjTmp.id;
+                this.save( markObj );
+            }
+        },
+
         addCheck: function(checkObj) {
             var index = -1;
             var i = 0;
@@ -690,6 +730,22 @@ return;
             this.TableOrder.save(tableStatusObj);
 
             return;
+
+        },
+
+        getTableBookings: function() {
+            var now = Math.round(new Date().getTime());
+            var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+            var remindTime = (now + tableSettings.TableRemindTime * 60 * 1000) / 1000;
+
+            var bookTimeOut = (tableSettings.TableBookingTimeout * 60 *1000) / 1000;
+            var bookNow =  now / 1000 - bookTimeOut;
+            var justNow = now / 1000;
+
+            var conditions = "table_bookings.booking < '" + remindTime + "' AND table_bookings.booking > '" + bookNow + "'";
+
+            var orderby = "table_bookings.booking";
+            this._tableBookings = this.TableBooking.find("all", {conditions: conditions, order: orderby});
 
         },
 

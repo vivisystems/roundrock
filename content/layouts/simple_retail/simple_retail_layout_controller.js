@@ -263,7 +263,7 @@
             if (toolbar) {
                 toolbar.setAttribute('hidden', showToolbar ? 'false' : 'true');
             }
-            if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
+            if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (checkTrackingStatus) {
                 checkTrackingStatus.setAttribute('hidden', checkTrackingMode ? 'false' : 'true');
             }

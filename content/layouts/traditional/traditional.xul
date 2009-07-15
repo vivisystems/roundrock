@@ -10,7 +10,6 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/visible_promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
 
 <overlay id="traditionalLayoutOverlay"

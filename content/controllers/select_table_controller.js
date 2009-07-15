@@ -272,6 +272,8 @@
                 data.orders.push(o);
             });
 
+            if (!(tableObj.order && tableObj.order.length > 0)) return;
+
             data.sequence = order.seq;
 
             var result = tpl.process(data);
@@ -423,6 +425,20 @@
             
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'UnmergeTable';
+        },
+
+        doMarkTable: function(mark) {
+            this._setPromptLabel('*** ' + mark + ' ***', _('Please select the table to mark %S ...', [mark]), '', _('Press CANCEL button to cancel function'), 2);
+            
+            var pnl = this._showPromptPanel('prompt_panel');
+            this._inputObj.action = 'MarkTable';
+        },
+
+        doUnmarkTable: function() {
+            this._setPromptLabel('*** ' + _('Clear Table Mark') + ' ***', _('Please select the table to clear mark...'), '', _('Press CANCEL button to cancel function'), 2);
+
+            var pnl = this._showPromptPanel('prompt_panel');
+            this._inputObj.action = 'UnmarkTable';
         },
 
         doBookingTable: function() {
@@ -642,6 +658,27 @@
                         return;
                     }
 
+                    if (this._inputObj.action) {
+                        // this._inputObj.index = this._regionTables[v].table_no;
+                        this._inputObj.index = v;
+                        this._inputObj.tableObj = this._regionTables[v];
+                        this._inputObj.ok = true;
+                        // doOKButton();
+
+                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                        // var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
+                        var r = cart.GuestCheck.doRecallCheck(this._inputObj);
+        //                this.log("DEBUG", "do not call to doSelectTableFuncs with action:" + this._inputObj.action);
+
+                        if (r) {
+
+                            $.hidePanel('selectTablePanel', true)
+                        }
+                        this._inputObj.action = '';
+                        this._sourceTableNo = null;
+
+                    }
+
                     break;
                 case 'SplitCheck':
                     if (!selTable.sequence) {
@@ -673,8 +710,9 @@
                         }
 
                         if (r) {
-
-                            $.hidePanel('selectTablePanel', true)
+                            if (r == 1){
+                                $.hidePanel('selectTablePanel', true);
+                            }
                         }
 
                         this._inputObj.action = '';
@@ -685,7 +723,6 @@
                         this._isBusy = false;
                         return;
                     }
-                    
                    
                     break;
                 case 'MergeCheck':
@@ -718,8 +755,9 @@
                         }
 
                         if (r) {
-
-                            $.hidePanel('selectTablePanel', true)
+                            if (r == 1){
+                                $.hidePanel('selectTablePanel', true);
+                            }
                         }
 
                         this._inputObj.action = '';
@@ -878,6 +916,60 @@
                     return;
                     break;
 
+                case 'MarkTable':
+
+                    // if (!selTable.holdby) {
+                    if (!selTable.hostby) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table had not been hold!!'));
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    var i = this._regionTables[v].table_no;
+                    var holdby = GeckoJS.BaseObject.clone(this._regionTables[v]);
+                    holdby.status = -1;
+
+                    // this._tables = this._tableStatusModel.holdTable(i, holdby);
+                    // this._tables = this._tableStatusModel.holdTable(i, i);
+                    this._tableStatusModel.holdTable(i, i);
+
+                    document.getElementById('tableScrollablepanel').invalidate();
+
+                    this._inputObj.action = '';
+                    this._sourceTableNo = null;
+                    this._hidePromptPanel('prompt_panel');
+                    this._isBusy = false;
+                    return;
+                    break;
+
+                case 'UnmarkTable':
+
+                    // if (!selTable.holdby) {
+                    if (!selTable.hostby) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table had not been hold!!'));
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    var i = this._regionTables[v].table_no;
+                    var holdby = GeckoJS.BaseObject.clone(this._regionTables[v]);
+                    holdby.status = -1;
+
+                    // this._tables = this._tableStatusModel.holdTable(i, holdby);
+                    // this._tables = this._tableStatusModel.holdTable(i, i);
+                    this._tableStatusModel.holdTable(i, i);
+
+                    document.getElementById('tableScrollablepanel').invalidate();
+
+                    this._inputObj.action = '';
+                    this._sourceTableNo = null;
+                    this._hidePromptPanel('prompt_panel');
+                    this._isBusy = false;
+                    return;
+                    break;
+
                 case 'BookTable':
 
                     var table_status_id = this._regionTables[v].id
@@ -897,7 +989,7 @@
                         tables: null
                     };
 
-                    GREUtils.Dialog.openWindow(this.topmostWindowaURL, 'table_book', aFeatures, inputObj);
+                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, 'table_book', aFeatures, inputObj);
 
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
@@ -1030,6 +1122,7 @@
             tableStatus._controller = this;
             document.getElementById('tableScrollablepanel').datasource = tableStatus ;
 
+            return this._regionIndex = index;
         },
 
         priorRegion: function() {
@@ -1110,7 +1203,8 @@
                     // window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 50000);
                     window.tableStatusRefreshInterval = setTimeout('RefreshTableStatusLight()', window.tableStatusRefreshTime);
 
-                    document.getElementById('table_status_timer').startClock();
+                    if (document.getElementById('table_status_timer'))
+                        document.getElementById('table_status_timer').startClock();
 
                 },
 
@@ -1119,7 +1213,8 @@
                     // clearInterval(window.tableStatusRefreshInterval);
                     clearTimeout(window.tableStatusRefreshInterval);
 
-                    document.getElementById('table_status_timer').stopClock();
+                    if (document.getElementById('table_status_timer'))
+                        document.getElementById('table_status_timer').stopClock();
 
                 }
 
@@ -1156,7 +1251,6 @@
                     this._tables.forEach(function(tableObj){
                         //
                         var index = this._regionsById[tableObj.Table.table_region_id];
-
                         if (index >= 0) {
                             this._regions[index].regionTables[this._regions[index].regionTables.length] = tableObj;
 
