@@ -1,0 +1,12 @@
+<!ENTITY rptpurchasehistory.title "Purchase History">
+<!ENTITY rptpurchasehistory.startdate "Start Date:">
+<!ENTITY rptpurchasehistory.enddate "End Date:">
+<!ENTITY rptpurchasehistory.execute "Execute">
+<!ENTITY rptpurchasehistory.exportpdf "Export to PDF">
+<!ENTITY rptpurchasehistory.exportcsv "Export to CSV">
+<!ENTITY rptpurchasehistory.exportrcp "Print">
+<!ENTITY rptpurchasehistory.print "Print">
+<!ENTITY rptpurchasehistory.togglezoom "Toggle Zoom">
+<!ENTITY rptpurchasehistory.groupby "Group By:">
+<!ENTITY rptpurchasehistory.groupby.product "Product">
+<!ENTITY rptpurchasehistory.groupby.supplier "Supplier">
