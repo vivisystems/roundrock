@@ -5,6 +5,8 @@
     var __controller__ = {
 
         name: 'StaticCondiments',
+
+        uses: ['Product'], 
         
         _cartController: null,
         _condGroupId: '',
@@ -175,9 +177,8 @@
 
             var pluId = event.data.id ;
 
-            var productsById = GeckoJS.Session.get('productsById');
-            var plu = productsById[pluId];
-            if (!productsById || !plu) return;
+            var plu = this.Product.getProductById(pluId);
+            if (!plu) return;
 
             var condGroup = plu['cond_group'];
 
