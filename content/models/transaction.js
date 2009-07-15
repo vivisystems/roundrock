@@ -162,7 +162,11 @@
             // use CartController's Product Model. is a good way ?
             // XXXX
             var cartController = GeckoJS.Controller.getInstanceByName('Cart');
-            this.Product = cartController.Product;
+            if (cartController) {
+                this.Product = cartController.Product;
+            }else {
+                this.Product = new ProductModel();
+            }
             
             Transaction.events.dispatch('onCreate', this, this);
         },
@@ -629,7 +633,6 @@
             //var profileStart = (new Date()).getTime();
 
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-            var productsById = GeckoJS.Session.get('productsById');
             var prevRowCount = this.data.display_sequences.length;
 
             var sellQty = null, sellPrice = null;
@@ -774,15 +777,15 @@
             var itemDisplay = this.getDisplaySeqAt(index); // item in transaction
             var itemIndex = itemDisplay.index;
             var itemModified = itemTrans;
-            var productsById = GeckoJS.Session.get('productsById');
 
             if (itemDisplay.type != 'item' && itemDisplay.type != 'condiment') {
                 return null; // TODO - shouldn't be here since cart has intercepted illegal operations
             }
 
             var item = null;
-            if(productsById[itemTrans.id]) {
-                item = GREUtils.extend({}, productsById[itemTrans.id]);
+
+            if(this.Product.isExists(itemTrans.id)) {
+                item = GREUtils.extend({}, this.Product.getProductById(itemTrans.id));
             }else {
                 item = GREUtils.extend({},itemTrans);
             }
@@ -1035,8 +1038,8 @@
             if (itemDisplay.type == 'item' && !itemTrans.hasMarker) {
 
                 var item = null;
-                if(GeckoJS.Session.get('productsById')[itemTrans.id]) {
-                    item = GREUtils.extend({}, GeckoJS.Session.get('productsById')[itemTrans.id]);
+                if(this.Product.isExists(itemTrans.id)) {
+                    item = GREUtils.extend({}, this.Product.getProductById(itemTrans.id));
                 }else {
                     item = GREUtils.extend({},itemTrans);
                 }

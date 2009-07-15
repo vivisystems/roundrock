@@ -49,20 +49,23 @@
             
         },
 
-        updateProducts: function() {
+        updateProducts: function(force_replace) {
+
+            force_replace =  force_replace || false;
 
             this._data = [];
 
             var products = GeckoJS.Session.get('products');
-
-            if (products == null) {
+            
+            if (products == null || force_replace) {
+                
                 // find all product and update session.
                 // only minimal datas
-                products = this.Product.getProductsWithSession();
-            }
-            
-            this.Product.prepareProductCached(products);
+                products = this.Product.getProducts();
 
+                this.Product.prepareProductsSession(products);
+
+            }
 
         },
 

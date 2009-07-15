@@ -2,20 +2,20 @@
     if(typeof AppModel == 'undefined') {
         include( 'chrome://viviecr/content/models/app.js' );
     }
-        
-    // GREUtils.define('ViviPOS.ProductModel');
-    // ViviPOS.ProductModel = AppModel.extend({
-    var ProductModel = window.ProductModel = AppModel.extend({
+
+    var __model__ = {
+
         name: 'Product',
+
         useDbConfig: 'default',
 
         hasOne: [{name: 'StockRecord', 'primaryKey': 'no', 'foreignKey': 'id'}],
-        
+
         checkUnique: function() {
 	    return 	this.items;
         },
 
-        getProductsWithSession: function(cached) {
+        getProducts: function(cached) {
 
             cached = cached || false;
 
@@ -30,7 +30,6 @@
             if (products == null) {
 
                 products = this.getDataSource().fetchAll("SELECT id,cate_no,no,barcode,visible,append_empty_btns,link_group FROM products ORDER BY cate_no, display_order, name, no ");
-                if (products && products.length > 0) GeckoJS.Session.add('products', products);
 
                 dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
             }
@@ -39,17 +38,21 @@
 
         },
 
-        prepareProductCached: function(products) {
+        prepareProductsSession: function(products) {
 
-            products = products || this.getProductsWithSession(true);
+            products = products || this.getProducts(true);
 
-            var byId ={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
+            if (products && products.length > 0) {
+                GeckoJS.Session.add('products', products);
+            }
+
+            var byId ={}, indexId={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
 
             var startTime = Date.now().getTime();
 
             if (!products) return ;
 
-            products.forEach(function(product) {
+            products.forEach(function(product, idx) {
 
                 // load set items
                 /*
@@ -71,6 +74,7 @@
 
                 if (product.id.length > 0) {
                     byId[product.id] = product;
+                    indexId[product.id] = idx;
                 }
 
                 if (product.barcode.length > 0) {
@@ -123,12 +127,13 @@
             dump('after product.forEach:  ' + (Date.now().getTime() - startTime) + '\n');
 
             GeckoJS.Session.add('productsById', byId);
+            GeckoJS.Session.add('productsIndexesById', indexId);
             GeckoJS.Session.add('barcodesIndexes', indexBarcode);
             GeckoJS.Session.add('productsIndexesByCate', indexCate);
             GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
             GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
             GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
-
+            
             /*
             this.log(this.dump(GeckoJS.Session.get('productsById')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
@@ -137,33 +142,100 @@
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroup')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroupAll')));
             */
-            
+
         },
 
-        setProductToSession: function (id, new_product) {
-            
-            // var products = this.getProductsWithSession(true);
+        setProduct: function (id, new_product, useDb) {
+
+            useDb = useDb || false;
+
             var productsById = GeckoJS.Session.get('productsById');
+            var products = GeckoJS.Session.get('products');
+            var indexesById = GeckoJS.Session.get('productsIndexesById');
+            
             var product = null;
 
             if (new_product) {
-                if(!productsById[id]) productsById[id] = {};
+                if(!productsById[id]) {
+
+                    productsById[id] = {};
+                    var newLength = products.push(productsById[id]);
+                    indexesById[id] = (newLength-1);
+                    
+                }
                 product = GREUtils.extend(productsById[id], new_product);
                 delete product._full_object_;
             }
 
+            if (useDb) {
+                this.id = id;
+                this.save(new_product);
+
+                // return product || new_product as product
+                // XXXX find by db ?
+                product = product || new_product;
+            }
+
             return product;
         },
-        
+
+        isExists: function(id, useDb) {
+            return ((this.getProductById(id, useDb) == null) ? false : true );
+        },
+
+        deleteProduct: function (id, useDb) {
+
+            useDb = useDb || false;
+
+            var productsById = GeckoJS.Session.get('productsById');
+            var products = GeckoJS.Session.get('products');
+            var indexesById = GeckoJS.Session.get('productsIndexesById');
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+
+
+            if (this.isExists(id, useDb)) {
+
+                var oldProduct = this.getProductById(id);
+                var oldNo = oldProduct['no'] + "";
+                var oldBarcode = oldProduct['barcode'] + "";
+
+                // remove products session.
+                var index = indexesById[id];
+                products.splice(index, 1);
+
+                // remove byId
+                delete productsById[id];
+                delete indexesById[id];
+
+                // remove barcode/no
+                if (oldNo.length > 0) {
+                    delete barcodesIndexes[oldNo];
+                }
+                if (oldBarcode.length > 0) {
+                    delete barcodesIndexes[oldBarcode];
+                }
+
+                return true;
+            }
+
+            return false;
+            
+        },
+
+        setProductById: function (id, new_product, useDb) {
+
+            return this.setProduct(id, new_product, useDb);
+
+        },
+
         getProductById: function(id, useDb) {
             useDb = useDb || false;
 
-            // var products = this.getProductsWithSession(true);
             var productsById = GeckoJS.Session.get('productsById');
             var product = null;
 
             if (!useDb) {
-                
+
                 product = productsById[id];
 
                 if (!product || product._full_object_ === false) {
@@ -175,18 +247,17 @@
                 var productObj = this.findById(id, {recursive: 0});
 
                 if (productObj) {
-                    product = this.setProductToSession(id, productObj.Product);
+                    product = this.setProduct(id, productObj.Product);
                 }
             }
 
             return product;
-            
+
         },
 
         getProductByNo: function(no, useDb) {
             useDb = useDb || false;
 
-            // var products = this.getProductsWithSession(true);
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var product = null;
@@ -205,11 +276,9 @@
 
             if (useDb) {
                 var productObj = this.find('first', {conditions: "no='"+no+"'", recursive: 0});
+
                 if (productObj) {
-                    var id = productObj.id;
-                    if(!productsById[id]) productsById[id] = {};
-                    product = GREUtils.extend(productsById[id], productObj.Product);
-                    delete product._full_object_;
+                    product = this.setProduct(productObj.id, productObj.Product);
                 }
             }
 
@@ -220,7 +289,6 @@
 
             useDb = useDb || false;
 
-            // var products = this.getProductsWithSession(true);
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var product = null;
@@ -239,18 +307,18 @@
 
             if (useDb) {
                 var productObj = this.find('first', {conditions: "barcode='"+barcode+"'", recursive: 0});
+
                 if (productObj) {
-                    var id = productObj.id;
-                    if(!productsById[id]) productsById[id] = {};
-                    product = GREUtils.extend(productsById[id], productObj.Product);
-                    delete product._full_object_;
+                    product = this.setProduct(productObj.id, productObj.Product);
                 }
             }
 
             return product;
         }
 
+    };
 
-
-    });
+    // GREUtils.define('ViviPOS.ProductModel');
+    // ViviPOS.ProductModel = AppModel.extend({
+    var ProductModel = window.ProductModel = AppModel.extend(__model__);
 } )();

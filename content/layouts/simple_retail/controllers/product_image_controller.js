@@ -4,7 +4,8 @@
 
         name: 'ProductImage',
 
-        uses: false,
+        uses: ['Product'],
+
         _cartController: null,
         _cartTreeList: null,
         _image: null,
@@ -44,7 +45,6 @@
                 image.src = null;
             }
 
-            var productsById = GeckoJS.Session.get('productsById');
             var curTransaction = GeckoJS.Session.get('current_transaction');
             
             if (!curTransaction) {
@@ -53,11 +53,13 @@
 
                 var itemObj = curTransaction.getItemAt(index);
                 var itemId = itemObj.id ;
-                
-                if (!itemId || !productsById[itemId]) {
+
+                var item = this.Product.getProductById(itemId);
+
+                if (!itemId || !item) {
                     imageSrc = '';
                 }else {
-                    imageSrc = this.getImageUrl(productsById[itemId]);
+                    imageSrc = this.getImageUrl(item);
                 }
                 
             }

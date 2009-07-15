@@ -4,6 +4,8 @@
 
         name: 'Plus',
 
+        uses: ['Product'],
+        
         components: ['Tax'],
 
         screenwidth: 800,
@@ -363,7 +365,7 @@
         },
 
         _setPluSet: function () {
-            var productsById = GeckoJS.Session.get('productsById');
+
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var categories = GeckoJS.Session.get('categoriesById');
             var groupsById = GeckoJS.Session.get('plugroupsById');
@@ -390,7 +392,7 @@
                 var linkgroup_id = this._pluset[i].linkgroup_id;
 
                 var product_id = barcodesIndexes[preset_no];
-                var product = product_id ? productsById[product_id] : '';
+                var product = product_id ? this.Product.getProductById(product_id) : '';
 
                 var group = groupsById[linkgroup_id];
                 if (typeof group == 'undefined') {
@@ -983,33 +985,38 @@
             });
             GeckoJS.Session.add('products', products);
             */
+
+            var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+            var indexCate = GeckoJS.Session.get('productsIndexesByCate');
+            var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+            var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+            var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+           
             switch(action) {
                 case 'add':
+                    
                     var products = GeckoJS.Session.get('products');
                     if (products == null) {
                         products = [data];
                         GeckoJS.Session.set('products', products);
                     }
                     else {
-                        products.push(data);
+                        //products.push(data);
                     }
 
-                    var byId = GeckoJS.Session.get('productsById');
-                    byId[data.id] = data;
-                    
+                    // update session 
+                    this.Product.setProduct(data.id, data);
+
                     if (data.barcode.length > 0) {
-                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
                         indexBarcode[data.barcode] = data.id;
                     }
                     
                     if (data.no.length > 0) {
-                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
                         indexBarcode[data.no] = data.id;
                     }
                     
                     if (data.cate_no.length > 0) {
-                        var indexCate = GeckoJS.Session.get('productsIndexesByCate');
-                        var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+                        
                         if (typeof indexCate[data.cate_no] == 'undefined') {
                             indexCate[data.cate_no] = [];
                             indexCateAll[data.cate_no] = [];
@@ -1029,8 +1036,6 @@
                     }
                     
                     if (data.link_group && data.link_group.length > 0) {
-                        var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
-                        var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
                         var groups = data.link_group.split(',');
 
                         groups.forEach(function(group) {
@@ -1048,7 +1053,6 @@
                 case 'modify':
 
                     // remove old barcode
-                    var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
                     if (oldData.barcode.length > 0) {
                         delete indexBarcode[oldData.barcode];
                     }
@@ -1058,8 +1062,6 @@
                         indexBarcode[data.barcode] = data.id;
                     }
 
-                    var indexCate = GeckoJS.Session.get('productsIndexesByCate');
-                    var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
 
                     var indexCateAllArray = indexCateAll[(oldData.cate_no+"")];
                     var indexCateArray = indexCate[(oldData.cate_no+"")];
@@ -1067,7 +1069,6 @@
                     if (oldData.cate_no != data.cate_no || oldData.visible != data.visible) {
 
                         // remove old category
-
                         var index = -1;
                         for (var i = 0; i < indexCateAllArray.length; i++) {
                             if (indexCateAllArray[i] == oldData.id) {
@@ -1133,8 +1134,6 @@
                     }
 
                     // always remove old product group(s) first
-                    var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
-                    var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
                     if (oldData.link_group && oldData.link_group.length > 0) {
 
                         var groups = oldData.link_group.split(',');
@@ -1168,8 +1167,6 @@
 
                     // add new product group(s) if any
                     if (data.link_group && data.link_group.length > 0) {
-                        var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
-                        var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
                         var groups = data.link_group.split(',');
 
                         groups.forEach(function(group) {
@@ -1184,6 +1181,10 @@
                         });
                     }
 
+                    // set product
+                    this.Product.setProduct(data.id, data);
+                    
+                    /*
                     var products = GeckoJS.Session.get('products');
                     // for now, let's loop
                     var index = -1;
@@ -1193,44 +1194,17 @@
                             index = i;
                             break
                         }
-                    }
+                    }*/
 
                     break;
 
                 case 'remove':
 
-                    // update product cache
-                    var products = GeckoJS.Session.get('products');
-                    // for now, let's loop
-                    var index = -1;
-                    for (var i = 0; i < products.length; i++) {
-                        if (products[i].id == data.id) {
-                            index = i;
-                            break
-                        }
-                    }
-                    if (index > -1)
-                        products.splice(index, 1);
-
-                    // update products ID cache
-                    var byId = GeckoJS.Session.get('productsById');
-                    delete byId[data.id];
-
-                    // update barcode cache
-                    if (data.barcode.length > 0) {
-                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
-                        delete indexBarcode[data.barcode];
-                    }
-
-                    if (data.no.length > 0) {
-                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
-                        delete indexBarcode[data.no];
-                    }
+                    // delete product from session.
+                    this.Product.deleteProduct(data.id);
 
                     // update department cache
                     if (data.cate_no.length > 0) {
-                        var indexCate = GeckoJS.Session.get('productsIndexesByCate');
-                        var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
 
                         var indexCateAllArray = indexCateAll[(data.cate_no+"")];
                         var indexCateArray = indexCate[(data.cate_no+"")];
@@ -1261,8 +1235,6 @@
                     // update product group cache
 
                     if (data.link_group && data.link_group.length > 0) {
-                        var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
-                        var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
 
                         var groups = data.link_group.split(',');
 
