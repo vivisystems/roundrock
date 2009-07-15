@@ -9,21 +9,25 @@
 
         useDbConfig: 'default',
 
-        hasOne: [{name: 'StockRecord', 'primaryKey': 'no', 'foreignKey': 'id'}],
+        hasOne: [{
+            name: 'StockRecord',
+            'primaryKey': 'no',
+            'foreignKey': 'id'
+        }],
 
         checkUnique: function() {
-	    return 	this.items;
+            return 	this.items;
         },
 
-        getProducts: function(cached) {
+        getProducts: function(useDb) {
 
-            cached = cached || false;
+            useDb = useDb || false;
 
-            var startTime = Date.now().getTime();
+            //var startTime = Date.now().getTime();
 
             var products = null;
 
-            if (cached) {
+            if (!useDb) {
                 products = GeckoJS.Session.get('products');
             }
 
@@ -31,7 +35,7 @@
 
                 products = this.getDataSource().fetchAll("SELECT id,cate_no,no,barcode,visible,append_empty_btns,link_group FROM products ORDER BY cate_no, display_order, name, no ");
 
-                dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
+            //dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
             }
 
             return products;
@@ -40,7 +44,7 @@
 
         prepareProductsSession: function(products) {
 
-            products = products || this.getProducts(true);
+            products = products || this.getProducts();
 
             if (products && products.length > 0) {
                 GeckoJS.Session.add('products', products);
@@ -124,7 +128,7 @@
                 }
             });
 
-            dump('after product.forEach:  ' + (Date.now().getTime() - startTime) + '\n');
+            //dump('after product.forEach:  ' + (Date.now().getTime() - startTime) + '\n');
 
             GeckoJS.Session.add('productsById', byId);
             GeckoJS.Session.add('productsIndexesById', indexId);
@@ -134,7 +138,7 @@
             GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
             GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
             
-            /*
+        /*
             this.log(this.dump(GeckoJS.Session.get('productsById')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCateAll')));
@@ -145,35 +149,331 @@
 
         },
 
+        updateProductSession: function(mode, product, oldProduct) {
+
+            var products = GeckoJS.Session.get('products');
+            var productsById = GeckoJS.Session.get('productsById');
+            var indexesById = GeckoJS.Session.get('productsIndexesById');
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+            var indexCate = GeckoJS.Session.get('productsIndexesByCate');
+            var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+            var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+            var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+
+            try {
+
+                switch (mode) {
+
+                    case 'create':
+
+                        if (product.barcode.length > 0) {
+                            barcodesIndexes[product.barcode] = product.id;
+                        }
+
+                        if (product.no.length > 0) {
+                            barcodesIndexes[product.no] = product.id;
+                        }
+
+                        if (product.cate_no.length > 0) {
+
+                            if (typeof indexCate[product.cate_no] == 'undefined') {
+                                indexCate[product.cate_no] = [];
+                                indexCateAll[product.cate_no] = [];
+                            }
+                            indexCateAll[(product.cate_no+"")].push((product.id+""));
+
+                            if(GeckoJS.String.parseBoolean(product.visible)) {
+                                indexCate[(product.cate_no+"")].push((product.id+""));
+
+                                // if append_empty_btns
+                                if (product.append_empty_btns && product.append_empty_btns > 0) {
+                                    for (var jj=0; jj<product.append_empty_btns; jj++ ) {
+                                        indexCate[(product.cate_no+"")].push("");
+                                    }
+                                }
+                            }
+                        }
+
+                        if (product.link_group && product.link_group.length > 0) {
+                            var groups = product.link_group.split(',');
+
+                            groups.forEach(function(group) {
+
+                                if (typeof indexLinkGroup[group] == 'undefined') {
+                                    indexLinkGroup[group] = [];
+                                    indexLinkGroupAll[group] = [];
+                                }
+                                indexLinkGroupAll[(group+"")].push((product.id+""));
+                                if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
+                            });
+                        }
+                        break;
+
+                    case 'update':
+
+                        // remove old barcode
+                        if (oldProduct.barcode.length > 0) {
+                            delete barcodesIndexes[oldProduct.barcode];
+                        }
+
+                        // add new barcode
+                        if (product.barcode.length > 0) {
+                            barcodesIndexes[product.barcode] = product.id;
+                        }
+
+                        var indexCateAllArray = indexCateAll[(oldProduct.cate_no+"")];
+                        var indexCateArray = indexCate[(oldProduct.cate_no+"")];
+
+                        if (oldProduct.cate_no != product.cate_no || oldProduct.visible != product.visible) {
+
+                            // remove old category
+                            var index = -1;
+                            for (var i = 0; i < indexCateAllArray.length; i++) {
+                                if (indexCateAllArray[i] == oldProduct.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexCateAllArray.splice(index, 1);
+
+                            var index = -1;
+                            for (var i = 0; i < indexCateArray.length; i++) {
+                                if (indexCateArray[i] == oldProduct.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1) {
+                                indexCateArray.splice(index, 1);
+                            }
+
+                            if (oldProduct.append_empty_btns && oldProduct.append_empty_btns > 0) {
+                                indexCateArray.splice(index, oldProduct.append_empty_btns);
+                            }
+
+                            // add new category
+                            if (product.cate_no.length > 0) {
+                                if (typeof indexCate[product.cate_no] == 'undefined') {
+                                    indexCate[product.cate_no] = [];
+                                    indexCateAll[product.cate_no] = [];
+                                }
+                                indexCateAll[(product.cate_no+"")].push((product.id+""));
+                                if(GeckoJS.String.parseBoolean(product.visible)) {
+                                    indexCate[(product.cate_no+"")].push((product.id+""));
+
+                                    // if append_empty_btns
+                                    if (product.append_empty_btns && product.append_empty_btns > 0) {
+                                        for (var jj=0; jj<product.append_empty_btns; jj++ ) {
+                                            indexCate[(product.cate_no+"")].push("");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // support append empty buttons
+                        if (oldProduct.append_empty_btns != product.append_empty_btns) {
+                            var index = -1;
+                            for (var i = 0; i < indexCateArray.length; i++) {
+                                if (indexCateArray[i] == oldProduct.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1) {
+                                indexCateArray.splice(index+1, oldProduct.append_empty_btns);
+
+                                for(var kk = 0; kk < product.append_empty_btns; kk++) {
+                                    indexCateArray.splice(index+1, 0, "");
+                                }
+
+                            }
+
+                        }
+
+                        // always remove old product group(s) first
+                        if (oldProduct.link_group && oldProduct.link_group.length > 0) {
+
+                            var groups = oldProduct.link_group.split(',');
+
+                            groups.forEach(function(group) {
+
+                                var indexLinkGroupArray = indexLinkGroup[(group+"")];
+                                var indexLinkGroupAllArray = indexLinkGroupAll[(group+"")];
+
+                                var index = -1;
+                                for (var i = 0; i < indexLinkGroupAllArray.length; i++) {
+                                    if (indexLinkGroupAllArray[i] == oldProduct.id) {
+                                        index = i;
+                                        break;
+                                    }
+                                }
+                                if (index > -1)
+                                    indexLinkGroupAllArray.splice(index, 1);
+
+                                var index = -1;
+                                for (var i = 0; i < indexLinkGroupArray.length; i++) {
+                                    if (indexLinkGroupArray[i] == oldProduct.id) {
+                                        index = i;
+                                        break;
+                                    }
+                                }
+                                if (index > -1)
+                                    indexLinkGroupArray.splice(index, 1);
+                            });
+                        }
+
+                        // add new product group(s) if any
+                        if (product.link_group && product.link_group.length > 0) {
+                            var groups = product.link_group.split(',');
+
+                            groups.forEach(function(group) {
+
+                                if (typeof indexLinkGroup[group] == 'undefined') {
+                                    indexLinkGroup[group] = [];
+                                    indexLinkGroupAll[group] = [];
+                                }
+                                indexLinkGroupAll[(group+"")].push((product.id+""));
+                                if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
+
+                            });
+                        }
+                        break;
+
+                    case 'remove':
+
+                        var oldNo = product['no'] + "";
+                        var oldBarcode = product['barcode'] + "";
+
+                        // remove barcode/no
+                        if (oldNo.length > 0) {
+                            delete barcodesIndexes[oldNo];
+                        }
+                        if (oldBarcode.length > 0) {
+                            delete barcodesIndexes[oldBarcode];
+                        }
+
+                        // update department cache
+                        if (product.cate_no.length > 0) {
+
+                            var indexCateAllArray = indexCateAll[(product.cate_no+"")];
+                            var indexCateArray = indexCate[(product.cate_no+"")];
+
+                            var index = -1;
+                            for (var i = 0; i < indexCateAllArray.length; i++) {
+                                if (indexCateAllArray[i] == product.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexCateAllArray.splice(index, 1);
+
+                            var index = -1;
+                            for (var i = 0; i < indexCateArray.length; i++) {
+                                if (indexCateArray[i] == product.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1) {
+                                indexCateArray.splice(index, 1);
+                                indexCateArray.splice(index, product.append_empty_btns);
+                            }
+
+                        }
+
+                        // update product group cache
+                        if (product.link_group && product.link_group.length > 0) {
+
+                            var groups = product.link_group.split(',');
+
+                            groups.forEach(function(group) {
+
+                                var indexLinkGroupArray = indexLinkGroup[(group+"")];
+                                var indexLinkGroupAllArray = indexLinkGroupAll[(group+"")];
+
+                                var index = -1;
+                                for (var i = 0; i < indexLinkGroupAllArray.length; i++) {
+                                    if (indexLinkGroupAllArray[i] == product.id) {
+                                        index = i;
+                                        break;
+                                    }
+                                }
+                                if (index > -1)
+                                    indexLinkGroupAllArray.splice(index, 1);
+
+                                var index = -1;
+                                for (var i = 0; i < indexLinkGroupArray.length; i++) {
+                                    if (indexLinkGroupArray[i] == product.id) {
+                                        index = i;
+                                        break;
+                                    }
+                                }
+                                if (index > -1)
+                                    indexLinkGroupArray.splice(index, 1);
+                            });
+                        }
+                        break;
+                }
+            
+            }catch(e) {
+                this.log('ERROR', 'updateProductSession Error');
+            }
+
+        },
+
+
         setProduct: function (id, new_product, useDb) {
 
             useDb = useDb || false;
 
-            var productsById = GeckoJS.Session.get('productsById');
             var products = GeckoJS.Session.get('products');
+            var productsById = GeckoJS.Session.get('productsById');
             var indexesById = GeckoJS.Session.get('productsIndexesById');
-            
-            var product = null;
 
+            var product = null;
+            var oldProduct = null;
+            
+            var mode = 'create';
+
+
+            if (useDb) {
+                this.id = id;
+                this.save(new_product);
+            }
+            
+            // update session
             if (new_product) {
+
+                // no product in session.
                 if(!productsById[id]) {
 
                     productsById[id] = {};
                     var newLength = products.push(productsById[id]);
                     indexesById[id] = (newLength-1);
+
+                    mode = 'create';
                     
+                }else {
+                    mode = 'update';
+                    // clone old product
+                    oldProduct = GREUtils.extend({}, productsById[id]);
                 }
+
                 product = GREUtils.extend(productsById[id], new_product);
-                delete product._full_object_;
+
+                //  trick , maybe getproduct from db ?
+                // XXXX
+                if(typeof product.name != 'undefined') {
+                    delete product._full_object_;
+                }
             }
 
-            if (useDb) {
-                this.id = id;
-                this.save(new_product);
-
-                // return product || new_product as product
-                // XXXX find by db ?
-                product = product || new_product;
+            // update product relative session
+            if(product) {
+                this.updateProductSession(mode, product, oldProduct);
             }
 
             return product;
@@ -183,37 +483,27 @@
             return ((this.getProductById(id, useDb) == null) ? false : true );
         },
 
-        deleteProduct: function (id, useDb) {
+        removeProduct: function (id, useDb) {
 
             useDb = useDb || false;
 
-            var productsById = GeckoJS.Session.get('productsById');
             var products = GeckoJS.Session.get('products');
+            var productsById = GeckoJS.Session.get('productsById');
             var indexesById = GeckoJS.Session.get('productsIndexesById');
-            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-
 
             if (this.isExists(id, useDb)) {
 
-                var oldProduct = this.getProductById(id);
-                var oldNo = oldProduct['no'] + "";
-                var oldBarcode = oldProduct['barcode'] + "";
+                var oldProduct = GREUtils.extend({}, this.getProductById(id));
 
-                // remove products session.
+                // remove product session.
                 var index = indexesById[id];
                 products.splice(index, 1);
 
-                // remove byId
                 delete productsById[id];
                 delete indexesById[id];
 
-                // remove barcode/no
-                if (oldNo.length > 0) {
-                    delete barcodesIndexes[oldNo];
-                }
-                if (oldBarcode.length > 0) {
-                    delete barcodesIndexes[oldBarcode];
-                }
+                // remove product relative session
+                this.updateProductSession('remove', oldProduct);
 
                 return true;
             }
@@ -244,7 +534,9 @@
             }
 
             if (useDb) {
-                var productObj = this.findById(id, {recursive: 0});
+                var productObj = this.findById(id, {
+                    recursive: 0
+                });
 
                 if (productObj) {
                     product = this.setProduct(id, productObj.Product);
@@ -275,7 +567,10 @@
             }
 
             if (useDb) {
-                var productObj = this.find('first', {conditions: "no='"+no+"'", recursive: 0});
+                var productObj = this.find('first', {
+                    conditions: "no='"+no+"'",
+                    recursive: 0
+                });
 
                 if (productObj) {
                     product = this.setProduct(productObj.id, productObj.Product);
@@ -306,7 +601,10 @@
             }
 
             if (useDb) {
-                var productObj = this.find('first', {conditions: "barcode='"+barcode+"'", recursive: 0});
+                var productObj = this.find('first', {
+                    conditions: "barcode='"+barcode+"'",
+                    recursive: 0
+                });
 
                 if (productObj) {
                     product = this.setProduct(productObj.id, productObj.Product);

@@ -3495,7 +3495,6 @@
                 if (cartItem != null && cartItem.type == 'item') {
                     //xxxx why clone it? so we don't change the default memo
                     memoItem = GREUtils.extend({}, this.Product.getProductById(cartItem.id));
-                    //memoItem = productsById[cartItem.id];
                 }
                 if (memoItem && plu != null && plu != '') memoItem.memo = plu;
             }

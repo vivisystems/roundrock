@@ -49,22 +49,25 @@
             
         },
 
-        updateProducts: function(force_replace) {
+        updateProducts: function(force_reload) {
 
-            force_replace =  force_replace || false;
+            force_reload =  force_reload || false;
 
             this._data = [];
 
             var products = GeckoJS.Session.get('products');
+            var productsById = GeckoJS.Session.get('productsById');
             
-            if (products == null || force_replace) {
+            if (products == null || force_reload) {
                 
                 // find all product and update session.
                 // only minimal datas
                 products = this.Product.getProducts();
 
-                this.Product.prepareProductsSession(products);
+            }
 
+            if (productsById == null || force_reload) {
+                this.Product.prepareProductsSession(products);
             }
 
         },
@@ -157,7 +160,7 @@
 
                 var product = this.Product.getProductById(id);
                 sResult= product[key];
-                this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
+                //this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
             }
             catch (e) {
                 return "";
