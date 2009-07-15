@@ -8,8 +8,8 @@
         
         _listObj: null,
         _listDatas: null,
-        _listAddonObj: null,
-        _listAddonDatas: null,
+        _listSingleTaxObj: null,
+        _listSingleTaxDatas: null,
         _panelView: null,
 
         getListObj: function() {
@@ -19,11 +19,11 @@
             return this._listObj;
         },
 
-        getAddonListObj: function() {
-            if(this._listAddonObj == null) {
-                this._listAddonObj = document.getElementById('addontaxscrollablepanel');
+        getSingleTaxListObj: function() {
+            if(this._listSingleTaxObj == null) {
+                this._listSingleTaxObj = document.getElementById('singletaxscrollablepanel');
             }
-            return this._listAddonObj;
+            return this._listSingleTaxObj;
         },
 		
 	
@@ -132,7 +132,7 @@
                     try {
                         this.Tax.setTax(data.no, data);
 
-                        this.createAddonTaxList();
+                        this.createSingleTaxList();
 
                         this.load(this._listDatas.length);
 
@@ -233,11 +233,11 @@
         update: function () {
             
             var data = this.getInputData();
-            
             if (this._checkData(data, data.id) == 0) {
                 try {
                     if (data.type == 'COMBINE' || data.type =='VAT') {
-                        this.Tax.addCombineTax(data.no, data.combine_tax.split(','));
+                        if (data.combine_tax != null)
+                            this.Tax.addCombineTax(data.no, data.combine_tax.split(','));
                     }
                     delete(data.combine_tax);
                     this.Tax.setTax(data.no, data);
@@ -254,14 +254,14 @@
             
         },
 
-        createAddonTaxList: function () {
+        createSingleTaxList: function () {
 
-            if (this.getAddonListObj() != null) {
-                var taxes = this.Tax.getTaxList('ADDON');
-                var panelView =  new NSIAddonTaxesView(taxes);
-                this.getAddonListObj().datasource = panelView;
+            if (this.getSingleTaxListObj() != null) {
+                var taxes = this.Tax.getTaxList('ADDON').concat(this.Tax.getTaxList('INCLUDED'));
+                var panelView =  new NSISingleTaxesView(taxes);
+                this.getSingleTaxListObj().datasource = panelView;
 
-                this._listAddonDatas = taxes;
+                this._listSingleTaxDatas = taxes;
             }
         },
 

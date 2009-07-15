@@ -16,12 +16,14 @@
     width: 360px;
     min-width: 360px;
     max-width: 360px;
+    overflow: hidden;
 }
 
 .rightPanel {
     width: 440px;
     min-width: 440px;
     max-width: 440px;
+    overflow: hidden;
 }
 
 .panelSpacer {
@@ -48,6 +50,14 @@
     margin-right: 0px;
     margin-top: 2px;
     margin-bottom: 0px;
+}
+
+.roundedContainerBorder {
+    border: 3px solid #a1a1a1;
+    margin: 4px;
+    padding: 4px;
+    -moz-border-radius: 6px;
+    overflow: hidden;
 }
 
 #staticCondimentsPanel vivibutton image {

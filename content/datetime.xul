@@ -35,8 +35,7 @@
                 </tabs>
                 <tabpanels>
                     <tabpanel flex="1">
-                        <vividatetimepicker id="datetime" flex="1" type="embed" class="DateTime"
-                                />
+                        <vividatetimepicker id="datetime" flex="1" type="embed" class="DateTime"/>
                     </tabpanel>
                     <tabpanel flex="1">
                         <vivitimezones id="timezones" flex="1" type="listbox" cols="4" rows="6" popupwidth="720" popupheight="540"

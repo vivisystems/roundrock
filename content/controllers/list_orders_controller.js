@@ -59,7 +59,6 @@
                          'STRFTIME("%Y-%m-%d %H:%M",DATETIME("orders"."transaction_created", "unixepoch", "localtime")) as "Order.transaction_submitted"',
                          'status',
                          'precision_prices',
-
                          'total',
                          'qty_subtotal'],
                 conditions: conditions,
@@ -161,7 +160,7 @@
             }
             var aURL = 'chrome://viviecr/content/view_order.xul';
             var aName = _('Order Details');
-            var aArguments = {index: 'id', value: orderId};
+            var aArguments = {index: 'id', value: orderId, orders: this._orders, position: this._index};
             var posX = 0;
             var posY = 0;
             var width = GeckoJS.Session.get('screenwidth');
@@ -171,6 +170,8 @@
 
             // reload list
             this.load(this._inputData);
+
+            this.validateForm(this._index);
         },
         
         _dbError: function(errno, errstr, errmsg) {

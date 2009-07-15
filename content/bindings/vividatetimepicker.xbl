@@ -579,7 +579,7 @@
                         <!-- xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="S+" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseSecond(1);"/ -->
                     </xul:hbox>
                     <xul:hbox class="TimeLabelBox">
-                        <xul:label value="" anonid="timelabel" xbl:inherits="class,flex,align,dir,pack,orient,style" />
+                        <xul:label value="" anonid="timelabel" xbl:inherits="class=labelClass"/>
                     </xul:hbox>
                     <xul:hbox>
                         <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(-1);"/>

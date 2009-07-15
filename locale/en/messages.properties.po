@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: ../..//content/controllers/setup_wizard_controller.js:486
+#: ../..//content/controllers/setup_wizard_controller.js:488
 #, fuzzy
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-14 09:52+0800\n"
+"POT-Creation-Date: 2009-07-15 20:28+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2058,19 +2058,17 @@ msgstr "Traditional Layout"
 
 msgid "vivipos.fec.registry.layouts.traditional.desc"
 msgstr ""
-"Traditional Layout, suitable for quick service and ECR type applications"
-
-msgid "vivipos.fec.registry.layouts.retail.label"
-msgstr "Retail Layout"
-
-msgid "vivipos.fec.registry.layouts.retail.desc"
-msgstr "Retail Layout (for conceptual demonstration only)"
+"Traditional Layout, suitable for quick service and ECR type applications "
+"with department and PLU keys"
 
 msgid "vivipos.fec.registry.layouts.simple_retail.label"
 msgstr "Simple Retail Layout"
 
 msgid "vivipos.fec.registry.layouts.simple_retail.desc"
-msgstr "Simple Retail Layout (for barcode only and support plu image)"
+msgstr ""
+"Simple Retail Layout (for businesses that rely mostly on barcode scanning. "
+"Product images, if provided, will be displayed when the product is "
+"registered.)"
 
 # #######################################################################
 #
@@ -2534,7 +2532,7 @@ msgstr ""
 
 #: ../..//content/overlay.js:17
 #: ../..//content/controllers/main_controller.js:1086
-#: ../..//content/controllers/setup_wizard_controller.js:678
+#: ../..//content/controllers/setup_wizard_controller.js:682
 msgid "VIVIPOS Setup"
 msgstr ""
 
@@ -3368,10 +3366,12 @@ msgid "Saving Order"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3012
+#: ../..//content/controllers/components/guest_check.js:1134
 msgid "Submit Fail"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:3013
+#: ../..//content/controllers/components/guest_check.js:1135
 msgid "Current order is not saved successfully, please try again..."
 msgstr ""
 
@@ -3490,6 +3490,9 @@ msgid "Order is not queued because it is empty"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4017
+#: ../..//content/controllers/components/guest_check.js:1158
+#: ../..//content/controllers/components/guest_check.js:1233
+#: ../..//content/controllers/components/guest_check.js:1700
 msgid "The order object does not exist [%S]"
 msgstr ""
 
@@ -3531,6 +3534,11 @@ msgid "No change to store"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4176
+#: ../..//content/controllers/components/guest_check.js:419
+#: ../..//content/controllers/components/guest_check.js:621
+#: ../..//content/controllers/components/guest_check.js:653
+#: ../..//content/controllers/components/guest_check.js:681
+#: ../..//content/controllers/components/guest_check.js:1528
 msgid "fatal error!!"
 msgstr ""
 
@@ -3545,28 +3553,28 @@ msgstr ""
 #: ../..//content/controllers/changeuser_controller.js:105
 #: ../..//content/controllers/clockinout_controller.js:285
 #: ../..//content/controllers/ledger_controller.js:310
-#: ../..//content/controllers/list_orders_controller.js:179
+#: ../..//content/controllers/list_orders_controller.js:180
 #: ../..//content/controllers/main_controller.js:933
 #: ../..//content/controllers/main_controller.js:1188
 #: ../..//content/controllers/print_controller.js:1216
-#: ../..//content/controllers/setup_wizard_controller.js:695
+#: ../..//content/controllers/setup_wizard_controller.js:699
 #: ../..//content/controllers/shift_changes_controller.js:965
 #: ../..//content/controllers/stock_records_controller.js:598
 #: ../..//content/controllers/view_journal_controller.js:120
-#: ../..//content/controllers/view_order_controller.js:167
+#: ../..//content/controllers/view_order_controller.js:176
 msgid "Data Operation Error"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:4326
 #: ../..//content/controllers/ledger_controller.js:311
-#: ../..//content/controllers/list_orders_controller.js:180
+#: ../..//content/controllers/list_orders_controller.js:181
 #: ../..//content/controllers/main_controller.js:935
 #: ../..//content/controllers/main_controller.js:1189
-#: ../..//content/controllers/setup_wizard_controller.js:696
+#: ../..//content/controllers/setup_wizard_controller.js:700
 #: ../..//content/controllers/shift_changes_controller.js:966
 #: ../..//content/controllers/stock_records_controller.js:599
 #: ../..//content/controllers/view_journal_controller.js:121
-#: ../..//content/controllers/view_order_controller.js:168
+#: ../..//content/controllers/view_order_controller.js:177
 msgid ""
 "Please restart the machine, and if the problem persists, please contact "
 "technical support immediately."
@@ -4373,7 +4381,17 @@ msgstr ""
 msgid "Job [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/journal_controller.js:134
+#: ../..//content/controllers/journal_controller.js:46
+msgid "Journal Error"
+msgstr ""
+
+#: ../..//content/controllers/journal_controller.js:46
+msgid ""
+"No electronic journal preview template detected.  Electronic journal entry "
+"will not be recorded properly if a preview template is not installed."
+msgstr ""
+
+#: ../..//content/controllers/journal_controller.js:143
 msgid "Journal save error: %"
 msgstr ""
 
@@ -4491,62 +4509,102 @@ msgstr ""
 msgid "Drawer Change OUT"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:72
-#: ../..//content/controllers/view_order_controller.js:47
+#: ../..//content/controllers/list_orders_controller.js:71
 msgid ""
 "An error was encountered while retrieving list of matching orders (error "
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:77
+#: ../..//content/controllers/list_orders_controller.js:76
+#: ../..//content/tpl/order_display_template.tpl:78
+#: ../..//content/tpl/order_template.tpl:65
+#: ../..//content/tpl/order_template_80mm.tpl:42
 msgid "(view)submitted"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:78
+#: ../..//content/controllers/list_orders_controller.js:77
+#: ../..//content/tpl/order_display_template.tpl:47
+#: ../..//content/tpl/order_template.tpl:34
+#: ../..//content/tpl/order_template_58mm.tpl:35
+#: ../..//content/tpl/order_template_80mm.tpl:33
 msgid "(view)order sequence"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:79
+#: ../..//content/controllers/list_orders_controller.js:78
+#: ../..//content/tpl/order_display_template.tpl:49
+#: ../..//content/tpl/order_template.tpl:36
+#: ../..//content/tpl/order_template_58mm.tpl:36
+#: ../..//content/tpl/order_template_80mm.tpl:35
 msgid "(view)order status"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:80
+#: ../..//content/controllers/list_orders_controller.js:79
 msgid "(view)total"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:81
+#: ../..//content/controllers/list_orders_controller.js:80
 msgid "(view)items"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:84
+#: ../..//content/controllers/list_orders_controller.js:83
+#: ../..//content/tpl/order_display_template.tpl:57
+#: ../..//content/tpl/order_template.tpl:44
+#: ../..//content/tpl/order_template_58mm.tpl:33
+#: ../..//content/tpl/order_template_80mm.tpl:34
 msgid "(view)branch"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:84
+#: ../..//content/controllers/list_orders_controller.js:83
+#: ../..//content/tpl/order_display_template.tpl:55
+#: ../..//content/tpl/order_template.tpl:42
+#: ../..//content/tpl/order_template_58mm.tpl:37
+#: ../..//content/tpl/order_template_80mm.tpl:36
 msgid "(view)terminal"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:101
-#: ../..//content/controllers/view_order_controller.js:59
+#: ../..//content/controllers/list_orders_controller.js:100
+#: ../..//content/controllers/view_order_controller.js:69
+#: ../..//content/tpl/journal_template.tpl:18
+#: ../..//content/tpl/order_display_template.tpl:29
+#: ../..//content/tpl/order_template.tpl:19
+#: ../..//content/tpl/order_template.tpl:73
+#: ../..//content/tpl/order_template_58mm.tpl:19
+#: ../..//content/tpl/order_template_80mm.tpl:19
+#: ../..//content/tpl/order_template_80mm.tpl:45
 msgid "(view)voided"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:105
-#: ../..//content/controllers/view_order_controller.js:63
+#: ../..//content/controllers/list_orders_controller.js:104
+#: ../..//content/controllers/view_order_controller.js:73
+#: ../..//content/tpl/journal_template.tpl:14
+#: ../..//content/tpl/order_display_template.tpl:25
+#: ../..//content/tpl/order_template.tpl:15
+#: ../..//content/tpl/order_template_58mm.tpl:15
+#: ../..//content/tpl/order_template_80mm.tpl:15
 msgid "(view)cancelled"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:109
-#: ../..//content/controllers/view_order_controller.js:67
+#: ../..//content/controllers/list_orders_controller.js:108
+#: ../..//content/controllers/view_order_controller.js:77
+#: ../..//content/tpl/journal_template.tpl:6
+#: ../..//content/tpl/order_display_template.tpl:17
+#: ../..//content/tpl/order_template.tpl:7
+#: ../..//content/tpl/order_template_58mm.tpl:7
+#: ../..//content/tpl/order_template_80mm.tpl:7
 msgid "(view)completed"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:113
-#: ../..//content/controllers/view_order_controller.js:71
+#: ../..//content/controllers/list_orders_controller.js:112
+#: ../..//content/controllers/view_order_controller.js:81
+#: ../..//content/tpl/journal_template.tpl:10
+#: ../..//content/tpl/order_display_template.tpl:21
+#: ../..//content/tpl/order_template.tpl:11
+#: ../..//content/tpl/order_template_58mm.tpl:11
+#: ../..//content/tpl/order_template_80mm.tpl:11
 msgid "(view)stored"
 msgstr ""
 
-#: ../..//content/controllers/list_orders_controller.js:163
+#: ../..//content/controllers/list_orders_controller.js:162
 #: ../..//content/reports/controllers/rpt_base_controller.js:448
 msgid "Order Details"
 msgstr ""
@@ -4823,7 +4881,7 @@ msgstr ""
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/merge_check_controller.js:243
+#: ../..//content/controllers/merge_check_controller.js:240
 msgid "The Check# %S has been merged to Check# %S!!"
 msgstr ""
 
@@ -5293,130 +5351,132 @@ msgstr ""
 msgid "Host Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:366
+#: ../..//content/controllers/select_table_controller.js:368
 msgid "Recall Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:366
+#: ../..//content/controllers/select_table_controller.js:368
 msgid "Please select a table to recall..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:366
-#: ../..//content/controllers/select_table_controller.js:385
-#: ../..//content/controllers/select_table_controller.js:406
-#: ../..//content/controllers/select_table_controller.js:415
-#: ../..//content/controllers/select_table_controller.js:422
-#: ../..//content/controllers/select_table_controller.js:429
-#: ../..//content/controllers/select_table_controller.js:470
-#: ../..//content/controllers/select_table_controller.js:485
-#: ../..//content/controllers/select_table_controller.js:501
-#: ../..//content/controllers/select_table_controller.js:509
-#: ../..//content/controllers/select_table_controller.js:518
+#: ../..//content/controllers/select_table_controller.js:368
+#: ../..//content/controllers/select_table_controller.js:387
+#: ../..//content/controllers/select_table_controller.js:408
+#: ../..//content/controllers/select_table_controller.js:417
+#: ../..//content/controllers/select_table_controller.js:424
+#: ../..//content/controllers/select_table_controller.js:431
+#: ../..//content/controllers/select_table_controller.js:472
+#: ../..//content/controllers/select_table_controller.js:487
+#: ../..//content/controllers/select_table_controller.js:503
+#: ../..//content/controllers/select_table_controller.js:511
+#: ../..//content/controllers/select_table_controller.js:520
 msgid "Press CANCEL button to cancel function"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:385
+#: ../..//content/controllers/select_table_controller.js:387
+#: ../..//content/controllers/components/guest_check.js:1684
 msgid "Split Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:385
+#: ../..//content/controllers/select_table_controller.js:387
 msgid "Please select a table to split..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:406
+#: ../..//content/controllers/select_table_controller.js:408
 msgid "Merge Check"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:406
+#: ../..//content/controllers/select_table_controller.js:408
 msgid "Please select a table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:415
+#: ../..//content/controllers/select_table_controller.js:417
 msgid "Merge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:415
+#: ../..//content/controllers/select_table_controller.js:417
 msgid "Please select the master table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:422
+#: ../..//content/controllers/select_table_controller.js:424
 msgid "Unmerge Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:422
+#: ../..//content/controllers/select_table_controller.js:424
 msgid "Please select the table to unmerge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:429
+#: ../..//content/controllers/select_table_controller.js:431
 msgid "Book Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:429
+#: ../..//content/controllers/select_table_controller.js:431
 msgid "Please select a table to book..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:470
-#: ../..//content/controllers/select_table_controller.js:485
+#: ../..//content/controllers/select_table_controller.js:472
+#: ../..//content/controllers/select_table_controller.js:487
 #: ../..//content/bindings/onscreenvfd.xbl:103
 msgid "Change Clerk"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:470
-#: ../..//content/controllers/select_table_controller.js:485
+#: ../..//content/controllers/select_table_controller.js:472
+#: ../..//content/controllers/select_table_controller.js:487
 msgid "Select a table to change service clerk to [ %S ]..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:501
-#: ../..//content/controllers/select_table_controller.js:509
+#: ../..//content/controllers/select_table_controller.js:503
+#: ../..//content/controllers/select_table_controller.js:511
 msgid "Trans Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:501
-#: ../..//content/controllers/select_table_controller.js:509
+#: ../..//content/controllers/select_table_controller.js:503
+#: ../..//content/controllers/select_table_controller.js:511
 msgid "Please select the table to be transfered..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:518
+#: ../..//content/controllers/select_table_controller.js:520
 msgid "Select Table"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:518
+#: ../..//content/controllers/select_table_controller.js:520
 msgid "Please select a table..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:558
+#: ../..//content/controllers/select_table_controller.js:560
 msgid "Data synchronizing, please wait..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:566
+#: ../..//content/controllers/select_table_controller.js:568
+#: ../..//content/controllers/components/guest_check.js:111
 msgid "Failed to execute command (sync_client)."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:610
+#: ../..//content/controllers/select_table_controller.js:612
 msgid "This table is host by Table#%S !!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:640
-#: ../..//content/controllers/select_table_controller.js:649
-#: ../..//content/controllers/select_table_controller.js:694
-#: ../..//content/controllers/select_table_controller.js:807
-#: ../..//content/controllers/select_table_controller.js:841
+#: ../..//content/controllers/select_table_controller.js:642
+#: ../..//content/controllers/select_table_controller.js:672
+#: ../..//content/controllers/select_table_controller.js:717
+#: ../..//content/controllers/select_table_controller.js:831
+#: ../..//content/controllers/select_table_controller.js:865
 msgid "This table is empty!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:811
+#: ../..//content/controllers/select_table_controller.js:835
 msgid "Please select the table to transfer to..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:845
+#: ../..//content/controllers/select_table_controller.js:869
 msgid "Please select an empty table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:859
+#: ../..//content/controllers/select_table_controller.js:883
 msgid "This table had not been hold!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:969
+#: ../..//content/controllers/select_table_controller.js:993
 msgid "All Regions"
 msgstr ""
 
@@ -5426,59 +5486,59 @@ msgstr ""
 msgid "(locale)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:428
+#: ../..//content/controllers/setup_wizard_controller.js:430
 msgid ""
 "An error was encountered while retrieving user accounts (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:464
+#: ../..//content/controllers/setup_wizard_controller.js:466
 msgid "Please enter the administrator password"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:470
+#: ../..//content/controllers/setup_wizard_controller.js:472
 msgid "Password must only contain 0-9"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:476
+#: ../..//content/controllers/setup_wizard_controller.js:478
 msgid "Please enter the password again to confirm"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:482
+#: ../..//content/controllers/setup_wizard_controller.js:484
 msgid "Passwords do not match"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:520
+#: ../..//content/controllers/setup_wizard_controller.js:522
 #: ../..//content/controllers/taxes_controller.js:70
 msgid "(taxType)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:532
+#: ../..//content/controllers/setup_wizard_controller.js:536
 msgid "(taxRateType)"
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:619
+#: ../..//content/controllers/setup_wizard_controller.js:623
 msgid ""
 "An error was encountered while accessing administrator account (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:627
+#: ../..//content/controllers/setup_wizard_controller.js:631
 msgid ""
 "An error was encountered while updating administrator password (error code %"
 "S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:640
+#: ../..//content/controllers/setup_wizard_controller.js:644
 msgid ""
 "An error was encountered while accessing store information (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:653
+#: ../..//content/controllers/setup_wizard_controller.js:657
 msgid ""
 "An error was encountered while updating store information (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/setup_wizard_controller.js:679
+#: ../..//content/controllers/setup_wizard_controller.js:683
 msgid ""
 "Unless you plan to restore the terminal from a previously taken backup, you "
 "are strongly advised to complete the setup process to ensure that the "
@@ -6092,7 +6152,7 @@ msgid "Tax [%S] added successfully"
 msgstr ""
 
 #: ../..//content/controllers/taxes_controller.js:155
-#: ../..//content/controllers/taxes_controller.js:251
+#: ../..//content/controllers/taxes_controller.js:250
 msgid ""
 "An error occurred while adding Tax [%S]; the tax may not have been added "
 "successfully"
@@ -6121,7 +6181,7 @@ msgid ""
 "successfully"
 msgstr ""
 
-#: ../..//content/controllers/taxes_controller.js:247
+#: ../..//content/controllers/taxes_controller.js:246
 msgid "Tax [%S] modified successfully"
 msgstr ""
 
@@ -6255,18 +6315,180 @@ msgstr ""
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:84
-msgid "No orders matching [%S] found"
-msgstr ""
-
-#: ../..//content/controllers/view_order_controller.js:103
+#: ../..//content/controllers/view_order_controller.js:57
 msgid ""
 "An error was encountered while retrieving details of the selected order "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/view_order_controller.js:133
+#: ../..//content/controllers/view_order_controller.js:109
+msgid "Order not found"
+msgstr ""
+
+#: ../..//content/controllers/view_order_controller.js:115
 msgid "Are you sure you want to print this order?"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:135
+#: ../..//content/controllers/components/guest_check.js:140
+msgid ""
+"An error was encountered while attempting to remove all table status records "
+"(error code %S)."
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:199
+msgid "Order amount does not reach Minimum Charge"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:200
+msgid ""
+"The amount of this order does not reach Minimum Charge (%S) yet. Proceed?\n"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:205
+#: ../..//content/controllers/components/guest_check.js:219
+msgid "The amount of this order does not reach Minimum Charge (%S) yet."
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:215
+msgid "Add difference (%S) to finalize this order by Minimum Charge."
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:380
+msgid "Select Number of Customers"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:380
+#: ../..//content/controllers/components/guest_check.js:398
+msgid "Number"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:398
+msgid "Select Table Number"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:434
+msgid "The order has been pre-finalized ; Can not be merged"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:440
+msgid "The order has been prepaid ; Can not be merged"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:453
+msgid "The order has been pre-finalized ; Can not be split"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:459
+msgid "The order has been prepaid ; Can not be split"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:488
+msgid "The order must be stored first!"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:545
+#: ../..//content/controllers/components/guest_check.js:560
+#: ../..//content/controllers/components/guest_check.js:827
+#: ../..//content/controllers/components/guest_check.js:855
+#: ../..//content/controllers/components/guest_check.js:910
+#: ../..//content/controllers/components/guest_check.js:936
+#: ../..//content/controllers/components/guest_check.js:998
+#: ../..//content/controllers/components/guest_check.js:1033
+#: ../..//content/controllers/components/guest_check.js:1206
+#: ../..//content/controllers/components/guest_check.js:1564
+#: ../..//content/controllers/components/guest_check.js:1579
+msgid "This order object does not exist [%S]"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:555
+#: ../..//content/controllers/components/guest_check.js:833
+#: ../..//content/controllers/components/guest_check.js:864
+#: ../..//content/controllers/components/guest_check.js:945
+#: ../..//content/controllers/components/guest_check.js:1014
+#: ../..//content/controllers/components/guest_check.js:1042
+#: ../..//content/controllers/components/guest_check.js:1165
+#: ../..//content/controllers/components/guest_check.js:1240
+#: ../..//content/controllers/components/guest_check.js:1574
+msgid "This order is already finalized!"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:660
+msgid "Check# %S is in use ; Please input another Check#"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:767
+msgid "STORED"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:770
+#: ../..//content/controllers/components/guest_check.js:1267
+#: ../..//content/controllers/components/guest_check.js:1295
+#: ../..//content/controllers/components/guest_check.js:1335
+#: ../..//content/controllers/components/guest_check.js:1371
+msgid "This order has been stored!!"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:838
+msgid "Can not find the Order# (%S)!!"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:860
+#: ../..//content/controllers/components/guest_check.js:915
+#: ../..//content/controllers/components/guest_check.js:941
+#: ../..//content/controllers/components/guest_check.js:1038
+#: ../..//content/controllers/components/guest_check.js:1662
+#: ../..//content/controllers/components/guest_check.js:1708
+msgid "RECALL# %S"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:868
+msgid "Can not find the Check# %S !!"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:919
+#: ../..//content/controllers/components/guest_check.js:1212
+msgid "This order has been submited!!"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:949
+#: ../..//content/controllers/components/guest_check.js:1046
+#: ../..//content/controllers/components/guest_check.js:1246
+msgid "Can not find the Table# %S !!"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:1006
+msgid "RECALLED# %S"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:1009
+msgid "ORDER RECALLED"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:1106
+msgid "Order Checksum Fail"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:1107
+msgid ""
+"Current order checksum fail and may not be submit. Please retry or check "
+"this order."
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:1625
+msgid "The target order object does not exist [%S]"
+msgstr ""
+
+#: ../..//content/controllers/components/guest_check.js:1657
+msgid "The source order object does not exist [%S]"
+msgstr ""
+
+#: ../..//content/controllers/components/package.js:36
+msgid "(location)"
+msgstr ""
+
+#: ../..//content/controllers/components/package.js:52
+msgid "(sector)"
 msgstr ""
 
 #: ../..//content/helpers/nsi_condiments_view.js:145
@@ -8357,6 +8579,202 @@ msgstr ""
 #: ../..//content/reports/tpl/rpt_users/rpt_users_rcp_58mm.tpl:15
 #: ../..//content/reports/tpl/rpt_users/rpt_users_rcp_80mm.tpl:8
 msgid "(rpt)Access Group"
+msgstr ""
+
+#: ../..//content/tpl/journal_template.tpl:28
+#: ../..//content/tpl/order_display_template.tpl:264
+#: ../..//content/tpl/order_template.tpl:295
+msgid "Order sequence [%S] does not exist"
+msgstr ""
+
+#: ../..//content/tpl/journal_template.tpl:30
+#: ../..//content/tpl/order_display_template.tpl:266
+#: ../..//content/tpl/order_template.tpl:297
+msgid "Unable to display order; no order sequence given"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:51
+#: ../..//content/tpl/order_template.tpl:38
+#: ../..//content/tpl/order_template_58mm.tpl:65
+#: ../..//content/tpl/order_template_80mm.tpl:59
+msgid "(view)order destination"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:62
+#: ../..//content/tpl/order_template.tpl:49
+#: ../..//content/tpl/order_template_58mm.tpl:38
+#: ../..//content/tpl/order_template_80mm.tpl:37
+msgid "(view)sale period"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:64
+#: ../..//content/tpl/order_template.tpl:51
+#: ../..//content/tpl/order_template_58mm.tpl:39
+#: ../..//content/tpl/order_template_80mm.tpl:38
+msgid "(view)shift number"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:69
+#: ../..//content/tpl/order_template.tpl:56
+#: ../..//content/tpl/order_template_58mm.tpl:40
+#: ../..//content/tpl/order_template_80mm.tpl:39
+msgid "(view)service clerk"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:71
+#: ../..//content/tpl/order_template.tpl:58
+#: ../..//content/tpl/order_template_80mm.tpl:40
+msgid "(view)opened"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:76
+#: ../..//content/tpl/order_template.tpl:63
+#: ../..//content/tpl/order_template_58mm.tpl:43
+#: ../..//content/tpl/order_template_80mm.tpl:41
+msgid "(view)proceeds clerk"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:84
+#: ../..//content/tpl/order_template.tpl:87
+#: ../..//content/tpl/order_template_80mm.tpl:54
+msgid "(view)customer"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:86
+#: ../..//content/tpl/order_template.tpl:89
+#: ../..//content/tpl/order_template_58mm.tpl:57
+#: ../..//content/tpl/order_template_80mm.tpl:53
+msgid "(view)customer id"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:88
+#: ../..//content/tpl/order_template.tpl:91
+#: ../..//content/tpl/order_template_80mm.tpl:55
+msgid "(view)contact"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:93
+#: ../..//content/tpl/order_template.tpl:96
+#: ../..//content/tpl/order_template_58mm.tpl:63
+#: ../..//content/tpl/order_template_80mm.tpl:58
+msgid "(view)check #"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:95
+#: ../..//content/tpl/order_template.tpl:98
+#: ../..//content/tpl/order_template_58mm.tpl:64
+#: ../..//content/tpl/order_template_80mm.tpl:58
+msgid "(view)table #"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:97
+msgid "(view)customers"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:107
+msgid "(view)Item"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:109
+msgid "(view)Qty"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:111
+msgid "(view)Price"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:112
+msgid "(view)Tax"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:177
+#: ../..//content/tpl/order_template.tpl:168
+#: ../..//content/tpl/order_template_58mm.tpl:105
+#: ../..//content/tpl/order_template_80mm.tpl:95
+msgid "(view)Item Subtotal"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:183
+#: ../..//content/tpl/order_template.tpl:177
+#: ../..//content/tpl/order_template_58mm.tpl:108
+#: ../..//content/tpl/order_template_80mm.tpl:98
+msgid "(view)Item Adjustments"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:202
+#: ../..//content/tpl/order_template.tpl:205
+#: ../..//content/tpl/order_template_58mm.tpl:121
+#: ../..//content/tpl/order_template_80mm.tpl:111
+msgid "(view)Add-on Taxes"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:213
+#: ../..//content/tpl/order_template.tpl:224
+#: ../..//content/tpl/order_template_58mm.tpl:128
+#: ../..//content/tpl/order_template_80mm.tpl:118
+msgid "(view)Promotions"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:219
+#: ../..//content/tpl/order_template.tpl:234
+#: ../..//content/tpl/order_template_58mm.tpl:132
+#: ../..//content/tpl/order_template_80mm.tpl:122
+msgid "(view)Revalue"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:224
+#: ../..//content/tpl/order_template.tpl:240
+#: ../..//content/tpl/order_template_58mm.tpl:135
+#: ../..//content/tpl/order_template_80mm.tpl:125
+msgid "(view)Total"
+msgstr ""
+
+#: ../..//content/tpl/order_display_template.tpl:242
+#: ../..//content/tpl/order_template.tpl:266
+#: ../..//content/tpl/order_template_58mm.tpl:150
+#: ../..//content/tpl/order_template_80mm.tpl:135
+msgid "(view)Payment Subtotal"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:71
+#: ../..//content/tpl/order_template_58mm.tpl:47
+#: ../..//content/tpl/order_template_80mm.tpl:44
+msgid "(view)void clerk"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:78
+#: ../..//content/tpl/order_template_58mm.tpl:52
+#: ../..//content/tpl/order_template_80mm.tpl:48
+msgid "(view)invoice number"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:80
+#: ../..//content/tpl/order_template_58mm.tpl:53
+#: ../..//content/tpl/order_template_80mm.tpl:49
+msgid "(view)invoice count"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:82
+#: ../..//content/tpl/order_template_58mm.tpl:54
+#: ../..//content/tpl/order_template_80mm.tpl:50
+msgid "(view)invoice title"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:100
+#: ../..//content/tpl/order_template_58mm.tpl:66
+#: ../..//content/tpl/order_template_80mm.tpl:59
+msgid "(view)no_of_customers"
+msgstr ""
+
+#: ../..//content/tpl/order_template.tpl:275
+#: ../..//content/tpl/order_template_58mm.tpl:153
+#: ../..//content/tpl/order_template_80mm.tpl:138
+msgid "(view)Change"
+msgstr ""
+
+#: ../..//content/tpl/order_template_58mm.tpl:31
+#: ../..//content/tpl/order_template_80mm.tpl:31
+msgid "Transaction Details"
 msgstr ""
 
 #: /tmp/your_order_report.js:3
