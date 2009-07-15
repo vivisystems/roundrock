@@ -81,8 +81,7 @@
         if (firstrun) {
             if (GREUtils.Dialog.confirm(null,
                                          _('Initial Setup'),
-                                         _('Welcome to VIVIPOS. If you have prepared product data in comma-separated vector (CSV) format, ' +
-                                           'you can easily import them into the terminal. Would you like to go to product import/export screen now?'))) {
+                                         _('Welcome to VIVIPOS. If you have prepared product data in comma-separated vector (CSV) format, you can easily import them into the terminal. Would you like to go to product import/export screen now?'))) {
                 var aURL = 'chrome://viviecr/content/importexport.xul';
                 var aName = _('Initial Setup');
                 var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;

@@ -9,7 +9,6 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/cartlistPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/visible_promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
 
@@ -30,17 +29,22 @@
             <vbox id="leftPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel block-u first">
                 <box id="categoryPanelContainer" flex="0" class="categoryPanel" style="display: none;"/>
                 <box id="productPanelContainer" flex="1" class="productPanel" style="display: none;"/>
-                <box id="cartlistPanelContainer" flex="1"/>
-                <box id="promotionsStatusPanelContainer" flex="0"/>
-                <box id="vfdPanelContainer" flex="1"/>
-                <box id="inputLinePanelContainer" flex="0"/>
+                <box id="cartlistPanelContainer" flex="1" dir="reverse"
+                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px;"/>
+                <box id="vfdPanelContainer" flex="1"
+                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px;"/>
+                <box id="inputLinePanelContainer" flex="0"
+                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px;"/>
+                <box id="visiblePromotionsStatusPanelContainer" flex="0"
+                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px;"/>
             </vbox>
 
             <spacer id="panelSpacer" flex="1"/>
 
             <box id="rightPanel" flex="0" class="rightPanel block-u" orient="vertical">
-                <box id="productImagePanelContainer" flex="1"/>
-                <box id="functionPanelContainer" flex="0" />
+                <box id="productImagePanelContainer" flex="1"
+                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px; background-image: url(images/vivipos_image1.png);"/>
+                <box id="functionPanelContainer" flex="0"/>
             </box>
 
         </box>

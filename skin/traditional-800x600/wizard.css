@@ -305,12 +305,24 @@
     -moz-box-orient: vertical;
     word-wrap: break-word;
 }
+.selBtns image{
+    max-height: 100px;
+}
+.selBtns:active, .selArea button:active,
+.button_vividatetimepicker:active{
+    border: 1px solid #a1a1a1;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 ;
+    -moz-border-bottom-colors: #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
+}
 .selBtns[selected] {
     -moz-appearance: none;
     background: #93cbcc;
     color: white;
     font-weight: bold;
     border: 3px solid;
+    padding: 2px;
     -moz-border-top-colors: #84b6b7 #8abfc0 #90c7c8 ;
     -moz-border-right-colors: #a3d3d4 #9acecf #9dd0d1;
     -moz-border-bottom-colors: #a3d3d4 #9acecf #9dd0d1;
@@ -364,6 +376,11 @@
 }
 .listUp[disabled=false]:active , .listDown[disabled=false]:active {
     background-position:-32px 0;
+    border: 1px solid #a1a1a1;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 ;
+    -moz-border-bottom-colors: #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
 }
 .listUp description, .listDown description {
     display: none;
@@ -381,6 +398,23 @@
 }
 
 /* Sector list */
+.previewArea {
+    padding: 3px;
+    max-height: 327px;
+}
+.previewArea .selBtns {
+    min-width: 135px;
+    min-height: 135px;
+}
+.previewArea .button-box {
+    padding: 0 5px;
+}
+.previewArea .button-text {
+    padding-top: 3px;
+}
+.previewArea #sector_screenshot {
+    margin: 0 20px 5px 20px;
+}
 .sectorlist {
     -moz-appearance: none;
     border: none;
@@ -462,6 +496,7 @@ richlistitem[selected] vbox > label:first-child {
     max-width: 50px ;
     padding: 2px !important;
     overflow: hidden;
+    -moz-user-focus: ignore;
 }
 .DateTime .button-box {
     padding: 1px;
@@ -523,6 +558,15 @@ textbox {
     -moz-border-bottom-colors: #d4d4d4 white white white;
     -moz-border-left-colors: #a7a7a7 #e5e5e5 #ebebeb #f3f3f3;
     min-height: 36px;
+}
+textbox[readonly=true] {
+    -moz-appearance: none;
+    background: white;
+    border: 1px solid ;
+    -moz-border-top-colors: #a7a7a7 ;
+    -moz-border-right-colors: #a7a7a7 ;
+    -moz-border-bottom-colors: #a7a7a7;
+    -moz-border-left-colors: #a7a7a7;
 }
 
 

@@ -10,12 +10,10 @@
         _image: null,
 
         initial: function() {
-
             var self = this;
             
             var cartController = this._cartController = GeckoJS.Controller.getInstanceByName('Cart');
             var cartTreeList = this._cartTreeList = document.getElementById('cartList');
-            var image = this._image = document.getElementById('productImage');
             
             if (cartTreeList) {
                 cartTreeList.addEventListener('select', function(evt){
@@ -37,26 +35,19 @@
         updateImage: function(index) {
 
             var image = this._image = document.getElementById('productImage');
+            var defaultImage = image.getAttribute('defaultImage');
             
-            var imageSrc =  '';
+            var imageSrc = '';
             
-            if (index == -1) {
-                image.src = null;
-            }
-
             var productsById = GeckoJS.Session.get('productsById');
             var curTransaction = GeckoJS.Session.get('current_transaction');
-            
-            if (!curTransaction) {
-                imageSrc = '';
-            }else {
+
+            if (curTransaction) {
 
                 var itemObj = curTransaction.getItemAt(index);
-                var itemId = itemObj.id ;
+                var itemId = itemObj ? itemObj.id : null;
                 
-                if (!itemId || !productsById[itemId]) {
-                    imageSrc = '';
-                }else {
+                if (itemId && productsById[itemId]) {
                     imageSrc = this.getImageUrl(productsById[itemId]);
                 }
                 
@@ -65,10 +56,8 @@
             if (imageSrc.length >0) {
                 image.src = 'file://' + imageSrc;
             }else {
-                image.src = null;
+                image.src = defaultImage;
             }
-            
-
 
         },
 
@@ -88,7 +77,7 @@
                 if (!sPluDir) sPluDir = '/data/images/pluimages/';
                 sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
                 aDstFile = sPluDir + item.no + ".png";
-
+                
                 if (GREUtils.File.exists(aDstFile)) {
                     item[cachedKey] = aDstFile ;
                 }else {
@@ -124,9 +113,10 @@
     if (mainWindow === window) {
         window.addEventListener('load', function() {
             var main = GeckoJS.Controller.getInstanceByName('Main');
-            if(main) {
+            if(false && main) {
                     main.requestCommand('initial', null, 'ProductImage');
             }
+            main.requestCommand('initial', null, 'ProductImage');
 
         }, false);
 
