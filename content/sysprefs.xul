@@ -513,6 +513,7 @@
 
     </prefpane>
 -->
+
 	<panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
 		<vbox flex="1">
 		<groupbox flex="1">

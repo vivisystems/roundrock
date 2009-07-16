@@ -4,12 +4,12 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>viviecr@firich.com.tw</em:id>
         <em:name>VIVIECR</em:name>
-        <em:version>1.2RC1.20090716120023</em:version>
+        <em:version>1.2RC1.20090716135459</em:version>
         <em:description></em:description>
         <em:creator>FIRICH VIVIPOS TEAM</em:creator>
         <em:homepageURL>http://www.firich.com.tw/</em:homepageURL>
         <em:type>2</em:type> <!-- type=extension --> 
-	<em:extensionHash>sha1:3149bed2327e19fb6e8b4e0be41435b99e823b8f</em:extensionHash>
+	<em:extensionHash>sha1:8db292d9ddc75d16f898aecbe78a485f697870e2</em:extensionHash>
 
         <em:targetApplication>
           <!-- Toolkit -->

@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-16 12:31+0800\n"
+"POT-Creation-Date: 2009-07-16 13:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,6 +178,30 @@ msgstr "Electronic Journal"
 
 msgid "vivipos.fec.settings.controlpanels.system.view_system_log.label"
 msgstr "View System Log"
+
+# ###########
+# SYNC
+# ###########
+msgid "sync_settings.hostname"
+msgstr "Master Service"
+
+msgid "sync_settings.sequence_hostname"
+msgstr "Sequence Service"
+
+msgid "sync_settings.table_hostname"
+msgstr "Table Service"
+
+msgid "sync_settings.stock_hostname"
+msgstr "Stock Service"
+
+msgid "sync_settings.ntp_hostname"
+msgstr "NTP Service"
+
+msgid "sync_settings.status.connected"
+msgstr "Connected"
+
+msgid "sync_settings.status.disconnect"
+msgstr "Disconnect"
 
 # #######################################################################
 #
@@ -5506,8 +5530,6 @@ msgid "All Regions"
 msgstr ""
 
 #: ../..//content/controllers/setup_wizard_controller.js:66
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivilocaleslistbox.xbl:143
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivilocaleslistbox.xbl:173
 msgid "(locale)"
 msgstr ""
 
@@ -6591,6 +6613,11 @@ msgstr ""
 
 #: ../..//content/bindings/promotions_status.xbl:122
 msgid "Your Saving"
+msgstr ""
+
+#: ../..//content/bindings/sync_status.xbl:281
+#: ../..//content/bindings/sync_status.xbl:283
+msgid "sync_settings."
 msgstr ""
 
 #: ../..//content/bindings/vivifuncpanelecr.xbl:1916

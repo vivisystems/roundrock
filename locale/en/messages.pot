@@ -183,9 +183,6 @@ msgstr "Table Service"
 msgid "sync_settings.stock_hostname"
 msgstr "Stock Service"
 
-msgid "sync_settings.stock_hostname"
-msgstr "Stock Service"
-
 msgid "sync_settings.ntp_hostname"
 msgstr "NTP Service"
 
