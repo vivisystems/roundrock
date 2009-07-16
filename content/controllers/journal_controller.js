@@ -53,7 +53,12 @@
                     selectedDevices['journal-print-template'] = 1;
                     doSave = true;
                 }
-                this._printTemplate = this._device.getEnabledDevices('receipt', selectedDevices['journal-print-template'])[0].template;
+                var receiptDevice = this._device.getEnabledDevices('receipt', selectedDevices['journal-print-template']);
+                if(receiptDevice[0]) {
+                    this._printTemplate = receiptDevice[0]['template'];
+                } else {
+                    this._printTemplate = receiptDevice['template'];
+                }
 
                 if(selectedDevices['journal-preview-template']) {
                     this._previewTemplate = selectedDevices['journal-preview-template'];

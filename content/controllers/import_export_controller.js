@@ -807,7 +807,7 @@
                             var charSet = document.getElementById('import_export_charset').value;
                             var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
 
-                            alert('charSet: ' + charSet + '\ncharSetValues: ' + charSetValues + '\nusing: ' + charSetValues[charSet]);
+                            //alert('charSet: ' + charSet + '\ncharSetValues: ' + charSetValues + '\nusing: ' + charSetValues[charSet]);
 
                             file.setInputCharset(charSetValues[charSet]);
                             file.open("r");
@@ -1836,7 +1836,7 @@
                 var endTime = parseInt(now);
 
                 var insertRunTime = endTime - checkEndTime;
-                alert('Validation took ' + checkRunTime + ' seconds\n' + 'Model insert took ' + insertRunTime + ' seconds\n' + 'Executed ' + queryCount + ' SQL queries');
+                //alert('Validation took ' + checkRunTime + ' seconds\n' + 'Model insert took ' + insertRunTime + ' seconds\n' + 'Executed ' + queryCount + ' SQL queries');
             }
 
             this._datas[index].imported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
