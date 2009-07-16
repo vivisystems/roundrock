@@ -53,7 +53,6 @@
                     selectedDevices['journal-print-template'] = 1;
                     doSave = true;
                 }
-                alert(this.dump(this._device.getEnabledDevices('receipt', 1)));
                 this._printTemplate = this._device.getEnabledDevices('receipt', selectedDevices['journal-print-template'])[0].template;
 
                 if(selectedDevices['journal-preview-template']) {
@@ -93,7 +92,6 @@
                     evt.preventDefault();
                 }
             } catch (e) {
-                alert(e);
             }
         },
 
@@ -149,11 +147,9 @@
                         prnFile.open("wb");
                         prnFile.write(GREUtils.Gzip.deflate(prnContent));
                         prnFile.close();
-                        alert('hi');
                         this.saveJournal(journal);
                     }
                 } catch (e) {
-                    alert(e);
                     this.log(-('Journal Controller submitOrder error: %', [e]));
                 }
             }
@@ -177,7 +173,6 @@
 
         getSelectedTemplateData: function(txn, preview) {
             var template = preview ? this._previewTemplate : this._printTemplate;
-            alert(template);
             var tpl = this._device.getTemplateData(template, false);
             var order = txn.data;
 
