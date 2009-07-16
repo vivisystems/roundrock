@@ -20,6 +20,10 @@
 
         timeout: 30,
 
+        lastReadyState: 0,
+
+        lastStatus: 0,
+
         autoRestoreFromBackup: true,
 
         getRemoteServiceUrl: function(method) {
@@ -96,6 +100,9 @@
 
             req.onreadystatechange = function (aEvt) {
                 //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                self.lastReadyState = req.readyState;
+                self.lastStatus = req.status;
+
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if (req.status == 200) {

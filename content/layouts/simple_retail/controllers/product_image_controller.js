@@ -106,7 +106,6 @@
             if(cartTreeList) {
 
                 cartTreeList.removeEventListener('select', function(evt){
-                    alert(evt.selectedIndex);
                 }, true);
 
             }
