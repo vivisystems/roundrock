@@ -7,12 +7,15 @@
 "${( 'Start' ) + ':'}","${head.start_time}"
 "${( 'End' ) + ':'}","${head.end_time}"
 
-
-{for category in body}
-"'${category.no}","${category.name}"
-"${_( '(rpt)Product Number' )}","${_( '(rpt)Product Name' )}","${_( '(rpt)Average Price' )}","${_( '(rpt)Quantities Sold' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Net Sales' )}"
-{for item in category.orderItems}
-"'${item.product_no|default:''}","'${item.product_name|default:''}","${item.avg_price}","${item.qty}","${item.gross|default:0|viviFormatPrices:true}","${item.net|default:0|viviFormatPrices:true}"
+{for commitment in body}
+"${_( "(inventory)" + commitment.type )}( ${commitment.created|unixTimeToString} )","${commitment.commitment_memo}"
+"${_( '(rpt)Product Number' )}","${_( '(rpt)Product Name' )}","${_( '(rpt)Barcode' )}","${_( '(rpt)Warehouse' )}","${_( '(rpt)Clerk' )}","${_( '(rpt)Quantity' )}","${_( '(rpt)New Quantity' )}","${_( '(rpt)Purchase Price' )}","${_( '(rpt)Memo' )}"
+{for product in commitment.products}
+"${product.product_no}","${product.name}","${product.barcode}","${product.warehouse}","${product.clerk}","${product.quantity|format:0}","${product.new_quantity|format:0}","{if commitment.type == "procure"}${product.price|default:0|viviFormatPrices:true}{/if}"
+"${product.memo}"
 {/for}
-"${_( '(rpt)Records Found' ) + ': '}","${category.orderItems.length|format:0}","${_( '(rpt)Summary' ) + ':'}","${category.summary.qty|default:0}","${category.summary.gross|default:0|viviFormatPrices:true}","${category.summary.net|viviFormatPrices:true}"
+"${_( '(rpt)Records Found' ) + ': '}","${commitment.products.length|format:0}"
+{if commitment.type == "procure"}
+"${_( "(rpt)Summary" )}","","","","${commitment.summary.quantity|format:0}","${commitment.summary.new_quantity|format:0}","${commitment.summary.price|default:0|viviFormatPrices:true}"
+{/if}
 {/for}

@@ -158,11 +158,12 @@
                 doc.innerHTML = result;
 
                 // adjust the size of paper if the content will protrude the border of the paper.
+                
                 var bodytable =  bw.contentWindow.document.getElementById( this._body_table );
                 var bodydiv = bw.contentWindow.document.getElementById( this._div_id );
                 if ( bodydiv.scrollWidth < bodytable.scrollWidth + 40 )
                    bodydiv.style.width = bodytable.scrollWidth + 40;
-            }catch(e) {}
+            } catch( e ) {}
 
         },
 	    

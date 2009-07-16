@@ -48,9 +48,11 @@
                 var oldProductNo = null;
                 var averageQuantity;
                 var averagePrice;
+                var total;
                 var counter;
                 for ( var i = 0; i <= inventoryRecords.length; i++ ) {
                     record = inventoryRecords[ i ] || {};// the empty object option is for the last record to be pushed into products[ oldProductNo ].records.
+                    record.total = record.price * record.quantity;
                     if ( oldSupplier != record.supplier || oldProductNo != record.product_no ) {
                         if ( i > 0 ) {
                             var arrayToBePushed = [];
@@ -64,12 +66,14 @@
                                 quantity: averageQuantity / counter,
                                 created: _( "(rpt)Average Price" ),
                                 price: averagePrice / counter,
+                                total: total,
                                 average_line: true
                             } );
                         }
                         
                         averageQuantity = record.quantity;
                         averagePrice = record.price;
+                        total = record.total;
                         counter = 1;
                         
                         if ( condition == "product" )
@@ -83,6 +87,7 @@
                         record.fieldForGroupby = "";
                         averageQuantity += record.quantity;
                         averagePrice += record.price;
+                        total += record.total;
                         counter++;
                     }
                     
