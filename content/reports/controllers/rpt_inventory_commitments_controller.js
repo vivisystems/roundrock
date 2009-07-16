@@ -2,7 +2,6 @@
     /**
      * Inventory Commitment Controller
      */
-    //_( "If someone see this while translating, please let Mickey know. Thanks in advance." );
     include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     var __controller__ = {

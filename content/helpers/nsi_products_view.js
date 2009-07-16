@@ -177,7 +177,7 @@
 
         },
 
-        getImageSrcq: function(row, col) {
+        getImageSrc: function(row, col) {
 
             var cachedKey = 'pluimages' ;
             var colKey = col.id;

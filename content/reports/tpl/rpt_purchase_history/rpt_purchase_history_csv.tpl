@@ -6,13 +6,16 @@
 "${( 'Printed Time' ) + ':'}","${foot.gen_time}"
 "${( 'Start' ) + ':'}","${head.start_time}"
 "${( 'End' ) + ':'}","${head.end_time}"
-
-
-{for category in body}
-"'${category.no}","${category.name}"
-"${_( '(rpt)Product Number' )}","${_( '(rpt)Product Name' )}","${_( '(rpt)Average Price' )}","${_( '(rpt)Quantities Sold' )}","${_( '(rpt)Gross Sales' )}","${_( '(rpt)Net Sales' )}"
-{for item in category.orderItems}
-"'${item.product_no|default:''}","'${item.product_name|default:''}","${item.avg_price}","${item.qty}","${item.gross|default:0|viviFormatPrices:true}","${item.net|default:0|viviFormatPrices:true}"
+{for record in body.records}
+{eval}
+    numRecord = record.records.length;
+{/eval}
+""
+"${record.title }"
+"${body.groupby}","${_( '(rpt)Barcode' )}","${_( '(rpt)Quantity' )}","${_( '(rpt)Purchase Time' )}","${_( '(rpt)Purchase Price' )}","${_( '(rpt)Total' )}"
+{for product in record.records}
+{if product.average_line == true}{eval}numRecord--;{/eval}{/if}
+"${product.fieldForGroupby}","${product.barcode}","${product.quantity|default:0|viviFormatPrices:true}","${product.created|unixTimeToString}","${product.price|default:0|viviFormatPrices:true}","${product.total|default:0|viviFormatPrices:true}"
 {/for}
-"${_( '(rpt)Records Found' ) + ': '}","${category.orderItems.length|format:0}","${_( '(rpt)Summary' ) + ':'}","${category.summary.qty|default:0}","${category.summary.gross|default:0|viviFormatPrices:true}","${category.summary.net|viviFormatPrices:true}"
+"${_( '(rpt)Records Found' ) + ': '}${numRecord|format:0}"
 {/for}
