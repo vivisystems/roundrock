@@ -11,8 +11,6 @@
 
         name: 'StockRecords',
 
-        scaffold: false,
-
         uses: ['Product', 'StockRecord'],
 
         _listObj: null,
@@ -51,16 +49,16 @@
             // sync stock record before list, if machine not master.
             this.StockRecord.syncAllStockRecords();
             
-            var stockRecords = this.StockRecord.find('all', {order: 'products.no', recursive: 1});
+            //var stockRecords = this.StockRecord.find('all', {fields: "products." , order: 'products.no', recursive: 1});
+            var sql = "SELECT products.no, products.name, products.barcode, products.min_stock, products.auto_maintain_stock, stock_records.quantity FROM products INNER  JOIN stock_records ON (products.no=stock_records.id) ORDER BY products.no";
+            var stockRecords = this.StockRecord.getDataSource().fetchAll(sql);
 
             stockRecords.forEach(function(stock) {
-                if (stock.Product) {
-                    stock.product_no = stock.Product.no;
-                    stock.product_name = stock.Product.name;
-                    stock.product_barcode = stock.Product.barcode;
-                    stock.min_stock = stock.Product.min_stock;
-                    stock.auto_maintain_stock = stock.Product.auto_maintain_stock;
-                }
+                stock.product_no = stock.no;
+                stock.product_name = stock.name;
+                stock.product_barcode = stock.barcode;
+                stock.min_stock = stock.min_stock;
+                stock.auto_maintain_stock = stock.auto_maintain_stock;
             }, this);
             
             if (this.StockRecord.lastError != 0) {
@@ -76,9 +74,11 @@
                 stockRecord.new_quantity = stockRecord.quantity;
                 stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
                 stockRecord.memo = '';
+                stockRecord.price = null;
                 stockRecordsByProductNo[stockRecord.product_no] = stockRecord;
                 stockRecordsByBarcode[stockRecord.product_barcode] = stockRecord;
             });
+
             this._stockRecordsByProductNo = stockRecordsByProductNo;
             this._stockRecordsByBarcode= stockRecordsByBarcode;
         },
@@ -198,7 +198,9 @@
                 // explicitly invoke restoreFromBackup() before calling fetchAll()
                 this.Product.restoreFromBackup();
                 stockRecordModel.restoreFromBackup();
-                
+
+                var startTime = Date.now().getTime();
+
                 var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON (p.no = s.id) WHERE s.id IS NULL;";
                 var ds = this.Product.getDataSource();
                 var products = ds.fetchAll(sql);
@@ -207,12 +209,18 @@
                                   _('An error was encountered while retrieving products (error code %S).', [ds.lastError]));
                 }
 
+                //dump('load all product:  ' + (Date.now().getTime() - startTime) + '\n');
+
+                //dump('products.length = ' + products.length + '\n');
+                
                 if (products.length > 0) {
                 	if (!stockRecordModel.insertNewRecords(products)) {
                         this._dbError(stockRecordModel.lastError, stockRecordModel.lastErrorString,
                                       _('An error was encountered while inserting product stock records (error code %S).', [stockRecordModel.lastError]));
                     }
                 }
+
+                //dump('after all stock records:  ' + (Date.now().getTime() - startTime) + '\n');
                 
                 // remove the products which no longer exist from stock_record table.
                 sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.id = p.no) WHERE p.no IS NULL;";
@@ -393,12 +401,14 @@
             var product_no = document.getElementById('product_no').value;
             var newQuantity = parseFloat(document.getElementById('new_quantity').value);
             var memo = document.getElementById('memo').value;
+            var price = document.getElementById('price').value;
         	
             if (!isNaN(newQuantity)) {
                 var stockRecord = this._stockRecordsByProductNo[product_no];
                 stockRecord.new_quantity = newQuantity;
                 stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
                 stockRecord.memo = memo;
+                stockRecord.price = price;
 
                 this.updateStock();
             }
@@ -409,7 +419,9 @@
             // check if there are changes to commit
             var changed = false;
             for (var i = 0; !changed && i < this._records.length; i++) {
-                changed = (this._records[i].qty_difference != 0)
+                changed = (this._records[i].qty_difference != 0);
+                changed = changed || this._records[i].memo.length > 0;
+                changed = changed || this._records[i].price;
             }
 
             if (!changed) {
@@ -472,11 +484,11 @@
             var stockRecords = [];
             var user = this.Acl.getUserPrincipal();
         	
-            var records = this._records.filter(function(record) { //When the commit type is not 'inventory', we just save the non-zero rows.
+            var records = (this._records.filter(function(record) { //When the commit type is not 'inventory', we just save the non-zero rows.
                     if (adjustmentReason == "inventory" || record.qty_difference != 0)
                         return true;
                     return false;
-                });
+                })).concat([]);
 
             for (record in records) {
                 stockRecords.push({
@@ -551,11 +563,13 @@
                 if (values[0]) {
                     var product_no = values[0][0] || '';
                     var quantity = values[0][1] || '';
+                    var price = values[0][2] || '';
 
                     var stockRecord = this._stockRecordsByProductNo[product_no] || this._stockRecordsByBarcode[product_no];
                     if (stockRecord) {
                         stockRecord.new_quantity = quantity;
                         stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+                        stockRecord.price = price || null;
                         stockRecord.memo = memo;
                         count++;
                     } else {
@@ -602,9 +616,9 @@
 
         window.addEventListener('load', function() {
             var main = GeckoJS.Controller.getInstanceByName('Main');
-            if(main) main.addEventListener('afterInitial', function() {
+            if(main) {
                 main.requestCommand('initial', null, 'StockRecords');
-            });
+            }
         }, false);
     }
     

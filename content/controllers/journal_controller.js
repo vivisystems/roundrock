@@ -12,6 +12,7 @@
         _printTemplate: "",
         _previewTemplate: "",
         _device: null,
+        deviceSelected: false,
         
         initial: function() {
             if (this._dataPath == null) {
@@ -23,15 +24,8 @@
             cart.addEventListener('afterSubmit', this.submitOrder, this);
             cart.addEventListener('afterVoidSale', this.voidOrder, this);
 
-            this._device = GeckoJS.Controller.getInstanceByName('Devices');
-            var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
-            if (selectedDevices) {
-                var printerChoice = selectedDevices['journal-print-template'];
-
-                this._printTemplate = this._device.getSelectedDevices()['receipt-' + printerChoice + '-template'];
-                this._previewTemplate = selectedDevices['journal-preview-template'];
-            }
-            
+            this.checkDevices();
+            cart.addEventListener('beforeFilter', this.cartStatus, this);
             // add Observer for startTrainingMode event.
             var self = this;
             this.observer = GeckoJS.Observer.newInstance( {
@@ -45,6 +39,65 @@
                     }
                 }
             } ).register();
+        },
+
+        checkDevices: function() {
+            if(!this.deviceSelected) {
+                var doSave = false;
+                var doSuspend = false;
+                this._device = GeckoJS.Controller.getInstanceByName('Devices');
+                var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
+                if(selectedDevices['journal-print-template']) {
+                    selectedDevices['journal-print-template'];
+                } else {
+                    selectedDevices['journal-print-template'] = 1;
+                    doSave = true;
+                }
+                var receiptDevice = this._device.getEnabledDevices('receipt', selectedDevices['journal-print-template']);
+                if(receiptDevice[0]) {
+                    this._printTemplate = receiptDevice[0]['template'];
+                } else {
+                    this._printTemplate = receiptDevice['template'];
+                }
+
+                if(selectedDevices['journal-preview-template']) {
+                    this._previewTemplate = selectedDevices['journal-preview-template'];
+                } else {
+                    var templates = this._device.getTemplates('preview');
+                    if(!templates) {
+                        doSuspend = true;
+                    } else {
+                        for(var tmp in templates) {
+                            this.previewTemplate = selectedDevices['journal-preview-template'] = tmp;
+                            doSave = true;
+                            break;
+                        }
+                    }
+                }
+
+                if(doSave && !doSuspend) {
+                    GeckoJS.Configure.remove('vivipos.fec.settings.selectedDevices');
+                    GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices', GeckoJS.BaseObject.serialize(selectedDevices));
+                }
+                if(!doSuspend) {
+                    this.deviceSelected = true;
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        },
+
+        cartStatus: function(evt) {
+            try {
+                if(!this.checkDevices()) {
+                    GREUtils.Dialog.alert(this.topmostWindow, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed.'));
+                    evt.preventDefault();
+                }
+            } catch (e) {
+            }
         },
 
         voidOrder: function(evt) {
@@ -99,7 +152,6 @@
                         prnFile.open("wb");
                         prnFile.write(GREUtils.Gzip.deflate(prnContent));
                         prnFile.close();
-
                         this.saveJournal(journal);
                     }
                 } catch (e) {

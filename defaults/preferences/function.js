@@ -368,11 +368,6 @@ pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");
 pref("vivipos.fec.registry.function.programmable.tagitem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.tagitem.data", "");
 
-pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.access", "");
-pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.command", "toggleFunctionPanel");
-pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.controller", "Layout");
-pref("vivipos.fec.registry.function.programmable.togglefunctionpanel.data", "");
-
 pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.access", "");
 pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.command", "toggleVirtualKeyboard");
 pref("vivipos.fec.registry.function.programmable.togglevirtualkeyboard.controller", "Main");

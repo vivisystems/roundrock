@@ -43,8 +43,8 @@
                 <caption label="&stockrecords.title;"  class="PageTitle" />
                 <vbox pack="start" flex="1" class="LeftPnl">
                     <vivitree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true"
-                                        headers="&stockrecords.header.no;,&stockrecords.header.barcode;,&stockrecords.header.product;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.qtydifference;,&stockrecords.header.minstock;,&stockrecords.header.memo;"
-                                        fields="product_no,barcode,product_name,quantity,new_quantity,qty_difference,min_stock,memo"
+                                        headers="&stockrecords.header.no;,&stockrecords.header.product;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.qtydifference;"
+                                        fields="product_no,product_name,quantity,new_quantity,qty_difference"
                                         onclick="$do('select',this.selectedIndex, 'StockRecords');"
                                         class="plupnl ListPnl showscrollbar"
                                         scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" />
@@ -62,7 +62,6 @@
                             <column flex="1" />
                             <column flex="1" />
                             <column flex="1" />
-                            <column flex="1" />
                         </columns>
                         <rows>
                             <row>
@@ -71,12 +70,28 @@
                                     <vivitextbox readonly="true" form="productForm" id="product_no" name="product_no" />    
                                 </vbox>
                                 <vbox>
+                                    <label value="&stockrecords.label.barcode;" />
+                                    <vivitextbox readonly="true" form="productForm" id="product_barcode" name="product_barcode" />    
+                                </vbox>
+                                <vbox>
                                     <label value="&stockrecords.label.name;" />
                                     <vivitextbox readonly="true" form="productForm" id="product_name" name="product_name" />    
                                 </vbox>
                                 <vbox>
+                                    <label value="&stockrecords.label.minstock;" />
+                                    <vivitextbox readonly="true" form="productForm" id="min_stock" name="min_stock" />    
+                                </vbox>
+                            </row>
+                            <row>
+                                <vbox>
                                     <label value="&stockrecords.label.newquantity;" control="newquantity"/>
                                     <vivitextbox id="new_quantity" value="" form="productForm" name="new_quantity" maxsize="6"
+                                         oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
+                                         numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
+                                </vbox>
+                                <vbox>
+                                    <label value="&stockrecords.label.price;" control="price"/>
+                                    <vivitextbox id="price" value="" form="productForm" name="price" maxsize="6"
                                          oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
                                          numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
                                 </vbox>

@@ -546,7 +546,34 @@ this.log("doSelectTableFuncs:::inputObj.action:::" + inputObj.action);
 
                 switch (inputObj.action) {
                     case 'RecallCheck':
+                        if (id) {
 this.log("doSelectTableFuncs:::RecallCheck:::");
+                            if (!this._controller.unserializeFromOrder(id)) {
+                                //@todo OSD
+                                NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                                return -1
+                            }
+
+                            var curTransaction = null;
+                            curTransaction = this._controller._getTransaction();
+                            if (curTransaction) {
+
+                                if (curTransaction.data.status == 1) {
+                                    // @todo OSD
+                                    NotifyUtils.warn(_('This order is already finalized!'));
+                                    return -1;
+                                }
+                            } else {
+                                //@todo OSD
+                                NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                                return -1
+                            }
+                        } else if (check_no) {
+                            this.recallByCheckNo(check_no);
+                        } else {
+                            this.recallByTableNo(i);
+                        }
+
                         break;
                     case 'SplitCheck':
 this.log("doSelectTableFuncs:::SplitCheck:::");
@@ -707,7 +734,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
             ord.forEach(function(o){
 
                 var crc = order.getOrderChecksum(o.id);
-
+                
                 if (tableOrderIdx[o.id]) {
                     // if ((crc == tableOrderIdx[o.id].checksum) || ((o.terminal_no == tableOrderIdx[o.id].terminal_no) && (o.modified >= tableOrderIdx[o.id].modified))) {
                     if (crc == tableOrderIdx[o.id].checksum) {
@@ -1371,13 +1398,18 @@ this.log("doSelectTableFuncs:::TransTable:::");
                 var order_id = curTransaction.data.id;
                 
                 if (this._isAllowSplit(curTransaction)) {
-
-                    if (this.splitOrder(order_id, curTransaction.data) == -1) {
+                    var retSplit = this.splitOrder(order_id, curTransaction.data);
+                    if ( retSplit == -1) {
                         // clear recall check from cart
                        //  this._controller.cancel(true);
 
                         return false;
-                    };
+                    } else {
+
+                        // payit
+                        return retSplit;
+
+                    }
                 } else {
                     // this._controller.cancel(true);
                     return false;
@@ -1396,13 +1428,18 @@ this.log("doSelectTableFuncs:::TransTable:::");
                 var order_id = curTransaction.data.id;
 
                 if (this._isAllowSplit(curTransaction)) {
-
-                    if (this.splitOrder(order_id, curTransaction.data) == -1) {
+                    var retSplit = this.splitOrder(order_id, curTransaction.data);
+                    if ( retSplit == -1) {
                         // clear recall check from cart
                        //  this._controller.cancel(true);
 
                         return false;
-                    };
+                    } else {
+
+                        // payit
+                        return retSplit;
+
+                    }
                 } else {
                     // this._controller.cancel(true);
                     return false;
@@ -1421,14 +1458,19 @@ this.log("doSelectTableFuncs:::TransTable:::");
             if (curTransaction) {
                 var order_id = curTransaction.data.id;
 
-                if (this._isAllowSplit(curTransaction)) {
-
-                    if (this.mergeOrder(order_id, curTransaction.data) == -1) {
+                if (this._isAllowMerge(curTransaction)) {
+                    var retMerge = this.mergeOrder(order_id, curTransaction.data);
+                    if ( retMerge == -1) {
                         // clear recall check from cart
                        //  this._controller.cancel(true);
 
                         return false;
-                    };
+                    } else {
+
+                        // payit
+                        return retMerge;
+
+                    }
                 } else {
                     // this._controller.cancel(true);
                     return false;
@@ -1446,14 +1488,19 @@ this.log("doSelectTableFuncs:::TransTable:::");
             if (curTransaction) {
                 var order_id = curTransaction.data.id;
 
-                if (this._isAllowSplit(curTransaction)) {
-
-                    if (this.mergeOrder(order_id, curTransaction.data) == -1) {
+                if (this._isAllowMerge(curTransaction)) {
+                    var retMerge = this.mergeOrder(order_id, curTransaction.data);
+                    if ( retMerge == -1) {
                         // clear recall check from cart
                        //  this._controller.cancel(true);
 
                         return false;
-                    };
+                    } else {
+
+                        // payit
+                        return retMerge;
+
+                    }
                 } else {
                     // this._controller.cancel(true);
                     return false;
@@ -1500,6 +1547,53 @@ this.log("doSelectTableFuncs:::TransTable:::");
             }
 
             return true;
+        },
+
+        doRecallCheck: function(inputObj) {
+            //
+            if (inputObj.ok && inputObj.index) {
+                var tables = inputObj.tables;
+                var id = inputObj.order_id;
+                var check_no = inputObj.check_no;
+                var tableObj = inputObj.tableObj;
+
+                var idx = inputObj.index;
+                // var i = tables[idx].table_no;
+                var table_no = tableObj.table_no;
+
+                // var id = tables[idx].order_id;
+                // var destination = tables[idx].Table.destination;
+                var destination = tableObj.Table.destination;
+
+                if (id) {
+
+                    if (!this._controller.unserializeFromOrder(id)) {
+                        //@todo OSD
+                        NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                        return -1
+                    }
+
+                    var curTransaction = null;
+                    curTransaction = this._controller._getTransaction();
+                    if (curTransaction) {
+
+                        if (curTransaction.data.status == 1) {
+                            // @todo OSD
+                            NotifyUtils.warn(_('This order is already finalized!'));
+                            return -1;
+                        }
+                    } else {
+                        //@todo OSD
+                        NotifyUtils.error(_('This order object does not exist [%S]', [id]));
+                        return -1
+                    }
+                } else if (check_no) {
+                    this.recallByCheckNo(check_no);
+                } else {
+                    this.recallByTableNo(i);
+                }
+                return true;
+            }
         },
 
         unserializeFromOrder: function(order_id) {
@@ -1559,7 +1653,8 @@ this.log("doSelectTableFuncs:::TransTable:::");
 
             GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, 'merge_checks', aFeatures, inputObj);
 
-            if (inputObj.ok) {
+            // if (inputObj.ok) {
+            if (inputObj.ok && inputObj.payit) {
                 // return queues[idx].key;
                 var id = inputObj.id;
                 var check_no = inputObj.check_no;
@@ -1573,6 +1668,12 @@ this.log("doSelectTableFuncs:::TransTable:::");
 
                 // display to onscreen VFD
                 this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
+
+                return 1;
+
+            } else if (inputObj.ok) {
+
+                return 2;
 
             }else {
                 // return null;
@@ -1597,7 +1698,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
 
             GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, aName, aFeatures, inputObj);
 
-            if (inputObj.ok) {
+            if (inputObj.ok && inputObj.payit) {
                 var id = inputObj.id;
 
                 var r = this._controller.unserializeFromOrder(id);
@@ -1614,9 +1715,15 @@ this.log("doSelectTableFuncs:::TransTable:::");
                 // display to onscreen VFD
                 this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
 
+                return 1;
+
+            } else if (inputObj.ok) {
+
+                return 2;
+
             }else {
                 
-                return -1
+                return -1;
             }
         },
 

@@ -336,7 +336,7 @@
                 try {
                     var profPath = GeckoJS.Configure.read('ProfD');
                     // remove existing prefs.js
-                    //GREUtils.File.remove(profPath + '/prefs.js');
+                    GREUtils.File.remove(profPath + '/prefs.js');
 
                     // copy prefs.js to profile directory
                     var prefsPath = GREUtils.File.chromeToPath(datapath + '/user.js');
@@ -347,14 +347,13 @@
 
                     // remove existing database files
                     var systemPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-                    var dbDir = new GeckoJS.Dir(systemPath + '/databases');
-                    dbDir.remove(true);
 
                     // copy database files to database and training directories
                     var dbPath = GREUtils.File.chromeToPath(datapath + '/databases/');
                     var dbs = GeckoJS.Dir.readDir(dbPath, {type: 'f'});
 
                     dbs.forEach(function(f) {
+                        GREUtils.File.remove(systemPath + '/databases/' + f.leafName);
                         GREUtils.File.copy(f.path, systemPath + '/databases/');
                         GREUtils.File.copy(f.path, systemPath + '/training/');
                     })
@@ -525,10 +524,12 @@
                     rate_str = '';
                     threshold_str = '';
 
-                    taxObj.CombineTax.forEach(function(cTax) {
-                        if (rate_type_str) rate_type_str += ',';
-                        rate_type_str += cTax.no;
-                    }, this);
+                    if (taxObj.CombineTax) {
+                        taxObj.CombineTax.forEach(function(cTax) {
+                            if (rate_type_str) rate_type_str += ',';
+                            rate_type_str += cTax.no;
+                        }, this);
+                    }
                 }
                 else {
                     rate_type_str = _('(taxRateType)' + tax.rate_type);
@@ -678,9 +679,7 @@
         cancelSetup: function(data) {
 
             if (GREUtils.Dialog.confirm(this.topmostWindow, _('VIVIPOS Setup'),
-                                        _('Unless you plan to restore the terminal from a previously taken backup, ' +
-                                          'you are strongly advised to complete the setup process to ensure that the terminal operates properly. ' +
-                                          'Are you sure you want to cancel and exit from the setup wizard now?'))) {
+                                        _('Unless you plan to restore the terminal from a previously taken backup, you are strongly advised to complete the setup process to ensure that the terminal operates properly. Are you sure you want to cancel and exit from the setup wizard now?'))) {
                 data.initialized = false;
                 data.cancelled = true;
 

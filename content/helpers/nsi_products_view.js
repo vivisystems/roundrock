@@ -11,6 +11,8 @@
             this._cateView = false;
             this._currentCateIndex = 0;
 
+            this.Product = new ProductModel();
+
             if (GeckoJS.Session.get('products') == null) {
                 this.updateProducts();
             }
@@ -42,110 +44,32 @@
                 if (evt.data.key == 'products') {
                     //self.updateProducts();
                     if(self._cateView) self.setCatePanelIndex(self._currentCateIndex);
-                    self._productsById = GeckoJS.Session.get('productsById');
                 }
             });
             
         },
 
-        updateProducts: function() {
-            this._data = [];
-            var products = GeckoJS.Session.get('products');
+        updateProducts: function(force_reload) {
 
-            if (products == null) {
+            force_reload =  force_reload || false;
+
+            this._data = [];
+
+            var products = GeckoJS.Session.get('products');
+            var productsById = GeckoJS.Session.get('productsById');
+            
+            if (products == null || force_reload) {
+                
                 // find all product and update session.
-                var prodModel = new ProductModel();
-                products = prodModel.find('all', {
-                    order: "cate_no, display_order, name, no",
-                    limit: 3000000
-                });
-                if (products && products.length > 0) GeckoJS.Session.add('products', products);
+                // only minimal datas
+                products = this.Product.getProducts();
+
             }
 
-            var byId ={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
-            
-            if (products) products.forEach(function(product) {
+            if (productsById == null || force_reload) {
+                this.Product.prepareProductsSession(products);
+            }
 
-                // load set items
-                var setItemModel = new SetItemModel();
-                var setitems = setItemModel.findByIndex('all', {
-                    index: 'pluset_no',
-                    value: product.no,
-                    order: 'sequence'
-                });
-
-                product.SetItem = setitems;
-
-                if (product.barcode == null) {
-                    product.barcode = "";
-                }
-
-                if (product.id.length > 0) {
-                    byId[product.id] = product;
-                }
-
-                if (product.barcode.length > 0) {
-                    indexBarcode[product.barcode] = product.id;
-                }
-
-                if (product.no.length > 0 && (product.barcode != product.no) ) {
-                    indexBarcode[product.no] = product.id;
-                }
-                if (product.cate_no.length > 0) {
-                    if (typeof indexCate[product.cate_no] == 'undefined') {
-                        indexCate[product.cate_no] = [];
-                        indexCateAll[product.cate_no] = [];
-                    }
-                    indexCateAll[(product.cate_no+"")].push((product.id+""));
-
-                    /* administractor dont display empty button
-                    if (product.append_empty_btns > 0) {
-                        for (var ii=0; ii<product.append_empty_btns; ii++ ) {
-                            indexCateAll[(product.cate_no+"")].push("");
-                        }
-                    }*/
-
-                    if(GeckoJS.String.parseBoolean(product.visible)) {
-                        indexCate[(product.cate_no+"")].push((product.id+""));
-                        if (product.append_empty_btns && product.append_empty_btns > 0) {
-                            for (var jj=0; jj<product.append_empty_btns; jj++ ) {
-                                indexCate[(product.cate_no+"")].push("");
-                            }
-                        }
-                    }
-                }
-
-                if (product.link_group && product.link_group.length > 0) {
-                    var groups = product.link_group.split(',');
-
-                    groups.forEach(function(group) {
-
-                        if (typeof indexLinkGroup[group] == 'undefined') {
-                            indexLinkGroup[group] = [];
-                            indexLinkGroupAll[group] = [];
-                        }
-                        indexLinkGroupAll[(group+"")].push((product.id+""));
-                        if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
-                        
-                    });
-                }
-            });
-
-            GeckoJS.Session.add('productsById', byId);
-            GeckoJS.Session.add('barcodesIndexes', indexBarcode);
-            GeckoJS.Session.add('productsIndexesByCate', indexCate);
-            GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
-            GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
-            GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
-
-            /*
-            this.log(this.dump(GeckoJS.Session.get('productsById')));
-            this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
-            this.log(this.dump(GeckoJS.Session.get('productsIndexesByCateAll')));
-            this.log(this.dump(GeckoJS.Session.get('barcodesIndexes')));
-            this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroup')));
-            this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroupAll')));
-            */
         },
 
         setCatePanelView: function(cateView) {
@@ -215,20 +139,21 @@
         getCurrentIndexData: function (row) {
             
             var id = this.data[row];
-            var products = GeckoJS.Session.get('productsById');
+
+            return this.Product.getProductById(id);
             
-            return products[id];
         },
 
         getCellValue: function(row, col) {
             
             // this.log(row +","+col);
-            // var products = GeckoJS.Session.get('productsById');
-            var products = GeckoJS.Session.get('productsById');
 
+            var productsById = GeckoJS.Session.get('productsById');
+            
             var sResult;
             var id;
             var key;
+            var product = null;
 
             try {
 
@@ -236,8 +161,14 @@
                 id = this.data[row];
                 if (id == "") return "";
                 
-                sResult= products[id][key];
-                // this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
+                product = productsById[id];
+
+                if (typeof product[key] == 'undefined' && key != 'unavailable' && key != 'soldout' && product._full_object_ == false ) {
+                    product = this.Product.getProductById(id);
+                }
+                sResult= product[key];
+                
+                //this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
             }
             catch (e) {
                 return "";
@@ -248,26 +179,30 @@
 
         getImageSrc: function(row, col) {
 
-            var products = GeckoJS.Session.get('productsById');
-
             var cachedKey = 'pluimages' ;
             var colKey = col.id;
             var pid = this.data[row];
 
             if (pid == "") return null;
-            if(!products[pid]) return null;
-            if (products[pid][cachedKey] === false ) return null;
+
+            var productsById = GeckoJS.Session.get('productsById');
+
+            //var product = this.Product.getProductById(pid);
+            var product = productsById[pid];
+
+            if(!product) return null;
+            if (product[cachedKey] === false ) return null;
 
             var aDstFile = false;
 
-            if (products[pid][cachedKey]) {
+            if (product[cachedKey]) {
 
-                aDstFile = products[pid][cachedKey];
+                aDstFile = product[cachedKey];
                 return 'file://' + aDstFile ;
                 
             }else {
 
-                var val = products[pid][colKey];
+                var val = product[colKey];
                 // var val = this.getCellValue(row, col);
                 var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                 var sPluDir = datapath + "/images/pluimages/";
@@ -277,11 +212,11 @@
                 aDstFile = sPluDir + val + ".png";
 
                 if (GREUtils.File.exists(aDstFile)) {
-                    products[pid][cachedKey] = aDstFile;
+                    product[cachedKey] = aDstFile;
                     return 'file://' + aDstFile  /*+ "?"+ Math.random()*/;
 
                 }else {
-                    products[pid][cachedKey] = false;
+                    product[cachedKey] = false;
                     return null;
                 }
             }

@@ -5,6 +5,8 @@
     var __controller__ = {
 
         name: 'StaticCondiments',
+
+        uses: ['Product'], 
         
         _cartController: null,
         _condGroupId: '',
@@ -48,6 +50,10 @@
                 else $('#staticCondimentsPanelContainer').insertBefore('#'+relation_element);
             }          
 
+            if (!condimentscrollablepanel.vivibuttonpanel) {
+                return;
+            }
+            
             if (supportSoldout) {
                 $('#staticCondimentsPanel-soldout').show();
             }else {
@@ -87,9 +93,11 @@
 
         initialData: function(condGroup) {
 
-            var selectedCondGroup = GeckoJS.Configure.read('vivipos.fec.settings.static_condiments.condiment_group') || condGroup || '';
-
             var condimentscrollablepanel = document.getElementById('staticCondimentsPanel');
+
+            if (!condimentscrollablepanel.vivibuttonpanel) return;
+
+            var selectedCondGroup = GeckoJS.Configure.read('vivipos.fec.settings.static_condiments.condiment_group') || condGroup || '';
 
             var condGroupsById = GeckoJS.Session.get('condGroupsById');
 
@@ -175,9 +183,8 @@
 
             var pluId = event.data.id ;
 
-            var productsById = GeckoJS.Session.get('productsById');
-            var plu = productsById[pluId];
-            if (!productsById || !plu) return;
+            var plu = this.Product.getProductById(pluId);
+            if (!plu) return;
 
             var condGroup = plu['cond_group'];
 

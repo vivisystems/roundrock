@@ -4,7 +4,7 @@
 
         name: 'Stocks',
 
-        uses: [ 'StockRecord' ],
+        uses: [ 'StockRecord', 'Product' ],
 
         syncSettings: null,
         
@@ -21,8 +21,6 @@
             
             this.syncSettings = (new SyncSetting()).read();
             
-            //var productsById = GeckoJS.Session.get('productsById');
-
             // synchronize mode.
             this.StockRecord.syncAllStockRecords();
 
@@ -90,8 +88,7 @@
                      
             var min_stock = parseFloat(item.min_stock);
             var auto_maintain_stock = item.auto_maintain_stock;
-            var productsById = GeckoJS.Session.get('productsById');
-            var product = productsById[item.id];
+            var product = this.Product.getProductById(item.id);
             if (product) {
                 min_stock = parseFloat(product.min_stock);
                 auto_maintain_stock = product.auto_maintain_stock;
@@ -157,9 +154,7 @@
         },
 
         decStock: function( obj ) {
-
-            var productsById = GeckoJS.Session.get('productsById');
-            
+           
             var datas = [];
 
             try {
@@ -167,7 +162,7 @@
                 for ( var o in obj.items ) {
                     var ordItem = obj.items[ o ];
                     //var item = this.Product.findById( ordItem.id );
-                    var item = productsById[ordItem.id];
+                    var item = this.Product.getProductById(ordItem.id);
                     if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
                         
                         datas.push({id: item.no+'', quantity: ordItem.current_qty});

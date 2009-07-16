@@ -10,7 +10,6 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/visible_promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
 
 <overlay id="traditionalLayoutOverlay"
@@ -24,10 +23,10 @@
 
         <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
 
-            <vbox id="leftPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel">
-                <box id="categoryPanelContainer" flex="0" class="categoryPanel" />
-                <box id="productPanelContainer" flex="1" class="productPanel" />
-            </vbox>
+            <box id="leftPanel" flex="0" orient="vertical" class="leftPanel">
+                <box id="categoryPanelContainer" flex="0" />
+                <box id="productPanelContainer" flex="1" />
+            </box>
 
             <spacer id="panelSpacer" flex="1"/>
 

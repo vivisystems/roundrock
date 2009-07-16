@@ -19,6 +19,11 @@
 		  <xul:panel anonid="statusPanel" position="after_start">
 			<xul:label anonid="localIP" value=""/>
 			<xul:label anonid="worldIP" value=""/>
+                        <html:hr />
+                        <html:div>
+                            <html:pre anonid="serviceStatus">
+                            </html:pre>
+                        </html:div>
 		  </xul:panel>
 		</xul:popupset>
 
@@ -33,33 +38,43 @@
 	    <property name="statusPanel" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'statusPanel');" readonly="true"/>
 	    <property name="localIP" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'localIP');" readonly="true"/>
 	    <property name="worldIP" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'worldIP');" readonly="true"/>
+            <property name="serviceStatus" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'serviceStatus');" readonly="true"/>
 
             <xbl:constructor>
                 <![CDATA[
 
                     this.syncSettings = (new SyncSetting()).read();
+
                     this._online  = true;
                     this._process  = false;
 
+                    // prepare hostname
+                    this._hosts = {};
+                    this._services = {};
+                    for (var service in this.syncSettings) {
+                        if (service.indexOf('hostname') != -1) {
+                            this._hosts[this.syncSettings[service]] = false;
+                            this._services[service] = this.syncSettings[service];
+                        }
+                    }
                     if (this.syncSettings && this.syncSettings.active == 1) {
-
-                        // check connection status
-                        this.url = this.syncSettings.protocol + '://' +
-                                    this.syncSettings.hostname + ':' +
-                                    this.syncSettings.port + '/' +
-                                    'syncs/auth/' + 
-                                    this.syncSettings.machine_id ;
 
                         this.username = 'vivipos';
                         this.password = this.syncSettings.password ;
 
                         if (this.syncSettings.hostname == 'localhost' || this.syncSettings.hostname == '127.0.0.1') {
+                            this._hosts[this.syncSettings.hostname] = true;
                             this.setStatus(true);
+                            if(GeckoJS.BaseObject.getKeys(this._hosts).length > 1 ) {
+                                this._onTimer();
+                            }
                         }else {
                             this.setStatus(false); // set offline default
                             this._onTimer();
                         }
                     }
+
+                    /*
                     var self = this;
 
                     this.observer = GeckoJS.Observer.newInstance({
@@ -79,6 +94,7 @@
                             }
                         }
                     }).register();
+                    */
 
 
                 ]]>
@@ -87,18 +103,90 @@
             <xbl:destructor>
                 <![CDATA[
                 if(this.timerId) clearTimeout(this.timerId);
-                this.observer.unregister();
+                //this.observer.unregister();
                 ]]>
             </xbl:destructor>
+
+            <method name="getAuth">
+                <parameter name="hostname" />
+                <body>
+                    <![CDATA[
+
+                        var self = this;
+                        var hosts = this._hosts;
+
+                        if (hostname =='localhost' || hostname == '' || hostname == '127.0.0.1') {
+
+                            // dump('request localhost , return true \n');
+                            hosts[hostname] = true;
+                            self.setStatus(true);
+                            return true;
+                        }
+
+                        // check connection status
+                        var url =   this.syncSettings.protocol + '://' +
+                                    hostname + ':' +
+                                    this.syncSettings.port + '/' +
+                                    'syncs/auth/' +
+                                    this.syncSettings.machine_id ;
+
+
+                        var username = this.username ;
+                        var password = this.password ;
+
+                        var req = new XMLHttpRequest();
+
+                        req.mozBackgroundRequest = true;
+
+                        /* Request Timeout guard */
+                        var timeout = null;
+                        timeout = setTimeout(function() {
+                            clearTimeout(timeout);
+                            req.abort();
+                        }, 15000);
+
+                        /* Start Request with http basic authorization */
+                        req.open('GET', url, true);
+                        req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
+                        //dump('request ' + url + '\n');
+
+                        req.onreadystatechange = function (aEvt) {
+                            if (req.readyState == 4) {
+                                if(req.status == 200) {
+                                    var server_machine_id = req.responseText;
+                                    if(server_machine_id) {
+                                        //dump('hostname: ' + hostname + ' , ' + server_machine_id + '\n');
+                                        hosts[hostname] = true;
+                                        self.setStatus(true);
+                                    }else {
+                                        //dump('hostname: ' + hostname + ' ,  false, status: 200 \n');
+                                        hosts[hostname] = false;
+                                        self.setStatus(false);
+                                    }
+                                }else {
+                                    //dump('hostname: ' + hostname + ' , false, status: ' + req.status +'\n');
+                                    hosts[hostname] = false;
+                                    self.setStatus(false);
+                                }
+                                delete req;
+                            }
+                        };
+                        req.send(null);
+
+                    ]]>
+                </body>
+            </method>
+
 
             <method name="checkStatus">
                 <body>
                     <![CDATA[
 
+                     //dump('checkStatus next 180 secs \n');
                      var self = this;
                      this.timerId = setTimeout(function() {
                         self._onTimer();
-                     }, 60000);
+                     }, 60000*3);
 
                     ]]>
                 </body>
@@ -111,43 +199,15 @@
                     var self = this;
 
                     if(this.timerId) clearTimeout(this.timerId);
-                    
-                    var url = this.url;
-                    var username = this.username ;
-                    var password = this.password ;
 
-                    var req = new XMLHttpRequest();
+                    //dump(GeckoJS.BaseObject.dump(this._hosts));
 
-                    req.mozBackgroundRequest = true;
+                    for (var hostname in this._hosts) {
+                        this.getAuth(hostname);
+                    }
 
-                    /* Request Timeout guard */
-                    var timeout = null;
-                    timeout = setTimeout(function() {
-                        clearTimeout(timeout);
-                        req.abort();
-                    }, 15000);
+                    this.checkStatus();
 
-                    /* Start Request with http basic authorization */
-                    req.open('GET', url, true /*, username, password*/);
-					req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
-
-                    req.onreadystatechange = function (aEvt) {
-                        if (req.readyState == 4) {
-                            if(req.status == 200) {
-                                var server_machine_id = req.responseText;
-                                if(server_machine_id) {
-                                    self.setStatus(true);
-                                }else {
-                                    self.setStatus(false);
-                                }
-                            }else {
-                                self.setStatus(false);
-                            }
-                            delete req;
-                            self.checkStatus(); // register again
-                        }
-                    };
-                    req.send(null);
 
                     ]]>
                 </body>
@@ -167,7 +227,18 @@
                         if (isProcess) {
                             image.src = "chrome://viviecr/skin/icons/sync_process.png";
                         }else {
-                            image.src = "chrome://viviecr/skin/icons/sync_online.png";
+
+                            // check all services online
+                            var allOnLine = true;
+                            for (var hostname in this._hosts) {
+                                allOnLine = allOnLine & this._hosts[hostname] ;
+                            }
+
+                            if (allOnLine) {
+                                image.src = "chrome://viviecr/skin/icons/sync_online.png";
+                            }else {
+                                image.src = "chrome://viviecr/skin/icons/sync_offline.png";
+                            }
                         }
                     }else {
                         if (image.src != 'chrome://viviecr/skin/icons/sync_offline.png') {
@@ -202,8 +273,20 @@
 
 			this.getMyIP();
 		        this.getWorldIP();
-
 			this.statusPanel.openPopup(this.image, "before_end", 0, 0, false, false);
+                        try {
+                            var serviceStatus = this.serviceStatus;
+                            var buf = "";
+                            for (var service in this._services) {
+                                //dump(_('sync_settings.'+service));
+
+                                buf += _('sync_settings.'+service) + ': ' + (this._hosts[this._services[service]] ? _('sync_settings.status.connected') : _('sync_settings.status.disconnect') ) + ' \n';
+                            }
+                            //dump(buf);
+                            this.serviceStatus.textContent = buf;
+                        }catch(e) {
+                            dump(e);
+                        }
 
 			event.stopPropagation();
 

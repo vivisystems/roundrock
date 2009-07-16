@@ -402,6 +402,37 @@
 
         insertNewRecords: function( products ) {
             var r;
+            var created , modified;
+            created = modified = Math.ceil(Date.now().getTime()/1000);
+
+            var sql = "BEGIN; \n" ;
+
+            products.forEach(function( product ) {
+                sql += "INSERT INTO stock_records (id,barcode,warehouse,quantity,created,modified) VALUES (" +
+                    "'" + (product.no||'') + "', " +
+                    "'" + (product.barcode||'') + "', " +
+                    "'" + (product.warehouse||'')+ "', " +
+                    (product.quantity || 0) + ", " +
+                    created + ", " +
+                    modified + "); \n" ;
+            });
+
+            sql+= "COMMIT; ";
+
+            var datasource = this.getDataSource();
+
+            try {
+                datasource.connect();
+                if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
+
+            }catch(e) {
+                this.log( 'ERROR', 'ERROR TO insertNewRecords \n'+ e );
+                return false;
+            }
+
+            return true;
+            
+            /*
             products.forEach(function( product ) {
                 var stockRecord = {
                     id: product.no,
@@ -414,8 +445,8 @@
                     return r;
                 }
             }, this);
-            
-            return true;
+            */
+           
         },
 		
         set: function( stockRecord ) {
@@ -447,12 +478,40 @@
         setAll: function(stockRecords) {
             if (stockRecords.length > 0) {
                 var r;
+
+                var created , modified;
+                created = modified = Math.ceil(Date.now().getTime()/1000);
+
+                var sql = "BEGIN; \n" ;
+
+                stockRecords.forEach(function( stockRecord ) {
+                    sql += "UPDATE stock_records SET warehouse='" + stockRecord.warehouse + "', " +
+                           "quantity=" + stockRecord.quantity + ", " +
+                           "modified="  + modified + " " +
+                           "WHERE id='" + stockRecord.id + "'; \n" ;
+                });
+
+                sql+= "COMMIT; ";
+
+                var datasource = this.getDataSource();
+
+                try {
+                    datasource.connect();
+                    if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
+                }catch(e) {
+                    this.log( 'ERROR', 'ERROR TO setAll \n'+ e );
+                    return false;
+                }
+
+                return true;
+
+                /*
                 for (var stockRecord in stockRecords) {
                     r = this.set(stockRecords[ stockRecord ]);
 					
                     if (!r)
                         return r;
-                }
+                }*/
             }
             return true;
         },

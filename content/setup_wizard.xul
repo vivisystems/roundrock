@@ -256,7 +256,7 @@
                 </vbox>
                 <vbox class="content_area">
                     <label value="&wizard.page.sector;"/>
-            <deck id="sector_deck" selectedIndex="0" flex="1">
+            <deck id="sector_deck" selectedIndex="0"  class="previewArea">
                 <!--richlistbox class="sectorlist" id="sectorlist" flex="1" onselect="$do('selectSector', this.value, 'SetupWizard')" >
                 </richlistbox-->
                 <viviscrollablebuttonpanel id="sectorscrollablepanel" flex="1"
@@ -270,7 +270,7 @@
                 </viviscrollablebuttonpanel>
                 <vbox flex="1">
                     <image id="sector_screenshot" flex="1" src="" onclick="$do('hideSectorScreen', null, 'SetupWizard')"/>
-                    <textbox id="sector_description" readonly="true" multiline="true" rows="3"/>
+                    <textbox id="sector_description" readonly="true" multiline="true" rows="2"/>
                 </vbox>
             </deck>
             </vbox>
@@ -282,8 +282,8 @@
         pageid="store"
 		label="&wizard.page.storeinfo;"
 		description="&wizard.page.storeinfo.description;"
-        onpageshow="$do('checkStoreInformation', null, 'SetupWizard')"
-        onpagehide="$do('advanceOK', null, 'SetupWizard')"
+        onpageshow="$do('checkStoreInformation', null, 'SetupWizard'); VirtualKeyboard.show();"
+        onpagehide="$do('advanceOK', null, 'SetupWizard'); VirtualKeyboard.hide()"
         onpageadvanced="$do('setStoreInformation', null, 'SetupWizard')"
         entry="display"
         advance="update db with store information; keep store information in memory"
@@ -318,16 +318,19 @@
                             <row>
                                 <label value="&storecontact.name;" />
                                 <textbox id="name" value="" form="storecontactForm" name="name"
+                                         onfocus="VirtualKeyboard.show()"
                                          oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
                             </row>
                             <row>
                                 <label value="&storecontact.branch;" />
                                 <textbox id="branch" value="" form="storecontactForm" name="branch"
+                                         onfocus="VirtualKeyboard.show()"
                                          oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
                             </row>
                             <row>
                                 <label value="&storecontact.branch.id;" />
                                 <textbox id="branch_id" value="" form="storecontactForm" name="branch_id"
+                                         onfocus="VirtualKeyboard.show()"
                                          oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
                             </row>
                             <row>
@@ -336,6 +339,7 @@
                                 <label value="(a-z, A-Z, 0-9)" />
                                 </vbox>
                                 <textbox id="terminal_no" value="" form="storecontactForm" name="terminal_no"
+                                         onfocus="VirtualKeyboard.show()"
                                          oninput="$do('checkStoreInformation', null, 'SetupWizard')"/>
                             </row>
                         </rows>
@@ -455,7 +459,7 @@
                 <label value="&wizard.page.tax.defaulttax;"/>
                 <vivitree id="taxlist" flex="1" rows="6"
                           headers="&taxes.code;,&taxes.type;,&taxes.name;,&taxes.rate_type;,&taxes.rate;,&taxes.threshold;"
-                          fields="no,type_str,name,rate_type_str,rate_str,threshold_str" hidecolumnpicker="true"
+                          fields="no,type_str,name,rate_type_str,rate_str,threshold_str"
                           class="showscrollbar">
                 </vivitree>
                 </vbox>

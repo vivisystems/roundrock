@@ -8,6 +8,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/buttons.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -37,12 +38,21 @@
             <hbox>
                 <caption label="&vieworder.title;" class="PageTitle" />
                 <textbox id="order" default="" flex="1" readonly="true"/>
+                <spacer width="5px"/>
+                <button id="next" class="systembtn downbtn"
+                            oncommand="$do('nextOrder', null, 'ViewOrder')" />
+                <spacer width="5px"/>
+                <button id="prev" class="systembtn upbtn"
+                        oncommand="$do('prevOrder', null, 'ViewOrder')" />
+                <spacer width="5px"/>
             </hbox>
+            <spacer height="5px"/>
             <hbox flex="1">
                 <box class="reportbox" flex="1">
                     <html:iframe type="content" id="preview_frame" src="tpl/order_template.html" flex="1"/>
                 </box>
             </hbox>
+            <spacer height="5px"/>
             <hbox flex="1">
                 <hbox class="ToolBar" pack="start" flex="1">
                     <vivibutton id="void" class="BtnDel" label="&vieworder.button.void;"

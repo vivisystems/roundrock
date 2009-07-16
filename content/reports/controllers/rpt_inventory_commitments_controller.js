@@ -1,0 +1,122 @@
+( function() {
+    /**
+     * Inventory Commitment Controller
+     */
+    include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
+
+    var __controller__ = {
+        name: 'RptInventoryCommitments',
+        
+        _fileName: "rpt_inventory_commitments",
+        
+        _setData: function( start, end, type, limit ) {
+            var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
+			
+            start = parseInt( start / 1000, 10 );
+            end = parseInt( end / 1000, 10 );
+
+            var fields = [
+                "ic.id",
+                "ic.type",
+                "ic.memo AS commitment_memo",
+                "ic.created",
+                "ic.supplier",
+                "ir.product_no",
+                "ir.barcode",
+                "ir.warehouse",
+                "ir.quantity",
+                "ir.new_quantity",
+                "ir.price",
+                "ir.clerk",
+                "ir.memo",
+                "p.name"
+            ];
+            
+            var conditions = "ic.created >= '" + start +
+                "' AND ic.created <= '" + end + "'";
+                
+            if ( type != "all" )
+                conditions += " AND ic.type = '" + type + "'";
+
+            var groupby = "";
+
+            var orderby = "ic.created DESC";
+            
+            var sql =
+            	"SELECT " + fields.join( ", " ) + " FROM inventory_commitments ic JOIN inventory_records ir ON ( " +
+            	"ic.id = ir.commitment_id ) JOIN products p ON ( ir.product_no = p.no ) WHERE " + conditions +
+            	" ORDER BY " + orderby + " LIMIT " + limit + ";";
+            var inventoryCommitmentModel = new InventoryCommitmentModel();
+            var records = inventoryCommitmentModel.getDataSource().fetchAll( sql );
+            
+            var inventoryCommitments = {};
+            var old_id = null;
+            var currentCommit;
+            records.forEach( function( record ) {
+                var id = record.id;
+                if ( id != old_id ) {
+                    currentCommit = inventoryCommitments[ id ] = {
+                        created: record.created,
+                        type: record.type,
+                        commitment_memo: record.commitment_memo,
+                        products: [],
+                        summary: {
+                            quantity: 0,
+                            new_quantity: 0,
+                            price: 0
+                        }
+                    };
+                    old_id = id;
+                }
+                
+                currentCommit.summary.quantity += record.quantity;
+                currentCommit.summary.new_quantity += record.new_quantity;
+                currentCommit.summary.price += record.price || 0;
+                    
+                currentCommit.products.push( record );
+            } );
+            
+            this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.inventorycommitments.label' );
+            this._reportRecords.head.start_time = start_str;
+            this._reportRecords.head.end_time = end_str;
+            //this._reportRecords.head.terminal_no = terminalNo;
+		    
+            this._reportRecords.body = inventoryCommitments;
+        },
+
+        _set_reportRecords: function( limit ) {
+            limit = parseInt( limit );
+            if ( isNaN( limit ) || limit <= 0 )
+                limit = this._stdLimit;
+
+            var start = document.getElementById( 'start_date' ).value;
+            var end = document.getElementById( 'end_date' ).value;
+            
+            var type = document.getElementById( 'type' ).value;
+
+            this._setData( start, end, type, limit );
+        },
+        
+        exportCsv: function() {
+            this._super( this, true );
+        },
+
+        load: function() {
+            this._super();
+            
+            var today = new Date();
+            var yy = today.getYear() + 1900;InventoryCommitmentModel
+            var mm = today.getMonth();
+            var dd = today.getDate();
+
+            var start = ( new Date( yy, mm, dd, 0, 0, 0 ) ).getTime();
+            var end = ( new Date( yy, mm, dd + 1, 0, 0, 0 ) ).getTime();
+
+            document.getElementById( 'start_date' ).value = start;
+            document.getElementById( 'end_date' ).value = end;
+        }
+    };
+
+    RptBaseController.extend( __controller__ );
+} )();

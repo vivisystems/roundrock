@@ -239,6 +239,14 @@
             this._readFieldsFromPref();
             var pickedFields = this._pickedFields = [];
             
+            // We have to sort this._selectedFieldIndecies, which is an array, so that the fields can be shown in the order we set in preference file.
+            // However, not sorting it makes ppl possible to determine the order of rendering those fields.
+            /*this._selectedFieldIndecies.sort( function( a, b ) {
+                if ( a > b ) return 1;
+                else if ( a < b ) return -1;
+                return 0;
+            } );*/
+            
             this._selectedFieldIndecies.forEach( function( index ) {
                 pickedFields.push( this._fields_array[ parseInt( index, 10 ) ] );
             }, this );
@@ -412,7 +420,7 @@
                 var fileNamePref;
                 var fileName = inputObj.input1;
                 
-                // flag indicating if we are going to create a new report.
+                // flag indicating if we are going to create a new report. When user try to use a file name other than the original one, a new report will be generated.
                 var isCreatingReport = inputObj.input0 != this._reportPanelPreference.label;
                 
                 if ( isCreatingReport ) {
@@ -499,9 +507,12 @@
             document.getElementById( this._reportWidthTextBoxId ).disabled = true;
             
             // Get preferences from report.js for this report.
-            this._reportPanelPreference = window.arguments[ 0 ];
+            this._reportPanelPreference = GREUtils.extend( {}, window.arguments[ 0 ] );
             
-            if ( this._reportPanelPreference.key == this._preference_key ) { // if it is the root report, say, origin your order report.
+            // remove the ( custom ) marker added in reportPanel.js.
+            this._reportPanelPreference.label = this._reportPanelPreference.label.replace( /^\(\ .*?\ \)/, '' );
+            
+            if ( this._reportPanelPreference.key == this._preference_key ) { // if it is the root report, say, original your order report.
                 document.getElementById( this._removeReportButtonId ).hidden = true;
                 // Use proper report title.
                 this._report_title = _( this._report_title_message );
@@ -521,7 +532,7 @@
             if ( fileName )
                 this._exportedFileName = fileName;
                 
-            // Retrieve field indices.
+            // Retrieve field indices. This array will be unsorted. The order of the elements is just the order user selected it.
             this._selectedFieldIndecies = GeckoJS.BaseObject.unserialize(
                 GeckoJS.Configure.read( this._selected_indices_pref )
             );

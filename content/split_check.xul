@@ -49,10 +49,14 @@
                             </viviscrollabletree>
                         </vbox>
                         <vbox style="width:200px;">
-                            <vbox class="ToolBar2" flex="1">
-                            <button id="btn_split" label="&splitcheck.button.action.split;" disabled="false"  oncommand="$do('splitItems', null, 'SplitCheck');" />
-                            <button id="btn_confirm" label="&splitcheck.button.action.confirm;" disabled="false"  oncommand="$do('confirm', null, 'SplitCheck');" />
-                            <button id="btn_cancel" label="&splitcheck.button.action.cancel;" disabled="false"  oncommand="$do('cancel', null, 'SplitCheck');" />
+                            <vbox class="ToolBar" flex="1">
+                            <button id="btn_split" label="&splitcheck.button.action.split;" class="BtnMod" disabled="false"  oncommand="$do('splitItems', null, 'SplitCheck');" />
+                            <spacer style="height: 15px;" />
+                            <button id="btn_confirm" label="&splitcheck.button.action.confirm;" class="BtnMod" disabled="false"  oncommand="$do('confirm', null, 'SplitCheck');" />
+                            <spacer style="height: 15px;" />
+                            <button id="btn_paythis" label="&splitcheck.button.action.paythis;" class="BtnMod" disabled="false"  oncommand="$do('paythis', 'src', 'SplitCheck');" />
+                            <spacer style="height: 15px;" />
+                            <button id="btn_cancel" label="&splitcheck.button.action.cancel;" class="BtnDel" disabled="false"  oncommand="$do('cancel', null, 'SplitCheck');" />
                             </vbox>
                         </vbox>
                     </hbox>
@@ -90,9 +94,10 @@
                                     class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                                 <spacer flex="1" />
                             </viviscrollabletree>
-                            <vbox class="ToolBar2">
-                                <button id="btn_reverse" label="&splitcheck.button.action.reverse;" disabled="false"  oncommand="$do('reverse', null, 'SplitCheck');" />
-                                <button id="btn_paythis" label="&splitcheck.button.action.paythis;" disabled="false"  oncommand="$do('paythis', null, 'SplitCheck');" />
+                            <vbox class="ToolBar">
+                                <button id="btn_reverse" label="&splitcheck.button.action.reverse;" class="BtnDel" disabled="false"  oncommand="$do('reverse', null, 'SplitCheck');" />
+                                <spacer style="height: 15px;" />
+                                <button id="btn_paythis" label="&splitcheck.button.action.paythis;" class="BtnMod" disabled="false"  oncommand="$do('paythis', null, 'SplitCheck');" />
                             </vbox>
                         </vbox>
                         

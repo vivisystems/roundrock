@@ -11,6 +11,27 @@
 
   <box id="functionPanelContainer" orient="horizontal">
 
+        <!-- begin tools -->
+        <vbox id="toolbar">
+            <spacer flex="1"/>
+            <isoptionenabled id="vkb" option="vivipos.fec.settings.ShowVKIcon" action="display">
+                <vivibutton id="vkb-icon" label=""  oncommand="VirtualKeyboard.toggle();"
+                            class="systoolbtn button-vkb"/>
+            </isoptionenabled>
+            <isoptionenabled id="clockin" option="vivipos.fec.settings.ClockInEnabled" action="display">
+                <vivibutton id="clockin-icon" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
+                            class="systoolbtn clockinout"/>
+            </isoptionenabled>
+            <isoptionenabled id="config" option="vivipos.fec.settings.ShowConfigIcon" action="display">
+                <vivibutton id="config-icon" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
+                            class="systoolbtn options"/>
+            </isoptionenabled>
+            <spacer id="spacer" flex="1"/>
+            <vivibutton id="togglefunctionpanel"  disabled="false" state="false" suspendable="false" label="" action="display" oncommand="$do('toggleFunctionPanel', null, 'Layout');"
+                        class="togglefunctionpanel" />
+        </vbox>
+        <!-- end tools -->
+
         <!-- Begin FuncBtns -->
         <vivifuncpanelecr
             id="functionpanel"
@@ -40,25 +61,5 @@
             />
         <!-- End FuncBtns -->
 
-        <!-- begin tools -->
-        <vbox id="toolbar">
-            <spacer flex="1"/>
-            <isoptionenabled id="vkb" option="vivipos.fec.settings.ShowVKIcon" action="display">
-                <vivibutton id="vkb-icon" label=""  oncommand="VirtualKeyboard.toggle();"
-                            class="systoolbtn button-vkb"/>
-            </isoptionenabled>
-            <isoptionenabled id="clockin" option="vivipos.fec.settings.ClockInEnabled" action="display">
-                <vivibutton id="clockin-icon" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
-                            class="systoolbtn clockinout"/>
-            </isoptionenabled>
-            <isoptionenabled id="config" option="vivipos.fec.settings.ShowConfigIcon" action="display">
-                <vivibutton id="config-icon" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
-                            class="systoolbtn options"/>
-            </isoptionenabled>
-            <spacer id="spacer" flex="1"/>
-            <vivibutton id="togglefunctionpanel"  disabled="false" state="false" suspendable="false" label="" action="display" oncommand="$do('toggleFunctionPanel', null, 'Layout');"
-                        class="togglefunctionpanel" />
-        </vbox>
-        <!-- end tools -->
   </box>
 </overlay>

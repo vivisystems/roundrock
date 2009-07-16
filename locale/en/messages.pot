@@ -167,6 +167,31 @@ msgstr "Electronic Journal"
 msgid "vivipos.fec.settings.controlpanels.system.view_system_log.label"
 msgstr "View System Log"
 
+############
+# SYNC
+############
+
+msgid "sync_settings.hostname"
+msgstr "Master Service"
+
+msgid "sync_settings.sequence_hostname"
+msgstr "Sequence Service"
+
+msgid "sync_settings.table_hostname"
+msgstr "Table Service"
+
+msgid "sync_settings.stock_hostname"
+msgstr "Stock Service"
+
+msgid "sync_settings.ntp_hostname"
+msgstr "NTP Service"
+
+msgid "sync_settings.status.connected"
+msgstr "Connected"
+
+msgid "sync_settings.status.disconnect"
+msgstr "Disconnect"
+
 ########################################################################
 #
 # List of Reports
@@ -232,6 +257,12 @@ msgstr "Employee List"
 
 msgid "vivipos.fec.reportpanels.yourorder.label"
 msgstr "Custom Sales Report"
+
+msgid "vivipos.fec.reportpanels.inventorycommitments.label"
+msgstr "Inventory Commitment"
+
+msgid "vivipos.fec.reportpanels.purchasehistory.label"
+msgstr "Purchase History"
 
 ########################################################################
 #
@@ -1325,18 +1356,6 @@ msgstr "Clock In"
 msgid "clockin.name"
 msgstr "Clock In"
 
-###########################
-# Show/Hide Function Panel
-###########################
-
-msgid "togglefunctionpanel.desc"
-msgstr ""
-"This function allows the operator to show/hide the function panel. "
-"No parameter is needed."
-
-msgid "togglefunctionpanel.label"
-msgstr "Toggle Function Panel"
-
 ##############################
 # Show/Hide Virtual Keyboard
 ##############################
@@ -2125,19 +2144,13 @@ msgid "vivipos.fec.registry.layouts.traditional.label"
 msgstr "Traditional Layout"
 
 msgid "vivipos.fec.registry.layouts.traditional.desc"
-msgstr "Traditional Layout, suitable for quick service and ECR type applications"
-
-msgid "vivipos.fec.registry.layouts.retail.label"
-msgstr "Retail Layout"
-
-msgid "vivipos.fec.registry.layouts.retail.desc"
-msgstr "Retail Layout (for conceptual demonstration only)"
+msgstr "Traditional Layout, suitable for quick service and ECR type applications with department and PLU keys"
 
 msgid "vivipos.fec.registry.layouts.simple_retail.label"
 msgstr "Simple Retail Layout"
 
 msgid "vivipos.fec.registry.layouts.simple_retail.desc"
-msgstr "Simple Retail Layout (for barcode only and support plu image)"
+msgstr "Simple Retail Layout (for businesses that rely mostly on barcode scanning. Product images, if provided, will be displayed when the product is registered.)"
 
 ########################################################################
 #

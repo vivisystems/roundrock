@@ -31,7 +31,8 @@
                         </xul:row>
                     </xul:rows>
                 </xul:grid>
-                <xul:viviscrollabletree class="tree_promotions" anonid="promotions_tree" xbl:inherits="class=treeClass,flex" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
+                <xul:viviscrollabletree class="tree_promotions" anonid="promotions_tree" xbl:inherits="class=treeClass,flex"
+                                hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
                                 primary="name" scrollMode="cursor"
                                 headers="##########,####,###,######"
                                 fields="name,code,matched_items_qty,discount_subtotal"
@@ -72,6 +73,8 @@
             <field name="_apply_items">null</field>
             <field name="_matched_items">null</field>
 
+        	<property name="promotions_tree" onget="return document.getAnonymousElementByAttribute( this, 'anonid', 'promotions_tree' );" readonly="true"/>
+            
             <constructor>
             <![CDATA[
 

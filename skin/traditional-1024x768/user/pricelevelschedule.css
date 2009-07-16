@@ -38,17 +38,6 @@
     min-height: 45px;
     color: #372213;
 }
-.RightPnlB button:hover {
-    border: 3px solid;
-    -moz-border-top-colors: #ede7dc #e6e0d5 #ed145b;
-  -moz-border-right-colors: #d7d1c7 #c0bcb3 #ed145b;
-  -moz-border-bottom-colors: #d7d1c7 #c0bcb3 #ed145b;
-  -moz-border-left-colors: #ede7dc #e6e0d5 #ed145b;
-    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
-    -moz-appearance: none;
-    min-height: 45px;
-    color: #372213;
-}
 .RightPnlB button:active {
     border: 2px solid;
     -moz-border-top-colors: #ede7dc #e6e0d5 #ed145b;

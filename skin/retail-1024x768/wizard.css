@@ -308,6 +308,14 @@
     -moz-box-orient: vertical;
     word-wrap: break-word;
 }
+.selBtns:active, .selArea button:active,
+.button_vividatetimepicker:active{
+    border: 1px solid #a1a1a1;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 ;
+    -moz-border-bottom-colors: #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
+}
 .selBtns[selected] {
     -moz-appearance: none;
     background: #93cbcc;
@@ -367,6 +375,11 @@
 }
 .listUp[disabled=false]:active , .listDown[disabled=false]:active {
     background-position:-40px 0;
+    border: 1px solid #a1a1a1;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 ;
+    -moz-border-bottom-colors: #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
 }
 .listUp description, .listDown description {
     display: none;
@@ -377,6 +390,27 @@
 }
 
 /* Sector list */
+.previewArea {
+    padding: 5px;
+    max-height: 430px;
+}
+.previewArea .selBtns {
+    min-width: 180px;
+    min-height: 180px;
+    max-height: 180px;
+    margin-bottom: 15px;
+}
+
+.previewArea .button-box {
+    padding: 0 5px;
+}
+.previewArea .button-text {
+    padding-top: 20px;
+}
+.previewArea #sector_screenshot {
+    margin: 0 20px 10px 20px;
+}
+
 .sectorlist {
     -moz-appearance: none;
     border: none;
@@ -435,7 +469,8 @@ richlistitem[selected] vbox > label:first-child {
 
 /* data time  */
 .DateTime{
-    
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 .DateTime .textbox-input-box {
     -moz-appearance: none;
@@ -456,8 +491,9 @@ richlistitem[selected] vbox > label:first-child {
     color: #3f3f3f;
     font-size: 9pt;
     min-height: 50px;
-    padding: 2px !important;
+    margin: 0 5px;
     overflow: hidden;
+    -moz-user-focus: ignore;
 }
 .DateTime .button-box {
     padding: 1px;
@@ -469,12 +505,16 @@ richlistitem[selected] vbox > label:first-child {
 
 .datepicker-mainbox {
     font-size: 9pt;
-    min-width: 350px;
+    min-width: 330px;
+}
+.datepicker-mainbox hbox {
+    -moz-box-pack: center;
 }
 .datepicker-monthbox {
     font-size: 11pt;
     padding: 2px;
-    margin-top: 2px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 .datepicker-mainbox grid row {
     padding: 2px;
@@ -494,16 +534,12 @@ richlistitem[selected] vbox > label:first-child {
 }
 .datepicker-grid {
     border: 1px solid #a1a1a1;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-.viviDateTimeLabel {
-    margin: 10px;
-    font-size: 11pt;
-}
 .TimeLabelBox {
     margin: 10px;
-    min-width: 270px;
+    min-width: 250px;
     -moz-box-pack: center;
 }
 
@@ -514,8 +550,13 @@ richlistitem[selected] vbox > label:first-child {
     color: #534741;
 }
 
+.viviDateTimeLabel {
+    margin: 25px 20px 35px 20px;
+    font-size: 11pt;
+}
+
 .TimeBox {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 textbox {
@@ -529,7 +570,15 @@ textbox {
     min-height: 45px;
     font-size: 11pt;
 }
-
+textbox[readonly=true] {
+    -moz-appearance: none;
+    background: white;
+    border: 1px solid ;
+    -moz-border-top-colors: #a7a7a7 ;
+    -moz-border-right-colors: #a7a7a7 ;
+    -moz-border-bottom-colors: #a7a7a7;
+    -moz-border-left-colors: #a7a7a7;
+}
 
 /* scroll  */
 
@@ -559,7 +608,7 @@ treecol > label {
 
 
 treechildren::-moz-tree-row {
-  height: 45px;
+  height: 50px;
   border-bottom: 2px solid #a1a1a1;
 }
 treechildren::-moz-tree-row(selected) {background-color: #93cbcc; }

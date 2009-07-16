@@ -50,6 +50,13 @@
     margin-bottom: 0px;
 }
 
+.roundedContainerBorder {
+    border: 3px solid #a1a1a1;
+    margin: 4px;
+    padding: 4px;
+    -moz-border-radius: 6px;
+}
+
 #staticCondimentsPanel vivibutton image {
     display: none;
 }

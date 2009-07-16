@@ -1202,18 +1202,27 @@
                         lastH = cellHeight - adjustY;
 
                         if (dir == 'reverse') {
+                            /* @irving 07-16-2009: do not reverse key layout
                             lastX = w;
                             lastW = cellWidth;
+                            */
+                            lastX = w - (- hs) - c * (cellWidth - (- hs));
+                            lastW = 0;
                         }
                         else {
                             lastX = 0;
                             lastW = 0;
                         }
+
                         for (var j = 0; j < c; j++) {
+                            /* @irving 07-16-2009: do not reverse key layout
                             if (dir == 'reverse')
                                 posX = lastX - cellWidth;
                             else
                                 posX = lastX + lastW;
+                            */
+                            posX = lastX + lastW;
+
                             var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
 
                             //adjustX = (j < adjustXIndex) ? -1 : 0;
@@ -1224,10 +1233,10 @@
                             if (dir == 'reverse') posX += adjustX;;
 
                             btn.setAttribute('flex', 0);
-                            btn.setAttribute('top', posY);
-                            btn.setAttribute('left', posX);
-                            btn.setAttribute('height', lastH);
-                            btn.setAttribute('width', lastW);
+                            btn.setAttribute('top', Math.floor(posY));
+                            btn.setAttribute('left', Math.floor(posX));
+                            btn.setAttribute('height', Math.floor(lastH));
+                            btn.setAttribute('width', Math.floor(lastW));
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
                             btn.disabled = true;
@@ -1235,10 +1244,13 @@
 
                             lastW -= -hs;
 
+                            /* @irving 07-16-2009: do not reverse key layout
                             if (dir == 'reverse')
                                 lastX = posX - hs;
                             else
                                 lastX = posX;
+                            */
+                            lastX = posX;
                         }
                         // set lastH to the total height
                         lastH -= -vs;
@@ -1268,7 +1280,7 @@
                     var mode = this.getAttribute('mode');
                     var dir = this.dir;
 
-                    //GREUtils.log('[CUSTOM]: rendering custom layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    //GREUtils.log('[CUSTOM]: rendering custom layout with <w=' + w + ',h=' + h + '>,<r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
                     //GREUtils.log('[CUSTOM]: with mode <' + mode + '> and dir <' + dir + '>');
 
                     for (var i = 0; i < layout.length; i++) {
@@ -1306,13 +1318,13 @@
                             posWidth = cellWidth + (width - 1) * (cellWidth + hs);
                             posHeight = cellHeight + (height - 1) * (cellHeight + vs);
 
-                            // GREUtils.log('[CUSTOM]: custom button size <' + posX + ',' + posY + '>x<' + posWidth + ',' + posHeight + '>');
+                            //GREUtils.log('[CUSTOM]: custom button size <' + posX + ',' + posY + '>x<' + posWidth + ',' + posHeight + '>');
 
                             btn.setAttribute('flex', 0);
-                            btn.setAttribute('top', posY);
-                            btn.setAttribute('left', posX);
-                            btn.setAttribute('height', posHeight);
-                            btn.setAttribute('width', posWidth);
+                            btn.setAttribute('top', Math.floor(posY));
+                            btn.setAttribute('left', Math.floor(posX));
+                            btn.setAttribute('height', Math.floor(posHeight));
+                            btn.setAttribute('width', Math.floor(posWidth));
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', row + 'x' + column);
                             btn.disabled = true;

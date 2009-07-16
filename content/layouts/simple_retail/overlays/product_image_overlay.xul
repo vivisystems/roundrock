@@ -10,7 +10,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/layouts/simple_retail/controllers/product_image_controller.js" />
 
     <box id="productImagePanelContainer">
-        <image src="" id="productImage" flex="1" />
+        <image src="" id="productImage" flex="1" class="ProductPhotoMain"/>
     </box>
 
 </overlay>

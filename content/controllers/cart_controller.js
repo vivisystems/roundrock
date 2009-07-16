@@ -5,6 +5,8 @@
         name: 'Cart',
 
         components: ['Tax', 'GuestCheck', 'Barcode'],
+
+        uses: ['Product'],
         
         _cartView: null,
         _queuePool: null,
@@ -19,6 +21,7 @@
         _decStockBackUp: null,
 
         beforeFilter: function(evt) {
+
             var cmd = evt.data;
             if (cmd != 'cancel') {
                 this._lastCancelInvoke = false;
@@ -133,7 +136,6 @@
         beforeAddItem: function (evt) {
             var item = evt.data;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var setItemsStockStatus = 1;
             var setItemsAgeVerificationRequired = 0;
@@ -172,7 +174,7 @@
                 setItems = item.SetItem;
                 for (var i = 0; i < setItems.length; i++) {
                     var productId = barcodesIndexes[setItems[i].preset_no];
-                    var product = productsById[productId];
+                    var product = this.Product.getProductById(productId);
                     if (product && product.age_verification) {
                         setItemsAgeVerificationRequired = 1;
                         break;
@@ -188,7 +190,7 @@
             // if set items are present, check each one individually
             setItems.forEach(function(setitem) {
                 var productId = barcodesIndexes[setitem.preset_no];
-                var product = productsById[productId];
+                var product = this.Product.getProductById(productId);
                 if (product) {
                     if (!cart._returnMode && !cart.checkStock('addItem', sellQty * setitem.quantity, product, false)) {
 
@@ -207,7 +209,7 @@
                 else if (setitem.linkgroup_id) {
                     setItemSelectionRequired = true;
                 }
-            });
+            }, this);
             //
             // @irving: 4/9/2009 no reason to disallow return of product sets;
             /*
@@ -469,11 +471,8 @@
 
             // locate product
             if (!exit) {
-                var productsById = GeckoJS.Session.get('productsById');
-                var plu;
-                if (productsById) {
-                    plu = productsById[itemTrans.id];
-                }
+
+                var plu = this.Product.getProductById(itemTrans.id);
 
                 if (!plu) {
                     // sale department?
@@ -781,8 +780,7 @@
             var plusetDispIndex = txn.getDisplayIndexByIndex(item.index);
 
             // get product set definition
-            var productsById = GeckoJS.Session.get('productsById');
-            var product = productsById[item.id];
+            var product = this.Product.getProductById(item.id);
 
             // assign each cart set item into product set
             var pluset = product.SetItem;
@@ -912,7 +910,6 @@
 
             }
 
-            var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 
             var event = { 
@@ -928,7 +925,7 @@
                 NotifyUtils.warn(_('Product number/barcode [%S] not found', [barcode]));
             }else {
                 var id = barcodesIndexes[barcode];
-                var product = productsById[id];
+                var product = this.Product.getProductById(id);
                 event.product = product;
             }
             this.dispatchEvent('beforeItemByBarcode', event);
@@ -2910,47 +2907,6 @@
             
             if(oldTransaction == null) return false;
 
-            //var submitStatus = parseInt(oldTransaction.submit(status));
-            //return;
-
-            // make sure the order has not yet been voided or submitted
-            var orderModel = new OrderModel();
-            var existingOrder = orderModel.findById(oldTransaction.data.id, 0, "id,status");
-            if (parseInt(orderModel.lastError) != 0) {
-                this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                    _('An error was encountered while retrieving transaction record (error code %S).', [orderModel.lastError]));
-                return false;
-            }
-
-            if (existingOrder && existingOrder.status != 2) {
-                oldTransaction.data.status = existingOrder.status;
-                var statusStr;
-                switch(parseInt(existingOrder.status)) {
-                    case 1:
-                        statusStr = _('completed');
-                        break;
-
-                    case 2:
-                        statusStr = _('stored');
-                        break;
-
-                    case -1:
-                        statusStr = _('cancelled');
-                        break;
-
-                    case -2:
-                        statusStr = _('voided');
-                        break;
-
-                    default:
-                        statusStr = existingOrder.status;
-                        break;
-                }
-                GREUtils.Dialog.alert(this.topmostWindow,
-                    _('Order Finalization'),
-                    _('Current order is no longer available for finalization (status: %S)', [statusStr]));
-                return false;
-            }
             if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) {
                 GREUtils.Dialog.alert(this.topmostWindow,
@@ -2959,7 +2915,6 @@
                 return false;
             }
 
-
             // get checksum if recall == 2
             if (oldTransaction.data.recall == 2) {
                 //
@@ -2967,14 +2922,15 @@
 
                 if (tableOrderObj.length <= 0) return false;
 
+                var orderModel = new OrderModel();
                 var crc = orderModel.getOrderChecksum(oldTransaction.data.id);
                 // if (crc != tableOrderObj[0].TableOrder.checksum) {
                 // if ((crc != tableOrderObj[0].TableOrder.checksum) && !((oldTransaction.data.terminal_no == tableOrderObj[0].TableOrder.terminal_no) && (oldTransaction.data.modified >= tableOrderObj[0].TableOrder.modified))) {
                 if ((crc != tableOrderObj[0].TableOrder.checksum) && (oldTransaction.data.terminal_no != tableOrderObj[0].TableOrder.terminal_no)) {
 
                     GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Order Checksum Fail'),
-                                      _('Current order checksum fail and may not be submit. Please retry or check this order.'));
+                                          _('Order Finalization'),
+                                          _('This order appears to have been updated on another terminal; please cancel the order to discard the changes you have made'));
 
                     // sync database
                     this.GuestCheck.syncClient();
@@ -3013,19 +2969,15 @@
                     }
 
                 }
-
             }
+
+            // blockUI when saving...
+            this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
 
             if (this.dispatchEvent('beforeSubmit', {
                 status: status,
                 txn: oldTransaction
             })) {
-
-                // blockUI when saving...
-                this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
-                
-                oldTransaction.lockItems();
-
                 // save order unless the order is being finalized (i.e. status == 1)
                 if (status == 1) {
                     var user = this.Acl.getUserPrincipal();
@@ -3044,16 +2996,19 @@
                 /*
                  *   1: success
                  *   null: input data is null
-                 *   -1: save fail, save to backup
-                 *   -2: remove fail
+                 *   -1: save to backup failed
                  *   -3: can't get sequence .
                  */
-                if (submitStatus == -2 || submitStatus == -3 ) {
+                if (submitStatus == -1 || submitStatus == -3 ) {
 
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Submit Fail'),
-                        _('Current order is not saved successfully, please try again...'));
-
+                    if (submitStatus == -3) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Finalization Error'),
+                            _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence master.'));
+                    }
+                    else {
+                        NotifyUtils.error('Failed to finalize order due to data operation error.')
+                    }
                     // unblockUI
                     this._unblockUI('blockui_panel');
 
@@ -3089,6 +3044,9 @@
             }
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
+
+                // unblockUI
+                this._unblockUI('blockui_panel');
             }
             return true;
         },
@@ -3208,6 +3166,9 @@
                             // dispatch onSubmit event here manually since submit() won't do it for us
                             self.dispatchEvent('onSubmit', curTransaction);
 
+                            // dispatch onStore event here to update order status
+                            this.dispatchEvent('onStore', curTransaction);
+
                             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
 
                             this.dispatchEvent('afterPreFinalize', curTransaction);
@@ -3232,7 +3193,7 @@
             // dispatch onSubmit event here manually since submit() won't do it for us
             this.dispatchEvent('onStore', curTransaction);
 
-            // dispatch onSubmit event here manually since submit() won't do it for us
+            // dispatch onStore event here to update order status
             this.dispatchEvent('onSubmit', curTransaction);
 
             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
@@ -3278,6 +3239,7 @@
         },
 
         addCondiment: function(plu, condiments, immediateMode) {
+
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
@@ -3332,7 +3294,6 @@
             if (plu && plu.force_condiment) {
                 condimentItem = plu;
             }else {
-                var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
                 var setItem = curTransaction.getItemAt(index, true);
                 if (cartItem == null || (cartItem.type != 'item' && cartItem.type != 'setitem')) {
@@ -3362,8 +3323,7 @@
                     return;
                 }
                 // xxxx why clone it ??
-                //condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
-                condimentItem = productsById[setItem.id];
+                condimentItem = this.Product.getProductById(setItem.id);
 
                 // extract cartItem's selected condiments, if any
                 if (!immediateMode && setItem.condiments != null) {
@@ -3534,12 +3494,10 @@
                 memoItem = plu;
             }else {
                 if (plu != null) plu = GeckoJS.String.trim(plu);
-                var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
                 if (cartItem != null && cartItem.type == 'item') {
                     //xxxx why clone it? so we don't change the default memo
-                    memoItem = GREUtils.extend({}, productsById[cartItem.id]);
-                //memoItem = productsById[cartItem.id];
+                    memoItem = GREUtils.extend({}, this.Product.getProductById(cartItem.id));
                 }
                 if (memoItem && plu != null && plu != '') memoItem.memo = plu;
             }

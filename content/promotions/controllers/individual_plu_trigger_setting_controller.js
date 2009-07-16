@@ -86,7 +86,8 @@
 
             var aArguments = {
                 buffer: buf,
-                item: item
+                item: item,
+                select: true
             };
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);

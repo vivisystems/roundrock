@@ -14,8 +14,8 @@
 
 	<div style="float: right;">
 		<p class="heading_p">&nbsp;</p>
-		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
-		<p class="caption">${head.start_time} - ${head.end_time}</p>
+		<p class="heading_p" style="text-align: right;">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
+		<p class="caption" style="text-align: right;">${head.start_time} - ${head.end_time}</p>
 	</div>
         <table id="body-table">
             <thead>
@@ -36,8 +36,8 @@
                     <td style="text-align: center;">${detail.created|unixTimeToString}</td>
                     <td style="text-align: center;" class="hyperlink">${detail.sequence}</td>
                     <td style="text-align: center;">${detail.invoice_no|default:''}</td>
-                    <td style="text-align: center;">${detail.terminal_no}</td>
                     <td style="text-align: center;">${detail.branch}</td>
+                    <td style="text-align: center;">${detail.terminal_no}</td>
                     <td style="text-align: center;">${detail.status}</td>
                     <td style="text-align: center;">${detail.void_clerk_displayname|default:''}</td>
                     <td style="text-align: center;">${detail.void_time|unixTimeToString}</td>
