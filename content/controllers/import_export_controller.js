@@ -17,6 +17,8 @@
         _busy: false,
         _importFolder: 'database_import',
         _exportFolder: 'database_export',
+        _maxRuntime: 20 * 60,
+        _maxRuntimePreference: 'dom.max_chrome_script_run_time',
 
         select: function( index ) {
             var button = document.getElementById('importBtn');
@@ -228,8 +230,8 @@
             try {
 
                 // set max script run time...
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
+                var oldLimit = GREUtils.Pref.getPref(this._maxRuntimePreference);
+                GREUtils.Pref.setPref(this._maxRuntimePreference, this._maxRuntime);
 
                 this.setButtonDisable(true);
                 switch(exportType) {
@@ -610,7 +612,7 @@
                 GeckoJS.BaseModel.log('ERROR', e);
                 NotifyUtils.info(_('Export To (%S) Error!!', [this._datas[index].filename]));
                 this._busy = false;
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                GREUtils.Pref.setPref(this._maxRuntimePreference, oldLimit);
                 // progmeter.value = 0;
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
@@ -649,6 +651,11 @@
         importData: function() {
             // declare self for scope access
             var self = this;
+
+            var now = new Date().getTime() / 1000;
+            var startTime = parseInt(now);
+
+            var queryCount = 0;
 
             // return if importing...
             if (this._busy) {
@@ -799,7 +806,9 @@
                             var file = new GeckoJS.File(fileName);
                             var charSet = document.getElementById('import_export_charset').value;
                             var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
-                            
+
+                            alert('charSet: ' + charSet + '\ncharSetValues: ' + charSetValues + '\nusing: ' + charSetValues[charSet]);
+
                             file.setInputCharset(charSetValues[charSet]);
                             file.open("r");
                             
@@ -849,8 +858,8 @@
 
             try {
                 // set max script run time...
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
+                var oldLimit = GREUtils.Pref.getPref(this._maxRuntimePreference);
+                GREUtils.Pref.setPref(this._maxRuntimePreference, this._maxRuntime);
 
                 progmeter.value = 0;
 
@@ -877,6 +886,7 @@
                                             condimentGrps[_condimentGrps[x]] = [];
                                         }
                                         var condimentIds = [];
+                                        var condGrpCache = {};
                                         break;
                                 }
                                 case "condimentgroups": {
@@ -888,6 +898,8 @@
                                         var linkGrpNms = [];
                                         var pluGrpNms = [];
                                         var pluGrpIds = [];
+                                        var cateCache = {};
+                                        var pluGrpCache = {};
                                         break;
                                 }
                                 case "products": {
@@ -899,7 +911,10 @@
                                         var prodNos = [];
                                         var barcodes = [];
                                         var prodIds = [];
-                                        var prodCatCache = [];
+                                        var prodCatCache = {};
+                                        var taxRateCache = {};
+                                        var condGrpCache = {};
+                                        var linkGrpCache = {};
                                         break;
                                 }
                                 case "categories": {
@@ -934,16 +949,20 @@
                                                 errorMsgs.push(_("Condiment item %S @ row %S requires a condiment group", [condNm, i + 2]));
                                             } else {
                                                 var condimentGroupNm = GeckoJS.String.trim(rowdata['condiment_group_id']);
-                                                var queryString = "SELECT id FROM condiment_groups WHERE name ='" + condimentGroupNm + "';";
-                                                var result = tableTmp.getDataSource().fetchAll(queryString);
-                                                if(!result[0]) {
-                                                    errorMsgs.push(_("Condiment item %S @ row %S requires a valid condiment group", [condNm, i + 2]));
-                                                } else {
-                                                    if(GeckoJS.Array.inArray(rowdata['name'], condimentGrps[rowdata['condiment_group_id']]) != -1){
-                                                        errorMsgs.push(_("Condiment item %S @ row %S has name duplication under the Condiment Group %S", [condNm, i + 2, rowdata['condiment_group_id']]));
+                                                if(!condGrpCache[condimentGroupNm]) {
+                                                    var queryString = "SELECT id FROM condiment_groups WHERE name ='" + condimentGroupNm + "';";
+                                                    var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                    if(!result[0]) {
+                                                        errorMsgs.push(_("Condiment item %S @ row %S requires a valid condiment group", [condNm, i + 2]));
+                                                    } else {
+                                                        condGrpCache[condimentGroupNm] = result[0].id;
                                                     }
-                                                    condimentGrps[rowdata['condiment_group_id']].push(rowdata['name']);
+                                                    queryCount++;
                                                 }
+                                                if(GeckoJS.Array.inArray(rowdata['name'], condimentGrps[condimentGroupNm]) != -1){
+                                                    errorMsgs.push(_("Condiment item %S @ row %S has name duplication under the Condiment Group %S", [condNm, i + 2, rowdata['condiment_group_id']]));
+                                                }
+                                                condimentGrps[condimentGroupNm].push(rowdata['name']);
                                             }
                                             if(rowdata['id']) {
                                                 if(!self.isValidUUID(rowdata['id'])) {
@@ -1038,10 +1057,15 @@
                                                 var _departmentNms = rowdata['link_department'].split(',');
                                                 _departmentNms.forEach(function(name) {
                                                     if(name.length > 0) {
-                                                        var queryString = "SELECT id FROM categories WHERE name ='" + name + "';";
-                                                        var result = tableTmp.getDataSource().fetchAll(queryString);
-                                                        if(result.length < 1) {
-                                                            errorMsgs.push(_("Product Group item %S @ row %S has invalid department link", [pluGrpNm, i + 2]));
+                                                        if(!cateCache[name]) {
+                                                            var queryString = "SELECT id FROM categories WHERE name ='" + name + "';";
+                                                            var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                            if(result.length < 1) {
+                                                                errorMsgs.push(_("Product Group item %S @ row %S has invalid department link", [pluGrpNm, i + 2]));
+                                                            } else {
+                                                                cateCache[name] = result[0].id;
+                                                            }
+                                                            queryCount++;
                                                         }
                                                     }
                                                 },this);
@@ -1066,23 +1090,16 @@
                                                 errorMsgs.push(_("Product item %S @ row %S requires a department", [prodNm, i + 2]));
                                             } else {
                                                 var departmentNo = rowdata['cate_no'].substr(0,1) == "'" ? GeckoJS.String.trim(rowdata['cate_no'].substr(1,rowdata['cate_no'].length)) : rowdata['cate_no'];
-                                                if(GeckoJS.Array.inArray(departmentNo, prodCatCache) != 1) {
-
-                                                } else {
+                                                if(!prodCatCache[departmentNo]) {
                                                     var queryString = "SELECT id FROM categories WHERE no ='" + departmentNo + "';";
                                                     var result = tableTmp.getDataSource().fetchAll(queryString);
                                                     if(result.length < 1) {
                                                         errorMsgs.push(_("Product item %S @ row %S requires a valid department", [prodNm, i + 2]));
                                                     } else {
-                                                        prodCatCache.push(rowdata[departmentNo]);
+                                                        prodCatCache[departmentNo] = result[0].id;
                                                     }
+                                                    queryCount++;
                                                 }
-                                                /* else {
-                                                    if(GeckoJS.Array.inArray(rowdata['name'], departments[departmentNo]) != -1){
-                                                        errorMsgs.push(_("Product item %S @ row %S has name duplication under the department %S", [prodNm, i + 2, departmentNo]));
-                                                    }
-                                                    departments[departmentNo].push(rowdata['name']);
-                                                }*/
                                             }
                                             if(rowdata['id']) {
                                                 if(!self.isValidUUID(rowdata['id'])) {
@@ -1105,21 +1122,32 @@
                                                 prodNos.push(rowdata['no']);
                                             }
                                             if(rowdata['rate'] && rowdata['rate'].length > 0) {
-                                                var queryString = "SELECT id FROM taxes WHERE no ='" + rowdata['rate'] + "';";
-                                                var result = tableTmp.getDataSource().fetchAll(queryString);
-                                                if(!result[0]) {
-                                                    errorMsgs.push(_("Product item %S @ row %S requires a valid tax rate", [prodNm, i + 2]));
+                                                if(!taxRateCache[rowdata['rate']]) {
+                                                    var queryString = "SELECT id FROM taxes WHERE no ='" + rowdata['rate'] + "';";
+                                                    var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                    if(!result[0]) {
+                                                        errorMsgs.push(_("Product item %S @ row %S requires a valid tax rate", [prodNm, i + 2]));
+                                                    } else {
+                                                        taxRateCache[rowdata['rate']] = result[0].id;
+                                                    }
+                                                    queryCount++;
                                                 }
                                             }
                                             if(rowdata['cond_group'] && rowdata['cond_group'].length > 0) {
                                                 var _condNms = rowdata['cond_group'].split(',');
                                                 _condNms.forEach(function(name) {
                                                     if(name.length > 0) {
-                                                        var queryString = "SELECT id FROM condiment_groups WHERE name ='" + name + "';";
-                                                        var result = tableTmp.getDataSource().fetchAll(queryString);
-                                                        if(result.length < 1) {
-                                                            errorMsgs.push(_("Product item %S @ row %S has invalid condiment group %S", [prodNm, i + 2, name]));
+                                                        if(!condGrpCache[name]) {
+                                                            var queryString = "SELECT id FROM condiment_groups WHERE name ='" + name + "';";
+                                                            var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                            if(result.length < 1) {
+                                                                errorMsgs.push(_("Product item %S @ row %S has invalid condiment group %S", [prodNm, i + 2, name]));
+                                                            } else {
+                                                                condGrpCache[name] = result[0].id;
+                                                            }
+                                                            queryCount++;
                                                         }
+
                                                     }
                                                 },this);
                                             }
@@ -1127,10 +1155,15 @@
                                                 var _grpNms = rowdata['link_group'].split(',');
                                                 _grpNms.forEach(function(name) {
                                                     if(name.length > 0) {
-                                                        var queryString = "SELECT id FROM plugroups WHERE name ='" + name + "';";
-                                                        var result = tableTmp.getDataSource().fetchAll(queryString);
-                                                        if(result.length < 1) {
-                                                            errorMsgs.push(_("Product item %S @ row %S has invalid group link %S", [prodNm, i + 2, name]));
+                                                        if(!linkGrpCache[name]) {
+                                                            var queryString = "SELECT id FROM plugroups WHERE name ='" + name + "';";
+                                                            var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                            if(result.length < 1) {
+                                                                errorMsgs.push(_("Product item %S @ row %S has invalid group link %S", [prodNm, i + 2, name]));
+                                                            } else {
+                                                                linkGrpCache[name] = result[0].id;
+                                                            }
+                                                            queryCount++;
                                                         }
                                                     }
                                                 },this);
@@ -1344,7 +1377,14 @@
                                     default: {
                                     }
                                 }
+
+                                progmeter.value = ii * 45 / total;
+                                if ( (ii % dist) == 0 )
+                                    this.sleep(50);
+
+                                ii++;
                             }
+
                             switch(model) {
                                 case "condiments": {
                                         break;
@@ -1398,7 +1438,12 @@
                                 GREUtils.Dialog.alert(this.topmostWindow, _("Import Data Integrity Error"), _(errorMsgDisplay));
                                 return;
                             }
+                            var now = new Date().getTime() / 1000;
+                            var checkEndTime = parseInt(now);
 
+                            var checkRunTime = checkEndTime - startTime;
+                            ii = 0;
+                            progmeter.value = 45;
 
                             tableTmp.truncate();
                             tableTmp.begin();
@@ -1412,16 +1457,16 @@
                                 //let's process new manual data entry here'
                                 switch(model) {
                                     case "plugroups": {
-                                            if(!rowdata['routing'] || rowdata['routing'].length < 1) {
+                                            if(!rowdata['routing'] || rowdata['routing'].length < 1 || rowdata['routing'] == 'null') {
                                                 rowdata['routing'] = "0";
                                             }
-                                            if(!rowdata['visible'] || rowdata['visible'].length < 1) {
+                                            if(!rowdata['visible'] || rowdata['visible'].length < 1 || rowdata['visible'] == 'null') {
                                                 rowdata['visible'] = "0";
                                             }
-                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1) {
+                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1 || rowdata['button_color'] == 'null') {
                                                 rowdata['button_color'] = "plugroup-button-color-default";
                                             }
-                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1) {
+                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1 || rowdata['font_size'] == 'null') {
                                                 rowdata['font_size'] = "medium";
                                             }
                                             //unpack link_department names into ids
@@ -1453,33 +1498,26 @@
                                             if(rowdata['no'].substr(0,1) == "'") {
                                                 rowdata['no'] = rowdata['no'].substr(1,(rowdata['no'].length - 1));
                                             }
-                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1) {
+                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1 || rowdata['button_color'] == 'null') {
                                                 rowdata['button_color'] = "department-button-color-default";
                                             }
-                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1) {
+                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1 || rowdata['font_size'] == 'null') {
                                                 rowdata['font_size'] = "medium";
                                             }
-                                            if(!rowdata['cansale'] || rowdata['cansale'].length < 1) {
+                                            if(!rowdata['cansale'] || rowdata['cansale'].length < 1 || rowdata['cansale'] == 'null') {
                                                 rowdata['cansale'] = "0";
                                             }
-                                            if(!rowdata['visible'] || rowdata['visible'].length < 1) {
+                                            if(!rowdata['visible'] || rowdata['visible'].length < 1 || rowdata['visible'] == 'null') {
                                                 rowdata['visible'] = "0";
                                             }
-                                            if(!rowdata['scale'] || rowdata['scale'].length < 1) {
+                                            if(!rowdata['scale'] || rowdata['scale'].length < 1 || rowdata['scale'] == 'null') {
                                                 rowdata['scale'] = "0";
                                             }
                                             if(!rowdata['sale_unit'] || rowdata['sale_unit'].length < 1 || rowdata['sale_unit'] == 'null') {
                                                 rowdata['sale_unit'] = "unit";
                                             }
-                                            if(!rowdata['rate'] || rowdata['rate'].length < 1) {
-                                                var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-                                                if (defaultRate != null) {
-                                                    rowdata['rate'] = defaultRate;
-                                                }  else {
-                                                    var taxes = GeckoJS.Session.get('taxes');
-                                                    if (taxes == null) taxes = this.Tax.getTaxList();
-                                                    if (taxes != null) rowdata['rate'] = taxes[0].no;
-                                                }
+                                            if(!rowdata['rate'] || rowdata['rate'].length < 1 || rowdata['rate'] == 'null') {
+                                                rowdata['rate'] = self.getDefaultTaxRate();
                                             }
                                             break;
                                     }
@@ -1502,11 +1540,16 @@
                                                 var vals = [];
                                                 _condNms.forEach(function(name) {
                                                     if(name.length > 0) {
-                                                        var queryString = "SELECT id FROM condiment_groups WHERE name ='" + name + "';";
-                                                        var data = tableTmp.getDataSource().fetchAll(queryString);
-                                                        try {
-                                                            vals.push(data[0].id);
-                                                        } catch(e) {
+                                                        if(condGrpCache[name]) {
+                                                            vals.push(condGrpCache[name]);
+                                                        } else {
+                                                            var queryString = "SELECT id FROM condiment_groups WHERE name ='" + name + "';";
+                                                            var data = tableTmp.getDataSource().fetchAll(queryString);
+                                                            try {
+                                                                vals.push(data[0].id);
+                                                            } catch(e) {
+                                                            }
+                                                            queryCount++;
                                                         }
                                                     }
                                                 },this);
@@ -1524,12 +1567,17 @@
                                                 var vals = [];
                                                 _departmentNms.forEach(function(name) {
                                                     if(name.length > 0) {
-                                                        var queryString = "SELECT id FROM plugroups WHERE name ='" + name + "';";
-                                                        var data = tableTmp.getDataSource().fetchAll(queryString);
-                                                        try {
-                                                            vals.push(data[0].id);
-                                                        } catch(e) {
+                                                        if(linkGrpCache[name]) {
+                                                            vals.push(linkGrpCache[name]);
+                                                        } else {
+                                                            var queryString = "SELECT id FROM plugroups WHERE name ='" + name + "';";
+                                                            var data = tableTmp.getDataSource().fetchAll(queryString);
+                                                            try {
+                                                                vals.push(data[0].id);
+                                                            } catch(e) {
 
+                                                            }
+                                                            queryCount++;
                                                         }
                                                     }
                                                 },this);
@@ -1542,83 +1590,76 @@
                                             } else {
                                                 rowdata['link_group'] = "";
                                             }
-                                            if(!rowdata['buy_price'] || rowdata['buy_price'].length < 1) {
+                                            if(!rowdata['buy_price'] || rowdata['buy_price'].length < 1 || rowdata['buy_price'] == 'null') {
                                                 rowdata['buy_price'] = "0";
                                             }
-                                            if(!rowdata['stock'] || rowdata['stock'].length < 1) {
+                                            if(!rowdata['stock'] || rowdata['stock'].length < 1 || rowdata['stock'] == 'null') {
                                                 rowdata['stock'] = "0";
                                             }
-                                            if(!rowdata['min_stock'] || rowdata['min_stock'].length < 1) {
+                                            if(!rowdata['min_stock'] || rowdata['min_stock'].length < 1 || rowdata['min_stock'] == 'null') {
                                                 rowdata['min_stock'] = "0";
                                             }
-                                            if(!rowdata['min_sale_qty'] || rowdata['min_sale_qty'].length < 1) {
+                                            if(!rowdata['min_sale_qty'] || rowdata['min_sale_qty'].length < 1 || rowdata['min_sale_qty'] == 'null') {
                                                 rowdata['min_sale_qty'] = "0";
                                             }
                                             if(!rowdata['sale_unit'] || rowdata['sale_unit'].length < 1 || rowdata['sale_unit'] == 'null') {
                                                 rowdata['sale_unit'] = "unit";
                                             }
-                                            if(!rowdata['tare'] || rowdata['tare'].length < 1) {
+                                            if(!rowdata['tare'] || rowdata['tare'].length < 1 || rowdata['tare'] == 'null') {
                                                 rowdata['tare'] = "0";
                                             }
-                                            if(!rowdata['scale'] || rowdata['scale'].length < 1) {
+                                            if(!rowdata['scale'] || rowdata['scale'].length < 1 || rowdata['scale'] == 'null') {
                                                 rowdata['scale'] = "0";
                                             }
                                             for(var y = 1;y < 10;y++) {
-                                                if(!rowdata['level_enable' + y] || rowdata['level_enable' + y].length < 1) {
+                                                if(!rowdata['level_enable' + y] || rowdata['level_enable' + y].length < 1 || rowdata['level_enable' + y] == 'null') {
                                                     rowdata['level_enable' + y] = "0";
                                                 }
-                                                if(!rowdata['price_level' + y] || rowdata['price_level' + y].length < 1) {
+                                                if(!rowdata['price_level' + y] || rowdata['price_level' + y].length < 1 || rowdata['price_level' + y] == 'null') {
                                                     rowdata['price_level' + y] = "0";
                                                 }
-                                                if(!rowdata['halo' + y] || rowdata['halo' + y].length < 1) {
+                                                if(!rowdata['halo' + y] || rowdata['halo' + y].length < 1 || rowdata['halo' + y] == 'null') {
                                                     rowdata['halo' + y] = "0";
                                                 }
-                                                if(!rowdata['lalo' + y] || rowdata['lalo' + y].length < 1) {
+                                                if(!rowdata['lalo' + y] || rowdata['lalo' + y].length < 1 || rowdata['lalo' + y] == 'null') {
                                                     rowdata['lalo' + y] = "0";
                                                 }
                                             }
-                                            if(!rowdata['auto_maintain_stock'] || rowdata['auto_maintain_stock'].length < 1) {
+                                            if(!rowdata['auto_maintain_stock'] || rowdata['auto_maintain_stock'].length < 1 || rowdata['auto_maintain_stock'] == 'null') {
                                                 rowdata['auto_maintain_stock'] = "0";
                                             }
-                                            if(!rowdata['return_stock'] || rowdata['return_stock'].length < 1) {
+                                            if(!rowdata['return_stock'] || rowdata['return_stock'].length < 1 || rowdata['return_stock'] == 'null') {
                                                 rowdata['return_stock'] = "0";
                                             }
-                                            if(!rowdata['force_condiment'] || rowdata['force_condiment'].length < 1) {
+                                            if(!rowdata['force_condiment'] || rowdata['force_condiment'].length < 1 || rowdata['force_condiment'] == 'null') {
                                                 rowdata['force_condiment'] = "0";
                                             }
-                                            if(!rowdata['single'] || rowdata['single'].length < 1) {
+                                            if(!rowdata['single'] || rowdata['single'].length < 1 || rowdata['single'] == 'null') {
                                                 rowdata['single'] = "0";
                                             }
-                                            if(!rowdata['visible'] || rowdata['visible'].length < 1) {
+                                            if(!rowdata['visible'] || rowdata['visible'].length < 1 || rowdata['visible'] == 'null') {
                                                 rowdata['visible'] = "0";
                                             }
-                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1) {
+                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1 || rowdata['button_color'] == 'null') {
                                                 rowdata['button_color'] = "product-button-color-default";
                                             }
-                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1) {
+                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1 || rowdata['font_size'] == 'null') {
                                                 rowdata['font_size'] = "medium";
                                             }
-                                            if(!rowdata['age_verification'] || rowdata['age_verification'].length < 1) {
+                                            if(!rowdata['age_verification'] || rowdata['age_verification'].length < 1 || rowdata['age_verification'] == 'null') {
                                                 rowdata['age_verification'] = "0";
                                             }
-                                            if(!rowdata['icon_only'] || rowdata['icon_only'].length < 1) {
+                                            if(!rowdata['icon_only'] || rowdata['icon_only'].length < 1 || rowdata['icon_only'] == 'null') {
                                                 rowdata['icon_only'] = "0";
                                             }
-                                            if(!rowdata['manual_adjustment_only'] || rowdata['manual_adjustment_only'].length < 1) {
+                                            if(!rowdata['manual_adjustment_only'] || rowdata['manual_adjustment_only'].length < 1 || rowdata['manual_adjustment_only'] == 'null') {
                                                 rowdata['manual_adjustment_only'] = "0";
                                             }
-                                            if(!rowdata['append_empty_btns'] || rowdata['append_empty_btns'].length < 1) {
+                                            if(!rowdata['append_empty_btns'] || rowdata['append_empty_btns'].length < 1 || rowdata['append_empty_btns'] == 'null') {
                                                 rowdata['append_empty_btns'] = "0";
                                             }
                                             if(!rowdata['rate'] || rowdata['rate'].length < 1) {
-                                                var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-                                                if (defaultRate != null) {
-                                                    rowdata['rate'] = defaultRate;
-                                                }  else {
-                                                    var taxes = GeckoJS.Session.get('taxes');
-                                                    if (taxes == null) taxes = this.Tax.getTaxList();
-                                                    if (taxes != null) rowdata['rate'] = taxes[0].no;
-                                                }
+                                                rowdata['rate'] = self.getDefaultTaxRate();
                                             }
                                             break;
                                     }
@@ -1630,22 +1671,22 @@
                                                 rowdata['condiment_group_id'] = data[0].id;
                                             } catch(e) {
                                             }
-                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1) {
+                                            if(!rowdata['button_color'] || rowdata['button_color'].length < 1 || rowdata['button_color'] == 'null') {
                                                 rowdata['button_color'] = "condiment-button-color-default";
                                             }
-                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1) {
+                                            if(!rowdata['font_size'] || rowdata['font_size'].length < 1 || rowdata['font_size'] == 'null') {
                                                 rowdata['font_size'] = "medium";
                                             }
-                                            if(!rowdata['preset'] || rowdata['preset'].length < 1) {
+                                            if(!rowdata['preset'] || rowdata['preset'].length < 1 || rowdata['preset'] == 'null') {
                                                 rowdata['preset'] = "0";
                                             }
                                             break;
                                     }
                                     case "condimentgroups": {
-                                            if(!rowdata['seltype'] || rowdata['seltype'].length < 1) {
+                                            if(!rowdata['seltype'] || rowdata['seltype'].length < 1 || rowdata['seltype'] == 'null') {
                                                 rowdata['seltype'] = "single";
                                             }
-                                            if(!rowdata['newline'] || rowdata['newline'].length < 1) {
+                                            if(!rowdata['newline'] || rowdata['newline'].length < 1 || rowdata['newline'] == 'null') {
                                                 rowdata['newline'] = "0";
                                             }
                                             break;
@@ -1659,13 +1700,13 @@
                                                     rowdata['preset_no'] = rowdata['preset_no'].substr(1,(rowdata['preset_no'].length - 1));
                                                 }
                                             }
-                                            if(!rowdata['quantity'] || rowdata['quantity'].length < 1) {
+                                            if(!rowdata['quantity'] || rowdata['quantity'].length < 1 || rowdata['quantity'] == 'null') {
                                                 rowdata['quantity'] = "0";
                                             }
-                                            if(!rowdata['baseprice'] || rowdata['baseprice'].length < 1) {
+                                            if(!rowdata['baseprice'] || rowdata['baseprice'].length < 1 || rowdata['baseprice'] == 'null') {
                                                 rowdata['baseprice'] = "0";
                                             }
-                                            if(!rowdata['reduction'] || rowdata['reduction'].length < 1) {
+                                            if(!rowdata['reduction'] || rowdata['reduction'].length < 1 || rowdata['reduction'] == 'null') {
                                                 rowdata['reduction'] = "0";
                                             }
                                             if(rowdata['linkgroup_id']) {
@@ -1695,7 +1736,7 @@
                                 tableTmp.save(rowdata);
                                 // tableTmp.commit();
 
-                                progmeter.value = ii * 100 / total;
+                                progmeter.value = ii * 100 / total + 45;
                                 if ( (ii % dist) == 0 )
                                     this.sleep(50);
 
@@ -1710,11 +1751,16 @@
                                                 var vals = [];
                                                 _grpNms.forEach(function(name) {
                                                     if(name.length > 0) {
-                                                        var queryString = "SELECT id FROM plugroups WHERE name ='" + name + "';";
-                                                        var result = tableTmp.getDataSource().fetchAll(queryString);
-                                                        if(result.length > 0) {
-                                                            vals.push(result[0].id);
+                                                        if(!pluGrpCache[name]) {
+                                                            var queryString = "SELECT id FROM plugroups WHERE name ='" + name + "';";
+                                                            var result = tableTmp.getDataSource().fetchAll(queryString);
+                                                            if(result.length > 0) {
+                                                                vals.push(result[0].id);
+                                                            } else {
+                                                                pluGrpCache[name] = result[0].id;
+                                                            }
                                                         }
+
                                                     }
                                                 },this);
                                                 var val = "";
@@ -1779,12 +1825,18 @@
                 progmeter.value = 100;
                 this.sleep(200);
                 // reset max script run time...
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                GREUtils.Pref.setPref(this._maxRuntimePreference, oldLimit);
                 // progmeter.value = 0;
                 this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
 
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
+
+                var now = new Date().getTime() / 1000;
+                var endTime = parseInt(now);
+
+                var insertRunTime = endTime - checkEndTime;
+                alert('Validation took ' + checkRunTime + ' seconds\n' + 'Model insert took ' + insertRunTime + ' seconds\n' + 'Executed ' + queryCount + ' SQL queries');
             }
 
             this._datas[index].imported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
@@ -1948,11 +2000,11 @@
 
         isValidBooleanField: function(field, optional) {
             if(!optional) {
-                if(!field || field.length < 1) {
+                if(!field || field.length < 1 || field == "null") {
                     return false;
                 }
             } else {
-                if(!field || field.length < 1) {
+                if(!field || field.length < 1 || field == "null") {
                     return true;
                 }
             }
@@ -1970,7 +2022,6 @@
 
         isValidSaleUnitField: function(field, optional) {
             var selection = [
-                "null",
                 "unit",
                 "g",
                 "kg",
@@ -2009,11 +2060,11 @@
 
         isValidChoiceField: function(field, selection, optional) {
             if(!optional) {
-                if(!field || field.length < 1 || field == "null") {
+                if(!field || field.length < 1 || String(field).toLowerCase() == "null") {
                     return false;
                 }
             } else {
-                if(!field || field.length < 1 || field == "null") {
+                if(!field || field.length < 1 || String(field).toLowerCase() == "null") {
                     return true;
                 }
             }
@@ -2026,11 +2077,11 @@
 
         isValidNumberField: function(field, optional) {
             if(!optional) {
-                if(!field || field.length < 1 || field == "null") {
+                if(!field || field.length < 1 || String(field).toLowerCase() == "null") {
                     return false;
                 }
             } else {
-                if(!field || field.length < 1 || field == "null") {
+                if(!field || field.length < 1 || String(field).toLowerCase() == "null") {
                     return true;
                 }
             }
@@ -2049,7 +2100,7 @@
 
             field = GeckoJS.String.trim(field);
 
-            if(field.length < 1) {
+            if(field.length < 1 || String(field).toLowerCase() == "null") {
                 return false;
             }
 
@@ -2057,7 +2108,7 @@
         },
 
         isValidUUID: function(field) {
-            if(!field) {
+            if(!field || String(field).toLowerCase() == "null") {
                 return true;
             }
             if(field.length == 0) {
@@ -2073,6 +2124,36 @@
                 }
             }
             return true;
+        },
+
+        getDefaultTaxRate: function() {
+            if(!this.defaultTaxRate) {
+                var defaultRateId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                if (defaultRateId != null) {
+                    var queryString = "SELECT no FROM taxes WHERE id ='" + defaultRateId + "';";
+                    var result = GeckoJS.ConnectionManager.getDataSource().fetchAll(queryString);
+                    if(result[0]) {
+                        this.defaultTaxRate = result[0].no;
+                        return result[0].no;
+                    } else {
+                        this.defaultTaxRate = "";
+                        return "";
+                    }
+
+                }  else {
+                    var taxes = GeckoJS.Session.get('taxes');
+                    if (taxes == null) taxes = this.Tax.getTaxList();
+                    if (taxes != null) {
+                        this.defaultTaxRate = taxes[0].no;
+                        return taxes[0].no;
+                    } else {
+                        this.defaultTaxRate = "";
+                        return "";
+                    }
+                }
+            } else {
+                return this.defaultTaxRate;
+            }
         }
     };
 
