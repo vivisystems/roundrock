@@ -4,7 +4,8 @@
 
         name: 'ProductImage',
 
-        uses: false,
+        uses: ['Product'],
+
         _cartController: null,
         _cartTreeList: null,
         _image: null,
@@ -39,16 +40,23 @@
             
             var imageSrc = '';
             
-            var productsById = GeckoJS.Session.get('productsById');
+            if (index == -1) {
+                image.src = null;
+            }
+
             var curTransaction = GeckoJS.Session.get('current_transaction');
 
             if (curTransaction) {
 
                 var itemObj = curTransaction.getItemAt(index);
-                var itemId = itemObj ? itemObj.id : null;
-                
-                if (itemId && productsById[itemId]) {
-                    imageSrc = this.getImageUrl(productsById[itemId]);
+                var itemId = itemObj.id ;
+
+                var item = this.Product.getProductById(itemId);
+
+                if (!itemId || !item) {
+                    imageSrc = '';
+                }else {
+                    imageSrc = this.getImageUrl(item);
                 }
                 
             }
