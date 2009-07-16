@@ -49,24 +49,26 @@
             if (curTransaction) {
 
                 var itemObj = curTransaction.getItemAt(index);
-                var itemId = itemObj.id ;
+                if (itemObj) {
+                    var itemId = itemObj.id ;
 
-                var item = this.Product.getProductById(itemId);
+                    var item = this.Product.getProductById(itemId);
 
-                if (!itemId || !item) {
-                    imageSrc = '';
-                }else {
-                    imageSrc = this.getImageUrl(item);
+                    if (!itemId || !item) {
+                        imageSrc = '';
+                    }else {
+                        imageSrc = this.getImageUrl(item);
+                    }
                 }
-                
-            }
 
-            if (imageSrc.length >0) {
-                image.src = 'file://' + imageSrc;
-            }else {
-                image.src = defaultImage;
+                if (imageSrc.length >0) {
+                    //image.src = 'file://' + imageSrc;
+                    image.setAttribute('style', 'background: transparent url(file://' + imageSrc + ') center center no-repeat');
+                }else {
+                    //image.src = defaultImage;
+                    image.removeAttribute('style');
+                }
             }
-
         },
 
         getImageUrl: function(item) {

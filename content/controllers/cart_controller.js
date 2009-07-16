@@ -2971,16 +2971,13 @@
                 }
             }
 
+            // blockUI when saving...
+            this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
+
             if (this.dispatchEvent('beforeSubmit', {
                 status: status,
                 txn: oldTransaction
             })) {
-
-                // blockUI when saving...
-                this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
-                
-                oldTransaction.lockItems();
-
                 // save order unless the order is being finalized (i.e. status == 1)
                 if (status == 1) {
                     var user = this.Acl.getUserPrincipal();
@@ -2999,16 +2996,19 @@
                 /*
                  *   1: success
                  *   null: input data is null
-                 *   -1: save fail, save to backup
-                 *   -2: remove fail
+                 *   -1: save to backup failed
                  *   -3: can't get sequence .
                  */
-                if (submitStatus == -2 || submitStatus == -3 ) {
+                if (submitStatus == -1 || submitStatus == -3 ) {
 
-                    GREUtils.Dialog.alert(this.topmostWindow,
-                        _('Submit Fail'),
-                        _('Current order is not saved successfully, please try again...'));
-
+                    if (submitStatus == -3) {
+                        GREUtils.Dialog.alert(this.topmostWindow,
+                            _('Finalization Error'),
+                            _('This order could not be saved because a valid sequence number cannot be obtained. Please check the network connectivity to the terminal designated as the order sequence master.'));
+                    }
+                    else {
+                        NotifyUtils.error('Failed to finalize order due to data operation error.')
+                    }
                     // unblockUI
                     this._unblockUI('blockui_panel');
 
@@ -3044,6 +3044,9 @@
             }
             else {
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
+
+                // unblockUI
+                this._unblockUI('blockui_panel');
             }
             return true;
         },

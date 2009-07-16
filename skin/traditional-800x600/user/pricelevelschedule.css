@@ -27,23 +27,15 @@
 .RightPnlB button {
     border: 3px solid;
     -moz-border-top-colors: #f1ede5 #e8e4dc #d6d2cb;
-	  -moz-border-right-colors: #d6d2cb #bab7b1 #979590;
-	  -moz-border-bottom-colors: #d6d2cb #bab7b1 #979590;
-	  -moz-border-left-colors: #f1ede5 #e8e4dc #d6d2cb;
+	-moz-border-right-colors: #d6d2cb #bab7b1 #979590;
+	-moz-border-bottom-colors: #d6d2cb #bab7b1 #979590;
+	-moz-border-left-colors: #f1ede5 #e8e4dc #d6d2cb;
     background: white url(images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
     min-height: 36px;
     color: #3c322d;
 }
-.RightPnlB:hover {
-		border: 3px solid;
-  	-moz-border-top-colors: #f1ede5 #e8e4dc #ed145b;
-	  -moz-border-right-colors: #d6d2cb #bab7b1 #ed145b;
-	  -moz-border-bottom-colors: #d6d2cb #bab7b1 #ed145b;
-	  -moz-border-left-colors: #f1ede5 #e8e4dc #ed145b;
-	  background: white url(images/tboxbg_readonly.png) left center repeat-x;
-	  -moz-appearance: none;
-}
+
 .RightPnlB button:active {
     border: 2px solid;
     -moz-border-top-colors: #00a99d #00a99d;

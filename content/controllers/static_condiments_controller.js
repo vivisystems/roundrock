@@ -50,6 +50,10 @@
                 else $('#staticCondimentsPanelContainer').insertBefore('#'+relation_element);
             }          
 
+            if (!condimentscrollablepanel.vivibuttonpanel) {
+                return;
+            }
+            
             if (supportSoldout) {
                 $('#staticCondimentsPanel-soldout').show();
             }else {
@@ -89,9 +93,11 @@
 
         initialData: function(condGroup) {
 
-            var selectedCondGroup = GeckoJS.Configure.read('vivipos.fec.settings.static_condiments.condiment_group') || condGroup || '';
-
             var condimentscrollablepanel = document.getElementById('staticCondimentsPanel');
+
+            if (!condimentscrollablepanel.vivibuttonpanel) return;
+
+            var selectedCondGroup = GeckoJS.Configure.read('vivipos.fec.settings.static_condiments.condiment_group') || condGroup || '';
 
             var condGroupsById = GeckoJS.Session.get('condGroupsById');
 

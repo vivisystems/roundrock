@@ -40,7 +40,7 @@
                     <td style="text-align: center;">${detail.terminal_no}</td>
                     <td style="text-align: center;">${detail.status}</td>
                     <td style="text-align: center;">${detail.void_clerk_displayname|default:''}</td>
-                    <td style="text-align: center;">{if detail.void_time}${detail.void_time|unixTimeToString}{else}''{/if}</td>
+                    <td style="text-align: center;">${detail.void_time|unixTimeToString}</td>
                 </tr>
 {/for}
             </tbody>
