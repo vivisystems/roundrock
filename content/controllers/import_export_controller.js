@@ -243,7 +243,7 @@
                                 var charSet = document.getElementById('import_export_charset').value;
                                 var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
                                 
-                                saveFile.setOutputCharset(charSetValues[charSet]);
+                                saveFile.setOutputCharset(GeckoJS.String.trim(charSetValues[charSet]));
                                 saveFile.open("w");
 
                                 var columns = [];
@@ -807,9 +807,7 @@
                             var charSet = document.getElementById('import_export_charset').value;
                             var charSetValues = _('vivipos.fec.registry.import_export.charsets.charset') == 'vivipos.fec.registry.import_export.charsets.charset' ? ['utf-8'] : _('vivipos.fec.registry.import_export.charsets.charset').split(',');
 
-                            //alert('charSet: ' + charSet + '\ncharSetValues: ' + charSetValues + '\nusing: ' + charSetValues[charSet]);
-
-                            file.setInputCharset(charSetValues[charSet]);
+                            file.setInputCharset(GeckoJS.String.trim(charSetValues[charSet]));
                             file.open("r");
                             
                             var lines = file.readAllLine();
@@ -817,6 +815,7 @@
                             if (lines.length <= 0) return;
                         }
                         catch (e) {
+                            this.log(e);
                             this._busy = false;
                             waitPanel.hidePopup();
                             NotifyUtils.error(_('Unable to open the specified file [%S]!', [this._datas[index].filename]));
