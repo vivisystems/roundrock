@@ -23,7 +23,7 @@
 
             useDb = useDb || false;
 
-            //var startTime = Date.now().getTime();
+            var startTime = Date.now().getTime();
 
             var products = null;
 
@@ -33,11 +33,11 @@
 
             if (products == null) {
 
-                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,barcode,visible,append_empty_btns,link_group FROM products ORDER BY cate_no, display_order, name, no ");
+                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,icon_only,button_color,font_size,append_empty_btns,link_group FROM products ORDER BY cate_no, display_order, name, no ");
 
-            //dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
             }
-
+            dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');
+            
             return products;
 
         },
@@ -127,8 +127,20 @@
                     });
                 }
             });
+            /*
+            // load set items
+            var setItemModel = new SetItemModel();
+            var setitemPlusets = setItemModel.getDataSource().fetchAll('select distinct pluset_no from set_items');
+            setitemPlusets.forEach(function(setitemPluset){
+                if (typeof indexBarcode[setitemPluset.pluset_no] != 'undefined') {
+                    // mark product has set items;
+                    byId[indexBarcode[setitemPluset.pluset_no]]._has_setitem_ = true;
+                }
+            });
+            dump(this.dump(setitemPlusets));
+            */
 
-            //dump('after product.forEach:  ' + (Date.now().getTime() - startTime) + '\n');
+            dump('after product.forEach:  ' + (Date.now().getTime() - startTime) + '\n');
 
             GeckoJS.Session.add('productsById', byId);
             GeckoJS.Session.add('productsIndexesById', indexId);
@@ -465,9 +477,12 @@
                 product = GREUtils.extend(productsById[id], new_product);
 
                 //  trick , maybe getproduct from db ?
-                // XXXX
-                if(typeof product.name != 'undefined') {
-                    delete product._full_object_;
+                //  XXXX
+                if(typeof product.modified != 'undefined') {
+                    // delete full_object flag
+                    if (typeof product._full_object_ != 'undefined'){
+                        delete product._full_object_;
+                    }
                 }
             }
 
@@ -539,6 +554,15 @@
                 });
 
                 if (productObj) {
+                    // load set items on needed
+                    var setItemModel = new SetItemModel();
+                    var setitems = setItemModel.findByIndex('all', {
+                        index: 'pluset_no',
+                        value: productObj.no,
+                        order: 'sequence',
+                        recursive: 0
+                    });
+                    productObj.Product.SetItem = setitems;
                     product = this.setProduct(id, productObj.Product);
                 }
             }
@@ -573,6 +597,15 @@
                 });
 
                 if (productObj) {
+                    // load set items on needed
+                    var setItemModel = new SetItemModel();
+                    var setitems = setItemModel.findByIndex('all', {
+                        index: 'pluset_no',
+                        value: productObj.no,
+                        order: 'sequence',
+                        recursive: 0
+                    });
+                    productObj.Product.SetItem = setitems;
                     product = this.setProduct(productObj.id, productObj.Product);
                 }
             }
@@ -607,6 +640,15 @@
                 });
 
                 if (productObj) {
+                    // load set items on needed
+                    var setItemModel = new SetItemModel();
+                    var setitems = setItemModel.findByIndex('all', {
+                        index: 'pluset_no',
+                        value: productObj.no,
+                        order: 'sequence',
+                        recursive: 0
+                    });
+                    productObj.Product.SetItem = setitems;
                     product = this.setProduct(productObj.id, productObj.Product);
                 }
             }
