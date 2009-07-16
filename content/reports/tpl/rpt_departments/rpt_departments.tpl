@@ -14,8 +14,8 @@
 
 	<div style="float: right;">
 		<p class="heading_p">&nbsp;</p>
-		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
-		<!--p class="caption">${head.start_time} - ${head.end_time}</p-->
+		<p class="heading_p" style="text-align: right;">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
+		<!--p class="caption" style="text-align: right;">${head.start_time} - ${head.end_time}</p-->
 	</div>
 
         <table id="body-table">
