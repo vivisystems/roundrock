@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-16 10:46+0800\n"
+"POT-Creation-Date: 2009-07-16 12:31+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6593,51 +6593,51 @@ msgstr ""
 msgid "Your Saving"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1904
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1916
 msgid "Scroll Forward"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1905
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1917
 msgid "Next"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1906
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1918
 msgid "This function scrolls the function panel to the next page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1914
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1926
 msgid "Scroll Backward"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1915
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1927
 msgid "Back"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1916
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1928
 msgid "This function scrolls the function panel to the previous page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1924
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1936
 msgid "Home Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1925
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1937
 msgid "Home"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1926
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1938
 msgid "This function scrolls the function panel to the home page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1934
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1946
 msgid "Jump to Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1935
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1947
 msgid "Page"
 msgstr ""
 
-#: ../..//content/bindings/vivifuncpanelecr.xbl:1936
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1948
 msgid ""
 "This function scrolls the function panel to the page indicated in the "
 "parameter field"
