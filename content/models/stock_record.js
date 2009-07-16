@@ -64,7 +64,7 @@
             var username = this.username ;
             var password = this.password ;
 
-            this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with method: ' + type);
+            //this.log('DEBUG', 'requestRemoteService url: ' + reqUrl + ', with method: ' + type);
 
             // set this reference to self for callback
             var self = this;
@@ -78,7 +78,7 @@
             req.mozBackgroundRequest = true;
 
             /* Request Timeout guard */
-            var timeoutSec = this.timeout * 1000;
+            var timeoutSec = this.syncSettings.timeout * 1000;
             var timeout = null;
             timeout = setTimeout(function() {
 
@@ -96,19 +96,25 @@
 
             req.open(type, reqUrl, true/*, username, password*/);
 
+            dump('request url: ' + reqUrl + '\n');
+
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
 
             req.onreadystatechange = function (aEvt) {
-                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                // dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
                 self.lastReadyState = req.readyState;
                 self.lastStatus = req.status;
 
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if (req.status == 200) {
-                        var result = GeckoJS.BaseObject.unserialize(req.responseText);
-                        if (result.status == 'ok') {
-                            datas = result.response_data;
+                        try {
+                            var result = GeckoJS.BaseObject.unserialize(req.responseText);
+                            if (result.status == 'ok') {
+                                datas = result.response_data;
+                            }
+                        }catch(e) {
+                            dump('decode error ' + e ) ;
                         }
                     }
                     // clear resources
@@ -171,14 +177,10 @@
             
             lastModified = typeof lastModified == 'undefined' ? 0 : lastModified;
             
-            this.log('DEBUG', 'getLastModifiedRecords: ' + lastModified);
+            //this.log('DEBUG', 'getLastModifiedRecords: ' + lastModified);
 
             // get local stock record to cached first.
-            var stocks = this.find('all', {
-                'fields': 'id,quantity,modified',
-                'recursive':0,
-                'conditions': 'modified > ' + lastModified
-            });
+            var stocks = this.getDataSource().fetchAll("SELECT id,quantity,modified FROM stock_records WHERE modified > " + lastModified);
 
             if (this.lastError != 0) {
                 this.log('ERROR',
@@ -221,7 +223,18 @@
                 
                 var requestUrl = remoteUrl + '/' + this.lastModified;
 
-                var cb = function(remoteStocks) {
+                var cb = function(response_data/*remoteStocks*/) {
+                
+                    var remoteStocks;
+
+                    try {
+                        //
+                        remoteStocks = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(atob(response_data)));
+
+                    }catch(e) {
+                        self.lastStatus = 0;
+                        this.log('ERROR', 'getLastModifiedRecords cant decode response '+e);
+                    }
 
                     var lastModified = self.saveStockRecords(remoteStocks);
 
@@ -229,7 +242,7 @@
                         self.lastModified = lastModified;
                     }
 
-                    self.log('DEBUG', 'cachedStockRecords: ' + self.dump(self._cachedRecords));
+                    //self.log('DEBUG', 'cachedStockRecords: ' + self.dump(self._cachedRecords));
 
                     if(callback) {
                         callback.call(self, self.lastModified);
@@ -244,6 +257,9 @@
                 }
 
             }else {
+
+                this.lastReadyState = 4;
+                this.lastStatus = 200;
 
                 if(callback) {
                     callback.call(self, self.lastModified);
@@ -293,7 +309,7 @@
                     if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
 
                 }catch(e) {
-                    this.log(sqlWithTransaction +",,"+ e);
+                    //this.log(sqlWithTransaction +",,"+ e);
                 }
                 
             }
@@ -350,7 +366,7 @@
             var async = false;
             var callback = null;
 
-            this.log('DEBUG', 'decreaseStockRecords datas: ' + this.dump(datas));
+            //this.log('DEBUG', 'decreaseStockRecords datas: ' + this.dump(datas));
 
             var remoteUrl = this.getRemoteServiceUrl('decreaseStockRecords');
 
@@ -358,7 +374,18 @@
 
                 var requestUrl = remoteUrl + '/' + this.lastModified;
                 
-                var remoteStocks = this.requestRemoteService('POST', requestUrl, datas, async, callback);
+                var response_data = this.requestRemoteService('POST', requestUrl, datas, async, callback);
+
+                var remoteStocks;
+
+                try {
+                    //
+                    remoteStocks = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(atob(response_data)));
+
+                }catch(e) {
+                    this.lastStatus = 0;
+                    this.log('ERROR', 'decreaseStockRecords cant decode response '+e);
+                }
 
                 var lastModified = this.saveStockRecords(remoteStocks);
 
@@ -400,6 +427,9 @@
                         this.log(sqlWithTransaction +",,"+ e);
                     }
                 }
+
+                this.lastReadyState = 4;
+                this.lastStatus = 200;
 
                 this.lastModified = now;
 

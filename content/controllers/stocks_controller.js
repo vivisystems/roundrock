@@ -20,9 +20,15 @@
             var self = this;
             
             this.syncSettings = (new SyncSetting()).read();
+
+            this.hostname = this.syncSettings.stock_hostname;
             
             // synchronize mode.
             this.StockRecord.syncAllStockRecords();
+
+            if (this.StockRecord.lastStatus != 200) {
+                this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
+            }
 
             this.backgroundSyncing = false;
 
@@ -182,15 +188,32 @@
                 }
 
                 // only call model once to decrease stock records .
-                if (datas && datas.length > 0)
+                if (datas && datas.length > 0) {
                     this.StockRecord.decreaseStockRecords(datas);
+
+                    if (this.StockRecord.lastStatus != 200) {
+                        this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
+                        return false;
+                    }
+
+                    return true;
+                }
+
 
             } catch ( e ) {
                 this.log('ERROR', 'decStock error' +  e );
                 return false;
             } 
             return true;
+        },
+
+        _serverError: function(state, status, hostname) {
+            this.log('ERROR', 'Stock Server error: ' + state + ' [' +  status + '] at ' + hostname);
+            GREUtils.Dialog.alert(this.topmostWindow,
+                _('Stock Server Connection Error'),
+                'Connection to "' + hostname + '" Error ('+status+')\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
+
     };
     
     GeckoJS.Controller.extend( __controller__ );
