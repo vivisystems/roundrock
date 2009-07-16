@@ -5,25 +5,38 @@ Terminal: ${head.store.terminal_no + ' '|left:11}${_( '(rpt)Clerk' ) + ': '}${he
 ${head.start_time} ~ ${head.end_time}
 
 ${head.title|center:42}
-{for category in body}
+{for commitment in body}
+==========================================
+${_( "(inventory)" + commitment.type )}
+${_( '(rpt)Time' ) + ':'|left:16}${commitment.created|unixTimeToString|right:26}
+{if commitment.commitment_memo.length > 0}
+${_( '(rpt)Memo' ) + ':'|left:16}${commitment.commitment_memo|right:26}
+{/if}
+{for product in commitment.products}
 ------------------------------------------
-${category.no} - ${category.name}
-{for item in category.orderItems}
-------------------------------------------
-${_( '(rpt)Product Number' ) + ':'|left:16}${item.product_no|right:26}
-${_( '(rpt)Product Name' ) + ':'|left:16}${item.product_name|right:26}
-${_( '(rpt)Average Price' ) + ':'|left:16}${item.avg_price|viviFormatPrices:true|right:26}
-${_( '(rpt)Quantities Sold' ) + ':'|left:16}${item.qty|format:0|right:26}
-${_( '(rpt)Gross Sales' ) + ':'|left:16}${item.gross|viviFormatPrices:true|right:26}
-${_( '(rpt)Net Sales' ) + ':'|left:16}${item.net|viviFormatPrices:true|right:26}
+${_( '(rpt)Product Number' + ':' )|left:16}${product.product_no|right:26}
+${_( '(rpt)Product Name' + ':' )|left:16}${product.name|right:26}
+${_( '(rpt)Barcode' + ':' )|left:16}${product.barcode|right:26}
+${_( '(rpt)Warehouse' + ':' )|left:16}${product.warehouse|right:26}
+${_( '(rpt)Clerk' + ':' )|left:16}${product.clerk|right:26}
+${_( '(rpt)Quantity' + ':' )|left:16}${product.quantity|format:0|right:26}
+${_( '(rpt)New Quantity' + ':' )|left:16}${product.new_quantity|format:0|right:26}             
+{if commitment.type == "procure"}
+${_( '(rpt)Purchase Price' + ':' )|left:16}${product.price|default:0|viviFormatPrices:true|right:26}
+{/if}
+{if product.memo.length > 0}
+${_( '(rpt)Memo' + ':' )|left:16}${product.memo|right:26}
+{/if}
 {/for}
 ------------------------------------------
-${_( '(rpt)Records Found' ) + ': '|left:16}${category.orderItems.length|format:0|right:26}
+${_( '(rpt)Records Found' ) + ': '|left:16}${commitment.products.length|format:0|right:26}
+{if commitment.type == "procure"}
 ------------------------------------------
 ${_( '(rpt)Summary' )}
-${_( '(rpt)Quantities Sold' ) + ':'|left:16}${category.summary.qty|format:0|right:26}
-${_( '(rpt)Gross Sales' ) + ':'|left:16}${category.summary.gross|viviFormatPrices:true|right:26}
-${_( '(rpt)Net Sales' ) + ':'|left:16}${category.summary.net|viviFormatPrices:true|right:26}
+${_( '(rpt)Quantity' + ':' )|left:16}${commitment.summary.quantity|format:0|right:26}
+${_( '(rpt)New Quantity' + ':' )|left:16}${commitment.summary.new_quantity|format:0|right:26}
+${_( '(rpt)Purchase Price' + ':' )|left:16}${commitment.summary.price|default:0|viviFormatPrices:true|right:26}
+{/if}
 {/for}
 ------------------------------------------
 ${foot.gen_time}
