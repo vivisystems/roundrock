@@ -16,14 +16,12 @@
     width: 504px;
     min-width: 504px;
     max-width: 504px;
-    overflow: hidden;
 }
 
 .rightPanel {
     width: 520px;
     min-width: 520px;
     max-width: 520px;
-    overflow: hidden;
 }
 
 .panelSpacer {
