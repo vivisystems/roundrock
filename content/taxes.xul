@@ -109,7 +109,7 @@
                         </vbox>
                     </vbox>
                     <vbox class="RightPnlB" flex="1">
-                        <viviscrollablebuttonpanel id="addontaxscrollablepanel" form="taxForm" name="combine_tax" default="" seltype="multiple" flex="1" cols="2" rows="5" labelField="name"
+                        <viviscrollablebuttonpanel id="singletaxscrollablepanel" form="taxForm" name="combine_tax" default="" seltype="multiple" flex="1" cols="2" rows="5" labelField="name"
                                                    oncommand=""
                                                    class="ItemScrollablepanel"
                                                    buttonClass="ItemButtonB"

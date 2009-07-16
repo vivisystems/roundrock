@@ -54,6 +54,15 @@
 
             (new SyncSetting()).save(obj);
 
+            // update store contact as well
+            var storeContact = GeckoJS.Session.get('storeContact');
+            if (storeContact && storeContact.id) {
+                storeContact.terminal_no = obj.machine_id;
+                var storeContactModel = new StoreContactModel();
+                storeContactModel.id = storeContact.id;
+                storeContactModel.save(storeContact);
+            }
+
             try {
 
                 var ntpConf = new GeckoJS.File('/etc/ntp.conf');

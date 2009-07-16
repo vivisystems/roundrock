@@ -345,7 +345,7 @@
                     o.TableOrder = new GeckoJS.ArrayQuery(this._tableOrders).filter("table_no = '" + o.table_no + "'");
 
                     delete o.TableBooking;
-                    o.TableBooking = new GeckoJS.ArrayQuery(this._TableBookings).filter("table_no = '" + o.table_no + "'");
+                    o.TableBooking = new GeckoJS.ArrayQuery(this._tableBookings).filter("table_no = '" + o.table_no + "'");
 
                     o.table_region_id = o.Table.table_region_id;
 
@@ -605,6 +605,40 @@ return;
             }
         },
 
+        setTableMark: function(table_no, mark) {
+
+            var remoteUrl = this.getRemoteService('setTableMark');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                // tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({table_no: table_no, holdTable: holdTable}));
+                tableStatus = this.requestRemoteService('GET', remoteUrl + '/' + table_no + '/' + markTable, null);
+
+                return ;
+            }
+
+            var conditions = "table_statuses.table_no='" + table_no + "'";
+            var tableStatusObjTmp = this.find('first', {
+                conditions: conditions
+            });
+
+            var markObj = null;
+            if (mark) {
+                markObj = {mark: mark};
+            }
+            else {
+                markObj = {mark: ''};
+            }
+
+            // tableStatus record exist
+            if (tableStatusObjTmp) {
+
+                this.id = tableStatusObjTmp.id;
+                this.save( markObj );
+            }
+        },
+
         addCheck: function(checkObj) {
             var index = -1;
             var i = 0;
@@ -711,7 +745,7 @@ return;
             var conditions = "table_bookings.booking < '" + remindTime + "' AND table_bookings.booking > '" + bookNow + "'";
 
             var orderby = "table_bookings.booking";
-            this._TableBookings = this.TableBooking.find("all", {conditions: conditions, order: orderby});
+            this._tableBookings = this.TableBooking.find("all", {conditions: conditions, order: orderby});
 
         },
 

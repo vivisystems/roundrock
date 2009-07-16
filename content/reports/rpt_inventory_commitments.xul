@@ -45,6 +45,20 @@
 		                            <vividatetimepicker id="end_date" value='' type="popup"/>
 		                        </vbox>
 		                    </row>
+		                    <row>
+		                        <vbox>
+		                    		<label value="&rptinventorycommitments.type;" />
+					                <menulist id="type">
+					                    <menupopup id="type_menupopup">
+					                        <menuitem selected="true" label="&rptinventorycommitments.type.all;" value="all" />
+					                        <menuitem selected="false" label="&rptinventorycommitments.type.inventory;" value="inventory" />
+					                        <menuitem selected="false" label="&rptinventorycommitments.type.procure;" value="procure" />
+					                        <menuitem selected="false" label="&rptinventorycommitments.type.waste;" value="waste" />
+					                        <menuitem selected="false" label="&rptinventorycommitments.type.other;" value="other" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    </row>
 		                </rows>
 		            </grid>
 		            </hbox>

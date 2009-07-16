@@ -43,7 +43,7 @@
 
     });
 
-    var NSIAddonTaxesView = window.NSIAddonTaxesView = GeckoJS.NSITreeViewArray.extend({
+    var NSISingleTaxesView = window.NSISingleTaxesView = GeckoJS.NSITreeViewArray.extend({
 
         getValue: function() {
 

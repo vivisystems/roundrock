@@ -104,8 +104,8 @@
  * @function  
  * @param {String} no
  * @param {String} name
- * @param {String} type               "ADDON" , "TABLE", "COMBINE" , "VAT"
- * @param {Number|Object} rate               percentage for example 05.00 of Object of TABLE
+ * @param {String} type               "ADDON" , "INCLUDED", "COMBINE" , "VAT"
+ * @param {Number|Object} rate               percentage for example 05.00 of Object of INCLUDED
  * @param {String} rate_type               percentage (%) or value ($)
  * @param {Number} threshold
  * @param {String} updateId           tax's id for update , empty for add
@@ -279,10 +279,8 @@
             recursive: 2
         });
 
-        if (tax == null) tax =  {};
-
         // reformat object for CombineTax
-        if (tax.CombineTax) {
+        if (tax && tax.CombineTax) {
 
             var combineTaxes = GeckoJS.Array.objectExtract(tax.CombineTax, "{n}.combine_tax_id");
             var newCombineTaxes = [];
@@ -362,7 +360,7 @@
 
         var params = {};
 
-        if (GeckoJS.Array.inArray(type, ["ADDON", "TABLE", "COMBINE", "VAT"]) != -1) {
+        if (GeckoJS.Array.inArray(type, ["ADDON", "INCLUDED", "COMBINE", "VAT"]) != -1) {
             params['conditions'] = "type='"+type+"'";
         }
         params['recursive'] = 2;
@@ -390,7 +388,7 @@
     
         no = no || null;
         combineTaxes = combineTaxes || [];
-        
+ 
         // no roleName parameter return false
         if (no == null || combineTaxes.length == 0 ) return false;
 
@@ -540,32 +538,23 @@
 
             case "COMBINE":
                 var totalCharge = 0;
-                taxAmount['combine'] = {};
+                var totalIncluded = 0;
                 if (unitprice >= taxObject['threshold'] && taxObject.CombineTax != null) {
 
                     // foreach combine taxes
                     taxObject.CombineTax.forEach(function(cTaxObj){
-                        if (unitprice >= cTaxObj['threshold']) {
-
-                            var charge = 0;
-                            if (cTaxObj['rate_type'] == '$') {
-                                charge = qty * cTaxObj['rate'];
-                            }else {
-                                charge = amount * (cTaxObj['rate'] / 100) ;
-                            }
-                        
-                            if (charge > 0) {
-                                totalCharge += charge;
-                                taxAmount['combine'][cTaxObj.name] = {
-                                    charge: charge,
-                                    tax: cTaxObj
-                                };
-                            }
+                        var cTaxAmount = this.calcTaxAmount(cTaxObj['no'], amount, unitprice, qty);
+                        taxAmount[no][cTaxObj.name] = {
+                            charge: cTaxAmount[cTaxObj.no].charge || 0,
+                            included: cTaxAmount[cTaxObj.no].included || 0,
+                            tax: cTaxObj
                         }
-                    });
-
-                    taxAmount[no]['charge'] = totalCharge;
+                        totalCharge += cTaxAmount[cTaxObj.no].charge || 0;
+                        totalIncluded += cTaxAmount[cTaxObj.no].included || 0;
+                    }, this);
                 }
+                taxAmount[no]['charge'] = totalCharge;
+                taxAmount[no]['included'] = totalIncluded;
                 break;
 
             case "VAT":
@@ -604,7 +593,6 @@
 
     TaxComponent.prototype.calcOpenTaxAmount = function(rate_type, rate, amount) {
 
-        var taxObject = null;
         amount = amount || 0;
         amount = parseFloat(amount);
 
@@ -614,8 +602,6 @@
             charge: 0,
             tax: null
         };
-
-        taxObject = this.getTax(no);
 
         if ((isNaN(amount) || amount == Infinity) ) return taxAmount;
     

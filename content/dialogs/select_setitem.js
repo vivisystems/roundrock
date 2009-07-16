@@ -13,7 +13,7 @@
         var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
         var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
-        var productsById;
+        var productModel = new ProductModel();
         var barcodesIndexes;
         var groupsById;
         var productIndexesByGroup;
@@ -117,7 +117,7 @@
 
                     var sResult = '';
                     var productId = selections[row];
-                    var product =  productsById[productId];
+                    var product =  productModel.getProductById(productId);
                     if (product) {
                         sResult = product[col.id];
                     }
@@ -129,7 +129,6 @@
             },
 
             load: function(evt) {
-                productsById = GeckoJS.Session.get('productsById');
                 barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
                 groupsById = GeckoJS.Session.get('plugroupsById');
                 productIndexesByGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
@@ -149,7 +148,7 @@
                     // preset product legal?
                     if (setitem.product_no != null && setitem.product_no != '') {
                         var productId = barcodesIndexes[setitem.product_no];
-                        var product = productsById[productId];
+                        var product = productModel.getProductById(productId);
 
                         if (product) {
                             newItem['product'] = product;
@@ -158,7 +157,7 @@
 
                     if (setitem.preset_no != null && setitem.preset_no != '') {
                         var presetId = barcodesIndexes[setitem.preset_no];
-                        var preset = productsById[presetId];
+                        var preset = productModel.getProductById(presetId);
 
                         if (preset) {
                             newItem['preset'] = preset;
@@ -182,7 +181,7 @@
                         if (plugroup) {
                             // filter set items out of selections
                             selections = selections.filter(function(val, index, obj) {
-                                                               var prod = productsById[val];
+                                                               var prod = productModel.getProductById(prod);
                                                                if (prod) {
                                                                    return (prod.SetItem == null) || (prod.SetItem.length == 0);
                                                                }
@@ -317,7 +316,7 @@
                 var selectedRow = panel.selectedIndex;
                 var plusetRow = $buttonPanel[0].selectedIndex;
                 if (selections && selectedRow > -1 && plusetRow > -1) {
-                    plusetData[plusetRow].product = productsById[selections[selectedRow]];
+                    plusetData[plusetRow].product = productModel.getProductById(selections[selectedRow]);
 
                     $buttonPanel[0].invalidateRow(plusetRow);
                 }

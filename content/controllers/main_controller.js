@@ -928,6 +928,9 @@
                         r = orderModel.execute('delete from syncs') && r;
                         r = orderModel.execute('delete from sync_remote_machines') && r;
 
+                        // reset sequence
+                        SequenceModel.resetSequence('order_no');
+
                         if (!r) {
                             GREUtils.Dialog.alert(this.topmostWindow,
                                                   _('Data Operation Error'),

@@ -14,8 +14,8 @@
 
 	<div style="float: right;">
 		<p class="heading_p">&nbsp;</p>
-		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
-		<p class="caption">${head.start_time} - ${head.end_time}</p>
+		<p class="heading_p" style="text-align: right;">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
+		<p class="caption" style="text-align: right;">${head.start_time} - ${head.end_time}</p>
 	</div>
 	
         <table id="body-table">
@@ -62,7 +62,7 @@
             <tfoot>
                 <tr>
                     <td colspan="${fields.length}">
-                        <span style="float: left;">${_( '(rpt)Records Found' ) }: ${head.rowCount|default:0|format:0} <br/>${_( '(rpt)Records Display' ) }: ${body.length|default:0|format:0}</span>
+                        <span style="float: left;">${_( '(rpt)Records Found' ) }: ${head.rowCount|default:0|format:0}&nbsp;&nbsp;&nbsp;&nbsp;${_( '(rpt)Records Display' ) }: ${body.length|default:0|format:0}</span>
                         <span style="float: right;">${_( '(rpt)Summary' ) + ':'}</span>
                     </td>
                 </tr>

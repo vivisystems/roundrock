@@ -10,6 +10,8 @@
         template: 'order_template',
         _orderId: null,
         _orderData: null,
+        _orders: [],
+        _index: -1,
 
         _queryStringPreprocessor: function( s ) {
             var re = /\'/g;
@@ -18,70 +20,22 @@
 
         load: function(inputObj) {
 
-            // load matching order(s)
-            var conditions = '';
-            if (inputObj.index == 'id') {
-                conditions = 'id = "' + inputObj.value + '"';
-            }
-            else {
-                var indices = inputObj.index.split(',');
-                for (var i = 0; i < indices.length; i++) {
-                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
-                }
-            }
-            var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
-            
-            if (localOnly) {
-                conditions += " AND terminal_no = '" + this._queryStringPreprocessor(GeckoJS.Session.get('terminal_no')) + "'";
-            }
+            // store global data
+            this._orders = inputObj.orders;
+            this._index = inputObj.position;
 
-            var orderModel = new OrderModel();
-            var order = orderModel.find('first', {
-                fields: ['id', 'sequence', 'terminal_no', 'branch', 'branch_id', 'status'],
-                conditions: conditions,
-                order: 'transaction_created desc, branch_id, terminal_no, sequence desc',
-                recursive: 0
-            });
-            if (parseInt(orderModel.lastError) != 0) {
-                this._dbError(orderModel.lastError, orderModel.lastErrorString,
-                              _('An error was encountered while retrieving list of matching orders (error code %S).', [orderModel.lastError]));
-                return;
+            this.displayOrder(this._orders[this._index].id);
+        },
+
+        prevOrder: function() {
+            if (this._index > 0) {
+                this.displayOrder(this._orders[--this._index].id);
             }
+        },
 
-            // list order
-            var orderObj = document.getElementById('order');
-            var branch = (order.branch == null || order.branch == '') ? ((order.branch_id == null || order.branch_id == '') ? '' : order.branch_id)
-                                                                      : order.branch + ((order.branch_id == null || order.branch_id == '') ? '' : ' (' + order.branch_id + ')');
-            var location = (branch == null || branch == '') ? order.terminal_no : (branch + ' [' + order.terminal_no + ']');
-            var statusStr = '';
-            switch(parseInt(order.status)) {
-                case -2:
-                    statusStr = _('(view)voided');
-                    break;
-
-                case -1:
-                    statusStr = _('(view)cancelled');
-                    break;
-
-                case 1:
-                    statusStr = _('(view)completed');
-                    break;
-
-                case 2:
-                    statusStr = _('(view)stored');
-                    break;
-            }
-
-            // disable void sale button initially
-            var voidBtn = document.getElementById('void');
-            voidBtn.setAttribute('disabled', true);
-            
-            if (order) {
-                orderObj.value = order.sequence + ' [' + statusStr + '] ' + location;
-                this.displayOrder(order.id);
-            }
-            else {
-                orderObj.value = _('No orders matching [%S] found', [inputObj.value]);
+        nextOrder: function() {
+            if (this._index < this._orders.length) {
+                this.displayOrder(this._orders[++this._index].id);
             }
         },
 
@@ -93,7 +47,7 @@
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById( 'abody' );
             var print = document.getElementById('print');
-            var voidBtn = document.getElementById('void');
+            var orderObj = document.getElementById('order');
             
             // load data
             var orderModel = new OrderModel();
@@ -104,29 +58,57 @@
                 return;
             }
 
-            // load template
-            var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
-            var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+            if (order) {
+                // display order status
+                var branch = (order.branch == null || order.branch == '') ? ((order.branch_id == null || order.branch_id == '') ? '' : order.branch_id)
+                                                                          : order.branch + ((order.branch_id == null || order.branch_id == '') ? '' : ' (' + order.branch_id + ')');
+                var location = (branch == null || branch == '') ? order.terminal_no : (branch + ' [' + order.terminal_no + ']');
+                var statusStr = '';
+                switch(parseInt(order.status)) {
+                    case -2:
+                        statusStr = _('(view)voided');
+                        break;
 
-            var data = {};
-            data.order = order;
-            data.sequence = order.sequence;
+                    case -1:
+                        statusStr = _('(view)cancelled');
+                        break;
 
-            this._orderData = data;
-            
-            var result = tpl.process(data);
+                    case 1:
+                        statusStr = _('(view)completed');
+                        break;
 
-            if (doc) {
-                doc.innerHTML = result;
+                    case 2:
+                        statusStr = _('(view)stored');
+                        break;
+                }
 
-                print.setAttribute('disabled', false);
+                orderObj.value = order.sequence + ' [' + statusStr + '] ' + location;
+
+                // load template
+                var path = GREUtils.File.chromeToPath('chrome://viviecr/content/tpl/' + this.template + '.tpl');
+                var file = GREUtils.File.getFile(path);
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+
+                var data = {};
+                data.order = order;
+                data.sequence = order.sequence;
+
+                this._orderData = data;
+
+                var result = tpl.process(data);
+
+                if (doc) {
+                    doc.innerHTML = result;
+
+                    print.setAttribute('disabled', false);
+                }
+
+                this._orderId = id;
             }
-
-            this._orderId = id;
-
-            // enable void sale button only if order has status of 1 or 2
-            voidBtn.setAttribute('disabled', !order || order.status < 1 || !this.Acl.isUserInRole('acl_void_transactions'));
+            else {
+                orderObj.value = _('Order not found');
+            }
+            this.validateForm(order);
         },
 
         exportRcp: function() {
@@ -158,6 +140,33 @@
             var cartController = mainWindow.GeckoJS.Controller.getInstanceByName('Cart');
             if (cartController.voidSale(id)) {
                 this.displayOrder(id);
+            }
+        },
+
+        validateForm: function(order) {
+            var nextbtn = document.getElementById('next');
+            var prevbtn = document.getElementById('prev');
+            var voidBtn = document.getElementById('void');
+            
+            // enable void sale button only if order has status of 1 or 2
+            voidBtn.setAttribute('disabled', !order || order.status < 1 || !this.Acl.isUserInRole('acl_void_transactions'));
+
+            if (nextbtn) {
+                if (this._index == this._orders.length - 1) {
+                    nextbtn.setAttribute('disabled', true);
+                }
+                else {
+                    nextbtn.removeAttribute('disabled');
+                }
+            }
+
+            if (prevbtn) {
+                if (this._index == 0) {
+                    prevbtn.setAttribute('disabled', true);
+                }
+                else {
+                    prevbtn.removeAttribute('disabled');
+                }
             }
         },
 

@@ -146,8 +146,7 @@
                 newTable = tableModel.save(newTable);
 
                 // add table_status
-                // var newTableStatus = {table_id:newTable.id, table_no: table_no};
-                var newTableStatus = {table_no: table_no};
+                var newTableStatus = {table_id:newTable.id, table_no: table_no};
                 this._getTableStatusModel().id = '';
                 newTableStatus = this._getTableStatusModel().save(newTableStatus);
 
