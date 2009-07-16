@@ -390,13 +390,6 @@
     border: none;
 }
 
-.TimeLabelBox label {
-    font-size: 12pt;
-    margin: 5px;
-    font-weight: bold;
-    color: #534741;
-}
-
 /* Sector list */
 .previewArea {
     padding: 3px;

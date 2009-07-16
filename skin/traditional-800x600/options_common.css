@@ -681,7 +681,18 @@ vividatetimepicker-timepad {
     color: #32787a;
 }
 
-.viviDateTimeLabel {
+.DateTime .TimeLabelBox {
+    -moz-box-pack: center;
+}
+
+.DateTime .TimeLabelBox label {
+    font-size: 10pt;
+    margin: 10px;
+    font-weight: bold;
+    color: #534741;
+}
+
+.DateTime .viviDateTimeLabel {
     font-size: 12pt;
     margin: 10px;
     font-weight: bold;

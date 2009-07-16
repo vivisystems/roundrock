@@ -2,20 +2,20 @@
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 <?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
 
-<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/vfdPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/cartlistPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/visible_promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
 
+<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/vfdPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/cartlistPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/functionPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/input_line_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/product_image_overlay.xul" ?>
 
-<overlay id="traditionalLayoutOverlay"
+<overlay id="simpleRetailLayoutOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -26,27 +26,23 @@
 
         <box id="mainPanel" flex="1" class="mainpanel block-ge" orient="horizontal">
 
-            <vbox id="leftPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel block-u first">
-                <box id="categoryPanelContainer" flex="0" class="categoryPanel" style="display: none;"/>
-                <box id="productPanelContainer" flex="1" class="productPanel" style="display: none;"/>
-                <box id="cartlistPanelContainer" flex="1" dir="reverse"
-                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px;"/>
-                <box id="vfdPanelContainer" flex="1"
-                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px;"/>
-                <box id="inputLinePanelContainer" flex="0"
-                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px;"/>
-                <box id="visiblePromotionsStatusPanelContainer" flex="0"
-                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px;"/>
-            </vbox>
+            <box id="leftPanel" flex="0" class="rightPanel block-u" orient="vertical">
+                <box id="productImagePanelContainer" flex="1" class="roundedContainerBorder"/>
+                <box flex="0" orient="vertical" class="roundedContainerBorder">
+                    <box id="functionPanelContainer" flex="0"/>
+                </box>
+            </box>
 
             <spacer id="panelSpacer" flex="1"/>
 
-            <box id="rightPanel" flex="0" class="rightPanel block-u" orient="vertical">
-                <box id="productImagePanelContainer" flex="1"
-                     style="border: 3px solid #a1a1a1; margin: 4px; padding: 4px; -moz-border-radius: 6px; background-image: url(images/vivipos_image1.png);"/>
-                <box id="functionPanelContainer" flex="0"/>
-            </box>
-
+            <vbox id="rightPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel block-u first">
+                <box id="cartlistPanelContainer" flex="1" class="roundedContainerBorder"/>
+                <box id="vfdPanelContainer" flex="0" class="roundedContainerBorder"/>
+                <box id="inputLinePanelContainer" flex="0" class="roundedContainerBorder"/>
+                <box id="visiblePromotionsStatusPanelContainer" flex="0" class="roundedContainerBorder"/>
+            </vbox>
+            <box id="categoryPanelContainer" flex="0" style="display: none;"/>
+            <box id="productPanelContainer" flex="1" style="display: none;"/>
         </box>
 
     </box>

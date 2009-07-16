@@ -21,7 +21,8 @@
         },
 
         toggleFunctionPanel: function (state) {
-            var fnPanel = document.getElementById('functionPanelContainer');
+            var fnPanel = document.getElementById('functionpanel');
+            var fnPanelContainer = document.getElementById('functionPanelContainer');
             var toolbar = document.getElementById('toolbar');
             var toggleBtn = document.getElementById('togglefunctionpanel');
             var clockinBtn = document.getElementById('clockin');
@@ -29,12 +30,12 @@
             var vkbBtn = document.getElementById('vkb');
             var spacer = document.getElementById('spacer');
             var cartSidebar = document.getElementById('cartsidebar');
-            var isHidden = fnPanel.getAttribute('hidden') || 'false';
+            var isHidden = fnPanelContainer.getAttribute('hidden') || 'false';
             var hidePanel = (state == null || state == '') ? (isHidden == 'false') : state;
             var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ShowToolbar') || false;
 
             if (hidePanel) {
-                if (fnPanel && (isHidden != 'true')) {
+                if (fnPanelContainer && (isHidden != 'true')) {
                     // relocate toolbar buttons to cartSidebar if showToolbar is on
                     if (cartSidebar) {
                         if (showToolbar) {
@@ -46,13 +47,13 @@
                         cartSidebar.appendChild(toggleBtn);
                     }
 
-                    fnPanel.setAttribute('hidden', 'true');
+                    fnPanelContainer.setAttribute('hidden', 'true');
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'true');
             }
             else {
                 // if already visible then don't change
-                if (fnPanel && (isHidden == 'true')) {
+                if (fnPanelContainer && (isHidden == 'true')) {
                     // return toolbar buttons to toolbar
 
                     if (toolbar) {
@@ -65,7 +66,8 @@
                         if (toggleBtn) toolbar.appendChild(toggleBtn);
                     }
 
-                    fnPanel.setAttribute('hidden', 'false');
+                    fnPanelContainer.setAttribute('hidden', 'false');
+                    fnPanel.width = fnPanel.boxObject.width;
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'false');
             }
@@ -197,7 +199,7 @@
             if (deptPanel) deptPanel.vivibuttonpanel.resizeButtons();
             if (pluPanel) pluPanel.vivibuttonpanel.resizeButtons();
 
-            if (fnPanel) {
+            if (fnPanel && !fnPanelContainer.hidden) {
                 fnPanel.setAttribute('hideScrollbar', hideFPScrollbar)
                 fnPanel._showHideScrollbar(hideFPScrollbar);
 
@@ -220,6 +222,7 @@
                     }
                     fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
                 }
+                fnPanel.width = fnPanel.boxObject.width;
             }
         },
         
@@ -240,8 +243,8 @@
             var productPanel = document.getElementById('leftPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
-            var fnPanel = document.getElementById('functionPanel');
-            var toolbarPanel = document.getElementById('functionPanelContainer');
+            var fnPanel = document.getElementById('functionpanel');
+            var fnPanelContainer = document.getElementById('functionPanelContainer');
             var toolbar = document.getElementById('toolbar');
             var cartList = document.getElementById('cartList');
             var checkTrackingStatus = document.getElementById('vivipos_fec_check_tracking_status');
@@ -257,11 +260,14 @@
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
-            if (toolbarPanel) {
-                toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
-            }
+            if (fnPanelContainer) fnPanelContainer.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (toolbar) {
+                if (showToolbar) {
+                    fnPanel.setAttribute('hidden', true);
+                    fnPanel.width = 0;
+                }
                 toolbar.setAttribute('hidden', showToolbar ? 'false' : 'true');
+                fnPanel.removeAttribute('hidden');
             }
             if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
             if (checkTrackingStatus) {

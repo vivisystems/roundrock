@@ -151,10 +151,11 @@
                         </vbox>
                     </row>
                     <row>
-                        <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&formats.sequencetrackssaleperiod;" />
+                        <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&formats.sequencetrackssaleperiod;"
+                                  oncommand="adjustSequenceLength(this.checked)"/>
                         <vbox>
                             <label control="sequencenumberlength" value="&formats.sequence.number.length;"/>
-                            <textbox preference="pref_sequencenumberlength" id="sequencenumberlength" type="number" min="2" max="6"/>
+                            <textbox preference="pref_sequencenumberlength" id="sequencenumberlength" type="number" min="2" max="12"/>
                         </vbox>
                     </row>
 

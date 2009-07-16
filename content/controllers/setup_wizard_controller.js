@@ -336,7 +336,7 @@
                 try {
                     var profPath = GeckoJS.Configure.read('ProfD');
                     // remove existing prefs.js
-                    //GREUtils.File.remove(profPath + '/prefs.js');
+                    GREUtils.File.remove(profPath + '/prefs.js');
 
                     // copy prefs.js to profile directory
                     var prefsPath = GREUtils.File.chromeToPath(datapath + '/user.js');
@@ -353,6 +353,7 @@
                     var dbs = GeckoJS.Dir.readDir(dbPath, {type: 'f'});
 
                     dbs.forEach(function(f) {
+                        GREUtils.File.remove(systemPath + '/databases/' + f.leafName);
                         GREUtils.File.copy(f.path, systemPath + '/databases/');
                         GREUtils.File.copy(f.path, systemPath + '/training/');
                     })
@@ -523,10 +524,12 @@
                     rate_str = '';
                     threshold_str = '';
 
-                    taxObj.CombineTax.forEach(function(cTax) {
-                        if (rate_type_str) rate_type_str += ',';
-                        rate_type_str += cTax.no;
-                    }, this);
+                    if (taxObj.CombineTax) {
+                        taxObj.CombineTax.forEach(function(cTax) {
+                            if (rate_type_str) rate_type_str += ',';
+                            rate_type_str += cTax.no;
+                        }, this);
+                    }
                 }
                 else {
                     rate_type_str = _('(taxRateType)' + tax.rate_type);

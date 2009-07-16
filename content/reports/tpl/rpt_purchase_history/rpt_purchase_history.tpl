@@ -14,8 +14,8 @@
 
 	<div style="float: right;">
 		<p class="heading_p">&nbsp;</p>
-		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
-		<p class="caption">${head.start_time} - ${head.end_time}</p>
+		<p class="heading_p" style="text-align: right;">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
+		<p class="caption" style="text-align: right;">${head.start_time} - ${head.end_time}</p>
 	</div>
 
 {for record in body.records}
@@ -35,7 +35,7 @@
         <tbody>
 {for product in record.records}
 {if product.average_line == true}
-            <tr style="background: #daf6e9;">
+            <tr style="background-color: #daf6e9;">
 {else}
             <tr>
 {/if}
