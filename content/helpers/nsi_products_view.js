@@ -148,18 +148,26 @@
             
             // this.log(row +","+col);
 
+            var productsById = GeckoJS.Session.get('productsById');
+            
             var sResult;
             var id;
             var key;
+            var product = null;
 
             try {
 
                 key = col.id;
                 id = this.data[row];
                 if (id == "") return "";
+                
+                product = productsById[id];
 
-                var product = this.Product.getProductById(id);
+                if (typeof product[key] == 'undefined' && key != 'unavailable' && key != 'soldout' && product._full_object_ == false ) {
+                    product = this.Product.getProductById(id);
+                }
                 sResult= product[key];
+                
                 //this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
             }
             catch (e) {
@@ -177,7 +185,10 @@
 
             if (pid == "") return null;
 
-            var product = this.Product.getProductById(pid);
+            var productsById = GeckoJS.Session.get('productsById');
+
+            //var product = this.Product.getProductById(pid);
+            var product = productsById[pid];
 
             if(!product) return null;
             if (product[cachedKey] === false ) return null;
@@ -191,7 +202,7 @@
                 
             }else {
 
-                var val = productproduct[colKey];
+                var val = product[colKey];
                 // var val = this.getCellValue(row, col);
                 var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                 var sPluDir = datapath + "/images/pluimages/";

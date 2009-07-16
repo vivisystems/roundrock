@@ -14,7 +14,7 @@
 
 	<div style="float: right;">
 		<p class="heading_p">&nbsp;</p>
-		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
+		<p class="heading_p" style="text-align: right;">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
 	</div>
 	
 {for category in body}
