@@ -427,6 +427,20 @@
             this._inputObj.action = 'UnmergeTable';
         },
 
+        doMarkTable: function(mark) {
+            this._setPromptLabel('*** ' + mark + ' ***', _('Please select the table to mark %S ...', [mark]), '', _('Press CANCEL button to cancel function'), 2);
+            
+            var pnl = this._showPromptPanel('prompt_panel');
+            this._inputObj.action = 'MarkTable';
+        },
+
+        doUnmarkTable: function() {
+            this._setPromptLabel('*** ' + _('Clear Table Mark') + ' ***', _('Please select the table to clear mark...'), '', _('Press CANCEL button to cancel function'), 2);
+
+            var pnl = this._showPromptPanel('prompt_panel');
+            this._inputObj.action = 'UnmarkTable';
+        },
+
         doBookingTable: function() {
             this._setPromptLabel('*** ' + _('Book Table') + ' ***', _('Please select a table to book...'), '', _('Press CANCEL button to cancel function'), 2);
 
@@ -902,6 +916,60 @@
                     return;
                     break;
 
+                case 'MarkTable':
+
+                    // if (!selTable.holdby) {
+                    if (!selTable.hostby) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table had not been hold!!'));
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    var i = this._regionTables[v].table_no;
+                    var holdby = GeckoJS.BaseObject.clone(this._regionTables[v]);
+                    holdby.status = -1;
+
+                    // this._tables = this._tableStatusModel.holdTable(i, holdby);
+                    // this._tables = this._tableStatusModel.holdTable(i, i);
+                    this._tableStatusModel.holdTable(i, i);
+
+                    document.getElementById('tableScrollablepanel').invalidate();
+
+                    this._inputObj.action = '';
+                    this._sourceTableNo = null;
+                    this._hidePromptPanel('prompt_panel');
+                    this._isBusy = false;
+                    return;
+                    break;
+
+                case 'UnmarkTable':
+
+                    // if (!selTable.holdby) {
+                    if (!selTable.hostby) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table had not been hold!!'));
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    var i = this._regionTables[v].table_no;
+                    var holdby = GeckoJS.BaseObject.clone(this._regionTables[v]);
+                    holdby.status = -1;
+
+                    // this._tables = this._tableStatusModel.holdTable(i, holdby);
+                    // this._tables = this._tableStatusModel.holdTable(i, i);
+                    this._tableStatusModel.holdTable(i, i);
+
+                    document.getElementById('tableScrollablepanel').invalidate();
+
+                    this._inputObj.action = '';
+                    this._sourceTableNo = null;
+                    this._hidePromptPanel('prompt_panel');
+                    this._isBusy = false;
+                    return;
+                    break;
+
                 case 'BookTable':
 
                     var table_status_id = this._regionTables[v].id
@@ -1183,7 +1251,6 @@
                     this._tables.forEach(function(tableObj){
                         //
                         var index = this._regionsById[tableObj.Table.table_region_id];
-
                         if (index >= 0) {
                             this._regions[index].regionTables[this._regions[index].regionTables.length] = tableObj;
 

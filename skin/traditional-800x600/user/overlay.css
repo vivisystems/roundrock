@@ -57,7 +57,6 @@
     margin: 4px;
     padding: 4px;
     -moz-border-radius: 6px;
-    overflow: hidden;
 }
 
 #staticCondimentsPanel vivibutton image {
@@ -77,4 +76,9 @@
     -moz-border-radius: 8px;
     margin: 8px;
     padding: 4px;
+}
+
+.ProductPhotoMain {
+    background: white url(chrome://viviecr/skin/images/vivipos_icon1.png) center center no-repeat;
+}
 }

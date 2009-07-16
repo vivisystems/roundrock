@@ -71,13 +71,12 @@
 
             if (barcode == "") return;
 
-            var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var product;
 
             if (barcodesIndexes[barcode]) {
                 var id = barcodesIndexes[barcode];
-                product = productsById[id];
+                product = (new ProductModel()).ProductModel(id);
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
 
             }

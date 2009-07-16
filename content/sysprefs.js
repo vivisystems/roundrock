@@ -9,7 +9,7 @@
         var rp = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
         var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
         var defaultTaxStatus = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-        var trackSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod') || true;
+        var trackSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
 
         var rpNode = document.getElementById('roundingprices');
         if (rpNode) rpNode.value = rp;
@@ -103,6 +103,8 @@ function adjustSequenceLength(trackSalePeriod) {
         len = maxlen;
     }
     lenObj.setAttribute('max', maxlen);
+
+    GeckoJS.Configure.write('vivipos.fec.settings.SequenceNumberLength', len);
     lenObj.value = len;
 }
 

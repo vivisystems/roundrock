@@ -7,7 +7,9 @@
 <!ENTITY rptinventorycommitments.exportrcp "Print">
 <!ENTITY rptinventorycommitments.print "Print">
 <!ENTITY rptinventorycommitments.togglezoom "Toggle Zoom">
-<!ENTITY rptinventorycommitments.periodtype "Period Type:">
-<!ENTITY rptinventorycommitments.realtime "Real Time">
-<!ENTITY rptinventorycommitments.saleperiod "Sale Period">
-<!ENTITY rptinventorycommitments.shiftno "Shift:">
+<!ENTITY rptinventorycommitments.type "Type:">
+<!ENTITY rptinventorycommitments.type.all "All">
+<!ENTITY rptinventorycommitments.type.inventory "Inventory">
+<!ENTITY rptinventorycommitments.type.procure "Procure">
+<!ENTITY rptinventorycommitments.type.waste "Waste">
+<!ENTITY rptinventorycommitments.type.other "Other">

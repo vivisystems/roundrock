@@ -4,23 +4,23 @@
         include( 'chrome://viviecr/content/models/app.js' );
     }
 
-	var __model__ = {
+    var __model__ = {
          
-		name: 'InventoryRecord',
+        name: 'InventoryRecord',
 		
-		useDbConfig: 'default',
+        useDbConfig: 'default',
 		
-		belongsTo: [ 'InventoryCommitment' ],
+        belongsTo: [ 'InventoryCommitment' ],
 		
         autoRestoreFromBackup: true,
 
-		set: function( inventoryRecord ) {
-			if ( inventoryRecord ) {
-				this.id = '';
-				var r = this.save( inventoryRecord );
+        set: function( inventoryRecord ) {
+            if ( inventoryRecord ) {
+                this.id = '';
+                var r = this.save( inventoryRecord );
                 if (!r) {
                     this.log('ERROR',
-                             'An error was encountered while saving inventory record (error code ' + this.lastError + ': ' + this.lastErrorString);
+                        'An error was encountered while saving inventory record (error code ' + this.lastError + ': ' + this.lastErrorString);
 
                     //@db saveToBackup
                     r = this.saveToBackup(inventoryRecord);
@@ -29,48 +29,87 @@
                     }
                     else {
                         this.log('ERROR',
-                                 'record could not be saved to backup:' + '\n' + this.dump(inventoryRecord));
+                            'record could not be saved to backup:' + '\n' + this.dump(inventoryRecord));
                     }
                 }
                 return r;
-			}
+            }
             return true;
-		},
+        },
 		
-		setAll: function( inventoryRecords ) {
-            var r = true;
-			if ( inventoryRecords.length > 0 ) {
-				for (var inventoryRecord in inventoryRecords ) {
-					var record = {};
-					for (var field in inventoryRecords[ inventoryRecord ] ) {
-						if (field != 'id')
-							record[field] = inventoryRecords[inventoryRecord][field];
-					}
-					r = this.set(record);
+        setAll: function( inventoryRecords ) {
+
+            if ( inventoryRecords.length > 0 ) {
+
+                var created , modified;
+                created = modified = Math.ceil(Date.now().getTime()/1000);
+
+                var sql = "BEGIN; \n" ;
+
+                inventoryRecords.forEach(function( inventoryRecord ) {
+                    var data = {};
+                    data['id'] = GeckoJS.String.uuid();
+                    data['created'] = data['modified'] = modified;
+                    data['commitment_id'] = inventoryRecord['commitment_id'];
+                    data['product_no'] = inventoryRecord['product_no'] || '';
+                    data['barcode'] = inventoryRecord['barcode'] || '';
+                    data['warehouse'] = inventoryRecord['warehouse'] || '';
+                    data['quantity'] = inventoryRecord['quantity'];
+                    data['new_quantity'] = inventoryRecord['new_quantity'];
+                    data['clerk'] = inventoryRecord['clerk'] || '';
+                    data['memo'] = inventoryRecord['memo'] || '';
+
+                    var fields = GeckoJS.BaseObject.getKeys(data).join(', ');
+                    var values = "'" + GeckoJS.BaseObject.getValues(data).join("', '") + "'";
+
+                    sql += "INSERT INTO inventory_records ("+fields+") VALUES ("+values+") ; \n" ;
+                });
+
+                sql+= "COMMIT; ";
+
+                var datasource = this.getDataSource();
+
+                try {
+                    datasource.connect();
+                    if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
+                }catch(e) {
+                    this.log( 'ERROR', 'ERROR TO setAll \n'+ e );
+                    return false;
+                }
+
+                return true;
+                /*
+                for (var inventoryRecord in inventoryRecords ) {
+                    var record = {};
+                    for (var field in inventoryRecords[ inventoryRecord ] ) {
+                        if (field != 'id')
+                            record[field] = inventoryRecords[inventoryRecord][field];
+                    }
+                    r = this.set(record);
                     if (!r) break;
-				}
-			}
-            return r;
-		},
+                }*/
+            }
+            return false;
+        },
 		
-		get: function( type, params ) {
+        get: function( type, params ) {
             var r = this.find(type, params);
             if (this.lastError != 0) {
                 this.log('ERROR',
-                         'An error was encountered while retrieving inventory records (error code ' + this.lastError + '): ' + this.lastErrorString);
+                    'An error was encountered while retrieving inventory records (error code ' + this.lastError + '): ' + this.lastErrorString);
             }
             return r;
-		},
+        },
 		
-		getAll: function( type, params) {
+        getAll: function( type, params) {
             var r = this.find(type, params);
             if (this.lastError != 0) {
                 this.log('ERROR',
-                         'An error was encountered while retrieving inventory records (error code ' + this.lastError + '): ' + this.lastErrorString);
+                    'An error was encountered while retrieving inventory records (error code ' + this.lastError + '): ' + this.lastErrorString);
             }
             return r;
-		}
-	};
+        }
+    };
 	
-	var InventoryRecordModel = window.InventoryRecordModel = AppModel.extend( __model__ );
+    var InventoryRecordModel = window.InventoryRecordModel = AppModel.extend( __model__ );
 } )();

@@ -146,7 +146,7 @@
                 this.selectBooking(newIndex);
 
                 // @todo OSD
-                OsdUtils.info(_('Booking [%S] modified successfully', [inputObj.name]));
+                OsdUtils.info(_('Booking [%S] modified successfully', [inputObj.contact]));
             }
         },
 

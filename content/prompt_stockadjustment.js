@@ -3,6 +3,13 @@ var options;
 (function(){
     var inputObj = window.arguments[0];
     
+    if ( false ) {// for the translation job. The terms in this block are used in prompt_stockadjustment.js.
+        _( "(inventory)inventory" );
+        _( "(inventory)procure" );
+        _( "(inventory)waste" );
+        _( "(inventory)other" );
+    }
+    
     /**
      * Controller Startup
      */
