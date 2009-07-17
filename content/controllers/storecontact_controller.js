@@ -1,6 +1,7 @@
 (function(){
 
     GeckoJS.include('chrome://viviecr/content/models/storecontact.js');
+    GeckoJS.include('chrome://viviecr/content/models/stock_record.js');
 
     var __controller__ = {
 
@@ -104,6 +105,11 @@
                     return false;
                 }
                 formObj.branch_id = branch_id;
+                
+                // update stock_record.
+                var stockRecordModel = new StockRecordModel();
+                var sql = "UPDATE stock_records SET warehouse = '" + formObj.branch_id + "';";
+                stockRecordModel.execute( sql );
             }
             
             var storeContactModel = new StoreContactModel();
