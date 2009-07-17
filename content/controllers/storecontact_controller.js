@@ -9,7 +9,8 @@
         
         components: ['Form'],
 
-
+        _old_branch_id: null,
+        
         // load store contact from database into session cache
         initial: function() {
             var terminal_no = "" ;
@@ -107,9 +108,13 @@
                 formObj.branch_id = branch_id;
                 
                 // update stock_record.
-                var stockRecordModel = new StockRecordModel();
-                var sql = "UPDATE stock_records SET warehouse = '" + formObj.branch_id + "';";
-                stockRecordModel.execute( sql );
+                if (this._old_branch_id != branch_id) {
+                    var stockRecordModel = new StockRecordModel();
+                    var sql = "UPDATE stock_records SET warehouse = '" + formObj.branch_id + "' WHERE warehouse = '" + this._old_branch_id + "';";
+                    stockRecordModel.execute( sql );
+                    
+                    this._old_branch_id = branch_id;
+                }
             }
             
             var storeContactModel = new StoreContactModel();
@@ -124,13 +129,14 @@
         load: function () {
 
             var terminal_no = GeckoJS.Session.get('terminal_no');
+            var formObj;
             
             var storeContactModel = new StoreContactModel();
-            
+
             if(terminal_no==null || terminal_no==""){
-                var formObj = storeContactModel.find('first' );
+                formObj = storeContactModel.find('first' );
             }else{
-                var formObj = storeContactModel.findByIndex('first', {
+                formObj = storeContactModel.findByIndex('first', {
                                     index: 'terminal_no',
                                     value: terminal_no});
             }
@@ -141,6 +147,8 @@
             else {
                 GeckoJS.FormHelper.reset('storecontactForm');
             }
+
+            this._old_branch_id = formObj.branch_id;
         },
 
         validateForm: function() {
