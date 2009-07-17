@@ -2,6 +2,7 @@
 <!ENTITY tableman.tab.tables "Tables">
 <!ENTITY tableman.tab.regions "Regions">
 <!ENTITY tableman.tab.bookings "Bookings">
+<!ENTITY tableman.tab.marks "Marks">
 <!ENTITY tableman.tab.tableoptions "Options">
 <!ENTITY tableman.tab.tablemap "Table Map">
 <!ENTITY tableman.tab.tableoptions.1 "Options 1">
