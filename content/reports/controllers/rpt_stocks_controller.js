@@ -72,6 +72,7 @@
                 'p.no',
                 'p.name',
                 'p.min_stock',
+                'p.max_stock',
                 'p.auto_maintain_stock',
                 'p.link_group',
                 's.quantity'
@@ -119,11 +120,12 @@
                         records[ o.cate_no ].plu = [];
                     }
                     records[o.cate_no].plu.push( {
-                        cate_no:o.cate_no,
-                        no:o.no,
-                        name:o.name,
-                        stock:o.quantity,
-                        min_stock:o.min_stock
+                        cate_no: o.cate_no,
+                        no: o.no,
+                        name: o.name,
+                        stock: o.quantity,
+                        min_stock: o.min_stock,
+                        max_stock: o.max_stock
                     } );
                 }
                 

@@ -21,6 +21,7 @@
                 "ic.type",
                 "ic.memo AS commitment_memo",
                 "ic.created",
+                "ic.clerk",
                 "ic.supplier",
                 "ir.product_no",
                 "ir.barcode",
@@ -28,7 +29,6 @@
                 "ir.quantity",
                 "ir.new_quantity",
                 "ir.price",
-                "ir.clerk",
                 "ir.memo",
                 "p.name"
             ];
@@ -59,6 +59,7 @@
                     currentCommit = inventoryCommitments[ id ] = {
                         created: record.created,
                         type: record.type,
+                        clerk: record.clerk,
                         commitment_memo: record.commitment_memo,
                         products: [],
                         summary: {

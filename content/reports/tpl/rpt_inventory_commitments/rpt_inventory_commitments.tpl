@@ -22,7 +22,7 @@
     <table id="body-table">
         <thead>
         	<tr>
-            	<td colspan="4" class="subtitle">${_( "(inventory)" + commitment.type )}(&nbsp;${commitment.created|unixTimeToString}&nbsp;)</td>
+            	<td colspan="4" class="subtitle">${_( "(inventory)" + commitment.type )}(&nbsp;${commitment.clerk} / ${commitment.created|unixTimeToString}&nbsp;)</td>
             	<td colspan="5" class="subtitle" style="text-align: right !important;">${commitment.commitment_memo}</td>
             </tr>
             <tr class="fields">
@@ -30,10 +30,11 @@
                 <th style="text-align: center;">${_( '(rpt)Product Name' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Barcode' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Warehouse' )}</th>
-                <th style="text-align: center;">${_( '(rpt)Clerk' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
                 <th style="text-align: right;">${_( '(rpt)New Quantity' )}</th>
+{if commitment.type == "procure"}
                 <th style="text-align: right;">${_( '(rpt)Purchase Price' )}</th>
+{/if}
                 <th style="text-align: center;">${_( '(rpt)Memo' )}</th>
             </tr>
         </thead>
@@ -44,13 +45,10 @@
                 <td style="text-align: center;">${product.name}</td>
                 <td style="text-align: center;">${product.barcode}</td>
                 <td style="text-align: center;">${product.warehouse}</td>
-                <td style="text-align: center;">${product.clerk}</td>
                 <td style="text-align: right;">${product.quantity|format:0}</td>
                 <td style="text-align: right;">${product.new_quantity|format:0}</td>
 {if commitment.type == "procure"}
                 <td style="text-align: right;">${product.price|default:0|viviFormatPrices:true}</td>
-{else}
-                <td></td>
 {/if}
                 <td style="text-align: center;">${product.memo}</td>
             </tr>
@@ -60,10 +58,12 @@
             <tr>
                 <td colspan="2" style="text-align: left;">${_( '(rpt)Records Found' ) + ': '}${commitment.products.length|format:0}</td>
 {if commitment.type == "procure"}
-                <td colspan="3" style="text-align: left;">${_( "(rpt)Summary" )}</td>
+                <td colspan="2" style="text-align: left;">${_( "(rpt)Summary" )}</td>
                 <td colspan="1" style="text-align: right;">${commitment.summary.quantity|format:0}</td>
                 <td colspan="1" style="text-align: right;">${commitment.summary.new_quantity|format:0}</td>
                 <td colspan="1" style="text-align: right;">${commitment.summary.price|default:0|viviFormatPrices:true}</td>
+{else}
+                <td colspan="4"></td>
 {/if}
                 <td colspan="1" style="text-align: center;"></td>
             </tr>
