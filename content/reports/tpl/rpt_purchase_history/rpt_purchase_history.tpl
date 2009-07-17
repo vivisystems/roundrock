@@ -19,6 +19,9 @@
 	</div>
 
 {for record in body.records}
+{eval}
+    numRecord = record.records.length;
+{/eval}
     <table id="body-table">
         <thead>
         	<tr>
@@ -30,12 +33,16 @@
                 <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
                 <th style="text-align: center;">${_( '(rpt)Purchase Time' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Purchase Price' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Total' )}</th>
             </tr>
         </thead>
         <tbody>
 {for product in record.records}
 {if product.average_line == true}
             <tr style="background-color: #daf6e9;">
+{eval}
+    numRecord--;
+{/eval}
 {else}
             <tr>
 {/if}
@@ -44,12 +51,13 @@
                 <td style="text-align: right;">${product.quantity|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: center;">${product.created|unixTimeToString}</td>
                 <td style="text-align: right;">${product.price|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${product.total|default:0|viviFormatPrices:true}</td>
             </tr>
 {/for}
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6" style="text-align: left;">${_( '(rpt)Records Found' ) + ': '}${record.records.length|format:0}</td>
+                <td colspan="6" style="text-align: left;">${_( '(rpt)Records Found' ) + ': '}${numRecord|format:0}</td>
             </tr>
         </tfoot>
     </table>

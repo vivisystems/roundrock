@@ -14,7 +14,7 @@
         _setData: function( start, end, periodType, shiftNo, sortby, terminalNo, department, empty_department, noSalesProduct, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
-			
+
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
             
@@ -129,12 +129,15 @@
                 }
                 categories[ record.cate_no ].prodByNo[ record.product_no ] = 1;
             } );
-            
+
             // insert the zero sales products.
             if ( noSalesProduct == 'show' ) {
+                
                 var productModel = new ProductModel();
                 var allProducts = productModel.find('all', {
-                    limit: 3000000
+                    fields: [ "cate_no", "no", "name" ],
+                    limit: 3000000,
+                    recursive: 0
                 });
 		        
                 allProducts.forEach( function( p ) {
@@ -164,7 +167,7 @@
                     }
                 });
             }
-            
+
             // hide the no sales department if users want it that way.
             if ( empty_department == 'hide' ) {
                 for ( var category in categories ) {
@@ -199,12 +202,12 @@
                         );
                 }
             }
-		    
+
             this._reportRecords.head.title = _( 'vivipos.fec.reportpanels.productsales.label' );
             this._reportRecords.head.start_time = start_str;
             this._reportRecords.head.end_time = end_str;
             this._reportRecords.head.terminal_no = terminalNo;
-		    
+
             this._reportRecords.body = categories;
         },
 

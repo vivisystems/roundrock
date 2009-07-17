@@ -138,7 +138,7 @@
             return deviceModels[devicemodel].label;
         },
 
-        _openDrawer: function(drawerNo, eventType, paymentType, sequence, amount) {
+        _openDrawer: function(drawerNo, eventType, paymentType, sequence, amount, order_id) {
 
             // 1. get list of enabled drawers; if no drawer is enabled, simply exit
             // 2. if drawer == null, use first enabled drawer
@@ -237,7 +237,8 @@
                 payment_type: paymentType,
                 sequence: sequence,
                 amount: amount,
-                status: status
+                status: status,
+                order_id: order_id
             };
             var user = this.Acl.getUserPrincipal();
             if ( user != null ) {
@@ -361,8 +362,8 @@
                     if (drawerNo == '') drawerNo = null;
                 }
             }
-
-            this._openDrawer(drawerNo, eventType, evt.data.name, evt.data.seq, evt.data.amount);
+this.log( this.dump( evt.data ) );
+            this._openDrawer(drawerNo, eventType, evt.data.name, evt.data.seq, evt.data.amount, evt.data.order_id);
         },
 
         // handles ledger entry events
@@ -382,7 +383,7 @@
                 }
             }
 
-            this._openDrawer(drawerNo, eventType, evt.data.type, '', evt.data.amount);
+            this._openDrawer(drawerNo, eventType, evt.data.type, '', evt.data.amount, '');
         },
 
         expireData: function(evt) {

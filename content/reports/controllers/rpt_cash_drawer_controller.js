@@ -39,7 +39,8 @@
                             'event_type',
                             'sequence',
                             'payment_type',
-                            'amount'
+                            'amount',
+                            'order_id'
                         ];
                         
             var conditions = "created>='" + start +
@@ -77,7 +78,7 @@
         execute: function() {
         	this._super();
 
-            this._registerOpenOrderDialog('sequence');
+            this._registerOpenOrderDialog();
         },
 
         load: function() {

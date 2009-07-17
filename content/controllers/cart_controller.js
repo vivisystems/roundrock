@@ -2589,6 +2589,7 @@
                 if (beforeResult) {
                     var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
                     paymentedItem.seq = curTransaction.data.seq;
+                    paymentedItem.order_id = curTransaction.data.id;
                 }
 
                 this.dispatchEvent('afterAddPayment', paymentedItem);

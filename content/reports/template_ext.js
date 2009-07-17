@@ -183,6 +183,7 @@ if (typeof(TrimPath) != 'undefined') {
             }
             catch(e) {}
             if (isNaN(timeValue)) return time;
+            if (timeValue == 0) return null; 
             
             format = format || 'yyyy-MM-dd HH:mm';
             var t = timeValue.toFixed(0).length > 10 ? timeValue : timeValue * 1000;
