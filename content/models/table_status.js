@@ -607,12 +607,14 @@ return;
 
         setTableMark: function(table_no, mark) {
 
+
             var remoteUrl = this.getRemoteService('setTableMark');
             var tableStatus = null;
 
             if (remoteUrl) {
 
                 // tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({table_no: table_no, holdTable: holdTable}));
+                var markTable = GeckoJS.String.urlEncode(mark);
                 tableStatus = this.requestRemoteService('GET', remoteUrl + '/' + table_no + '/' + markTable, null);
 
                 return ;

@@ -783,12 +783,32 @@ this.log("doSelectTableFuncs:::TransTable:::");
             this._tableStatusModel.removeCheck(checkObj);
         },
 
+        selOrderNo: function (){
+
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
+            var inputObj = {
+                input0:'', require0:true, numpad:true
+            };
+
+            GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, _('Recall Input Sequence Number'), aFeatures, _('Input sequence number to recall'), '', _('Sequence Number'), '', inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }
+
+            return ;
+
+        },
+
         recallByOrderNo: function(no) {
-            // this.log("DEBUG", "GuestCheck recall by order_no..." + no);
+            var seq = '';
             if (no)
-                return this.recall('OrderNo', no);
-            else
-                return this.recall('AllCheck', 'OrderNo');
+                seq = no;
+            else {
+                seq = this.selOrderNo();
+            }
+            if (seq) return this.recall('OrderNo', seq);
         },
 
         recallByCheckNo: function(no) {
