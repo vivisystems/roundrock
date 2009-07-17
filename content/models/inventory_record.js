@@ -18,18 +18,18 @@
             if ( inventoryRecord ) {
                 this.id = '';
                 var r = this.save( inventoryRecord );
-                if (!r) {
-                    this.log('ERROR',
-                        'An error was encountered while saving inventory record (error code ' + this.lastError + ': ' + this.lastErrorString);
+                if ( !r ) {
+                    this.log( 'ERROR',
+                        'An error was encountered while saving inventory record (error code ' + this.lastError + ': ' + this.lastErrorString );
 
                     //@db saveToBackup
-                    r = this.saveToBackup(inventoryRecord);
-                    if (r) {
-                        this.log('ERROR', 'record saved to backup');
+                    r = this.saveToBackup( inventoryRecord );
+                    if ( r ) {
+                        this.log( 'ERROR', 'record saved to backup' );
                     }
                     else {
-                        this.log('ERROR',
-                            'record could not be saved to backup:' + '\n' + this.dump(inventoryRecord));
+                        this.log( 'ERROR',
+                            'record could not be saved to backup:' + '\n' + this.dump( inventoryRecord ) );
                     }
                 }
                 return r;
@@ -56,7 +56,6 @@
                     data['warehouse'] = inventoryRecord['warehouse'] || '';
                     data['quantity'] = inventoryRecord['quantity'];
                     data['new_quantity'] = inventoryRecord['new_quantity'];
-                    data['clerk'] = inventoryRecord['clerk'] || '';
                     data['memo'] = inventoryRecord['memo'] || '';
                     data['price'] = inventoryRecord['price'] || null;
 

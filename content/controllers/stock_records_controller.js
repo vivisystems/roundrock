@@ -469,12 +469,14 @@
             }
             
             var commitmentID = GeckoJS.String.uuid();
+            var user = this.Acl.getUserPrincipal();
             
             if (!inventoryCommitmentModel.set({
                     id: commitmentID,
                     type: adjustmentReason,
                     memo: adjustmentMemo,
-                    supplier: adjustmentSupplier
+                    supplier: adjustmentSupplier,
+                    clerk: user.username
                 })) {
                 this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
                               _('An error was encountered while saving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
@@ -482,7 +484,6 @@
             }
             
             var stockRecords = [];
-            var user = this.Acl.getUserPrincipal();
         	
             var records = (this._records.filter(function(record) { //When the commit type is not 'inventory', we just save the non-zero rows.
                     if (adjustmentReason == "inventory" || record.qty_difference != 0)
@@ -496,7 +497,6 @@
                     warehouse: records[record].warehouse,
                     quantity: records[record].new_quantity
                 });
-                records[record].clerk = user.username;
                 records[record].commitment_id = commitmentID;
             }
         	
