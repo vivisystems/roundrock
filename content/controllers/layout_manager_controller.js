@@ -31,13 +31,24 @@
 
             var displayPane = document.getElementById('displaySettingsPane');
 
+            var observer = {
+                observe : function (subject, topic, data) {
+                    if (topic == 'xul-overlay-merged') {
+                        // each layout preference overlay may specify its own startup function
+                        if (typeof prefs_overlay_startup == 'function') {
+                            prefs_overlay_startup();
+                        }
+                    }
+                }
+            };
+
             if (displayPane) {
 
-                var prefsOverlayUri = 'chrome://viviecr/content/layouts/traditional/traditionalPrefs.xul'
+                var prefsOverlayUri = 'chrome://viviecr/content/layouts/traditional/traditional_prefs.xul'
                 if (layouts[selectedLayout]) {
                     prefsOverlayUri = layouts[selectedLayout]['prefs_overlay_uri'] || prefsOverlayUri;
                 }
-                displayPane.src = prefsOverlayUri;
+                document.loadOverlay(prefsOverlayUri, observer);
 
                 // always start on first pane to avoid XUL bug where displayPane is not rendered
                 var firstPane = document.getElementById('panelSettingsPane');

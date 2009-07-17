@@ -4,10 +4,27 @@
 
         name: 'Layout',
 
-        initial: function() {
+        bannerSrcBase: '',
+        bannerImageObj: null,
 
+        initial: function() {
+            
             this.resetLayout(true);
 
+            // update banner image source
+            var bannerImageObj = document.getElementById('bannerImage');
+            if (bannerImageObj) {
+                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
+                var sDstDir = datapath + "/images/pluimages/";
+                if (!sDstDir) sDstDir = '/data/images/pluimages/';
+                sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
+
+                this.bannerSrcBase = 'file://' + sDstDir + 'banner.png';
+                this.bannerImageObj = bannerImageObj;
+
+                bannerImageObj.src = this.bannerSrcBase;
+            }
+            
             // add event listener for SetClerk event
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
@@ -21,6 +38,11 @@
         },
 
         resizePanels: function (initial) {
+
+            // banner
+            var mainPanel = document.getElementById('mainPanel');
+            var bannerPanelContainer = document.getElementById('bannerPanelContainer');
+
             // resizing function panel
             var fnPanel = document.getElementById('functionpanel');
             var fnPanelContainer = document.getElementById('functionPanelContainer');
@@ -53,10 +75,27 @@
             var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
             if (fnCols == null) fnCols = 4;
 
-            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideFPScrollbar');
+            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideFPScrollbar');
 
-            // not all layout supports fnHeight
             var fnHeight = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.height') || 200;
+
+            var bannerHeight = GeckoJS.Configure.read('vivipos.fec.settings.layout.simple_retail.BannerHeight') || 50;
+            var bannerAtBottom = GeckoJS.Configure.read('vivipos.fec.settings.layout.simple_retail.BannerAtBottom') || false;
+
+            if (bannerHeight > 0 && bannerPanelContainer) {
+                bannerPanelContainer.setAttribute('hidden', false);
+                bannerPanelContainer.setAttribute('height', bannerHeight);
+
+                bannerPanelContainer.setAttribute('hidden', false);
+                if (mainPanel) mainPanel.setAttribute('dir', bannerAtBottom ? 'reverse' : 'normal');
+                
+                if (this.bannerImageObj && this.bannerSrcBase) {
+                    this.bannerImageObj.src = this.bannerSrcBase + '?' + Math.random();
+                }
+            }
+            else {
+                bannerPanelContainer.setAttribute('hidden', true);
+            }
 
             if (condPanel &&
                 (initial ||
@@ -106,12 +145,12 @@
         resetLayout: function (initial) {
 
             // not any layout templates support it
-            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.RegisterAtLeft') || false;
-            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideTagColumn') || false;
-            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ShowToolbar') || false;
-            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideBottomBox') || false;
+            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.RegisterAtLeft') || false;
+            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideTagColumn') || false;
+            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
+            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox') || false;
 
-            var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CheckTrackingMode') || false;
+            var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.layout.CheckTrackingMode') || false;
             
             var hbox = document.getElementById('mainPanel');
             var bottombox = document.getElementById('vivipos-bottombox');

@@ -362,7 +362,6 @@
                             <hbox flex="1">
                                 <vbox flex="1">
                                     <vbox class="ImgPnl" >
-                                        <!--label value="&plus.image;" class="SubTitle" /-->
                                         <spacer style="height: 6px;" />
                                         <hbox  flex="1">
                                             <hbox class="IconArea">
@@ -370,9 +369,9 @@
                                             </hbox>
                                             <spacer style="width: 10px;" />
                                             <vbox flex="1">
-                                                <button id="imageBrowseBtn" class="ItemButtonA" label="Add Icon" image="chrome://viviecr/skin/images/add.png"/>
+                                                <button id="imageBrowseBtn" class="ItemButtonA" label="&plus.button.action.add.icon;" image="chrome://viviecr/skin/images/add.png"/>
                                                 <spacer style="height: 4px;" />
-                                                <button id="imageRemoveBtn" class="ItemButtonA" label="Remove Icon" image="chrome://viviecr/skin/images/cancel.png"/>
+                                                <button id="imageRemoveBtn" class="ItemButtonA" label="&plus.button.action.remove.icon;" image="chrome://viviecr/skin/images/cancel.png"/>
                                             </vbox>
                                             <spacer style="width: 20px;" />
                                         </hbox>

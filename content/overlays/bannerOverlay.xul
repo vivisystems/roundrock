@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="bannerOverlay">
+
+    <box id="bannerPanelContainer">
+        <image id="bannerImage" flex="1" src=""/>
+    </box>
+
+</overlay>

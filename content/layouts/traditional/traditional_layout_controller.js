@@ -32,7 +32,7 @@
             var cartSidebar = document.getElementById('cartsidebar');
             var isHidden = fnPanelContainer.getAttribute('hidden') || 'false';
             var hidePanel = (state == null || state == '') ? (isHidden == 'false') : state;
-            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ShowToolbar') || false;
+            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
 
             if (hidePanel) {
                 if (fnPanelContainer && (isHidden != 'true')) {
@@ -111,7 +111,7 @@
             var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HidePLUScrollbar');
-            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideFPScrollbar');
+            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideFPScrollbar');
 
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CropPLULabel') || false;
@@ -229,13 +229,13 @@
         resetLayout: function (initial) {
 
             // not any layout templates support it
-            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.RegisterAtLeft') || false;
+            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.RegisterAtLeft') || false;
             var productPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ProductPanelOnTop') || false;
-            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideTagColumn') || false;
-            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ShowToolbar') || false;
-            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideBottomBox') || false;
+            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideTagColumn') || false;
+            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
+            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox') || false;
 
-            var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CheckTrackingMode') || false;
+            var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.layout.CheckTrackingMode') || false;
             var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideSoldOutButtons') || false;
             
             var hbox = document.getElementById('mainPanel');
