@@ -274,6 +274,7 @@
             // After changing the size of the template, the report currently showing on screen no longer exists.
             // We have to disable the report-width adjuster at that moment to prevent an error from occuring.
             document.getElementById( this._reportWidthTextBoxId ).disabled = true;
+            this._enableButton( false );
             if ( !doNotSetReportWidthTextBoxZero )
                 document.getElementById( this._reportWidthTextBoxId ).value = 0;
         },
@@ -329,12 +330,22 @@
         },
         
         exportPdf: function() {
-            this._super( {
+            var paperSize = document.getElementById( 'papersize' );
+            if ( paperSize )
+                paperSize = parseInt( paperSize.value, 10 );
+            
+            var paper = {
                 paperSize: {
                     width: 297,
                     height: 210
                 }
-            } );
+            };
+            if ( paperSize < 3 ) {// for portrait.
+                var temp = paper.paperSize.width;
+                paper.paperSize.width = paper.paperSize.height;
+                paper.paperSize.height = temp;
+            }
+            this._super( paper );
         },
         
         print: function() {
