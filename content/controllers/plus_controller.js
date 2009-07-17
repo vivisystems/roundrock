@@ -869,6 +869,13 @@
                     }
                     this.clickPluPanel(newIndex);
                 }
+                
+                // update stock_records
+                var stockRecordModel = new StockRecordModel();
+                stockRecordModel.set( {
+                    id: inputData.no,
+                    barcode: inputData.barcode
+                } );
 
                 OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
             }
