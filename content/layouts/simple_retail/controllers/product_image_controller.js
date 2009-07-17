@@ -36,38 +36,32 @@
         updateImage: function(index) {
 
             var image = this._image = document.getElementById('productImage');
-            var defaultImage = image.getAttribute('defaultImage');
             
             var imageSrc = '';
+
+            var item;
             
-            if (index == -1) {
-                image.src = null;
-            }
+            if (index != -1) {
 
-            var curTransaction = GeckoJS.Session.get('current_transaction');
+                var curTransaction = GeckoJS.Session.get('current_transaction');
 
-            if (curTransaction) {
+                if (curTransaction) {
 
-                var itemObj = curTransaction.getItemAt(index);
-                if (itemObj) {
-                    var itemId = itemObj.id ;
+                    var itemObj = curTransaction.getItemAt(index);
+                    if (itemObj) {
+                        item = this.Product.getProductById(itemObj.id);
 
-                    var item = this.Product.getProductById(itemId);
-
-                    if (!itemId || !item) {
-                        imageSrc = '';
-                    }else {
-                        imageSrc = this.getImageUrl(item);
                     }
                 }
+            }
+            imageSrc = this.getImageUrl(item);
 
-                if (imageSrc.length >0) {
-                    //image.src = 'file://' + imageSrc;
-                    image.setAttribute('style', 'background: transparent url(file://' + imageSrc + ') center center no-repeat');
-                }else {
-                    //image.src = defaultImage;
-                    image.removeAttribute('style');
-                }
+            if (imageSrc.length >0) {
+                //image.src = 'file://' + imageSrc;
+                image.setAttribute('style', 'background: transparent url(file://' + imageSrc + ') center center no-repeat');
+            }else {
+                //image.src = defaultImage;
+                image.removeAttribute('style');
             }
         },
 
@@ -75,26 +69,28 @@
             
             var cachedKey = 'pluimages' ;
             var aDstFile = '';
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+            var sPluDir = datapath + "/images/pluimages/";
 
-            if (item[cachedKey] === false ) {
-                aDstFile = '' ;
-            }else if (item[cachedKey]) {
-                aDstFile = item[cachedKey];
-            }else {
-
-                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-                var sPluDir = datapath + "/images/pluimages/";
-                if (!sPluDir) sPluDir = '/data/images/pluimages/';
-                sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
-                aDstFile = sPluDir + item.no + ".png";
-                
-                if (GREUtils.File.exists(aDstFile)) {
-                    item[cachedKey] = aDstFile ;
+            if (item) {
+                if (item[cachedKey] === false ) {
+                    aDstFile = '' ;
+                }else if (item[cachedKey]) {
+                    aDstFile = item[cachedKey];
                 }else {
-                    item[cachedKey] = false ;
-                    aDstFile = '';
+                    if (!sPluDir) sPluDir = '/data/images/pluimages/';
+                    sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+                    aDstFile = sPluDir + item.no + ".png";
+
+                    if (GREUtils.File.exists(aDstFile)) {
+                        item[cachedKey] = aDstFile ;
+                    }else {
+                        item[cachedKey] = false ;
+                    }
                 }
             }
+            if (!aDstFile) aDstFile = sPluDir + "no-photo.png";
+
             
             return aDstFile;
             

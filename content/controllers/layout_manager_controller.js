@@ -29,7 +29,7 @@
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
 
-            var displayPane = document.getElementById('displaySettingsPane');
+            //var displayPane = document.getElementById('displaySettingsPane');
 
             var observer = {
                 observe : function (subject, topic, data) {
@@ -42,18 +42,16 @@
                 }
             };
 
-            if (displayPane) {
-
-                var prefsOverlayUri = 'chrome://viviecr/content/layouts/traditional/traditional_prefs.xul'
-                if (layouts[selectedLayout]) {
-                    prefsOverlayUri = layouts[selectedLayout]['prefs_overlay_uri'] || prefsOverlayUri;
-                }
-                document.loadOverlay(prefsOverlayUri, observer);
-
-                // always start on first pane to avoid XUL bug where displayPane is not rendered
-                var firstPane = document.getElementById('panelSettingsPane');
-                if (firstPane && prefwin) prefwin.showPane(firstPane);
+            var prefsOverlayUri = 'chrome://viviecr/content/layouts/traditional/traditional_prefs.xul'
+            if (layouts[selectedLayout]) {
+                prefsOverlayUri = layouts[selectedLayout]['prefs_overlay_uri'] || prefsOverlayUri;
             }
+            document.loadOverlay(prefsOverlayUri, observer);
+            //displayPane.src = prefsOverlayUri;
+
+            // always start on first pane to avoid XUL bug where displayPane is not rendered
+            var firstPane = document.getElementById('panelSettingsPane');
+            if (firstPane && prefwin) prefwin.showPane(firstPane);
 
             var rbObj = this.getRichlistbox();
 

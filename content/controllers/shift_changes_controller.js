@@ -297,6 +297,9 @@
                 return;
             }
 
+            // block UI until DB access is completed
+            this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
+
             var salePeriod = this._getSalePeriod();
             var shiftNumber = this._getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
@@ -698,6 +701,8 @@
                     giftcardExcess: giftcardExcess,
                     canEndSalePeriod: canEndSalePeriod
                 };
+                
+                this._unblockUI('blockui_panel');
 
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Change'), features, inputObj);
             }
@@ -953,6 +958,30 @@
                 this.requestCommand('view', supplier.id);
                 this._listObj.selectedIndex = index;
             }
+        },
+
+        _blockUI: function(panel, caption, title, sleepTime) {
+
+            sleepTime = typeof sleepTime =='undefined' ?  0 : sleepTime;
+            var waitPanel = document.getElementById(panel);
+            var waitCaption = document.getElementById(caption);
+
+            if (waitCaption) waitCaption.setAttribute("label", title);
+
+            waitPanel.openPopupAtScreen(0, 0);
+
+            if (sleepTime > 0) this.sleep(sleepTime);
+            return waitPanel;
+
+        },
+
+        _unblockUI: function(panel) {
+
+            var waitPanel = document.getElementById(panel);
+
+            waitPanel.hidePopup();
+            return waitPanel;
+
         },
 
         _dbError: function(errno, errstr, errmsg) {

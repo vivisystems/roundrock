@@ -8,7 +8,9 @@
 
     <prefwindow id="prefwin">
 
-        <prefpane id="displaySettingsPane">
+    <script src='chrome://viviecr/content/layouts/traditional/traditional_prefs.js'/>
+
+        <prefpane id="displaySettingsPane" label="&category.layout.general;">
             <preferences>
 
                 <preference id="pref_clockinenabled" name="vivipos.fec.settings.ClockInEnabled" type="bool" />

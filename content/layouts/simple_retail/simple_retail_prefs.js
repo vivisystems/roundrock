@@ -1,23 +1,29 @@
+
 function prefs_overlay_startup() {
     var prefwin = document.getElementById('prefwin');
     var bannerPane = document.getElementById('bannerSettingsPane');
-    prefwin.addPane(bannerPane);
+    var displayPane = document.getElementById('displaySettingsPane');
 
-    var bannerImageObj = document.getElementById('bannerimage');
-    if (bannerImageObj) {
-        var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
-        var sDstDir = datapath + "/images/pluimages/";
-
-        bannerImageObj.src = 'file://' + sDstDir + 'banner.png';
-    }
+    if (displayPane) prefwin.addPane(displayPane);
+    
+    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
+    var sDstDir = datapath + "/images/pluimages/";
 
     var defaultImageObj = document.getElementById('defaultimage');
     if (defaultImageObj) {
-        var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
-        var sDstDir = datapath + "/images/pluimages/";
-
         defaultImageObj.src = 'file://' + sDstDir + 'no-photo.png';
     }
+
+    // initialize banner
+    var bannerImageObj = document.getElementById('bannerimage');
+    if (bannerImageObj) {
+        var bannerHeight = GeckoJS.Configure.read('vivipos.fec.settings.layout.simple_retail.BannerHeight');
+        if (isNaN(bannerHeight)) bannerHeight = 50;
+        bannerImageObj.src = 'file://' + sDstDir + 'banner.png';
+        bannerImageObj.setAttribute('style', 'min-height: ' + bannerHeight + 'px;');
+    }
+    
+    if (bannerPane) prefwin.addPane(bannerPane);
 }
 
 /**

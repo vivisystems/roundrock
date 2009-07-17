@@ -120,7 +120,4 @@
         </hbox>
     </prefpane>
 
-    <prefpane id="displaySettingsPane" label="&category.layout.general;" >
-    </prefpane>
-    
 </prefwindow>

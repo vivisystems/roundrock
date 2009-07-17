@@ -77,9 +77,12 @@
 
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideFPScrollbar');
 
-            var fnHeight = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.height') || 200;
+            var fnHeight = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.height');
+            if (isNaN(fnHeight)) fnHeight = 200;
 
-            var bannerHeight = GeckoJS.Configure.read('vivipos.fec.settings.layout.simple_retail.BannerHeight') || 50;
+            var bannerHeight = GeckoJS.Configure.read('vivipos.fec.settings.layout.simple_retail.BannerHeight');
+            if (isNaN(bannerHeight)) bannerHeight = 50;
+            
             var bannerAtBottom = GeckoJS.Configure.read('vivipos.fec.settings.layout.simple_retail.BannerAtBottom') || false;
 
             if (bannerHeight > 0 && bannerPanelContainer) {

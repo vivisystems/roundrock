@@ -10,7 +10,7 @@
 
     <script src='chrome://viviecr/content/layouts/simple_retail/simple_retail_prefs.js'/>
 
-        <prefpane id="displaySettingsPane">
+        <prefpane id="displaySettingsPane" label="&category.layout.general;">
             <preferences>
 
                 <preference id="pref_clockinenabled" name="vivipos.fec.settings.ClockInEnabled" type="bool" />
@@ -100,18 +100,17 @@
                         <checkbox id="BannerAtBottom" label="&layout.banneratbottom;" feature="disabled" preference="pref_banneratbottom"/>
                         <vbox>
                             <label control="bannerHeight" value="&layout.bannerheight;"/>
-                            <textbox preference="pref_bannerheight" id="bannerHeight" type="number" size="3" maxlength="3" min="0" max="200"/>
+                            <textbox preference="pref_bannerheight" id="bannerHeight" type="number" size="3" maxlength="3" min="0" max="200"
+                                     onchange="document.getElementById('bannerimage').setAttribute('style', 'min-height: ' + this.value + 'px;');"/>
                         </vbox>
                     </row>
                 </rows>
             </grid>
             <vbox flex="1">
                 <hbox pack="center" align="center"
-                      style="-moz-border-radius: 8px; border: 3px solid #c1ab8e; margin: 4px;"
+                      style="-moz-border-radius: 8px; border: 3px solid #c1ab8e; margin: 4px; max-height: 200px; min-height: 200px; height: 200px;"
                       >
-                    <image id="bannerimage"
-                      style="min-height: 200px; max-height: 200px; height: 200px; overflow: hidden;"
-                      />
+                    <image id="bannerimage" flex="1"/>
                 </hbox>
                 <spacer style="height: 10px;" />
                 <hbox flex="0">
