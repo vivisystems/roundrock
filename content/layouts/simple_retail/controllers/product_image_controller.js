@@ -36,13 +36,21 @@
         updateImage: function(index) {
 
             var image = this._image = document.getElementById('productImage');
-            var defaultImage = image.getAttribute('defaultImage');
-            
-            var imageSrc = '';
             
             if (index == -1) {
                 image.src = null;
             }
+
+            var imageContainer = document.getElementById('productImagePanelContainer');
+
+            var boxWidth = $(imageContainer).css('width').replace('px','');//.boxObject.width;
+            var boxHeight = $(imageContainer).css('height').replace('px','');//.boxObject.height;
+            if (boxHeight == 0) boxHeight = boxWidth ;  // xul bug ?
+            
+            var defaultImage = image.getAttribute('defaultImage');
+
+            var imageSrc = '';
+            var img ;
 
             var curTransaction = GeckoJS.Session.get('current_transaction');
 
@@ -62,17 +70,52 @@
                 }
 
                 if (imageSrc.length >0) {
-                    //image.src = 'file://' + imageSrc;
-                    image.setAttribute('style', 'background: transparent url(file://' + imageSrc + ') center center no-repeat');
+                    // image.src = 'file://' + imageSrc;
+                    // image.setAttribute('style', 'background: transparent url(file://' + imageSrc + ') center center no-repeat');
+
+                    // use Image object and onload to resize image.
+                    img = new Image();
+                    img.onload = function() {
+                        var imgWidth = img.width;
+                        var imgHeight = img.height;
+
+                        var wRatio = boxWidth / img.width;
+                        var hRatio = boxHeight / img.height;
+                        var maxRatio = (wRatio >= hRatio) ? hRatio : wRatio;
+
+                        if (maxRatio < 1) {
+                            imgWidth = Math.floor(img.width*maxRatio);
+                            imgHeight = Math.floor(img.height*maxRatio);
+
+                        }
+                        
+                        //$(image).css({width: imgWidth, height: imgHeight, 'max-width': imgWidth, 'max-height': imgHeight});
+                        image.style.width = imgWidth + 'px';
+                        image.style.height = imgHeight + 'px';
+//                        image.style['max-width'] = imgWidth + 'px';
+//                        image.style['max-height'] = imgHeight + 'px';
+
+                        image.src = 'file://' + imageSrc;
+
+                    }
+                    img.src = 'file://' + imageSrc;
+
                 }else {
                     //image.src = defaultImage;
-                    image.removeAttribute('style');
+                    //image.removeAttribute('style');
+                    image.style.width = boxWidth + 'px';
+                    image.style.height = boxHeight + 'px';
+//                    image.style['max-width'] = boxWidth + 'px';
+//                    image.style['max-height'] = boxHeight + 'px';
+                    image.src = null;
+
+
                 }
             }
         },
 
         getImageUrl: function(item) {
-            
+
             var cachedKey = 'pluimages' ;
             var aDstFile = '';
 
