@@ -18,6 +18,3 @@
 <!ENTITY imagemanager.action.files "total files: ">
 <!ENTITY imagemanager.action.status "status:">
 
-<!ENTITY imagemanager.importwait "Waiting for Import Images...">
-<!ENTITY imagemanager.exportwait "Waiting for Export Images...">
-

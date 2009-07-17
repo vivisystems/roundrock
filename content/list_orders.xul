@@ -49,6 +49,8 @@
                 <spacer flex="1"/>
                 <label value="&listorders.searchby;"/>
                 <label id="searchby" value=""/>
+                <label value="&listorders.searchfor;"/>
+                <label id="searchfor" value=""/>
             </hbox>
             <hbox flex="1">
                 <hbox class="ToolBar" pack="start" flex="1">

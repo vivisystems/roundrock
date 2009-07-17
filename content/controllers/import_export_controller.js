@@ -121,7 +121,7 @@
         },
 
         exportData: function () {
-            var self = this;
+            
             // return if importing...
             if (this._busy) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Export Error'), _('Import/Export already in progress'));
@@ -148,6 +148,8 @@
             waitPanel.sizeTo(360, 120);
             var x = (width - 360) / 2;
             var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
+            
             this._busy = true;
 
             this.sleep(200);
@@ -209,7 +211,6 @@
                 }
             }
 
-            var name = this._datas[index].name;
             var fileName = this._exportDir + "/" + this._datas[index].filename;
 
             var dist = 1;

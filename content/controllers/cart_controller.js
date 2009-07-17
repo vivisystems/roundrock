@@ -2974,10 +2974,17 @@
             // blockUI when saving...
             this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
 
+            // sleep to allow UI events to update
+            this.sleep(50);
+
             if (this.dispatchEvent('beforeSubmit', {
                 status: status,
                 txn: oldTransaction
             })) {
+
+                // sleep to allow UI events to update
+                this.sleep(50);
+
                 // save order unless the order is being finalized (i.e. status == 1)
                 if (status == 1) {
                     var user = this.Acl.getUserPrincipal();
@@ -3015,11 +3022,11 @@
                     return false;
                 }
 
+                // sleep to allow UI events to update
+                this.sleep(50);
+
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
-
-                // sleep to allow UI events to update
-                //this.sleep(10);
 
                 //this.dispatchEvent('onClear', 0.00);
                 this._getKeypadController().clearBuffer();

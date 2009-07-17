@@ -72,8 +72,6 @@
             progressBar.setAttribute( 'id', this._progress_bar_id );
             progressBox.appendChild( progressBar );
             
-            // sleep a while so that the actions above will have enough time to accomplish?
-            this.sleep( 100 );
             waitPanel.openPopupAtScreen( x, y );
 
             // release CPU for progressbar to show up.

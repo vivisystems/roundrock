@@ -278,11 +278,7 @@
                     if (resetSequence && isNewSalePeriod) {
 
                         // get sequence format and length
-                        var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
-                        var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') +
-                                          GeckoJS.String.padLeft('0', sequenceNumberLength, '0');
-
-                        SequenceModel.resetSequence('order_no', parseInt(newSequence));
+                        SequenceModel.resetSequence('order_no', 0);
                     }
                 }
             }

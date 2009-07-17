@@ -52,7 +52,7 @@
         _dir: null,
         _selectedFile: null,
         _selectedIndex: -1,
-        _disklimit: 1 * 1024 * 1024, // 50 MB
+        _disklimit: 200 * 1024 * 1024, // 200 MB
         _pluDir: null,
         _importDir: null,
         _exportDir: null,
@@ -90,8 +90,6 @@
 
             var deviceMount = "/media/";
             // var deviceMount = "/var/tmp/";
-
-            var hasMounted = false;
 
             if (osLastMedia.exists()) {
                 osLastMedia.open("r");
@@ -186,6 +184,25 @@
             }
         },
 
+        showWaitingPanel: function (message) {
+
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            var waitPanel = document.getElementById( 'wait_panel' );
+
+            waitPanel.sizeTo( 360, 120 );
+            var x = ( width - 360 ) / 2;
+            var y = ( height - 240 ) / 2;
+
+            // set the content of the label attribute be default string, taking advantage of the statusText attribute.
+            var caption = document.getElementById( 'wait_caption' );
+            caption.label = message;
+
+            waitPanel.openPopupAtScreen( x, y );
+
+            return waitPanel;
+        },
+
         importFromDir: function(importDir) {
             // return if importing...
             if (this._busy) return;
@@ -194,7 +211,7 @@
 
             if (!importDir || (importDir.length == 0)) importDir = this._importDir;
 
-            var files = new GeckoJS.Dir.readDir(importDir);
+            var files = new GeckoJS.Dir.readDir(importDir, {type: "f", name: /.png$/i});
 
             var orgDir = GREUtils.File.getFile(this._dir);
 
@@ -218,22 +235,19 @@
 
             if (!result) return;
 
-            var total;
-            var progmeter = document.getElementById("importprogressmeter");
+            var total = files ? files.length : 0;
+            if (total == 0 || isNaN(total)) {
+                NotifyUtils.warn(_('No images found at [%S]', [importDir]));
+                return;
+            }
 
-            var waitPanel = document.getElementById("import_wait_panel");
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            waitPanel.sizeTo(360, 120);
-            var x = (width - 360) / 2;
-            var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
-
+            var waitPanel = this.showWaitingPanel(_('Importing %S Images', [total]));
+            var progmeter = document.getElementById('progress');
             progmeter.value = 0;
+
             this._busy = true;
             this.setButtonDisable(true);
 
-            total = files.length;
             $importStatus.val(_('in progress'));
             try {
                 // set max script run time...
@@ -271,15 +285,16 @@
                     }
                 }, this);
                 $importStatus.val(_('import done'));
+
+                NotifyUtils.info(_('%S image successfully imported from [%S]', [total, importDir]));
             }
             catch (e) {
                 $importStatus.val('error');
-                NotifyUtils.info(_('Import Image Error'));
+                NotifyUtils.info(_('An error was encountered while importing images from [%S]', [importDir]));
             }
             finally {
 
                 this._busy = false;
-                progmeter.value = 100;
                 this.sleep(200);
                 // reset max script run time...
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
@@ -290,8 +305,6 @@
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
             }
-
-            NotifyUtils.info(_('Import Images Done'));
 
             $importUsage.val(this.Number.toReadableSize(importUsage));
             $importFiles.val(this.Number.format(importFiles));
@@ -318,33 +331,29 @@
             var $exportFiles = this.query("#actionFiles");
             var $exportStatus = this.query("#actionStatus");
 
-            var fileCount = this.imagefilesView.fileCount;
-
             var exportUsage = 0;
             var exportFiles = 0;
 
             if (!exportDir || (exportDir.length == 0)) exportDir = this._exportDir;
 
-            var total;
-            var progmeter = document.getElementById("exportprogressmeter");
+            var files = new GeckoJS.Dir.readDir(this._dir);
+            var total = files ? files.length : 0;
 
-            var waitPanel = document.getElementById("export_wait_panel");
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            waitPanel.sizeTo(360, 120);
-            var x = (width - 360) / 2;
-            var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
-
+            if (total == 0 || isNaN(total)) {
+                NotifyUtils.warn(_('No images to export!'));
+                return;
+            }
+            
+            var waitPanel = this.showWaitingPanel(_('Exporting %S Images', [total]));
+            var progmeter = document.getElementById('progress');
             progmeter.value = 0;
+
             this._busy = true;
             this.setButtonDisable(true);
 
 
             $exportStatus.val(_('in progress'));
             try {
-                var files = new GeckoJS.Dir.readDir(this._dir);
-                total = files.length;
                 var self = this;
 
                 if (!GREUtils.File.isDir(exportDir) || !GREUtils.File.isWritable(exportDir)) {
@@ -367,10 +376,12 @@
                     self.sleep(50);
                 }, this);
                 $exportStatus.val(_('export done'));
+
+                NotifyUtils.info(_('%S images successfully exported to [%S]', [exportFiles, exportDir]));
             }
             catch (e) {
                 $exportStatus.val('error');
-                NotifyUtils.info(_('Export Image Error'));
+                NotifyUtils.info(_('An error was encountered while exporting images to [%S]', [exportDir]));
             }
             finally {
                 this._busy = false;
@@ -385,8 +396,6 @@
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
             }
-
-            NotifyUtils.info(_('Export Images Done'));
 
             $exportUsage.val(this.Number.toReadableSize(exportUsage));
             $exportFiles.val(this.Number.format(exportFiles));

@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-16 13:01+0800\n"
+"POT-Creation-Date: 2009-07-16 18:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2681,6 +2681,10 @@ msgstr ""
 msgid "Do not pack"
 msgstr ""
 
+#: ../..//content/sysprefs.js:72
+msgid "Rebuilding databases..."
+msgstr ""
+
 #: ../..//content/controllers/aclgroups_controller.js:48
 msgid "Add New ACL Group"
 msgstr ""
@@ -4638,7 +4642,7 @@ msgid "(view)stored"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:162
-#: ../..//content/reports/controllers/rpt_base_controller.js:448
+#: ../..//content/reports/controllers/rpt_base_controller.js:446
 msgid "Order Details"
 msgstr ""
 
@@ -4868,7 +4872,7 @@ msgid "Removal completed. Application will now restart"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:973
-msgid "Removing old data..."
+msgid "Removing expired transaction records"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:989
@@ -6694,8 +6698,8 @@ msgstr ""
 
 #: ../..//content/reports/controllers/journal_report_controller.js:146
 #: ../..//content/reports/controllers/journal_report_controller.js:159
-#: ../..//content/reports/controllers/rpt_base_controller.js:240
-#: ../..//content/reports/controllers/rpt_base_controller.js:293
+#: ../..//content/reports/controllers/rpt_base_controller.js:238
+#: ../..//content/reports/controllers/rpt_base_controller.js:291
 msgid "Media not found!! Please attach a USB thumb drive..."
 msgstr ""
 
@@ -6703,25 +6707,25 @@ msgstr ""
 msgid "There was a problem saving file!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:215
+#: ../..//content/reports/controllers/rpt_base_controller.js:213
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:223
+#: ../..//content/reports/controllers/rpt_base_controller.js:221
 msgid ""
 "The document is too large to be exported in .PDF format, please export as ."
 "CSV file instead!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:277
+#: ../..//content/reports/controllers/rpt_base_controller.js:275
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:347
+#: ../..//content/reports/controllers/rpt_base_controller.js:345
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:508
+#: ../..//content/reports/controllers/rpt_base_controller.js:506
 msgid "The thumb drive has no enough free space!"
 msgstr ""
 

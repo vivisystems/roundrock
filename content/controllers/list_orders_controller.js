@@ -40,7 +40,12 @@
             var conditions = '';
             var indices = inputObj.index.split(',');
             for (var i = 0; i < indices.length; i++) {
-                conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
+                if (inputObj.fuzzy) {
+                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " like '%" + this._queryStringPreprocessor(inputObj.value) + "%')";
+                }
+                else {
+                    conditions += (conditions == '' ? '' : ' OR ') + '(' + indices[i] + " = '" + this._queryStringPreprocessor(inputObj.value) + "')";
+                }
             }
 
             var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
@@ -128,6 +133,12 @@
                 searchByLabelObj.value = inputObj.criteria;
             }
             
+            // search for
+            var searchForLabelObj = document.getElementById('searchfor');
+            if (searchForLabelObj) {
+                searchForLabelObj.value = '[' + inputObj.value + ']';
+            }
+
             // record count
             var countLabelObj = document.getElementById('count');
             if (countLabelObj) {

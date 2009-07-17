@@ -126,12 +126,17 @@
                 // should still allow create to proceed; it's up to the upper layer to decide how to handle
                 // this error condition
                 var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
+                var sequenceTrackSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod') || false;
                 SequenceModel.getSequence('order_no', true, function(seq) {
                     self.data.seq = (seq+'');
                     if (self.data.seq.length < sequenceNumberLength) {
                         self.data.seq = GeckoJS.String.padLeft(self.data.seq, sequenceNumberLength, '0');
                     }
-                    GeckoJS.Session.set('vivipos_fec_order_sequence', seq);
+                    if (sequenceTrackSalePeriod) {
+                        var salePeriod = GeckoJS.Session.get('sale_period');
+                        self.data.seq = new Date(salePeriod * 1000).toString('yyyyMMdd') + self.data.seq;
+                    }
+                    GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
                 });
             }
             

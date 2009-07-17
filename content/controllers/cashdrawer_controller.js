@@ -202,10 +202,6 @@
                     break;
             }
 
-            // allow UI to catch up before triggering drawer
-            // @irving 5/14/2009 - sleeping may allow unwanted/unexpected user events to occur before they are meant to
-            //this.sleep(100);
-
             var status = 0;
             switch (drawer.type) {
                 

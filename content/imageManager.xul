@@ -12,6 +12,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
 
 <window title="&imagemanager.window.title;"
         hidechrome="true"
@@ -76,7 +77,7 @@
 
                 </vbox>
             </hbox>
-
+<!--
             <panel id="import_wait_panel" position="overlap" noautohide="true" class="ImportWaitPnl">
                 <vbox flex="1">
                 <groupbox flex="1">
@@ -98,11 +99,14 @@
                 </groupbox>
                 </vbox>
             </panel>
-            
+-->
             <hbox id="dialogButtons" class="dialogbtns" pack="end">
                 <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
             </hbox>
         </vbox>
     </vbox>
 
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs" />
+    
 </window>

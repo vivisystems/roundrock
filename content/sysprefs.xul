@@ -6,6 +6,9 @@
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/sysprefs.css" type="text/css"?>
 
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
+
 <prefwindow title="&preferences.title;" id="prefwin"
             hidechrome="true"
             xmlns:html="http://www.w3.org/1999/xhtml"
@@ -151,11 +154,10 @@
                         </vbox>
                     </row>
                     <row>
-                        <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&formats.sequencetrackssaleperiod;"
-                                  oncommand="adjustSequenceLength(this.checked)"/>
+                        <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&formats.sequencetrackssaleperiod;"/>
                         <vbox>
                             <label control="sequencenumberlength" value="&formats.sequence.number.length;"/>
-                            <textbox preference="pref_sequencenumberlength" id="sequencenumberlength" type="number" min="2" max="12"/>
+                            <textbox preference="pref_sequencenumberlength" id="sequencenumberlength" type="number" min="3" max="12"/>
                         </vbox>
                     </row>
 
@@ -293,109 +295,6 @@
 
     </prefpane>
 
-    <!--prefpane id="displaySettingsPane" label="&category.layout;" >
-        <preferences>
-			
-            <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
-            <preference id="pref_productpanelontop" name="vivipos.fec.settings.ProductPanelOnTop" type="bool"/>
-            <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.HideTagColumn" type="bool"/>
-            <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
-            <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.HidePLUScrollbar" type="bool"/>
-            <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.HideFPScrollbar" type="bool"/>
-            <preference id="pref_checktrackingmode" name="vivipos.fec.settings.CheckTrackingMode" type="bool"/>
-            <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.HideSoldOutButtons" type="bool"/>
-
-            <preference id="pref_crop_dept_label" name="vivipos.fec.settings.CropDeptLabel" type="bool"/>
-            <preference id="pref_crop_plu_label" name="vivipos.fec.settings.CropPLULabel" type="bool"/>
-
-            <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
-            <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
-            <preference id="pref_depbtnheight" name="vivipos.fec.settings.DepartmentButtonHeight" type="int"/>
-            <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
-            <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
-            <preference id="pref_condrows" name="vivipos.fec.settings.CondimentRows" type="int"/>
-            <preference id="pref_condcols" name="vivipos.fec.settings.CondimentCols" type="int"/>
-            <preference id="pref_fnrows" name="vivipos.fec.settings.functionpanel.rows" type="int"/>
-            <preference id="pref_fncols" name="vivipos.fec.settings.functionpanel.columns" type="int"/>
-            <preference id="pref_fnheight" name="vivipos.fec.settings.functionpanel.height" type="int"/>
-
-        </preferences>
-        <grid class="DataForm">
-            <columns>
-                <column flex="1" />
-                <column flex="1" />
-            </columns>
-            <rows>
-                <row>
-                    <checkbox id="registerAtLeft" label="&layout.registeratleft;" preference="pref_registeratleft"/>
-                    <checkbox id="productPanelOnTop" label="&layout.productpanelontop;" preference="pref_productpanelontop"/>
-                </row>
-                <row>
-                    <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>            
-                    <checkbox id="hidePLUScrollbar" label="&layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
-                </row>
-                <row>
-                    <checkbox id="hideSoldOutButtons" label="&layout.hidesoldoutbuttons;" preference="pref_hidesoldoutbuttons" />
-                    <checkbox id="hideTagColumn" label="&layout.hidetagcolumn;" preference="pref_hidetagcolumn"/>
-                </row>
-                <row>
-                    <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
-                    <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
-                </row>
-                <row>
-                    <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
-                    <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
-                </row>
-            </rows>
-        </grid>
-        
-        <grid class="DataFormC">
-            <columns>
-                <column/>
-                <column/>
-                <column/>
-                <column/>
-                <column/>
-                <column/>
-                <column/>
-            </columns>
-            <rows>
-                <row>
-                    <label control="deprows" value="&layout.department.label;"/>
-                    <label control="deprows" value="&layout.department.rows;"/>
-                    <textbox preference="pref_deprows" id="deprows" type="number" size="2" maxlength="1"/>
-                    <label control="depcols" value="&layout.department.cols;"/>
-                    <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
-                    <label control="depbtnheight" value="&layout.department.button.height;"/>
-                    <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
-                </row>
-                <row>
-                    <label control="plurows" value="&layout.plu.label;"/>
-                    <label control="plurows" value="&layout.plu.rows;"/>
-                    <textbox preference="pref_plurows" id="plurows" type="number" size="2" maxlength="1"/>
-                    <label control="plucols" value="&layout.plu.cols;"/>
-                    <textbox preference="pref_plucols" id="plucols" type="number" size="2" maxlength="1"/>
-                </row>
-                <row>
-                    <label control="condrows" value="&layout.condiment.label;"/>
-                    <label control="condrows" value="&layout.condiment.rows;"/>
-                    <textbox preference="pref_condrows" id="condrows" type="number" size="2" maxlength="1" min="1"/>
-                    <label control="condcols" value="&layout.condiment.cols;"/>
-                    <textbox preference="pref_condcols" id="condcols" type="number" size="2" maxlength="1" min="1"/>
-                </row>
-                <row>
-                    <label control="deprows" value="&layout.functionpanel.label;"/>
-                    <label control="pref_fnrows" value="&layout.functionpanel.rows;"/>
-                    <textbox preference="pref_fnrows" id="pref_fnrows" type="number" size="2" maxlength="1" min="1" max="9"/>
-                    <label control="pref_fncols" value="&layout.functionpanel.cols;"/>
-                    <textbox preference="pref_fncols" id="pref_fncols" type="number" size="2" maxlength="1" min="1" max="9"/>
-                    <label control="pref_fncols" value="&layout.functionpanel.height;"/>
-                    <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="300"  size="3" maxlength="3"/>
-                </row>
-            </rows>
-        </grid>
-    </prefpane-->
-
     <prefpane id="orderDataSettingsPane" label="&category.orderdata;" >
         <preferences>
 
@@ -435,24 +334,23 @@
             </rows>
         </grid>
 
-        <hbox pack="center" style="padding: 10px;">
-        <diskspace_usage flex="1" />
-        </hbox>
+        <vbox align="center" pack="start" flex="1">
+            <diskspace_usage flex="1" />
 
-        <spacer flex="1" />
+            <spacer flex="1"/>
+            <hbox class="ToolBar" pack="center">
+                <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                    <tabs id="tabs" >
+                        <button id="vacuum_training_db" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
+                        <button id="take_current_db_to_be_default_db" label="&orderdata.takecurrentdbtobedefaultdb;" oncommand="$do( 'takeCurrentDBToBeDefaultDB', null, 'TrainingMode' );" />
+                        <button id="take_default_db_to_be_training_db" label="&orderdata.takedefaultdbtobetrainingdb;" oncommand="$do( 'takeDefaultDBToBeTrainingDB', null, 'TrainingMode' );" />
+                        <button id="take_training_db_to_be_default_db" label="&orderdata.taketrainingdbtobedefaultdb;" oncommand="$do( 'takeTrainingDBToBeDefaultDB', null, 'TrainingMode' );" />
+                    </tabs>
+                </arrowscrollbox>
+            </hbox>
+        </vbox>
         
-        <hbox class="ToolBar" pack="center">
-            <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
-                <tabs id="tabs" >
-                    <button id="vacuum_training_db" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
-                    <button id="take_current_db_to_be_default_db" label="&orderdata.takecurrentdbtobedefaultdb;" oncommand="$do( 'takeCurrentDBToBeDefaultDB', null, 'TrainingMode' );" />
-                    <button id="take_default_db_to_be_training_db" label="&orderdata.takedefaultdbtobetrainingdb;" oncommand="$do( 'takeDefaultDBToBeTrainingDB', null, 'TrainingMode' );" />
-                    <button id="take_training_db_to_be_default_db" label="&orderdata.taketrainingdbtobedefaultdb;" oncommand="$do( 'takeTrainingDBToBeDefaultDB', null, 'TrainingMode' );" />
-                </tabs>
-            </arrowscrollbox>
-        </hbox>
-        
-        <spacer flex="1" />
+        <spacer height="5px" />
 
         <hbox class="ToolBar" pack="center">
             <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
@@ -513,16 +411,7 @@
 
     </prefpane>
 -->
-
-	<panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
-		<vbox flex="1">
-		<groupbox flex="1">
-		    <caption id="common_wait" label="Waiting..." class="PageTitle"/>
-		    <spacer style="height: 20px;" />
-		    <progressmeter id="progress" mode="undetermined" value="0" />
-		    <spacer style="height: 20px;" />
-		</groupbox>
-		</vbox>
-	</panel>
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs" />
 
 </prefwindow>

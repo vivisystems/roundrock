@@ -357,10 +357,12 @@
             if (searchByTableNo) {
                 aArguments.index = 'table_no';
                 aArguments.criteria = _('(view)search by table number');
+                aArguments.fuzzy = false;
             }
             else {
                 aArguments.index = 'sequence';
                 aArguments.criteria = _('(view)search by order sequence');
+                aArguments.fuzzy = true;
             }
             //this._getKeypadController().clearBuffer();
             this.requestCommand('clearBuffer', null, 'Keypad');
@@ -891,7 +893,7 @@
                                             _('Remove All Transaction Records'),
                                             _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
-                    var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing all transaction records'), 1000);
+                    var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing all transaction records'), 500);
                     var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                     GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
@@ -970,7 +972,7 @@
                 var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
-                var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing old data...'), 1000);
+                var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing expired transaction records'), 500);
 
                 try {
                     var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;

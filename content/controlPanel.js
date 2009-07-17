@@ -88,7 +88,7 @@
                     $.blockUI({
                         message:$('#loading'),
                         css: {
-                            left: '30%',
+                            left: '25%',
                             border: '0px'
                         }
                     });
