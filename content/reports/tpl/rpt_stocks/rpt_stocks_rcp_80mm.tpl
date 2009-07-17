@@ -6,11 +6,12 @@ ${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no + ' '|left:11}${_( '(rpt)
 ${head.title|center:42}
 ------------------------------------------
 {for category in body}
-${category.no|left:14}  ${category.name|left:26}
---------------  --------------------------
+${category.no|left:20}  ${category.name|left:20}
+------------------------------------------
 {for plu in category.plu}
-${plu.no|left:14}      ${plu.name|left:22}
+${plu.no|left:20}  ${plu.name|left:20}
 ${_( '(rpt)Stock Level' ) + ':'|left:14}${plu.stock|format:0|right:6}  ${_( '(rpt)Low Stock Threshold' ) + ':'|left:14}${plu.min_stock|format:0|right:6}
+${_( '(rpt)High Stock Threshold' ) + ':'|left:14}${plu.max_stock|format:0|right:6}  ${_( '(rpt)Recommended Purchase Quantity' ) + ':'|left:14}${plu.max_stock - plu.stock|format:0|right:6}
 {/for}
 ------------------------------------------
 ${_( '(rpt)Records Found' ) + ': '|left:16}${category.plu.length|format:0|left: 26}

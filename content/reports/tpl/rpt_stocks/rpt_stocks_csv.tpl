@@ -5,11 +5,11 @@
 "${_( '(rpt)Clerk' ) + ':'}","${head.clerk_displayname}"
 "${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 
-"${_( '(rpt)Department Number' )}","${_( '(rpt)Department Name' )}","${_( '(rpt)Product Number' )}","${_( '(rpt)Product Name' )}","${_( '(rpt)Stock Level' )}","${_( '(rpt)Low Stock Threshold' )}"
+"${_( '(rpt)Department Number' )}","${_( '(rpt)Department Name' )}","${_( '(rpt)Product Number' )}","${_( '(rpt)Product Name' )}","${_( '(rpt)Stock Level' )}","${_( '(rpt)Low Stock Threshold' )}","${_( '(rpt)High Stock Threshold' )}","${_( '(rpt)Recommended Purchase Quantity' )}"
 {for category in body}
 "'${category.no}","'${category.name}"
 {for plu in category.plu}
-"","","'${plu.no}","'${plu.name}","${plu.stock}","${plu.min_stock}"
+"","","'${plu.no}","'${plu.name}","${plu.stock}","${plu.min_stock}","${plu.max_stock}","${plu.max_stock - plu.stock}"
 {/for}
 "${_( '(rpt)Records Found' ) + ':'}","${category.plu.length}"
 {/for}
