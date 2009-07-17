@@ -22,6 +22,10 @@ ${_( '(rpt)Stock Level' ) + ':'}
 ${plu.stock|right:24}
 ${_( '(rpt)Low Stock Threshold' ) + ':'}
 ${plu.min_stock|right:24}
+${_( '(rpt)High Stock Threshold' ) + ':'}
+${plu.max_stock|right:24}
+${_( '(rpt)Recommended Purchase Quantity' ) + ':'}
+${plu.max_stock - plu.stock|right:24}
 {/for}
 ------------------------
 ${_( '(rpt)Records Found' ) + ':'|left:16}${category.plu.length|format:0|right:8}

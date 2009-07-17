@@ -13,6 +13,8 @@ ${head.title|center:24}
 ${_( "(inventory)" + commitment.type )}
 ${_( '(rpt)Time' ) + ':'|left:24}
 ${commitment.created|unixTimeToString|right:24}
+${_( '(rpt)Clerk' + ':' )|left:24}
+${commitment.clerk|right:24}
 {if commitment.commitment_memo.length > 0}
 ${_( '(rpt)Memo' ) + ':'|left:24}
 ${commitment.commitment_memo|right:24}
@@ -27,8 +29,6 @@ ${_( '(rpt)Barcode' + ':' )|left:24}
 ${product.barcode|right:24}
 ${_( '(rpt)Warehouse' + ':' )|left:24}
 ${product.warehouse|right:24}
-${_( '(rpt)Clerk' + ':' )|left:24}
-${product.clerk|right:24}
 ${_( '(rpt)Quantity' + ':' )|left:24}
 ${product.quantity|format:0|right:24}
 ${_( '(rpt)New Quantity' + ':' )|left:24}

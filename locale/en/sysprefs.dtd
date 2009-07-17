@@ -42,6 +42,7 @@
 <!ENTITY layout.removebanner "Remove Banner">
 <!ENTITY layout.addphoto "Add Photo">
 <!ENTITY layout.removephoto "Remove Photo">
+<!ENTITY layout.defaultproductphoto "Default Product Photo">
 <!ENTITY layout.productpanelontop "Place product panel on top">
 <!ENTITY layout.checktrackingmode "Show check tracking details">
 <!ENTITY layout.hidesoldoutbuttons "Hide sold-out buttons">

@@ -5,7 +5,9 @@
         name: 'OverlayLayout',
 
         loadOverlay: function() {
-            
+
+            //dump('loadOverlay \n');
+
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
 
@@ -42,6 +44,5 @@
         // trick, invoke directly
         __controller__.loadOverlay.apply(__controller__);
 
-    }, false);
+    }, true);
 })();
-

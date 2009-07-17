@@ -20,6 +20,10 @@
 
         timeout: 30,
 
+        lastReadyState: 0,
+
+        lastStatus: 0,
+
         autoRestoreFromBackup: true,
 
         getRemoteServiceUrl: function(method) {
@@ -74,7 +78,7 @@
             req.mozBackgroundRequest = true;
 
             /* Request Timeout guard */
-            var timeoutSec = this.timeout * 1000;
+            var timeoutSec = this.syncSettings.timeout * 1000;
             var timeout = null;
             timeout = setTimeout(function() {
 
@@ -88,20 +92,29 @@
             }, timeoutSec);
 
             /* Start Request with http basic authorization */
-            var datas = [];
+            var datas = null;
 
             req.open(type, reqUrl, true/*, username, password*/);
+
+            // dump('request url: ' + reqUrl + '\n');
 
             req.setRequestHeader('Authorization', 'Basic ' + btoa(username +':'+password));
 
             req.onreadystatechange = function (aEvt) {
-                //dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                // dump( "onreadystatechange " + req.readyState  + ',,, ' + req.status + "\n");
+                self.lastReadyState = req.readyState;
+                self.lastStatus = req.status;
+
                 if (req.readyState == 4) {
                     reqStatus.finish = true;
                     if (req.status == 200) {
-                        var result = GeckoJS.BaseObject.unserialize(req.responseText);
-                        if (result.status == 'ok') {
-                            datas = result.response_data;
+                        try {
+                            var result = GeckoJS.BaseObject.unserialize(req.responseText);
+                            if (result.status == 'ok') {
+                                datas = result.response_data;
+                            }
+                        }catch(e) {
+                            dump('decode error ' + e ) ;
                         }
                     }
                     // clear resources
@@ -164,14 +177,10 @@
             
             lastModified = typeof lastModified == 'undefined' ? 0 : lastModified;
             
-            this.log('DEBUG', 'getLastModifiedRecords: ' + lastModified);
+            //this.log('DEBUG', 'getLastModifiedRecords: ' + lastModified);
 
             // get local stock record to cached first.
-            var stocks = this.find('all', {
-                'fields': 'id,quantity,modified',
-                'recursive':0,
-                'conditions': 'modified > ' + lastModified
-            });
+            var stocks = this.getDataSource().fetchAll("SELECT id,quantity,modified FROM stock_records WHERE modified > " + lastModified);
 
             if (this.lastError != 0) {
                 this.log('ERROR',
@@ -214,15 +223,29 @@
                 
                 var requestUrl = remoteUrl + '/' + this.lastModified;
 
-                var cb = function(remoteStocks) {
+                var cb = function(response_data/*remoteStocks*/) {
 
-                    var lastModified = self.saveStockRecords(remoteStocks);
+                    var remoteStocks;
 
-                    if (lastModified >= self.lastModified) {
-                        self.lastModified = lastModified;
+                    if (response_data) {
+                        try {
+                            //
+                            remoteStocks = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(atob(response_data)));
+
+                        }catch(e) {
+                            self.lastStatus = 0;
+                            remoteStocks = [];
+                            this.log('ERROR', 'getLastModifiedRecords cant decode response '+e);
+                        }
+
+                        var lastModified = self.saveStockRecords(remoteStocks);
+
+                        if (lastModified >= self.lastModified) {
+                            self.lastModified = lastModified;
+                        }
                     }
 
-                    self.log('DEBUG', 'cachedStockRecords: ' + self.dump(self._cachedRecords));
+                    //self.log('DEBUG', 'cachedStockRecords: ' + self.dump(self._cachedRecords));
 
                     if(callback) {
                         callback.call(self, self.lastModified);
@@ -238,6 +261,9 @@
 
             }else {
 
+                this.lastReadyState = 4;
+                this.lastStatus = 200;
+
                 if(callback) {
                     callback.call(self, self.lastModified);
                 }
@@ -249,6 +275,8 @@
 
         saveStockRecords: function(stocks) {
 
+            if (!stocks) return -1;
+            
             var lastModified = 0;
 
             // use native sql
@@ -286,7 +314,7 @@
                     if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
 
                 }catch(e) {
-                    this.log(sqlWithTransaction +",,"+ e);
+                    //this.log(sqlWithTransaction +",,"+ e);
                 }
                 
             }
@@ -343,7 +371,7 @@
             var async = false;
             var callback = null;
 
-            this.log('DEBUG', 'decreaseStockRecords datas: ' + this.dump(datas));
+            //this.log('DEBUG', 'decreaseStockRecords datas: ' + this.dump(datas));
 
             var remoteUrl = this.getRemoteServiceUrl('decreaseStockRecords');
 
@@ -351,13 +379,28 @@
 
                 var requestUrl = remoteUrl + '/' + this.lastModified;
                 
-                var remoteStocks = this.requestRemoteService('POST', requestUrl, datas, async, callback);
+                var response_data = this.requestRemoteService('POST', requestUrl, datas, async, callback);
 
-                var lastModified = this.saveStockRecords(remoteStocks);
+                if (response_data) {
+                    var remoteStocks;
 
-                if (lastModified >= this.lastModified) {
-                    this.lastModified = lastModified;
+                    try {
+                        //
+                        remoteStocks = GeckoJS.BaseObject.unserialize(GREUtils.Gzip.inflate(atob(response_data)));
+
+                    }catch(e) {
+                        this.lastStatus = 0;
+                        this.log('ERROR', 'decreaseStockRecords cant decode response '+e);
+                    }
+
+                    var lastModified = this.saveStockRecords(remoteStocks);
+
+                    if (lastModified >= this.lastModified) {
+                        this.lastModified = lastModified;
+                    }
+
                 }
+
                 
             }else {
 
@@ -394,6 +437,9 @@
                     }
                 }
 
+                this.lastReadyState = 4;
+                this.lastStatus = 200;
+
                 this.lastModified = now;
 
             }
@@ -401,6 +447,9 @@
         },
 
         insertNewRecords: function( products ) {
+
+            if (!products || products.length <=0) return false;
+            
             var r;
             var created , modified;
             created = modified = Math.ceil(Date.now().getTime()/1000);
@@ -408,6 +457,9 @@
             var sql = "BEGIN; \n" ;
 
             products.forEach(function( product ) {
+                
+                if (!product.no||product.no.length==0) return;
+
                 sql += "INSERT INTO stock_records (id,barcode,warehouse,quantity,created,modified) VALUES (" +
                     "'" + (product.no||'') + "', " +
                     "'" + (product.barcode||'') + "', " +
@@ -427,6 +479,12 @@
 
             }catch(e) {
                 this.log( 'ERROR', 'ERROR TO insertNewRecords \n'+ e );
+                
+                // force commit again ?
+                try {
+                    if(sql && datasource.conn) datasource.conn.executeSimpleSQL("COMMIT;");    
+                }catch(e) {}
+
                 return false;
             }
 
@@ -485,7 +543,7 @@
                 var sql = "BEGIN; \n" ;
 
                 stockRecords.forEach(function( stockRecord ) {
-                    sql += "UPDATE stock_records SET warehouse='" + stockRecord.warehouse + "', " +
+                    sql += "UPDATE stock_records SET warehouse='" + (stockRecord.warehouse||'') + "', " +
                            "quantity=" + stockRecord.quantity + ", " +
                            "modified="  + modified + " " +
                            "WHERE id='" + stockRecord.id + "'; \n" ;

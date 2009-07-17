@@ -63,24 +63,27 @@
                     </row>
                 </rows>
             </grid>
-            <hbox flex="1" pack="center" align="center">
-                <hbox pack="center" align="center"
-                      style="-moz-border-radius: 8px; border: 3px solid #c1ab8e; margin: 4px;"
-                      >
-                    <image id="defaultimage"
-                           style="min-height: 100px; max-height: 100px; height: 100px; min-width: 100px; max-width: 100px; width: 100px; overflow: hidden;"
-                    />
-                </hbox>
-                <spacer width="10px"/>
-                <vbox flex="0">
-                    <spacer flex="1"/>
-                    <button id="photoBrowseBtn" class="ItemButtonA" label="&layout.addphoto;" image="chrome://viviecr/skin/images/add.png"
-                            oncommand="selectImage('defaultimage', 'no-photo.png')"/>
-                    <spacer style="height: 4px;" />
-                    <button id="photoRemoveBtn" class="ItemButtonA" label="&layout.removephoto;" image="chrome://viviecr/skin/images/cancel.png"
-                            oncommand="removeImage('defaultimage', 'no-photo.png')"/>
-                </vbox>
-            </hbox>
+                    <hbox align="center">
+                        <label value="&layout.defaultproductphoto;"/>
+                        <hbox flex="1" pack="center" align="center">
+                            <hbox pack="center" align="center"
+                                  style="-moz-border-radius: 8px; border: 3px solid #c1ab8e; margin: 4px;"
+                                  >
+                                <image id="defaultimage"
+                                       style="min-height: 90px; max-height: 90px; height: 90px; min-width: 90px; max-width: 90px; width: 90px; overflow: hidden;"
+                                />
+                            </hbox>
+                            <spacer width="10px"/>
+                            <vbox flex="0">
+                                <spacer flex="1"/>
+                                <button id="photoBrowseBtn" class="ItemButtonA" label="&layout.addphoto;" image="chrome://viviecr/skin/images/add.png"
+                                        oncommand="selectImage('defaultimage', 'no-photo.png')"/>
+                                <spacer style="height: 4px;" />
+                                <button id="photoRemoveBtn" class="ItemButtonA" label="&layout.removephoto;" image="chrome://viviecr/skin/images/cancel.png"
+                                        oncommand="removeImage('defaultimage', 'no-photo.png')"/>
+                            </vbox>
+                        </hbox>
+                    </hbox>
         </prefpane>
 
         <prefpane id="bannerSettingsPane" label="&category.layout.banner;">

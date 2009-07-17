@@ -218,6 +218,5 @@
     window.addEventListener('load', function() {
         var layout = GeckoJS.Controller.getInstanceByName('Layout');
         if (layout) layout.initial();
-
     }, false);
 })();

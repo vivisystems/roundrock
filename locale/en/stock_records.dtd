@@ -33,3 +33,5 @@
 <!ENTITY stockrecords.import.errors.title "Import Errors">
 <!ENTITY stockrecords.import.line "Line">
 <!ENTITY stockrecords.import.prodno "Product Number">
+
+<!ENTITY stockrecords.syncing.title "Syncing stock records from Stock Server">

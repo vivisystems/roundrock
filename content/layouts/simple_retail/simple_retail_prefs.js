@@ -5,6 +5,7 @@ function prefs_overlay_startup() {
     var displayPane = document.getElementById('displaySettingsPane');
 
     if (displayPane) prefwin.addPane(displayPane);
+    if (bannerPane) prefwin.addPane(bannerPane);
     
     var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
     var sDstDir = datapath + "/images/pluimages/";
@@ -22,8 +23,6 @@ function prefs_overlay_startup() {
         bannerImageObj.src = 'file://' + sDstDir + 'banner.png';
         bannerImageObj.setAttribute('style', 'min-height: ' + bannerHeight + 'px;');
     }
-    
-    if (bannerPane) prefwin.addPane(bannerPane);
 }
 
 /**
