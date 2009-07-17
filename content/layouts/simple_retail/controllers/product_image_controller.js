@@ -58,6 +58,7 @@
                 }
             }
             imageSrc = this.getImageUrl(item);
+            
             if (imageSrc.length >0) {
                 // image.src = 'file://' + imageSrc;
                 // image.setAttribute('style', 'background: transparent url(file://' + imageSrc + ') center center no-repeat');
@@ -84,7 +85,7 @@
 //                        image.style['max-width'] = imgWidth + 'px';
 //                        image.style['max-height'] = imgHeight + 'px';
 
-                    image.src = 'file://' + imageSrc;
+                    image.src = 'file://' + imageSrc + "?" + Math.random();
 
                 }
                 img.src = 'file://' + imageSrc;
@@ -125,6 +126,7 @@
                         item[cachedKey] = aDstFile ;
                     }else {
                         item[cachedKey] = false ;
+                        aDstFile = '';
                     }
                 }
             }
