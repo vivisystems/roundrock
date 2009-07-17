@@ -33,7 +33,9 @@
                 <th style="text-align: center;">${_( '(rpt)Clerk' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Quantity' )}</th>
                 <th style="text-align: right;">${_( '(rpt)New Quantity' )}</th>
+{if commitment.type == "procure"}
                 <th style="text-align: right;">${_( '(rpt)Purchase Price' )}</th>
+{/if}
                 <th style="text-align: center;">${_( '(rpt)Memo' )}</th>
             </tr>
         </thead>
@@ -49,8 +51,6 @@
                 <td style="text-align: right;">${product.new_quantity|format:0}</td>
 {if commitment.type == "procure"}
                 <td style="text-align: right;">${product.price|default:0|viviFormatPrices:true}</td>
-{else}
-                <td></td>
 {/if}
                 <td style="text-align: center;">${product.memo}</td>
             </tr>
@@ -64,6 +64,8 @@
                 <td colspan="1" style="text-align: right;">${commitment.summary.quantity|format:0}</td>
                 <td colspan="1" style="text-align: right;">${commitment.summary.new_quantity|format:0}</td>
                 <td colspan="1" style="text-align: right;">${commitment.summary.price|default:0|viviFormatPrices:true}</td>
+{else}
+                <td colspan="5"></td>
 {/if}
                 <td colspan="1" style="text-align: center;"></td>
             </tr>

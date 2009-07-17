@@ -362,7 +362,7 @@
                     if (drawerNo == '') drawerNo = null;
                 }
             }
-this.log( this.dump( evt.data ) );
+
             this._openDrawer(drawerNo, eventType, evt.data.name, evt.data.seq, evt.data.amount, evt.data.order_id);
         },
 
