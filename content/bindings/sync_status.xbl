@@ -279,8 +279,7 @@
                             var buf = "";
                             for (var service in this._services) {
                                 //dump(_('sync_settings.'+service));
-
-                                buf += _('sync_settings.'+service) + ': ' + (this._hosts[this._services[service]] ? _('sync_settings.status.connected') : _('sync_settings.status.disconnect') ) + ' \n';
+                                buf += _('sync_settings.'+service) + ': ' + this._services[service] + ' ' + (this._hosts[this._services[service]] ? _('sync_settings.status.connected') : _('sync_settings.status.disconnect') ) + ' \n';
                             }
                             //dump(buf);
                             this.serviceStatus.textContent = buf;

@@ -31,6 +31,8 @@
          */
         initial: function() {
 
+//            dump('promotions initial \n');
+
             // initial schema for in-memory data models
             this.createSchema();
             
