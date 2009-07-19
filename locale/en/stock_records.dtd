@@ -1,16 +1,17 @@
 <!ENTITY stockrecords.title "Stock Management">
-<!ENTITY stockrecords.header.no "Product No.">
+<!ENTITY stockrecords.header.no "Number">
 <!ENTITY stockrecords.header.product "Product Name">
-<!ENTITY stockrecords.header.quantity "Qty.">
-<!ENTITY stockrecords.header.newquantity "New Qty.">
-<!ENTITY stockrecords.header.qtydifference "Qty. Diff.">
+<!ENTITY stockrecords.header.quantity "Quantity">
+<!ENTITY stockrecords.header.newquantity "New Quantity">
+<!ENTITY stockrecords.header.saleunit "Unit of Sale">
+<!ENTITY stockrecords.header.qtydifference "Delta">
 <!ENTITY stockrecords.header.memo "Memo">
-<!ENTITY stockrecords.show.low.only "Stock-lacking products">
-<!ENTITY stockrecords.show.qty.different "Products bearing non-zero stock diff.">
-<!ENTITY stockrecords.show.stockmaintainones "Only stock-maintained ones">
-<!ENTITY stockrecords.label.no "No.">
+<!ENTITY stockrecords.show.low.only "Low watermark reached">
+<!ENTITY stockrecords.show.qty.different "Stock level adjusted">
+<!ENTITY stockrecords.show.stockmaintainones "Auto-stock items">
+<!ENTITY stockrecords.label.no "Number">
 <!ENTITY stockrecords.label.name "Name">
-<!ENTITY stockrecords.label.newquantity "New Qty.">
+<!ENTITY stockrecords.label.newquantity "New Quantity">
 <!ENTITY stockrecords.label.memo "Memo">
 <!ENTITY stockrecords.label.price "Purchase Price">
 <!ENTITY stockrecords.label.minstock "Min. Stock">
@@ -18,7 +19,7 @@
 <!ENTITY stockrecords.commit.title "Stock Adjustment">
 <!ENTITY stockrecords.commit.reason.label "Adjustment Type:">
 <!ENTITY stockrecords.commit.reason.inventory "Inventory">
-<!ENTITY stockrecords.commit.reason.procure "Procure">
+<!ENTITY stockrecords.commit.reason.procure "Procurement">
 <!ENTITY stockrecords.commit.reason.waste "Waste">
 <!ENTITY stockrecords.commit.reason.other "Other">
 <!ENTITY stockrecords.commit.supplier.label "Supplier:">

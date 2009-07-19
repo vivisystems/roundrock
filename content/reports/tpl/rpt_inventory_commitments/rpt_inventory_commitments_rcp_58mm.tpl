@@ -30,12 +30,12 @@ ${product.barcode|right:24}
 ${_( '(rpt)Warehouse' + ':' )|left:24}
 ${product.warehouse|right:24}
 ${_( '(rpt)Quantity' + ':' )|left:24}
-${product.quantity|format:0|right:24}
-${_( '(rpt)New Quantity' + ':' )|left:24}
-${product.new_quantity|format:0|right:24}             
+${product.value|format:0|right:24}
 {if commitment.type == "procure"}
 ${_( '(rpt)Purchase Price' + ':' )|left:24}
 ${product.price|default:0|viviFormatPrices:true|right:24}
+${_( '(rpt)Purchase Subtotal' + ':' )|left:24}
+${product.subtotal|default:0|viviFormatPrices:true|right:24}
 {/if}
 {if product.memo.length > 0}
 ${_( '(rpt)Memo' + ':' )|left:24}
@@ -44,15 +44,13 @@ ${product.memo|right:24}
 {/for}
 ------------------------
 ${_( '(rpt)Records Found' ) + ': '}${commitment.products.length|format:0}
-{if commitment.type == "procure"}
 ------------------------
 ${_( '(rpt)Summary' )}
 ${_( '(rpt)Quantity' + ':' )|left:24}
-${commitment.summary.quantity|format:0|right:24}
-${_( '(rpt)New Quantity' + ':' )|left:24}
-${commitment.summary.new_quantity|format:0|right:24}
-${_( '(rpt)Purchase Price' + ':' )|left:24}
-${commitment.summary.price|default:0|viviFormatPrices:true|right:24}
+${commitment.summary.value|format:0|right:24}
+{if commitment.type == "procure"}
+${_( '(rpt)Purchase Subtotal' + ':' )|left:24}
+${commitment.summary.subtotal|default:0|viviFormatPrices:true|right:24}
 {/if}
 {/for}
 ------------------------

@@ -50,16 +50,16 @@
                 </tabbox>
                 <vivitree id="schedulescrollablepanel" flex="1" class="ListPnl showscrollbar"
                           headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
-                          ensureVisible="true" hidecolumnpicker="true"
-                          onselect="$do('validateForm', null, 'PriceLevelSchedule')"
-                          fields="time,pricelevel"/>
+                          fields="time,pricelevel"
+                          ensureVisible="true"
+                          onselect="$do('validateForm', null, 'PriceLevelSchedule')"/>
             </vbox>
             <vbox >
                 <label value="&pricelevelschedule.add.header;" class="PageTitle"/>
                 <vbox class="PLbox" flex="1">
                     <label value="&pricelevelschedule.step1;" class="SubTitle"/>
-                    <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="3" rows="4" hideScrollbar="true" labelField="name"
-                                               ensureVisible="true"
+                    <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="3" rows="4" hideScrollbar="true"
+                                               labelField="name" ensureVisible="true"
                                                oncommand="$do('validateForm', null, 'PriceLevelSchedule')"
                                                class="ItemScrollablepanel"
                                                buttonClass="ItemButtonA"

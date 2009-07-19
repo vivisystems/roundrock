@@ -632,10 +632,7 @@
             this._setPluSet();
             // this._setCondimentGroup();
             if (valObj) {
-                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-                var sPluDir = datapath + "/images/pluimages/";
-                if (!sPluDir) sPluDir = '/data/images/pluimages/';
-                sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+                var sPluDir = GeckoJS.Session.get('pluimage_directory');
                 var aDstFile = sPluDir + valObj.no + ".png";
 
                 document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
@@ -899,10 +896,7 @@
         RemoveImage: function(no) {
             // var no  = $('#product_no').val();
 
-            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-            var sPluDir = datapath + "/images/pluimages/";
-            if (!sPluDir) sPluDir = '/data/images/pluimages/';
-            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+            var sPluDir = GeckoJS.Session.get('pluimage_directory');
             var aDstFile = sPluDir + no + ".png";
 
             GREUtils.File.remove(aDstFile);

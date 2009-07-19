@@ -6,12 +6,15 @@
 
         uses: ['Product'],
 
+        _sPluDir: null,
         _cartController: null,
         _cartTreeList: null,
         _image: null,
 
         initial: function() {
             var self = this;
+
+            this._sPluDir = GeckoJS.Session.get('pluimage_directory');
             
             var cartController = this._cartController = GeckoJS.Controller.getInstanceByName('Cart');
             var cartTreeList = this._cartTreeList = document.getElementById('cartList');
@@ -30,7 +33,6 @@
                     self.updateImage(-1);
                 });
             }
-
         },
 
         updateImage: function(index) {
@@ -85,15 +87,13 @@
 //                        image.style['max-width'] = imgWidth + 'px';
 //                        image.style['max-height'] = imgHeight + 'px';
 
-                    image.src = 'file://' + imageSrc + "?" + Math.random();
+                    image.src = 'file://' + imageSrc + '?' + Math.random();
 
                 }
                 img.src = 'file://' + imageSrc;
                 imageContainer.setAttribute('style', 'overflow: hidden');
 
             }else {
-                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-                var sPluDir = datapath + "/images/pluimages/";
                 //image.src = defaultImage;
                 //image.removeAttribute('style');
                 image.style.width = boxWidth + 'px';
@@ -101,7 +101,8 @@
 //                    image.style['max-width'] = boxWidth + 'px';
 //                    image.style['max-height'] = boxHeight + 'px';
                 image.src = null;
-                imageContainer.setAttribute('style', 'overflow: hidden; background: transparent url(file://' + sPluDir + 'no-photo.png) center center no-repeat');
+                var noPhotoImg = 'file://' + this._sPluDir + 'no-photo.png?' + Math.random();
+                imageContainer.setAttribute('style', 'overflow: hidden; background: transparent url(' + noPhotoImg + ') center center no-repeat');
             }
         },
 
@@ -109,8 +110,6 @@
 
             var cachedKey = 'pluimages' ;
             var aDstFile = '';
-            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-            var sPluDir = datapath + "/images/pluimages/";
 
             if (item) {
                 if (item[cachedKey] === false ) {
@@ -118,9 +117,7 @@
                 }else if (item[cachedKey]) {
                     aDstFile = item[cachedKey];
                 }else {
-                    if (!sPluDir) sPluDir = '/data/images/pluimages/';
-                    sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
-                    aDstFile = sPluDir + item.no + ".png";
+                    aDstFile = this._sPluDir + item.no + ".png";
 
                     if (GREUtils.File.exists(aDstFile)) {
                         item[cachedKey] = aDstFile ;

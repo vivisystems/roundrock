@@ -50,15 +50,13 @@
                         <vbox flex="1">
                             <vbox flex="1">
                                 <vbox pack="start" flex="1" class="LeftPnl">
-                                    <viviscrollabletree id="tablescrollabletree" flex="1"
-                                                    headers="&tableman.table.active;,&tableman.table.tableno;,&tableman.table.tablename;,&tableman.table.seats;,&tableman.table.region;,&tableman.table.destination;"
-                                                    fields="active,table_no,table_name,seats,region,destination"
-                                                    onclick="$do('selectTable',this.selectedIndex, 'TableMan');"
-                                                    class="ListPnl" hidecolumnpicker="true"
-                                                    scrollUpClass="ScrollUp" dir="normal"
-                                                    scrollDownClass="ScrollDown">
-                                        <spacer flex="1" />
-                                    </viviscrollabletree>
+                                    <vivitree id="tablescrollabletree" flex="1"
+                                              headers="&tableman.table.active;,&tableman.table.tableno;,&tableman.table.tablename;,&tableman.table.seats;,&tableman.table.region;,&tableman.table.destination;"
+                                              fields="active,table_no,table_name,seats,region,destination"
+                                              onclick="$do('selectTable',this.selectedIndex, 'TableMan');"
+                                              class="ListPnl"
+                                              scrollUpClass="ScrollUp" dir="normal"
+                                              scrollDownClass="ScrollDown"/>
                                     <hbox>
                                         <label value="&tableman.table.count;"/><label id="table_count"/>
                                     </hbox>
@@ -147,15 +145,13 @@
                         <vbox flex="1">
                             <vbox flex="1">
                                 <vbox pack="start" flex="1" class="LeftPnl">
-                                    <viviscrollabletree id="regionscrollabletree" flex="1"
-                                                    headers="&tableman.region.name;,&tableman.region.bgimage;"
-                                                    fields="name,image"
-                                                    onclick="$do('selectRegion',this.selectedIndex, 'TableMan');"
-                                                    class="ListPnl" hidecolumnpicker="true"
-                                                    scrollUpClass="ScrollUp" dir="normal"
-                                                    scrollDownClass="ScrollDown">
-                                        <spacer flex="1" />
-                                    </viviscrollabletree>
+                                    <vivitree id="regionscrollabletree" flex="1"
+                                              headers="&tableman.region.name;,&tableman.region.bgimage;"
+                                              fields="name,image"
+                                              onclick="$do('selectRegion',this.selectedIndex, 'TableMan');"
+                                              class="ListPnl"
+                                              scrollUpClass="ScrollUp" dir="normal"
+                                              scrollDownClass="ScrollDown"/>
                                     <hbox>
                                         <label value="&tableman.region.count;"/><label id="region_count"/>
                                     </hbox>

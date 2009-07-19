@@ -23,15 +23,13 @@
             <caption id="booking_table_title" label="" />
             <vbox flex="1">
                 <vbox pack="start" flex="1" class="LeftPnl">
-                    <viviscrollabletree id="bookingscrollabletree" flex="1"
-                                    headers="&tableman.booking.booking;,&tableman.booking.contact;,&tableman.booking.telephone;"
-                                    fields="booking,contact,telephone"
-                                    onclick="$do('selectBooking',this.selectedIndex, 'TableBook');"
-                                    class="ListPnl" hidecolumnpicker="true"
-                                    scrollUpClass="ScrollUp" dir="normal"
-                                    scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
+                    <vivitree id="bookingscrollabletree" flex="1"
+                              headers="&tableman.booking.booking;,&tableman.booking.contact;,&tableman.booking.telephone;"
+                              fields="booking,contact,telephone"
+                              onclick="$do('selectBooking',this.selectedIndex, 'TableBook');"
+                              class="ListPnl"
+                              scrollUpClass="ScrollUp" dir="normal"
+                              scrollDownClass="ScrollDown"/>
                     <hbox>
                         <label value="&tableman.booking.count;"/><label id="booking_count"/>
                     </hbox>

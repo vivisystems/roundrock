@@ -716,6 +716,11 @@ scrollbar {
     display: none;
 }
 
+treecolpicker {
+    min-width: 34px;
+    width: 40px;
+}
+
 .WaitPnl {
   border: 3px solid #c1ab8e;
   background: white;

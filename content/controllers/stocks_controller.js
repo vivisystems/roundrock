@@ -294,7 +294,11 @@
 
         _serverError: function(state, status, hostname) {
             this.log('ERROR', 'Stock Server error: ' + state + ' [' +  status + '] at ' + hostname);
-            GREUtils.Dialog.alert(this.topmostWindow,
+            var win = this.topmostWindow;
+            if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+                win = null;
+            
+            GREUtils.Dialog.alert(win,
                 _('Stock Server Connection Error'),
                 _('Connection to Stock Server Error (%S)',[status])+'\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }

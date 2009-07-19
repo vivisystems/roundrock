@@ -42,8 +42,8 @@
 
 <!ENTITY plus.purchase.price "Purchase Price">
 <!ENTITY plus.stock.level "Current Stock Level">
-<!ENTITY plus.stock.threshold "Minimum Threshold">
-<!ENTITY plus.stock.maxstock "Maximum Stock Level">
+<!ENTITY plus.stock.threshold "Stock Low Watermark">
+<!ENTITY plus.stock.maxstock "Stock High Watermark">
 <!ENTITY plus.memo "Memo">
 <!ENTITY plus.minimum.sale.quantity "Minimum Sale Qty">
 <!ENTITY plus.scale.item "Scale item">

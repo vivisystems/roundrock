@@ -56,6 +56,24 @@
         		</body>
         	</xbl:method>
 
+        	<xbl:method name="select">
+        		<body>
+        		  <![CDATA[
+                    this.input.select();
+                  ]]>
+        		</body>
+        	</xbl:method>
+
+        	<xbl:method name="setSelectionRange">
+                <parameter name="start"/>
+                <parameter name="end"/>
+        		<body>
+        		  <![CDATA[
+                    this.input.setSelectionRange(start, end);
+                  ]]>
+        		</body>
+        	</xbl:method>
+
             <xbl:method name="hide">
         		<body>
         		  <![CDATA[

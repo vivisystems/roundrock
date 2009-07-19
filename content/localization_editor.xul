@@ -62,7 +62,7 @@
                     <row flex="1">
                         <vivitree id="editlist" flex="1"
                                   headers="&localization.heading.key;,&localization.heading.base.string;,&localization.heading.translated.string;"
-                                  fields="key,base,working" hidecolumnpicker="true"
+                                  fields="key,base,working"
                                   onselect="$do('selectEntry', this.currentIndex, 'Localization')"
                                   class="editscrollabletree showscrollbar">
                         </vivitree>

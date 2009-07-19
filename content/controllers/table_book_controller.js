@@ -40,7 +40,7 @@
             // clear form
             GeckoJS.FormHelper.reset('bookingForm');
 
-            this.getBookingListObj().vivitree.selection.select(index);
+            this.getBookingListObj().selection.select(index);
             var idx = this.getBookingListObj().selectedIndex;
 
             if (index > -1) {

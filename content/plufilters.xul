@@ -40,7 +40,7 @@
                     <hbox pack="start" flex="1" class="LeftPnl">
                         <vivitree id="plufilterscrollablepanel" flex="1"
                                   headers="&plufilters.filtername;,&plufilters.index;,&plufilters.length;"
-                                  fields="filtername,index,length" hidecolumnpicker="true"
+                                  fields="filtername,index,length"
                                   onselect="$do('select',this.selectedIndex, 'Plufilters');"
                                   class="ListPnl showscrollbar"
                                   />

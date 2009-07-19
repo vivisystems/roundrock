@@ -37,7 +37,7 @@
                 <vivitree id="identifierscrollablepanel" flex="1" class="ListPnl showscrollbar"
                           headers="&nonplusetting.header.active;,&nonplusetting.header.identifier;,&nonplusetting.header.field1;,&nonplusetting.header.field2check;,&nonplusetting.header.field2;,&nonplusetting.header.content;,&nonplusetting.header.decimalpoint;"
                           fields="active,identifier,length_of_field1,use_price_check_digit,length_of_field2,content_of_field2,decimal_point_of_field2"
-                          onselect="$do('select',this.selectedIndex, 'NonpluSetting');" hidecolumnpicker="true"/>
+                          onselect="$do('select',this.selectedIndex, 'NonpluSetting');"/>
                 <vbox>
                     <!-- hbox>
                         <label value="Example Code:" />

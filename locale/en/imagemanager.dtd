@@ -7,6 +7,7 @@
 <!ENTITY imagemanager.action.export "Export">
 <!ENTITY imagemanager.action.delete "Delete">
 <!ENTITY imagemanager.action.rename "Rename">
+<!ENTITY imagemanager.action.deleteall "Delete All">
 
 <!ENTITY imagemanager.status.disklimit "Disk Usage Limit:">
 <!ENTITY imagemanager.status.total "Total: ">

@@ -37,7 +37,7 @@
             return true;
         },
 		
-        setAll: function( inventoryRecords ) {
+        setAll: function( inventoryRecords, absolute ) {
 
             if ( inventoryRecords.length > 0 ) {
 
@@ -54,8 +54,7 @@
                     data['product_no'] = inventoryRecord['product_no'] || '';
                     data['barcode'] = inventoryRecord['barcode'] || '';
                     data['warehouse'] = inventoryRecord['warehouse'] || '';
-                    data['quantity'] = inventoryRecord['quantity'];
-                    data['new_quantity'] = inventoryRecord['new_quantity'];
+                    data['value'] = inventoryRecord['value'];
                     data['memo'] = inventoryRecord['memo'] || '';
                     data['price'] = inventoryRecord['price'] || null;
 

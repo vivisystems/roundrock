@@ -99,7 +99,7 @@
                                     <!-- numberpad id="multinumberpad" class="numberpad"/ -->
                                     <vivitree id="plusearchscrollablepanel" flex="1" class="ListPnl showscrollbar"
                                                         headers="&plus.product.no;,&plus.product.name;"
-                                                        fields="no,name" hidecolumnpicker="true"
+                                                        fields="no,name"
                                                         onselect="$do('selectPlu',this.selectedIndex, 'Plus');"/>
                                 </vbox>
                                 <spacer style="height:10px;" />

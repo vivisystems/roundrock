@@ -60,7 +60,7 @@
                     <spacer style="height:5px;" />
                     <vivitree id="plusearchscrollablepanel" flex="1" class="ListPnl showscrollbar"
                                         headers="&plus.product.no;,&plus.product.name;,&plus.stock.level;"
-                                        fields="no,name,stock" hidecolumnpicker="true"
+                                        fields="no,name,stock"
                                         onclick="$do('select',this.selectedIndex, 'PluSearch');"/>
                 </vbox>
             </vbox> 

@@ -11,7 +11,7 @@
 
     <box id="cartlistPanelContainer" flex="1" orient="vertical">
 
-            <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
+            <viviscrollabletree class="cartList" id="cartList" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
                                 primary="name" scrollMode="cursor"
                                 headers="'',&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
                                 fields="tag,name,current_qty,current_price,current_subtotal,current_tax"

@@ -1,4 +1,4 @@
-<!ENTITY rptinventorycommitments.title "Inventory Commitments">
+<!ENTITY rptinventorycommitments.title "Stock Adjustments">
 <!ENTITY rptinventorycommitments.startdate "Start Date:">
 <!ENTITY rptinventorycommitments.enddate "End Date:">
 <!ENTITY rptinventorycommitments.execute "Execute">
@@ -7,9 +7,5 @@
 <!ENTITY rptinventorycommitments.exportrcp "Print">
 <!ENTITY rptinventorycommitments.print "Print">
 <!ENTITY rptinventorycommitments.togglezoom "Toggle Zoom">
-<!ENTITY rptinventorycommitments.type "Type:">
+<!ENTITY rptinventorycommitments.type "Adjustment Type:">
 <!ENTITY rptinventorycommitments.type.all "All">
-<!ENTITY rptinventorycommitments.type.inventory "Inventory">
-<!ENTITY rptinventorycommitments.type.procure "Procure">
-<!ENTITY rptinventorycommitments.type.waste "Waste">
-<!ENTITY rptinventorycommitments.type.other "Other">

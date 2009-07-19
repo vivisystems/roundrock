@@ -23,7 +23,7 @@
                 "ic.supplier",
                 "ir.product_no",
                 "ir.barcode",
-                "( ir.new_quantity - ir.quantity ) AS quantity",
+                "( ir.value ) AS quantity",
                 "ir.price",
                 "p.name"
             ];
@@ -51,7 +51,7 @@
                 var total;
                 var counter;
                 for ( var i = 0; i <= inventoryRecords.length; i++ ) {
-                    record = inventoryRecords[ i ] || {};// the empty object option is for the last record to be pushed into products[ oldProductNo ].records.
+                    var record = inventoryRecords[ i ] || {};// the empty object option is for the last record to be pushed into products[ oldProductNo ].records.
                     record.total = record.price * record.quantity;
                     if ( oldSupplier != record.supplier || oldProductNo != record.product_no ) {
                         if ( i > 0 ) {
@@ -60,20 +60,20 @@
                                 arrayToBePushed = object[ oldProductNo ].records;
                             else if ( condition == "supplier" )
                                 arrayToBePushed = object[ oldSupplier ].records;
-                            arrayToBePushed.push( {
-                                fieldForGroupby: "",
-                                barcode: _( "(rpt)Average Quantity" ),
-                                quantity: averageQuantity / counter,
-                                created: _( "(rpt)Average Price" ),
-                                price: averagePrice / counter,
-                                total: total,
-                                average_line: true
-                            } );
+                                arrayToBePushed.push( {
+                                    fieldForGroupby: "",
+                                    barcode: _( "(rpt)Average Quantity" ),
+                                    quantity: averageQuantity / counter,
+                                    created: _( "(rpt)Average Price" ),
+                                    price: averagePrice / counter,
+                                    total: total,
+                                    average_line: true
+                                } );
                         }
                         
-                        averageQuantity = record.quantity;
-                        averagePrice = record.price;
-                        total = record.total;
+                        averageQuantity = parseFloat(record.quantity);
+                        averagePrice = parseFloat(record.price || 0);
+                        total = parseFloat(record.total);
                         counter = 1;
                         
                         if ( condition == "product" )
@@ -85,9 +85,9 @@
                         oldProductNo = record.product_no;
                     } else {
                         record.fieldForGroupby = "";
-                        averageQuantity += record.quantity;
-                        averagePrice += record.price;
-                        total += record.total;
+                        averageQuantity += parseFloat(record.quantity);
+                        averagePrice += parseFloat(record.price || 0);
+                        total += parseFloat(record.total);
                         counter++;
                     }
                     
@@ -108,7 +108,7 @@
             if ( groupCondition == "product" ) {
                 // prepare product records.
                 var productModel = new ProductModel();
-                var productRecords = productModel.find( "all", { fields: [ "no", "name" ], group: "no" } );
+                var productRecords = productModel.find( "all", { fields: [ "no", "name" ]} );
                 var products = {};
                 
                 productRecords.forEach( function( record ) {
@@ -120,7 +120,7 @@
                 groupInventoryRecords( "product", products );
                 
                 // eliminate the empty elements.
-                for ( product in products ) {
+                for ( var product in products ) {
                     if ( products[ product ].records.length == 0 )
                         delete products[ product ];
                 };

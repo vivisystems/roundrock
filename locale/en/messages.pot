@@ -259,7 +259,7 @@ msgid "vivipos.fec.reportpanels.yourorder.label"
 msgstr "Custom Sales Report"
 
 msgid "vivipos.fec.reportpanels.inventorycommitments.label"
-msgstr "Inventory Commitment"
+msgstr "Stock Adjustments"
 
 msgid "vivipos.fec.reportpanels.purchasehistory.label"
 msgstr "Purchase History"
@@ -302,12 +302,27 @@ msgstr "** TRAY"
 
 ########################################################################
 #
-# Register Display - Others
+# Stock Adjustment Types
 #
 ########################################################################
 
-msgid "House Bon"
-msgstr "BON"
+msgid "(inventory)inventory"
+msgstr "Inventory"
+
+msgid "(inventory)procure"
+msgstr "Procurement"
+
+msgid "(inventory)waste"
+msgstr "Waste"
+
+msgid "(inventory)other"
+msgstr "Other"
+
+########################################################################
+#
+# Register Display - Payments
+#
+########################################################################
 
 ########################################################################
 #
@@ -2584,6 +2599,42 @@ msgstr "BIG5,UTF-8"
 
 msgid "vivipos.fec.registry.import_export.charsets.charset"
 msgstr "big5,utf-8"
+
+########################################################################
+#
+# Units of Sale
+#
+########################################################################
+
+msgid "(saleunit)unit"
+msgstr "Individually"
+
+msgid "(saleunit)g"
+msgstr "Gram"
+
+msgid "(saleunit)kg"
+msgstr "Kilogram"
+
+msgid "(saleunit)oz"
+msgstr "Ounce"
+
+msgid "(saleunit)lb"
+msgstr "Pound"
+
+msgid "(saleunit)ml"
+msgstr "Milliliter"
+
+msgid "(saleunit)l"
+msgstr "Liter"
+
+msgid "(saleunit)pt"
+msgstr "Pint"
+
+msgid "(saleunit)qt"
+msgstr "Quart"
+
+msgid "(saleunit)gal"
+msgstr "Gallon"
 
 ########################################################################
 #

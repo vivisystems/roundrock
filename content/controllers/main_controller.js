@@ -27,6 +27,17 @@
             GeckoJS.Session.set('screenwidth', this.screenwidth);
             GeckoJS.Session.set('screenheight', this.screenheight);
 
+            // initial product image paths
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+            var sPluDir = datapath + "/images/pluimages/";
+            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+
+            var sOrigDir = datapath + "/images/original/";
+            sOrigDir = (sOrigDir + '/').replace(/\/+/g,'/');
+
+            GeckoJS.Session.set('original_directory', sOrigDir);
+            GeckoJS.Session.set('pluimage_directory', sPluDir);
+
             // set up event listener to intercept all controller events
             var self = this;
             this._suspendOperationFilter = function(evt) {
@@ -943,6 +954,10 @@
                             // dispatch afterTruncateTxnRecords event
                             this.dispatchEvent('afterTruncateTxnRecords', null);
                         }
+
+                        // pack order db
+                        orderModel.execute('VACUUM');
+                        
                     } catch (e) {}
                     finally {
                         GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);

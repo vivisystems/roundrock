@@ -533,7 +533,7 @@
             return true;
         },
 		
-        setAll: function(stockRecords) {
+        setAll: function(stockRecords, absolute) {
             if (stockRecords.length > 0) {
                 var r;
 
@@ -544,7 +544,8 @@
 
                 stockRecords.forEach(function( stockRecord ) {
                     sql += "UPDATE stock_records SET warehouse='" + (stockRecord.warehouse||'') + "', " +
-                           "quantity=" + stockRecord.quantity + ", " +
+                           "quantity=" + (absolute ? stockRecord.quantity : "quantity + " + stockRecord.delta) + ", " +
+                           "created=" + created + ", " +
                            "modified="  + modified + " " +
                            "WHERE id='" + stockRecord.id + "'; \n" ;
                 });

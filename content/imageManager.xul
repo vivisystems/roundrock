@@ -40,7 +40,7 @@
                 <vbox flex="1">
                     <viviscrollablebuttonpanel id="imagePanel" flex="1" cols="4" rows="4" labelField="leafName" imageField="path"
                                                oncommand="$do('select',this.selectedIndex, 'ImageManager');"
-                                               buttonClass="ImgThumb" dir="reverse"
+                                               buttonClass="ImgThumb" dir="normal"
                                                scrollUpClass="ScrollUp" class="ImgList"
                                                scrollDownClass="ScrollDown">
                         <spacer flex="1"/>
@@ -59,6 +59,8 @@
                     <button id="exportBtn" label="&imagemanager.action.export;"  disabled="false" oncommand="$do('exportToDir',null, 'ImageManager');"/>
                     <button id="deleteBtn" label="&imagemanager.action.delete;"  disabled="false" oncommand="$do('deleteImage',null, 'ImageManager');" />
                     <button id="renameBtn" label="&imagemanager.action.rename;"  disabled="false" oncommand="$do('renameImage',null, 'ImageManager');"/>
+                    <spacer flex="1"/>
+                    <button id="deleteAllBtn" label="&imagemanager.action.deleteall;"  disabled="false" oncommand="$do('deleteAllImages',null, 'ImageManager');" />
                     <spacer flex="1"/>
                     <groupbox>
                         <caption label="&imagemanager.action.caption;"/>

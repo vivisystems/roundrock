@@ -26,9 +26,9 @@
                 "ir.product_no",
                 "ir.barcode",
                 "ir.warehouse",
-                "ir.quantity",
-                "ir.new_quantity",
+                "ir.value",
                 "ir.price",
+                "ir.value * ir.price AS subtotal",
                 "ir.memo",
                 "p.name"
             ];
@@ -49,7 +49,7 @@
             	" ORDER BY " + orderby + " LIMIT " + limit + ";";
             var inventoryCommitmentModel = new InventoryCommitmentModel();
             var records = inventoryCommitmentModel.getDataSource().fetchAll( sql );
-            
+
             var inventoryCommitments = {};
             var old_id = null;
             var currentCommit;
@@ -62,18 +62,17 @@
                         clerk: record.clerk,
                         commitment_memo: record.commitment_memo,
                         products: [],
+                        subtotal: record.value * record.price,
                         summary: {
-                            quantity: 0,
-                            new_quantity: 0,
-                            price: 0
+                            value: 0,
+                            subtotal: 0
                         }
                     };
                     old_id = id;
                 }
                 
-                currentCommit.summary.quantity += record.quantity;
-                currentCommit.summary.new_quantity += record.new_quantity;
-                currentCommit.summary.price += record.price || 0;
+                currentCommit.summary.value += record.value;
+                currentCommit.summary.subtotal += record.subtotal;
                     
                 currentCommit.products.push( record );
             } );

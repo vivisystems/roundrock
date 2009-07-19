@@ -125,7 +125,8 @@
                         name: o.name,
                         stock: o.quantity,
                         min_stock: o.min_stock,
-                        max_stock: o.max_stock
+                        max_stock: o.max_stock,
+                        delta: (o.max_stock == 0) ? '' : Math.max(0, o.max_stock - o.quantity)
                     } );
                 }
                 

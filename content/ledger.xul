@@ -52,7 +52,6 @@
                                 <vivitree id="entryscrollablepanel" flex="1" class="ListPnl showscrollbar"
                                           headers="&ledger.entry.heading.date;,&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.amount;"
                                           fields="created,type,mode,amount"
-                                          hidecolumnpicker="true"
                                           onselect="$do('select',this.selectedIndex, 'LedgerRecords');"/>
 
                                 <hbox align="center">
@@ -123,7 +122,6 @@
                                 <vivitree id="typescrollablepanel" flex="1" class="ListPnl showscrollbar"
                                                     headers="&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.drawer.change;"
                                                     fields="type,mode,drawer_change"
-                                                    hidecolumnpicker="true"
                                                     onselect="$do('select',this.selectedIndex, 'LedgerEntryTypes');"/>
                                 <label id="entry_type_id" hidden="true" form="ledger_entry_typeForm" name="id" value="" />
                                 <grid class="DataForm" flex="0">

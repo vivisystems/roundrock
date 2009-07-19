@@ -61,10 +61,6 @@ textbox:not([onclick]) *[readonly] {
     text-overflow: ellipsis;
 }
 
-.user-catbtn .button-text{
-	
-}
-
 .user-catbtn description, .user-plubtn description {
     text-wrap: normal;
     word-wrap: break-word;
@@ -217,32 +213,23 @@ textbox:not([onclick]) *[readonly] {
 }
 
 .dialogbtns button hbox{
-  max-height: 50px;
-  height: 50px;
+    max-height: 50px;
+    height: 50px;
 }
 
 .dialogbtns button hbox image{
-  max-height: 24px;
-  max-width: 24px;
+    max-height: 24px;
+    max-width: 24px;
 }
 
 .dialogbtns button hbox label{
-  max-width: 100px;
-  width: 100px;
-  text-align: center;
+    max-width: 100px;
+    width: 100px;
+    text-align: center;
     -moz-box-align:center;
     -moz-box-pack:center;
 }
-/*
-.dialogbtns button[disabled=false]:active , .editbtns[disabled=false]:active, .timepickerbtns[disabled=false]:active {
-    background-position:0pt -60px;
-    border: 2px solid;
-    -moz-border-top-colors: #444 #222;
-    -moz-border-right-colors: #444 #ddd;
-    -moz-border-bottom-colors: #444 #ddd;
-    -moz-border-left-colors: #444 #222;
-}
-*/
+
 /*-----------------------------------------------------------------------------
  * Prompt buttons
  *-----------------------------------------------------------------------------

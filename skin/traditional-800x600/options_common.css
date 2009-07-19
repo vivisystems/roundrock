@@ -709,15 +709,20 @@ vividatetimepicker-timepad {
 }
 
 scrollbarbutton {
-  min-width: 32px;
-  min-height: 32px;
-  width: 40px;
-  height: 40px;
+    min-width: 32px;
+    min-height: 32px;
+    width: 40px;
+    height: 40px;
 }
 
 scrollbar {
     min-width: 34px;
     display: none;
+}
+
+treecolpicker {
+    min-width: 34px;
+    width: 40px;
 }
 
 .WaitPnl {

@@ -38,12 +38,10 @@
                     <rows>
                         <row flex="1">
                             <vbox>
-                                <viviscrollabletree id="typescrollablepanel" flex="1" headers="&prompt.addentry.heading.type;,&prompt.addentry.heading.mode;"
-                                                    fields="type,mode" onclick="validateInput()"
-                                                    class="ListPnl" hidecolumnpicker="true"
-                                                    scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                                    <spacer flex="1" />
-                                </viviscrollabletree>
+                                <vivitree id="typescrollablepanel" flex="1" headers="&prompt.addentry.heading.type;,&prompt.addentry.heading.mode;"
+                                          fields="type,mode" onclick="validateInput()"
+                                          class="ListPnl"
+                                          scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"/>
                             </vbox>
                         </row>
 

@@ -34,12 +34,10 @@
             <!-- Left side -->
             <vbox flex="1" class="MainL">
                 <caption label="&prompt.shiftchange.title;"   class="PageTitle"/>
-                <viviscrollabletree id="shiftscrollablepanel" flex="1" onclick="" hidecolumnpicker="true"
-                                    headers="&prompt.shiftchange.heading.type;,&prompt.shiftchange.heading.name;,&prompt.shiftchange.heading.count;,&prompt.shiftchange.heading.amount;,&prompt.shiftchange.heading.change;,&prompt.shiftchange.heading.origin_amount;,&prompt.shiftchange.heading.excess;"
-                                    fields="type,name,count,amount,change,origin_amount,excess_amount"
-                                    dir="normal" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                    <spacer flex="1"/>
-                </viviscrollabletree>
+                <vivitree id="shiftscrollablepanel" flex="1" onclick=""
+                          headers="&prompt.shiftchange.heading.type;,&prompt.shiftchange.heading.name;,&prompt.shiftchange.heading.count;,&prompt.shiftchange.heading.amount;,&prompt.shiftchange.heading.change;,&prompt.shiftchange.heading.origin_amount;,&prompt.shiftchange.heading.excess;"
+                          fields="type,name,count,amount,change,origin_amount,excess_amount"
+                          dir="normal" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"/>
 
                 <spacer style="height: 5px;"/>
 

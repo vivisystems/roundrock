@@ -40,8 +40,7 @@
             <hbox pack="start" flex="1" class="LeftPnl">
                 <vivitree id="orderscrollablepanel" flex="1" class="ListPnl showscrollbar"
                           headers="" fields=""
-                          onselect="$do('validateForm', this.selectedIndex, 'ListOrders')"
-                          hidecolumnpicker="true"/>
+                          onselect="$do('validateForm', this.selectedIndex, 'ListOrders')"/>
             </hbox>
             <hbox pack="start">
                 <label value="&listorders.count;"/>

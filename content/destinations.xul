@@ -32,7 +32,7 @@
                     <hbox pack="start" flex="1" class="LeftPnl">
                         <vivitree id="destscrollablepanel" flex="1" class="ListPnl showscrollbar"
                                   headers="&destinations.default;,&destinations.name;,&destinations.pricelevel;,&destinations.prefix;"
-                                  fields="defaultMark,name,pricelevel,prefix" hidecolumnpicker="true"
+                                  fields="defaultMark,name,pricelevel,prefix"
                                   onselect="$do('select',this.selectedIndex, 'Destinations');"/>
                     </hbox>
                 </vbox>

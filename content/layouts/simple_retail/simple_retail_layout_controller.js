@@ -164,7 +164,7 @@
 
             var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.layout.CheckTrackingMode') || false;
             
-            var hbox = document.getElementById('mainPanel');
+            var hbox = document.getElementById('mainBody');
             var bottombox = document.getElementById('vivipos-bottombox');
             var fnPanel = document.getElementById('functionpanel');
             var fnPanelContainer = document.getElementById('functionPanelContainer');

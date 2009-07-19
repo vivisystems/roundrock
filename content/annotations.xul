@@ -40,7 +40,7 @@
                     <hbox pack="start" flex="1" class="LeftPnl">
                         <vivitree id="annotationscrollablepanel" flex="1" class="ListPnl showscrollbar"
                                         headers="&annotations.code;,&annotations.type;"
-                                        fields="code,type" hidecolumnpicker="true"
+                                        fields="code,type"
                                         onselect="$do('selectCode',this.selectedIndex, 'Annotations');"/>
                     </hbox>
                 </vbox>

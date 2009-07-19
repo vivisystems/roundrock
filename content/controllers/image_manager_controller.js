@@ -241,6 +241,24 @@
                 return;
             }
 
+            // automatically link imported photos to products
+            var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                    .getService(Components.interfaces.nsIPromptService);
+            var check = {value: false};
+
+            var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+            var productsById = GeckoJS.Session.get('productsById');
+            var sPluDir = GREUtils.File.getFile(GeckoJS.Session.get('pluimage_directory'));
+            
+            var linkProductImage =
+                prompts.confirmEx(this.topmostWindow, _('Link Product Image'),
+                                                      _('Do you want to link imported images with matching products?'),
+                                                      flags, _('Update Only'), _('No Link'), _('Reset and Update'), null, check);
+
             var waitPanel = this.showWaitingPanel(_('Importing %S Images', [total]));
             var progmeter = document.getElementById('progress');
             progmeter.value = 0;
@@ -255,10 +273,35 @@
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
                 this._busy = true;
 
+                if (linkProductImage == 2) {
+                    var pluimages = new GeckoJS.Dir.readDir(sPluDir, {type: "f", name: /.png$/i});
+                    if (pluimages) {
+                        pluimages.forEach(function(f) {
+                            GREUtils.File.remove(f);
+                        })
+                    }
+                }
+                
                 files.forEach(function(file) {
                     if (this.imagefilesView._totalSize <= this._disklimit) {
 
-                        file.copyTo(orgDir, "");
+                        file.copyTo(orgDir, '');
+
+                        // link to product?
+                        if (linkProductImage == 0 || linkProductImage == 2) {
+
+                            // get file leaf name without the extension
+                            var prodNo;
+                            var dotIndex = file.leafName.lastIndexOf('.');
+                            if (dotIndex == -1) prodNo = file.leafName;
+                            else prodNo = file.leafName.substr(0, dotIndex);
+                            var prodId = barcodesIndexes[prodNo]
+
+                            var product = productsById[prodId];
+                            if (product && product.no == prodNo) {
+                                file.copyTo(sPluDir, '');
+                            }
+                        }
 
                         this.imagefilesView._totalSize += file.fileSize;
 
@@ -289,8 +332,9 @@
                 NotifyUtils.info(_('%S image successfully imported from [%S]', [total, importDir]));
             }
             catch (e) {
+                this.log('ERROR', GeckoJS.BaseObject.dump(e));
                 $importStatus.val('error');
-                NotifyUtils.info(_('An error was encountered while importing images from [%S]', [importDir]));
+                NotifyUtils.error(_('An error was encountered while importing images from [%S]', [importDir]));
             }
             finally {
 
@@ -381,7 +425,7 @@
             }
             catch (e) {
                 $exportStatus.val('error');
-                NotifyUtils.info(_('An error was encountered while exporting images to [%S]', [exportDir]));
+                NotifyUtils.error(_('An error was encountered while exporting images to [%S]', [exportDir]));
             }
             finally {
                 this._busy = false;
@@ -408,8 +452,8 @@
             }
 
             var result = GREUtils.Dialog.confirm(this.topmostWindow,
-                                                 _("confirm delete"),
-                                                 _("Are you sure you want to delete %S", [this._selectedFile.leafName]));
+                                                 _('confirm delete'),
+                                                 _('Are you sure you want to delete %S', [this._selectedFile.leafName]));
             if (result) {
                 // unlink
                 // GeckoJS.File.remove(this._selectedFile.path) ;
@@ -423,6 +467,54 @@
             
         },
         
+        deleteAllImages: function() {
+
+            var result = GREUtils.Dialog.confirm(this.topmostWindow,
+                                                 _('confirm delete'),
+                                                 _('Are you sure you want to delete all images?'));
+            if (!result) return;
+
+            var files = new GeckoJS.Dir.readDir(this._dir);
+            var total = files ? files.length : 0;
+
+            if (total == 0 || isNaN(total)) {
+                NotifyUtils.warn(_('No images to delete!'));
+                return;
+            }
+
+            var waitPanel = this.showWaitingPanel(_('Deleting %S Images', [total]));
+            var progmeter = document.getElementById('progress');
+            progmeter.value = 0;
+
+            var removedFiles = 0;
+            this.setButtonDisable(true);
+
+            try {
+                files.forEach(function(file) {
+                    file.remove(false);
+                    removedFiles++;
+
+                    progmeter.value = removedFiles * 100 / total;
+                    this.sleep(50);
+                }, this);
+
+                NotifyUtils.info(_('%S images successfully deleted', [removedFiles]));
+            }
+            catch (e) {
+                this.log('ERROR', GeckoJS.BaseObject.dump(e));
+                NotifyUtils.info(_('An error was encountered while deleting all images'));
+            }
+            finally {
+                progmeter.value = 100;
+                this.sleep(200);
+
+                this.setButtonDisable(false);
+                waitPanel.hidePopup();
+            }
+            // refresh
+            this.loadImage(this._dir);
+        },
+
         renameImage: function() {
             if (this._selectedFile == null) {
                 NotifyUtils.warn(_('Please select an image first'));
