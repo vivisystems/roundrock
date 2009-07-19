@@ -116,7 +116,7 @@
 		            <hbox class="ToolBar" flex="1">
 	                    <hbox flex="1">
 	                    	<button id="modify_stock" label="&stockrecords.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyStock', null, 'StockRecords');" />
-	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" class="BtnMod" oncommand="$do('importRecords', null, 'StockRecords');" />
+	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" disabled="false" class="BtnMod" oncommand="$do('importRecords', null, 'StockRecords');" />
 	                    </hbox>
 	                    <hbox flex="0">
 	                    	<button id="commitchanges" label="&stockrecords.button.action.commitchanges;" disabled="false" class="BtnMod" oncommand="$do('commitChanges', null, 'StockRecords');" />

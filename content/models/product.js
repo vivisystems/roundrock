@@ -33,7 +33,7 @@
 
             if (products == null) {
 
-                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,icon_only,button_color,font_size,append_empty_btns,link_group FROM products ORDER BY cate_no, display_order, name, no ");
+                products = this.getDataSource().fetchAll("SELECT id,cate_no,no,name,barcode,visible,icon_only,button_color,font_size,sale_unit,append_empty_btns,link_group FROM products ORDER BY cate_no, display_order, name, no ");
 
             }
             dump('find all product:  ' + (Date.now().getTime() - startTime) + '\n');

@@ -85,10 +85,10 @@
             </hbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <button id="add_destination"  label="&destinations.add;" class="BtnAdd" oncommand="$do('addDestination', null, 'Destinations');"   />
-                    <button id="modify_destination"  label="&destinations.modify;" class="BtnMod" oncommand="$do('modifyDestination', null, 'Destinations');"   />
+                    <button id="add_destination"  label="&destinations.add;" class="BtnAdd" disabled="false" oncommand="$do('addDestination', null, 'Destinations');"   />
+                    <button id="modify_destination"  label="&destinations.modify;" class="BtnMod" disabled="false" oncommand="$do('modifyDestination', null, 'Destinations');"   />
                     <spacer flex="1"/>
-                    <button id="delete_destination"  label="&destinations.delete;" class="BtnDel" oncommand="$do('deleteDestination', null, 'Destinations');"   />
+                    <button id="delete_destination"  label="&destinations.delete;" class="BtnDel" disabled="false" oncommand="$do('deleteDestination', null, 'Destinations');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

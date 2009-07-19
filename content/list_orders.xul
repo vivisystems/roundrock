@@ -54,8 +54,8 @@
             </hbox>
             <hbox flex="1">
                 <hbox class="ToolBar" pack="start" flex="1">
-                    <vivibutton id="details" label="&listorders.button.details;"
-                                oncommand="$do('orderDetails', null, 'ListOrders')" />
+                    <button id="details" label="&listorders.button.details;" disabled="false"
+                            oncommand="$do('orderDetails', null, 'ListOrders')" />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns">
                     <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->

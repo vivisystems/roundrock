@@ -125,11 +125,11 @@
                             </vbox>
                             <hbox>
                                 <hbox class="ToolBar" flex="1">
-                                    <button id="add_table"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addTable', null, 'TableMan');"/>
-                                    <button id="modify_table"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyTable', null, 'TableMan');"/>
-                                    <button id="modify_table"  label="&tableman.button.toggleactive;" hidden="false" class="BtnMod" oncommand="$do('toggleTable', null, 'TableMan');"/>
+                                    <button id="add_table" disabled="false" label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addTable', null, 'TableMan');"/>
+                                    <button id="modify_table" disabled="false" label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyTable', null, 'TableMan');"/>
+                                    <button id="modify_table" disabled="false" label="&tableman.button.toggleactive;" hidden="false" class="BtnMod" oncommand="$do('toggleTable', null, 'TableMan');"/>
                                     <spacer flex="1"/>
-                                    <button id="delete_table"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteTable', null, 'TableMan');"/>
+                                    <button id="delete_table" disabled="false" label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteTable', null, 'TableMan');"/>
                                 </hbox>
                                 <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
                                     <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

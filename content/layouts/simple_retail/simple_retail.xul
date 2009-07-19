@@ -39,8 +39,8 @@
                 <spacer id="panelSpacer" flex="1"/>
 
                 <vbox id="rightPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel block-u first">
-                    <box id="cartlistPanelContainer" flex="1" class="roundedContainerBorder"/>
                     <box id="vfdPanelContainer" flex="0" class="roundedContainerBorder"/>
+                    <box id="cartlistPanelContainer" flex="1" class="roundedContainerBorder"/>
                     <box id="inputLinePanelContainer" flex="0" class="roundedContainerBorder"/>
                     <box id="visiblePromotionsStatusPanelContainer" flex="0" class="roundedContainerBorder"/>
                 </vbox>

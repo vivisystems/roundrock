@@ -124,14 +124,9 @@
 
         exportData: function () {
             
-            // return if importing...
+            // return if import or export already in progress
             if (this._busy) {
                 GREUtils.Dialog.alert(this.topmostWindow, _('Export Error'), _('Import/Export already in progress'));
-                return;
-            }
-
-            if (!this.checkBackupDevices()) {
-                GREUtils.Dialog.alert(this.topmostWindow, _('Export Error'), _('Export device and/or folder not found [%S]', [this._exportFolder]));
                 return;
             }
 
@@ -141,21 +136,19 @@
                 return;
             }
 
-            var total;
-            var progmeter = document.getElementById("exportprogressmeter");
+            if (!this.checkBackupDevices()) {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Export Error'), _('Export device and/or folder not found [%S]', [this._exportFolder]));
+                return;
+            }
 
-            var waitPanel = document.getElementById("export_wait_panel");
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            waitPanel.sizeTo(360, 120);
-            var x = (width - 360) / 2;
-            var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
+            var total;
+            var waitPanel = this.showWaitingPanel(_('Exporting %S', [this._datas[index].name]));
+            var progmeter = document.getElementById('progress');
+            progmeter.value = 0;
             
             this._busy = true;
 
             this.sleep(200);
-
 
             var exportType = this._datas[index].type;
 
@@ -606,47 +599,37 @@
                     }
                 }
 
-                // sync to media...
-                this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
+                if (exportType == 'media') {
+                    tableTmp.commit();
+                }
+
+                this._datas[index].exported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
+                this.getListObj().refresh();
+                
+                NotifyUtils.info(_('Export of [%S] to file [%S] finished!',
+                                   [this._datas[index].name, fileName]));
             }
             catch (e) {
+                tableTmp.rollback();
+                
                 GeckoJS.BaseModel.log('ERROR', e);
-                NotifyUtils.info(_('Export To (%S) Error!!', [this._datas[index].filename]));
-                this._busy = false;
-                GREUtils.Pref.setPref(this._maxRuntimePreference, oldLimit);
-                // progmeter.value = 0;
-                this.setButtonDisable(false);
-                waitPanel.hidePopup();
+                NotifyUtils.error(_('Failed to export [%S] to file [%S]',
+                                    [this._datas[index].name, fileName]));
             }
             finally {
                 
                 this._busy = false;
-                switch(exportType){
-                    case "model": {
-                            tableTmp.commit();
-                            break;
-                    }
-                    case "preference": {
-                            break;
-                    }
-                    case "data": {
-                            break;
-                    }
-                }
                 
                 progmeter.value = 100;
                 this.sleep(200);
                 // reset max script run time...
-                // progmeter.value = 0;
+                GREUtils.Pref.setPref(this._maxRuntimePreference, oldLimit);
+                // sync to media...
+                this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
+
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
             }
-
-            this._datas[index].exported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
-            this.getListObj().refresh();
-
-            NotifyUtils.info(_('Data export to file [%S] finished!',[this._datas[index].filename]));
-
         },
 
         importData: function() {
@@ -676,15 +659,9 @@
             }
 
             var total;
-            var progmeter = document.getElementById("importprogressmeter");
-
-            var waitPanel = document.getElementById("import_wait_panel");
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            waitPanel.sizeTo(360, 120);
-            var x = (width - 360) / 2;
-            var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
+            var waitPanel = this.showWaitingPanel(_('Importing %S', [this._datas[index].name]));
+            var progmeter = document.getElementById('progress');
+            progmeter.value = 0;
             
             this.sleep(50);
             var importType = this._datas[index].type;
@@ -1797,31 +1774,30 @@
                     }
                 }
 
+                if (importType == 'model') {
+                    tableTmp.commit();
+                }
+
+                this._datas[index].imported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
+                this.getListObj().refresh();
+
+                NotifyUtils.info(_('Import of [%S] from file [%S] finished!', [this._datas[index].name, fileName]));
+
+                // restart vivipos
+                GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
             }
             catch (e) {
-                NotifyUtils.error(_('Format error detected in import file [%S]!', [this._datas[index].filename]));
+
+                if (importType == 'model') {
+                    tableTmp.rollback();
+                }
+
+                NotifyUtils.error(_('Failed to import [%S] from file [%S]!', [this._datas[index].name, fileName]));
                 this.log(e);
-                waitPanel.hidePopup();
-                return;
             }
             finally {
                 
                 this._busy = false;
-                switch(importType) {
-                    case "model": {
-                            tableTmp.commit();
-                            break;
-                    }
-                    case "preference": {
-                            break;
-                    }
-                    case "data": {
-                            break;
-                    }
-                    case "license": {
-                            break;
-                    }
-                }
 
                 progmeter.value = 100;
                 this.sleep(200);
@@ -1832,21 +1808,7 @@
 
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
-
-                var now = new Date().getTime() / 1000;
-                var endTime = parseInt(now);
-
-                var insertRunTime = endTime - checkEndTime;
-                //alert('Validation took ' + checkRunTime + ' seconds\n' + 'Model insert took ' + insertRunTime + ' seconds\n' + 'Executed ' + queryCount + ' SQL queries');
             }
-
-            this._datas[index].imported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
-            this.getListObj().refresh();
-
-            NotifyUtils.info(_('Data import from file [%S] finished!', [this._datas[index].filename]));
-
-            // restart vivipos
-            GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
         },
 
 
@@ -2155,7 +2117,27 @@
             } else {
                 return this.defaultTaxRate;
             }
+        },
+
+        showWaitingPanel: function (message) {
+
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            var waitPanel = document.getElementById( 'wait_panel' );
+
+            waitPanel.sizeTo( 360, 120 );
+            var x = ( width - 360 ) / 2;
+            var y = ( height - 240 ) / 2;
+
+            // set the content of the label attribute be default string, taking advantage of the statusText attribute.
+            var caption = document.getElementById( 'wait_caption' );
+            caption.label = message;
+
+            waitPanel.openPopupAtScreen( x, y );
+
+            return waitPanel;
         }
+
     };
 
     GeckoJS.Controller.extend(__controller__);

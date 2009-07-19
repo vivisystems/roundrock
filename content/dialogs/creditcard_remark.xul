@@ -58,8 +58,8 @@
 
                     <hbox>
                         <hbox class="ToolBar" flex="1">
-                            <button id="creditcardRemark-ok" class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', true)"/>
-                            <button id="creditcardRemark-cancel" class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', false)"/>
+                            <button id="creditcardRemark-ok" class="okBtn" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', true)"/>
+                            <button id="creditcardRemark-cancel" class="cancelBtn" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', false)"/>
                         </hbox>
                         <!--hbox id="dialogButtons" class="dialogbtns" pack="center">
                             <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />

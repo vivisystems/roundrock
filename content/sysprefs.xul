@@ -341,10 +341,10 @@
             <hbox class="ToolBar" pack="center">
                 <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
                     <tabs id="tabs" >
-                        <button id="vacuum_training_db" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
-                        <button id="take_current_db_to_be_default_db" label="&orderdata.takecurrentdbtobedefaultdb;" oncommand="$do( 'takeCurrentDBToBeDefaultDB', null, 'TrainingMode' );" />
-                        <button id="take_default_db_to_be_training_db" label="&orderdata.takedefaultdbtobetrainingdb;" oncommand="$do( 'takeDefaultDBToBeTrainingDB', null, 'TrainingMode' );" />
-                        <button id="take_training_db_to_be_default_db" label="&orderdata.taketrainingdbtobedefaultdb;" oncommand="$do( 'takeTrainingDBToBeDefaultDB', null, 'TrainingMode' );" />
+                        <button id="vacuum_training_db" disabled="false" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
+                        <button id="take_current_db_to_be_default_db" disabled="false" label="&orderdata.takecurrentdbtobedefaultdb;" oncommand="$do( 'takeCurrentDBToBeDefaultDB', null, 'TrainingMode' );" />
+                        <button id="take_default_db_to_be_training_db" disabled="false" label="&orderdata.takedefaultdbtobetrainingdb;" oncommand="$do( 'takeDefaultDBToBeTrainingDB', null, 'TrainingMode' );" />
+                        <button id="take_training_db_to_be_default_db" disabled="false" label="&orderdata.taketrainingdbtobedefaultdb;" oncommand="$do( 'takeTrainingDBToBeDefaultDB', null, 'TrainingMode' );" />
                     </tabs>
                 </arrowscrollbox>
             </hbox>
@@ -353,7 +353,7 @@
         <spacer height="5px" />
 
         <hbox class="ToolBar" pack="center">
-            <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
+            <button id="rebuild_database" disabled="false" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
         </hbox>
         
     </prefpane>

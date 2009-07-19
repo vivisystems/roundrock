@@ -137,7 +137,7 @@
 
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <button id="translate" label="&packagebuilder.translate;" oncommand="$do('updateLocaleList', null, 'PackageBuilder');"   />
+                    <button id="translate" label="&packagebuilder.translate;" disabled="false" oncommand="$do('updateLocaleList', null, 'PackageBuilder');"   />
                     <button id="export"  label="&packagebuilder.export;" disabled="true" oncommand="$do('exportPackage', null, 'PackageBuilder');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">

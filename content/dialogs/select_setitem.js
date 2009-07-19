@@ -240,17 +240,17 @@
                         return;
                     }
                 }
-                okObj.removeAttribute('disabled');
+                okObj.setAttribute('disabled', false);
 
                 if (preset) {
-                    $presetPanel[0].removeAttribute('disabled');
+                    $presetPanel[0].setAttribute('disabled', false);
                 }
                 else {
                     $presetPanel[0].setAttribute('disabled', true);
                 }
 
                 if (selections.length > 0) {
-                    $selectionPanel[0].removeAttribute('disabled');
+                    $selectionPanel[0].setAttribute('disabled', false);
                 }
                 else {
                     $selectionPanel[0].setAttribute('disabled', true);

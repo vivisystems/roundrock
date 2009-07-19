@@ -10,6 +10,7 @@ function prefs_overlay_startup() {
     var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
     var sDstDir = datapath + "/images/pluimages/";
 
+    // initialize default oridyct image
     var defaultImageObj = document.getElementById('defaultimage');
     if (defaultImageObj) {
         defaultImageObj.src = 'file://' + sDstDir + 'no-photo.png';
@@ -21,7 +22,7 @@ function prefs_overlay_startup() {
         var bannerHeight = GeckoJS.Configure.read('vivipos.fec.settings.layout.simple_retail.BannerHeight');
         if (isNaN(bannerHeight)) bannerHeight = 50;
         bannerImageObj.src = 'file://' + sDstDir + 'banner.png';
-        bannerImageObj.setAttribute('style', 'min-height: ' + bannerHeight + 'px;');
+        bannerImageObj.setAttribute('style', 'max-height: ' + bannerHeight + 'px;');
     }
 }
 

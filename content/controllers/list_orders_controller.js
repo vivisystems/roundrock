@@ -153,7 +153,7 @@
         validateForm: function(index) {
             var detailsBtn = document.getElementById('details');
             if (index > -1) {
-                detailsBtn.removeAttribute('disabled');
+                detailsBtn.setAttribute('disabled', false);
                 this._index = index;
             }
             else {

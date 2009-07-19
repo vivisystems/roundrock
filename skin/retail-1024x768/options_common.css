@@ -112,6 +112,12 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
   -moz-appearance: none;
 }
 
+/* used for main screen number/text input */
+.MainInputLine {
+    font-size: 22px !important;
+    font-weight: bold;
+}
+
 /* ��ϥΪ̫� textbox �� �ﶵ����s(�D�\���s) */
 /* A ����Υk��W���� �F B ��k��U���� ; ��ӥu�O�C�⤣�P�Ӥw */
 .ItemButtonA, .ItemButtonA[readonly=true] {
@@ -253,12 +259,9 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
   -moz-border-bottom-colors: gray #918570;
 }
 
-.ToolBar button[disabled=true]:active, .ToolBar vivibutton[disabled=true]:active {
-  border: 0 !important;
-}
-
 .ToolBar button[disabled=true], .ToolBar vivibutton[disabled=true] {
   background-color: #fff6e8 ;
+  border-width: 0px !important;
 }
 
 .ToolBar button[disabled=false]:hover, .ToolBar vivibutton[disabled=false]:hover {

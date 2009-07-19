@@ -47,7 +47,6 @@
                     <spacer height="3px" />
                     <hbox class="ToolBar" flex="1">
                         <vivibutton id="addBtn" label="&promotions_manager.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'PromotionsManager');" />
-                        <!-- vivibutton id="downloadBtn" label="&promotions_manager.button.action.download;" disabled="false" class="BtnDownload" oncommand="$do('add', null, 'PromotionsManager');" /-->
                     </hbox>
                 </vbox>
             </vbox>

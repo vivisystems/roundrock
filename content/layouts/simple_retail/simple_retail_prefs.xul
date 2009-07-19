@@ -104,7 +104,7 @@
                         <vbox>
                             <label control="bannerHeight" value="&layout.bannerheight;"/>
                             <textbox preference="pref_bannerheight" id="bannerHeight" type="number" size="3" maxlength="3" min="0" max="200"
-                                     onchange="document.getElementById('bannerimage').setAttribute('style', 'min-height: ' + this.value + 'px;');"/>
+                                     onchange="document.getElementById('bannerimage').setAttribute('style', 'max-height: ' + this.value + 'px;');"/>
                         </vbox>
                     </row>
                 </rows>

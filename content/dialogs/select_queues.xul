@@ -52,8 +52,8 @@
                     <hbox>
                         <hbox class="ToolBar" flex="1">
                             <spacer flex="1"/>
-                            <button class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', true)"/>
-                            <button class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', false)"/>
+                            <button class="okBtn" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', true)"/>
+                            <button class="cancelBtn" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', false)"/>
                             <spacer flex="1"/>
                         </hbox>
                     </hbox>

@@ -55,10 +55,10 @@
                     <spacer flex="1" />
                 </vbox>
                 <vbox flex="1" id="managerPanel" class="ImgTool">
-                    <button id="importBtn" label="&imagemanager.action.import;"  oncommand="$do('importFromDir',null, 'ImageManager');"/>
-                    <button id="exportBtn" label="&imagemanager.action.export;"  oncommand="$do('exportToDir',null, 'ImageManager');"/>
-                    <button id="deleteBtn" label="&imagemanager.action.delete;"  oncommand="$do('deleteImage',null, 'ImageManager');" />
-                    <button id="renameBtn" label="&imagemanager.action.rename;"  oncommand="$do('renameImage',null, 'ImageManager');"/>
+                    <button id="importBtn" label="&imagemanager.action.import;"  disabled="false" oncommand="$do('importFromDir',null, 'ImageManager');"/>
+                    <button id="exportBtn" label="&imagemanager.action.export;"  disabled="false" oncommand="$do('exportToDir',null, 'ImageManager');"/>
+                    <button id="deleteBtn" label="&imagemanager.action.delete;"  disabled="false" oncommand="$do('deleteImage',null, 'ImageManager');" />
+                    <button id="renameBtn" label="&imagemanager.action.rename;"  disabled="false" oncommand="$do('renameImage',null, 'ImageManager');"/>
                     <spacer flex="1"/>
                     <groupbox>
                         <caption label="&imagemanager.action.caption;"/>
@@ -77,29 +77,6 @@
 
                 </vbox>
             </hbox>
-<!--
-            <panel id="import_wait_panel" position="overlap" noautohide="true" class="ImportWaitPnl">
-                <vbox flex="1">
-                <groupbox flex="1">
-                    <caption label="&imagemanager.importwait;"/>
-                    <spacer style="height: 20px;" />
-                    <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                    <spacer style="height: 20px;" />
-                </groupbox>
-                </vbox>
-            </panel>
-
-            <panel id="export_wait_panel" position="overlap" noautohide="true" class="ImportWaitPnl">
-                <vbox flex="1">
-                <groupbox flex="1">
-                    <caption label="&imagemanager.exportwait;"/>
-                    <spacer style="height: 20px;" />
-                    <progressmeter id="exportprogressmeter" mode="determined" value="0" />
-                    <spacer style="height: 20px;" />
-                </groupbox>
-                </vbox>
-            </panel>
--->
             <hbox id="dialogButtons" class="dialogbtns" pack="end">
                 <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
             </hbox>

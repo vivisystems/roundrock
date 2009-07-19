@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
 <overlay id="inputLineOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -10,7 +9,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/layouts/simple_retail/controllers/input_line_controller.js" />
 
     <box id="inputLinePanelContainer">
-        <textbox id="inputLineTextBox" rows="2" flex="1" />
+        <textbox id="inputLineTextBox" rows="2" flex="1" class="MainInputLine"/>
     </box>
 
 </overlay>

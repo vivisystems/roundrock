@@ -110,6 +110,12 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
   min-height: 36px;
 }
 
+/* used for main screen number/text input */
+.MainInputLine {
+    font-size: 18px !important;
+    font-weight: bold;
+}
+
 /* Buttons */
 .ItemButtonA, .ItemButtonA[readonly=true] {
   border: 3px solid;
@@ -253,14 +259,10 @@ textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):n
   -moz-border-bottom-colors: gray #918570;
 }
 
-.ToolBar button[disabled=true]:active, .ToolBar vivibutton[disabled=true]:active,
-.ToolBar2 button[disabled=true]:active{
-  border: 0 !important;
-}
-
 .ToolBar button[disabled=true], .ToolBar vivibutton[disabled=true],
 .ToolBar2 button[disabled=true]{
   background-color: #fff6e8 ;
+  border-width: 0px !important;
 }
 
 .ToolBar button[disabled=false]:hover, .ToolBar vivibutton[disabled=false]:hover,

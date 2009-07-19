@@ -123,7 +123,7 @@
 
             var panel = this.getListObj();
             if (panel.selectedIndex > -1) {
-                deleteBtn.removeAttribute('disabled');
+                deleteBtn.setAttribute('disabled', false);
                 filterIndexTextbox.removeAttribute('disabled');
                 filterLengthTextbox.removeAttribute('disabled');
 
@@ -132,7 +132,7 @@
 
                 if (filterLength != '' && !isNaN(filterLength) && filterLength > 0 &&
                     filterIndex != '' && !isNaN(filterIndex) && filterIndex > 0) {
-                    modifyBtn.removeAttribute('disabled');
+                    modifyBtn.setAttribute('disabled', false);
                 }
                 else {
                     modifyBtn.setAttribute('disabled', true);

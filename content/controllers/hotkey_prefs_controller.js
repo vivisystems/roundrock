@@ -89,8 +89,8 @@
 
             this.editableFields(true);
 
-            document.getElementById('modify_hotkey').removeAttribute('disabled');
-            document.getElementById('delete_hotkey').removeAttribute('disabled');
+            document.getElementById('modify_hotkey').setAttribute('disabled', false);
+            document.getElementById('delete_hotkey').setAttribute('disabled', false);
 
             var nameObj = document.getElementById('hotkey_name');
             nameObj.value = _('New Hot Key');
@@ -292,8 +292,8 @@
             document.getElementById('hotkey_linked').value = entry.linked;
             document.getElementById('hotkey_data').value = entry.data;
 
-            document.getElementById('modify_hotkey').removeAttribute('disabled');
-            document.getElementById('delete_hotkey').removeAttribute('disabled');
+            document.getElementById('modify_hotkey').setAttribute('disabled', false);
+            document.getElementById('delete_hotkey').setAttribute('disabled', false);
 
             var nameObj = document.getElementById('hotkey_name');
             nameObj.focus();

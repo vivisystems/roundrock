@@ -1180,7 +1180,7 @@
 
                 // GC & delay
                 GREUtils.gc();
-                this.sleep(3000 + 5000 * Math.random());
+                this.sleep(1000 + 1000 * Math.random());
             }
 
             waitPanel.hidePopup();

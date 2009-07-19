@@ -233,8 +233,8 @@
                                         </row>
                                         <row>
                                             <vbox>
-                                                <label value="&plus.memo;" control="product_memo"/>
-                                                <textbox id="product_memo" form="productForm" name="memo" onfocus="this.select()"/>
+                                                <label value="&plus.location;" control="product_location"/>
+                                                <textbox id="product_location" form="productForm" name="location" default="" onfocus="this.select()"/>
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.stock.level;" control="stock"/>
@@ -278,13 +278,15 @@
                                         </row>
                                         <row>
                                             <vbox>
+                                                <label value="&plus.memo;" control="product_memo"/>
+                                                <textbox id="product_memo" form="productForm" name="memo" onfocus="this.select()"/>
+                                            </vbox>
+                                            <!-- @irving 07-17-2009 minimum sale quantity not in use yet
+                                            <vbox>
                                                 <label value="&plus.minimum.sale.quantity;" control="min_sale_qty"/>
                                                 <textbox id="min_sale_qty" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="min_sale_qty" default="0" onfocus="this.select()"/>
                                             </vbox>
-                                            <vbox>
-                                                <label value="&plus.location;" control="product_location"/>
-                                                <textbox id="product_location" form="productForm" name="location" default="" onfocus="this.select()"/>
-                                            </vbox>
+                                            -->
                                         </row>
                                     </rows>
                                 </grid>

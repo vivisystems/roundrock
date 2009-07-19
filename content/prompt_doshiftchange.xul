@@ -130,10 +130,10 @@
 
             <hbox>
                 <hbox id="dialogButtons" class="ToolBar" pack="start" flex="1">
-                    <button id="ok" label="&prompt.shiftchange.change.shift;" default="true" oncommand="if (confirmEndShift()) doOKButton();"/>
-                    <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                    <button id="ok" label="&prompt.shiftchange.change.shift;" disabled="false" default="true" oncommand="if (confirmEndShift()) doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                     <spacer flex="1"/>
-                    <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" default="false"
+                    <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" disabled="false" default="false"
                                 oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">

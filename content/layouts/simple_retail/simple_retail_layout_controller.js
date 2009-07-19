@@ -5,6 +5,7 @@
         name: 'Layout',
 
         bannerSrcBase: '',
+        defaultSrcBase: '',
         bannerImageObj: null,
 
         initial: function() {
@@ -21,6 +22,8 @@
 
                 this.bannerSrcBase = 'file://' + sDstDir + 'banner.png';
                 this.bannerImageObj = bannerImageObj;
+                
+                this.defaultSrcBase = 'file://' + sDstDir + 'no-photo.png';
 
                 bannerImageObj.src = this.bannerSrcBase;
             }
@@ -90,6 +93,7 @@
                 bannerPanelContainer.setAttribute('height', bannerHeight);
 
                 bannerPanelContainer.setAttribute('hidden', false);
+                
                 if (mainPanel) mainPanel.setAttribute('dir', bannerAtBottom ? 'reverse' : 'normal');
                 
                 if (this.bannerImageObj && this.bannerSrcBase) {
@@ -98,6 +102,11 @@
             }
             else {
                 bannerPanelContainer.setAttribute('hidden', true);
+            }
+
+            var productImagePanelContainer = document.getElementById('productImagePanelContainer');
+            if (productImagePanelContainer && this.defaultSrcBase) {
+                productImagePanelContainer.setAttribute('style', 'overflow: hidden; background: transparent url(' + this.defaultSrcBase + '?' + Math.random() + ') center center no-repeat');
             }
 
             if (condPanel &&

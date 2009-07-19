@@ -82,10 +82,10 @@
             </hbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <button id="add_filter"  label="&plufilters.add;" class="BtnAdd" oncommand="$do('addFilter', null, 'Plufilters');"   />
-                    <button id="modify_filter"  label="&plufilters.modify;" class="BtnMod" oncommand="$do('modifyFilter', null, 'Plufilters');"   />
+                    <button id="add_filter" label="&plufilters.add;" disabled="false" class="BtnAdd" oncommand="$do('addFilter', null, 'Plufilters');"   />
+                    <button id="modify_filter" label="&plufilters.modify;" disabled="false" class="BtnMod" oncommand="$do('modifyFilter', null, 'Plufilters');"   />
                     <spacer flex="1"/>
-                    <button id="delete_filter"  label="&plufilters.delete;" class="BtnDel" oncommand="$do('deleteFilter', null, 'Plufilters');"   />
+                    <button id="delete_filter" label="&plufilters.delete;" disabled="false" class="BtnDel" oncommand="$do('deleteFilter', null, 'Plufilters');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

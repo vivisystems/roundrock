@@ -7,12 +7,12 @@
      */
     function startup() {
 
-
+    /*
         var openModel = function(url, name, args) {
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
             return window.openDialog(url, name, features, args);
         };
-    
+    */
         // var args = window.args = window.arguments[0].wrappedJSObject;
         centerWindowOnScreen();
 
@@ -73,7 +73,6 @@
         if (index > -1 && index < data.length) {
             var pref = data[index];
 
-            var aArguments = "";
             var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen";
             features += ",modal,width=" + width + ",height=" + height;
 
@@ -88,7 +87,8 @@
                     $.blockUI({
                         message:$('#loading'),
                         css: {
-                            left: '25%',
+                            'background-color': 'transparent',
+                            left: '0%',
                             border: '0px'
                         }
                     });
