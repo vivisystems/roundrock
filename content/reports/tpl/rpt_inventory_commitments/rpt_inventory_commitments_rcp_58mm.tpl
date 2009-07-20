@@ -45,7 +45,7 @@ ${product.memo|right:24}
 ------------------------
 ${_( '(rpt)Records Found' ) + ': '}${commitment.products.length|format:0}
 ------------------------
-${_( '(rpt)Summary' )}
+${_( "(rpt)Summary" + ': ' )}
 ${_( '(rpt)Quantity' + ':' )|left:24}
 ${commitment.summary.value|format:0|right:24}
 {if commitment.type == "procure"}

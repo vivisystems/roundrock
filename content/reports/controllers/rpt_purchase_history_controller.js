@@ -11,7 +11,7 @@
         
         _fileName: "rpt_purchase_history",
         
-        _setData: function( start, end, groupCondition, limit ) {
+        _setData: function( start, end, groupCondition, warehouse, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
@@ -31,6 +31,9 @@
             var conditions = "ic.created >= '" + start +
                 "' AND ic.created <= '" + end + "'" +
                 " AND ic.type = 'procure'";
+                
+            if ( warehouse.length > 0 )
+                conditions += " AND warehouse LIKE '%" + warehouse + "%'";
 
             //var groupby = "ir.product_no, ic.supplier";
 
@@ -162,8 +165,10 @@
             var end = document.getElementById( 'end_date' ).value;
             
             var groupby = document.getElementById( 'groupby' ).value;
+            
+            var warehouse = document.getElementById( 'warehouse' ).value;
 
-            this._setData( start, end, groupby, limit );
+            this._setData( start, end, groupby, warehouse, limit );
         },
         
         exportCsv: function() {

@@ -140,15 +140,16 @@
                                     index: 'terminal_no',
                                     value: terminal_no});
             }
-	    
+	        
+	        this._old_branch_id = "";
+	        
             if (formObj != null) {
                 GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);
+                this._old_branch_id = formObj.branch_id;
             }
             else {
                 GeckoJS.FormHelper.reset('storecontactForm');
             }
-
-            this._old_branch_id = formObj.branch_id;
         },
 
         validateForm: function() {

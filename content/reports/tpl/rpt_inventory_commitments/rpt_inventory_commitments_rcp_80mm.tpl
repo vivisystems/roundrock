@@ -32,7 +32,7 @@ ${_( '(rpt)Memo' + ':' )|left:16}${product.memo|right:26}
 ${_( '(rpt)Records Found' ) + ': '|left:16}${commitment.products.length|format:0|right:26}
 {if commitment.type == "procure"}
 ------------------------------------------
-${_( '(rpt)Summary' )}
+${_( "(rpt)Summary" + ': ' )}
 ${_( '(rpt)Quantity' + ':' )|left:16}${commitment.summary.value|format:0|right:26}
 ${_( '(rpt)Purchase Subtotal' + ':' )|left:16}${commitment.summary.subtotal|default:0|viviFormatPrices:true|right:26}
 {/if}

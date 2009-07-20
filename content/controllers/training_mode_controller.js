@@ -40,6 +40,11 @@
                 training: "DATABASE_CONFIG.training_journal",
                 emptyTraining: "DATABASE_CONFIG.empty_training_journal",
                 defaultTraining: "DATABASE_CONFIG.default_training_journal"
+            }, {
+                origin: "DATABASE_CONFIG.inventory",
+                training: "DATABASE_CONFIG.training_inventory",
+                emptyTraining: "DATABASE_CONFIG.empty_training_inventory",
+                defaultTraining: "DATABASE_CONFIG.default_training_inventory"
             }*/
         ],
         
