@@ -6,7 +6,7 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <!-- include controllers -->
-    <script type="application/x-javascript" src="chrome://viviecr/content/layouts/simple_retail/controllers/input_line_controller.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/overlays/controllers/input_line_controller.js" />
 
     <box id="inputLinePanelContainer">
         <textbox id="inputLineTextBox" rows="2" flex="1" class="MainInputLine"/>
