@@ -13862,6 +13862,8 @@ GeckoJS.DatasourceSQLite.prototype._connect = function(){
     var timeout = parseInt(this.config['timeout'] || "30") ;
     this.maxTries = (timeout*1000/this.delayTries);
 
+    var synchronous = this.config['synchronous'] || "FULL" ;
+
     // support in-memory sqlite database
     this._inMemory = false;
     if (this.database.match(/^:in-memory$/i)) {
@@ -13896,7 +13898,7 @@ GeckoJS.DatasourceSQLite.prototype._connect = function(){
                 // this._execute('PRAGMA full_column_names = 1');
                 try {
                     // full synchronous mode
-                    if (!this._inMemory) this.conn.executeSimpleSQL("PRAGMA synchronous=FULL");
+                    if (!this._inMemory) this.conn.executeSimpleSQL("PRAGMA synchronous="+synchronous);
                     if (!this._inMemory) this.conn.executeSimpleSQL("PRAGMA locking_mode = NORMAL");
 
                 }catch(e){}
@@ -14153,8 +14155,19 @@ GeckoJS.DatasourceSQLite.prototype.fetchAll = function (sql, params, cache, mode
    
     if (this.execute(sql, params)) {
 
+        /* ifdef DEBUG 
+        diff = (new Date).getTime() - start;
+        this.log('DEBUG', 'fetchAll > execute : ' + diff + ' ms for query');
+        /* endif DEBUG */
+
         var out = [];
         var columns = this.getStatementColumnsType(this._statement) || [];
+
+        /* ifdef DEBUG 
+        diff = (new Date).getTime() - start;
+        this.log('DEBUG', 'fetchAll > getStatementColumnsType : ' + diff + ' ms for getStatementColumnsType');
+        /* endif DEBUG */
+
 
         var first = this.fetchResult(model, columns);
 

@@ -19,7 +19,7 @@ SyncBehavior.prototype.getSync = function() {
 
     this.syncModel.useDbConfig = this.model.useDbConfig ;
     /* ifdef DEBUG */
-    this.log('DEBUG', 'sync useDbconfig: ' + this.syncModel.useDbConfig );
+    //this.log('DEBUG', 'sync useDbconfig: ' + this.syncModel.useDbConfig );
     /* endif DEBUG */
    
     return this.syncModel;

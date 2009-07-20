@@ -2850,6 +2850,8 @@ GeckoJS.FormHelper.prototype.getFieldValue = function(el, successful) {
         return el.checked;
     }else if( tag == 'colorpicker') {
         return el.color || "";
+    }else if (tag == 'radiogroup') {
+        return (el.selectedItem ? el.selectedItem.value : "");
     }
     return el.value;
     
