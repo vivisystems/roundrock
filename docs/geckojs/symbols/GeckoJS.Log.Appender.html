@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,7 +305,8 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
+				
+			
 				GeckoJS.Log.Appender is the base Log Appender class. A log appender
 performs the recording of log messages to an output device, which may be
 the console, a file, or a network end-point, for example. <br/>
@@ -310,9 +317,7 @@ messages at or above its assigned level.<br/>
 This is an abstract class and should be extended by sub-classes that
 implement the actual writing of the log messages to specific output
 devices.<br/>
-
 				
-			
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -390,6 +395,15 @@ log level.</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Log.Appender.html#init">init</a></b>()
+								</div>
+								<div class="description">GeckoJS.Log.Appender contructor</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Log.Appender.html#setLevel">setLevel</a></b>(level)
 								</div>
 								<div class="description">Sets the appender's log level.</div>
@@ -410,6 +424,8 @@ log level.</div>
 				
 				
 				
+			
+<!-- ============================== events summary ======================== -->
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -437,7 +453,7 @@ log level.
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html#constructor">GeckoJS.Log.Level</a>}</span>  <b>level</b>
+								<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a>}</span>  <b>level</b>
 								
 							</dt>
 								<dd>This is the log level</dd>
@@ -489,7 +505,7 @@ log level.
 								<dd>This is the name of the class to use</dd>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html#constructor">GeckoJS.Log.Level</a>}</span> <b>level</b>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a>}</span> <b>level</b>
 									
 								</dt>
 								<dd>This is the level to use for this message</dd>
@@ -543,7 +559,7 @@ log level.
 								<dd>This is the name of the class to use</dd>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html#constructor">GeckoJS.Log.Level</a>}</span> <b>level</b>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a>}</span> <b>level</b>
 									
 								</dt>
 								<dd>This is the level to use for this message</dd>
@@ -581,7 +597,7 @@ log level.
 					<a name="getLevel"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{<a href="../symbols/GeckoJS.Log.Level.html#constructor">GeckoJS.Log.Level</a>}</span>
+					<span class="light">{<a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a>}</span>
 					<b>getLevel</b>()
 					
 					</div>
@@ -602,9 +618,34 @@ level will not be logged.
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html#constructor">GeckoJS.Log.Level</a>}</span> The current log level</dd>
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a>}</span> The current log level</dd>
 							
 							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="init"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>init</b>()
+					
+					</div>
+					<div class="description">
+						GeckoJS.Log.Appender contructor
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
 						
 						
 						
@@ -632,7 +673,7 @@ level.
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html#constructor">GeckoJS.Log.Level</a>}</span> <b>level</b>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a>}</span> <b>level</b>
 									
 								</dt>
 								<dd>This is the log level to assign to the appender</dd>
@@ -682,13 +723,17 @@ level.
 				
 			
 			
+<!-- ============================== event details ========================= -->		
+			
+			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:11 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:59 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

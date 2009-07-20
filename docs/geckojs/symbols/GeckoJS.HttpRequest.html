@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,7 +305,8 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
+				
+			
 				GeckoJS.HttpRequest provides client-side support for communication
 with HTTP servers. Through GeckoJS.HttpRequest, a client application can
 exchange XML documents with remote HTTP services without having to deal with
@@ -307,9 +314,7 @@ the underlying networking details.<br/>
 <br/>
 This class is implemented using the XPCOM nsIXMLHttpRequest and
 nsIJSXMLHttpRequest interfaces.<br/>
-
 				
-			
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -354,90 +359,90 @@ nsIJSXMLHttpRequest interfaces.<br/>
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.HttpRequest.html#async">async</a></b>
+								GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.async">async</a></b>
 								</div>
 								<div class="description">A flag, when "true", indicates that the request should be asynchronous</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.HttpRequest.html#events">events</a></b>
+								GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.events">events</a></b>
 								</div>
 								<div class="description">A list of event listeners for changes on the request status (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.HttpRequest.html#lastModified">lastModified</a></b>
+								GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.lastModified">lastModified</a></b>
 								</div>
 								<div class="description">A cache of If-Modified-Since request headers for individual URLs (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.HttpRequest.html#readyState">readyState</a></b>
+								GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.readyState">readyState</a></b>
 								</div>
 								<div class="description">The state of the request as a numeric code {read-only}</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.HttpRequest.html#readyStateText">readyStateText</a></b>
+								GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.readyStateText">readyStateText</a></b>
 								</div>
 								<div class="description">The state of the request as a descriptive string {read-only}</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.HttpRequest.html#requestSettings">requestSettings</a></b>
+								GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.requestSettings">requestSettings</a></b>
 								</div>
 								<div class="description">A collection of request settings {read-only}</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.HttpRequest.html#responseData">responseData</a></b>
+								GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.responseData">responseData</a></b>
 								</div>
 								<div class="description">Data returned in response to the request; is parsed either as text/xml or text depending on content-type in the response header {read-only}</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.HttpRequest.html#timeout">timeout</a></b>
+								GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.timeout">timeout</a></b>
 								</div>
 								<div class="description">Request Timeout miliseconds, defaults to 60000</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.HttpRequest.html#XMLHttpRequest">XMLHttpRequest</a></b>
+								GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.XMLHttpRequest">XMLHttpRequest</a></b>
 								</div>
 								<div class="description">The underlying nsIXMLHttpRequest component handling the networking details (read-only)</div>
 							</td>
@@ -451,6 +456,179 @@ nsIJSXMLHttpRequest interfaces.<br/>
 			
 
 <!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.HttpRequest.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#abort">abort</a></b>()
+								</div>
+								<div class="description">Aborts the request if it has been sent.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#delete">delete</a></b>(url, data, callback, type)
+								</div>
+								<div class="description">Sends a DELETE request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#get">get</a></b>(url, data, callback, type)
+								</div>
+								<div class="description">Sends a GET request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#getAllResponseHeaders">getAllResponseHeaders</a></b>()
+								</div>
+								<div class="description">Returns the complete list of response headers for the current request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#getResponseHeader">getResponseHeader</a></b>(header)
+								</div>
+								<div class="description">Returns the value of a response header from the current request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.httpData">httpData</a></b>(data, type)
+								</div>
+								<div class="description">Restores a JavaScript object from its JSON representation.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#init">init</a></b>()
+								</div>
+								<div class="description">HttpRequest contructor</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#open">open</a></b>(method, url, async, user, password)
+								</div>
+								<div class="description">Initializes the request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#overrideMimeType">overrideMimeType</a></b>(mimetype)
+								</div>
+								<div class="description">Overrides the mime type returned by the server (if any).</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#post">post</a></b>(url, data, callback, type)
+								</div>
+								<div class="description">Sends a POST request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#put">put</a></b>(url, data, callback, type)
+								</div>
+								<div class="description">Sends a PUT request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#request">request</a></b>(s)
+								</div>
+								<div class="description">Sends the request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.HttpRequest.<b><a href="../symbols/GeckoJS.HttpRequest.html#.requestAccepts">requestAccepts</a></b>()
+								</div>
+								<div class="description">HttpRequest Accepts request type
+
+<blockquote><pre>
+xml: "application/xml, text/xml"
+html: "text/html"
+script: "text/javascript, application/javascript"
+json: "application/json, text/javascript"
+text: "text/plain"
+default: "* / *"
+</pre></blockquote></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#send">send</a></b>(body)
+								</div>
+								<div class="description">Sends the request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#sendAsBinary">sendAsBinary</a></b>(body)
+								</div>
+								<div class="description">Sends the request with binary data as the content of a POST request.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.HttpRequest.html#setRequestHeader">setRequestHeader</a></b>(header, value)
+								</div>
+								<div class="description">Sets a HTTP request header for HTTP requests.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+<!-- ============================== events summary ======================== -->
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -489,11 +667,11 @@ nsIJSXMLHttpRequest interfaces.<br/>
 					Field Detail
 				</div>
 				
-					<a name="async"> </a>
-					<div class="fixedFont">
+					<a name=".async"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Boolean}</span>
-					<b>async</b>
+					<span class="light">GeckoJS.HttpRequest.</span><b>async</b>
 					
 					</div>
 					<div class="description">
@@ -511,11 +689,11 @@ nsIJSXMLHttpRequest interfaces.<br/>
 
 					<hr />
 				
-					<a name="events"> </a>
-					<div class="fixedFont">
+					<a name=".events"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
-					<span class="light">{<a href="../symbols/GeckoJS.Event.html#constructor">GeckoJS.Event</a>}</span>
-					<b>events</b>
+					<span class="light">{<a href="../symbols/GeckoJS.Event.html">GeckoJS.Event</a>}</span>
+					<span class="light">GeckoJS.HttpRequest.</span><b>events</b>
 					
 					</div>
 					<div class="description">
@@ -533,11 +711,11 @@ nsIJSXMLHttpRequest interfaces.<br/>
 
 					<hr />
 				
-					<a name="lastModified"> </a>
-					<div class="fixedFont">
+					<a name=".lastModified"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Object}</span>
-					<b>lastModified</b>
+					<span class="light">GeckoJS.HttpRequest.</span><b>lastModified</b>
 					
 					</div>
 					<div class="description">
@@ -555,11 +733,11 @@ nsIJSXMLHttpRequest interfaces.<br/>
 
 					<hr />
 				
-					<a name="readyState"> </a>
-					<div class="fixedFont">
+					<a name=".readyState"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Number}</span>
-					<b>readyState</b>
+					<span class="light">GeckoJS.HttpRequest.</span><b>readyState</b>
 					
 					</div>
 					<div class="description">
@@ -577,11 +755,11 @@ nsIJSXMLHttpRequest interfaces.<br/>
 
 					<hr />
 				
-					<a name="readyStateText"> </a>
-					<div class="fixedFont">
+					<a name=".readyStateText"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>readyStateText</b>
+					<span class="light">GeckoJS.HttpRequest.</span><b>readyStateText</b>
 					
 					</div>
 					<div class="description">
@@ -599,11 +777,11 @@ nsIJSXMLHttpRequest interfaces.<br/>
 
 					<hr />
 				
-					<a name="requestSettings"> </a>
-					<div class="fixedFont">
+					<a name=".requestSettings"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Object}</span>
-					<b>requestSettings</b>
+					<span class="light">GeckoJS.HttpRequest.</span><b>requestSettings</b>
 					
 					</div>
 					<div class="description">
@@ -621,11 +799,11 @@ nsIJSXMLHttpRequest interfaces.<br/>
 
 					<hr />
 				
-					<a name="responseData"> </a>
-					<div class="fixedFont">
+					<a name=".responseData"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Object}</span>
-					<b>responseData</b>
+					<span class="light">GeckoJS.HttpRequest.</span><b>responseData</b>
 					
 					</div>
 					<div class="description">
@@ -643,11 +821,11 @@ nsIJSXMLHttpRequest interfaces.<br/>
 
 					<hr />
 				
-					<a name="timeout"> </a>
-					<div class="fixedFont">
+					<a name=".timeout"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Number}</span>
-					<b>timeout</b>
+					<span class="light">GeckoJS.HttpRequest.</span><b>timeout</b>
 					
 					</div>
 					<div class="description">
@@ -665,11 +843,11 @@ nsIJSXMLHttpRequest interfaces.<br/>
 
 					<hr />
 				
-					<a name="XMLHttpRequest"> </a>
-					<div class="fixedFont">
+					<a name=".XMLHttpRequest"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{XMLHttpRequest}</span>
-					<b>XMLHttpRequest</b>
+					<span class="light">GeckoJS.HttpRequest.</span><b>XMLHttpRequest</b>
 					
 					</div>
 					<div class="description">
@@ -691,14 +869,842 @@ nsIJSXMLHttpRequest interfaces.<br/>
 
 <!-- ============================== method details ========================= -->		
 			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="abort"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>abort</b>()
+					
+					</div>
+					<div class="description">
+						Aborts the request if it has been sent.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="delete"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>delete</b>(url, data, callback, type)
+					
+					</div>
+					<div class="description">
+						Sends a DELETE request.<br/>
+<br/>
+This is a specialized form of the request() method. It provides the
+appropriate request settings and options for sending an HTTP DELETE request.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>url</b>
+									
+								</dt>
+								<dd>This is the URL to which to send the request</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>data</b>
+									
+								</dt>
+								<dd>This is the request data</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>callback</b>
+									
+								</dt>
+								<dd>This is the "success" event callback</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>type</b>
+									
+								</dt>
+								<dd>This is the requested response data type</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> The response data</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="get"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>get</b>(url, data, callback, type)
+					
+					</div>
+					<div class="description">
+						Sends a GET request.<br/>
+<br/>
+This is a specialized form of the request() method. It provides the
+appropriate request settings and options for sending an HTTP GET request.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>url</b>
+									
+								</dt>
+								<dd>This is the URL to which to send the request</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>data</b>
+									
+								</dt>
+								<dd>This is the request data</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>callback</b>
+									
+								</dt>
+								<dd>This is the "success" event callback</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>type</b>
+									
+								</dt>
+								<dd>This is the requested response data type</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> The response data</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getAllResponseHeaders"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getAllResponseHeaders</b>()
+					
+					</div>
+					<div class="description">
+						Returns the complete list of response headers for the current request.
+
+This method returns a string containing all the response headers as
+name/value pairs delimited by a carriage return/line feed (CRLF) sequence.
+If the response has not yet been received an empty string is returned.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> All the response headers</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getResponseHeader"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getResponseHeader</b>(header)
+					
+					</div>
+					<div class="description">
+						Returns the value of a response header from the current request.<br/>
+<br/>
+If the response has not yet been received or if the header does not exist in
+the response, an empty string is returned.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>header</b>
+									
+								</dt>
+								<dd>This is the name of the header to retrieve</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> All the response headers</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".httpData"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.HttpRequest.</span><b>httpData</b>(data, type)
+					
+					</div>
+					<div class="description">
+						Restores a JavaScript object from its JSON representation.<br/>
+<br/>
+If type given is "json", decodes the JSON data  into the corresponding
+object. Otherwise simply returns the data.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>data</b>
+									
+								</dt>
+								<dd>This is the data</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>type</b>
+									
+								</dt>
+								<dd>This is the data type</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> The JavaScript object represented by the JSON</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="init"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>init</b>()
+					
+					</div>
+					<div class="description">
+						HttpRequest contructor
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="open"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>open</b>(method, url, async, user, password)
+					
+					</div>
+					<div class="description">
+						Initializes the request.<br/>
+<br/>
+This method initializes the HTTP request with the given method and URL, and
+optionally sets the async flag as well as the user name and password
+credentials for authentication.<br/>
+<br/>
+This method must be called before request headers can be set.<br/>
+<br/>
+If there is an "active" request (that is, if open() has been called already),
+this is equivalent to calling abort().
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>method</b>
+									
+								</dt>
+								<dd>This is the HTTP request method</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>url</b>
+									
+								</dt>
+								<dd>This is the URL to which to send the request</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>async</b>
+									
+								</dt>
+								<dd>This flag indicates whether the request is asynchronous</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>user</b>
+									
+								</dt>
+								<dd>This is the username to use for authentication</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>password</b>
+									
+								</dt>
+								<dd>This is the password to use for authentication</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="overrideMimeType"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>overrideMimeType</b>(mimetype)
+					
+					</div>
+					<div class="description">
+						Overrides the mime type returned by the server (if any).<br/>
+<br/>
+This may be used, for example, to force a stream to be treated and parsed as
+text/xml, even if the server does not report it as such.<br/>
+<br/>
+This must be done before the send() method is invoked.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>mimetype</b>
+									
+								</dt>
+								<dd>This is the mimetype to use to override that returned by the server (if any)</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="post"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>post</b>(url, data, callback, type)
+					
+					</div>
+					<div class="description">
+						Sends a POST request.<br/>
+<br/>
+This is a specialized form of the request() method. It provides the
+appropriate request settings and options for sending an HTTP POST request.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>url</b>
+									
+								</dt>
+								<dd>This is the URL to which to send the request</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>data</b>
+									
+								</dt>
+								<dd>This is the request data</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>callback</b>
+									
+								</dt>
+								<dd>This is the "success" event callback</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>type</b>
+									
+								</dt>
+								<dd>This is the requested response data type</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> The response data</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="put"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>put</b>(url, data, callback, type)
+					
+					</div>
+					<div class="description">
+						Sends a PUT request.<br/>
+<br/>
+This is a specialized form of the request() method. It provides the
+appropriate request settings and options for sending an HTTP PUT request.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>url</b>
+									
+								</dt>
+								<dd>This is the URL to which to send the request</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>data</b>
+									
+								</dt>
+								<dd>This is the request data</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>callback</b>
+									
+								</dt>
+								<dd>This is the "success" event callback</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>type</b>
+									
+								</dt>
+								<dd>This is the requested response data type</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> The response data</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="request"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>request</b>(s)
+					
+					</div>
+					<div class="description">
+						Sends the request.<br/>
+<br/>
+This is a generic method for sending a request. For normal use, the
+specialized request methods should be used.<br/>
+<br/>
+This method constructs the request options and settings by merging and
+overriding the default request settings (the "requestSettings" property) with
+additional options and settings given in the input parameter "s", stored as
+properties of the object.<br/>
+<br/>
+This method dispatches a "start" event with the request settings as the event
+data before opening the request. A "send" event is dispatched immediately
+before the request is sent to the HTTP server, with event data set as an
+array containing the string "xml" as the first element, and the collection of
+request settings as the second element.<br/>
+<br/>
+If the request is successful, a "success" event is dispatched with event data
+set as an array containing the string "xml" as the first element, and the
+collection of request settings as the second element.<br/>
+<br/>
+When the request completes, a "complete" event is dispatched with event data
+set as an array containing the string "xml" as the first element, and the
+collection of request settings as the second element.<br/>
+<br/>
+This method supports callbacks on "success" and "complete" events. These
+callbacks are set via the "success" and "complete" request settings. The
+callback function will be passed the response data as the first argument and
+the request status as the second argument.<br/>
+<br/>
+If the request is asynchronous, the method returns immediately after sending
+the request. A "timeout" option may be set that causes the request to abort
+if it has not completed after a given amount of time (in milliseconds) has
+elapsed. A request that times out is considered to have completed
+successfully.<br/>
+<br/>
+If the request is synchronous, this method returns only after the response
+has been received.<br/>
+<br/>
+If the request completes successfully, this method returns the response data.
+The content-type header from the response headers should be examined to
+determine the type of the response data.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>s</b>
+									
+								</dt>
+								<dd>This is a collection of additional request options and settings</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> The reponse data</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".requestAccepts"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a>}</span>
+					<span class="light">GeckoJS.HttpRequest.</span><b>requestAccepts</b>()
+					
+					</div>
+					<div class="description">
+						HttpRequest Accepts request type
+
+<blockquote><pre>
+xml: "application/xml, text/xml"
+html: "text/html"
+script: "text/javascript, application/javascript"
+json: "application/json, text/javascript"
+text: "text/plain"
+default: "* / *"
+</pre></blockquote>
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a>}</span> The collection of the key-value pairs stored in the repository</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="send"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>send</b>(body)
+					
+					</div>
+					<div class="description">
+						Sends the request.<br/>
+<br/>
+The "body" parameter specifies the request body. It is either an instance of
+nsIDOMDocument, nsIInputStream or a string (nsISupportsString in the native
+calling case). This is used to populate the body of the HTTP request if the
+HTTP request method is "POST".<br/>
+<br/>
+If the parameter is an nsIDOMDocument, it is serialized. If the parameter is
+an nsIInputStream, then it must be compatible with
+nsIUploadChannel.setUploadStream, and a Content-Length header will be added
+to the HTTP request with a value given by nsIInputStream.available. Any
+headers included at the top of the stream will be treated as part of the
+message body. The MIME type of the stream should be specified by setting the
+Content-Type header via the setRequestHeader method before calling send.<br/>
+<br/>
+If the request is asynchronous (i.e. the "async" property is "true"), this
+method returns immediately after sending the request.<br/>
+<br/>
+If the request is synchronous, this method returns only after the response
+has been received.<br/>
+<br/>
+All event listeners must be set before calling send().
+After the initial response, all event listeners will be cleared
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>body</b>
+									
+								</dt>
+								<dd>This is the body of the request</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="sendAsBinary"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>sendAsBinary</b>(body)
+					
+					</div>
+					<div class="description">
+						Sends the request with binary data as the content of a POST request.<br/>
+<br>
+This method takes a single parameter of type DOMString containing the request
+data to send. The DOMString will be converted to a single-byte string by
+truncation (i.e., the high-order byte of each character will be discarded)
+before it is sent.<br/>
+<br/>
+This is a variant of the send() method and behaves in an identical manner.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{DOMString}</span> <b>body</b>
+									
+								</dt>
+								<dd>This is the binary data to send</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setRequestHeader"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setRequestHeader</b>(header, value)
+					
+					</div>
+					<div class="description">
+						Sets a HTTP request header for HTTP requests.<br/>
+<br/>
+The open() method must be called before setting the request headers.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>header</b>
+									
+								</dt>
+								<dd>This is the name of the header to set in the request.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>value</b>
+									
+								</dt>
+								<dd>This is the value to which to set the header</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
+			
+			
+<!-- ============================== event details ========================= -->		
+			
 			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:11 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:59 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

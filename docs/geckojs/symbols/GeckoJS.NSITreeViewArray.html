@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,15 +305,14 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
+				<br />Extends
+					<a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>.<br />
+				
+			
 				The nsITreeView interface is used by the tree widget to get information about what and how to display
 a tree widget. Implementing a nsITreeView in lieu of DOM methods for tree creation can improve performance
 dramatically, and removes the need to make changes to the tree manually when changes to the database occur.
-
-				<br />Extends
-					<a href="../symbols/GeckoJS.BaseObject.html#constructor">GeckoJS.BaseObject</a>.<br />
 				
-			
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -352,20 +357,20 @@ dramatically, and removes the need to make changes to the tree manually when cha
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.NSITreeViewArray.html#rowCount">rowCount</a></b>
+								GeckoJS.NSITreeViewArray.<b><a href="../symbols/GeckoJS.NSITreeViewArray.html#.rowCount">rowCount</a></b>
 								</div>
 								<div class="description"></div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.NSITreeViewArray.html#selection">selection</a></b>
+								GeckoJS.NSITreeViewArray.<b><a href="../symbols/GeckoJS.NSITreeViewArray.html#.selection">selection</a></b>
 								</div>
 								<div class="description"></div>
 							</td>
@@ -386,12 +391,336 @@ dramatically, and removes the need to make changes to the tree manually when cha
 			
 				
 				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.NSITreeViewArray.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#canDrop">canDrop</a></b>(index, orientation)
+								</div>
+								<div class="description">canDrop    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#cycleCell">cycleCell</a></b>(col)
+								</div>
+								<div class="description">cycleCell    implemented nsITreeView interface
+
+Called on the view when a cell in a non-selectable cycling column (e.g.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#cycleHeader">cycleHeader</a></b>(col)
+								</div>
+								<div class="description">cycleHeader    implemented nsITreeView interface
+
+Called on the view when a header is clicked.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#drop">drop</a></b>(index, orientation)
+								</div>
+								<div class="description">drop    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#getCellProperties">getCellProperties</a></b>(row, col, props)
+								</div>
+								<div class="description">getCellProperties    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#getCellText">getCellText</a></b>(row, col)
+								</div>
+								<div class="description">getCellText    implemented nsITreeView interface
+
+The text for a given cell.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#getCellValue">getCellValue</a></b>(row, col)
+								</div>
+								<div class="description">getCellValue    implemented nsITreeView interface
+
+The value for a given cell.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#getColumnProperties">getColumnProperties</a></b>(row, props)
+								</div>
+								<div class="description">getColumnProperties    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#getImageSrc">getImageSrc</a></b>(row, col)
+								</div>
+								<div class="description">getImageSrc    implemented nsITreeView interface
+
+The image path for a given cell.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#getLevel">getLevel</a></b>(row)
+								</div>
+								<div class="description">getLevel    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#getParentIndex">getParentIndex</a></b>(row)
+								</div>
+								<div class="description">getParentIndex    implemented nsITreeView interface
+
+Methods used by the tree to draw thread lines in the tree.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#getProgressMode">getProgressMode</a></b>(row, col)
+								</div>
+								<div class="description">getProgressMode    implemented nsITreeView interface
+
+The progress mode for a given cell.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#getRowProperties">getRowProperties</a></b>(row, props)
+								</div>
+								<div class="description">getRowProperties    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#hasNextSibling">hasNextSibling</a></b>(row, after)
+								</div>
+								<div class="description">hasNextSibling    implemented nsITreeView interface
+
+hasNextSibling is used to determine if the row at rowIndex has a nextSibling that occurs after
+the index specified by afterIndex.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#init">init</a></b>(data)
+								</div>
+								<div class="description">NSITreeViewArray contructor</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#isContainer">isContainer</a></b>(row)
+								</div>
+								<div class="description">isContainer    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#isContainerEmpty">isContainerEmpty</a></b>(row)
+								</div>
+								<div class="description">isContainerEmpty    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#isContainerOpen">isContainerOpen</a></b>(row)
+								</div>
+								<div class="description">isContainerOpen    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#isEditable">isEditable</a></b>(row, col)
+								</div>
+								<div class="description">isEditable    implemented nsITreeView interface
+
+isEditable is called to ask the view if the cell contents are editable.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#isSelectable">isSelectable</a></b>(row, col)
+								</div>
+								<div class="description">isSelectable    implemented nsITreeView interface
+
+isSelectable is called to ask the view if the cell is selectable.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#isSeparator">isSeparator</a></b>(row)
+								</div>
+								<div class="description">isSeparator    implemented nsITreeView interface
+
+isSeparator is used to determine if the row at index is a separator.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#isSorted">isSorted</a></b>()
+								</div>
+								<div class="description">isSorted    implemented nsITreeView interface</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#performAction">performAction</a></b>(action)
+								</div>
+								<div class="description">performAction    implemented nsITreeView interface
+
+A command API that can be used to invoke commands on the selection.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#performActionOnCell">performActionOnCell</a></b>(action, row, col)
+								</div>
+								<div class="description">performActionOnCell    implemented nsITreeView interface
+
+A command API that can be used to invoke commands on a specific cell.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#performActionOnRow">performActionOnRow</a></b>(action, row)
+								</div>
+								<div class="description">performActionOnRow    implemented nsITreeView interface
+
+A command API that can be used to invoke commands on a specific row.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#selectionChanged">selectionChanged</a></b>()
+								</div>
+								<div class="description">selectionChanged    implemented nsITreeView interface
+
+Should be called from a XUL onselect handler whenever the selection changes.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#setCellText">setCellText</a></b>(row, col, value)
+								</div>
+								<div class="description">setCellText    implemented nsITreeView interface
+
+setCellText is called when the contents of the cell have been edited by the user.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#setCellValue">setCellValue</a></b>(row, col, value)
+								</div>
+								<div class="description">setCellValue    implemented nsITreeView interface
+
+setCellValue is called when the value of the cell has been set by the user.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#setTree">setTree</a></b>(tree)
+								</div>
+								<div class="description">setTree    implemented nsITreeView interface
+
+Called during initialization to link the view to the front end box object.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.NSITreeViewArray.html#toggleOpenState">toggleOpenState</a></b>(row)
+								</div>
+								<div class="description">toggleOpenState    implemented nsITreeView interface
+
+Called on the view when an item is opened or closed.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
 				
 				
 				<dl class="inheritsList">
-				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html#constructor">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#.dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getKeys">getKeys</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getValues">getValues</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#.unserialize">unserialize</a></dd><dt>Methods borrowed from class <a href="../symbols/GeckoJS.Class.html#constructor">GeckoJS.Class</a>: </dt><dd><a href="../symbols/GeckoJS.Class.html#.extend">extend</a></dd>
+				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#unserialize">unserialize</a></dd>
 				</dl>
 				
+			
+<!-- ============================== events summary ======================== -->
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -437,11 +766,11 @@ dramatically, and removes the need to make changes to the tree manually when cha
 					Field Detail
 				</div>
 				
-					<a name="rowCount"> </a>
-					<div class="fixedFont">
+					<a name=".rowCount"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Number}</span>
-					<b>rowCount</b>
+					<span class="light">GeckoJS.NSITreeViewArray.</span><b>rowCount</b>
 					
 					</div>
 					<div class="description">
@@ -459,11 +788,11 @@ dramatically, and removes the need to make changes to the tree manually when cha
 
 					<hr />
 				
-					<a name="selection"> </a>
-					<div class="fixedFont">
+					<a name=".selection"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{nsITreeSelection}</span>
-					<b>selection</b>
+					<span class="light">GeckoJS.NSITreeViewArray.</span><b>selection</b>
 					
 					</div>
 					<div class="description">
@@ -485,14 +814,1395 @@ dramatically, and removes the need to make changes to the tree manually when cha
 
 <!-- ============================== method details ========================= -->		
 			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="canDrop"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>canDrop</b>(index, orientation)
+					
+					</div>
+					<div class="description">
+						canDrop    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>index</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>orientation</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="cycleCell"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>cycleCell</b>(col)
+					
+					</div>
+					<div class="description">
+						cycleCell    implemented nsITreeView interface
+
+Called on the view when a cell in a non-selectable cycling column (e.g., unread/flag/etc.) is clicked.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The column to cycle.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="cycleHeader"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>cycleHeader</b>(col)
+					
+					</div>
+					<div class="description">
+						cycleHeader    implemented nsITreeView interface
+
+Called on the view when a header is clicked.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The column to cycle.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="drop"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>drop</b>(index, orientation)
+					
+					</div>
+					<div class="description">
+						drop    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>index</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>orientation</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getCellProperties"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>getCellProperties</b>(row, col, props)
+					
+					</div>
+					<div class="description">
+						getCellProperties    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>The index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The index of the column.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>props</b>
+									
+								</dt>
+								<dd>The properties of the cell.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getCellText"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getCellText</b>(row, col)
+					
+					</div>
+					<div class="description">
+						getCellText    implemented nsITreeView interface
+
+The text for a given cell. If a column consists only of an image, then the empty string is returned.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The index of the column.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getCellValue"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getCellValue</b>(row, col)
+					
+					</div>
+					<div class="description">
+						getCellValue    implemented nsITreeView interface
+
+The value for a given cell. This method is only called for columns of type other than text.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The index of the column.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getColumnProperties"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>getColumnProperties</b>(row, props)
+					
+					</div>
+					<div class="description">
+						getColumnProperties    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>The index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>props</b>
+									
+								</dt>
+								<dd>The properties of the cell.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getImageSrc"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getImageSrc</b>(row, col)
+					
+					</div>
+					<div class="description">
+						getImageSrc    implemented nsITreeView interface
+
+The image path for a given cell. For defining an icon for a cell.
+If the empty string is returned, the :moz-tree-image pseudoelement will be used.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The index of the column.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getLevel"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Number}</span>
+					<b>getLevel</b>(row)
+					
+					</div>
+					<div class="description">
+						getLevel    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getParentIndex"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Number}</span>
+					<b>getParentIndex</b>(row)
+					
+					</div>
+					<div class="description">
+						getParentIndex    implemented nsITreeView interface
+
+Methods used by the tree to draw thread lines in the tree.
+getParentIndex is used to obtain the index of a parent row.
+If there is no parent row, getParentIndex returns -1.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getProgressMode"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Number}</span>
+					<b>getProgressMode</b>(row, col)
+					
+					</div>
+					<div class="description">
+						getProgressMode    implemented nsITreeView interface
+
+The progress mode for a given cell. This method is only called for columns of type progressmeter.
+
+PROGRESS_NORMAL 	1
+PROGRESS_UNDETERMINED 	2
+PROGRESS_NONE 	3
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The index of the column.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getRowProperties"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>getRowProperties</b>(row, props)
+					
+					</div>
+					<div class="description">
+						getRowProperties    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>props</b>
+									
+								</dt>
+								<dd>The properties of the row.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="hasNextSibling"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>hasNextSibling</b>(row, after)
+					
+					</div>
+					<div class="description">
+						hasNextSibling    implemented nsITreeView interface
+
+hasNextSibling is used to determine if the row at rowIndex has a nextSibling that occurs after
+the index specified by afterIndex. Code that is forced to march down the view looking at levels
+can optimize the march by starting at afterIndex+1.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>The index of the item.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>after</b>
+									
+								</dt>
+								<dd>The index of the item to find siblings after.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="init"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>init</b>(data)
+					
+					</div>
+					<div class="description">
+						NSITreeViewArray contructor
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Array}</span> <b>data</b>
+									
+								</dt>
+								<dd>data array for tree view</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="isContainer"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>isContainer</b>(row)
+					
+					</div>
+					<div class="description">
+						isContainer    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="isContainerEmpty"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>isContainerEmpty</b>(row)
+					
+					</div>
+					<div class="description">
+						isContainerEmpty    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="isContainerOpen"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>isContainerOpen</b>(row)
+					
+					</div>
+					<div class="description">
+						isContainerOpen    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="isEditable"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>isEditable</b>(row, col)
+					
+					</div>
+					<div class="description">
+						isEditable    implemented nsITreeView interface
+
+isEditable is called to ask the view if the cell contents are editable.
+A value of true will result in the tree popping up a text field when the user tries to inline edit the cell.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The index of the column.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="isSelectable"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>isSelectable</b>(row, col)
+					
+					</div>
+					<div class="description">
+						isSelectable    implemented nsITreeView interface
+
+isSelectable is called to ask the view if the cell is selectable.
+This method is only called if the selection type is cell or text.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The index of the column.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="isSeparator"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>isSeparator</b>(row)
+					
+					</div>
+					<div class="description">
+						isSeparator    implemented nsITreeView interface
+
+isSeparator is used to determine if the row at index is a separator.
+A value of true will result in the tree drawing a horizontal separator.
+The tree uses the ::moz-tree-separator pseudoclass to draw the separator.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>the index of the row.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="isSorted"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>isSorted</b>()
+					
+					</div>
+					<div class="description">
+						isSorted    implemented nsITreeView interface
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="performAction"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>performAction</b>(action)
+					
+					</div>
+					<div class="description">
+						performAction    implemented nsITreeView interface
+
+A command API that can be used to invoke commands on the selection.
+The tree will automatically invoke this method when certain keys are pressed.
+For example, when the DEL key is pressed, performAction will be called with the delete string.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>action</b>
+									
+								</dt>
+								<dd>The action to perform.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="performActionOnCell"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>performActionOnCell</b>(action, row, col)
+					
+					</div>
+					<div class="description">
+						performActionOnCell    implemented nsITreeView interface
+
+A command API that can be used to invoke commands on a specific cell.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>action</b>
+									
+								</dt>
+								<dd>The action to perform.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>The row of the cell.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The column of the cell.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="performActionOnRow"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>performActionOnRow</b>(action, row)
+					
+					</div>
+					<div class="description">
+						performActionOnRow    implemented nsITreeView interface
+
+A command API that can be used to invoke commands on a specific row.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>action</b>
+									
+								</dt>
+								<dd>The action to perform.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>The row of the cell.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="selectionChanged"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>selectionChanged</b>()
+					
+					</div>
+					<div class="description">
+						selectionChanged    implemented nsITreeView interface
+
+Should be called from a XUL onselect handler whenever the selection changes.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setCellText"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setCellText</b>(row, col, value)
+					
+					</div>
+					<div class="description">
+						setCellText    implemented nsITreeView interface
+
+setCellText is called when the contents of the cell have been edited by the user.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>The index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The index of the column.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>value</b>
+									
+								</dt>
+								<dd>The text to change the cell to.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setCellValue"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setCellValue</b>(row, col, value)
+					
+					</div>
+					<div class="description">
+						setCellValue    implemented nsITreeView interface
+
+setCellValue is called when the value of the cell has been set by the user.
+This method is only called for columns of type other than text.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>The index of the row.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeColumn}</span> <b>col</b>
+									
+								</dt>
+								<dd>The index of the column.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>value</b>
+									
+								</dt>
+								<dd>The text to change the cell to.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setTree"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setTree</b>(tree)
+					
+					</div>
+					<div class="description">
+						setTree    implemented nsITreeView interface
+
+Called during initialization to link the view to the front end box object.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{nsITreeBoxObject}</span> <b>tree</b>
+									
+								</dt>
+								<dd>The nsITreeBoxObject to attach this view to</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">See:</dt>
+							
+								<dd>http://www.xulplanet.com/references/xpcomref/ifaces/nsITreeBoxObject.html</dd>
+							
+							</dl>
+						
+
+					<hr />
+				
+					<a name="toggleOpenState"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>toggleOpenState</b>(row)
+					
+					</div>
+					<div class="description">
+						toggleOpenState    implemented nsITreeView interface
+
+Called on the view when an item is opened or closed.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>row</b>
+									
+								</dt>
+								<dd>The index of the row to toggle.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
+			
+			
+<!-- ============================== event details ========================= -->		
+			
 			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:12 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:05:00 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - GeckoJS.Datasource</title>
+		<title>JsDoc Reference - GeckoJS.DatasourceJsonFile</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -300,21 +300,23 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class GeckoJS.Datasource
+				Class GeckoJS.DatasourceJsonFile
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				<br />Extends
-					<a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>.<br />
+					<a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a>.<br />
 				
 			
-				GeckoJS.Datasource is a logical interface for performing standard
-CRUD (Create, Read, Update, Delete) operations on data sources that is
-independent of the underlying storage mechanism.<br/>
+				GeckoJS.DatasourceJsonFile implements a data source that stores data
+in JSON-encoded format in a file. It also maintains a write-through data
+cache.<br/>
 <br/>
-GeckoJS.Datasource is an interface and should be extended by sub-classes
-that implement the interactions with the actual storage devices.<br/>
+It is a Singleton class.<br/>
+<br/>
+Data is stored in files under the "data" sub-directory of the
+system tmp directory (configuration key "TmpD").<br/>
 				
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
@@ -323,7 +325,7 @@ that implement the interactions with the actual storage devices.<br/>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class GeckoJS.Datasource.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class GeckoJS.DatasourceJsonFile.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -336,9 +338,9 @@ that implement the interactions with the actual storage devices.<br/>
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Datasource.html#constructor">GeckoJS.Datasource</a></b>()
+								<b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#constructor">GeckoJS.DatasourceJsonFile</a></b>()
 							</div>
-							<div class="description">Creates a new GeckoJS.Datasource instance.</div>
+							<div class="description">Creates a new GeckoJS.DatasouceJsonFile instance.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -349,7 +351,7 @@ that implement the interactions with the actual storage devices.<br/>
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class GeckoJS.Datasource.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class GeckoJS.DatasourceJsonFile.">
 					<caption>Field Summary</caption>
 					<thead>
 						<tr>
@@ -363,19 +365,9 @@ that implement the interactions with the actual storage devices.<br/>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								GeckoJS.Datasource.<b><a href="../symbols/GeckoJS.Datasource.html#.config">config</a></b>
+								GeckoJS.DatasourceJsonFile.<b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#.data">data</a></b>
 								</div>
-								<div class="description">datasource config object</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								GeckoJS.Datasource.<b><a href="../symbols/GeckoJS.Datasource.html#.configName">configName</a></b>
-								</div>
-								<div class="description">datasource config name.</div>
+								<div class="description">Data cache (read-only)</div>
 							</td>
 						</tr>
 					
@@ -394,7 +386,7 @@ that implement the interactions with the actual storage devices.<br/>
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.Datasource.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.DatasourceJsonFile.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -405,63 +397,27 @@ that implement the interactions with the actual storage devices.<br/>
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#begin">begin</a></b>(waiting)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#_queryAssociations">_queryAssociations</a></b>(model, datas, recursive)
 								</div>
-								<div class="description">Begins a transaction.</div>
+								<div class="description">_generateAssociation</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#close">close</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#describe">describe</a></b>(model)
 								</div>
-								<div class="description">Closes the connection to the database.</div>
+								<div class="description">Returns an array of the fields in given table name.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#commit">commit</a></b>(waiting)
-								</div>
-								<div class="description">Commits a transaction.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#connect">connect</a></b>()
-								</div>
-								<div class="description">Opens a connection to the database.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#describe">describe</a></b>(model)
-								</div>
-								<div class="description">is Field Name in table</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#disconnect">disconnect</a></b>()
-								</div>
-								<div class="description">Closes the connection to the database.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#execute">execute</a></b>(sql, params)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#execute">execute</a></b>(string, array)
 								</div>
 								<div class="description">Queries the database with given SQL statement, and obtains some metadata about the result
 (rows affected, timing, any errors, number of rows in resultset).</div>
@@ -471,63 +427,34 @@ that implement the interactions with the actual storage devices.<br/>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#executeDelete">executeDelete</a></b>(model)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#executeDelete">executeDelete</a></b>(model, id)
 								</div>
-								<div class="description">Removes the data item identified by id from a model.</div>
+								<div class="description">Removes the data item associated with an id from a model.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#executeInsert">executeInsert</a></b>(model, id, data)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#executeInsert">executeInsert</a></b>(model, data)
 								</div>
-								<div class="description">Inserts data into a model using the given id as the primary key.</div>
+								<div class="description">Inserts data into a model.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#executeUpdate">executeUpdate</a></b>(model, id, data)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#executeUpdate">executeUpdate</a></b>(model, data)
 								</div>
-								<div class="description">Updates a data item in a model.</div>
+								<div class="description">Replaces a data item in a model.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#getConfig">getConfig</a></b>()
-								</div>
-								<div class="description">getConfig</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#getConfigName">getConfigName</a></b>()
-								</div>
-								<div class="description">getConfigName
-
-default config name is 'default'</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#getLastInsertId">getLastInsertId</a></b>()
-								</div>
-								<div class="description">Returns the ID of the last inserted row.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#hasField">hasField</a></b>(model, field)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#hasField">hasField</a></b>(model, field)
 								</div>
 								<div class="description">is Field Name in table</div>
 							</td>
@@ -536,25 +463,16 @@ default config name is 'default'</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#init">init</a></b>(config)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#init">init</a></b>(config)
 								</div>
-								<div class="description">GeckoJS.Datasource contructor</div>
+								<div class="description">GeckoJS.DatasourceJsonFile contructor</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#open">open</a></b>()
-								</div>
-								<div class="description">Opens a connection to the database.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#querySelect">querySelect</a></b>(model, fields, conditions, order, limit, page, recursive)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#querySelect">querySelect</a></b>(model, fields, conditions, group, order, limit, page, recursive)
 								</div>
 								<div class="description">Retrieves from a model data items that satisfy the given query condition,
 sorted in the specified order.</div>
@@ -564,7 +482,7 @@ sorted in the specified order.</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#querySelectById">querySelectById</a></b>(model, fields, id, recursive)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#querySelectById">querySelectById</a></b>(model, fields, id, recursive)
 								</div>
 								<div class="description">Retrieves a data item from a model based on its id.</div>
 							</td>
@@ -573,7 +491,7 @@ sorted in the specified order.</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#querySelectByIndex">querySelectByIndex</a></b>(model, fields, index, value, order, limit, page, recursive)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#querySelectByIndex">querySelectByIndex</a></b>(model, fields, index, value, group, order, limit, page, recursive)
 								</div>
 								<div class="description">Retrieves from a model data items where the property indicated by the
 "index" parameter is equal to the "value" parameter, sorted in the
@@ -584,7 +502,7 @@ specified order.</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#querySelectCount">querySelectCount</a></b>(model, conditions, order, limit, page)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#querySelectCount">querySelectCount</a></b>(model, condition, group, order, limit, page)
 								</div>
 								<div class="description">Returns the size of the result set containing data items from model that
 satisfy the given query condition.</div>
@@ -594,7 +512,7 @@ satisfy the given query condition.</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#querySelectCountByIndex">querySelectCountByIndex</a></b>(model, index, value, order, limit, page)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#querySelectCountByIndex">querySelectCountByIndex</a></b>(model, index, value, group, order, limit, page)
 								</div>
 								<div class="description">Returns the number of data items in a model where the property indicated
 by the "index" parameter is equal to the "value" parameter.</div>
@@ -604,29 +522,28 @@ by the "index" parameter is equal to the "value" parameter.</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#rollback">rollback</a></b>(waiting)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#readTableFile">readTableFile</a></b>(table)
 								</div>
-								<div class="description">Rolls back a transaction.</div>
+								<div class="description">Reads the entire content of a table from the corresponding Json file.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#setConfig">setConfig</a></b>(config)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#saveTableFile">saveTableFile</a></b>(table, db)
 								</div>
-								<div class="description">setConfig</div>
+								<div class="description">Saves the entire content of a table to file.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Datasource.html#setConfigName">setConfigName</a></b>(name)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.DatasourceJsonFile.html#truncate">truncate</a></b>(table)
 								</div>
-								<div class="description">setConfigName
-
-default config name is 'default'</div>
+								<div class="description">Deletes all the records in a table and resets the count of the auto-incrementing
+primary key, where applicable.</div>
 							</td>
 						</tr>
 					
@@ -636,7 +553,7 @@ default config name is 'default'</div>
 				
 				
 				<dl class="inheritsList">
-				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#unserialize">unserialize</a></dd>
+				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a>: </dt><dd><a href="../symbols/GeckoJS.Datasource.html#begin">begin</a>, <a href="../symbols/GeckoJS.Datasource.html#close">close</a>, <a href="../symbols/GeckoJS.Datasource.html#commit">commit</a>, <a href="../symbols/GeckoJS.Datasource.html#connect">connect</a>, <a href="../symbols/GeckoJS.Datasource.html#disconnect">disconnect</a>, <a href="../symbols/GeckoJS.Datasource.html#getConfig">getConfig</a>, <a href="../symbols/GeckoJS.Datasource.html#getConfigName">getConfigName</a>, <a href="../symbols/GeckoJS.Datasource.html#getLastInsertId">getLastInsertId</a>, <a href="../symbols/GeckoJS.Datasource.html#open">open</a>, <a href="../symbols/GeckoJS.Datasource.html#rollback">rollback</a>, <a href="../symbols/GeckoJS.Datasource.html#setConfig">setConfig</a>, <a href="../symbols/GeckoJS.Datasource.html#setConfigName">setConfigName</a></dd><dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#unserialize">unserialize</a></dd>
 				</dl>
 				
 			
@@ -651,11 +568,11 @@ default config name is 'default'</div>
 				</div>
 				
 				<div class="fixedFont">
-						<b>GeckoJS.Datasource</b>()
+						<b>GeckoJS.DatasourceJsonFile</b>()
 				</div>
 				
 				<div class="description">
-					Creates a new GeckoJS.Datasource instance.
+					Creates a new GeckoJS.DatasouceJsonFile instance.
 					
 				</div>
 				
@@ -679,37 +596,15 @@ default config name is 'default'</div>
 					Field Detail
 				</div>
 				
-					<a name=".config"> </a>
+					<a name=".data"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
-					<span class="light">{Object}</span>
-					<span class="light">GeckoJS.Datasource.</span><b>config</b>
+					<span class="light">{<a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a>}</span>
+					<span class="light">GeckoJS.DatasourceJsonFile.</span><b>data</b>
 					
 					</div>
 					<div class="description">
-						datasource config object
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".configName"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					<span class="light">{String}</span>
-					<span class="light">GeckoJS.Datasource.</span><b>configName</b>
-					
-					</div>
-					<div class="description">
-						datasource config name. (for useDbConfig)
+						Data cache (read-only)
 						
 						
 					</div>
@@ -731,15 +626,15 @@ default config name is 'default'</div>
 					Method Detail
 				</div>
 				
-					<a name="begin"> </a>
-					<div class="fixedFont">
+					<a name="_queryAssociations"> </a>
+					<div class="fixedFont">&lt;private&gt; 
 					
-					<span class="light">{Boolean}</span>
-					<b>begin</b>(waiting)
+					
+					<b>_queryAssociations</b>(model, datas, recursive)
 					
 					</div>
 					<div class="description">
-						Begins a transaction.
+						_generateAssociation
 						
 						
 					</div>
@@ -751,114 +646,24 @@ default config name is 'default'</div>
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{Boolean}</span> <b>waiting</b>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span> <b>model</b>
 									
 								</dt>
-								<dd>waiting if database is locked</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{Boolean}</span> true if transaction begin</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="close"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>close</b>()
-					
-					</div>
-					<div class="description">
-						Closes the connection to the database.
-
-Alias to disconnect
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="commit"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{Boolean}</span>
-					<b>commit</b>(waiting)
-					
-					</div>
-					<div class="description">
-						Commits a transaction.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
+								<dd></dd>
 							
 								<dt>
-									<span class="light fixedFont">{Boolean}</span> <b>waiting</b>
+									<span class="light fixedFont">{Object}</span> <b>datas</b>
 									
 								</dt>
-								<dd>waiting if database is locked</dd>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>recursive</b>
+									
+								</dt>
+								<dd></dd>
 							
 							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{Boolean}</span> true if transaction begin</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="connect"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>connect</b>()
-					
-					</div>
-					<div class="description">
-						Opens a connection to the database.
-						
-						
-					</div>
-					
-					
-					
 						
 						
 						
@@ -877,7 +682,7 @@ Alias to disconnect
 					
 					</div>
 					<div class="description">
-						is Field Name in table
+						Returns an array of the fields in given table name.
 						
 						
 					</div>
@@ -903,34 +708,9 @@ Alias to disconnect
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{Object}</span> </dd>
+								<dd><span class="light fixedFont">{Object}</span> Fields in table</dd>
 							
 							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="disconnect"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>disconnect</b>()
-					
-					</div>
-					<div class="description">
-						Closes the connection to the database.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
 						
 						
 						
@@ -940,8 +720,8 @@ Alias to disconnect
 					<a name="execute"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{Array}</span>
-					<b>execute</b>(sql, params)
+					
+					<b>execute</b>(string, array)
 					
 					</div>
 					<div class="description">
@@ -959,16 +739,16 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{String}</span> <b>sql</b>
+									<b>string</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>$sql</dd>
 							
 								<dt>
-									<span class="light fixedFont">{Array}</span> <b>params</b>
+									<b>array</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>$options</dd>
 							
 							</dl>
 						
@@ -979,7 +759,7 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{Array}</span> Resource or object representing the result set, or false on failure</dd>
+								<dd>mixed Resource or object representing the result set, or false on failure</dd>
 							
 							</dl>
 						
@@ -992,11 +772,15 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 					<div class="fixedFont">
 					
 					<span class="light">{Number}</span>
-					<b>executeDelete</b>(model)
+					<b>executeDelete</b>(model, id)
 					
 					</div>
 					<div class="description">
-						Removes the data item identified by id from a model.
+						Removes the data item associated with an id from a model.<br/>
+<br/>
+If id is not given, then internal model ID (model.id) is used.<br/>
+<br/>
+The operation fails and returns 0 if id does not exist in the model.
 						
 						
 					</div>
@@ -1011,7 +795,13 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span> <b>model</b>
 									
 								</dt>
-								<dd>This is the model to delete data from</dd>
+								<dd>This is the model</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>id</b>
+									
+								</dt>
+								<dd>This is the id</dd>
 							
 							</dl>
 						
@@ -1022,7 +812,7 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{Number}</span> rows                     Number of records deleted</dd>
+								<dd><span class="light fixedFont">{Number}</span> The number of rows deleted</dd>
 							
 							</dl>
 						
@@ -1034,12 +824,14 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 					<a name="executeInsert"> </a>
 					<div class="fixedFont">
 					
-					
-					<b>executeInsert</b>(model, id, data)
+					<span class="light">{Number}</span>
+					<b>executeInsert</b>(model, data)
 					
 					</div>
 					<div class="description">
-						Inserts data into a model using the given id as the primary key.
+						Inserts data into a model.<br/>
+<br/>
+The ID used to uniquely identify the data is taken from model.id.
 						
 						
 					</div>
@@ -1054,25 +846,26 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span> <b>model</b>
 									
 								</dt>
-								<dd>This is the model to insert data into</dd>
-							
-								<dt>
-									<span class="light fixedFont">{String|Number}</span> <b>id</b>
-									
-								</dt>
-								<dd>This is the primary key</dd>
+								<dd>This is the model</dd>
 							
 								<dt>
 									<span class="light fixedFont">{Object}</span> <b>data</b>
 									
 								</dt>
-								<dd>This is the data to insert</dd>
+								<dd>This is the data</dd>
 							
 							</dl>
 						
 						
 						
 						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> The ID used to insert the data</dd>
+							
+							</dl>
 						
 						
 						
@@ -1083,11 +876,17 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 					<div class="fixedFont">
 					
 					<span class="light">{Number}</span>
-					<b>executeUpdate</b>(model, id, data)
+					<b>executeUpdate</b>(model, data)
 					
 					</div>
 					<div class="description">
-						Updates a data item in a model.
+						Replaces a data item in a model.<br/>
+<br/>
+This method replaces a data item stored in the model with the new data item.
+The data item to replace is identified by an internal model ID
+(model.id).<br/>
+<br/>   
+The operation fails and returns 0 if id does not exist in the model.
 						
 						
 					</div>
@@ -1102,19 +901,13 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span> <b>model</b>
 									
 								</dt>
-								<dd>This is the model to update</dd>
-							
-								<dt>
-									<span class="light fixedFont">{String}</span> <b>id</b>
-									
-								</dt>
-								<dd>This is the primary key identifying the record to update</dd>
+								<dd>This is the model</dd>
 							
 								<dt>
 									<span class="light fixedFont">{Object}</span> <b>data</b>
 									
 								</dt>
-								<dd>This is the data to update the model with</dd>
+								<dd>This is the new data</dd>
 							
 							</dl>
 						
@@ -1125,105 +918,7 @@ If DEBUG is set, the log is shown all the time, else it is only shown on errors.
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{Number}</span> rows                      Number of records updated</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="getConfig"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{Object}</span>
-					<b>getConfig</b>()
-					
-					</div>
-					<div class="description">
-						getConfig
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{Object}</span> config</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="getConfigName"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{String}</span>
-					<b>getConfigName</b>()
-					
-					</div>
-					<div class="description">
-						getConfigName
-
-default config name is 'default'
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{String}</span> name</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="getLastInsertId"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{String}</span>
-					<b>getLastInsertId</b>()
-					
-					</div>
-					<div class="description">
-						Returns the ID of the last inserted row.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{String}</span> The id of the last inserted row</dd>
+								<dd><span class="light fixedFont">{Number}</span> The number of rows updated</dd>
 							
 							</dl>
 						
@@ -1289,7 +984,7 @@ default config name is 'default'
 					
 					</div>
 					<div class="description">
-						GeckoJS.Datasource contructor
+						GeckoJS.DatasourceJsonFile contructor
 						
 						
 					</div>
@@ -1317,38 +1012,11 @@ default config name is 'default'
 
 					<hr />
 				
-					<a name="open"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>open</b>()
-					
-					</div>
-					<div class="description">
-						Opens a connection to the database.
-
-Alias to connect
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
 					<a name="querySelect"> </a>
 					<div class="fixedFont">
 					
 					<span class="light">{Object}</span>
-					<b>querySelect</b>(model, fields, conditions, order, limit, page, recursive)
+					<b>querySelect</b>(model, fields, conditions, group, order, limit, page, recursive)
 					
 					</div>
 					<div class="description">
@@ -1384,6 +1052,12 @@ page of the result set.
 									
 								</dt>
 								<dd>This is the query conditions</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>group</b>
+									
+								</dt>
+								<dd>This is the group by fields</dd>
 							
 								<dt>
 									<span class="light fixedFont">{String}</span> <b>order</b>
@@ -1492,7 +1166,7 @@ page of the result set.
 					<div class="fixedFont">
 					
 					<span class="light">{Object}</span>
-					<b>querySelectByIndex</b>(model, fields, index, value, order, limit, page, recursive)
+					<b>querySelectByIndex</b>(model, fields, index, value, group, order, limit, page, recursive)
 					
 					</div>
 					<div class="description">
@@ -1535,6 +1209,12 @@ requested page of the result set.
 									
 								</dt>
 								<dd>This is the index value</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>group</b>
+									
+								</dt>
+								<dd>This is the group by fields</dd>
 							
 								<dt>
 									<span class="light fixedFont">{String}</span> <b>order</b>
@@ -1582,7 +1262,7 @@ requested page of the result set.
 					<div class="fixedFont">
 					
 					<span class="light">{Number}</span>
-					<b>querySelectCount</b>(model, conditions, order, limit, page)
+					<b>querySelectCount</b>(model, condition, group, order, limit, page)
 					
 					</div>
 					<div class="description">
@@ -1608,10 +1288,16 @@ in the requested page of the result set.
 								<dd>This is the model</dd>
 							
 								<dt>
-									<span class="light fixedFont">{Object}</span> <b>conditions</b>
+									<span class="light fixedFont">{Object}</span> <b>condition</b>
 									
 								</dt>
-								<dd>This is the query conditions</dd>
+								<dd>This is the query condition</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>group</b>
+									
+								</dt>
+								<dd>This is the group by fields</dd>
 							
 								<dt>
 									<span class="light fixedFont">{String}</span> <b>order</b>
@@ -1653,7 +1339,7 @@ in the requested page of the result set.
 					<div class="fixedFont">
 					
 					<span class="light">{Number}</span>
-					<b>querySelectCountByIndex</b>(model, index, value, order, limit, page)
+					<b>querySelectCountByIndex</b>(model, index, value, group, order, limit, page)
 					
 					</div>
 					<div class="description">
@@ -1691,6 +1377,12 @@ in the requested page of the result set.
 								<dd>This is the index value</dd>
 							
 								<dt>
+									<span class="light fixedFont">{String}</span> <b>group</b>
+									
+								</dt>
+								<dd>This is the group by fields</dd>
+							
+								<dt>
 									<span class="light fixedFont">{String}</span> <b>order</b>
 									
 								</dt>
@@ -1726,15 +1418,17 @@ in the requested page of the result set.
 
 					<hr />
 				
-					<a name="rollback"> </a>
+					<a name="readTableFile"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{Boolean}</span>
-					<b>rollback</b>(waiting)
+					
+					<b>readTableFile</b>(table)
 					
 					</div>
 					<div class="description">
-						Rolls back a transaction.
+						Reads the entire content of a table from the corresponding Json file.<br/>
+<br/>
+If the table is cached, returns the cached data instead.
 						
 						
 					</div>
@@ -1746,10 +1440,89 @@ in the requested page of the result set.
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{Boolean}</span> <b>waiting</b>
+									<span class="light fixedFont">{String}</span> <b>table</b>
 									
 								</dt>
-								<dd>waiting if database is locked</dd>
+								<dd>This is the name of the table to read</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="saveTableFile"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>saveTableFile</b>(table, db)
+					
+					</div>
+					<div class="description">
+						Saves the entire content of a table to file.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>table</b>
+									
+								</dt>
+								<dd>This is the table name to save to</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>db</b>
+									
+								</dt>
+								<dd>This is the table data to save</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="truncate"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>truncate</b>(table)
+					
+					</div>
+					<div class="description">
+						Deletes all the records in a table and resets the count of the auto-incrementing
+primary key, where applicable.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>table</b>
+									
+								</dt>
+								<dd>A string or model class representing the table to be truncated</dd>
 							
 							</dl>
 						
@@ -1760,83 +1533,9 @@ in the requested page of the result set.
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{Boolean}</span> true if transaction begin</dd>
+								<dd><span class="light fixedFont">{Boolean}</span> SQL TRUNCATE TABLE statement, false if not applicable.</dd>
 							
 							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="setConfig"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>setConfig</b>(config)
-					
-					</div>
-					<div class="description">
-						setConfig
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{Object}</span> <b>config</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="setConfigName"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>setConfigName</b>(name)
-					
-					</div>
-					<div class="description">
-						setConfigName
-
-default config name is 'default'
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{String}</span> <b>name</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
 						
 						
 						

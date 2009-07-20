@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,17 +305,16 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
+				<br />Extends
+					<a href="../symbols/GeckoJS.Log.Appender.html">GeckoJS.Log.Appender</a>.<br />
+				
+			
 				GeckoJS.Log.ConsoleAppender is a log appender that records log
 messages to the console.<br/>
 <br/>
 Each GeckoJS.Log.ConsoleAppender is assigned a log level; the appender will
 only output to the console messages at or above its assigned level.<br/>
-
-				<br />Extends
-					<a href="../symbols/GeckoJS.Log.Appender.html#constructor">GeckoJS.Log.Appender</a>.<br />
 				
-			
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -366,15 +371,26 @@ a log level.</div>
 							</td>
 						</tr>
 					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Log.ConsoleAppender.html#init">init</a></b>(level)
+								</div>
+								<div class="description">GeckoJS.Log.ConsoleAppender contructor</div>
+							</td>
+						</tr>
+					
 					</tbody>
 				</table>
 				
 				
 				
 				<dl class="inheritsList">
-				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.Log.Appender.html#constructor">GeckoJS.Log.Appender</a>: </dt><dd><a href="../symbols/GeckoJS.Log.Appender.html#getFormattedMessage">getFormattedMessage</a>, <a href="../symbols/GeckoJS.Log.Appender.html#getLevel">getLevel</a>, <a href="../symbols/GeckoJS.Log.Appender.html#setLevel">setLevel</a>, <a href="../symbols/GeckoJS.Log.Appender.html#toString">toString</a></dd>
+				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.Log.Appender.html">GeckoJS.Log.Appender</a>: </dt><dd><a href="../symbols/GeckoJS.Log.Appender.html#getFormattedMessage">getFormattedMessage</a>, <a href="../symbols/GeckoJS.Log.Appender.html#getLevel">getLevel</a>, <a href="../symbols/GeckoJS.Log.Appender.html#setLevel">setLevel</a>, <a href="../symbols/GeckoJS.Log.Appender.html#toString">toString</a></dd>
 				</dl>
 				
+			
+<!-- ============================== events summary ======================== -->
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -402,7 +418,7 @@ a log level.
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html#constructor">GeckoJS.Log.Level</a>}</span>  <b>level</b>
+								<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a>}</span>  <b>level</b>
 								
 							</dt>
 								<dd>This is the logl level</dd>
@@ -431,7 +447,7 @@ a log level.
 					<a name="append"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{<a href="../symbols/GeckoJS.Log.ConsoleAppender.html#constructor">GeckoJS.Log.ConsoleAppender</a>}</span>
+					<span class="light">{<a href="../symbols/GeckoJS.Log.ConsoleAppender.html">GeckoJS.Log.ConsoleAppender</a>}</span>
 					<b>append</b>(className, level, message, exception)
 					
 					</div>
@@ -454,7 +470,7 @@ a log level.
 								<dd>This is the name of the class to use</dd>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html#constructor">GeckoJS.Log.Level</a>}</span> <b>level</b>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.Level.html">GeckoJS.Log.Level</a>}</span> <b>level</b>
 									
 								</dt>
 								<dd>This is the log level to use for this message</dd>
@@ -480,9 +496,45 @@ a log level.
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.ConsoleAppender.html#constructor">GeckoJS.Log.ConsoleAppender</a>}</span> This GeckoJS.Log.ConsoleAppender instance</dd>
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Log.ConsoleAppender.html">GeckoJS.Log.ConsoleAppender</a>}</span> This GeckoJS.Log.ConsoleAppender instance</dd>
 							
 							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="init"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>init</b>(level)
+					
+					</div>
+					<div class="description">
+						GeckoJS.Log.ConsoleAppender contructor
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>level</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
 						
 						
 						
@@ -491,13 +543,17 @@ a log level.
 				
 			
 			
+<!-- ============================== event details ========================= -->		
+			
+			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:11 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:59 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

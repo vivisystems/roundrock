@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - GeckoJS.Scaffold</title>
+		<title>JsDoc Reference - GeckoJS.Model</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -300,75 +300,17 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class GeckoJS.Scaffold
+				Class GeckoJS.Model
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				<br />Extends
-					<a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>.<br />
+					<a href="../symbols/GeckoJS.BaseModel.html">GeckoJS.BaseModel</a>.<br />
 				
 			
-				Scaffolding provides automatic support for CRUD operations on models.
-Controllers that only perform standard CRUD operations on models may leverage
-scaffolding to reduce coding effort.<br/>
-<br/>
-If a Controller declares "scaffolding" to be "true", then the global
-dispatcher will dispatch standard CRUD commands to the Scaffold object if
-these commands are not handled by the Controller.<br/>
-<br/>
-Scaffold will dispatch a "beforeScaffold" event with the command name as the
-event data to the controller before carrying out a command. After the command
-has been carried out, Scaffold will dispatch a "afterScaffold<command>"
-event to the controller. The event data for the "afterScaffold" event is
-command dependent.<br/>
-<br/>
-The set of commands Scaffold supports are:<br/>
-<br/>
-<pre>
-- index
-  this command retrieves all the records from the Model, updates the Form
-  with the first record, and passes all the records to the controller
-  through the "afterScaffoldIndex" event.
-    
-- list
-  identical to the "index" command 
- 
-- view 
-  this command updates the Form with values from the Model, using the primary
-  key from the Form. Before updating the form, the Scaffold dispatches a
-  "beforeScaffoldView" event to the controller with the Model recod id. After
-  updating the form, the Model record is passed to the "afterScaffoldView"
-  event listeners. 
- 
-- add
-  this command creates a new Model record using data gathered from the Form.
-  Before adding the record, the Scaffold first dispatches a "beforeScaffoldAdd"
-  event to the controller, followed by a "beforeScaffoldSave" event, both with
-  the Form data. After saving the record, the Form data is first passed to the
-  "afterScaffoldSave" event listeners, followed by the "afterScaffoldAdd"
-  event listeners.
-  
-- create
-  identical to the "add" command
-    
-- edit
-  this command updates a Model record using data gathered from the Form.
-  Before updating the record, the Scaffold first dispatches a "beforeScaffoldEdit"
-  event to the controller, followed by a "beforeScaffoldSave" event, both with
-  the Form data. After saving the record, the Form data is first passed to the
-  "afterScaffoldSave" event listeners, followed by the "afterScaffoldEdit"
-  event listeners.
-  
-- update
-  identical to the "edit" command
- 
-- delete
-  this command deletes the Model record identified by the Form data. Before
-  deleting the record, the Scaffold dispatches a "beforeScaffoldDelete" event
-  to the controller with the record id. After deleting the record, the
-  record deleted is passed to the "afterScaffoldDelete" event listeners.  
-</pre>
+				GeckoJS.Model inherits from GeckoJS.BaseModel and is intended to be
+extended by applications that require specialized model behaviors.<br/>
 				
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
@@ -377,7 +319,7 @@ The set of commands Scaffold supports are:<br/>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class GeckoJS.Scaffold.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class GeckoJS.Model.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -390,10 +332,10 @@ The set of commands Scaffold supports are:<br/>
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Scaffold.html#constructor">GeckoJS.Scaffold</a></b>(controller, command, data)
+								<b><a href="../symbols/GeckoJS.Model.html#constructor">GeckoJS.Model</a></b>(data, recursive)
 							</div>
-							<div class="description">Creates a new GeckoJS.Scaffold instance and initializes it with controller,
-command, and data.</div>
+							<div class="description">Creates a new GeckoJS.Model instance and initializes it with the given
+record data and association level.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -404,7 +346,7 @@ command, and data.</div>
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class GeckoJS.Scaffold.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class GeckoJS.Model.">
 					<caption>Field Summary</caption>
 					<thead>
 						<tr>
@@ -418,29 +360,9 @@ command, and data.</div>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								GeckoJS.Scaffold.<b><a href="../symbols/GeckoJS.Scaffold.html#.command">command</a></b>
+								GeckoJS.Model.<b><a href="../symbols/GeckoJS.Model.html#.cursor">cursor</a></b>
 								</div>
-								<div class="description">The command to be handled by Scaffold</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								GeckoJS.Scaffold.<b><a href="../symbols/GeckoJS.Scaffold.html#.controller">controller</a></b>
-								</div>
-								<div class="description">The controller requesting scaffolding support</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								GeckoJS.Scaffold.<b><a href="../symbols/GeckoJS.Scaffold.html#.data">data</a></b>
-								</div>
-								<div class="description">The data from "gDispatch()"</div>
+								<div class="description">a last cursor of cachedDatas</div>
 							</td>
 						</tr>
 					
@@ -459,7 +381,7 @@ command, and data.</div>
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.Scaffold.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.Model.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -472,63 +394,81 @@ command, and data.</div>
 						<tr>
 							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__invoke">__invoke</a></b>(command, data)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Model.html#_addBehaviors">_addBehaviors</a></b>()
 								</div>
-								<div class="description">invoke scaffold action</div>
+								<div class="description">_addBehaviors</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__scaffoldDelete">__scaffoldDelete</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Model.html#_addModelEvents">_addModelEvents</a></b>()
 								</div>
-								<div class="description">Performs a delete on given scaffolded Model.</div>
+								<div class="description">_addModelEvents</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__scaffoldIndex">__scaffoldIndex</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Model.html#_generateAssociation">_generateAssociation</a></b>(recursive)
 								</div>
-								<div class="description">Renders index action of scaffolded model.</div>
+								<div class="description">_generateAssociation</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&lt;private&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__scaffoldSave">__scaffoldSave</a></b>(action)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Model.html#_getAssociationModel">_getAssociationModel</a></b>(name, recursive)
 								</div>
-								<div class="description">Saves or updates the scaffolded model.</div>
+								<div class="description">_getAssociationModel</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__scaffoldView">__scaffoldView</a></b>()
+								<div class="fixedFont">GeckoJS.Model.<b><a href="../symbols/GeckoJS.Model.html#.extended">extended</a></b>()
 								</div>
-								<div class="description">Renders a view action of scaffolded model.</div>
+								<div class="description">addObject to ClassRegistry, when Model has been extended.</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#_addControllerEvents">_addControllerEvents</a></b>()
+								<div class="fixedFont">GeckoJS.Model.<b><a href="../symbols/GeckoJS.Model.html#.getInstanceByName">getInstanceByName</a></b>(name)
 								</div>
-								<div class="description">_addControllerEvents</div>
+								<div class="description">Instantiates a model by name.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Model.<b><a href="../symbols/GeckoJS.Model.html#.getModelClass">getModelClass</a></b>(name)
+								</div>
+								<div class="description">Retrieves the Model sub-class object by name from the Class Registry.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#init">init</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Model.html#init">init</a></b>(data, recursive)
 								</div>
-								<div class="description">Scaffold contructor</div>
+								<div class="description">GeckoJS.Model contructor</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Model.<b><a href="../symbols/GeckoJS.Model.html#.setModelClass">setModelClass</a></b>(name, klass)
+								</div>
+								<div class="description">Registers the Model sub-class in the Class Registry.</div>
 							</td>
 						</tr>
 					
@@ -538,7 +478,7 @@ command, and data.</div>
 				
 				
 				<dl class="inheritsList">
-				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#unserialize">unserialize</a></dd>
+				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseModel.html">GeckoJS.BaseModel</a>: </dt><dd><a href="../symbols/GeckoJS.BaseModel.html#addEventListener">addEventListener</a>, <a href="../symbols/GeckoJS.BaseModel.html#begin">begin</a>, <a href="../symbols/GeckoJS.BaseModel.html#commit">commit</a>, <a href="../symbols/GeckoJS.BaseModel.html#create">create</a>, <a href="../symbols/GeckoJS.BaseModel.html#createSchema">createSchema</a>, <a href="../symbols/GeckoJS.BaseModel.html#del">del</a>, <a href="../symbols/GeckoJS.BaseModel.html#delAll">delAll</a>, <a href="../symbols/GeckoJS.BaseModel.html#delete">delete</a>, <a href="../symbols/GeckoJS.BaseModel.html#deleteAll">deleteAll</a>, <a href="../symbols/GeckoJS.BaseModel.html#dispatchEvent">dispatchEvent</a>, <a href="../symbols/GeckoJS.BaseModel.html#dropSchema">dropSchema</a>, <a href="../symbols/GeckoJS.BaseModel.html#escapeField">escapeField</a>, <a href="../symbols/GeckoJS.BaseModel.html#execute">execute</a>, <a href="../symbols/GeckoJS.BaseModel.html#exists">exists</a>, <a href="../symbols/GeckoJS.BaseModel.html#exportCSV">exportCSV</a>, <a href="../symbols/GeckoJS.BaseModel.html#exportXML">exportXML</a>, <a href="../symbols/GeckoJS.BaseModel.html#find">find</a>, <a href="../symbols/GeckoJS.BaseModel.html#findAll">findAll</a>, <a href="../symbols/GeckoJS.BaseModel.html#findById">findById</a>, <a href="../symbols/GeckoJS.BaseModel.html#findByIndex">findByIndex</a>, <a href="../symbols/GeckoJS.BaseModel.html#findCount">findCount</a>, <a href="../symbols/GeckoJS.BaseModel.html#findFirst">findFirst</a>, <a href="../symbols/GeckoJS.BaseModel.html#getDataSource">getDataSource</a>, <a href="../symbols/GeckoJS.BaseModel.html#getEvents">getEvents</a>, <a href="../symbols/GeckoJS.BaseModel.html#getFieldsInfo">getFieldsInfo</a>, <a href="../symbols/GeckoJS.BaseModel.html#getId">getId</a>, <a href="../symbols/GeckoJS.BaseModel.html#getInsertID">getInsertID</a>, <a href="../symbols/GeckoJS.BaseModel.html#getLastInsertID">getLastInsertID</a>, <a href="../symbols/GeckoJS.BaseModel.html#hasField">hasField</a>, <a href="../symbols/GeckoJS.BaseModel.html#query">query</a>, <a href="../symbols/GeckoJS.BaseModel.html#read">read</a>, <a href="../symbols/GeckoJS.BaseModel.html#remove">remove</a>, <a href="../symbols/GeckoJS.BaseModel.html#removeAll">removeAll</a>, <a href="../symbols/GeckoJS.BaseModel.html#removeEventListener">removeEventListener</a>, <a href="../symbols/GeckoJS.BaseModel.html#restoreFromBackup">restoreFromBackup</a>, <a href="../symbols/GeckoJS.BaseModel.html#rollback">rollback</a>, <a href="../symbols/GeckoJS.BaseModel.html#save">save</a>, <a href="../symbols/GeckoJS.BaseModel.html#saveAll">saveAll</a>, <a href="../symbols/GeckoJS.BaseModel.html#saveToBackup">saveToBackup</a>, <a href="../symbols/GeckoJS.BaseModel.html#schema">schema</a>, <a href="../symbols/GeckoJS.BaseModel.html#setInsertID">setInsertID</a>, <a href="../symbols/GeckoJS.BaseModel.html#truncate">truncate</a></dd><dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#unserialize">unserialize</a></dd>
 				</dl>
 				
 			
@@ -553,12 +493,12 @@ command, and data.</div>
 				</div>
 				
 				<div class="fixedFont">
-						<b>GeckoJS.Scaffold</b>(controller, command, data)
+						<b>GeckoJS.Model</b>(data, recursive)
 				</div>
 				
 				<div class="description">
-					Creates a new GeckoJS.Scaffold instance and initializes it with controller,
-command, and data.
+					Creates a new GeckoJS.Model instance and initializes it with the given
+record data and association level.
 					
 				</div>
 				
@@ -570,22 +510,16 @@ command, and data.
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								<span class="light fixedFont">{<a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a>}</span>  <b>controller</b>
-								
-							</dt>
-								<dd>This is the controller requesting scaffolding support</dd>
-						
-							<dt>
-								<span class="light fixedFont">{String}</span>  <b>command</b>
-								
-							</dt>
-								<dd>This is the command to be handled by Scaffold</dd>
-						
-							<dt>
 								<span class="light fixedFont">{Object}</span>  <b>data</b>
 								
 							</dt>
-								<dd>This is the data from "gDispatch()"</dd>
+								<dd>This is the initial record data</dd>
+						
+							<dt>
+								<span class="light fixedFont">{Number}</span>  <b>recursive</b>
+								
+							</dt>
+								<dd>This indicates the association level</dd>
 						
 						</dl>
 					
@@ -605,59 +539,15 @@ command, and data.
 					Field Detail
 				</div>
 				
-					<a name=".command"> </a>
+					<a name=".cursor"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
-					<span class="light">{String}</span>
-					<span class="light">GeckoJS.Scaffold.</span><b>command</b>
+					<span class="light">{Number}</span>
+					<span class="light">GeckoJS.Model.</span><b>cursor</b>
 					
 					</div>
 					<div class="description">
-						The command to be handled by Scaffold
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".controller"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					<span class="light">{<a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a>}</span>
-					<span class="light">GeckoJS.Scaffold.</span><b>controller</b>
-					
-					</div>
-					<div class="description">
-						The controller requesting scaffolding support
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".data"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					<span class="light">{Object}</span>
-					<span class="light">GeckoJS.Scaffold.</span><b>data</b>
-					
-					</div>
-					<div class="description">
-						The data from "gDispatch()"
+						a last cursor of cachedDatas
 						
 						
 					</div>
@@ -679,15 +569,65 @@ command, and data.
 					Method Detail
 				</div>
 				
-					<a name="__invoke"> </a>
+					<a name="_addBehaviors"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
 					
-					<b>__invoke</b>(command, data)
+					<b>_addBehaviors</b>()
 					
 					</div>
 					<div class="description">
-						invoke scaffold action
+						_addBehaviors
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="_addModelEvents"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>_addModelEvents</b>()
+					
+					</div>
+					<div class="description">
+						_addModelEvents
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="_generateAssociation"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>_generateAssociation</b>(recursive)
+					
+					</div>
+					<div class="description">
+						_generateAssociation
 						
 						
 					</div>
@@ -699,13 +639,7 @@ command, and data.
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{String}</span> <b>command</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<span class="light fixedFont">{Object}</span> <b>data</b>
+									<span class="light fixedFont">{Number}</span> <b>recursive</b>
 									
 								</dt>
 								<dd></dd>
@@ -721,65 +655,15 @@ command, and data.
 
 					<hr />
 				
-					<a name="__scaffoldDelete"> </a>
+					<a name="_getAssociationModel"> </a>
 					<div class="fixedFont">&lt;private&gt; 
 					
-					
-					<b>__scaffoldDelete</b>()
+					<span class="light">{Class}</span>
+					<b>_getAssociationModel</b>(name, recursive)
 					
 					</div>
 					<div class="description">
-						Performs a delete on given scaffolded Model.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="__scaffoldIndex"> </a>
-					<div class="fixedFont">&lt;private&gt; 
-					
-					
-					<b>__scaffoldIndex</b>()
-					
-					</div>
-					<div class="description">
-						Renders index action of scaffolded model.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="__scaffoldSave"> </a>
-					<div class="fixedFont">&lt;private&gt; 
-					
-					
-					<b>__scaffoldSave</b>(action)
-					
-					</div>
-					<div class="description">
-						Saves or updates the scaffolded model.
+						_getAssociationModel
 						
 						
 					</div>
@@ -791,10 +675,16 @@ command, and data.
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{String}</span> <b>action</b>
+									<span class="light fixedFont">{String}</span> <b>name</b>
 									
 								</dt>
-								<dd>add or edt</dd>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>recursive</b>
+									
+								</dt>
+								<dd></dd>
 							
 							</dl>
 						
@@ -802,45 +692,27 @@ command, and data.
 						
 						
 						
-						
-						
-
-					<hr />
-				
-					<a name="__scaffoldView"> </a>
-					<div class="fixedFont">&lt;private&gt; 
-					
-					
-					<b>__scaffoldView</b>()
-					
-					</div>
-					<div class="description">
-						Renders a view action of scaffolded model.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Class}</span> </dd>
+							
+							</dl>
 						
 						
 						
 
 					<hr />
 				
-					<a name="_addControllerEvents"> </a>
-					<div class="fixedFont">&lt;private&gt; 
+					<a name=".extended"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
 					
-					<b>_addControllerEvents</b>()
+					<span class="light">GeckoJS.Model.</span><b>extended</b>()
 					
 					</div>
 					<div class="description">
-						_addControllerEvents
+						addObject to ClassRegistry, when Model has been extended.
 						
 						
 					</div>
@@ -851,6 +723,92 @@ command, and data.
 						
 						
 						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getInstanceByName"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span>
+					<span class="light">GeckoJS.Model.</span><b>getInstanceByName</b>(name)
+					
+					</div>
+					<div class="description">
+						Instantiates a model by name.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the name of the model to instantiate</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span> The new model instance, or null if the model class does not exist</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getModelClass"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span>
+					<span class="light">GeckoJS.Model.</span><b>getModelClass</b>(name)
+					
+					</div>
+					<div class="description">
+						Retrieves the Model sub-class object by name from the Class Registry.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the name of the Model sub-class to retrieve</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span> The Model sub-class identified by name</dd>
+							
+							</dl>
 						
 						
 						
@@ -861,17 +819,76 @@ command, and data.
 					<div class="fixedFont">
 					
 					
-					<b>init</b>()
+					<b>init</b>(data, recursive)
 					
 					</div>
 					<div class="description">
-						Scaffold contructor
+						GeckoJS.Model contructor
 						
 						
 					</div>
 					
 					
 					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>data</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>recursive</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".setModelClass"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.Model.</span><b>setModelClass</b>(name, klass)
+					
+					</div>
+					<div class="description">
+						Registers the Model sub-class in the Class Registry.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the name to register the sub-class with</dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span> <b>klass</b>
+									
+								</dt>
+								<dd>This is the Model sub-class to register</dd>
+							
+							</dl>
 						
 						
 						

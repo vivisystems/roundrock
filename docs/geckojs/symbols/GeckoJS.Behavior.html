@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,7 +305,10 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
+				<br />Extends
+					<a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>.<br />
+				
+			
 				GeckoJS.Behavior is a base class that may be used to associate
 "behaviors" with models. "Behaviors" refer to actions that occur before and
 after typical model activities such as "find", "save", "delete". This is
@@ -322,11 +331,7 @@ events:<br/>
 </pre>
 GeckoJS.Behavior should not be instantiated, but is designed instead to
 be extended with actual implementations of the various behaviors.<br/>
-
-				<br />Extends
-					<a href="../symbols/GeckoJS.BaseObject.html#constructor">GeckoJS.BaseObject</a>.<br />
 				
-			
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -372,20 +377,20 @@ config.</div>
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Behavior.html#config">config</a></b>
+								GeckoJS.Behavior.<b><a href="../symbols/GeckoJS.Behavior.html#.config">config</a></b>
 								</div>
 								<div class="description">The database configuration identifying the data source (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Behavior.html#model">model</a></b>
+								GeckoJS.Behavior.<b><a href="../symbols/GeckoJS.Behavior.html#.model">model</a></b>
 								</div>
 								<div class="description">The model to apply the behavior to (read-only)</div>
 							</td>
@@ -406,12 +411,135 @@ config.</div>
 			
 				
 				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.Behavior.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Behavior.html#afterDelete">afterDelete</a></b>(event)
+								</div>
+								<div class="description">Handles the "afterDelete" event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Behavior.html#afterFind">afterFind</a></b>(event)
+								</div>
+								<div class="description">Handles the "afterFind" event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Behavior.html#afterSave">afterSave</a></b>(event)
+								</div>
+								<div class="description">Handles the "afterSave" event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Behavior.html#afterTruncate">afterTruncate</a></b>(event)
+								</div>
+								<div class="description">Handles the "afterTruncate" event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Behavior.html#beforeDelete">beforeDelete</a></b>(event)
+								</div>
+								<div class="description">Handles the "beforeDelete" event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Behavior.html#beforeFind">beforeFind</a></b>(event)
+								</div>
+								<div class="description">Handles the "beforeFind" event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Behavior.html#beforeSave">beforeSave</a></b>(event)
+								</div>
+								<div class="description">Handles the "beforeSave" event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Behavior.html#beforeTruncate">beforeTruncate</a></b>(event)
+								</div>
+								<div class="description">Handles the "beforeTruncate" event.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Behavior.<b><a href="../symbols/GeckoJS.Behavior.html#.extended">extended</a></b>()
+								</div>
+								<div class="description">addObject to ClassRegistry, when Behavior has been extended.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Behavior.<b><a href="../symbols/GeckoJS.Behavior.html#.getBehaviorClass">getBehaviorClass</a></b>(name)
+								</div>
+								<div class="description">Retrieves the Behavior sub-class object by name from the Class Registry.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Behavior.html#init">init</a></b>(model, config)
+								</div>
+								<div class="description">GeckoJS.Behavior contructor</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.Behavior.<b><a href="../symbols/GeckoJS.Behavior.html#.setBehaviorClass">setBehaviorClass</a></b>(name, klass)
+								</div>
+								<div class="description">Registers the Behavior sub-class in the Class Registry.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
 				
 				
 				<dl class="inheritsList">
-				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html#constructor">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#.dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getKeys">getKeys</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getValues">getValues</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#.unserialize">unserialize</a></dd><dt>Methods borrowed from class <a href="../symbols/GeckoJS.Class.html#constructor">GeckoJS.Class</a>: </dt><dd><a href="../symbols/GeckoJS.Class.html#.extend">extend</a></dd>
+				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#unserialize">unserialize</a></dd>
 				</dl>
 				
+			
+<!-- ============================== events summary ======================== -->
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -439,7 +567,7 @@ config.
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								<span class="light fixedFont">{GeckoJS.Model}</span>  <b>model</b>
+								<span class="light fixedFont">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span>  <b>model</b>
 								
 							</dt>
 								<dd>The model that exhibits this behavior (read-only)</dd>
@@ -468,11 +596,11 @@ config.
 					Field Detail
 				</div>
 				
-					<a name="config"> </a>
-					<div class="fixedFont">
+					<a name=".config"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>config</b>
+					<span class="light">GeckoJS.Behavior.</span><b>config</b>
 					
 					</div>
 					<div class="description">
@@ -490,11 +618,11 @@ config.
 
 					<hr />
 				
-					<a name="model"> </a>
-					<div class="fixedFont">
+					<a name=".model"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
-					<span class="light">{GeckoJS.Model}</span>
-					<b>model</b>
+					<span class="light">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span>
+					<span class="light">GeckoJS.Behavior.</span><b>model</b>
 					
 					</div>
 					<div class="description">
@@ -516,14 +644,493 @@ config.
 
 <!-- ============================== method details ========================= -->		
 			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="afterDelete"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>afterDelete</b>(event)
+					
+					</div>
+					<div class="description">
+						Handles the "afterDelete" event.<br/>
+<br/>
+This method is invoked after the model carries out a delete() operation.
+The model id to delete is passed to this event handler in the event.data
+field.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a>}</span> <b>event</b>
+									
+								</dt>
+								<dd>This is the "afterDelete" event data containing the model id from the delete() invocation</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="afterFind"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>afterFind</b>(event)
+					
+					</div>
+					<div class="description">
+						Handles the "afterFind" event.<br/>
+<br/>
+This method is invoked after the model carries out a find() operation.
+The results of the find() operation are passed to this event handler in the
+event.data field.<br/>
+<br/>
+This method can be used to modify the results returned by find().
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a>}</span> <b>event</b>
+									
+								</dt>
+								<dd>This is the "afterFind" event data containing the results from the find() invocation</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="afterSave"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>afterSave</b>(event)
+					
+					</div>
+					<div class="description">
+						Handles the "afterSave" event.<br/>
+<br/>
+This method is invoked after the model carries out a save() operation.
+A boolean value is passed to this event handler in the event.data field
+indicating if the save() operation created a new record.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a>}</span> <b>event</b>
+									
+								</dt>
+								<dd>This is the "afterSave" event data containing a boolean flag indicating if a new record has been created by the save() invocation</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="afterTruncate"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>afterTruncate</b>(event)
+					
+					</div>
+					<div class="description">
+						Handles the "afterTruncate" event.<br/>
+<br/>
+This method is invoked after the model carries out a truncate() operation.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a>}</span> <b>event</b>
+									
+								</dt>
+								<dd>This is the "afterTruncate" event data containing the model id from the truncate() invocation</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="beforeDelete"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>beforeDelete</b>(event)
+					
+					</div>
+					<div class="description">
+						Handles the "beforeDelete" event.<br/>
+<br/>
+This method is invoked before the model carries out a delete() operation.
+The model id to delete is passed to this event handler in the event.data
+field.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a>}</span> <b>event</b>
+									
+								</dt>
+								<dd>This is the "beforeDelete" event data containing the model id from the delete() invocation</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="beforeFind"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>beforeFind</b>(event)
+					
+					</div>
+					<div class="description">
+						Handles the "beforeFind" event.<br/>
+<br/>
+This method is invoked before the model carries out a find() operation.
+The "type" and the "params" parameters from the find() operation are passed
+to this event handler in the event.data field.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a>}</span> <b>event</b>
+									
+								</dt>
+								<dd>This is the "beforeFind" event data containing the "type" and "params" parameters from the find() invocation</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="beforeSave"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>beforeSave</b>(event)
+					
+					</div>
+					<div class="description">
+						Handles the "beforeSave" event.<br/>
+<br/>
+This method is invoked before the model carries out a save() operation.
+The data to save is passed to this event handler in the event.data field.
+This data is identical to "this.model.data".
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a>}</span> <b>event</b>
+									
+								</dt>
+								<dd>This is the "beforeSave" event data containing the data from the save() invocation</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="beforeTruncate"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>beforeTruncate</b>(event)
+					
+					</div>
+					<div class="description">
+						Handles the "beforeTruncate" event.<br/>
+<br/>
+This method is invoked before the model carries out a truncate() operation.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.EventItem.html">GeckoJS.EventItem</a>}</span> <b>event</b>
+									
+								</dt>
+								<dd>This is the "beforeTruncate" event data containing the model id from the truncate() invocation</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".extended"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.Behavior.</span><b>extended</b>()
+					
+					</div>
+					<div class="description">
+						addObject to ClassRegistry, when Behavior has been extended.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getBehaviorClass"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{<a href="../symbols/GeckoJS.Behavior.html">GeckoJS.Behavior</a>}</span>
+					<span class="light">GeckoJS.Behavior.</span><b>getBehaviorClass</b>(name)
+					
+					</div>
+					<div class="description">
+						Retrieves the Behavior sub-class object by name from the Class Registry.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the name of the Behavior sub-class to retrieve</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Behavior.html">GeckoJS.Behavior</a>}</span> The Behavior sub-class identified by name</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="init"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>init</b>(model, config)
+					
+					</div>
+					<div class="description">
+						GeckoJS.Behavior contructor
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a>}</span> <b>model</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>config</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".setBehaviorClass"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.Behavior.</span><b>setBehaviorClass</b>(name, klass)
+					
+					</div>
+					<div class="description">
+						Registers the Behavior sub-class in the Class Registry.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the name to register the sub-class with</dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/GeckoJS.Behavior.html">GeckoJS.Behavior</a>}</span> <b>klass</b>
+									
+								</dt>
+								<dd>This is the Behavior sub-class to register</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
+			
+			
+<!-- ============================== event details ========================= -->		
+			
 			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:10 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:57 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

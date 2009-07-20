@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,14 +305,13 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
+				
+			
 				GeckoJS.File provides a logical representation of a file or directory
 at a location in the local file system. Through GeckoJS.File, local files
 and directories may be created, read, written to, queried, and otherwise
 manipulated.<br/>
-
 				
-			
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -352,70 +357,70 @@ with a file path.</div>
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.File.html#dateModified">dateModified</a></b>
+								GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.dateModified">dateModified</a></b>
 								</div>
 								<div class="description">The time when the file was last modified (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.File.html#ext">ext</a></b>
+								GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.ext">ext</a></b>
 								</div>
 								<div class="description">The file extension (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.File.html#file">file</a></b>
+								GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.file">file</a></b>
 								</div>
 								<div class="description">A reference to the file location (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.File.html#leafName">leafName</a></b>
+								GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.leafName">leafName</a></b>
 								</div>
 								<div class="description">The file name without any directory components (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.File.html#path">path</a></b>
+								GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.path">path</a></b>
 								</div>
 								<div class="description">The full file path (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.File.html#permissions">permissions</a></b>
+								GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.permissions">permissions</a></b>
 								</div>
 								<div class="description">The Unix-style file permission bits (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.File.html#size">size</a></b>
+								GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.size">size</a></b>
 								</div>
 								<div class="description">The size of the file (read-only)</div>
 							</td>
@@ -533,6 +538,15 @@ with a file path.</div>
 						</tr>
 					
 						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.isDir">isDir</a></b>(path)
+								</div>
+								<div class="description">Checks if path corresponds to a directory.</div>
+							</td>
+						</tr>
+					
+						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/GeckoJS.File.html#isDir">isDir</a></b>()
@@ -547,6 +561,15 @@ with a file path.</div>
 								<div class="fixedFont"><b><a href="../symbols/GeckoJS.File.html#isExecutable">isExecutable</a></b>()
 								</div>
 								<div class="description">Checks if this GeckoJS.File instance corresponds to an executable file.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.isFile">isFile</a></b>(path)
+								</div>
+								<div class="description">Checks if path corresponds to a file.</div>
 							</td>
 						</tr>
 					
@@ -657,7 +680,7 @@ may be modified by the user.</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.File.html#readLine">readLine</a></b>(hasNext)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.File.html#readLine">readLine</a></b>()
 								</div>
 								<div class="description">Reading line .</div>
 							</td>
@@ -685,6 +708,15 @@ may be modified by the user.</div>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/GeckoJS.File.html#run">run</a></b>(aArgs, blocking)
+								</div>
+								<div class="description">Spawns a new process to run an executable file.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.File.<b><a href="../symbols/GeckoJS.File.html#.run">run</a></b>(path, aArgs, blocking)
 								</div>
 								<div class="description">Spawns a new process to run an executable file.</div>
 							</td>
@@ -722,6 +754,8 @@ may be modified by the user.</div>
 				
 				
 				
+			
+<!-- ============================== events summary ======================== -->
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -780,11 +814,11 @@ If "autoCreate" is "true", the file is created if it does not already exist.
 					Field Detail
 				</div>
 				
-					<a name="dateModified"> </a>
-					<div class="fixedFont">
+					<a name=".dateModified"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>dateModified</b>
+					<span class="light">GeckoJS.File.</span><b>dateModified</b>
 					
 					</div>
 					<div class="description">
@@ -802,11 +836,11 @@ If "autoCreate" is "true", the file is created if it does not already exist.
 
 					<hr />
 				
-					<a name="ext"> </a>
-					<div class="fixedFont">
+					<a name=".ext"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>ext</b>
+					<span class="light">GeckoJS.File.</span><b>ext</b>
 					
 					</div>
 					<div class="description">
@@ -824,11 +858,11 @@ If "autoCreate" is "true", the file is created if it does not already exist.
 
 					<hr />
 				
-					<a name="file"> </a>
-					<div class="fixedFont">
+					<a name=".file"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{nsIFile}</span>
-					<b>file</b>
+					<span class="light">GeckoJS.File.</span><b>file</b>
 					
 					</div>
 					<div class="description">
@@ -846,11 +880,11 @@ If "autoCreate" is "true", the file is created if it does not already exist.
 
 					<hr />
 				
-					<a name="leafName"> </a>
-					<div class="fixedFont">
+					<a name=".leafName"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>leafName</b>
+					<span class="light">GeckoJS.File.</span><b>leafName</b>
 					
 					</div>
 					<div class="description">
@@ -868,11 +902,11 @@ If "autoCreate" is "true", the file is created if it does not already exist.
 
 					<hr />
 				
-					<a name="path"> </a>
-					<div class="fixedFont">
+					<a name=".path"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>path</b>
+					<span class="light">GeckoJS.File.</span><b>path</b>
 					
 					</div>
 					<div class="description">
@@ -890,11 +924,11 @@ If "autoCreate" is "true", the file is created if it does not already exist.
 
 					<hr />
 				
-					<a name="permissions"> </a>
-					<div class="fixedFont">
+					<a name=".permissions"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>permissions</b>
+					<span class="light">GeckoJS.File.</span><b>permissions</b>
 					
 					</div>
 					<div class="description">
@@ -912,11 +946,11 @@ If "autoCreate" is "true", the file is created if it does not already exist.
 
 					<hr />
 				
-					<a name="size"> </a>
-					<div class="fixedFont">
+					<a name=".size"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Int}</span>
-					<b>size</b>
+					<span class="light">GeckoJS.File.</span><b>size</b>
 					
 					</div>
 					<div class="description">
@@ -1301,7 +1335,7 @@ with the given permission.<br/>
 					<a name="getInputCharset"> </a>
 					<div class="fixedFont">
 					
-					
+					<span class="light">{String}</span>
 					<b>getInputCharset</b>()
 					
 					</div>
@@ -1318,6 +1352,13 @@ with the given permission.<br/>
 						
 						
 						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> input charset.</dd>
+							
+							</dl>
+						
 						
 						
 
@@ -1326,7 +1367,7 @@ with the given permission.<br/>
 					<a name="getOutputCharset"> </a>
 					<div class="fixedFont">
 					
-					
+					<span class="light">{String}</span>
 					<b>getOutputCharset</b>()
 					
 					</div>
@@ -1338,6 +1379,49 @@ with the given permission.<br/>
 					
 					
 					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> output charset.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".isDir"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.File.</span><b>isDir</b>(path)
+					
+					</div>
+					<div class="description">
+						Checks if path corresponds to a directory.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>path</b>
+									
+								</dt>
+								<dd>This is the full or partial (to be resolved) path of the file</dd>
+							
+							</dl>
 						
 						
 						
@@ -1406,6 +1490,42 @@ with the given permission.<br/>
 								<dd><span class="light fixedFont">{Boolean}</span> "true" if this File instance is an executable file; "false" otherwise</dd>
 							
 							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".isFile"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.File.</span><b>isFile</b>(path)
+					
+					</div>
+					<div class="description">
+						Checks if path corresponds to a file.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>path</b>
+									
+								</dt>
+								<dd>This is the full or partial (to be resolved) path of the file</dd>
+							
+							</dl>
+						
+						
+						
+						
 						
 						
 						
@@ -1833,7 +1953,7 @@ If errors occur while reading from the file, null is returned.
 					<div class="fixedFont">
 					
 					<span class="light">{String}</span>
-					<b>readLine</b>(hasNext)
+					<b>readLine</b>()
 					
 					</div>
 					<div class="description">
@@ -1845,17 +1965,6 @@ If errors occur while reading from the file, null is returned.
 					
 					
 					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>hasNext</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
 						
 						
 						
@@ -1973,7 +2082,74 @@ return value indicates an error condition:<br/>
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{String}</span> <b>aArgs</b>
+									<span class="light fixedFont">{Array}</span> <b>aArgs</b>
+									
+								</dt>
+								<dd>This is the array of arguments to pass to the executable</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>blocking</b>
+									
+								</dt>
+								<dd>If "true", the method blocks until the process terminates; defaults to false</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> The process ID</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".run"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Number}</span>
+					<span class="light">GeckoJS.File.</span><b>run</b>(path, aArgs, blocking)
+					
+					</div>
+					<div class="description">
+						Spawns a new process to run an executable file.<br/>
+<br/>
+This method runs the executable file corresponding to this GeckoJS.File
+instance in a newly spawned process. The "aArgs" parameter contains a array
+of arguments to pass to this executable on its command line. The "blocking"
+parameter controls whether to block until the process terminates.<br/>
+<br/>
+Normally the process ID of the newly spawn process is returned. A negative
+return value indicates an error condition:<br/>
+<br/>
+ -1: the file does not exist <br/>
+ -2: the file path points to a directory <br/>
+ -3: other exceptions <br/>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>path</b>
+									
+								</dt>
+								<dd>This is the full or partial (to be resolved) path of the file to run</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Array}</span> <b>aArgs</b>
 									
 								</dt>
 								<dd>This is the array of arguments to pass to the executable</dd>
@@ -2022,10 +2198,10 @@ return value indicates an error condition:<br/>
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>charset</b>
+									<span class="light fixedFont">{String}</span> <b>charset</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>set input charset.</dd>
 							
 							</dl>
 						
@@ -2058,10 +2234,10 @@ return value indicates an error condition:<br/>
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>charset</b>
+									<span class="light fixedFont">{String}</span> <b>charset</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>set output charset.</dd>
 							
 							</dl>
 						
@@ -2123,13 +2299,17 @@ buffer can be either an array of bytes or a string of bytes.
 				
 			
 			
+<!-- ============================== event details ========================= -->		
+			
+			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:11 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:59 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

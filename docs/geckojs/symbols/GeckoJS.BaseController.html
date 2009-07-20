@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,7 +305,10 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
+				<br />Extends
+					<a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a>, <a href="../symbols/GeckoJS.Singleton.html">GeckoJS.Singleton</a>.<br />
+				
+			
 				GeckoJS.BaseController is the base Controller class for the VIVIPOS APP
 Engine MVC Framework. The Controller in a Model-View-Controller design
 pattern is responsible for processing and responding to events, such as
@@ -307,11 +316,7 @@ user actions, and invoking changes on the model.<br/>
 <br/>
 GeckoJS.BaseController inherits from NSIController and supports the
 nsIController interface. It is a Singleton class.<br/>
-
-				<br />Extends
-					<a href="../symbols/GeckoJS.NSIController.html#constructor">GeckoJS.NSIController</a>, <a href="../symbols/GeckoJS.Singleton.html#constructor">GeckoJS.Singleton</a>.<br />
 				
-			
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -356,80 +361,80 @@ nsIController interface. It is a Singleton class.<br/>
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.BaseController.html#activeWindow">activeWindow</a></b>
+								GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.activeWindow">activeWindow</a></b>
 								</div>
 								<div class="description">activeWindow's window object || ChromeWindow (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.BaseController.html#command">command</a></b>
+								GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.command">command</a></b>
 								</div>
 								<div class="description">Command from gDispatch</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.BaseController.html#data">data</a></b>
+								GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.data">data</a></b>
 								</div>
 								<div class="description">Data from gDispatch</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.BaseController.html#dispatchedEvents">dispatchedEvents</a></b>
+								GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.dispatchedEvents">dispatchedEvents</a></b>
 								</div>
 								<div class="description">Log of the dispatchedEvents</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.BaseController.html#events">events</a></b>
+								GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.events">events</a></b>
 								</div>
 								<div class="description">A list of event listeners (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.BaseController.html#name">name</a></b>
+								GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.name">name</a></b>
 								</div>
 								<div class="description">Name of this Controller class</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.BaseController.html#Session">Session</a></b>
+								GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.Session">Session</a></b>
 								</div>
 								<div class="description">A session context (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.BaseController.html#topmostWindow">topmostWindow</a></b>
+								GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.topmostWindow">topmostWindow</a></b>
 								</div>
 								<div class="description">topmost window object (read-only)</div>
 							</td>
@@ -461,6 +466,42 @@ nsIController interface. It is a Singleton class.<br/>
 					<tbody>
 					
 						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#_addComponents">_addComponents</a></b>()
+								</div>
+								<div class="description">_addComponents</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#_addControllerEvents">_addControllerEvents</a></b>()
+								</div>
+								<div class="description">_addControllerEvents</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#_addHelpers">_addHelpers</a></b>()
+								</div>
+								<div class="description">_addHelpers</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#_loadModels">_loadModels</a></b>()
+								</div>
+								<div class="description">_loadModels</div>
+							</td>
+						</tr>
+					
+						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.addEventListener">addEventListener</a></b>(aEvent, aListener, thisObj)
@@ -479,18 +520,18 @@ nsIController interface. It is a Singleton class.<br/>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.dispatchEvent">dispatchEvent</a></b>(sEvt, data)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#dispatchEvent">dispatchEvent</a></b>(sEvt, data)
 								</div>
 								<div class="description">Dispatches the given event to all listeners of that event.</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#dispatchEvent">dispatchEvent</a></b>(sEvt, data)
+								<div class="fixedFont">GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.dispatchEvent">dispatchEvent</a></b>(sEvt, data)
 								</div>
 								<div class="description">Dispatches the given event to all listeners of that event.</div>
 							</td>
@@ -516,11 +557,11 @@ instance.</div>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.removeEventListener">removeEventListener</a></b>(aEvent, aListener)
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#init">init</a></b>()
 								</div>
-								<div class="description">Remove a listener for a given event to this BaseController instance.</div>
+								<div class="description">BaseController contructor</div>
 							</td>
 						</tr>
 					
@@ -528,6 +569,15 @@ instance.</div>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/GeckoJS.BaseController.html#removeEventListener">removeEventListener</a></b>(aEvent, aListener)
+								</div>
+								<div class="description">Remove a listener for a given event to this BaseController instance.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.BaseController.<b><a href="../symbols/GeckoJS.BaseController.html#.removeEventListener">removeEventListener</a></b>(aEvent, aListener)
 								</div>
 								<div class="description">Remove a listener for a given event to this BaseController instance.</div>
 							</td>
@@ -548,9 +598,11 @@ instance.</div>
 				
 				
 				<dl class="inheritsList">
-				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.NSIController.html#constructor">GeckoJS.NSIController</a>: </dt><dd><a href="../symbols/GeckoJS.NSIController.html#.appendController">appendController</a>, <a href="../symbols/GeckoJS.NSIController.html#isCommandEnabled">isCommandEnabled</a>, <a href="../symbols/GeckoJS.NSIController.html#onEvent">onEvent</a></dd><dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html#constructor">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#.dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getKeys">getKeys</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getValues">getValues</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#.unserialize">unserialize</a></dd><dt>Methods borrowed from class <a href="../symbols/GeckoJS.Class.html#constructor">GeckoJS.Class</a>: </dt><dd><a href="../symbols/GeckoJS.Class.html#.extend">extend</a></dd><dt>Methods borrowed from class <a href="../symbols/GeckoJS.Singleton.html#constructor">GeckoJS.Singleton</a>: </dt><dd><a href="../symbols/GeckoJS.Singleton.html#.getInstance">getInstance</a>, <a href="../symbols/GeckoJS.Singleton.html#.support">support</a></dd>
+				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a>: </dt><dd><a href="../symbols/GeckoJS.NSIController.html#isCommandEnabled">isCommandEnabled</a>, <a href="../symbols/GeckoJS.NSIController.html#onEvent">onEvent</a></dd><dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#unserialize">unserialize</a></dd>
 				</dl>
 				
+			
+<!-- ============================== events summary ======================== -->
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -589,11 +641,11 @@ instance.</div>
 					Field Detail
 				</div>
 				
-					<a name="activeWindow"> </a>
-					<div class="fixedFont">
+					<a name=".activeWindow"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{ChromeWindow}</span>
-					<b>activeWindow</b>
+					<span class="light">GeckoJS.BaseController.</span><b>activeWindow</b>
 					
 					</div>
 					<div class="description">
@@ -611,11 +663,11 @@ instance.</div>
 
 					<hr />
 				
-					<a name="command"> </a>
-					<div class="fixedFont">
+					<a name=".command"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>command</b>
+					<span class="light">GeckoJS.BaseController.</span><b>command</b>
 					
 					</div>
 					<div class="description">
@@ -633,11 +685,11 @@ instance.</div>
 
 					<hr />
 				
-					<a name="data"> </a>
-					<div class="fixedFont">
+					<a name=".data"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Object}</span>
-					<b>data</b>
+					<span class="light">GeckoJS.BaseController.</span><b>data</b>
 					
 					</div>
 					<div class="description">
@@ -655,11 +707,11 @@ instance.</div>
 
 					<hr />
 				
-					<a name="dispatchedEvents"> </a>
-					<div class="fixedFont">
+					<a name=".dispatchedEvents"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>dispatchedEvents</b>
+					<span class="light">GeckoJS.BaseController.</span><b>dispatchedEvents</b>
 					
 					</div>
 					<div class="description">
@@ -677,11 +729,11 @@ instance.</div>
 
 					<hr />
 				
-					<a name="events"> </a>
-					<div class="fixedFont">
+					<a name=".events"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
-					<span class="light">{<a href="../symbols/GeckoJS.Event.html#constructor">GeckoJS.Event</a>}</span>
-					<b>events</b>
+					<span class="light">{<a href="../symbols/GeckoJS.Event.html">GeckoJS.Event</a>}</span>
+					<span class="light">GeckoJS.BaseController.</span><b>events</b>
 					
 					</div>
 					<div class="description">
@@ -699,11 +751,11 @@ instance.</div>
 
 					<hr />
 				
-					<a name="name"> </a>
-					<div class="fixedFont">
+					<a name=".name"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>name</b>
+					<span class="light">GeckoJS.BaseController.</span><b>name</b>
 					
 					</div>
 					<div class="description">
@@ -721,11 +773,11 @@ instance.</div>
 
 					<hr />
 				
-					<a name="Session"> </a>
-					<div class="fixedFont">
+					<a name=".Session"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
-					<span class="light">{<a href="../symbols/GeckoJS.Session.html#constructor">GeckoJS.Session</a>}</span>
-					<b>Session</b>
+					<span class="light">{<a href="../symbols/GeckoJS.Session.html">GeckoJS.Session</a>}</span>
+					<span class="light">GeckoJS.BaseController.</span><b>Session</b>
 					
 					</div>
 					<div class="description">
@@ -743,11 +795,11 @@ instance.</div>
 
 					<hr />
 				
-					<a name="topmostWindow"> </a>
-					<div class="fixedFont">
+					<a name=".topmostWindow"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{ChromeWindow}</span>
-					<b>topmostWindow</b>
+					<span class="light">GeckoJS.BaseController.</span><b>topmostWindow</b>
 					
 					</div>
 					<div class="description">
@@ -772,6 +824,106 @@ instance.</div>
 				<div class="sectionTitle">
 					Method Detail
 				</div>
+				
+					<a name="_addComponents"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>_addComponents</b>()
+					
+					</div>
+					<div class="description">
+						_addComponents
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="_addControllerEvents"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>_addControllerEvents</b>()
+					
+					</div>
+					<div class="description">
+						_addControllerEvents
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="_addHelpers"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>_addHelpers</b>()
+					
+					</div>
+					<div class="description">
+						_addHelpers
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="_loadModels"> </a>
+					<div class="fixedFont">&lt;private&gt; 
+					
+					
+					<b>_loadModels</b>()
+					
+					</div>
+					<div class="description">
+						_loadModels
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
 				
 					<a name=".addEventListener"> </a>
 					<div class="fixedFont">&lt;static&gt; 
@@ -869,60 +1021,6 @@ instance.</div>
 
 					<hr />
 				
-					<a name=".dispatchEvent"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					<span class="light">{Boolean}</span>
-					<span class="light">GeckoJS.BaseController.</span><b>dispatchEvent</b>(sEvt, data)
-					
-					</div>
-					<div class="description">
-						Dispatches the given event to all listeners of that event.<br/>
-<br/>
-This method creates an EventItem instance from (sEvt, data, "this") to pass to
-the event listeners. If any of the listeners invokes the preventDefault() method on
-the EventItem instance, this method will return "false". Otherwise it returns
-"true".
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{String}</span> <b>sEvt</b>
-									
-								</dt>
-								<dd>This is the event name</dd>
-							
-								<dt>
-									<span class="light fixedFont">{Object}</span> <b>data</b>
-									
-								</dt>
-								<dd>This is the event data</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{Boolean}</span> Whether preventDefault() has been invoked</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
 					<a name="dispatchEvent"> </a>
 					<div class="fixedFont">
 					
@@ -969,6 +1067,60 @@ the EventItem instance, this method will return "false". Otherwise it returns
 							<dt class="heading">Returns:</dt>
 							
 								<dd><span class="light fixedFont">{Boolean}</span> The return value is false, if at least one of the event handlers which handled this event, called preventDefault. Otherwise it returns true.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".dispatchEvent"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Boolean}</span>
+					<span class="light">GeckoJS.BaseController.</span><b>dispatchEvent</b>(sEvt, data)
+					
+					</div>
+					<div class="description">
+						Dispatches the given event to all listeners of that event.<br/>
+<br/>
+This method creates an EventItem instance from (sEvt, data, "this") to pass to
+the event listeners. If any of the listeners invokes the preventDefault() method on
+the EventItem instance, this method will return "false". Otherwise it returns
+"true".
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>sEvt</b>
+									
+								</dt>
+								<dd>This is the event name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>data</b>
+									
+								</dt>
+								<dd>This is the event data</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> Whether preventDefault() has been invoked</dd>
 							
 							</dl>
 						
@@ -1037,7 +1189,7 @@ event data.
 					<a name="getEvents"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{<a href="../symbols/GeckoJS.Event.html#constructor">GeckoJS.Event</a>}</span>
+					<span class="light">{<a href="../symbols/GeckoJS.Event.html">GeckoJS.Event</a>}</span>
 					<b>getEvents</b>()
 					
 					</div>
@@ -1058,7 +1210,7 @@ instance.
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Event.html#constructor">GeckoJS.Event</a>}</span> The list of event listeners</dd>
+								<dd><span class="light fixedFont">{<a href="../symbols/GeckoJS.Event.html">GeckoJS.Event</a>}</span> The list of event listeners</dd>
 							
 							</dl>
 						
@@ -1067,38 +1219,21 @@ instance.
 
 					<hr />
 				
-					<a name=".removeEventListener"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="init"> </a>
+					<div class="fixedFont">
 					
 					
-					<span class="light">GeckoJS.BaseController.</span><b>removeEventListener</b>(aEvent, aListener)
+					<b>init</b>()
 					
 					</div>
 					<div class="description">
-						Remove a listener for a given event to this BaseController instance.
+						BaseController contructor
 						
 						
 					</div>
 					
 					
 					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{String}</span> <b>aEvent</b>
-									
-								</dt>
-								<dd>This is the event name</dd>
-							
-								<dt>
-									<span class="light fixedFont">{Function}</span> <b>aListener</b>
-									
-								</dt>
-								<dd>This is the listener to remove</dd>
-							
-							</dl>
 						
 						
 						
@@ -1130,6 +1265,48 @@ instance.
 							
 								<dt>
 									<span class="light fixedFont">{String|Array}</span> <b>aEvent</b>
+									
+								</dt>
+								<dd>This is the event name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Function}</span> <b>aListener</b>
+									
+								</dt>
+								<dd>This is the listener to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".removeEventListener"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">GeckoJS.BaseController.</span><b>removeEventListener</b>(aEvent, aListener)
+					
+					</div>
+					<div class="description">
+						Remove a listener for a given event to this BaseController instance.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>aEvent</b>
 									
 								</dt>
 								<dd>This is the event name</dd>
@@ -1201,13 +1378,17 @@ if scaffold is true , and dispatch to scaffold , don't warning messages.
 				
 			
 			
+<!-- ============================== event details ========================= -->		
+			
+			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:09 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:57 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

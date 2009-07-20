@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,13 +305,12 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
+				
+			
 				GeckoJS.Dir provides a logical representation of a directory in the
 local file system. Through GeckoJS.Dir, local directories may be created,
 read, written to, queried, and otherwise manipulated.<br/>
-
 				
-			
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -351,50 +356,50 @@ a directory path.</div>
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Dir.html#dateModified">dateModified</a></b>
+								GeckoJS.Dir.<b><a href="../symbols/GeckoJS.Dir.html#.dateModified">dateModified</a></b>
 								</div>
 								<div class="description">The time when the directory was last modified (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Dir.html#file">file</a></b>
+								GeckoJS.Dir.<b><a href="../symbols/GeckoJS.Dir.html#.file">file</a></b>
 								</div>
 								<div class="description">A reference to the directory location (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Dir.html#leafName">leafName</a></b>
+								GeckoJS.Dir.<b><a href="../symbols/GeckoJS.Dir.html#.leafName">leafName</a></b>
 								</div>
 								<div class="description">The file name without any prefix components (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Dir.html#path">path</a></b>
+								GeckoJS.Dir.<b><a href="../symbols/GeckoJS.Dir.html#.path">path</a></b>
 								</div>
 								<div class="description">The full path for the directory (read-only)</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Dir.html#permissions">permissions</a></b>
+								GeckoJS.Dir.<b><a href="../symbols/GeckoJS.Dir.html#.permissions">permissions</a></b>
 								</div>
 								<div class="description">The Unix-style file permission bits (read-only)</div>
 							</td>
@@ -481,6 +486,8 @@ a directory path.</div>
 				
 				
 			
+<!-- ============================== events summary ======================== -->
+			
 
 <!-- ============================== constructor details ==================== -->		
 			
@@ -539,11 +546,11 @@ already exist.<br/>
 					Field Detail
 				</div>
 				
-					<a name="dateModified"> </a>
-					<div class="fixedFont">
+					<a name=".dateModified"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>dateModified</b>
+					<span class="light">GeckoJS.Dir.</span><b>dateModified</b>
 					
 					</div>
 					<div class="description">
@@ -561,11 +568,11 @@ already exist.<br/>
 
 					<hr />
 				
-					<a name="file"> </a>
-					<div class="fixedFont">
+					<a name=".file"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{nsIFile}</span>
-					<b>file</b>
+					<span class="light">GeckoJS.Dir.</span><b>file</b>
 					
 					</div>
 					<div class="description">
@@ -583,11 +590,11 @@ already exist.<br/>
 
 					<hr />
 				
-					<a name="leafName"> </a>
-					<div class="fixedFont">
+					<a name=".leafName"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>leafName</b>
+					<span class="light">GeckoJS.Dir.</span><b>leafName</b>
 					
 					</div>
 					<div class="description">
@@ -605,11 +612,11 @@ already exist.<br/>
 
 					<hr />
 				
-					<a name="path"> </a>
-					<div class="fixedFont">
+					<a name=".path"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>path</b>
+					<span class="light">GeckoJS.Dir.</span><b>path</b>
 					
 					</div>
 					<div class="description">
@@ -627,11 +634,11 @@ already exist.<br/>
 
 					<hr />
 				
-					<a name="permissions"> </a>
-					<div class="fixedFont">
+					<a name=".permissions"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{String}</span>
-					<b>permissions</b>
+					<span class="light">GeckoJS.Dir.</span><b>permissions</b>
 					
 					</div>
 					<div class="description">
@@ -940,13 +947,17 @@ one of the following error code:<br/>
 				
 			
 			
+<!-- ============================== event details ========================= -->		
+			
+			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:10 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:58 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

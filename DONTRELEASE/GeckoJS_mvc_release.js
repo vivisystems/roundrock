@@ -34,7 +34,18 @@ GREUtils.define('GeckoJS.ClassRegistry', GeckoJS.global);
  * @property {GeckoJS.Event} events   A set of event listeners for updates on the registry (read-only)
  * @property {GeckoJS.Map} map        A collection of the key-object pairs stored in the registry (read-only)
  */
-GeckoJS.ClassRegistry = GeckoJS.BaseObject.extend('ClassRegistry', {
+GeckoJS.ClassRegistry = GeckoJS.BaseObject.extend('ClassRegistry',
+/** @lends GeckoJS.ClassRegistry.prototype */
+{
+    /**
+     * ClassRegistry contructor
+     *
+     * initial _events and _map
+     *
+     * @name GeckoJS.ClassRegistry#init
+     * @public
+     * @function
+     */
     init: function(){
 
         this._events = new GeckoJS.Event();
@@ -59,6 +70,7 @@ GeckoJS.ClassRegistry.prototype.__defineGetter__('map', function(){
 /**
  * Returns the set of event listeners associated with the registry.
  *
+ * @name GeckoJS.ClassRegistry#getEvents
  * @public
  * @function
  * @return {GeckoJS.Event}            The set of event listeners associated with the registry
@@ -71,6 +83,7 @@ GeckoJS.ClassRegistry.prototype.getEvents = function(){
 /**
  * Returns the collection of key-object pairs stored in the registry.
  *
+ * @name GeckoJS.ClassRegistry#getMap
  * @public
  * @function
  * @return {GeckoJS.Map}              The collection of the key-object pairs stored in the registry
@@ -91,6 +104,7 @@ GeckoJS.ClassRegistry.prototype.getMap = function(){
  * instance is passed to the event listeners as the event data
  * (in the field "eventItem.data").
  *
+ * @name GeckoJS.ClassRegistry#flush
  * @public
  * @function
  */
@@ -109,6 +123,7 @@ GeckoJS.ClassRegistry.prototype.flush = function(){
  * instance is passed to the event listeners as the event data
  * (in the field "eventItem.data").
  *
+ * @name GeckoJS.ClassRegistry.flush
  * @public
  * @static
  * @function
@@ -125,8 +140,8 @@ GeckoJS.ClassRegistry.flush = function(){
  * after the object has been removed. The key is passed to the event listeners
  * as the event data (in the field "eventItem.data").
  *
+ * @name GeckoJS.ClassRegistry#removeObject
  * @public
- * @static
  * @function
  * @param {String} key                This is the key that identifies the object to remove
  */
@@ -144,7 +159,9 @@ GeckoJS.ClassRegistry.prototype.removeObject = function(key){
  * after the object has been removed. The key is passed to the event listeners
  * as the event data (in the field "eventItem.data").
  *
+ * @name GeckoJS.ClassRegistry.removeObject
  * @public
+ * @static
  * @function
  * @param {String} key                This is the key that identifies the object to remove
  */
@@ -165,6 +182,7 @@ GeckoJS.ClassRegistry.removeObject = function(key){
  * Any existing object in the registry associated with the key is replaced by the
  * new object.
  *
+ * @name GeckoJS.ClassRegistry#addObject
  * @public
  * @function
  * @param {String} key                This is the key used to register the object
@@ -187,6 +205,7 @@ GeckoJS.ClassRegistry.prototype.addObject = function(key, obj){
  * Any existing object in the registry associated with the key is replaced by the
  * new object.
  *
+ * @name GeckoJS.ClassRegistry.addObject
  * @public
  * @static
  * @function
@@ -210,6 +229,7 @@ GeckoJS.ClassRegistry.addObject = function(key, obj){
  * Any existing object in the registry associated with the key is replaced by the
  * new object.
  *
+ * @name GeckoJS.ClassRegistry#setObject
  * @public
  * @function
  * @param {String} key                This is the key used to register the object
@@ -236,6 +256,7 @@ GeckoJS.ClassRegistry.prototype.setObject = function(key, obj){
  * Any existing object in the registry associated with the key is replaced by the
  * new object.
  *
+ * @name GeckoJS.ClassRegistry.setObject
  * @public
  * @static
  * @function
@@ -252,6 +273,7 @@ GeckoJS.ClassRegistry.setObject = function(key, obj){
  * <br/>
  * This method returns null if the key has not been registered.
  *
+ * @name GeckoJS.ClassRegistry#getObject
  * @public
  * @function
  * @param {String} key                This is the key that identifies the object to retrieve
@@ -267,6 +289,7 @@ GeckoJS.ClassRegistry.prototype.getObject = function(key){
  * <br/>
  * This method returns null if the key has not been registered.
  *
+ * @name GeckoJS.ClassRegistry.getObject
  * @public
  * @static
  * @function
@@ -281,6 +304,7 @@ GeckoJS.ClassRegistry.getObject = function(key){
 /**
  * Checks if the given key has been registered.
  *
+ * @name GeckoJS.ClassRegistry#isKeySet
  * @public
  * @function
  * @param {String} key                This is the key to check
@@ -294,6 +318,7 @@ GeckoJS.ClassRegistry.prototype.isKeySet = function(key){
 /**
  * Checks if the given key has been registered.
  *
+ * @name GeckoJS.ClassRegistry.isKeySet
  * @public
  * @static
  * @function
@@ -308,6 +333,7 @@ GeckoJS.ClassRegistry.isKeySet = function(key){
 /**
  * Returns all the keys that have been registered.
  *
+ * @name GeckoJS.ClassRegistry#keys
  * @public
  * @function
  * @return {Object}                    An array containing all the keys in the registry
@@ -319,7 +345,8 @@ GeckoJS.ClassRegistry.prototype.keys = function(){
 
 /**
  * Returns all the keys that have been registered.
- *    
+ *
+ * @name GeckoJS.ClassRegistry.keys
  * @public
  * @static 
  * @function
@@ -336,6 +363,7 @@ GeckoJS.ClassRegistry.keys = function(){
  * The clone() method from GeckoJS.BaseObject is overridden in
  * GeckoJS.ClassRegistry with a dummy method.
  *
+ * @name GeckoJS.ClassRegistry#clone
  * @public
  * @function
  */
@@ -360,15 +388,26 @@ GREUtils.define('GeckoJS.Model', GeckoJS.global);
  * @class GeckoJS.Model inherits from GeckoJS.BaseModel and is intended to be
  * extended by applications that require specialized model behaviors.<br/>
  *
- * @class GeckoJS.Model 
+ * @name GeckoJS.Model
  * @extends GeckoJS.BaseModel 
  *
  * @property {Number} cursor       a last cursor of cachedDatas
  *
  */
-GeckoJS.Model = GeckoJS.BaseModel.extend('Model', {
+GeckoJS.Model = GeckoJS.BaseModel.extend('Model', 
+/** @lends GeckoJS.Model.prototype */
+{
     name: 'Model',
 
+    /**
+     * GeckoJS.Model contructor
+     *
+     * @name GeckoJS.Model#init
+     * @public
+     * @function
+     * @param {Object} data
+     * @param {Number} recursive
+     */
     init: function(data, recursive) {
         this._super(data, recursive);
     }
@@ -380,7 +419,11 @@ GeckoJS.Model.unnamedCounter = 1;
 
 /**
  * addObject to ClassRegistry, when Model has been extended.
+ *
+ * @name GeckoJS.Model.extended
  * @private
+ * @function
+ * @static
  */
 GeckoJS.Model.extended = function(klass) {
     
@@ -398,6 +441,7 @@ GeckoJS.Model.extended = function(klass) {
 /**
  * Registers the Model sub-class in the Class Registry.
  *
+ * @name GeckoJS.Model.setModelClass
  * @public
  * @static
  * @function
@@ -422,6 +466,7 @@ GeckoJS.Model.setModelClass = function(name, klass) {
 /**
  * Retrieves the Model sub-class object by name from the Class Registry.
  *
+ * @name GeckoJS.Model.getModelClass
  * @public
  * @static
  * @function
@@ -437,6 +482,7 @@ GeckoJS.Model.getModelClass = function(name) {
 /**
  * Instantiates a model by name.
  *
+ * @name GeckoJS.Model.getInstanceByName
  * @public
  * @static
  * @function
@@ -464,7 +510,10 @@ GeckoJS.Model.getInstanceByName = function(name) {
 /**
  * _generateAssociation
  *
+ * @name GeckoJS.Model#_generateAssociation
  * @private
+ * @function
+ * @param {Number} recursive
  * 
  */
 GeckoJS.Model.prototype._generateAssociation =	function (recursive) {
@@ -536,7 +585,11 @@ GeckoJS.Model.prototype._generateAssociation =	function (recursive) {
 /**
  * _getAssociationModel
  *
+ * @name GeckoJS.Model#_getAssociationModel
  * @private
+ * @function
+ * @param {String} name
+ * @param {Number} recursive
  * @return {Class}
  */
 GeckoJS.Model.prototype._getAssociationModel = function(name, recursive) {
@@ -561,7 +614,9 @@ GeckoJS.Model.prototype._getAssociationModel = function(name, recursive) {
 /**
  * _addModelEvents
  *
+ * @name GeckoJS.Model#_addModelEvents
  * @private
+ * @function
  */
 GeckoJS.Model.prototype._addModelEvents = function() {
     
@@ -591,7 +646,9 @@ GeckoJS.Model.prototype._addModelEvents = function() {
 /**
  * _addBehaviors
  *
+ * @name GeckoJS.Model#_addBehaviors
  * @private
+ * @function
  */
 GeckoJS.Model.prototype._addBehaviors = function() {
 
@@ -660,9 +717,20 @@ GREUtils.define('GeckoJS.Behavior', GeckoJS.global);
  * @param {String} config                Name of the database configuration to use
  */
 
-GeckoJS.Behavior = GeckoJS.BaseObject.extend('Behavior', {
+GeckoJS.Behavior = GeckoJS.BaseObject.extend('Behavior',
+/** @lends GeckoJS.Behavior.prototype */
+{
     name: 'Behavior',
 
+    /**
+     * GeckoJS.Behavior contructor
+     *
+     * @name GeckoJS.Behavior#init
+     * @public
+     * @function
+     * @param {GeckoJS.Model} model
+     * @param {Object} config
+     */
     init: function(model, config) {
         this._model = model || null;
         this._config = config || {};
@@ -683,6 +751,11 @@ GeckoJS.Behavior.unnamedCounter = 1;
 
 /**
  * addObject to ClassRegistry, when Behavior has been extended.
+ *
+ * @name GeckoJS.Behavior.extended
+ * @public
+ * @static
+ * @function
  */
 GeckoJS.Behavior.extended = function(klass) {
 
@@ -700,6 +773,7 @@ GeckoJS.Behavior.extended = function(klass) {
 /**
  * Registers the Behavior sub-class in the Class Registry.
  *
+ * @name GeckoJS.Behavior.setBehaviorClass
  * @public
  * @static
  * @function   
@@ -717,6 +791,7 @@ GeckoJS.Behavior.setBehaviorClass = function(name, klass) {
 /**
  * Retrieves the Behavior sub-class object by name from the Class Registry.
  *
+ * @name GeckoJS.Behavior.getBehaviorClass
  * @public
  * @static
  * @function   
@@ -746,6 +821,7 @@ GeckoJS.Behavior.prototype.__defineGetter__('config', function(){
  * The "type" and the "params" parameters from the find() operation are passed
  * to this event handler in the event.data field.
  *
+ * @name GeckoJS.Behavior#beforeFind
  * @public
  * @function  
  * @param {GeckoJS.EventItem} event         This is the "beforeFind" event data containing the "type" and "params" parameters from the find() invocation
@@ -765,6 +841,7 @@ GeckoJS.Behavior.prototype.beforeFind = function(event) {
  * <br/>
  * This method can be used to modify the results returned by find().
  *
+ * @name GeckoJS.Behavior#afterFind
  * @public
  * @function  
  * @param {GeckoJS.EventItem} event         This is the "afterFind" event data containing the results from the find() invocation
@@ -783,6 +860,7 @@ GeckoJS.Behavior.prototype.afterFind = function(event) {
  * The data to save is passed to this event handler in the event.data field.
  * This data is identical to "this.model.data". 
  *
+ * @name GeckoJS.Behavior#beforeSave
  * @public
  * @function  
  * @param {GeckoJS.EventItem} event         This is the "beforeSave" event data containing the data from the save() invocation
@@ -799,6 +877,7 @@ GeckoJS.Behavior.prototype.beforeSave = function(event) {
  * A boolean value is passed to this event handler in the event.data field
  * indicating if the save() operation created a new record. 
  *
+ * @name GeckoJS.Behavior#afterSave
  * @public
  * @function  
  * @param {GeckoJS.EventItem} event         This is the "afterSave" event data containing a boolean flag indicating if a new record has been created by the save() invocation
@@ -815,6 +894,7 @@ GeckoJS.Behavior.prototype.afterSave = function(event) {
  * The model id to delete is passed to this event handler in the event.data
  * field.
  *
+ * @name GeckoJS.Behavior#beforeDelete
  * @public
  * @function  
  * @param {GeckoJS.EventItem} event         This is the "beforeDelete" event data containing the model id from the delete() invocation
@@ -830,6 +910,7 @@ GeckoJS.Behavior.prototype.beforeDelete = function(event) {
  * The model id to delete is passed to this event handler in the event.data
  * field.
  *
+ * @name GeckoJS.Behavior#afterDelete
  * @public
  * @function  
  * @param {GeckoJS.EventItem} event         This is the "afterDelete" event data containing the model id from the delete() invocation
@@ -844,6 +925,7 @@ GeckoJS.Behavior.prototype.afterDelete = function(event) {
  * <br/>
  * This method is invoked before the model carries out a truncate() operation.
  *
+ * @name GeckoJS.Behavior#beforeTruncate
  * @public
  * @function
  * @param {GeckoJS.EventItem} event         This is the "beforeTruncate" event data containing the model id from the truncate() invocation
@@ -857,6 +939,7 @@ GeckoJS.Behavior.prototype.beforeTruncate = function(event) {
  * <br/>
  * This method is invoked after the model carries out a truncate() operation.
  *
+ * @name GeckoJS.Behavior#afterTruncate
  * @public
  * @function
  * @param {GeckoJS.EventItem} event         This is the "afterTruncate" event data containing the model id from the truncate() invocation
@@ -867,6 +950,7 @@ GeckoJS.Behavior.prototype.afterTruncate = function(event) {
 /**
  * Defines GeckoJS.Controller namespace
  *
+ * @public
  * @namespace
  */
 GREUtils.define('GeckoJS.Controller', GeckoJS.global);
@@ -898,8 +982,10 @@ GeckoJS.Controller.unnamedCounter = 1;
 
 /**
  * addObject to ClassRegistry, when BaseController has been extended.
- * 
+ *
+ * @name GeckoJS.Controller.extended
  * @private
+ * @function
  */
 GeckoJS.Controller.extended = function(klass) {
 
@@ -916,6 +1002,7 @@ GeckoJS.Controller.extended = function(klass) {
 /**
  * Registers the Controller sub-class in the Class Registry.
  *
+ * @name GeckoJS.Controller.setControllerClass
  * @public
  * @static
  * @function
@@ -939,6 +1026,7 @@ GeckoJS.Controller.setControllerClass = function(name, klass) {
 /**
  * Retrieves the Controller sub-class object by name from the Class Registry.
  *
+ * @name GeckoJS.Controller.getControllerClass
  * @public
  * @static
  * @function
@@ -954,6 +1042,7 @@ GeckoJS.Controller.getControllerClass = function(name) {
 /**
  * Retrieves a controller's Singleton instance by the controller's name.
  *
+ * @name GeckoJS.Controller.getInstanceByName
  * @public
  * @static
  * @function
@@ -1002,7 +1091,9 @@ GeckoJS.Controller.prototype.__defineGetter__('window', function(){
 /**
  * _addComponents
  *
+ * @name GeckoJS.Controller#_addComponents
  * @private
+ * @function
  */
 GeckoJS.Controller.prototype._addComponents = function() {
 
@@ -1030,7 +1121,9 @@ GeckoJS.Controller.prototype._addComponents = function() {
 /**
  * _addHelpers
  *
+ * @name GeckoJS.Controller#_addHelpers
  * @private
+ * @function
  */
 GeckoJS.Controller.prototype._addHelpers = function() {
 
@@ -1061,7 +1154,9 @@ GeckoJS.Controller.prototype._addHelpers = function() {
 /**
  * _loadModels
  *
+ * @name GeckoJS.Controller#_loadModels
  * @private
+ * @function
  */
 GeckoJS.Controller.prototype._loadModels = function() {
 
@@ -1097,6 +1192,7 @@ GeckoJS.Controller.prototype._loadModels = function() {
 /**
  * Dispatches a command to a controller.
  *
+ * @name GeckoJS.Controller#requestCommand
  * @public
  * @function
  * @param {String} command              This is the command to dispatch
@@ -1112,6 +1208,7 @@ GeckoJS.Controller.prototype.requestCommand = function(command, data, context) {
 /**
  * Dispatches a command to a controller.
  *
+ * @name GeckoJS.Controller#newScaffold
  * @public
  * @function
  * @param {String} command              This is the command to dispatch
@@ -1122,7 +1219,6 @@ GeckoJS.Controller.prototype.requestCommand = function(command, data, context) {
 GeckoJS.Controller.prototype.newScaffold = function() {
     this.wrappedJSObject['Scaffold'] = new GeckoJS.Scaffold(this);
 };
-
 /**
  * Defines GeckoJS.Component namespace
  *
@@ -1179,6 +1275,7 @@ GeckoJS.Component.extended = function(klass) {
 /**
  * Registers the Component sub-class in the Class Registry.
  *
+ * @name GeckoJS.Component.setComponentClass
  * @public
  * @static
  * @function   
@@ -1196,6 +1293,7 @@ GeckoJS.Component.setComponentClass = function(name, klass) {
 /**
  * Retrieves the Component sub-class object by name from the Class Registry.
  *
+ * @name GeckoJS.Component.getComponentClass
  * @public
  * @static
  * @function   
@@ -1215,12 +1313,14 @@ GeckoJS.Component.prototype.__defineGetter__('controller', function(){
 GeckoJS.Component.prototype.__defineSetter__('controller', function(controller){
     this._controller = controller;
 });
+
 /**
  * Defines GeckoJS.AclComponent namespace
  *
+ * @public
+ * @namespace
  */
 GREUtils.define('GeckoJS.AclComponent', GeckoJS.global);
-
 
 /**
  * Creates a new GeckoJS.AclComponent instance.
@@ -1244,7 +1344,8 @@ GREUtils.define('GeckoJS.AclComponent', GeckoJS.global);
  * @extends GeckoJS.Component
  *
  */
-GeckoJS.AclComponent = GeckoJS.Component.extend({
+GeckoJS.AclComponent = GeckoJS.Component.extend(
+{
     name: 'Acl',
 
     userModel: GeckoJS.Model.extend({
@@ -1288,9 +1389,10 @@ GeckoJS.AclComponent = GeckoJS.Component.extend({
  *   - Roles
  *   - Groups
  * </pre>
- * 
+ *
+ * @name GeckoJS.AclComponent#securityCheck
  * @public
- * @function   
+ * @function
  * @param {String} username           This is the user's login
  * @param {String} password           This is the password
  * @param {Boolean} checkOnly         This flag, if true, indicates that the user shall not be logged in
@@ -1391,6 +1493,7 @@ GeckoJS.AclComponent.prototype.securityCheck = function (username, password, che
  *   - Groups
  * </pre>
  *
+ * @name GeckoJS.AclComponent#securityCheckByPassword
  * @public
  * @function
  * @param {String} password           This is the password
@@ -1423,7 +1526,8 @@ GeckoJS.AclComponent.prototype.securityCheckByPassword = function (password, che
 /**
  * Logs out the current user and removes his credentials from the application
  * Session singleton. 
- *  
+ *
+ * @name GeckoJS.AclComponent#invalidate
  * @public
  * @function   
  */
@@ -1444,6 +1548,7 @@ GeckoJS.AclComponent.prototype.invalidate = function () {
  * user. If the current user has not been authenticated, the method returns
  * null.
  *
+ * @name GeckoJS.AclComponent.getUserPrincipal
  * @public
  * @function
  * @static
@@ -1463,6 +1568,7 @@ GeckoJS.AclComponent.getUserPrincipal = function() {
  * user. If the current user has not been authenticated, the method returns
  * null.
  *
+ * @name GeckoJS.AclComponent#getUserPrincipal
  * @public
  * @function
  * @return {Object}             An object containing the credentials of the user making this request; null if the user has not been authenticated
@@ -1481,6 +1587,7 @@ GeckoJS.AclComponent.prototype.getUserPrincipal = function() {
  * <br/>
  * If the current user has not been authenticated, the method returns false.
  *
+ * @name GeckoJS.AclComponent.isUserInRole
  * @public
  * @function
  * @param {String} roleName       This is the name of the role or use ',' for multiple roles
@@ -1529,6 +1636,7 @@ GeckoJS.AclComponent.isUserInRole = function(roleName) {
  * <br/>
  * If the current user has not been authenticated, the method returns false.
  *
+ * @name GeckoJS.AclComponent#isUserInRole
  * @public
  * @function  
  * @param {String} roleName       This is the name of the role or use ',' for multiple roles
@@ -1547,6 +1655,7 @@ GeckoJS.AclComponent.prototype.isUserInRole = function(roleName) {
  * uuid is returned. A return value of "false" indicates that an error occurred
  * while adding the ACL user.  
  *
+ * @name GeckoJS.AclComponent#addUser
  * @public
  * @function  
  * @param {String} username           The login of the user to add
@@ -1594,6 +1703,7 @@ GeckoJS.AclComponent.prototype.addUser = function(username, password, userDescri
  * Returns "true" if the ACL user has been successfully removed; "false"
  * otherwise.    
  *
+ * @name GeckoJS.AclComponent#removeUser
  * @public
  * @function  
  * @param {String} username           This is the login of the user to add
@@ -1642,7 +1752,8 @@ GeckoJS.AclComponent.prototype.removeUser = function(username, cascade) {
  * Changes an ACL user's password.<br/>
  * <br/>
  * If the ACL user does not exist, "false" is returned.
- *   
+ *
+ * @name GeckoJS.AclComponent#changeUserPassword
  * @public
  * @function  
  * @param {String} username     This is the login of the user to change password for
@@ -1679,115 +1790,15 @@ GeckoJS.AclComponent.prototype.changeUserPassword = function(username, password)
 
 
 /**
- * Adds an ACL role.<br/>
- * <br/>
- * If the role does not exist, it is added and its uuid is returned.
- * If the role already exists, it is not added again, and the
- * method returns "false". 
- *
- * @public
- * @function  
- * @param {String} roleName         This is the name of the role to add
- * @param {String} roleDescription  This is a description of the role
- * @return {Boolean|String}         The new ACL role uuid, or "false" if the role fails to be added
- */
-/*
-GeckoJS.AclComponent.prototype.addRole = function(roleName, roleDescription) {
-    
-    roleName = roleName || null;
-    roleDescription = roleDescription || roleName;
-        
-    // no roleName parameter return false
-    if (roleName == null) return false;
-         
-         
-    var roleModel = new this.roleModel;
-    var count = roleModel.find("count", {
-        conditions: "name='"+roleName+"'"
-    });
-    if (count >0) return false;
-    
-    roleModel.create();
-    roleModel.save({
-        name: roleName,
-        description: roleDescription
-    });
-   
-    var id =  roleModel.id;
-    
-    delete roleModel;
-    
-    return id;
-
-
-};
-*/
-
-/**
- * Removes an ACL role. This automatically removes the role from all ACL groups
- * to which the role has been added.<br/>
- * <br/>
- * If the role does not exist, "false" is returned.
- *
- * @public
- * @function  
- * @param {String} roleName         This is the name of the role to remove
- * @return {Boolean}                "true" if the role is successfully removed; "false" otherwise
- */
-/*
-GeckoJS.AclComponent.prototype.removeRole = function(roleName) {
-    
-    roleName = roleName || null;
-        
-    // no roleName parameter return false
-    if (roleName == null) return false;
-         
-         
-    var roleModel = new this.roleModel;
-    var role = roleModel.find("first", {
-        conditions: "name='"+roleName+"'"
-    });
-
-    if (role == null) return false;
-
-    var roleId = role.id;
-
-    // remove
-    roleModel.id = roleId;
-    roleModel.del(roleId);
-    
-    delete roleModel;
-
-    // remove cascade grouprole
-    var groupRoleModel = new this.groupRoleModel;
-
-    var cond = "acl_role_id='"+roleId+"'";
-    var groupRoles  = groupRoleModel.find('all', {
-        conditions: cond
-    });
-    
-    if (groupRoles == null || groupRoles.length == 0) return true;
-    
-    groupRoles.forEach(function(groupRole) {
-        var grId = groupRole.id;
-        groupRoleModel.id = grId;
-        groupRoleModel.del(grId);
-    });
-    
-    delete groupRoleModel;
-
-    return true;
-
-};
-*/
-
-/**
  * Adds an ACL group.<br/>
  * <br/>
  * If the group does not exist, it is added and its uuid is returned.
  * If the group already exists, it is not added again, and the
  * method returns "false".
  *
+ * @name GeckoJS.AclComponent#addGroup
+ * @public
+ * @function
  * @param {String} groupName          This is the name of the group to add
  * @param {String} groupDescription   This is a description of the group
  * @return {Boolean|String}           The new ACL group uuid, or "false" if the group fails to be added
@@ -1824,6 +1835,7 @@ GeckoJS.AclComponent.prototype.addGroup = function(groupName, groupDescription) 
  * <br/>
  * If the group does not exist, "false" is returned.
  *
+ * @name GeckoJS.AclComponent#removeGroup
  * @public
  * @function  
  * @param {String} groupName        This is the name of the group to remove
@@ -1878,7 +1890,8 @@ GeckoJS.AclComponent.prototype.removeGroup = function(groupName) {
  * Adds an ACL user to an ACL group.<br/>
  * <br/>
  * No action is taken if the user is already a membership of the given group.
- * 
+ *
+ * @name GeckoJS.AclComponent#addUserToGroup
  * @public
  * @function  
  * @param {String} username             This is the login of the user to add to group
@@ -1935,6 +1948,7 @@ GeckoJS.AclComponent.prototype.addUserToGroup = function(username, groupName) {
 /**
  * Removes an ACL user from an ACL group.
  *
+ * @name GeckoJS.AclComponent#removeUserFromGroup
  * @public
  * @function  
  * @param {String} username             This is the login of the user to remove from the group
@@ -1988,6 +2002,9 @@ GeckoJS.AclComponent.prototype.removeUserFromGroup = function(username, groupNam
  * If the role has already been assigned to the group, it is not assigned
  * again, and the method returns "false".
  *
+ * @name GeckoJS.AclComponent#addRoleToGroup
+ * @public
+ * @function
  * @param {String} groupName      This is the group to assign the role to
  * @param {String} roleName       This is the role to assign to the group
  * @return {String|Boolean}       The groupRole uuid if the role is successfully assigned; "false" otherwise
@@ -2042,6 +2059,7 @@ GeckoJS.AclComponent.prototype.addRoleToGroup = function(groupName, roleName) {
 /**
  * Removes an ACL role from an ACL group.
  *
+ * @name GeckoJS.AclComponent#removeRoleFromGroup
  * @public
  * @function  
  * @param {String} groupName          This is the group from which to remove the role
@@ -2098,6 +2116,7 @@ GeckoJS.AclComponent.prototype.removeRoleFromGroup = function(groupName, roleNam
 /**
  * Retrievs the list of ACL users that satisfy the given conditions.
  *
+ * @name GeckoJS.AclComponent#getUserList
  * @public
  * @function  
  * @param {String} conditions          This is the criteria used to filter the users
@@ -2124,6 +2143,7 @@ GeckoJS.AclComponent.prototype.getUserList = function(conditions) {
 /**
  * Retrieves the list of ACL users in a given group.
  *
+ * @name GeckoJS.AclComponent#getUserListInGroup
  * @public
  * @function  
  * @param {String} groupName          This is the name of the group
@@ -2163,6 +2183,7 @@ GeckoJS.AclComponent.prototype.getUserListInGroup = function(groupName) {
 /**
  * Retrievs the list of ACL groups that satisfy the given conditions.
  *
+ * @name GeckoJS.AclComponent#getGroupList
  * @public
  * @function  
  * @param {String} conditions          This is the criteria used to filter the groups
@@ -2190,6 +2211,7 @@ GeckoJS.AclComponent.prototype.getGroupList = function(conditions) {
 /**
  * Retrievs the list of ACL roles that satisfy the given conditions.
  *
+ * @name GeckoJS.AclComponent#getRoleList
  * @public
  * @function  
  * @param {String} conditions          This is the role used to filter the roles
@@ -2228,6 +2250,7 @@ GeckoJS.AclComponent.prototype.getRoleList = function(conditions) {
 /**
  * Retrieves the list of ACL roles that have been assigned to an ACL group.
  *
+ * @name GeckoJS.AclComponent#getRoleListInGroup
  * @public
  * @function  
  * @param {String} groupName         This is the name of the ACL group
@@ -2262,6 +2285,112 @@ GeckoJS.AclComponent.prototype.getRoleListInGroup = function(groupName) {
     return GeckoJS.Array.objectExtract(groupRoles, '{n}.role');
     
 };
+
+/**
+ * Adds an ACL role.<br/>
+ * <br/>
+ * If the role does not exist, it is added and its uuid is returned.
+ * If the role already exists, it is not added again, and the
+ * method returns "false".
+ *
+ * @name GeckoJS.AclComponent#addRole
+ * @public
+ * @function
+ * @param {String} roleName         This is the name of the role to add
+ * @param {String} roleDescription  This is a description of the role
+ * @return {Boolean|String}         The new ACL role uuid, or "false" if the role fails to be added
+ */
+/*
+GeckoJS.AclComponent.prototype.addRole = function(roleName, roleDescription) {
+
+    roleName = roleName || null;
+    roleDescription = roleDescription || roleName;
+
+    // no roleName parameter return false
+    if (roleName == null) return false;
+
+
+    var roleModel = new this.roleModel;
+    var count = roleModel.find("count", {
+        conditions: "name='"+roleName+"'"
+    });
+    if (count >0) return false;
+
+    roleModel.create();
+    roleModel.save({
+        name: roleName,
+        description: roleDescription
+    });
+
+    var id =  roleModel.id;
+
+    delete roleModel;
+
+    return id;
+
+
+};
+*/
+
+/**
+ * Removes an ACL role. This automatically removes the role from all ACL groups
+ * to which the role has been added.<br/>
+ * <br/>
+ * If the role does not exist, "false" is returned.
+ *
+ * @name GeckoJS.AclComponent#removeRole
+ * @public
+ * @function
+ * @param {String} roleName         This is the name of the role to remove
+ * @return {Boolean}                "true" if the role is successfully removed; "false" otherwise
+ */
+/*
+GeckoJS.AclComponent.prototype.removeRole = function(roleName) {
+
+    roleName = roleName || null;
+
+    // no roleName parameter return false
+    if (roleName == null) return false;
+
+
+    var roleModel = new this.roleModel;
+    var role = roleModel.find("first", {
+        conditions: "name='"+roleName+"'"
+    });
+
+    if (role == null) return false;
+
+    var roleId = role.id;
+
+    // remove
+    roleModel.id = roleId;
+    roleModel.del(roleId);
+
+    delete roleModel;
+
+    // remove cascade grouprole
+    var groupRoleModel = new this.groupRoleModel;
+
+    var cond = "acl_role_id='"+roleId+"'";
+    var groupRoles  = groupRoleModel.find('all', {
+        conditions: cond
+    });
+
+    if (groupRoles == null || groupRoles.length == 0) return true;
+
+    groupRoles.forEach(function(groupRole) {
+        var grId = groupRole.id;
+        groupRoleModel.id = grId;
+        groupRoleModel.del(grId);
+    });
+
+    delete groupRoleModel;
+
+    return true;
+
+};
+*/
+
 /**
  * Defines GeckoJS.Helper namespace
  *
@@ -2302,7 +2431,10 @@ GeckoJS.Helper.unnamedCounter = 1;
 
 /**
  * addObject to ClassRegistry, when Helper has been extended.
+ *
+ * @name GeckoJS.Helper.extended
  * @private
+ * @function
  */
 GeckoJS.Helper.extended = function(klass) {
 
@@ -2320,6 +2452,7 @@ GeckoJS.Helper.extended = function(klass) {
 /**
  * Registers the Helper sub-class in the Class Registry.
  *
+ * @name GeckoJS.Helper.setHelperClass
  * @public
  * @static
  * @function   
@@ -2337,6 +2470,7 @@ GeckoJS.Helper.setHelperClass = function(name, klass) {
 /**
  * Retrieves the Helper sub-class object by name from the Class Registry.
  *
+ * @name GeckoJS.Helper.getHelperClass
  * @public
  * @static
  * @function   
@@ -2360,6 +2494,7 @@ GeckoJS.Helper.prototype.__defineGetter__('query', function(){
 /**
  * Creates a DOM element of the given document type and element tag.
  *
+ * @name GeckoJS.Helper#createElement
  * @public
  * @function  
  * @param {String} type         This is the document type, which may be "xul", "html", or "xhtml"
@@ -2375,6 +2510,7 @@ GeckoJS.Helper.prototype.createElement = function(type, tag) {
 /**
  * Creates a DOM element of the given document type and element tag.
  *
+ * @name GeckoJS.Helper.createElement
  * @public
  * @static 
  * @function  
@@ -2405,6 +2541,7 @@ GeckoJS.Helper.createElement = function(type, tag) {
 /**
  * Removes all children of a DOM element. 
  *
+ * @name GeckoJS.Helper#removeAllChildren
  * @public
  * @function  
  * @param {Element} el          This is the DOM element whose children are to be removed
@@ -2419,6 +2556,7 @@ GeckoJS.Helper.prototype.removeAllChildren = function (el) {
 /**
  * Removes all children of a DOM element. 
  *
+ * @name GeckoJS.Helper.removeAllChildren
  * @public
  * @function  
  * @param {Element} el          This is the DOM element whose children are to be removed
@@ -2432,9 +2570,12 @@ GeckoJS.Helper.removeAllChildren = function (el) {
     }
 
 };
+
 /**
  * Defines GeckoJS.FormHelper namespace
  *
+ * @public
+ * @namespace
  */
 GREUtils.define('GeckoJS.FormHelper', GeckoJS.global);
 
@@ -2460,6 +2601,7 @@ GeckoJS.Singleton.support(GeckoJS.FormHelper);
  * Resets all inputable fields in a form to default if the field has a
  * 'default' attribute.
  *
+ * @name GeckoJS.FormHelper.reset
  * @public
  * @static
  * @function   
@@ -2474,6 +2616,7 @@ GeckoJS.FormHelper.reset = function(form) {
  * Resets all inputable fields in a form to default if the field has a
  * 'default' attribute.
  *
+ * @name GeckoJS.FormHelper#reset
  * @public
  * @function   
  * @param {String} form           This is the name of the DOM element with 'form' attribute. 
@@ -2496,6 +2639,7 @@ GeckoJS.FormHelper.prototype.reset = function(form) {
  * Resets all inputable fields in a form to default if the field has a
  * 'default' attribute.
  *
+ * @name GeckoJS.FormHelper.getDefaultValues
  * @public
  * @static
  * @function
@@ -2510,6 +2654,7 @@ GeckoJS.FormHelper.getDefaultValues = function(form) {
  * Resets all inputable fields in a form to default if the field has a
  * 'default' attribute.
  *
+ * @name GeckoJS.FormHelper#getDefaultValues
  * @public
  * @function
  * @param {String} form           This is the name of the DOM element with 'form' attribute.
@@ -2537,7 +2682,8 @@ GeckoJS.FormHelper.prototype.getDefaultValues = function(form) {
  * <br/>
  * Each inputable field is stored in the return object as a property of the
  * object.
- * 
+ *
+ * @name GeckoJS.FormHelper.serializeToObject
  * @public
  * @static
  * @function   
@@ -2555,7 +2701,8 @@ GeckoJS.FormHelper.serializeToObject = function(form, successful) {
  * <br/>
  * Each inputable field is stored in the return object as a property of the
  * object.
- * 
+ *
+ * @name GeckoJS.FormHelper#serializeToObject
  * @public
  * @function   
  * @param {String} form           This is the name of the DOM element with 'form' attribute. 
@@ -2588,7 +2735,8 @@ GeckoJS.FormHelper.prototype.serializeToObject = function(form, successful) {
 
 /**
  * Serializes all inputable fields in a form into an HTTP query string.
- *  
+ *
+ * @name GeckoJS.FormHelper.serialize
  * @public
  * @static 
  * @function   
@@ -2603,7 +2751,8 @@ GeckoJS.FormHelper.serialize = function(form, successful) {
 
 /**
  * Serializes all inputable fields in a form into an HTTP query string.
- *  
+ *
+ * @name GeckoJS.FormHelper#serialize
  * @public
  * @function   
  * @param {String} form           This is the name of the DOM element with 'form' attribute. 
@@ -2621,7 +2770,8 @@ GeckoJS.FormHelper.prototype.serialize = function(form, successful) {
  * For each inputable field, if a parameter with the same name exists in the
  * HTTP query string, the field value is set to the corresponding parameter
  * value.
- * 
+ *
+ * @name GeckoJS.FormHelper.unserialize
  * @public
  * @static
  * @function   
@@ -2639,7 +2789,8 @@ GeckoJS.FormHelper.unserialize = function(form, data) {
  * For each inputable field, if a parameter with the same name exists in the
  * HTTP query string, the field value is set to the corresponding parameter
  * value.
- * 
+ *
+ * @name GeckoJS.FormHelper#unserialize
  * @public
  * @function   
  * @param {String} form           This is the name of the DOM element with 'form' attribute. 
@@ -2658,7 +2809,8 @@ GeckoJS.FormHelper.prototype.unserialize = function(form, data) {
  * <br/>
  * For each inputable field, if a property with the same name is defined in the
  * object, the field value is set to the corresponding property value.
- * 
+ *
+ * @name GeckoJS.FormHelper.unserializeFromObject
  * @public
  * @static
  * @function   
@@ -2675,7 +2827,8 @@ GeckoJS.FormHelper.unserializeFromObject = function(form, data) {
  * <br/>
  * For each inputable field, if a property with the same name is defined in the
  * object, the field value is set to the corresponding property value.
- *   
+ *
+ * @name GeckoJS.FormHelper#unserializeFromObject
  * @public
  * @function  
  * @param {String} form           This is the name of the DOM element with 'form' attribute. 
@@ -2702,6 +2855,7 @@ GeckoJS.FormHelper.prototype.unserializeFromObject = function FormHelper_unseria
  * isFormModified.<br/>
  * <br/>
  *
+ * @name GeckoJS.FormHelper.isFormModified
  * @public
  * @static
  * @function
@@ -2717,6 +2871,7 @@ GeckoJS.FormHelper.isFormModified = function(form) {
  * isFormModified.<br/>
  * <br/>
  *
+ * @name GeckoJS.FormHelper#isFormModified
  * @public
  * @static
  * @function
@@ -2755,6 +2910,7 @@ GeckoJS.FormHelper.prototype.isFormModified = function FormHelper_isFormModified
 /**
  * Returns the value of an XUL inputable field.
  *
+ * @name GeckoJS.FormHelper.getFieldValue
  * @public
  * @static 
  * @function  
@@ -2769,7 +2925,8 @@ GeckoJS.FormHelper.getFieldValue = function(el, successful) {
 
 /**
  * Returns the value of an XUL inputable field.
- * 
+ *
+ * @name GeckoJS.FormHelper#getFieldValue
  * @public
  * @function  
  * @param {Element} el            This is a DOM element representing an XUL inputable field
@@ -2860,7 +3017,8 @@ GeckoJS.FormHelper.prototype.getFieldValue = function(el, successful) {
 
 /**
  * Sets the value of an XUL inputable field.
- * 
+ *
+ * @name GeckoJS.FormHelper.setFieldValue
  * @public
  * @static 
  * @function  
@@ -2874,7 +3032,8 @@ GeckoJS.FormHelper.setFieldValue = function(el, data) {
 
 /**
  * Sets the value of an XUL inputable field.
- * 
+ *
+ * @name GeckoJS.FormHelper#setFieldValue
  * @public
  * @function  
  * @param {Element} el            This is a DOM element representing an XUL inputable field
@@ -2972,7 +3131,8 @@ GeckoJS.FormHelper.prototype.setFieldValue = function(el, data) {
  * return an object with "value" and "label" properties. If mapping is an
  * object, it should contain "value" and "label" properties, which in turn
  * contain the actual value and label property names of the item.        
- * 
+ *
+ * @name GeckoJS.FormHelper.appendItems
  * @public
  * @static 
  * @function  
@@ -2996,7 +3156,8 @@ GeckoJS.FormHelper.appendItems = function(el, data, mapping) {
  * return an object with "value" and "label" properties. If mapping is an
  * object, it should contain "value" and "label" properties, which in turn
  * contain the actual value and label property names of the item.        
- * 
+ *
+ * @name GeckoJS.FormHelper#appendItems
  * @public
  * @function  
  * @param {Element} el         This is a DOM element representing a selection tag
@@ -3077,6 +3238,7 @@ GeckoJS.FormHelper.prototype.appendItems = function(el, data, mapping) {
  * This method removes all children of a selection tag, which may be a "select",
  * "listbox", or "menulist" element.    
  *
+ * @name GeckoJS.FormHelper.clearItems
  * @public
  * @static 
  * @function  
@@ -3093,6 +3255,7 @@ GeckoJS.FormHelper.clearItems = function(el) {
  * This method removes all children of a selection tag, which may be a "select",
  * "listbox", or "menulist" element.    
  *
+ * @name GeckoJS.FormHelper#clearItems
  * @public
  * @function  
  * @param {Element} el         This is a DOM element representing a selection tag
@@ -3119,6 +3282,7 @@ GeckoJS.FormHelper.prototype.clearItems = function(el) {
     }
 
 };
+
 /**
  * Defines GeckoJS.NumberHelper namespace
  *
@@ -3205,8 +3369,10 @@ GeckoJS.Singleton.support(GeckoJS.NumberHelper);
  * <pre>
  * round(val, -4, 'use-table', table);
  * </pre>
- * 
+ *
+ * @name GeckoJS.NumberHelper.round
  * @public
+ * @function
  * @static
  * @parameter {Float} value         this is the value to round
  * @parameter {Number} precision    this is the precision to round the result to
@@ -3269,8 +3435,10 @@ GeckoJS.NumberHelper.round = function (value, precision, policy, table) {
  * <br/>
  * Please see <pre>GeckoJS.NumberHelper.round</pre> for usage. 
  * 
+ * @name GeckoJS.NumberHelper#round
  * @public
  * @static
+ * @function
  * @parameter {Float} value         this is the value to round
  * @parameter {Number} precision    this is the precision to round the result to
  * @parameter {Number} policy       this is the rounding policy
@@ -3284,6 +3452,7 @@ GeckoJS.NumberHelper.prototype.round = function (value, precision, policy, table
 /**
  * Formats a number to a given level of precision.
  *
+ * @name GeckoJS.NumberHelper.precision
  * @public
  * @static
  * @function
@@ -3300,6 +3469,7 @@ GeckoJS.NumberHelper.precision = function (number, precision) {
 /**
  * Formats a number to a given level of precision.
  *
+ * @name GeckoJS.NumberHelper#precision
  * @public
  * @function
  * @param  {Number} number	This is a floating point number.
@@ -3318,6 +3488,7 @@ GeckoJS.NumberHelper.prototype.precision = function (number, precision) {
  * This method formats a file size given in bytes into a more readable unit
  * (i.e. KB, MB, GB, etc.)
  *
+ * @name GeckoJS.NumberHelper.toReadableSize
  * @public
  * @static
  * @function
@@ -3355,6 +3526,7 @@ GeckoJS.NumberHelper.toReadableSize	= function (size) {
  * This method formats a file size given in bytes into a more readable unit
  * (i.e. KB, MB, GB, etc.)
  *
+ * @name GeckoJS.NumberHelper#toReadableSize
  * @public
  * @static
  * @function
@@ -3369,7 +3541,11 @@ GeckoJS.NumberHelper.prototype.toReadableSize = function (size) {
 /**
  * Formats a number into a percentage string with a given level of precision.
  * <br/><br/>
- * 
+ *
+ * @name GeckoJS.NumberHelper.toPercentage
+ * @public
+ * @static
+ * @function
  * @param {Number} number        This is a floating point number
  * @param {Number} precision     This is the precision of the returned number
  * @return string                 The formatted string
@@ -3386,7 +3562,10 @@ GeckoJS.NumberHelper.toPercentage = function (number, precision) {
 /**
  * Formats a number into a percentage string with a given level of precision.
  * <br/><br/>
- * 
+ *
+ * @name GeckoJS.NumberHelper#toPercentage
+ * @public
+ * @function
  * @param {Number} number        This is a floating point number
  * @param {Number} precision     This is the precision of the returned number
  * @return string                 The formatted string
@@ -3423,7 +3602,8 @@ GeckoJS.NumberHelper.prototype.toPercentage = function (number, precision) {
  *  - decimals:   decimal point
  *  - negative:   negative indicator
  * </pre>
- * 
+ *
+ * @name GeckoJS.NumberHelper.format
  * @public
  * @static
  * @function
@@ -3488,7 +3668,8 @@ GeckoJS.NumberHelper.format = function (number, options) {
  *  - decimals:   decimal point
  *  - negative:   negative indicator
  * </pre>
- * 
+ *
+ * @name GeckoJS.NumberHelper#format
  * @public
  * @function
  * @param {Number} number        This is a floating point number
@@ -3525,7 +3706,8 @@ GeckoJS.NumberHelper.prototype.format = function (number, options) {
  * </pre>
  * Please note that if the number is 0, and the "zero" formatting string is
  * defined, that string is returned without applying any other formatting.
- * 
+ *
+ * @name GeckoJS.NumberHelper.currency
  * @public
  * @static
  * @function
@@ -3631,6 +3813,7 @@ GeckoJS.NumberHelper.currency = function (number, currency, options) {
  * Please note that if the number is 0, and the "zero" formatting string is
  * defined, that string is returned without applying any other formatting.
  *
+ * @name GeckoJS.NumberHelper#currency
  * @public
  * @function
  * @param {Number} number         This is a floating point number

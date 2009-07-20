@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,7 +305,10 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
+				<br />Extends
+					<a href="../symbols/GeckoJS.Component.html">GeckoJS.Component</a>.<br />
+				
+			
 				GeckoJS.AclComponent implements a J2EE-like access control list (ACL).
 In thi scheme, applications associate access privileges and authorizations
 with roles. Roles are arranged into groups, and each user may be a member of
@@ -314,11 +323,7 @@ the following set of models:<br/>
  - AclRole,
  - AclGroupRole
 </pre>
-
-				<br />Extends
-					<a href="../symbols/GeckoJS.Component.html#constructor">GeckoJS.Component</a>.<br />
 				
-			
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -350,26 +355,244 @@ the following set of models:<br/>
 
 <!-- ============================== properties summary ===================== -->
 			
-				
-				
-				
-				
-				<dl class="inheritsList">
-				<dt>Fields borrowed from class <a href="../symbols/GeckoJS.Component.html#constructor">GeckoJS.Component</a>: </dt><dd><a href="../symbols/GeckoJS.Component.html#controller">controller</a></dd>
-				</dl>
-				
-			
 
 <!-- ============================== methods summary ======================== -->
 			
 				
 				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.AclComponent.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#addGroup">addGroup</a></b>(groupName, groupDescription)
+								</div>
+								<div class="description">Adds an ACL group.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#addRole">addRole</a></b>(roleName, roleDescription)
+								</div>
+								<div class="description">Adds an ACL role.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#addRoleToGroup">addRoleToGroup</a></b>(groupName, roleName)
+								</div>
+								<div class="description">Assigns an ACL role to an ACL group.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#addUser">addUser</a></b>(username, password, userDescription)
+								</div>
+								<div class="description">Adds an ACL user.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#addUserToGroup">addUserToGroup</a></b>(username, groupName)
+								</div>
+								<div class="description">Adds an ACL user to an ACL group.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#changeUserPassword">changeUserPassword</a></b>(username, password)
+								</div>
+								<div class="description">Changes an ACL user's password.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#getGroupList">getGroupList</a></b>(conditions)
+								</div>
+								<div class="description">Retrievs the list of ACL groups that satisfy the given conditions.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#getRoleList">getRoleList</a></b>(conditions)
+								</div>
+								<div class="description">Retrievs the list of ACL roles that satisfy the given conditions.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#getRoleListInGroup">getRoleListInGroup</a></b>(groupName)
+								</div>
+								<div class="description">Retrieves the list of ACL roles that have been assigned to an ACL group.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#getUserList">getUserList</a></b>(conditions)
+								</div>
+								<div class="description">Retrievs the list of ACL users that satisfy the given conditions.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#getUserListInGroup">getUserListInGroup</a></b>(groupName)
+								</div>
+								<div class="description">Retrieves the list of ACL users in a given group.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#getUserPrincipal">getUserPrincipal</a></b>()
+								</div>
+								<div class="description">Returns an object containing the credentials of the current authenticated
+user.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.AclComponent.<b><a href="../symbols/GeckoJS.AclComponent.html#.getUserPrincipal">getUserPrincipal</a></b>()
+								</div>
+								<div class="description">Returns an object containing the credentials of the current authenticated
+user.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#invalidate">invalidate</a></b>()
+								</div>
+								<div class="description">Logs out the current user and removes his credentials from the application
+Session singleton.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#isUserInRole">isUserInRole</a></b>(roleName)
+								</div>
+								<div class="description">Returns a boolean indicating whether the current user has been assigned
+the specified role.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.AclComponent.<b><a href="../symbols/GeckoJS.AclComponent.html#.isUserInRole">isUserInRole</a></b>(roleName)
+								</div>
+								<div class="description">Returns a boolean indicating whether the current user has been assigned
+the specified role.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#removeGroup">removeGroup</a></b>(groupName)
+								</div>
+								<div class="description">Removes an ACL group.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#removeRole">removeRole</a></b>(roleName)
+								</div>
+								<div class="description">Removes an ACL role.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#removeRoleFromGroup">removeRoleFromGroup</a></b>(groupName, roleName)
+								</div>
+								<div class="description">Removes an ACL role from an ACL group.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#removeUser">removeUser</a></b>(username, cascade)
+								</div>
+								<div class="description">Removes an ACL user.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#removeUserFromGroup">removeUserFromGroup</a></b>(username, groupName)
+								</div>
+								<div class="description">Removes an ACL user from an ACL group.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#securityCheck">securityCheck</a></b>(username, password, checkOnly, force)
+								</div>
+								<div class="description">Logs in a user using the provided username and password.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.AclComponent.html#securityCheckByPassword">securityCheckByPassword</a></b>(password, checkOnly)
+								</div>
+								<div class="description">Logs in a user using the provided username and password.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
 				
 				
 				<dl class="inheritsList">
-				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html#constructor">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#.dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getKeys">getKeys</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#.getValues">getValues</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#.unserialize">unserialize</a></dd><dt>Methods borrowed from class <a href="../symbols/GeckoJS.Class.html#constructor">GeckoJS.Class</a>: </dt><dd><a href="../symbols/GeckoJS.Class.html#.extend">extend</a></dd>
+				<dt>Methods borrowed from class <a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>: </dt><dd><a href="../symbols/GeckoJS.BaseObject.html#clone">clone</a>, <a href="../symbols/GeckoJS.BaseObject.html#dump">dump</a>, <a href="../symbols/GeckoJS.BaseObject.html#getClassName">getClassName</a>, <a href="../symbols/GeckoJS.BaseObject.html#getLogger">getLogger</a>, <a href="../symbols/GeckoJS.BaseObject.html#log">log</a>, <a href="../symbols/GeckoJS.BaseObject.html#requestCommand">requestCommand</a>, <a href="../symbols/GeckoJS.BaseObject.html#serialize">serialize</a>, <a href="../symbols/GeckoJS.BaseObject.html#sleep">sleep</a>, <a href="../symbols/GeckoJS.BaseObject.html#stringify">stringify</a>, <a href="../symbols/GeckoJS.BaseObject.html#unserialize">unserialize</a></dd>
 				</dl>
 				
+			
+<!-- ============================== events summary ======================== -->
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -407,14 +630,1123 @@ the following set of models:<br/>
 
 <!-- ============================== method details ========================= -->		
 			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="addGroup"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean|String}</span>
+					<b>addGroup</b>(groupName, groupDescription)
+					
+					</div>
+					<div class="description">
+						Adds an ACL group.<br/>
+<br/>
+If the group does not exist, it is added and its uuid is returned.
+If the group already exists, it is not added again, and the
+method returns "false".
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>groupName</b>
+									
+								</dt>
+								<dd>This is the name of the group to add</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>groupDescription</b>
+									
+								</dt>
+								<dd>This is a description of the group</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean|String}</span> The new ACL group uuid, or "false" if the group fails to be added</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="addRole"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean|String}</span>
+					<b>addRole</b>(roleName, roleDescription)
+					
+					</div>
+					<div class="description">
+						Adds an ACL role.<br/>
+<br/>
+If the role does not exist, it is added and its uuid is returned.
+If the role already exists, it is not added again, and the
+method returns "false".
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>roleName</b>
+									
+								</dt>
+								<dd>This is the name of the role to add</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>roleDescription</b>
+									
+								</dt>
+								<dd>This is a description of the role</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean|String}</span> The new ACL role uuid, or "false" if the role fails to be added</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="addRoleToGroup"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String|Boolean}</span>
+					<b>addRoleToGroup</b>(groupName, roleName)
+					
+					</div>
+					<div class="description">
+						Assigns an ACL role to an ACL group.<br/>
+<br/>
+If the role has already been assigned to the group, it is not assigned
+again, and the method returns "false".
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>groupName</b>
+									
+								</dt>
+								<dd>This is the group to assign the role to</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>roleName</b>
+									
+								</dt>
+								<dd>This is the role to assign to the group</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String|Boolean}</span> The groupRole uuid if the role is successfully assigned; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="addUser"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean|String}</span>
+					<b>addUser</b>(username, password, userDescription)
+					
+					</div>
+					<div class="description">
+						Adds an ACL user.<br/>
+<br/>
+If the ACL user is successfully created, the corresponding
+uuid is returned. A return value of "false" indicates that an error occurred
+while adding the ACL user.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>username</b>
+									
+								</dt>
+								<dd>The login of the user to add</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>password</b>
+									
+								</dt>
+								<dd>The password of the user to add</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>userDescription</b>
+									
+								</dt>
+								<dd>A string describing the user</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean|String}</span> The new ACL user uuid, or "false" if the user fails to be added</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="addUserToGroup"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>addUserToGroup</b>(username, groupName)
+					
+					</div>
+					<div class="description">
+						Adds an ACL user to an ACL group.<br/>
+<br/>
+No action is taken if the user is already a membership of the given group.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>username</b>
+									
+								</dt>
+								<dd>This is the login of the user to add to group</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>groupName</b>
+									
+								</dt>
+								<dd>This is the name of the group to add the user to</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if the user is successfully added to the group; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="changeUserPassword"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>changeUserPassword</b>(username, password)
+					
+					</div>
+					<div class="description">
+						Changes an ACL user's password.<br/>
+<br/>
+If the ACL user does not exist, "false" is returned.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>username</b>
+									
+								</dt>
+								<dd>This is the login of the user to change password for</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>password</b>
+									
+								</dt>
+								<dd>This is the new password</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if password changed; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getGroupList"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>getGroupList</b>(conditions)
+					
+					</div>
+					<div class="description">
+						Retrievs the list of ACL groups that satisfy the given conditions.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>conditions</b>
+									
+								</dt>
+								<dd>This is the criteria used to filter the groups</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An array of ACL groups</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getRoleList"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>getRoleList</b>(conditions)
+					
+					</div>
+					<div class="description">
+						Retrievs the list of ACL roles that satisfy the given conditions.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>conditions</b>
+									
+								</dt>
+								<dd>This is the role used to filter the roles</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An array of ACL roles</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getRoleListInGroup"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>getRoleListInGroup</b>(groupName)
+					
+					</div>
+					<div class="description">
+						Retrieves the list of ACL roles that have been assigned to an ACL group.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>groupName</b>
+									
+								</dt>
+								<dd>This is the name of the ACL group</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An array of ACL roles</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getUserList"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>getUserList</b>(conditions)
+					
+					</div>
+					<div class="description">
+						Retrievs the list of ACL users that satisfy the given conditions.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>conditions</b>
+									
+								</dt>
+								<dd>This is the criteria used to filter the users</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An array of ACL users</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getUserListInGroup"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>getUserListInGroup</b>(groupName)
+					
+					</div>
+					<div class="description">
+						Retrieves the list of ACL users in a given group.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>groupName</b>
+									
+								</dt>
+								<dd>This is the name of the group</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An array of ACL users</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getUserPrincipal"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>getUserPrincipal</b>()
+					
+					</div>
+					<div class="description">
+						Returns an object containing the credentials of the current authenticated
+user. If the current user has not been authenticated, the method returns
+null.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An object containing the credentials of the user making this request; null if the user has not been authenticated</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getUserPrincipal"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.AclComponent.</span><b>getUserPrincipal</b>()
+					
+					</div>
+					<div class="description">
+						Returns an object containing the credentials of the current authenticated
+user. If the current user has not been authenticated, the method returns
+null.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> An object containing the credentials of the user making this request; null if the user has not been authenticated</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="invalidate"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>invalidate</b>()
+					
+					</div>
+					<div class="description">
+						Logs out the current user and removes his credentials from the application
+Session singleton.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="isUserInRole"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>isUserInRole</b>(roleName)
+					
+					</div>
+					<div class="description">
+						Returns a boolean indicating whether the current user has been assigned
+the specified role. Roles and role membership can be defined using
+deployment descriptors.<br/>
+<br/>
+If the current user has not been authenticated, the method returns false.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>roleName</b>
+									
+								</dt>
+								<dd>This is the name of the role or use ',' for multiple roles</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if the user making this request has been assigned the given role; "false" if the user has not been assigned the role or has not been authenticated</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".isUserInRole"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Boolean}</span>
+					<span class="light">GeckoJS.AclComponent.</span><b>isUserInRole</b>(roleName)
+					
+					</div>
+					<div class="description">
+						Returns a boolean indicating whether the current user has been assigned
+the specified role. Roles and role membership can be defined using
+deployment descriptors.<br/>
+<br/>
+If the current user has not been authenticated, the method returns false.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>roleName</b>
+									
+								</dt>
+								<dd>This is the name of the role or use ',' for multiple roles</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if the user making this request has been assigned the given role; "false" if the user has not been assigned the role or has not been authenticated</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeGroup"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>removeGroup</b>(groupName)
+					
+					</div>
+					<div class="description">
+						Removes an ACL group.<br/>
+<br/>
+If the group does not exist, "false" is returned.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>groupName</b>
+									
+								</dt>
+								<dd>This is the name of the group to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if the group is successfully removed; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeRole"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>removeRole</b>(roleName)
+					
+					</div>
+					<div class="description">
+						Removes an ACL role. This automatically removes the role from all ACL groups
+to which the role has been added.<br/>
+<br/>
+If the role does not exist, "false" is returned.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>roleName</b>
+									
+								</dt>
+								<dd>This is the name of the role to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if the role is successfully removed; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeRoleFromGroup"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>removeRoleFromGroup</b>(groupName, roleName)
+					
+					</div>
+					<div class="description">
+						Removes an ACL role from an ACL group.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>groupName</b>
+									
+								</dt>
+								<dd>This is the group from which to remove the role</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>roleName</b>
+									
+								</dt>
+								<dd>This is the role to remove from the group</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if the role is successfully removed from the group; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeUser"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>removeUser</b>(username, cascade)
+					
+					</div>
+					<div class="description">
+						Removes an ACL user. If "cascade" is "true", its group membership is also
+removed.<br/>
+<br/>
+Returns "true" if the ACL user has been successfully removed; "false"
+otherwise.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>username</b>
+									
+								</dt>
+								<dd>This is the login of the user to add</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>cascade</b>
+									
+								</dt>
+								<dd>This flag indicates if the removal should cascade to group membership</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> Whether the ACL user has been successfully removed</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeUserFromGroup"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>removeUserFromGroup</b>(username, groupName)
+					
+					</div>
+					<div class="description">
+						Removes an ACL user from an ACL group.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>username</b>
+									
+								</dt>
+								<dd>This is the login of the user to remove from the group</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>groupName</b>
+									
+								</dt>
+								<dd>This is the name of the group to remove the user from</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if the user is successfully removed from the group; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="securityCheck"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>securityCheck</b>(username, password, checkOnly, force)
+					
+					</div>
+					<div class="description">
+						Logs in a user using the provided username and password.<br/>
+<br/>
+The password is first encrypted using MD5 before comparing it against the
+stored credential. If the username/password combination is valid, the user's
+group and roles are automatically loaded from the ACL models and stored in 
+the application Session Singleton under the key "User". The "User" object
+will have the following properties:<br/>
+<pre>
+  - username
+  - password
+  - description 
+  - Roles
+  - Groups
+</pre>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>username</b>
+									
+								</dt>
+								<dd>This is the user's login</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>password</b>
+									
+								</dt>
+								<dd>This is the password</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>checkOnly</b>
+									
+								</dt>
+								<dd>This flag, if true, indicates that the user shall not be logged in</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>force</b>
+									
+								</dt>
+								<dd>This flag, if true, indicates that the user force logged.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if authentication succeeds; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="securityCheckByPassword"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>securityCheckByPassword</b>(password, checkOnly)
+					
+					</div>
+					<div class="description">
+						Logs in a user using the provided username and password.<br/>
+<br/>
+The password is first encrypted using MD5 before comparing it against the
+stored credential. If the username/password combination is valid, the user's
+group and roles are automatically loaded from the ACL models and stored in
+the application Session Singleton under the key "User". The "User" object
+will have the following properties:<br/>
+<pre>
+  - username
+  - password
+  - description
+  - Roles
+  - Groups
+</pre>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>password</b>
+									
+								</dt>
+								<dd>This is the password</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>checkOnly</b>
+									
+								</dt>
+								<dd>This flag, if true, indicates that the user shall not be logged in</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> "true" if authentication succeeds; "false" otherwise</dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
+			
+<!-- ============================== event details ========================= -->		
+			
 			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:09 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:56 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

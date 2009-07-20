@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - GeckoJS.Scaffold</title>
+		<title>JsDoc Reference - GeckoJS.ConnectionManager</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -300,75 +300,17 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class GeckoJS.Scaffold
+				Class GeckoJS.ConnectionManager
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				<br />Extends
-					<a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>.<br />
+					<a href="../symbols/GeckoJS.BaseObject.html">GeckoJS.BaseObject</a>, <a href="../symbols/GeckoJS.Singleton.html">GeckoJS.Singleton</a>.<br />
 				
 			
-				Scaffolding provides automatic support for CRUD operations on models.
-Controllers that only perform standard CRUD operations on models may leverage
-scaffolding to reduce coding effort.<br/>
-<br/>
-If a Controller declares "scaffolding" to be "true", then the global
-dispatcher will dispatch standard CRUD commands to the Scaffold object if
-these commands are not handled by the Controller.<br/>
-<br/>
-Scaffold will dispatch a "beforeScaffold" event with the command name as the
-event data to the controller before carrying out a command. After the command
-has been carried out, Scaffold will dispatch a "afterScaffold<command>"
-event to the controller. The event data for the "afterScaffold" event is
-command dependent.<br/>
-<br/>
-The set of commands Scaffold supports are:<br/>
-<br/>
-<pre>
-- index
-  this command retrieves all the records from the Model, updates the Form
-  with the first record, and passes all the records to the controller
-  through the "afterScaffoldIndex" event.
-    
-- list
-  identical to the "index" command 
- 
-- view 
-  this command updates the Form with values from the Model, using the primary
-  key from the Form. Before updating the form, the Scaffold dispatches a
-  "beforeScaffoldView" event to the controller with the Model recod id. After
-  updating the form, the Model record is passed to the "afterScaffoldView"
-  event listeners. 
- 
-- add
-  this command creates a new Model record using data gathered from the Form.
-  Before adding the record, the Scaffold first dispatches a "beforeScaffoldAdd"
-  event to the controller, followed by a "beforeScaffoldSave" event, both with
-  the Form data. After saving the record, the Form data is first passed to the
-  "afterScaffoldSave" event listeners, followed by the "afterScaffoldAdd"
-  event listeners.
-  
-- create
-  identical to the "add" command
-    
-- edit
-  this command updates a Model record using data gathered from the Form.
-  Before updating the record, the Scaffold first dispatches a "beforeScaffoldEdit"
-  event to the controller, followed by a "beforeScaffoldSave" event, both with
-  the Form data. After saving the record, the Form data is first passed to the
-  "afterScaffoldSave" event listeners, followed by the "afterScaffoldEdit"
-  event listeners.
-  
-- update
-  identical to the "edit" command
- 
-- delete
-  this command deletes the Model record identified by the Form data. Before
-  deleting the record, the Scaffold dispatches a "beforeScaffoldDelete" event
-  to the controller with the record id. After deleting the record, the
-  record deleted is passed to the "afterScaffoldDelete" event listeners.  
-</pre>
+				GeckoJS.ConnectionManager is a Singleton that maintains a cache of
+data sources.<br/>
 				
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
@@ -377,7 +319,7 @@ The set of commands Scaffold supports are:<br/>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class GeckoJS.Scaffold.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class GeckoJS.ConnectionManager.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -390,10 +332,11 @@ The set of commands Scaffold supports are:<br/>
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/GeckoJS.Scaffold.html#constructor">GeckoJS.Scaffold</a></b>(controller, command, data)
+								<b><a href="../symbols/GeckoJS.ConnectionManager.html#constructor">GeckoJS.ConnectionManager</a></b>()
 							</div>
-							<div class="description">Creates a new GeckoJS.Scaffold instance and initializes it with controller,
-command, and data.</div>
+							<div class="description">Creates a new GeckoJS.ConnectionManager instance and initializes it by
+setting the "config" field to the value of the 'DATABASE_CONFIG'
+configuration parameter.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -404,7 +347,7 @@ command, and data.</div>
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class GeckoJS.Scaffold.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class GeckoJS.ConnectionManager.">
 					<caption>Field Summary</caption>
 					<thead>
 						<tr>
@@ -418,29 +361,9 @@ command, and data.</div>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								GeckoJS.Scaffold.<b><a href="../symbols/GeckoJS.Scaffold.html#.command">command</a></b>
+								GeckoJS.ConnectionManager.<b><a href="../symbols/GeckoJS.ConnectionManager.html#.config">config</a></b>
 								</div>
-								<div class="description">The command to be handled by Scaffold</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								GeckoJS.Scaffold.<b><a href="../symbols/GeckoJS.Scaffold.html#.controller">controller</a></b>
-								</div>
-								<div class="description">The controller requesting scaffolding support</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								GeckoJS.Scaffold.<b><a href="../symbols/GeckoJS.Scaffold.html#.data">data</a></b>
-								</div>
-								<div class="description">The data from "gDispatch()"</div>
+								<div class="description">Database configuration</div>
 							</td>
 						</tr>
 					
@@ -459,7 +382,7 @@ command, and data.</div>
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.Scaffold.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class GeckoJS.ConnectionManager.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -470,65 +393,85 @@ command, and data.</div>
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__invoke">__invoke</a></b>(command, data)
+								<div class="fixedFont">GeckoJS.ConnectionManager.<b><a href="../symbols/GeckoJS.ConnectionManager.html#.close">close</a></b>(name)
 								</div>
-								<div class="description">invoke scaffold action</div>
+								<div class="description">Close Connection</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__scaffoldDelete">__scaffoldDelete</a></b>()
+								<div class="fixedFont">GeckoJS.ConnectionManager.<b><a href="../symbols/GeckoJS.ConnectionManager.html#.closeAll">closeAll</a></b>(name)
 								</div>
-								<div class="description">Performs a delete on given scaffolded Model.</div>
+								<div class="description">Close All Connections</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__scaffoldIndex">__scaffoldIndex</a></b>()
+								<div class="fixedFont">GeckoJS.ConnectionManager.<b><a href="../symbols/GeckoJS.ConnectionManager.html#.getConfig">getConfig</a></b>()
 								</div>
-								<div class="description">Renders index action of scaffolded model.</div>
+								<div class="description">getConfig</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__scaffoldSave">__scaffoldSave</a></b>(action)
+								<div class="fixedFont">GeckoJS.ConnectionManager.<b><a href="../symbols/GeckoJS.ConnectionManager.html#.getDataSource">getDataSource</a></b>(name)
 								</div>
-								<div class="description">Saves or updates the scaffolded model.</div>
+								<div class="description">Returns the data source identified by the given name.</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;private&gt; &nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#__scaffoldView">__scaffoldView</a></b>()
+								<div class="fixedFont">GeckoJS.ConnectionManager.<b><a href="../symbols/GeckoJS.ConnectionManager.html#.getDataSourceByClass">getDataSourceByClass</a></b>(klass)
 								</div>
-								<div class="description">Renders a view action of scaffolded model.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;private&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#_addControllerEvents">_addControllerEvents</a></b>()
-								</div>
-								<div class="description">_addControllerEvents</div>
+								<div class="description">Returns data source by class.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/GeckoJS.Scaffold.html#init">init</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.ConnectionManager.html#init">init</a></b>()
 								</div>
-								<div class="description">Scaffold contructor</div>
+								<div class="description">GeckoJS.ConnectionManager contructor
+
+Load DATABASE_CONFIG from preferences and initialize datasources.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/GeckoJS.ConnectionManager.html#loadDatasource">loadDatasource</a></b>(klass)
+								</div>
+								<div class="description">Loads data source by class.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.ConnectionManager.<b><a href="../symbols/GeckoJS.ConnectionManager.html#.setDataSource">setDataSource</a></b>(name, The)
+								</div>
+								<div class="description">Returns the data source identified by the given name.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">GeckoJS.ConnectionManager.<b><a href="../symbols/GeckoJS.ConnectionManager.html#.sourceList">sourceList</a></b>()
+								</div>
+								<div class="description">Gets the list of available DataSource connections</div>
 							</td>
 						</tr>
 					
@@ -553,41 +496,25 @@ command, and data.</div>
 				</div>
 				
 				<div class="fixedFont">
-						<b>GeckoJS.Scaffold</b>(controller, command, data)
+						<b>GeckoJS.ConnectionManager</b>()
 				</div>
 				
 				<div class="description">
-					Creates a new GeckoJS.Scaffold instance and initializes it with controller,
-command, and data.
+					Creates a new GeckoJS.ConnectionManager instance and initializes it by
+setting the "config" field to the value of the 'DATABASE_CONFIG'
+configuration parameter. This parameter should be a list of name-value pairs
+where the name is the database configuration key and the value is an object
+whose "classname" property is the data source class.<br/>
+<br/>
+If 'DATABASE_CONFIG' is not found, "config" is set to a "default" database
+configuration with a data source of class "DatasourceJsonFile", using
+storage from the "/var/tmp" file system.
 					
 				</div>
 				
 				
 				
 				
-					
-						<dl class="detailList">
-						<dt class="heading">Parameters:</dt>
-						
-							<dt>
-								<span class="light fixedFont">{<a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a>}</span>  <b>controller</b>
-								
-							</dt>
-								<dd>This is the controller requesting scaffolding support</dd>
-						
-							<dt>
-								<span class="light fixedFont">{String}</span>  <b>command</b>
-								
-							</dt>
-								<dd>This is the command to be handled by Scaffold</dd>
-						
-							<dt>
-								<span class="light fixedFont">{Object}</span>  <b>data</b>
-								
-							</dt>
-								<dd>This is the data from "gDispatch()"</dd>
-						
-						</dl>
 					
 					
 					
@@ -605,59 +532,15 @@ command, and data.
 					Field Detail
 				</div>
 				
-					<a name=".command"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					<span class="light">{String}</span>
-					<span class="light">GeckoJS.Scaffold.</span><b>command</b>
-					
-					</div>
-					<div class="description">
-						The command to be handled by Scaffold
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".controller"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					<span class="light">{<a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a>}</span>
-					<span class="light">GeckoJS.Scaffold.</span><b>controller</b>
-					
-					</div>
-					<div class="description">
-						The controller requesting scaffolding support
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".data"> </a>
+					<a name=".config"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Object}</span>
-					<span class="light">GeckoJS.Scaffold.</span><b>data</b>
+					<span class="light">GeckoJS.ConnectionManager.</span><b>config</b>
 					
 					</div>
 					<div class="description">
-						The data from "gDispatch()"
+						Database configuration
 						
 						
 					</div>
@@ -679,15 +562,15 @@ command, and data.
 					Method Detail
 				</div>
 				
-					<a name="__invoke"> </a>
-					<div class="fixedFont">&lt;private&gt; 
+					<a name=".close"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
-					
-					<b>__invoke</b>(command, data)
+					<span class="light">{Boolean}</span>
+					<span class="light">GeckoJS.ConnectionManager.</span><b>close</b>(name)
 					
 					</div>
 					<div class="description">
-						invoke scaffold action
+						Close Connection
 						
 						
 					</div>
@@ -699,16 +582,10 @@ command, and data.
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{String}</span> <b>command</b>
+									<span class="light fixedFont">{String}</span> <b>name</b>
 									
 								</dt>
-								<dd></dd>
-							
-								<dt>
-									<span class="light fixedFont">{Object}</span> <b>data</b>
-									
-								</dt>
-								<dd></dd>
+								<dd>This is the data source name</dd>
 							
 							</dl>
 						
@@ -716,70 +593,27 @@ command, and data.
 						
 						
 						
-						
-						
-
-					<hr />
-				
-					<a name="__scaffoldDelete"> </a>
-					<div class="fixedFont">&lt;private&gt; 
-					
-					
-					<b>__scaffoldDelete</b>()
-					
-					</div>
-					<div class="description">
-						Performs a delete on given scaffolded Model.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
 						
 						
 						
 
 					<hr />
 				
-					<a name="__scaffoldIndex"> </a>
-					<div class="fixedFont">&lt;private&gt; 
+					<a name=".closeAll"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
-					
-					<b>__scaffoldIndex</b>()
-					
-					</div>
-					<div class="description">
-						Renders index action of scaffolded model.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="__scaffoldSave"> </a>
-					<div class="fixedFont">&lt;private&gt; 
-					
-					
-					<b>__scaffoldSave</b>(action)
+					<span class="light">{Boolean}</span>
+					<span class="light">GeckoJS.ConnectionManager.</span><b>closeAll</b>(name)
 					
 					</div>
 					<div class="description">
-						Saves or updates the scaffolded model.
+						Close All Connections
 						
 						
 					</div>
@@ -791,10 +625,10 @@ command, and data.
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{String}</span> <b>action</b>
+									<span class="light fixedFont">{String}</span> <b>name</b>
 									
 								</dt>
-								<dd>add or edt</dd>
+								<dd>This is the data source name</dd>
 							
 							</dl>
 						
@@ -802,45 +636,27 @@ command, and data.
 						
 						
 						
-						
-						
-
-					<hr />
-				
-					<a name="__scaffoldView"> </a>
-					<div class="fixedFont">&lt;private&gt; 
-					
-					
-					<b>__scaffoldView</b>()
-					
-					</div>
-					<div class="description">
-						Renders a view action of scaffolded model.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> </dd>
+							
+							</dl>
 						
 						
 						
 
 					<hr />
 				
-					<a name="_addControllerEvents"> </a>
-					<div class="fixedFont">&lt;private&gt; 
+					<a name=".getConfig"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
-					
-					<b>_addControllerEvents</b>()
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.ConnectionManager.</span><b>getConfig</b>()
 					
 					</div>
 					<div class="description">
-						_addControllerEvents
+						getConfig
 						
 						
 					</div>
@@ -851,6 +667,110 @@ command, and data.
 						
 						
 						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> database config</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getDataSource"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{GeckoJS.DataSource}</span>
+					<span class="light">GeckoJS.ConnectionManager.</span><b>getDataSource</b>(name)
+					
+					</div>
+					<div class="description">
+						Returns the data source identified by the given name.<br/>
+<br/>
+If the data source has not yet been loaded, this name is used to look up the
+corresponding data source class to load. Once loaded, the data source is
+cached using the name as the key.<br/>
+<br/>
+Returns null if the data source is not found.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the data source name</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{GeckoJS.DataSource}</span> The requested data source</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getDataSourceByClass"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{GeckoJS.DataSource}</span>
+					<span class="light">GeckoJS.ConnectionManager.</span><b>getDataSourceByClass</b>(klass)
+					
+					</div>
+					<div class="description">
+						Returns data source by class.<br/>
+<br/>
+This method loads and returns the data source by its class. The data source
+is not cached.<br/>
+<br/>
+Returns null if the data source is not found.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>klass</b>
+									
+								</dt>
+								<dd>This is the data source name</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{GeckoJS.DataSource}</span> The requested data source</dd>
+							
+							</dl>
 						
 						
 						
@@ -865,7 +785,9 @@ command, and data.
 					
 					</div>
 					<div class="description">
-						Scaffold contructor
+						GeckoJS.ConnectionManager contructor
+
+Load DATABASE_CONFIG from preferences and initialize datasources.
 						
 						
 					</div>
@@ -876,6 +798,144 @@ command, and data.
 						
 						
 						
+						
+						
+						
+
+					<hr />
+				
+					<a name="loadDatasource"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{GeckoJS.DataSource}</span>
+					<b>loadDatasource</b>(klass)
+					
+					</div>
+					<div class="description">
+						Loads data source by class.<br/>
+<br/>
+This method loads and returns the data source by its class. The data source
+is not cached.<br/>
+<br/>
+Returns null if the data source is not found.<br/>
+<br/>
+Note: in the SDK, a data source is stored as a property of the GeckoJS object
+under the name "Datasource"+classname.<br/>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>klass</b>
+									
+								</dt>
+								<dd>This is the data source class</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{GeckoJS.DataSource}</span> The requested data source</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".setDataSource"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{GeckoJS.DataSource}</span>
+					<span class="light">GeckoJS.ConnectionManager.</span><b>setDataSource</b>(name, The)
+					
+					</div>
+					<div class="description">
+						Returns the data source identified by the given name.<br/>
+<br/>
+If the data source has not yet been loaded, this name is used to look up the
+corresponding data source class to load. Once loaded, the data source is
+cached using the name as the key.<br/>
+<br/>
+Returns null if the data source is not found.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>name</b>
+									
+								</dt>
+								<dd>This is the data source name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{GeckoJS.DataSource}</span> <b>The</b>
+									
+								</dt>
+								<dd>requested data source</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{GeckoJS.DataSource}</span> The requested data source</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".sourceList"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Array}</span>
+					<span class="light">GeckoJS.ConnectionManager.</span><b>sourceList</b>()
+					
+					</div>
+					<div class="description">
+						Gets the list of available DataSource connections
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Array}</span> List of available connections</dd>
+							
+							</dl>
 						
 						
 						
@@ -894,7 +954,7 @@ command, and data.
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:05:00 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:57 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

@@ -215,9 +215,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Configure.html">GeckoJS.Configure</a></li>
 	
+	<li><a href="../symbols/GeckoJS.ConnectionManager.html">GeckoJS.ConnectionManager</a></li>
+	
 	<li><a href="../symbols/GeckoJS.Controller.html">GeckoJS.Controller</a></li>
 	
 	<li><a href="../symbols/GeckoJS.Datasource.html">GeckoJS.Datasource</a></li>
+	
+	<li><a href="../symbols/GeckoJS.DatasourceJsonFile.html">GeckoJS.DatasourceJsonFile</a></li>
 	
 	<li><a href="../symbols/GeckoJS.DatasourceSQL.html">GeckoJS.DatasourceSQL</a></li>
 	
@@ -259,6 +263,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/GeckoJS.Map.html">GeckoJS.Map</a></li>
 	
+	<li><a href="../symbols/GeckoJS.Model.html">GeckoJS.Model</a></li>
+	
 	<li><a href="../symbols/GeckoJS.NSIController.html">GeckoJS.NSIController</a></li>
 	
 	<li><a href="../symbols/GeckoJS.NSIObserver.html">GeckoJS.NSIObserver</a></li>
@@ -299,12 +305,10 @@ ul.inheritsList
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
-
-				
-GeckoJS.Array provides a set of functions for manipulating arrays.<br/>
-
 				
 			
+				
+				
 				
 					<br /><i>Defined in: </i> &lt;/home/rack/workspace/geckojs/dist/GeckoJS_docs.js&gt;.
 				
@@ -335,6 +339,35 @@ GeckoJS.Array provides a set of functions for manipulating arrays.<br/>
 			
 
 <!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class GeckoJS.Array.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.objectExtract">objectExtract</a></b>
+								</div>
+								<div class="description">Extracts from an array or object the value that is contained in a given path
+within the array or object indicated by an array path.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
 			
 
 <!-- ============================== methods summary ======================== -->
@@ -419,16 +452,6 @@ the results of the function calls.</div>
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.objectExtract">objectExtract</a></b>(data, path)
-								</div>
-								<div class="description">Extracts from an array or object the value that is contained in a given path
-within the array or object indicated by an array path.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
 								<div class="fixedFont">GeckoJS.Array.<b><a href="../symbols/GeckoJS.Array.html#.unique">unique</a></b>(array)
 								</div>
 								<div class="description">Returns an array containing only unique elements.</div>
@@ -440,6 +463,8 @@ within the array or object indicated by an array path.</div>
 				
 				
 				
+			
+<!-- ============================== events summary ======================== -->
 			
 
 <!-- ============================== constructor details ==================== -->		
@@ -473,6 +498,41 @@ within the array or object indicated by an array path.</div>
 			
 
 <!-- ============================== field details ========================== -->		
+			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name=".objectExtract"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">GeckoJS.Array.</span><b>objectExtract</b>
+					
+					</div>
+					<div class="description">
+						Extracts from an array or object the value that is contained in a given path
+within the array or object indicated by an array path. Each component in the
+array path syntax is delimited with ".", and may be:<br/><br/>
+<em>{n}</em> matching a numeric key, <br/>
+<em>{s}</em> matching a literal key, <br/>
+<em>a string literal</em>, or<br/>
+<em>{[a-z]+}</em> representing a regular expression<br/><br/>
+The following is an example of an array path:
+<em>"{n}.Person.{[a-z]+}"</em>
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
 			
 
 <!-- ============================== method details ========================= -->		
@@ -810,7 +870,7 @@ a regular expression.
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{Object||Array}</span> <b>data</b>
+									<span class="light fixedFont">{Object|Array}</span> <b>data</b>
 									
 								</dt>
 								<dd>Array Or Data from where to extract</dd>
@@ -837,63 +897,6 @@ a regular expression.
 							<dt class="heading">Returns:</dt>
 							
 								<dd><span class="light fixedFont">{Object}</span> Extracted data</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name=".objectExtract"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					<span class="light">{Object}</span>
-					<span class="light">GeckoJS.Array.</span><b>objectExtract</b>(data, path)
-					
-					</div>
-					<div class="description">
-						Extracts from an array or object the value that is contained in a given path
-within the array or object indicated by an array path. Each component in the
-array path syntax is delimited with ".", and may be:<br/><br/>
-<em>{n}</em> matching a numeric key, <br/>
-<em>{s}</em> matching a literal key, <br/>
-<em>a string literal</em>, or<br/>
-<em>{[a-z]+}</em> representing a regular expression<br/><br/>
-The following is an example of an array path:
-<em>"{n}.Person.{[a-z]+}"</em>
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{Object}</span> <b>data</b>
-									
-								</dt>
-								<dd>This is the object from which to extract</dd>
-							
-								<dt>
-									<span class="light fixedFont">{String}</span> <b>path</b>
-									
-								</dt>
-								<dd>This is a dot-separated string identifying the data to extract</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{Object}</span> An array holding the extracted data</dd>
 							
 							</dl>
 						
@@ -950,13 +953,17 @@ elements from that array.<br/>
 				
 			
 			
+<!-- ============================== event details ========================= -->		
+			
+			
 			<hr />
 		</div>
+
 		
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://www.jsdoctoolkit.org/" target="_blank">JsDoc Toolkit</a> 2.0.2 on Wed Jul 08 2009 15:52:09 GMT+0800 (CST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.0 on Tue Jul 21 2009 01:04:56 GMT+0800 (CST)
 		</div>
 	</body>
 </html>

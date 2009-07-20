@@ -14,11 +14,12 @@
  * @public
  * @namespace
  */
-var GeckoJS = GeckoJS || {version: "1.0.26"}; // Check to see if already defined in current scope
+var GeckoJS = GeckoJS || {version: "1.0.36"}; // Check to see if already defined in current scope
 
 /**
  * This is a reference to the global context, which is normally the "window" object.
- *  
+ *
+ * @name GeckoJS.global
  * @public
  * @static
  * @field global    
@@ -30,7 +31,8 @@ GeckoJS.global = (typeof window != 'undefined') ? window : this;
 /**
  * Returns the hash code of an object. If the object does not have a hash code, a
  * unique hash code is created for it.
- * 
+ *
+ * @name GeckoJS.getHashCode
  * @public
  * @static 
  * @function  
@@ -50,7 +52,8 @@ GeckoJS.getHashCode = function(obj) {
 
 /**
  * Removes the hash code of an object.
- * 
+ *
+ * @name GeckoJS.removeHashCode
  * @public
  * @static 
  * @function  
@@ -69,6 +72,7 @@ GeckoJS.removeHashCode = function(obj) {
 
 
 /**
+ * @name GeckoJS.HASH_CODE_PROPERTY
  * @field
  * @type {String} Name for hash code property
  * @private
@@ -77,6 +81,7 @@ GeckoJS.HASH_CODE_PROPERTY = '__GeckoJS_hashCode__';
 
 
 /**
+ * @name GeckoJS.hashCodeCounter
  * @field
  * @type {Number} Counter for hash codes.
  * @private
@@ -91,6 +96,7 @@ GeckoJS.hashCodeCounter = 0;
  * 
  * This is an alias for GREUtils.define().
  *
+ * @name GeckoJS.define
  * @public
  * @static 
  * @function
@@ -114,7 +120,8 @@ GeckoJS.define = function(name, context) {
  * otherwise NS_ERROR_INVALID_ARG is returned.
  * 
  * This is an alias for GREUtils.include()
- *   
+ *
+ * @name GeckoJS.include
  * @public
  * @static
  * @function 
@@ -139,7 +146,8 @@ GeckoJS.include = function (scriptSrc, scope) {
  * simply return NS_OK.   
  *
  * This is an alias for GREUtils.include_once()
- *   
+ *
+ * @name GeckoJS.include_once
  * @public
  * @static
  * @function 
@@ -171,6 +179,7 @@ GeckoJS.Singleton = {
  * <br/>
  * This is a dummy method and is overridden in individual Singleton classes.<br/>
  *
+ * @name GeckoJS.Singleton.getInstance
  * @public
  * @static
  * @function
@@ -187,6 +196,7 @@ GeckoJS.Singleton = {
  * "getInstance()" method to the target class as the point of access to the
  * class singleton.<br/>
  *
+ * @name GeckoJS.Singleton.support
  * @public
  * @static
  * @function
@@ -207,8 +217,11 @@ GeckoJS.Singleton = {
 			}
 		});
 	}
-};/**
- * @namespace Defines the GeckoJS.Class namespace
+};
+/**
+ * Defines the GeckoJS.Class namespace
+ * @public
+ * @namespace 
  */
 /**
  * Creates a new GeckoJS.Class instance.
@@ -232,6 +245,14 @@ GeckoJS.Singleton = {
     GeckoJS.Class = function(){
     };
 
+    /**
+     * Base Class static init function.
+     *
+     * @name GeckoJS.Class.init
+     * @public
+     * @static
+     * @function
+     */
     GeckoJS.Class.init = function(){
     }
 
@@ -245,6 +266,7 @@ GeckoJS.Singleton = {
  * containing the set of class properties and methods, and the second parameter ("proto")
  * should be the set of instance properties and methods.<br/>
  *
+ * @name GeckoJS.Class.extend
  * @public
  * @static
  * @function
@@ -341,7 +363,8 @@ GeckoJS.Singleton = {
 })();
 /**
  * Defines the GeckoJS.BaseObject namespace.
- * 
+ *
+ * @public
  * @namespace 
  */
 GREUtils.define('GeckoJS.BaseObject', GeckoJS.global);
@@ -362,6 +385,7 @@ GeckoJS.BaseObject = GeckoJS.Class.extend('BaseObject', {});
 /**
  * Clones an object.
  *
+ * @name GeckoJS.BaseObject.clone
  * @public
  * @static
  * @function
@@ -381,6 +405,7 @@ GeckoJS.BaseObject.clone = function(obj){
 /**
  * Clones an object.
  *
+ * @name GeckoJS.BaseObject#clone
  * @public
  * @function
  * @param {Object} obj      This is the object to clone , defaults to this instance
@@ -401,7 +426,8 @@ GeckoJS.BaseObject.prototype.clone = function(obj){
  *      GeckoJS.BaseObject.log(className, level, message)
  *      GeckoJS.BaseObject.log(className, level, message, exception)
  * </pre>
- * 
+ *
+ * @name GeckoJS.BaseObject.log
  * @public
  * @static
  * @function
@@ -466,7 +492,8 @@ GeckoJS.BaseObject.log = function(className, level, message, exception){
  *      this.log(level, message)
  *      this.log(level, message, exception)
  * </pre>
- * 
+ *
+ * @name GeckoJS.BaseObject#log
  * @public
  * @function
  * @param {GeckoJS.Log.Level} level This is the level of the message
@@ -505,6 +532,7 @@ GeckoJS.BaseObject.prototype.log = function(level, message, exception) {
 /**
  * Gets a class-specific logger for this object class.
  *
+ * @name GeckoJS.BaseObject.getLogger
  * @public
  * @static
  * @function
@@ -517,11 +545,10 @@ GeckoJS.BaseObject.getLogger = function() {
 };
 
 
-
 /**
  * Get a class-specific logger for this object class.
  *
- *
+ * @name GeckoJS.BaseObject#getLogger
  * @public
  * @function
  * @return {GeckoJS.Log.ClassLogger}   The class-specific logger
@@ -536,6 +563,7 @@ GeckoJS.BaseObject.prototype.getLogger = function() {
 /**
  * Dispatches a command to a controller.
  *
+ * @name GeckoJS.BaseObject#requestCommand
  * @public
  * @function
  * @param {String} command              This is the command to dispatch
@@ -554,6 +582,7 @@ GeckoJS.BaseObject.prototype.requestCommand = function(command, data, context, w
 /**
  * Dispatches a command to a controller
  *
+ * @name GeckoJS.BaseObject.requestCommand
  * @public
  * @static
  * @function
@@ -572,6 +601,7 @@ GeckoJS.BaseObject.requestCommand = function(command, data, context, window) {
 /**
  * Serializes an object using JSON encoding.
  *
+ * @name GeckoJS.BaseObject.serialize
  * @public
  * @static
  * @function
@@ -595,6 +625,7 @@ GeckoJS.BaseObject.serialize = function(obj){
 /**
  * Serializes this GeckoJS.BaseObject instance using JSON encoding.
  *
+ * @name GeckoJS.BaseObject#serialize
  * @public
  * @function
  * @param {String} obj      This is the object to serialize
@@ -607,6 +638,7 @@ GeckoJS.BaseObject.prototype.serialize = function(obj){
 /**
  * Serializes an object using JSON encoding.
  *
+ * @name GeckoJS.BaseObject.stringify
  * @public
  * @static
  * @function
@@ -619,6 +651,7 @@ GeckoJS.BaseObject.stringify = GeckoJS.BaseObject.serialize;
 /**
  * Serializes this GeckoJS.BaseObject instance using JSON encoding.
  *
+ * @name GeckoJS.BaseObject#stringify
  * @public
  * @function
  * @return {String}                 The JSON representation of this BaseObject
@@ -629,6 +662,7 @@ GeckoJS.BaseObject.prototype.stringify = GeckoJS.BaseObject.prototype.serialize;
 /**
  * Recreates an object from its JSON encoding.
  *
+ * @name GeckoJS.BaseObject.unserialize
  * @public
  * @static
  * @function
@@ -651,6 +685,7 @@ GeckoJS.BaseObject.unserialize = function(str){
 /**
  * Restores this GeckoJS.BaseOBject instance to the state represented by the JSON encoding.
  *
+ * @name GeckoJS.BaseObject#unserialize
  * @public
  * @function
  * @param {String} str      The JSON representation of this BaseObject
@@ -665,6 +700,7 @@ GeckoJS.BaseObject.prototype.unserialize = function(str){
 /**
  * Returns the name of an object's class.
  *
+ * @name GeckoJS.BaseObject.getClassName
  * @public
  * @static
  * @function
@@ -692,6 +728,7 @@ GeckoJS.BaseObject.getClassName = function(obj){
 /**
  * Returns the name of this GeckoJS.BaseObject instance's class.
  *
+ * @name GeckoJS.BaseObject#getClassName
  * @public
  * @function
  * @return {String}         This BaseObject's class name
@@ -704,6 +741,7 @@ GeckoJS.BaseObject.prototype.getClassName = function(){
 /**
  * Returns in an array the values contained in an object.
  *
+ * @name GeckoJS.BaseObject.getValues
  * @public
  * @static
  * @function
@@ -724,6 +762,7 @@ GeckoJS.BaseObject.getValues = function(obj) {
 /**
  * Returns in an array the keys contained in an object.
  *
+ * @name GeckoJS.BaseObject.getKeys
  * @public
  * @static
  * @function
@@ -743,7 +782,8 @@ GeckoJS.BaseObject.getKeys = function(obj) {
 
 /**
  * Dumps the content of an object or array in a human-readable format.
- * 
+ *
+ * @name GeckoJS.BaseObject.dump
  * @public 
  * @static
  * @function  
@@ -816,7 +856,8 @@ GeckoJS.BaseObject.dump = function ( array, recursive) {
 
 /**
  * Dumps the content of an object or array in a human-readable format.
- * 
+ *
+ * @name GeckoJS.BaseObject#dump
  * @public 
  * @function  
  * @param {Object} array     This is the object to dump
@@ -834,6 +875,10 @@ GeckoJS.BaseObject.prototype.dump = function (array, recursive) {
 /**
  * sleep milliseconds in current Thread.
  *
+ * @name GeckoJS.BaseObject.sleep
+ * @public
+ * @static
+ * @function
  * @param {Number} milliseconds     milliseconds to sleep
  * @return {Boolean} always true
  */
@@ -870,6 +915,9 @@ GeckoJS.BaseObject.sleep = function (milliseconds) {
 /**
  * sleep milliseconds in current Thread.
  *
+ * @name GeckoJS.BaseObject#sleep
+ * @public
+ * @function
  * @param {Number} milliseconds     milliseconds to sleep
  * @return {Boolean} always true
  */
@@ -892,15 +940,24 @@ GREUtils.define('GeckoJS.Map', GeckoJS.global);
  * of key-value pairs containing no duplicate keys.<br/>
  *
  * @name GeckoJS.Map
- * @class
  * @extends GeckoJS.BaseObject
  */
-GeckoJS.Map = GeckoJS.BaseObject.extend('Map', {
+GeckoJS.Map = GeckoJS.BaseObject.extend('Map',
+/** @lends GeckoJS.Map.prototype */
+{
+
+    /**
+     * Map contructor
+     *
+     * @name GeckoJS.Map#init
+     * @public
+     * @function
+     */
     init: function(){
 
         this._obj = {};
-		this._keys = [];
-		this._count = 0;
+        this._keys = [];
+        this._count = 0;
 
     }
 });
@@ -909,6 +966,7 @@ GeckoJS.Map = GeckoJS.BaseObject.extend('Map', {
 /**
  * Returns the number of elements in a Map.
  *
+ * @name GeckoJS.Map.getCount
  * @public
  * @static
  * @function
@@ -932,6 +990,7 @@ GeckoJS.Map.getCount = function(obj){
 /**
  * Returns the number of elements in this GeckoJS.Map instance.
  *
+ * @name GeckoJS.Map#getCount
  * @public
  * @function
  * @return {Number}         The number of elements in this Map
@@ -944,6 +1003,7 @@ GeckoJS.Map.prototype.getCount = function(){
 /**
  * Checks whether an object/hash/map contains the given object as a value.
  *
+ * @name GeckoJS.Map.contains
  * @public
  * @static
  * @function
@@ -959,6 +1019,7 @@ GeckoJS.Map.contains = function(obj, val){
 /**
  * Checks whether this Map contains the given object as a value.
  *
+ * @name GeckoJS.Map#contains
  * @public
  * @function
  * @param {Object} obj      This is the object in which to look for val
@@ -973,6 +1034,7 @@ GeckoJS.Map.prototype.contains = function(val){
 /**
  * Checks whether an object/hash/map contains the given key.
  *
+ * @name GeckoJS.Map.containsKey
  * @public
  * @static
  * @function
@@ -993,6 +1055,7 @@ GeckoJS.Map.containsKey = function(obj, key){
 /**
  * Checks whether this Map contains the given key.
  *
+ * @name GeckoJS.Map#containsKey
  * @public
  * @function
  * @param {Object} key      The key for which to check
@@ -1006,6 +1069,7 @@ GeckoJS.Map.prototype.containsKey = function(key){
 /**
  * Checks whether an object/hash/map contains the given object as a value.
  *
+ * @name GeckoJS.Map.containsValue
  * @public
  * @static
  * @function
@@ -1031,6 +1095,7 @@ GeckoJS.Map.containsValue = function(obj, val){
 /**
  * Checks whether this Map contains the given object as a value.
  *
+ * @name GeckoJS.Map#containsValue
  * @public
  * @function
  * @param {Object} obj      This is the object in which to look for val
@@ -1053,6 +1118,7 @@ GeckoJS.Map.prototype.containsValue = function(val){
 /**
  * Returns in an array the values contained in an object/hash/map.
  *
+ * @name GeckoJS.Map.getValues
  * @public
  * @static
  * @function
@@ -1076,6 +1142,7 @@ GeckoJS.Map.getValues = function(obj){
 /**
  * Returns in an array the values contained in this Map.
  *
+ * @name GeckoJS.Map#getValues
  * @public
  * @function
  * @return {Object}         An array of values contained in this Map
@@ -1095,6 +1162,7 @@ GeckoJS.Map.prototype.getValues = function(){
 /**
  * Returns in an array the keys contained in an object/hash/map.
  *
+ * @name GeckoJS.Map.getKeys
  * @public
  * @static
  * @function
@@ -1118,6 +1186,7 @@ GeckoJS.Map.getKeys = function(obj){
 /**
  * Returns in an array the values contained in this Map.
  *
+ * @name GeckoJS.Map#getKeys
  * @public
  * @function
  * @return {Array}          An array of keys contained in this Map
@@ -1133,6 +1202,7 @@ GeckoJS.Map.prototype.getKeys = function(){
 /**
  * Checks whether an object/hash/map is empty.
  *
+ * @name GeckoJS.Map.isEmpty
  * @public
  * @static
  * @function
@@ -1155,6 +1225,7 @@ GeckoJS.Map.isEmpty = function(obj){
 /**
  * Checks whether this Map is empty.
  *
+ * @name GeckoJS.Map#isEmpty
  * @public
  * @function
  * @return {Boolean}        "true" if this Map is empty
@@ -1167,6 +1238,7 @@ GeckoJS.Map.prototype.isEmpty = function(){
 /**
  * Removes all key-value pairs from an object/hash/map.
  *
+ * @name GeckoJS.Map.clear
  * @public
  * @static
  * @function
@@ -1187,6 +1259,7 @@ GeckoJS.Map.clear = function(obj){
 /**
  * Removes all key-value pairs from this Map.
  *
+ * @name GeckoJS.Map#clear
  * @public
  * @function
  */
@@ -1206,6 +1279,7 @@ GeckoJS.Map.prototype.clear = function(){
 /**
  * Removes a key-value pair from an object/hash/map based on the key.
  *
+ * @name GeckoJS.Map.remove
  * @public
  * @static
  * @function
@@ -1229,6 +1303,7 @@ GeckoJS.Map.remove = function(obj, key){
 /**
  * Removes a key-value pair from this Map based on the key.
  *
+ * @name GeckoJS.Map#remove
  * @public
  * @function
  * @param {String} key      This is the key to remove
@@ -1254,7 +1329,10 @@ GeckoJS.Map.prototype.remove = function(key){
 /**
  * Cleans up the temp keys array by removing entries that are no longer in the
  * map.
+ *
+ * @name GeckoJS.Map#updateKeysArray
  * @private
+ * @function
  */
 GeckoJS.Map.prototype.updateKeysArray = function() {
   if (this._count != this._keys.length) {
@@ -1298,6 +1376,7 @@ GeckoJS.Map.prototype.updateKeysArray = function() {
  * <br/>
  * Use the set() method to replace an existing key-value pair.
  *
+ * @name GeckoJS.Map.add
  * @public
  * @static
  * @function
@@ -1319,6 +1398,7 @@ GeckoJS.Map.add = function(obj, key, val){
  * <br/>
  * Use the set() method to replace an existing key-value pair.
  *
+ * @name GeckoJS.Map#add
  * @public
  * @function
  * @param {String} key      This is the key to add
@@ -1333,6 +1413,7 @@ GeckoJS.Map.prototype.add = function(key, val){
  * Returns the value for a given key from an object/hash/map. If the key is not
  * found in the object/hash/map, "opt_val" is returned.
  *
+ * @name GeckoJS.Map.get
  * @public
  * @static
  * @function
@@ -1354,6 +1435,7 @@ GeckoJS.Map.get = function(obj, key, opt_val){
  * Returns the value for a given key from this Map. If the key is not found
  * in the object/hash/map, "opt_val" is returned.
  *
+ * @name GeckoJS.Map#get
  * @public
  * @function
  * @param {String} key      This is the key for which to get the value
@@ -1369,6 +1451,7 @@ GeckoJS.Map.prototype.get = function(key, opt_val){
  * Adds a key-value pair to an object/hash/map. If the object/hash/map already
  * contains the key, replaces its current value wih the new value.
  *
+ * @name GeckoJS.Map.set
  * @public
  * @static
  * @function
@@ -1390,6 +1473,7 @@ GeckoJS.Map.set = function(obj, key, value){
  * Adds a key-value pair to this Map. If the key already exists, replaces its
  * current value with the new value.
  *
+ * @name GeckoJS.Map#set
  * @public
  * @function
  * @param {String} key      This is the key to add
@@ -1409,6 +1493,7 @@ GeckoJS.Map.prototype.set = function(key, value){
 /**
  * Adds multiple key-value pairs to this Map from another Map or Object.
  *
+ * @name GeckoJS.Map#addAll
  * @public
  * @function
  * @param {Object} map      This is the Map or Object containing the key-value pairs to add
@@ -1431,6 +1516,7 @@ GeckoJS.Map.prototype.addAll = function(map) {
 /**
  * Serializes this Map using JSON encoding.
  *
+ * @name GeckoJS.Map#serialize
  * @public
  * @function
  * @return {String}         The JSON representation of this Set
@@ -1443,6 +1529,7 @@ GeckoJS.Map.prototype.serialize = function(){
 /**
  * Restores this Map to the state represented by the JSON string.
  *
+ * @name GeckoJS.Map#unserialize
  * @public
  * @function
  * @param {String} str      The JSON representation of this Set
@@ -1453,6 +1540,7 @@ GeckoJS.Map.prototype.unserialize = function(str) {
 	this.clear();
 	return this.addAll(res);
 };
+
 /**
  * Defines the GeckoJS.Set namespace.
  *
@@ -1467,9 +1555,20 @@ GREUtils.define('GeckoJS.Set', GeckoJS.global);
  * @class GeckoJS.Set implements the Set data structure, which is a collection
  * that contains no duplicate elements.<br/>
  *
+ * @name GeckoJS.Set
  * @extends GeckoJS.BaseObject
  */
-GeckoJS.Set = GeckoJS.BaseObject.extend('Set', {
+GeckoJS.Set = GeckoJS.BaseObject.extend('Set',
+/** @lends GeckoJS.Set.prototype */
+{
+
+    /**
+     * Set contructor
+     *
+     * @name GeckoJS.Set#init
+     * @public
+     * @function
+     */
     init: function(){
 
         this._map = new GeckoJS.Map();
@@ -1481,10 +1580,13 @@ GeckoJS.Set = GeckoJS.BaseObject.extend('Set', {
 /**
  * This is used to get the key or the hash. We are not using getHashCode
  * because it only works with objects
- * 
+ *
+ * @name GeckoJS.Set.getKey
+ * @public
+ * @static
+ * @function
  * @param {*} val Object or primitive value to get a key for.
  * @return {string} A unique key for this value/object.
- * @private
  */
 GeckoJS.Set.getKey = function(val) {
   var type = typeof val;
@@ -1499,6 +1601,7 @@ GeckoJS.Set.getKey = function(val) {
 /**
  * Returns the number of elements in the Set.
  *
+ * @name GeckoJS.Set#getCount
  * @public
  * @function
  * @return {Number}         The number of elements in the Set
@@ -1511,6 +1614,7 @@ GeckoJS.Set.prototype.getCount = function(){
 /**
  * Checks if an object is in the Set.
  *
+ * @name GeckoJS.Set#contains
  * @public
  * @function
  * @param {Object} val      This is the object to check
@@ -1524,6 +1628,7 @@ GeckoJS.Set.prototype.contains = function(val){
 /**
  * Returns all elements of the Set in an array.
  *
+ * @name GeckoJS.Set#getValues
  * @public
  * @function
  * @return {Object}          An array containing all the elements of the Set
@@ -1536,6 +1641,7 @@ GeckoJS.Set.prototype.getValues = function(){
 /**
  * Checks if the Set is empty.
  *
+ * @name GeckoJS.Set#isEmpty
  * @public
  * @function
  * @return {Boolean}        "true" if the Set if empty; "false" otherwise
@@ -1548,6 +1654,7 @@ GeckoJS.Set.prototype.isEmpty = function(){
 /**
  * Clears the Set (i.e. removes all elements of the Set, making it empty).
  *
+ * @name GeckoJS.Set#clear
  * @public
  * @function
  */
@@ -1559,6 +1666,7 @@ GeckoJS.Set.prototype.clear = function(){
 /**
  * Removes an object from the Set.
  *
+ * @name GeckoJS.Set#remove
  * @public
  * @function
  * @param {Object} obj      This is the object to remove from the Set
@@ -1574,6 +1682,7 @@ GeckoJS.Set.prototype.remove = function(obj){
  * <br/>
  * If the object is already in the Set then no action takes place.
  *
+ * @name GeckoJS.Set#add
  * @public
  * @function
  * @param {Object} obj      This is the object to add to the Set
@@ -1588,6 +1697,7 @@ GeckoJS.Set.prototype.add = function(obj){
  * <br/>
  * If the object is already in the Set then no action takes place.
  *
+ * @name GeckoJS.Set#set
  * @public
  * @function
  * @param {Object} obj}     This is the object to add to the Set
@@ -1600,6 +1710,7 @@ GeckoJS.Set.prototype.set = function(obj){
 /**
  * Adds all the elements from another Set.
  *
+ * @name GeckoJS.Set#addAll
  * @public
  * @function
  * @param {Object} set      This is the Set containing the elements to add
@@ -1620,6 +1731,7 @@ GeckoJS.Set.prototype.addAll = function(set) {
 /**
  * Serializes the Set using JSON encoding.
  *
+ * @name GeckoJS.Set#serialize
  * @public
  * @function
  * @return {String}         The JSON representation of this Set
@@ -1632,6 +1744,7 @@ GeckoJS.Set.prototype.serialize = function(){
 /**
  * Restores this Set to the state represented by the JSON string.
  *
+ * @name GeckoJS.Set#unserialize
  * @public
  * @function
  * @param {String} str      The JSON representation of this Set
@@ -1639,6 +1752,7 @@ GeckoJS.Set.prototype.serialize = function(){
 GeckoJS.Set.prototype.unserialize = function(str) {
 	return this._map.unserialize(str);
 };
+
 /**
  * Defines the GeckoJS.Log namespace.
  *
@@ -1708,6 +1822,7 @@ GeckoJS.Log.levels = ["TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"];
 /**
  * Returns in an array the built-in log levels.
  *
+ * @name GeckoJS.Log.getLevels
  * @public
  * @static
  * @function
@@ -1726,6 +1841,7 @@ GeckoJS.Log.getLevels = function () {
  * The class is used only for identification purposes and is not related to
  * any GeckoJS classes or objects.
  *
+ * @name GeckoJS.Log.getLoggerForClass
  * @public
  * @static
  * @function
@@ -1752,6 +1868,7 @@ GeckoJS.Log.getLoggerForClass = function (className) {
 /**
  * Checks if a class-specific logger already exists for a given class.
  *
+ * @name GeckoJS.Log.hasLoggerForClass
  * @public
  * @static
  * @function
@@ -1766,6 +1883,7 @@ GeckoJS.Log.hasLoggerForClass = function (className) {
 /**
  * Adds a Log appender.
  *
+ * @name GeckoJS.Log.addAppender
  * @public
  * @static
  * @function
@@ -1788,6 +1906,7 @@ GeckoJS.Log.addAppender = function (name, appender) {
 /**
  * Removes the specified appender.
  *
+ * @name GeckoJS.Log.removeAppender
  * @public
  * @static
  * @function
@@ -1800,6 +1919,7 @@ GeckoJS.Log.removeAppender = function (name) {
 /**
  * Retrieves the given appender.
  *
+ * @name GeckoJS.Log.getAppender
  * @public
  * @static
  * @function
@@ -1814,6 +1934,7 @@ GeckoJS.Log.getAppender = function (name) {
 /**
  * Dispatches the log message to the appropriate appenders for recording.
  *
+ * @name GeckoJS.Log.log
  * @public
  * @static
  * @function
@@ -1851,7 +1972,9 @@ GeckoJS.Log.log = function (className, level, message, exception) {
 /**
  * Initializes GeckoJS.Log and instantiates a default Logger of class "GeckoJS".
  *
+ * @name GeckoJS.Log.init
  * @private
+ * @function
  * @param {String} defClassLevel        The default level to use
  */
 GeckoJS.Log.init = function (defClassLevel)
@@ -1871,6 +1994,7 @@ GeckoJS.Log.init = function (defClassLevel)
 /**
  * Logs a message at the "TRACE" level.
  *
+ * @name GeckoJS.Log.trace
  * @public
  * @static
  * @function
@@ -1885,6 +2009,7 @@ GeckoJS.Log.trace = function () {
 /**
  * Logs a message at the "DEBUG" level.
  *
+ * @name GeckoJS.Log.debug
  * @public
  * @static
  * @function
@@ -1899,6 +2024,7 @@ GeckoJS.Log.debug = function () {
 /**
  * Logs a message at the "INFO" level.
  *
+ * @name GeckoJS.Log.info
  * @public
  * @static
  * @function
@@ -1913,6 +2039,7 @@ GeckoJS.Log.info = function () {
 /**
  * Logs a message at the "WARN" level.
  *
+ * @name GeckoJS.Log.warn
  * @public
  * @static
  * @function
@@ -1927,6 +2054,7 @@ GeckoJS.Log.warn = function () {
 /**
  * Logs a message at the "ERROR" level.
  *
+ * @name GeckoJS.Log.error
  * @public
  * @static
  * @function
@@ -1941,6 +2069,7 @@ GeckoJS.Log.error = function () {
 /**
  * Logs a message at the "FATAL" level.
  *
+ * @name GeckoJS.Log.fatal
  * @public
  * @static
  * @function
@@ -1957,7 +2086,8 @@ GeckoJS.Log.fatal = function () {
  * @class GeckoJS.Log.Level is used to define logging levels. Each level is
  * associated with a name and a numeric value representing severity (higher
  * is more severe.)<br/>
- * 
+ *
+ * @name GeckoJS.Log.Level
  * @param {String} name		This is the name of the logging level
  * @param {Number} value	This is the severity
  */
@@ -1969,6 +2099,7 @@ GeckoJS.Log.Level = function (name, value) {
 /**
  * Returns the textual representation of the logging level, namely its name.
  *
+ * @name GeckoJS.Log.Level#toString
  * @public
  * @function
  * @return {String} The textual representation of the logging level
@@ -1981,6 +2112,7 @@ GeckoJS.Log.Level.prototype.toString = function () {
  * A common comparison operator on Level objects: is the current level
  * at or above the given level?
  *
+ * @name GeckoJS.Log.Level#isAtLeast
  * @public
  * @function
  * @param {Number} otherLevel  the severity level to compare against
@@ -1994,6 +2126,7 @@ GeckoJS.Log.Level.prototype.isAtLeast = function (otherLevel) {
  * A common comparison operator on Level objects: is the current level
  * at or below the given level?
  *
+ * @name GeckoJS.Log.Level#isAtOrBelow
  * @public
  * @function
  * @param {Number} otherLevel  the severity level to compare against
@@ -2007,6 +2140,7 @@ GeckoJS.Log.Level.prototype.isAtOrBelow = function (otherLevel) {
  * A common comparison operator on Level objects: is the current level
  * below the given level?
  *
+ * @name GeckoJS.Log.Level#isBelow
  * @public
  * @function
  * @param {Number} otherLevel  the severity level to compare against
@@ -2025,6 +2159,7 @@ GeckoJS.Log.Level.prototype.isBelow = function (otherLevel) {
  * a log level. The class logger will only record log messages at or above
  * its level, and each log entry will be tagged with its class name.<br/>
  *
+ * @name GeckoJS.Log.ClassLogger
  * @param {String} name 		This is the class name
  * @param {GeckoJS.Log.Level} level     This is the log level
  */
@@ -2036,6 +2171,9 @@ GeckoJS.Log.ClassLogger = function (name, level) {
 /**
  * Logs a message.
  *
+ * @name GeckoJS.Log.ClassLogger#log
+ * @public
+ * @function
  * @param {GeckoJS.Log.Level} level 		This is the level at which to log the message
  * @param {String} message           		This is the message (the module and caller will be prepended automatically)
  * @param {Exception} [exception]           This is an optional exception to log
@@ -2060,6 +2198,9 @@ GeckoJS.Log.ClassLogger.prototype.log = function (level, message, exception)
 /**
  * Returns the current log level.
  *
+ * @name GeckoJS.Log.ClassLogger#getLevel
+ * @public
+ * @function
  * @return {GeckoJS.Log.Level}		The current log level
  */
 GeckoJS.Log.ClassLogger.prototype.getLevel = function getLevel()
@@ -2070,6 +2211,9 @@ GeckoJS.Log.ClassLogger.prototype.getLevel = function getLevel()
 /**
  * Sets the log level.
  *
+ * @name GeckoJS.Log.ClassLogger#setLevel
+ * @public
+ * @function
  * @param {GeckoJS.Log.Level} level     This is the log level to set this instance to
  * @return {GeckoJS.Log.ClassLogger}    This GeckoJS.Log.ClassLogger instance
  */
@@ -2084,6 +2228,9 @@ GeckoJS.Log.ClassLogger.prototype.setLevel = function setLevel(level)
 /**
  * Logs a message at the "TRACE" level.
  *
+ * @name GeckoJS.Log.ClassLogger#trace
+ * @public
+ * @function
  * @param {String} message		This is the message to append to the log.
  * @param {Error} [exception]   This is an optional error or exception to be logged
  * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
@@ -2095,6 +2242,9 @@ GeckoJS.Log.ClassLogger.prototype.trace = function(message, exception) {
 /**
  * Logs a message at the "DEBUG" level.
  *
+ * @name GeckoJS.Log.ClassLogger#debug
+ * @public
+ * @function
  * @param {String} message		This is the message to append to the log.
  * @param {Error} [exception]   This is an optional error or exception to be logged
  * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
@@ -2106,6 +2256,9 @@ GeckoJS.Log.ClassLogger.prototype.debug = function(message, exception) {
 /**
  * Logs a message at the "INFO" level.
  *
+ * @name GeckoJS.Log.ClassLogger#info
+ * @public
+ * @function
  * @param {String} message		This message to append to the log.
  * @param {Error} [exception]   This is an optional error or exception to be logged
  * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
@@ -2117,6 +2270,9 @@ GeckoJS.Log.ClassLogger.prototype.info = function(message, exception) {
 /**
  * Logs a message at the "WARN" level.
  *
+ * @name GeckoJS.Log.ClassLogger#warn
+ * @public
+ * @function
  * @param {String} message		This is the message to append to the log.
  * @param {Error} [exception]   This is an optional error or exception to be logged
  * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
@@ -2128,6 +2284,9 @@ GeckoJS.Log.ClassLogger.prototype.warn = function(message, exception) {
 /**
  * Logs a message at the "ERROR" level.
  *
+ * @name GeckoJS.Log.ClassLogger#error
+ * @public
+ * @function
  * @param {String} message		This is the message to append to the log.
  * @param {Error} [exception]   This is an optional error or exception to be logged
  * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
@@ -2139,6 +2298,9 @@ GeckoJS.Log.ClassLogger.prototype.error = function(message, exception) {
 /**
  * Logs a message at the "FATAL" level.
  *
+ * @name GeckoJS.Log.ClassLogger#fatal
+ * @public
+ * @function
  * @param {String} message		This is the message to append to the log.
  * @param {Error} [exception]   This is an optional error or exception to be logged
  * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
@@ -2165,7 +2327,16 @@ GeckoJS.Log.ClassLogger.prototype.fatal = function(message, exception) {
  * @name GeckoJS.Log.Appender
  * @param {GeckoJS.Log.Level} level  This is the log level
  */
-GeckoJS.Log.Appender = GeckoJS.Class.extend('Appender', {
+GeckoJS.Log.Appender = GeckoJS.Class.extend('Appender', 
+/** @lends GeckoJS.Log.Appender.prototype */
+{
+    /**
+     * GeckoJS.Log.Appender contructor
+     *
+     * @name GeckoJS.Log.Appender#init
+     * @public
+     * @function
+     */
     init: function (level) {
         this.level = level;
     }
@@ -2174,6 +2345,7 @@ GeckoJS.Log.Appender = GeckoJS.Class.extend('Appender', {
 /**
  * Formats a log message for output.
  *
+ * @name GeckoJS.Log.Appender#getFormattedMessage
  * @public
  * @function
  * @param {String} className 		This is the name of the class to use
@@ -2231,6 +2403,7 @@ GeckoJS.Log.Appender.prototype.getFormattedMessage = function (className, level,
 /**
  * Appends a log message
  *
+ * @name GeckoJS.Log.Appender#append
  * @public
  * @function
  * @param {String} className 		This is the name of the class to use
@@ -2246,6 +2419,7 @@ GeckoJS.Log.Appender.prototype.append = function (className, level, message, exc
  * Returns the log level to which this appender is set. Messages below this
  * level will not be logged.
  *
+ * @name GeckoJS.Log.Appender#getLevel
  * @public
  * @function
  * @return {GeckoJS.Log.Level} 		The current log level
@@ -2258,6 +2432,7 @@ GeckoJS.Log.Appender.prototype.getLevel = function () {
  * Sets the appender's log level. The appender will not log messages below this
  * level.
  *
+ * @name GeckoJS.Log.Appender#setLevel
  * @public
  * @function
  * @param {GeckoJS.Log.Level} level  This is the log level to assign to the appender
@@ -2270,7 +2445,8 @@ GeckoJS.Log.Appender.prototype.setLevel = function setLevel(level) {
 
 /**
  * Returns the appender's name.
- * 
+ *
+ * @name GeckoJS.Log.Appender#toString
  * @public
  * @function
  * @return {String} 		The appender's name
@@ -2294,7 +2470,17 @@ GeckoJS.Log.Appender.prototype.toString = function() {
  *
  * @param {GeckoJS.Log.Level} level  This is the logl level
  */
-GeckoJS.Log.ConsoleAppender = GeckoJS.Log.Appender.extend('ConsoleAppender', {
+GeckoJS.Log.ConsoleAppender = GeckoJS.Log.Appender.extend('ConsoleAppender',
+/** @lends GeckoJS.Log.ConsoleAppender.prototype */
+{
+    /**
+     * GeckoJS.Log.ConsoleAppender contructor
+     *
+     * @name GeckoJS.Log.ConsoleAppender#init
+     * @public
+     * @function
+     * @param {String} level
+     */
     init: function(level) {
         this.level = level;
     }
@@ -2304,6 +2490,7 @@ GeckoJS.Log.ConsoleAppender = GeckoJS.Log.Appender.extend('ConsoleAppender', {
 /**
  * Logs a message by appending it to the end of the console device.
  *
+ * @name GeckoJS.Log.ConsoleAppender#append
  * @public
  * @function
  * @param {String} className 		This is the name of the class to use
@@ -2347,8 +2534,19 @@ GeckoJS.Log.ConsoleAppender.prototype.append = function (className, level, messa
  * @param {GeckoJS.Log.Level} level  This is the log level
  * @param {String} logFile   		This is the path to the log file
  */
-GeckoJS.Log.FileAppender = GeckoJS.Log.Appender.extend('FileAppender', {
+GeckoJS.Log.FileAppender = GeckoJS.Log.Appender.extend('FileAppender',
+/** @lends GeckoJS.Log.FileAppender.prototype */
+{
     
+    /**
+     * GeckoJS.Log.FileAppender contructor
+     *
+     * @name GeckoJS.Log.FileAppender#init
+     * @public
+     * @function
+     * @param {String} level
+     * @param {String} logFile
+     */
     init: function(level, logFile) {
         this.level = level;
         this.logFile = logFile || null;
@@ -2359,6 +2557,9 @@ GeckoJS.Log.FileAppender = GeckoJS.Log.Appender.extend('FileAppender', {
 /**
  * Logs a message by appending it to the end of the log file.
  *
+ * @name GeckoJS.Log.FileAppender#append
+ * @public
+ * @function
  * @param {String} className 		This is the name of the class to use
  * @param {GeckoJS.Log.Level} level	This is the level to use for this message
  * @param {String} message   		This is the message to log
@@ -2423,6 +2624,7 @@ GeckoJS.EventItem.prototype.getType = function() {
 /**
  * Returns the event data of this event item.
  *
+ * @name GeckoJS.EventItem#getData
  * @public
  * @function
  * @return {Object}         The event data of this event item
@@ -2434,6 +2636,7 @@ GeckoJS.EventItem.prototype.getData = function() {
 /**
  * Returns the event target of this event item.
  *
+ * @name GeckoJS.EventItem#getTarget
  * @public
  * @function
  * @return {Object}         The event target of this event item
@@ -2446,6 +2649,7 @@ GeckoJS.EventItem.prototype.getTarget = function() {
  * Returns the cancel status of this event item (i.e. whether preventDefault()
  * has been invoked on this event item.) 
  *
+ * @name GeckoJS.EventItem#isCancel
  * @public
  * @function
  * @return {Boolean}         The cancel status of this event item
@@ -2458,12 +2662,14 @@ GeckoJS.EventItem.prototype.isCancel = function() {
  * Causes the Event dispatcher that created this EventItem instance to return
  * "false" to the dispatcher's caller.
  *
+ * @name GeckoJS.EventItem#preventDefault
  * @public
  * @function
  */
 GeckoJS.EventItem.prototype.preventDefault = function(){
     this._cancel = true;
 };
+
 /**
  * Defines the GeckoJS.Event namespace.
  *
@@ -2495,13 +2701,22 @@ GREUtils.define('GeckoJS.Event', GeckoJS.global);
  * target of the event being dispatched.<br/>
  * 
  * @name GeckoJS.Event
- * @class
  *
  * @property {Object} listeners   An array of event listeners (read-only)
  *
  */
 
-GeckoJS.Event = GeckoJS.BaseObject.extend('Event', {
+GeckoJS.Event = GeckoJS.BaseObject.extend('Event',
+/** @lends GeckoJS.Event.prototype */
+{
+    /**
+     * Event contructor
+     *
+     * @name GeckoJS.Event#init
+     * @public
+     * @function
+     * @param {Array} listeners
+     */
     init: function(listeners){
         this.listeners = listeners || [];
     }
@@ -2514,7 +2729,8 @@ GeckoJS.Event = function(){
 
 /**
  * An array of global event callbacks
- * 
+ *
+ * @name GeckoJS.Event.callbacks
  * @public
  * @static
  * @field {Object} callbacks
@@ -2535,6 +2751,7 @@ if (Application.storage.has("GeckoJS_Event_callbacks")) {
  * This method checks if the same event-callback combination already exists
  * before adding a new callback.
  *
+ * @name GeckoJS.Event.addCallback
  * @public
  * @static
  * @function
@@ -2573,6 +2790,7 @@ GeckoJS.Event.addCallback = function(aType, aCallback, thisObj){
 /**
  * Removes a global event callback.<br/>
  *
+ * @name GeckoJS.Event.removeCallback
  * @public
  * @static
  * @function
@@ -2603,6 +2821,7 @@ GeckoJS.Event.removeCallback = function(aType, aCallback){
  * preventDefault() on the EventItem or until all the callbacks have been
  * invoked.
  *
+ * @name GeckoJS.Event.processCallback
  * @public
  * @static
  * @function
@@ -2635,6 +2854,7 @@ GeckoJS.Event.processCallback = function(aType, aEventItem){
  * This method checks if the same event-listener combination already exists
  * before adding a new listener.
  *
+ * @name GeckoJS.Event#addListener
  * @public
  * @function
  * @param {String} aEvent         This is the event for which a listener is to be added
@@ -2675,9 +2895,9 @@ GeckoJS.Event.prototype.addListener = function(aEvent, aListener, thisObj){
 /**
  * Removes a listener for an event.<br/>
  *
+ * @name GeckoJS.Event#removeListener
  * @public
  * @function
- *
  * @param {String} aEvent         This is the event for which a listener is to be removed
  * @param {Function} aListener    This is the listener function to be removed
  */
@@ -2700,6 +2920,7 @@ GeckoJS.Event.prototype.removeListener = function(aEvent, aListener){
  * method on the EventItem instance, this method will return "false". Otherwise
  * it returns "true".
  *
+ * @name GeckoJS.Event#dispatch
  * @public
  * @function
  * @param {String} aEvent         This is the name of the event to dispatch
@@ -2751,6 +2972,7 @@ GeckoJS.Event.prototype.dispatch = function(aEvent, aEventData, aTarget){
 
     return !eventItem.cancel;
 };
+
 /**
  * Defines the GeckoJS.Filter namespace.
  *
@@ -2762,6 +2984,7 @@ GREUtils.define('GeckoJS.Filter', GeckoJS.global);
 /**
  * Creates a new GeckoJS.Filter instance and initializes it with an empty
  * list of callbacks.
+ *
  * @deprecated Use GeckoJS.Event instead
  *
  * @class [deprecated] GeckoJS.Filter is used to associate MVC actions with a chain of
@@ -2780,6 +3003,8 @@ GeckoJS.Filter = function(){
  * This method checks if the same filter type/callback combination already exists
  * before adding a new filter.
  *
+ * @deprecated Use GeckoJS.Event instead
+ * @name GeckoJS.Filter#addFilter
  * @public
  * @function
  * @param {Object} aType          This is the type of filter to add
@@ -2802,9 +3027,10 @@ GeckoJS.Filter.prototype.addFilter = function(aType, aFilter){
 /**
  * Removes a filter from the filter chain.
  *
+ * @deprecated Use GeckoJS.Event instead
+ * @name GeckoJS.Filter#removeFilter
  * @public
  * @function
- *
  * @param {Object} aType          This is the type of filter to remove
  * @param {Function} aFilter      This is the filter function to removed
  */
@@ -2824,6 +3050,8 @@ GeckoJS.Filter.prototype.removeFilter = function(aType, aFilter){
  * <br/>
  * Otherwise "true" is returned.s
  *
+ * @deprecated Use GeckoJS.Event instead
+ * @name GeckoJS.Filter#process
  * @public
  * @function
  * @param {String} aType          This is the type of filters to process
@@ -2852,6 +3080,7 @@ GeckoJS.Filter.prototype.process = function(aType, aEventData, aTarget) {
     });
     return filterChain;
 };
+
 /**
  * Defines the  GeckoJS.Inflector namespace
  * 
@@ -2878,6 +3107,8 @@ GeckoJS.Inflector = function(){
 
 /**
  * Inflections
+ *
+ * @name GeckoJS.Inflector.Inflections
  * @private
  * @field Inflections
  */
@@ -3028,6 +3259,7 @@ GeckoJS.Inflector.Inflections = {
  * Turns a number into an ordinal string used to denote the position in an ordered
  * sequence such as 1st, 2nd, 3rd, 4th...
  *
+ * @name GeckoJS.Inflector.ordinalize
  * @public
  * @static
  * @function
@@ -3050,6 +3282,7 @@ GeckoJS.Inflector.ordinalize = function(number) {
 /**
  * Returns the plural form of a word.
  *
+ * @name GeckoJS.Inflector.pluralize
  * @public
  * @static
  * @function
@@ -3086,6 +3319,7 @@ GeckoJS.Inflector.pluralize = function(word) {
 /**
  * Returns the singular form of a word.
  *
+ * @name GeckoJS.Inflector.singularize
  * @public
  * @static
  * @function
@@ -3121,6 +3355,7 @@ GeckoJS.Inflector.singularize = function(word) {
 /**
  * Returns the Camelized form of a string.
  *
+ * @name GeckoJS.Inflector.camelize
  * @public
  * @static
  * @function
@@ -3142,6 +3377,7 @@ GeckoJS.Inflector.camelize = function (word) {
 /**
  * Returns the underscored (the reverse of Camelized) form of a string.
  *
+ * @name GeckoJS.Inflector.underscore
  * @public
  * @static
  * @function
@@ -3157,6 +3393,7 @@ GeckoJS.Inflector.underscore = function(word) {
  * Returns a human-readable string from word, by replacing underscores with space
  * and upper-casing the initial characters.
  *
+ * @name GeckoJS.Inflector.humanize
  * @public
  * @static
  * @function
@@ -3178,6 +3415,7 @@ GeckoJS.Inflector.humanize = function(word) {
  * Returns the corresponding table name for a class name by first underscoring
  * and then pluralizing the class name.
  *
+ * @name GeckoJS.Inflector.tableize
  * @public
  * @static
  * @function
@@ -3197,6 +3435,7 @@ GeckoJS.Inflector.tableize = function(className) {
  * Returns the corresponding class name for a table name by first singularizing
  * and then camelizing the table name.
  *
+ * @name GeckoJS.Inflector.classify
  * @public
  * @static
  * @function
@@ -3211,6 +3450,7 @@ GeckoJS.Inflector.classify = function(tableName) {
     var replace = GeckoJS.Inflector.camelize(GeckoJS.Inflector.singularize(tableName));
     return replace;
 };
+
 /**
  * GeckoJS.String provides a set of common string manipulation functions.
  * <br/>
@@ -3225,6 +3465,7 @@ GREUtils.define('GeckoJS.String', GeckoJS.global);
 /**
  * Generates a globally unique ID.
  *
+ * @name GeckoJS.String.uuid
  * @public
  * @static
  * @function
@@ -3237,6 +3478,7 @@ GeckoJS.String.uuid = function(){
 /**
  * Creates a base-64 encoding of a string.
  *
+ * @name GeckoJS.String.base64Encode
  * @public
  * @static
  * @function
@@ -3250,6 +3492,7 @@ GeckoJS.String.base64Encode = function(str){
 /**
  * Decodes a string of data which has been encoded using base-64 encoding.
  *
+ * @name GeckoJS.String.base64Decode
  * @public
  * @static
  * @function
@@ -3265,6 +3508,7 @@ GeckoJS.String.base64Decode = function(str){
 /**
  * Converts the first character of each word in a string to upper case.
  *
+ * @name GeckoJS.String.ucwords
  * @public
  * @static
  * @function
@@ -3279,6 +3523,7 @@ GeckoJS.String.ucwords = function(word){
 /**
  * Converts the first character of a string to upper case.
  *
+ * @name GeckoJS.String.ucfirst
  * @public
  * @static
  * @function
@@ -3294,6 +3539,7 @@ GeckoJS.String.ucfirst = function(word){
 /**
  * Converts the first character of a string to lower case.
  *
+ * @name GeckoJS.String.lcfirst
  * @public
  * @static
  * @function
@@ -3309,6 +3555,7 @@ GeckoJS.String.lcfirst = function(word){
 /**
  * Trims white spaces to the left and right of a string.
  *
+ * @name GeckoJS.String.trim
  * @public
  * @static
  * @function
@@ -3324,6 +3571,7 @@ GeckoJS.String.trim = function(str){
 /**
  * Trims white spaces at the left end of a string.
  *
+ * @name GeckoJS.String.trimLeft
  * @public
  * @static
  * @function
@@ -3339,6 +3587,7 @@ GeckoJS.String.trimLeft = function(str){
 /**
  * Trims white spaces at the right end of a string.
  *
+ * @name GeckoJS.String.trimRight
  * @public
  * @static
  * @function
@@ -3355,6 +3604,7 @@ GeckoJS.String.trimRight = function(str){
  * Pads a string 'on the left' to the specified length by prepending the string
  * with the given padding character. 
  *
+ * @name GeckoJS.String.padLeft
  * @public
  * @static
  * @function
@@ -3386,6 +3636,7 @@ GeckoJS.String.padLeft = function(num, totalChars, padWith) {
  * Pads a string 'on the right' to the specified length by appending the string
  * with the given padding character. 
  *
+ * @name GeckoJS.String.padRight
  * @public
  * @static
  * @function
@@ -3416,6 +3667,7 @@ GeckoJS.String.padRight = function(num, totalChars, padWith) {
 /**
  * Converts a string to a form suitable for use in a URL.
  *
+ * @name GeckoJS.String.urlEncode
  * @public
  * @static
  * @function
@@ -3431,6 +3683,7 @@ GeckoJS.String.urlEncode = function(str){
 /**
  * Converts a string from its URL-encoded form.
  *
+ * @name GeckoJS.String.urlDecode
  * @public
  * @static
  * @function
@@ -3445,6 +3698,7 @@ GeckoJS.String.urlDecode = function(str){
 /**
  * Checks whether a string contains a given substring.
  *
+ * @name GeckoJS.String.contains
  * @public
  * @static
  * @function
@@ -3460,6 +3714,7 @@ GeckoJS.String.contains = function(s, ss){
 /**
  * Returns a string with at least 64-bits of randomness.
  *
+ * @name GeckoJS.String.getRandomString
  * @public
  * @static
  * @function
@@ -3478,6 +3733,7 @@ GeckoJS.String.getRandomString = function(){
  * This method takes a string encoded in character set "in_charset"
  * and returns the corresponding string encoded in character set "out_charset".
  *
+ * @name GeckoJS.String.iconv
  * @public
  * @static
  * @function
@@ -3503,6 +3759,7 @@ GeckoJS.String.iconv = function(in_charset, out_charset, str){
  * in the query string.
  *
  *
+ * @name GeckoJS.String.httpBuildQuery
  * @public
  * @static
  * @function
@@ -3590,6 +3847,7 @@ GeckoJS.String.httpBuildQuery = function(formdata, numeric_prefix, arg_separator
  * If "array" is not specified then a new object is created to store the parsed
  * results.
  *
+ * @name GeckoJS.String.parseStr
  * @public
  * @static
  * @function
@@ -3626,7 +3884,8 @@ GeckoJS.String.parseStr = function (str, array){
 
 /**
  * Formats a number with grouped thousands.
- * 
+ *
+ * @name GeckoJS.String.numberFormat
  * @public
  * @static
  * @function   
@@ -3667,6 +3926,7 @@ GeckoJS.String.numberFormat = function ( number, decimals, dec_point, thousands_
 /**
  * parse CSV Format Text to Array
  *
+ * @name GeckoJS.String.parseCSV
  * @public
  * @static
  * @function
@@ -3721,6 +3981,7 @@ GeckoJS.String.parseCSV = function(text, delim, quote, linedelim) {
  *
  *   0 / "" / false / undefined / NaN / "false" / "0"
  *
+ * @name GeckoJS.String.parseBoolean
  * @public
  * @static
  * @function
@@ -3745,7 +4006,10 @@ GeckoJS.String.parseBoolean = function(bool) {
 /**
  * Escapes an input string for use with SQL
  *
- * @alias GeckoJS.String.escapeForSQL
+ * @name GeckoJS.String.escapeForSQL
+ * @public
+ * @static
+ * @function
  * @param {String} raw
  * 		The source string
  * @return {String}
@@ -3785,7 +4049,10 @@ GeckoJS.String.escapeForSQL = function (raw)
 /**
  * Surround the provided string in single quotation marks
  *
- * @alias GeckoJS.String.singleQuote
+ * @name GeckoJS.String.singleQuote
+ * @public
+ * @static
+ * @function
  * @param {String} text
  * 		The original string
  * @return {String}
@@ -3801,10 +4068,13 @@ GeckoJS.String.singleQuote = function(text)
  *
  *  PHP sprintf like
  *
- *  @alias GeckoJS.String.sprintf
- *  @param {String} format
- *  @param {Object} args
- *  @return {String} Return a formatted string
+ * @name GeckoJS.String.sprintf
+ * @public
+ * @static
+ * @function
+ * @param {String} format
+ * @param {Object} args
+ * @return {String} Return a formatted string
  */
 GeckoJS.String.sprintf = function() {
 
@@ -3958,11 +4228,12 @@ GeckoJS.String.sprintf = function() {
     return format.replace(regex, doFormat);
 
 };
+
 /**
  * GeckoJS.Array provides a set of functions for manipulating arrays.<br/>
  * 
  * @public
- * @namespace 
+ * @namespace
  * @name GeckoJS.Array
  */
 GREUtils.define('GeckoJS.Array', GeckoJS.global);
@@ -3971,6 +4242,7 @@ GREUtils.define('GeckoJS.Array', GeckoJS.global);
 /**
  * Checks if an object is an array.
  *
+ * @name GeckoJS.Array.isArray
  * @public
  * @static
  * @function
@@ -3987,6 +4259,7 @@ GeckoJS.Array.isArray =  function( obj ) {
  * If the object passed in is not an array, a new array with the object as its
  * only element is returned.<br/>
  *
+ * @name GeckoJS.Array.makeArray
  * @public
  * @static
  * @function
@@ -4015,6 +4288,7 @@ GeckoJS.Array.makeArray = function( array ) {
  * <br/>
  * This method returns -1 if the element is not found.<br/>
  *
+ * @name GeckoJS.Array.inArray
  * @public
  * @static
  * @function
@@ -4037,6 +4311,7 @@ GeckoJS.Array.inArray =  function( elem, array ) {
  * <br/>
  * This method appends the second array to the end of the first array.<br/>
  *
+ * @name GeckoJS.Array.merge
  * @public
  * @static
  * @function
@@ -4061,6 +4336,7 @@ GeckoJS.Array.merge =  function( first, second ) {
  * This method takes an array and returns a new array containing only unique
  * elements from that array.<br/>
  *
+ * @name GeckoJS.Array.unique
  * @public
  * @static
  * @function
@@ -4109,6 +4385,7 @@ GeckoJS.Array.unique = function( array ) {
  * is "false"; otherwise, array elements that return "false" from the validator
  * function are returned.<br/>
  *
+ * @name GeckoJS.Array.grep
  * @public
  * @static
  * @function
@@ -4137,6 +4414,7 @@ GeckoJS.Array.grep = function( elems, callback, inv ) {
  * The function will be invoked with two arguments: the array element,
  * and the element index. "null" return values are ignored.<br/>
  *
+ * @name GeckoJS.Array.map
  * @public
  * @static 
  * @function  
@@ -4171,6 +4449,7 @@ GeckoJS.Array.map = function( elems, callback ) {
  * The following is an example of an array path:
  * <em>"{n}.Person.{[a-z]+}"</em>
  *
+ * @name GeckoJS.Array.objectExtract
  * @public
  * @static
  * @param {Object} data     This is the object from which to extract
@@ -4255,12 +4534,14 @@ GeckoJS.Array.objectExtract = function (data, path) {
  * and "{[a-z]+}" (i.e. any string literal enclosed in brackets besides {n} and {s}) is interpreted as
  * a regular expression.
  *
- * @param {Object||Array} data Array Or Data from where to extract
+ * @name GeckoJS.Array.objectCombine
+ * @public
+ * @static
+ * @function
+ * @param {Object|Array} data Array Or Data from where to extract
  * @param {String} pathKey  dot-separated string.
  * @param {String} pathValue  dot-separated string.
  * @return {Object} Extracted data
- * @access public
-
  */
 GeckoJS.Array.objectCombine = function (data, pathKey, pathValue) {
     if (!pathKey || !pathValue) {
@@ -4281,6 +4562,7 @@ GeckoJS.Array.objectCombine = function (data, pathKey, pathValue) {
     return obj;
     
 };
+
 /**
  * Defines the GeckoJS.File namespace.
  *
@@ -4301,7 +4583,6 @@ GREUtils.define('GeckoJS.File', GeckoJS.global);
  * manipulated.<br/>
  *
  * @name GeckoJS.File 
- * @class
  * 
  * @property {nsIFile} file         A reference to the file location (read-only)
  * @property {String} path          The full file path (read-only)
@@ -4402,8 +4683,14 @@ GeckoJS.File.prototype.__defineGetter__('ext', function(){
 });
 
 
+
 /**
  * Get File default input charset for text mode.
+ *
+ * @name GeckoJS.File#getInputCharset
+ * @public
+ * @function
+ * @return {String} input charset.
  */
 GeckoJS.File.prototype.getInputCharset = function() {
     return this._InputCharset;
@@ -4411,6 +4698,11 @@ GeckoJS.File.prototype.getInputCharset = function() {
 
 /**
  * Set File default input charset for text mode.
+ *
+ * @name GeckoJS.File#setInputCharset
+ * @public
+ * @function
+ * @param {String} charset      set input charset.
  */
 GeckoJS.File.prototype.setInputCharset = function(charset) {
     this._InputCharset = charset;
@@ -4418,6 +4710,11 @@ GeckoJS.File.prototype.setInputCharset = function(charset) {
 
 /**
  * Get File default output charset for text mode.
+ *
+ * @name GeckoJS.File#getOutputCharset
+ * @public
+ * @function
+ * @return {String} output charset.
  */
 GeckoJS.File.prototype.getOutputCharset = function() {
     return this._OutputCharset;
@@ -4425,6 +4722,11 @@ GeckoJS.File.prototype.getOutputCharset = function() {
 
 /**
  * Set File default output charset for text mode.
+ *
+ * @name GeckoJS.File#setOutputCharset
+ * @public
+ * @function
+ * @param {String} charset      set output charset.
  */
 GeckoJS.File.prototype.setOutputCharset = function(charset) {
     this._OutputCharset = charset;
@@ -4446,7 +4748,8 @@ GeckoJS.File.prototype.setOutputCharset = function(charset) {
  * If "r" is specified in the mode parameter, the file is opened for reading.
  * Otherwise the file is created if it does not already exist and is opened for
  * writing.
- *   
+ *
+ * @name GeckoJS.File#open
  * @public
  * @function
  * @param {String} aMode            This is the mode flag
@@ -4501,7 +4804,8 @@ GeckoJS.File.prototype.open = function(aMode, aPerms) {
  * <br/>
  * This method closes an open file. It has no effect on a file that is not
  * already open. 
- * 
+ *
+ * @name GeckoJS.File#close
  * @public
  * @function
  */
@@ -4528,7 +4832,8 @@ GeckoJS.File.prototype.close = function() {
  * <br/>
  * This method checks if the file already exists. If it does not, it is created
  * with the given permission.<br/>
- * 
+ *
+ * @name GeckoJS.File#create
  * @public
  * @function
  * @param {Number} perm             This is the permission with which to create the file (if needed); defaults to GREUtils.File.FILE_DEFAULT_PERMS
@@ -4551,6 +4856,7 @@ GeckoJS.File.prototype.create = function(perm){
  * This method checks if the directory already exists. If it does not, it is created
  * with the given permission.<br/>
  *
+ * @name GeckoJS.File#mkdir
  * @public
  * @function
  * @param {Number} perm             This is the permission with which to create the file (if needed); defaults to GREUtils.File.FILE_DEFAULT_PERMS
@@ -4575,7 +4881,8 @@ GeckoJS.File.prototype.mkdir = function(perm){
  * of bytes. Otherwise the content is returned as a String.<br/>
  * <br/>
  * If errors occur while reading from the file, null is returned.
- * 
+ *
+ * @name GeckoJS.File#read
  * @public
  * @function
  * @param {Number} aSize            This is the number of bytes to read; defaults to the size of the file
@@ -4623,6 +4930,7 @@ GeckoJS.File.prototype.read = function (aSize) {
  *  Reading line .<br/>
  * <br/>
  *
+ * @name GeckoJS.File#readLine
  * @public
  * @function
  * @return {String}          String read from the file
@@ -4663,6 +4971,7 @@ GeckoJS.File.prototype.readLine = function (hasNext) {
  *  Reading All Lines .<br/>
  * <br/>
  *
+ * @name GeckoJS.File#readAllLine
  * @public
  * @function
  * @return {Array}          String read from the file
@@ -4694,16 +5003,14 @@ GeckoJS.File.prototype.readAllLine = function () {
 };
 
 
-
-
-
 /**
  * Writes the content of the given buffer to the file.<br/>
  * <br/>
  * The file must already be open for writing. Textual data is written to the
  * file using UTF-8 encoding. If the file has been opened in binary mode, the
  * buffer can be either an array of bytes or a string of bytes.
- * 
+ *
+ * @name GeckoJS.File#write
  * @public
  * @function
  * @param {Object|String} aBuffer    This is the buffer containing data to write to file
@@ -4741,7 +5048,8 @@ GeckoJS.File.prototype.write = function (aBuffer) {
 
 /**
  * Checks if the file exists.
- * 
+ *
+ * @name GeckoJS.File#exists
  * @public
  * @function
  * @return {Boolean}                "true" if the file exists; "false" otherwise
@@ -4757,7 +5065,9 @@ GeckoJS.File.prototype.exists = function(){
 /**
  * Checks if the given file exists.
  *
+ * @name GeckoJS.File.exists
  * @public
+ * @static
  * @function
  * @param {String} path             This is the full path of the file
  * @return {Boolean}                "true" if the file exists; "false" otherwise
@@ -4774,6 +5084,7 @@ GeckoJS.File.exists = function(path){
 /**
  * Deletes the file from the file system.
  *
+ * @name GeckoJS.File#remove
  * @public
  * @function
  * @return {Boolean}                "true" if the file is successfully removed; "false" otherwise
@@ -4805,6 +5116,10 @@ GeckoJS.File.prototype.remove = function(){
 /**
  * Deletes a file if it exists.
  *
+ * @name GeckoJS.File.remove
+ * @public
+ * @static
+ * @function
  * @param {String} path 		This is the full or partial (to be resolved) path of the file to delete
  */
 GeckoJS.File.remove = function (path)
@@ -4833,7 +5148,8 @@ GeckoJS.File.remove = function (path)
  * new location then no copy takes place and the method returns "false".<br/>
  * <br/>
  * Returns "true" if the file is successfully copied, "false" otherwise.
- *    
+ *
+ * @name GeckoJS.File#copy
  * @public
  * @function
  * @param {String} aDest          This is the location to which to copy
@@ -4863,7 +5179,9 @@ GeckoJS.File.prototype.copy = function(aDest){
  * <br/>
  * Returns "true" if the file is successfully copied, "false" otherwise.
  *
+ * @name GeckoJS.File.copy
  * @public
+ * @static
  * @function
  * @param {String} aSrc           This is the path of the source file
  * @param {String} aDest          This is the path to the destination
@@ -4887,7 +5205,8 @@ GeckoJS.File.copy = function(aSrc, aDest){
  * location constructed from appending the given filename to the original file
  * path. The original file path must corresponds to a directory for this method
  * to succeed.      
- * 
+ *
+ * @name GeckoJS.File#append
  * @public
  * @function
  * @param {String} aFileName      This is the file name to append to the directory
@@ -4917,7 +5236,8 @@ GeckoJS.File.prototype.append = function(aFileName){
 
 /**
  * Checks if this GeckoJS.File instance corresponds to a directory.
- * 
+ *
+ * @name GeckoJS.File#isDir
  * @public
  * @function
  * @return {Boolean}                "true" if this File instance is a directory; "false" otherwise
@@ -4938,8 +5258,25 @@ GeckoJS.File.prototype.isDir = function(){
 };
 
 /**
+ * Checks if path corresponds to a directory.
+ *
+ * @name GeckoJS.File.isDir
+ * @public
+ * @static
+ * @function
+ * @param {String} path 		This is the full or partial (to be resolved) path of the file
+ */
+GeckoJS.File.isDir = function(path){
+    
+    var file = new GeckoJS.File(path);
+    
+    return file.isDir();
+};
+
+/**
  * Checks if this GeckoJS.File instance corresponds to a file.
- * 
+ *
+ * @name GeckoJS.File#isFile
  * @public
  * @function
  * @return {Boolean}                "true" if this File instance is a file; "false" otherwise
@@ -4959,9 +5296,28 @@ GeckoJS.File.prototype.isFile = function(){
     return rv;
 };
 
+
+/**
+ * Checks if path corresponds to a file.
+ *
+ * @name GeckoJS.File.isFile
+ * @public
+ * @static
+ * @function
+ * @param {String} path 		This is the full or partial (to be resolved) path of the file
+ */
+GeckoJS.File.isFile = function(path){
+    
+    var file = new GeckoJS.File(path);
+
+    return file.isFile();
+};
+
+
 /**
  * Checks if this GeckoJS.File instance corresponds to an executable file.
- * 
+ *
+ * @name GeckoJS.File#isExecutable
  * @public
  * @function
  * @return {Boolean}                "true" if this File instance is an executable file; "false" otherwise
@@ -4984,7 +5340,8 @@ GeckoJS.File.prototype.isExecutable = function(){
 
 /**
  * Checks if this GeckoJS.File instance corresponds to a symbolic link.
- * 
+ *
+ * @name GeckoJS.File#isSymlink
  * @public
  * @function
  * @return {Boolean}                "true" if this File instance is a symbolic link; "false" otherwise
@@ -5007,7 +5364,8 @@ GeckoJS.File.prototype.isSymlink = function(){
 /**
  * Checks if this GeckoJS.File instance corresponds to a file or directory that
  * may be modified by the user.
- * 
+ *
+ * @name GeckoJS.File#isWritable
  * @public
  * @function
  * @return {Boolean}                "true" if this File instance is writable; "false" otherwise
@@ -5030,7 +5388,8 @@ GeckoJS.File.prototype.isWritable = function(){
 /**
  * Checks if this GeckoJS.File instance corresponds to a file or directory that
  * is hidden.
- * 
+ *
+ * @name GeckoJS.File#isHidden
  * @public
  * @function
  * @return {Boolean}                "true" if this File instance is hidden; "false" otherwise
@@ -5053,7 +5412,8 @@ GeckoJS.File.prototype.isHidden = function(){
 /**
  * Checks if this GeckoJS.File instance corresponds to a file or directory that
  * may be read by the user.
- * 
+ *
+ * @name GeckoJS.File#isReadable
  * @public
  * @function
  * @return {Boolean}                "true" if this File instance is readable; "false" otherwise
@@ -5077,7 +5437,8 @@ GeckoJS.File.prototype.isReadable = function(){
  * Checks if this GeckoJS.File instance corresponds to a special system file,
  * that is, a file system object that isn't a regular file, directory, or
  * symbolic link. 
- * 
+ *
+ * @name GeckoJS.File#isSpecial
  * @public
  * @function
  * @return {Boolean}                "true" if this File instance is special; "false" otherwise
@@ -5105,7 +5466,8 @@ GeckoJS.File.prototype.isSpecial = function(){
  * A return code of -1 is returned when the operation fails (i.e. the file path
  * does not exist or if read permission is denied for a component of the path
  * prefix. 
- *  
+ *
+ * @name GeckoJS.File#normalize
  * @public
  * @function
  * @return {Number}                -1 when exceptions occur; "null" otherwise
@@ -5139,10 +5501,11 @@ GeckoJS.File.prototype.normalize = function(){
  *  -1: the file does not exist <br/>
  *  -2: the file path points to a directory <br/>
  *  -3: other exceptions <br/>
- *   
+ *
+ * @name GeckoJS.File#run
  * @public
  * @function
- * @param {String} aArgs          This is the array of arguments to pass to the executable
+ * @param {Array} aArgs          This is the array of arguments to pass to the executable
  * @param {Boolean} blocking      If "true", the method blocks until the process terminates; defaults to false
  * @return {Number}               The process ID
  */
@@ -5175,8 +5538,44 @@ GeckoJS.File.prototype.run = function(aArgs, blocking){
 
 
 /**
+ * Spawns a new process to run an executable file.<br/>
+ * <br/>
+ * This method runs the executable file corresponding to this GeckoJS.File
+ * instance in a newly spawned process. The "aArgs" parameter contains a array
+ * of arguments to pass to this executable on its command line. The "blocking"
+ * parameter controls whether to block until the process terminates.<br/>
+ * <br/>
+ * Normally the process ID of the newly spawn process is returned. A negative
+ * return value indicates an error condition:<br/>
+ * <br/>
+ *  -1: the file does not exist <br/>
+ *  -2: the file path points to a directory <br/>
+ *  -3: other exceptions <br/>
+ *
+ * @name GeckoJS.File.run
+ * @public
+ * @static
+ * @function
+ * @param {String} path           This is the full or partial (to be resolved) path of the file to run
+ * @param {Array} aArgs          This is the array of arguments to pass to the executable
+ * @param {Boolean} blocking      If "true", the method blocks until the process terminates; defaults to false
+ * @return {Number}               The process ID
+ */
+GeckoJS.File.run = function(path, aArgs, blocking){
+
+    var file = new GeckoJS.File(path);
+
+    return file.run(aArgs, blocking);
+
+};
+
+/**
  * Adds a line to the end of an existing file.
  *
+ * @name GeckoJS.File.appendLine
+ * @public
+ * @static
+ * @function
  * @param {String} path     The full or partial (to be resolved) path of the file to append
  * @param {String} text		The text to append, as a new line
  * @param {String} charset	The charset of append line
@@ -5223,7 +5622,6 @@ GREUtils.define('GeckoJS.Dir', GeckoJS.global);
  * read, written to, queried, and otherwise manipulated.<br/>
  *
  * @name GeckoJS.Dir
- * @class
  * @property {nsIFile} file         A reference to the directory location (read-only)
  * @property {String} path          The full path for the directory (read-only)
  * @property {String} leafName      The file name without any prefix components (read-only)
@@ -5289,6 +5687,7 @@ GeckoJS.Dir.prototype.__defineGetter__('dateModified', function(){
 /**
  * Checks if the directory exists.
  *
+ * @name GeckoJS.Dir#exists
  * @public
  * @function
  * @return {Boolean}                "true" if the directory exists; "false" otherwise
@@ -5311,6 +5710,7 @@ GeckoJS.Dir.prototype.exists = function() {
  * If successful, the current Dir instance will point to a new file location
  * constructed from appending the given filename to the original file path.
  *
+ * @name GeckoJS.Dir#append
  * @public
  * @function
  * @param {String} aFileName      This is the file name to append to the directory
@@ -5350,7 +5750,7 @@ GeckoJS.Dir.prototype.append = function(aFileName){
  * -2: path is not a directory<br/>
  * -3: removal fails<br/>
  *
- *
+ * @name GeckoJS.Dir#remove
  * @public
  * @function
  * @param {Boolean} aRecursive          This flag indicates if directory is to be deleted if it is not empty
@@ -5369,6 +5769,7 @@ GeckoJS.Dir.prototype.remove = function(aRecursive){
  * This method will also return false if either file or the directory does not
  * exist.
  *
+ * @name GeckoJS.Dir#contains
  * @public
  * @function
  * @param {String} aFile                This is the full path of the file to test
@@ -5387,6 +5788,7 @@ GeckoJS.Dir.prototype.contains = function(aFile){
  *
  * If the given path is not a directory an empty array is returned.
  *
+ * @name GeckoJS.Dir.readDir
  * @public
  * @static
  * @function
@@ -5431,6 +5833,7 @@ GeckoJS.Dir.readDir = function(path, filter){
  *
  * If the given path is not a directory an empty array is returned.
  *
+ * @name GeckoJS.Dir#readDir
  * @public
  * @function
  * @param {Object} filter                {recursive: true, type: [f|d], name: // }
@@ -5491,7 +5894,17 @@ GREUtils.define('GeckoJS.Configure', GeckoJS.global);
  * @property {GeckoJS.Event} events   A set of event listeners for updates on the configuration repository (read-only)
  * @property {GeckoJS.Map} map        A collection of configuration key-value pairs stored in the repository (read-only)
  */
-GeckoJS.Configure = GeckoJS.BaseObject.extend('Configure', {
+GeckoJS.Configure = GeckoJS.BaseObject.extend('Configure',
+/** @lends GeckoJS.Configure.prototype */
+{
+
+    /**
+     * Configure contructor
+     *
+     * @name GeckoJS.Configure#init
+     * @public
+     * @function
+     */
     init: function(){
 
         
@@ -5615,6 +6028,7 @@ GeckoJS.Configure.prototype.__defineGetter__('map', function(){
 /**
  * Returns the set of event listeners associated with the configuration repository.
  *
+ * @name GeckoJS.Configure#getEvents
  * @public
  * @function
  * @return {GeckoJS.Event}            The set of event listeners associated with the repository
@@ -5627,6 +6041,7 @@ GeckoJS.Configure.prototype.getEvents = function() {
 /**
  * Returns the collection of key-value pairs stored in the configuration repository.
  *
+ * @name GeckoJS.Configure#getMap
  * @public
  * @function
  * @return {GeckoJS.Map}              The collection of the key-value pairs stored in the repository
@@ -5646,8 +6061,8 @@ GeckoJS.Configure.prototype.getMap = function() {
  * after all the entries have been cleared. This Configure instance is passed to the
  * event listeners as the event data (in the field eventItem.data).
  *
+ * @name GeckoJS.Configure#clear
  * @public
- * @static
  * @function
  */
 GeckoJS.Configure.prototype.clear = function() {
@@ -5663,6 +6078,7 @@ GeckoJS.Configure.prototype.clear = function() {
  * after all the entries have been cleared. This Configure instance is passed to the
  * event listeners as the event data (in the field eventItem.data).
  *
+ * @name GeckoJS.Configure.clear
  * @public
  * @static
  * @function
@@ -5684,10 +6100,11 @@ GeckoJS.Configure.clear = function() {
  * Configure::remove('Name'); will delete the entire Configure::Name<br/>
  * Configure::remove('Name.key'); will delete only the Configure::Name[key]<br/>
  *
+ * @name GeckoJS.Configure#remove
  * @public
- * @static
  * @function
  * @param {String} key                This is the key that identifies the configuration entry to remove
+ * @param {Boolean} savePref          Save Configure to Preferences System
  */
 GeckoJS.Configure.prototype.remove = function(key, savePref){
 
@@ -5746,10 +6163,12 @@ GeckoJS.Configure.prototype.remove = function(key, savePref){
  * that event after the configuration entry has been removed. The key is passed to
  * the event listeners as the event data (in the field "eventItem.data").
  *
+ * @name GeckoJS.Configure.remove
  * @public
  * @static
  * @function
  * @param {String} key                This is the key that identifies the configuration entry to remove
+ * @param {Boolean} savePref          Save Configure to Preferences System
  */
 GeckoJS.Configure.remove = function(key, savePref){
     GeckoJS.Configure.getInstance().remove(key, savePref);
@@ -5768,11 +6187,12 @@ GeckoJS.Configure.remove = function(key, savePref){
  * Any existing entry in the repository associated with the same key is replaced
  * with the new value.
  *
+ * @name GeckoJS.Configure#write
  * @public
- * @static
  * @function
  * @param {String} key                This is the configuration key
  * @param {Object} value              This is the configuration value
+ * @param {Boolean} savePref          Save Configure to Preferences System
  */
 GeckoJS.Configure.prototype.write = function(key, value, savePref) {
 
@@ -5841,11 +6261,13 @@ GeckoJS.Configure.prototype.write = function(key, value, savePref) {
  * Configure::write('One.key1', 'value of the Configure::One[key1]');<br/>
  * Configure::write('One', {'key1': 'value of the Configure::One[key1]', 'key2':'value of the Configure::One[key2]'});
  *
+ * @name GeckoJS.Configure.write
  * @public
  * @static
  * @function
  * @param {String} key                This is the configuration key
  * @param {Object} value              This is the configuration value
+ * @param {Boolean} savePref          Save Configure to Preferences System
  */
 GeckoJS.Configure.write = function(key, value, savePref) {
     GeckoJS.Configure.getInstance().write(key, value, savePref);
@@ -5862,8 +6284,8 @@ GeckoJS.Configure.write = function(key, value, savePref) {
  * Configure::read('Name'); will return all values for Name<br/>
  * Configure::read('Name.key'); will return only the value of Configure::Name[key]
  *
+ * @name GeckoJS.Configure#read
  * @public
- * @static
  * @function
  * @param {String} key                This is the key that identifies the object to retrieve
  * @return {Object}                   The configuration value
@@ -5902,6 +6324,7 @@ GeckoJS.Configure.prototype.read = function(key){
  * <br/>
  * This method returns null if the key does not exist in the configuration repository.
  *
+ * @name GeckoJS.Configure.read
  * @public
  * @static
  * @function
@@ -5916,8 +6339,8 @@ GeckoJS.Configure.read = function(key) {
 /**
  * Checks if the given key exists in the configuration repository.
  *
+ * @name GeckoJS.Configure#check
  * @public
- * @static
  * @function
  * @param {String} key                This is the key to check
  * @return {Boolean}                  "true" if the key exists, "false" otherwise
@@ -5951,6 +6374,7 @@ GeckoJS.Configure.prototype.check = function(key) {
 /**
  * Checks if the given key exists in the configuration repository.
  *
+ * @name GeckoJS.Configure.check
  * @public
  * @static
  * @function
@@ -5968,6 +6392,7 @@ GeckoJS.Configure.check = function(key) {
  * The clone() method from GeckoJS.BaseObject is overridden in GeckoJS.Configure
  * with a dummy method.
  *
+ * @name GeckoJS.Configure#clone
  * @public
  * @function
  */
@@ -5978,8 +6403,8 @@ GeckoJS.Configure.prototype.clone = function(){
 /**
  * Serializes the configuration repository using JSON encoding.
  *
+ * @name GeckoJS.Configure#serialize
  * @public
- * @static
  * @function
  * @return {String}         The JSON representation of the configuration repository
  */
@@ -5991,6 +6416,7 @@ GeckoJS.Configure.prototype.serialize = function(){
 /**
  * Serializes the configuration repository using JSON encoding.
  *
+ * @name GeckoJS.Configure.serialize
  * @public
  * @static
  * @function
@@ -6005,8 +6431,8 @@ GeckoJS.Configure.serialize = function(){
  * Restores the configuration repository from its JSON encoding. Event listeners
  * are not restored.  
  *
+ * @name GeckoJS.Configure#unserialize
  * @public
- * @static 
  * @function
  * @param {String} str      The JSON representation of the configuration repository
  */
@@ -6018,6 +6444,7 @@ GeckoJS.Configure.prototype.unserialize = function(str) {
  * Restores the configuration repository from its JSON encoding. Event listeners
  * are not restored.
  *
+ * @name GeckoJS.Configure.unserialize
  * @public
  * @static
  * @function
@@ -6032,6 +6459,7 @@ GeckoJS.Configure.unserialize = function(str) {
  * Loads XULRunner's and extensions' preferences into the configuration
  * repository.
  *
+ * @name GeckoJS.Configure#loadPreferences
  * @public
  * @function
  * @param {String} startingAt                The point on the branch at which to start enumerating the child preferences. Pass in "" to enumerate all preferences referenced by this branch.
@@ -6057,6 +6485,7 @@ GeckoJS.Configure.prototype.loadPreferences = function(startingAt){
  * Loads XULRunner's and extensions' preferences into the configuration
  * repository.
  *
+ * @name GeckoJS.Configure.loadPreferences
  * @public
  * @static
  * @function
@@ -6071,6 +6500,7 @@ GeckoJS.Configure.loadPreferences = function(startingAt){
  * Save to XULRunner's and extensions' preferences from the configuration
  * repository.
  *
+ * @name GeckoJS.Configure#savePreferences
  * @public
  * @function
  * @param {String} startingAt                The point on the branch at which to start enumerating the child preferences. Pass in "" to enumerate all preferences referenced by this branch.
@@ -6119,6 +6549,7 @@ GeckoJS.Configure.prototype.savePreferences = function(startingAt){
  * Save to XULRunner's and extensions' preferences from the configuration
  * repository.
  *
+ * @name GeckoJS.Configure.savePreferences
  * @public
  * @static
  * @function
@@ -6135,6 +6566,7 @@ GeckoJS.Configure.prototype.__configVarNames = function (name) {
     }
     return name;
 };
+
 /**
  * Defines the GeckoJS.Session namespace.
  *
@@ -6160,7 +6592,17 @@ GREUtils.define('GeckoJS.Session', GeckoJS.global);
  * @property {GeckoJS.Event} events   A list of event listeners for updates on the Session context (read-only)
  * @property {GeckoJS.Map} map        A collection of session data stored in the Session context (read-only)
  */
-GeckoJS.Session = GeckoJS.BaseObject.extend('Session', {
+GeckoJS.Session = GeckoJS.BaseObject.extend('Session',
+/** @lends GeckoJS.Session.prototype */
+{
+
+    /**
+     * Session contructor
+     *
+     * @name GeckoJS.Session#init
+     * @public
+     * @function
+     */
     init: function(){
 
         this._events = new GeckoJS.Event();
@@ -6209,6 +6651,7 @@ GeckoJS.Session.prototype.__defineGetter__('map', function(){
 /**
  * Returns the set of event listeners associated with the Session context.
  *
+ * @name GeckoJS.Session#getEvents
  * @public
  * @function
  * @return {GeckoJS.Event}            The set of event listeners associated with the Session context
@@ -6220,7 +6663,9 @@ GeckoJS.Session.prototype.getEvents = function() {
 /**
  * Returns the set of event listeners associated with the Session context.
  *
+ * @name GeckoJS.Session.getEvents
  * @public
+ * @static
  * @function
  * @return {GeckoJS.Event}            The set of event listeners associated with the Session context
  */
@@ -6232,6 +6677,7 @@ GeckoJS.Session.getEvents = function() {
 /**
  * Returns data stored in the Session context as key-value pairs.
  *
+ * @name GeckoJS.Session#getMap
  * @public
  * @function
  * @return {GeckoJS.Map}              The collection of the key-value pairs stored in the Session context
@@ -6245,6 +6691,7 @@ GeckoJS.Session.prototype.getMap = function() {
 /**
  * Adds a listener for a given event to this Session instance.
  *
+ * @name GeckoJS.Session.addEventListener
  * @public
  * @static
  * @function
@@ -6262,6 +6709,7 @@ GeckoJS.Session.addEventListener = function(aEvent, aListener, thisObj) {
 /**
  * Adds a listener for a given event to Session.
  *
+ * @name GeckoJS.Session#addEventListener
  * @public
  * @function
  * @param {String} aEvent           This is the event name
@@ -6282,6 +6730,7 @@ GeckoJS.Session.prototype.addEventListener = function(aEvent, aListener, thisObj
 /**
  * Remove a listener for a given event to this Session instance.
  *
+ * @name GeckoJS.Session.removeEventListener
  * @public
  * @static
  * @function
@@ -6298,6 +6747,7 @@ GeckoJS.Session.removeEventListener = function(aEvent, aListener) {
 /**
  * Remove a listener for a given event to Session.
  *
+ * @name GeckoJS.Session#removeEventListener
  * @public
  * @function
  * @param {String} aEvent           This is the event name
@@ -6322,6 +6772,7 @@ GeckoJS.Session.prototype.removeEventListener = function(aEvent, aListener) {
  * the entries have been cleared. This Session instance is passed to the event
  * listeners as the event data (in the field eventItem.data).
  *
+ * @name GeckoJS.Session#clear
  * @public
  * @static
  * @function
@@ -6339,6 +6790,7 @@ GeckoJS.Session.prototype.clear = function() {
  * the entries have been cleared. This Session instance is passed to the event
  * listeners as the event data (in the field eventItem.data).
  *
+ * @name GeckoJS.Session.clear
  * @public
  * @static
  * @function
@@ -6356,8 +6808,8 @@ GeckoJS.Session.clear = function() {
  * of that event after the data entry has been removed. The key is passed to the
  * event listeners as the event data (in the field "eventItem.data").
  *
+ * @name GeckoJS.Session#remove
  * @public
- * @static
  * @function
  * @param {String} key                This is the key that identifies the data entry to remove
  */
@@ -6377,6 +6829,7 @@ GeckoJS.Session.prototype.remove = function(key){
  * of that event after the data entry has been removed. The key is passed to the
  * event listeners as the event data (in the field "eventItem.data").
  *
+ * @name GeckoJS.Session.remove
  * @public
  * @static
  * @function
@@ -6399,8 +6852,8 @@ GeckoJS.Session.remove = function(key){
  * Any existing data entry in the Session context associated with the same key is
  * replaced with the new value.
  *
+ * @name GeckoJS.Session#add
  * @public
- * @static
  * @function
  * @param {String} key                This is the key under which to store the Session data
  * @param {Object} val                This is the data value
@@ -6422,6 +6875,7 @@ GeckoJS.Session.prototype.add = function(key, val){
  * Any existing data entry in the Session context associated with the same key is
  * replaced with the new value.
  *
+ * @name GeckoJS.Session.add
  * @public
  * @static
  * @function
@@ -6445,8 +6899,8 @@ GeckoJS.Session.add = function(key, val){
  * Any existing data entry in the Session context associated with the same key is
  * replaced with the new value.
  *
+ * @name GeckoJS.Session#set
  * @public
- * @static
  * @function
  * @param {String} key                This is the key under which to store the Session data
  * @param {Object} value              This is the data value
@@ -6469,6 +6923,7 @@ GeckoJS.Session.prototype.set = function(key, value) {
  * Any existing data entry in the Session context associated with the same key is
  * replaced with the new value.
  *
+ * @name GeckoJS.Session.set
  * @public
  * @static
  * @function
@@ -6485,8 +6940,8 @@ GeckoJS.Session.set = function(key, value) {
  * <br/>
  * This method returns null if the key does not exist in the Session context.
  *
+ * @name GeckoJS.Session#get
  * @public
- * @static
  * @function
  * @param {String} key                This is the key that identifies the data to retrieve
  * @return {Object}                   The Session data stored under the given key
@@ -6501,6 +6956,7 @@ GeckoJS.Session.prototype.get = function(key){
  * <br/>
  * This method returns null if the key does not exist in the Session context.
  *
+ * @name GeckoJS.Session.get
  * @public
  * @static
  * @function
@@ -6514,8 +6970,8 @@ GeckoJS.Session.get = function(key){
 /**
  * Checks if the given key exists in the Session context.
  *
+ * @name GeckoJS.Session#has
  * @public
- * @static
  * @function
  * @param {String} key                This is the key to check
  * @return {Boolean}                  "true" if the key exists, "false" otherwise
@@ -6528,6 +6984,7 @@ GeckoJS.Session.prototype.has = function(key) {
 /**
  * Checks if the given key exists in the Session context.
  *
+ * @name GeckoJS.Session.has
  * @public
  * @static
  * @function
@@ -6545,6 +7002,7 @@ GeckoJS.Session.has = function(key) {
  * The clone() method from GeckoJS.BaseObject is overridden in GeckoJS.Session
  * with a dummy method.
  *
+ * @name GeckoJS.Session#clone
  * @public
  * @function
  */
@@ -6556,6 +7014,7 @@ GeckoJS.Session.prototype.clone = function(){
  * Serializes the Session context using JSON encoding. Event listeners are not
  * serialized. 
  *
+ * @name GeckoJS.Session#serialize
  * @public
  * @function
  * @return {String}         The JSON representation of the Session data
@@ -6568,6 +7027,7 @@ GeckoJS.Session.prototype.serialize = function(){
  * Restores the Session context from its JSON encoding. Event listeners
  * are not restored.
  *
+ * @name GeckoJS.Session#unserialize
  * @public
  * @function
  * @param {String} str      The JSON representation of the Session context
@@ -6580,6 +7040,7 @@ GeckoJS.Session.prototype.unserialize = function(str) {
         return this;
 
 };
+
 /**
  * Defines the GeckoJS.Dispatcher namespace.
  *
@@ -6597,12 +7058,20 @@ GREUtils.define('GeckoJS.Dispatcher', GeckoJS.global);
  * Gecko APP Engine MVC Framework.<br/>
  *
  * @name GeckoJS.Dispatcher
- * @class
  * @extends GeckoJS.BaseObject
  * @extends GeckoJS.Singleton
  * @property {GeckoJS.Event} events       A list of event listeners
  */
-GeckoJS.Dispatcher = GeckoJS.BaseObject.extend('Dispatcher', {
+GeckoJS.Dispatcher = GeckoJS.BaseObject.extend('Dispatcher',
+/** @lends GeckoJS.Dispatcher.prototype */
+{
+    /**
+     * Dispatcher contructor
+     *
+     * @name GeckoJS.Dispatcher#init
+     * @public
+     * @function
+     */
     init: function(){
         this._events = new GeckoJS.Event();
     }
@@ -6625,6 +7094,7 @@ GeckoJS.Dispatcher.prototype.__defineSetter__('events', function(e){
 /**
  * Adds a listener for a given event to this Dispatcher instance.
  *
+ * @name GeckoJS.Dispatcher.addEventListener
  * @public
  * @static
  * @function
@@ -6640,6 +7110,7 @@ GeckoJS.Dispatcher.addEventListener = function(aEvent, aListener, thisObj) {
 /**
  * Adds a listener for a given event to this Dispatcher instance.
  *
+ * @name GeckoJS.Dispatcher#addEventListener
  * @public
  * @function
  * @param {String} aEvent           This is the event name
@@ -6665,6 +7136,7 @@ GeckoJS.Dispatcher.prototype.addEventListener = function(aEvent, aListener, this
 /**
  * Remove a listener for a given event to this Dispatcher instance.
  *
+ * @name GeckoJS.Dispatcher.removeEventListener
  * @public
  * @static
  * @function
@@ -6679,6 +7151,7 @@ GeckoJS.Dispatcher.removeEventListener = function(aEvent, aListener) {
 /**
  * Remove a listener for a given event to this Dispatcher instance.
  *
+ * @name GeckoJS.Dispatcher#removeEventListener
  * @public
  * @function
  * @param {String} aEvent           This is the event name
@@ -6706,7 +7179,9 @@ GeckoJS.Dispatcher.prototype.removeEventListener = function(aEvent, aListener) {
  * method on the EventItem instance, this method will return "false". Otherwise
  * it returns "true".
  *
+ * @name GeckoJS.Dispatcher.dispatchEvent
  * @public
+ * @static
  * @function
  * @param {String} sEvt             This is the event name
  * @param {Object} data             This is the event data
@@ -6725,6 +7200,7 @@ GeckoJS.Dispatcher.dispatchEvent = function(sEvt, data ) {
  * method on the EventItem instance, this method will return "false". Otherwise
  * it returns "true".
  *
+ * @name GeckoJS.Dispatcher#dispatchEvent
  * @public
  * @function
  * @param {String} sEvt             This is the event name
@@ -6750,6 +7226,7 @@ GeckoJS.Dispatcher.prototype.dispatchEvent = function(sEvt, data ) {
  * of that controller. If the controller is not given, an appropriate controller
  * supporting the given command will be selected from the global context.
  *
+ * @name GeckoJS.Dispatcher.dispatch
  * @public
  * @static
  * @function
@@ -6769,8 +7246,8 @@ GeckoJS.Dispatcher.dispatch = function(win, command, data, context){
  * of that controller. If the controller is not given, an appropriate controller
  * supporting the given command will be selected from the global context.
  *
+ * @name GeckoJS.Dispatcher#dispatch
  * @public
- * @static
  * @function
  * @param {Object} win                  This is the window object because jsmodules can't access window 
  * @param {String} command              This is the command to dispatch; defaults to "index"
@@ -6924,7 +7401,17 @@ GREUtils.define('GeckoJS.NSIRunnable', GeckoJS.global);
  * @name GeckoJS.NSIRunnable
  * @extends GeckoJS.BaseObject
  */
-GeckoJS.NSIRunnable = GeckoJS.BaseObject.extend('NSIRunnable', {
+GeckoJS.NSIRunnable = GeckoJS.BaseObject.extend('NSIRunnable',
+/** @lends GeckoJS.NSIRunnable.prototype */
+{
+
+    /**
+     * NSIRunnable contructor
+     *
+     * @name GeckoJS.NSIRunnable#init
+     * @public
+     * @function
+     */
     init: function(){
 
     }
@@ -6939,6 +7426,7 @@ GeckoJS.NSIRunnable = GeckoJS.BaseObject.extend('NSIRunnable', {
  * create a thread, starting the thread causes the object's run() method to be
  * called in that separately executing thread.
  *
+ * @name GeckoJS.NSIRunnable#run
  * @public
  * @function
  */
@@ -6953,6 +7441,7 @@ GeckoJS.NSIRunnable.prototype.run = function() {
  * Components.Interfaces.nsISupports, this method throws the
  * Components.results.NS_ERROR_NO_INTERFACE exception.
  *
+ * @name GeckoJS.NSIRunnable#QueryInterface
  * @public
  * @function
  * @param {nsIID} iid               The IID of the requested interface
@@ -6964,6 +7453,7 @@ GeckoJS.NSIRunnable.prototype.QueryInterface = function(iid) {
 	}
 	throw Components.results.NS_ERROR_NO_INTERFACE;
 };
+
 /**
  * Defines the GeckoJS.Thread namespace.
  *
@@ -6981,7 +7471,6 @@ GREUtils.define('GeckoJS.Thread', GeckoJS.global);
  * object in a worker thread.<br/>
  *
  * @name GeckoJS.Thread
- * @class
  * @extends GeckoJS.NSIRunnable
  *
  * @property {GeckoJS.NSIRunnable} runnable   The GeckoJS.NSIRunnable object to execute (read-only)
@@ -6989,7 +7478,18 @@ GREUtils.define('GeckoJS.Thread', GeckoJS.global);
  * @property {nsIThread} main                 The main thread (read-only)
  * @property {Number} id                      The thread id (read-only)
  */
-GeckoJS.Thread = GeckoJS.NSIRunnable.extend('Thread', {
+GeckoJS.Thread = GeckoJS.NSIRunnable.extend('Thread',
+/** @lends GeckoJS.Thread.prototype */
+{
+    
+    /**
+     * Thread contructor
+     *
+     * @name GeckoJS.Thread#init
+     * @public
+     * @function
+     * @param {GeckoJS.NSIRunnable} target
+     */
     init: function(target){
 	  this._runnable = target || this;
     }
@@ -7042,6 +7542,7 @@ GeckoJS.Thread.prototype.__defineGetter__('id', function(){
  * worker thread and schedules it for normal execution. The method returns
  * immediately.
  *
+ * @name GeckoJS.Thread#start
  * @public
  * @function
  */
@@ -7056,6 +7557,7 @@ GeckoJS.Thread.prototype.start = function() {
         GREUtils.Thread.reportError(err);
     }
 };
+
 /**
  * Defines the GeckoJS.NSIObserver namespace.
  *
@@ -7074,7 +7576,17 @@ GREUtils.define('GeckoJS.NSIObserver', GeckoJS.global);
  * @name GeckoJS.NSIObserver
  * @extends GeckoJS.BaseObject
  */
-GeckoJS.NSIObserver = GeckoJS.BaseObject.extend('NSIObserver', {
+GeckoJS.NSIObserver = GeckoJS.BaseObject.extend('NSIObserver',
+/** @lends GeckoJS.NSIObserver.prototype */
+{
+
+    /**
+     * NSIObserver contructor
+     *
+     * @name GeckoJS.NSIObserver#init
+     * @public
+     * @function
+     */
     init: function(){
 
     }
@@ -7105,7 +7617,8 @@ GeckoJS.NSIObserver = GeckoJS.BaseObject.extend('NSIObserver', {
  * While some observer-registration systems may make this safe in specific
  * contexts, it is generally recommended that observe implementations not add
  * or remove observers while they are being notified.
- * 
+ *
+ * @name GeckoJS.NSIObserver#observe
  * @public
  * @function
  *
@@ -7117,6 +7630,7 @@ GeckoJS.NSIObserver = GeckoJS.BaseObject.extend('NSIObserver', {
 GeckoJS.NSIObserver.prototype.observe = function(aSubject, aTopic, aData) {
 };
 
+
 /**
  * Returns an XPCOM nsIObserver interface, letting the Observer services know
  * that this component implements the XPCOM nsIObserver interface.<br/>
@@ -7125,6 +7639,7 @@ GeckoJS.NSIObserver.prototype.observe = function(aSubject, aTopic, aData) {
  * Components.Interfaces.nsISupports, this method throws the
  * Components.results.NS_ERROR_NO_INTERFACE exception.
  *
+ * @name GeckoJS.NSIObserver#QueryInterface
  * @public
  * @function
  * @param {nsIID} iid               The IID of the requested interface
@@ -7155,8 +7670,17 @@ GREUtils.define('GeckoJS.Observer', GeckoJS.global);
  * @extends GeckoJS.NSIObserver
  *
  */
-GeckoJS.Observer = GeckoJS.NSIObserver.extend('Observer', {
+GeckoJS.Observer = GeckoJS.NSIObserver.extend('Observer',
+/** @lends GeckoJS.Observer.prototype */
+{
     
+    /**
+     * Observer contructor
+     *
+     * @name GeckoJS.Observer#init
+     * @public
+     * @function
+     */
     init: function(){
 
     }
@@ -7188,7 +7712,8 @@ GeckoJS.Observer = GeckoJS.NSIObserver.extend('Observer', {
  * While some observer-registration systems may make this safe in specific
  * contexts, it is generally recommended that observe implementations not add
  * or remove observers while they are being notified.
- * 
+ *
+ * @name GeckoJS.Observer#observe
  * @public
  * @function
  *
@@ -7209,6 +7734,7 @@ GeckoJS.Observer.prototype.topics = [];
 /**
  * register this observer to Observer Service.
  *
+ * @name GeckoJS.Observer#register
  * @public
  * @function
  * @param {Array} topics
@@ -7240,6 +7766,7 @@ GeckoJS.Observer.prototype.register = function(topics) {
 /**
  * unregister this observer from Observer Service.
  *
+ * @name GeckoJS.Observer#unregister
  * @public
  * @function
  * @return {GeckoJS.Observer} this
@@ -7270,6 +7797,7 @@ GeckoJS.Observer.prototype.unregister = function() {
  * To signal the observers of a topic.
  * Calling this method will signal all registered observers of a given topic.
  *
+ * @name GeckoJS.Observer.notify
  * @public
  * @function
  * @static
@@ -7308,8 +7836,8 @@ GeckoJS.Observer.notify = function(subject, topic, data) {
  * To signal the observers of a topic.
  * Calling this method will signal all registered observers of a given topic.
  *
-
  *
+ * @name GeckoJS.Observer#notify
  * @public
  * @function
  * @param {Object} subject  Notification specific interface pointer.
@@ -7333,6 +7861,7 @@ GeckoJS.Observer.prototype.notify = function(subject, topic, data) {
  *
  * proto is javascript object for quick implement observer
  *
+ * @name GeckoJS.Observer.newInstance
  * @public
  * @function
  * @param {Object} proto
@@ -7365,11 +7894,10 @@ GeckoJS.Observer.newInstance = function(proto) {
 
 };
 
-
-
 /**
  * Defines GeckoJS.NSIController namespace
- * 
+ *
+ * @public
  * @namespace
  */
 GREUtils.define('GeckoJS.NSIController', GeckoJS.global);
@@ -7385,7 +7913,17 @@ GREUtils.define('GeckoJS.NSIController', GeckoJS.global);
  * @extends GeckoJS.BaseObject
  * @extends GeckoJS.Singleton
  */
-GeckoJS.NSIController = GeckoJS.BaseObject.extend('NSIController', {
+GeckoJS.NSIController = GeckoJS.BaseObject.extend('NSIController',
+/** @lends GeckoJS.NSIController.prototype */
+{
+
+    /**
+     * NSIController contructor
+     *
+     * @name GeckoJS.NSIController#init
+     * @public
+     * @function
+     */
     init: function(){
         // http://developer.mozilla.org/en/docs/wrappedJSObject
         this.wrappedJSObject = this;
@@ -7414,7 +7952,8 @@ GeckoJS.Singleton.support(GeckoJS.NSIController);
  * Checks if the given command is supported by this controller.<br/>
  * <br/>
  * Returns "true" if the given command is supported, "false" otherwise.  
- * 
+ *
+ * @name GeckoJS.NSIController#supportsCommand
  * @public
  * @function
  * @param {String} sCmd             This is the command to check 
@@ -7433,7 +7972,8 @@ GeckoJS.NSIController.prototype.supportsCommand = function(sCmd){
  * Checks if the given command is enabled in this controller.<br/>
  * <br/>
  * Returns "true" if the given command is enabled, "false" otherwise.  
- * 
+ *
+ * @name GeckoJS.NSIController#isCommandEnabled
  * @public
  * @function
  * @param {String} sCmd             This is the command to check 
@@ -7452,7 +7992,8 @@ GeckoJS.NSIController.prototype.isCommandEnabled = function(sCmd){
  * <br/>
  * The specified command is performed only if it is supported by the Controller
  * and is enabled.
- *     
+ *
+ * @name GeckoJS.NSIController#doCommand
  * @public
  * @function
  * @param {String} sCmd             This is the command to perform
@@ -7472,7 +8013,8 @@ GeckoJS.NSIController.prototype.doCommand = function(sCmd){
 
 /**
  * Provides a dummy onEvent() method that always returns "true".
- * 
+ *
+ * @name GeckoJS.NSIController#onEvent
  * @public
  * @function
  * @param {String} sCmd             This is the event name 
@@ -7485,7 +8027,8 @@ GeckoJS.NSIController.prototype.onEvent = function(sEvt){
 
 /**
  * Appends an instance of this Controller to the list of global controllers.
- * 
+ *
+ * @name GeckoJS.NSIController.appendController
  * @public
  * @static 
  * @function
@@ -7528,9 +8071,18 @@ GREUtils.define('GeckoJS.BaseController', GeckoJS.global);
  * @property {String} dispatchedEvents    Log of the dispatchedEvents
  * @property {String} name                Name of this Controller class
  */
-GeckoJS.BaseController = GeckoJS.NSIController.extend('BaseController', {
+GeckoJS.BaseController = GeckoJS.NSIController.extend('BaseController', 
+/** @lends GeckoJS.BaseController.prototype */
+{
     name: 'BaseController',
-    
+
+    /**
+     * BaseController contructor
+     *
+     * @name GeckoJS.BaseController#init
+     * @public
+     * @function
+     */
     init: function(){
 
 
@@ -7666,7 +8218,9 @@ GeckoJS.BaseController.prototype.__defineSetter__('command', function(d){
 /**
  * _addControllerEvents
  *
+ * @name GeckoJS.BaseController#_addControllerEvents
  * @private
+ * @function
  */
 GeckoJS.BaseController.prototype._addControllerEvents = function() {
     
@@ -7692,13 +8246,33 @@ GeckoJS.BaseController.prototype._addControllerEvents = function() {
     
 };
 
-
+/**
+ * _addComponents
+ *
+ * @name GeckoJS.BaseController#_addComponents
+ * @private
+ * @function
+ */
 GeckoJS.BaseController.prototype._addComponents = function() {
     };
 
+/**
+ * _addHelpers
+ *
+ * @name GeckoJS.BaseController#_addHelpers
+ * @private
+ * @function
+ */
 GeckoJS.BaseController.prototype._addHelpers = function() {
     };
 
+/**
+ * _loadModels
+ *
+ * @name GeckoJS.BaseController#_loadModels
+ * @private
+ * @function
+ */
 GeckoJS.BaseController.prototype._loadModels = function() {
     };
 
@@ -7706,6 +8280,7 @@ GeckoJS.BaseController.prototype._loadModels = function() {
  * Returns the list of event listeners associated with this BaseController
  * instance.
  *
+ * @name GeckoJS.BaseController#getEvents
  * @public
  * @function
  * @return {GeckoJS.Event}          The list of event listeners
@@ -7719,6 +8294,7 @@ GeckoJS.BaseController.prototype.getEvents = function(){
 /**
  * Adds a listener for a given event to this BaseController instance.
  *
+ * @name GeckoJS.BaseController.addEventListener
  * @public
  * @static
  * @function
@@ -7752,6 +8328,7 @@ GeckoJS.BaseController.addEventListener = function(aEvent, aListener, thisObj) {
 /**
  * Adds a listener for a given event to this BaseController instance.
  *
+ * @name GeckoJS.BaseController#addEventListener
  * @public
  * @function
  * @param {String|Array} aEvent           This is the event name
@@ -7780,6 +8357,7 @@ GeckoJS.BaseController.prototype.addEventListener = function(aEvent, aListener, 
 /**
  * Remove a listener for a given event to this BaseController instance.
  *
+ * @name GeckoJS.BaseController.removeEventListener
  * @public
  * @static
  * @function
@@ -7811,6 +8389,7 @@ GeckoJS.BaseController.removeEventListener = function(aEvent, aListener) {
 /**
  * Remove a listener for a given event to this BaseController instance.
  *
+ * @name GeckoJS.BaseController#removeEventListener
  * @public
  * @function
  * @param {String|Array} aEvent           This is the event name
@@ -7843,6 +8422,7 @@ GeckoJS.BaseController.prototype.removeEventListener = function(aEvent, aListene
  * the EventItem instance, this method will return "false". Otherwise it returns
  * "true".
  *
+ * @name GeckoJS.BaseController.dispatchEvent
  * @public
  * @function
  * @param {String} sEvt             This is the event name
@@ -7862,6 +8442,7 @@ GeckoJS.BaseController.dispatchEvent = function(sEvt, data) {
  * the EventItem instance, this method will return "false". Otherwise it returns
  * "true".
  *
+ * @name GeckoJS.BaseController#dispatchEvent
  * @public
  * @function
  * @param {String} sEvt             This is the event name
@@ -7887,6 +8468,7 @@ GeckoJS.BaseController.prototype.dispatchEvent = function(sEvt, data ) {
  * Override NSIController 's supportCommand.
  * if scaffold is true , and dispatch to scaffold , don't warning messages.
  *
+ * @name GeckoJS.BaseController#supportsCommand
  * @public
  * @function
  * @param {String} sCmd             This is the command to check
@@ -7930,6 +8512,7 @@ GeckoJS.BaseController.prototype.supportsCommand = function(sCmd){
  * The event is dispatched with the arguments to this doCommand() call as the
  * event data.
  *
+ * @name GeckoJS.BaseController#doCommand
  * @public
  * @function
  * @param {String} sCmd             This is the command to execute
@@ -8017,6 +8600,7 @@ GeckoJS.BaseController.prototype.doCommand = function(sCmd){
     }
 
 };
+
 /**
  * Defines GeckoJS.Scaffold namespace
  *
@@ -8101,8 +8685,17 @@ GREUtils.define('GeckoJS.Scaffold', GeckoJS.global);
  * @property {String} command                      The command to be handled by Scaffold
  * @property {Object} data                         The data from "gDispatch()"
  */
-GeckoJS.Scaffold = GeckoJS.BaseObject.extend('Scaffold', {
-   
+GeckoJS.Scaffold = GeckoJS.BaseObject.extend('Scaffold',
+/** @lends GeckoJS.Scaffold.prototype */
+{
+
+    /**
+     * Scaffold contructor
+     *
+     * @name GeckoJS.Scaffold#init
+     * @public
+     * @function
+     */
     init: function(controller){
         this._controller = controller || null;
 
@@ -8155,7 +8748,9 @@ GeckoJS.Scaffold.prototype.__defineGetter__('window', function(){
 /**
  * _addControllerEvents
  *
+ * @name GeckoJS.Scaffold#_addControllerEvents
  * @private
+ * @function
  */
 GeckoJS.Scaffold.prototype._addControllerEvents = function(controller) {
 
@@ -8189,7 +8784,9 @@ GeckoJS.Scaffold.prototype._addControllerEvents = function(controller) {
 /**
  * invoke scaffold action
  *
- * @private 
+ * @name GeckoJS.Scaffold#__invoke
+ * @private
+ * @function
  * @param {String} command
  * @param {Object} data
  */
@@ -8238,10 +8835,12 @@ GeckoJS.Scaffold.prototype.__invoke = function(command, data) {
 };
 
 
-/*
+/**
  * Renders a view action of scaffolded model.
  *
- * @private 
+ * @name GeckoJS.Scaffold#__scaffoldView
+ * @private
+ * @function
  */
 GeckoJS.Scaffold.prototype.__scaffoldView = function() {
 
@@ -8284,10 +8883,12 @@ GeckoJS.Scaffold.prototype.__scaffoldView = function() {
 
 };
     
-/*
+/**
  * Renders index action of scaffolded model.
  *
- * @private 
+ * @name GeckoJS.Scaffold#__scaffoldIndex
+ * @private
+ * @function
  */
 GeckoJS.Scaffold.prototype.__scaffoldIndex = function() {
 
@@ -8327,10 +8928,12 @@ GeckoJS.Scaffold.prototype.__scaffoldIndex = function() {
 };
 
   
-/*
+/**
  * Saves or updates the scaffolded model.
  *
- * @private 
+ * @name GeckoJS.Scaffold#__scaffoldSave
+ * @private
+ * @function
  * @param {String} action add or edt
  */
 GeckoJS.Scaffold.prototype.__scaffoldSave = function(action) {
@@ -8391,10 +8994,12 @@ GeckoJS.Scaffold.prototype.__scaffoldSave = function(action) {
     }
 };
     
-/*
+/**
  * Performs a delete on given scaffolded Model.
  *
+ * @name GeckoJS.Scaffold#__scaffoldDelete
  * @private
+ * @function
  */
 GeckoJS.Scaffold.prototype.__scaffoldDelete = function() {
 
@@ -8468,9 +9073,20 @@ GREUtils.define('GeckoJS.BaseModel', GeckoJS.global);
  * @property {Object} behaviors           A list of Behaviors associated with this model
  * @property {Boolean} autoRestoreFromBackup             Auto Restore From Backup if backup datas exists
  */
-GeckoJS.BaseModel = GeckoJS.BaseObject.extend('BaseModel', {
+GeckoJS.BaseModel = GeckoJS.BaseObject.extend('BaseModel',
+/** @lends GeckoJS.BaseModel.prototype */
+{
     name: 'BaseModel',
     
+    /**
+     * GeckoJS.BaseModel contructor
+     *
+     * @name GeckoJS.BaseModel#init
+     * @public
+     * @function
+     * @param {Object} data
+     * @param {Number} recursive
+     */
     init: function(data, recursive){
 
         // Name of the model.
@@ -8581,6 +9197,7 @@ GeckoJS.BaseModel.prototype.__defineGetter__('lastErrorString', function(){
  * Returns the list of event listeners attached to this GeckoJS.BaseModel
  * instance.
  *
+ * @name GeckoJS.BaseModel#getEvents
  * @public
  * @function
  * @return {Object}                     The list of event listeners
@@ -8594,6 +9211,7 @@ GeckoJS.BaseModel.prototype.getEvents = function(){
 /**
  * Adds a listener for the given event to this GeckoJS.BaseModel instance.
  *
+ * @name GeckoJS.BaseModel#addEventListener
  * @public
  * @function
  * @param {String} aEvent           This is the event name
@@ -8615,6 +9233,7 @@ GeckoJS.BaseModel.prototype.addEventListener = function(aEvent, aListener, thisO
 /**
  * Remove a listener for the given event to this GeckoJS.BaseModel instance.
  *
+ * @name GeckoJS.BaseModel#removeEventListener
  * @public
  * @function
  * @param {String} aEvent           This is the event name
@@ -8639,6 +9258,7 @@ GeckoJS.BaseModel.prototype.removeEventListener = function(aEvent, aListener){
  * method on the EventItem instance, this method will return "false". Otherwise
  * it returns "true".
  *
+ * @name GeckoJS.BaseModel#dispatchEvent
  * @public
  * @function
  * @param {String} sEvt             This is the event name
@@ -8659,7 +9279,10 @@ GeckoJS.BaseModel.prototype.dispatchEvent = function(sEvt, data){
 /**
  * _generateAssociation
  *
+ * @name GeckoJS.BaseModel#_generateAssociation
  * @private
+ * @function
+ * @param {Number} recursive
  * 
  */
 GeckoJS.BaseModel.prototype._generateAssociation =	function (recursive) {
@@ -8669,7 +9292,9 @@ GeckoJS.BaseModel.prototype._generateAssociation =	function (recursive) {
 /**
  * _getAssociationModel
  *
+ * @name GeckoJS.BaseModel#_getAssociationModel
  * @private
+ * @function
  * @return {Class}
  */
 GeckoJS.BaseModel.prototype._getAssociationModel = function(name, recursive) {
@@ -8680,7 +9305,10 @@ GeckoJS.BaseModel.prototype._getAssociationModel = function(name, recursive) {
 /**
  * _addModelEvents
  *
+ * @name GeckoJS.BaseModel#_addModelEvents
  * @private
+ * @function
+ *
  */
 GeckoJS.BaseModel.prototype._addModelEvents = function() {
 
@@ -8690,7 +9318,9 @@ GeckoJS.BaseModel.prototype._addModelEvents = function() {
 /**
  * _addBehaviors
  *
+ * @name GeckoJS.BaseModel#_addBehaviors
  * @private
+ * @function
  */
 GeckoJS.BaseModel.prototype._addBehaviors = function() {
     };
@@ -8710,7 +9340,8 @@ GeckoJS.BaseModel.prototype._addBehaviors = function() {
  *  - belongsToOne         : schemas of models in many-to-one relationship
  *  - hasAndBelongsToMany  : schemas of models in many-to-many relationship
  * </pre>
- * 
+ *
+ * @name GeckoJS.BaseModel#schema
  * @public
  * @function
  * @param {Number} recursive        This is the recursion depth for the schema
@@ -8815,6 +9446,15 @@ GeckoJS.BaseModel.prototype.schema = function (recursive) {
 };
 
 
+/**
+ * Returns the model fields infomation.<br/>
+ *
+ * @name GeckoJS.BaseModel#getFieldsInfo
+ * @public
+ * @function
+ * @param {String||NULL} field            This field name
+ * @return {Object}                 The fields infomation
+ */
 GeckoJS.BaseModel.prototype.getFieldsInfo = function(field) {
 
     /* ifdef DEBUG 
@@ -8849,6 +9489,9 @@ GeckoJS.BaseModel.prototype.getFieldsInfo = function(field) {
 /**
  * Returns true if the given field is defined in the Model.
  *
+ * @name GeckoJS.BaseModel#hasField
+ * @public
+ * @function
  * @param {String} name           Name of field to look for
  * @return {Boolean}              "true" if the field is defined in the Model
  */
@@ -8886,6 +9529,7 @@ GeckoJS.BaseModel.prototype.hasField = function(name) {
  * <br/>
  * This method should be overridden as necessary by its descendant classes.
  *
+ * @name GeckoJS.BaseModel#create
  * @public
  * @function
  * @param {Object} data             This is the data for the new record
@@ -8946,6 +9590,7 @@ GeckoJS.BaseModel.prototype.create = function(data){
  *  - page
  * </pre>
  *
+ * @name GeckoJS.BaseModel#findAll
  * @public
  * @function  
  * @param {String} conditions        This is the query condition
@@ -8993,6 +9638,7 @@ GeckoJS.BaseModel.prototype.findAll = function(conditions, group, order, limit, 
  *  - page
  * </pre>
  *
+ * @name GeckoJS.BaseModel#findCount
  * @public
  * @function  
  * @param {String} conditions        This is the query condition
@@ -9042,6 +9688,7 @@ GeckoJS.BaseModel.prototype.findCount = function(conditions, group, order, limit
  *  - page
  * </pre>
  *
+ * @name GeckoJS.BaseModel#findFirst
  * @function
  * @public  
  * @param {String} conditions       This is the query condition
@@ -9098,7 +9745,8 @@ GeckoJS.BaseModel.prototype.findFirst = function(conditions, group, order, limit
  * The event listeners are passed in the EventItem.data field an array whose
  * first element is the parameter "type" and whose second element is the
  * parameter "params".
- *  
+ *
+ * @name GeckoJS.BaseModel#find
  * @public
  * @function  
  * @param {String} type             This is the query type
@@ -9216,6 +9864,7 @@ GeckoJS.BaseModel.prototype.find = function(type, params) {
  * array whose first element is "id" and second element is an object whose
  * "condition" property is set to the record ID.
  *
+ * @name GeckoJS.BaseModel#findById
  * @function
  * @public  
  * @param {String} id               This is the ID of the record to find
@@ -9266,7 +9915,8 @@ GeckoJS.BaseModel.prototype.findById = function(id, recursive, fields){
  * The event listeners are passed in the EventItem.data an array whose first
  * element is the parameter "type" and second element is the parameter
  * "params".
- *  
+ *
+ * @name GeckoJS.BaseModel#findByIndex
  * @public
  * @function  
  * @param {String} type             This is the query type
@@ -9377,6 +10027,7 @@ GeckoJS.BaseModel.prototype.findByIndex = function(type, params){
  * array whose first element is "id" and second element is an object whose
  * "condition" property is set to the record ID.
  *
+ * @name GeckoJS.BaseModel#read
  * @function
  * @public
  * @param {String} id               This is the ID of the record to find
@@ -9407,7 +10058,8 @@ GeckoJS.BaseModel.prototype.read = function(id){
  * <br/>
  * All event listeners are passed the data being saved in the EventItem data
  * field.
- *    
+ *
+ * @name GeckoJS.BaseModel#save
  * @public
  * @function
  * @param {Array} data data to save
@@ -9565,7 +10217,8 @@ GeckoJS.BaseModel.prototype.save = function(data, updateTimestamp){
  * <br/>
  * All event listeners are passed the individual data records in the EventItem
  * data field.
- * 
+ *
+ * @name GeckoJS.BaseModel#saveAll
  * @public
  * @function  
  * @param {Object} data              This is dataset to save
@@ -9608,6 +10261,7 @@ GeckoJS.BaseModel.prototype.saveAll = function(data, updateTimestamp) {
  * All event listeners are passed the data being saved in the EventItem data
  * field.
  *
+ * @name GeckoJS.BaseModel#saveToBackup
  * @public
  * @function
  * @param {Object} data
@@ -9692,6 +10346,7 @@ GeckoJS.BaseModel.prototype.saveToBackup = function(data, updateTimestamp){
 /**
  * restore a backup data record to the model's backing store .<br/>
  *
+ * @name GeckoJS.BaseModel#restoreFromBackup
  * @public
  * @function
  */
@@ -9830,7 +10485,8 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
  * "beforeDelete" event.<br/>
  * <br/>
  * The event listeners are passed the record ID in the EventItem.data field.
- *    
+ *
+ * @name GeckoJS.BaseModel#del
  * @function
  * @public  
  * @param {String} id               This is the ID of the record to delete
@@ -9898,6 +10554,7 @@ GeckoJS.BaseModel.prototype._deleteDependent = function(id, cascade) {
  * <br/>
  * See del() for details.
  *
+ * @name GeckoJS.BaseModel#delete
  * @function
  * @name delete
  * @public
@@ -9914,6 +10571,7 @@ GeckoJS.BaseModel.prototype['delete'] = function(id, cascade){
  * <br/>
  * See del() for details.
  *
+ * @name GeckoJS.BaseModel#remove
  * @function
  * @public
  * @param {String} id               This is the ID of the record to delete
@@ -9936,6 +10594,7 @@ GeckoJS.BaseModel.prototype.remove = function(id, cascade){
  * <br/>
  * The event listeners are passed the record ID in the EventItem.data field.
  *
+ * @name GeckoJS.BaseModel#delAll
  * @function
  * @public
  * @param {Array|String} ids               This is the IDs of the record to delete or conditions
@@ -9981,6 +10640,7 @@ GeckoJS.BaseModel.prototype.delAll = function(ids, cascade){
  * <br/>
  * See delAll() for details.
  *
+ * @name GeckoJS.BaseModel#deleteAll
  * @function
  * @public
  * @param {Array|String} ids               This is the IDs of the record to delete or conditions
@@ -9996,6 +10656,7 @@ GeckoJS.BaseModel.prototype.deleteAll = function(ids, cascade){
  * <br/>
  * See delAll() for details.
  *
+ * @name GeckoJS.BaseModel#removeAll
  * @function
  * @public
  * @param {Array|String} ids               This is the IDs of the record to delete or conditions
@@ -10010,6 +10671,7 @@ GeckoJS.BaseModel.prototype.removeAll = function(ids, cascade){
 /**
  * Retrieves records using a VQL SQL-like statement.
  *
+ * @name GeckoJS.BaseModel#query
  * @public
  * @function
  * @param {String} queryStatement   This is the VQL SQL-like query statement
@@ -10046,7 +10708,9 @@ GeckoJS.BaseModel.prototype.query = function(queryStatement) {
  * @example
  * GeckoJS.Model.query("SELECT * FROM User");
  *
+ * @name GeckoJS.BaseModel.query
  * @public
+ * @static
  * @function
  * @param {String} queryStatement   This is the VQL SQL-like query statement
  * @return {Object}                  The result set
@@ -10089,6 +10753,7 @@ GeckoJS.BaseModel.query = function(queryStatement) {
  * <br/>
  * This method is a stub and should be overridden by its descendant classes.
  *
+ * @name GeckoJS.BaseModel#execute
  * @public
  * @function
  * @param {String} statement   This is the SQL query statement
@@ -10109,6 +10774,9 @@ GeckoJS.BaseModel.prototype.execute = function(statement){
 /**
  * Returns true if a record with set id exists.
  *
+ * @name GeckoJS.BaseModel#exists
+ * @public
+ * @function
  * @param boolean $reset if true will force database query
  * @return boolean True if such a record exists
  * @access public
@@ -10142,6 +10810,7 @@ GeckoJS.BaseModel.prototype.exists = function(reset) {
 /**
  * Truncate table
  *
+ * @name GeckoJS.BaseModel#truncate
  * @public
  * @function
  */
@@ -10186,6 +10855,9 @@ GeckoJS.BaseModel.prototype.truncate = function() {
  * Escapes the field name and prepends the model name.
  * Escaping will be done according to the current database driver's rules.
  *
+ * @name GeckoJS.BaseModel#escapeField
+ * @public
+ * @function
  * @param {String} field Field to escape (e.g: id)
  * @param {String} table Table name for the model (e.g: posts)
  * @return {String} The name of the escaped field for this Model (i.e. id becomes `posts`.`id`).
@@ -10210,6 +10882,9 @@ GeckoJS.BaseModel.prototype.escapeField = function(field, table) {
 /**
  * Returns the current record's ID
  *
+ * @name GeckoJS.BaseModel#getId
+ * @public
+ * @function
  * @return {String} The ID of the current record, false if no ID
  */
 GeckoJS.BaseModel.prototype.getId = function() {
@@ -10229,6 +10904,9 @@ GeckoJS.BaseModel.prototype.getId = function() {
 /**
  * Returns the ID of the last record this Model inserted
  *
+ * @name GeckoJS.BaseModel#getLastInsertID
+ * @public
+ * @function
  * @return {String} Last inserted ID
  */
 GeckoJS.BaseModel.prototype.getLastInsertID = function() {
@@ -10238,8 +10916,10 @@ GeckoJS.BaseModel.prototype.getLastInsertID = function() {
 /**
  * Returns the ID of the last record this Model inserted
  *
+ * @name GeckoJS.BaseModel#getInsertID
+ * @public
+ * @function
  * @return {String} Last inserted ID
-
  */
 GeckoJS.BaseModel.prototype.getInsertID = function() {
     return this.__insertID;
@@ -10248,6 +10928,9 @@ GeckoJS.BaseModel.prototype.getInsertID = function() {
 /**
  * Sets the ID of the last record this Model inserted
  *
+ * @name GeckoJS.BaseModel#setInsertID
+ * @public
+ * @function
  * @param {String} Last inserted ID
  */
 GeckoJS.BaseModel.prototype.setInsertID = function(id) {
@@ -10257,6 +10940,9 @@ GeckoJS.BaseModel.prototype.setInsertID = function(id) {
 /**
  * Gets the DataSource to which this model is bound.
  *
+ * @name GeckoJS.BaseModel#getDataSource
+ * @public
+ * @function
  * @return {GeckoJS.Model.DataSource}
  */
 GeckoJS.BaseModel.prototype.getDataSource = function() {
@@ -10269,7 +10955,9 @@ GeckoJS.BaseModel.prototype.getDataSource = function() {
 /**
  * Begins a transaction.
  *
+ * @name GeckoJS.BaseModel#begin
  * @public
+ * @function
  * @param {Boolean}  waiting  if database is locked
  * @function
  */
@@ -10292,7 +10980,9 @@ GeckoJS.BaseModel.prototype.begin = function(waiting)	{
 /**
  * Commits a transaction.
  *
+ * @name GeckoJS.BaseModel#commit
  * @public
+ * @function
  * @param {Boolean}  waiting  if database is locked
  * @function
  */
@@ -10311,7 +11001,9 @@ GeckoJS.BaseModel.prototype.commit = function(waiting) {
 /**
  * Rolls back a transaction.
  *
+ * @name GeckoJS.BaseModel#rollback
  * @public
+ * @function
  * @param {Boolean}  waiting  if database is locked
  * @function
  */
@@ -10331,6 +11023,7 @@ GeckoJS.BaseModel.prototype.rollback = function(waiting) {
 /**
  * create Table Schema for the given Schema object
  *
+ * @name GeckoJS.BaseModel#createSchema
  * @public
  * @function
  * @param {Object} schema       Schema object
@@ -10346,6 +11039,7 @@ GeckoJS.BaseModel.prototype.createSchema = function(schema) {
 /**
  * drop Table Schema
  *
+ * @name GeckoJS.BaseModel#dropSchema
  * @public
  * @function
  */
@@ -10695,7 +11389,7 @@ GREUtils.define('GeckoJS.ConnectionManager', GeckoJS.global);
  * @class GeckoJS.ConnectionManager is a Singleton that maintains a cache of
  * data sources.<br/>
  *     
- * @class GeckoJS.ConnectionManager
+ * @name GeckoJS.ConnectionManager
  * @extends GeckoJS.BaseObject
  * @extends GeckoJS.Singleton 
  *
@@ -10703,7 +11397,18 @@ GREUtils.define('GeckoJS.ConnectionManager', GeckoJS.global);
  *
  */ 
 
-GeckoJS.ConnectionManager = GeckoJS.BaseObject.extend('ConnectionManager', {
+GeckoJS.ConnectionManager = GeckoJS.BaseObject.extend('ConnectionManager', 
+/** @lends GeckoJS.ConnectionManager.prototype */
+{
+    /**
+     * GeckoJS.ConnectionManager contructor
+     *
+     * Load DATABASE_CONFIG from preferences and initialize datasources.
+     *
+     * @name GeckoJS.ConnectionManager#init
+     * @public
+     * @function
+     */
     init: function() {
 		
         // loadPreferences
@@ -10734,7 +11439,13 @@ GeckoJS.Singleton.support(GeckoJS.ConnectionManager);
 
 
 /**
- * getConfig 
+ * getConfig
+ *
+ * @name GeckoJS.ConnectionManager.getConfig
+ * @public
+ * @static
+ * @function
+ * @return {Object} database config
  */
 GeckoJS.ConnectionManager.getConfig = function() {
 
@@ -10746,9 +11457,11 @@ GeckoJS.ConnectionManager.getConfig = function() {
 /**
  * Gets the list of available DataSource connections
  *
- * @return array List of available connections
- * @access public
+ * @name GeckoJS.ConnectionManager.sourceList
+ * @public
  * @static
+ * @function
+ * @return {Array} List of available connections
  */
 GeckoJS.ConnectionManager.sourceList = function () {
 
@@ -10767,7 +11480,8 @@ GeckoJS.ConnectionManager.sourceList = function () {
  * cached using the name as the key.<br/>
  * <br/>
  * Returns null if the data source is not found.  
- *  
+ *
+ * @name GeckoJS.ConnectionManager.getDataSource
  * @public
  * @static
  * @function
@@ -10821,6 +11535,7 @@ GeckoJS.ConnectionManager.getDataSource = function(name) {
  * <br/>
  * Returns null if the data source is not found.
  *
+ * @name GeckoJS.ConnectionManager.setDataSource
  * @public
  * @static
  * @function
@@ -10836,7 +11551,9 @@ GeckoJS.ConnectionManager.setDataSource = function(name, ds) {
 
 
 /**
+ * Close Connection
  *
+ * @name GeckoJS.ConnectionManager.close
  * @public
  * @static
  * @function
@@ -10856,7 +11573,9 @@ GeckoJS.ConnectionManager.close = function(name) {
 
 
 /**
+ * Close All Connections
  *
+ * @name GeckoJS.ConnectionManager.closeAll
  * @public
  * @static
  * @function
@@ -10884,7 +11603,8 @@ GeckoJS.ConnectionManager.closeAll = function(name) {
  * is not cached.<br/>
  * <br/>
  * Returns null if the data source is not found.  
- *  
+ *
+ * @name GeckoJS.ConnectionManager.getDataSourceByClass
  * @public
  * @static
  * @function
@@ -10913,7 +11633,8 @@ GeckoJS.ConnectionManager.getDataSourceByClass = function(klass, config) {
  * <br/>
  * Note: in the SDK, a data source is stored as a property of the GeckoJS object
  * under the name "Datasource"+classname.<br/>
- *   
+ *
+ * @name GeckoJS.ConnectionManager#loadDatasource
  * @public
  * @function
  * @param {String} klass                  This is the data source class
@@ -10936,6 +11657,7 @@ GeckoJS.ConnectionManager.prototype.loadDatasource = function(klass, config) {
     return null;
 	
 };
+
 /**
  * Defines GeckoJS.Datasource namespace
  *
@@ -10957,9 +11679,22 @@ GREUtils.define('GeckoJS.Datasource', GeckoJS.global);
  * @name GeckoJS.Datasource
  * @class
  * @extends GeckoJS.BaseObject
+ * @property {Object} config                datasource config object
+ * @property {String} configName            datasource config name. (for useDbConfig)
  *
  */
-GeckoJS.Datasource = GeckoJS.BaseObject.extend('Datasource', {
+GeckoJS.Datasource = GeckoJS.BaseObject.extend('Datasource',
+/** @lends GeckoJS.Datasource.prototype */
+{
+
+    /**
+     * GeckoJS.Datasource contructor
+     *
+     * @name GeckoJS.Datasource#init
+     * @public
+     * @function
+     * @param {Object} config
+     */
     init: function(config){
     
         // http://developer.mozilla.org/en/docs/wrappedJSObject
@@ -10981,39 +11716,58 @@ GeckoJS.Datasource = GeckoJS.BaseObject.extend('Datasource', {
 });
 
 /**
+ * setConfig
  *
+ * @name GeckoJS.Datasource#setConfig
+ * @public
+ * @function
+ * @param {Object} config
  */
 GeckoJS.Datasource.prototype.setConfig = function(config) {
     this._config = config || this._config;
 };
 
 /**
+ * getConfig
  *
+ * @name GeckoJS.Datasource#getConfig
+ * @public
+ * @function
+ * @return {Object} config
  */
 GeckoJS.Datasource.prototype.getConfig = function() {
     return this._config;
 };
 
 /**
+ * setConfigName
  *
+ * default config name is 'default'
+ *
+ * @name GeckoJS.Datasource#setConfigName
+ * @public
+ * @function
+ * @param {String} name
  */
 GeckoJS.Datasource.prototype.setConfigName = function(name) {
     this._configKeyName = name || "default";
 };
 
 /**
+ * getConfigName
  *
+ * default config name is 'default'
+ *
+ * @name GeckoJS.Datasource#getConfigName
+ * @public
+ * @function
+ * @return {String} name
  */
 GeckoJS.Datasource.prototype.getConfigName = function() {
     return this._configKeyName || "default";
 };
 
-
-/**
- *
- * @name GeckoJS.Datasource.prototype.config
- * @property {Boolean}
- */
+// getter / setter define
 GeckoJS.Datasource.prototype.__defineGetter__('config', function() {
     return this.getConfig();
 });
@@ -11022,11 +11776,6 @@ GeckoJS.Datasource.prototype.__defineSetter__('config', function(config) {
     return this.setConfig(config);
 });
 
-/**
- *
- * @name GeckoJS.Datasource.prototype.configName
- * @property {Boolean}
- */
 GeckoJS.Datasource.prototype.__defineGetter__('configName', function() {
     return this.getConfigName();
 });
@@ -11039,7 +11788,9 @@ GeckoJS.Datasource.prototype.__defineSetter__('configName', function(name) {
 /**
  * Inserts data into a model using the given id as the primary key.
  *
+ * @name GeckoJS.Datasource#executeInsert
  * @public
+ * @function
  * @param {GeckoJS.Model} model             This is the model to insert data into
  * @param {String|Number} id                This is the primary key
  * @param {Object} data                     This is the data to insert
@@ -11054,7 +11805,8 @@ GeckoJS.Datasource.prototype.executeInsert = function(model, id, data) {
  * <br/>
  * If page size or page number is given, returns only the number of data items
  * in the requested page of the result set.
- *   
+ *
+ * @name GeckoJS.Datasource#querySelectCount
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -11076,7 +11828,9 @@ GeckoJS.Datasource.prototype.querySelectCount = function(model, condition, order
  * If page size or page number is given, returns only data items in the requested
  * page of the result set.
  *
+ * @name GeckoJS.Datasource#querySelect
  * @public
+ * @function
  * @param {GeckoJS.Model} model     This is the model
  * @param {String} fields        This is the query fields
  * @param {String} conditions        This is the query conditions
@@ -11093,7 +11847,8 @@ GeckoJS.Datasource.prototype.querySelect = function(model, fields, conditions, o
 
 /**
  * Retrieves a data item from a model based on its id.
- *   
+ *
+ * @name GeckoJS.Datasource#querySelectById
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -11113,7 +11868,8 @@ GeckoJS.Datasource.prototype.querySelectById = function(model, fields, id, recur
  * <br/>
  * If page size or page number is given, returns only the number of data items
  * in the requested page of the result set.
- *   
+ *
+ * @name GeckoJS.Datasource#querySelectCountByIndex
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -11136,7 +11892,8 @@ GeckoJS.Datasource.prototype.querySelectCountByIndex = function(model, index, va
  * <br/>
  * If page size or page number is given, returns only the data items in the
  * requested page of the result set.
- *   
+ *
+ * @name GeckoJS.Datasource#querySelectByIndex
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -11157,6 +11914,7 @@ GeckoJS.Datasource.prototype.querySelectByIndex = function(model, fields, index,
 /**
  * Updates a data item in a model.
  *
+ * @name GeckoJS.Datasource#executeUpdate
  * @public
  * @function
  * @param {GeckoJS.Model} model              This is the model to update
@@ -11173,6 +11931,7 @@ GeckoJS.Datasource.prototype.executeUpdate = function(model, data) {
 /**
  * Removes the data item identified by id from a model.
  *
+ * @name GeckoJS.Datasource#executeDelete
  * @public
  * @function
  * @param {GeckoJS.Model} model             This is the model to delete data from
@@ -11183,19 +11942,9 @@ GeckoJS.Datasource.prototype.executeDelete = function(model) {
     };
     
 /**
- * Returns the ID of the last inserted row.
- *
- * @public
- * @function
- * @return {String}  The id of the last inserted row
- */
-GeckoJS.Datasource.prototype.getLastInsertId = function() {
-
-};
-
-/**
  *   Opens a connection to the database.
  *
+ * @name GeckoJS.Datasource#connect
  * @public
  * @function
  */
@@ -11205,7 +11954,8 @@ GeckoJS.Datasource.prototype.connect = function() {
 
 /**
  * Closes the connection to the database.
- * 
+ *
+ * @name GeckoJS.Datasource#disconnect
  * @public
  * @function
  * 
@@ -11220,6 +11970,7 @@ GeckoJS.Datasource.prototype.disconnect = function() {
  *
  * Alias to connect
  *
+ * @name GeckoJS.Datasource#open
  * @public
  * @function
  */
@@ -11233,6 +11984,7 @@ GeckoJS.Datasource.prototype.open = function() {
  *
  * Alias to disconnect
  *
+ * @name GeckoJS.Datasource#close
  * @public
  * @function
  *
@@ -11244,11 +11996,12 @@ GeckoJS.Datasource.prototype.close = function() {
 
 /**
  * Begins a transaction.
- * 
+ *
+ * @name GeckoJS.Datasource#begin
  * @public
+ * @function
  * @param {Boolean} waiting waiting if database is locked
  * @return {Boolean} true if transaction begin
- * @function
  */
 GeckoJS.Datasource.prototype.begin = function(waiting)	{
     return true;
@@ -11256,11 +12009,12 @@ GeckoJS.Datasource.prototype.begin = function(waiting)	{
 
 /**
  * Commits a transaction.
- * 
+ *
+ * @name GeckoJS.Datasource#commit
  * @public
+ * @function
  * @param {Boolean} waiting waiting if database is locked
  * @return {Boolean} true if transaction begin
- * @function
  */
 GeckoJS.Datasource.prototype.commit = function(waiting) {
     return true;
@@ -11268,11 +12022,12 @@ GeckoJS.Datasource.prototype.commit = function(waiting) {
 
 /**
  * Rolls back a transaction.
- * 
+ *
+ * @name GeckoJS.Datasource#rollback
  * @public
+ * @function
  * @param {Boolean} waiting waiting if database is locked
  * @return {Boolean} true if transaction begin
- * @function
  */
 GeckoJS.Datasource.prototype.rollback = function(waiting) {
     return true;
@@ -11281,6 +12036,12 @@ GeckoJS.Datasource.prototype.rollback = function(waiting) {
 
 /**
  * is Field Name in table
+ *
+ * @name GeckoJS.Datasource#describe
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model
+ * @return {Object} 
  */
 GeckoJS.Datasource.prototype.describe = function(model) {
     return {};
@@ -11289,6 +12050,13 @@ GeckoJS.Datasource.prototype.describe = function(model) {
 
 /**
  * is Field Name in table
+ *
+ * @name GeckoJS.Datasource#hasField
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model
+ * @param {String} field
+ * @return {Boolean}
  */
 GeckoJS.Datasource.prototype.hasField = function(model, field) {
     return true;
@@ -11300,9 +12068,12 @@ GeckoJS.Datasource.prototype.hasField = function(model, field) {
  * (rows affected, timing, any errors, number of rows in resultset). The query is also logged.
  * If DEBUG is set, the log is shown all the time, else it is only shown on errors.
  *
- * @param string $sql
- * @param array $options
- * @return mixed Resource or object representing the result set, or false on failure
+ * @name GeckoJS.Datasource#execute
+ * @public
+ * @function
+ * @param {String} sql
+ * @param {Array} params
+ * @return {Array} Resource or object representing the result set, or false on failure
  */
 GeckoJS.Datasource.prototype.execute = function (sql, params, waiting) {
     return false;
@@ -11312,6 +12083,7 @@ GeckoJS.Datasource.prototype.execute = function (sql, params, waiting) {
 /**
  * Returns the ID of the last inserted row.
  *
+ * @name GeckoJS.Datasource#getLastInsertId
  * @public
  * @function
  * @return {String}  The id of the last inserted row
@@ -11319,6 +12091,7 @@ GeckoJS.Datasource.prototype.execute = function (sql, params, waiting) {
 GeckoJS.Datasource.prototype.getLastInsertId = function() {
     return "";
 };
+
 /**
  * Defines GeckoJS.ArrayQuery namespace
  *
@@ -11351,7 +12124,8 @@ GeckoJS.ArrayQuery = GeckoJS.BaseObject.extend('ArrayQuery', {
  * <br/>
  * ArrayQuery does not support Singleton pattern, so calling getInstance()
  * will always return a new instance.
- *  
+ *
+ * @name GeckoJS.ArrayQuery.getInstance
  * @public
  * @static 
  * @function
@@ -11375,7 +12149,8 @@ GeckoJS.ArrayQuery.prototype.__defineSetter__('data', function(d){
 /**
  * Constructs a function that can be used to filter the elements of an array
  * based on the given condition.
- *  
+ *
+ * @name GeckoJS.ArrayQuery#buildFilterFunction
  * @public
  * @function
  * @param {String} condition      This is the condition used to filter an array
@@ -11485,7 +12260,8 @@ GeckoJS.ArrayQuery.prototype.buildFilterFunction = function (condition) {
  * values in turn. Sort direction is ascending ("asc") by default. To use
  * descending direction on a property, append the string "desc" to the property
  * separated by a space.          
- * 
+ *
+ * @name GeckoJS.ArrayQuery#buildSortFunction
  * @public
  * @function
  * @param {String} order          This is the order used to sort an array
@@ -11548,7 +12324,8 @@ GeckoJS.ArrayQuery.prototype.buildSortFunction = function (order) {
 
 /**
  * Returns data items from this data source that satisfy the given condition.
- *  
+ *
+ * @name GeckoJS.ArrayQuery#filter
  * @public
  * @function
  * @name GeckoJS.ArrayQuery.prototype.filter
@@ -11566,7 +12343,8 @@ GeckoJS.ArrayQuery.prototype.filter = function(condition) {
 /**
  * Sorts in place the data items in the data source according to the given sort
  * order and returns the sorted data items. 
- *  
+ *
+ * @name GeckoJS.ArrayQuery#orderBy
  * @public
  * @function
  * @name GeckoJS.ArrayQuery.prototype.orderBy
@@ -11582,7 +12360,8 @@ GeckoJS.ArrayQuery.prototype.orderBy = function(order) {
 
 /**
  * Returns a page of data items.  
- *  
+ *
+ * @name GeckoJS.ArrayQuery#limit
  * @public
  * @function
  * @name GeckoJS.ArrayQuery.prototype.limit
@@ -11634,10 +12413,22 @@ GREUtils.define('GeckoJS.DatasourceJsonFile', GeckoJS.global);
  * Data is stored in files under the "data" sub-directory of the
  * system tmp directory (configuration key "TmpD").<br/> 
  *
+ * @name GeckoJS.DatasourceJsonFile
  * @extends GeckoJS.Datasource 
  * @property {GeckoJS.Map} data                Data cache (read-only)
  */
-GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile', {
+GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile',
+/** @lends GeckoJS.DatasourceJsonFile.prototype */
+{
+
+    /**
+     * GeckoJS.DatasourceJsonFile contructor
+     *
+     * @name GeckoJS.DatasourceJsonFile#init
+     * @public
+     * @function
+     * @param {Object} config
+     */
     init: function(config){
     
         // http://developer.mozilla.org/en/docs/wrappedJSObject
@@ -11677,6 +12468,7 @@ GeckoJS.DatasourceJsonFile.prototype.__defineGetter__('path', function() {
  * <br/>
  * If the table is cached, returns the cached data instead.
  *
+ * @name GeckoJS.DatasourceJsonFile#readTableFile
  * @public
  * @function
  * @param {String} table              This is the name of the table to read
@@ -11730,6 +12522,7 @@ GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
 /**
  * Saves the entire content of a table to file.
  *
+ * @name GeckoJS.DatasourceJsonFile#saveTableFile
  * @public
  * @function
  * @param {String} table               This is the table name to save to
@@ -11771,7 +12564,8 @@ GeckoJS.DatasourceJsonFile.prototype.saveTableFile = function(table, db){
  * <br/>
  * If page size or page number is given, returns only the number of data items
  * in the requested page of the result set.
- *   
+ *
+ * @name GeckoJS.DatasourceJsonFile#querySelectCount
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -11792,7 +12586,8 @@ GeckoJS.DatasourceJsonFile.prototype.querySelectCount = function(model, conditio
  * <br/>
  * If page size or page number is given, returns only data items in the requested
  * page of the result set.
- *   
+ *
+ * @name GeckoJS.DatasourceJsonFile#querySelect
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -11893,6 +12688,16 @@ GeckoJS.DatasourceJsonFile.prototype.querySelect = function(model, fields, condi
 };
 
 
+/**
+ * _generateAssociation
+ *
+ * @name GeckoJS.DatasourceJsonFile#_queryAssociations
+ * @private
+ * @function
+ * @param {GeckoJS.Model} model
+ * @param {Object} datas
+ * @param {Number} recursive
+ */
 GeckoJS.DatasourceJsonFile.prototype._queryAssociations = function(model, datas, recursive) {
 
     recursive = typeof recursive != 'undefined' ? recursive : 1;
@@ -11972,7 +12777,8 @@ GeckoJS.DatasourceJsonFile.prototype._queryAssociations = function(model, datas,
 
 /**
  * Retrieves a data item from a model based on its id.
- *   
+ *
+ * @name GeckoJS.DatasourceJsonFile#querySelectById
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12036,7 +12842,8 @@ GeckoJS.DatasourceJsonFile.prototype.querySelectById = function(model, fields, i
  * <br/>
  * If page size or page number is given, returns only the number of data items
  * in the requested page of the result set.
- *   
+ *
+ * @name GeckoJS.DatasourceJsonFile#querySelectCountByIndex
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12060,7 +12867,8 @@ GeckoJS.DatasourceJsonFile.prototype.querySelectCountByIndex = function(model, i
  * <br/>
  * If page size or page number is given, returns only the data items in the
  * requested page of the result set.
- *   
+ *
+ * @name GeckoJS.DatasourceJsonFile#querySelectByIndex
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12090,6 +12898,7 @@ GeckoJS.DatasourceJsonFile.prototype.querySelectByIndex = function(model, fields
  * <br/>
  * The ID used to uniquely identify the data is taken from model.id.
  *
+ * @name GeckoJS.DatasourceJsonFile#executeInsert
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12148,7 +12957,8 @@ GeckoJS.DatasourceJsonFile.prototype.executeInsert = function(model, data){
  * (model.id).<br/>
  * <br/>   
  * The operation fails and returns 0 if id does not exist in the model. 
- *   
+ *
+ * @name GeckoJS.DatasourceJsonFile#executeUpdate
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12201,7 +13011,8 @@ GeckoJS.DatasourceJsonFile.prototype.executeUpdate = function(model, data){
  * If id is not given, then internal model ID (model.id) is used.<br/>
  * <br/>
  * The operation fails and returns 0 if id does not exist in the model. 
- *   
+ *
+ * @name GeckoJS.DatasourceJsonFile#executeDelete
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12249,9 +13060,11 @@ GeckoJS.DatasourceJsonFile.prototype.executeDelete = function(model){
  * Deletes all the records in a table and resets the count of the auto-incrementing
  * primary key, where applicable.
  *
- * @param mixed $table A string or model class representing the table to be truncated
- * @return boolean	SQL TRUNCATE TABLE statement, false if not applicable.
- * @access public
+ * @name GeckoJS.DatasourceJsonFile#truncate
+ * @public
+ * @function
+ * @param {String} table A string or model class representing the table to be truncated
+ * @return {Boolean}	SQL TRUNCATE TABLE statement, false if not applicable.
  */
 GeckoJS.DatasourceJsonFile.prototype.truncate = function (table) {
 
@@ -12271,6 +13084,9 @@ GeckoJS.DatasourceJsonFile.prototype.truncate = function (table) {
 /**
  * Returns an array of the fields in given table name.
  *
+ * @name GeckoJS.DatasourceJsonFile#describe
+ * @public
+ * @function
  * @param {GeckoJS.Model} model
  * @return {Object} Fields in table
  */
@@ -12285,6 +13101,9 @@ GeckoJS.DatasourceJsonFile.prototype.describe = function(model) {
 /**
  * is Field Name in table
  *
+ * @name GeckoJS.DatasourceJsonFile#hasField
+ * @public
+ * @function
  * @param {GeckoJS.Model} model
  * @param {String} field
  * @return {Boolean}
@@ -12300,6 +13119,9 @@ GeckoJS.DatasourceJsonFile.prototype.hasField = function(model, field) {
  * (rows affected, timing, any errors, number of rows in resultset). The query is also logged.
  * If DEBUG is set, the log is shown all the time, else it is only shown on errors.
  *
+ * @name GeckoJS.DatasourceJsonFile#execute
+ * @public
+ * @function
  * @param string $sql
  * @param array $options
  * @return mixed Resource or object representing the result set, or false on failure
@@ -12307,12 +13129,12 @@ GeckoJS.DatasourceJsonFile.prototype.hasField = function(model, field) {
 GeckoJS.Datasource.prototype.execute = function (sql, params, waiting) {
     return true;
 };
+
 /**
  * Defines GeckoJS.DatasourceJsonFile namespace
  *
  * @public
  * @namespace
- * @name GeckoJS.DatasourceSQL
  */
 GREUtils.define('GeckoJS.DatasourceSQL', GeckoJS.global);
 
@@ -12320,11 +13142,28 @@ GREUtils.define('GeckoJS.DatasourceSQL', GeckoJS.global);
  * 
  * @class GeckoJS.DatasourceSQL
  *
+ * @name GeckoJS.DatasourceSQL
  * @extends GeckoJS.Datasource 
  * @property {GeckoJS.Map} data                Data cache (read-only)
+ *
+ * @property {String} startQuote
+ * @property {String} endQuote
+ * @property {Boolean} isConnected      Is the connection currently open? Recall that even if the answer is no the connection would automatically be opened when needed.
+ * @property {Boolean} closeAfterExecute
+ *
  */
-GeckoJS.DatasourceSQL = GeckoJS.Datasource.extend('DatasourceSQL', {
+GeckoJS.DatasourceSQL = GeckoJS.Datasource.extend('DatasourceSQL',
+/** @lends GeckoJS.DatasourceSQL.prototype */
+{
     
+    /**
+     * GeckoJS.DatasourceSQL contructor
+     *
+     * @name GeckoJS.DatasourceSQL#init
+     * @public
+     * @function
+     * @param {Object} config
+     */
     init: function(config){
 
         this._super(config);
@@ -12346,36 +13185,17 @@ GeckoJS.DatasourceSQL = GeckoJS.Datasource.extend('DatasourceSQL', {
     }
 });
 
-
-/**
- *
- * @name GeckoJS.DatasourceSQL.prototype.startQuote
- * @property {Boolean}
- */
+// startQuote
 GeckoJS.DatasourceSQL.prototype.startQuote = "`" ;
 
-/**
- *
- * @name GeckoJS.DatasourceSQL.prototype.endQuote
- * @property {Boolean}
- */
+// endQuote
 GeckoJS.DatasourceSQL.prototype.endQuote = "`" ;
 
-/**
- * Is the connection currently open? Recall that even if the answer is no
- * the connection would automatically be opened when needed.
- *
- * @name GeckoJS.DatasourceSQL.prototype.isConnected
- * @property {Boolean}
- */
+// isConnected
 GeckoJS.DatasourceSQL.prototype.__defineGetter__('isConnected', function() {
     return (this.conn != null && this.connected);
 });
 
-/**
- * @name GeckoJS.DatasourceSQL.prototype.closeAfterExecute
- * @property {Boolean}
- */
 GeckoJS.DatasourceSQL.prototype.__defineGetter__('closeAfterExecute', function() {
     return (this.config.closeAfterExecute || false);
 });
@@ -12385,6 +13205,7 @@ GeckoJS.DatasourceSQL.prototype.__defineGetter__('closeAfterExecute', function()
 /**
  * connect
  *
+ * @name GeckoJS.DatasourceSQL#connect
  * @public
  * @function
  */
@@ -12410,6 +13231,7 @@ GeckoJS.DatasourceSQL.prototype.connect = function(){
 /**
  * reconnect
  *
+ * @name GeckoJS.DatasourceSQL#reconnect
  * @public
  * @function
  */
@@ -12422,8 +13244,9 @@ GeckoJS.DatasourceSQL.prototype.reconnect = function(){
 };
 
 /**
- * reconnect
+ * disconnect
  *
+ * @name GeckoJS.DatasourceSQL#disconnect
  * @public
  * @function
  */
@@ -12451,7 +13274,8 @@ GeckoJS.DatasourceSQL.prototype.disconnect = function(){
  * <br/>
  * If page size or page number is given, returns only data items in the requested
  * page of the result set.
- *   
+ *
+ * @name GeckoJS.DatasourceSQL#querySelect
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12571,6 +13395,9 @@ GeckoJS.DatasourceSQL.prototype.querySelect = function(model, fields, conditions
 /**
  * Generates an array representing a query or part of a query from a single model or two associated models
  *
+ * @name GeckoJS.DatasourceSQL#_generateAssociationQuery
+ * @private
+ * @function
  * @param {GeckoJS.Model} model         This is the model
  * @param {GeckoJS.Model} assocModel    This is the association model
  * @param {String} type                 This is the association type
@@ -12737,6 +13564,9 @@ GeckoJS.DatasourceSQL.prototype._generateAssociationQuery = function(model, asso
 /**
  * Query Associations Data
  *
+ * @name GeckoJS.DatasourceSQL#_queryAssociations
+ * @private
+ * @function
  * @param {GeckoJS.Model} model         This is the model
  * @param {GeckoJS.Model} assocModel    This is the association model
  * @param {String} type                 This is the association type
@@ -12805,6 +13635,9 @@ GeckoJS.DatasourceSQL.prototype._queryAssociations = function(model, assocModel,
 /**
  * _mergeHasMany
  *
+ * @name GeckoJS.DatasourceSQL#_mergeHasMany
+ * @private
+ * @function
  * @param {Array} result                This is the query result
  * @param {Array} assocResults          This is the query association result
  * @param {GeckoJS.Model} model         This is the model
@@ -12857,6 +13690,7 @@ GeckoJS.DatasourceSQL.prototype._mergeHasMany = function(result, assocResults, m
  * If page size or page number is given, returns only the number of data items
  * in the requested page of the result set.
  *
+ * @name GeckoJS.DatasourceSQL#querySelectCount
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12881,7 +13715,8 @@ GeckoJS.DatasourceSQL.prototype.querySelectCount = function(model, conditions, g
 
 /**
  * Retrieves a data item from a model based on its id.
- *   
+ *
+ * @name GeckoJS.DatasourceSQL#querySelectById
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12911,7 +13746,8 @@ GeckoJS.DatasourceSQL.prototype.querySelectById = function(model, fields, id, re
  * <br/>
  * If page size or page number is given, returns only the number of data items
  * in the requested page of the result set.
- *   
+ *
+ * @name GeckoJS.DatasourceSQL#querySelectCountByIndex
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12941,7 +13777,8 @@ GeckoJS.DatasourceSQL.prototype.querySelectCountByIndex = function(model, index,
  * <br/>
  * If page size or page number is given, returns only the data items in the
  * requested page of the result set.
- *   
+ *
+ * @name GeckoJS.DatasourceSQL#querySelectByIndex
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -12975,6 +13812,7 @@ GeckoJS.DatasourceSQL.prototype.querySelectByIndex = function(model, fields, ind
  * <br/>
  * The ID used to uniquely identify the data is taken from model.id.
  *
+ * @name GeckoJS.DatasourceSQL#executeInsert
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -13051,7 +13889,8 @@ GeckoJS.DatasourceSQL.prototype.executeInsert = function(model, data){
  * (model.id).<br/>
  * <br/>   
  * The operation fails and returns 0 if id does not exist in the model. 
- *   
+ *
+ * @name GeckoJS.DatasourceSQL#executeUpdate
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -13114,7 +13953,8 @@ GeckoJS.DatasourceSQL.prototype.executeUpdate = function(model, data){
  * If id is not given, then internal model ID (model.id) is used.<br/>
  * <br/>
  * The operation fails and returns 0 if id does not exist in the model. 
- *   
+ *
+ * @name GeckoJS.DatasourceSQL#executeDelete
  * @public
  * @function
  * @param {GeckoJS.Model} model     This is the model
@@ -13158,10 +13998,11 @@ GeckoJS.DatasourceSQL.prototype.executeDelete = function(model){
 /**
  * Begins a transaction.
  *
+ * @name GeckoJS.DatasourceSQL#begin
  * @public
+ * @function
  * @param {Boolean} waiting waiting if database is locked
  * @return {Boolean} true if transaction begin
- * @function
  */
 GeckoJS.DatasourceSQL.prototype.begin = function(waiting)	{
 
@@ -13173,10 +14014,11 @@ GeckoJS.DatasourceSQL.prototype.begin = function(waiting)	{
 /**
  * Commits a transaction.
  *
+ * @name GeckoJS.DatasourceSQL#commit
  * @public
+ * @function
  * @param {Boolean} waiting waiting if database is locked
  * @return {Boolean} true if transaction commit
- * @function
  */
 GeckoJS.DatasourceSQL.prototype.commit = function(waiting) {
 
@@ -13187,10 +14029,11 @@ GeckoJS.DatasourceSQL.prototype.commit = function(waiting) {
 /**
  * Rolls back a transaction.
  *
+ * @name GeckoJS.DatasourceSQL#rollback
  * @public
+ * @function
  * @param {Boolean} waiting waiting if database is locked
  * @return {Boolean} true if transaction rollback
- * @function
  */
 GeckoJS.DatasourceSQL.prototype.rollback = function(waiting) {
 
@@ -13203,6 +14046,9 @@ GeckoJS.DatasourceSQL.prototype.rollback = function(waiting) {
  * Returns an array of all result rows for a given SQL query.
  * Returns false if no rows matched.
  *
+ * @name GeckoJS.DatasourceSQL#fetchAll
+ * @public
+ * @function
  * @param {String} sql SQL statement
  * @param {Array} params parameters for prepare SQL statement
  * @param {Boolean} cache Enables returning/storing cached query results
@@ -13266,9 +14112,12 @@ GeckoJS.DatasourceSQL.prototype.fetchAll = function (sql, params, cache, model) 
 /**
  * Queries the database with given SQL statement
  *
+ * @name GeckoJS.DatasourceSQL#execute
+ * @public
+ * @function
  * @param {String} sql
  * @param {Array} params
- * @return {Boolean} 	waiting waiting if database is locked
+ * @param {Boolean} 	waiting waiting if database is locked
  * @return {Boolean}    true or false on failure
  */
 GeckoJS.DatasourceSQL.prototype.execute = function (sql, params, waiting) {
@@ -13313,6 +14162,9 @@ GeckoJS.DatasourceSQL.prototype.execute = function (sql, params, waiting) {
 /**
  * Checks if the result is valid
  *
+ * @name GeckoJS.DatasourceSQL#hasResult
+ * @public
+ * @function
  * @return {Boolean} True if the result is valid else false
  */
 GeckoJS.DatasourceSQL.prototype.hasResult = function() {
@@ -13331,6 +14183,9 @@ GeckoJS.DatasourceSQL.prototype.hasResult = function() {
 /**
  * Builds and generates a JOIN statement from an array.	 Handles final clean-up before conversion.
  *
+ * @name GeckoJS.DatasourceSQL#buildJoinStatement
+ * @public
+ * @function
  * @param {Array} join An array defining a JOIN statement in a query
  * @return {String} An SQL JOIN statement to be used in a query
  */
@@ -13349,6 +14204,9 @@ GeckoJS.DatasourceSQL.prototype.buildJoinStatement = function(join) {
 /**
  * Builds and generates an SQL statement from an array.	 Handles final clean-up before conversion.
  *
+ * @name GeckoJS.DatasourceSQL#buildStatement
+ * @public
+ * @function
  * @param {Object} query            An query defining an SQL query
  * @param {GeckoJS.Model} model     The model object which initiated the query
  * @return {String} An executable SQL statement
@@ -13386,6 +14244,9 @@ GeckoJS.DatasourceSQL.prototype.buildStatement = function(query, model) {
 /**
  * Renders a final SQL JOIN statement
  *
+ * @name GeckoJS.DatasourceSQL#renderJoinStatement
+ * @public
+ * @function
  * @param {Object} data
  * @return {String}
  */
@@ -13400,6 +14261,9 @@ GeckoJS.DatasourceSQL.prototype.renderJoinStatement = function(data) {
 /**
  * Renders a final SQL statement by putting together the component parts in the correct order
  *
+ * @name GeckoJS.DatasourceSQL#renderStatement
+ * @public
+ * @function
  * @param {String} type     Type of SQL statement to render
  * @param {Object} data     The data
  * @return {String} An executable SQL statement
@@ -13434,6 +14298,9 @@ GeckoJS.DatasourceSQL.prototype.renderStatement = function(type, data) {
 /**
  * Creates a default set of conditions from the model.
  *
+ * @name GeckoJS.DatasourceSQL#defaultConditions
+ * @public
+ * @function
  * @param {GeckoJS.Model} model
  * @param {String} conditions
  * @return {String}
@@ -13456,6 +14323,9 @@ GeckoJS.DatasourceSQL.prototype.defaultConditions = function (model, conditions)
 /**
  * Creates a default set of conditions from the model if $conditions is null/empty.
  *
+ * @name GeckoJS.DatasourceSQL#conditions
+ * @public
+ * @function
  * @param {GeckoJS.Model} model
  * @param {String} conditions
  * @param {Boolean} where         true is where clause preset.
@@ -13482,6 +14352,9 @@ GeckoJS.DatasourceSQL.prototype.conditions = function (model, conditions, where)
 /**
  * Returns a limit statement in the correct format for the particular database.
  *
+ * @name GeckoJS.DatasourceSQL#limit
+ * @public
+ * @function
  * @param {Number} limit            Limit of results returned
  * @param {Number} offset           Offset from which to start results
  * @return {String} SQL limit/offset statement
@@ -13512,6 +14385,9 @@ GeckoJS.DatasourceSQL.prototype.limit = function(limit, offset) {
 /**
  * Returns an ORDER BY clause as a string.
  *
+ * @name GeckoJS.DatasourceSQL#order
+ * @public
+ * @function
  * @param {String} order        Field reference
  * @return {String} ORDER BY clause
  */
@@ -13534,6 +14410,9 @@ GeckoJS.DatasourceSQL.prototype.order = function(order, direction) {
 /**
  * Create a GROUP BY SQL clause
  *
+ * @name GeckoJS.DatasourceSQL#group
+ * @public
+ * @function
  * @param {String} group Group By Condition
  * @return {String} string condition or null
  */
@@ -13554,6 +14433,9 @@ GeckoJS.DatasourceSQL.prototype.group = function(group) {
  * Returns an array of tables in the database.
  * If there are no tables, an error is raised and the application exits.
  *
+ * @name GeckoJS.DatasourceSQL#listTables
+ * @public
+ * @function
  * @return {Array} Array of tablenames in the database
  */
 GeckoJS.DatasourceSQL.prototype.listTables = function() {
@@ -13564,6 +14446,9 @@ GeckoJS.DatasourceSQL.prototype.listTables = function() {
 /**
  * Returns an array of the fields in given table name.
  *
+ * @name GeckoJS.DatasourceSQL#describe
+ * @public
+ * @function
  * @param {GeckoJS.Model} model
  * @return {Object} Fields in table
  */
@@ -13581,6 +14466,9 @@ GeckoJS.DatasourceSQL.prototype.describe = function(model) {
 /**
  * is Field Name in table
  *
+ * @name GeckoJS.DatasourceSQL#hasField
+ * @public
+ * @function
  * @param {GeckoJS.Model} model
  * @param {String} field
  * @return {Boolean} 
@@ -13605,6 +14493,9 @@ GeckoJS.DatasourceSQL.prototype.hasField = function(model, field) {
 /**
  * Generates the fields list of an SQL query.
  *
+ * @name GeckoJS.DatasourceSQL#fields
+ * @public
+ * @function
  * @param {GeckoJS.Model} model
  * @param {String|Array} fields
  * @param {Boolean} quote If false, returns fields array unquoted
@@ -13676,6 +14567,9 @@ GeckoJS.DatasourceSQL.prototype.fields = function(model, fields, quote) {
 /**
  * Returns a model's from given table's name
  *
+ * @name GeckoJS.DatasourceSQL#modelName
+ * @public
+ * @function
  * @param {GeckoJS.Model} model
  * @param {String} table
  * @return {String} tablename
@@ -13705,9 +14599,12 @@ GeckoJS.DatasourceSQL.prototype.modelName = function(model, table) {
 
 
 /**
- * Returns a quoted name of $data for use in an SQL statement.
+ * Returns a quoted name of data for use in an SQL statement.
  * Strips fields out of SQL functions before quoting.
  *
+ * @name GeckoJS.DatasourceSQL#name
+ * @public
+ * @function
  * @param {String} data
  * @return {String} SQL field
  */
@@ -13747,6 +14644,9 @@ GeckoJS.DatasourceSQL.prototype.name = function(data, quote) {
  * Deletes all the records in a table and resets the count of the auto-incrementing
  * primary key, where applicable.
  *
+ * @name GeckoJS.DatasourceSQL#truncate
+ * @public
+ * @function
  * @param {String} table    The table to be truncated
  * @return {Boolean} SQL TRUNCATE TABLE statement, false if not applicable.
  */
@@ -13759,7 +14659,6 @@ GeckoJS.DatasourceSQL.prototype.truncate = function (table) {
  *
  * @public
  * @namespace
- * @name GeckoJS.DatasourceSQLite
  */
 GREUtils.define('GeckoJS.DatasourceSQLite', GeckoJS.global);
 
@@ -13772,8 +14671,13 @@ GREUtils.define('GeckoJS.DatasourceSQLite', GeckoJS.global);
  * Data is stored in files under the "data" sub-directory of the
  * system tmp directory (configuration key "TmpD").<br/> 
  *
+ * @name GeckoJS.DatasourceSQLite
  * @extends GeckoJS.DatasourceSQL
  * @property {GeckoJS.Map} data                Data cache (read-only)
+ * @property {String} path
+ * @property {String} database
+ * @property {String} startQuote
+ * @property {String} endQuote
  */
 GeckoJS.DatasourceSQLite = GeckoJS.DatasourceSQL.extend('DatasourceSQLite', {
 
@@ -13786,41 +14690,30 @@ GeckoJS.DatasourceSQLite = GeckoJS.DatasourceSQL.extend('DatasourceSQLite', {
 GeckoJS.DatasourceSQLite.CLASS_ID	= "@mozilla.org/storage/service;1";
 GeckoJS.DatasourceSQLite.INTERFACE	= Components.interfaces.mozIStorageService;
 
-/**
- * path
- * @name GeckoJS.DatasourceSQLite.prototype.path
- * @property {String}
- */
+// path getter
 GeckoJS.DatasourceSQLite.prototype.__defineGetter__('path', function() {
     return this.config.path || "/var/tmp";
 });
 
-
-/**
- * database
- * @name GeckoJS.DatasourceSQLite.prototype.database
- * @property {String}
- */
+// database getter
 GeckoJS.DatasourceSQLite.prototype.__defineGetter__('database', function() {
     return this.config.database || "vivipos.sqlite";
 });
 
 
-/**
- * startQuote
- * @name GeckoJS.DatasourceSQLite.prototype.startQuote
- * @property {String}
- */
+ // startQuote
 GeckoJS.DatasourceSQLite.prototype.startQuote = '"' ;
 
-/**
- * endQuote
- * @name GeckoJS.DatasourceSQLite.prototype.endQuote
- * @property {String}
- */
+// endQuote
 GeckoJS.DatasourceSQLite.prototype.endQuote = '"' ;
 
 
+/**
+ * sleep for miliseconds
+ *
+ * @name GeckoJS.DatasourceSQLite#sleep
+ * @param {Number} ms
+ */
 GeckoJS.DatasourceSQLite.prototype.sleep = function(ms) {
 
 
@@ -13850,7 +14743,8 @@ GeckoJS.DatasourceSQLite.prototype.sleep = function(ms) {
 /**
  * connect
  *
- * @public
+ * @name GeckoJS.DatasourceSQLite#_connect
+ * @private
  * @function
  */
 GeckoJS.DatasourceSQLite.prototype._connect = function(){
@@ -13953,9 +14847,10 @@ GeckoJS.DatasourceSQLite.prototype._connect = function(){
 };
 
 /**
- * connect
+ * disconnect
  *
- * @public
+ * @name GeckoJS.DatasourceSQLite#_disconnect
+ * @private
  * @function
  */
 GeckoJS.DatasourceSQLite.prototype._disconnect = function(){
@@ -13996,9 +14891,12 @@ GeckoJS.DatasourceSQLite.prototype._disconnect = function(){
 /**
  * Queries the database with given SQL statement
  *
+ * @name GeckoJS.DatasourceSQLite#_execute
+ * @private
+ * @function
  * @param {String} sql
  * @param {Array} params    is params, use bindParameter to binding params by type.
- * @return {Boolean} waiting waiting if database is locked
+ * @param {Boolean} waiting waiting if database is locked
  * @return {Boolean}
  */
 GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
@@ -14130,6 +15028,9 @@ GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
  * Returns an array of all result rows for a given SQL query.
  * Returns false if no rows matched.
  *
+ * @name GeckoJS.DatasourceSQLite#fetchAll
+ * @public
+ * @function
  * @param {String} sql SQL statement
  * @param {Array} params parameters for prepare SQL statement
  * @param {Boolean} cache Enables returning/storing cached query results
@@ -14212,6 +15113,9 @@ GeckoJS.DatasourceSQLite.prototype.fetchAll = function (sql, params, cache, mode
 /**
  * Fetches the next row from the current result set
  *
+ * @name GeckoJS.DatasourceSQLite#fetchResult
+ * @public
+ * @function
  * @param {GeckoJS.Model} model [optional] Model for prepare result array
  * @return {Array|Boolean} result array or false
  */
@@ -14263,6 +15167,9 @@ GeckoJS.DatasourceSQLite.prototype.fetchResult = function(model, columns) {
  * Returns an array of tables in the database.
  * If there are no tables, an error is raised and the application exits.
  *
+ * @name GeckoJS.DatasourceSQLite#listTables
+ * @public
+ * @function
  * @return {Array} Array of tablenames in the database
  */
 GeckoJS.DatasourceSQLite.prototype.listTables = function() {
@@ -14287,6 +15194,9 @@ GeckoJS.DatasourceSQLite.prototype.listTables = function() {
 /**
  * Returns an array of the fields in given table name.
  *
+ * @name GeckoJS.DatasourceSQLite#describe
+ * @public
+ * @function
  * @param {GeckoJS.Model} model
  * @return {Object} Fields in table
  */
@@ -14329,6 +15239,7 @@ GeckoJS.DatasourceSQLite.prototype.describe = function(model) {
 /**
  * Returns the ID of the last inserted row.
  *
+ * @name GeckoJS.DatasourceSQLite#getLastInsertId
  * @public
  * @function
  * @return {String}  The id of the last inserted row
@@ -14346,6 +15257,7 @@ GeckoJS.DatasourceSQLite.prototype.getLastInsertId = function() {
 /**
  * Bind Statement 's Parameter by param type
  *
+ * @name GeckoJS.DatasourceSQLite#bindParameter
  * @public
  * @function
  * @param {Object} stmt     The Statement Object
@@ -14404,6 +15316,9 @@ GeckoJS.DatasourceSQLite.prototype.bindParameter = function (stmt, params) {
  * Retrieves the specified value from the prepared statement (at its current
  * cursor location), casting to the given type.
  *
+ * @name GeckoJS.DatasourceSQLite#getAsType
+ * @public
+ * @function
  * @param {Object} stmt     The statement object
  * @param {Object} iCol		The index of the column whose value is to be fetched
  * @param {Object} iType	The type object containing information on how to return this value
@@ -14475,6 +15390,9 @@ GeckoJS.DatasourceSQLite.prototype.getAsType = function(stmt, iCol, iType) {
  * Deletes all the records in a table and resets the count of the auto-incrementing
  * primary key, where applicable.
  *
+ * @name GeckoJS.DatasourceSQLite#truncate
+ * @public
+ * @function
  * @param {String} table    The table to be truncated
  * @return {Boolean} SQL TRUNCATE TABLE statement, false if not applicable.
  */
@@ -14493,9 +15411,10 @@ GeckoJS.DatasourceSQLite.prototype.truncate = function (table) {
 /**
  * Begins a transaction.
  *
+ * @name GeckoJS.DatasourceSQLite#begin
  * @public
- * @param {Boolean} waiting if database is locked
  * @function
+ * @param {Boolean} waiting if database is locked
  */
 GeckoJS.DatasourceSQLite.prototype.begin = function(waiting)	{
 
@@ -14562,6 +15481,7 @@ GeckoJS.DatasourceSQLite.prototype.begin = function(waiting)	{
 /**
  * Commits a transaction.
  *
+ * @name GeckoJS.DatasourceSQLite#commit
  * @public
  * @function
  */
@@ -14638,6 +15558,7 @@ GeckoJS.DatasourceSQLite.prototype.commit = function(waiting) {
 /**
  * Rolls back a transaction.
  *
+ * @name GeckoJS.DatasourceSQLite#rollback
  * @public
  * @function
  */
@@ -14707,6 +15628,9 @@ GeckoJS.DatasourceSQLite.prototype.rollback = function(waiting) {
 /**
  * Renders a final SQL statement by putting together the component parts in the correct order
  *
+ * @name GeckoJS.DatasourceSQLite#renderStatement
+ * @public
+ * @function
  * @param {String} type     Type of SQL statement to render
  * @param {Object} data     The data
  * @return {String} An executable SQL statement
@@ -14744,6 +15668,15 @@ GeckoJS.DatasourceSQLite.prototype.renderStatement = function(type, data) {
 };
 
 
+/**
+ * get Statement columns type
+ *
+ * @name GeckoJS.DatasourceSQLite#getStatementColumnsType
+ * @public
+ * @function
+ * @param {Object} statement
+ * @return {Object}
+ */
 GeckoJS.DatasourceSQLite.prototype.getStatementColumnsType = function (statement) {
 
         /* ifdef DEBUG 
@@ -14828,6 +15761,7 @@ GeckoJS.DatasourceSQLite.prototype.getStatementColumnsType = function (statement
 
         return columns;
 };
+
 /**
  * Defines the GeckoJS.NSITreeViewArray namespace.
  *
@@ -14849,7 +15783,18 @@ GREUtils.define('GeckoJS.NSITreeViewArray', GeckoJS.global);
  * @property {Number} rowCount
  * @property {nsITreeSelection} selection
  */
-GeckoJS.NSITreeViewArray = GeckoJS.BaseObject.extend('NSITreeViewArray', {
+GeckoJS.NSITreeViewArray = GeckoJS.BaseObject.extend('NSITreeViewArray',
+/** @lends GeckoJS.NSITreeViewArray.prototype */
+{
+
+    /**
+     * NSITreeViewArray contructor
+     *
+     * @name GeckoJS.NSITreeViewArray#init
+     * @public
+     * @function
+     * @param {Array} data      data array for tree view
+     */
     init: function(data){
         this.tree = null;
 
@@ -14889,6 +15834,9 @@ GeckoJS.NSITreeViewArray.prototype.__defineGetter__('rowCount', function() {
  *
  * The value for a given cell. This method is only called for columns of type other than text.
  *
+ * @name GeckoJS.NSITreeViewArray#getCellValue
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @param {nsITreeColumn} col   The index of the column.
  * @return {String}
@@ -14912,6 +15860,9 @@ GeckoJS.NSITreeViewArray.prototype.getCellValue = function(row, col) {
  *
  * The text for a given cell. If a column consists only of an image, then the empty string is returned.
  *
+ * @name GeckoJS.NSITreeViewArray#getCellText
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @param {nsITreeColumn} col   The index of the column.
  * @return {String}
@@ -14929,6 +15880,9 @@ GeckoJS.NSITreeViewArray.prototype.getCellText = function(row, col) {
  * setCellValue is called when the value of the cell has been set by the user.
  * This method is only called for columns of type other than text. 
  *
+ * @name GeckoJS.NSITreeViewArray#setCellValue
+ * @public
+ * @function
  * @param {Number} row          The index of the row.
  * @param {nsITreeColumn} col   The index of the column.
  * @param {String} value        The text to change the cell to.
@@ -14942,6 +15896,9 @@ GeckoJS.NSITreeViewArray.prototype.setCellValue = function(row, col, value) {
  *
  * setCellText is called when the contents of the cell have been edited by the user.
  *
+ * @name GeckoJS.NSITreeViewArray#setCellText
+ * @public
+ * @function
  * @param {Number} row          The index of the row.
  * @param {nsITreeColumn} col   The index of the column.
  * @param {String} value        The text to change the cell to.
@@ -14957,6 +15914,9 @@ GeckoJS.NSITreeViewArray.prototype.setCellText = function(row, col, value) {
  *
  * @see http://www.xulplanet.com/references/xpcomref/ifaces/nsITreeBoxObject.html
  * 
+ * @name GeckoJS.NSITreeViewArray#setTree
+ * @public
+ * @function
  * @param {nsITreeBoxObject} tree       The nsITreeBoxObject to attach this view to
  */
 GeckoJS.NSITreeViewArray.prototype.setTree = function(tree) {
@@ -14967,6 +15927,9 @@ GeckoJS.NSITreeViewArray.prototype.setTree = function(tree) {
 /**
  * isContainer    implemented nsITreeView interface
  *
+ * @name GeckoJS.NSITreeViewArray#isContainer
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @return {Boolean} 
  */
@@ -14978,6 +15941,9 @@ GeckoJS.NSITreeViewArray.prototype.isContainer = function(row) {
 /**
  * isContainerOpen    implemented nsITreeView interface
  *
+ * @name GeckoJS.NSITreeViewArray#isContainerOpen
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @return {Boolean}
  */
@@ -14989,6 +15955,9 @@ GeckoJS.NSITreeViewArray.prototype.isContainerOpen = function(row) {
 /**
  * isContainerEmpty    implemented nsITreeView interface
  *
+ * @name GeckoJS.NSITreeViewArray#isContainerEmpty
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @return {Boolean} 
  */
@@ -15004,6 +15973,9 @@ GeckoJS.NSITreeViewArray.prototype.isContainerEmpty = function(row) {
  * A value of true will result in the tree drawing a horizontal separator.
  * The tree uses the ::moz-tree-separator pseudoclass to draw the separator.
  *
+ * @name GeckoJS.NSITreeViewArray#isSeparator
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @return {Boolean} 
  */
@@ -15014,6 +15986,9 @@ GeckoJS.NSITreeViewArray.prototype.isSeparator = function(row) {
 /**
  * isSorted    implemented nsITreeView interface
  * 
+ * @name GeckoJS.NSITreeViewArray#isSorted
+ * @public
+ * @function
  * @return {Boolean}
  */
 GeckoJS.NSITreeViewArray.prototype.isSorted = function() {
@@ -15021,10 +15996,31 @@ GeckoJS.NSITreeViewArray.prototype.isSorted = function() {
 };
 
 
+/**
+ * canDrop    implemented nsITreeView interface
+ *
+ * @name GeckoJS.NSITreeViewArray#canDrop
+ * @public
+ * @function
+ * @param {Number} index
+ * @param {String} orientation
+ * @return {Boolean}
+ */
 GeckoJS.NSITreeViewArray.prototype.canDrop = function (index, orientation) {
     return false;
 };
 
+
+/**
+ * drop    implemented nsITreeView interface
+ *
+ * @name GeckoJS.NSITreeViewArray#drop
+ * @public
+ * @function
+ * @param {Number} index
+ * @param {String} orientation
+ * @return {Boolean}
+ */
 GeckoJS.NSITreeViewArray.prototype.drop = function (index, orientation) {
     return false;
 };
@@ -15036,6 +16032,9 @@ GeckoJS.NSITreeViewArray.prototype.drop = function (index, orientation) {
  * isEditable is called to ask the view if the cell contents are editable.
  * A value of true will result in the tree popping up a text field when the user tries to inline edit the cell.
  *
+ * @name GeckoJS.NSITreeViewArray#isEditable
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @param {nsITreeColumn} col   The index of the column.
  * @return {Boolean} 
@@ -15050,6 +16049,9 @@ GeckoJS.NSITreeViewArray.prototype.isEditable = function(row, col) {
  * isSelectable is called to ask the view if the cell is selectable.
  * This method is only called if the selection type is cell or text.
  *
+ * @name GeckoJS.NSITreeViewArray#isSelectable
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @param {nsITreeColumn} col   The index of the column.
  * @return {Boolean} 
@@ -15065,6 +16067,9 @@ GeckoJS.NSITreeViewArray.prototype.isSelectable = function(row, col) {
  *
  * Called on the view when a header is clicked.
  *
+ * @name GeckoJS.NSITreeViewArray#cycleHeader
+ * @public
+ * @function
  * @param {nsITreeColumn} col           The column to cycle.
  */
 GeckoJS.NSITreeViewArray.prototype.cycleHeader = function(col) {
@@ -15075,6 +16080,9 @@ GeckoJS.NSITreeViewArray.prototype.cycleHeader = function(col) {
  *
  * Called on the view when a cell in a non-selectable cycling column (e.g., unread/flag/etc.) is clicked.
  *
+ * @name GeckoJS.NSITreeViewArray#cycleCell
+ * @public
+ * @function
  * @param {nsITreeColumn} col           The column to cycle.
  */
 GeckoJS.NSITreeViewArray.prototype.cycleCell = function(col) {
@@ -15088,6 +16096,9 @@ GeckoJS.NSITreeViewArray.prototype.cycleCell = function(col) {
  * getParentIndex is used to obtain the index of a parent row.
  * If there is no parent row, getParentIndex returns -1.
  *
+ * @name GeckoJS.NSITreeViewArray#getParentIndex
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @return {Number}
  */
@@ -15102,6 +16113,9 @@ GeckoJS.NSITreeViewArray.prototype.getParentIndex = function(row) {
 /**
  * getLevel    implemented nsITreeView interface
  *
+ * @name GeckoJS.NSITreeViewArray#getLevel
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @return {Number}
  */
@@ -15117,6 +16131,9 @@ GeckoJS.NSITreeViewArray.prototype.getLevel = function(row) {
  * the index specified by afterIndex. Code that is forced to march down the view looking at levels
  * can optimize the march by starting at afterIndex+1.
  *
+ * @name GeckoJS.NSITreeViewArray#hasNextSibling
+ * @public
+ * @function
  * @param {Number} row    The index of the item.
  * @param {Number} after  The index of the item to find siblings after.
  * @return {Boolean} 
@@ -15137,6 +16154,9 @@ GeckoJS.NSITreeViewArray.prototype.hasNextSibling = function(row, after) {
  *
  * Called on the view when an item is opened or closed.
  *
+ * @name GeckoJS.NSITreeViewArray#toggleOpenState
+ * @public
+ * @function
  * @param {Number} row         The index of the row to toggle.
  */
 GeckoJS.NSITreeViewArray.prototype.toggleOpenState = function(row) {
@@ -15148,6 +16168,9 @@ GeckoJS.NSITreeViewArray.prototype.toggleOpenState = function(row) {
  * The image path for a given cell. For defining an icon for a cell.
  * If the empty string is returned, the :moz-tree-image pseudoelement will be used.
  *
+ * @name GeckoJS.NSITreeViewArray#getImageSrc
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @param {nsITreeColumn} col   The index of the column.
  * @return {String}
@@ -15167,6 +16190,9 @@ GeckoJS.NSITreeViewArray.prototype.getImageSrc = function(row, col) {
  * PROGRESS_UNDETERMINED 	2
  * PROGRESS_NONE 	3
  *
+ * @name GeckoJS.NSITreeViewArray#getProgressMode
+ * @public
+ * @function
  * @param {Number} row      the index of the row.
  * @param {nsITreeColumn} col   The index of the column.
  * @return {Number}
@@ -15179,6 +16205,12 @@ GeckoJS.NSITreeViewArray.prototype.getProgressMode = function(row, col) {
 /**
  * getRowProperties    implemented nsITreeView interface
  *
+ * @name GeckoJS.NSITreeViewArray#getRowProperties
+ * @public
+ * @function
+ * @param {Number} row      the index of the row.
+ * @param {Object} props    The properties of the row.
+ * @return {Object}
  */
 GeckoJS.NSITreeViewArray.prototype.getRowProperties = function(row, props) {
     
@@ -15187,6 +16219,13 @@ GeckoJS.NSITreeViewArray.prototype.getRowProperties = function(row, props) {
 /**
  * getCellProperties    implemented nsITreeView interface
  *
+ * @name GeckoJS.NSITreeViewArray#getCellProperties
+ * @public
+ * @function
+ * @param {Number} row          The index of the row.
+ * @param {nsITreeColumn} col   The index of the column.
+ * @param {Object} props        The properties of the cell.
+ * @return {Object}
  */
 GeckoJS.NSITreeViewArray.prototype.getCellProperties = function(row, col, props) {
 
@@ -15195,6 +16234,12 @@ GeckoJS.NSITreeViewArray.prototype.getCellProperties = function(row, col, props)
 /**
  * getColumnProperties    implemented nsITreeView interface
  *
+ * @name GeckoJS.NSITreeViewArray#getColumnProperties
+ * @public
+ * @function
+ * @param {Number} row          The index of the row.
+ * @param {Object} props        The properties of the cell.
+ * @return {Object}
  */
 GeckoJS.NSITreeViewArray.prototype.getColumnProperties = function(col, props) {
 
@@ -15204,7 +16249,10 @@ GeckoJS.NSITreeViewArray.prototype.getColumnProperties = function(col, props) {
  * selectionChanged    implemented nsITreeView interface
  *
  * Should be called from a XUL onselect handler whenever the selection changes.
- * 
+ *
+ * @name GeckoJS.NSITreeViewArray#selectionChanged
+ * @public
+ * @function
  */
 GeckoJS.NSITreeViewArray.prototype.selectionChanged = function() {
     
@@ -15217,6 +16265,9 @@ GeckoJS.NSITreeViewArray.prototype.selectionChanged = function() {
  * The tree will automatically invoke this method when certain keys are pressed.
  * For example, when the DEL key is pressed, performAction will be called with the delete string.
  *
+ * @name GeckoJS.NSITreeViewArray#performAction
+ * @public
+ * @function
  * @param {String} action            The action to perform. 
  */
 GeckoJS.NSITreeViewArray.prototype.performAction = function(action) {
@@ -15228,6 +16279,9 @@ GeckoJS.NSITreeViewArray.prototype.performAction = function(action) {
  *
  * A command API that can be used to invoke commands on a specific row.
  *
+ * @name GeckoJS.NSITreeViewArray#performActionOnRow
+ * @public
+ * @function
  * @param {String} action            The action to perform.
  * @param {Number} row               The row of the cell.
  */
@@ -15240,6 +16294,9 @@ GeckoJS.NSITreeViewArray.prototype.performActionOnRow = function(action, row) {
  *
  * A command API that can be used to invoke commands on a specific cell.
  *
+ * @name GeckoJS.NSITreeViewArray#performActionOnCell
+ * @public
+ * @function
  * @param {String} action            The action to perform.
  * @param {Number} row               The row of the cell.
  * @param {nsITreeColumn} col        The column of the cell.
@@ -15247,6 +16304,7 @@ GeckoJS.NSITreeViewArray.prototype.performActionOnRow = function(action, row) {
 GeckoJS.NSITreeViewArray.prototype.performActionOnCell = function(action, row, col) {
 
     };
+
 /**
  * Defines the GeckoJS.StringBundle namespace.
  *
@@ -15269,7 +16327,6 @@ GREUtils.define('GeckoJS.StringBundle', GeckoJS.global);
  * GeckoJS.StringBundle is implemented using XPCOM nsIStringBundleService.<br/>
  * 
  * @name GeckoJS.StringBundle
- * @class
  * @extends GeckoJS.BaseObject
  * @extends GeckoJS.Singleton
  *
@@ -15277,7 +16334,17 @@ GREUtils.define('GeckoJS.StringBundle', GeckoJS.global);
  * @property {GeckoJS.Map} map                      A collection of the key-value pairs in the string bundle (read-only)
  * @property {nsIStringBundleService} bundleService A reference to the XPCOM nsIStringBundleService service {read-only}
  */
-GeckoJS.StringBundle = GeckoJS.BaseObject.extend('StringBundle', {
+GeckoJS.StringBundle = GeckoJS.BaseObject.extend('StringBundle',
+/** @lends GeckoJS.StringBundle.prototype */
+{
+
+    /**
+     * StringBundle contructor
+     *
+     * @name GeckoJS.StringBundle#init
+     * @public
+     * @function
+     */
     init: function(){
 
         this._map = new GeckoJS.Map();
@@ -15317,6 +16384,7 @@ GeckoJS.StringBundle.prototype.__defineGetter__('bundleService', function(){
  * is normally a Chrome URL. The string bundle is then cached in memory and does
  * not get reloaded unless the cache is flushed.
  *
+ * @name GeckoJS.StringBundle.createBundle
  * @public
  * @static
  * @function
@@ -15335,8 +16403,8 @@ GeckoJS.StringBundle.createBundle = function(URLSpec) {
  * is normally a Chrome URL. The string bundle is then cached in memory and does
  * not get reloaded unless the cache is flushed.
  *
+ * @name GeckoJS.StringBundle#createBundle
  * @public
- * @static
  * @function
  * @param {String} URLspec            This is the location of the string bundle to load, given as an URL
  * @return {nsIStringBundle}          The string bundle resource
@@ -15372,6 +16440,7 @@ GeckoJS.StringBundle.prototype.createBundle = function(URLSpec) {
  * to make this flush all the bundles, because any bundles that are floating
  * around when the locale changes will suddenly contain bad data.
  *
+ * @name GeckoJS.StringBundle.flushBundles
  * @public
  * @static
  * @function
@@ -15388,6 +16457,7 @@ GeckoJS.StringBundle.flushBundles = function() {
  * to make this flush all the bundles, because any bundles that are floating
  * around when the locale changes will suddenly contain bad data.
  *
+ * @name GeckoJS.StringBundle#flushBundles
  * @public
  * @function
  */
@@ -15406,6 +16476,7 @@ GeckoJS.StringBundle.prototype.flushBundles = function() {
  * <br/>
  * The first match by name is returned; null is returned if no match is found.
  *
+ * @name GeckoJS.StringBundle.getStringFromName
  * @public
  * @static
  * @function
@@ -15427,6 +16498,7 @@ GeckoJS.StringBundle.getStringFromName = function(name, URLSpec){
  * <br/>
  * The first match by name is returned; null is returned if no match is found.
  *
+ * @name GeckoJS.StringBundle#getStringFromName
  * @public
  * @function
  * @param {String} name               This is the name of the string to retrieve
@@ -15471,6 +16543,7 @@ GeckoJS.StringBundle.prototype.getStringFromName = function(name, URLSpec) {
  * The first match by name is returned; if no match is found, the given key name
  * is itself used as the formatting string.
  *
+ * @name GeckoJS.StringBundle.formatStringFromName
  * @public
  * @static
  * @function
@@ -15499,6 +16572,7 @@ GeckoJS.StringBundle.formatStringFromName = function(name, params, URLSpec) {
  * The first match by name is returned; if no match is found, the given key name
  * is itself used as the formatting string.
  *
+ * @name GeckoJS.StringBundle#formatStringFromName
  * @public
  * @function
  * @param {String} name               This is the name of the string to retrieve
@@ -15539,6 +16613,7 @@ GeckoJS.StringBundle.prototype.formatStringFromName = function(name, params, URL
  * <br/>
  * The first match by name is returned; null is returned if no match is found.
  *
+ * @name GeckoJS.StringBundle.getPrefLocalizedString
  * @public
  * @static
  * @function
@@ -15555,6 +16630,7 @@ GeckoJS.StringBundle.getPrefLocalizedString = function(name){
  * <br/>
  * The first match by name is returned; null is returned if no match is found.
  *
+ * @name GeckoJS.StringBundle#getPrefLocalizedString
  * @public
  * @function
  * @param {String} name               This is the name of the PrefName to retrieve
@@ -15572,6 +16648,7 @@ GeckoJS.StringBundle.prototype.getPrefLocalizedString = function(name) {
         }
 	return str;
 };
+
 /**
  * Defines the GeckoJS.I18n namespace.
  *
@@ -15587,14 +16664,24 @@ GREUtils.define('GeckoJS.I18n', GeckoJS.global);
  * the VIVIPOS APP Engine.<br/>
  *
  * @name GeckoJS.I18n
- * @class
  * @extends GeckoJS.BaseObject
  * @extends GeckoJS.Singleton
  */
-GeckoJS.I18n = GeckoJS.BaseObject.extend('I18n', {
+GeckoJS.I18n = GeckoJS.BaseObject.extend('I18n',
+/** @lends GeckoJS.I18n.prototype */
+{
+    
+    /**
+     * I18n contructor
+     *
+     * @name GeckoJS.I18n#init
+     * @public
+     * @function
+     */
     init: function(){
 
         this._stringbundle = GeckoJS.StringBundle.getInstance();
+        
     }
 });
 
@@ -15602,33 +16689,11 @@ GeckoJS.I18n = GeckoJS.BaseObject.extend('I18n', {
 GeckoJS.Singleton.support(GeckoJS.I18n);
 
 
-/**
- * Translates a string.<br/>
- * <br/>
- * If a single argument is passed in, this method treats it as a key and returns
- * the first matching string from the cached string bundles. If a second argument
- * is present, then the method returns the formatted string produced by calling
- * GeckoJS.StringBundle.formatStringFromName() on the two arguments.    
- * 
- * @public
- * @function  
- * @param {String} str                This is the string to translate
- * @param {Array} arguments           This is an array of strings to use as arguments to the formatting codes in "str"
- * @return {String}                   The translated string
- */
-GeckoJS.I18n.prototype.translate = function() {
-
-	if (arguments.length == 1) {
-		return this._stringbundle.getStringFromName(arguments[0]);
-	}else {
-		return this._stringbundle.formatStringFromName(arguments[0], arguments[1]);
-	}
-
-};
 
 /**
  * Returns the application locale for messages.
  *
+ * @name GeckoJS.I18n.getApplicationLocale
  * @public
  * @static
  * @function
@@ -15646,6 +16711,7 @@ GeckoJS.I18n.getApplicationLocale = function() {
 /**
  * Returns the system locale for messages.
  *
+ * @name GeckoJS.I18n.getSystemLocale
  * @public
  * @static
  * @function
@@ -15663,6 +16729,7 @@ GeckoJS.I18n.getSystemLocale = function() {
 /**
  * Returns the User Agent locale component.
  *
+ * @name GeckoJS.I18n.getLocaleComponentForUserAgent
  * @public
  * @static
  * @function
@@ -15681,6 +16748,7 @@ GeckoJS.I18n.getLocaleComponentForUserAgent = function() {
 /**
  * Returns the locale for message as determined from the given accept language.
  *
+ * @name GeckoJS.I18n.getLocaleFromAcceptLanguage
  * @public
  * @static
  * @function
@@ -15696,6 +16764,16 @@ GeckoJS.I18n.getLocaleFromAcceptLanguage = function(accept_language) {
 	}
 };
 
+/**
+ * Returns the locale for package
+ *
+ * @name GeckoJS.I18n.getSelectedLocaleForPackage
+ * @public
+ * @static
+ * @function
+ * @param {String} packageName         This is the package name
+ * @return {String}                   The locale for messages
+ */
 GeckoJS.I18n.getSelectedLocaleForPackage = function(packageName) {
 	var selectedLocale = "";
 	try {
@@ -15712,6 +16790,7 @@ GeckoJS.I18n.getSelectedLocaleForPackage = function(packageName) {
 /**
  * Returns the locales Array from the given package.
  *
+ * @name GeckoJS.I18n.getLocalesForPackage
  * @public
  * @static
  * @function
@@ -15740,11 +16819,10 @@ GeckoJS.I18n.getLocalesForPackage = function(packageName) {
 };
 
 
-
-
 /**
  * Returns the locale for message for a new Locale.
  *
+ * @name GeckoJS.I18n.newLocale
  * @public
  * @static
  * @function
@@ -15762,6 +16840,7 @@ GeckoJS.I18n.newLocale = function() {
 /**
  * Change to the new Locale.
  *
+ * @name GeckoJS.I18n.changeLocale
  * @public
  * @static
  * @function
@@ -15802,12 +16881,38 @@ GeckoJS.I18n.changeLocale = function(newLocale, restart) {
  * the first matching string from the cached string bundles. If a second argument
  * is present, then the method returns the formatted string produced by calling
  * GeckoJS.StringBundle.formatStringFromName() on the two arguments.    
- * 
+ *
+ * @name GeckoJS.I18n#translate
+ * @public
+ * @function  
+ * @param {String} [str]                This is the string to translate
+ * @param {Array} [arguments]           This is an array of strings to use as arguments to the formatting codes in "str"
+ * @return {String}                   The translated string
+ */
+GeckoJS.I18n.prototype.translate = function() {
+
+	if (arguments.length == 1) {
+		return this._stringbundle.getStringFromName(arguments[0]);
+	}else {
+		return this._stringbundle.formatStringFromName(arguments[0], arguments[1]);
+	}
+
+};
+
+/**
+ * Translates a string.<br/>
+ * <br/>
+ * If a single argument is passed in, this method treats it as a key and returns
+ * the first matching string from the cached string bundles. If a second argument
+ * is present, then the method returns the formatted string produced by calling
+ * GeckoJS.StringBundle.formatStringFromName() on the two arguments.    
+ *
+ * @name GeckoJS.I18n.translate
  * @public
  * @static 
  * @function  
- * @param {String} str                This is the string to translate
- * @param {Array} arguments           This is an array of strings to use as arguments to the formatting codes in "str"
+ * @param {String} [str]                This is the string to translate
+ * @param {Array} [arguments]           This is an array of strings to use as arguments to the formatting codes in "str"
  * @return {String}                   The translated string
  */
 GeckoJS.I18n.translate = function() {
@@ -15839,7 +16944,6 @@ GREUtils.define('GeckoJS.HttpRequest', GeckoJS.global);
  * nsIJSXMLHttpRequest interfaces.<br/>
  *
  * @name GeckoJS.HttpRequest
- * @class
  * @extend GeckoJS.BaseObject
  *
  * @property {GeckoJS.Event} events           A list of event listeners for changes on the request status (read-only)
@@ -15852,8 +16956,17 @@ GREUtils.define('GeckoJS.HttpRequest', GeckoJS.global);
  * @property {Boolean} async                  A flag, when "true", indicates that the request should be asynchronous
  * @property {Number} timeout                 Request Timeout miliseconds, defaults to 60000
  */
-GeckoJS.HttpRequest = GeckoJS.BaseObject.extend('HttpRequest', {
+GeckoJS.HttpRequest = GeckoJS.BaseObject.extend('HttpRequest', 
+/** @lends GeckoJS.HttpRequest.prototype */
+{
 
+    /**
+     * HttpRequest contructor
+     *
+     * @name GeckoJS.HttpRequest#init
+     * @public
+     * @function
+     */
     init: function(){
 
         this._events = new GeckoJS.Event();
@@ -15877,7 +16990,24 @@ GeckoJS.HttpRequest = GeckoJS.BaseObject.extend('HttpRequest', {
     }
 });
 
-
+/**
+ * HttpRequest Accepts request type
+ *
+ * <blockquote><pre>
+ * xml: "application/xml, text/xml"
+ * html: "text/html"
+ * script: "text/javascript, application/javascript"
+ * json: "application/json, text/javascript"
+ * text: "text/plain"
+ * default: "* / *"
+ * </pre></blockquote>
+ *
+ *
+ * @name GeckoJS.HttpRequest.requestAccepts
+ * @public
+ * @function
+ * @return {GeckoJS.Map}              The collection of the key-value pairs stored in the repository
+ */
 GeckoJS.HttpRequest.requestAccepts = {
     xml: "application/xml, text/xml",
     html: "text/html",
@@ -16000,6 +17130,7 @@ GeckoJS.HttpRequest.prototype.__defineSetter__('timeout', function(t ){
  * name/value pairs delimited by a carriage return/line feed (CRLF) sequence.
  * If the response has not yet been received an empty string is returned.
  *
+ * @name GeckoJS.HttpRequest#getAllResponseHeaders
  * @public
  * @function
  * @return {String}                           All the response headers
@@ -16020,6 +17151,7 @@ GeckoJS.HttpRequest.prototype.getAllResponseHeaders = function(){
  * If the response has not yet been received or if the header does not exist in
  * the response, an empty string is returned.
  *
+ * @name GeckoJS.HttpRequest#getResponseHeader
  * @public
  * @function
  * @param {String} header                     This is the name of the header to retrieve
@@ -16039,6 +17171,7 @@ GeckoJS.HttpRequest.prototype.getResponseHeader = function(header){
  * <br/>
  * The open() method must be called before setting the request headers.
  *
+ * @name GeckoJS.HttpRequest#setRequestHeader
  * @public
  * @function
  * @param {String} header                     This is the name of the header to set in the request.
@@ -16060,6 +17193,7 @@ GeckoJS.HttpRequest.prototype.setRequestHeader = function(header, value){
  * <br/>
  * This must be done before the send() method is invoked.
  *
+ * @name GeckoJS.HttpRequest#overrideMimeType
  * @public
  * @function
  * @param {String} mimetype                   This is the mimetype to use to override that returned by the server (if any)
@@ -16097,6 +17231,7 @@ GeckoJS.HttpRequest.prototype.overrideMimeType = function(mimetype){
  * All event listeners must be set before calling send().
  * After the initial response, all event listeners will be cleared
  *
+ * @name GeckoJS.HttpRequest#send
  * @public
  * @function
  * @param {Object} body                       This is the body of the request
@@ -16120,6 +17255,7 @@ GeckoJS.HttpRequest.prototype.send = function(body){
  * <br/>
  * This is a variant of the send() method and behaves in an identical manner.
  *
+ * @name GeckoJS.HttpRequest#sendAsBinary
  * @public
  * @function
  * @param {DOMString} body                    This is the binary data to send
@@ -16136,6 +17272,7 @@ GeckoJS.HttpRequest.prototype.sendAsBinary = function(body){
 /**
  * Aborts the request if it has been sent.
  *
+ * @name GeckoJS.HttpRequest#abort
  * @public
  * @function
  */
@@ -16161,6 +17298,7 @@ GeckoJS.HttpRequest.prototype.abort = function(){
  * If there is an "active" request (that is, if open() has been called already),
  * this is equivalent to calling abort().
  *
+ * @name GeckoJS.HttpRequest#open
  * @public
  * @function
  * @param {String} method                     This is the HTTP request method
@@ -16185,6 +17323,9 @@ GeckoJS.HttpRequest.prototype.open = function(method, url, async, user, password
  * This is a specialized form of the request() method. It provides the
  * appropriate request settings and options for sending an HTTP GET request.
  *
+ * @name GeckoJS.HttpRequest#get
+ * @public
+ * @function
  * @param {String} url                        This is the URL to which to send the request
  * @param {Object} data                       This is the request data
  * @param {Object} callback                   This is the "success" event callback
@@ -16215,6 +17356,7 @@ GeckoJS.HttpRequest.prototype.get = function(url, data, callback, type){
  * This is a specialized form of the request() method. It provides the
  * appropriate request settings and options for sending an HTTP POST request.
  *
+ * @name GeckoJS.HttpRequest#post
  * @public
  * @function
  * @param {String} url                        This is the URL to which to send the request
@@ -16245,6 +17387,7 @@ GeckoJS.HttpRequest.prototype.post = function(url, data, callback, type){
  * This is a specialized form of the request() method. It provides the
  * appropriate request settings and options for sending an HTTP PUT request.
  *
+ * @name GeckoJS.HttpRequest#put
  * @public
  * @function
  * @param {String} url                        This is the URL to which to send the request
@@ -16275,6 +17418,7 @@ GeckoJS.HttpRequest.prototype.put = function(url, data, callback, type){
  * This is a specialized form of the request() method. It provides the
  * appropriate request settings and options for sending an HTTP DELETE request.
  *
+ * @name GeckoJS.HttpRequest#delete
  * @public
  * @function
  * @param {String} url                        This is the URL to which to send the request
@@ -16344,6 +17488,7 @@ GeckoJS.HttpRequest.prototype['delete'] = GeckoJS.HttpRequest.prototype.delete_;
  * The content-type header from the response headers should be examined to
  * determine the type of the response data.
  *
+ * @name GeckoJS.HttpRequest#request
  * @public
  * @function
  * @param {Object} s                          This is a collection of additional request options and settings
@@ -16509,6 +17654,7 @@ GeckoJS.HttpRequest.prototype.request = function(s){
  * If type given is "json", decodes the JSON data  into the corresponding
  * object. Otherwise simply returns the data.
  *
+ * @name GeckoJS.HttpRequest.httpData
  * @public
  * @static
  * @function
@@ -16530,6 +17676,7 @@ GeckoJS.HttpRequest.httpData = function(data, type){
     return data;
 
 };
+
 /**
  * Model Extented utilities
  *
@@ -16537,7 +17684,7 @@ GeckoJS.HttpRequest.httpData = function(data, type){
 if (GeckoJS.BaseModel) {
 
 
-    /**
+/**
  * export CSV
  *
  * "params" is an object with any of the following available options as
@@ -16550,6 +17697,9 @@ if (GeckoJS.BaseModel) {
  *  - page         : an integer indicating the page number
  * </pre>
  *
+ * @name GeckoJS.BaseModel#exportCSV
+ * @public
+ * @function
  * @param {String} file
  * @param {Object} params
  * @return {Number} 
@@ -16633,6 +17783,9 @@ if (GeckoJS.BaseModel) {
  *  - page         : an integer indicating the page number
  * </pre>
  *
+ * @name GeckoJS.BaseModel#exportXML
+ * @public
+ * @function
  * @param {String} file
  * @param {Object} params
  * @return {Number}
