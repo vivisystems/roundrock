@@ -46,12 +46,23 @@
 
             var orderby = "ic.created DESC";
             
+            var inventoryCommitmentModel = new InventoryCommitmentModel();
+            
+            // attach vivipos.sqlite to use product table.
+            var productModel = new ProductModel();
+            var productDB = productModel.getDataSource().path + '/' + productModel.getDataSource().database;
+            var sql = "ATTACH '" + productDB + "' AS vivipos;";
+            inventoryCommitmentModel.execute( sql );
+            
             var sql =
             	"SELECT " + fields.join( ", " ) + " FROM inventory_commitments ic JOIN inventory_records ir ON ( " +
             	"ic.id = ir.commitment_id ) JOIN products p ON ( ir.product_no = p.no ) WHERE " + conditions +
             	" ORDER BY " + orderby + " LIMIT " + limit + ";";
-            var inventoryCommitmentModel = new InventoryCommitmentModel();
             var records = inventoryCommitmentModel.getDataSource().fetchAll( sql );
+            
+            // detach the file.
+            sql = "DETACH vivipos;";
+            inventoryCommitmentModel.execute( sql );
 
             var inventoryCommitments = {};
             var old_id = null;

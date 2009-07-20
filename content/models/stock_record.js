@@ -8,7 +8,7 @@
 
         name: 'StockRecord',
 
-        useDbConfig: 'default',
+        useDbConfig: 'inventory',
 
         belongsTo: [{name: 'Product', 'primaryKey': 'no', 'foreignKey': 'id'}],
 
@@ -460,8 +460,7 @@
                 
                 if (!product.no||product.no.length==0) return;
 
-                sql += "INSERT INTO stock_records (id,product_no,barcode,warehouse,quantity,created,modified) VALUES (" +
-                    "'" + GeckoJS.String.uuid() + "', " +
+                sql += "INSERT INTO stock_records (id,barcode,warehouse,quantity,created,modified) VALUES (" +
                     "'" + (product.no||'') + "', " +
                     "'" + (product.barcode||'') + "', " +
                     "'" + (product.warehouse||'')+ "', " +
@@ -511,7 +510,7 @@
         set: function( stockRecord ) {
             if ( stockRecord ) {
 
-                // id is not product_no but uuid( July 20, 2009 ).
+                // id is product_no.
                 this.id = stockRecord.id || '';
 
                 var r = this.save(stockRecord);

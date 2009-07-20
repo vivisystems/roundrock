@@ -1,6 +1,6 @@
 ( function() {
     
-    if( typeof AppModel == 'undefined' ) {
+    if(typeof AppModel == 'undefined') {
         include( 'chrome://viviecr/content/models/app.js' );
     }
 
