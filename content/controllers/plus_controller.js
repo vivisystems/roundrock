@@ -899,8 +899,8 @@
             var sPluDir = GeckoJS.Session.get('pluimage_directory');
             var aDstFile = sPluDir + no + ".png";
 
-            GREUtils.File.remove(aDstFile);
-                document.getElementById('pluimage').setAttribute("src", "");
+            if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
+            document.getElementById('pluimage').setAttribute("src", "");
 
             return aDstFile;
         },
