@@ -792,7 +792,6 @@
 
         // print slip using the given parameters
         printSlip: function(deviceType, data, template, port, portspeed, handshaking, devicemodel, encoding, printer, copies) {
-this.log( this.dump( template ) );
         	var isTraining = GeckoJS.Session.get( "isTraining" );
         	var ifPrintWhileTraining = GeckoJS.Configure.read( "vivipos.fec.settings.ifprintwhiletraining" );
         	if ( isTraining && !ifPrintWhileTraining ) return;
@@ -963,7 +962,7 @@ this.log( this.dump( template ) );
             }
             //@debug
             //alert(GeckoJS.BaseObject.dump(result));
-            this.log(GeckoJS.BaseObject.dump(result));
+            //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

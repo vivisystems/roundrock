@@ -20,7 +20,6 @@
             var inputBox = this._inputBox = document.getElementById('inputLineTextBox');
             
             if (inputBox) {
-                alert('adding input event listener');
                 inputBox.addEventListener('input', function(evt){
                     keypadController.buf = evt.target.value;
                 }, true);

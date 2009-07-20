@@ -2,12 +2,13 @@
 
     var NSIDepartmentsView = window.NSIDepartmentsView = NSICategoriesView.extend({
         
-        init: function(domId) {
+        init: function(domId, noResize) {
 
             this._data = [];
             this.hideInvisible = true;
             this.plugroupsFirst = false;
             this._path = [];
+            this._noResize = noResize;
 
             var plugroupModel = new PlugroupModel();
             var plugroups = plugroupModel.find('all', {order: 'display_order, name'});
@@ -38,8 +39,10 @@
         bindingPanel: function(domId) {
 
             var catescrollablepanel = document.getElementById(domId);
-            catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
-            catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
+            if (!this._noResize) {
+                catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
+                catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
+            }
             catescrollablepanel.initGrid();
             this.refreshView(false);
             catescrollablepanel.datasource = this;

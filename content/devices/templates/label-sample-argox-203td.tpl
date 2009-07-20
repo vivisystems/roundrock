@@ -17,6 +17,7 @@ counter = 1;
 {/eval}
 {for item in linkedItems}
 {if counter == 1}
+[&INIT]
 [&STX]KI70
 [&STX]c0000
 [&STX]f320

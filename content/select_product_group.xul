@@ -41,7 +41,7 @@
             <caption label="&productgroups.title;" class="PageTitle" />
             <label id="productgroups" hidden="true" value="" />
             <hbox class="SelectBox">
-                <viviscrollablebuttonpanel id="productgroupscrollablepanel" flex="1" cols="4" rows="7" labelField="name"
+                <viviscrollablebuttonpanel id="productgroupscrollablepanel" flex="1" cols="6" rows="6" labelField="name"
                                            class="catescrollablepanel"
                                            buttonClass="plubtn"
                                            scrollUpClass="ScrollUp"

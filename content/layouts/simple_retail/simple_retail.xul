@@ -29,7 +29,7 @@
 
             <box id="bannerPanelContainer" flex="0" orient="horizontal"/>
             <box id="mainBody" flex="1" orient="horizontal">
-                <box id="leftPanel" flex="0" class="rightPanel" orient="vertical">
+                <box id="leftPanel" flex="0" class="leftPanel" orient="vertical">
                     <box id="productImagePanelContainer" flex="1" class="roundedContainerBorder"/>
                     <box flex="0" orient="vertical" class="roundedContainerBorder">
                         <box id="categoryPanelContainer" flex="0" />
@@ -41,7 +41,7 @@
 
                 <spacer id="panelSpacer" flex="1"/>
 
-                <vbox id="rightPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel">
+                <vbox id="rightPanel" flex="0" style="overflow: hidden" orient="vertical" class="rightPanel">
                     <box id="vfdPanelContainer" flex="0" class="roundedContainerBorder"/>
                     <box id="cartlistPanelContainer" flex="1" class="roundedContainerBorder"/>
                     <box id="inputLinePanelContainer" flex="0" class="roundedContainerBorder"/>
