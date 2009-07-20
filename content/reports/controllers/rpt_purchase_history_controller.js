@@ -39,12 +39,23 @@
 
             var orderby = "ir.product_no, ic.supplier, ic.created DESC";
             
-            var sql =
+            var inventoryCommitmentModel = new InventoryCommitmentModel();
+            
+            // attach vivipos.sqlite to use product table.
+            var productModel = new ProductModel();
+            var productDB = productModel.getDataSource().path + '/' + productModel.getDataSource().database;
+            var sql = "ATTACH '" + productDB + "' AS vivipos;";
+            inventoryCommitmentModel.execute( sql );
+            
+            sql =
             	"SELECT " + fields.join( ", " ) + " FROM inventory_commitments ic JOIN inventory_records ir ON ( " +
             	"ic.id = ir.commitment_id ) JOIN products p ON ( ir.product_no = p.no ) WHERE " + conditions +
             	/*" GROUP BY " + groupby + */" ORDER BY " + orderby + " LIMIT " + limit + ";";
-            var inventoryCommitmentModel = new InventoryCommitmentModel();
             var inventoryRecords = inventoryCommitmentModel.getDataSource().fetchAll( sql );
+            
+            // detach the file.
+            sql = "DETACH vivipos;";
+            inventoryCommitmentModel.execute( sql );
             
             function groupInventoryRecords( condition, object ) {// condition could be 'product' or 'supplier', while object could be products and suppliers.
                 var oldSupplier = null;

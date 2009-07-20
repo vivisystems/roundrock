@@ -1,6 +1,7 @@
 ( function() {
     include('chrome://viviecr/content/models/category.js');
     include('chrome://viviecr/content/models/product.js');
+    include('chrome://viviecr/content/models/stock_record.js');
     include('chrome://viviecr/content/models/plugroup.js');
 
     // include controllers  and register itself

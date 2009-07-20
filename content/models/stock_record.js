@@ -8,7 +8,7 @@
 
         name: 'StockRecord',
 
-        useDbConfig: 'default',
+        useDbConfig: 'inventory',
 
         belongsTo: [{name: 'Product', 'primaryKey': 'no', 'foreignKey': 'id'}],
 

@@ -53,8 +53,17 @@
             this.StockRecord.syncAllStockRecords();
             
             //var stockRecords = this.StockRecord.find('all', {fields: "products." , order: 'products.no', recursive: 1});
-            var sql = "SELECT products.no, products.name, products.barcode, products.sale_unit, products.min_stock, products.auto_maintain_stock, stock_records.quantity FROM products INNER  JOIN stock_records ON (products.no=stock_records.id) ORDER BY products.no";
+            // attach vivipos.sqlite to use product table.
+            var productDB = this.Product.getDataSource().path + '/' + this.Product.getDataSource().database;
+            var sql = "ATTACH '" + productDB + "' AS vivipos;";
+            this.StockRecord.execute( sql );
+            
+            sql = "SELECT products.no, products.name, products.barcode, products.sale_unit, products.min_stock, products.auto_maintain_stock, stock_records.warehouse, stock_records.quantity FROM products INNER  JOIN stock_records ON (products.no=stock_records.id) ORDER BY products.no";
             var stockRecords = this.StockRecord.getDataSource().fetchAll(sql);
+            
+            // detach the file.
+            sql = "DETACH vivipos;";
+            this.StockRecord.execute( sql );
 
             stockRecords.forEach(function(stock) {
                 stock.product_no = stock.no;
@@ -267,10 +276,15 @@
                 this.Product.restoreFromBackup();
                 stockRecordModel.restoreFromBackup();
 
-                var startTime = Date.now().getTime();
+                // var startTime = Date.now().getTime();
+                
+                // attach vivipos.sqlite to use product table.
+                var productDB = this.Product.getDataSource().path + '/' + this.Product.getDataSource().database;
+                var sql = "ATTACH '" + productDB + "' AS vivipos;";
+                this.StockRecord.execute( sql );
 
-                var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON (p.no = s.id) WHERE s.id IS NULL;";
-                var ds = this.Product.getDataSource();
+                sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON (p.no = s.id) WHERE s.id IS NULL;";
+                var ds = this.StockRecord.getDataSource();
                 var products = ds.fetchAll(sql);
                 if (ds.lastError != 0) {
                     this._dbError(ds.lastError, ds.lastErrorString,
@@ -293,6 +307,11 @@
                 // remove the products which no longer exist from stock_record table.
                 sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.id = p.no) WHERE p.no IS NULL;";
                 var stockRecords = stockRecordModel.getDataSource().fetchAll(sql);
+                
+                // detach the file.
+                sql = "DETACH vivipos;";
+                this.StockRecord.execute( sql );
+                
                 if (stockRecords.length > 0) {
                     stockRecords.forEach(function(stockRecord) {
                         stockRecordModel.remove(stockRecord.id);

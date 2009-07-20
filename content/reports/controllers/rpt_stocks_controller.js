@@ -78,12 +78,21 @@
                 's.quantity'
             ];
             
-            var sql =
+            var prod = new ProductModel();
+            
+            // attach inventory DB file.
+            var stockRecordModel = new StockRecordModel();
+            var stockRecordDB = stockRecordModel.getDataSource().path + '/' + stockRecordModel.getDataSource().database;
+            var sql = "ATTACH '" + stockRecordDB + "' AS inventory;";
+            prod.execute( sql );
+            
+            sql =
                 "SELECT " + fields.join( ", " ) + " FROM products p LEFT JOIN stock_records s ON ( p.no = s.id ) " +
                 "WHERE " + conditions + " ORDER BY " + orderby + " LIMIT " + this._csvLimit + ";";
-            
-            var prod = new ProductModel();
             var prodRecords = prod.getDataSource().fetchAll( sql );
+            
+            sql = "DETACH inventory;";
+            prod.execute( sql );
             
             // retrieve all product groups.
             /*var pluGroupModel = new PlugroupModel();
