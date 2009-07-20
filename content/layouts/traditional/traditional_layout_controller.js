@@ -109,11 +109,11 @@
             if (fnCols == null) fnCols = 4;
 
             var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
-            var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideDeptScrollbar');
+            var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideFPScrollbar');
 
-            var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CropDeptLabel') || false;
+            var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CropPLULabel') || false;
 
             // not all layout supports fnHeight
@@ -236,7 +236,7 @@
             var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox') || false;
 
             var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.layout.CheckTrackingMode') || false;
-            var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideSoldOutButtons') || false;
+            var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideSoldOutButtons') || false;
             
             var hbox = document.getElementById('mainPanel');
             var bottombox = document.getElementById('vivipos-bottombox');

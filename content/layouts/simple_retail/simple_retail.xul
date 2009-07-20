@@ -32,6 +32,9 @@
                 <box id="leftPanel" flex="0" class="rightPanel block-u" orient="vertical">
                     <box id="productImagePanelContainer" flex="1" class="roundedContainerBorder"/>
                     <box flex="0" orient="vertical" class="roundedContainerBorder">
+                        <box id="categoryPanelContainer" flex="0" />
+                    </box>
+                    <box flex="0" orient="vertical" class="roundedContainerBorder">
                         <box id="functionPanelContainer" flex="0"/>
                     </box>
                 </box>
@@ -44,7 +47,6 @@
                     <box id="inputLinePanelContainer" flex="0" class="roundedContainerBorder"/>
                     <box id="visiblePromotionsStatusPanelContainer" flex="0" class="roundedContainerBorder"/>
                 </vbox>
-                <box id="categoryPanelContainer" flex="0" style="display: none;"/>
                 <box id="productPanelContainer" flex="1" style="display: none;"/>
             </box>
         </box>
