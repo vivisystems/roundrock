@@ -19,18 +19,18 @@
                 <preference id="pref_showplugroupsfirst" name="vivipos.fec.settings.ShowPlugroupsFirst" type="bool"/>
                 
                 <preference id="pref_hidebottombox" name="vivipos.fec.settings.layout.HideBottomBox" type="bool" />
-                <preference id="pref_crop_dept_label" name="vivipos.fec.settings.layout.traditional.CropDeptLabel" type="bool"/>
+                <preference id="pref_crop_dept_label" name="vivipos.fec.settings.layout.CropDeptLabel" type="bool"/>
                 <preference id="pref_crop_plu_label" name="vivipos.fec.settings.layout.traditional.CropPLULabel" type="bool"/>
 
                 <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.layout.HideTagColumn" type="bool"/>
                 <preference id="pref_showtoolbar" name="vivipos.fec.settings.layout.ShowToolbar" type="bool" />
                 <preference id="pref_registeratleft" name="vivipos.fec.settings.layout.RegisterAtLeft" type="bool"/>
                 <preference id="pref_productpanelontop" name="vivipos.fec.settings.layout.traditional.ProductPanelOnTop" type="bool"/>
-                <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.layout.traditional.HideDeptScrollbar" type="bool"/>
+                <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.layout.HideDeptScrollbar" type="bool"/>
                 <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.layout.traditional.HidePLUScrollbar" type="bool"/>
                 <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.layout.HideFPScrollbar" type="bool"/>
                 <preference id="pref_checktrackingmode" name="vivipos.fec.settings.layout.CheckTrackingMode" type="bool"/>
-                <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.layout.traditional.HideSoldOutButtons" type="bool"/>
+                <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.layout.HideSoldOutButtons" type="bool"/>
 
             </preferences>
             <grid class="DataForm">
