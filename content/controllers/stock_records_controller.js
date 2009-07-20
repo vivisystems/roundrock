@@ -53,7 +53,7 @@
             this.StockRecord.syncAllStockRecords();
             
             //var stockRecords = this.StockRecord.find('all', {fields: "products." , order: 'products.no', recursive: 1});
-            var sql = "SELECT products.no, products.name, products.barcode, products.sale_unit, products.min_stock, products.auto_maintain_stock, stock_records.id, stock_records.quantity, stock_records.warehouse FROM products INNER JOIN stock_records ON (products.no=stock_records.product_no) ORDER BY products.no";
+            var sql = "SELECT products.no, products.name, products.barcode, products.sale_unit, products.min_stock, products.auto_maintain_stock, stock_records.quantity FROM products INNER  JOIN stock_records ON (products.no=stock_records.id) ORDER BY products.no";
             var stockRecords = this.StockRecord.getDataSource().fetchAll(sql);
 
             stockRecords.forEach(function(stock) {
@@ -267,9 +267,9 @@
                 this.Product.restoreFromBackup();
                 stockRecordModel.restoreFromBackup();
 
-                //var startTime = Date.now().getTime();
+                var startTime = Date.now().getTime();
 
-                var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON (p.no = s.product_no) WHERE s.product_no IS NULL;";
+                var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON (p.no = s.id) WHERE s.id IS NULL;";
                 var ds = this.Product.getDataSource();
                 var products = ds.fetchAll(sql);
                 if (ds.lastError != 0) {
@@ -291,7 +291,7 @@
                 //dump('after all stock records:  ' + (Date.now().getTime() - startTime) + '\n');
                 
                 // remove the products which no longer exist from stock_record table.
-                sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.product_no = p.no) WHERE p.no IS NULL;";
+                sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.id = p.no) WHERE p.no IS NULL;";
                 var stockRecords = stockRecordModel.getDataSource().fetchAll(sql);
                 if (stockRecords.length > 0) {
                     stockRecords.forEach(function(stockRecord) {
@@ -582,8 +582,7 @@
 
             for (record in records) {
                 stockRecords.push({
-                    id: records[record].id,
-                    product_no: records[record].product_no,
+                    id: records[record].product_no,
                     warehouse: records[record].warehouse,
                     quantity: records[record].new_quantity,
                     delta: records[record].delta

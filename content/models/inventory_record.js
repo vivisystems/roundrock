@@ -8,7 +8,7 @@
          
         name: 'InventoryRecord',
 		
-        useDbConfig: 'inventory',
+        useDbConfig: 'default',
 		
         belongsTo: [ 'InventoryCommitment' ],
 		
