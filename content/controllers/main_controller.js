@@ -4,6 +4,8 @@
 
         name: 'Main',
 
+        uses: ['Product'],
+
         screenwidth: 800,
         screenheight: 600,
         depPanelView: null,
@@ -1171,7 +1173,7 @@
                     var pindex = Math.floor(numProds * Math.random());
                     if (pindex >= numProds) pindex = numProds - 1;
                     
-                    var item = products[pindex];
+                    var item = this.Product.getProductById(products[pindex].id);
                     if (item.force_condiment) {
                         item.force_condiment = false;
                     }
