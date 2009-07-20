@@ -884,11 +884,9 @@
                 
                 // update stock_records
                 var stockRecordModel = new StockRecordModel();
-                stockRecordModel.set( {
-                    id: inputData.no,
-                    barcode: inputData.barcode
-                } );
-
+                var sql = "UPDATE stock_records SET barcode = '" + inputData.barcode + "' WHERE product_no = '" + inputData.no + "';";
+                stockRecordModel.execute( sql );
+                
                 OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
             }
         },

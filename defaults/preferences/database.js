@@ -132,4 +132,25 @@ pref("DATABASE_CONFIG.default_training_journal.path", "/data/training");
 pref("DATABASE_CONFIG.default_training_journal.database", "default_vivipos_journal.sqlite");
 pref("DATABASE_CONFIG.default_training_journal.timeout", "1");
 
+/* inventory series */
+pref("DATABASE_CONFIG.inventory.classname", "SQLite");
+pref("DATABASE_CONFIG.inventory.path", "/data/databases");
+pref("DATABASE_CONFIG.inventory.database", "vivipos_inventory.sqlite");
+pref("DATABASE_CONFIG.inventory.timeout", "1");
+
+pref("DATABASE_CONFIG.training_inventory.classname", "SQLite");
+pref("DATABASE_CONFIG.training_inventory.path", "/data/training");
+pref("DATABASE_CONFIG.training_inventory.database", "vivipos_inventory.sqlite");
+pref("DATABASE_CONFIG.training_inventory.timeout", "1");
+
+pref("DATABASE_CONFIG.empty_training_inventory.classname", "SQLite");
+pref("DATABASE_CONFIG.empty_training_inventory.path", "/data/training");
+pref("DATABASE_CONFIG.empty_training_inventory.database", "empty_vivipos_inventory.sqlite");
+pref("DATABASE_CONFIG.empty_training_inventory.timeout", "1");
+
+pref("DATABASE_CONFIG.default_training_inventory.classname", "SQLite");
+pref("DATABASE_CONFIG.default_training_inventory.path", "/data/training");
+pref("DATABASE_CONFIG.default_training_inventory.database", "default_vivipos_inventory.sqlite");
+pref("DATABASE_CONFIG.default_training_inventory.timeout", "1");
+
 /* Please comment here first on what you are going to append below, and leave this reminder in the end of this file. */

@@ -9,7 +9,7 @@
         
         _fileName: "rpt_inventory_commitments",
         
-        _setData: function( start, end, type, limit ) {
+        _setData: function( start, end, type, warehouse, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
@@ -38,6 +38,9 @@
                 
             if ( type != "all" )
                 conditions += " AND ic.type = '" + type + "'";
+                
+            if ( warehouse.length > 0 )
+                conditions += " AND warehouse LIKE '%" + warehouse + "%'";
 
             var groupby = "";
 
@@ -94,8 +97,10 @@
             var end = document.getElementById( 'end_date' ).value;
             
             var type = document.getElementById( 'type' ).value;
+            
+            var warehouse = document.getElementById( 'warehouse' ).value;
 
-            this._setData( start, end, type, limit );
+            this._setData( start, end, type, warehouse, limit );
         },
         
         exportCsv: function() {

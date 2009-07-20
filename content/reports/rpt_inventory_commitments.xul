@@ -60,6 +60,10 @@
 					                    </menupopup>
 					                </menulist>
 		                    	</vbox>
+		                    	<vbox>
+				                    <label value="&rptinventorycommitments.warehouse;" />
+				                    <textbox id="warehouse" value='' width="300"/>
+				                </vbox>
 		                    </row>
 		                </rows>
 		            </grid>
