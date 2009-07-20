@@ -884,11 +884,13 @@
                 
                 // update stock_records
                 var stockRecordModel = new StockRecordModel();
-                stockRecordModel.set( {
-                    id: inputData.no,
-                    barcode: inputData.barcode
-                } );
-
+                stockRecordModel.id = inputData.no;
+                if(stockRecordModel.exists()) {
+                    stockRecordModel.set( {
+                        id: inputData.no,
+                        barcode: inputData.barcode
+                    } );
+                }
                 OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
             }
         },
