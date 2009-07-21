@@ -569,7 +569,7 @@
             // Retrieve field indices. This array will be unsorted. The order of the elements is just the order user selected it.
             this._selectedFieldIndecies = GeckoJS.BaseObject.unserialize(
                 GeckoJS.Configure.read( this._selected_indices_pref )
-            );
+            ) || [];
             
             // initialize the settings according to the preference.
             var settings = GeckoJS.Configure.read( this._setting_pref );
