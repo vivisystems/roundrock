@@ -30,6 +30,12 @@
 <!ENTITY tableman.booking.address "Address">
 <!ENTITY tableman.booking.note "Note">
 
+<!ENTITY tableman.mark.name "Name">
+<!ENTITY tableman.mark.period "Period">
+<!ENTITY tableman.mark.opdeny "Deny to Operate">
+<!ENTITY tableman.mark.automarkaftersubmit "Auto mark after submit order with mark:">
+<!ENTITY tableman.mark.automarkaftersubmitwith "with:">
+
 <!ENTITY tableman.button.search "Search">
 <!ENTITY tableman.button.add "Add">
 <!ENTITY tableman.button.modify "Modify">

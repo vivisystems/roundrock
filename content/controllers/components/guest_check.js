@@ -23,6 +23,7 @@
         _tableStatusModel: null,
         _tableList: null,
         _printController: null,
+        _autoMark: null,
 
         init: function (c) {
             // inherit Cart controller constructor
@@ -282,6 +283,38 @@
 
                 // this._tableStatusModel.removeCheck(evt.data.data);
                 this._tableStatusModel.addCheck(evt.data.data);
+
+                var autoMark = GeckoJS.Session.get('autoMarkAfterSubmitOrder') || {};
+
+                if (autoMark['name'] == null) {
+
+                    this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+                    var markName = this._guestCheck.tableSettings.AutoMarkAfterSubmit;
+
+                    if (markName && markName.length > 0) {
+                        var datas = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+                        if (datas != null) {
+                            var marks = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
+                            var markObj = new GeckoJS.ArrayQuery(marks).filter("name = '" + markName + "'");
+
+                            if (markObj && markObj.length > 0) {
+                                autoMark = markObj[0];
+                                GeckoJS.Session.set('autoMarkAfterSubmitOrder', autoMark);
+                                
+                            } else {
+                                autoMark = {};
+                            }
+
+                        }
+                    }
+                };
+
+                if (autoMark['name'] != null) {
+
+                    var table_no = evt.data.data.table_no;
+                    
+                    this._tableStatusModel.setTableMark(table_no, autoMark);
+                }
                 
             }
 
