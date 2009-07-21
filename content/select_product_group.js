@@ -4,11 +4,6 @@
 
     var depView;
 
-    // include controllers  and register itself
-
-    /**
-     * Controller Startup
-     */
     function startup() {
         var index = inputObj.index;
         var groupData = inputObj.groupData;
@@ -20,7 +15,7 @@
             panel.datasource = depView;
         }
         else {
-            depView = new NSIDepartmentsView('productgroupscrollablepanel');
+            depView = new NSIDepartmentsView('productgroupscrollablepanel', true);
 
             depView.hideInvisible = false;
             depView.refreshView(false);

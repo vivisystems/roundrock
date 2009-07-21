@@ -111,6 +111,26 @@
             Transaction.events.dispatch('onUnserialize', this, this);
         },
 
+        buildOrderSequence: function(seq) {
+            var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
+            var sequenceTrackSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod') || false;
+
+            if (seq != -1) {
+                var newSeq = (seq+'');
+                if (newSeq.length < sequenceNumberLength) {
+                    newSeq = GeckoJS.String.padLeft(newSeq, sequenceNumberLength, '0');
+                }
+                if (sequenceTrackSalePeriod) {
+                    var salePeriod = GeckoJS.Session.get('sale_period');
+                    newSeq = new Date(salePeriod * 1000).toString('yyyyMMdd') + newSeq;
+                }
+                return newSeq;
+            }
+            else {
+                return seq;
+            }
+        },
+
         create: function(recoveryMode) {
 
             recoveryMode = recoveryMode || false;
@@ -125,17 +145,8 @@
                 // SequenceModel will always return a value; even if an error occurred (return value of -1), we
                 // should still allow create to proceed; it's up to the upper layer to decide how to handle
                 // this error condition
-                var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
-                var sequenceTrackSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod') || false;
                 SequenceModel.getSequence('order_no', true, function(seq) {
-                    self.data.seq = (seq+'');
-                    if (self.data.seq.length < sequenceNumberLength) {
-                        self.data.seq = GeckoJS.String.padLeft(self.data.seq, sequenceNumberLength, '0');
-                    }
-                    if (sequenceTrackSalePeriod) {
-                        var salePeriod = GeckoJS.Session.get('sale_period');
-                        self.data.seq = new Date(salePeriod * 1000).toString('yyyyMMdd') + self.data.seq;
-                    }
+                    self.data.seq = self.buildOrderSequence(seq);
                     GeckoJS.Session.set('vivipos_fec_order_sequence', self.data.seq);
                 });
             }
@@ -219,6 +230,9 @@
                 // can't get sequence
                 this.data.status = orgStatus;
                 return -3;
+            }
+            else {
+                self.data.seq = this.buildOrderSequence(self.data.seq);
             }
 
             // set sale period and shift number

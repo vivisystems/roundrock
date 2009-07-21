@@ -254,7 +254,7 @@
                                         </row>
                                         <row>
                                             <label value="&devices.check.autoprint.label;"/>
-                                            <textbox id="check-1-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="check-1-autoprint" form="deviceForm"/>
+                                            <textbox id="check-1-autoprint" value="0" size="1" default="0" type="number" min="1" max="9" name="check-1-autoprint" form="deviceForm"/>
                                         </row>
                                     </rows>
                                 </grid>
@@ -337,7 +337,7 @@
                                         </row>
                                         <row>
                                             <label value="&devices.check.autoprint.label;"/>
-                                            <textbox id="check-2-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="check-2-autoprint" form="deviceForm"/>
+                                            <textbox id="check-2-autoprint" value="0" size="1" default="0" type="number" min="1" max="9" name="check-2-autoprint" form="deviceForm"/>
                                         </row>
                                     </rows>
                                 </grid>
@@ -421,7 +421,7 @@
                                         </row>
                                         <row>
                                             <label value="&devices.check.autoprint.label;"/>
-                                            <textbox id="check-3-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="check-3-autoprint" form="deviceForm"/>
+                                            <textbox id="check-3-autoprint" value="0" size="1" default="0" type="number" min="1" max="9" name="check-3-autoprint" form="deviceForm"/>
                                         </row>
                                     </rows>
                                 </grid>
@@ -504,7 +504,7 @@
                                         </row>
                                         <row>
                                             <label value="&devices.check.autoprint.label;"/>
-                                            <textbox id="check-4-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="check-4-autoprint" form="deviceForm"/>
+                                            <textbox id="check-4-autoprint" value="0" size="1" default="0" type="number" min="1" max="9" name="check-4-autoprint" form="deviceForm"/>
                                         </row>
                                     </rows>
                                 </grid>

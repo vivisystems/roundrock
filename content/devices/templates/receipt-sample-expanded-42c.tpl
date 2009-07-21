@@ -1,3 +1,4 @@
+[&INIT]
 {if duplicate}
 [&DWON]${'Bill Copy'|center:21}[&DWOFF]
 {/if}

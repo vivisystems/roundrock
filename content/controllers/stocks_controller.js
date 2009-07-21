@@ -177,7 +177,7 @@
 
                 for ( var o in obj.items ) {
                     var ordItem = obj.items[ o ];
-                    //var item = this.Product.findById( ordItem.id );
+                    
                     var item = this.Product.getProductById(ordItem.id);
                     if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
                         
@@ -219,10 +219,7 @@
 
                     }
 
-                }else {
-                    return false;
                 }
-
             } catch ( e ) {
 
                 this.log('ERROR', 'decStock error' +  e );

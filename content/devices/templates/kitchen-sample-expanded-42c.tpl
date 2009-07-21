@@ -1,4 +1,5 @@
 {if hasLinkedItems}
+[&INIT]
 {eval}
   memo = '';
 {/eval}
