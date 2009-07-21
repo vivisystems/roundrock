@@ -63,7 +63,7 @@ class DboSqlite3 extends DboSource {
 	var $_baseConfig = array(
 		'persistent' => false,
 		'database' => null,
-                'timeout' => 60,
+                'timeout' => 120,
 		'connect' => 'sqlite' //sqlite3 in pdo_sqlite is sqlite. sqlite2 is sqlite2
 	);
 /**
@@ -108,7 +108,8 @@ class DboSqlite3 extends DboSource {
 			$this->connected = is_object($this->connection);
 
                         if ($this->connected) {
-                            $this->connection->exec("PRAGMA synchronous =  2");
+                            // $this->connection->exec("PRAGMA synchronous =  2");
+                            $this->connection->exec("PRAGMA synchronous = 1");
                         }
 		}
 		catch(PDOException $e) {

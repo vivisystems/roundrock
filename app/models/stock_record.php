@@ -2,8 +2,9 @@
 App::import('Core', array('CakeLog'));
 
 class StockRecord extends AppModel {
+
     var $name = 'StockRecord';
-    var $useDbConfig = 'default';
+    var $useDbConfig = 'inventory';
 
     function getLastModifiedRecords($lastModified = 0) {
 
@@ -15,15 +16,17 @@ class StockRecord extends AppModel {
     function setStockRecords($datas=array()) {
 
 
-
-
-
     }
 
     function checkStockRecords($datas=array()) {
 
     }
 
+    /**
+     *
+     * @param <type> $ids
+     * @return <type>
+     */
     function checkRecordsExists($ids=array()) {
 
         try {
@@ -36,11 +39,20 @@ class StockRecord extends AppModel {
             $dd = $this->find('all', array('fields'=>'id', 'conditions' => "id IN ('$idString')", 'recursive'=>0));
             $idsExists = Set::classicExtract($dd, '{n}.StockRecord.id');
 
+
             // record not the same , create it.
             if (count($ids) != count($idsExists)) {
+
+                $now = time();
+
                 $idsDiff = array_diff($ids, $idsExists);
 
+                $sql = "" ;
+
                 for ($i =0 ; $i < count($idsDiff); $i++) {
+
+                    //$sql .= "UPDATE stock_records SET quantity=quantity-".$d['quantity'].", modified='".$now."' WHERE id = '".$d['id']."' ;\n";
+
                     // auto create
                     $this->create();
                     $this->save(array('id'=> $idsDiff[$i], 'quantity'=>0));
@@ -49,6 +61,8 @@ class StockRecord extends AppModel {
             }
 
         }catch (Exception $e) {
+            CakeLog::write('error', 'Error checkRecordsExists ' .
+                                  '  Exception: ' . $e->getMessage() . "\n" );
 
         }
 
@@ -56,6 +70,11 @@ class StockRecord extends AppModel {
 
     }
 
+    /**
+     *
+     * @param <type> $datas
+     * @return <type> 
+     */
     function decreaseStockRecords($datas=array()) {
 
         $now = time();
@@ -71,18 +90,20 @@ class StockRecord extends AppModel {
         }
 
         // check stock first
-        $this->checkRecordsExists($ids);
-
+        //$this->checkRecordsExists($ids);
 
         try {
 
             $datasource =& $this->getDataSource();
             $datasource->connection->beginTransaction();
-            $datasource->connection->exec($sql);
+            $datasource->connection->exec($sqlExec);
             $datasource->connection->commit();
 
         }  catch(Exception $e) {
-            
+
+            CakeLog::write('error', 'Error decreaseStockRecords ' .
+                                  '  Exception: ' . $e->getMessage() . "\n" );
+
             // always rollback
             $datasource->connection->rollback();
             return false;
