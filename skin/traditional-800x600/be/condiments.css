@@ -1,0 +1,28 @@
+.custom-layout-condiment-panel {
+    min-width: 270px;
+}
+
+.custom-container-button-color-fontsize-picker {
+    margin: 4px;
+    background: #f1ede5;
+}
+
+.custom-container-button-color-fontsize-picker vbox {
+    margin: 3px;
+    padding: 4px;
+}
+
+.custom-content-color-picker {
+    margin: 4px;
+}
+
+.custom-content-fontsize-picker {
+    margin: 4px;
+}
+
+.preset-condiment description {
+    font-style: italic;
+}
+
+.not-preset-condiment {
+}
