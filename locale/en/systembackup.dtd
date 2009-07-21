@@ -6,6 +6,7 @@
 <!ENTITY systembackup.time "Time">
 <!ENTITY systembackup.backuptostick "Copy Local to Stick >>>">
 <!ENTITY systembackup.backuptolocal "Backup to Local">
+<!ENTITY systembackup.backupwithprofile "Backup profile and installed apps">
 <!ENTITY systembackup.restorefromstick "Restore from Stick">
 <!ENTITY systembackup.restorefromlocal "Restore from Local">
 <!ENTITY systembackup.restorewithsystem "Restore With System Settings">
