@@ -168,7 +168,7 @@ GeckoJS.include_once = function(scriptSrc, scope) {
  * instance and has a global point of access to that instance.<br/>
  *
  * @name GeckoJS.Singleton
- * @namespace
+ * @class GeckoJS.Singleton provides support for the Singleton pattern
  */
 GREUtils.define('GeckoJS.Singleton', GeckoJS.global);
 
@@ -3456,7 +3456,7 @@ GeckoJS.Inflector.classify = function(tableName) {
  * <br/>
  *
  * @public
- * @namespace
+ * @class GeckoJS.String provides a set of common string manipulation functions
  * @name GeckoJS.String
  */
 GREUtils.define('GeckoJS.String', GeckoJS.global);
@@ -4229,11 +4229,56 @@ GeckoJS.String.sprintf = function() {
 
 };
 
+
+/**
+ * Checks if a string contains all letters.
+ *
+ * @name GeckoJS.String.isAlpha
+ * @public
+ * @static
+ * @function
+ * @param {String} str string to check.
+ * @return {Boolean} true if str consists entirely of letters.
+ */
+GeckoJS.String.isAlpha = function(str) {
+  return !/[^a-zA-Z]/.test(str);
+};
+
+
+/**
+ * Checks if a string contains only numbers.
+ *
+ * @name GeckoJS.String.isNumeric
+ * @public
+ * @static
+ * @function
+ * @param {String} str string to check.
+ * @return {Boolean} true if str is numeric.
+ */
+GeckoJS.String.isNumeric = function(str) {
+  return !/[^0-9]/.test(str);
+};
+
+
+/**
+ * Checks if a string contains only numbers or letters.
+ * 
+ * @name GeckoJS.String.isAlphaNumeric
+ * @public
+ * @static
+ * @function
+ * @param {String} str string to check.
+ * @return {Boolean} true if str is alphanumeric.
+ */
+GeckoJS.String.isAlphaNumeric = function(str) {
+  return !/[^a-zA-Z0-9]/.test(str);
+};
+
 /**
  * GeckoJS.Array provides a set of functions for manipulating arrays.<br/>
  * 
  * @public
- * @namespace
+ * @class GeckoJS.Array provides a set of functions for manipulating arrays
  * @name GeckoJS.Array
  */
 GREUtils.define('GeckoJS.Array', GeckoJS.global);

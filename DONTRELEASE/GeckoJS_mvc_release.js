@@ -2834,7 +2834,7 @@ GeckoJS.FormHelper.unserializeFromObject = function(form, data) {
  * @param {String} form           This is the name of the DOM element with 'form' attribute. 
  * @param {Object} data           This is an object used as the source of the inputable field values
  */
-GeckoJS.FormHelper.prototype.unserializeFromObject = function FormHelper_unserializeFromObject(form, data) {
+GeckoJS.FormHelper.prototype.unserializeFromObject = function (form, data) {
 
     if(typeof data == 'undefined' || typeof form == 'undefined') return;
     
@@ -2878,7 +2878,7 @@ GeckoJS.FormHelper.isFormModified = function(form) {
  * @param {String} form           This is the name of the DOM element with 'form' attribute.
  * @return {Boolean}              Return true is form 's value != org_value
  */
-GeckoJS.FormHelper.prototype.isFormModified = function FormHelper_isFormModified(form) {
+GeckoJS.FormHelper.prototype.isFormModified = function (form) {
 
     if(typeof form == 'undefined') return false;
 
@@ -3112,12 +3112,11 @@ GeckoJS.FormHelper.prototype.setFieldValue = function(el, data) {
     }
 
     // keep orignal value
-    if (data){
+    if (typeof data != 'undefined'){
         if(data.constructor.name == 'Array') el.setAttribute('org_value', data.join(','));
         else el.setAttribute('org_value', data);
     }
    
-
 };
 
 /**
