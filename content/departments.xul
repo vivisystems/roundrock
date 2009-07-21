@@ -116,15 +116,16 @@
                     <vbox flex="1">
                         <label value="&departments.button.color;" class="SubTitle"/>
                         <hbox pack="center" align="center" flex="0">
-                            <button_colorpicker id="dept_button_color" form="deptForm" name="button_color"
-                                            buttonClass="catbtn" class="BtnColors" 
-                                            class-prefix="department-button-color-" default="department-button-color-default"/>
+                            <button_colorpicker id="dept_button_color" orient="vertical"
+                                            buttonClass="catbtn" class="BtnColors"  class-prefix="department-button-color-"
+                                            form="deptForm" name="button_color" default="department-button-color-default"/>
                         </hbox>                    
                     </vbox>
                     <vbox flex="1">
                         <label value="&departments.font.size;" class="SubTitle"/>
-                        <button_fontsizepicker id="dept_font_size" form="deptForm" name="font_size" class="FontSizeSet"
-                                               buttonClass="ItemButtonB" default="medium"/>
+                        <button_fontsizepicker id="dept_font_size" orient="vertical"
+                                               class="FontSizeSet" buttonClass="ItemButtonB"
+                                               form="deptForm" name="font_size" default="medium"/>
                     </vbox>
                 </hbox>
                 <hbox flex="1">

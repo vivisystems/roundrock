@@ -406,7 +406,7 @@
                 modBtn.setAttribute('disabled', password.length < 1 || displayname.length < 1 || numeric.length > 0);
                 document.getElementById('tab1').removeAttribute('disabled');
                 document.getElementById('tab2').removeAttribute('disabled');
-                document.getElementById('tab3').removeAttribute('disabled');
+                //document.getElementById('tab3').removeAttribute('disabled');
 
                 var textboxes = document.getElementsByTagName('textbox');
                 if (textboxes) {
@@ -428,7 +428,7 @@
                 delBtn.setAttribute('disabled', true);
                 document.getElementById('tab1').setAttribute('disabled', true);
                 document.getElementById('tab2').setAttribute('disabled', true);
-                document.getElementById('tab3').setAttribute('disabled', true);
+                //document.getElementById('tab3').setAttribute('disabled', true);
 
                 var textboxes = document.getElementsByTagName('textbox');
                 if (textboxes) {

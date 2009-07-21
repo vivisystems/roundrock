@@ -6,8 +6,8 @@
 
         helpers: ['Form'],
         
-        _selectedIndex: null,
-        _selectedCondIndex: null,
+        _selectedIndex: -1,
+        _selectedCondIndex: -1,
         _condGroupscrollablepanel: null,
         _condscrollablepanel: null,
 
@@ -143,6 +143,33 @@
             this.validateForm();
         },
 
+        confirmExit: function(data) {
+            // check if condiment group and condiment forms have been modified
+            data.close = true;
+            if ((this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('condGroupForm')) ||
+                (this._selectedCondIndex != -1 && GeckoJS.FormHelper.isFormModified('condimentForm'))) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current condiment group and/or condiment. Are you sure you want to discard the changes?'))) {
+                    data.close = false;
+                }
+            }
+        },
+
+        confirmChangeCondGroup: function(index) {
+            // check if condiment group and condiment forms have been modified
+            if ((this._selectedIndex != -1 && index != -1 && index != this._selectedIndex && GeckoJS.FormHelper.isFormModified('condGroupForm')) ||
+                (this._selectedCondIndex != -1 && GeckoJS.FormHelper.isFormModified('condimentForm'))) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current condiment group and/or condiment. Are you sure you want to change to a new condiment group?'))) {
+                    this._condGroupscrollablepanel.selectedItems = [this._selectedIndex];
+                    return false;
+                }
+            }
+            return true;
+        },
+
         changeCondimentPanel: function(index) {
 
             var condGroups = GeckoJS.Session.get('condGroups');
@@ -152,6 +179,8 @@
             else {
                 index = -1;
             }
+
+            if (!this.confirmChangeCondGroup(index)) return;
 
             var conds;
             if (condGroups && (index != null) && (index > -1) && condGroups.length > index)
@@ -181,6 +210,22 @@
             document.getElementById('condiment_group_name').select();
         },
 
+        confirmChangeCondiment: function(index) {
+            // changing to a new condiment?
+            if (this._selectedCondIndex != -1 && index != -1 && index != this._selectedCondIndex) {
+                // check if condiment group and condiment forms have been modified
+                if (GeckoJS.FormHelper.isFormModified('condimentForm')) {
+                    if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                                 _('Discard Changes'),
+                                                 _('You have made changes to the current condiment condiment. Are you sure you want to select another condiment with saving the changes first?'))) {
+                        this._condscrollablepanel.selectedItems = [this._selectedCondIndex];
+                        return false;
+                    }
+                }
+            }
+            return true;
+        },
+
         clickCondimentPanel: function(index) {
 
             var condGroups = GeckoJS.Session.get('condGroups');
@@ -203,6 +248,8 @@
             else {
                 index = -1;
             }
+
+            if (!this.confirmChangeCondiment(index)) return;
 
             this._selectedCondIndex = index;
 
@@ -234,6 +281,9 @@
                 document.getElementById('condiment_name').setAttribute('disabled',  true);
                 document.getElementById('condiment_price').setAttribute('disabled',  true);
                 document.getElementById('condiment_preset').setAttribute('disabled',  true);
+
+                document.getElementById('condiment_button_color').setAttribute('disabled',  true);
+                document.getElementById('condiment_font_size').setAttribute('disabled',  true);
             }
             else {
                 document.getElementById('condiment_group_name').removeAttribute('disabled');
@@ -253,11 +303,17 @@
 
                     document.getElementById('modify_condiment').setAttribute('disabled',  true);
                     document.getElementById('delete_condiment').setAttribute('disabled',  true);
+
+                    document.getElementById('condiment_button_color').setAttribute('disabled',  true);
+                    document.getElementById('condiment_font_size').setAttribute('disabled',  true);
                 }
                 else {
                     document.getElementById('condiment_name').removeAttribute('disabled');
                     document.getElementById('condiment_price').removeAttribute('disabled');
-                    document.getElementById('condiment_preset').removeAttribute('disabled');
+                    document.getElementById('condiment_preset').setAttribute('disabled', false);
+
+                    document.getElementById('condiment_button_color').setAttribute('disabled',  false);
+                    document.getElementById('condiment_font_size').setAttribute('disabled',  false);
 
                     // validate condiment name and price
                     var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
@@ -287,11 +343,7 @@
         },
 
         setInputData: function (valObj) {
-
             GeckoJS.FormHelper.unserializeFromObject('condGroupForm', valObj);
-        //this.query('#condiment_group_id').val(valObj.id);
-        //this.query('#condiment_group_name').val(valObj.name);
-        //this.query('#condiment_group_name').val(valObj.name);
         },
 
         add: function  () {
