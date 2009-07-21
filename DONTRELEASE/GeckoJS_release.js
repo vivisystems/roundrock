@@ -15070,6 +15070,85 @@ GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
 };
 
 /**
+ * Executes an SQL expression
+ *
+ * @name GeckoJS.DatasourceSQLite#executeSimpleSQL
+ * @public
+ * @function
+ * @param {String} sql
+ * @param {Boolean} waiting waiting if database is locked
+ * @return {Boolean}
+ */
+GeckoJS.DatasourceSQLite.prototype.executeSimpleSQL = function(sql, waiting) {
+
+    if(typeof waiting =='undefined') waiting = true;
+
+    if (!this.isConnected) return null;
+
+    // We'll try multiple times if we get an error because of the database or a table being locked
+    // @see http://www.sqlite.org/capi3.html
+    var errorCode = 0;
+    var errorString = '';
+    var maxTries = waiting ? this.maxTries : 1;
+    var numTries = 0;
+    var result = false;
+
+    while (numTries < maxTries) {
+
+        try {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'executeSimpleSQL > mozIStorageConnection.executeSimpleSQL ' );
+            /* endif DEBUG */
+
+            this.conn.executeSimpleSQL(sql);
+
+            this.lastError = (this.conn.lastError == 0 || this.conn.lastError == 100 || this.conn.lastError == 101) ? 0 : this.conn.lastError; // not an error
+            if (this.lastError == 0)  result = true;
+
+            break;
+
+        }catch(e) {
+
+            result = false;
+            errorString = this.conn.lastErrorString;
+            errorCode = this.conn.lastError;
+
+            this.log('ERROR', 'executeSimpleSQL > mozIStorageConnection.executeSimpleSQL > exception: ' + this.conn.lastError +',,'+this.conn.lastErrorString +  '\n retries ' + numTries );
+
+            if ((errorCode != 5) && (errorCode != 6) && (errorCode != 17) ) // not due to a locking issue -- so don't bother retrying
+            {
+                break;
+            }else {
+
+                // database is locked
+                // @FIXME stupid delay
+                if(waiting) {
+                    this.sleep(this.delayTries);
+                }
+            }
+
+
+        }
+        numTries++;
+    }
+
+    if (numTries == maxTries) {
+        
+        this.log('ERROR', 'executeSimpleSQL > mozIStorageConnection.executeSimpleSQL too many retries exception: ' + errorString + '\n result: ' + result );
+
+    }
+    // change 100 , 101 to 0
+    // @see http://www.sqlite.org/capi3.html
+    this.lastError = (this.conn.lastError == 0 || this.conn.lastError == 100 || this.conn.lastError == 101) ? 0 : this.conn.lastError; // not an error
+    this.lastErrorString = this.conn.lastErrorString;
+
+    return result;
+
+};
+
+
+/**
  * Returns an array of all result rows for a given SQL query.
  * Returns false if no rows matched.
  *

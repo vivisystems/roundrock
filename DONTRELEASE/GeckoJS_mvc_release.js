@@ -2898,7 +2898,7 @@ GeckoJS.FormHelper.prototype.isFormModified = function (form) {
             if (v.constructor.name == 'Array') {
                 v = v.join(',');
             }
-            if(v != org_value) result = true;
+            if( (v+'') != (org_value+'')) result = true;
         }
     });
 
