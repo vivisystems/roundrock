@@ -6,7 +6,7 @@
         
         screenwidth: GeckoJS.Session.get('screenwidth') || 800,
         screenheight: GeckoJS.Session.get('screenheight') || 600,
-        _selectedIndex: null,
+        _selectedIndex: -1,
         _deptscrollablepanel: null,
         deptPanelView: null,
 
@@ -20,6 +20,12 @@
         },
 
         changeDepartmentPanel: function(index) {
+            
+            if (!this.confirmChangeDepartment(index)) {
+                this._deptscrollablepanel.selectedItems = [this._selectedIndex];
+                return;
+            }
+
             var dept = this.deptPanelView.getCurrentIndexData(index);
             this._selectedIndex = index;
             this.setInputData(dept);
@@ -135,6 +141,31 @@
             GeckoJS.FormHelper.unserializeFromObject('deptForm', valObj);
         },
 
+        confirmExit: function(data) {
+            // check if condiment group and condiment forms have been modified
+            data.close = true;
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('deptForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current condiment group and/or condiment. Are you sure you want to discard the changes?'))) {
+                    data.close = false;
+                }
+            }
+        },
+
+        confirmChangeDepartment: function(index) {
+            // check if condiment group and condiment forms have been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('deptForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current department. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
         _checkData: function (data, id) {
             var depts = GeckoJS.Session.get('categories');
             var result = 0;
@@ -163,6 +194,12 @@
         },
 
         add: function  () {
+            
+            if (!this.confirmChangeDepartment(index)) {
+                this._deptscrollablepanel.selectedItems = [this._selectedIndex];
+                return;
+            }
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {
@@ -193,6 +230,7 @@
 
                         var index = this.updateSession('add', id);
 
+                        this._selectedIndex = -1;
                         this.changeDepartmentPanel(index);
 
                         OsdUtils.info(_('Department [%S] added successfully', [inputData.name]));
@@ -301,6 +339,12 @@
             // update button & text field states
             if (this._selectedIndex == null || this._selectedIndex == -1) {
                 document.getElementById('dept_name').setAttribute('disabled', true);
+                document.getElementById('rate_name').setAttribute('disabled', true);
+                document.getElementById('sale_unit').setAttribute('disabled', true);
+                document.getElementById('dept_visible').setAttribute('disabled', true);
+                document.getElementById('dept_cansale').setAttribute('disabled', true);
+                document.getElementById('scale').setAttribute('disabled', true);
+                document.getElementById('display_order').setAttribute('disabled', true);
 
                 document.getElementById('modify_dept').setAttribute('disabled', true);
                 document.getElementById('delete_dept').setAttribute('disabled', true);
@@ -308,6 +352,12 @@
             else {
                 var cond_name = document.getElementById('dept_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
                 document.getElementById('dept_name').removeAttribute('disabled');
+                document.getElementById('display_order').removeAttribute('disabled');
+                document.getElementById('rate_name').removeAttribute('disabled');
+                document.getElementById('sale_unit').setAttribute('disabled', false);
+                document.getElementById('dept_visible').setAttribute('disabled', false);
+                document.getElementById('dept_cansale').setAttribute('disabled', false);
+                document.getElementById('scale').setAttribute('disabled', false);
 
                 document.getElementById('modify_dept').setAttribute('disabled', (cond_name.length < 1));
                 document.getElementById('delete_dept').setAttribute('disabled', false);

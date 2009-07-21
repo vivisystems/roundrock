@@ -7,10 +7,10 @@
 
     <popupset id="dialogs">
 		<vivipanel id="wait_panel" position="overlap" noautohide="true" >
-			<hbox class="pop-dialog" flex="1" pack="center" style="margin: 0; padding: 0; display: -moz-box;">
-				<vbox flex="1" class="WaitPnl" style="width: 600px;" >
+			<hbox class="container-popup-panel" flex="1" pack="center" style="margin: 0; padding: 0; display: -moz-box;">
+				<vbox flex="1" class="wait-panel" style="width: 600px;" >
 				<groupbox flex="1">
-					<caption id="wait_caption" label="" class="PageTitle"/>
+					<caption id="wait_caption" label="" class="label-page-title"/>
 					<spacer style="height: 20px;" />
                     <progressmeter id="progress" mode="undetermined" value="0" />
 					<spacer style="height: 20px;" />

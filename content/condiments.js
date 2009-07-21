@@ -1,29 +1,25 @@
 (function(){
 
-/**
- * Controller Startup
- */
-function startup() {
-    
-	$do('createCondimentPanel', null, "Condiments");
+    function startup() {
 
-    doSetOKCancel(
-        function(){
-            var data = {close: true};
-            $do('confirmExit', data, 'Condiments');
-            return data.close;
-        },
-        function(){
-            alert('cancel');
-            var data = {close: true};
-            $do('confirmExit', data, 'Condiments');
-            return data.close;
-        }
-    );
-};
+        $do('createCondimentPanel', null, "Condiments");
 
-window.addEventListener('load', startup, false);
+        doSetOKCancel(
+            function(){
+                var data = {close: true};
+                $do('confirmExit', data, 'Condiments');
+                return data.close;
+            },
+            function(){
+                alert('cancel');
+                var data = {close: true};
+                $do('confirmExit', data, 'Condiments');
+                return data.close;
+            }
+        );
+    };
 
+    window.addEventListener('load', startup, false);
 
 })();
 

@@ -9,9 +9,12 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -39,63 +42,75 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <hbox flex="1" class="MainPnl">
-            <vbox flex="1" pack="start" class="MainL">
-                <caption label="&departments.title;" class="PageTitle"/>
-                <vbox pack="start" flex="1" class="LeftPnl">
-                    <viviscrollablebuttonpanel dir="reverse" id="deptscrollablepanel" flex="1" cols="2" rows="9" labelField="name" imageField="no"
-                                               ensureVisible="true"
-                                               oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');"
-                                               class="catescrollablepanel"
-                                               buttonClass="catbtn"
-                                               scrollUpClass="ScrollUp"
-                                               scrollDownClass="ScrollDown">
-                        <spacer flex="1"/>
-                    </viviscrollablebuttonpanel>
-                </vbox>
+    <vbox flex="1" class="container-root layout-root">
+        <hbox flex="1" class="container-main layout-a">
+            <vbox flex="1" pack="start" class="container-left block-33">
+                <caption label="&departments.title;" class="label-page-title"/>
+                <viviscrollablebuttonpanel dir="reverse" id="deptscrollablepanel" flex="1" cols="2" rows="9" labelField="name" imageField="no"
+                                           ensureVisible="true"
+                                           oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');"
+                                           class="custom-content-buttonpanel"
+                                           buttonClass="be-catbtn"
+                                           scrollUpClass="scroll-up-button"
+                                           scrollDownClass="scroll-down-button">
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
             </vbox>
-            <vbox flex="1" class="RightTabbox">
-                <grid class="DataForm">
+            <vbox flex="1" class="container-right">
+                <grid class="data-form">
                     <columns>
-                        <column flex="1" /><column flex="1" />
+                        <column flex="1" />
+                        <column flex="1" />
                     </columns>
                     <rows>
                         <row>
                             <vbox>
-                                <label style="width:10em" value="&departments.number;"/>
-                                <textbox id="dept_no" readonly="true" form="deptForm" name="no" onfocus="this.select()"/>
+                                <label value="&departments.number;" control="dept_no"/>
+                                <textbox id="dept_no" readonly="true"
+                                         onfocus="this.select()"
+                                         form="deptForm" name="no"/>
                             </vbox>
-                            <checkbox id="dept_visible" value="1" label="&departments.visible;" form="deptForm" name="visible" default="1"/>
+                            <checkbox id="dept_visible" value="1" label="&departments.visible;"
+                                      form="deptForm" name="visible" default="1"/>
                         </row>
                         <row>
                             <vbox>
-                                <label style="width:10em" value="&departments.name;" control="dept_name"/>
-                                <textbox id="dept_name" value="" form="deptForm" name="name" oninput="$do('validateForm', null, 'Departments')" onfocus="this.select()"/>
+                                <label value="&departments.name;" control="dept_name"/>
+                                <textbox id="dept_name" value=""
+                                         oninput="$do('validateForm', null, 'Departments')" onfocus="this.select()"
+                                         form="deptForm" name="name"/>
                             </vbox>
-                            <checkbox id="dept_cansale" value="0" label="&departments.sale;" form="deptForm" name="cansale" default="0"/>
+                            <checkbox id="dept_cansale" value="0" label="&departments.sale;"
+                                      form="deptForm" name="cansale" default="0"/>
                         </row>
 
                         <row>
-                            <vbox flex="2">
+                            <vbox>
                                 <label value="&departments.taxrate;"/>
-                                <label id="rate" value="" form="deptForm" name="rate" hidden="true" default=""/>
-                                <textbox class="ItemButtonA" id="rate_name" value="" form="deptForm" name="rate_name" readonly="true" default="" onclick="$do('getRate', null,'Departments');" onfocus="this.select()"/>
+                                <label id="rate" value="" hidden="true"
+                                       form="deptForm" name="rate" default=""/>
+                                <textbox id="rate_name" value="" readonly="true" class="button-item-c"
+                                         onclick="$do('getRate', null,'Departments');" onfocus="this.select()"
+                                         form="deptForm" name="rate_name" default=""/>
                             </vbox>
-                            <vbox flex="0">
-                                <checkbox id="scale" checked="false" label="&departments.scale;" form="deptForm" name="scale" default="0"/>
+                            <vbox>
+                                <checkbox id="scale" checked="false" label="&departments.scale;"
+                                          form="deptForm" name="scale" default="0"/>
                             </vbox>
                        </row>
                         <row>
                             <vbox>
-                                <label style="width:10em" value="&departments.display_order;" control="display_order"/>
-                                <textbox id="display_order" type="number" value="" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
-                                         form="deptForm" name="display_order" default="99999" onfocus="this.select()"/>
+                                <label value="&departments.display_order;" control="display_order"/>
+                                <textbox id="display_order" type="number" value="" disabled="true"
+                                         decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                         onfocus="this.select()"
+                                         form="deptForm" name="display_order" default="99999"/>
                             </vbox>
                             <vbox>
                                 <label value="&departments.sale.unit;"/>
-                                <menulist id="sale_unit" form="deptForm" name="sale_unit" value="unit" default="unit">
-                                    <menupopup style="width: 200px;">
+                                <menulist id="sale_unit" value="unit"
+                                          form="deptForm" name="sale_unit" default="unit">
+                                    <menupopup class="custom-content-menupopup">
                                         <menuitem label="&plus.sale.unit.individual;" value="unit"/>
                                         <menuitem label="&plus.sale.unit.gram;" value="g"/>
                                         <menuitem label="&plus.sale.unit.kilogram;" value="kg"/>
@@ -112,32 +127,30 @@
                         </row>
                     </rows>
                 </grid>
-                <hbox class="RightPnlB">
+                <hbox class="custom-container-button-color-fontsize-picker" flex="1">
                     <vbox flex="1">
-                        <label value="&departments.button.color;" class="SubTitle"/>
-                        <hbox pack="center" align="center" flex="0">
-                            <button_colorpicker id="dept_button_color" orient="vertical"
-                                            buttonClass="catbtn" class="BtnColors"  class-prefix="department-button-color-"
+                        <label value="&departments.button.color;" class="label-sub-title"/>
+                        <button_colorpicker id="dept_button_color" orient="vertical" flex="1"
+                                            class-prefix="department-button-color-" class="button-color-picker custom-content-color-picker"
                                             form="deptForm" name="button_color" default="department-button-color-default"/>
-                        </hbox>                    
                     </vbox>
                     <vbox flex="1">
-                        <label value="&departments.font.size;" class="SubTitle"/>
-                        <button_fontsizepicker id="dept_font_size" orient="vertical"
-                                               class="FontSizeSet" buttonClass="ItemButtonB"
+                        <label value="&departments.font.size;" class="label-sub-title"/>
+                        <button_fontsizepicker id="dept_font_size" orient="vertical" flex="1"
+                                               class="button-fontsize-picker custom-content-fontsize-picker" buttonClass="button-item-b"
                                                form="deptForm" name="font_size" default="medium"/>
                     </vbox>
                 </hbox>
                 <hbox flex="1">
-                    <hbox class="ToolBar" flex="1">
-                        <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Departments');" />
-                        <button id="modify_dept" label="&departments.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('modify', null, 'Departments');" />
+                    <hbox class="toolbar" flex="1">
+                        <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Departments');" />
+                        <button id="modify_dept" label="&departments.button.action.modify;" disabled="false" class="button-modify" oncommand="$do('modify', null, 'Departments');" />
                         <spacer flex="1"/>
-                        <button id="delete_dept" label="&departments.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('remove', null, 'Departments');" />
+                        <button id="delete_dept" label="&departments.button.action.delete;" disabled="false" class="button-delete" oncommand="$do('remove', null, 'Departments');" />
                     </hbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    <hbox id="dialogButtons" class="exitbar" pack="center">
+                        <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                        <button id="ok" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="doOKButton();"/>
                     </hbox>
                 </hbox>
             </vbox>

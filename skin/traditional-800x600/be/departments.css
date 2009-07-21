@@ -1,16 +1,20 @@
 /*-----------------------------------------------------------------------------
  *
- * Back-End Custom Styles for Condiments
+ * Back-End Custom Styles for Departments
  *
  *-----------------------------------------------------------------------------
  */
 
-.custom-layout-condiment-panel {
-    min-width: 270px;
+.custom-content-buttonpanel {
+    margin-right: 5px;
+}
+
+.custom-content-menupopup {
+    width: 200px;
 }
 
 .custom-container-button-color-fontsize-picker {
-    margin: 0px 8px 0px 4px;
+    margin: 4px 6px 4px 4px;
     background: #f1ede5;
 }
 
@@ -23,6 +27,11 @@
     margin: 4px;
 }
 
+.custom-content-color-picker button {
+    width: 50px;
+    height: 50px;
+}
+
 .custom-content-fontsize-picker {
     margin: 4px;
 }
@@ -30,11 +39,4 @@
 .custom-content-fontsize-picker button {
     margin-top: 2px;
     margin-bottom: 2px;
-}
-
-.preset-condiment description {
-    font-style: italic;
-}
-
-.not-preset-condiment {
 }

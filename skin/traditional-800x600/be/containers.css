@@ -26,3 +26,13 @@
 .container-left {
     border-right: 1px solid #a98f6e;
 }
+
+.container-right {
+    margin: 4px;
+}
+
+.container-popup-panel {
+    background: transparent;
+    padding: 6px;
+}
+}

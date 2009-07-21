@@ -29,7 +29,7 @@
 
                 var val = this.getCellValue(row, col);
 
-                var aImageFile = "file://" + val;
+                var aImageFile = "file://" + val + '?' + Math.random();
 
                 return aImageFile;
         },
@@ -160,6 +160,7 @@
             this.query('#lblName').val('');
             this.query('#lblSize').val('');
 
+            this.validateForm();
         },
 
         select: function(index) {
@@ -182,6 +183,7 @@
                 this.query('#lblName').val(selectedFile.leafName);
                 this.query('#lblSize').val(this.Number.toReadableSize(selectedFile.fileSize));
             }
+            this.validateForm();
         },
 
         showWaitingPanel: function (message) {
@@ -453,13 +455,13 @@
 
             var result = GREUtils.Dialog.confirm(this.topmostWindow,
                                                  _('confirm delete'),
-                                                 _('Are you sure you want to delete %S', [this._selectedFile.leafName]));
+                                                 _('Are you sure you want to delete [%S]', [this._selectedFile.leafName]));
             if (result) {
                 // unlink
                 // GeckoJS.File.remove(this._selectedFile.path) ;
                 this._selectedFile.remove(false);
 
-                NotifyUtils.info(_('Image (%S) is successfully deleted', [this._selectedFile.leafName]));
+                NotifyUtils.info(_('Image [%S] successfully deleted', [this._selectedFile.leafName]));
 
                 // refresh
                 this.loadImage(this._dir);
@@ -522,40 +524,82 @@
             }
 
             var input = {value: this._selectedFile.leafName};
-            var result = GREUtils.Dialog.prompt(this.topmostWindow, _('Rename Image'), _('Original image: ') + this._selectedFile.leafName, input);
+
+            // show virtual keyboard
+            VirtualKeyboard.show();
+
+            var result = GREUtils.Dialog.prompt(this.topmostWindow, _('Rename Image'), _('Original image') + ': ' + this._selectedFile.leafName, input);
+
+            // hide virtual keyboard
+            VirtualKeyboard.hide();
 
             if (result) {
-                try {
-                    // moveto
-                    this._selectedFile.moveTo(this._selectedFile.parent, input.value);
+                var destFile = GeckoJS.String.trim(input.value);
+                if (destFile == '') {
+                    NotifyUtils.error(_('Image [%S] not renamed; no file name given', [this._selectedFile.leafName]));
+                }
+                else {
 
-                    NotifyUtils.info(_('Image (%S) successfully renamed to (%S)', [this._selectedFile.leafName, input.value]));
-                    // refresh
-                    //this.loadImage(this._dir);
-                    var imagePanel = this.query('#imagePanel')[0];
-                    if(this._selectedIndex > -1) {
-                        var btnIndex =  this._selectedIndex % imagePanel.buttonCount;
-                        imagePanel.buttons[btnIndex].label = input.value;
-                        this.query('#lblName').val(input.value);
-                        this._selectedFile.leafName = input.value;
+                    if (destFile.substr(-4) != '.png') destFile += '.png';
+                    
+                    try {
+                        if (GREUtils.File.exists(this._selectedFile.parent.path + '/' + destFile)) {
+                            if (destFile == this._selectedFile.leafName) {
+                                NotifyUtils.warn(_('Image [%S] not renamed to [%S]; no change in file name', [this._selectedFile.leafName, destFile]));
+                                return;
+                            }
+                            
+                            if (GREUtils.Dialog.confirm(this.topmostWindow,
+                                                        _('confirm overwrite'),
+                                                        _('File with name [%S] already exists. Overwrite?', [destFile]))) {
+                                GREUtils.File.remove(this._selectedFile.parent.path + '/' + destFile);
+                            }
+                            else {
+                                NotifyUtils.info(_('Image [%S] not renamed to [%S]; file already exists', [this._selectedFile.leafName, destFile]));
+                                return;
+                            }
+                        }
+
+                        // moveto
+                        this._selectedFile.moveTo(this._selectedFile.parent, destFile);
+
+                        NotifyUtils.info(_('Image [%S] successfully renamed to [%S]', [this._selectedFile.leafName, destFile]));
+
+                        // refresh
+                        this.loadImage(this._dir);
+                    }
+                    catch (e) {
+                        NotifyUtils.error(_('Failed to rename image [%S] to [%S]'), [this._selectedFile.leafName, destFile]);
+
+                        this.log('ERROR', GeckoJS.BaseObject.dump(e));
+                    }
+                    finally {
                     }
                 }
-                catch (e) {
-                    //
-                    NotifyUtils.info(_('Rename Image (%S) Error'), [this._selectedFile.leafName]);
-                }
-                finally {
-                    //
-                }
-
-            }
-            
+            }            
         },
 
         okButtonClick: function(args) {
             if (this._selectedFile) {
                 args.result = true;
                 args.file = this._selectedFile.path;
+            }
+        },
+
+        validateForm: function() {
+
+            var count = (this.imagefilesView && this.imagefilesView.fileCount) || 0;
+
+            document.getElementById('deleteAllBtn').setAttribute('disabled', count == 0);
+            document.getElementById('exportBtn').setAttribute('disabled', count == 0);
+            
+            if (this._selectedFile) {
+                document.getElementById('deleteBtn').setAttribute('disabled', false);
+                document.getElementById('renameBtn').setAttribute('disabled', false);
+            }
+            else {
+                document.getElementById('deleteBtn').setAttribute('disabled', true);
+                document.getElementById('renameBtn').setAttribute('disabled', true);
             }
         }
     };

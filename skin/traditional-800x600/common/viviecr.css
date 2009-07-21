@@ -36,4 +36,39 @@
   margin: 5px 8px;
 }
 
+/*-----------------------------------------------------------------------------
+ * Tabbox
+ *-----------------------------------------------------------------------------
+ */
 
+.content-tabbox {
+    margin: 4px;
+}
+
+.content-tabbox tab {
+    background: white url(../images/sep.png) center right no-repeat;
+    border:none;
+    color: #393939;
+    margin-bottom: 5px;
+    padding: 20px 8px;
+    -moz-appearance: none;
+}
+
+.content-tabbox tab[selected=true] {
+    background-color: #847860;
+    background-image: none;
+    color: white;
+    font-weight: bold;
+    -moz-user-focus: ignore;
+}
+
+.content-tabbox tabpanels {
+    background: none;
+    border: none;
+    -moz-appearance: none;
+}
+
+.content-tabbox tabpanel {
+    border-top: 1px solid #c1ab8e;
+    padding: 5px 5px;
+}

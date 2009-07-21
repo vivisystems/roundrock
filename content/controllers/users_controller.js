@@ -7,7 +7,7 @@
         scaffold: true,
 	
         _listObj: null,
-        _selectedIndex: null,
+        _selectedIndex: -1,
         _userAdded: false,
         _userModified: false,
 
@@ -40,6 +40,9 @@
         },
         */
         beforeScaffoldAdd: function (evt) {
+
+            if (!this.confirmChangeUser()) return;
+
             var user = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
@@ -106,6 +109,7 @@
 
                 this.requestCommand('list', newIndex);
 
+                this._selectedIndex = newIndex;
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
                 panel.ensureIndexIsVisible(newIndex);
@@ -335,13 +339,33 @@
             this.validateForm();
         },
 
+        confirmChangeUser: function(index) {
+            // check if condiment group and condiment forms have been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('userForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current user. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
         select: function(){
 		
             var panel = this.getListObj();
             var index = panel.selectedIndex;
 
+            if (!this.confirmChangeUser(index)) {
+                panel.selectedItems = [this._selectedIndex];
+                return;
+            }
+
             this.requestCommand('list', index);
 
+            this._selectedIndex = index;
+            
             panel.selectedItems = [index];
             panel.selectedIndex = index;
             panel.ensureIndexIsVisible(index);
@@ -414,6 +438,9 @@
                         textboxes[i].removeAttribute('disabled');
                     }
                 }
+                document.getElementById('default_price_level').removeAttribute('disabled');
+                document.getElementById('user_drawer').removeAttribute('disabled');
+
                 // check for root user
                 if (user.username == 'superuser') {
                     delBtn.setAttribute('disabled', true);
@@ -436,6 +463,9 @@
                         textboxes[i].disabled = true;
                     }
                 }
+
+                document.getElementById('default_price_level').setAttribute('disabled', true);
+                document.getElementById('user_drawer').setAttribute('disabled', true);
             }
         }
     };

@@ -158,12 +158,11 @@
 
         confirmChangeCondGroup: function(index) {
             // check if condiment group and condiment forms have been modified
-            if ((this._selectedIndex != -1 && index != -1 && index != this._selectedIndex && GeckoJS.FormHelper.isFormModified('condGroupForm')) ||
+            if ((this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex)) && GeckoJS.FormHelper.isFormModified('condGroupForm')) ||
                 (this._selectedCondIndex != -1 && GeckoJS.FormHelper.isFormModified('condimentForm'))) {
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
                                              _('Discard Changes'),
-                                             _('You have made changes to the current condiment group and/or condiment. Are you sure you want to change to a new condiment group?'))) {
-                    this._condGroupscrollablepanel.selectedItems = [this._selectedIndex];
+                                             _('You have made changes to the current condiment group and/or condiment. Are you sure you want to discard the changes?'))) {
                     return false;
                 }
             }
@@ -180,7 +179,10 @@
                 index = -1;
             }
 
-            if (!this.confirmChangeCondGroup(index)) return;
+            if (!this.confirmChangeCondGroup(index)) {
+                this._condGroupscrollablepanel.selectedItems = [this._selectedIndex];
+                return;
+            }
 
             var conds;
             if (condGroups && (index != null) && (index > -1) && condGroups.length > index)
@@ -212,13 +214,12 @@
 
         confirmChangeCondiment: function(index) {
             // changing to a new condiment?
-            if (this._selectedCondIndex != -1 && index != -1 && index != this._selectedCondIndex) {
+            if (this._selectedCondIndex != -1 && (index == null || (index != -1 && index != this._selectedCondIndex))) {
                 // check if condiment group and condiment forms have been modified
                 if (GeckoJS.FormHelper.isFormModified('condimentForm')) {
                     if (!GREUtils.Dialog.confirm(this.topmostWindow,
                                                  _('Discard Changes'),
-                                                 _('You have made changes to the current condiment condiment. Are you sure you want to select another condiment with saving the changes first?'))) {
-                        this._condscrollablepanel.selectedItems = [this._selectedCondIndex];
+                                                 _('You have made changes to the current condiment condiment. Are you sure you want to discard the changes?'))) {
                         return false;
                     }
                 }
@@ -249,7 +250,10 @@
                 index = -1;
             }
 
-            if (!this.confirmChangeCondiment(index)) return;
+            if (!this.confirmChangeCondiment(index)) {
+                this._condscrollablepanel.selectedItems = [this._selectedCondIndex];
+                return;
+            }
 
             this._selectedCondIndex = index;
 
@@ -347,6 +351,11 @@
         },
 
         add: function  () {
+            if (!this.confirmChangeCondGroup()) {
+                this._condGroupscrollablepanel.selectedItems = [this._selectedIndex];
+                return;
+            }
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
 
@@ -388,6 +397,8 @@
 
                     //this._condGroupscrollablepanel.refresh();
 
+                    this._selectedIndex = -1;
+                    this._selectedCondIndex = -1;
                     this.changeCondimentPanel(condGroups.length - 1);
 
                     OsdUtils.info(_('Condiment Group [%S] added successfully', [inputData.name]));
@@ -537,6 +548,11 @@
         addCond: function  () {
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
+            if (!this.confirmChangeCondiment()) {
+                this._condscrollablepanel.selectedItems = [this._selectedCondIndex];
+                return;
+            }
+            
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {
@@ -604,6 +620,8 @@
 
                         var view = this._condscrollablepanel.datasource;
                         view.data = condGroups[this._selectedIndex]['Condiment'];
+                        
+                        this._selectedCondIndex = -1;
                         this.clickCondimentPanel(view.data.length - 1);
                         OsdUtils.info(_('Condiment [%S] added successfully', [inputData.name]));
                     }

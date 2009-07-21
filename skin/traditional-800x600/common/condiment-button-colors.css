@@ -6,103 +6,163 @@
  */
 
 .condiment-button-color-default {
-    min-height: 50px;
-    background: url(../images/condiment_01.png);
+    background: transparent url(../images/condiment_01.png) repeat center center;
+    border-width: 3px;
     color: #524f44;
+    min-height: 50px;
+    -moz-appearance: none;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
 
 .condiment-button-color-1 {
+    /* background: gray; */
+    background: transparent url(../images/condiment_02.png) repeat center center;
+    border-width: 3px;
+    color: #17475a;
     min-height: 50px;
     -moz-appearance: none;
-    /* background: gray; */
-    background: url(../images/condiment_02.png);
-    color: #17475a;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
 
 .condiment-button-color-2 {
+    /* background: blue; */
+    background: transparent url(../images/condiment_03.png) repeat center center;
+    border-width: 3px;
+    color: #444a1c;
     min-height: 50px;
     -moz-appearance: none;
-    /* background: blue; */
-    background: url(../images/condiment_03.png);
-    color: #444a1c;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
 
 .condiment-button-color-3 {
+    /* background: red; */
+    background: transparent url(../images/condiment_04.png) repeat center center;
+    border-width: 3px;
+    color: #563c01;
     min-height: 50px;
     -moz-appearance: none;
-    /* background: red; */
-    background: url(../images/condiment_04.png);
-    color: #563c01;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
 
 
 .condiment-button-color-4 {
+    /* background: orange; */
+    background: transparent url(../images/condiment_05.png) repeat center center;
+    border-width: 3px;
+    color: #583f26;
     min-height: 50px;
     -moz-appearance: none;
-    /* background: orange; */
-    background: url(../images/condiment_05.png);
-    color: #583f26;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
 
 .condiment-button-color-5 {
+    /* background:fuchsia; */
+    background: transparent url(../images/condiment_06.png) repeat center center;
+    border-width: 3px;
+    color: #371948;
     min-height: 50px;
     -moz-appearance: none;
-    /* background:fuchsia; */
-    background: url(../images/condiment_06.png);
-    color: #371948;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
 
 
 .condiment-button-color-6 {
+    /* background:teal; */
+    background: transparent url(../images/condiment_07.png) repeat center center;
+    border-width: 3px;
+    color: white;
     min-height: 50px;
     -moz-appearance: none;
-    /* background:teal; */
-    background: url(../images/condiment_07.png);
-    color: white;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
 
 
 .condiment-button-color-7 {
+    /* background: green; */
+    background: transparent url(../images/condiment_08.png) repeat center center;
+    border-width: 3px;
+    color: white;
     min-height: 50px;
     -moz-appearance: none;
-    /* background: green; */
-    background: url(../images/condiment_08.png);
-    color: white;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
 
 .condiment-button-color-8 {
+    /* background: yellow; */
+    background: transparent url(../images/condiment_09.png) repeat center center;
+    border-width: 3px;
+    color: white;
     min-height: 50px;
     -moz-appearance: none;
-    /* background: yellow; */
-    background: url(../images/condiment_09.png);
-    color: white;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
  }
 
  .condiment-button-color-9 {
-     min-height: 50px;
-    -moz-appearance: none;
     /* background: aqua; */
-    background: url(../images/condiment_10.png);
+    background: transparent url(../images/condiment_10.png) repeat center center;
+    border-width: 3px;
     color: #491919;
+    min-height: 50px;
+    -moz-appearance: none;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
  }
 
 
 .condiment-button-color-10 {
+    /* background: black; */
+    background: transparent url(../images/condiment_11.png) repeat center center;
+    border-width: 3px;
+    color: #2b2709;
     min-height: 50px;
     -moz-appearance: none;
-    /* background: black; */
-    background: url(../images/condiment_11.png);
-    color: #2b2709;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
 
 .condiment-button-color-11 {
+    /* background: white; */
+    background: transparent url(../images/condiment_12.png) repeat center center;
+    border-width: 3px;
+    color: white;
     min-height: 50px;
     -moz-appearance: none;
-    /* background: white; */
-    background: url(../images/condiment_12.png);
-    color: white;
+    -moz-border-top-colors: black transparent !important;
+    -moz-border-left-colors: black transparent !important;
+    -moz-border-bottom-colors: black transparent !important;
+    -moz-border-right-colors: black transparent !important;
 }
-
 
 .condiment-button-color-default[selected], .condiment-button-color-1[selected],
 .condiment-button-color-2[selected], .condiment-button-color-3[selected],
@@ -110,7 +170,12 @@
 .condiment-button-color-6[selected], .condiment-button-color-7[selected],
 .condiment-button-color-8[selected], .condiment-button-color-9[selected],
 .condiment-button-color-10[selected], .condiment-button-color-11[selected] {
+    border-width: 3px;
     list-style-image: url(../images/con_sel.png);
+    -moz-border-top-colors: threeddarkshadow !important;
+    -moz-border-left-colors: threeddarkshadow !important;
+    -moz-border-bottom-colors: threedshadow !important;
+    -moz-border-right-colors: threedshadow !important;
 }
 
 .condiment-button[disabled] {

@@ -908,7 +908,6 @@
         },
         
         reviewShiftReport: function( all ) {
-            var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get('terminal_no');
 
@@ -931,7 +930,6 @@
         },
 
         reviewDailySales: function() {
-            var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
             var periodType = 'sale_period';

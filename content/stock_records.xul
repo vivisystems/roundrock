@@ -69,19 +69,19 @@
                             <row>
                                 <vbox>
                                     <label value="&stockrecords.label.no;" />
-                                    <vivitextbox readonly="true" form="productForm" id="product_no" name="product_no" />    
+                                    <textbox readonly="true" form="productForm" id="product_no" name="product_no" />    
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.barcode;" />
-                                    <vivitextbox readonly="true" form="productForm" id="product_barcode" name="product_barcode" />    
+                                    <textbox readonly="true" form="productForm" id="product_barcode" name="product_barcode" />    
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.name;" />
-                                    <vivitextbox readonly="true" form="productForm" id="product_name" name="product_name" />    
+                                    <textbox readonly="true" form="productForm" id="product_name" name="product_name" />    
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.minstock;" />
-                                    <vivitextbox readonly="true" form="productForm" id="min_stock" name="min_stock" />    
+                                    <textbox readonly="true" form="productForm" id="min_stock" name="min_stock" />    
                                 </vbox>
                             </row>
                             <row>
