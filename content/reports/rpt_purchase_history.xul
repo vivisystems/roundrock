@@ -55,6 +55,10 @@
 					                    </menupopup>
 					                </menulist>
 		                    	</vbox>
+		                    	<vbox>
+				                    <label value="&rptpurchasehistory.warehouse;" />
+				                    <textbox id="warehouse" value='' width="300"/>
+				                </vbox>
 		                    </row>
 		                </rows>
 		            </grid>

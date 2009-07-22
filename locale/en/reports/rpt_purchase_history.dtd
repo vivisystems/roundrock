@@ -10,3 +10,4 @@
 <!ENTITY rptpurchasehistory.groupby "Group By:">
 <!ENTITY rptpurchasehistory.groupby.product "Product">
 <!ENTITY rptpurchasehistory.groupby.supplier "Supplier">
+<!ENTITY rptpurchasehistory.warehouse "Warehouse:">

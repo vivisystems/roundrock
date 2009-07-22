@@ -143,9 +143,9 @@
 
             var panel = this.getCodeListObj();
             if (panel.selectedIndex > -1) {
-                deleteBtn.removeAttribute('disabled');
+                deleteBtn.setAttribute('disabled', false);
                 if (GeckoJS.String.trim(annotationTextbox.value).length > 0) {
-                    modifyBtn.removeAttribute('disabled');
+                    modifyBtn.setAttribute('disabled', false);
                 }
                 else {
                     modifyBtn.setAttribute('disabled', true);

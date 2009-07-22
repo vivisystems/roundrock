@@ -76,8 +76,8 @@
                     <hbox>
                         <hbox class="ToolBar" flex="1">
                             <spacer flex="1"/>
-                            <button id="setitemDialog-ok" class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectSetItemPanel', true)"/>
-                            <button class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectSetItemPanel', false)"/>
+                            <button id="setitemDialog-ok" class="okBtn" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectSetItemPanel', true)"/>
+                            <button class="cancelBtn" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectSetItemPanel', false)"/>
                             <spacer flex="1"/>
                         </hbox>
                     </hbox>

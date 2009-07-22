@@ -23,6 +23,9 @@
         _records: [],
         _folderName: 'stock_import',
         _fileName: 'stock.csv',
+        _adjustmentReason: '',
+        _adjustmentMemo: '',
+        _adjustmentSupplier: '',
 
         syncSettings: null,
         
@@ -50,13 +53,23 @@
             this.StockRecord.syncAllStockRecords();
             
             //var stockRecords = this.StockRecord.find('all', {fields: "products." , order: 'products.no', recursive: 1});
-            var sql = "SELECT products.no, products.name, products.barcode, products.min_stock, products.auto_maintain_stock, stock_records.quantity FROM products INNER  JOIN stock_records ON (products.no=stock_records.id) ORDER BY products.no";
+            // attach vivipos.sqlite to use product table.
+            var productDB = this.Product.getDataSource().path + '/' + this.Product.getDataSource().database;
+            var sql = "ATTACH '" + productDB + "' AS vivipos;";
+            this.StockRecord.execute( sql );
+            
+            sql = "SELECT products.no, products.name, products.barcode, products.sale_unit, products.min_stock, products.auto_maintain_stock, stock_records.warehouse, stock_records.quantity FROM products INNER  JOIN stock_records ON (products.no=stock_records.id) ORDER BY products.no";
             var stockRecords = this.StockRecord.getDataSource().fetchAll(sql);
+            
+            // detach the file.
+            sql = "DETACH vivipos;";
+            this.StockRecord.execute( sql );
 
             stockRecords.forEach(function(stock) {
                 stock.product_no = stock.no;
                 stock.product_name = stock.name;
                 stock.product_barcode = stock.barcode;
+                stock.sale_unit = _('(saleunit)' + stock.sale_unit);
                 stock.min_stock = stock.min_stock;
                 stock.auto_maintain_stock = stock.auto_maintain_stock;
             }, this);
@@ -72,7 +85,7 @@
             var stockRecordsByBarcode = {};
             stockRecords.forEach(function(stockRecord) {
                 stockRecord.new_quantity = stockRecord.quantity;
-                stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+                stockRecord.delta = stockRecord.new_quantity - stockRecord.quantity;
                 stockRecord.memo = '';
                 stockRecord.price = null;
                 stockRecordsByProductNo[stockRecord.product_no] = stockRecord;
@@ -117,7 +130,7 @@
                 lowstock = showLowStock.checked;
             
             var qtyDiff = false;
-            var showQtyDiff = document.getElementById('show_qty_diff');
+            var showQtyDiff = document.getElementById('show_delta');
             if (showQtyDiff)
                 qtyDiff = showQtyDiff.checked;
                 
@@ -133,7 +146,7 @@
                 this._records = this._records.filter(function(d) {
                     var r = true;
                     if (lowstock) r = r && parseInt(d.quantity, 10) < parseInt(d.min_stock, 10);
-                    if (qtyDiff) r = r && parseInt(d.qty_difference, 10) != 0;
+                    if (qtyDiff) r = r && parseInt(d.delta, 10) != 0;
                     if (maintainedOnes) r = r && d.auto_maintain_stock;
                     return r;
                 });
@@ -181,12 +194,76 @@
             else return -1; // not found
         },
 
-        load: function() {
+        load: function(data) {
 
             var isMaster = this.StockRecord.getRemoteServiceUrl('auth') === false;
             var isTraining = GeckoJS.Session.get("isTraining");
             
             if (isMaster && !isTraining) {
+
+                // get adjustment type first
+                var aURL = 'chrome://viviecr/content/prompt_stockadjustment.xul';
+                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=450,height=560';
+
+                // retrieve list of suppliers
+                var inventoryCommitmentModel = new InventoryCommitmentModel();
+                var suppliers = inventoryCommitmentModel.find('all', {fields: ['supplier'],
+                                                                      group: 'supplier',
+                                                                      limit: 3000,
+                                                                      recursive: 0});
+                if (inventoryCommitmentModel.lastError != 0) {
+                    this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
+                                  _('An error was encountered while retrieving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
+                    data.cancel = true;
+                    return;
+                }
+
+                var inputObj = {commit: true, suppliers: suppliers};
+
+                GREUtils.Dialog.openWindow(
+                    this.topmostWindow,
+                    aURL,
+                    _('Stock Adjustment'),
+                    aFeatures,
+                    inputObj
+               );
+
+                if (inputObj.ok && inputObj.reason) {
+                    this._adjustmentReason = inputObj.reason || '';
+                    this._adjustmentMemo = inputObj.memo || '';
+                    this._adjustmentSupplier = inputObj.supplier || '';
+
+                    document.getElementById('adjustment_type').label = _('(inventory)' + this._adjustmentReason);
+                } else {// user canceled.
+                    data.cancel = true;
+                    return;
+                }
+
+                // adjust form fields according to adjustment reason
+                switch(this._adjustmentReason) {
+
+                    case 'inventory':
+                        document.getElementById('reset').removeAttribute('hidden');
+                        document.getElementById('qtytype').value = _('(inventory)New Quantity');
+                        document.getElementById('new_quantity').setAttribute('name', 'new_quantity');
+                        break;
+
+                    case 'procure':
+                        document.getElementById('price_container').removeAttribute('hidden');
+                        document.getElementById('qtytype').value = _('(inventory)Procured Quantity (+)');
+                        document.getElementById('new_quantity').setAttribute('name', 'delta');
+                        break;
+
+                    case 'waste':
+                        document.getElementById('qtytype').value = _('(inventory)Waste Quantity (-)');
+                        document.getElementById('new_quantity').setAttribute('name', 'delta');
+                        break;
+
+                    case 'other':
+                        document.getElementById('qtytype').value = _('(inventory)+/-');
+                        document.getElementById('new_quantity').setAttribute('name', 'delta');
+                        break;
+                }
                 
                 var branch_id = '';
                 var storeContact = GeckoJS.Session.get('storeContact');
@@ -199,10 +276,15 @@
                 this.Product.restoreFromBackup();
                 stockRecordModel.restoreFromBackup();
 
-                var startTime = Date.now().getTime();
+                // var startTime = Date.now().getTime();
+                
+                // attach vivipos.sqlite to use product table.
+                var productDB = this.Product.getDataSource().path + '/' + this.Product.getDataSource().database;
+                var sql = "ATTACH '" + productDB + "' AS vivipos;";
+                this.StockRecord.execute( sql );
 
-                var sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON (p.no = s.id) WHERE s.id IS NULL;";
-                var ds = this.Product.getDataSource();
+                sql = "SELECT p.no, p.barcode, '" + branch_id + "' AS warehouse FROM products p LEFT JOIN stock_records s ON (p.no = s.id) WHERE s.id IS NULL;";
+                var ds = this.StockRecord.getDataSource();
                 var products = ds.fetchAll(sql);
                 if (ds.lastError != 0) {
                     this._dbError(ds.lastError, ds.lastErrorString,
@@ -225,13 +307,18 @@
                 // remove the products which no longer exist from stock_record table.
                 sql = "SELECT s.id FROM stock_records s LEFT JOIN products p ON (s.id = p.no) WHERE p.no IS NULL;";
                 var stockRecords = stockRecordModel.getDataSource().fetchAll(sql);
+                
+                // detach the file.
+                sql = "DETACH vivipos;";
+                this.StockRecord.execute( sql );
+                
                 if (stockRecords.length > 0) {
                     stockRecords.forEach(function(stockRecord) {
                         stockRecordModel.remove(stockRecord.id);
                     });
                 }
             } else {
-                document.getElementById('commitchanges').setAttribute('disabled', true);
+                document.getElementById('toolbar').setAttribute('hidden', true);
             }
                         
             this.reload();
@@ -262,6 +349,8 @@
                            errstr: model.lastErrorString,
                            errmsg: ('An error was encountered while removing stock adjustment records (error code %S).', [model.lastError])};
                 }
+
+                model.execute('VACUUM');
             }
             catch(e) {
                 this._dbError(e.errno, e.errstr, e.errmsg);
@@ -334,28 +423,39 @@
 
             if (index >= 0) {
                 var item = this._records[index];
+
                 GeckoJS.FormHelper.unserializeFromObject('productForm', item);
+
+                if (this._adjustmentReason == 'waste') {
+                    document.getElementById('new_quantity').value = 0 - item.delta;
+                }
             }
 
             this.validateForm();
+
+            document.getElementById('new_quantity').select();
         },
 
         validateForm: function() {
+            var newQtyObj = document.getElementById('new_quantity');
+            var modifyBtnObj = document.getElementById('modify_stock');
+
             var inputObj = GeckoJS.FormHelper.serializeToObject('productForm');
             if (inputObj.product_no != null && inputObj.product_no != '') {
                 var newQuantity = null;
-                if (inputObj.new_quantity)
-                    newQuantity = inputObj.new_quantity.replace(/^\s*/, '').replace(/\s*$/, '');
+                var delta = null;
 
-                document.getElementById('modify_stock').setAttribute('disabled', isNaN(newQuantity || "If newQty is null, doing this for isNaN to return true."));
-                var new_qty = document.getElementById('new_quantity'); 
-                if (new_qty)
-                    new_qty.removeAttribute('disabled');
+                if (inputObj.new_quantity)
+                    newQuantity = GeckoJS.String.trim(inputObj.new_quantity);
+
+                if (inputObj.delta)
+                    delta = GeckoJS.String.trim(inputObj.delta);
+
+                modifyBtnObj.setAttribute('disabled', isNaN(newQuantity) && isNaN(delta));
+                newQtyObj.removeAttribute('disabled');
             } else {
-                document.getElementById('modify_stock').setAttribute('disabled', true);
-                var new_qty = document.getElementById('new_quantity'); 
-                if (new_qty)
-                    new_qty.setAttribute('disabled', true);
+                modifyBtnObj.setAttribute('disabled', true);
+                newQtyObj.setAttribute('disabled', true);
             }
         },
         
@@ -383,7 +483,7 @@
                 if (!isNaN(stockQuantity)) {
                     this._records.forEach(function(record) {
                         record.new_quantity = stockQuantity;
-                        record.qty_difference = record.new_quantity - record.quantity;
+                        record.delta = record.new_quantity - record.quantity;
                     });
                 }
                 else {
@@ -405,26 +505,62 @@
         	
             if (!isNaN(newQuantity)) {
                 var stockRecord = this._stockRecordsByProductNo[product_no];
-                stockRecord.new_quantity = newQuantity;
-                stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+
+                switch(this._adjustmentReason) {
+                    case 'inventory':
+                        stockRecord.new_quantity = newQuantity;
+                        stockRecord.delta = stockRecord.new_quantity - stockRecord.quantity;
+                        break;
+
+                    case 'procure':
+                    case 'other':
+                        stockRecord.delta = newQuantity;
+                        stockRecord.new_quantity = stockRecord.quantity + newQuantity;
+                        break;
+
+                    case 'waste':
+                        stockRecord.delta = 0 - newQuantity;
+                        stockRecord.new_quantity = stockRecord.quantity - newQuantity;
+                        break;
+                }
                 stockRecord.memo = memo;
                 stockRecord.price = price;
 
                 this.updateStock();
             }
         },
-        
-        commitChanges: function() {
 
+        isStockAdjusted: function() {
             // check if there are changes to commit
             var changed = false;
             for (var i = 0; !changed && i < this._records.length; i++) {
-                changed = (this._records[i].qty_difference != 0);
+                changed = (this._records[i].delta != 0);
                 changed = changed || this._records[i].memo.length > 0;
                 changed = changed || this._records[i].price;
             }
+            return changed;
+        },
 
-            if (!changed) {
+        exitCheck: function(data) {
+            if (this.isStockAdjusted()) {
+                if (GREUtils.Dialog.confirm(
+                        this.topmostWindow,
+                        _('Stock Adjustment'),
+                        _('You have made one or more stock adjustments. Discard the changes and exit?'))) {
+                    data.cancel = false;
+                }
+                else {
+                    data.cancel = true;
+                }
+            }
+            else {
+                data.cancel = false;
+            }
+        },
+
+        commitChanges: function() {
+
+            if (!this.isStockAdjusted()) {
                 GREUtils.Dialog.alert(
                     this.topmostWindow,
                     _('Stock Adjustment'),
@@ -432,49 +568,16 @@
                 return;
             }
 
-            var aURL = 'chrome://viviecr/content/prompt_stockadjustment.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=450,height=560';
-            
-            // retrieve list of suppliers
             var inventoryCommitmentModel = new InventoryCommitmentModel();
-            var suppliers = inventoryCommitmentModel.find('all', {fields: ['supplier'],
-                                                                  group: 'supplier',
-                                                                  limit: 3000,
-                                                                  recursive: 0});
-            if (inventoryCommitmentModel.lastError != 0) {
-                this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
-                              _('An error was encountered while retrieving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
-                return;
-            }
-            
-            var inputObj = {commit: true, suppliers: suppliers};
-
-            GREUtils.Dialog.openWindow(
-                this.topmostWindow,
-                aURL,
-                _('Stock Adjustment'),
-                aFeatures,
-                inputObj
-           );
-
-            var adjustmentReason = '';
-            var adjustmentMemo = '';
-            var adjustmentSupplier = '';
-            if (inputObj.ok && inputObj.reason) {
-                adjustmentReason = inputObj.reason || '';
-                adjustmentMemo = inputObj.memo || '';
-                adjustmentSupplier = inputObj.supplier || '';
-            } else {// user canceled.
-                return;
-            }
-            
             var commitmentID = GeckoJS.String.uuid();
-            
+            var user = this.Acl.getUserPrincipal();
+
             if (!inventoryCommitmentModel.set({
                     id: commitmentID,
-                    type: adjustmentReason,
-                    memo: adjustmentMemo,
-                    supplier: adjustmentSupplier
+                    type: this._adjustmentReason,
+                    memo: this._adjustmentMemo,
+                    supplier: this._adjustmentSupplier,
+                    clerk: user.username
                 })) {
                 this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
                               _('An error was encountered while saving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
@@ -482,33 +585,40 @@
             }
             
             var stockRecords = [];
-            var user = this.Acl.getUserPrincipal();
-        	
-            var records = (this._records.filter(function(record) { //When the commit type is not 'inventory', we just save the non-zero rows.
-                    if (adjustmentReason == "inventory" || record.qty_difference != 0)
-                        return true;
-                    return false;
-                })).concat([]);
+        	var records;
+            var doInventory = this._adjustmentReason == 'inventory';
+            if (doInventory) {
+                records = this._records;
+            }
+            else {
+                records = (this._records.filter(function(record) {
+                        if (record.delta != 0)
+                            return true;
+                        else
+                            return false;
+                    })).concat([]);
+            }
 
             for (record in records) {
                 stockRecords.push({
                     id: records[record].product_no,
                     warehouse: records[record].warehouse,
-                    quantity: records[record].new_quantity
+                    quantity: records[record].new_quantity,
+                    delta: records[record].delta
                 });
-                records[record].clerk = user.username;
                 records[record].commitment_id = commitmentID;
+                records[record].value = (doInventory) ? records[record].new_quantity : records[record].delta;
             }
         	
             var stockRecordModel = new StockRecordModel();
-            if (!stockRecordModel.setAll(stockRecords)) {
+            if (!stockRecordModel.setAll(stockRecords, doInventory)) {
                 this._dbError(stockRecordModel.lastError, stockRecordModel.lastErrorString,
                               _('An error was encountered while saving stock records (error code %S).', [stockRecordModel.lastError]));
                 return;
             }
         	
             var inventoryRecordModel = new InventoryRecordModel();
-            if (!inventoryRecordModel.setAll(records)) {
+            if (!inventoryRecordModel.setAll(records, doInventory)) {
                 this._dbError(inventoryRecordModel.lastError, inventoryRecordModel.lastErrorString,
                               _('An error was encountered while saving stock adjustment details (error code %S).', [inventoryRecordModel.lastError]));
                 return;
@@ -568,7 +678,7 @@
                     var stockRecord = this._stockRecordsByProductNo[product_no] || this._stockRecordsByBarcode[product_no];
                     if (stockRecord) {
                         stockRecord.new_quantity = quantity;
-                        stockRecord.qty_difference = stockRecord.new_quantity - stockRecord.quantity;
+                        stockRecord.delta = stockRecord.new_quantity - stockRecord.quantity;
                         stockRecord.price = price || null;
                         stockRecord.memo = memo;
                         count++;

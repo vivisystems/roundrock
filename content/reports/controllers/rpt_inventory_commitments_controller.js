@@ -9,7 +9,7 @@
         
         _fileName: "rpt_inventory_commitments",
         
-        _setData: function( start, end, type, limit ) {
+        _setData: function( start, end, type, warehouse, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
@@ -21,14 +21,14 @@
                 "ic.type",
                 "ic.memo AS commitment_memo",
                 "ic.created",
+                "ic.clerk",
                 "ic.supplier",
                 "ir.product_no",
                 "ir.barcode",
                 "ir.warehouse",
-                "ir.quantity",
-                "ir.new_quantity",
+                "ir.value",
                 "ir.price",
-                "ir.clerk",
+                "ir.value * ir.price AS subtotal",
                 "ir.memo",
                 "p.name"
             ];
@@ -38,18 +38,32 @@
                 
             if ( type != "all" )
                 conditions += " AND ic.type = '" + type + "'";
+                
+            if ( warehouse.length > 0 )
+                conditions += " AND warehouse LIKE '%" + warehouse + "%'";
 
             var groupby = "";
 
             var orderby = "ic.created DESC";
             
+            var inventoryCommitmentModel = new InventoryCommitmentModel();
+            
+            // attach vivipos.sqlite to use product table.
+            var productModel = new ProductModel();
+            var productDB = productModel.getDataSource().path + '/' + productModel.getDataSource().database;
+            var sql = "ATTACH '" + productDB + "' AS vivipos;";
+            inventoryCommitmentModel.execute( sql );
+            
             var sql =
             	"SELECT " + fields.join( ", " ) + " FROM inventory_commitments ic JOIN inventory_records ir ON ( " +
             	"ic.id = ir.commitment_id ) JOIN products p ON ( ir.product_no = p.no ) WHERE " + conditions +
             	" ORDER BY " + orderby + " LIMIT " + limit + ";";
-            var inventoryCommitmentModel = new InventoryCommitmentModel();
             var records = inventoryCommitmentModel.getDataSource().fetchAll( sql );
             
+            // detach the file.
+            sql = "DETACH vivipos;";
+            inventoryCommitmentModel.execute( sql );
+
             var inventoryCommitments = {};
             var old_id = null;
             var currentCommit;
@@ -59,20 +73,20 @@
                     currentCommit = inventoryCommitments[ id ] = {
                         created: record.created,
                         type: record.type,
+                        clerk: record.clerk,
                         commitment_memo: record.commitment_memo,
                         products: [],
+                        subtotal: record.value * record.price,
                         summary: {
-                            quantity: 0,
-                            new_quantity: 0,
-                            price: 0
+                            value: 0,
+                            subtotal: 0
                         }
                     };
                     old_id = id;
                 }
                 
-                currentCommit.summary.quantity += record.quantity;
-                currentCommit.summary.new_quantity += record.new_quantity;
-                currentCommit.summary.price += record.price || 0;
+                currentCommit.summary.value += record.value;
+                currentCommit.summary.subtotal += record.subtotal;
                     
                 currentCommit.products.push( record );
             } );
@@ -94,8 +108,10 @@
             var end = document.getElementById( 'end_date' ).value;
             
             var type = document.getElementById( 'type' ).value;
+            
+            var warehouse = document.getElementById( 'warehouse' ).value;
 
-            this._setData( start, end, type, limit );
+            this._setData( start, end, type, warehouse, limit );
         },
         
         exportCsv: function() {

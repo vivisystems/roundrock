@@ -24,32 +24,27 @@ function startup() {
 function selectImages() {
 	var no  = $('#product_no').val();
 
-    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
-    var sDstDir = datapath + "/images/original/";
-    if (!sDstDir) sDstDir = '/data/images/original/';
-    sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
+    var sOrigDir = GeckoJS.Session.get('original_directory');
+    var sPluDir = GeckoJS.Session.get('pluimage_directory');
 
-    var sPluDir = datapath + "/images/pluimages/";
-    if (!sPluDir) sPluDir = '/data/images/pluimages/';
-    sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
-    
     var aURL = "chrome://viviecr/content/imageManager.xul";
     var aName = "imagePicker";
 
     var args = {
         pickerMode: true,
-        directory: sDstDir + "",
+        directory: sOrigDir + "",
         result: false,
         file: ""
     };
 
     args.wrappedJSObject = args;
     GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,width=800,height=600", args);
-    
+
+    var aFile;
     if (args.result) {
-        var aFile = args.file;
+        aFile = args.file;
     }else {
-        var aFile = "";
+        aFile = "";
     }
 	var aSrcFile = aFile.replace("file://", "");
 
@@ -57,8 +52,8 @@ function selectImages() {
 	        return false;
 	var aDstFile = sPluDir + no + ".png";
     
-    GREUtils.File.remove(aDstFile);
-	var result = GREUtils.File.copy(aSrcFile, aDstFile);
+    if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
+	GREUtils.File.copy(aSrcFile, aDstFile);
         
     document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
 
@@ -71,14 +66,11 @@ function selectImages() {
 function RemoveImage() {
 	var no  = $('#product_no').val();
 
-    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-    var sPluDir = datapath + "/images/pluimages/";
-    if (!sPluDir) sPluDir = '/data/images/pluimages/';
-    sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+    var sPluDir = GeckoJS.Session.get('pluimage_directory');
     var aDstFile = sPluDir + no + ".png";
 
-	GREUtils.File.remove(aDstFile);
-        document.getElementById('pluimage').setAttribute("src", "");
+	if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
+    document.getElementById('pluimage').setAttribute("src", "");
 
 	return aDstFile;
 };

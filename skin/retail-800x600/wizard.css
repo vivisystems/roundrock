@@ -91,6 +91,15 @@
     font-size: 12pt;
     color: #1d1d1d;
 }
+.wizard-button[disabled=true] {
+    background: #f6f6f6;
+    border: none;
+    -moz-appearance: none;
+    margin: 4px;
+    padding: 8px 6px;
+    font-size: 12pt;
+    color: #bbb;
+}
 .wizard-button image {
     display: none;
 }

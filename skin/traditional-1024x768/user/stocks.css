@@ -1,57 +1,29 @@
-.MainPnl {
-    margin: 18px;
+.PLTable {
+    margin-left: 8px;
 }
-
-.MainL {
-    border-right: 1px solid #c1ab8e;
-    padding: 0 6px 0 2px;
-}
-
-.ToolBar {
-    margin-left: 4px;
-}
-
-.dialogbtns {
-    margin-left: 4px;
-}
-
-.DataForm {
-    margin: 5px 4px 5px 8px;
-}
-
-.RightPnlB {
-    margin: 0px 4px 5px 8px;
-}
-
-
-.DataForm textbox {
-    max-width: 165px;
-}
-
-.plupnl {
-    
-}
-.plupnl vivibutton {
-    margin-right: 4px;
-}
-
-.SubTitle {
-    margin-top: 2px;
-}
-
-/* for Plu Search use*/
 .PLTable textbox {
-    
-    margin: 4px;
+    max-width: 120px;
+    margin: 4px 6px;
 }
-
-#rows_filter row{
-    -moz-box-align: center;
-}
-
-#rows_filter label {
+.PLTable label {
     font-size: 10pt;
     color: #372213;
+}
+
+.pluList tree #sale_unit {
+    text-align: center;
+}
+
+.pluList tree #quantity {
+    text-align: right;
+}
+
+.pluList tree #new_quantity {
+    text-align: right;
+}
+
+.pluList tree #delta {
+    text-align: right;
 }
 
 .errorPanel {

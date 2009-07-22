@@ -1,6 +1,7 @@
 (function(){
 
     GeckoJS.include('chrome://viviecr/content/models/storecontact.js');
+    GeckoJS.include('chrome://viviecr/content/models/stock_record.js');
 
     var __controller__ = {
 
@@ -8,7 +9,8 @@
         
         components: ['Form'],
 
-
+        _old_branch_id: null,
+        
         // load store contact from database into session cache
         initial: function() {
             var terminal_no = "" ;
@@ -104,6 +106,15 @@
                     return false;
                 }
                 formObj.branch_id = branch_id;
+                
+                // update stock_record.
+                if (this._old_branch_id != branch_id) {
+                    var stockRecordModel = new StockRecordModel();
+                    var sql = "UPDATE stock_records SET warehouse = '" + formObj.branch_id + "' WHERE warehouse = '" + this._old_branch_id + "';";
+                    stockRecordModel.execute( sql );
+                    
+                    this._old_branch_id = branch_id;
+                }
             }
             
             var storeContactModel = new StoreContactModel();
@@ -118,19 +129,23 @@
         load: function () {
 
             var terminal_no = GeckoJS.Session.get('terminal_no');
+            var formObj;
             
             var storeContactModel = new StoreContactModel();
-            
+
             if(terminal_no==null || terminal_no==""){
-                var formObj = storeContactModel.find('first' );
+                formObj = storeContactModel.find('first' );
             }else{
-                var formObj = storeContactModel.findByIndex('first', {
+                formObj = storeContactModel.findByIndex('first', {
                                     index: 'terminal_no',
                                     value: terminal_no});
             }
-	    
+	        
+	        this._old_branch_id = "";
+	        
             if (formObj != null) {
                 GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);
+                this._old_branch_id = formObj.branch_id;
             }
             else {
                 GeckoJS.FormHelper.reset('storecontactForm');

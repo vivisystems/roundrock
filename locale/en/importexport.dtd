@@ -6,8 +6,6 @@
 <!ENTITY importexport.tablename "Name">
 <!ENTITY importexport.importfilename "Import File">
 <!ENTITY importexport.exportfilename "Export File">
-<!ENTITY importexport.importwait "Waiting for Import Data...">
-<!ENTITY importexport.exportwait "Waiting for Export Data...">
 <!ENTITY importexport.charsetselector "Charset Selector">
 
 <!ENTITY vivipos.fec.common.ok "Ok">

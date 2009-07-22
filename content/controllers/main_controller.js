@@ -4,6 +4,8 @@
 
         name: 'Main',
 
+        uses: ['Product'],
+
         screenwidth: 800,
         screenheight: 600,
         depPanelView: null,
@@ -26,6 +28,17 @@
             if (firstrun) GeckoJS.Session.set('firstrun', firstrun);
             GeckoJS.Session.set('screenwidth', this.screenwidth);
             GeckoJS.Session.set('screenheight', this.screenheight);
+
+            // initial product image paths
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+            var sPluDir = datapath + "/images/pluimages/";
+            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+
+            var sOrigDir = datapath + "/images/original/";
+            sOrigDir = (sOrigDir + '/').replace(/\/+/g,'/');
+
+            GeckoJS.Session.set('original_directory', sOrigDir);
+            GeckoJS.Session.set('pluimage_directory', sPluDir);
 
             // set up event listener to intercept all controller events
             var self = this;
@@ -357,10 +370,12 @@
             if (searchByTableNo) {
                 aArguments.index = 'table_no';
                 aArguments.criteria = _('(view)search by table number');
+                aArguments.fuzzy = false;
             }
             else {
                 aArguments.index = 'sequence';
                 aArguments.criteria = _('(view)search by order sequence');
+                aArguments.fuzzy = true;
             }
             //this._getKeypadController().clearBuffer();
             this.requestCommand('clearBuffer', null, 'Keypad');
@@ -891,7 +906,7 @@
                                             _('Remove All Transaction Records'),
                                             _('Data will not be recoverable once removed. It is strongly recommended that the system be backed up before truncating transaction records. Proceed with data removal?'))) {
 
-                    var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing all transaction records'), 1000);
+                    var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing all transaction records'), 500);
                     var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                     GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
@@ -941,6 +956,10 @@
                             // dispatch afterTruncateTxnRecords event
                             this.dispatchEvent('afterTruncateTxnRecords', null);
                         }
+
+                        // pack order db
+                        orderModel.execute('VACUUM');
+                        
                     } catch (e) {}
                     finally {
                         GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
@@ -970,7 +989,7 @@
                 var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
-                var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing old data...'), 1000);
+                var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing expired transaction records'), 500);
 
                 try {
                     var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;
@@ -1084,13 +1103,11 @@
         },
 
         wizardTest: function() {
-            //var aURL = 'chrome://viviecr/content/setup_wizard.xul';
             var aURL = 'chrome://viviecr/content/wizard_first.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var aArguments = {initialized: false, restart: false, restarted: false};
 
-            //alert('splash screen');
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, aArguments);
         },
         
@@ -1156,7 +1173,7 @@
                     var pindex = Math.floor(numProds * Math.random());
                     if (pindex >= numProds) pindex = numProds - 1;
                     
-                    var item = products[pindex];
+                    var item = this.Product.getProductById(products[pindex].id);
                     if (item.force_condiment) {
                         item.force_condiment = false;
                     }
@@ -1178,7 +1195,7 @@
 
                 // GC & delay
                 GREUtils.gc();
-                this.sleep(3000 + 5000 * Math.random());
+                this.sleep(1000 + 1000 * Math.random());
             }
 
             waitPanel.hidePopup();

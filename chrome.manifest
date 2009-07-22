@@ -1,13 +1,1 @@
-content viviecr content/ xpcnativewrappers=yes
-
-overlay chrome://vivipos/content/mainUIOverlay.xul chrome://viviecr/content/overlay.xul
-
-skin viviecr traditional-800x600/1.0 skin/traditional-800x600/
-skin viviecr traditional-1024x768/1.0 skin/traditional-1024x768/
-skin viviecr retail-800x600/1.0 skin/retail-800x600/
-skin viviecr retail-1024x768/1.0 skin/retail-1024x768/
-skin viviecr mrpizza-800x600/1.0 skin/mrpizza-800x600/
-skin viviecr mrpizza-1024x768/1.0 skin/mrpizza-1024x768/
-
-locale viviecr en locale/en/
-locale vivipos en locale/en/vivipos/
+chrome.manifest.install

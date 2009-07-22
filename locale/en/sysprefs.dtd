@@ -3,6 +3,7 @@
 <!ENTITY category.layout.general "General">
 <!ENTITY category.layout.panels "Panels">
 <!ENTITY category.layout.toolbar "Toolbar">
+<!ENTITY category.layout.banner "Banner">
 <!ENTITY category.general "General">
 <!ENTITY category.formats "Numbers &amp; Formats">
 <!ENTITY category.login "Sign In/Out">
@@ -35,6 +36,13 @@
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
 <!ENTITY layout.registeratleft "Place register screen on the left">
+<!ENTITY layout.banneratbottom "Place banner at screen bottom">
+<!ENTITY layout.bannerheight "Banner height">
+<!ENTITY layout.addbanner "Add Banner">
+<!ENTITY layout.removebanner "Remove Banner">
+<!ENTITY layout.addphoto "Add Photo">
+<!ENTITY layout.removephoto "Remove Photo">
+<!ENTITY layout.defaultproductphoto "Default Product Photo">
 <!ENTITY layout.productpanelontop "Place product panel on top">
 <!ENTITY layout.checktrackingmode "Show check tracking details">
 <!ENTITY layout.hidesoldoutbuttons "Hide sold-out buttons">

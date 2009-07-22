@@ -16,7 +16,7 @@
             var aURL = 'chrome://viviecr/content/wizard_first.xul';
             var aName = _('VIVIPOS Setup');
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + screenwidth + ',height=' + screenheight;
-            var aArguments = {initialized: false, restart: false, restarted: false, test: 123};
+            var aArguments = {initialized: false, restart: false, restarted: false};
 
             GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
             var aURL = 'chrome://viviecr/content/setup_wizard.xul';

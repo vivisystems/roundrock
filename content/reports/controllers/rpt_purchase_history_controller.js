@@ -11,7 +11,7 @@
         
         _fileName: "rpt_purchase_history",
         
-        _setData: function( start, end, groupCondition, limit ) {
+        _setData: function( start, end, groupCondition, warehouse, limit ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
@@ -23,7 +23,7 @@
                 "ic.supplier",
                 "ir.product_no",
                 "ir.barcode",
-                "( ir.new_quantity - ir.quantity ) AS quantity",
+                "( ir.value ) AS quantity",
                 "ir.price",
                 "p.name"
             ];
@@ -31,17 +31,31 @@
             var conditions = "ic.created >= '" + start +
                 "' AND ic.created <= '" + end + "'" +
                 " AND ic.type = 'procure'";
+                
+            if ( warehouse.length > 0 )
+                conditions += " AND warehouse LIKE '%" + warehouse + "%'";
 
             //var groupby = "ir.product_no, ic.supplier";
 
             var orderby = "ir.product_no, ic.supplier, ic.created DESC";
             
-            var sql =
+            var inventoryCommitmentModel = new InventoryCommitmentModel();
+            
+            // attach vivipos.sqlite to use product table.
+            var productModel = new ProductModel();
+            var productDB = productModel.getDataSource().path + '/' + productModel.getDataSource().database;
+            var sql = "ATTACH '" + productDB + "' AS vivipos;";
+            inventoryCommitmentModel.execute( sql );
+            
+            sql =
             	"SELECT " + fields.join( ", " ) + " FROM inventory_commitments ic JOIN inventory_records ir ON ( " +
             	"ic.id = ir.commitment_id ) JOIN products p ON ( ir.product_no = p.no ) WHERE " + conditions +
             	/*" GROUP BY " + groupby + */" ORDER BY " + orderby + " LIMIT " + limit + ";";
-            var inventoryCommitmentModel = new InventoryCommitmentModel();
             var inventoryRecords = inventoryCommitmentModel.getDataSource().fetchAll( sql );
+            
+            // detach the file.
+            sql = "DETACH vivipos;";
+            inventoryCommitmentModel.execute( sql );
             
             function groupInventoryRecords( condition, object ) {// condition could be 'product' or 'supplier', while object could be products and suppliers.
                 var oldSupplier = null;
@@ -51,7 +65,7 @@
                 var total;
                 var counter;
                 for ( var i = 0; i <= inventoryRecords.length; i++ ) {
-                    record = inventoryRecords[ i ] || {};// the empty object option is for the last record to be pushed into products[ oldProductNo ].records.
+                    var record = inventoryRecords[ i ] || {};// the empty object option is for the last record to be pushed into products[ oldProductNo ].records.
                     record.total = record.price * record.quantity;
                     if ( oldSupplier != record.supplier || oldProductNo != record.product_no ) {
                         if ( i > 0 ) {
@@ -60,20 +74,20 @@
                                 arrayToBePushed = object[ oldProductNo ].records;
                             else if ( condition == "supplier" )
                                 arrayToBePushed = object[ oldSupplier ].records;
-                            arrayToBePushed.push( {
-                                fieldForGroupby: "",
-                                barcode: _( "(rpt)Average Quantity" ),
-                                quantity: averageQuantity / counter,
-                                created: _( "(rpt)Average Price" ),
-                                price: averagePrice / counter,
-                                total: total,
-                                average_line: true
-                            } );
+                                arrayToBePushed.push( {
+                                    fieldForGroupby: "",
+                                    barcode: _( "(rpt)Average Quantity" ),
+                                    quantity: averageQuantity / counter,
+                                    created: _( "(rpt)Average Price" ),
+                                    price: averagePrice / counter,
+                                    total: total,
+                                    average_line: true
+                                } );
                         }
                         
-                        averageQuantity = record.quantity;
-                        averagePrice = record.price;
-                        total = record.total;
+                        averageQuantity = parseFloat(record.quantity);
+                        averagePrice = parseFloat(record.price || 0);
+                        total = parseFloat(record.total);
                         counter = 1;
                         
                         if ( condition == "product" )
@@ -85,9 +99,9 @@
                         oldProductNo = record.product_no;
                     } else {
                         record.fieldForGroupby = "";
-                        averageQuantity += record.quantity;
-                        averagePrice += record.price;
-                        total += record.total;
+                        averageQuantity += parseFloat(record.quantity);
+                        averagePrice += parseFloat(record.price || 0);
+                        total += parseFloat(record.total);
                         counter++;
                     }
                     
@@ -108,7 +122,7 @@
             if ( groupCondition == "product" ) {
                 // prepare product records.
                 var productModel = new ProductModel();
-                var productRecords = productModel.find( "all", { fields: [ "no", "name" ], group: "no" } );
+                var productRecords = productModel.find( "all", { fields: [ "no", "name" ]} );
                 var products = {};
                 
                 productRecords.forEach( function( record ) {
@@ -120,7 +134,7 @@
                 groupInventoryRecords( "product", products );
                 
                 // eliminate the empty elements.
-                for ( product in products ) {
+                for ( var product in products ) {
                     if ( products[ product ].records.length == 0 )
                         delete products[ product ];
                 };
@@ -162,8 +176,10 @@
             var end = document.getElementById( 'end_date' ).value;
             
             var groupby = document.getElementById( 'groupby' ).value;
+            
+            var warehouse = document.getElementById( 'warehouse' ).value;
 
-            this._setData( start, end, groupby, limit );
+            this._setData( start, end, groupby, warehouse, limit );
         },
         
         exportCsv: function() {

@@ -17,12 +17,27 @@
         
         initial: function() {
 
+            //dump('initial Stocks \n');
+
             var self = this;
             
             this.syncSettings = (new SyncSetting()).read();
-            
+
+            this.hostname = this.syncSettings.stock_hostname;
+
+            var hWin = this.showSyncingDialog();
+
             // synchronize mode.
             this.StockRecord.syncAllStockRecords();
+
+            if (hWin) {
+                hWin.close();
+                delete hWin;
+            }
+            
+            if (this.StockRecord.lastStatus != 200) {
+                this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
+            }
 
             this.backgroundSyncing = false;
 
@@ -104,7 +119,7 @@
                     return true;
                 }
 
-                this.log('checkStock: ' + item.name + '('+qty+') , stock = ' + stock);
+                //this.log('checkStock: ' + item.name + '('+qty+') , stock = ' + stock);
 
                 if (action != "addItem") {//modifyItem
                     diff = qty - item.current_qty;
@@ -156,16 +171,17 @@
         decStock: function( obj ) {
            
             var datas = [];
+            var now = Math.ceil(Date.now().getTime()/1000);
 
             try {
 
                 for ( var o in obj.items ) {
                     var ordItem = obj.items[ o ];
-                    //var item = this.Product.findById( ordItem.id );
+                    
                     var item = this.Product.getProductById(ordItem.id);
                     if ( item && item.auto_maintain_stock && !ordItem.stock_maintained ) {
                         
-                        datas.push({id: item.no+'', quantity: ordItem.current_qty});
+                        datas.push({id: item.no+'', quantity: ordItem.current_qty, modified: now});
 
                         // stock had maintained
                         ordItem.stock_maintained = true;
@@ -181,16 +197,109 @@
                     }
                 }
 
-                // only call model once to decrease stock records .
-                if (datas && datas.length > 0)
-                    this.StockRecord.decreaseStockRecords(datas);
+                var decDatas = this.getRecoveryDecDatas(datas);
 
+                // only call model once to decrease stock records .
+                if (decDatas && decDatas.length > 0) {
+
+                    this.StockRecord.decreaseStockRecords(decDatas);
+
+                    if (this.StockRecord.lastStatus != 200) {
+
+                        this._serverError(this.StockRecord.lastReadyState, this.StockRecord.lastStatus, this.hostname);
+
+                        this.saveRecoveryDecDatas(decDatas);
+                        
+                        return false;
+
+                    }else {
+
+                        this.removeRecoveryDecDatas();
+                        return true;
+
+                    }
+
+                }
             } catch ( e ) {
+
                 this.log('ERROR', 'decStock error' +  e );
                 return false;
+                
             } 
             return true;
+        },
+
+        getRecoveryDecDatas: function(datas) {
+
+            var recoveryFile = "/data/databases/backup/stock_dec_queue.js";
+
+            if (!GeckoJS.File.exists(recoveryFile)) return datas;
+
+            var d = GREUtils.JSON.decodeFromFile(recoveryFile);
+            
+            if (d && d.constructor.name == 'Array') {
+                return datas.concat(d);
+            }
+
+            return datas;
+
+        },
+
+        saveRecoveryDecDatas: function(datas) {
+
+            var recoveryFile = "/data/databases/backup/stock_dec_queue.js";
+
+            GREUtils.JSON.encodeToFile(recoveryFile, datas);
+
+            return true;
+
+        },
+
+        removeRecoveryDecDatas: function() {
+
+            var recoveryFile = "/data/databases/backup/stock_dec_queue.js";
+
+            if (GeckoJS.File.exists(recoveryFile)) {
+                GeckoJS.File.remove(recoveryFile);
+            }
+
+            return true;
+
+        },
+
+        showSyncingDialog: function() {
+
+            var width = 450;
+            var height = 160;
+
+            var aURL = 'chrome://viviecr/content/alert_stock_syncing.xul';
+            var aName = _('Stock Syncing');
+            var aArguments = {};
+            var aFeatures = 'chrome,dialog,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
+
+            var win = this.topmostWindow;
+            if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+                win = null;
+
+            var handWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
+
+            return handWin;
+
+
+        },
+
+
+        _serverError: function(state, status, hostname) {
+            this.log('ERROR', 'Stock Server error: ' + state + ' [' +  status + '] at ' + hostname);
+            var win = this.topmostWindow;
+            if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+                win = null;
+            
+            GREUtils.Dialog.alert(win,
+                _('Stock Server Connection Error'),
+                _('Connection to Stock Server Error (%S)',[status])+'\n\n' + _('Please restart the machine, and if the problem persists, please contact technical support immediately.'));
         }
+
     };
     
     GeckoJS.Controller.extend( __controller__ );

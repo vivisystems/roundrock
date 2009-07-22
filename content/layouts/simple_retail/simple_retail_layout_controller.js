@@ -4,10 +4,30 @@
 
         name: 'Layout',
 
-        initial: function() {
+        bannerSrcBase: '',
+        defaultSrcBase: '',
+        bannerImageObj: null,
 
+        initial: function() {
+            
             this.resetLayout(true);
 
+            // update banner image source
+            var bannerImageObj = document.getElementById('bannerImage');
+            if (bannerImageObj) {
+                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/';
+                var sDstDir = datapath + "/images/pluimages/";
+                if (!sDstDir) sDstDir = '/data/images/pluimages/';
+                sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
+
+                this.bannerSrcBase = 'file://' + sDstDir + 'banner.png';
+                this.bannerImageObj = bannerImageObj;
+                
+                this.defaultSrcBase = 'file://' + sDstDir + 'no-photo.png';
+
+                bannerImageObj.src = this.bannerSrcBase;
+            }
+            
             // add event listener for SetClerk event
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
@@ -21,6 +41,14 @@
         },
 
         resizePanels: function (initial) {
+
+            // banner
+            var mainPanel = document.getElementById('mainPanel');
+            var bannerPanelContainer = document.getElementById('bannerPanelContainer');
+
+            // resizing department panel
+            var deptPanel = document.getElementById('catescrollablepanel');
+            
             // resizing function panel
             var fnPanel = document.getElementById('functionpanel');
             var fnPanelContainer = document.getElementById('functionPanelContainer');
@@ -35,12 +63,6 @@
             var departmentButtonHeight = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentButtonHeight');
             if (departmentButtonHeight == null) departmentButtonHeight = 50;
 
-            var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows');
-            if (pluRows == null) pluRows = 4;
-
-            var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
-            if (pluCols == null) pluCols = 4;
-
             var condRows = GeckoJS.Configure.read('vivipos.fec.settings.CondimentRows');
             if (condRows == null) condRows = 7;
 
@@ -53,10 +75,40 @@
             var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
             if (fnCols == null) fnCols = 4;
 
-            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideFPScrollbar');
+            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideFPScrollbar');
+            var showPlugroupsFirst = GeckoJS.Configure.read('vivipos.fec.settings.ShowPlugroupsFirst');
+            var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideDeptScrollbar');
 
-            // not all layout supports fnHeight
-            var fnHeight = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.height') || 200;
+            var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.layout.CropDeptLabel') || false;
+
+            var fnHeight = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.height');
+            if (isNaN(fnHeight)) fnHeight = 200;
+
+            var bannerHeight = GeckoJS.Configure.read('vivipos.fec.settings.layout.simple_retail.BannerHeight');
+            if (isNaN(bannerHeight)) bannerHeight = 50;
+            
+            var bannerAtBottom = GeckoJS.Configure.read('vivipos.fec.settings.layout.simple_retail.BannerAtBottom') || false;
+
+            if (bannerHeight > 0 && bannerPanelContainer) {
+                bannerPanelContainer.setAttribute('hidden', false);
+                bannerPanelContainer.setAttribute('height', bannerHeight);
+
+                bannerPanelContainer.setAttribute('hidden', false);
+                
+                if (mainPanel) mainPanel.setAttribute('dir', bannerAtBottom ? 'reverse' : 'normal');
+                
+                if (this.bannerImageObj && this.bannerSrcBase) {
+                    this.bannerImageObj.src = this.bannerSrcBase + '?' + Math.random();
+                }
+            }
+            else {
+                bannerPanelContainer.setAttribute('hidden', true);
+            }
+
+            var productImagePanelContainer = document.getElementById('productImagePanelContainer');
+            if (productImagePanelContainer && this.defaultSrcBase) {
+                productImagePanelContainer.setAttribute('style', 'overflow: hidden; background: transparent url(' + this.defaultSrcBase + '?' + Math.random() + ') center center no-repeat');
+            }
 
             if (condPanel &&
                 (initial ||
@@ -73,6 +125,36 @@
                     $.popupPanel('selectCondimentPanel', {});
                     $.hidePanel('selectCondimentPanel', {});
                     condPanel.vivibuttonpanel.resizeButtons();// this line bring about an error when initial is true.
+                }
+            }
+
+            if (deptPanel &&
+                (initial ||
+                 (deptPanel.getAttribute('rows') != departmentRows) ||
+                 (deptPanel.getAttribute('cols') != departmentCols) ||
+                 (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
+                 (deptPanel.datasource.plugroupsFirst != showPlugroupsFirst) ||
+                 (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
+                 (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
+                 (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar))) {
+
+                deptPanel.setAttribute('rows', departmentRows);
+                deptPanel.setAttribute('cols', departmentCols);
+                deptPanel.setAttribute('buttonHeight', departmentButtonHeight);
+
+                if (cropDeptLabel) deptPanel.setAttribute('crop', 'end');
+                else deptPanel.removeAttribute('crop');
+
+                if ((departmentRows > 0) && (departmentCols > 0) && (departmentButtonHeight > 0)) {
+                    deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
+                    deptPanel.setAttribute('hidden', false);
+                    deptPanel.initGrid();
+
+                    deptPanel.datasource.refreshView();
+                    deptPanel.vivibuttonpanel.refresh();
+                }
+                else {
+                    deptPanel.setAttribute('hidden', true);
                 }
             }
 
@@ -106,27 +188,31 @@
         resetLayout: function (initial) {
 
             // not any layout templates support it
-            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.RegisterAtLeft') || false;
-            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideTagColumn') || false;
-            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ShowToolbar') || false;
-            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.HideBottomBox') || false;
+            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.RegisterAtLeft') || false;
+            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideTagColumn') || false;
+            var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
+            var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox') || false;
+            var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideSoldOutButtons') || false;
 
-            var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.CheckTrackingMode') || false;
+            var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.layout.CheckTrackingMode') || false;
             
-            var hbox = document.getElementById('mainPanel');
+            var hbox = document.getElementById('mainBody');
             var bottombox = document.getElementById('vivipos-bottombox');
+            var deptPanel = document.getElementById('catescrollablepanel');
             var fnPanel = document.getElementById('functionpanel');
             var fnPanelContainer = document.getElementById('functionPanelContainer');
             var toolbar = document.getElementById('toolbar');
             var cartList = document.getElementById('cartList');
             var checkTrackingStatus = document.getElementById('vivipos_fec_check_tracking_status');
             var promotions_status = document.getElementById('promotions_status');
+            var soldOutCategory = document.getElementById('catescrollablepanel-soldout');
 
             if (hideBottomBox) bottombox.setAttribute('hidden', 'true');
             else bottombox.removeAttribute('hidden');
             
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (promotions_status) promotions_status.promotions_tree.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal')
+            if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanelContainer) fnPanelContainer.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (toolbar) {
@@ -165,6 +251,9 @@
                     cartList.vivitree.initTreecols();
                 }
             }
+            // display sold out buttons
+            if (soldOutCategory) soldOutCategory.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
+            
             this.resizePanels(initial);
         }
 
@@ -176,6 +265,5 @@
     window.addEventListener('load', function() {
         var layout = GeckoJS.Controller.getInstanceByName('Layout');
         if (layout) layout.initial();
-
     }, false);
 })();

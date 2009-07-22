@@ -56,7 +56,10 @@
                     <tabs id="tabs">
                         <tab id="tab1" label="&users.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
                         <tab id="tab2" label="&users.option1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
-                        <tab id="tab3" label="&users.option2;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
+
+                        <!-- @irving hsu 07-20-2009
+                             tab3 functions not yet implemented -->
+                        <!--tab id="tab3" label="&users.option2;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/-->
                     </tabs>
 
                     <tabpanels id="tabpanels" flex="1" >

@@ -278,11 +278,7 @@
                     if (resetSequence && isNewSalePeriod) {
 
                         // get sequence format and length
-                        var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
-                        var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') +
-                                          GeckoJS.String.padLeft('0', sequenceNumberLength, '0');
-
-                        SequenceModel.resetSequence('order_no', parseInt(newSequence));
+                        SequenceModel.resetSequence('order_no', 0);
                     }
                 }
             }
@@ -300,6 +296,9 @@
                                       _('Shift change is disabled in training mode'));
                 return;
             }
+
+            // block UI until DB access is completed
+            this._blockUI('blockui_panel', 'common_wait', _('Saving Order'), 1);
 
             var salePeriod = this._getSalePeriod();
             var shiftNumber = this._getShiftNumber();
@@ -702,6 +701,8 @@
                     giftcardExcess: giftcardExcess,
                     canEndSalePeriod: canEndSalePeriod
                 };
+                
+                this._unblockUI('blockui_panel');
 
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Shift Change'), features, inputObj);
             }
@@ -957,6 +958,30 @@
                 this.requestCommand('view', supplier.id);
                 this._listObj.selectedIndex = index;
             }
+        },
+
+        _blockUI: function(panel, caption, title, sleepTime) {
+
+            sleepTime = typeof sleepTime =='undefined' ?  0 : sleepTime;
+            var waitPanel = document.getElementById(panel);
+            var waitCaption = document.getElementById(caption);
+
+            if (waitCaption) waitCaption.setAttribute("label", title);
+
+            waitPanel.openPopupAtScreen(0, 0);
+
+            if (sleepTime > 0) this.sleep(sleepTime);
+            return waitPanel;
+
+        },
+
+        _unblockUI: function(panel) {
+
+            var waitPanel = document.getElementById(panel);
+
+            waitPanel.hidePopup();
+            return waitPanel;
+
         },
 
         _dbError: function(errno, errstr, errmsg) {

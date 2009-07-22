@@ -68,7 +68,7 @@
                         <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
                     </vbox>
                 </row>
-                <row>
+                <row id="pluPanelFeature" feature="hidden">
                     <label value="&layout.plu.label;"/>
                     <vbox>
                         <label control="plurows" value="&layout.plu.rows;"/>
@@ -120,7 +120,4 @@
         </hbox>
     </prefpane>
 
-    <prefpane id="displaySettingsPane" label="&category.layout.general;" >
-    </prefpane>
-    
 </prefwindow>

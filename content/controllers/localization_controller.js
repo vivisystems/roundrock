@@ -707,7 +707,7 @@
                     selectedEntry = this._list.currentIndex;
                 }
                 if (selectedEntry > -1) {
-                    if (modBtnObj) modBtnObj.removeAttribute('disabled');
+                    if (modBtnObj) modBtnObj.setAttribute('disabled', false);
                     if (workingObj) workingObj.removeAttribute('disabled');
                 }
                 else {
@@ -717,7 +717,7 @@
 
                 // turn on fill button if empty count > 0
                 if (this._currentPkg && this._currentPkg.emptyCount > 0) {
-                    if (fillBtnObj) fillBtnObj.removeAttribute('disabled');
+                    if (fillBtnObj) fillBtnObj.setAttribute('disabled', false);
                 }
                 else {
                     if (fillBtnObj) fillBtnObj.setAttribute('disabled', 'true');
@@ -729,7 +729,7 @@
                 else {
                     if (saveBtnObj) saveBtnObj.setAttribute('hidden', 'true');
                 }
-                if (exportBtnObj) exportBtnObj.removeAttribute('disabled');
+                if (exportBtnObj) exportBtnObj.setAttribute('disabled', false);
             }
         }
     };

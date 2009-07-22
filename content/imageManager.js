@@ -17,9 +17,6 @@
 
             sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
 
-            var aURL = "chrome://viviecr/content/imageManager.xul";
-            var aName = "imagePicker";
-
             var args = {
                 pickerMode: false,
                 directory: sDstDir + "",
@@ -27,7 +24,6 @@
                 file: ""
             };
         }
-
         if (args.pickerMode) {
             // just hide manager panel ?
             $('#managerPanel').hide();
@@ -38,6 +34,11 @@
             });
         }
 
+        // set progressmeter mode to determined
+        var progress = document.getElementById('progress');
+        progress.mode = 'determined';
+        progress.value = 0;
+        
         centerWindowOnScreen();
 
         $do('loadImage', args.directory, 'ImageManager');

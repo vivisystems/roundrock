@@ -9,7 +9,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/stocks.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/stock.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -40,17 +39,20 @@
     <vbox class="main-dialog" flex="1">
         <hbox flex="1" class="MainPnl">
             <vbox flex="1"  class="MainL">
-                <caption label="&stockrecords.title;"  class="PageTitle" />
-                <vbox pack="start" flex="1" class="LeftPnl">
+                <hbox>
+                    <caption label="&stockrecords.title;" class="PageTitle" /> -
+                    <caption id="adjustment_type" label="" class="PageTitle" />
+                </hbox>
+                <vbox pack="start" flex="1">
                     <vivitree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true"
-                                        headers="&stockrecords.header.no;,&stockrecords.header.product;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.qtydifference;"
-                                        fields="product_no,product_name,quantity,new_quantity,qty_difference"
-                                        onclick="$do('select',this.selectedIndex, 'StockRecords');"
-                                        class="plupnl ListPnl showscrollbar"
-                                        scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" />
+                              headers="&stockrecords.header.no;,&stockrecords.header.product;,&stockrecords.header.saleunit;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.qtydifference;"
+                              fields="product_no,product_name,sale_unit,quantity,new_quantity,delta"
+                              onclick="$do('select',this.selectedIndex, 'StockRecords');"
+                              class="pluList ListPnl showscrollbar"
+                              scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" />
                     <hbox>
 		                <checkbox id="show_low_stock" value="false" label="&stockrecords.show.low.only;" oncommand="$do('clickLowStock', null, 'StockRecords');" />
-		                <checkbox id="show_qty_diff" value="false" label="&stockrecords.show.qty.different;" oncommand="$do('clickQtyDiff', null, 'StockRecords');" />
+		                <checkbox id="show_delta" value="false" label="&stockrecords.show.qty.different;" oncommand="$do('clickQtyDiff', null, 'StockRecords');" />
 		                <checkbox id="show_maintained_ones" value="false" label="&stockrecords.show.stockmaintainones;" oncommand="$do('clickMaintainedOnes', null, 'StockRecords');" />
 		            </hbox>
                 </vbox>
@@ -84,12 +86,12 @@
                             </row>
                             <row>
                                 <vbox>
-                                    <label value="&stockrecords.label.newquantity;" control="newquantity"/>
+                                    <label id="qtytype" value="" control="newquantity"/>
                                     <vivitextbox id="new_quantity" value="" form="productForm" name="new_quantity" maxsize="6"
                                          oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
                                          numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
                                 </vbox>
-                                <vbox>
+                                <vbox id="price_container" hidden="true">
                                     <label value="&stockrecords.label.price;" control="price"/>
                                     <vivitextbox id="price" value="" form="productForm" name="price" maxsize="6"
                                          oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
@@ -112,15 +114,16 @@
                         </rows>
                     </grid>
                 </vbox>
-                <hbox>
-		            <hbox class="ToolBar" flex="1">
+                <spacer height="5px"/>
+                <hbox pack="end">
+		            <hbox id="toolbar" class="ToolBar" flex="1">
 	                    <hbox flex="1">
 	                    	<button id="modify_stock" label="&stockrecords.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyStock', null, 'StockRecords');" />
-	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" class="BtnMod" oncommand="$do('importRecords', null, 'StockRecords');" />
+	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" disabled="false" class="BtnMod" oncommand="$do('importRecords', null, 'StockRecords');" />
 	                    </hbox>
 	                    <hbox flex="0">
 	                    	<button id="commitchanges" label="&stockrecords.button.action.commitchanges;" disabled="false" class="BtnMod" oncommand="$do('commitChanges', null, 'StockRecords');" />
-	                    	<button id="reset" label="&stockrecords.button.action.reset;" disabled="false" class="BtnMod" oncommand="$do('reset', null, 'StockRecords');" />
+	                    	<button id="reset" label="&stockrecords.button.action.reset;" hidden="true" disabled="false" class="BtnMod" oncommand="$do('reset', null, 'StockRecords');" />
 		            	</hbox>
 		            </hbox>
 		            <hbox flex="0" id="dialogButtons" class="dialogbtns" pack="end">
@@ -140,7 +143,7 @@
                     <label value="&stockrecords.import.errors.desc;"/>
                     <vivitree id="errorscrollablepanel" flex="1" rows="10"
                               headers="&stockrecords.import.line;,&stockrecords.import.prodno;"
-                              fields="line,no" hidecolumnpicker="true"
+                              fields="line,no"
                               class="ListPnl showscrollbar"
                               />
                 </vbox>

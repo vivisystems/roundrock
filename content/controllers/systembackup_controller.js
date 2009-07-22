@@ -149,8 +149,8 @@
             // GeckoJS.Observer.notify(null, 'prepare-to-quit', this);
         },
 
-        _showWaitPanel: function(panel) {
-            var waitPanel = document.getElementById(panel);
+        _showWaitPanel: function(message) {
+            var waitPanel = document.getElementById('wait_panel');
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
             waitPanel.sizeTo(360, 120);
@@ -158,15 +158,18 @@
             var y = (height - 240) / 2;
             waitPanel.openPopupAtScreen(x, y);
 
+            var caption = document.getElementById( 'wait_caption' );
+            caption.label = message;
+            
             // release CPU for progressbar ...
-            this.sleep(1500);
+            this.sleep(500);
             return waitPanel;
         },
 
         backupToLocal: function() {
             if (this._busy) return;
             this._busy = true;
-            var waitPanel = this._showWaitPanel('backup_wait_panel');
+            var waitPanel = this._showWaitPanel(_('Backing Up Data to Local Storage'));
             this.setButtonState();
 
             if (this.execute(this._scriptPath + "backup.sh", '')) {
@@ -187,7 +190,7 @@
                 return;
             }
             this._busy = true;
-            var waitPanel = this._showWaitPanel('backup_wait_panel');
+            var waitPanel = this._showWaitPanel(_('Copying Backup Data to External Storage'));
             this.setButtonState();
 
             var localObj = this.getListObjLocalBackup();
@@ -205,7 +208,7 @@
                     NotifyUtils.info(_('<Copy Backup to Stick> is done!!'));
                 }
             } else {
-                NotifyUtils.info(_('Must select a item from local backup list.'));
+                NotifyUtils.info(_('Please select a local backup first'));
             }
 
             this.load();
@@ -217,7 +220,7 @@
         restoreFromLocal: function() {
             if (this._busy) return;
             this._busy = true;
-            var waitPanel = this._showWaitPanel('restore_wait_panel');
+            var waitPanel = this._showWaitPanel(_('Restoring Data from Local Backup'));
             this.setButtonState();
 
             var localObj = this.getListObjLocalBackup();
@@ -242,7 +245,7 @@
                     }
                 }
             } else {
-                NotifyUtils.info(_('Must select a item from local backup list.'));
+                NotifyUtils.info(_('Please select an external backup to restore from'));
             }
 
             this._busy = false;
@@ -258,7 +261,7 @@
             }
 
             this._busy = true;
-            var waitPanel = this._showWaitPanel('restore_wait_panel');
+            var waitPanel = this._showWaitPanel(_('Restoring Data from External Backup'));
             this.setButtonState();
 
             var stickObj = this.getListObjStickBackup();
@@ -284,7 +287,7 @@
                     }
                 }
             } else {
-                NotifyUtils.info(_('Must select a item from stick list.'));
+                NotifyUtils.info(_('Please select a local backup to restore from'));
             }
 
             this._busy = false;

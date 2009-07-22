@@ -6,12 +6,15 @@
 
         uses: ['Product'],
 
+        _sPluDir: null,
         _cartController: null,
         _cartTreeList: null,
         _image: null,
 
         initial: function() {
             var self = this;
+
+            this._sPluDir = GeckoJS.Session.get('pluimage_directory');
             
             var cartController = this._cartController = GeckoJS.Controller.getInstanceByName('Cart');
             var cartTreeList = this._cartTreeList = document.getElementById('cartList');
@@ -30,19 +33,21 @@
                     self.updateImage(-1);
                 });
             }
-
         },
 
         updateImage: function(index) {
-
+            
             var image = this._image = document.getElementById('productImage');
-            var defaultImage = image.getAttribute('defaultImage');
             
+            var imageContainer = document.getElementById('productImagePanelContainer');
+
+            var boxWidth = $(imageContainer).css('width').replace('px','');//.boxObject.width;
+            var boxHeight = $(imageContainer).css('height').replace('px','');//.boxObject.height;
+            if (boxHeight == 0) boxHeight = boxWidth ;  // xul bug ?
+
             var imageSrc = '';
-            
-            if (index == -1) {
-                image.src = null;
-            }
+            var item;
+            var img ;
 
             var curTransaction = GeckoJS.Session.get('current_transaction');
 
@@ -50,51 +55,79 @@
 
                 var itemObj = curTransaction.getItemAt(index);
                 if (itemObj) {
-                    var itemId = itemObj.id ;
+                    item = this.Product.getProductById(itemObj.id);
 
-                    var item = this.Product.getProductById(itemId);
+                }
+            }
+            imageSrc = this.getImageUrl(item);
+            
+            if (imageSrc.length >0) {
+                // image.src = 'file://' + imageSrc;
+                // image.setAttribute('style', 'background: transparent url(file://' + imageSrc + ') center center no-repeat');
 
-                    if (!itemId || !item) {
-                        imageSrc = '';
-                    }else {
-                        imageSrc = this.getImageUrl(item);
+                // use Image object and onload to resize image.
+                img = new Image();
+                img.onload = function() {
+                    var imgWidth = img.width;
+                    var imgHeight = img.height;
+
+                    var wRatio = boxWidth / img.width;
+                    var hRatio = boxHeight / img.height;
+                    var maxRatio = (wRatio >= hRatio) ? hRatio : wRatio;
+
+                    if (maxRatio < 1) {
+                        imgWidth = Math.floor(img.width*maxRatio);
+                        imgHeight = Math.floor(img.height*maxRatio);
+
                     }
-                }
 
-                if (imageSrc.length >0) {
-                    //image.src = 'file://' + imageSrc;
-                    image.setAttribute('style', 'background: transparent url(file://' + imageSrc + ') center center no-repeat');
-                }else {
-                    //image.src = defaultImage;
-                    image.removeAttribute('style');
+                    //$(image).css({width: imgWidth, height: imgHeight, 'max-width': imgWidth, 'max-height': imgHeight});
+                    image.style.width = imgWidth + 'px';
+                    image.style.height = imgHeight + 'px';
+//                        image.style['max-width'] = imgWidth + 'px';
+//                        image.style['max-height'] = imgHeight + 'px';
+
+                    image.src = 'file://' + imageSrc + '?' + Math.random();
+
                 }
+                img.src = 'file://' + imageSrc;
+                imageContainer.setAttribute('style', 'overflow: hidden');
+
+            }else {
+                //image.src = defaultImage;
+                //image.removeAttribute('style');
+                image.style.width = boxWidth + 'px';
+                image.style.height = boxHeight + 'px';
+//                    image.style['max-width'] = boxWidth + 'px';
+//                    image.style['max-height'] = boxHeight + 'px';
+                image.src = null;
+                var noPhotoImg = 'file://' + this._sPluDir + 'no-photo.png?' + Math.random();
+                imageContainer.setAttribute('style', 'overflow: hidden; background: transparent url(' + noPhotoImg + ') center center no-repeat');
             }
         },
 
         getImageUrl: function(item) {
-            
+
             var cachedKey = 'pluimages' ;
             var aDstFile = '';
 
-            if (item[cachedKey] === false ) {
-                aDstFile = '' ;
-            }else if (item[cachedKey]) {
-                aDstFile = item[cachedKey];
-            }else {
-
-                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-                var sPluDir = datapath + "/images/pluimages/";
-                if (!sPluDir) sPluDir = '/data/images/pluimages/';
-                sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
-                aDstFile = sPluDir + item.no + ".png";
-                
-                if (GREUtils.File.exists(aDstFile)) {
-                    item[cachedKey] = aDstFile ;
+            if (item) {
+                if (item[cachedKey] === false ) {
+                    aDstFile = '' ;
+                }else if (item[cachedKey]) {
+                    aDstFile = item[cachedKey];
                 }else {
-                    item[cachedKey] = false ;
-                    aDstFile = '';
+                    aDstFile = this._sPluDir + item.no + ".png";
+
+                    if (GREUtils.File.exists(aDstFile)) {
+                        item[cachedKey] = aDstFile ;
+                    }else {
+                        item[cachedKey] = false ;
+                        aDstFile = '';
+                    }
                 }
             }
+
             
             return aDstFile;
             
@@ -106,7 +139,6 @@
             if(cartTreeList) {
 
                 cartTreeList.removeEventListener('select', function(evt){
-                    alert(evt.selectedIndex);
                 }, true);
 
             }

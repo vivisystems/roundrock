@@ -29,20 +29,29 @@
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
 
-            var displayPane = document.getElementById('displaySettingsPane');
+            //var displayPane = document.getElementById('displaySettingsPane');
 
-            if (displayPane) {
-
-                var prefsOverlayUri = 'chrome://viviecr/content/layouts/traditional/traditionalPrefs.xul'
-                if (layouts[selectedLayout]) {
-                    prefsOverlayUri = layouts[selectedLayout]['prefs_overlay_uri'] || prefsOverlayUri;
+            var observer = {
+                observe : function (subject, topic, data) {
+                    if (topic == 'xul-overlay-merged') {
+                        // each layout preference overlay may specify its own startup function
+                        if (typeof prefs_overlay_startup == 'function') {
+                            prefs_overlay_startup();
+                        }
+                    }
                 }
-                displayPane.src = prefsOverlayUri;
+            };
 
-                // always start on first pane to avoid XUL bug where displayPane is not rendered
-                var firstPane = document.getElementById('panelSettingsPane');
-                if (firstPane && prefwin) prefwin.showPane(firstPane);
+            var prefsOverlayUri = 'chrome://viviecr/content/layouts/traditional/traditional_prefs.xul'
+            if (layouts[selectedLayout]) {
+                prefsOverlayUri = layouts[selectedLayout]['prefs_overlay_uri'] || prefsOverlayUri;
             }
+            document.loadOverlay(prefsOverlayUri, observer);
+            //displayPane.src = prefsOverlayUri;
+
+            // always start on first pane to avoid XUL bug where displayPane is not rendered
+            var firstPane = document.getElementById('panelSettingsPane');
+            if (firstPane && prefwin) prefwin.showPane(firstPane);
 
             var rbObj = this.getRichlistbox();
 

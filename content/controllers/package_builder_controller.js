@@ -302,7 +302,7 @@
                 sector && this.isAlphaNumeric(sector) &&
                 resolutions && resolutions.length > 0 &&
                 translationExists && enExists) {
-                exportBtn.removeAttribute('disabled')
+                exportBtn.setAttribute('disabled', false)
             }
             else {
                 exportBtn.setAttribute('disabled', true)

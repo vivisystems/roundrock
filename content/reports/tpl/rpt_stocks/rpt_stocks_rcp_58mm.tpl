@@ -20,8 +20,12 @@ ${_( '(rpt)Product Name' ) + ':'}
 ${plu.name|right:24}
 ${_( '(rpt)Stock Level' ) + ':'}
 ${plu.stock|right:24}
-${_( '(rpt)Low Stock Threshold' ) + ':'}
+${_( '(rpt)Low Watermark' ) + ':'}
 ${plu.min_stock|right:24}
+${_( '(rpt)High Watermark' ) + ':'}
+${plu.max_stock|right:24}
+${_( '(rpt)Recommended Purchase Quantity' ) + ':'}
+${plu.max_stock - plu.stock|right:24}
 {/for}
 ------------------------
 ${_( '(rpt)Records Found' ) + ':'|left:16}${category.plu.length|format:0|right:8}

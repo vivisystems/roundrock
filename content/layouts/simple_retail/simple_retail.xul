@@ -8,11 +8,12 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/visible_promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/bannerOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay2.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
 
-<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/vfdPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/cartlistPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/functionPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/input_line_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/product_image_overlay.xul" ?>
 
 <overlay id="simpleRetailLayoutOverlay"
@@ -24,25 +25,30 @@
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="mainpanel block-ge" orient="horizontal">
+        <box id="mainPanel" flex="1" class="mainpanel" orient="vertical" dir="normal">
 
-            <box id="leftPanel" flex="0" class="rightPanel block-u" orient="vertical">
-                <box id="productImagePanelContainer" flex="1" class="roundedContainerBorder"/>
-                <box flex="0" orient="vertical" class="roundedContainerBorder">
-                    <box id="functionPanelContainer" flex="0"/>
+            <box id="bannerPanelContainer" flex="0" orient="horizontal"/>
+            <box id="mainBody" flex="1" orient="horizontal">
+                <box id="leftPanel" flex="0" class="leftPanel" orient="vertical">
+                    <box id="productImagePanelContainer" flex="1" class="roundedContainerBorder"/>
+                    <box flex="0" orient="vertical" class="roundedContainerBorder">
+                        <box id="categoryPanelContainer" flex="0" />
+                    </box>
+                    <box flex="0" orient="vertical" class="roundedContainerBorder">
+                        <box id="functionPanelContainer" flex="0"/>
+                    </box>
                 </box>
+
+                <spacer id="panelSpacer" flex="1"/>
+
+                <vbox id="rightPanel" flex="0" style="overflow: hidden" orient="vertical" class="rightPanel">
+                    <box id="vfdPanelContainer" flex="0" class="roundedContainerBorder"/>
+                    <box id="cartlistPanelContainer" flex="1" class="roundedContainerBorder"/>
+                    <box id="inputLinePanelContainer" flex="0" class="roundedContainerBorder"/>
+                    <box id="visiblePromotionsStatusPanelContainer" flex="0" class="roundedContainerBorder"/>
+                </vbox>
+                <box id="productPanelContainer" flex="1" style="display: none;"/>
             </box>
-
-            <spacer id="panelSpacer" flex="1"/>
-
-            <vbox id="rightPanel" flex="0" style="overflow: hidden" orient="vertical" class="leftPanel block-u first">
-                <box id="cartlistPanelContainer" flex="1" class="roundedContainerBorder"/>
-                <box id="vfdPanelContainer" flex="0" class="roundedContainerBorder"/>
-                <box id="inputLinePanelContainer" flex="0" class="roundedContainerBorder"/>
-                <box id="visiblePromotionsStatusPanelContainer" flex="0" class="roundedContainerBorder"/>
-            </vbox>
-            <box id="categoryPanelContainer" flex="0" style="display: none;"/>
-            <box id="productPanelContainer" flex="1" style="display: none;"/>
         </box>
 
     </box>

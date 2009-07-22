@@ -349,8 +349,6 @@
                         (txn.data.status != 1 && txn.isClosed())) {
                         this.printReceipts(evt.data, null, 'submit');
                     }
-                    // allow UI to catch up
-                    this.sleep(100);
 
                     // check if checks need to be printed
                     if (txn.data.batchItemCount > 0) {
@@ -367,10 +365,6 @@
 
             // clear dashboard settings
             this.resetDashboardSettings();
-
-            // @hack
-            // sleep to allow UI to catch up
-            this.sleep(100);
         },
 
         // handle store order events
@@ -382,10 +376,6 @@
                 if (txn.data.batchPaymentCount > 0 || txn.data.closed)
                     this.printReceipts(evt.data, null, 'store');
 
-                // @hack
-                // sleep to allow UI to catch up
-                this.sleep(100);
-
                 // check if checks need to be printed
                 if (txn.data.batchItemCount > 0)
                     this.printChecks(evt.data, null, 'store');
@@ -395,10 +385,6 @@
             }
             // clear dashboard settings
             this.resetDashboardSettings();
-
-            // @hack
-            // sleep to allow UI to catch up
-            this.sleep(100);
         },
 
         resetDashboardSettings: function() {

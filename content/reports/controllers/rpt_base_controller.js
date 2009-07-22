@@ -72,8 +72,6 @@
             progressBar.setAttribute( 'id', this._progress_bar_id );
             progressBox.appendChild( progressBar );
             
-            // sleep a while so that the actions above will have enough time to accomplish?
-            this.sleep( 100 );
             waitPanel.openPopupAtScreen( x, y );
 
             // release CPU for progressbar to show up.
@@ -158,11 +156,14 @@
                 doc.innerHTML = result;
 
                 // adjust the size of paper if the content will protrude the border of the paper.
-                
-                var bodytable =  bw.contentWindow.document.getElementById( this._body_table );
-                var bodydiv = bw.contentWindow.document.getElementById( this._div_id );
-                if ( bodydiv.scrollWidth < bodytable.scrollWidth + 40 )
-                   bodydiv.style.width = bodytable.scrollWidth + 40;
+                var bwDocument = bw.contentWindow.document;
+                var bodydiv = bwDocument.getElementById( this._div_id );
+                var tables = bodydiv.getElementsByTagName( "table" );
+                for ( var i = 0; i < tables.length; i++ ) {
+                    var table = tables[ i ];
+                    if ( table.id == this._body_table && bodydiv.scrollWidth < table.scrollWidth + 40 )
+                        bodydiv.style.width = table.scrollWidth + 40;
+                }
             } catch( e ) {}
 
         },
@@ -444,12 +445,14 @@
             return s.replace( re, '\'\'' );
         },
 	    
-        _openOrderDialogByKey: function( key, value ) {
+        _openOrderDialogByID: function( id ) {
             var aURL = 'chrome://viviecr/content/view_order.xul';
             var aName = _( 'Order Details' );
             var aArguments = {
-                index: key,
-                value: value
+                orders: [ {
+                    id: id
+                } ],
+                position: 0
             };
             var posX = 0;
             var posY = 0;
@@ -471,15 +474,14 @@
 		 * Be sure that the id attribue of <tr> indicating the order id is set to be somthing like <tr id="${orders.id}">.
 		 * In addition, the id of most outter div element must be 'docbody'.
 		 */
-        _registerOpenOrderDialog: function( key ) {
+        _registerOpenOrderDialog: function() {
             var div = document.getElementById( this._preview_frame_id ).contentWindow.document.getElementById( this._div_id );
         	
             var self = this;
-            if (!key) key = 'id';
             if ( div ) {
                 div.addEventListener( 'click', function( event ) {
                     if ( event.originalTarget.parentNode.id && event.originalTarget.parentNode.tagName == 'TR' )
-                        self._openOrderDialogByKey( key, event.originalTarget.parentNode.id );
+                        self._openOrderDialogByID( event.originalTarget.parentNode.id );
                 }, true );
             }
         },

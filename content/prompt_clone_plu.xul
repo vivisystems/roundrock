@@ -58,7 +58,7 @@
 
                 <viviscrollabletree id="targetscrollablepanel" flex="1" class="ListPnl"
                                     headers="&cloneplu.target.name;"
-                                    fields="name" hidecolumnpicker="true" seltype="multiple"
+                                    fields="name" seltype="multiple" hidecolumnpicker="true"
                                     oncommand="if (event.mode) this.selection.selectAll(); else this.selection.clearSelection()"
                                     onselect="$('#ok')[0].setAttribute('disabled', this.selectedItems.length == 0)"
                                     scrollUpClass="ScrollUp"

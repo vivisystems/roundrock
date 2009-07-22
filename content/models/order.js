@@ -514,202 +514,132 @@
 
         removeOrders: function(conditions) {
             // use execute sql statement to prevent sync...
-            var self = this;
 
-            var r;
-            try {
-                var datas = this.find( 'all', {
-                    fields: ['id'],
-                    conditions: conditions,
-                    recursive: -1
-                } );
+            // use transaction to improve performance
+            if (!this.begin()) {
+                this.log('ERROR', 'An error was encountered while preparing to remove expired orders (error code ' + this.lastError + '): ' + this.lastErrorString);
+                return false;
+            }
+            else {
+                try {
+                    
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
 
-                if (parseInt(this.lastError) != 0) {
-                    throw {errno: this.lastError,
-                           errstr: this.lastErrorString,
-                           errmsg: 'An error was encountered while removing orders (error code ' + this.lastError + '): ' + this.lastErrorString
-                    }
-                }
-
-                datas.forEach(function(obj) {
-                    var iid = obj.id;
-                    var cond = "order_id='" + iid + "'";
-
-                    // order items
-                    r = self.OrderItem.restoreFromBackup();
-                    if (r) {
-                        r = self.OrderItem.execute("DELETE FROM " + self.OrderItem.table + " WHERE " + cond);
-                        if (!r) {
-                            throw {errno: self.OrderItem.lastError,
-                                   errstr: self.OrderItem.lastErrorString,
-                                   errmsg: 'An error was encountered while removing order items (error code ' + self.OrderItem.lastError + '): ' + self.OrderItem.lastErrorString
-                            }
+                    if (!this.execute("DELETE FROM " + this.table + " WHERE " + conditions)) {
+                        throw {errno: this.lastError,
+                               errstr: this.lastErrorString,
+                               errmsg: 'An error was encountered while removing orders (error code ' + this.lastError + '): ' + this.lastErrorString
                         }
                     }
-                    else {
-                            throw {errno: self.OrderItem.lastError,
-                                   errstr: self.OrderItem.lastErrorString,
-                                   errmsg: 'An error was encountered while removing backup order items (error code ' + self.OrderItem.lastError + '): ' + self.OrderItem.lastErrorString
-                            }
-                    }
-
-                    // order item condiments
-                    r = self.OrderItemCondiment.restoreFromBackup();
-                    if (r) {
-                        r = self.OrderItemCondiment.execute("DELETE FROM " + self.OrderItemCondiment.table + " WHERE " + cond);
-                        if (!r) {
-                            throw {errno: self.OrderItemCondiment.lastError,
-                                   errstr: self.OrderItemCondiment.lastErrorString,
-                                   errmsg: 'An error was encountered while removing order items (error code ' + self.OrderItemCondiment.lastError + '): ' + self.OrderItemCondiment.lastErrorString
-                            }
-                        }
-                    }
-                    else {
-                            throw {errno: self.OrderItemCondiment.lastError,
-                                   errstr: self.OrderItemCondiment.lastErrorString,
-                                   errmsg: 'An error was encountered while removing backup order items (error code ' + self.OrderItemCondiment.lastError + '): ' + self.OrderItemCondiment.lastErrorString
-                            }
-                    }
-
-                    // order additions
-                    r = self.OrderAddition.restoreFromBackup();
-                    if (r) {
-                        r = self.OrderAddition.execute("DELETE FROM " + self.OrderAddition.table + " WHERE " + cond);
-                        if (!r) {
-                            throw {errno: self.OrderAddition.lastError,
-                                   errstr: self.OrderAddition.lastErrorString,
-                                   errmsg: 'An error was encountered while removing order additons (error code ' + self.OrderAddition.lastError + '): ' + self.OrderAddition.lastErrorString
-                            }
-                        }
-                    }
-                    else {
-                            throw {errno: self.OrderAddition.lastError,
-                                   errstr: self.OrderAddition.lastErrorString,
-                                   errmsg: 'An error was encountered while removing backup order additions (error code ' + self.OrderAddition.lastError + '): ' + self.OrderAddition.lastErrorString
-                            }
-                    }
-
-                    // order annotations
-                    r = self.OrderAnnotation.restoreFromBackup();
-                    if (r) {
-                        r = self.OrderAnnotation.execute("DELETE FROM " + self.OrderAnnotation.table + " WHERE " + cond);
-                        if (!r) {
-                            throw {errno: self.OrderAnnotation.lastError,
-                                   errstr: self.OrderAnnotation.lastErrorString,
-                                   errmsg: 'An error was encountered while removing order annotations (error code ' + self.OrderAnnotation.lastError + '): ' + self.OrderAnnotation.lastErrorString
-                            }
-                        }
-                    }
-                    else {
-                            throw {errno: self.OrderAnnotation.lastError,
-                                   errstr: self.OrderAnnotation.lastErrorString,
-                                   errmsg: 'An error was encountered while removing backup order annotations (error code ' + self.OrderAnnotation.lastError + '): ' + self.OrderAnnotation.lastErrorString
-                            }
-                    }
-
-                    // order objects
-                    r = self.OrderObject.restoreFromBackup();
-                    if (r) {
-                        r = self.OrderObject.execute("DELETE FROM " + self.OrderObject.table + " WHERE " + cond);
-                        if (!r) {
-                            throw {errno: self.OrderObject.lastError,
-                                   errstr: self.OrderObject.lastErrorString,
-                                   errmsg: 'An error was encountered while removing order objects (error code ' + self.OrderAddition.lastError + '): ' + self.OrderAddition.lastErrorString
-                            }
-                        }
-                    }
-                    else {
-                            throw {errno: self.OrderObject.lastError,
-                                   errstr: self.OrderObject.lastErrorString,
-                                   errmsg: 'An error was encountered while removing backup order objects (error code ' + self.OrderObject.lastError + '): ' + self.OrderObject.lastErrorString
-                            }
-                    }
-
-                    // order payments
-                    r = self.OrderPayment.restoreFromBackup();
-                    if (r) {
-                        r = self.OrderPayment.execute("DELETE FROM " + self.OrderPayment.table + " WHERE " + cond);
-                        if (!r) {
-                            throw {errno: self.OrderPayment.lastError,
-                                   errstr: self.OrderPayment.lastErrorString,
-                                   errmsg: 'An error was encountered while removing order payments (error code ' + self.OrderPayment.lastError + '): ' + self.OrderPayment.lastErrorString
-                            }
-                        }
-                    }
-                    else {
-                            throw {errno: self.OrderPayment.lastError,
-                                   errstr: self.OrderPayment.lastErrorString,
-                                   errmsg: 'An error was encountered while removing backup order payments (error code ' + self.OrderPayment.lastError + '): ' + self.OrderPayment.lastErrorString
-                            }
-                    }
-
-                    // order receipts
-                    r = self.OrderReceipt.restoreFromBackup();
-                    if (r) {
-                        r = self.OrderReceipt.execute("DELETE FROM " + self.OrderReceipt.table + " WHERE " + cond);
-                        if (!r) {
-                            throw {errno: self.OrderReceipt.lastError,
-                                   errstr: self.OrderReceipt.lastErrorString,
-                                   errmsg: 'An error was encountered while removing order receipts (error code ' + self.OrderReceipt.lastError + '): ' + self.OrderReceipt.lastErrorString
-                            }
-                        }
-                    }
-                    else {
-                            throw {errno: self.OrderReceipt.lastError,
-                                   errstr: self.OrderReceipt.lastErrorString,
-                                   errmsg: 'An error was encountered while removing backup order receipts (error code ' + self.OrderReceipt.lastError + '): ' + self.OrderReceipt.lastErrorString
-                            }
-                    }
-
-                    // order promotions
-                    r = self.OrderPromotion.restoreFromBackup();
-                    if (r) {
-                        r = self.OrderPromotion.execute("DELETE FROM " + self.OrderPromotion.table + " WHERE " + cond);
-                        if (!r) {
-                            throw {errno: self.OrderPromotion.lastError,
-                                   errstr: self.OrderPromotion.lastErrorString,
-                                   errmsg: 'An error was encountered while removing order promotions (error code ' + self.OrderPromotion.lastError + '): ' + self.OrderPromotion.lastErrorString
-                            }
-                        }
-                    }
-                    else {
-                            throw {errno: self.OrderPromotion.lastError,
-                                   errstr: self.OrderPromotion.lastErrorString,
-                                   errmsg: 'An error was encountered while removing backup order promotions (error code ' + self.OrderPromotion.lastError + '): ' + self.OrderPromotion.lastErrorString
-                            }
-                    }
-
 
                     // update progressbar...
                     GeckoJS.BaseObject.sleep(50);
 
-                });
-
-                r = this.restoreFromBackup();
-                if (r) {
-                    r = this.execute("DELETE FROM " + this.table + " WHERE " + conditions);
-                    if (!r) {
-                        throw {errno: this.lastError,
-                               errstr: this.lastErrorString,
-                               errmsg: 'An error was encountered while removing order promotions (error code ' + this.lastError + '): ' + this.lastErrorString
+                    // order items
+                    if (!this.OrderItem.execute("DELETE FROM " + this.OrderItem.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ITEMS.order_id)")) {
+                        throw {errno: this.OrderItem.lastError,
+                               errstr: this.OrderItem.lastErrorString,
+                               errmsg: 'An error was encountered while removing order items (error code ' + this.OrderItem.lastError + '): ' + this.OrderItem.lastErrorString
                         }
                     }
-                }
-                else {
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order item condiments
+                    if (!this.OrderItemCondiment.execute("DELETE FROM " + this.OrderItemCondiment.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ITEM_CONDIMENTS.order_id)")) {
+                        throw {errno: this.OrderItemCondiment.lastError,
+                               errstr: this.OrderItemCondiment.lastErrorString,
+                               errmsg: 'An error was encountered while removing order items (error code ' + this.OrderItemCondiment.lastError + '): ' + this.OrderItemCondiment.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order additions
+                    if (!this.OrderAddition.execute("DELETE FROM " + this.OrderAddition.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ADDITIONS.order_id)")) {
+                        throw {errno: this.OrderAddition.lastError,
+                               errstr: this.OrderAddition.lastErrorString,
+                               errmsg: 'An error was encountered while removing order additons (error code ' + this.OrderAddition.lastError + '): ' + this.OrderAddition.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order annotations
+                    if (!this.OrderAnnotation.execute("DELETE FROM " + this.OrderAnnotation.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_ANNOTATIONS.order_id)")) {
+                        throw {errno: this.OrderAnnotation.lastError,
+                               errstr: this.OrderAnnotation.lastErrorString,
+                               errmsg: 'An error was encountered while removing order annotations (error code ' + this.OrderAnnotation.lastError + '): ' + this.OrderAnnotation.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order objects
+                    if (!this.OrderObject.execute("DELETE FROM " + this.OrderObject.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_OBJECTS.order_id)")) {
+                        throw {errno: this.OrderObject.lastError,
+                               errstr: this.OrderObject.lastErrorString,
+                               errmsg: 'An error was encountered while removing order objects (error code ' + this.OrderAddition.lastError + '): ' + this.OrderAddition.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order payments
+                    if (!this.OrderPayment.execute("DELETE FROM " + this.OrderPayment.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_PAYMENTS.order_id)")) {
+                        throw {errno: this.OrderPayment.lastError,
+                               errstr: this.OrderPayment.lastErrorString,
+                               errmsg: 'An error was encountered while removing order payments (error code ' + this.OrderPayment.lastError + '): ' + this.OrderPayment.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order receipts
+                    if (!this.OrderReceipt.execute("DELETE FROM " + this.OrderReceipt.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_RECEIPTS.order_id)")) {                            throw {errno: this.OrderReceipt.lastError,
+                               errstr: this.OrderReceipt.lastErrorString,
+                               errmsg: 'An error was encountered while removing order receipts (error code ' + this.OrderReceipt.lastError + '): ' + this.OrderReceipt.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    // order promotions
+                    if (!this.OrderPromotion.execute("DELETE FROM " + this.OrderPromotion.table + " WHERE NOT EXISTS (SELECT 1 FROM ORDERS WHERE ORDERS.id == ORDER_PROMOTIONS.order_id)")) {                            throw {errno: this.OrderPromotion.lastError,
+                               errstr: this.OrderPromotion.lastErrorString,
+                               errmsg: 'An error was encountered while removing order promotions (error code ' + this.OrderPromotion.lastError + '): ' + this.OrderPromotion.lastErrorString
+                        }
+                    }
+
+                    // update progressbar...
+                    GeckoJS.BaseObject.sleep(50);
+
+                    if (!this.commit()) {
                         throw {errno: this.lastError,
                                errstr: this.lastErrorString,
-                               errmsg: 'An error was encountered while removing backup order promotions (error code ' + this.lastError + '): ' + this.lastErrorString
+                               errmsg: 'An error was encountered while completing removal of expired orders (error code ' + this.lastError + '): ' + this.lastErrorString
                         }
+                    }
+                    return true;
                 }
-                return true;
-            }
-            catch(e) {
-                this.log('ERROR', e.errmsg);
+                catch(e) {
+                    this.rollback();
 
-                this.datasource.lastError = e.lastError;
-                this.datasource.lastErrorString = e.lastErrorString;
-                
-                return false;
+                    this.log('ERROR', e.errmsg);
+
+                    this.lastError = e.lastError;
+                    this.lastErrorString = e.lastErrorString;
+
+                    return false;
+                }
             }
         },
 

@@ -42,7 +42,8 @@
 
 <!ENTITY plus.purchase.price "Purchase Price">
 <!ENTITY plus.stock.level "Current Stock Level">
-<!ENTITY plus.stock.threshold "Minimum Threshold">
+<!ENTITY plus.stock.threshold "Stock Low Watermark">
+<!ENTITY plus.stock.maxstock "Stock High Watermark">
 <!ENTITY plus.memo "Memo">
 <!ENTITY plus.minimum.sale.quantity "Minimum Sale Qty">
 <!ENTITY plus.scale.item "Scale item">
@@ -94,6 +95,8 @@
 <!ENTITY plus.button.action.delete "Delete">
 <!ENTITY plus.button.action.update.setitem "Update">
 <!ENTITY plus.button.action.select "Select">
+<!ENTITY plus.button.action.add.icon "Add Icon">
+<!ENTITY plus.button.action.remove.icon "Remove Icon">
 
 <!ENTITY plus.button.numpad.clear "CLEAR">
 <!ENTITY plus.button.numpad.del "DEL">

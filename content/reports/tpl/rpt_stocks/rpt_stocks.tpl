@@ -27,7 +27,9 @@
                     <th style="text-align: left;">${_( '(rpt)Product Number' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Product Name' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Stock Level' )}</th>
-                    <th style="text-align: right;">${_( '(rpt)Low Stock Threshold' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Low Watermark' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)High Watermark' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Recommended Purchase Quantity' )}</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +39,8 @@
                     <td style="text-align: left;">${plu.name}</td>
                     <td style="text-align: right;">${plu.stock}</td>
                     <td style="text-align: right;">${plu.min_stock}</td>
+                    <td style="text-align: right;">${plu.max_stock}</td>
+                    <td style="text-align: right;">${plu.delta}</td>
                 </tr>
 {/for}
             </tbody>

@@ -50,6 +50,10 @@
             var periodType = document.getElementById( 'period_type' ).value;
             
             var sortby = document.getElementById( 'sortby' ).value;
+            
+            var status = document.getElementById( 'status' ).value;
+            
+            var destination = document.getElementById( 'destination' ).value;
 
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
@@ -66,14 +70,19 @@
             ];
 
             var conditions = "orders." + periodType + ">='" + start +
-                "' AND orders." + periodType + "<='" + end +
-                "' AND orders.status=1";
+                "' AND orders." + periodType + "<='" + end + "'";
                             
             if ( terminal_no.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._queryStringPreprocessor( terminal_no ) + "%'";
                 
             if ( shiftNo.length > 0 )
                 conditions += " AND orders.shift_number = '" + this._queryStringPreprocessor( shiftNo ) + "'";
+                
+            if ( status.length > 0 && status != "all" )
+                conditions += " AND orders.status = '" + status + "'";
+                
+            if ( destination.length > 0 && destination != "all" )
+                conditions += " AND orders.destination = '" + destination + "'";
                 
             var groupby = 'orders.id, order_payments.name';
             var orderby = 'orders.' +  timeField;
@@ -274,6 +283,7 @@
             // After changing the size of the template, the report currently showing on screen no longer exists.
             // We have to disable the report-width adjuster at that moment to prevent an error from occuring.
             document.getElementById( this._reportWidthTextBoxId ).disabled = true;
+            this._enableButton( false );
             if ( !doNotSetReportWidthTextBoxZero )
                 document.getElementById( this._reportWidthTextBoxId ).value = 0;
         },
@@ -329,12 +339,22 @@
         },
         
         exportPdf: function() {
-            this._super( {
+            var paperSize = document.getElementById( 'papersize' );
+            if ( paperSize )
+                paperSize = parseInt( paperSize.value, 10 );
+            
+            var paper = {
                 paperSize: {
                     width: 297,
                     height: 210
                 }
-            } );
+            };
+            if ( paperSize < 3 ) {// for portrait.
+                var temp = paper.paperSize.width;
+                paper.paperSize.width = paper.paperSize.height;
+                paper.paperSize.height = temp;
+            }
+            this._super( paper );
         },
         
         print: function() {
@@ -504,6 +524,20 @@
             document.getElementById( 'start_date' ).value = start;
             document.getElementById( 'end_date' ).value = end;
             
+            // initialize the destination selector.
+            var destination_records = GeckoJS.Configure.read( "vivipos.fec.settings.Destinations" );
+            destination_records = GeckoJS.BaseObject.unserialize( GeckoJS.String.urlDecode( destination_records ) );
+            
+            var menupopup = document.getElementById( "destination_menupopup" );
+            
+            destination_records.forEach( function( record ) {
+                var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
+                menuitem.setAttribute( 'value', record.name );
+                menuitem.setAttribute( 'label', record.name );
+                menupopup.appendChild( menuitem );
+            } );
+            
+            // disable the textbox for width since we have nothing to adjust this time.
             document.getElementById( this._reportWidthTextBoxId ).disabled = true;
             
             // Get preferences from report.js for this report.
@@ -535,7 +569,7 @@
             // Retrieve field indices. This array will be unsorted. The order of the elements is just the order user selected it.
             this._selectedFieldIndecies = GeckoJS.BaseObject.unserialize(
                 GeckoJS.Configure.read( this._selected_indices_pref )
-            );
+            ) || [];
             
             // initialize the settings according to the preference.
             var settings = GeckoJS.Configure.read( this._setting_pref );
