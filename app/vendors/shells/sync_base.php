@@ -16,6 +16,10 @@ class SyncBaseShell extends Shell {
  */
     var $syncSettings = array();
 
+    var $statusFile = "" ;
+
+    var $requestFile = "" ;
+
     /**
      * Startup method for the shell
      *
@@ -28,6 +32,8 @@ class SyncBaseShell extends Shell {
         $this->syncSettings = $this->readSyncSettings();
 
         $this->statusFile = "/tmp/sync_client.status" ;
+
+        $this->requestFile = "/tmp/sync_client.request" ;
 
     }
 
@@ -42,7 +48,7 @@ class SyncBaseShell extends Shell {
         $syncSettings =& Configure::read('sync_settings');
 
         if(empty($syncSettings['process_type'])) {
-            $syncSettings['process_type'] = 'shell';
+            $syncSettings['process_type'] = 'php';
         }
 
         return $syncSettings;
@@ -144,6 +150,47 @@ class SyncBaseShell extends Shell {
         return (strcmp($status, "success")==0);
     }
 
+
+    /**
+     *
+     * @return <type>
+     */
+    function isSyncRequest() {
+
+        if(file_exists($this->requestFile)) return true;
+
+        return false;
+
+    }
+
+    /**
+     *
+     * @return <type>
+     */
+    function addSyncRequest() {
+
+        if(file_exists($this->requestFile)) return true;
+
+        file_put_contents($this->requestFile, time() );
+
+        return true;
+
+    }
+
+
+    /**
+     *
+     * @return <type>
+     */
+    function removeSyncRequest() {
+
+        if(file_exists($this->requestFile)){
+            unlink($this->requestFile);
+        }
+        
+        return true;
+        
+    }
 
 }
 ?>
