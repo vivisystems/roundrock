@@ -69,7 +69,7 @@
                 var item ={name: i};
                 priceleveldata.push(item);
             }
-            var panelView =  new GeckoJS.NSITreeViewArray(priceleveldata);this.log( this.dump( panelView ) );
+            var panelView =  new GeckoJS.NSITreeViewArray(priceleveldata);
             this.getPriceLevelObj().datasource = panelView;
         },
 
@@ -104,7 +104,7 @@
         add: function  () {
             // let seltime = $('#seltime').val();
             var pricelevel = this.getPriceLevelObj().value;
-            var seltimeObj = document.getElementById('seltime');
+            var seltimeObj = document.getElementById('datetime');
             var h = seltimeObj.hour;
             var n = seltimeObj.minute;
             h = GeckoJS.String.padLeft(h, 2, "0");

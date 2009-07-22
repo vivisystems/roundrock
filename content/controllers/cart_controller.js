@@ -288,6 +288,9 @@
 
         _newTransaction: function() {
             
+            // dispatch event
+            this.dispatchEvent('beforeNewTransaction', {});
+
             try {
                 var curTransaction = new Transaction();
             }catch(e) {}
@@ -298,7 +301,7 @@
             this.requestCommand('schedule', null, 'Pricelevel');
 
             // dispatch event
-            this.dispatchEvent('newTransaction', {});
+            this.dispatchEvent('newTransaction', curTransaction);
             
             return curTransaction;
         },
