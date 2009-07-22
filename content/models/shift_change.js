@@ -21,7 +21,7 @@
             var s;
             var r = this.saveShiftChangeMaster(data);
             if (r) {
-                s = this.ShiftChangeDetail.saveShiftChangeDetails(data);
+                s = this.ShiftChangeDetail.saveShiftChangeDetails(this.id, data.shiftChangeDetails);
                 if (s) {
                     return r;
                 }
