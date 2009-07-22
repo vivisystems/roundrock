@@ -289,7 +289,7 @@
         _newTransaction: function() {
             
             // dispatch event
-            this.dispatchEvent('beforeNewTransaction', {});
+            this.dispatchEvent('beforeNewTransaction', null);
 
             try {
                 var curTransaction = new Transaction();

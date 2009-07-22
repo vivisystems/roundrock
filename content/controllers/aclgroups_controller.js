@@ -33,7 +33,7 @@
         setInputData: function (valObj) {
             var selroles = this.Acl.getRoleListInGroup(valObj.name);
             var selrolesarray = GeckoJS.Array.objectExtract(selroles, '{n}.name');
-            var selrolesstr = selrolesarray.join(",");
+            var selrolesstr = selrolesarray.sort(function(a,b) {if (a < b) return -1; if (a > b) return 1; return 0}).join(",");
 
             valObj.role_group = selrolesstr;
 
@@ -57,13 +57,12 @@
                     NotifyUtils.warn(_('ACL Group [%S] already exists; ACL group not added.', [group]));
                 }
                 else {
-                    try {
-                        this.Acl.addGroup(group);
+                    if (this.Acl.addGroup(group)) {
                         this.load(group);
 
                         OsdUtils.info(_('ACL Group [%S] added successfully', [group]));
                     }
-                    catch (e) {
+                    else {
                         NotifyUtils.error(_('An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully', [group]));
                     }
                 }
@@ -84,8 +83,7 @@
                                       _('The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.', userlist));
             } else if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [group]), _('Are you sure?'))) {
 
-                try {
-                    this.Acl.removeGroup(group);
+                if (this.Acl.removeGroup(group)) {
 
                     var listObj = this.getListObj();
                     var view = listObj.datasource;
@@ -101,7 +99,7 @@
 
                     OsdUtils.info(_('ACL Group [%S] removed successfully', [group]));
                 }
-                catch (e) {
+                else {
                     NotifyUtils.error(_('An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully', [group]));
                 }
             }
@@ -111,10 +109,10 @@
 
             var self = this;
             var group = $('#aclgroup_name').val();
+            var ds = GeckoJS.ConnectionManager.getDataSource('acl');
 
             try {
 
-                var ds = GeckoJS.ConnectionManager.getDataSource('acl');
                 var r = ds.begin();
                 if(!r) throw new Exception('database is locked');
 
@@ -139,6 +137,7 @@
                 OsdUtils.info(_('ACL Group [%S] modified successfully', [group]));
             }
             catch (e) {
+                ds.rollback();
                 NotifyUtils.error(_('An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully', [group]));
             }
         },
@@ -190,6 +189,11 @@
             var listObj = this.getListObj();
             var selectedIndex = listObj.selectedIndex;
 
+            if (!this.confirmChangeAclGroup(selectedIndex)) {
+                listObj.selectedItems = [this._selectedIndex];
+                return;
+            }
+
             if (selectedIndex > -1) {
                 var rolegroup = listObj.datasource.data[selectedIndex];
                 var panelView =  new NSIRolesView(this.roles);
@@ -200,6 +204,8 @@
                 GeckoJS.FormHelper.reset('aclgroupForm');
             }
             listObj.ensureIndexIsVisible(selectedIndex);
+
+            this._selectedIndex = selectedIndex;
             
             this.validateForm();
         },
@@ -216,7 +222,7 @@
             }
         },
 
-        confirmChangeJob: function(index) {
+        confirmChangeAclGroup: function(index) {
             // check if ACL group form has been modified
             if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
                 && GeckoJS.FormHelper.isFormModified('aclgroupForm')) {
@@ -233,7 +239,7 @@
             var listObj = this.getListObj();
             var modifyBtn = document.getElementById('modify_acl_group');
             var deleteBtn = document.getElementById('delete_acl_group');
-
+            
             var btnpanel = this.getRoleListObj().vivibuttonpanel;
             if (listObj.selectedIndex == -1) {
                 modifyBtn.setAttribute('disabled', true);
