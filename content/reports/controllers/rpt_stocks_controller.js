@@ -72,17 +72,27 @@
                 'p.no',
                 'p.name',
                 'p.min_stock',
+                'p.max_stock',
                 'p.auto_maintain_stock',
                 'p.link_group',
                 's.quantity'
             ];
             
-            var sql =
+            var prod = new ProductModel();
+            
+            // attach inventory DB file.
+            var stockRecordModel = new StockRecordModel();
+            var stockRecordDB = stockRecordModel.getDataSource().path + '/' + stockRecordModel.getDataSource().database;
+            var sql = "ATTACH '" + stockRecordDB + "' AS inventory;";
+            prod.execute( sql );
+            
+            sql =
                 "SELECT " + fields.join( ", " ) + " FROM products p LEFT JOIN stock_records s ON ( p.no = s.id ) " +
                 "WHERE " + conditions + " ORDER BY " + orderby + " LIMIT " + this._csvLimit + ";";
-            
-            var prod = new ProductModel();
             var prodRecords = prod.getDataSource().fetchAll( sql );
+            
+            sql = "DETACH inventory;";
+            prod.execute( sql );
             
             // retrieve all product groups.
             /*var pluGroupModel = new PlugroupModel();
@@ -119,11 +129,13 @@
                         records[ o.cate_no ].plu = [];
                     }
                     records[o.cate_no].plu.push( {
-                        cate_no:o.cate_no,
-                        no:o.no,
-                        name:o.name,
-                        stock:o.quantity,
-                        min_stock:o.min_stock
+                        cate_no: o.cate_no,
+                        no: o.no,
+                        name: o.name,
+                        stock: o.quantity,
+                        min_stock: o.min_stock,
+                        max_stock: o.max_stock,
+                        delta: (o.max_stock == 0) ? '' : Math.max(0, o.max_stock - o.quantity)
                     } );
                 }
                 

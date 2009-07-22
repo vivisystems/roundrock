@@ -108,7 +108,7 @@
             // clear form
             GeckoJS.FormHelper.reset('tableForm');
 
-            this.getTableListObj().vivitree.selection.select(index);
+            this.getTableListObj().selection.select(index);
             if (index > -1) {
                 var table = this._tableListDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('tableForm', table);
@@ -129,7 +129,7 @@
             // clear form
             GeckoJS.FormHelper.reset('regionForm');
 
-            this.getRegionListObj().vivitree.selection.select(index);
+            this.getRegionListObj().selection.select(index);
             if (index > -1) {
                 var region = this._regionListDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('regionForm', region);

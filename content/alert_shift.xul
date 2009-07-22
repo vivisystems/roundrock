@@ -62,7 +62,7 @@
             </hbox>
             <spacer flex="1"/>
             <hbox id="dialogButtons" class="ToolBar" flex="1" pack="center">
-                <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
             </hbox>
         </vbox>
     </vbox>

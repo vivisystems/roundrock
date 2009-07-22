@@ -94,11 +94,7 @@
         changeDecimal: function(value) {
             //
             var identifier = this._identifiers[this._selectedIndex];
-            if (identifier.content_of_field2 == 0) {
-                identifier.decimal_point_of_field2 = value;
-            } else {
-                identifier.decimal_point_of_field2 = 0;
-            }
+            identifier.decimal_point_of_field2 = value;
             this.calcData();
         },
 

@@ -203,11 +203,7 @@
             }else {
 
                 var val = product[colKey];
-                // var val = this.getCellValue(row, col);
-                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-                var sPluDir = datapath + "/images/pluimages/";
-                if (!sPluDir) sPluDir = '/data/images/pluimages/';
-                sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+                var sPluDir = GeckoJS.Session.get('pluimage_directory');
 
                 aDstFile = sPluDir + val + ".png";
 

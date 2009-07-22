@@ -115,7 +115,7 @@
             if (exportBtnObj) {
                 if ((nameTextboxObj && nameTextboxObj.value != '') &&
                     (installTextboxObj && GeckoJS.String.trim(installTextboxObj.value) != '')) {
-                    exportBtnObj.removeAttribute('disabled');
+                    exportBtnObj.setAttribute('disabled', false);
                 }
                 else {
                     exportBtnObj.setAttribute('disabled', 'true');

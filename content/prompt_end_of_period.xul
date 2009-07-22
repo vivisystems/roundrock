@@ -64,8 +64,8 @@
                 </rows>
             </grid>
             <hbox flex="1" class="ToolBar" pack="center">
-                <button id="login" label="&shiftchange.button.login;" default="false" oncommand="doOKButton();"/>
-            	<button id="poweroff" label="&shiftchange.button.poweroff;" default="true" oncommand="opener.$do('shutdownMachine', null, 'Main');"/>
+                <button id="login" label="&shiftchange.button.login;" disabled="false" default="false" oncommand="doOKButton();"/>
+            	<button id="poweroff" label="&shiftchange.button.poweroff;" disabled="false" default="true" oncommand="opener.$do('shutdownMachine', null, 'Main');"/>
             </hbox>
         </vbox>
     </vbox>

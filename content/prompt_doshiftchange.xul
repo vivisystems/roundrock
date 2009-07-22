@@ -34,12 +34,10 @@
             <!-- Left side -->
             <vbox flex="1" class="MainL">
                 <caption label="&prompt.shiftchange.title;"   class="PageTitle"/>
-                <viviscrollabletree id="shiftscrollablepanel" flex="1" onclick="" hidecolumnpicker="true"
-                                    headers="&prompt.shiftchange.heading.type;,&prompt.shiftchange.heading.name;,&prompt.shiftchange.heading.count;,&prompt.shiftchange.heading.amount;,&prompt.shiftchange.heading.change;,&prompt.shiftchange.heading.origin_amount;,&prompt.shiftchange.heading.excess;"
-                                    fields="type,name,count,amount,change,origin_amount,excess_amount"
-                                    dir="normal" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                    <spacer flex="1"/>
-                </viviscrollabletree>
+                <vivitree id="shiftscrollablepanel" flex="1" onclick=""
+                          headers="&prompt.shiftchange.heading.type;,&prompt.shiftchange.heading.name;,&prompt.shiftchange.heading.count;,&prompt.shiftchange.heading.amount;,&prompt.shiftchange.heading.change;,&prompt.shiftchange.heading.origin_amount;,&prompt.shiftchange.heading.excess;"
+                          fields="type,name,count,amount,change,origin_amount,excess_amount"
+                          dir="normal" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"/>
 
                 <spacer style="height: 5px;"/>
 
@@ -130,10 +128,10 @@
 
             <hbox>
                 <hbox id="dialogButtons" class="ToolBar" pack="start" flex="1">
-                    <button id="ok" label="&prompt.shiftchange.change.shift;" default="true" oncommand="if (confirmEndShift()) doOKButton();"/>
-                    <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                    <button id="ok" label="&prompt.shiftchange.change.shift;" disabled="false" default="true" oncommand="if (confirmEndShift()) doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                     <spacer flex="1"/>
-                    <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" default="false"
+                    <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" disabled="false" default="false"
                                 oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">

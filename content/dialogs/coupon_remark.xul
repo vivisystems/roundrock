@@ -58,8 +58,8 @@
 
                     <hbox>
                         <hbox class="ToolBar" flex="1">
-                            <button id="couponRemark-ok" class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', true)"/>
-                            <button id="couponRemark-cancel" class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', false)"/>
+                            <button id="couponRemark-ok" class="okBtn" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', true)"/>
+                            <button id="couponRemark-cancel" class="cancelBtn" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', false)"/>
                         </hbox>
                         <hbox id="dialogButtons" class="dialogbtns" pack="center">
                             <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />

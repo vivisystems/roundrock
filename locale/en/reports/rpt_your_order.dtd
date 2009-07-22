@@ -67,3 +67,9 @@
 <!ENTITY rptyourorder.button.fieldpicker "Field Picker">
 <!ENTITY rptyourorder.button.recordsettings "Save Settings">
 <!ENTITY rptyourorder.button.removereport "Remove Me">
+<!ENTITY rptyourorder.status "Status:">
+<!ENTITY rptyourorder.status.completed "Complete">
+<!ENTITY rptyourorder.status.stored "Stored">
+<!ENTITY rptyourorder.status.canceled "Canceled">
+<!ENTITY rptyourorder.status.voided "Voided">
+<!ENTITY rptyourorder.destination "Destinaltion:">

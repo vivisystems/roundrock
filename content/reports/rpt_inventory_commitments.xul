@@ -2,8 +2,10 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % product_sales SYSTEM "chrome://viviecr/locale/reports/rpt_inventory_commitments.dtd">
-  %product_sales;
+  <!ENTITY % StockRecords SYSTEM "chrome://viviecr/locale/stock_records.dtd">
+  %StockRecords;
+  <!ENTITY % InventoryCommitments SYSTEM "chrome://viviecr/locale/reports/rpt_inventory_commitments.dtd">
+  %InventoryCommitments;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
@@ -51,13 +53,17 @@
 					                <menulist id="type">
 					                    <menupopup id="type_menupopup">
 					                        <menuitem selected="true" label="&rptinventorycommitments.type.all;" value="all" />
-					                        <menuitem selected="false" label="&rptinventorycommitments.type.inventory;" value="inventory" />
-					                        <menuitem selected="false" label="&rptinventorycommitments.type.procure;" value="procure" />
-					                        <menuitem selected="false" label="&rptinventorycommitments.type.waste;" value="waste" />
-					                        <menuitem selected="false" label="&rptinventorycommitments.type.other;" value="other" />
+					                        <menuitem selected="false" label="&stockrecords.commit.reason.inventory;" value="inventory" />
+					                        <menuitem selected="false" label="&stockrecords.commit.reason.procure;" value="procure" />
+					                        <menuitem selected="false" label="&stockrecords.commit.reason.waste;" value="waste" />
+					                        <menuitem selected="false" label="&stockrecords.commit.reason.other;" value="other" />
 					                    </menupopup>
 					                </menulist>
 		                    	</vbox>
+		                    	<vbox>
+				                    <label value="&rptinventorycommitments.warehouse;" />
+				                    <textbox id="warehouse" value='' width="300"/>
+				                </vbox>
 		                    </row>
 		                </rows>
 		            </grid>

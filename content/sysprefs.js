@@ -20,7 +20,6 @@
         $do('initUser', defaultUser, 'Users');
         $do('initTaxStatus', defaultTaxStatus, 'Taxes');
 
-        this.adjustSequenceLength(trackSalePeriod);
         //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
@@ -69,43 +68,42 @@
 function rebuildDatabases() {
 
     // popup progress bar
-    var waitPanel = document.getElementById( 'wait_panel' );
-    var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-    var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+    this.showWaitingPanel(_('Rebuilding databases...'));
 
-    waitPanel.sizeTo(600, 120);
-    var x = (width - 600) / 2;
-    var y = (height - 240) / 2;
-    waitPanel.openPopupAtScreen(x, y);
-	
-	var sleepTime = 0;
     // release CPU for progressbar ...
-    if (!sleepTime) {
-      sleepTime = 1000;
-    }
-    GeckoJS.BaseObject.sleep(sleepTime);
+    GeckoJS.BaseObject.sleep(500);
 
     //close all connection
     GeckoJS.ConnectionManager.closeAll();
-    
+
     GREUtils.File.run('/data/scripts/rebuild_databases.sh', [], true);
 
     // unpopup progressbar
-    waitPanel.hidePopup();
+    this.dismissWaitingPanel();
 }
 
-function adjustSequenceLength(trackSalePeriod) {
-    var maxlen = trackSalePeriod ? 4 : 12;
-    var lenObj = document.getElementById('sequencenumberlength');
-    var len = parseInt(lenObj.value);
+function showWaitingPanel(message) {
 
-    if (isNaN(len) || len > maxlen) {
-        len = maxlen;
-    }
-    lenObj.setAttribute('max', maxlen);
+    var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+    var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+    var waitPanel = document.getElementById( 'wait_panel' );
 
-    GeckoJS.Configure.write('vivipos.fec.settings.SequenceNumberLength', len);
-    lenObj.value = len;
+    waitPanel.sizeTo( 360, 120 );
+    var x = ( width - 360 ) / 2;
+    var y = ( height - 240 ) / 2;
+
+    // set the content of the label attribute be default string, taking advantage of the statusText attribute.
+    var caption = document.getElementById( 'wait_caption' );
+    caption.label = message;
+
+    waitPanel.openPopupAtScreen( x, y );
+
+    return waitPanel;
+}
+
+function dismissWaitingPanel() {
+    var waitPanel = document.getElementById( 'wait_panel' );
+    waitPanel.hidePopup();
 }
 
 function closePreferences() {

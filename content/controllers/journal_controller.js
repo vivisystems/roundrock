@@ -25,6 +25,7 @@
             cart.addEventListener('afterVoidSale', this.voidOrder, this);
 
             this.checkDevices();
+            
             cart.addEventListener('beforeFilter', this.cartStatus, this);
             // add Observer for startTrainingMode event.
             var self = this;
@@ -47,30 +48,40 @@
                 var doSuspend = false;
                 this._device = GeckoJS.Controller.getInstanceByName('Devices');
                 var selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.Configure.read("vivipos.fec.settings.selectedDevices"));
-                if(selectedDevices['journal-print-template']) {
-                    selectedDevices['journal-print-template'];
-                } else {
-                    selectedDevices['journal-print-template'] = 1;
-                    doSave = true;
-                }
-                var receiptDevice = this._device.getEnabledDevices('receipt', selectedDevices['journal-print-template']);
-                if(receiptDevice[0]) {
-                    this._printTemplate = receiptDevice[0]['template'];
-                } else {
-                    this._printTemplate = receiptDevice['template'];
-                }
 
-                if(selectedDevices['journal-preview-template']) {
-                    this._previewTemplate = selectedDevices['journal-preview-template'];
-                } else {
-                    var templates = this._device.getTemplates('preview');
-                    if(!templates) {
-                        doSuspend = true;
+                if (!selectedDevices) {
+                    doSuspend = true;
+                }
+                else {
+                    if(!selectedDevices['journal-print-template']) {
+                        selectedDevices['journal-print-template'] = 1;
+                        doSave = true;
+                    }
+                    var receiptDevice = this._device.getEnabledDevices('receipt', selectedDevices['journal-print-template']);
+                    if(receiptDevice[0]) {
+                        this._printTemplate = receiptDevice[0]['template'];
                     } else {
-                        for(var tmp in templates) {
-                            this.previewTemplate = selectedDevices['journal-preview-template'] = tmp;
+                        var receiptTemplates = this._device.getTemplates('receipt');
+                        if (!receiptTemplates) {
+                            doSuspend = true;
+                        }
+                        else {
+                            for (var key in receiptTemplates) {
+                                this._printTemplate = key;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(selectedDevices['journal-preview-template']) {
+                        this._previewTemplate = selectedDevices['journal-preview-template'];
+                    } else {
+                        var previewTemplates = this._device.getTemplates('preview');
+                        if(!previewTemplates) {
+                            doSuspend = true;
+                        } else {
+                            this.previewTemplate = selectedDevices['journal-preview-template'] = previewTemplates[0];
                             doSave = true;
-                            break;
                         }
                     }
                 }
@@ -93,7 +104,12 @@
         cartStatus: function(evt) {
             try {
                 if(!this.checkDevices()) {
-                    GREUtils.Dialog.alert(this.topmostWindow, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed.'));
+
+                    var win = this.topmostWindow;
+                    if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+                        win = null;
+                    
+                    GREUtils.Dialog.alert(win, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed.'));
                     evt.preventDefault();
                 }
             } catch (e) {
@@ -155,7 +171,7 @@
                         this.saveJournal(journal);
                     }
                 } catch (e) {
-                    this.log(-('Journal Controller submitOrder error: %', [e]));
+                    this.log('ERROR', _('Journal Controller submitOrder error: %S', [GeckoJS.BaseObject.dump(e)]));
                 }
             }
         },
@@ -172,7 +188,7 @@
             try {
                 journal = journalModel.save(journal);
             }catch(e) {
-                this.log(_('Journal save error: %', [e]));
+                this.log('ERROR', _('Journal save error: %S', [GeckoJS.BaseObject.dump(e)]));
             }
         },
 

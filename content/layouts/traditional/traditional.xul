@@ -2,7 +2,7 @@
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 <?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
 
-<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay2.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
@@ -11,6 +11,7 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/promotions_status_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
 
 <overlay id="traditionalLayoutOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -33,6 +34,7 @@
             <box id="rightPanel" flex="0" class="rightPanel" orient="vertical">
                 <box id="vfdPanelContainer" flex="1"/>
                 <box id="cartlistPanelContainer" flex="1"/>
+                <box id="inputLinePanelContainer" flex="0"/>
                 <box id="promotionsStatusPanelContainer" flex="0"/>
                 <box id="functionPanelContainer" flex="0" />
             </box>

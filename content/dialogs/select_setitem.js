@@ -24,7 +24,6 @@
         var preset = null;
         var selections = [];
         var opts;
-        var hidden = false;
         var mode = 'add';
 
         $.installPanel($panel[0], {
@@ -47,12 +46,9 @@
                 var buttonClass2 = $buttonPanel[0].getAttribute('buttonClass2');
 
                 plusetViewHelper.getCellValue = function(row, col) {
-                    this.log('DEBUG', 'in pluset get cell value: ' + row + ',' + GeckoJS.BaseObject.dump(col));
 
                     var data = plusetData[row];
                     var sResult = '';
-
-                    this.log('DEBUG', 'data type: ' + data.type);
 
                     if (data.product) {
                         sResult= data.product[col.id];
@@ -66,54 +62,20 @@
                         }
                     }
 
-                    this.log('DEBUG', 'value: ' +  sResult);
                     return sResult;
                 };
-                /*
-                 * @irving: too many colors 4/30/2009
 
-                plusetViewHelper.renderButton = function(row, btn) {
-
-                    this.log('DEBUG', 'in pluset renderButton: ' + row);
-
-                    if (hidden) {
-                        btn.removeAttribute('class');
-                        return;
-                    }
-
-                    var data = plusetData[row];
-
-                    var classStr = '';
-                    if (!data.plugroup) {
-                        classStr = buttonClass0;
-                    }
-                    else if (data.product) {
-                        classStr = buttonClass1;
-                    }
-                    else {
-                        classStr = buttonClass2;
-                    }
-                    if (classStr) btn.setAttribute('class', classStr);
-                    else btn.removeAttribute('class');
-                    this.log('DEBUG', 'in pluset renderButton: [' + classStr + ']');
-                };
-                */
                 $buttonPanel[0].datasource = plusetViewHelper ;
 
                 var presetViewHelper = new NSIProductsView('presetbuttonpanel');
                 presetViewHelper.getCellValue = function(row, col) {
-                    this.log('DEBUG', 'in preset get cell value: ' + row + ',' + GeckoJS.BaseObject.dump(col));
-
                     var sResult = preset ? preset[col.id] : '';
-                    
-                    this.log('DEBUG', 'value: ' +  sResult);
                     return sResult;
                 };
                 $presetPanel[0].datasource = presetViewHelper;
 
                 var selectionViewHelper = new NSIProductsView('selectionscrollablepanel');
                 selectionViewHelper.getCellValue = function(row, col) {
-                    this.log('DEBUG', 'in selection get cell value: ' + row + ',' + GeckoJS.BaseObject.dump(col));
 
                     var sResult = '';
                     var productId = selections[row];
@@ -122,7 +84,6 @@
                         sResult = product[col.id];
                     }
 
-                    this.log('DEBUG', 'value: ' +  sResult);
                     return sResult;
                 };
                 $selectionPanel[0].datasource = selectionViewHelper;
@@ -181,7 +142,7 @@
                         if (plugroup) {
                             // filter set items out of selections
                             selections = selections.filter(function(val, index, obj) {
-                                                               var prod = productModel.getProductById(prod);
+                                                               var prod = productModel.getProductById(val);
                                                                if (prod) {
                                                                    return (prod.SetItem == null) || (prod.SetItem.length == 0);
                                                                }
@@ -196,9 +157,6 @@
                     plusetData.push(newItem);
                 });
                 $buttonPanel[0].datasource.data = plusetData ;
-
-                // set hidden false
-                hidden = false;
 
                 // set caption
                 var captionObj = document.getElementById('pluset-caption');
@@ -217,7 +175,6 @@
 
                 evt.data = {ok: isOK, plusetData: plusetData};
 
-                hidden = true;
                 $buttonPanel[0].invalidate();
             },
 
@@ -240,17 +197,17 @@
                         return;
                     }
                 }
-                okObj.removeAttribute('disabled');
+                okObj.setAttribute('disabled', false);
 
                 if (preset) {
-                    $presetPanel[0].removeAttribute('disabled');
+                    $presetPanel[0].setAttribute('disabled', false);
                 }
                 else {
                     $presetPanel[0].setAttribute('disabled', true);
                 }
 
                 if (selections.length > 0) {
-                    $selectionPanel[0].removeAttribute('disabled');
+                    $selectionPanel[0].setAttribute('disabled', false);
                 }
                 else {
                     $selectionPanel[0].setAttribute('disabled', true);

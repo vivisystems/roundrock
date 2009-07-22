@@ -41,7 +41,7 @@
             <caption label="&productgroups.title;" class="PageTitle" />
             <label id="productgroups" hidden="true" value="" />
             <hbox class="SelectBox">
-                <viviscrollablebuttonpanel id="productgroupscrollablepanel" flex="1" cols="4" rows="7" labelField="name"
+                <viviscrollablebuttonpanel id="productgroupscrollablepanel" flex="1" cols="6" rows="6" labelField="name"
                                            class="catescrollablepanel"
                                            buttonClass="plubtn"
                                            scrollUpClass="ScrollUp"
@@ -52,8 +52,8 @@
             <spacer flex="1" />
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
-                    <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                    <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<overlay id="inputLineOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <!-- include controllers -->
+    <script type="application/x-javascript" src="chrome://viviecr/content/overlays/controllers/input_line_controller.js" />
+
+    <box id="inputLinePanelContainer">
+        <textbox id="inputLineTextBox" rows="2" flex="1" class="MainInputLine"/>
+    </box>
+
+</overlay>

@@ -35,7 +35,6 @@
                               reverse="true"
                               flex="1"
                               hidevscroll="true"
-                              hidecolumnpicker="true"
                               onselect="$do('selectHotkey', this, 'HotkeyPrefs')"/>
                     <spacer height="3px" />
                     <grid class="DataFormA">
@@ -97,7 +96,6 @@
                               seltype="single"
                               flex="1"
                               hidevscroll="true"
-                              hidecolumnpicker="true"
                               disabled="true"
                               onselect="$do('selectFunction', this, 'HotkeyPrefs')"/>
                     <spacer height="3px" />

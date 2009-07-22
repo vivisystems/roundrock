@@ -1,3 +1,4 @@
+[&INIT]
 [&REVON][&QSON]${'GUEST CHECK'|center:21}[&QSOFF][&REVOFF]
 [&DHON]${store.name|center:42}[&DHOFF]
 [&DHON]${store.branch|center:42}[&DHOFF]

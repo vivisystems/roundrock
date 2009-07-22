@@ -56,6 +56,24 @@
         		</body>
         	</xbl:method>
 
+        	<xbl:method name="select">
+        		<body>
+        		  <![CDATA[
+                    this.input.select();
+                  ]]>
+        		</body>
+        	</xbl:method>
+
+        	<xbl:method name="setSelectionRange">
+                <parameter name="start"/>
+                <parameter name="end"/>
+        		<body>
+        		  <![CDATA[
+                    this.input.setSelectionRange(start, end);
+                  ]]>
+        		</body>
+        	</xbl:method>
+
             <xbl:method name="hide">
         		<body>
         		  <![CDATA[
@@ -147,7 +165,8 @@
         <handlers>
             <handler event="mouseover">
               <![CDATA[
-                this.input.focus();
+                if ( event.originalTarget.tagName == 'div' )// We want to get focus only when the mouse cursor is over the textbox itself.
+                    this.input.focus();
               ]]>
             </handler>
             
@@ -155,6 +174,7 @@
               <![CDATA[
               	if ( event.originalTarget.tagName == 'div' && this.getAttribute( 'popupKeypad' ) == 'true' && this.isKeypadOpened == false ) {
 	        		this[ this.getAttribute( 'keypad' ) + '_panel' ].openPopup( this, 'after_start' );
+	        		this.input.select();
 	        		// before_start, before_end, after_start, after_end, start_before, start_after, end_before, end_after, overlap, after_pointer
             	}
               ]]>

@@ -2,6 +2,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
 <!DOCTYPE window [
@@ -36,8 +37,8 @@
                                                 seltype="single"
                                                 reverse="true"
                                                 flex="1"
-                                                hidevscroll="true"
                                                 hidecolumnpicker="true"
+                                                hidevscroll="true"
                                                 scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
                                                 onselect="$do('modify', this, 'PromotionsManager')">
 
@@ -47,7 +48,6 @@
                     <spacer height="3px" />
                     <hbox class="ToolBar" flex="1">
                         <vivibutton id="addBtn" label="&promotions_manager.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'PromotionsManager');" />
-                        <!-- vivibutton id="downloadBtn" label="&promotions_manager.button.action.download;" disabled="false" class="BtnDownload" oncommand="$do('add', null, 'PromotionsManager');" /-->
                     </hbox>
                 </vbox>
             </vbox>
@@ -135,7 +135,7 @@
                                 <groupbox>
                                     <caption label="&promotions_manager.label.days_of_week;" />
                                     <viviscrollablebuttonpanel id="days_of_week" name="days_of_week" form="promotionForm" seltype="multiple" flex="1" cols="4" rows="2" labelField="name" default="" value=""
-                                               buttonClass="editbtns font-medium" hideScrollbar="true"/>
+                                               buttonClass="dialogbtns font-medium" hideScrollbar="true"/>
                                 </groupbox>
                                 
                             </vbox>

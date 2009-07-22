@@ -72,6 +72,12 @@
             try {
                 if ( !printSettings )
                     printSettings = this._getPrintSettings();
+                    
+                // save the print settings to prefs since the method showPageSetup always read print settings from prefs.
+                var printSettingsService =
+                    Components.classes[ "@mozilla.org/gfx/printsettings-service;1" ]
+                    .getService( Components.interfaces.nsIPrintSettingsService );
+                printSettingsService.savePrintSettingsToPrefs( printSettings, false, this._printSettings.kInitSaveAll );
                 
                 var printPromptService = Components.classes[ "@mozilla.org/embedcomp/printingprompt-service;1" ]
                     .getService( Components.interfaces.nsIPrintingPromptService );
@@ -104,12 +110,6 @@
                 this._printSettings.printToFile = false;
                 
                 this._setPaperProperties( paperProperties );
-                
-                // save the print settings to prefs since the method showPageSetup always read print settings from prefs.
-                var printSettingsService =
-                    Components.classes[ "@mozilla.org/gfx/printsettings-service;1" ]
-                    .getService( Components.interfaces.nsIPrintSettingsService );
-                printSettingsService.savePrintSettingsToPrefs( this._printSettings, false, this._printSettings.kInitSaveAll );
                 
                 this.showPageSetup( this._printSettings );
 				

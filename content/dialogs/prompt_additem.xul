@@ -60,8 +60,8 @@
 
                     <hbox>
                         <hbox class="ToolBar" flex="1">
-                            <button id="promptAdditem-ok" class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('promptAdditemPanel', true)"/>
-                            <button id="promptAdditem-cancel" class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('promptAdditemPanel', false)"/>
+                            <button id="promptAdditem-ok" class="okBtn" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="$.hidePanel('promptAdditemPanel', true)"/>
+                            <button id="promptAdditem-cancel" class="cancelBtn" label="&dialog.cancelButton.label;" disabled="false" default="true" oncommand="$.hidePanel('promptAdditemPanel', false)"/>
                         </hbox>
                         <hbox id="dialogButtons" class="dialogbtns" pack="center">
                             <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />

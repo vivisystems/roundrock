@@ -8,7 +8,7 @@
          
 		name: 'InventoryCommitment',
 		
-		useDbConfig: 'default',
+		useDbConfig: 'inventory',
 		
 		hasMany: [ 'InventoryRecord' ],
 
@@ -16,20 +16,20 @@
 		
 		set: function( inventoryCommitment ) {
 
-            var r = this.save(inventoryCommitment);
+            var r = this.save( inventoryCommitment );
 
-            if (!r) {
-                this.log('ERROR',
-                         'An error was encountered while saving stock adjustment record (error code ' + this.lastError + '): ' + this.lastErrorString);
+            if ( !r ) {
+                this.log( 'ERROR',
+                          'An error was encountered while saving stock adjustment record (error code ' + this.lastError + '): ' + this.lastErrorString );
 
                 //@db saveToBackup
-                r = this.saveToBackup(inventoryCommitment);
+                r = this.saveToBackup( inventoryCommitment );
                 if (r) {
-                    this.log('ERROR', 'record saved to backup');
+                    this.log( 'ERROR', 'record saved to backup' );
                 }
                 else {
-                    this.log('ERROR',
-                             'record could not be saved to backup:' + '\n' + this.dump(inventoryCommitment));
+                    this.log( 'ERROR',
+                              'record could not be saved to backup:' + '\n' + this.dump( inventoryCommitment ) );
                 }
             }
             return r;

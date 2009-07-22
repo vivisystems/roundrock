@@ -59,8 +59,8 @@
                     </groupbox>
                     <spacer style="height:5px;" />
                     <vivitree id="plusearchscrollablepanel" flex="1" class="ListPnl showscrollbar"
-                                        headers="&plus.product.no;,&plus.product.name;,&plus.stock.level;"
-                                        fields="no,name,stock" hidecolumnpicker="true"
+                                        headers="&plus.product.no;,&plus.product.name;"
+                                        fields="no,name"
                                         onclick="$do('select',this.selectedIndex, 'PluSearch');"/>
                 </vbox>
             </vbox> 
@@ -83,7 +83,7 @@
 
                             <grid class="DataForm">
                                 <columns>
-                                    <column flex="1" /><column flex="1" />
+                                    <column flex="0" /><column flex="0" />
                                 </columns>
                                 <rows>
                                     <row>
@@ -123,13 +123,6 @@
                                             <textbox id="product_memo" form="productForm" name="memo" readonly="true"/>    
                                         </vbox>
                                         <vbox>
-                                            <label value="&plus.minimum.sale.quantity;"  />
-                                            <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6" readonly="true"/>    
-                                        </vbox>
-                                    </row>
-
-                                    <row>
-                                        <vbox>
                                             <label value="&plus.sale.unit;"/>
                                             <menulist id="sale_unit" form="productForm" name="sale_unit" value="" disabled="true">
                                                 <menupopup style="width: 200px;">
@@ -147,10 +140,19 @@
                                                 </menupopup>
                                             </menulist>
                                         </vbox>
+                                    </row>
+
+                                    <!-- @irving 07-17-2009 minimum sale quantity no in use yet
+                                    <row>
+                                        <vbox>
+                                            <label value="&plus.minimum.sale.quantity;"  />
+                                            <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6" readonly="true"/>
+                                        </vbox>
                                         <vbox>
                                             
                                         </vbox>
                                     </row>
+                                    -->
                                 </rows>
                             </grid>
                         <!-- spacer style="height:20px"/>
@@ -168,7 +170,6 @@
                     <tabpanel>
 
                         <groupbox>
-                            <caption label="&plus.tab.pricelevels;" class="SubTitle"/>
                             <grid class="PLTable">
                                 <columns>
                                     <column />
@@ -247,7 +248,7 @@
             </tabbox>
             <hbox>
                 <hbox id="dialogButtons" class="ToolBar" pack="start" flex="1">
-                    <button id="ok" label="&plus.button.action.select;" default="true" oncommand="doOKButton();" hidden="true"/>
+                    <button id="ok" label="&plus.button.action.select;" disabled="false" default="true" oncommand="doOKButton();" hidden="true"/>
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

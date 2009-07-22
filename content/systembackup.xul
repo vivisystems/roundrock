@@ -11,6 +11,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
 
 <window id="backupandrecovery"
         hidechrome="true"
@@ -66,26 +67,7 @@
         </vbox>
     </vbox>
 
-    <panel id="backup_wait_panel" position="overlap" noautohide="true" class="ImportWaitPnl">
-        <vbox flex="1">
-        <groupbox flex="1">
-            <caption label="&systembackup.backupwait;" class="PageTitle"/>
-            <spacer style="height: 20px;" />
-            <progressmeter id="backupprogressmeter" mode="undetermined" value="0" />
-            <spacer style="height: 20px;" />
-        </groupbox>
-        </vbox>
-    </panel>
-
-    <panel id="restore_wait_panel" position="overlap" noautohide="true" class="ImportWaitPnl">
-        <vbox flex="1">
-        <groupbox flex="1">
-            <caption label="&systembackup.restorewait;" class="PageTitle"/>
-            <spacer style="height: 20px;" />
-            <progressmeter id="restoreprogressmeter" mode="undetermined" value="0" />
-            <spacer style="height: 20px;" />
-        </groupbox>
-        </vbox>
-    </panel>
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs" />
 
 </window>

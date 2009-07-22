@@ -70,7 +70,7 @@
             <spacer height="5px"/>
             <hbox>
                 <hbox id="dialogButtons" class="ToolBar" flex="1">
-                    <button id="export" label="&localization.action.export;" default="true" oncommand="$do('exportLocale', null, 'ExportLocale')"/>
+                    <button id="export" label="&localization.action.export;" disabled="false" default="true" oncommand="$do('exportLocale', null, 'ExportLocale')"/>
                 </hbox>
                 <hbox class="dialogbtns">
                     <button id="vkb" label=""  oncommand="opener.VirtualKeyboard.toggle()" class="VkbBtn"/>

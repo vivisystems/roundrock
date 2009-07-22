@@ -34,7 +34,7 @@
         </thead>
         <tbody>
 {for item in body}
-            <tr id="${item.sequence}">
+            <tr id="${item.order_id}">
                 <td style="text-align: left;">${item.terminal_no}</td>
                 <td style="text-align: left;">${item.drawer_no}</td>
                 <td style="text-align: left;">${item.clerk_displayname|default:''}</td>

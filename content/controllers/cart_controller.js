@@ -380,7 +380,7 @@
             if( !this.ifHavingOpenedOrder() ) {
                 NotifyUtils.warn(_('Not an open order; cannot tag the selected item'));
 
-                this.clearAndSubtotal();
+                this._clearAndSubtotal();
                 return;
             }
 
@@ -388,14 +388,14 @@
             if (curTransaction.isClosed()) {
                 NotifyUtils.warn(_('This order is being finalized and items may not be modified'));
 
-                this.clearAndSubtotal();
+                this._clearAndSubtotal();
                 return;
             }
 
             if(index <0) {
                 NotifyUtils.warn(_('Please select an item first'));
 
-                this.clearAndSubtotal();
+                this._clearAndSubtotal();
                 return;
             }
 
@@ -403,14 +403,14 @@
             if (curTransaction.isLocked(index)) {
                 NotifyUtils.warn(_('Stored items may not be modified'));
 
-                this.clearAndSubtotal();
+                this._clearAndSubtotal();
                 return;
             }
 
             if (tag == null || tag.length == 0) {
                 NotifyUtils.warn(_('Cannot tag the selected item with an empty tag'));
 
-                this.clearAndSubtotal();
+                this._clearAndSubtotal();
                 return;
             }
 
@@ -420,7 +420,7 @@
             if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
                 NotifyUtils.warn(_('Cannot tag the selected item [%S]', [itemDisplay.name]));
 
-                this.clearAndSubtotal();
+                this._clearAndSubtotal();
                 return;
             }
 
@@ -432,7 +432,7 @@
 
                 this.dispatchEvent('afterTagItem', [taggedItem, itemDisplay]);
             }
-            this.clearAndSubtotal();
+            this._clearAndSubtotal();
         },
 
         returnCartItem: function() {
@@ -648,7 +648,6 @@
                 
                 // wrap with chain method
                 next( function() {
-
                     if (addedItem.id == plu.id && !self._returnMode) {
 
                         currentIndex = curTransaction.getDisplayIndexByIndex(addedItem.index);
@@ -979,7 +978,7 @@
 
             this._cancelReturn();
 
-            this.clearAndSubtotal();
+            this._clearAndSubtotal();
         },
 
         modifyItem: function() {
@@ -1253,7 +1252,7 @@
                     if (this._returnPersist) {
                         this._returnPersist = false;
                         this._getKeypadController().clearBuffer();
-                        this.clearAndSubtotal();
+                        this._clearAndSubtotal();
                     }
                     else {
                         this._returnPersist = true;
@@ -2589,6 +2588,7 @@
                 if (beforeResult) {
                     var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
                     paymentedItem.seq = curTransaction.data.seq;
+                    paymentedItem.order_id = curTransaction.data.id;
                 }
 
                 this.dispatchEvent('afterAddPayment', paymentedItem);
@@ -2978,6 +2978,7 @@
                 status: status,
                 txn: oldTransaction
             })) {
+
                 // save order unless the order is being finalized (i.e. status == 1)
                 if (status == 1) {
                     var user = this.Acl.getUserPrincipal();
@@ -3017,9 +3018,6 @@
 
                 oldTransaction.data.status = status;
                 this.dispatchEvent('afterSubmit', oldTransaction);
-
-                // sleep to allow UI events to update
-                //this.sleep(10);
 
                 //this.dispatchEvent('onClear', 0.00);
                 this._getKeypadController().clearBuffer();

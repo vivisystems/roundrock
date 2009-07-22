@@ -360,7 +360,6 @@
                                       seltype="single"
                                       flex="1"
                                       hidevscroll="true"
-                                      hidecolumnpicker="true"
                                       onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
                             <spacer height="3px" />
                             <hbox>
@@ -436,7 +435,6 @@
                                       fields="name,label"
                                       seltype="single"
                                       flex="1"
-                                      hidecolumnpicker="true"
                                       hidevscroll="true"
                                       onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
                             <spacer height="3px" />

@@ -162,10 +162,7 @@
 
         getImageSrc: function(row, col) {
             var val = this.getCellValue(row, col);
-            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
-            var sPluDir = datapath + "/images/pluimages/";
-            if (!sPluDir) sPluDir = '/data/images/pluimages/';
-            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+            var sPluDir = GeckoJS.Session.get('pluimage_directory');
             var aDstFile = sPluDir + val + ".png";
             if (GREUtils.File.exists(aDstFile)) {
                 return 'file://' + aDstFile;

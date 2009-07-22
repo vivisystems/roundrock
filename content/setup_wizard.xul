@@ -379,6 +379,21 @@
                     <label class="w_Title" value="07 &wizard.page.login; "></label>
                     <label class="w_desc" value="&wizard.page.login.description;"></label>
                 </vbox>
+                
+                <vbox class="content_area">
+                    <label value="&wizard.page.login.defaultaccount;"/>
+                    <label value="&wizard.page.login.defaultuser;"/>
+                    <viviscrollablebuttonpanel id="userscrollablepanel" flex="1"
+                                               cols="4" rows="1" labelField="displayname" imageField="image"
+                                               ensureVisible="true"
+                                               oncommand="$do('selectUser',this.selectedIndex, 'SetupWizard');"
+                                               class="selList"
+                                               buttonClass="selBtns"
+                                               scrollUpClass="listUp" scrollDownClass="listDown" >
+                        <spacer flex="1" />
+                    </viviscrollablebuttonpanel>
+                </vbox>
+
                 <vbox class="content_area">
                             <hbox>
                             <label class="contentTitle" value="&wizard.page.login.adminpwd;"/>
@@ -407,20 +422,6 @@
                            
                         <numpad/>
                 </vbox>
-                <vbox class="content_area">
-                    <label value="&wizard.page.login.defaultaccount;"/>
-                    <label value="&wizard.page.login.defaultuser;"/>
-                    <viviscrollablebuttonpanel id="userscrollablepanel" flex="1"
-                                               cols="4" rows="1" labelField="displayname" imageField="image"
-                                               ensureVisible="true"
-                                               oncommand="$do('selectUser',this.selectedIndex, 'SetupWizard');"
-                                               class="selList"
-                                               buttonClass="selBtns"
-                                               scrollUpClass="listUp" scrollDownClass="listDown" >
-                        <spacer flex="1" />
-                    </viviscrollablebuttonpanel>
-                </vbox>
-            
         </vbox>
             </hbox>
     </wizardpage>

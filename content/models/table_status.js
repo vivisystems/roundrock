@@ -837,8 +837,7 @@ GREUtils.log(Date.now().getTime() + ':::setTableMarks end:::');
         getTableBookings: function() {
             var now = Math.round(new Date().getTime());
             var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-            var remindTime = (now + tableSettings.TableRemindTime * 60 * 1000) / 1000;
-
+            var remindTime = (now - tableSettings.TableRemindTime * 60 * 1000) / 1000;
             var bookTimeOut = (tableSettings.TableBookingTimeout * 60 *1000) / 1000;
             var bookNow =  now / 1000 - bookTimeOut;
             var justNow = now / 1000;
@@ -847,7 +846,6 @@ GREUtils.log(Date.now().getTime() + ':::setTableMarks end:::');
 
             var orderby = "table_bookings.booking";
             this._tableBookings = this.TableBooking.find("all", {conditions: conditions, order: orderby});
-
         },
 
         getTableOrders: function(lastModified) {

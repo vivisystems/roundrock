@@ -186,8 +186,8 @@
 
             var panel = this.getListObj();
             if (panel.selectedIndex > -1) {
-                deleteBtn.removeAttribute('disabled');
-                modifyBtn.removeAttribute('disabled');
+                deleteBtn.setAttribute('disabled', false);
+                modifyBtn.setAttribute('disabled', false);
                 defaultCheckbox.removeAttribute('disabled');
                 pricelevelMenu.removeAttribute('disabled');
                 prefixTextbox.removeAttribute('disabled');

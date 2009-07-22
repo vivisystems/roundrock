@@ -56,9 +56,6 @@
 
             // initialize display
             this.displayOnVFD();
-
-            // sleep to allow OS events to catch up
-            this.sleep(10);
         },
 
         getDeviceController: function () {

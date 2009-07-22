@@ -40,8 +40,7 @@
             <hbox pack="start" flex="1" class="LeftPnl">
                 <vivitree id="orderscrollablepanel" flex="1" class="ListPnl showscrollbar"
                           headers="" fields=""
-                          onselect="$do('validateForm', this.selectedIndex, 'ListOrders')"
-                          hidecolumnpicker="true"/>
+                          onselect="$do('validateForm', this.selectedIndex, 'ListOrders')"/>
             </hbox>
             <hbox pack="start">
                 <label value="&listorders.count;"/>
@@ -49,11 +48,13 @@
                 <spacer flex="1"/>
                 <label value="&listorders.searchby;"/>
                 <label id="searchby" value=""/>
+                <label value="&listorders.searchfor;"/>
+                <label id="searchfor" value=""/>
             </hbox>
             <hbox flex="1">
                 <hbox class="ToolBar" pack="start" flex="1">
-                    <vivibutton id="details" label="&listorders.button.details;"
-                                oncommand="$do('orderDetails', null, 'ListOrders')" />
+                    <button id="details" label="&listorders.button.details;" disabled="false"
+                            oncommand="$do('orderDetails', null, 'ListOrders')" />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns">
                     <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->

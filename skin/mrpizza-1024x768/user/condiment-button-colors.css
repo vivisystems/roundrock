@@ -1,0 +1,127 @@
+/*--------------------------------------------------------------------------
+ *
+ * CONDIMENT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.condiment-button-color-default {
+    min-height: 50px;
+    background: url(images/condiment_01.png);
+    color: #524f44;
+    border: 1px solid #9f9b8c;
+}
+
+.condiment-button-color-1 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background: gray; */
+    background: url(images/condiment_02.png);
+    color: #17475a;
+    border: 1px solid #2a7e9a;
+}
+
+.condiment-button-color-2 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background: blue; */
+    background: url(images/condiment_03.png);
+    color: #444a1c;
+    border: 1px solid #788140;
+}
+
+.condiment-button-color-3 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background: red; */
+    background: url(images/condiment_04.png);
+    color: #563c01;
+    border: 1px solid #b46a00;
+}
+
+
+.condiment-button-color-4 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background: orange; */
+    background: url(images/condiment_05.png);
+    color: #583f26;
+    border: 1px solid #856545;
+}
+
+.condiment-button-color-5 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background:fuchsia; */
+    background: url(images/condiment_06.png);
+    color: #371948;
+    border: 1px solid #492b6b;
+}
+
+
+.condiment-button-color-6 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background:teal; */
+    background: url(images/condiment_07.png);
+    color: white;
+    border: 1px solid #0b2114;
+}
+
+
+.condiment-button-color-7 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background: green; */
+    background: url(images/condiment_08.png);
+    color: white;
+    border: 1px solid #706866;
+}
+
+.condiment-button-color-8 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background: yellow; */
+    background: url(images/condiment_09.png);
+    color: white;
+    border: 1px solid #193c0d;
+ }
+
+ .condiment-button-color-9 {
+     min-height: 50px;
+    -moz-appearance: none;
+    /* background: aqua; */
+    background: url(images/condiment_10.png);
+    color: #491919;
+    border: 1px solid #6b2b2b;
+ }
+
+
+.condiment-button-color-10 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background: black; */
+    background: url(images/condiment_11.png);
+    color: #2b2709;
+    border: 1px solid #614f1d;
+}
+
+.condiment-button-color-11 {
+    min-height: 50px;
+    -moz-appearance: none;
+    /* background: white; */
+    background: url(images/condiment_12.png);
+    color: white;
+    border: 1px solid #d7a49a;
+}
+
+
+.condiment-button-color-default[selected], .condiment-button-color-1[selected],
+.condiment-button-color-2[selected], .condiment-button-color-3[selected],
+.condiment-button-color-4[selected], .condiment-button-color-5[selected],
+.condiment-button-color-6[selected], .condiment-button-color-7[selected],
+.condiment-button-color-8[selected], .condiment-button-color-9[selected],
+.condiment-button-color-10[selected], .condiment-button-color-11[selected] {
+    list-style-image: url(images/con_sel.png);
+}
+

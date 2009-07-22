@@ -65,6 +65,28 @@
 		                    </row>
 		                    <row>
 		                    	<vbox>
+		                    		<label value="&rptyourorder.status;" />
+					                <menulist id="status" form="settings" name="status">
+					                    <menupopup id="status_menupopup">
+					                        <menuitem selected="false" label="&rptyourorder.all;" value="all" />
+					                        <menuitem selected="true" label="&rptyourorder.status.completed;" value="1" />
+					                        <menuitem selected="false" label="&rptyourorder.status.stored;" value="2" />
+					                        <menuitem selected="false" label="&rptyourorder.status.canceled;" value="-1" />
+					                        <menuitem selected="false" label="&rptyourorder.status.voided;" value="-2" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
+		                    		<label value="&rptyourorder.destination;" />
+					                <menulist id="destination" form="settings" name="destination">
+					                    <menupopup id="destination_menupopup">
+					                        <menuitem selected="true" label="&rptyourorder.all;" value="all" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
 				                	<label value="&rptyourorder.sortby;" />
 					                <menulist id="sortby" form="settings" name="sortby">
 					                    <menupopup id="sortby_menupopup">

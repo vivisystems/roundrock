@@ -236,12 +236,21 @@
             plupanel.ensureIndexIsVisible(index);
             
             if (product) {
+                var dep;
                 if (this._selCateNo == null) {
-                    product.cate_name = this._categoriesByNo[product.cate_no].name;
+                    dep = this._categoriesByNo[product.cate_no];
+                    product.cate_name = dep.name;
                 }
                 else {
                     product.cate_name = this._selCateName;
                 }
+                // inherit unit of sale from category if scale department
+                if (dep && dep.scale) {
+                    if (!product.sale_unit) {
+                        product.sale_unit = dep.sale_unit;
+                    }
+                }
+
                 // for rendering stock quantity.
                 var stockRecordModel = new StockRecordModel();
                 var stockRecord = stockRecordModel.getStockRecordByProductNo( product.no );
@@ -623,10 +632,7 @@
             this._setPluSet();
             // this._setCondimentGroup();
             if (valObj) {
-                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-                var sPluDir = datapath + "/images/pluimages/";
-                if (!sPluDir) sPluDir = '/data/images/pluimages/';
-                sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+                var sPluDir = GeckoJS.Session.get('pluimage_directory');
                 var aDstFile = sPluDir + valObj.no + ".png";
 
                 document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
@@ -638,27 +644,27 @@
             var result = 0;
             if (data.no.length <= 0) {
 
-                NotifyUtils.warn(_('Product No. must not be empty.'));
+                NotifyUtils.warn(_('Product number must not be empty.'));
                 result = 3;
             } else if (data.name.length <= 0) {
 
-                NotifyUtils.warn(_('Product Name must not be empty.'));
+                NotifyUtils.warn(_('Product name must not be empty.'));
                 result = 4;
             } else {
                 if (prods) {
                     for (var i = 0; i < prods.length; i++) {
                         var o = prods[i];
                         if (o.no == data.no && data.id == null) {
-                            NotifyUtils.warn(_('The Product No. [%S] already exists; product not added', [data.no]));
+                            NotifyUtils.warn(_('Product number [%S] already exists; product not added', [data.no]));
                             return 1;
                         } else if (o.name == data.name && o.cate_no == data.cate_no) {
-                            if (data.id == null) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists in department [%S]; product not added', [data.name, data.cate_name]));
-                                return 2;
-                            }
-                            else if (data.id != o.id) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists in department [%S]; product not modified', [data.name, data.cate_name]));
-                                return 2;
+                            if ((data.id == null) || (data.id != o.id)) {
+                                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                                            _('Duplicate Product Name [%S]', [data.name]),
+                                                            _('One or more products with name [%S] already exist in department [%S]. Are you sure this is the name you want?', [data.name, data.cate_name]))) {
+                                    NotifyUtils.warn(_('Product name [%S] already exists in department [%S]; product not added', [data.name, data.cate_name]));
+                                    return 2;
+                                }
                             }
                             break;
                         }
@@ -765,7 +771,7 @@
                 input0:prodNo, require0:true, alphaOnly0:true,
                 input1:null, require1:true
             };
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Product'), aFeatures, _('New Product'), '', _('Product No.'), _('Product Name'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Product'), aFeatures, _('New Product'), '', _('Product Number'), _('Product Name'), inputObj);
             
             if (inputObj.ok && (inputObj.input0.length > 0) && (inputObj.input1.length > 0)) {
                 var product = new ProductModel();
@@ -783,6 +789,12 @@
                     prodData.no = inputData.no;
                     prodData.name = inputData.name;
                     prodData.cate_no = inputData.cate_no;
+
+                    // inherit unit of sale from category if scale department
+                    var dep = this._categoriesByNo[prodData.cate_no];
+                    if (dep && dep.scale) {
+                        prodData.sale_unit = dep.sale_unit;
+                    }
 
                     var newProduct = product.save(prodData);
 
@@ -869,7 +881,16 @@
                     }
                     this.clickPluPanel(newIndex);
                 }
-
+                
+                // update stock_records
+                var stockRecordModel = new StockRecordModel();
+                stockRecordModel.id = inputData.no;
+                if(stockRecordModel.exists()) {
+                    stockRecordModel.set( {
+                        id: inputData.no,
+                        barcode: inputData.barcode
+                    } );
+                }
                 OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
             }
         },
@@ -877,14 +898,11 @@
         RemoveImage: function(no) {
             // var no  = $('#product_no').val();
 
-            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-            var sPluDir = datapath + "/images/pluimages/";
-            if (!sPluDir) sPluDir = '/data/images/pluimages/';
-            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+            var sPluDir = GeckoJS.Session.get('pluimage_directory');
             var aDstFile = sPluDir + no + ".png";
 
-            GREUtils.File.remove(aDstFile);
-                document.getElementById('pluimage').setAttribute("src", "");
+            if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
+            document.getElementById('pluimage').setAttribute("src", "");
 
             return aDstFile;
         },
@@ -1221,7 +1239,7 @@
                 if ((label != null && label != '') &&
                     ((preset != null && preset != '') || (linkgroup != null && linkgroup != '')) &&
                     (qty > 0)) {
-                    modifyBtn.removeAttribute('disabled');
+                    modifyBtn.setAttribute('disabled', false);
                 }
                 else {
                     modifyBtn.setAttribute('disabled', true);

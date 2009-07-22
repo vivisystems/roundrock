@@ -55,8 +55,8 @@
             <spacer height="5px"/>
             <hbox flex="1">
                 <hbox class="ToolBar" pack="start" flex="1">
-                    <vivibutton id="void" class="BtnDel" label="&vieworder.button.void;"
-                                oncommand="$do('voidSale', null, 'ViewOrder')" />
+                    <button id="void" class="BtnDel" label="&vieworder.button.void;" disabled="false"
+                            oncommand="$do('voidSale', null, 'ViewOrder')" />
                 </hbox>
                 <hbox class="ReportTool">
                     <!--vivibutton id="print" disabled="true" class="PrintBtn" oncommand="document.getElementById('preview_frame').contentWindow.print();" /-->
