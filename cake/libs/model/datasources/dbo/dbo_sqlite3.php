@@ -64,6 +64,9 @@ class DboSqlite3 extends DboSource {
 		'persistent' => false,
 		'database' => null,
                 'timeout' => 120,
+                'synchronous' => 'NORMAL',
+                'journal_mode' => 'PERSIST',
+                'locking_mode' => 'NORMAL',
 		'connect' => 'sqlite' //sqlite3 in pdo_sqlite is sqlite. sqlite2 is sqlite2
 	);
 /**
@@ -108,8 +111,14 @@ class DboSqlite3 extends DboSource {
 			$this->connected = is_object($this->connection);
 
                         if ($this->connected) {
-                            // $this->connection->exec("PRAGMA synchronous =  2");
-                            $this->connection->exec("PRAGMA synchronous = 1");
+
+                            $initSQL = "";
+                            $initSQL .= "PRAGMA synchronous = " . $config['synchronous'] . ";\n";
+                            $initSQL .= "PRAGMA journal_mode = " . $config['journal_mode'] . ";\n";
+                            $initSQL .= "PRAGMA locking_mode = " . $config['locking_mode'] . ";\n";
+
+                            $this->connection->exec($initSQL);
+                            
                         }
 		}
 		catch(PDOException $e) {
@@ -117,11 +126,12 @@ class DboSqlite3 extends DboSource {
 		}
 		return $this->connected;
 	}
-/**
- * Disconnects from database.
- *
- * @return boolean True if the database could be disconnected, else false
- */
+
+        /**
+         * Disconnects from database.
+         *
+         * @return boolean True if the database could be disconnected, else false
+         */
 	function disconnect() {
 		#echo "runs disconnect\n";
 		#@sqlite3_close($this->connection);
@@ -130,12 +140,13 @@ class DboSqlite3 extends DboSource {
                 unset($this->connection);
 		return $this->connected;
 	}
-/**
- * Executes given SQL statement.
- *
- * @param string $sql SQL statement
- * @return resource Result resource identifier
- */
+
+        /**
+         * Executes given SQL statement.
+         *
+         * @param string $sql SQL statement
+         * @return resource Result resource identifier
+         */
 	function _execute($sql) {
 		#echo "runs execute\n";
 		#return sqlite3_query($this->connection, $sql);
@@ -168,11 +179,12 @@ class DboSqlite3 extends DboSource {
 		}
 		return false;
 	}
-/**
- * Returns an array of tables in the database. If there are no tables, an error is raised and the application exits.
- *
- * @return array Array of tablenames in the database
- */
+
+        /**
+         * Returns an array of tables in the database. If there are no tables, an error is raised and the application exits.
+         *
+         * @return array Array of tablenames in the database
+         */
 	function listSources() {
 		#echo "runs listSources\n";
 		$db = $this->config['database'];
@@ -203,12 +215,13 @@ class DboSqlite3 extends DboSource {
 		$this->config['database'] = $db;
 		return array();
 	}
-/**
- * Returns an array of the fields in given table name.
- *
- * @param string $tableName Name of database table to inspect
- * @return array Fields in table. Keys are name and type
- */
+
+        /**
+         * Returns an array of the fields in given table name.
+         *
+         * @param string $tableName Name of database table to inspect
+         * @return array Fields in table. Keys are name and type
+         */
 	function describe(&$model) {
 		$cache = parent::describe($model);
 		if ($cache != null) {
@@ -238,12 +251,13 @@ class DboSqlite3 extends DboSource {
 		$this->__cacheDescription($model->tablePrefix . $model->table, $fields);
 		return $fields;
 	}
-/**
- * Returns a quoted and escaped string of $data for use in an SQL statement.
- *
- * @param string $data String to be prepared for use in an SQL statement
- * @return string Quoted and escaped
- */
+
+        /**
+         * Returns a quoted and escaped string of $data for use in an SQL statement.
+         *
+         * @param string $data String to be prepared for use in an SQL statement
+         * @return string Quoted and escaped
+         */
 	function value ($data, $column = null, $safe = false) {
 		$parent = parent::value($data, $column, $safe);
 
@@ -267,15 +281,16 @@ class DboSqlite3 extends DboSource {
 		}
 		return "'" . $data . "'";
 	}
-/**
- * Generates and executes an SQL UPDATE statement for given model, fields, and values.
- *
- * @param Model $model
- * @param array $fields
- * @param array $values
- * @param mixed $conditions
- * @return array
- */
+
+        /**
+         * Generates and executes an SQL UPDATE statement for given model, fields, and values.
+         *
+         * @param Model $model
+         * @param array $fields
+         * @param array $values
+         * @param mixed $conditions
+         * @return array
+         */
 	function update(&$model, $fields = array(), $values = null, $conditions = null) {
 		if (empty($values) && !empty($fields)) {
 			foreach ($fields as $field => $value) {
@@ -289,13 +304,14 @@ class DboSqlite3 extends DboSource {
 		}
 		return parent::update($model, $fields, $values, $conditions);
 	}
-/**
- * Begin a transaction
- *
- * @param unknown_type $model
- * @return boolean True on success, false on fail
- * (i.e. if the database/model does not support transactions).
- */
+
+        /**
+         * Begin a transaction
+         *
+         * @param unknown_type $model
+         * @return boolean True on success, false on fail
+         * (i.e. if the database/model does not support transactions).
+         */
 	function begin_ (&$model) {
 		if (parent::begin($model)) {
 			if ($this->pdo_statement->beginTransaction()) {
@@ -305,14 +321,15 @@ class DboSqlite3 extends DboSource {
 		}
 		return false;
 	}
-/**
- * Commit a transaction
- *
- * @param unknown_type $model
- * @return boolean True on success, false on fail
- * (i.e. if the database/model does not support transactions,
- * or a transaction has not started).
- */
+
+        /**
+         * Commit a transaction
+         *
+         * @param unknown_type $model
+         * @return boolean True on success, false on fail
+         * (i.e. if the database/model does not support transactions,
+         * or a transaction has not started).
+         */
 	function commit_ (&$model) {
 		if (parent::commit($model)) {
 			$this->_transactionStarted = false;
@@ -320,14 +337,15 @@ class DboSqlite3 extends DboSource {
 		}
 		return false;
 	}
-/**
- * Rollback a transaction
- *
- * @param unknown_type $model
- * @return boolean True on success, false on fail
- * (i.e. if the database/model does not support transactions,
- * or a transaction has not started).
- */
+
+        /**
+         * Rollback a transaction
+         *
+         * @param unknown_type $model
+         * @return boolean True on success, false on fail
+         * (i.e. if the database/model does not support transactions,
+         * or a transaction has not started).
+         */
 	function rollback_ (&$model) {
 		if (parent::rollback($model)) {
 			return $this->pdo_statement->rollBack();

@@ -1,7 +1,10 @@
 <?php
-/* 
+/*
+ * SETTING DEFAULT
  */
 $DATABASE_PATH = '/data/databases';
+$SYNCHRONOUS = 'NORMAL';
+$JOURNAL_MODE = 'PERSIST';
 
 App::import('Core', array('Configure', 'ClassRegistry', 'Overloadable', 'Validation', 'Behavior', 'ConnectionManager', 'Set', 'String','Folder'));
 
@@ -20,7 +23,8 @@ if (($db_configs = Cache::read('db_configs')) === false) {
                     $name = str_replace('_', '', $matches[1]);
                     if (strlen($name) == 0 ) $name = 'default';
 
-                    $config = array('driver'=>'sqlite3', 'database'=>$database);
+                    $config = array('driver'=>'sqlite3', 'database'=>$database,
+                                    'synchronous'=>$SYNCHRONOUS, 'journal_mode'=>$JOURNAL_MODE);
 
                     $db_configs[$name] = $config;
                     //ConnectionManager::create($name, $config);
