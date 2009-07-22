@@ -109,7 +109,6 @@
 
                 this.requestCommand('list', newIndex);
 
-                this._selectedIndex = newIndex;
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
                 panel.ensureIndexIsVisible(newIndex);
@@ -263,7 +262,7 @@
             }
 
             this.requestCommand('list', index);
-            
+
             panel.selectedIndex = index;
             panel.selectedItems = [index];
             panel.ensureIndexIsVisible(index);
@@ -275,6 +274,8 @@
 
         afterScaffoldView: function(evt) {
             evt.data.default_job_name = evt.data.Job.jobname;
+            var panel = this.getListObj();
+            this._selectedIndex = panel.selectedIndex;
         },
 
         afterScaffoldIndex: function(evt) {
@@ -340,7 +341,7 @@
         },
 
         confirmChangeUser: function(index) {
-            // check if condiment group and condiment forms have been modified
+            // check if user form has been modified
             if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
                 && GeckoJS.FormHelper.isFormModified('userForm')) {
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
@@ -350,6 +351,18 @@
                 }
             }
             return true;
+        },
+
+        confirmExit: function(data) {
+            // check if user form has been modified
+            data.close = true;
+            if (this._selectedIndex != -1&& GeckoJS.FormHelper.isFormModified('userForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current user. Are you sure you want to discard the changes?'))) {
+                    data.close = false;
+                }
+            }
         },
 
         select: function(){
@@ -364,8 +377,6 @@
 
             this.requestCommand('list', index);
 
-            this._selectedIndex = index;
-            
             panel.selectedItems = [index];
             panel.selectedIndex = index;
             panel.ensureIndexIsVisible(index);

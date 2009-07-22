@@ -42,7 +42,7 @@
 
             var shiftChange = new ShiftChangeModel();
             var records = shiftChange.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2, limit: this._csvLimit } );
-
+this.log(this.dump(records));
             records.forEach(function(o){
                 var d = new Date();
                 d.setTime( o.starttime * 1000 ); // multiplying one thousand so that the time can be in the millisecond scale.

@@ -208,6 +208,8 @@
             var modifyBtn = document.getElementById('modify_acl_group');
             var deleteBtn = document.getElementById('delete_acl_group');
 
+            var btnpanel = this.getRoleListObj().buttonpanel;
+            alert(btnpanel.seltype);
             if (listObj.selectedIndex == -1) {
                 modifyBtn.setAttribute('disabled', true);
                 deleteBtn.setAttribute('disabled', true);

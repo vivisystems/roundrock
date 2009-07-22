@@ -7,8 +7,11 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/jobs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/jobs.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -32,41 +35,49 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <hbox flex="1" class="MainPnl">
-            <vbox flex="1" pack="start" class="MainL">
-                <caption label="&jobs.title;"  class="PageTitle"/>
-                <hbox flex="1" class="LeftPnl">
+    <vbox flex="1" class="container-root layout-root">
+        <hbox flex="1" class="container-main layout-a">
+            <vbox flex="1" class="container-left block-33">
+                <caption label="&jobs.title;"  class="label-page-title"/>
+                <hbox flex="1" class="content-buttonpanel">
                     <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="2" rows="9" labelField="jobname" imageField="no"
                                                oncommand="$do('select',this.selectedIndex, 'Jobs');"
                                                ensureVisible="true"
-                                               class="ItemScrollablepanel"
-                                               buttonClass="ItemButtonA"
-                                               scrollUpClass="ScrollUp"
-                                               scrollDownClass="ScrollDown">
+                                               buttonClass="button-item-a"
+                                               scrollUpClass="scroll-up-button"
+                                               scrollDownClass="scroll-down-button">
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
                 </hbox>
             </vbox>
 
-            <vbox>
-                <vbox class="JobForm">
-                    <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
-                    <label value="&jobs.name;" control="job_name" class="SubTitle"/>
-                    <textbox id="job_name" value="" form="jobForm" name="jobname" oninput="$do('validateForm', null, 'Jobs')"
-                             onfocus="this.select()"/>
-                </vbox>
+            <vbox flex="1" class="custom-container-data-form">
+                <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
+                <grid class="data-form">
+                    <columns>
+                        <column flex="0"/>
+                        <column flex="1"/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <label value="&jobs.name;" control="job_name" class="label-sub-title"/>
+                            <textbox id="job_name" value=""
+                                     oninput="$do('validateForm', null, 'Jobs')" onfocus="this.select()"
+                                     form="jobForm" name="jobname" default=""/>
+                         </row>
+                    </rows>
+                </grid>
                 <spacer flex="1"/>
                 <hbox>
-                    <hbox class="ToolBar" flex="1">
-                        <button id="add_job" label="&jobs.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Jobs');" />
-                        <button id="modify_job" label="&jobs.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('update', null, 'Jobs');" />
+                    <hbox class="toolbar" flex="1">
+                        <button id="add_job" label="&jobs.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Jobs');" />
+                        <button id="modify_job" label="&jobs.button.action.modify;" disabled="false" class="button-modify" oncommand="$do('update', null, 'Jobs');" />
                         <spacer flex="1"/>
-                        <button id="delete_job" label="&jobs.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('delete', null, 'Jobs');" />
+                        <button id="delete_job" label="&jobs.button.action.delete;" disabled="false" class="button-delete" oncommand="$do('delete', null, 'Jobs');" />
                     </hbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    <hbox id="dialogButtons" class="exitbar" pack="end">
+                        <button id="vkb" label=""  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                        <button id="ok" label="&dialog.closeButton.label;" class="button-exit" default="true" oncommand="doOKButton();"/>
                     </hbox>
                 </hbox>
             </vbox>

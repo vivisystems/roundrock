@@ -206,6 +206,11 @@
     text-align: center;
 }
 
+.cartList tree #zero {
+    max-width: 68px;
+    min-width: 68px;
+}
+
 .cartList .tree-scrollable-columns {
     max-height: 0px;
 }

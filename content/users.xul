@@ -12,7 +12,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/users.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -41,14 +40,16 @@
             <!-- Left Panel  -->
             <vbox flex="1" pack="start" class="container-left block-33">
                 <caption label="&users.title;" class="label-page-title" />
-                <viviscrollablebuttonpanel id="userscrollablepanel" flex="1" cols="2" rows="7" labelField="displayname"
-                                           ensureVisible="true" dir="reverse"
-                                           oncommand="$do('select',this.selectedIndex, 'Users');"
-                                           class="custom-content-buttonpanel" buttonClass="button-item-a"
-                                           scrollUpClass="scroll-up-button"
-                                           scrollDownClass="scroll-down-button">
-                    <spacer flex="1"/>
-                </viviscrollablebuttonpanel>
+                <hbox flex="1" class="content-buttonpanel">
+                    <viviscrollablebuttonpanel id="userscrollablepanel" flex="1" cols="2" rows="7" labelField="displayname"
+                                               ensureVisible="true" dir="reverse"
+                                               oncommand="$do('select',this.selectedIndex, 'Users');"
+                                               class="custom-content-buttonpanel" buttonClass="button-item-a"
+                                               scrollUpClass="scroll-up-button"
+                                               scrollDownClass="scroll-down-button">
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
+                </hbox>
             </vbox>
             
             <!-- Right Panel  -->

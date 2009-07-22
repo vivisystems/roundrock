@@ -142,19 +142,19 @@
         },
 
         confirmExit: function(data) {
-            // check if condiment group and condiment forms have been modified
+            // check if department form has been modified
             data.close = true;
             if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('deptForm')) {
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
                                              _('Discard Changes'),
-                                             _('You have made changes to the current condiment group and/or condiment. Are you sure you want to discard the changes?'))) {
+                                             _('You have made changes to the current department. Are you sure you want to discard the changes?'))) {
                     data.close = false;
                 }
             }
         },
 
         confirmChangeDepartment: function(index) {
-            // check if condiment group and condiment forms have been modified
+            // check if department form have been modified
             if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
                 && GeckoJS.FormHelper.isFormModified('deptForm')) {
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,

@@ -1,0 +1,20 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for ACL Groups
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-container-data-form {
+    margin: 4px 0px 0px 0px;
+}
+
+.custom-content-buttonpanel {
+    margin: 4px 12px 4px 4px;
+    background: #f1ede5;
+    padding: 4px;
+}
+
+.custom-content-buttonpanel-button {
+    margin: 3px;
+}

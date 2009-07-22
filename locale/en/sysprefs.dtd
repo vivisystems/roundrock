@@ -47,6 +47,7 @@
 <!ENTITY layout.checktrackingmode "Show check tracking details">
 <!ENTITY layout.hidesoldoutbuttons "Hide sold-out buttons">
 <!ENTITY layout.hidetagcolumn "Hide tag column">
+<!ENTITY layout.hideunitpricecolumn "Hide unit price">
 <!ENTITY layout.hidedeptscrollbar "Hide department panel scrollbars">
 <!ENTITY layout.hidepluscrollbar "Hide product panel scrollbars">
 <!ENTITY layout.hidefpscrollbar "Hide function panel scrollbars">

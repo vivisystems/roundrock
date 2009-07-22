@@ -24,6 +24,7 @@
                 <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.layout.HideSoldOutButtons" type="bool"/>
 
                 <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.layout.HideTagColumn" type="bool"/>
+                <preference id="pref_hideunitpricecolumn" name="vivipos.fec.settings.layout.HideUnitPriceColumn" type="bool"/>
                 <preference id="pref_showtoolbar" name="vivipos.fec.settings.layout.ShowToolbar" type="bool" />
                 <preference id="pref_registeratleft" name="vivipos.fec.settings.layout.RegisterAtLeft" type="bool"/>
                 <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.layout.HideFPScrollbar" type="bool"/>
@@ -38,7 +39,7 @@
                 <rows>
                     <row>
                         <checkbox id="RegisterAtLeft" label="&layout.registeratleft;" feature="disabled" preference="pref_registeratleft"/>
-                        <checkbox id="hideTagColumn" label="&layout.hidetagcolumn;" preference="pref_hidetagcolumn"/>
+                        <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
                     </row>
                     <row>
                         <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
@@ -61,7 +62,10 @@
                         <checkbox preference="pref_showconfigicon" id="pref_showconfigiconCtrl" label="&layout.showconfigicon;" />
                     </row>
                     <row>
-                        <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
+                        <checkbox id="hideTagColumn" label="&layout.hidetagcolumn;" preference="pref_hidetagcolumn"/>
+                        <checkbox id="hideUnitPriceColumn" label="&layout.hideunitpricecolumn;" preference="pref_hideunitpricecolumn"/>
+                    </row>
+                    <row>
                         <hbox flex="1" pack="end" align="center">
                             <label value="&layout.defaultproductphoto;"/>
                             <hbox flex="1" pack="center" align="center">

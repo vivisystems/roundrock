@@ -10,6 +10,7 @@
 	
         _listObj: null,
         _listDatas: null,
+        _selectedIndex: -1,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -24,6 +25,9 @@
         },
         */
         beforeScaffoldAdd: function(evt) {
+
+            if (!this.confirmChangeJob()) return;
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {input0:null, require0: true};
@@ -172,6 +176,11 @@
 
         },
 
+        afterScaffoldView: function(evt) {
+            var panel = this.getListObj();
+            this._selectedIndex = panel.selectedIndex;
+        },
+
         load: function () {
 
             var panel = this.getListObj();
@@ -190,6 +199,11 @@
 
             var panel = this.getListObj();
 
+            if (!this.confirmChangeJob(index)) {
+                panel.selectedItems = [this._selectedIndex];
+                return;
+            }
+
             this.requestCommand('list', index);
 
             panel.selectedItems = [index];
@@ -198,6 +212,31 @@
             
             this.validateForm(true);
             document.getElementById('job_name').focus();
+        },
+
+        confirmExit: function(data) {
+            // check if job form has been modified
+            data.close = true;
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('jobForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current job. Are you sure you want to discard the changes?'))) {
+                    data.close = false;
+                }
+            }
+        },
+
+        confirmChangeJob: function(index) {
+            // check if condiment group and condiment forms have been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('jobForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current job. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
         },
 
         validateForm: function() {

@@ -43,7 +43,7 @@
             <hbox flex="1">
                 <vbox class="container-left block-75">
                     <caption label="&imagemanager.window.title;" class="label-page-title" />
-                    <vbox flex="1" class="custom-container-image-list">
+                    <vbox flex="1" class="content-buttonpanel">
                         <viviscrollablebuttonpanel id="imagePanel" flex="1" cols="4" rows="4" dir="normal"
                                                    labelField="leafName" imageField="path"
                                                    oncommand="$do('select',this.selectedIndex, 'ImageManager');"

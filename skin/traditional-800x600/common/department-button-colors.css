@@ -16,6 +16,7 @@
     color: #ffffff;
 }
 
+.department-button-color-default:active,
 .department-button-color-default[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #201f21 #353436 #4f4f52 #646467 !important;
@@ -35,6 +36,7 @@
     color: #ffffff;
 }
 
+.department-button-color-1:active,
 .department-button-color-1[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #0d1318 #152029 #202f3d #283c4e !important;
@@ -54,6 +56,8 @@
     -moz-appearance: none;
     color: #ffffff;
 }
+
+.department-button-color-2:active,
 .department-button-color-2[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #272804 #414306 #616409 #7b7f0b !important;
@@ -73,6 +77,7 @@
     color: #ffffff;
 }
 
+.department-button-color-3:active,
 .department-button-color-3[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #1e0000 #230000 #440000 #670000 !important;
@@ -92,6 +97,7 @@
     color: #ffffff;
 }
 
+.department-button-color-4:active,
 .department-button-color-4[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #151610 #191a13 #303224 #494c37 !important;
@@ -111,6 +117,7 @@
     color: #ffffff;
 }
 
+.department-button-color-5:active,
 .department-button-color-5[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #180e05 #1c1106 #36200b #523110 !important;
@@ -130,6 +137,7 @@
     color: #ffffff;
 }
 
+.department-button-color-6:active,
 .department-button-color-6[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #2b0d17 #320f1b #611e34 #942d4f !important;
@@ -149,6 +157,7 @@
     color: #ffffff;
 }
 
+.department-button-color-7:active,
 .department-button-color-7[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #291903 #2f1c03 #5b3706 #8b5409 !important;
@@ -168,6 +177,7 @@
     color: #ffffff;
 }
 
+.department-button-color-8:active,
 .department-button-color-8[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #170c1d #1b0e22 #341a42 #4f2864 !important;
@@ -187,6 +197,7 @@
     color: #ffffff;
 }
 
+.department-button-color-9:active,
 .department-button-color-9[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #080f1b #0a111f #13213c #1c325b !important;
@@ -206,6 +217,7 @@
     color: #ffffff;
 }
 
+.department-button-color-10:active,
 .department-button-color-10[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #151210 #181513 #2f2824 #473d38 !important;
@@ -225,6 +237,7 @@
     color: #ffffff;
 }
 
+.department-button-color-11:active,
 .department-button-color-11[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #0a140e #0c1711 #172c20 #234331 !important;
