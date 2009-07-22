@@ -14801,7 +14801,8 @@ GeckoJS.DatasourceSQLite.prototype._connect = function(){
     var timeout = parseInt(this.config['timeout'] || "30") ;
     this.maxTries = (timeout*1000/this.delayTries);
 
-    var synchronous = this.config['synchronous'] || "FULL" ;
+    var synchronous = this.config['synchronous'] || "NORMAL" ;
+    var journalMode = this.config['journal_mode'] || "PERSIST" ;
 
     // support in-memory sqlite database
     this._inMemory = false;
@@ -14836,10 +14837,16 @@ GeckoJS.DatasourceSQLite.prototype._connect = function(){
                 this.connected = true;
                 // this._execute('PRAGMA full_column_names = 1');
                 try {
-                    // full synchronous mode
-                    if (!this._inMemory) this.conn.executeSimpleSQL("PRAGMA synchronous="+synchronous);
-                    if (!this._inMemory) this.conn.executeSimpleSQL("PRAGMA locking_mode = NORMAL");
+                    if (!this._inMemory) {
 
+                        var initSQL = "";
+
+                        initSQL += "PRAGMA synchronous = " + synchronous + ";\n";
+                        initSQL += "PRAGMA journal_mode = " + journalMode + ";\n";
+                        initSQL += "PRAGMA locking_mode = NORMAL;\n";
+
+                        this.conn.executeSimpleSQL(initSQL);
+                    }
                 }catch(e){}
                 
                 break;

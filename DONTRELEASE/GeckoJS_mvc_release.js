@@ -2893,7 +2893,7 @@ GeckoJS.FormHelper.prototype.isFormModified = function (form) {
         var v = GeckoJS.FormHelper.getFieldValue(this);
         var org_value = this.getAttribute('org_value');
 
-        if(typeof org_value != 'undefined' && typeof v != 'undefined' && typeof v !== null && typeof org_value !== null)  {
+        if(typeof org_value != 'undefined' && typeof v != 'undefined' && v != null && org_value != null)  {
 
             if (v.constructor.name == 'Array') {
                 v = v.join(',');
@@ -3112,7 +3112,7 @@ GeckoJS.FormHelper.prototype.setFieldValue = function(el, data) {
     }
 
     // keep orignal value
-    if (typeof data != 'undefined'){
+    if (typeof data != 'undefined' && data !== null){
         if(data.constructor.name == 'Array') el.setAttribute('org_value', data.join(','));
         else el.setAttribute('org_value', data);
     }
