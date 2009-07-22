@@ -15,14 +15,12 @@
 
         behaviors: ['Sync', 'Training'],
 
-        saveShiftChangeDetails: function(data) {
-
+        saveShiftChangeDetails: function(master_id, data) {
             var r = true;
-
             for (var i = 0; r && i < data.length; i++) {
                 var o = data[i];
                 var detail = {};
-                detail['shift_change_id'] = o.shift_change_id;
+                detail['shift_change_id'] = master_id;
                 detail['type'] = o.type;
                 detail['name'] = o.name;
                 detail['change'] = o.change;
