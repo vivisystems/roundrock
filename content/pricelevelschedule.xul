@@ -72,7 +72,6 @@
                 <vbox class="RightPnlB" flex="1">
                     <label value="&pricelevelschedule.step2;" class="SubTitle"/>
                     <vividatetimepicker-timepad id="datetime" flex="1" type="embed" class="DateTime"/>
-                    <!--vividatetimepicker-timepad id="seltime" value="12:00" flex="1" class="DateTime" labelClass="timepickerfont" buttonClass="timepickerbtns"/-->
                 </vbox>
                 
                 <button id="add_schedule" label="&pricelevelschedule.button.add;" class="BtnAdd" disabled="false" oncommand="$do('add', null, 'PriceLevelSchedule');" />
