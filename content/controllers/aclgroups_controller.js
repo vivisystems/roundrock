@@ -7,6 +7,7 @@
         _listObj: null,
         _rolelistObj: null,
         _roles: null,
+        _selectedIndex: -1,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -201,6 +202,31 @@
             listObj.ensureIndexIsVisible(selectedIndex);
             
             this.validateForm();
+        },
+
+        confirmExit: function(data) {
+            // check if ACL group form has been modified
+            data.close = true;
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('aclgroupForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current access group. Are you sure you want to discard the changes?'))) {
+                    data.close = false;
+                }
+            }
+        },
+
+        confirmChangeJob: function(index) {
+            // check if ACL group form has been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('aclgroupForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current access group. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
         },
 
         validateForm: function() {

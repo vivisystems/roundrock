@@ -227,7 +227,7 @@
         },
 
         confirmChangeJob: function(index) {
-            // check if condiment group and condiment forms have been modified
+            // check if job form has been modified
             if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
                 && GeckoJS.FormHelper.isFormModified('jobForm')) {
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
