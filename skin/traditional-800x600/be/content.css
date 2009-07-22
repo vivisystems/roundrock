@@ -120,7 +120,7 @@
 
 .data-form row {
 	border-bottom: 2px solid white;
-    height: 40px;
+    min-height: 40px;
     -moz-box-align: center;
 }
 

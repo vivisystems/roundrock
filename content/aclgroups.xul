@@ -72,7 +72,7 @@
                 </grid>
                 <vbox flex="1" class="custom-content-buttonpanel">
                     <label value="&aclgroups.role.list;" class="label-sub-title" />
-                    <viviscrollablebuttonpanel id="rolelistscrollablepanel" seltype="multiple" flex="1"
+                    <viviscrollablebuttonpanel id="rolelistscrollablepanel" seltype="none" flex="1"
                                                form="aclgroupForm" name="role_group" default=""
                                                cols="3" rows="5" labelField="description" imageField="no"
                                                buttonClass="button-item-b custom-content-buttonpanel-button"

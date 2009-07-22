@@ -208,17 +208,18 @@
             var modifyBtn = document.getElementById('modify_acl_group');
             var deleteBtn = document.getElementById('delete_acl_group');
 
-            var btnpanel = this.getRoleListObj().buttonpanel;
-            alert(btnpanel.seltype);
+            var btnpanel = this.getRoleListObj().vivibuttonpanel;
             if (listObj.selectedIndex == -1) {
                 modifyBtn.setAttribute('disabled', true);
                 deleteBtn.setAttribute('disabled', true);
+                btnpanel.seltype = 'none';
             }
             else {
                 var group = $('#aclgroup_name').val();
 
                 modifyBtn.setAttribute('disabled', group == 'admin');
                 deleteBtn.setAttribute('disabled', group == 'admin');
+                btnpanel.seltype = 'multiple';
             }
         }
 	

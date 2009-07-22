@@ -15,7 +15,9 @@
                 return controller.update();
             },
             function(){
-                return true;
+                var data = {close: true};
+                $do('confirmExit', data, 'StoreContact');
+                return data.close;
             }
             );
 

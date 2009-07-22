@@ -67,7 +67,7 @@
             var formObj = GeckoJS.FormHelper.serializeToObject('storecontactForm');
             if (formObj == null) {
                 NotifyUtils.error(_('Unable to save store contact!'));
-                return false;
+                return;
             }
             else {
 
@@ -77,7 +77,7 @@
                 if (name.length == 0) {
                     GREUtils.Dialog.alert(this.topmostWindow, _('Store Contact'),
                                           _('Store name must not be blank!'));
-                    return false;
+                    return;
                 }
                 formObj.name = name;
 
@@ -87,7 +87,7 @@
                 if (branch.length == 0) {
                     GREUtils.Dialog.alert(this.topmostWindow, _('Store Contact'),
                                           _('Branch name must not be blank!'));
-                    return false;
+                    return;
                 }
                 formObj.branch = branch;
 
@@ -97,13 +97,13 @@
                 if (branch_id.length == 0) {
                     GREUtils.Dialog.alert(this.topmostWindow, _('Store Contact'),
                                           _('Branch ID must not be blank!'));
-                    return false;
+                    return;
                 }
 
                 if (!this.isAlphaNumeric(branch_id)) {
                     GREUtils.Dialog.alert(this.topmostWindow, _('Store Contact'),
                                           _('Branch ID must only contain [a-z], [A-Z], and [0-9]!'));
-                    return false;
+                    return;
                 }
                 formObj.branch_id = branch_id;
                 
@@ -119,11 +119,17 @@
             
             var storeContactModel = new StoreContactModel();
             storeContactModel.id = formObj.id;
-            storeContactModel.save(formObj);
+            if (storeContactModel.save(formObj)) {
+                NotifyUtils.info(_('Store contact information successfully saved'));
+                GeckoJS.Session.set('storeContact', formObj);
 
-            GeckoJS.Session.set('storeContact', formObj);
-
-            return true;
+                GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);
+            }
+            else {
+                NotifyUtils.error(_('Failed to save store contact information (error code %S); please try again.', [storeContactModel.lastError]));
+                this.log('ERROR', 'Failed to save store contact information:' + '\nDatabase Error [' +
+                                  storeContactModel.lastError + ']: [' + storeContactModel.lastErrorString + ']');
+            }
         },
         
         load: function () {
@@ -149,6 +155,18 @@
             }
             else {
                 GeckoJS.FormHelper.reset('storecontactForm');
+            }
+        },
+
+        confirmExit: function(data) {
+            // check if job form has been modified
+            data.close = true;
+            if (GeckoJS.FormHelper.isFormModified('storecontactForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to store contact information. Are you sure you want to discard the changes?'))) {
+                    data.close = false;
+                }
             }
         },
 

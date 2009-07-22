@@ -271,13 +271,13 @@
                             
                             <spacer height="5px" />
                             
-                    <!-- button style -->
+                            <!-- button style -->
                             <hbox class="RightPnlB">
                                 <vbox flex="1">
                                     <hbox flex="1" align="center" pack="center">
                                         <button_colorpicker
                                             id="vivifuncpanelecr_prefs_layout_button_colorpicker"
-                                            columns="4"
+                                            columns="4" orient="vertical"
                                             class-prefix="function-button-color-"
                                             flex="1" class="BtnColors"
                                             disabled="true"
@@ -289,7 +289,7 @@
                                     <button_fontsizepicker
                                         id="vivifuncpanelecr_prefs_layout_button_fontsizepicker"
                                         buttonClass="ItemButtonB"
-                                        flex="1" class="FontSizeSet"
+                                        flex="1" class="FontSizeSet" orient="vertical"
                                         label="&vivifuncpanelecr.prefs.tabpanel.layout.buttonstyle.fontsize.label;"
                                         disabled="true"
                                         onselect="return $do('selectButtonFontsize', this.size, 'vivifuncpanelecr_prefs')"

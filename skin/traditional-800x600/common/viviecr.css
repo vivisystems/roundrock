@@ -14,8 +14,8 @@
  */
 
 * {
-  padding: 0px;
-  margin: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -24,16 +24,21 @@
  */
 
 .label-page-title {
-  font-size: 12pt;
-  color: #534741;
-  margin: 5px 8px;
-  font-weight: bold;
+    font-size: 12pt;
+    color: #534741;
+    margin: 5px 8px;
+    font-weight: bold;
 }
 
 .label-sub-title {
-  font-size: 10pt;
-  color: #372213;
-  margin: 5px 8px;
+    font-size: 10pt;
+    color: #372213;
+    margin: 5px 8px;
+}
+
+.label-notice {
+    font-weight: bold;
+    color: #cc6300 !important;
 }
 
 /*-----------------------------------------------------------------------------
