@@ -231,7 +231,7 @@
                                 </grid>
                             </vbox>
                         </tabpanel>
-
+<!--
                         <tabpanel flex="1" >
                             <vbox flex="1" >
                                 <grid class="DataForm">
@@ -267,7 +267,7 @@
 
                             </vbox>
                         </tabpanel>
-
+-->
                     </tabpanels>
                 </tabbox>
                 <hbox>
