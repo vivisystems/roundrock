@@ -98,9 +98,9 @@ textbox:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_fie
   background: white url(images/tboxbg.png) left center repeat-x;
   -moz-appearance: none;
   min-height: 40px;
-  font-size: 14px;
   padding: 3px 4px;
   color: #444;
+  font-size: 16px;
 }
 
 textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd):not(.label_promotions):not(.subtotal_promotions) {

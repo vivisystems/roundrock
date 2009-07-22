@@ -1,4 +1,5 @@
 {if typeof ledger != 'undefined'}
+[&INIT]
 [&QSON]${store.name|center:12}[&QSOFF][&CR]
 [&DWON]${store.branch|center:12}[&DWOFF][&CR]
 ${store.telephone1|center:24}[&CR]

@@ -23,7 +23,7 @@
                 });
 
                 GeckoJS.Session.add('condGroups', condGroups);
-
+                
                 this.updateCondimentsSession();
 
                 this.registerEventListener();

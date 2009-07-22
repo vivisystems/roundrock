@@ -238,6 +238,10 @@
             else {
                 this._transaction.expandCondiments(row);
             }
+            // need to save transaction state
+            if (this._transaction) {
+                Transaction.serializeToRecoveryFile(this._transaction);
+            }
         },
 
         isContainerOpen: function(row) {

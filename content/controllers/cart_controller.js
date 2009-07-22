@@ -648,7 +648,6 @@
                 
                 // wrap with chain method
                 next( function() {
-
                     if (addedItem.id == plu.id && !self._returnMode) {
 
                         currentIndex = curTransaction.getDisplayIndexByIndex(addedItem.index);
