@@ -26,7 +26,7 @@
                     // check profile.tbz exists ?
                     o.append('profile.tbz');
                     if (o.exists()) {
-                        timestr += ' ' + '(P)';
+                        timestr += ' ' + '(*)';
                     }
 
                 } catch (e) {
