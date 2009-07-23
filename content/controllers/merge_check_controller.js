@@ -232,7 +232,7 @@
             this._getTableStatusModel().addCheck(this._sourceCheck);
             // save merged check...
             order.saveOrder(this._mergedCheck);
-            this.getCartController().dispatchEvent('onMergeCheck', this._mergedCheck);
+            this.getCartController().dispatchEvent('onMergeCheck', {view:{}, data:this._mergedCheck});
 
             // update table status
             this._getTableStatusModel().addCheck(this._mergedCheck);

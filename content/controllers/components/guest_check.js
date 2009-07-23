@@ -94,7 +94,8 @@
 
         printChecks: function(txn) {
 
-            var printer = 1;
+            // var printer = 1;
+            var printer;
             var autoPrint = false;
             var duplicate = 1;
             // print check

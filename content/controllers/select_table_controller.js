@@ -1061,7 +1061,7 @@
                         document.getElementById('tableScrollablepanel').invalidate();
 
                         // @todo OSD
-                        NotifyUtils.warn(_('The table mark of [%S-%S] was cleared.', [tableNo,tableName]));
+                        NotifyUtils.warn(_('Table mark of [%S-%S] is cleared.', [tableNo,tableName]));
 
                     }
 
@@ -1122,7 +1122,7 @@
                         document.getElementById('tableScrollablepanel').invalidate();
 
                         // @todo OSD
-                        NotifyUtils.warn(_('The table mark of [%S-%S] was cleared.', [tableNo,tableName]));
+                        NotifyUtils.warn(_('All table marks of region [%S] are cleared.', [regionName]));
 
                     }
 
