@@ -101,7 +101,7 @@ class SyncsController extends AppController {
 
             );
 
-            $this->db4log($client_machine_id . " pull success");
+            //$this->db4log($client_machine_id . " pull success");
 
         }catch (Exception $e) {
 
@@ -141,7 +141,7 @@ class SyncsController extends AppController {
                    'data' => $requests
             );
 
-            $this->db4log($client_machine_id . " pull_commit success");
+            //$this->db4log($client_machine_id . " pull_commit success");
 
         }catch (Exception $e) {
 
@@ -187,7 +187,7 @@ class SyncsController extends AppController {
                    'data' => $saveResult
             );
 
-            $this->db4log($client_machine_id . " push success");
+            //$this->db4log($client_machine_id . " push success");
 
         }catch(Exception $e) {
 

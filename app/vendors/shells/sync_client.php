@@ -18,16 +18,16 @@ System_Daemon::setOption("logVerbosity", System_Daemon::LOG_INFO);
 
 class SyncClientShell extends SyncBaseShell {
 
-    /**
-     * Startup method for the shell
-     */
+/**
+ * Startup method for the shell
+ */
     function startup() {
 
         parent::startup();
     }
 
     /**
-     * 
+     *
      */
     function help() {
 
@@ -41,9 +41,65 @@ class SyncClientShell extends SyncBaseShell {
     }
 
     /**
-     * 
+     * sync for shell script
      */
     function sync() {
+
+        $syncSettings = $this->readSyncSettings();
+
+        if ($this->isSyncing()) {
+            CakeLog::write('info', "sync_client sync: other process issyncing.. ");
+            return ;
+        }
+
+        try {
+
+            $this->addSyncRequest();
+            CakeLog::write('info', "sync_client sync: addSyncRequest... ");
+            
+        }catch(Exception $e) {
+        }
+
+    }
+
+
+
+    /**
+     *
+     *  Polling to waiting sync request flag
+     * @param <type> $timeout
+     * @return <type>
+     */
+    function waitForRequest($timeout) {
+
+        $start = 0;
+
+        CakeLog::write('debug', "waitForRequest $timeout");
+
+        while ($start < $timeout ) {
+
+            // if sync Request , break while
+            if ( $this->isSyncRequest() ){
+
+                CakeLog::write('debug', "waitForRequest: isSyncRequest break waiting");
+                
+                $this->removeSyncRequest();
+                break;
+            }
+
+            sleep(1);
+            $start++;
+        }
+
+        return true;
+        
+    }
+
+
+    /**
+     * sync for shell script
+     */
+    function startSyncing() {
 
         set_time_limit(0);
 
@@ -84,13 +140,14 @@ class SyncClientShell extends SyncBaseShell {
         }
 
         $this->out('syncing finished');
-        
+
     }
 
-/**
- * start as daemon
- *
- */
+
+    /**
+     * start as daemon
+     *
+     */
     function start() {
 
     // set php time limit to unlimimted
@@ -135,7 +192,7 @@ class SyncClientShell extends SyncBaseShell {
         while (!System_Daemon::isDying()/* && $runningOkay*/) {
 
 
-            // remove syncStatus
+        // remove syncStatus
             $this->syncStatus('');
             //
             // is ok?
@@ -159,12 +216,12 @@ class SyncClientShell extends SyncBaseShell {
                     // use shellexec to prevent db locked.
                     $shellScript = ROOT.DS."sync_client";
                     if (file_exists($shellScript)) {
-                        $output = shell_exec ($shellScript . " sync");
+                        $output = shell_exec ($shellScript . " startSyncing");
                         echo $output;
                         $successed = $this->isSyncingSuccess();
                     }
                 }else {
-                    $this->sync();
+                    $this->startSyncing();
                     $successed = $this->isSyncingSuccess();
                 }
 
@@ -181,9 +238,11 @@ class SyncClientShell extends SyncBaseShell {
 
             // Relax the system by sleeping for a little bit
             if($runningOkay) {
-                sleep($interval);
+                $this->waitForRequest($interval);
+                //sleep($interval);
             }else {
-            // if not runningOkay sleeping next day start_time
+
+                // if not runningOkay sleeping next day start_time
                 $now = time();
                 $nowStarTime = strtotime(date("Y-m-d H") . ":00:00");
 
@@ -191,11 +250,14 @@ class SyncClientShell extends SyncBaseShell {
                     $nextStartTime = strtotime(date("Y-m-d ") . "$startHour:00:00");
                 }else if ($nowHour > $endHour) {
                     // next day
-                        $nextStartTime = $nowStarTime + 3600 * (24 - $nowHour + $startHour);
-                    }
+                    $nextStartTime = $nowStarTime + 3600 * (24 - $nowHour + $startHour);
+                }
 
                 System_Daemon::log(System_Daemon::LOG_INFO, "not runningOkay in time, sleep " . ($nextStartTime - $now) );
-                sleep($nextStartTime - $now);
+
+                $this->waitForRequest( ($nextStartTime - $now) );
+                //sleep( ($nextStartTime - $now) );
+                
             }
 
         }

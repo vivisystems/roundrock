@@ -10,4 +10,10 @@ dir=`dirname $0`
 
 cd $dir ;
 
-exec ${dir}/cake/console/cake -app ${dir}/app sync_client ${cmd}
+if [ "$cmd" = "sync" ]; then
+
+    echo `date +%s` > /tmp/sync_client.request
+
+else
+    exec ${dir}/cake/console/cake -app ${dir}/app sync_client ${cmd}
+fi

@@ -625,7 +625,7 @@ class SyncHandlerComponent extends Object {
                 break;
 
             case 'json':
-                $result = json_decode($request);
+                $result = json_decode($request, true);
                 break;
         }
 
@@ -646,7 +646,7 @@ class SyncHandlerComponent extends Object {
                 break;
 
             case 'json':
-                $result = json_decode($request);
+                $result = json_decode($request, true);
                 break;
         }
 
@@ -689,7 +689,7 @@ class SyncHandlerComponent extends Object {
 
         $datasources = $this->getSourceList();
 
-        $retain_time = time() - 86400*$retain_days;
+        $retain_time = time() - 86400 * $retain_days;
 
         $rowCount = 0 ;
         foreach($datasources as $dbConfig ) {
