@@ -111,6 +111,18 @@
 .bookcBtn2 {
     background: transparent url(../icons/bookTable2.png) center center no-repeat !important;
 }
+.addMarkBtn {
+    background: transparent url(../icons/addMark.png) center center no-repeat !important;
+}
+.clearMarkBtn {
+    background: transparent url(../icons/clearMark.png) center center no-repeat !important;
+}
+.addMarksBtn {
+    background: transparent url(../icons/addMarks.png) center center no-repeat !important;
+}
+.clearMarksBtn {
+    background: transparent url(../icons/clearMarks.png) center center no-repeat !important;
+}
 
 .RightBtns {
     left: 880px;
