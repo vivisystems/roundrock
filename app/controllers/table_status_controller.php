@@ -258,5 +258,65 @@ function index() {
 
     }
 
+    function setTableMark() {
+
+	$tableObject = array();
+	if($_REQUEST['request_data']) {
+		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+
+		file_put_contents("/tmp/setTableMark", serialize($tableObject));
+	}
+
+	if ($tableObject) {
+                $table_no = $tableObject['table_no'];
+                $markObj = $tableObject['markObj'];
+		$setResult = $this->TableStatus->setTableMark($table_no, $markObj);
+	}else {
+		$setResult = false;
+	}
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $setResult
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+
+
+    }
+
+    function setTableMarks() {
+
+	$tableObject = array();
+	if($_REQUEST['request_data']) {
+		$tableObject = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+
+		file_put_contents("/tmp/setTableMarks", serialize($tableObject));
+	}
+
+	if ($tableObject) {
+                $tables = $tableObject['tables'];
+                $markObj = $tableObject['markObj'];
+		$setResult = $this->TableStatus->setTableMarks($tables, $markObj);
+	}else {
+		$setResult = false;
+	}
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $setResult
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+
+
+    }
+
 }
 ?>
