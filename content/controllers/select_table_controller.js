@@ -121,7 +121,7 @@
             btn.clerk = tableSettings.DisplayClerk ? clerk : '';
 
             if (mark && seq == "" ) {
-                btn.seq_no = _('Mark') + ':' + mark;
+                btn.seq_no = _('Status') + ':' + mark;
                 btn.clerk = mark_user;
             }
 
@@ -468,14 +468,14 @@
         },
 
         doMarkTable: function() {
-            this._setPromptLabel('*** ' + _('Add Table Mark') + ' ***', _('Please select the table to mark...'), '', _('Press CANCEL button to cancel function'), 2);
+            this._setPromptLabel('*** ' + _('Add Table Status') + ' ***', _('Please select the table to mark status...'), '', _('Press CANCEL button to cancel function'), 2);
             
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'MarkTable';
         },
 
         doUnmarkTable: function() {
-            this._setPromptLabel('*** ' + _('Clear Table Mark') + ' ***', _('Please select the table to clear mark...'), '', _('Press CANCEL button to cancel function'), 2);
+            this._setPromptLabel('*** ' + _('Clear Table Status') + ' ***', _('Please select the table to clear status...'), '', _('Press CANCEL button to cancel function'), 2);
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'UnmarkTable';
@@ -688,8 +688,7 @@
             var r = false;
 
             var selectedOrderId = this._inputObj.order_id;
-// you are now marking [region %S / Table# %S]
-// No Operations Allowed
+
             switch (this._inputObj.action) {
                 case 'SelectTableNo':
 
@@ -702,7 +701,7 @@
 
                     if (selTable.mark && selTable.mark_op_deny) {
                         // @todo OSD
-                        NotifyUtils.error(_('This table is marked [%S] and can not be selected !!', [selTable.mark]));
+                        NotifyUtils.error(_('This table status is marked as [%S] and can not be selected !!', [selTable.mark]));
                         this._isBusy = false;
                         return;
                     }
@@ -891,7 +890,7 @@
 
                     if (selTable.mark && selTable.mark_op_deny) {
                         // @todo OSD
-                        NotifyUtils.error(_('This table is marked [%S] and can not be selected !!', [selTable.mark]));
+                        NotifyUtils.error(_('This table status is marked as [%S] and can not be selected !!', [selTable.mark]));
                         this._isBusy = false;
                         return;
                     }
@@ -1022,10 +1021,10 @@
                     var tableName = this._regionTables[v].table_name;
                     var inputObj = {
                         name: '',
-                        title: _('Select Table Mark'),
-                        description: _('you are now marking table [%S-%S]', [tableNo,tableName])
+                        title: _('Select Table Status'),
+                        description: _('You are now marking table status of Table# %S (%S)', [tableNo,tableName])
                     };
-                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Mark'), aFeatures, inputObj);
+                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Status'), aFeatures, inputObj);
 
                     if (inputObj.ok && inputObj.name) {
                         this._isBusy = true;
@@ -1050,8 +1049,8 @@
                     var tableNo = this._regionTables[v].table_no;
                     var tableName = this._regionTables[v].table_name;
                     if (GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('Clear Table Mark'),
-                        _('you are now clearing mark of [%S-%S]. Proceed?\n' +
+                        _('Clear Table Status'),
+                        _('You are now clearing table status of Table# %S (%S). Proceed?\n' +
                             'Click OK to clear, \nor, click Cancel to abort.', [tableNo,tableName])) == true) {
 
                         var table_no = this._regionTables[v].table_no;
@@ -1061,7 +1060,7 @@
                         document.getElementById('tableScrollablepanel').invalidate();
 
                         // @todo OSD
-                        NotifyUtils.warn(_('Table mark of [%S-%S] is cleared.', [tableNo,tableName]));
+                        NotifyUtils.warn(_('Table status of Table# %S (%S) is cleared.', [tableNo,tableName]));
 
                     }
 
@@ -1085,10 +1084,10 @@
                     var regionName = this._regionName[this._regionIndex];
                     var inputObj = {
                         name: '',
-                        title: _('Select Table Mark'),
-                        description: _('you are now marking region [%S]', [regionName])
+                        title: _('Select Table Status'),
+                        description: _('You are now marking table status of region [%S]', [regionName])
                     };
-                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Mark'), aFeatures, inputObj);
+                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Status'), aFeatures, inputObj);
 
                     if (inputObj.ok && inputObj.name) {
                         this._isBusy = true;
@@ -1110,8 +1109,8 @@
 
                     var regionName = this._regionName[this._regionIndex];
                     if (GREUtils.Dialog.confirm(this.topmostWindow,
-                        _('Clear Table Marks in region'),
-                        _('you are now clearing marks of region [%S]. Proceed?\n' +
+                        _('Clear all table status in region'),
+                        _('You are now clearing all table status of region [%S]. Proceed?\n' +
                             'Click OK to clear, \nor, click Cancel to abort.', [regionName])) == true) {
 
                         var markObj = {};
@@ -1122,7 +1121,7 @@
                         document.getElementById('tableScrollablepanel').invalidate();
 
                         // @todo OSD
-                        NotifyUtils.warn(_('All table marks of region [%S] are cleared.', [regionName]));
+                        NotifyUtils.warn(_('All table status of region [%S] are cleared.', [regionName]));
 
                     }
 

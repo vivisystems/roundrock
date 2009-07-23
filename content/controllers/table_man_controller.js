@@ -542,15 +542,15 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Table Mark'), features,
-                                       _('New Table Mark'), '', _('Table Mark'), '', inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Table Status'), features,
+                                       _('New Table Status'), '', _('Table Status'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 var markName = inputObj.input0.replace('\'', '"', 'g');
 
                 var dupNames = new GeckoJS.ArrayQuery(this._markListDatas).filter('name = \'' + markName + '\'');
                 if (dupNames.length > 0) {
                     // @todo OSD
-                    NotifyUtils.warn(_('Table mark [%S] already exists', [markName]));
+                    NotifyUtils.warn(_('Table status [%S] already exists', [markName]));
                     return;
                 }
 
@@ -570,7 +570,7 @@
                 }
                 
                 // @todo OSD
-                OsdUtils.info(_('Table mark [%S] added successfully', [markName]));
+                OsdUtils.info(_('Table status [%S] added successfully', [markName]));
             }
         },
 
@@ -589,11 +589,11 @@
                     var markName = this._markListDatas[index].name;
 
                     this.getMarkListObj().treeBoxObject.ensureRowIsVisible(index);
-                    OsdUtils.info(_('Table mark [%S] modified successfully', [markName]));
+                    OsdUtils.info(_('Table status [%S] modified successfully', [markName]));
                 }
                 else {
                     // shouldn't happen, but check anyways
-                    NotifyUtils.warn(_('Table mark must not be empty'));
+                    NotifyUtils.warn(_('Table status must not be empty'));
                 }
             }
         },
@@ -603,7 +603,7 @@
             if (index >= 0) {
                 var markName = this._markListDatas[index].name;
 
-                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table mark [%S]', [markName]), _('Are you sure you want to delete table mark [%S]?', [markName]))) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table status [%S]', [markName]), _('Are you sure you want to delete table status [%S]?', [markName]))) {
                     return;
                 }
 
@@ -611,7 +611,7 @@
                 this.saveMarks();
 
                 // @todo OSD
-                OsdUtils.info(_('Table mark [%S] deleted successfully', [markName]));
+                OsdUtils.info(_('Table status [%S] deleted successfully', [markName]));
 
                 index = this.getMarkListObj().selectedIndex;
                 if (index >= this._markListDatas.length) index = this._markListDatas.length - 1;
@@ -834,8 +834,8 @@
             this._getTableStatusModel()._tableStatusLastTime = 0;
 
             if (this._needRestart) {
-                var restartMsg = _("table data changes require system restart to take effect.\n") +
-                                 _("the system will restart automatically after you return to the Main Screen.");
+                var restartMsg = _("Modifications of table and region require system restart to take effect.\n") +
+                                 _("The system will restart automatically after you return to the Main Screen.");
                 GREUtils.Dialog.alert(this.topmostWindow, _("Table Manage"), restartMsg);
                 GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
 
