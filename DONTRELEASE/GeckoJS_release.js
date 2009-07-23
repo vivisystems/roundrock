@@ -4672,7 +4672,7 @@ GeckoJS.File.prototype.__defineGetter__('nsIFile', function(){
 
 GeckoJS.File.prototype.__defineGetter__('path', function(){
 	if(this.file) {
-		return this.file.path;	
+		return this.file.path;
 	}else {
 		return "";
 	}
@@ -4681,7 +4681,7 @@ GeckoJS.File.prototype.__defineGetter__('path', function(){
 
 GeckoJS.File.prototype.__defineGetter__('leafName', function(){
 	if(this.file) {
-		return this.file.leafName;	
+		return this.file.leafName;
 	}else {
 		return "";
 	}
@@ -10468,19 +10468,18 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
             /* ifdef DEBUG 
             this.log('DEBUG', 'commit to success , remove all backup datas.');
             /* endif DEBUG */
-
+            
             var self = this;
-
+            newDataSource.truncate(self);
+            
+            /*
             backupDatas.forEach(function(oldData) {
 
                 self.id = oldData[self.primaryKey];
-                
-                /* ifdef DEBUG 
-                self.log('DEBUG', 'delete from backup data, id = ' + self.id);
-                /* endif DEBUG */
-
+               
                 newDataSource.executeDelete(self);
             });
+            */
 
             this.id = false;
             this.data = null;
@@ -12460,7 +12459,6 @@ GREUtils.define('GeckoJS.DatasourceJsonFile', GeckoJS.global);
  *
  * @name GeckoJS.DatasourceJsonFile
  * @extends GeckoJS.Datasource 
- * @property {GeckoJS.Map} data                Data cache (read-only)
  */
 GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile',
 /** @lends GeckoJS.DatasourceJsonFile.prototype */
@@ -12480,7 +12478,7 @@ GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile',
         this.wrappedJSObject = this;
 
         this._path = null ;
-        this._data = new GeckoJS.Map();
+        //this._data = new GeckoJS.Map();
 
         this.config = config;
 
@@ -12495,9 +12493,11 @@ GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile',
 
 
 //dispatchData getter
+/*
 GeckoJS.DatasourceJsonFile.prototype.__defineGetter__('data', function(){
     return this._data;
 });
+*/
 
 // path
 GeckoJS.DatasourceJsonFile.prototype.__defineGetter__('path', function() {
@@ -12521,7 +12521,7 @@ GeckoJS.DatasourceJsonFile.prototype.__defineGetter__('path', function() {
 GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
 
     var db = null;
-    var d = {};
+    var d = null;
 
     var tableFile = new GeckoJS.Dir(this.path, true);
 
@@ -12535,17 +12535,16 @@ GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
 
     tableFile.append(table + '.db');
 
-    if (tableFile.exists()) {
+    if (tableFile.exists() && tableFile.file.fileSize > 0) {
 
         /* ifdef DEBUG 
         this.log('DEBUG', 'readTableFile > ' + tableFile.path + ' , fileSize = ' + tableFile.file.fileSize);
         /* endif DEBUG */
-
+       
         try {
             d = GREUtils.JSON.decodeFromFile(tableFile.path);
-            if (d == null) d = {};
         }catch(e) {
-            d = {};
+            d = null;
         }
         
     }
@@ -12555,7 +12554,10 @@ GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
     /* endif DEBUG */
 
     db = new GeckoJS.Map();
-    db.addAll(d);
+
+    if (d != null) {
+        db.addAll(d);
+    }
 
     this.lastError = 0;
     this.lastErrorString = "successful result";
@@ -12590,12 +12592,16 @@ GeckoJS.DatasourceJsonFile.prototype.saveTableFile = function(table, db){
     /* ifdef DEBUG 
     this.log('DEBUG', 'saveTableFile > ' + tableFile.path);
     /* endif DEBUG */
-    
-    GREUtils.JSON.encodeToFile(tableFile.path, db._obj);
 
+    if (!db) {
+        // null or false , write 0 byte file.
+        GREUtils.File.writeAllBytes(tableFile.path, '');
+    }else if (db._obj) {
+        // Map object
+        GREUtils.JSON.encodeToFile(tableFile.path, db._obj);
+    }
 
-    this.data.set(table, db);
-
+    // this.data.set(table, db);
     this.lastError = 0;
     this.lastErrorString = "successful result";
 
@@ -13086,6 +13092,11 @@ GeckoJS.DatasourceJsonFile.prototype.executeDelete = function(model){
         var key = model.id;
         
         if (db.containsKey(key)) {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'executeDelete > remove key: ' + key);
+            /* endif DEBUG */
+
             db.remove(key);
             var r = this.saveTableFile(table, db);
             return r;
@@ -13111,11 +13122,11 @@ GeckoJS.DatasourceJsonFile.prototype.executeDelete = function(model){
  * @param {String} table A string or model class representing the table to be truncated
  * @return {Boolean}	SQL TRUNCATE TABLE statement, false if not applicable.
  */
-GeckoJS.DatasourceJsonFile.prototype.truncate = function (table) {
+GeckoJS.DatasourceJsonFile.prototype.truncate = function (model) {
 
     try {
-
-        var r = this.saveTableFile(table, {});
+        var table = model.table;
+        var r = this.saveTableFile(table, null);
         return r;
     }
     catch (e) {
@@ -14802,7 +14813,7 @@ GeckoJS.DatasourceSQLite.prototype._connect = function(){
     this.maxTries = (timeout*1000/this.delayTries);
 
     var synchronous = this.config['synchronous'] || "NORMAL" ;
-    var journalMode = this.config['journal_mode'] || "PERSIST" ;
+    var journalMode = this.config['journal_mode'] || "DELETE" ;
 
     // support in-memory sqlite database
     this._inMemory = false;

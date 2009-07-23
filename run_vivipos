@@ -12,6 +12,17 @@ SQLITE3=/usr/bin/sqlite3
 export DISPLAY=:0
 
 #
+# include l10n messages
+#
+if [ -x /data/scripts/l10n_messages ]; then
+    . /data/scripts/l10n_messages
+fi
+MSG_RUN_VIVIPOS_STARTING=${MSG_RUN_VIVIPOS_STARTING:-"Starting VIVIPOS ......"}
+MSG_RUN_VIVIPOS_INTEGRITY_CHECK=${MSG_RUN_VIVIPOS_INTEGRITY_CHECK:-"Integrity Check:"}
+MSG_RUN_VIVIPOS_REBUILDING=${MSG_RUN_VIVIPOS_REBUILDING:-"Rebuilding:"}
+
+
+#
 # do sqlite vacuum 
 #
 do_vacuum()
@@ -33,13 +44,13 @@ do_integrity_check()
 
     for i in $DATABASE/*.sqlite; do
                 dbname=`basename $i`
-                /usr/bin/aosd_cat -F "Sans 20"  -y -120 -d 600000 "integrity check (${dbname})..." &
+                /usr/bin/aosd_cat -F "Sans 20"  -y -120 -d 600000 "${MSG_RUN_VIVIPOS_INTEGRITY_CHECK} ${dbname}" &
                 echo "`date +"%Y-%m-%d %H:%M:%S"` :   integrity_check [${dbname}]" >> ${DIR}/log/vivipos.log
 
 		result=`$SQLITE3 $i "PRAGMA integrity_check"`
                 pkill aosd_cat
 		if [ "$result" != "ok" ]; then
-                    /usr/bin/aosd_cat -F "Sans 20"  -y -80 -d 600000 "Rebuilding (${dbname})..." &
+                    /usr/bin/aosd_cat -F "Sans 20"  -y -80 -d 600000 "${MSG_RUN_VIVIPOS_REBUILDING} ${dbname}" &
                     echo "`date +"%Y-%m-%d %H:%M:%S"` :   rebuilding [${dbname}]" >> ${DIR}/log/vivipos.log
 
                     $SQLITE3 $i ".dump" | $SQLITE3 $i.tmp
@@ -76,7 +87,7 @@ while [ $RETVAL != 0 ]; do
 
     echo "`date +"%Y-%m-%d %H:%M:%S"` :   executing xulrunner [${DIR}/application.ini]" >> ${DIR}/log/vivipos.log
 
-    /usr/bin/aosd_cat -F "Sans 24" -y -320 -d 800000  "Starting VIVIPOS ......" &
+    /usr/bin/aosd_cat -F "Sans 24" -d 800000  "$MSG_RUN_VIVIPOS_STARTING" &
     ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
     RETVAL=$?
 
