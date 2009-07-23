@@ -26,9 +26,15 @@
             var clerk = this.data[row].clerk || '';
             var now = Math.round(new Date().getTime());
             var holdby = this.data[row].hostby || '';
-            // var transaction_created = this.data[row].order.transaction_created * 1000 || now;
-            // var transaction_created = this.data[row].created * 1000 || now;
-            var transaction_created = this.data[row].start_time * 1000 || now;
+            var mark_user = this.data[row].mark_user || '';
+
+            // var transaction_created = this.data[row].start_time * 1000 || now;
+            // var transaction_created = now;
+            var transaction_created = this.data[row].transaction_created * 1000 || now;
+
+            var mark = this.data[row].mark || '';
+            var mark_user = this.data[row].mark_user || '';
+            var mark_op_deny = this.data[row].mark_op_deny || false;
 
             // display booking...
             var book_time = '';
@@ -84,13 +90,22 @@
 
                 if (holdby)
                     btn.setTableStatus(2);
-                else
-                    btn.setTableStatus(0);
+                else {
+                    if (mark) {
+                        btn.setTableStatus(3);
+                    } else {
+                        btn.setTableStatus(0);
+                    }
+                }
+                    
+                
                 btn.setPeriodStatus(0);
                 btn.setCapacityStatus(0);
 
                 
             }
+
+            
 
             btn.table_no = table_no;
             btn.checks = checks;
@@ -102,9 +117,16 @@
             btn.subtotal = tableSettings.DisplayTotal ? subtotal : '';
             btn.capacity = tableSettings.DisplayCapacity ? capacity : '';
             // share seq_no for seq & clerk
-            btn.seq_no = tableSettings.DisplayClerk ? clerk : btn.seq_no;
-            
+            // btn.seq_no = tableSettings.DisplayClerk ? clerk : btn.seq_no;
+            btn.clerk = tableSettings.DisplayClerk ? clerk : '';
+
+            if (mark && seq == "" ) {
+                btn.seq_no = _('Mark') + ':' + mark;
+                btn.clerk = mark_user;
+            }
+
             if (holdby) btn.seq_no = _('Host Table') + ':' + holdby;
+
             return;
         }
     };
@@ -139,6 +161,7 @@
         _regionsById: {},
 
         _regionIndex: 0,
+        _regionName: [],
 
         _orderPanel: null,
         _orderDoc: null,
@@ -152,13 +175,19 @@
 
         _timeout: 5000,
 
+        _tableDock: false,
+        _tableDockLeft: 0,
+        _tableDockTop: 0,
+        _tableDockWidth: 400,
+        _tableDockHeight: 400,
+
         initial: function () {
             //
             if (this._cartController == null) {
                 this._cartController = GeckoJS.Controller.getInstanceByName('Cart');
             };
 
-            // this.readTableConfig();
+            this.readTableConfig();
             if (this._tableStatusModel == null) {
                 // this._tableStatusModel = new TableStatusModel;
                 // this._tableStatusModel.initial();
@@ -240,6 +269,8 @@
         _showOrderDisplayPanel: function(panel, tableObj, obj) {
             var self = this;
 
+            this._isBusy = true;
+
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
 
@@ -304,12 +335,18 @@
                 tabs.removeChild(tabs.firstChild);
             }
 
-            tableObj.order.forEach(function(o){
-                var tab = document.createElement("tab");
-                tab.setAttribute('label', 'C#' + o.check_no);
-                tab.setAttribute('oncommand', "$do('selectOrderTab', '" + o.id + "', 'SelectTable')");
-                tabs.appendChild(tab);
-            });
+            if (tableObj.order && tableObj.order.length > 0) {
+
+                tableObj.order.forEach(function(o){
+
+                    var tab = document.createElement("tab");
+                    tab.setAttribute('label', 'C#' + o.Order.check_no);
+                    tab.setAttribute('oncommand', "$do('selectOrderTab', '" + o.Order.id + "', 'SelectTable')");
+                    tabs.appendChild(tab);
+                }, this);
+            } else {
+                this.log('DEBUG', 'display order tableObj error:::');
+            }
 
             // select first order
             tabs.selectedIndex = 0;
@@ -317,11 +354,14 @@
                 tabs.selectedItem.doCommand();
             }
 
+            this._isBusy = false;
+
             return promptPanel;
         },
 
         readTableConfig: function() {
             this._tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+            this._timeout = (this._tableSettings.TableRefreshFrequence || 15) * 1000;
         },
 
         popupOrderPanel: function() {
@@ -427,8 +467,8 @@
             this._inputObj.action = 'UnmergeTable';
         },
 
-        doMarkTable: function(mark) {
-            this._setPromptLabel('*** ' + mark + ' ***', _('Please select the table to mark %S ...', [mark]), '', _('Press CANCEL button to cancel function'), 2);
+        doMarkTable: function() {
+            this._setPromptLabel('*** ' + _('Add Table Mark') + ' ***', _('Please select the table to mark...'), '', _('Press CANCEL button to cancel function'), 2);
             
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'MarkTable';
@@ -439,6 +479,24 @@
 
             var pnl = this._showPromptPanel('prompt_panel');
             this._inputObj.action = 'UnmarkTable';
+        },
+
+        doMarkRegionTable: function() {
+
+                this._inputObj.action = 'MarkRegionTable';
+
+                this.doCloseOrderPanel();
+                this.doFunc();
+
+        },
+
+        doUnmarkRegionTable: function() {
+
+                this._inputObj.action = 'UnmarkRegionTable';
+
+                this.doCloseOrderPanel();
+                this.doFunc();
+
         },
 
         doBookingTable: function() {
@@ -540,6 +598,16 @@
 
         doRefreshTableStatusLight: function() {
             //
+            var selectTable = GeckoJS.Controller.getInstanceByName('SelectTable');
+
+            if (selectTable._isBusy) {
+
+                clearTimeout(window.tableStatusRefreshInterval);
+                window.tableStatusRefreshInterval = setTimeout('RefreshTableStatusLight()', window.tableStatusRefreshTime);
+
+                return;
+            }
+
             try {
 
                 var list = window._tableStatusModel.getTableStatusList();
@@ -558,6 +626,7 @@
         },
 
         doRefreshTableStatus: function() {
+            if (this.isBusy) return;
 
             this._tableStatusModel._tableStatusLastTime = 0;
             this._tableStatusModel.getTableStatusList();
@@ -597,6 +666,7 @@
                 this._sourceTableNo = null;
             } else {
                 // doCancelButton();
+                if (!this._tableDock)
                 $.hidePanel('selectTablePanel', false);
             }
         },
@@ -613,17 +683,26 @@
             // @todo check status first, doFunc when match table selected...
             var v = document.getElementById('tableScrollablepanel').value;
             var selTable = this._regionTables[v];
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
 
             var r = false;
 
             var selectedOrderId = this._inputObj.order_id;
-            
+// you are now marking [region %S / Table# %S]
+// No Operations Allowed
             switch (this._inputObj.action) {
                 case 'SelectTableNo':
 
                     if (selTable.hostby) {
                         // @todo OSD
-                        NotifyUtils.error(_('This table is host by Table#%S !!', [selTable.hostby]));
+                        NotifyUtils.error(_('This table is hosted by Table#%S !!', [selTable.hostby]));
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    if (selTable.mark && selTable.mark_op_deny) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is marked [%S] and can not be selected !!', [selTable.mark]));
                         this._isBusy = false;
                         return;
                     }
@@ -636,14 +715,14 @@
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
                         
                         // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
                         cart.GuestCheck.doSelectTableNo(this._inputObj);
 
                         this._inputObj.action = '';
                         this._sourceTableNo = null;
-                        
+
+                        if (!this._tableDock)
                         $.hidePanel('selectTablePanel', true);
 
                         this._isBusy = false;
@@ -665,7 +744,6 @@
                         this._inputObj.ok = true;
                         // doOKButton();
 
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
                         // var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
                         var r = cart.GuestCheck.doRecallCheck(this._inputObj);
         //                this.log("DEBUG", "do not call to doSelectTableFuncs with action:" + this._inputObj.action);
@@ -699,7 +777,6 @@
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
                         // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
 
                         // if (this._selectedCheckNo) {
@@ -710,9 +787,9 @@
                         }
 
                         if (r) {
-                            if (r == 1){
-                                $.hidePanel('selectTablePanel', true);
-                            }
+
+                            if (!this._tableDock)
+                            $.hidePanel('selectTablePanel', true)
                         }
 
                         this._inputObj.action = '';
@@ -744,7 +821,7 @@
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+
                         // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
 
                         // if (this._selectedCheckNo) {
@@ -755,9 +832,9 @@
                         }
 
                         if (r) {
-                            if (r == 1){
-                                $.hidePanel('selectTablePanel', true);
-                            }
+
+                            if (!this._tableDock)
+                            $.hidePanel('selectTablePanel', true)
                         }
 
                         this._inputObj.action = '';
@@ -783,7 +860,7 @@
                         this._inputObj.tableObj = this._regionTables[v];
                         this._inputObj.ok = true;
                         // doOKButton();
-                        var cart = GeckoJS.Controller.getInstanceByName('Cart');
+
                         // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
 
                         // if (this._selectedCheckNo) {
@@ -797,12 +874,28 @@
                         this._sourceTableNo = null;
 
                         // $.hidePanel('selectTablePanel', true);
-                        cart.GuestCheck.getNewTableNo();
+                        
                         this._isBusy = false;
+                        cart.GuestCheck.getNewTableNo();
                         return;
                     }
                     break;
                 case 'TransTable':
+
+                    if (selTable.hostby) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is hosted by Table#%S !!', [selTable.hostby]));
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    if (selTable.mark && selTable.mark_op_deny) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is marked [%S] and can not be selected !!', [selTable.mark]));
+                        this._isBusy = false;
+                        return;
+                    }
+                    
                     if (this._sourceTableNo) {
                         //
                         var srcTableNo = this._sourceTableNo;
@@ -818,7 +911,7 @@
                             // this._inputObj.tableObj = GREUtils.extend({}, this._regionTables[v]);
                             this._inputObj.ok = true;
                             // doOKButton();
-                            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+
                             // cart.GuestCheck.doSelectTableFuncs(this._inputObj);
 
                             var dstTableNo = this._regionTables[v].table_no;
@@ -834,8 +927,9 @@
                             this._sourceTableNo = null;
 
                             // $.hidePanel('selectTablePanel', true);
-                            cart.GuestCheck.getNewTableNo();
+                            
                             this._isBusy = false;
+                            cart.GuestCheck.getNewTableNo();
                             return;
                         }
 
@@ -857,11 +951,11 @@
                 case 'MergeTable':
                     if (this._sourceTableNo) {
                         //
-                        var i = this._regionTables[v].table_no;
+                        var table_no = this._regionTables[v].table_no;
                         var holdby = GeckoJS.BaseObject.clone(this._sourceTable);
 
                         // this._tables = this._tableStatusModel.holdTable(i, holdby.table_no);
-                        this._tableStatusModel.holdTable(i, holdby.table_no);
+                        this._tableStatusModel.holdTable(table_no, holdby.table_no);
 
                         document.getElementById('tableScrollablepanel').invalidate();
 
@@ -899,13 +993,13 @@
                         return;
                     }
 
-                    var i = this._regionTables[v].table_no;
+                    var table_no = this._regionTables[v].table_no;
                     var holdby = GeckoJS.BaseObject.clone(this._regionTables[v]);
                     holdby.status = -1;
 
                     // this._tables = this._tableStatusModel.holdTable(i, holdby);
                     // this._tables = this._tableStatusModel.holdTable(i, i);
-                    this._tableStatusModel.holdTable(i, i);
+                    this._tableStatusModel.holdTable(table_no, table_no);
 
                     document.getElementById('tableScrollablepanel').invalidate();
                     
@@ -918,55 +1012,125 @@
 
                 case 'MarkTable':
 
-                    // if (!selTable.holdby) {
-                    if (!selTable.hostby) {
-                        // @todo OSD
-                        NotifyUtils.error(_('This table had not been hold!!'));
-                        this._isBusy = false;
-                        return;
+                    var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+                    var screenheight = GeckoJS.Session.get('screenheight') || 600;
+
+                    var aURL = 'chrome://viviecr/content/select_mark.xul';
+                    var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+
+                    var tableNo = this._regionTables[v].table_no;
+                    var tableName = this._regionTables[v].table_name;
+                    var inputObj = {
+                        name: '',
+                        title: _('Select Table Mark'),
+                        description: _('you are now marking table [%S-%S]', [tableNo,tableName])
+                    };
+                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Mark'), aFeatures, inputObj);
+
+                    if (inputObj.ok && inputObj.name) {
+                        this._isBusy = true;
+                        var table_no = this._regionTables[v].table_no;
+
+                        var markObj = inputObj.markObj;
+
+                        this._tableStatusModel.setTableMark(table_no, markObj);
                     }
-
-                    var i = this._regionTables[v].table_no;
-                    var holdby = GeckoJS.BaseObject.clone(this._regionTables[v]);
-                    holdby.status = -1;
-
-                    // this._tables = this._tableStatusModel.holdTable(i, holdby);
-                    // this._tables = this._tableStatusModel.holdTable(i, i);
-                    this._tableStatusModel.holdTable(i, i);
-
-                    document.getElementById('tableScrollablepanel').invalidate();
 
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
                     this._hidePromptPanel('prompt_panel');
+
                     this._isBusy = false;
+                    cart.GuestCheck.getNewTableNo();
                     return;
                     break;
 
                 case 'UnmarkTable':
 
-                    // if (!selTable.holdby) {
-                    if (!selTable.hostby) {
+                    var tableNo = this._regionTables[v].table_no;
+                    var tableName = this._regionTables[v].table_name;
+                    if (GREUtils.Dialog.confirm(this.topmostWindow,
+                        _('Clear Table Mark'),
+                        _('you are now clearing mark of [%S-%S]. Proceed?\n' +
+                            'Click OK to clear, \nor, click Cancel to abort.', [tableNo,tableName])) == true) {
+
+                        var table_no = this._regionTables[v].table_no;
+                        var markObj = {};
+                        this._isBusy = true;
+                        this._tableStatusModel.setTableMark(table_no, markObj);
+                        document.getElementById('tableScrollablepanel').invalidate();
+
                         // @todo OSD
-                        NotifyUtils.error(_('This table had not been hold!!'));
-                        this._isBusy = false;
-                        return;
+                        NotifyUtils.warn(_('The table mark of [%S-%S] was cleared.', [tableNo,tableName]));
+
                     }
 
-                    var i = this._regionTables[v].table_no;
-                    var holdby = GeckoJS.BaseObject.clone(this._regionTables[v]);
-                    holdby.status = -1;
+                    this._inputObj.action = '';
+                    this._sourceTableNo = null;
+                    this._hidePromptPanel('prompt_panel');
 
-                    // this._tables = this._tableStatusModel.holdTable(i, holdby);
-                    // this._tables = this._tableStatusModel.holdTable(i, i);
-                    this._tableStatusModel.holdTable(i, i);
+                    this._isBusy = false;
+                    cart.GuestCheck.getNewTableNo();
+                    return;
+                    break;
 
-                    document.getElementById('tableScrollablepanel').invalidate();
+                case 'MarkRegionTable':
+
+                    var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+                    var screenheight = GeckoJS.Session.get('screenheight') || 600;
+
+                    var aURL = 'chrome://viviecr/content/select_mark.xul';
+                    var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+
+                    var regionName = this._regionName[this._regionIndex];
+                    var inputObj = {
+                        name: '',
+                        title: _('Select Table Mark'),
+                        description: _('you are now marking region [%S]', [regionName])
+                    };
+                    GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Mark'), aFeatures, inputObj);
+
+                    if (inputObj.ok && inputObj.name) {
+                        this._isBusy = true;
+
+                        var markObj = inputObj.markObj;
+
+                        this._tableStatusModel.setTableMarks(this._regionTables, markObj);
+                    }
 
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
                     this._hidePromptPanel('prompt_panel');
                     this._isBusy = false;
+                    cart.GuestCheck.getNewTableNo();
+                    return;
+                    break;
+
+                case 'UnmarkRegionTable':
+
+                    var regionName = this._regionName[this._regionIndex];
+                    if (GREUtils.Dialog.confirm(this.topmostWindow,
+                        _('Clear Table Marks in region'),
+                        _('you are now clearing marks of region [%S]. Proceed?\n' +
+                            'Click OK to clear, \nor, click Cancel to abort.', [regionName])) == true) {
+
+                        var markObj = {};
+                        this._isBusy = true;
+
+                        this._tableStatusModel.setTableMarks(this._regionTables, markObj);
+
+                        document.getElementById('tableScrollablepanel').invalidate();
+
+                        // @todo OSD
+                        NotifyUtils.warn(_('The table mark of [%S-%S] was cleared.', [tableNo,tableName]));
+
+                    }
+
+                    this._inputObj.action = '';
+                    this._sourceTableNo = null;
+                    this._hidePromptPanel('prompt_panel');
+                    this._isBusy = false;
+                    cart.GuestCheck.getNewTableNo();
                     return;
                     break;
 
@@ -994,8 +1158,7 @@
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
                     this._hidePromptPanel('prompt_panel');
-                    
-                    var cart = GeckoJS.Controller.getInstanceByName('Cart');
+
                     cart.GuestCheck.getNewTableNo();
                     this._isBusy = false;
                     return;
@@ -1016,12 +1179,11 @@
                 this._inputObj.ok = true;
                 // doOKButton();
 
-                var cart = GeckoJS.Controller.getInstanceByName('Cart');
                 // var r = cart.GuestCheck.doSelectTableFuncs(this._inputObj);
                 this.log("DEBUG", "do not call to doSelectTableFuncs with action:" + this._inputObj.action);
 
                 if (r) {
-                
+                    if (!this._tableDock)
                     $.hidePanel('selectTablePanel', true)
                 }
                 this._inputObj.action = '';
@@ -1056,10 +1218,12 @@
                 regionObj.removeChild(regionObj.firstChild);
             }
 
+            this._regionName = [];
             var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
             menuitem.setAttribute('value', '0');
             menuitem.setAttribute('label', _('All Regions'));
             regionObj.appendChild(menuitem);
+            this._regionName.push(_('All Regions'));
 
             var index = 0;
             regions.forEach(function(data){
@@ -1069,7 +1233,8 @@
                 menuitem.setAttribute('value', index);
                 menuitem.setAttribute('label', data.name);
                 regionObj.appendChild(menuitem);
-            });
+                this._regionName.push(data.name);
+            }, this);
             
             this._regionIndex = 0;
             document.getElementById('table_region').selectedIndex = this._regionIndex;
@@ -1083,6 +1248,12 @@
         _menuNextRegion: function() {
             //
             document.getElementById('table_region').selectedIndex = this.nextRegion();
+        },
+
+        _menuSetRegion: function(index) {
+            //
+            document.getElementById('table_region').selectedIndex = index;
+            this.setRegion(index);
         },
 
         getRegionList: function() {
@@ -1146,6 +1317,7 @@
         },
 
         load: function(evt) {
+            
             var inputObj = window.arguments[0];
             var self = this;
 
@@ -1156,14 +1328,33 @@
             var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
+            if (this._tableDock) {
+                var top = this._tableDockTop;
+                var left = this._tableDockLeft;
+                var width = this._tableDockWidth;
+                var height = this._tableDockHeight;
+            } else {
+                var top = 0;
+                var left = 0;
+                var width = screenwidth;
+                var height = screenheight;
+            }
+
+
             $.installPanel($panel[0], {
 
                 css: {
-                    top: 0,
-                    left: 0,
+                    top: top,
+                    left: left,
+                    width: width,
+                    height: height
+                },
 
-                    width: screenwidth,
-                    height: screenheight
+                overlayCSS: {
+                    top: top,
+                    left: left,
+                    width: width,
+                    height: height
                 },
 
                 init: function(evt) {
@@ -1172,6 +1363,7 @@
                     window.tableStatusRefreshTime = self._timeout;
                     window.RefreshTableStatusLight = self.doRefreshTableStatusLight;
                     window._tableStatusModel = self._tableStatusModel;
+                    window._tableStatusIsBusy = self._isBusy;
                     
                     inputObj = evt.data[0];
                     self.load2(inputObj);
@@ -1191,6 +1383,9 @@
 
                 shown: function(evt) {
 
+                    self.readTableConfig();
+                    window.tableStatusRefreshTime = self._timeout;
+
                     window._tableStatusModel.getTableStatusList();
                     document.getElementById('tableScrollablepanel').invalidate();
 
@@ -1198,7 +1393,7 @@
                     clearTimeout(window.tableStatusRefreshInterval);
 
                     // release CPU to refresh table status panel ...
-                    GeckoJS.BaseObject.sleep(100);
+                    // GeckoJS.BaseObject.sleep(100);
 
                     // window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 50000);
                     window.tableStatusRefreshInterval = setTimeout('RefreshTableStatusLight()', window.tableStatusRefreshTime);

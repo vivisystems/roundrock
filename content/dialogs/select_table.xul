@@ -61,6 +61,8 @@
                 <button class="unmergeBtn" id="unmerge_table" label="&selecttable.unmergetable;" type="radio" group="func" default="false" oncommand="$do('doUnmergeTable', null, 'SelectTable');"/>
                 <!-- button class="changeBtn" id="trans_table" label="&selecttable.transtable;" default="true" type="radio" group="func" oncommand="$do('doTransTable', null, 'SelectTable');"/ -->
                 <button class="bookcBtn2" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/>
+
+                
                 <!-- button class="bookcBtn2" / -->
             </vbox>
             <vbox class="RightBtns">
@@ -70,6 +72,10 @@
                 <button class="mergecBtn2" id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="$do('doMergeCheck', null, 'SelectTable');"/ -->
                 <!-- button class="bookcBtn2" id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doBookingTable', null, 'SelectTable');"/ -->
 
+                <button class="addMarkBtn" id="add_table_mark" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doMarkTable', null, 'SelectTable');"/>
+                <button class="clearMarkBtn" id="clear_table_mark" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doUnmarkTable', null, 'SelectTable');"/>
+                <button class="addMarksBtn" id="add_table_marks" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doMarkRegionTable', null, 'SelectTable');"/>
+                <button class="clearMarksBtn" id="clear_table_marks" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="$do('doUnmarkRegionTable', null, 'SelectTable');"/>
                 <spacer class="space" />
                 <hbox>
                     <spacer class="space2" />

@@ -116,7 +116,7 @@
                 condGroupId = selectedCondGroup;
             }else {
                 // if nonselect use first one
-                for (cc in condGroupsById) {
+                for (var cc in condGroupsById) {
                     condsData = condsData.concat(condGroupsById[cc].Condiment);
                     condGroupId = cc;
                     break;

@@ -23,6 +23,8 @@
         _tableStatusModel: null,
         _tableList: null,
         _printController: null,
+        _autoMark: null,
+        _firstRun: true,
 
         init: function (c) {
             // inherit Cart controller constructor
@@ -282,6 +284,39 @@
 
                 // this._tableStatusModel.removeCheck(evt.data.data);
                 this._tableStatusModel.addCheck(evt.data.data);
+
+                // set autoMark
+                var autoMark = GeckoJS.Session.get('autoMarkAfterSubmitOrder') || {};
+
+                if (autoMark['name'] == null) {
+
+                    this._guestCheck.tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+                    var markName = this._guestCheck.tableSettings.AutoMarkAfterSubmit;
+
+                    if (markName && markName.length > 0) {
+                        var datas = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+                        if (datas != null) {
+                            var marks = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
+                            var markObj = new GeckoJS.ArrayQuery(marks).filter("name = '" + markName + "'");
+
+                            if (markObj && markObj.length > 0) {
+                                autoMark = markObj[0];
+                                GeckoJS.Session.set('autoMarkAfterSubmitOrder', autoMark);
+                                
+                            } else {
+                                autoMark = {};
+                            }
+
+                        }
+                    }
+                };
+
+                if (autoMark['name'] != null) {
+
+                    var table_no = evt.data.data.table_no;
+                    
+                    this._tableStatusModel.setTableMark(table_no, autoMark);
+                }
                 
             }
 
@@ -294,7 +329,8 @@
             order.restoreOrderFromBackup();
             delete order;
 
-            this.syncClient();
+            if (evt.data.data.recall == 2) this.syncClient();
+            
         },
 
         handleSplitCheck: function(evt) {
@@ -340,6 +376,13 @@
 
         handleFirstLoad: function(evt) {
             //
+
+            if (this._firstRun) {
+                this._firstRun = false;
+                $do('load', null, 'SelectTable');
+
+            }
+
             if (this._guestCheck.tableSettings.TableWinAsFirstWin) {
                     this._controller.newTable();
             }
@@ -783,12 +826,32 @@ this.log("doSelectTableFuncs:::TransTable:::");
             this._tableStatusModel.removeCheck(checkObj);
         },
 
+        selOrderNo: function (){
+
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=440,height=480';
+            var inputObj = {
+                input0:'', require0:true, numpad:true
+            };
+
+            GREUtils.Dialog.openWindow(this._controller.topmostWindow, aURL, _('Recall Input Sequence Number'), aFeatures, _('Input sequence number to recall'), '', _('Sequence Number'), '', inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }
+
+            return ;
+
+        },
+
         recallByOrderNo: function(no) {
-            // this.log("DEBUG", "GuestCheck recall by order_no..." + no);
+            var seq = '';
             if (no)
-                return this.recall('OrderNo', no);
-            else
-                return this.recall('AllCheck', 'OrderNo');
+                seq = no;
+            else {
+                seq = this.selOrderNo();
+            }
+            if (seq) return this.recall('OrderNo', seq);
         },
 
         recallByCheckNo: function(no) {

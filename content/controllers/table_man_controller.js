@@ -9,20 +9,44 @@
         _tables: [],
         _regions: [],
 
+
         _regionListDatas: null,
         _regionListObj: null,
         _tableListDatas: null,
         _tableListObj: null,
         _tableStatusModel: null,
         _cart: null,
+        _markListDatas: null,
+        _markListObj: null,
 
         _minimumChargeFor: {'0': _('Final Amount'), '1': _('Original Amount') /*, '2': _('No Revalue'), '3': _('No Promotion') */},
 
         _tableSettings: null,
 
 
-        initial: function () {
-            //
+        initial: function() {
+            // load default destination
+            /*
+            var defaultDest = null;
+            var datastr = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
+            var listDatas = null;
+
+            if (datastr != null) {
+                listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datastr));
+                var curDefaults = new GeckoJS.ArrayQuery(listDatas).filter('defaultMark = *');
+                if (curDefaults.length > 0) {
+                    defaultDest = curDefaults[0];
+                }
+            }
+            GeckoJS.Session.set('destinations', listDatas);
+            GeckoJS.Session.set('defaultDestination', defaultDest);
+
+            // add listener for newTransaction event
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            if (cart) {
+                cart.addEventListener('newTransaction', this.initTransaction, this);
+            }
+            */
         },
 
         _getTableStatusModel: function() {
@@ -58,6 +82,13 @@
                 this._regionListObj = document.getElementById('regionscrollabletree');
             }
             return this._regionListObj;
+        },
+
+        getMarkListObj: function() {
+            if(this._markListObj == null) {
+                this._markListObj = document.getElementById('markscrollabletree');
+            }
+            return this._markListObj;
         },
 
         switchTab: function(index) {
@@ -103,6 +134,30 @@
                 var region = this._regionListDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('regionForm', region);
             }
+
+            this.validateRegionForm();
+        },
+
+        selectMark: function(index){
+            // clear form
+            GeckoJS.FormHelper.reset('markForm');
+
+            this.getMarkListObj().selection.select(index);
+            this.getMarkListObj().treeBoxObject.ensureRowIsVisible(index);
+            if (index > -1) {
+                var inputObj = this._markListDatas[index];
+//                if (inputObj.defaultMark == '*')
+//                    inputObj.defaultCheckbox = 1;
+//                else
+//                    inputObj.defaultCheckbox = 0;
+                GeckoJS.FormHelper.unserializeFromObject('markForm', inputObj);
+
+            }
+            else {
+                GeckoJS.FormHelper.reset('destinationForm');
+            }
+
+            this.validateMarkForm();
         },
 
         isDuplicate: function(table_no) {
@@ -467,6 +522,158 @@
 
         },
 
+        addMark: function(){
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var inputObj = {input0:null, require0:true};
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Table Mark'), features,
+                                       _('New Table Mark'), '', _('Table Mark'), '', inputObj);
+            if (inputObj.ok && inputObj.input0) {
+                var markName = inputObj.input0.replace('\'', '"', 'g');
+
+                var dupNames = new GeckoJS.ArrayQuery(this._markListDatas).filter('name = \'' + markName + '\'');
+                if (dupNames.length > 0) {
+                    // @todo OSD
+                    NotifyUtils.warn(_('Table mark [%S] already exists', [markName]));
+                    return;
+                }
+
+                // this._markListDatas.push({defaultMark: '', name: markName, pricelevel: '-', prefix: '', customerInfo: '0'});
+                this._markListDatas.push({name: markName, period: 0, opdeny: false});
+
+                this.saveMarks();
+
+                // loop through this._listDatas to find the newly added destination and select it
+                
+                var index = 0;
+                for (var index = 0; index < this._markListDatas.length; index++) {
+                    if (this._markListDatas[index].name == markName) {
+                        this.selectMark(index);
+                        break;
+                    }
+                }
+                
+                // @todo OSD
+                OsdUtils.info(_('Table mark [%S] added successfully', [markName]));
+            }
+        },
+
+        modifyMark: function() {
+            var inputObj = GeckoJS.FormHelper.serializeToObject('markForm');
+            var index = this.getMarkListObj().selectedIndex;
+            if (index > -1) {
+
+                if (inputObj.name != null && inputObj.name.length > 0) {
+                    this._markListDatas[index].period = inputObj.period;
+                    this._markListDatas[index].opdeny = inputObj.opdeny;
+                    // this.setDefaultDestination(inputObj.defaultCheckbox);
+
+                    this.saveMarks();
+
+                    var markName = this._markListDatas[index].name;
+
+                    this.getMarkListObj().treeBoxObject.ensureRowIsVisible(index);
+                    OsdUtils.info(_('Table mark [%S] modified successfully', [markName]));
+                }
+                else {
+                    // shouldn't happen, but check anyways
+                    NotifyUtils.warn(_('Table mark must not be empty'));
+                }
+            }
+        },
+
+        deleteMark: function(){
+            var index = this.getMarkListObj().selectedIndex;
+            if (index >= 0) {
+                var markName = this._markListDatas[index].name;
+
+                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete table mark [%S]', [markName]), _('Are you sure you want to delete table mark [%S]?', [markName]))) {
+                    return;
+                }
+
+                this._markListDatas.splice(index, 1);
+                this.saveMarks();
+
+                // @todo OSD
+                OsdUtils.info(_('Table mark [%S] deleted successfully', [markName]));
+
+                index = this.getMarkListObj().selectedIndex;
+                if (index >= this._markListDatas.length) index = this._markListDatas.length - 1;
+                this.selectMark(index);
+            }
+        },
+
+        saveMarks: function() {
+            var datas = new GeckoJS.ArrayQuery(this._markListDatas).orderBy('name asc');
+            var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
+
+            GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableMarks', datastr);
+            // GeckoJS.Session.set('autoMarkTableAfterSubmitOrder', this.getAutoMarkTableAfterSubmitOrder());
+            // GeckoJS.Session.set('tableMarks', datas);
+            GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
+
+            this.loadMarks();
+        },
+
+        loadMarks: function () {
+
+            if (this._markListDatas == null) this._markListDatas = [];
+            if (this._markListDatas.length <= 0) {
+                var datas = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+                if (datas != null) this._markListDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
+                if (this._markListDatas.length <= 0) this._markListDatas = [];
+            }
+
+            var markView =  new GeckoJS.NSITreeViewArray(this._markListDatas);
+            markView.getCellValue = function(row, col) {
+                var sResult;
+                var key = (typeof col == 'object') ? col.id : col;
+
+                try {
+                    if (key == 'opdeny') {
+                        sResult = this.data[row][key] ? '*' : ' ';
+                    } else {
+                        sResult= this.data[row][key];
+                    }
+                }
+                catch (e) {
+                    return "<" + row + "," + key + ">";
+                }
+                return sResult;
+            }
+
+            this.getMarkListObj().datasource = markView;
+
+            // this.validateMarkForm();
+        },
+
+        seAutoMarkMenuItem: function() {
+
+            var marks = this._markListDatas;
+
+            var autoMarkObj = document.getElementById('automark_after_submit_menupopup');
+
+            // remove all child...
+            while (autoMarkObj.firstChild) {
+                autoMarkObj.removeChild(autoMarkObj.firstChild);
+            }
+
+            var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+            menuitem.setAttribute('value', '');
+            menuitem.setAttribute('label', ' ');
+            autoMarkObj.appendChild(menuitem);
+
+            if (marks && marks.length > 0) {
+                marks.forEach(function(data){
+                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                    menuitem.setAttribute('value', data.name);
+                    menuitem.setAttribute('label', data.name);
+                    autoMarkObj.appendChild(menuitem);
+                });
+            }
+        },
+
         setDestinationMenuItem: function() {
 
             // read destinations from configure
@@ -485,7 +692,7 @@
             menuitem.setAttribute('label', ' ');
             destinationObj.appendChild(menuitem);
 
-            if (destinations.length > 0) {
+            if (destinations && destinations.length > 0) {
                 destinations.forEach(function(data){
                     var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
                     menuitem.setAttribute('value', data.name);
@@ -507,12 +714,14 @@
                 regionObj.removeChild(regionObj.firstChild);
             }
 
-            regions.forEach(function(data){
-                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-                menuitem.setAttribute('value', data.id);
-                menuitem.setAttribute('label', data.name);
-                regionObj.appendChild(menuitem);
-            });
+            if (regions && regions.length > 0) {
+                regions.forEach(function(data){
+                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                    menuitem.setAttribute('value', data.id);
+                    menuitem.setAttribute('label', data.name);
+                    regionObj.appendChild(menuitem);
+                });
+            }
         },
 
         setMinimumChargeForMenuItem: function() {
@@ -576,11 +785,13 @@
             //
             this._tableSettings = settings;
             GeckoJS.Configure.write('vivipos.fec.settings.GuestCheck.TableSettings', this._tableSettings);
+            
         },
 
         saveSettings: function() {
             var settings = GeckoJS.FormHelper.serializeToObject('settingsForm');
             this.saveTableSettings(settings);
+            GeckoJS.Session.set('autoMarkAfterSubmitOrder', {});
             // @todo OSD
             OsdUtils.info(_('Options saved successfully'));
         },
@@ -597,6 +808,10 @@
             this.selectRegion(0);
             this.loadTables();
             this.selectTable(0);
+            this.loadMarks();
+            this.selectMark(0);
+            this.seAutoMarkMenuItem();
+
         },
 
         doExit: function() {
@@ -605,16 +820,43 @@
             doOKButton();
         },
 
+        validateMarkForm: function() {
+            var index = this.getMarkListObj().selectedIndex;
+            var modBtn = document.getElementById('modify_mark');
+            var delBtn = document.getElementById('delete_mark');
+
+            if (this._markListDatas.length <= 0) {
+                index = -1;
+            }
+            modBtn.setAttribute('disabled', index == -1);
+            delBtn.setAttribute('disabled', index == -1);
+        },
+
+        validateRegionForm: function() {
+            var index = this.getRegionListObj().selectedIndex;
+            var modBtn = document.getElementById('modify_region');
+            var delBtn = document.getElementById('delete_region');
+
+            if (this._regionListDatas.length <= 0) {
+                index = -1;
+            }
+            modBtn.setAttribute('disabled', index == -1);
+            delBtn.setAttribute('disabled', index == -1);
+        },
+
         validateForm: function() {
             var index = this.getTableListObj().selectedIndex;
             var modBtn = document.getElementById('modify_table');
             var delBtn = document.getElementById('delete_table');
+            var toggleBtn = document.getElementById('toggleactive_table');
+
 
             if (this._tableListDatas.length <= 0) {
                 index = -1;
             }
             modBtn.setAttribute('disabled', index == -1);
             delBtn.setAttribute('disabled', index == -1);
+            toggleBtn.setAttribute('disabled', index == -1);
         }
 
     };

@@ -136,6 +136,8 @@
             recoveryMode = recoveryMode || false;
 
             var self = this;
+
+            this.syncSettings = (new SyncSetting()).read();
             
             this.data.id = GeckoJS.String.uuid();
 
@@ -206,7 +208,8 @@
             // force and waiting to get sequence
             if (self.data.seq.length == 0) {
 
-                var timeoutGuardSec = 15000;
+                var timeoutGuardSec = self.syncSettings.timeout * 1000;
+                //var timeoutGuardSec = 15000;
                 var timeoutGuardNow = Date.now().getTime();
 
                 // block ui until request finish or timeout

@@ -1,0 +1,90 @@
+/*-----------------------------------------------------------------------------
+ *
+ * GLOBAL CSS
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+@import "chrome://viviecr/skin/bindings.css";
+@import "chrome://viviecr/skin/buttons.css";
+
+/*-----------------------------------------------------------------------------
+ * COMMON PADDINGS
+ *-----------------------------------------------------------------------------
+ */
+
+ #main-container {
+     padding: 0px;
+     margin: 0px;
+     width: 1024px;
+     max-width: 1024px;
+     overflow: hidden;
+ }
+
+.pad40 {
+    padding: 5px;
+}
+
+.pad60 {
+    padding: 20px;
+}
+
+.pad80 {
+    padding: 30px;
+}
+
+.pad100 {
+    padding: 40px;
+}
+
+/*-----------------------------------------------------------------------------
+ * DIALOG BACKGROUND
+ *-----------------------------------------------------------------------------
+ */
+
+.main-dialog {
+    padding: 5px;
+    background-image: url(images/bg_gray.png);
+}
+
+/*-----------------------------------------------------------------------------
+ * FONT SIZE for Time picker in Price Level Schedule
+ *-----------------------------------------------------------------------------
+ */
+
+.timepickerfont {
+  font-size: 48px;
+}
+
+/*-----------------------------------------------------------------------------
+ * PRODUCT CONTAINER
+ *-----------------------------------------------------------------------------
+ *
+ *@todo
+ * hack to prevent control panel image from shifting when loading product panel
+ */
+
+.productContainer {
+    width: 570px;
+    max-width: 570px;
+    min-width: 570px;
+}
+
+/*-----------------------------------------------------------------------------
+ * GENERIC PANEL CONTAINERS
+ *-----------------------------------------------------------------------------
+ *
+ */
+
+.panelContainer {
+    border: 2px groove;
+    padding: 5px;
+    margin: 5px;
+    -moz-border-radius: 8px;
+}
+
+.squarePanelContainer {
+    border: 2px ridge;
+    padding: 5px;
+    margin: 5px;
+}

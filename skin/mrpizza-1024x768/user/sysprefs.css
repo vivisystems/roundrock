@@ -1,0 +1,200 @@
+.MainPnl {
+    margin: 18px;
+}
+
+radiogroup {
+    -moz-box-orient: vertical;
+    -moz-appearance: none;
+    border: none;
+    border-bottom: 1px solid #a98f6e;
+}
+
+radio {
+    -moz-appearance: none;
+    padding: 20px 10px;
+    background: white url(images/sep.png) center right no-repeat;
+    border:none;
+    color: #333232;
+    margin-bottom: 5px;
+}
+radio[selected=true], radio[selected=true]:hover {
+    -moz-user-focus: ignore;
+    background-color: #92856a !important;
+    background-image: none;
+    color: white;
+    font-weight: bold;
+    -moz-appearance: none;
+}
+radio:hover {
+    background: #f4f3ee !important;
+    -moz-appearance: none;
+}
+radio image {
+    display: none;
+}
+
+#prefwin {
+    background: white;
+    -moz-appearance: none;
+    border: 10px solid;
+    -moz-border-top-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    -moz-border-left-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    -moz-border-right-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    -moz-border-bottom-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    padding: 4px;
+}
+
+prefpane {
+    
+}
+
+.prefWindow-dlgbuttons {
+    background: #efe7dc;
+    -moz-border-radius: 8px;
+    padding: 10px 5px;
+    height: 60px;
+    max-height: 60px;
+    min-height: 60px;
+    margin: 4px;
+    
+}
+.prefWindow-dlgbuttons button {
+  background-color: white ;
+  background-image: none;
+  border: 1px solid !important;
+  -moz-border-top-colors: #b2aca1;
+  -moz-border-left-colors: #b2aca1;
+  -moz-border-right-colors: #b2aca1;
+  -moz-border-bottom-colors: #b2aca1;
+  -moz-appearance: none;
+  color: #524739;
+  font-size: 12pt;
+  margin: 0 5px;
+  -moz-border-radius: 6px;
+  min-width: 90px;
+  
+}
+.prefWindow-dlgbuttons button:active {
+    color: #362f2d;
+    text-decoration: underline;
+    -moz-appearance: none;
+}
+
+.numberbox-input-box{
+    background: none;
+    border: none;
+    -moz-appearance: none;
+    padding-right: 5px;
+}
+
+.DataFormB row{
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 10px;
+}
+.DataFormB {
+	border-right: 2px solid white;
+	background: #ede7dc;
+    margin: 0 8px 0px 10px;
+}
+.DataFormB column{
+	border-right: 2px solid white;
+	padding: 8px;
+}
+
+.DataFormC row{
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 10px;
+    -moz-box-align: center;
+}
+.DataFormC {
+	border-right: 2px solid white;
+	background: #ede7dc;
+    margin: 0 8px 10px 10px;
+}
+.DataFormC column{
+	padding: 8px;
+}
+
+.DataFormD row{
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 10px;
+    -moz-box-align: center;
+}
+.DataFormD row hbox {
+    -moz-box-align: center;
+}
+.DataFormD {
+	border-right: 2px solid white;
+	background: #ede7dc;
+    margin: 0 10px 1px 10px;
+}
+.DataFormD column{
+	padding: 8px;
+}
+.RightPnlB label, .DataFormB label,
+.DataFormC label, .DataFormD label{
+	font-size: 11pt;
+    color: #372213;
+}
+
+.DataForm {
+    margin: 10px 8px 8px 10px;
+}
+
+.DataForm row grid row {
+    padding: 0;
+    border: none;
+}
+
+.DataForm row grid column {
+    padding: 0;
+    border: none;
+}
+
+.ItemButtonA {
+    min-height: 65px;
+}
+
+.WidthSet {
+    margin-left: 20px;
+}
+
+.TopArea {
+    margin: 10px;
+    background: #ecebe2;
+    padding: 8px;
+}
+
+.scale-thumb {
+    cursor: pointer;
+    min-height: 40px;
+    min-width: 40px;
+}
+
+.scale-slider {
+    cursor: pointer;
+    height: 45px;
+    min-height: 45px;
+}
+
+.MainL {
+    border-right: 1px solid #a98f6e;
+    margin-top: 4px;
+}
+
+.LeftPnl {
+    padding: 8px 8px 8px 4px;
+}
+
+.RightPnlB {
+    padding: 8px;
+    margin: 0 8px 10px 10px;
+    -moz-box-align: center;
+}
+
+button[dlgtype=extra1] {
+  background: white url(images/VkbBtn.png) center center no-repeat !important;
+}

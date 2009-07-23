@@ -114,6 +114,7 @@
                                 datas = result.response_data;
                             }
                         }catch(e) {
+                            self.log('ERROR', 'requestRemoteService decode error ' + e );
                             dump('decode error ' + e ) ;
                         }
                     }
@@ -304,17 +305,19 @@
 
             if (sql.length > 0) {
                 
-                var sqlWithTransaction = 'BEGIN ; \n' + sql + 'COMMIT; ';
+                var sqlWithTransaction = 'BEGIN EXCLUSIVE; \n' + sql + 'COMMIT; ';
 
                 var datasource = this.getDataSource();
 
                 try {
 
                     datasource.connect();
-                    if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
+                    datasource.executeSimpleSQL(sqlWithTransaction);
 
                 }catch(e) {
-                    //this.log(sqlWithTransaction +",,"+ e);
+                    
+                    this.log('ERROR', 'saveStockRecords Error \n' + e );
+
                 }
                 
             }
@@ -423,17 +426,19 @@
                 }, this);
 
                 if (sql.length > 0) {
-                    var sqlWithTransaction = 'BEGIN ; \n' + sql + 'COMMIT; ';
+                    var sqlWithTransaction = 'BEGIN EXCLUSIVE; \n' + sql + 'COMMIT; ';
 
                     var datasource = this.getDataSource();
 
                     try {
 
                         datasource.connect();
-                        if(sqlWithTransaction && datasource.conn) datasource.conn.executeSimpleSQL(sqlWithTransaction);
+                        datasource.executeSimpleSQL(sqlWithTransaction);
 
                     }catch(e) {
-                        this.log(sqlWithTransaction +",,"+ e);
+
+                        this.log('ERROR', 'decreaseStockRecords Error \n' + e );
+
                     }
                 }
 
@@ -454,7 +459,7 @@
             var created , modified;
             created = modified = Math.ceil(Date.now().getTime()/1000);
 
-            var sql = "BEGIN; \n" ;
+            var sql = "" ;
 
             products.forEach(function( product ) {
                 
@@ -469,41 +474,25 @@
                     modified + "); \n" ;
             });
 
-            sql+= "COMMIT; ";
+            if (sql.length > 0) {
+                var sqlWithTransaction = 'BEGIN EXCLUSIVE; \n' + sql + 'COMMIT; ';
 
-            var datasource = this.getDataSource();
+                var datasource = this.getDataSource();
 
-            try {
-                datasource.connect();
-                if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
-
-            }catch(e) {
-                this.log( 'ERROR', 'ERROR TO insertNewRecords \n'+ e );
-                
-                // force commit again ?
                 try {
-                    if(sql && datasource.conn) datasource.conn.executeSimpleSQL("COMMIT;");    
-                }catch(e) {}
 
-                return false;
+                    datasource.connect();
+                    datasource.executeSimpleSQL(sqlWithTransaction);
+
+                }catch(e) {
+
+                    this.log('ERROR', 'insertNewRecords Error \n' + e );
+
+                    return false;
+                }
             }
 
-            return true;
-            
-            /*
-            products.forEach(function( product ) {
-                var stockRecord = {
-                    id: product.no,
-                    barcode: product.barcode,
-                    warehouse: product.warehouse,
-                    quantity: product.quantity || 0
-                };
-                r = this.set(stockRecord);
-                if (!r) {
-                    return r;
-                }
-            }, this);
-            */
+            return true;           
            
         },
 		
@@ -534,13 +523,14 @@
         },
 		
         setAll: function(stockRecords, absolute) {
+            
             if (stockRecords.length > 0) {
                 var r;
 
                 var created , modified;
                 created = modified = Math.ceil(Date.now().getTime()/1000);
 
-                var sql = "BEGIN; \n" ;
+                var sql = "" ;
 
                 stockRecords.forEach(function( stockRecord ) {
                     sql += "UPDATE stock_records SET warehouse='" + (stockRecord.warehouse||'') + "', " +
@@ -550,27 +540,25 @@
                            "WHERE id='" + stockRecord.id + "'; \n" ;
                 });
 
-                sql+= "COMMIT; ";
+                if (sql.length > 0) {
+                    var sqlWithTransaction = 'BEGIN EXCLUSIVE; \n' + sql + 'COMMIT; ';
 
-                var datasource = this.getDataSource();
+                    var datasource = this.getDataSource();
 
-                try {
-                    datasource.connect();
-                    if(sql && datasource.conn) datasource.conn.executeSimpleSQL(sql);
-                }catch(e) {
-                    this.log( 'ERROR', 'ERROR TO setAll \n'+ e );
-                    return false;
+                    try {
+
+                        datasource.connect();
+                        datasource.executeSimpleSQL(sqlWithTransaction);
+
+                    }catch(e) {
+
+                        this.log('ERROR', 'setAll Error \n' + e );
+
+                        return false;
+                    }
                 }
-
                 return true;
 
-                /*
-                for (var stockRecord in stockRecords) {
-                    r = this.set(stockRecords[ stockRecord ]);
-					
-                    if (!r)
-                        return r;
-                }*/
             }
             return true;
         },
