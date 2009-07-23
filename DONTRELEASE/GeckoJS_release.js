@@ -10268,6 +10268,7 @@ GeckoJS.BaseModel.prototype.save = function(data, updateTimestamp){
  * @function  
  * @param {Object} data              This is dataset to save
  * @param {Boolean} updateTimestamp auto update created/modified fields
+ * @return {Array} return saved datas
  */
 GeckoJS.BaseModel.prototype.saveAll = function(data, updateTimestamp) {
 
@@ -10282,12 +10283,17 @@ GeckoJS.BaseModel.prototype.saveAll = function(data, updateTimestamp) {
     }
 
     var self = this;
+    var result ;
+    
     if(typeof data == 'object' && data.constructor.name == 'Array') {
+        result = [];
+
         data.forEach(function(d) {
             self.create();
-            self.save(d, updateTimestamp);
+            result.push(self.save(d, updateTimestamp));
         });
     }
+    return result;
 
 };
 
