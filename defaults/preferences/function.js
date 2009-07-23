@@ -268,6 +268,11 @@ pref("vivipos.fec.registry.function.programmable.recallTable.command", "recallTa
 pref("vivipos.fec.registry.function.programmable.recallTable.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.recallTable.data", "");
 
+pref("vivipos.fec.registry.function.programmable.recallOrder.access", "acl_recall_check");
+pref("vivipos.fec.registry.function.programmable.recallOrder.command", "recallOrder");
+pref("vivipos.fec.registry.function.programmable.recallOrder.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.recallOrder.data", "");
+
 pref("vivipos.fec.registry.function.programmable.receipt.access", "acl_issue_post_receipt");
 pref("vivipos.fec.registry.function.programmable.receipt.command", "issueReceipt");
 pref("vivipos.fec.registry.function.programmable.receipt.controller", "Print");

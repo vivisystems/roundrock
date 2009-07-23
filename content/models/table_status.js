@@ -251,9 +251,7 @@
             if (remoteUrl) {
                 try {
                     tableStatus = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
-if (tableStatus.length > 0)
-GREUtils.log(Date.now().getTime() + ':::getTableStatuses:::' + tableStatus.length);
-// GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
+
                     tableStatus.forEach(function(o){
 
                         var item = GREUtils.extend({}, o.TableStatus);
@@ -340,8 +338,6 @@ GREUtils.log(Date.now().getTime() + ':::getTableStatuses:::' + tableStatus.lengt
 
             var now = Math.round(Date.now().getTime() / 1000);
 
-//            this._tableOrderByOrderId = {};
-
             // gen tables status
 
             // var tables = [];
@@ -401,8 +397,7 @@ GREUtils.log(Date.now().getTime() + ':::getTableStatuses:::' + tableStatus.lengt
 
                 }, this);
             }
-//GREUtils.log("tableStatus:::");
-//GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
+
             return tableStatus;
 
         },
@@ -678,7 +673,7 @@ return;
         },
 
         setTableMarks: function(regionTables, markObj) {
-GREUtils.log(Date.now().getTime() + ':::setTableMarks begin:::');
+
             var user = GeckoJS.Session.get('user') || {};
             markObj.mark_user = user.username;
 
@@ -701,7 +696,7 @@ GREUtils.log(Date.now().getTime() + ':::setTableMarks begin:::');
 
                 tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({tables: tables, markObj: markObj}));
                 // this._delta = 3;
-GREUtils.log(Date.now().getTime() + ':::setTableMarks end:::');
+
                 return ;
             }
 

@@ -126,7 +126,7 @@
                                 <hbox class="ToolBar" flex="1">
                                     <button id="add_table" disabled="false" label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addTable', null, 'TableMan');"/>
                                     <button id="modify_table" disabled="false" label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyTable', null, 'TableMan');"/>
-                                    <button id="modify_table" disabled="false" label="&tableman.button.toggleactive;" hidden="false" class="BtnMod" oncommand="$do('toggleTable', null, 'TableMan');"/>
+                                    <button id="toggleactive_table" disabled="false" label="&tableman.button.toggleactive;" hidden="false" class="BtnMod" oncommand="$do('toggleTable', null, 'TableMan');"/>
                                     <spacer flex="1"/>
                                     <button id="delete_table" disabled="false" label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteTable', null, 'TableMan');"/>
                                 </hbox>
@@ -185,10 +185,10 @@
                             </vbox>
                             <hbox>
                                 <hbox class="ToolBar" flex="1">
-                                    <button id="add_table"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addRegion', null, 'TableMan');"/>
-                                    <button id="modify_table"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyRegion', null, 'TableMan');"/>
+                                    <button id="add_region"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addRegion', null, 'TableMan');"/>
+                                    <button id="modify_region"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyRegion', null, 'TableMan');"/>
                                     <spacer flex="1"/>
-                                    <button id="delete_table"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteRegion', null, 'TableMan');"/>
+                                    <button id="delete_region"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteRegion', null, 'TableMan');"/>
                                 </hbox>
                                 <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
                                     <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
@@ -238,16 +238,11 @@
                                             <vbox>
                                                 <label control="mark_period" value="&tableman.mark.period;"/>
                                                 <textbox id="mark_period" name="period" form="markForm" type="Number" size="6" maxlength="3" min="0" max="999" onfocus="select()"/>
+                                                <label control="mark_period_desc" value="&tableman.mark.perioddesc;"/>
                                             </vbox>
                                         </row>
                                         <row>
                                             <checkbox id="mark_op_deny" name="opdeny" form="markForm" default="0" label="&tableman.mark.opdeny;"/>
-                                        </row>
-                                        <row>
-                                            <vbox>
-                                                <label control="mark_period" value="&tableman.mark.automarkaftersubmit;"/>
-                                                <textbox id="mark_period" name="period" form="markForm" type="Number" size="6" maxlength="3" min="0" max="999" onfocus="select()"/>
-                                            </vbox>
                                         </row>
                                     </rows>
                                 </grid>
@@ -255,10 +250,10 @@
 
                             <hbox>
                                 <hbox class="ToolBar" flex="1">
-                                    <button id="add_table"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addMark', null, 'TableMan');"/>
-                                    <button id="modify_table"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyMark', null, 'TableMan');"/>
+                                    <button id="add_mark"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addMark', null, 'TableMan');"/>
+                                    <button id="modify_mark"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyMark', null, 'TableMan');"/>
                                     <spacer flex="1"/>
-                                    <button id="delete_table"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteMark', null, 'TableMan');"/>
+                                    <button id="delete_mark"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteMark', null, 'TableMan');"/>
                                 </hbox>
                                 <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
                                     <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
@@ -429,7 +424,7 @@
 
                     <!-- Table Map Panel -->
 
-                    <tabpanel id="panel_supplier" oncommand="event.stopPropagation()">
+                    <tabpanel id="panel_map" oncommand="event.stopPropagation()">
                         <textbox id="supplier_id" name="id" form="supplierForm" readonly="true" hidden="true"/>
                         <textbox id="supplier_no" name="no" form="supplierForm" readonly="true" hidden="true"/>
 

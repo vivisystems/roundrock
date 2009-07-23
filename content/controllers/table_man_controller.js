@@ -134,6 +134,8 @@
                 var region = this._regionListDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('regionForm', region);
             }
+
+            this.validateRegionForm();
         },
 
         selectMark: function(index){
@@ -155,7 +157,7 @@
                 GeckoJS.FormHelper.reset('destinationForm');
             }
 
-            // this.validateForm();
+            this.validateMarkForm();
         },
 
         isDuplicate: function(table_no) {
@@ -561,6 +563,7 @@
             var inputObj = GeckoJS.FormHelper.serializeToObject('markForm');
             var index = this.getMarkListObj().selectedIndex;
             if (index > -1) {
+
                 if (inputObj.name != null && inputObj.name.length > 0) {
                     this._markListDatas[index].period = inputObj.period;
                     this._markListDatas[index].opdeny = inputObj.opdeny;
@@ -622,16 +625,31 @@
                 if (this._markListDatas.length <= 0) this._markListDatas = [];
             }
 
-            this.getMarkListObj().datasource = this._markListDatas;
+            var markView =  new GeckoJS.NSITreeViewArray(this._markListDatas);
+            markView.getCellValue = function(row, col) {
+                var sResult;
+                var key = (typeof col == 'object') ? col.id : col;
 
-            // this.validateForm();
+                try {
+                    if (key == 'opdeny') {
+                        sResult = this.data[row][key] ? '*' : ' ';
+                    } else {
+                        sResult= this.data[row][key];
+                    }
+                }
+                catch (e) {
+                    return "<" + row + "," + key + ">";
+                }
+                return sResult;
+            }
+
+            this.getMarkListObj().datasource = markView;
+
+            // this.validateMarkForm();
         },
 
         seAutoMarkMenuItem: function() {
 
-            // read destinations from configure
-            // var marks = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
-            // if (marks != null) marks = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(marks));
             var marks = this._markListDatas;
 
             var autoMarkObj = document.getElementById('automark_after_submit_menupopup');
@@ -646,7 +664,7 @@
             menuitem.setAttribute('label', ' ');
             autoMarkObj.appendChild(menuitem);
 
-            if (marks.length > 0) {
+            if (marks && marks.length > 0) {
                 marks.forEach(function(data){
                     var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
                     menuitem.setAttribute('value', data.name);
@@ -674,7 +692,7 @@
             menuitem.setAttribute('label', ' ');
             destinationObj.appendChild(menuitem);
 
-            if (destinations.length > 0) {
+            if (destinations && destinations.length > 0) {
                 destinations.forEach(function(data){
                     var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
                     menuitem.setAttribute('value', data.name);
@@ -696,12 +714,14 @@
                 regionObj.removeChild(regionObj.firstChild);
             }
 
-            regions.forEach(function(data){
-                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-                menuitem.setAttribute('value', data.id);
-                menuitem.setAttribute('label', data.name);
-                regionObj.appendChild(menuitem);
-            });
+            if (regions && regions.length > 0) {
+                regions.forEach(function(data){
+                    var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+                    menuitem.setAttribute('value', data.id);
+                    menuitem.setAttribute('label', data.name);
+                    regionObj.appendChild(menuitem);
+                });
+            }
         },
 
         setMinimumChargeForMenuItem: function() {
@@ -800,16 +820,43 @@
             doOKButton();
         },
 
+        validateMarkForm: function() {
+            var index = this.getMarkListObj().selectedIndex;
+            var modBtn = document.getElementById('modify_mark');
+            var delBtn = document.getElementById('delete_mark');
+
+            if (this._markListDatas.length <= 0) {
+                index = -1;
+            }
+            modBtn.setAttribute('disabled', index == -1);
+            delBtn.setAttribute('disabled', index == -1);
+        },
+
+        validateRegionForm: function() {
+            var index = this.getRegionListObj().selectedIndex;
+            var modBtn = document.getElementById('modify_region');
+            var delBtn = document.getElementById('delete_region');
+
+            if (this._regionListDatas.length <= 0) {
+                index = -1;
+            }
+            modBtn.setAttribute('disabled', index == -1);
+            delBtn.setAttribute('disabled', index == -1);
+        },
+
         validateForm: function() {
             var index = this.getTableListObj().selectedIndex;
             var modBtn = document.getElementById('modify_table');
             var delBtn = document.getElementById('delete_table');
+            var toggleBtn = document.getElementById('toggleactive_table');
+
 
             if (this._tableListDatas.length <= 0) {
                 index = -1;
             }
             modBtn.setAttribute('disabled', index == -1);
             delBtn.setAttribute('disabled', index == -1);
+            toggleBtn.setAttribute('disabled', index == -1);
         }
 
     };

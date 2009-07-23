@@ -32,6 +32,7 @@
 
 <!ENTITY tableman.mark.name "Name">
 <!ENTITY tableman.mark.period "Period">
+<!ENTITY tableman.mark.perioddesc "set period to 0 to persist">
 <!ENTITY tableman.mark.opdeny "No Operations Allowed">
 <!ENTITY tableman.mark.automarkaftersubmit "Auto mark after submit order with mark:">
 <!ENTITY tableman.mark.automarkaftersubmitwith "with:">

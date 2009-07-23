@@ -176,6 +176,10 @@
         _timeout: 5000,
 
         _tableDock: false,
+        _tableDockLeft: 0,
+        _tableDockTop: 0,
+        _tableDockWidth: 400,
+        _tableDockHeight: 400,
 
         initial: function () {
             //
@@ -1324,26 +1328,33 @@
             var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
+            if (this._tableDock) {
+                var top = this._tableDockTop;
+                var left = this._tableDockLeft;
+                var width = this._tableDockWidth;
+                var height = this._tableDockHeight;
+            } else {
+                var top = 0;
+                var left = 0;
+                var width = screenwidth;
+                var height = screenheight;
+            }
+
+
             $.installPanel($panel[0], {
 
                 css: {
-                    top: 0,
-                    left: 0,
-
-                    // width: screenwidth,
-                    // height: screenheight
-                    width: 400,
-                    height: 400
+                    top: top,
+                    left: left,
+                    width: width,
+                    height: height
                 },
 
                 overlayCSS: {
-                    top: 0,
-                    left: 0,
-
-                    // width: screenwidth,
-                    // height: screenheight
-                    width: 400,
-                    height: 400
+                    top: top,
+                    left: left,
+                    width: width,
+                    height: height
                 },
 
                 init: function(evt) {
