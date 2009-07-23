@@ -121,6 +121,7 @@
 .data-form row {
 	border-bottom: 2px solid white;
     min-height: 40px;
+    padding: 2px 0px 4px 0px;
     -moz-box-align: center;
 }
 
@@ -215,7 +216,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.exitbar {
+.container-main .exitbar {
   background: #eee3d6;
   height: 60px;
   margin: 0px 0px 2px 2px;
@@ -226,7 +227,7 @@
   -moz-box-align: center;
   -moz-box-pack: end;
 }
-.exitbar button {
+.container-main .exitbar button {
   background: none;
   border: none;
   height: 50px;
@@ -243,35 +244,35 @@
  *-----------------------------------------------------------------------------
  */
 
-menulist {
-    -moz-appearance: none;
+.container-main menulist {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     border: 3px solid;
+    list-style-image: url(../images/dropdown.png);
+    min-height: 38px;
+    text-align: right;
+    -moz-appearance: none;
     -moz-border-top-colors: #f0efe8 #eeede8 #e2e1dc;
     -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
     -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
     -moz-border-left-colors: #f0efe8 #eeede8 #e2e1dc;
-    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
-    min-height: 38px;
-    text-align: right;
-    list-style-image: url(../images/dropdown.png);
 }
 
-menulist hbox {
+.container-main menulist hbox {
     -moz-box-direction: reverse;
 }
 
-menulist hbox label {
-    -moz-appearance: none;
+.container-main menulist hbox label {
     background: none;
     border-right: 1px solid ;
-    -moz-border-right-colors: #a1a1ba;
     padding: 0 5px;
+    -moz-appearance: none;
+    -moz-border-right-colors: #a1a1ba;
 }
 
-.popup-internal-box {
-    -moz-appearance: none;
+.container-main .popup-internal-box {
     background: white;
     border: 1px solid #666;
+    -moz-appearance: none;
 }
 
 /*-----------------------------------------------------------------------------
@@ -291,31 +292,97 @@ menulist hbox label {
  *-----------------------------------------------------------------------------
  */
 
-.numpad row, .numpad column {
+.container-main .numpad row,
+.container-main .numpad column {
     border: 0px;
     padding: 0px;
 }
 
-.numpad sendkeybutton{
-    min-width:77px;
-    max-width:77px;
-    width: 77px;
-    height: 42px;
-    margin: 2px 0px 0px 3px;
-    padding: 0px;
-    list-style-type: none;
-    font-weight: bold !important;
-    font-size: 30px;
-    overflow: hidden;
+.container-main .numpad sendkeybutton{
+    background: transparent url(../images/m_numbtn.png) center center no-repeat;
     border: 0px solid;
+    color: #47657d;
+    font-size: 30px;
+    font-weight: bold !important;
+    height: 42px;
+    list-style-type: none;
+    margin: 2px 0px 0px 3px;
+    max-width:77px;
+    min-width:77px;
+    overflow: hidden;
+    padding: 0px;
+    width: 77px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     /* background: white; */
-    background: transparent url(images/m_numbtn.png) center center no-repeat;
-    color: #47657d;
 }
 
-.numpad sendkeybutton:active{
-	background: transparent url(images/m_numbtn_a.png) center center no-repeat;
+.container-main .numpad sendkeybutton:active{
+	background: transparent url(../images/m_numbtn_a.png) center center no-repeat;
+}
+
+/*-----------------------------------------------------------------------------
+ * Spin buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.container-main spinbuttons {
+    background: none;
+    border: none;
+    -moz-appearance: none;
+}
+
+.container-main .spinbuttons-box{
+    margin-left: 3px;
+	-moz-box-orient: horizontal;
+}
+
+.container-main .spinbuttons-button{
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 2px solid ;
+    cursor: pointer;
+    min-width: 32px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #b6b6b6 #fff;
+    -moz-border-right-colors: #b6b6b6 #fff;
+    -moz-border-bottom-colors: #b6b6b6 #fff;
+    -moz-border-left-colors: #b6b6b6 #fff;
+}
+
+.container-main .spinbuttons-button[disabled=true] {
+    background: #ddd;
+    -moz-appearance: none;
+    -moz-border-top-colors: #bababa #bababa !important;
+    -moz-border-right-colors: #bababa #bababa !important;
+    -moz-border-bottom-colors: #bababa #bababa !important;
+    -moz-border-left-colors: #bababa #bababa !important;
+}
+
+.container-main .spinbuttons-button:active {
+    border: 2px solid ;
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+}
+
+.container-main .spinbuttons-button hbox{
+  -moz-box-pack: center;
+}
+
+.container-main .spinbuttons-button label{
+    display: none;
+}
+
+.container-main .spinbuttons-button image {
+    margin-left: -10px;
+}
+
+.container-main .spinbuttons-up{
+    list-style-image: url(../images/spinup.png);
+}
+
+.container-main .spinbuttons-down{
+	list-style-image: url(../images/spindown.png);
 }
 

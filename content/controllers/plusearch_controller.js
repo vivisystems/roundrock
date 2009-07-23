@@ -88,12 +88,14 @@
             var prodModel = new ProductModel();
             var datas = prodModel.find('all',{fields: fields, conditions: conditions, recursive: 1});
 
-            datas.forEach(function(prod) {
-                if (prod.StockRecord) {
-                    prod.stock = prod.StockRecord.quantity;
-                }
-                else {
-                    prod.stock = 0;
+            datas.forEach(function(product) {
+                // for rendering stock quantity.
+                var stockRecordModel = new StockRecordModel();
+                var stockRecord = stockRecordModel.getStockRecordByProductNo( product.no );
+                if (stockRecord) {
+                    product.stock = stockRecord.quantity;
+                } else {
+                    product.stock = 0;
                 }
             }, this);
             this._listDatas = datas;

@@ -19,5 +19,5 @@
 <!ENTITY condiment.cart_panel.label "Cart Panel">
 <!ENTITY condiment.func_panel.label "Function Panel">
 
-<!ENTITY condiment.dir_before.label "in front of">
-<!ENTITY condiment.dir_after.label "behind">
+<!ENTITY condiment.dir_before.label "before">
+<!ENTITY condiment.dir_after.label "after">

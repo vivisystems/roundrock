@@ -39,10 +39,10 @@
 
             // rows or cols == 0 hidden
             if (panelCols == 0 || panelRows == 0 || btnHeight == 0) {
-                $(condimentscrollablepanel).hide();
+                $('#staticCondimentsPanelContainer').hide();
                 return 0;
             }else {
-                $(condimentscrollablepanel).show();
+                $('#staticCondimentsPanelContainer').show();
             }
 
             if (document.getElementById(relation_element)) {
@@ -140,6 +140,7 @@
 
             var condimentscrollablepanel = document.getElementById('staticCondimentsPanel');
 
+            var self = this;
 
             // initial layout
             this.initialLayout();
@@ -159,7 +160,12 @@
                 cartController.addEventListener('afterAddItem', this.afterAddItem, this);
             }
 
-            var self = this;
+            var cartTreeList = this._cartTreeList = document.getElementById('cartList');
+            if (cartTreeList) {
+                cartTreeList.addEventListener('select', function(event) {
+                    self.selectCartItem(cartController, event.target.selectedIndex);
+                }, true);
+            }
 
             condimentscrollablepanel.addEventListener('command', function(event) {
                 self.condimentClick(event);
@@ -174,6 +180,18 @@
 
         },
 
+        selectCartItem: function(cart, index) {
+            
+            var event = {};
+            var item = cart.getItemAt(index);
+            if (item) {
+                event.data = {id: item.id};
+            }
+            else {
+                event.data = {id: null};
+            }
+            this.afterAddItem(event);
+        },
 
         afterAddItem: function(event) {
 
@@ -184,40 +202,48 @@
 
             var pluId = event.data.id ;
 
-            var plu = this.Product.getProductById(pluId);
-            if (!plu) return;
-
-            var condGroup = plu['cond_group'];
-
             var condimentscrollablepanel = document.getElementById('staticCondimentsPanel');
-            var condGroupsById = GeckoJS.Session.get('condGroupsById');
-            
-            var condsData = [];
-            var condGroupId = "";
+            var plu = this.Product.getProductById(pluId);
+            if (plu) {
 
-            if (condGroup && !plu['force_condiment']) {
+                var condGroup = plu['cond_group'];
 
-                if (this._condGroupId == condGroup ) return;
+                var condimentscrollablepanel = document.getElementById('staticCondimentsPanel');
+                var condGroupsById = GeckoJS.Session.get('condGroupsById');
 
-                var cgs = condGroup.split(',');
-                cgs.forEach( function(cgid) {
-                    if (condGroupsById[cgid]) condsData = condsData.concat(condGroupsById[cgid].Condiment);
-                });
+                var condsData = [];
+                var condGroupId = "";
 
-                condGroupId = condGroup;
+                if (condGroup && !plu['force_condiment']) {
 
-                this._condGroupId = condGroupId;
-                this._condsData = condsData;
+                    if (this._condGroupId == condGroup ) return;
 
-            }else {
-                
+                    var cgs = condGroup.split(',');
+                    cgs.forEach( function(cgid) {
+                        if (condGroupsById[cgid]) condsData = condsData.concat(condGroupsById[cgid].Condiment);
+                    });
+
+                    condGroupId = condGroup;
+
+                    this._condGroupId = condGroupId;
+                    this._condsData = condsData;
+
+                }else {
+
+                    if (this._condGroupId == this._defaultGroupId ) return;
+
+                    // set to default
+                    this._condGroupId = this._defaultGroupId;
+                    this._condsData = this._defaultCondsData;
+                }
+            }
+            else {
                 if (this._condGroupId == this._defaultGroupId ) return;
-
+                
                 // set to default
                 this._condGroupId = this._defaultGroupId;
                 this._condsData = this._defaultCondsData;
             }
-
             condimentscrollablepanel.datasource = this._condsData ;
             condimentscrollablepanel.vivibuttonpanel.invalidate();
             condimentscrollablepanel.scrollToRow(0);
@@ -314,6 +340,9 @@
 
             condimentscrollablepanel.value = selectedCondGroup;
 
+            // initialize form's original value
+            var formObj = GeckoJS.FormHelper.serializeToObject('staticCondimentForm');
+            GeckoJS.FormHelper.unserializeFromObject('staticCondimentForm', formObj);
         },
 
         save: function() {
@@ -328,7 +357,6 @@
 
             var relation_element = $('#relation_elment').val();
             var relation_direction = $('#relation_direction').val();
-
 
             var condimentscrollablepanel = document.getElementById('condimentscrollablepanel');
             
@@ -366,6 +394,21 @@
             var registeredController = mainWindow.GeckoJS.Controller.getInstanceByName('StaticCondiments');
             registeredController.requestCommand('updateLayout', null, 'StaticCondiments');
 
+            // initialize form's original value
+            var formObj = GeckoJS.FormHelper.serializeToObject('staticCondimentForm');
+            GeckoJS.FormHelper.unserializeFromObject('staticCondimentForm', formObj);
+
+            OsdUtils.info(_('Condiment stock settings successfully saved'));
+        },
+
+        confirmExit: function() {
+            if (GeckoJS.FormHelper.isFormModified('staticCondimentForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to condiment stock settings. Are you sure you want to discard the changes?'))) {
+                    return;
+                }
+            }
             window.close();
         }
     };

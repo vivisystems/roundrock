@@ -1,5 +1,6 @@
 <!ENTITY layout.panel.product.image "Product Image">
 <!ENTITY layout.panel.departments "Department Panel">
+<!ENTITY layout.panel.products "Product Panel">
 <!ENTITY layout.panel.function "Function Panel">
 <!ENTITY layout.panel.vfd "VFD">
 <!ENTITY layout.panel.cart "Cart">

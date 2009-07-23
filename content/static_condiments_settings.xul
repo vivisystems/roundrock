@@ -36,7 +36,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/static_condiments.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
     
     <vbox flex="1" class="container-root layout-root">
@@ -55,30 +55,35 @@
                             <label control="condrows" value="&condiment.panel.label;"/>
                             <vbox>
                                 <label control="condrows" value="&condiment.rows;"/>
-                                <textbox id="condrows" type="number" size="2" maxlength="1" min="0" value="1" />
+                                <textbox id="condrows" type="number" size="2" maxlength="1" min="0" value="1"
+                                         form="staticCondimentForm" name="condrows"/>
                             </vbox>
                             <vbox>
                                 <label control="condcols" value="&condiment.cols;"/>
-                                <textbox id="condcols" type="number" size="2" maxlength="1" min="0" value="5" />
+                                <textbox id="condcols" type="number" size="2" maxlength="1" min="0" value="5"
+                                         form="staticCondimentForm" name="condcols"/>
                             </vbox>
                         </row>
                         <row>
                             <spacer />
                             <vbox>
                                 <label control="btnheight" value="&condiment.button.height;"/>
-                                <textbox id="btnheight" type="number" min="0" max="200" size="3" maxlength="3"/>
+                                <textbox id="btnheight" type="number" min="0" max="200" size="3" maxlength="3"
+                                         form="staticCondimentForm" name="btnheight"/>
                             </vbox>
                         </row>
 
                         <row>
                             <label control="rel_elments" value="&condiment.relation_elements.label;"/>
-                            <menulist id="relation_direction" flex="1">
+                            <menulist id="relation_direction" flex="1"
+                                      form="staticCondimentForm" name="relation_direction">
                                 <menupopup>
                                     <menuitem label="&condiment.dir_before.label;" value="before"/>
                                     <menuitem label="&condiment.dir_after.label;" value="after"/>
                                 </menupopup>
                             </menulist>
-                            <menulist id="relation_elment" flex="1">
+                            <menulist id="relation_elment" flex="1"
+                                      form="staticCondimentForm" name="relation_element">
                                 <menupopup>
                                 </menupopup>
                             </menulist>
@@ -86,34 +91,38 @@
 
                         <row>
                             <label value="&condiment.options.label;"/>
-                            <checkbox id="supportSoldout" label="&condiment.support_soldout.label;" />
-                            <checkbox id="linktoPlu" label="&condiment.linkto_plu.label;" />
+                            <checkbox id="supportSoldout" label="&condiment.support_soldout.label;"
+                                      form="staticCondimentForm" name="supportSoldout"/>
+                            <checkbox id="linktoPlu" label="&condiment.linkto_plu.label;"
+                                      form="staticCondimentForm" name="supportSoldout"/>
                         </row>
                         <row>
                             <spacer/>
-                            <checkbox id="hideScrollbar" label="&condiment.hidescrollbar.label;" />
-                            <checkbox id="reverseScrollbar" label="&condiment.reversescrollbar.label;" />
+                            <checkbox id="hideScrollbar" label="&condiment.hidescrollbar.label;"
+                                      form="staticCondimentForm" name="hideScrollbar"/>
+                            <checkbox id="reverseScrollbar" label="&condiment.reversescrollbar.label;"
+                                      form="staticCondimentForm" name="reverseScrollbar"/>
                         </row>
                     </rows>
                 </grid>
             </vbox>
 
             <vbox flex="1">
-                <groupbox flex="1">
+                <groupbox flex="1" class="content-buttonpanel">
                     <caption label="&condiment.group.label;" />
-                    <viviscrollablebuttonpanel id="condimentscrollablepanel" form="productForm" name="cond_group" default="" seltype="multiple" flex="1" cols="4" rows="3" labelField="name" imageField="no"
-                                                   oncommand=""
-                                                   class="ItemScrollablepanel"
-                                                   buttonClass="ItemButtonA"
-                                                   scrollUpClass="ScrollUp"
-                                                   scrollDownClass="ScrollDown">
+                    <viviscrollablebuttonpanel id="condimentscrollablepanel" seltype="multiple" flex="1" cols="4" rows="3" labelField="name" imageField="no"
+                                               form="staticCondimentForm" name="condgroups" default=""
+                                               buttonClass="button-item-a"
+                                               scrollUpClass="scroll-up-button"
+                                               scrollDownClass="scroll-down-button">
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
                 </groupbox>
 
-                <hbox id="dialogButtons" class="exitbar" pack="center" flex="1">
+                <hbox id="dialogButtons" class="exitbar" pack="end" flex="1">
+                    <button id="ok" class="button-save" label="" default="true" oncommand="$do('save', null,'StaticCondiments');"/>
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                    <button id="ok" class="button-exit" label="&dialog.closeButton.label;" default="true" oncommand="$do('save', null,'StaticCondiments');"/>
+                    <button id="cancel" class="button-exit" label="" default="true" oncommand="$do('confirmExit', null, 'StaticCondiments')"/>
                 </hbox>
             </vbox>
         </vbox>

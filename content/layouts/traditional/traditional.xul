@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/layout.dtd">
+
 <?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
 
 <?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay2.xul" ?>
@@ -25,18 +26,18 @@
         <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
 
             <box id="leftPanel" flex="0" orient="vertical" class="leftPanel">
-                <box id="categoryPanelContainer" flex="0" />
-                <box id="productPanelContainer" flex="1" />
+                <box id="categoryPanelContainer" flex="0" panel="&layout.panel.departments;"/>
+                <box id="productPanelContainer" flex="1" panel="&layout.panel.products;" />
             </box>
 
             <spacer id="panelSpacer" flex="1"/>
 
             <box id="rightPanel" flex="0" class="rightPanel" orient="vertical">
-                <box id="vfdPanelContainer" flex="1"/>
-                <box id="cartlistPanelContainer" flex="1"/>
-                <box id="inputLinePanelContainer" flex="0"/>
+                <box id="vfdPanelContainer" flex="1" panel="&layout.panel.vfd;"/>
+                <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
+                <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
                 <box id="promotionsStatusPanelContainer" flex="0"/>
-                <box id="functionPanelContainer" flex="0" />
+                <box id="functionPanelContainer" flex="0" panel="&layout.panel.function;"/>
             </box>
 
         </box>

@@ -24,10 +24,10 @@
 	<box id="cartlistPanelContainer">
 		<hbox id="staticCondimentsPanelContainer" insertafter="cartlistPanelContainer" class="roundedContainerBorder" style="overflow: none;">
 			<viviscrollablebuttonpanel id="staticCondimentsPanel" flex="1" cols="5" rows="1"  seltype="single" labelField="name"
-                                                   class="catesdcrollablepanel"
-                                                   buttonClass="plubtn"
-                                                   scrollUpClass="ScrollUp"
-                                                   scrollDownClass="ScrollDown">
+                                       class="catesdcrollablepanel"
+                                       buttonClass="plubtn"
+                                       scrollUpClass="ScrollUp"
+                                       scrollDownClass="ScrollDown">
                             <spacer flex="1"/>
                             <vivibutton id="staticCondimentsPanel-soldout" class="soldoutbtn" flex="0" type="checkbox" checkState="0"
                                         oncommand="$('#staticCondimentsPanel')[0].datasource.soldoutActive=this.checkState; event.stopPropagation()"/>

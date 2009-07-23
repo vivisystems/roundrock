@@ -371,6 +371,17 @@
             return true;
         },
 
+        getItemAt: function(index) {
+            var item;
+            if (this.ifHavingOpenedOrder()) {
+                var curTransaction = this._getTransaction();
+                if (curTransaction) {
+                    item = curTransaction.getItemAt(index, true);
+                }
+            }
+            return item;
+        },
+
         tagItem: function(tag) {
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
