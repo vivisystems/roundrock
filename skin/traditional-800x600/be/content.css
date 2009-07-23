@@ -287,7 +287,7 @@ menulist hbox label {
 }
 
 /*-----------------------------------------------------------------------------
- * number pad
+ * Number pad for use with vivitextbox
  *-----------------------------------------------------------------------------
  */
 
@@ -318,3 +318,4 @@ menulist hbox label {
 .numpad sendkeybutton:active{
 	background: transparent url(images/m_numbtn_a.png) center center no-repeat;
 }
+

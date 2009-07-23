@@ -77,3 +77,20 @@
     border-top: 1px solid #c1ab8e;
     padding: 5px 5px;
 }
+
+/*-----------------------------------------------------------------------------
+ * Standard tree list scroll bar
+ *-----------------------------------------------------------------------------
+ */
+
+.showscrollbar scrollbar {
+    display: inline !important;
+}
+
+vivitree scrollbarbutton {
+    min-width: 32px;
+    min-height: 32px;
+    width: 40px;
+    height: 40px;
+}
+

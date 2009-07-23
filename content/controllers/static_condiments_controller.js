@@ -65,10 +65,11 @@
             }
 
 
+            /* always initGrid
             if ( (condimentscrollablepanel.vivibuttonpanel.getAttribute('rows') != panelRows) ||
                 (condimentscrollablepanel.vivibuttonpanel.getAttribute('cols') != panelCols) ||
                 (condimentscrollablepanel.getAttribute('buttonHeight') != btnHeight)    ) {
-
+            */
                 condimentscrollablepanel.vivibuttonpanel.rows = panelRows;
                 condimentscrollablepanel.vivibuttonpanel.cols = panelCols;
                 condimentscrollablepanel.setAttribute('buttonHeight', btnHeight);
@@ -77,9 +78,9 @@
                 condimentscrollablepanel.vivibuttonpanel.resizeButtons();
 
                 updated = true;
-
+            /*
             }
-
+            */
                 
             if (condimentscrollablepanel) condimentscrollablepanel.setAttribute('dir', panelReverseScrollbar ? 'reverse': 'normal');
 
@@ -292,7 +293,15 @@
             $('#condcols').val(panelCols);
             $('#condrows').val(panelRows);
             $('#btnheight').val(btnHeight);
-            
+
+            // populate panel menus
+            var menu = $('#relation_elment')[0];
+            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+            var panels = mainWindow.$('box[panel]');
+            for (var i = 0; i < panels.length; i++) {
+                menu.appendItem(panels[i].getAttribute('panel'), panels[i].getAttribute('id'));
+            };
 
             $('#relation_elment').val(relation_element);
             $('#relation_direction').val(relation_direction);

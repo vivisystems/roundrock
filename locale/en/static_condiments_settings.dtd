@@ -1,16 +1,17 @@
-<!ENTITY dialog.title "Static Condiment Settings">
-<!ENTITY condiment.panel.label "Static Condiment Panel:">
+<!ENTITY dialog.title "Condiment Dock Settings">
+<!ENTITY condiment.panel.label "Condiment Dock:">
 <!ENTITY condiment.rows "rows">
 <!ENTITY condiment.cols "columns">
 <!ENTITY condiment.button.height "button height">
-<!ENTITY condiment.hidescrollbar.label "Hide Static Condiment panel scrollbars">
-<!ENTITY condiment.reversescrollbar.label "Reverse Static Condiment panel scrollbars">
-<!ENTITY condiment.support_soldout.label "Support soldout function">
+<!ENTITY condiment.options.label "Options">
+<!ENTITY condiment.hidescrollbar.label "Hide Condiment Dock scrollbars">
+<!ENTITY condiment.reversescrollbar.label "Reverse Condiment Dock scrollbars">
+<!ENTITY condiment.support_soldout.label "Support sold-out function">
 <!ENTITY condiment.linkto_plu.label "Link to PLU">
 
 <!ENTITY condiment.group.label "Static Condiment Group:">
 
-<!ENTITY condiment.relation_elements.label "Panel Position:">
+<!ENTITY condiment.relation_elements.label "Dock Position:">
 
 <!ENTITY condiment.dep_panel.label "Department Panel">
 <!ENTITY condiment.plu_panel.label "PLU Panel">
@@ -18,5 +19,5 @@
 <!ENTITY condiment.cart_panel.label "Cart Panel">
 <!ENTITY condiment.func_panel.label "Function Panel">
 
-<!ENTITY condiment.dir_before.label "front">
+<!ENTITY condiment.dir_before.label "in front of">
 <!ENTITY condiment.dir_after.label "behind">
