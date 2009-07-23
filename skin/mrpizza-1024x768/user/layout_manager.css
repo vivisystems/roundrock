@@ -1,9 +1,0 @@
-.selectLayoutBox {
-    height: 600px;
-}
-
-#layoutSettingsPane richlistitem[selected=true] {
-    color: white;
-    font-weight: bold;
-    background-color: #7e7259;
-}
