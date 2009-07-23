@@ -19,8 +19,16 @@
             this._files.forEach(function(o){
                 var str = o.leafName;
                 try {
+
                     var dt = Date.parseExact(str, "yyyyMd");
                     var timestr = dt.toLocaleDateString();
+
+                    // check profile.tbz exists ?
+                    o.append('profile.tbz');
+                    if (o.exists()) {
+                        timestr += ' ' + '(*)';
+                    }
+
                 } catch (e) {
                     var timestr = _(str);
                 }
@@ -170,9 +178,13 @@
             if (this._busy) return;
             this._busy = true;
             var waitPanel = this._showWaitPanel(_('Backing Up Data to Local Storage'));
+            var withProfile = document.getElementById('backupWithProfile').checked ;// with-profile
             this.setButtonState();
 
-            if (this.execute(this._scriptPath + "backup.sh", '')) {
+            var args = [];
+            if (withProfile) args.push('with-profile');
+
+            if (this.execute(this._scriptPath + "backup.sh", args)) {
                 this.execute("/bin/sh", ["-c", "/bin/sync; /bin/sleep 1; /bin/sync;"]);
                 NotifyUtils.info(_('<Backup to Local> is done!!'));
             }

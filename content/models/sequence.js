@@ -76,7 +76,8 @@
             req.mozBackgroundRequest = true;
 
             /* Request Timeout guard */
-            var timeoutSec = this.timeout * 1000;
+            var timeoutSec = this.syncSettings.timeout * 1000;
+            //var timeoutSec = this.timeout * 1000;
             var timeout = null;
             timeout = setTimeout(function() {
                 

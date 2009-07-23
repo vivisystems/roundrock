@@ -283,6 +283,8 @@
 
                 // this._tableStatusModel.removeCheck(evt.data.data);
                 this._tableStatusModel.addCheck(evt.data.data);
+
+                this.syncClient();
                 
             }
 
@@ -294,8 +296,7 @@
             var order = new OrderModel();
             order.restoreOrderFromBackup();
             delete order;
-
-            this.syncClient();
+            
         },
 
         handleSplitCheck: function(evt) {
