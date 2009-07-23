@@ -26,8 +26,8 @@
                     <vivitree id="bookingscrollabletree" flex="1"
                               headers="&tableman.booking.booking;,&tableman.booking.contact;,&tableman.booking.telephone;"
                               fields="booking,contact,telephone"
-                              onclick="$do('selectBooking',this.selectedIndex, 'TableBook');"
-                              class="ListPnl"
+                              onselect="$do('selectBooking',this.selectedIndex, 'TableBook');"
+                              class="ListPnl showscrollbar"
                               scrollUpClass="ScrollUp" dir="normal"
                               scrollDownClass="ScrollDown"/>
                     <hbox>

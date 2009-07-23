@@ -22,6 +22,7 @@
         _minimumChargeFor: {'0': _('Final Amount'), '1': _('Original Amount') /*, '2': _('No Revalue'), '3': _('No Promotion') */},
 
         _tableSettings: null,
+        _needRestart: false,
 
 
         initial: function() {
@@ -226,6 +227,8 @@
                 // select the new Table
                 this.selectTable(index);
 
+                this._needRestart = true;
+
                 // switch to edit mode
                 // this.editMode();
 
@@ -277,6 +280,8 @@
                 // select the new customer
                 this.selectTable(newIndex);
 
+                this._needRestart = true;
+
                 // @todo OSD
                 OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
             }
@@ -313,6 +318,8 @@
                 this.getTableListObj().treeBoxObject.ensureRowIsVisible(index);
 
                 this.selectTable(index);
+
+                this._needRestart = true;
 
                 // this.searchMode();
 
@@ -352,6 +359,8 @@
 
                 // select the new customer
                 this.selectTable(newIndex);
+
+                this._needRestart = true;
 
                 // @todo OSD
                 OsdUtils.info(_('Table [%S (%S)] modified successfully', [inputObj.table_no, inputObj.table_name]));
@@ -396,6 +405,8 @@
 
                 this.setRegionMenuItem();
 
+                this._needRestart = true;
+
                 // @todo OSD
                 OsdUtils.info(_('Region [%S] added successfully', [region_name]));
             }
@@ -430,6 +441,8 @@
 
                 this.setRegionMenuItem();
 
+                this._needRestart = true;
+
                 // @todo OSD
                 OsdUtils.info(_('Region [%S] modified successfully', [inputObj.name]));
             }
@@ -460,6 +473,8 @@
                 // this.searchMode();
 
                 this.setRegionMenuItem();
+
+                this._needRestart = true;
 
                 // @todo OSD
                 OsdUtils.info(_('Region [%S] deleted successfully', [region.name]));
@@ -817,6 +832,14 @@
         doExit: function() {
             //
             this._getTableStatusModel()._tableStatusLastTime = 0;
+
+            if (this._needRestart) {
+                var restartMsg = _("table data changes require system restart to take effect.\n") +
+                                 _("the system will restart automatically after you return to the Main Screen.");
+                GREUtils.Dialog.alert(this.topmostWindow, _("Table Manage"), restartMsg);
+                GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+
+            }
             doOKButton();
         },
 

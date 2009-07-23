@@ -1424,7 +1424,8 @@
             if (inputObj) {
             this._inputObj = inputObj;
             this._isNewOrder = inputObj.isNewOrder;
-            this._enableFuncs(this._isNewOrder);
+            // this._enableFuncs(this._isNewOrder);
+            this._enableFuncs(false);
             }
             
             var tables = this._tableStatusModel.getTableStatusList();

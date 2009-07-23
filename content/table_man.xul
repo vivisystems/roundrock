@@ -54,8 +54,8 @@
                                     <vivitree id="tablescrollabletree" flex="1"
                                               headers="&tableman.table.active;,&tableman.table.tableno;,&tableman.table.tablename;,&tableman.table.seats;,&tableman.table.region;,&tableman.table.destination;"
                                               fields="active,table_no,table_name,seats,region,destination"
-                                              onclick="$do('selectTable',this.selectedIndex, 'TableMan');"
-                                              class="ListPnl"
+                                              onselect="$do('selectTable',this.selectedIndex, 'TableMan');"
+                                              class="ListPnl showscrollbar"
                                               scrollUpClass="ScrollUp" dir="normal"
                                               scrollDownClass="ScrollDown"/>
                                     <hbox>
@@ -149,8 +149,8 @@
                                     <vivitree id="regionscrollabletree" flex="1"
                                               headers="&tableman.region.name;,&tableman.region.bgimage;"
                                               fields="name,image"
-                                              onclick="$do('selectRegion',this.selectedIndex, 'TableMan');"
-                                              class="ListPnl"
+                                              onselect="$do('selectRegion',this.selectedIndex, 'TableMan');"
+                                              class="ListPnl showscrollbar"
                                               scrollUpClass="ScrollUp" dir="normal"
                                               scrollDownClass="ScrollDown"/>
                                     <hbox>
@@ -215,7 +215,7 @@
                                     <viviscrollabletree id="markscrollabletree" flex="1"
                                                     headers="&tableman.mark.name;,&tableman.mark.period;,&tableman.mark.opdeny;"
                                                     fields="name,period,opdeny"
-                                                    onclick="$do('selectMark',this.selectedIndex, 'TableMan');"
+                                                    onselect="$do('selectMark',this.selectedIndex, 'TableMan');"
                                                     class="ListPnl" hidecolumnpicker="true"
                                                     scrollUpClass="ScrollUp" dir="normal"
                                                     scrollDownClass="ScrollDown">
