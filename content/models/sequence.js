@@ -187,9 +187,13 @@
                 };
 
                 seq.value++;
-                this.id = seq.id;
-                if (!this.save(seq)) {
-                    this.saveToBackup(seq);
+
+                // training mode not update seq to real database.
+                if (!isTraining) {
+                    this.id = seq.id;
+                    if (!this.save(seq)) {
+                        this.saveToBackup(seq);
+                    }
                 }
 
                 if (callback) {
