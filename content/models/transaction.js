@@ -225,17 +225,13 @@
             
             if (self.data.seq.length == 0) {
                 // maybe from recovery
-                self.data.seq = SequenceModel.getSequence('order_no', false);
-
+                self.data.seq = self.buildOrderSequence(SequenceModel.getSequence('order_no', false));
             }
 
             if (self.data.seq == '-1') {
                 // can't get sequence
                 this.data.status = orgStatus;
                 return -3;
-            }
-            else {
-                self.data.seq = this.buildOrderSequence(self.data.seq);
             }
 
             // set sale period and shift number
