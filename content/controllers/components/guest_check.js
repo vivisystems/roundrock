@@ -285,6 +285,7 @@
                 // this._tableStatusModel.removeCheck(evt.data.data);
                 this._tableStatusModel.addCheck(evt.data.data);
 
+                // set autoMark
                 var autoMark = GeckoJS.Session.get('autoMarkAfterSubmitOrder') || {};
 
                 if (autoMark['name'] == null) {
@@ -328,7 +329,7 @@
             order.restoreOrderFromBackup();
             delete order;
 
-            this.syncClient();
+            if (evt.data.data.recall == 2) this.syncClient();
         },
 
         handleSplitCheck: function(evt) {

@@ -273,7 +273,8 @@ GREUtils.log(Date.now().getTime() + ':::getTableStatuses:::' + tableStatus.lengt
                 // read all order status
                 this._connected = true;
                 var fields = null;
-                var conditions = "table_statuses.modified > '" + lastModified + "'";
+                // var conditions = "table_statuses.modified > '" + lastModified + "'";
+                var conditions = "tables.active AND table_statuses.modified > '" + lastModified + "'";
                 var orderby = 'table_statuses.table_no';
 
                 tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 1, order: orderby});

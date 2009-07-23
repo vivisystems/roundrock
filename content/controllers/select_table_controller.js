@@ -161,6 +161,7 @@
         _regionsById: {},
 
         _regionIndex: 0,
+        _regionName: [],
 
         _orderPanel: null,
         _orderDoc: null,
@@ -182,7 +183,7 @@
                 this._cartController = GeckoJS.Controller.getInstanceByName('Cart');
             };
 
-            // this.readTableConfig();
+            this.readTableConfig();
             if (this._tableStatusModel == null) {
                 // this._tableStatusModel = new TableStatusModel;
                 // this._tableStatusModel.initial();
@@ -356,6 +357,7 @@
 
         readTableConfig: function() {
             this._tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+            this._timeout = (this._tableSettings.TableRefreshFrequence || 15) * 1000;
         },
 
         popupOrderPanel: function() {
@@ -875,6 +877,21 @@
                     }
                     break;
                 case 'TransTable':
+
+                    if (selTable.hostby) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is hosted by Table#%S !!', [selTable.hostby]));
+                        this._isBusy = false;
+                        return;
+                    }
+
+                    if (selTable.mark && selTable.mark_op_deny) {
+                        // @todo OSD
+                        NotifyUtils.error(_('This table is marked [%S] and can not be selected !!', [selTable.mark]));
+                        this._isBusy = false;
+                        return;
+                    }
+                    
                     if (this._sourceTableNo) {
                         //
                         var srcTableNo = this._sourceTableNo;
@@ -997,8 +1014,12 @@
                     var aURL = 'chrome://viviecr/content/select_mark.xul';
                     var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
+                    var tableNo = this._regionTables[v].table_no;
+                    var tableName = this._regionTables[v].table_name;
                     var inputObj = {
-                        name: ''
+                        name: '',
+                        title: _('Select Table Mark'),
+                        description: _('you are now marking table [%S-%S]', [tableNo,tableName])
                     };
                     GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Mark'), aFeatures, inputObj);
 
@@ -1022,12 +1043,23 @@
 
                 case 'UnmarkTable':
 
-                    var table_no = this._regionTables[v].table_no;
-                    var markObj = {};
-                    this._isBusy = true;
-                    this._tableStatusModel.setTableMark(table_no, markObj);
+                    var tableNo = this._regionTables[v].table_no;
+                    var tableName = this._regionTables[v].table_name;
+                    if (GREUtils.Dialog.confirm(this.topmostWindow,
+                        _('Clear Table Mark'),
+                        _('you are now clearing mark of [%S-%S]. Proceed?\n' +
+                            'Click OK to clear, \nor, click Cancel to abort.', [tableNo,tableName])) == true) {
 
-                    document.getElementById('tableScrollablepanel').invalidate();
+                        var table_no = this._regionTables[v].table_no;
+                        var markObj = {};
+                        this._isBusy = true;
+                        this._tableStatusModel.setTableMark(table_no, markObj);
+                        document.getElementById('tableScrollablepanel').invalidate();
+
+                        // @todo OSD
+                        NotifyUtils.warn(_('The table mark of [%S-%S] was cleared.', [tableNo,tableName]));
+
+                    }
 
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
@@ -1046,8 +1078,11 @@
                     var aURL = 'chrome://viviecr/content/select_mark.xul';
                     var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
 
+                    var regionName = this._regionName[this._regionIndex];
                     var inputObj = {
-                        name: ''
+                        name: '',
+                        title: _('Select Table Mark'),
+                        description: _('you are now marking region [%S]', [regionName])
                     };
                     GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Table Mark'), aFeatures, inputObj);
 
@@ -1069,13 +1104,23 @@
 
                 case 'UnmarkRegionTable':
 
-                    var markObj = {};
-                    this._isBusy = true;
+                    var regionName = this._regionName[this._regionIndex];
+                    if (GREUtils.Dialog.confirm(this.topmostWindow,
+                        _('Clear Table Marks in region'),
+                        _('you are now clearing marks of region [%S]. Proceed?\n' +
+                            'Click OK to clear, \nor, click Cancel to abort.', [regionName])) == true) {
 
-                    // this._tableStatusModel.setTableMark(table_no, markObj);
-                    this._tableStatusModel.setTableMarks(this._regionTables, markObj);
+                        var markObj = {};
+                        this._isBusy = true;
 
-                    document.getElementById('tableScrollablepanel').invalidate();
+                        this._tableStatusModel.setTableMarks(this._regionTables, markObj);
+
+                        document.getElementById('tableScrollablepanel').invalidate();
+
+                        // @todo OSD
+                        NotifyUtils.warn(_('The table mark of [%S-%S] was cleared.', [tableNo,tableName]));
+
+                    }
 
                     this._inputObj.action = '';
                     this._sourceTableNo = null;
@@ -1169,10 +1214,12 @@
                 regionObj.removeChild(regionObj.firstChild);
             }
 
+            this._regionName = [];
             var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
             menuitem.setAttribute('value', '0');
             menuitem.setAttribute('label', _('All Regions'));
             regionObj.appendChild(menuitem);
+            this._regionName.push(_('All Regions'));
 
             var index = 0;
             regions.forEach(function(data){
@@ -1182,7 +1229,8 @@
                 menuitem.setAttribute('value', index);
                 menuitem.setAttribute('label', data.name);
                 regionObj.appendChild(menuitem);
-            });
+                this._regionName.push(data.name);
+            }, this);
             
             this._regionIndex = 0;
             document.getElementById('table_region').selectedIndex = this._regionIndex;
@@ -1265,11 +1313,7 @@
         },
 
         load: function(evt) {
-            var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
-            if (selectedLayout == "mrpizza") {
-                this._tableDock = true;
-            }
-
+            
             var inputObj = window.arguments[0];
             var self = this;
 
@@ -1328,6 +1372,9 @@
 
                 shown: function(evt) {
 
+                    self.readTableConfig();
+                    window.tableStatusRefreshTime = self._timeout;
+
                     window._tableStatusModel.getTableStatusList();
                     document.getElementById('tableScrollablepanel').invalidate();
 
@@ -1335,7 +1382,7 @@
                     clearTimeout(window.tableStatusRefreshInterval);
 
                     // release CPU to refresh table status panel ...
-                    GeckoJS.BaseObject.sleep(100);
+                    // GeckoJS.BaseObject.sleep(100);
 
                     // window.tableStatusRefreshInterval = setInterval('RefreshTableStatusLight()', 50000);
                     window.tableStatusRefreshInterval = setTimeout('RefreshTableStatusLight()', window.tableStatusRefreshTime);

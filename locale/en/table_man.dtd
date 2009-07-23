@@ -32,7 +32,7 @@
 
 <!ENTITY tableman.mark.name "Name">
 <!ENTITY tableman.mark.period "Period">
-<!ENTITY tableman.mark.opdeny "Deny to Operate">
+<!ENTITY tableman.mark.opdeny "No Operations Allowed">
 <!ENTITY tableman.mark.automarkaftersubmit "Auto mark after submit order with mark:">
 <!ENTITY tableman.mark.automarkaftersubmitwith "with:">
 
@@ -62,6 +62,7 @@
 <!ENTITY tableman.tableoptions.tablebookingtimeout "Booking time out (minutes):">
 <!ENTITY tableman.tableoptions.tableremindtime "Remind before booking time (minutes):">
 <!ENTITY tableman.tableoptions.maxcheckno "Maximum check number:">
+<!ENTITY tableman.tableoptions.tablerefreshfrequence "Update frequence (seconds):">
 
 <!ENTITY tableman.tableoptions.minimumchargeoptions "Minimum Charge:">
 <!ENTITY tableman.tableoptions.requestminimumcharge "Force Minimum Charge">

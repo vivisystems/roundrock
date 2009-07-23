@@ -8,6 +8,8 @@
      */
     function startup() {
 
+        document.getElementById('title').setAttribute('label', inputObj.title);
+        document.getElementById('description').value = inputObj.description;
         var marksData = [];
         var datas = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
         if (datas != null)

@@ -290,35 +290,38 @@
                                             <rows>
                                                 <row>
                                                     <checkbox id="tableWinAsFirstWin" label="&tableman.tableoptions.tablewinasfirstwin;" form="settingsForm" name="TableWinAsFirstWin"/>
-                                                    <checkbox id="virtualTableMap" label="&tableman.tableoptions.virtualtablemap;" form="settingsForm" name="VirtualTableMap"/>
+                                                    <hbox>
+                                                        <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
+                                                        <textbox id="tableRefreshFrequence" name="TableRefreshFrequence" form="settingsForm" type="Number" size="4" maxlength="3" min="5" max="999" onfocus="select()"/>
+                                                    </hbox>
+                                                    
                                                 </row>
                                                 <row>
                                                     <checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/>
                                                     <hbox>
                                                         <label control="tablePeriodLimit" value="&tableman.tableoptions.tableperiodlimit;"/>
-                                                        <textbox id="tablePeriodLimit" name="TablePeriodLimit" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                        <textbox id="tablePeriodLimit" name="TablePeriodLimit" form="settingsForm" type="Number" size="4" maxlength="3" min="1" max="999" onfocus="select()"/>
                                                     </hbox>
                                                 </row>
                                                 <row>
                                                     <checkbox id="requireTableNo" label="&tableman.tableoptions.requiretableno;" form="settingsForm" name="RequireTableNo"/>
                                                     <hbox>
                                                         <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
-                                                        <textbox id="tableRemindTime" name="TableRemindTime" form="settingsForm" type="Number" size="6" maxlength="3" min="10" max="999" onfocus="select()"/>
+                                                        <textbox id="tableRemindTime" name="TableRemindTime" form="settingsForm" type="Number" size="4" maxlength="3" min="10" max="999" onfocus="select()"/>
                                                     </hbox>
                                                 </row>
                                                 <row>
                                                     <checkbox id="requireGuestNum" label="&tableman.tableoptions.requireguestnum;" form="settingsForm" name="RequireGuestNum"/>
                                                     <hbox>
                                                         <label control="tableBookingTimeout" value="&tableman.tableoptions.tablebookingtimeout;"/>
-                                                        <textbox id="tableBookingTimeout" name="TableBookingTimeout" form="settingsForm" type="Number" size="6" maxlength="3" min="1" max="999" onfocus="select()"/>
+                                                        <textbox id="tableBookingTimeout" name="TableBookingTimeout" form="settingsForm" type="Number" size="4" maxlength="3" min="1" max="999" onfocus="select()"/>
                                                     </hbox>
                                                 </row>
                                                 <row>
-                                                    <!-- checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/ -->
-                                                    <label value="" />
+                                                    <checkbox id="virtualTableMap" label="&tableman.tableoptions.virtualtablemap;" form="settingsForm" name="VirtualTableMap"/>
                                                     <hbox>
                                                         <label control="tablePeriodLimit" value="&tableman.tableoptions.maxcheckno;"/>
-                                                        <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="6" maxlength="3" min="30" max="999" onfocus="select()"/>
+                                                        <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="4" maxlength="3" min="30" max="999" onfocus="select()"/>
                                                     </hbox>
                                                 </row>
                                                 <row>

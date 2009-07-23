@@ -31,8 +31,8 @@
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="mark.title;" class="PageTitle" />
-            <label id="name" hidden="true" value="" />
+            <caption id="title" label="title" class="PageTitle" />
+            <label id="description" value="" />
             <hbox class="SelectBox">
                 <viviscrollablebuttonpanel id="markscrollablepanel" flex="1" cols="4" rows="7" labelField="name"
                                            class="ItemScrollablepanel"
