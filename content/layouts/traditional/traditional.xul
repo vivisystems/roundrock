@@ -14,6 +14,8 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
 
+<?xul-overlay href="chrome://viviecr/content/dialogs/select_table.xul" ?>
+
 <overlay id="traditionalLayoutOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"

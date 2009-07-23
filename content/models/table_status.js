@@ -20,6 +20,7 @@
         behaviors: ['Sync', 'Training'], // for local use when connect master fail...
 
         timeout: 15,
+        _delta: 0,
 
         _checkNoArray: [],
         _tableNoArray: [],
@@ -270,7 +271,8 @@
                 // read all order status
                 this._connected = true;
                 var fields = null;
-                var conditions = "table_statuses.modified > '" + lastModified + "'";
+                // var conditions = "table_statuses.modified > '" + lastModified + "'";
+                var conditions = "tables.active AND table_statuses.modified > '" + lastModified + "'";
                 var orderby = 'table_statuses.table_no';
 
                 tableStatus = this.find('all', {fields: fields, conditions: conditions, recursive: 1, order: orderby});
@@ -290,15 +292,16 @@
         getTableStatusList: function(reload) {
 
             var self = this;
+            if (this._delta > 0) this._delta--;
 
             var tableBooking = this.getTableBookings();
 
-            var tableOrder = this.getTableOrders(this._tableOrderLastTime);
+            var tableOrder = this.getTableOrders(this._tableOrderLastTime - this._delta);
 
 //            if (this._tableStatuses)
 //                var tableStatus = this._tableStatuses;
 //            else
-                var tableStatus = this.getTableStatuses(this._tableStatusLastTime);
+                var tableStatus = this.getTableStatuses(this._tableStatusLastTime - this._delta);
 
             if (this._tableStatusList && this._tableStatusList.length > 0) {
                 //
@@ -333,7 +336,7 @@
             // set checklist
             this._checkList = tableStatus.concat([]);
 
-//            this._tableOrderByOrderId = {};
+            var now = Math.round(Date.now().getTime() / 1000);
 
             // gen tables status
 
@@ -357,7 +360,16 @@
                     o.total = 0;
                     o.check_no = 0;
                     o.sequence = '';
-                    o.start_time = 0;
+
+                    // mark
+                    if (!o.mark || (o.start_time > now) || (o.end_time < now)) {
+                        o.mark = '';
+                        o.start_time = 0;
+                        o.end_time = 0;
+                        o.mark_user = '';
+                        o.mark_op_deny = false;
+                    }
+
 
                     // o.checks = o.TableOrder ? o.TableOrder.length : 0;
                     o.checks = o.TableOrder.length;
@@ -370,7 +382,7 @@
                         o.total = o.TableOrder[0].total;
                         o.check_no = o.TableOrder[0].check_no;
                         o.sequence = o.TableOrder[0].sequence;
-                        o.start_time = o.TableOrder[0].transaction_created;
+                        o.transaction_created = o.TableOrder[0].transaction_created;
                     };
 
                     if (o.TableBooking && o.TableBooking.length > 0) {
@@ -605,16 +617,28 @@ return;
             }
         },
 
-        setTableMark: function(table_no, mark) {
+        setTableMark: function(table_no, markObj) {
+
+            var user = GeckoJS.Session.get('user') || {};
+            markObj.mark_user = user.username;
+
+            var now = Math.round(Date.now().getTime() / 1000);
+            markObj.start_time = now;
+            if (markObj.period > 0) {
+                markObj.end_time = now + markObj.period * 60;
+            } else {
+                // last to ten years
+                markObj.end_time = now + 86400 * 365 * 10;
+            }
 
             var remoteUrl = this.getRemoteService('setTableMark');
             var tableStatus = null;
 
             if (remoteUrl) {
 
-                // tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({table_no: table_no, holdTable: holdTable}));
-                tableStatus = this.requestRemoteService('GET', remoteUrl + '/' + table_no + '/' + markTable, null);
-
+                tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({table_no: table_no, markObj: markObj}));
+                // this._delta = 1;
+                
                 return ;
             }
 
@@ -623,20 +647,93 @@ return;
                 conditions: conditions
             });
 
-            var markObj = null;
-            if (mark) {
-                markObj = {mark: mark};
-            }
-            else {
-                markObj = {mark: ''};
-            }
-
             // tableStatus record exist
             if (tableStatusObjTmp) {
 
                 this.id = tableStatusObjTmp.id;
-                this.save( markObj );
+
+                if (markObj.name) {
+                    tableStatusObjTmp.start_time = markObj.start_time;
+                    tableStatusObjTmp.end_time = markObj.end_time;
+                    tableStatusObjTmp.mark_user = markObj.mark_user;
+                    tableStatusObjTmp.mark = markObj.name;
+                    tableStatusObjTmp.mark_op_deny = markObj.opdeny;
+                } else {
+                    tableStatusObjTmp.start_time = 0;
+                    tableStatusObjTmp.end_time = 0;
+                    tableStatusObjTmp.mark_user = '';
+                    tableStatusObjTmp.mark = '';
+                    tableStatusObjTmp.mark_op_deny = false;
+                }
+
+                this.save( tableStatusObjTmp );
+
+                // this._delta = 1;
             }
+        },
+
+        setTableMarks: function(regionTables, markObj) {
+
+            var user = GeckoJS.Session.get('user') || {};
+            markObj.mark_user = user.username;
+
+            var now = Math.round(Date.now().getTime() / 1000);
+            markObj.start_time = now;
+            if (markObj.period > 0) {
+                markObj.end_time = now + markObj.period * 60;
+            } else {
+                // last to ten years
+                markObj.end_time = now + 86400 * 365 * 10;
+            }
+            
+
+            var tables = GeckoJS.Array.objectExtract(regionTables, '{n}.TableStatus.table_no');
+
+            var remoteUrl = this.getRemoteService('setTableMarks');
+            var tableStatus = null;
+
+            if (remoteUrl) {
+
+                tableStatus = this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({tables: tables, markObj: markObj}));
+                // this._delta = 3;
+
+                return ;
+            }
+
+            // local
+            tables.forEach(function(table_no){
+                //
+
+                var conditions = "table_statuses.table_no='" + table_no + "'";
+                var tableStatusObjTmp = this.find('first', {
+                    conditions: conditions
+                });
+
+                // tableStatus record exist
+                if (tableStatusObjTmp) {
+
+                    this.id = tableStatusObjTmp.id;
+
+                    if (markObj.name) {
+                        tableStatusObjTmp.start_time = markObj.start_time;
+                        tableStatusObjTmp.end_time = markObj.end_time;
+                        tableStatusObjTmp.mark_user = markObj.mark_user;
+                        tableStatusObjTmp.mark = markObj.name;
+                        tableStatusObjTmp.mark_op_deny = markObj.opdeny;
+                    } else {
+                        tableStatusObjTmp.start_time = 0;
+                        tableStatusObjTmp.end_time = 0;
+                        tableStatusObjTmp.mark_user = '';
+                        tableStatusObjTmp.mark = '';
+                        tableStatusObjTmp.mark_op_deny = false;
+                    }
+
+                    this.save( tableStatusObjTmp );
+                }
+
+            }, this);
+
+            // this._delta = 3;
         },
 
         addCheck: function(checkObj) {
@@ -736,8 +833,7 @@ return;
         getTableBookings: function() {
             var now = Math.round(new Date().getTime());
             var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-            var remindTime = (now + tableSettings.TableRemindTime * 60 * 1000) / 1000;
-
+            var remindTime = (now - tableSettings.TableRemindTime * 60 * 1000) / 1000;
             var bookTimeOut = (tableSettings.TableBookingTimeout * 60 *1000) / 1000;
             var bookNow =  now / 1000 - bookTimeOut;
             var justNow = now / 1000;
@@ -746,7 +842,6 @@ return;
 
             var orderby = "table_bookings.booking";
             this._tableBookings = this.TableBooking.find("all", {conditions: conditions, order: orderby});
-
         },
 
         getTableOrders: function(lastModified) {

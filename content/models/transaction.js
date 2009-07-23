@@ -136,6 +136,8 @@
             recoveryMode = recoveryMode || false;
 
             var self = this;
+
+            this.syncSettings = (new SyncSetting()).read();
             
             this.data.id = GeckoJS.String.uuid();
 
@@ -206,7 +208,8 @@
             // force and waiting to get sequence
             if (self.data.seq.length == 0) {
 
-                var timeoutGuardSec = 15000;
+                var timeoutGuardSec = self.syncSettings.timeout * 1000;
+                //var timeoutGuardSec = 15000;
                 var timeoutGuardNow = Date.now().getTime();
 
                 // block ui until request finish or timeout
@@ -1948,6 +1951,7 @@
                 case 'trans_discount':
                     item = this.data.trans_discounts[itemIndex];
                     break;
+                    
                 case 'trans_surcharge':
                     item = this.data.trans_surcharges[itemIndex];
                     break;
@@ -1967,7 +1971,8 @@
 
             if (index == null) index = displayItems.length - 1;
 
-            displayItems[index].batchMarker = batch;
+            if (index > -1)
+                displayItems[index].batchMarker = batch;
 
             // lock all display items up-to and including the item at position given by index
             for (var i = 0; i <= index; i++) {

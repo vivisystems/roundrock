@@ -77,6 +77,11 @@
     text-align: right;
     float: right;
 }
+.clerk {
+    margin-top: 0px;
+    text-align: left;
+    /*float: right;*/
+}
 .green {
     background-color: #cfc;
 }

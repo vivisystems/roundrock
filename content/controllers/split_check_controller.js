@@ -49,6 +49,26 @@
             return this._cart;
         },
 
+        buildOrderSequence: function(seq) {
+            var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
+            var sequenceTrackSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod') || false;
+
+            if (seq != -1) {
+                var newSeq = (seq+'');
+                if (newSeq.length < sequenceNumberLength) {
+                    newSeq = GeckoJS.String.padLeft(newSeq, sequenceNumberLength, '0');
+                }
+                if (sequenceTrackSalePeriod) {
+                    var salePeriod = GeckoJS.Session.get('sale_period');
+                    newSeq = new Date(salePeriod * 1000).toString('yyyyMMdd') + newSeq;
+                }
+                return newSeq;
+            }
+            else {
+                return seq;
+            }
+        },
+
         splitItems: function() {
             var self = this;
 
@@ -411,8 +431,18 @@
 
                 });
 
+                var seq = self.buildOrderSequence(SequenceModel.getSequence('order_no', false));
+                // @todo must rewrite...
+                if (seq == '-1') {
+                    // can't get sequence
+                    // @todo OSD
+                    NotifyUtils.error(_("can't get sequence"));
+                    return false;
+                }
+
                 order.id = GeckoJS.String.uuid();
-                order.seq = SequenceModel.getSequence('order_no');
+                // order.seq = SequenceModel.getSequence('order_no');
+                order.seq = seq;
                 order.check_no = o.check_no;
                 order.table_no = o.table_no;
 
@@ -438,7 +468,7 @@
 
             // dispatch changeclerk event
             // this.getCartController().dispatchEvent('onStore', origData);
-            this.getCartController().dispatchEvent('onSplitCheck', origData);
+            this.getCartController().dispatchEvent('onSplitCheck', {view:{}, data:origData});
 
             // update table status
             this._getTableStatusModel().addCheck(origData);
@@ -475,7 +505,7 @@
 */
                 // dispatch changeclerk event
                 // this.getCartController().dispatchEvent('onStore', origData);
-                self.getCartController().dispatchEvent('onSplitCheck', data);
+                self.getCartController().dispatchEvent('onSplitCheck', {view:{}, data:data});
 
                 // update table status
                 self._getTableStatusModel().addCheck(data);
