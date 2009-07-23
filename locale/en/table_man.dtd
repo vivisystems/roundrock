@@ -2,7 +2,7 @@
 <!ENTITY tableman.tab.tables "Tables">
 <!ENTITY tableman.tab.regions "Regions">
 <!ENTITY tableman.tab.bookings "Bookings">
-<!ENTITY tableman.tab.marks "Marks">
+<!ENTITY tableman.tab.marks "Table Status">
 <!ENTITY tableman.tab.tableoptions "Options">
 <!ENTITY tableman.tab.tablemap "Table Map">
 <!ENTITY tableman.tab.tableoptions.1 "Options 1">
@@ -31,10 +31,10 @@
 <!ENTITY tableman.booking.note "Note">
 
 <!ENTITY tableman.mark.name "Name">
-<!ENTITY tableman.mark.period "Period">
-<!ENTITY tableman.mark.perioddesc "set period to 0 to persist">
+<!ENTITY tableman.mark.period "Status Duration (Minutes)">
+<!ENTITY tableman.mark.perioddesc "(Set 0 for infinite duration)">
 <!ENTITY tableman.mark.opdeny "No Operations Allowed">
-<!ENTITY tableman.mark.automarkaftersubmit "Auto mark after submit order with mark:">
+<!ENTITY tableman.mark.automarkaftersubmit "After order completion, automatically mark table status as:">
 <!ENTITY tableman.mark.automarkaftersubmitwith "with:">
 
 <!ENTITY tableman.button.search "Search">
@@ -63,7 +63,7 @@
 <!ENTITY tableman.tableoptions.tablebookingtimeout "Booking time out (minutes):">
 <!ENTITY tableman.tableoptions.tableremindtime "Remind before booking time (minutes):">
 <!ENTITY tableman.tableoptions.maxcheckno "Maximum check number:">
-<!ENTITY tableman.tableoptions.tablerefreshfrequence "Update frequence (seconds):">
+<!ENTITY tableman.tableoptions.tablerefreshfrequence "Update frequency (seconds):">
 
 <!ENTITY tableman.tableoptions.minimumchargeoptions "Minimum Charge:">
 <!ENTITY tableman.tableoptions.requestminimumcharge "Force Minimum Charge">

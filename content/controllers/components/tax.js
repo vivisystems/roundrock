@@ -186,7 +186,7 @@
 
         var tax = this.getTax(no);
 
-        if (tax == null) return false;
+        if (tax == null) return this.addTax(no, data.name, data.type, data.rate, data.rate_type, data.threshold, null);
 
         var taxId = tax.id;
 
