@@ -786,9 +786,11 @@
                         }
 
                         if (r) {
-
-                            if (!this._tableDock)
-                            $.hidePanel('selectTablePanel', true)
+                            if (!this._tableDock) {
+                                if (r == 1){
+                                    $.hidePanel('selectTablePanel', true)
+                                }
+                            }
                         }
 
                         this._inputObj.action = '';
@@ -831,9 +833,11 @@
                         }
 
                         if (r) {
-
-                            if (!this._tableDock)
-                            $.hidePanel('selectTablePanel', true)
+                            if (!this._tableDock) {
+                                if (r == 1){
+                                    $.hidePanel('selectTablePanel', true);
+                                }
+                            }
                         }
 
                         this._inputObj.action = '';
