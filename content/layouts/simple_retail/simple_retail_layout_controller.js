@@ -7,6 +7,7 @@
         bannerSrcBase: '',
         defaultSrcBase: '',
         bannerImageObj: null,
+        _bannerImageCounter: 0,
 
         initial: function() {
             
@@ -23,8 +24,6 @@
                 this.bannerSrcBase = 'file://' + sDstDir + 'banner.png';
                 this.bannerImageObj = bannerImageObj;
                 
-                this.defaultSrcBase = 'file://' + sDstDir + 'no-photo.png';
-
                 bannerImageObj.src = this.bannerSrcBase;
             }
             
@@ -98,16 +97,21 @@
                 if (mainPanel) mainPanel.setAttribute('dir', bannerAtBottom ? 'reverse' : 'normal');
                 
                 if (this.bannerImageObj && this.bannerSrcBase) {
-                    this.bannerImageObj.src = this.bannerSrcBase + '?' + Math.random();
+                    this.bannerImageObj.src = this.bannerSrcBase + '?' + this._bannerImagecounter++;
                 }
             }
             else {
                 bannerPanelContainer.setAttribute('hidden', true);
             }
 
-            var productImagePanelContainer = document.getElementById('productImagePanelContainer');
-            if (productImagePanelContainer && this.defaultSrcBase) {
-                productImagePanelContainer.setAttribute('style', 'overflow: hidden; background: transparent url(' + this.defaultSrcBase + '?' + Math.random() + ') center center no-repeat');
+            // increment no photo image counter
+            this.requestCommand('incrementNoPhotoImgCounter', null, 'ProductImage');
+            
+            // refresh current product photo
+            var cartTreeList = document.getElementById('cartList');
+
+            if (cartTreeList) {
+                this.requestCommand('updateImage', cartTreeList.selectedIndex, 'ProductImage');
             }
 
             if (condPanel &&
@@ -190,6 +194,7 @@
             // not any layout templates support it
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.RegisterAtLeft') || false;
             var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideTagColumn') || false;
+            var hideUnitPrice = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideUnitPriceColumn') || false;
             var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
             var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox') || false;
             var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideSoldOutButtons') || false;
@@ -251,6 +256,7 @@
                     cartList.vivitree.initTreecols();
                 }
             }
+            
             // display sold out buttons
             if (soldOutCategory) soldOutCategory.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
             

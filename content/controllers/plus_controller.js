@@ -47,27 +47,7 @@
             var condGroupPanelView = new NSICondGroupsView(condGroups);
             condimentscrollablepanel.datasource = condGroupPanelView;
 
-            var condGroupsById = {};
-
-            condGroups.forEach(function(condGroup){
-                var cgId = condGroup.id;
-
-                var condimentGroup = condGroup['CondimentGroup'] || {};
-                condimentGroup['Condiment'] = [];
-
-                if(condGroup['Condiment']) {
-
-                    condGroup['Condiment'].forEach(function(condiment) {
-                        condiment['seltype'] = condGroup.seltype;
-                        condimentGroup['Condiment'].push(condiment);
-                    });
-                }
-                //condGroupsById[cgId] = condimentGroup;
-                condGroupsById[cgId] = condGroup;
-
-            });
-
-            this._condGroupsById = condGroupsById;
+           this._condGroupsById = GeckoJS.Session.get('condGroupsById');
 
             doSetOKCancel(
                 function(){
@@ -657,7 +637,7 @@
                         if (o.no == data.no && data.id == null) {
                             NotifyUtils.warn(_('Product number [%S] already exists; product not added', [data.no]));
                             return 1;
-                        } else if (o.name == data.name && o.cate_no == data.cate_no) {
+                        } else if (o.name.toLowerCase() == data.name.toLowerCase() && o.cate_no == data.cate_no) {
                             if ((data.id == null) || (data.id != o.id)) {
                                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
                                                             _('Duplicate Product Name [%S]', [data.name]),

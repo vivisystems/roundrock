@@ -191,33 +191,29 @@
             var product = productsById[pid];
 
             if(!product) return null;
+
             if (product[cachedKey] === false ) return null;
 
             var aDstFile = false;
 
             if (product[cachedKey]) {
-
                 aDstFile = product[cachedKey];
-                return 'file://' + aDstFile ;
+                return 'file://' + aDstFile;
                 
             }else {
-
                 var val = product[colKey];
                 var sPluDir = GeckoJS.Session.get('pluimage_directory');
 
                 aDstFile = sPluDir + val + ".png";
 
                 if (GREUtils.File.exists(aDstFile)) {
-                    product[cachedKey] = aDstFile;
-                    return 'file://' + aDstFile  /*+ "?"+ Math.random()*/;
-
+                    product[cachedKey] = aDstFile + '?' + product['imageCounter'];
+                    return 'file://' + product[cachedKey];
                 }else {
                     product[cachedKey] = false;
                     return null;
                 }
             }
-
-            // this.log('DEBUG', 'getImageSrc = ' + aDstFile);
             
         },
 
