@@ -112,14 +112,13 @@
             var cachedKey = 'pluimages' ;
             var aDstFile = '';
 
-            if (item) {
+            if (item && this._sPluDir) {
                 if (item[cachedKey] === false ) {
                     aDstFile = '' ;
                 }else if (item[cachedKey]) {
                     aDstFile = item[cachedKey];
                 }else {
                     aDstFile = this._sPluDir + item.no + ".png";
-
                     if (GREUtils.File.exists(aDstFile)) {
 
                         // get product image counter
