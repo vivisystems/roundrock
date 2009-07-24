@@ -37,7 +37,7 @@
 	<xbl:field name="charCode">0</xbl:field>
 	<xbl:field name="canceled">false</xbl:field>
 	<xbl:field name="targetObject">null</xbl:field>
-	<xbl:property name="target" onget="return this.targetObject.id;" onset="this.setTarget(val);" ></xbl:property>
+	<xbl:property name="target" onget="return this.targetObject ? this.targetObject.id : null;" onset="this.setTarget(val);" ></xbl:property>
 	
 	<xbl:method name="setTarget">
 		<xbl:parameter name="target"/>
