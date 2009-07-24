@@ -40,7 +40,7 @@
                         locale.changeLocale();
 
                         // change keyboard mapping
-                        //kbmap.changeOSKbmap();
+                        kbmap.changeOSKbmap();
 
                         GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
 

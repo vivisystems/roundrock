@@ -175,25 +175,33 @@
             
             } else {
 
-                seq = this.findByIndex('first', {
-                    index: 'key',
-                    value: key
-                }) ||
+                if (isTraining) {
 
-                {
-                    id: "",
-                    key: key,
-                    value: 0
-                };
+                    // training mode not update seq to real database.
+                    seq = GeckoJS.Session.get( "TRAINING_" + key) || {value: 0};
+                    seq.value++;
+                    GeckoJS.Session.set( "TRAINING_" + key, seq);
 
-                seq.value++;
+                }else {
+                    
+                    seq = this.findByIndex('first', {
+                        index: 'key',
+                        value: key
+                    }) ||
 
-                // training mode not update seq to real database.
-                if (!isTraining) {
+                    {
+                        id: "",
+                        key: key,
+                        value: 0
+                    };
+
+                    seq.value++;
+
                     this.id = seq.id;
                     if (!this.save(seq)) {
                         this.saveToBackup(seq);
                     }
+
                 }
 
                 if (callback) {
