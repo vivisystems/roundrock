@@ -1425,15 +1425,15 @@
                         var extent1 = this.getKeyExtent(this.selectedNode1.row, this.selectedNode1.column, layout);
                         var extent2 = this.getKeyExtent(this.selectedNode2.row, this.selectedNode2.column, layout);
 
-                        var ext1r1 = extent1.row1;
-                        var ext1c1 = extent1.column1;
-                        var ext1r2 = extent1.row2;
-                        var ext1c2 = extent1.column2;
+                        var ext1r1 = parseInt(extent1.row1);
+                        var ext1c1 = parseInt(extent1.column1);
+                        var ext1r2 = parseInt(extent1.row2);
+                        var ext1c2 = parseInt(extent1.column2);
 
-                        var ext2r1 = extent2.row1;
-                        var ext2c1 = extent2.column1;
-                        var ext2r2 = extent2.row2;
-                        var ext2c2 = extent2.column2;
+                        var ext2r1 = parseInt(extent2.row1);
+                        var ext2c1 = parseInt(extent2.column1);
+                        var ext2r2 = parseInt(extent2.row2);
+                        var ext2c2 = parseInt(extent2.column2);
 
                         var row1, column1, row2, column2;
 
