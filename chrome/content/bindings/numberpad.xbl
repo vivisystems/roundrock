@@ -15,22 +15,22 @@
   <xul:grid class="numberpad" xbl:inherits="class" >
     <xul:columns>
       <xul:column flex="1">
-      	<xul:sendkeybutton label="7" charCode="7" control="false" xbl:inherits="target" />
-      	<xul:sendkeybutton label="4" charCode="4" control="false" xbl:inherits="target" />
-      	<xul:sendkeybutton label="1" charCode="1" control="false" xbl:inherits="target" />
-      	<xul:sendkeybutton label="0" charCode="0" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="7" label="7" charCode="7" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="4" label="4" charCode="4" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="1" label="1" charCode="1" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="0" label="0" charCode="0" control="false" xbl:inherits="target" />
       </xul:column>
       <xul:column flex="1">
-      	<xul:sendkeybutton label="8" charCode="8" control="false" xbl:inherits="target" />
-      	<xul:sendkeybutton label="5" charCode="5" control="false" xbl:inherits="target" />
-      	<xul:sendkeybutton label="2" charCode="2" control="false" xbl:inherits="target" />
-      	<xul:sendkeybutton label="00" charCode="00" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="8" label="8" charCode="8" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="5" label="5" charCode="5" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="2" label="2" charCode="2" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="00" label="00" charCode="00" control="false" xbl:inherits="target" />
       </xul:column>
       <xul:column flex="1">
-       	<xul:sendkeybutton label="9" charCode="9" control="false" xbl:inherits="target" />
-      	<xul:sendkeybutton label="6" charCode="6" control="false" xbl:inherits="target" />
-      	<xul:sendkeybutton label="3" charCode="3" control="false" xbl:inherits="target" />
-      	<xul:sendkeybutton label="." charCode="." control="false" xbl:inherits="target" />      
+       	<xul:sendkeybutton anonid="9" label="9" charCode="9" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="6" label="6" charCode="6" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="3" label="3" charCode="3" control="false" xbl:inherits="target" />
+      	<xul:sendkeybutton anonid="." label="." charCode="." control="false" xbl:inherits="target" />
       </xul:column>
     </xul:columns>
   </xul:grid>
@@ -43,6 +43,25 @@
 		
 	</xbl:constructor>
 	
+	<xbl:method name="setTarget">
+		<xbl:parameter name="target"/>
+		<xbl:body>
+			if (target.length > 0) {
+                document.getAnonymousElementByAttribute(this, 'anonid', '0').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '1').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '2').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '3').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '4').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '5').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '6').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '7').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '8').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '9').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '.').setTarget(target);
+                document.getAnonymousElementByAttribute(this, 'anonid', '00').setTarget(target);
+            }
+		</xbl:body>
+	</xbl:method>
   </xbl:implementation>
 
 
