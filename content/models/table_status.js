@@ -362,7 +362,8 @@
                     o.sequence = '';
 
                     // mark
-                    if (!o.mark || (o.start_time > now) || (o.end_time < now)) {
+                    // if (!o.mark || (o.start_time > now) || (o.end_time < now)) {
+                    if (!o.mark || (o.end_time < now)) {
                         o.mark = '';
                         o.start_time = 0;
                         o.end_time = 0;
@@ -833,7 +834,8 @@ return;
         getTableBookings: function() {
             var now = Math.round(new Date().getTime());
             var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
-            var remindTime = (now - tableSettings.TableRemindTime * 60 * 1000) / 1000;
+            var remindTime = (now + tableSettings.TableRemindTime * 60 * 1000) / 1000;
+
             var bookTimeOut = (tableSettings.TableBookingTimeout * 60 *1000) / 1000;
             var bookNow =  now / 1000 - bookTimeOut;
             var justNow = now / 1000;
