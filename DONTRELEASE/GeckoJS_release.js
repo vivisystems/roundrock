@@ -4672,7 +4672,7 @@ GeckoJS.File.prototype.__defineGetter__('nsIFile', function(){
 
 GeckoJS.File.prototype.__defineGetter__('path', function(){
 	if(this.file) {
-		return this.file.path;	
+		return this.file.path;
 	}else {
 		return "";
 	}
@@ -4681,7 +4681,7 @@ GeckoJS.File.prototype.__defineGetter__('path', function(){
 
 GeckoJS.File.prototype.__defineGetter__('leafName', function(){
 	if(this.file) {
-		return this.file.leafName;	
+		return this.file.leafName;
 	}else {
 		return "";
 	}
@@ -10468,19 +10468,18 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
             /* ifdef DEBUG 
             this.log('DEBUG', 'commit to success , remove all backup datas.');
             /* endif DEBUG */
-
+            
             var self = this;
-
+            newDataSource.truncate(self);
+            
+            /*
             backupDatas.forEach(function(oldData) {
 
                 self.id = oldData[self.primaryKey];
-                
-                /* ifdef DEBUG 
-                self.log('DEBUG', 'delete from backup data, id = ' + self.id);
-                /* endif DEBUG */
-
+               
                 newDataSource.executeDelete(self);
             });
+            */
 
             this.id = false;
             this.data = null;
@@ -12460,7 +12459,6 @@ GREUtils.define('GeckoJS.DatasourceJsonFile', GeckoJS.global);
  *
  * @name GeckoJS.DatasourceJsonFile
  * @extends GeckoJS.Datasource 
- * @property {GeckoJS.Map} data                Data cache (read-only)
  */
 GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile',
 /** @lends GeckoJS.DatasourceJsonFile.prototype */
@@ -12480,7 +12478,7 @@ GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile',
         this.wrappedJSObject = this;
 
         this._path = null ;
-        this._data = new GeckoJS.Map();
+        //this._data = new GeckoJS.Map();
 
         this.config = config;
 
@@ -12495,9 +12493,11 @@ GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile',
 
 
 //dispatchData getter
+/*
 GeckoJS.DatasourceJsonFile.prototype.__defineGetter__('data', function(){
     return this._data;
 });
+*/
 
 // path
 GeckoJS.DatasourceJsonFile.prototype.__defineGetter__('path', function() {
@@ -12521,7 +12521,7 @@ GeckoJS.DatasourceJsonFile.prototype.__defineGetter__('path', function() {
 GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
 
     var db = null;
-    var d = {};
+    var d = null;
 
     var tableFile = new GeckoJS.Dir(this.path, true);
 
@@ -12535,17 +12535,16 @@ GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
 
     tableFile.append(table + '.db');
 
-    if (tableFile.exists()) {
+    if (tableFile.exists() && tableFile.file.fileSize > 0) {
 
         /* ifdef DEBUG 
         this.log('DEBUG', 'readTableFile > ' + tableFile.path + ' , fileSize = ' + tableFile.file.fileSize);
         /* endif DEBUG */
-
+       
         try {
             d = GREUtils.JSON.decodeFromFile(tableFile.path);
-            if (d == null) d = {};
         }catch(e) {
-            d = {};
+            d = null;
         }
         
     }
@@ -12555,7 +12554,10 @@ GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
     /* endif DEBUG */
 
     db = new GeckoJS.Map();
-    db.addAll(d);
+
+    if (d != null) {
+        db.addAll(d);
+    }
 
     this.lastError = 0;
     this.lastErrorString = "successful result";
@@ -12590,12 +12592,16 @@ GeckoJS.DatasourceJsonFile.prototype.saveTableFile = function(table, db){
     /* ifdef DEBUG 
     this.log('DEBUG', 'saveTableFile > ' + tableFile.path);
     /* endif DEBUG */
-    
-    GREUtils.JSON.encodeToFile(tableFile.path, db._obj);
 
+    if (!db) {
+        // null or false , write 0 byte file.
+        GREUtils.File.writeAllBytes(tableFile.path, '');
+    }else if (db._obj) {
+        // Map object
+        GREUtils.JSON.encodeToFile(tableFile.path, db._obj);
+    }
 
-    this.data.set(table, db);
-
+    // this.data.set(table, db);
     this.lastError = 0;
     this.lastErrorString = "successful result";
 
@@ -13086,6 +13092,11 @@ GeckoJS.DatasourceJsonFile.prototype.executeDelete = function(model){
         var key = model.id;
         
         if (db.containsKey(key)) {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'executeDelete > remove key: ' + key);
+            /* endif DEBUG */
+
             db.remove(key);
             var r = this.saveTableFile(table, db);
             return r;
@@ -13111,11 +13122,11 @@ GeckoJS.DatasourceJsonFile.prototype.executeDelete = function(model){
  * @param {String} table A string or model class representing the table to be truncated
  * @return {Boolean}	SQL TRUNCATE TABLE statement, false if not applicable.
  */
-GeckoJS.DatasourceJsonFile.prototype.truncate = function (table) {
+GeckoJS.DatasourceJsonFile.prototype.truncate = function (model) {
 
     try {
-
-        var r = this.saveTableFile(table, {});
+        var table = model.table;
+        var r = this.saveTableFile(table, null);
         return r;
     }
     catch (e) {
@@ -14801,7 +14812,8 @@ GeckoJS.DatasourceSQLite.prototype._connect = function(){
     var timeout = parseInt(this.config['timeout'] || "30") ;
     this.maxTries = (timeout*1000/this.delayTries);
 
-    var synchronous = this.config['synchronous'] || "FULL" ;
+    var synchronous = this.config['synchronous'] || "NORMAL" ;
+    var journalMode = this.config['journal_mode'] || "DELETE" ;
 
     // support in-memory sqlite database
     this._inMemory = false;
@@ -14836,10 +14848,16 @@ GeckoJS.DatasourceSQLite.prototype._connect = function(){
                 this.connected = true;
                 // this._execute('PRAGMA full_column_names = 1');
                 try {
-                    // full synchronous mode
-                    if (!this._inMemory) this.conn.executeSimpleSQL("PRAGMA synchronous="+synchronous);
-                    if (!this._inMemory) this.conn.executeSimpleSQL("PRAGMA locking_mode = NORMAL");
+                    if (!this._inMemory) {
 
+                        var initSQL = "";
+
+                        initSQL += "PRAGMA synchronous = " + synchronous + ";\n";
+                        initSQL += "PRAGMA journal_mode = " + journalMode + ";\n";
+                        initSQL += "PRAGMA locking_mode = NORMAL;\n";
+
+                        this.conn.executeSimpleSQL(initSQL);
+                    }
                 }catch(e){}
                 
                 break;
@@ -15068,6 +15086,85 @@ GeckoJS.DatasourceSQLite.prototype._execute = function(sql, params, waiting) {
     return this._result;
 
 };
+
+/**
+ * Executes an SQL expression
+ *
+ * @name GeckoJS.DatasourceSQLite#executeSimpleSQL
+ * @public
+ * @function
+ * @param {String} sql
+ * @param {Boolean} waiting waiting if database is locked
+ * @return {Boolean}
+ */
+GeckoJS.DatasourceSQLite.prototype.executeSimpleSQL = function(sql, waiting) {
+
+    if(typeof waiting =='undefined') waiting = true;
+
+    if (!this.isConnected) return null;
+
+    // We'll try multiple times if we get an error because of the database or a table being locked
+    // @see http://www.sqlite.org/capi3.html
+    var errorCode = 0;
+    var errorString = '';
+    var maxTries = waiting ? this.maxTries : 1;
+    var numTries = 0;
+    var result = false;
+
+    while (numTries < maxTries) {
+
+        try {
+
+            /* ifdef DEBUG 
+            this.log('DEBUG', 'executeSimpleSQL > mozIStorageConnection.executeSimpleSQL ' );
+            /* endif DEBUG */
+
+            this.conn.executeSimpleSQL(sql);
+
+            this.lastError = (this.conn.lastError == 0 || this.conn.lastError == 100 || this.conn.lastError == 101) ? 0 : this.conn.lastError; // not an error
+            if (this.lastError == 0)  result = true;
+
+            break;
+
+        }catch(e) {
+
+            result = false;
+            errorString = this.conn.lastErrorString;
+            errorCode = this.conn.lastError;
+
+            this.log('ERROR', 'executeSimpleSQL > mozIStorageConnection.executeSimpleSQL > exception: ' + this.conn.lastError +',,'+this.conn.lastErrorString +  '\n retries ' + numTries );
+
+            if ((errorCode != 5) && (errorCode != 6) && (errorCode != 17) ) // not due to a locking issue -- so don't bother retrying
+            {
+                break;
+            }else {
+
+                // database is locked
+                // @FIXME stupid delay
+                if(waiting) {
+                    this.sleep(this.delayTries);
+                }
+            }
+
+
+        }
+        numTries++;
+    }
+
+    if (numTries == maxTries) {
+        
+        this.log('ERROR', 'executeSimpleSQL > mozIStorageConnection.executeSimpleSQL too many retries exception: ' + errorString + '\n result: ' + result );
+
+    }
+    // change 100 , 101 to 0
+    // @see http://www.sqlite.org/capi3.html
+    this.lastError = (this.conn.lastError == 0 || this.conn.lastError == 100 || this.conn.lastError == 101) ? 0 : this.conn.lastError; // not an error
+    this.lastErrorString = this.conn.lastErrorString;
+
+    return result;
+
+};
+
 
 /**
  * Returns an array of all result rows for a given SQL query.
