@@ -24,11 +24,6 @@
     <script type="application/x-javascript">
         var GeckoJS = opener.GeckoJS;
         var GREUtils = opener.GREUtils;
-
-        function clearFocusedElement() {
-            var focused = document.commandDispatcher.focusedElement;
-            if (focused.tagName == 'html:input') focused.value = '';
-        }
     </script>
     <vbox class="pop-dialog" flex="1">
         <vbox class="MainPnl" flex="1">
@@ -67,8 +62,8 @@
             <hbox id="numpad" pack="center">
                 <numberpad id="multinumberpad" class="numpad"/>
                 <vbox>
-                    <sendkeybutton id="bkeyBtn"  label="&numberpad.keylabel.del;" keyCode='0x08' class="fixedbtn"  />
-                    <sendkeybutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="clearFocusedElement()" class="fixedbtn"/>
+                    <sendkeybutton id="bkeyBtn"  label="&numberpad.keylabel.del;" keyCode='0x08' class="fixedbtn"/>
+                    <sendkeybutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="clearFocusedElement(this.target)" class="fixedbtn"/>
                 </vbox>
             </hbox>
             <spacer id="single-line-spacer" flex="1"/>

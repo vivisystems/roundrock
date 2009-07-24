@@ -119,10 +119,16 @@
                     </viviscrollablebuttonpanel>
                 </groupbox>
 
-                <hbox id="dialogButtons" class="exitbar" pack="end" flex="1">
-                    <button id="ok" class="button-save" label="" default="true" oncommand="$do('save', null,'StaticCondiments');"/>
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                    <button id="cancel" class="button-exit" label="" default="true" oncommand="$do('confirmExit', null, 'StaticCondiments')"/>
+                <hbox>
+                    <hbox class="toolbar" flex="1">
+                        <button id="order_cond_group" label="&condiment.reorder.label;" class="button-modify"
+                                oncommand="$do('reorderCondimentGroup', null, 'StaticCondiments');" />
+                    </hbox>
+                    <hbox id="dialogButtons" class="exitbar" pack="end">
+                        <button id="ok" class="button-save" label="" default="true" oncommand="$do('save', null,'StaticCondiments');"/>
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                        <button id="cancel" class="button-exit" label="" default="true" oncommand="$do('confirmExit', null, 'StaticCondiments')"/>
+                    </hbox>
                 </hbox>
             </vbox>
         </vbox>

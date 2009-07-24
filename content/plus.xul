@@ -153,7 +153,7 @@
                                     <rows>
                                         <row>
                                             <vbox>
-                                                <label hidden="true" form="productForm" name="id" value="" />
+                                                <label hidden="true" id="product_id" form="productForm" name="id" value="" />
                                                 <label hidden="true" id="cate_no" form="productForm" name="cate_no" default=""/>
 
                                                 <label value="&plus.department;"/>

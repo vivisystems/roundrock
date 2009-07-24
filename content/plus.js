@@ -5,8 +5,8 @@
  */
 function startup() {
 
-    $do('createGroupPanel', null, "Plus");
-	$do('createPluPanel', null, "Plus");
+    $do('createGroupPanel', null, 'Plus');
+	$do('createPluPanel', null, 'Plus');
 
     $do('initDefaultTax', null, 'Plus');
 
@@ -17,46 +17,74 @@ function startup() {
 
 };
 
+function nextImageCounter(pid, removecachedkey) {
+    var productsById = GeckoJS.Session.get('productsById');
+    var prod = productsById ? productsById[pid] : null;
+    var suffix = '';
+
+    if (prod) {
+        var counter = parseInt(prod.imageCounter);
+        if (isNaN(counter)) counter = 0;
+        else counter++;
+
+        prod.imageCounter = counter;
+
+        suffix = '?' + counter;
+
+        if (removecachedkey) {
+            delete prod[removecachedkey];
+        }
+    }
+    return suffix;
+};
 
 /**
  * Browse and select PLU images
  */
 function selectImages() {
 	var no  = $('#product_no').val();
+    var pid = $('#product_id').val();
 
     var sOrigDir = GeckoJS.Session.get('original_directory');
     var sPluDir = GeckoJS.Session.get('pluimage_directory');
 
-    var aURL = "chrome://viviecr/content/imageManager.xul";
-    var aName = "imagePicker";
+    var aURL = 'chrome://viviecr/content/imageManager.xul';
+    var aName = 'imagePicker';
 
     var args = {
         pickerMode: true,
-        directory: sOrigDir + "",
+        directory: sOrigDir + '',
         result: false,
-        file: ""
+        file: ''
     };
 
     args.wrappedJSObject = args;
-    GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,width=800,height=600", args);
+    GREUtils.Dialog.openWindow(window, aURL, aName, 'chrome,dialog,modal,dependent=yes,resize=no,width=800,height=600', args);
 
     var aFile;
     if (args.result) {
         aFile = args.file;
     }else {
-        aFile = "";
+        aFile = '';
     }
-	var aSrcFile = aFile.replace("file://", "");
+	var aSrcFile = aFile.replace('file://', '');
 
 	if (!GREUtils.File.exists(aSrcFile))
 	        return false;
-	var aDstFile = sPluDir + no + ".png";
+	var aDstFile = sPluDir + no + '.png';
     
     if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
 	GREUtils.File.copy(aSrcFile, aDstFile);
-        
-    document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
 
+    // get next image counter
+    var suffix = nextImageCounter(pid, 'pluimages');
+
+    // update image selection object
+    document.getElementById('pluimage').setAttribute('src', 'file://' + aDstFile + suffix);
+
+    // update product button
+    $('#prodscrollablepanel')[0].refresh();
+    
 	return aDstFile;
 };
 
@@ -65,12 +93,19 @@ function selectImages() {
  */
 function RemoveImage() {
 	var no  = $('#product_no').val();
+    var pid = $('#product_id').val();
 
     var sPluDir = GeckoJS.Session.get('pluimage_directory');
-    var aDstFile = sPluDir + no + ".png";
+    var aDstFile = sPluDir + no + '.png';
 
 	if (GREUtils.File.exists(aDstFile)) GREUtils.File.remove(aDstFile);
-    document.getElementById('pluimage').setAttribute("src", "");
+    document.getElementById('pluimage').setAttribute('src', '');
+
+    // get next image counter
+    nextImageCounter(pid, 'pluimages');
+
+    // update product button
+    $('#prodscrollablepanel')[0].refresh();
 
 	return aDstFile;
 };

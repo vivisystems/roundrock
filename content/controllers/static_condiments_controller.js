@@ -223,10 +223,19 @@
                         if (condGroupsById[cgid]) condsData = condsData.concat(condGroupsById[cgid].Condiment);
                     });
 
-                    condGroupId = condGroup;
+                    if (condsData.length > 0) {
+                        condGroupId = condGroup;
 
-                    this._condGroupId = condGroupId;
-                    this._condsData = condsData;
+                        this._condGroupId = condGroupId;
+                        this._condsData = condsData;
+                    }
+                    else {
+                        if (this._condGroupId == this._defaultGroupId ) return;
+
+                        // set to default
+                        this._condGroupId = this._defaultGroupId;
+                        this._condsData = this._defaultCondsData;
+                    }
 
                 }else {
 
@@ -312,8 +321,29 @@
 
             var condGroups = GeckoJS.Session.get('condGroups');
 
+            // re-order condGroups to put selected condiment groups in front
+            var startIndex = 0;
+            var selectedCondGroupArray = [];
+            var sortedCondGroupArray = [];
+            if (GeckoJS.String.trim(selectedCondGroup).length > 0) {
+                var selectedCondGroupArray = selectedCondGroup.split(',');
+                startIndex = selectedCondGroupArray.length;
+            }
+
+            condGroups.forEach(function(cg) {
+                var index = selectedCondGroupArray.indexOf(cg.id);
+                if (index == -1) {
+                    sortedCondGroupArray[startIndex++] = cg;
+                }
+                else {
+                    sortedCondGroupArray[index] = cg;
+                }
+            }, this);
+
+            sortedCondGroupArray = sortedCondGroupArray.filter(function(cg) {return cg});
+            
             var condimentscrollablepanel = document.getElementById('condimentscrollablepanel');
-            var condGroupPanelView = new NSICondGroupsView(condGroups);
+            var condGroupPanelView = new NSICondGroupsView(sortedCondGroupArray);
             condimentscrollablepanel.datasource = condGroupPanelView;
             
             $('#condcols').val(panelCols);
@@ -343,6 +373,46 @@
             // initialize form's original value
             var formObj = GeckoJS.FormHelper.serializeToObject('staticCondimentForm');
             GeckoJS.FormHelper.unserializeFromObject('staticCondimentForm', formObj);
+        },
+
+        reorderCondimentGroup: function() {
+            // re-arrange condiment groups
+            var condimentscrollablepanel = document.getElementById('condimentscrollablepanel');
+            var condGroupsById = GeckoJS.Session.get('condGroupsById');
+
+            // build list of selection orders by group id
+            var selectedGroups = condimentscrollablepanel.value.split(',');
+            var count = 0;
+            var selectedGroupsById = {};
+            var selectedItems = [];
+            for (var i = 0; i < selectedGroups.length; i++) {
+                if (condGroupsById[selectedGroups[i]]) {
+                    selectedGroupsById[selectedGroups[i]] = count;
+                    selectedItems.push(count++);
+                }
+            }
+
+            // split cond groups into two arrays
+            var selectedList = [];
+            var notSelectedList = [];
+
+            for (var key in condGroupsById) {
+                // if group is selected, we order it by its position in cond_group
+                if (key in selectedGroupsById) {
+                    selectedList[selectedGroupsById[key]] = condGroupsById[key];
+                }
+
+                // otherwise, the group is ordered by its position in condGroupsById
+                else {
+                    notSelectedList.push(condGroupsById[key]);
+                }
+            }
+
+            // update condGroup view with ordered condiment group array
+            var condGroupView = condimentscrollablepanel.datasource;
+            condGroupView.data = selectedList.concat(notSelectedList);
+            condimentscrollablepanel.selectedItems = selectedItems;
+            condimentscrollablepanel.refresh();
         },
 
         save: function() {

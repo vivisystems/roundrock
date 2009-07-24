@@ -107,7 +107,15 @@ var options;
         }
 
         // hide numberpad
-        document.getElementById('numpad').setAttribute('hidden', !('numpad' in inputObj));
+        if ('numpad' in inputObj) {
+            document.getElementById('numpad').setAttribute('hidden', false);
+            document.getElementById('multinumberpad').setTarget(inputObj.numpad);
+            document.getElementById('bkeyBtn').setTarget(inputObj.numpad);
+            document.getElementById('clearBtn').setTarget(inputObj.numpad);
+        }
+        else {
+            document.getElementById('numpad').setAttribute('hidden', true);
+        }
         document.getElementById('dialog-caption').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
@@ -161,6 +169,16 @@ var options;
     // make inputObj globally available
     options = inputObj;
 })();
+
+
+function clearFocusedElement(target) {
+    var focused;
+    if (target) {
+        focused = document.getElementById(target);
+    }
+    if (!focused) focused = document.commandDispatcher.focusedElement;
+    if (focused.tagName == 'html:input' || focused.tagName == 'textbox') focused.value = '';
+}
 
 
 function validateInput() {
