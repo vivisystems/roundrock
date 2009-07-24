@@ -257,6 +257,7 @@
                     cateModel.save(inputData);
 
                     var index = this.updateSession('modify', dept.id);
+                    this._selectedIndex = index;
                     this.changeDepartmentPanel(index);
 
                     OsdUtils.info(_('Department [%S] modified successfully', [inputData.name]));
@@ -293,6 +294,7 @@
                     this.resetInputData();
 
                     var index = this.updateSession('remove');
+                    this._selectedIndex = -1;
                     this.changeDepartmentPanel(index);
 
                     OsdUtils.info(_('Department [%S] removed successfully', [dept.name]));
