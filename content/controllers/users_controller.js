@@ -428,7 +428,7 @@
                 delBtn.setAttribute('disabled', true);
                 document.getElementById('tab1').setAttribute('disabled', true);
                 document.getElementById('tab2').setAttribute('disabled', true);
-                document.getElementById('tab3').setAttribute('disabled', true);
+                //document.getElementById('tab3').setAttribute('disabled', true);
 
                 var textboxes = document.getElementsByTagName('textbox');
                 if (textboxes) {
