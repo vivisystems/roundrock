@@ -6,6 +6,7 @@
 	
         _listObj: null,
         _listDatas: [],
+        _selectedIndex: -1,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -29,6 +30,10 @@
         },
 
         addFilter: function(){
+            if (!this.confirmChangeFilter()) {
+                return;
+            }
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
@@ -50,6 +55,8 @@
                 this._listDatas.push({filtername: filterName, index: 1, length: 1});
 
                 this.saveFilters();
+
+                this._selectedIndex = -1;
 
                 // loop through tihs._listDatas to find the newly added destination and select it
                 var index = 0;
@@ -75,6 +82,8 @@
                     this.saveFilters();
 
                     var filterName = this._listDatas[index].filtername;
+
+                    this._selectedIndex = -1;
                     OsdUtils.info(_('Filter [%S] modified successfully', [filterName]));
                 }
                 else {
@@ -95,6 +104,7 @@
 
                 this._listDatas.splice(index, 1);
                 this.saveFilters();
+                this._selectedIndex = -1;
 
                 OsdUtils.info(_('Filter [%S] removed successfully', [filterName]));
 
@@ -146,6 +156,16 @@
         },
 	
         select: function(index){
+
+            if (index == this._selectedIndex) return;
+            
+            if (!this.confirmChangeFilter(index)) {
+                this.getListObj().selection.select(this._selectedIndex);
+                return;
+            }
+
+            this._selectedIndex = index;
+            
             this.getListObj().selection.select(index);
             if (index > -1) {
                 var inputObj = this._listDatas[index];
@@ -157,8 +177,33 @@
             }
 
             this.validateForm();
-        }
+        },
 	
+        exit: function() {
+            // check if filter form has been modified
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('filterForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current product filter. Are you sure you want to discard the changes?'))) {
+                    return;
+                }
+            }
+            window.close();
+        },
+
+        confirmChangeFilter: function(index) {
+            // check if filter form have been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('filterForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current product filter. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
     };
     
     GeckoJS.Controller.extend(__controller__);

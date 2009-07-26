@@ -1,63 +1,24 @@
-.MainPnl {
-    margin: 18px 8px;
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Non-PLU Settings
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-nonplu-list #active,
+.custom-content-nonplu-list #identifier,
+.custom-content-nonplu-list #length_of_field1,
+.custom-content-nonplu-list #use_price_check_digit,
+.custom-content-nonplu-list #length_of_field2,
+.custom-content-nonplu-list #content_of_field2,
+.custom-content-nonplu-list #decimal_point_of_field2
+{
+    text-align: center;
 }
 
-.MainL {
-    border-right: 1px solid #c1ab8e;
+.custom-example-label {
+    max-width: 80px;
+    min-width: 80px;
+    text-align: left;
+    width: 80px;
 }
-
-.dialogbtns {
-    margin-left: 4px;
-}
-
-.numberbox-input-box{
-    background: none;
-    border: none;
-    -moz-appearance: none;
-    padding-right: 5px;
-}
-
-.DataRowA {
-    background: #f0efe8;
-    margin: 5px 8px 1px 4px;
-    padding: 8px;
-}
-
-.DataRow {
-    background: #f1ede5;
-    margin: 1px 8px 1px 4px;
-    padding: 8px;
-}
-.DataRowA label, .DataRow label {
-    font-size: 10pt;
-    color: #736357;
-}
-.DataRow hbox {
-    -mox-box-align: center;
-}
-
-.FieldTitle {
-    font-size: 8pt;
-    color: #736357;
-}
-.SpaceA {
-    width: 20px;
-}
-.SpaceB {
-    width: 38px;
-}
-.SpaceC {
-    width: 25px;
-}
-.SpaceD {
-    width: 9px;
-}
-.SpaceE {
-    width: 5px;
-}
-
-textbox {
-    max-width: 200px;
-}
-
-

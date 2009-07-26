@@ -42,55 +42,74 @@
 }
 
 /*-----------------------------------------------------------------------------
- * Tabbox
+ * Wait panel
  *-----------------------------------------------------------------------------
  */
 
-.content-tabbox {
-    margin: 4px;
-}
-
-.content-tabbox tab {
-    background: white url(../images/sep.png) center right no-repeat;
-    border:none;
-    color: #393939;
-    margin-bottom: 5px;
-    padding: 20px 8px;
-    -moz-appearance: none;
-}
-
-.content-tabbox tab[selected=true] {
-    background-color: #847860;
-    background-image: none;
-    color: white;
-    font-weight: bold;
-    -moz-user-focus: ignore;
-}
-
-.content-tabbox tabpanels {
-    background: none;
-    border: none;
-    -moz-appearance: none;
-}
-
-.content-tabbox tabpanel {
-    border-top: 1px solid #c1ab8e;
-    padding: 5px 5px;
+.wait-panel {
+  background: white;
+  border: 3px solid #c1ab8e;
+  padding: 30px;
+  -moz-border-radius: 8px;
 }
 
 /*-----------------------------------------------------------------------------
- * Standard tree list scroll bar
+ * Standard Vivitree
  *-----------------------------------------------------------------------------
  */
 
-.showscrollbar scrollbar {
-    display: inline !important;
+vivitree[clas=standard] {
+    margin: 4px;
 }
 
-vivitree scrollbarbutton {
+vivitree[class~=standard] scrollbarbutton {
     min-width: 32px;
     min-height: 32px;
     width: 40px;
     height: 40px;
 }
 
+vivitree[class~=standard] treecol,
+vivitree[class~=standard] treecolpicker {
+    background: #f2f2f2 url(../images/titleBg.png) center center repeat-x;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 1px solid #979a9d;
+    border-bottom: 1px solid #979a9d;
+    color: #000;
+    height: 32px;
+    padding: 1px 3px;
+    -moz-border-right-colors: #979a9d;
+    -moz-border-bottom-colors: #979a9d;
+    -moz-appearance: none;
+}
+
+vivitree[class~=standard] treecolpicker {
+    min-width: 34px;
+    width: 40px;
+}
+
+vivitree[class~=standard] treecol > label {
+    text-align: center;
+}
+
+vivitree[class~=standard] treecol > image {
+    display: none;
+}
+
+vivitree[class~=standard] treechildren::-moz-tree-row {height: 32px;}
+vivitree[class~=standard] treechildren::-moz-tree-row(selected) {background-color: #92856a; }
+vivitree[class~=standard] treechildren::-moz-tree-row(odd, selected) {background-color: #92856a; }
+vivitree[class~=standard] treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
+vivitree[class~=standard] treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
+
+vivitree[class~=standard] treechildren::-moz-tree-checkbox {
+  /* unchecked checkbox treecells. This style MUST come before treechildren::-moz-tree-checkbox(checked) otherwise it won't take effect.  */
+  list-style-image: none;
+}
+
+vivitree[class~=standard] treechildren::-moz-tree-checkbox(checked){
+  /* css for checked cells. cbox-check.gif isn't available in Firefox 1, 2, and 3 on Mac OS X, so you should specify a URL to an image
+     in your extension or elsewhere. */
+  list-style-image: url("chrome://global/skin/checkbox/cbox-check.gif");
+}

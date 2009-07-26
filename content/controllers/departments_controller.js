@@ -195,8 +195,7 @@
 
         add: function  () {
             
-            if (!this.confirmChangeDepartment(index)) {
-                this._deptscrollablepanel.selectedItems = [this._selectedIndex];
+            if (!this.confirmChangeDepartment()) {
                 return;
             }
 

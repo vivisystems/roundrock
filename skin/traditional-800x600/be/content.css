@@ -11,22 +11,22 @@
  */
 
 .container-main textbox {
-  background: white url(images/tboxbg.png) left center repeat-x;
-  border: 3px solid;
-  color: #444;
-  font-size: 18px;
-  min-height: 32px;
-  padding: 2px 2px;
-  -moz-appearance: none;
-  -moz-border-top-colors: #a7a7a7 #c5c5c5 #dcdcdc;
-  -moz-border-right-colors: #e7e7e7 #f7f7f7 #fefefe;
-  -moz-border-bottom-colors: #e7e7e7 #f7f7f7 #fefefe;
-  -moz-border-left-colors: #a7a7a7 #c5c5c5 #dcdcdc;
+    background: white url(../images/tboxbg.png) left center repeat-x;
+    border: 3px solid;
+    color: #444;
+    font-size: 18px;
+    min-height: 32px;
+    padding: 2px 2px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a7a7a7 #c5c5c5 #dcdcdc;
+    -moz-border-right-colors: #e7e7e7 #f7f7f7 #fefefe;
+    -moz-border-bottom-colors: #e7e7e7 #f7f7f7 #fefefe;
+    -moz-border-left-colors: #a7a7a7 #c5c5c5 #dcdcdc;
 }
 
 .container-main textbox[readonly=true] {
-  background: white url(images/tboxbg_readonly.png) left center repeat-x;
-  border: 1px solid #bdbcb8;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 1px solid #bdbcb8;
 }
 
 /*-----------------------------------------------------------------------------
@@ -46,7 +46,19 @@
  *-----------------------------------------------------------------------------
  */
 
-.content-buttonpanel {
+.container-main .content-buttonpanel {
+  background: #f2f1eb;
+  -moz-border-radius: 8px;
+  padding: 5px;
+  margin: 5px;
+}
+
+/*-----------------------------------------------------------------------------
+ * List box
+ *-----------------------------------------------------------------------------
+ */
+
+.container-main .content-listbox {
   background: #f2f1eb;
   -moz-border-radius: 8px;
   padding: 5px;
@@ -58,7 +70,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.scroll-up-button {
+.container-main .scroll-up-button {
     background: transparent url(../images/optionsUp.png) 0 0 no-repeat;
     border: 0px;
     min-height: 32px;
@@ -72,11 +84,11 @@
     -moz-background-clip: border;
 }
 
-.scroll-up-button[disabled=false]:active {
+.container-main .scroll-up-button[disabled=false]:active {
     background-position:-32px 0;
 }
 
-.scroll-up-button description {
+.container-main .scroll-up-button description {
     display: none;
 }
 
@@ -85,7 +97,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.scroll-down-button {
+.container-main .scroll-down-button {
     border: 0px;
     background: transparent url(../images/optionsDown.png) 0 0 no-repeat;
     min-height: 32px;
@@ -99,11 +111,11 @@
     -moz-background-clip: border;
 }
 
-.scroll-down-button[disabled=false]:active {
+.container-main .scroll-down-button[disabled=false]:active {
     background-position:-32px 0;
 }
 
-.scroll-down-button description {
+.container-main .scroll-down-button description {
     display: none;
 }
 
@@ -112,46 +124,46 @@
  *-----------------------------------------------------------------------------
  */
 
-.data-form {
+.container-main .data-form {
 	border-right: 2px solid white;
 	background: #f0efe8;
     margin: 4px;
 }
 
-.data-form row {
+.container-main .data-form row {
 	border-bottom: 2px solid white;
     min-height: 40px;
     padding: 2px 0px 4px 0px;
     -moz-box-align: center;
 }
 
-.data-form column {
+.container-main .data-form column {
 	border-right: 2px solid white;
 	padding: 6px;
 }
 
-.data-form label {
+.container-main .data-form label {
     font-size: 10pt;
     color: #372213;
 }
 
-.data-form-2 {
+.container-main .data-form-2 {
 	border-right: 2px solid white;
 	background: #f0efe8;
     margin: 4px;
 }
 
-.data-form-2 row {
+.container-main .data-form-2 row {
 	border-bottom: 2px solid white;
     height: 40px;
 }
 
-.data-form-2 column {
+.container-main .data-form-2 column {
 	border-right: 2px solid white;
 	padding: 6px;
 }
 
-.data-form-2 label {
+.container-main .data-form-2 label {
     font-size: 10pt;
     color: #372213;
 }
@@ -161,7 +173,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.toolbar {
+.container-main .toolbar {
     background: #e8d1b1;
     height: 60px;
     max-height: 60px;
@@ -171,8 +183,8 @@
     -moz-border-radius: 8px;
 }
 
-.toolbar button,
-.toolbar vivibutton {
+.container-main .toolbar button,
+.container-main .toolbar vivibutton {
     background-color: white ;
     background-image: none;
     border: 1px solid;
@@ -190,8 +202,8 @@
     -moz-border-radius: 6px;
 }
 
-.toolbar button:active,
-.toolbar vivibutton:active {
+.container-main .toolbar button:active,
+.container-main .toolbar vivibutton:active {
     border: 2px solid;
     -moz-border-top-colors: gray black;
     -moz-border-left-colors: gray black;
@@ -199,16 +211,10 @@
     -moz-border-bottom-colors: gray #918570;
 }
 
-.toolbar button[disabled=true],
-.toolbar vivibutton[disabled=true] {
+.container-main .toolbar button[disabled=true],
+.container-main .toolbar vivibutton[disabled=true] {
     background-color: #fff6e8 ;
     border-width: 0px !important
-}
-
-.toolbar button[disabled=false]:hover, .toolbar vivibutton[disabled=false]:hover {
-    color: #148c9c;
-    text-decoration: underline;
-    -moz-appearance: none;
 }
 
 /*-----------------------------------------------------------------------------
@@ -227,6 +233,7 @@
   -moz-box-align: center;
   -moz-box-pack: end;
 }
+
 .container-main .exitbar button {
   background: none;
   border: none;
@@ -237,6 +244,43 @@
   min-width: 60px;
   width: 60px;
   -moz-appearance: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Tabbox
+ *-----------------------------------------------------------------------------
+ */
+
+.container-main .content-tabbox {
+    margin: 4px;
+}
+
+.container-main .content-tabbox tab {
+    background: white url(../images/sep.png) center right no-repeat;
+    border:none;
+    color: #393939;
+    margin-bottom: 5px;
+    padding: 20px 8px;
+    -moz-appearance: none;
+}
+
+.container-main .content-tabbox tab[selected=true] {
+    background-color: #847860;
+    background-image: none;
+    color: white;
+    font-weight: bold;
+    -moz-user-focus: ignore;
+}
+
+.container-main .content-tabbox tabpanels {
+    background: none;
+    border: none;
+    -moz-appearance: none;
+}
+
+.container-main .content-tabbox tabpanel {
+    border-top: 1px solid #c1ab8e;
+    padding: 5px 5px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -273,18 +317,6 @@
     background: white;
     border: 1px solid #666;
     -moz-appearance: none;
-}
-
-/*-----------------------------------------------------------------------------
- * Wait panel
- *-----------------------------------------------------------------------------
- */
-
-.wait-panel {
-  background: white;
-  border: 3px solid #c1ab8e;
-  padding: 30px;
-  -moz-border-radius: 8px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -385,4 +417,3 @@
 .container-main .spinbuttons-down{
 	list-style-image: url(../images/spindown.png);
 }
-

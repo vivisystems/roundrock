@@ -72,6 +72,20 @@
     max-width: 640px;
 }
 
+.layout-a .block-40  {
+    /* 40% */
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
+}
+
+.layout-a .block-60  {
+    /* 60% */
+    width: 480px;
+    min-width: 480px;
+    max-width: 480px;
+}
+
 /*-----------------------------------------------------------------------------
  *
  * Layout B is for horizontal panels with fixed height
