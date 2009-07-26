@@ -20,6 +20,8 @@
         },
 
         changeDepartmentPanel: function(index) {
+
+            if (index == this._selectedIndex) return;
             
             if (!this.confirmChangeDepartment(index)) {
                 this._deptscrollablepanel.selectedItems = [this._selectedIndex];
@@ -141,16 +143,28 @@
             GeckoJS.FormHelper.unserializeFromObject('deptForm', valObj);
         },
 
-        confirmExit: function(data) {
+        exit: function() {
             // check if department form has been modified
-            data.close = true;
             if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('deptForm')) {
-                if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                                             _('Discard Changes'),
-                                             _('You have made changes to the current department. Are you sure you want to discard the changes?'))) {
-                    data.close = false;
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(null,
+                                               _('Exit'),
+                                               _('You have made changes to the current department. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.modify();
                 }
             }
+            window.close();
         },
 
         confirmChangeDepartment: function(index) {

@@ -36,7 +36,7 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/condiments.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
     <vbox flex="1" class="container-root layout-root">
@@ -167,7 +167,7 @@
                         </hbox>
                         <hbox id="dialogButtons" class="exitbar">
                             <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                            <button class="button-exit" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                            <button class="button-exit" id="close" label="&dialog.closeButton.label;" default="true" oncommand="$do('exit', null, 'Condiments');"/>
                         </hbox>
                     </hbox>
                 </vbox>

@@ -206,17 +206,27 @@
 
         exit: function () {
             if (this.settingsModified()) {
-                if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                                             _('Discard Changes'),
-                                             _('You have made changes to the non-PLU settings. Are you sure you want to discard the changes?'))) {
-                     return;
-                }
-                // undo
-                GeckoJS.Configure.write('vivipos.fec.settings.NonPluIdentifiers', this._originalDataStr);
-                var identifiers = GeckoJS.BaseObject.unserialize(this._originalDataStr);
-                GeckoJS.Session.set('NonPluIdentifiers', identifiers);
-            }
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
+                var action = prompts.confirmEx(null,
+                                               _('Exit'),
+                                               _('You have made changes to the non-PLU settings. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 1) {
+                    // discard
+                    GeckoJS.Configure.write('vivipos.fec.settings.NonPluIdentifiers', this._originalDataStr);
+                    var identifiers = GeckoJS.BaseObject.unserialize(this._originalDataStr);
+                    GeckoJS.Session.set('NonPluIdentifiers', identifiers);
+                }
+            }
             window.close();
         },
 

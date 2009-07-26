@@ -4,34 +4,34 @@
      * Window Startup
      */
     function startup() {
-        if (window.arguments && (typeof window.arguments[0].wrappedJSObject == "object")) {
+        if (window.arguments && (typeof window.arguments[0].wrappedJSObject == 'object')) {
             
-            var args = window.args = window.arguments[0].wrappedJSObject;
+            window.args = window.arguments[0].wrappedJSObject;
         } else {
 
             var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
-            // var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/images/");
+            // var sDstDir = GREUtils.File.chromeToPath('chrome://viviecr/content/skin/images/');
             // var sDstDir = GeckoJS.Configure.read('vivipos.fec.settings.image.originaldir');
-            var sDstDir = datapath + "/images/original/";
+            var sDstDir = datapath + '/images/original/';
             if (!sDstDir) sDstDir = '/data/images/original/';
 
             sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
 
-            var args = {
+            window.args = {
                 pickerMode: false,
-                directory: sDstDir + "",
+                directory: sDstDir + '',
                 result: false,
-                file: ""
+                file: ''
             };
         }
-        if (args.pickerMode) {
+        if (window.args && window.args.pickerMode) {
             // just hide manager panel ?
             $('#managerPanel').hide();
-
-            doSetOKCancel(function(){
-                $do('okButtonClick', args, 'ImageManager');
-                return true;
-            });
+            $('#toolbar').show();
+        }
+        else {
+            $('#managerPanel').show();
+            $('#toolbar').hide();
         }
 
         // set progressmeter mode to determined

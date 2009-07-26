@@ -35,13 +35,13 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/imageManager.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
     <vbox flex="1" class="container-root layout-root">
         <vbox flex="1" class="container-main layout-a">
             <hbox flex="1">
-                <vbox class="container-left block-75">
+                <vbox flex="1" class="container-left">
                     <caption label="&imagemanager.window.title;" class="label-page-title" />
                     <vbox flex="1" class="content-buttonpanel">
                         <viviscrollablebuttonpanel id="imagePanel" flex="1" cols="4" rows="4" dir="normal"
@@ -62,7 +62,7 @@
                     </vbox>
                 </vbox>
 
-                <vbox flex="1" id="managerPanel" class="custom-content-image-toolbar">
+                <vbox flex="1" id="managerPanel" class="custom-content-image-toolbar block-25">
                     <button id="importBtn" label="&imagemanager.action.import;"  disabled="false" oncommand="$do('importFromDir',null, 'ImageManager');"/>
                     <button id="exportBtn" label="&imagemanager.action.export;"  disabled="false" oncommand="$do('exportToDir',null, 'ImageManager');"/>
                     <button id="deleteBtn" label="&imagemanager.action.delete;"  disabled="false" oncommand="$do('deleteImage',null, 'ImageManager');" />
@@ -87,8 +87,15 @@
 
                 </vbox>
             </hbox>
-            <hbox id="dialogButtons" class="exitbar" pack="end">
-                <button class="button-exit" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+            <hbox>
+                <hbox id="toolbar" flex="10" class="toolbar">
+                    <button id="selectBtn" label="&imagemanager.action.select;" disabled="true"
+                            oncommand="$do('exit', null, 'ImageManager');"/>
+                </hbox>
+                <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
+                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit"
+                            oncommand="window.close();"/>
+                </hbox>
             </hbox>
         </vbox>
     </vbox>

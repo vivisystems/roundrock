@@ -36,7 +36,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/static_condiments.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
     <vbox flex="1" class="container-root layout-root">
@@ -125,9 +125,9 @@
                                 oncommand="$do('reorderCondimentGroup', null, 'StaticCondiments');" />
                     </hbox>
                     <hbox id="dialogButtons" class="exitbar" pack="end">
-                        <button id="ok" class="button-save" label="" default="true" oncommand="$do('save', null,'StaticCondiments');"/>
+                        <button id="save" class="button-save" label="" oncommand="$do('save', null,'StaticCondiments');"/>
                         <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                        <button id="cancel" class="button-exit" label="" default="true" oncommand="$do('confirmExit', null, 'StaticCondiments')"/>
+                        <button id="close" class="button-exit" label="" default="true" oncommand="$do('exit', null, 'StaticCondiments')"/>
                     </hbox>
                 </hbox>
             </vbox>

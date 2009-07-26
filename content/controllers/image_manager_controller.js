@@ -579,11 +579,12 @@
             }            
         },
 
-        okButtonClick: function(args) {
-            if (this._selectedFile) {
-                args.result = true;
-                args.file = this._selectedFile.path;
+        exit: function() {
+            if (window.args && this._selectedFile) {
+                window.args.result = true;
+                window.args.file = this._selectedFile.path;
             }
+            window.close();
         },
 
         validateForm: function() {
@@ -596,10 +597,12 @@
             if (this._selectedFile) {
                 document.getElementById('deleteBtn').setAttribute('disabled', false);
                 document.getElementById('renameBtn').setAttribute('disabled', false);
+                document.getElementById('selectBtn').setAttribute('disabled', false);
             }
             else {
                 document.getElementById('deleteBtn').setAttribute('disabled', true);
                 document.getElementById('renameBtn').setAttribute('disabled', true);
+                document.getElementById('selectBtn').setAttribute('disabled', true);
             }
         }
     };

@@ -32,7 +32,7 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/plufilters.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
     <vbox flex="1" class="container-root layout-root">
@@ -97,7 +97,7 @@
             
                 <hbox id="dialogButtons" class="exitbar" pack="end">
                     <button id="vkb" label="" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                    <button id="cancel" label="&dialog.closeButton.label;" default="true" class="button-exit"
+                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit"
                             oncommand="$do('exit', null, 'Plufilters');"/>
                 </hbox>
             </vbox>

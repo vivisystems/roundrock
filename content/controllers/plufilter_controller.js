@@ -24,7 +24,12 @@
             }
 
             this.getListObj().datasource = this._listDatas;
-            this.getListObj().treeBoxObject.ensureRowIsVisible(this.getListObj().selectedIndex);
+            this._selectedIndex = -1;
+
+            var index = this.getListObj().selectedIndex;
+            if (index == -1 && this._listDatas.length > 0) index = 0;
+            this.select(index);
+            this.getListObj().treeBoxObject.ensureRowIsVisible(index);
             
             this.validateForm();
         },
@@ -56,8 +61,6 @@
 
                 this.saveFilters();
 
-                this._selectedIndex = -1;
-
                 // loop through tihs._listDatas to find the newly added destination and select it
                 var index = 0;
                 for (var index = 0; index < this._listDatas.length; index++) {
@@ -83,7 +86,6 @@
 
                     var filterName = this._listDatas[index].filtername;
 
-                    this._selectedIndex = -1;
                     OsdUtils.info(_('Filter [%S] modified successfully', [filterName]));
                 }
                 else {
@@ -104,7 +106,6 @@
 
                 this._listDatas.splice(index, 1);
                 this.saveFilters();
-                this._selectedIndex = -1;
 
                 OsdUtils.info(_('Filter [%S] removed successfully', [filterName]));
 
@@ -156,7 +157,7 @@
         },
 	
         select: function(index){
-
+            
             if (index == this._selectedIndex) return;
             
             if (!this.confirmChangeFilter(index)) {
@@ -170,7 +171,6 @@
             if (index > -1) {
                 var inputObj = this._listDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('filterForm', inputObj);
-
             }
             else {
                 GeckoJS.FormHelper.reset('filterForm');
@@ -182,10 +182,22 @@
         exit: function() {
             // check if filter form has been modified
             if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('filterForm')) {
-                if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                                             _('Discard Changes'),
-                                             _('You have made changes to the current product filter. Are you sure you want to discard the changes?'))) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(null,
+                                               _('Exit'),
+                                               _('You have made changes to the current product filter. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
                     return;
+                }
+                else if (action == 0) {
+                    this.modifyFilter();
                 }
             }
             window.close();
