@@ -65,17 +65,21 @@
                         <row>
                             <vbox>
                                 <label control="filter_index" value="&plufilters.index;"/>
-                                <textbox id="filter_index" type="number" size="3" min="1" max="99"
-                                         oninput="$do('validateForm', null, 'Plufilters')"
-                                         name="index" form="filterForm"/>
+                                <vivitextbox id="filter_index" type="number" size="3" min="1" max="99"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             onfocus="select()"
+                                             oninput="$do('validateForm', null, 'Plufilters')"
+                                             name="index" form="filterForm"/>
                             </vbox>
                         </row>
                         <row>
                             <vbox>
                                 <label control="filter_length" value="&plufilters.length;"/>
-                                <textbox id="filter_length" type="number" size="3" maxlength="2" min="1" max="99"
-                                         oninput="$do('validateForm', null, 'Plufilters')"
-                                         name="length" form="filterForm"/>
+                                <vivitextbox id="filter_length" type="number" size="3" maxlength="2" min="1" max="99"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             onfocus="select()"
+                                             oninput="$do('validateForm', null, 'Plufilters')"
+                                             name="length" form="filterForm"/>
                             </vbox>
                         </row>
 

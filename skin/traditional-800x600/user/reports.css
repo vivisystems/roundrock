@@ -68,18 +68,18 @@
 
 .LoadingPnl {
     border: 10px solid;
+    background: white;
+    height:160px;
+    left: 140px;
+    padding: 30px;
+    top: 200px;
+    width:450px;
+    -moz-box-align: center;
     -moz-border-top-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
     -moz-border-left-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
     -moz-border-right-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
     -moz-border-bottom-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
-    background: white;
     -moz-border-radius: 8px;
-    padding: 30px;
-    width:450px;
-    height:160px;
-    -moz-box-align: center;
-    left: 140px;
-    top: 200px;
 }
 
 .LoadingPnl label {
@@ -89,9 +89,6 @@
     margin-left: 5px;
 }
 
-.ItemScrollablepanel {
-    margin: 10px;
-}
 .ReportButton image {
     
 }

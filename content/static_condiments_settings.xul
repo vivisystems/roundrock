@@ -55,21 +55,27 @@
                             <label control="condrows" value="&condiment.panel.label;"/>
                             <vbox>
                                 <label control="condrows" value="&condiment.rows;"/>
-                                <textbox id="condrows" type="number" size="2" maxlength="1" min="0" value="1"
-                                         form="staticCondimentForm" name="condrows"/>
+                                <vivitextbox id="condrows" type="number" size="2" maxlength="1" min="0" value="1"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             oninputonfocus="select()"
+                                             form="staticCondimentForm" name="condrows"/>
                             </vbox>
                             <vbox>
                                 <label control="condcols" value="&condiment.cols;"/>
-                                <textbox id="condcols" type="number" size="2" maxlength="1" min="0" value="5"
-                                         form="staticCondimentForm" name="condcols"/>
+                                <vivitextbox id="condcols" type="number" size="2" maxlength="1" min="0" value="5"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             oninputonfocus="select()"
+                                             form="staticCondimentForm" name="condcols"/>
                             </vbox>
                         </row>
                         <row>
                             <spacer />
                             <vbox>
                                 <label control="btnheight" value="&condiment.button.height;"/>
-                                <textbox id="btnheight" type="number" min="0" max="200" size="3" maxlength="3"
-                                         form="staticCondimentForm" name="btnheight"/>
+                                <vivitextbox id="btnheight" type="number" min="0" max="200" size="3" maxlength="3"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             oninputonfocus="select()"
+                                             form="staticCondimentForm" name="btnheight"/>
                             </vbox>
                         </row>
 
@@ -108,8 +114,8 @@
             </vbox>
 
             <vbox flex="1">
-                <groupbox flex="1" class="content-buttonpanel">
-                    <caption label="&condiment.group.label;" />
+                <caption label="&condiment.group.label;" />
+                <vbox flex="1" class="content-buttonpanel">
                     <viviscrollablebuttonpanel id="condimentscrollablepanel" seltype="multiple" flex="1" cols="4" rows="3" labelField="name" imageField="no"
                                                form="staticCondimentForm" name="condgroups" default=""
                                                buttonClass="button-item-a"
@@ -117,14 +123,14 @@
                                                scrollDownClass="scroll-down-button">
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
-                </groupbox>
+                </vbox>
 
                 <hbox>
-                    <hbox class="toolbar" flex="1">
+                    <hbox flex="1" class="toolbar">
                         <button id="order_cond_group" label="&condiment.reorder.label;" class="button-modify"
                                 oncommand="$do('reorderCondimentGroup', null, 'StaticCondiments');" />
                     </hbox>
-                    <hbox id="dialogButtons" class="exitbar" pack="end">
+                    <hbox pack="end" class="exitbar">
                         <button id="save" class="button-save" label="" oncommand="$do('save', null,'StaticCondiments');"/>
                         <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
                         <button id="close" class="button-exit" label="" default="true" oncommand="$do('exit', null, 'StaticCondiments')"/>

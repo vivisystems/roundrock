@@ -6,7 +6,7 @@
         
         screenwidth: GeckoJS.Session.get('screenwidth') || 800,
         screenheight: GeckoJS.Session.get('screenheight') || 600,
-        _selectedIndex: -1,
+        _selectedIndex: null,
         _deptscrollablepanel: null,
         deptPanelView: null,
 
@@ -25,6 +25,7 @@
             
             if (!this.confirmChangeDepartment(index)) {
                 this._deptscrollablepanel.selectedItems = [this._selectedIndex];
+                this._deptscrollablepanel.selectedIndex = this._selectedIndex;
                 return;
             }
 
@@ -168,7 +169,7 @@
         },
 
         confirmChangeDepartment: function(index) {
-            // check if department form have been modified
+            // check if department form has been modified
             if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
                 && GeckoJS.FormHelper.isFormModified('deptForm')) {
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
@@ -214,7 +215,7 @@
             }
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
@@ -270,7 +271,7 @@
                     cateModel.save(inputData);
 
                     var index = this.updateSession('modify', dept.id);
-                    this._selectedIndex = index;
+                    this._selectedIndex = -1;
                     this.changeDepartmentPanel(index);
 
                     OsdUtils.info(_('Department [%S] modified successfully', [inputData.name]));
@@ -360,6 +361,8 @@
                 document.getElementById('dept_cansale').setAttribute('disabled', true);
                 document.getElementById('scale').setAttribute('disabled', true);
                 document.getElementById('display_order').setAttribute('disabled', true);
+                document.getElementById('dept_button_color').setAttribute('disabled', true);
+                document.getElementById('dept_font_size').setAttribute('disabled', true);
 
                 document.getElementById('modify_dept').setAttribute('disabled', true);
                 document.getElementById('delete_dept').setAttribute('disabled', true);
@@ -373,6 +376,8 @@
                 document.getElementById('dept_visible').setAttribute('disabled', false);
                 document.getElementById('dept_cansale').setAttribute('disabled', false);
                 document.getElementById('scale').setAttribute('disabled', false);
+                document.getElementById('dept_button_color').setAttribute('disabled', false);
+                document.getElementById('dept_font_size').setAttribute('disabled', false);
 
                 document.getElementById('modify_dept').setAttribute('disabled', (cond_name.length < 1));
                 document.getElementById('delete_dept').setAttribute('disabled', false);

@@ -482,7 +482,7 @@
 
                 var action = prompts.confirmEx(null,
                                                _('Exit'),
-                                               _('You have made changes to condiment stock settings. Save changes before exiting?'),
+                                               _('You have made changes to condiment dock settings. Save changes before exiting?'),
                                                flags, _('Save'), _('Discard'), '', null, check);
                 if (action == 2) {
                     return;

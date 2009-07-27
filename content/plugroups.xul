@@ -7,10 +7,19 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/departments.css" type="text/css"?>
+<!--
 <?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/plugroups.css" type="text/css"?>
+-->
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -35,100 +44,113 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/plugroups.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <hbox flex="1" class="MainPnl">
-            <vbox flex="1" pack="start" class="MainL">
-                <caption label="&plugroups.title;" class="PageTitle" />
-                <hbox flex="1" class="LeftPnl">
-                    <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="2" rows="9" labelField="name" imageField="no"
-                                               oncommand="$do('select', null, 'Plugroups');"
-                                               ensureVisible="true"
-                                               class="catescrollablepanel"
-                                               buttonClass="catbtn"
-                                               scrollUpClass="ScrollUp"
-                                               scrollDownClass="ScrollDown">
+    <vbox flex="1" class="container-root layout-root">
+        <hbox flex="1" class="container-main layout-a">
+            <vbox flex="1" class="container-left block-33">
+                <caption label="&plugroups.title;" class="label-page-title" />
+                <hbox flex="1" class="content-buttonpanel">
+                    <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="2" rows="6"
+                                               labelField="name" imageField="no" ensureVisible="true"
+                                               buttonClass="button-department"
+                                               scrollUpClass="scroll-up-button"
+                                               scrollDownClass="scroll-down-button"
+                                               oncommand="$do('select', null, 'Plugroups');">
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
                 </hbox>
             </vbox>
-            <vbox flex="1">
-                <tabbox  flex="1" crop="right" class="RightTabbox">
+            
+            <vbox flex="1" class="container-right">
+                <tabbox  flex="1" crop="right" class="content-tabbox">
                     <tabs id="tabs" >
-                        <tab id="tab1" label="&plugroups.tab.base;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
-                        <tab id="tab2" label="&plugroups.tab.linkgroups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                        <tab id="tab1" label="&plugroups.tab.base;" orient="vertical" />
+                        <tab id="tab2" label="&plugroups.tab.linkgroups;" orient="vertical"/>
                     </tabs>
                     <tabpanels id="tabpanels" flex="1" >
 
                         <!-- Plugroup Data -->
                         <tabpanel flex="1" >
                             <vbox flex="1">
-                                <grid class="DataForm">
+                                <grid class="data-form-2">
                                     <columns>
-                                        <column flex="1" /><column flex="1" />
+                                        <column flex="1" />
+                                        <column flex="1" />
                                     </columns>
                                     <rows>
                                         <row>
                                             <vbox>
-                                                <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
+                                                <label id="plugroup_id" hidden="true" value=""
+                                                       form="plugroupForm" name="id"/>
                                                 <label value="&plugroups.name;" control="plugroup_name"/>
-                                                <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')" default="" onfocus="this.select()"/>
+                                                <textbox id="plugroup_name" value=""
+                                                         oninput="$do('validateForm', null, 'Plugroups')" onfocus="this.select()"
+                                                         form="plugroupForm" name="name" default=""/>
                                             </vbox>
                                             <vbox flex="1">
-                                                <label style="width:10em" value="&plugroups.display_order;" control="display_order"/>
-                                                <textbox id="display_order" type="number" class="geneditbox right" value="" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
-                                                         default="99999" form="plugroupForm" name="display_order" onfocus="this.select()"
+                                                <label value="&plugroups.display_order;" control="display_order"/>
+                                                <vivitextbox id="display_order" type="number" value=""
+                                                             decimalplaces="Infinity" min="-Infinity"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             oninputonfocus="select()"
+                                                             form="plugroupForm" name="display_order" default="99999"
                                                          />
                                             </vbox>
                                         </row>
                                         <row>
-                                            <checkbox id="visible" flex="1" style="height: 50px;" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
-                                            <checkbox id="routing" flex="1" style="height: 50px;" value="true" label="&plugroups.routing;" form="plugroupForm" name="routing" default="false"/>
+                                            <checkbox id="visible" flex="1" value="true" label="&plugroups.visible;"
+                                                      form="plugroupForm" name="visible" default="true"/>
+                                            <checkbox id="routing" flex="1" value="true" label="&plugroups.routing;"
+                                                      form="plugroupForm" name="routing" default="false"/>
                                         </row>
                                     </rows>
                                 </grid>
-                                <hbox class="RightPnlB">
+                                
+                                <hbox flex="1" class="custom-container-button-color-fontsize-picker">
                                     <vbox flex="1">
-                                        <label value="&plugroups.button.color;"  class="SubTitle"/>
+                                        <label value="&plugroups.button.color;" class="label-sub-title"/>
                                         <hbox pack="center" align="center" flex="1">
-                                            <button_colorpicker id="dept_button_color" form="plugroupForm" name="button_color"
-                                                        buttonClass="catbtn" class="BtnColors"
-                                                        class-prefix="plugroup-button-color-"
-                                                        default="plugroup-button-color-default"/>
+                                            <button_colorpicker id="plugroup_button_color" orient="vertical" flex="1"
+                                                                class-prefix="plugroup-button-color-" class="button-color-picker custom-content-color-picker"
+                                                                form="plugroupForm" name="button_color" default="plugroup-button-color-default"/>
                                         </hbox>
                                     </vbox >
                                     <vbox flex="1">
-                                        <label value="&plugroups.font.size;"  class="SubTitle"/>
-                                        <button_fontsizepicker id="dept_font_size" form="plugroupForm" name="font_size"
-                                                           buttonClass="ItemButtonB"  class="FontSizeSet FontSizeSetHeight"
-                                                           default="medium"/>
+                                        <label value="&plugroups.font.size;" class="label-sub-title"/>
+                                        <button_fontsizepicker id="plugroup_font_size" orient="vertical" flex="1"
+                                                               class="button-fontsize-picker custom-content-fontsize-picker" buttonClass="button-item-b"
+                                                               form="plugroupForm" name="font_size" default="medium"/>
                                     </vbox>
                                 </hbox>
                             </vbox>
                         </tabpanel>
 
                         <!-- Link Groups -->
-                        <tabpanel flex="1" >
-                            <vbox flex="1">
-                                <viviscrollablebuttonpanel id="depscrollablepanel" form="plugroupForm" name="link_department" default=""
-                                                           seltype="multiple" flex="1" cols="4" rows="4" labelField="name" imageField="no"
-                                                           oncommand=""
-                                                           class="catescrollablepanel"
+                        <tabpanel flex="1" orient="vertical">
+                            <vbox flex="1" class="content-buttonpanel">
+                                <label value="&plugroups.links.department;"/>
+                                <viviscrollablebuttonpanel id="depscrollablepanel"
+                                                           seltype="multiple" flex="1" cols="4" rows="3" labelField="name" imageField="no"
                                                            buttonClass="catbtn"
-                                                           scrollUpClass="ScrollUp"
-                                                           scrollDownClass="ScrollDown">
+                                                           scrollUpClass="scroll-up-button"
+                                                           scrollDownClass="scroll-down-button"
+                                                           form="plugroupForm" name="link_department" default="">
                                     <spacer flex="1"/>
                                 </viviscrollablebuttonpanel>
-                                <separator class="groove-thin" style="margin: 5px"/>
-                                <viviscrollablebuttonpanel id="plugroupscrollablepanel" form="plugroupForm" name="link_group" default=""
-                                                           seltype="multiple" flex="1" cols="4" rows="4" labelField="name" imageField="no"
-                                                           oncommand=""
-                                                           class="catescrollablepanel"
+                            </vbox>
+
+                            <separator class="groove-thin" style="margin: 5px"/>
+
+                            <vbox flex="1" class="content-buttonpanel">
+                                <label value="&plugroups.links.plugroup;"/>
+                                <viviscrollablebuttonpanel id="plugroupscrollablepanel"
+                                                           seltype="multiple" flex="1" cols="4" rows="3" labelField="name" imageField="no"
                                                            buttonClass="catbtn"
-                                                           scrollUpClass="ScrollUp"
-                                                           scrollDownClass="ScrollDown">
+                                                           scrollUpClass="scroll-up-button"
+                                                           scrollDownClass="scroll-down-button"
+                                                           form="plugroupForm" name="link_group" default="">
                                     <spacer flex="1"/>
                                 </viviscrollablebuttonpanel>
                             </vbox>
@@ -136,17 +158,23 @@
 
                     </tabpanels>
                 </tabbox>
+
                 <spacer flex="1"/>
+                
                 <hbox flex="1">
-                    <hbox class="ToolBar" flex="1">
-                        <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Plugroups');" />
-                        <button id="modify_plugroup" label="&plugroups.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('update', null, 'Plugroups');" />
+                    <hbox class="toolbar" flex="1">
+                        <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="button-add"
+                                oncommand="$do('add', null, 'Plugroups');" />
+                        <button id="modify_plugroup" label="&plugroups.button.action.modify;" disabled="false" class="button-modify"
+                                oncommand="$do('update', null, 'Plugroups');" />
                         <spacer flex="1"/>
-                        <button id="delete_plugroup" label="&plugroups.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('delete', null, 'Plugroups');" />
+                        <button id="delete_plugroup" label="&plugroups.button.action.delete;" disabled="false" class="button-delete"
+                                oncommand="$do('delete', null, 'Plugroups');" />
                     </hbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    <hbox id="dialogButtons" class="exitbar" pack="end">
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit"
+                                oncommand="$do('exit', null, 'Plugroups');"/>
                     </hbox>
                 </hbox>
             </vbox>

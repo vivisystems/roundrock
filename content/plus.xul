@@ -7,11 +7,14 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/product-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/plus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/plus.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -42,46 +45,44 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="main-dialog">
-        <hbox flex="1" class="MainPnl">
-            <vbox flex="1" class="MainL">
-                <label id="" value="&plus.title;"  class="PageTitle"/>
-                <tabbox  flex="1" class="PLUTabbox">
+    <vbox flex="1" class="container-root layout-root">
+        <hbox flex="1" class="container-main layout-a">
+            <vbox flex="1" class="container-left layout-33">
+                <label id="" value="&plus.title;"  class="label-page-title"/>
+                <tabbox  flex="1" class="content-tabbox">
                     <tabs id="mode_tabs">
                         <tab id="tab_normalmode" label="&plus.tab.normalmode;" flex="1"/>
                         <tab id="tab_filtermode" label="&plus.tab.filtermode;" flex="1"/>
                     </tabs>
                     <tabpanels id="tabpanels" flex="1" >
-                        <tabpanel flex="1" >
-                            <vbox flex="1">
-                <!-- Begin Catalogs -->
-                                <vbox class="DepartBox" flex="1">
-                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="2" rows="3" labelField="name" imageField="no"
-                                           oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
-                                           class="catescrollablepanel"
-                                           buttonClass="catbtn"
-                                           scrollUpClass="ScrollUp"
-                                           scrollDownClass="ScrollDown">
+                        <tabpanel flex="1" orient="vertical">
+                            <!-- Begin Catalogs -->
+                            <vbox class="content-buttonpanel" flex="1">
+                                <viviscrollablebuttonpanel id="catescrollablepanel" dir="reverse" flex="1" cols="2" rows="3" labelField="name" imageField="no"
+                                                           oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
+                                                           buttonClass="button-deparment"
+                                                           scrollUpClass="scroll-up-button"
+                                                           scrollDownClass="scroll-down-button">
                                     <spacer flex="1"/>
                                 </viviscrollablebuttonpanel>
-                                </vbox>
-                <!-- Begin PLUs -->
+                            </vbox>
+                            <!-- Begin PLUs -->
+                            <vbox class="content-buttonpanel" flex="1">
                                 <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="5" cols="2" rows="5" labelField="name" imageField="no"
                                            ensureVisible="true"
                                            oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
-                                           class="prodscrollablepanel"
-                                           buttonClass="product-button mediumimagebtn"
-                                           scrollUpClass="ScrollUp"
-                                           scrollDownClass="ScrollDown">
+                                           buttonClass="button-plu mediumimagebtn"
+                                           scrollUpClass="scroll-up-button"
+                                           scrollDownClass="scroll-down-button">
                                     <spacer flex="1"/>
-                                    <button id="clone_plu" oncommand="$do('clonePlu', null, 'Plus'); event.stopPropagation()" class="systoolbtn clonebtn"/>
+                                    <button id="clone_plu" class="button-systool button-clone" oncommand="$do('clonePlu', null, 'Plus'); event.stopPropagation()"/>
                                     <spacer flex="1"/>
                                 </viviscrollablebuttonpanel>
-                <!-- End PLUs -->
                             </vbox>
+                            <!-- End PLUs -->
                         </tabpanel>
 
                         <tabpanel flex="1" >
@@ -543,16 +544,16 @@
                 </tabbox>
                 
                 <hbox flex="1">
-                    <hbox class="ToolBar" flex="1">
-                        <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Plus');" />
-                        <button id="link_plu" label="&plus.button.action.link;" hidden="true" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Plus');" />
-                        <button id="modify_plu" label="&plus.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modify', null, 'Plus');" />
+                    <hbox class="toolbar" flex="1">
+                        <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Plus');" />
+                        <button id="link_plu" label="&plus.button.action.link;" hidden="true" disabled="false" class="button-add" oncommand="$do('add', null, 'Plus');" />
+                        <button id="modify_plu" label="&plus.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modify', null, 'Plus');" />
                         <spacer flex="1"/>
-                        <button id="delete_plu" label="&plus.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('remove', null, 'Plus');" />
+                        <button id="delete_plu" label="&plus.button.action.delete;" disabled="true" class="button-delete" oncommand="$do('remove', null, 'Plus');" />
                     </hbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    <hbox id="dialogButtons" class="exitbar" pack="center">
+                        <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Plus');"/>
                     </hbox>    
                 </hbox>
                 

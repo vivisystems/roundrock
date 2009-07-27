@@ -11,6 +11,8 @@
         _listSingleTaxObj: null,
         _listSingleTaxDatas: null,
         _panelView: null,
+        _singleTaxPanelView: null,
+        _selectedIndex: null,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -72,6 +74,43 @@
             GeckoJS.FormHelper.unserializeFromObject('taxForm', valObj);
         },
 
+        exit: function() {
+            // check if tax form has been modified
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('taxForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(null,
+                                               _('Exit'),
+                                               _('You have made changes to the current tax. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.update();
+                }
+            }
+            window.close();
+        },
+
+        confirmChangeTax: function(index) {
+            // check if tax form has been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('taxForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current tax. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
         _checkData: function (data, id) {
             var taxes = this._listDatas;
             var result = 0;
@@ -104,7 +143,7 @@
 
         add: function (evt) {
             var aURL = 'chrome://viviecr/content/prompt_addtaxitem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=560,height=450';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=450';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true,
@@ -220,6 +259,9 @@
                 if (selectedIndex >= this._listDatas.length - 1) {
                     selectedIndex--;
                 }
+
+                this.createSingleTaxList();
+
                 this.load(selectedIndex);
 
                 OsdUtils.info(_('Tax [%S] removed successfully', [tax.name]));
@@ -241,7 +283,10 @@
                     }
                     delete(data.combine_tax);
                     this.Tax.setTax(data.no, data);
-            
+
+                    this.createSingleTaxList();
+                    
+                    this._selectedIndex = -1;
                     this.load(this.getListObj().selectedIndex);
 
                     OsdUtils.info(_('Tax [%S] modified successfully', [data.name]));
@@ -256,11 +301,17 @@
 
         createSingleTaxList: function () {
 
-            if (this.getSingleTaxListObj() != null) {
+            var singleTaxListObj = this.getSingleTaxListObj();
+            if (singleTaxListObj != null) {
                 var taxes = this.Tax.getTaxList('ADDON').concat(this.Tax.getTaxList('INCLUDED'));
-                var panelView =  new NSISingleTaxesView(taxes);
-                this.getSingleTaxListObj().datasource = panelView;
-
+                if (!this._singleTaxPanelView) {
+                    this._singleTaxPanelView =  new NSISingleTaxesView(taxes);
+                    singleTaxListObj.datasource = this._singleTaxPanelView;
+                }
+                else {
+                    this._singleTaxPanelView.data = taxes;
+                    singleTaxListObj.refresh();
+                }
                 this._listSingleTaxDatas = taxes;
             }
         },
@@ -288,9 +339,19 @@
         },
 
         select: function(){
-		
+
             var listObj = this.getListObj();
             var selectedIndex = listObj.selectedIndex;
+
+            if (selectedIndex == this._selectedIndex) return;
+            
+            if (!this.confirmChangeTax(selectedIndex)) {
+                listObj.selectedItems = [this._selectedIndex];
+                listObj.selectedIndex = this._selectedIndex;
+                return;
+            }
+
+            this._selectedIndex = selectedIndex;
             if (selectedIndex > -1) {
                 var tax = this._listDatas[selectedIndex];
                 this.setInputData(tax);

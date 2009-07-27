@@ -39,20 +39,20 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/departments.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
     <vbox flex="1" class="container-root layout-root">
         <hbox flex="1" class="container-main layout-a">
-            <vbox flex="1" pack="start" class="container-left block-33">
+            <vbox flex="1" class="container-left block-33">
                 <caption label="&departments.title;" class="label-page-title"/>
                 <hbox flex="1" class="content-buttonpanel">
-                    <viviscrollablebuttonpanel dir="reverse" id="deptscrollablepanel" flex="1" cols="2" rows="9" labelField="name" imageField="no"
-                                               ensureVisible="true"
-                                               oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');"
-                                               buttonClass="be-catbtn"
+                    <viviscrollablebuttonpanel id="deptscrollablepanel" flex="1" cols="2" rows="9" dir="reverse"
+                                               labelField="name" imageField="no" ensureVisible="true"
+                                               buttonClass="button-department"
                                                scrollUpClass="scroll-up-button"
-                                               scrollDownClass="scroll-down-button">
+                                               scrollDownClass="scroll-down-button"
+                                               oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');">
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
                 </hbox>
@@ -102,10 +102,11 @@
                         <row>
                             <vbox>
                                 <label value="&departments.display_order;" control="display_order"/>
-                                <textbox id="display_order" type="number" value="" disabled="true"
-                                         decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
-                                         onfocus="this.select()"
-                                         form="deptForm" name="display_order" default="99999"/>
+                                <vivitextbox id="display_order" type="number" value="" disabled="true"
+                                             decimalplaces="Infinity" min="-Infinity"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             oninputonfocus="select()"
+                                             form="deptForm" name="display_order" default="99999"/>
                             </vbox>
                             <vbox>
                                 <label value="&departments.sale.unit;"/>
@@ -128,7 +129,7 @@
                         </row>
                     </rows>
                 </grid>
-                <hbox class="custom-container-button-color-fontsize-picker" flex="1">
+                <hbox flex="1" class="custom-container-button-color-fontsize-picker">
                     <vbox flex="1">
                         <label value="&departments.button.color;" class="label-sub-title"/>
                         <button_colorpicker id="dept_button_color" orient="vertical" flex="1"
@@ -143,13 +144,13 @@
                     </vbox>
                 </hbox>
                 <hbox flex="1">
-                    <hbox class="toolbar" flex="1">
+                    <hbox flex="1" class="toolbar">
                         <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Departments');" />
                         <button id="modify_dept" label="&departments.button.action.modify;" disabled="false" class="button-modify" oncommand="$do('modify', null, 'Departments');" />
                         <spacer flex="1"/>
                         <button id="delete_dept" label="&departments.button.action.delete;" disabled="false" class="button-delete" oncommand="$do('remove', null, 'Departments');" />
                     </hbox>
-                    <hbox id="dialogButtons" class="exitbar" pack="center">
+                    <hbox pack="end" class="exitbar">
                         <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                         <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Departments');"/>
                     </hbox>

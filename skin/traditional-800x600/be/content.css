@@ -16,7 +16,7 @@
     color: #444;
     font-size: 18px;
     min-height: 32px;
-    padding: 2px 2px;
+    padding: 2px;
     -moz-appearance: none;
     -moz-border-top-colors: #a7a7a7 #c5c5c5 #dcdcdc;
     -moz-border-right-colors: #e7e7e7 #f7f7f7 #fefefe;
@@ -26,7 +26,7 @@
 
 .container-main textbox[readonly=true] {
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
-    border: 1px solid #bdbcb8;
+    border: #bdbcb8;
 }
 
 /*-----------------------------------------------------------------------------
@@ -47,10 +47,15 @@
  */
 
 .container-main .content-buttonpanel {
-  background: #f2f1eb;
+  //background: #f2f1eb;
+  background: red;
   -moz-border-radius: 8px;
   padding: 5px;
   margin: 5px;
+}
+
+.container-main .content-buttonpanel vivibutton {
+  margin: 2px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -90,6 +95,99 @@
 
 .container-main .scroll-up-button description {
     display: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Back-end department buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.container-main .button-department {
+    min-height:40px;
+    min-width: 40px;
+    padding: 0px;
+
+    -moz-appearance: none;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+}
+
+.container-main .button-department[disabled=true] {
+    border: none;
+    background: #e1dfdb;
+}
+
+.container-main .button-department hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.container-main .button-department description {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+
+/*-----------------------------------------------------------------------------
+ * Back-end condiment buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.container-main .button-condiment {
+    min-height:40px;
+    min-width: 40px;
+    padding: 0px;
+
+    -moz-appearance: none;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+}
+
+.container-main .button-condiment[disabled=true] {
+    border: none;
+    background: #e1dfdb;
+}
+
+.container-main .button-condiment hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.container-main .button-condiment description {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+
+/*-----------------------------------------------------------------------------
+ * Back-end PLU buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.container-main .plubtn {
+    min-height:40px;
+    min-width: 40px;
+    padding: 0px;
+
+    -moz-appearance: none;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+}
+
+.container-main .plubtn[disabled=true] {
+    border: none;
+    background: #e1dfdb;
+}
+
+.container-main .plubtn hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.container-main .plubtn description {
+    text-wrap: normal;
+    word-wrap: break-word;
 }
 
 /*-----------------------------------------------------------------------------
@@ -155,7 +253,8 @@
 
 .container-main .data-form-2 row {
 	border-bottom: 2px solid white;
-    height: 40px;
+    min-height: 40px;
+    padding: 2px 0px 4px 0px;
 }
 
 .container-main .data-form-2 column {
@@ -280,7 +379,6 @@
 
 .container-main .content-tabbox tabpanel {
     border-top: 1px solid #c1ab8e;
-    padding: 5px 5px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -317,6 +415,81 @@
     background: white;
     border: 1px solid #666;
     -moz-appearance: none;
+}
+
+.container-main menuitem {
+    min-height: 32px;
+    text-align: right;
+}
+
+.container-main menuitem[selected] {
+    background-color: #7e7259;
+    color: white;
+    -moz-appearance: none;
+}
+
+.container-main .menulist-editable-box{
+    font-size: 18px;
+    padding: 10px;
+    -moz-appearance: none;
+}
+
+.container-main spinbuttons {
+    background: none;
+    border: none;
+    -moz-appearance: none;
+}
+
+.container-main .spinbuttons-box{
+    margin-left: 3px;
+	-moz-box-orient: horizontal;
+}
+
+.container-main .spinbuttons-button{
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 2px solid ;
+    cursor: pointer;
+    min-width: 32px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #b6b6b6 #fff;
+    -moz-border-right-colors: #b6b6b6 #fff;
+    -moz-border-bottom-colors: #b6b6b6 #fff;
+    -moz-border-left-colors: #b6b6b6 #fff;
+}
+
+.container-main .spinbuttons-button[disabled=true] {
+    background: #ddd;
+    -moz-border-top-colors: #bababa #bababa !important;
+    -moz-border-right-colors: #bababa #bababa !important;
+    -moz-border-bottom-colors: #bababa #bababa !important;
+    -moz-border-left-colors: #bababa #bababa !important;
+}
+
+.container-main .spinbuttons-button:active {
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+}
+
+.container-main .spinbuttons-button hbox{
+    -moz-box-pack: center;
+}
+
+.container-main .spinbuttons-button label{
+    display: none;
+}
+
+.container-main .spinbuttons-button image {
+    margin-left: -10px;
+}
+
+.container-main .spinbuttons-up {
+    list-style-image: url(../images/spinup.png);
+}
+
+.container-main .spinbuttons-down{
+	list-style-image: url(../images/spindown.png);
 }
 
 /*-----------------------------------------------------------------------------
@@ -364,12 +537,12 @@
     -moz-appearance: none;
 }
 
-.container-main .spinbuttons-box{
+.container-main .spinbuttons-box {
     margin-left: 3px;
 	-moz-box-orient: horizontal;
 }
 
-.container-main .spinbuttons-button{
+.container-main .spinbuttons-button {
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     border: 2px solid ;
     cursor: pointer;
@@ -398,11 +571,11 @@
     -moz-border-left-colors: #00a99d #00a99d;
 }
 
-.container-main .spinbuttons-button hbox{
+.container-main .spinbuttons-button hbox {
   -moz-box-pack: center;
 }
 
-.container-main .spinbuttons-button label{
+.container-main .spinbuttons-button label {
     display: none;
 }
 
@@ -410,10 +583,10 @@
     margin-left: -10px;
 }
 
-.container-main .spinbuttons-up{
+.container-main .spinbuttons-up {
     list-style-image: url(../images/spinup.png);
 }
 
-.container-main .spinbuttons-down{
+.container-main .spinbuttons-down {
 	list-style-image: url(../images/spindown.png);
 }

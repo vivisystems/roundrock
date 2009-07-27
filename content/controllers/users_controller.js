@@ -41,7 +41,10 @@
         */
         beforeScaffoldAdd: function (evt) {
 
-            if (!this.confirmChangeUser()) return;
+            if (!this.confirmChangeUser()) {
+                evt.preventDefault();
+                return;
+            }
 
             var user = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';

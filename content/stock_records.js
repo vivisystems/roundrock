@@ -5,22 +5,8 @@
     function startup() {
         $( '#plu' ).focus();
 
-        var data = {cancel: false};
-        $do( 'load', data, 'StockRecords' );
+        $do( 'load', null, 'StockRecords' );
 
-        doSetOKCancel(
-            function(){
-                var data = {cancel: false};
-                $do('exitCheck', data, 'StockRecords');
-
-                return !data.cancel;
-            },
-            function(){
-                return true;
-            }
-        );
-
-        if (data.cancel) doCancelButton();
     };
 
     /**

@@ -199,6 +199,7 @@
 
             if (!this.confirmChangeCondGroup(index)) {
                 this._condGroupscrollablepanel.selectedItems = [this._selectedIndex];
+                this._condGroupscrollablepanel.selectedIndex = this._selectedIndex;
                 return;
             }
 
@@ -272,6 +273,7 @@
 
             if (!this.confirmChangeCondiment(index)) {
                 this._condscrollablepanel.selectedItems = [this._selectedCondIndex];
+                this._condscrollablepanel.selectedIndex = this._selectedCondIndex;
                 return;
             }
 
@@ -377,7 +379,7 @@
             }
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
 
             var inputObj = {
                 input0:null,

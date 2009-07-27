@@ -49,7 +49,7 @@
                     <grid class="data-form">
                         <columns>
                             <column class="custom-example-label"/>
-                            <column />
+                            <column flex="1"/>
                         </columns>
                         <rows>
                             <row>
@@ -71,7 +71,7 @@
             <!-- Right Panel -->
             <vbox flex="1" class="container-right">
 
-                <caption label="&nonplusetting.properties;"  class="label-sub-title" />
+                <caption label="&nonplusetting.properties;" class="label-sub-title" />
                 <grid class="data-form" flex="1">
                     <columns>
                         <column flex="1" />
@@ -85,16 +85,18 @@
                         <row>
                             <vbox>
                                 <label control="identifier" value="&nonplusetting.identifier;"/>
-                                <textbox id="identifier" readonly="true" type="number" size="16" hidespinbuttons="true"
+                                <textbox id="identifier" readonly="true"
                                          name="identifier" form="settingsForm"/>
                             </vbox>
                         </row>
                         <row>
                             <vbox>
                                 <label control="lengthOfField1" value="&nonplusetting.lengthoffield1;"/>
-                                <textbox id="lengthOfField1" type="number" size="8" min="1" max="10"
-                                         onchange="$do('changeField1',this.value, 'NonpluSetting');"
-                                         name="length_of_field1" form="settingsForm"/>
+                                <vivitextbox id="lengthOfField1" type="number" min="1" max="10"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             oninputonfocus="select()"
+                                             onchange="$do('changeField1',this.value, 'NonpluSetting');"
+                                             name="length_of_field1" form="settingsForm"/>
                             </vbox>
                         </row>
                         <row>
@@ -126,9 +128,11 @@
                         <row>
                             <vbox>
                                 <label control="decimalPointOfField2" value="&nonplusetting.decimalpointoffield2;"/>
-                                <textbox id="decimalPointOfField2" type="number" size="8" min="0" max="9"
-                                         name="decimal_point_of_field2" form="settingsForm"
-                                         onchange="$do('changeDecimal',this.value, 'NonpluSetting');"/>
+                                <vivitextbox id="decimalPointOfField2" type="number" size="8" min="0" max="9"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             oninputonfocus="select()"
+                                             onchange="$do('changeDecimal',this.value, 'NonpluSetting');"
+                                             name="decimal_point_of_field2" form="settingsForm"/>
                             </vbox>
 
                         </row>
@@ -137,7 +141,7 @@
 
                 <spacer flex="1" />
 
-                <hbox id="dialogButtons" class="exitbar" pack="end">
+                <hbox pack="end" class="exitbar">
                     <button id="save" label="&dialog.saveButton.label;" class="button-save" oncommand="$do('save', null, 'NonpluSetting');"/>
                     <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                     <button id="close" label="&dialog.cancelButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'NonpluSetting')"/>

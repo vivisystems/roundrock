@@ -23,7 +23,6 @@
 
         <content>
             <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer" allowevents="true">
-                <xul:label xbl:inherits="value=label"/>
                 <xul:textbox anonid="input" decimalplaces="Infinity" flex="1" xbl:inherits="class=textboxClass,type,hidespinbuttons,min,max,size,readonly,disabled"/>
                 
                 <xul:panel anonid="numpad_panel" position="after_start" noautohide="false" noautofocus="true">

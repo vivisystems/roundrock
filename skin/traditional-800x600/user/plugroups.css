@@ -1,55 +1,34 @@
-.MainPnl {
-    margin: 18px;
-}
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Product Groups
+ *
+ *-----------------------------------------------------------------------------
+ */
 
-.BtnColors {
-    margin: 0px 20px 8px 20px;
-}
-
-.BtnColors label{
-    color: white;
-}
-
-.BtnColors button {
-    min-height: 55px;
-    min-width: 55px;
-}
-
-.LeftPnl {
-    width: 273px;
-    max-width: 273px;
-}
-
-.MainL {
-    border-right: 1px solid #a98f6e;
-}
-
-.DataForm {
-    margin: 5px 18px 3px 20px;
-}
-
-.RightPnlB {
-    margin: 0px 20px 6px 20px;
-}
-
-.RightPnlB vbox {
-    margin: 1px;
+.custom-container-button-color-fontsize-picker {
+    margin: 4px 6px 4px 4px;
     background: #f1ede5;
 }
 
-.FontSizeSet {
-    margin: 0px 12px 6px 12px;
+.custom-container-button-color-fontsize-picker vbox {
+    margin: 3px;
+    padding: 3px;
 }
 
-.FontSizeSetHeight button{
+.custom-content-color-picker {
+    margin: 4px;
+}
+
+.custom-content-color-picker button {
+    width: 50px;
     height: 50px;
 }
 
-.ToolBar {
-    margin-left: 4px;
+.custom-content-fontsize-picker {
+    margin: 4px;
 }
 
-.RightTabbox {
-    margin: 1px 0 4px 0;
+.custom-content-fontsize-picker button {
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
-
