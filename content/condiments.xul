@@ -39,7 +39,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-b">
             <!-- Begin Condiment Groups -->
             <hbox class="container-top block-33">
@@ -89,7 +89,7 @@
                         </rows>
                     </grid>
                     <spacer  flex="1" />
-                    <hbox flex="1" class="toolbar">
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="add_group" label="&condiments.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Condiments');" />
                         <button id="modify_group" label="&condiments.button.action.modify;" disabled="false" class="button-modify" oncommand="$do('modify', null, 'Condiments');" />
                         <spacer flex="1"/>
@@ -167,7 +167,7 @@
                     </hbox>
                     <spacer flex="1" />
                     <hbox>
-                        <hbox flex="1" class="toolbar">
+                        <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                             <button id="add_condiment" label="&condiments.button.action.add;" disabled="false" class="button-add" oncommand="$do('addCond', null, 'Condiments');" />
                             <button id="modify_condiment" label="&condiments.button.action.modify;" disabled="false" class="button-modify" oncommand="$do('modifyCond', null, 'Condiments');" />
                             <spacer flex="1"/>

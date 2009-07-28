@@ -42,7 +42,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <hbox flex="1" class="container-main layout-a">
             <vbox flex="1" class="container-left block-33">
                 <caption label="&departments.title;" class="label-page-title"/>
@@ -144,7 +144,7 @@
                     </vbox>
                 </hbox>
                 <hbox flex="1">
-                    <hbox flex="1" class="toolbar">
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Departments');" />
                         <button id="modify_dept" label="&departments.button.action.modify;" disabled="false" class="button-modify" oncommand="$do('modify', null, 'Departments');" />
                         <spacer flex="1"/>

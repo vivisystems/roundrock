@@ -32,7 +32,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <hbox flex="1" class="container-main layout-a">
             <vbox flex="1" class="container-left block-66">
                 <caption label="&nonplusetting.title;"  class="label-page-title" />

@@ -14,6 +14,8 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/condiments.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/image-manager.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
@@ -38,7 +40,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-a">
             <hbox flex="1">
                 <vbox flex="1" class="container-left">
@@ -62,7 +64,7 @@
                     </vbox>
                 </vbox>
 
-                <vbox flex="1" id="managerPanel" class="custom-content-image-toolbar block-25">
+                <vbox id="managerPanel" class="toolbar block-20" toolbarmode="vertical">
                     <button id="importBtn" label="&imagemanager.action.import;"  disabled="false" oncommand="$do('importFromDir',null, 'ImageManager');"/>
                     <button id="exportBtn" label="&imagemanager.action.export;"  disabled="false" oncommand="$do('exportToDir',null, 'ImageManager');"/>
                     <button id="deleteBtn" label="&imagemanager.action.delete;"  disabled="false" oncommand="$do('deleteImage',null, 'ImageManager');" />
@@ -88,11 +90,11 @@
                 </vbox>
             </hbox>
             <hbox>
-                <hbox id="toolbar" flex="10" class="toolbar">
+                <hbox id="toolbar" flex="1000" pack="center" class="toolbar" toolbarmode="horizontal">
                     <button id="selectBtn" label="&imagemanager.action.select;" disabled="true"
                             oncommand="$do('exit', null, 'ImageManager');"/>
                 </hbox>
-                <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
+                <hbox flex="1" pack="end" class="exitbar">
                     <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit"
                             oncommand="window.close();"/>
                 </hbox>
@@ -101,6 +103,6 @@
     </vbox>
 
     <!-- overlay the waiting panel. -->
-    <popupset id="dialogs" />
+    <popupset id="dialogs"/>
     
 </window>

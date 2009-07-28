@@ -192,15 +192,11 @@
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
             var waitPanel = document.getElementById( 'wait_panel' );
 
-            waitPanel.sizeTo( 360, 120 );
-            var x = ( width - 360 ) / 2;
-            var y = ( height - 240 ) / 2;
-
             // set the content of the label attribute be default string, taking advantage of the statusText attribute.
             var caption = document.getElementById( 'wait_caption' );
             caption.label = message;
 
-            waitPanel.openPopupAtScreen( x, y );
+            waitPanel.openPopupAtScreen(0, 0);
 
             return waitPanel;
         },

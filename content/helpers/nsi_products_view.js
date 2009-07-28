@@ -28,9 +28,6 @@
         bindingPanel: function(domId) {
             
             var prodscrollablepanel = document.getElementById(domId);
-            //prodscrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.PluRows'));
-            //prodscrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.PluCols'));
-            //prodscrollablepanel.initGrid();
             prodscrollablepanel.datasource = this;
 
             if(this._cateView) this.setCatePanelIndex(this._currentCateIndex);
@@ -42,7 +39,6 @@
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
                 if (evt.data.key == 'products') {
-                    //self.updateProducts();
                     if(self._cateView) self.setCatePanelIndex(self._currentCateIndex);
                 }
             });
@@ -85,19 +81,9 @@
             if(! cate) return;
             
             var productsIndexesByCate;
-            /*
-            if (this.hideInvisible) {
-                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
-            }else {
-                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
-            }
-            
-            this._data = productsIndexesByCate[cate.no] || [];
-            */
            
             if (this.hideInvisible) {
                 if(typeof cate['no'] == 'undefined') {
-                    // group
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroup');
                     this._data = productsIndexesByCate[cate.id] || [];
                 }else {
@@ -107,24 +93,18 @@
 
             }else {
                 if(typeof cate['no'] == 'undefined') {
-                    // group
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
                     this._data = productsIndexesByCate[cate.id] || [];
                 }else {
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
                     this._data = productsIndexesByCate[cate.no] || [];
                 }
-                /*
-                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
-                this._data = productsIndexesByCate[cate.no] || productsIndexesByCate[cate.id] || [];
-                */
-
             }
             try {
+                if (this._data.length > 0) this._data = [].concat(this._data);
+
                 this.tree.invalidate();
             }catch(e) {
-                
-                // alert('error' + e);
             }
 
             

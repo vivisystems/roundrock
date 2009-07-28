@@ -13,13 +13,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/departments.css" type="text/css"?>
-<!--
-<?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/plugroups.css" type="text/css"?>
--->
+<?xml-stylesheet href="chrome://viviecr/skin/be/plugroups.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -47,7 +41,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <hbox flex="1" class="container-main layout-a">
             <vbox flex="1" class="container-left block-33">
                 <caption label="&plugroups.title;" class="label-page-title" />
@@ -162,7 +156,7 @@
                 <spacer flex="1"/>
                 
                 <hbox flex="1">
-                    <hbox class="toolbar" flex="1">
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="button-add"
                                 oncommand="$do('add', null, 'Plugroups');" />
                         <button id="modify_plugroup" label="&plugroups.button.action.modify;" disabled="false" class="button-modify"

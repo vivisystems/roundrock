@@ -36,7 +36,7 @@
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/stock_records.js" />
 
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <hbox flex="1" class="container-main layout-b">
             <vbox flex="1" class="container-top">
                 <hbox>
@@ -118,14 +118,14 @@
                 </vbox>
                 <spacer height="5px"/>
                 <hbox>
-		            <hbox  flex="1" class="toolbar">
+		            <hbox  flex="1" class="toolbar" toolbarmode="horizontal">
 	                    <hbox flex="1" pack="start">
-	                    	<button id="modify_stock" label="&stockrecords.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyStock', null, 'StockRecords');" />
-	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" disabled="false" class="BtnMod" oncommand="$do('importRecords', null, 'StockRecords');" />
+	                    	<button id="modify_stock" label="&stockrecords.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyStock', null, 'StockRecords');" />
+	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" disabled="false" class="button-import" oncommand="$do('importRecords', null, 'StockRecords');" />
 	                    </hbox>
 	                    <hbox>
-	                    	<button id="commitchanges" label="&stockrecords.button.action.commitchanges;" disabled="false" class="BtnMod" oncommand="$do('commitChanges', null, 'StockRecords');" />
-	                    	<button id="reset" label="&stockrecords.button.action.reset;" hidden="true" disabled="false" class="BtnMod" oncommand="$do('reset', null, 'StockRecords');" />
+	                    	<button id="commitchanges" label="&stockrecords.button.action.commitchanges;" disabled="false" class="button-commit" oncommand="$do('commitChanges', null, 'StockRecords');" />
+	                    	<button id="reset" label="&stockrecords.button.action.reset;" hidden="true" disabled="false" class="button-clear" oncommand="$do('reset', null, 'StockRecords');" />
 		            	</hbox>
 		            </hbox>
 		            <hbox pack="end" class="exitbar">

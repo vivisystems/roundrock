@@ -164,9 +164,6 @@
 
         updateProductSession: function(mode, product, oldProduct) {
 
-            var products = GeckoJS.Session.get('products');
-            var productsById = GeckoJS.Session.get('productsById');
-            var indexesById = GeckoJS.Session.get('productsIndexesById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var indexCate = GeckoJS.Session.get('productsIndexesByCate');
             var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');

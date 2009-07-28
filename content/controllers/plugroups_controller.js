@@ -47,7 +47,7 @@
 
             var plugroup = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
 
             this._plugroupAdded = false;

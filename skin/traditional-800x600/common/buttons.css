@@ -395,34 +395,33 @@
  *-----------------------------------------------------------------------------
  */
 
-.noimagebtn image {
+.button-no-image image {
    display: none;
 }
 
-.smallimagebtn image {
+.button-small-image image {
 	width: 16px;
 	height: 16px;
 }
 
-.mediumimagebtn image {
+.button-medium-image image {
 	width: 32px;
 	height: 32px;
 }
 
-.largeimagebtn image {
+.button-large-image image {
 	width: 48px;
 	height: 48px;
 }
 
-.xlargeimagebtn image {
+.button-xlarge-image image {
 	width: 64px;
 	height: 64px;
 }
 
-.nolabelbtn description {
+.button-nolabel description {
    display: none;
 }
-
 
 /*-----------------------------------------------------------------------------
  * Standard font sizes
@@ -587,7 +586,7 @@ button-fontsize-picker button {
 
 .button-item-c {
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
-    border: 3px solid !important;
+    border: 2px solid !important;
     color: #3b312b;
     -moz-appearance: none;
     -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2 !important;
@@ -596,7 +595,7 @@ button-fontsize-picker button {
     -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2 !important;
 }
 
-.button-item-c:active {
+.button-item-c:not([disabled=true]):active {
     -moz-border-top-colors: #d9d9d2 #c3c2bc #a5a49f !important;
     -moz-border-right-colors: #f0efe8 #e8e8e1 #d9d9d2 !important;
     -moz-border-bottom-colors: #f0efe8 #e8e8e1 #d9d9d2 !important;
@@ -605,6 +604,10 @@ button-fontsize-picker button {
 
 .button-item-c[disabled=true] {
     border-width: 1px !important;
+    -moz-border-bottom-colors: #f0efe8 #e8e8e1 #d9d9d2 !important;
+    -moz-border-left-colors: #d9d9d2 #c3c2bc #a5a49f !important;
+    -moz-border-top-colors: #d9d9d2 #c3c2bc #a5a49f !important;
+    -moz-border-right-colors: #f0efe8 #e8e8e1 #d9d9d2 !important;
 }
 
 /*-----------------------------------------------------------------------------

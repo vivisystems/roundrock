@@ -39,7 +39,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-b">
             <vbox flex="1" class="container-top block-50">
                 <label id="" value="&dialog.title;"  class="label-page-title"/>
@@ -126,7 +126,7 @@
                 </vbox>
 
                 <hbox>
-                    <hbox flex="1" class="toolbar">
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="order_cond_group" label="&condiment.reorder.label;" class="button-modify"
                                 oncommand="$do('reorderCondimentGroup', null, 'StaticCondiments');" />
                     </hbox>

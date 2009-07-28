@@ -8,9 +8,9 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -28,7 +28,7 @@
         var GeckoJS = opener.GeckoJS;
         var GREUtils = opener.GREUtils;
     </script>
-    <vbox class="dialog-popup" flex="1">
+    <vbox class="container-dialog" flex="1">
         <vbox class="container-main" flex="1">
             <groupbox flex="1">
                 <caption id="dialog-caption" label="" class="label-page-title"/>
@@ -71,11 +71,11 @@
             </hbox>
             <spacer id="single-line-spacer" flex="1"/>
             <hbox>
-                <hbox id="dialogButtons" class="toolbar" flex="1">
+                <hbox flex="1" pack="center" class="toolbar">
                     <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
                     <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                 </hbox>
-                <hbox class="exitbar">
+                <hbox pack="end" class="exitbar">
                     <button id="vkb" label="" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>
                 </hbox>
             </hbox>

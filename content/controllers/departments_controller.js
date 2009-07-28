@@ -363,6 +363,7 @@
                 document.getElementById('display_order').setAttribute('disabled', true);
                 document.getElementById('dept_button_color').setAttribute('disabled', true);
                 document.getElementById('dept_font_size').setAttribute('disabled', true);
+                document.getElementById('rate_name').setAttribute('disabled', true);
 
                 document.getElementById('modify_dept').setAttribute('disabled', true);
                 document.getElementById('delete_dept').setAttribute('disabled', true);
@@ -371,6 +372,7 @@
                 var cond_name = document.getElementById('dept_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
                 document.getElementById('dept_name').removeAttribute('disabled');
                 document.getElementById('display_order').removeAttribute('disabled');
+                document.getElementById('rate_name').removeAttribute('disabled');
                 document.getElementById('rate_name').removeAttribute('disabled');
                 document.getElementById('sale_unit').setAttribute('disabled', false);
                 document.getElementById('dept_visible').setAttribute('disabled', false);

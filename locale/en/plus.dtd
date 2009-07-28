@@ -1,9 +1,9 @@
-<!ENTITY plus.title     "Product Properties">
-<!ENTITY plusearch.title     "Product Search">
+<!ENTITY plus.title "Product Properties">
+<!ENTITY plusearch.title "Product Search">
 
-<!ENTITY plus.tab.base.data1  "Basic 1">
-<!ENTITY plus.tab.base.data2  "Basic 2 ">
-<!ENTITY plus.tab.pluset     "Set Items">
+<!ENTITY plus.tab.base.data1 "Basic 1">
+<!ENTITY plus.tab.base.data2 "Basic 2 ">
+<!ENTITY plus.tab.pluset   "Set Items">
 <!ENTITY plus.tab.appearance "Appearance">
 <!ENTITY plus.tab.pricelevels "Price Levels">
 <!ENTITY plus.tab.condimentgroups "Condiments">
@@ -85,7 +85,9 @@
 <!ENTITY plus.halo "HALO">
 <!ENTITY plus.lalo "LALO">
 
-<!ENTITY plus.search.label "Enter Product Number, Barcode, or Name">
+<!ENTITY plus.search.label "Product Number, Barcode, or Name">
+<!ENTITY plus.search.heading.no "Number">
+<!ENTITY plus.search.heading.name "Name">
 <!ENTITY plus.search.advancesearch "Advanced Search">
 
 <!ENTITY plus.button.action.add "Add">

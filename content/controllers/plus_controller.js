@@ -207,8 +207,8 @@
         },
 
         clickPluPanel: function(index) {
-            var product = this.productPanelView.getCurrentIndexData(index);
             var plupanel = document.getElementById('prodscrollablepanel');
+            var product = this.productPanelView.getCurrentIndexData(index);
 
             this._selectedIndex = index;
             plupanel.selectedIndex = index;
@@ -239,7 +239,6 @@
                 } else {
                     product.stock = 0;
                 }
-                
                 this.setInputData(product);
 
                 this.reorderCondimentGroup();
@@ -254,7 +253,6 @@
                 valObj.cate_name = this._selCateName;
                 this.setInputData(valObj);
             }
-            
             this.validateForm(index == -1);
 
             this.selectSetItem(-1);
@@ -391,7 +389,6 @@
 
                 this._pluset[i].preset = product ? product.name : '';
                 this._pluset[i].linkgroup = group ? group.name : '';
-                this._pluset[i].reduction_label = this._pluset[i].reduction ? _('Y') : _('N');
             }
         
             var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
@@ -471,9 +468,7 @@
             
             var aURL = "chrome://viviecr/content/plusearch.xul";
             var aName = _('Product Search');
-            var width = this.screenwidth;
-            var height = this.screenheight;
-            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var pluNo = document.getElementById('setitem_preset_no').value;
             var productNo = document.getElementById('product_no').value;
             var inputObj = {buffer: pluNo, select: true};
@@ -505,9 +500,7 @@
 
             var aURL = "chrome://viviecr/content/select_product_group.xul";
             var aName = _('Product Group');
-            var width = this.screenwidth;
-            var height = this.screenheight;
-            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var groupNameObj = document.getElementById('setitem_linkgroup');
             var groupIdObj = document.getElementById('setitem_linkgroup_id');
 
@@ -746,7 +739,7 @@
             }
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:prodNo, require0:true, alphaOnly0:true,
                 input1:null, require1:true
@@ -942,9 +935,7 @@
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
             var aName = _('Product Search');
-            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
-            var width = this.screenwidth;
-            var height = this.screenheight;
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {buffer: '', seltype: 'multiple'};
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, aFeatures, inputObj);
@@ -1112,7 +1103,7 @@
                 // d. prices
                 // e. link groups
                 var aURL = 'chrome://viviecr/content/prompt_clone_plu.xul';
-                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth * .9 + ',height=' + this.screenheight * .9;
+                var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
                 var inputObj = {
                     title: _('Product to Clone') + ' [' + product.name + ']',
                     targetsLabel: targetGroupName,
@@ -1200,7 +1191,6 @@
             // input elements
             var selectedIndex = this.getPluSetListObj().selectedIndex;
             var label = document.getElementById('setitem_label').value;
-            var qty = parseInt(document.getElementById('setitem_quantity').value);
             var preset = document.getElementById('setitem_preset_no').value;
             var linkgroup = document.getElementById('setitem_linkgroup_id').value;
 
@@ -1217,8 +1207,7 @@
             // 4. qty > 0
             if (selectedIndex > -1) {
                 if ((label != null && label != '') &&
-                    ((preset != null && preset != '') || (linkgroup != null && linkgroup != '')) &&
-                    (qty > 0)) {
+                    ((preset != null && preset != '') || (linkgroup != null && linkgroup != ''))) {
                     modifyBtn.setAttribute('disabled', false);
                 }
                 else {

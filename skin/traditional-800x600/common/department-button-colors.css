@@ -7,13 +7,13 @@
 
 .department-button-color-default {
     background: #848388 url(../images/departBtn1.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-appearance: none;
-    -moz-border-top-colors: #848388 #bebebe !important;
-    -moz-border-right-colors: #848388 #bebebe !important;
-    -moz-border-bottom-colors: #848388 #bebebe !important;
-    -moz-border-left-colors: #848388 #bebebe !important;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #848388 #bebebe;
+    -moz-border-right-colors: #848388 #bebebe;
+    -moz-border-bottom-colors: #848388 #bebebe;
+    -moz-border-left-colors: #848388 #bebebe;
 }
 
 .department-button-color-default[disabled=false]:active,
@@ -27,13 +27,13 @@
 
 .department-button-color-1 {
     background: #354f66 url(../images/departBtn2.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #354f66 !important;
-    -moz-border-bottom-colors: #354f66 !important;
-    -moz-border-left-colors: #354f66 !important;
-    -moz-border-right-colors: #354f66 !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #354f66;
+    -moz-border-bottom-colors: #354f66;
+    -moz-border-left-colors: #354f66;
+    -moz-border-right-colors: #354f66;
 }
 
 .department-button-color-1[disabled=false]:active,
@@ -48,13 +48,13 @@
 
 .department-button-color-2 {
     background: #a2a70f url(../images/departBtn3.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #a2a70f #bebebe !important;
-    -moz-border-right-colors: #a2a70f #bebebe !important;
-    -moz-border-bottom-colors: #a2a70f #bebebe !important;
-    -moz-border-left-colors: #a2a70f #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a2a70f #bebebe;
+    -moz-border-right-colors: #a2a70f #bebebe;
+    -moz-border-bottom-colors: #a2a70f #bebebe;
+    -moz-border-left-colors: #a2a70f #bebebe;
 }
 
 .department-button-color-2[disabled=false]:active,
@@ -68,13 +68,13 @@
 
 .department-button-color-3 {
     background: #790000 url(../images/departBtn4.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #790000 #bebebe !important;
-    -moz-border-right-colors: #790000 #bebebe !important;
-    -moz-border-bottom-colors: #790000 #bebebe !important;
-    -moz-border-left-colors: #790000 #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #790000 #bebebe;
+    -moz-border-right-colors: #790000 #bebebe;
+    -moz-border-bottom-colors: #790000 #bebebe;
+    -moz-border-left-colors: #790000 #bebebe;
 }
 
 .department-button-color-3[disabled=false]:active,
@@ -88,13 +88,13 @@
 
 .department-button-color-4 {
     background: #555940 url(../images/departBtn5.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #555940 #bebebe !important;
-    -moz-border-right-colors: #555940 #bebebe !important;
-    -moz-border-bottom-colors: #555940 #bebebe !important;
-    -moz-border-left-colors: #555940 #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #555940 #bebebe;
+    -moz-border-right-colors: #555940 #bebebe;
+    -moz-border-bottom-colors: #555940 #bebebe;
+    -moz-border-left-colors: #555940 #bebebe;
 }
 
 .department-button-color-4[disabled=false]:active,
@@ -108,13 +108,13 @@
 
 .department-button-color-5 {
     background: #603913 url(../images/departBtn6.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #603913 #bebebe !important;
-    -moz-border-right-colors: #603913 #bebebe !important;
-    -moz-border-bottom-colors: #603913 #bebebe !important;
-    -moz-border-left-colors: #603913 #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #603913 #bebebe;
+    -moz-border-right-colors: #603913 #bebebe;
+    -moz-border-bottom-colors: #603913 #bebebe;
+    -moz-border-left-colors: #603913 #bebebe;
 }
 
 .department-button-color-5[disabled=false]:active,
@@ -128,13 +128,13 @@
 
 .department-button-color-6 {
     background: #ad355c url(../images/departBtn7.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #ad355c #bebebe !important;
-    -moz-border-right-colors: #ad355c #bebebe !important;
-    -moz-border-bottom-colors: #ad355c #bebebe !important;
-    -moz-border-left-colors: #ad355c #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #ad355c #bebebe;
+    -moz-border-right-colors: #ad355c #bebebe;
+    -moz-border-bottom-colors: #ad355c #bebebe;
+    -moz-border-left-colors: #ad355c #bebebe;
 }
 
 .department-button-color-6[disabled=false]:active,
@@ -148,13 +148,13 @@
 
 .department-button-color-7 {
     background: #a3620a url(../images/departBtn8.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #a3620a #bebebe !important;
-    -moz-border-right-colors: #a3620a #bebebe !important;
-    -moz-border-bottom-colors: #a3620a #bebebe !important;
-    -moz-border-left-colors: #a3620a #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a3620a #bebebe;
+    -moz-border-right-colors: #a3620a #bebebe;
+    -moz-border-bottom-colors: #a3620a #bebebe;
+    -moz-border-left-colors: #a3620a #bebebe;
 }
 
 .department-button-color-7[disabled=false]:active,
@@ -168,13 +168,13 @@
 
 .department-button-color-8 {
     background: #5c2f75 url(../images/departBtn9.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #5c2f75 #bebebe !important;
-    -moz-border-right-colors: #5c2f75 #bebebe !important;
-    -moz-border-bottom-colors: #5c2f75 #bebebe !important;
-    -moz-border-left-colors: #5c2f75 #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #5c2f75 #bebebe;
+    -moz-border-right-colors: #5c2f75 #bebebe;
+    -moz-border-bottom-colors: #5c2f75 #bebebe;
+    -moz-border-left-colors: #5c2f75 #bebebe;
 }
 
 .department-button-color-8[disabled=false]:active,
@@ -188,13 +188,13 @@
 
 .department-button-color-9 {
     background: #213b6b url(../images/departBtn10.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #213b6b #bebebe !important;
-    -moz-border-right-colors: #213b6b #bebebe !important;
-    -moz-border-bottom-colors: #213b6b #bebebe !important;
-    -moz-border-left-colors: #213b6b #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #213b6b #bebebe;
+    -moz-border-right-colors: #213b6b #bebebe;
+    -moz-border-bottom-colors: #213b6b #bebebe;
+    -moz-border-left-colors: #213b6b #bebebe;
 }
 
 .department-button-color-9[disabled=false]:active,
@@ -208,13 +208,13 @@
 
 .department-button-color-10 {
     background: #534741 url(../images/departBtn11.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #534741 #bebebe !important;
-    -moz-border-right-colors: #534741 #bebebe !important;
-    -moz-border-bottom-colors: #534741 #bebebe !important;
-    -moz-border-left-colors: #534741 #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #534741 #bebebe;
+    -moz-border-right-colors: #534741 #bebebe;
+    -moz-border-bottom-colors: #534741 #bebebe;
+    -moz-border-left-colors: #534741 #bebebe;
 }
 
 .department-button-color-10[disabled=false]:active,
@@ -228,13 +228,13 @@
 
 .department-button-color-11 {
     background: #294e39 url(../images/departBtn12.png) top left repeat-x !important;
-    border-width: 0px;
-    -moz-border-top-colors: #294e39 #bebebe !important;
-    -moz-border-right-colors: #294e39 #bebebe !important;
-    -moz-border-bottom-colors: #294e39 #bebebe !important;
-    -moz-border-left-colors: #294e39 #bebebe !important;
-    -moz-appearance: none;
+    border-width: 1px;
     color: #ffffff;
+    -moz-appearance: none;
+    -moz-border-top-colors: #294e39 #bebebe;
+    -moz-border-right-colors: #294e39 #bebebe;
+    -moz-border-bottom-colors: #294e39 #bebebe;
+    -moz-border-left-colors: #294e39 #bebebe;
 }
 
 .department-button-color-11[disabled=false]:active,

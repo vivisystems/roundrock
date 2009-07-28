@@ -48,22 +48,22 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <hbox flex="1" class="container-main layout-a">
-            <vbox flex="1" class="container-left layout-33">
-                <label id="" value="&plus.title;"  class="label-page-title"/>
-                <tabbox  flex="1" class="content-tabbox">
+            <vbox flex="1" class="container-left block-33">
+                <label value="&plus.title;" class="label-page-title"/>
+                <tabbox flex="1" class="custom-content-tabbox">
                     <tabs id="mode_tabs">
-                        <tab id="tab_normalmode" label="&plus.tab.normalmode;" flex="1"/>
-                        <tab id="tab_filtermode" label="&plus.tab.filtermode;" flex="1"/>
+                        <tab id="tab_normalmode" label="&plus.tab.normalmode;"/>
+                        <tab id="tab_filtermode" label="&plus.tab.filtermode;"/>
                     </tabs>
-                    <tabpanels id="tabpanels" flex="1" >
+                    <tabpanels id="tabpanels" flex="1">
                         <tabpanel flex="1" orient="vertical">
                             <!-- Begin Catalogs -->
                             <vbox class="content-buttonpanel" flex="1">
                                 <viviscrollablebuttonpanel id="catescrollablepanel" dir="reverse" flex="1" cols="2" rows="3" labelField="name" imageField="no"
                                                            oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
-                                                           buttonClass="button-deparment"
+                                                           buttonClass="button-department"
                                                            scrollUpClass="scroll-up-button"
                                                            scrollDownClass="scroll-down-button">
                                     <spacer flex="1"/>
@@ -71,12 +71,12 @@
                             </vbox>
                             <!-- Begin PLUs -->
                             <vbox class="content-buttonpanel" flex="1">
-                                <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="5" cols="2" rows="5" labelField="name" imageField="no"
-                                           ensureVisible="true"
-                                           oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
-                                           buttonClass="button-plu mediumimagebtn"
-                                           scrollUpClass="scroll-up-button"
-                                           scrollDownClass="scroll-down-button">
+                                <viviscrollablebuttonpanel id="prodscrollablepanel" flex="5" dir="reverse" cols="2" rows="5" labelField="name" imageField="no"
+                                                           ensureVisible="true"
+                                                           oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
+                                                           buttonClass="button-plu button-medium-image"
+                                                           scrollUpClass="scroll-up-button"
+                                                           scrollDownClass="scroll-down-button">
                                     <spacer flex="1"/>
                                     <button id="clone_plu" class="button-systool button-clone" oncommand="$do('clonePlu', null, 'Plus'); event.stopPropagation()"/>
                                     <spacer flex="1"/>
@@ -85,51 +85,48 @@
                             <!-- End PLUs -->
                         </tabpanel>
 
-                        <tabpanel flex="1" >
-                            <vbox flex="1">
-                                <vbox flex="1">
-                                    <label value="&plus.search.label;" class="SubTitle"/>
-                                    <hbox flex="1">
-                                        <vivitextbox id="plu" value=""
-                                                     numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
-                                                     onenter="$do('searchPlu', this.value, 'PluSearch');" class="fixWidth"/>
-                                        <vivibutton id="ekeyBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="fixedbtn"  />
-                                    </hbox>
-                                    
-                                    <spacer style="height:8px;" />
-                                    <!-- numberpad id="multinumberpad" class="numberpad"/ -->
-                                    <vivitree id="plusearchscrollablepanel" flex="1" class="ListPnl showscrollbar"
-                                                        headers="&plus.product.no;,&plus.product.name;"
-                                                        fields="no,name"
-                                                        onselect="$do('selectPlu',this.selectedIndex, 'Plus');"/>
-                                </vbox>
-                                <spacer style="height:10px;" />
-                                <groupbox id="advance_search">
-                                    <caption label="&plus.search.advancesearch;:" class="SubTitle" />
-                                    <hbox flex="1">
-                                        <grid>
-                                            <rows id="rows_filter">
+                        <tabpanel orient="vertical">
+                            <label value="&plus.search.label;" class="label-sub-title"/>
+                            <hbox align="center">
+                                <vivitextbox id="plu" value="" flex="1"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             onenter="$do('searchPlu', this.value, 'PluSearch');"/>
+                                <vivibutton id="ekeyBtn" class="button-fixed" label="&plus.button.numpad.advsearch;"
+                                            oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');"/>
+                            </hbox>
 
-                                            </rows>
-                                        </grid>
-                                        <spacer flex="1" />
-                                        <vbox>
-                                            <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="fixedbtn"  />
-                                            <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="fixedbtn"  />
-                                        </vbox>
-                                    </hbox>
-                                </groupbox>
+                            <vbox flex="1" class="content-listbox">
+                                <vivitree id="plusearchscrollablepanel" flex="1" hidecolumnpicker="true" class="standard"
+                                          headers="&plus.search.heading.no;,&plus.search.heading.name;"
+                                          fields="no,name"
+                                          onselect="$do('selectPlu',this.selectedIndex, 'Plus');"/>
                             </vbox>
+
+                            <groupbox id="advance_search" orient="vertical">
+                                <caption label="&plus.search.advancesearch;:" class="label-sub-title"/>
+                                <grid flex="1" class="data-form">
+                                    <columns>
+                                        <column flex="1"/>
+                                        <column flex="1"/>
+                                    </columns>
+                                    <rows id="rows_filter">
+                                    </rows>
+                                </grid>
+                                <hbox pack="center">
+                                    <vivibutton id="advSearchBtn" label="&plus.button.numpad.advsearch;" class="button-fixed" oncommand="$do('advSearch', null, 'PluSearch');"/>
+                                    <vivibutton id="advClearBtn" label="&plus.button.numpad.advclear;" class="button-fixed" oncommand="$do('advClear', null, 'PluSearch');"/>
+                                </hbox>
+                            </groupbox>
                         </tabpanel>
                     </tabpanels>
                 </tabbox>
             </vbox>
 
-            <vbox id=""  flex="1">
+            <vbox flex="1" class="container-right">
 
-                <tabbox  flex="1" crop="right" class="RightTabbox">
+                <tabbox flex="1" crop="right" class="content-tabbox">
                     
-                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
+                    <arrowscrollbox orient="horizontal" flex="1" class="content-arrow-scrollbox">
                     <tabs id="tabs" >
                         <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab2" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
@@ -144,70 +141,93 @@
                     <tabpanels id="tabpanels" flex="1" >
 
                         <!-- Plu Data -->
-                        <tabpanel flex="1" >                            
+                        <tabpanel flex="1">
                             <vbox flex="1">
                                 <!--label value="&plus.base.data1;" /-->
-                                <grid class="DataForm">
+                                <grid class="data-form-2">
                                     <columns>
                                         <column flex="1" /><column flex="1" />
                                     </columns>
                                     <rows>
                                         <row>
                                             <vbox>
-                                                <label hidden="true" id="product_id" form="productForm" name="id" value="" />
-                                                <label hidden="true" id="cate_no" form="productForm" name="cate_no" default=""/>
+                                                <label id="product_id" hidden="true" value=""
+                                                       form="productForm" name="id"/>
+                                                <label id="cate_no" hidden="true"
+                                                       form="productForm" name="cate_no" default=""/>
 
                                                 <label value="&plus.department;"/>
-                                                <textbox id="cate_name" class="ItemButtonA" form="productForm" name="cate_name" readonly="true" onclick="$do('getDepartment', null,'Plus');"/>
+                                                <textbox id="cate_name" readonly="true" class="button-item-c"
+                                                         onclick="$do('getDepartment', null,'Plus');"
+                                                         form="productForm" name="cate_name"/>
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.product.no;"/>
-                                                <textbox id="product_no" form="productForm" name="no" readonly="true"/>
+                                                <textbox id="product_no" readonly="true"
+                                                         form="productForm" name="no"/>
                                             </vbox>
                                         </row>
                                         <row>
                                             <vbox>
                                                 <label value="&plus.product.name;" control="product_name"/>
-                                                <textbox id="product_name" form="productForm" name="name" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
+                                                <textbox id="product_name" value=""
+                                                         onfocus="select()" oninput="$do('validateForm', null, 'Plus')"
+                                                         form="productForm" name="name"/>
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.product.barcode;" control="barcode"/>
-                                                <textbox id="barcode" form="productForm" name="barcode" value="" onfocus="this.select()"/>
+                                                <vivitextbox id="barcode" value=""
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             oninputonfocus="select()"
+                                                             form="productForm" name="barcode"/>
                                             </vbox>
                                         </row>
                                         <row>
                                             <vbox>
                                                 <label value="&plus.product.tax.rate;"/>
-                                                <label id="rate" hidden="true" form="productForm" name="rate" default="" value=""/>
-                                                <textbox id="rate_name" class="ItemButtonA" value="" form="productForm" name="rate_name" default="" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
+                                                <label id="rate" hidden="true" value=""
+                                                       form="productForm" name="rate" default=""/>
+                                                <textbox id="rate_name" value="" readonly="true" class="button-item-c"
+                                                         onclick="$do('getRate',this.selectedIndex,'Plus');"
+                                                         form="productForm" name="rate_name" default=""/>
                                             </vbox>
                                         </row>
                                     </rows>
                                 </grid>
 
-                                <grid class="DataFormB">
+                                <grid class="data-form">
                                     <columns>
-                                        <column flex="1" /><column flex="1" />
+                                        <column flex="1" />
+                                        <column flex="1" />
                                     </columns>
                                     <rows>
                                         <row>
-                                            <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;" form="productForm" name="auto_maintain_stock" default="0"/>
-                                            <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="0"/>
+                                            <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;"
+                                                      form="productForm" name="auto_maintain_stock" default="0"/>
+                                            <checkbox id="return_stock" value="true" label="&plus.can.restock;"
+                                                      form="productForm" name="return_stock" default="0"/>
                                         </row>
                                         <row>
-                                            <checkbox id="singleplu" value="false" label="&plus.single.item.sale;" form="productForm" name="single" default="0"/>
-                                            <checkbox id="visible" value="true" label="&plus.visible;" form="productForm" name="visible" default="1"/>
+                                            <checkbox id="singleplu" value="false" label="&plus.single.item.sale;"
+                                                      form="productForm" name="single" default="0"/>
+                                            <checkbox id="visible" value="true" label="&plus.visible;"
+                                                      form="productForm" name="visible" default="1"/>
                                         </row>
                                         <row>
-                                            <checkbox id="icon_only" value="false" label="&plus.display.icon.only;" form="productForm" name="icon_only" default="0"/>
-                                            <checkbox id="age_verification" value="false" label="&plus.require.age.verification;" form="productForm" name="age_verification" default="0"/>
+                                            <checkbox id="icon_only" value="false" label="&plus.display.icon.only;"
+                                                      form="productForm" name="icon_only" default="0"/>
+                                            <checkbox id="age_verification" value="false" label="&plus.require.age.verification;"
+                                                      form="productForm" name="age_verification" default="0"/>
                                         </row>
                                         <row>
-                                            <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
-                                            <checkbox id="manual_adjustment_only" value="false" label="&plus.manual.adjustment.only;" form="productForm" name="manual_adjustment_only" default="0"/>
+                                            <checkbox id="force_memo" value="false" label="&plus.require.memo;"
+                                                      form="productForm" name="force_memo" default="0"/>
+                                            <checkbox id="manual_adjustment_only" value="false" label="&plus.manual.adjustment.only;"
+                                                      form="productForm" name="manual_adjustment_only" default="0"/>
                                         </row>
                                         <row>
-                                            <checkbox id="scale" checked="false" label="&plus.scale.item;" form="productForm" name="scale" default="0"/>
+                                            <checkbox id="scale" checked="false" label="&plus.scale.item;"
+                                                      form="productForm" name="scale" default="0"/>
                                         </row>
                                     </rows>
                                 </grid>
@@ -215,54 +235,70 @@
                         </tabpanel>
 
                         <tabpanel flex="1" >
-                            <vbox  style="overflow: auto" flex="1" >
-                                <!--label value="&plus.base.data2;" /-->
-                                <grid class="DataForm">
+                            <vbox flex="1" >
+                                <grid class="data-form-2">
                                     <columns>
-                                        <column flex="1" /><column flex="1" />
+                                        <column flex="1"/>
+                                        <column flex="1"/>
                                     </columns>
                                     <rows>
                                         <row>
                                             <vbox>
                                                 <label value="&plus.product.alt.name1;" control="product_alt_name1"/>
-                                                <textbox id="product_alt_name1" form="productForm" name="alt_name1" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
+                                                <textbox id="product_alt_name1" value=""
+                                                         onfocus="select()" oninput="$do('validateForm', null, 'Plus')"
+                                                         form="productForm" name="alt_name1"/>
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.product.alt.name2;" control="product_alt_name2"/>
-                                                <textbox id="product_alt_name2" form="productForm" name="alt_name2" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
+                                                <textbox id="product_alt_name2" value=""
+                                                         onfocus="select()" oninput="$do('validateForm', null, 'Plus')"
+                                                         form="productForm" name="alt_name2"/>
                                             </vbox>
                                         </row>
                                         <row>
                                             <vbox>
                                                 <label value="&plus.location;" control="product_location"/>
-                                                <textbox id="product_location" form="productForm" name="location" default="" onfocus="this.select()"/>
+                                                <textbox id="product_location"
+                                                         onfocus="select()"
+                                                         form="productForm" name="location" default=""/>
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.stock.level;" control="stock"/>
-                                                <textbox id="stock" type="number" decimalplaces="Infinity" readonly="true" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()" />
-                                                <!--vivitextbox id="stock" type="number" max="infinity" min="infinity" value="" form="productForm" name="stock" onfocus="this.select()"
-                                                  numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/-->
+                                                <textbox id="stock" readonly="true" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true"
+                                                         onfocus="select()"
+                                                         form="productForm" name="stock" default="0"/>
                                             </vbox>
                                         </row>
                                         <row>
                                             <vbox>
                                                 <label value="&plus.stock.threshold;" control="min_stock"/>
-                                                <textbox id="min_stock" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="min_stock" default="0" onfocus="this.select()"/>
+                                                <vivitextbox id="min_stock" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             oninputonfocus="select()"
+                                                             form="productForm" name="min_stock" default="0"/>
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.stock.maxstock;" control="max_stock"/>
-                                                <textbox id="max_stock" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="max_stock" default="0" onfocus="this.select()"/>
+                                                <vivitextbox id="max_stock" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             onfocusoninput="select()"
+                                                             form="productForm" name="max_stock" default="0"/>
                                             </vbox>
                                         </row>
                                         <row>
                                             <vbox>
                                                 <label value="&plus.scale.tare;" control="tare"/>
-                                                <textbox id="tare" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="tare" default="0" onfocus="this.select()"/>
+                                                <vivitextbox id="tare" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             onfocusoninput="select()"
+                                                             form="productForm" name="tare" default="0"/>
                                             </vbox>
                                             <vbox>
                                                 <label value="&plus.sale.unit;"/>
-                                                <menulist id="sale_unit" form="productForm" name="sale_unit" value="unit" default="unit">
-                                                    <menupopup style="width: 200px;">
+                                                <menulist id="sale_unit" value="unit"
+                                                          form="productForm" name="sale_unit" default="unit">
+                                                    <menupopup>
                                                         <menuitem label="&plus.sale.unit.individual;" value="unit"/>
                                                         <menuitem label="&plus.sale.unit.gram;" value="g"/>
                                                         <menuitem label="&plus.sale.unit.kilogram;" value="kg"/>
@@ -280,12 +316,14 @@
                                         <row>
                                             <vbox>
                                                 <label value="&plus.memo;" control="product_memo"/>
-                                                <textbox id="product_memo" form="productForm" name="memo" onfocus="this.select()"/>
+                                                <textbox id="product_memo"
+                                                         onfocus="select()"
+                                                         form="productForm" name="memo"/>
                                             </vbox>
                                             <!-- @irving 07-17-2009 minimum sale quantity not in use yet
                                             <vbox>
                                                 <label value="&plus.minimum.sale.quantity;" control="min_sale_qty"/>
-                                                <textbox id="min_sale_qty" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="min_sale_qty" default="0" onfocus="this.select()"/>
+                                                <textbox id="min_sale_qty" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" form="productForm" name="min_sale_qty" default="0" onfocus="select()"/>
                                             </vbox>
                                             -->
                                         </row>
@@ -294,249 +332,332 @@
                             </vbox>
                         </tabpanel>
 
-                        <tabpanel flex="1" >
-                            <vbox  style="overflow: auto" flex="1" >
+                        <tabpanel flex="1" orient="vertical">
+                            <vbox flex="1" class="content-listbox">
                                 <viviscrollabletree id="plusetscrollabletree" flex="1"
                                                     headers="&plus.header.label;,&plus.header.preset;,&plus.header.quantity;,&plus.header.baseprice;,&plus.header.group;,&plus.header.reduction;"
-                                                    fields="label,preset,quantity,baseprice,linkgroup,reduction_label"
+                                                    fields="label,preset,quantity,baseprice,linkgroup,reduction"
+                                                    types=",,,,,checkbox"
                                                     hidecolumnpicker="true"
-                                                    onclick="$do('selectSetItem',this.selectedIndex, 'Plus');"
-                                                    class="Listpnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                                    <vivibutton id="+" class="systoolbtn mediumimagebtn plusbtn" onclick="event.stopPropagation()" oncommand="$do('addSetItem', null, 'Plus');" />
-                                    <vivibutton id="-" class="systoolbtn mediumimagebtn minusbtn" onclick="event.stopPropagation()" oncommand="$do('removeSetItem', null, 'Plus');"/>
-                                    <vivibutton id="up" class="systoolbtn mediumimagebtn upbtn" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', -1, 'Plus');" />
-                                    <vivibutton id="down" class="systoolbtn mediumimagebtn downbtn" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', 1, 'Plus');"/>
+                                                    class="plusetlist" treeClass="standard"
+                                                    scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
+                                                    onselect="$do('selectSetItem',this.selectedIndex, 'Plus');">
+                                    <vivibutton id="+" class="button-systool button-medium-image button-plus" onclick="event.stopPropagation()" oncommand="$do('addSetItem', null, 'Plus');" />
+                                    <vivibutton id="-" class="button-systool button-medium-image button-minus" onclick="event.stopPropagation()" oncommand="$do('removeSetItem', null, 'Plus');"/>
+                                    <vivibutton id="up" class="button-systool button-medium-image button-up" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', -1, 'Plus');" />
+                                    <vivibutton id="down" class="button-systool button-medium-image button-down" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', 1, 'Plus');"/>
                                 </viviscrollabletree>
-                                <spacer height="10px"/>
-                                <hbox>
-                                    <grid class="DataForm" flex="1">
-                                        <columns>
-                                            <column flex="1" /><column/><column/>
-                                        </columns>
-                                        <rows>
-                                            <row>
-                                                <vbox>
-                                                    <label value="&plus.setitem.label;" control="setitem_label"/>
-                                                    <textbox id="setitem_label" value="" size="15"
-                                                             form="setitemForm" name="label" default=""
-                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
-                                                </vbox>
-                                                <vbox>
-                                                    <label value="&plus.setitem.base.price;" control="setitem_baseprice"/>
-                                                    <textbox id="setitem_baseprice" size="3" type="number" value="0" hidespinbuttons="true"
-                                                             decimalplaces="Infinity" min="-Infinity" class="geneditbox right"
-                                                             form="setitemForm" name="baseprice" default="0"
-                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
-                                                </vbox>
-                                                <vbox>
-                                                    <label value="&plus.setitem.quantity;" control="setitem_quantity"/>
-                                                    <textbox id="setitem_quantity" size="3" type="number" value="1" hidespinbuttons="true"
-                                                             decimalplaces="0" min="1" class="geneditbox right"
-                                                             form="setitemForm" name="quantity" default="1"
-                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
-                                                </vbox>
-                                            </row>
-                                            <row>
-                                                <checkbox id="setitem_price_reduction" value="false" label="&plus.setitem.reduce.price;"
-                                                          form="setitemForm" name="reduction" default="0"/>
-                                                <label hidden="true" id="setitem_reduction_label" form="setitemForm" name="reduction_label" value="" />
-                                                <vbox>
-                                                    <label value="&plus.setitem.preset.item;" control="setitem_preset"/>
-                                                    <label hidden="true" id="setitem_preset_no" form="setitemForm" name="preset_no" value="" />
-                                                    <textbox id="setitem_preset" size="3" readonly="true" value=""
-                                                             form="setitemForm" name="preset"
-                                                             onclick="$do('selectProduct', null, 'Plus')"
-                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
-                                                </vbox>
-                                                <vbox>
-                                                    <label value="&plus.setitem.linkgroup;" control="setitem_linkgroup"/>
-                                                    <label hidden="true" id="setitem_linkgroup_id" form="setitemForm" name="linkgroup_id" value="" />
-                                                    <textbox id="setitem_linkgroup" size="3" readonly="true" value=""
-                                                             form="setitemForm" name="linkgroup"
-                                                             onclick="$do('selectProductGroup', null, 'Plus')"
-                                                             onfocus="this.select()" oninput="$do('validatePluSetForm', null, 'Plus')"/>
-                                                </vbox>
-                                            </row>
-                                        </rows>
-                                    </grid>
-                                    <button id="modify_setitem" label="&plus.button.action.update.setitem;" disabled="true" class="BtnMod" oncommand="$do('modifySetItem', null, 'Plus');" />
-                                </hbox>
                             </vbox>
+                            
+                            <hbox>
+                                <grid class="data-form-2" flex="1">
+                                    <columns>
+                                        <column flex="1"/>
+                                        <column/>
+                                        <column/>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <vbox>
+                                                <label value="&plus.setitem.label;" control="setitem_label"/>
+                                                <textbox id="setitem_label" value="" size="15"
+                                                         onfocus="select()" oninput="$do('validatePluSetForm', null, 'Plus')"
+                                                         form="setitemForm" name="label" default=""/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.setitem.base.price;" control="setitem_baseprice"/>
+                                                <vivitextbox id="setitem_baseprice" size="3" type="number" value="0" hidespinbuttons="true"
+                                                         decimalplaces="Infinity" min="-Infinity" class="geneditbox right"
+                                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                         oninputonfocus="select()"
+                                                         form="setitemForm" name="baseprice" default="0"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.setitem.quantity;" control="setitem_quantity"/>
+                                                <vivitextbox id="setitem_quantity" size="3" type="number" value="1" hidespinbuttons="true"
+                                                         decimalplaces="0" min="1" class="geneditbox right"
+                                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                         oninputonfocus="select()"
+                                                         form="setitemForm" name="quantity" default="1"/>
+                                            </vbox>
+                                        </row>
+                                        <row>
+                                            <checkbox id="setitem_price_reduction" value="false" label="&plus.setitem.reduce.price;"
+                                                      form="setitemForm" name="reduction" default="0"/>
+                                            <vbox>
+                                                <label value="&plus.setitem.preset.item;" control="setitem_preset"/>
+                                                <label id="setitem_preset_no" value="" hidden="true" form="setitemForm" name="preset_no"/>
+                                                <textbox id="setitem_preset" size="3" readonly="true" value="" class="button-item-c"
+                                                         onclick="$do('selectProduct', null, 'Plus')"
+                                                         onfocus="select()" oninput="$do('validatePluSetForm', null, 'Plus')"
+                                                         form="setitemForm" name="preset"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.setitem.linkgroup;" control="setitem_linkgroup"/>
+                                                <label id="setitem_linkgroup_id" value="" hidden="true" form="setitemForm" name="linkgroup_id"/>
+                                                <textbox id="setitem_linkgroup" size="3" readonly="true" value="" class="button-item-c"
+                                                         onclick="$do('selectProductGroup', null, 'Plus')"
+                                                         onfocus="select()" oninput="$do('validatePluSetForm', null, 'Plus')"
+                                                         form="setitemForm" name="linkgroup"/>
+                                            </vbox>
+                                        </row>
+                                    </rows>
+                                </grid>
+                                <button id="modify_setitem" label="&plus.button.action.update.setitem;" disabled="true" class="button-modify"
+                                        oncommand="$do('modifySetItem', null, 'Plus');" />
+                            </hbox>
                         </tabpanel>
 
                         <!-- Icon and Button color -->
                         <tabpanel flex="1" >
-                            <hbox flex="1">
-                                <vbox flex="1">
-                                    <vbox class="ImgPnl" >
-                                        <spacer style="height: 6px;" />
-                                        <hbox  flex="1">
-                                            <hbox class="IconArea">
-                                                <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
-                                            </hbox>
-                                            <spacer style="width: 10px;" />
-                                            <vbox flex="1">
-                                                <button id="imageBrowseBtn" class="ItemButtonA" label="&plus.button.action.add.icon;" image="chrome://viviecr/skin/images/add.png"/>
-                                                <spacer style="height: 4px;" />
-                                                <button id="imageRemoveBtn" class="ItemButtonA" label="&plus.button.action.remove.icon;" image="chrome://viviecr/skin/images/cancel.png"/>
-                                            </vbox>
-                                            <spacer style="width: 20px;" />
+                            <vbox flex="1">
+                                <hbox pack="center" align="center" class="content-buttonpanel">
+                                    <spacer flex="1"/>
+                                    <hbox class="custom-content-product-image-area">
+                                        <image id="pluimage" class="custom-content-product-image"/>
+                                    </hbox>
+                                    <spacer flex="1"/>
+                                    <vbox class="toolbar" toolbarmode="vertical">
+                                        <button id="imageBrowseBtn" class="button-item-a" label="&plus.button.action.add.icon;"
+                                                image="chrome://viviecr/skin/images/add.png"/>
+                                        <button id="imageRemoveBtn" class="button-item-a" label="&plus.button.action.remove.icon;"
+                                                image="chrome://viviecr/skin/images/cancel.png"/>
+                                    </vbox>
+                                    <spacer flex="1"/>
+                                </hbox>
+                                <grid class="data-form">
+                                    <columns>
+                                        <column/>
+                                        <column flex="1"/>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <vbox>
+                                                <label value="&plus.display_order;"/>
+                                                <vivitextbox id="display_order" type="number" value="" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             oninputonfocus="select()"
+                                                             form="productForm" name="display_order" default="99999"/>
+                                             </vbox>
+                                             <vbox>
+                                                <label value="&plus.append_empty_btns;"/>
+                                                <vivitextbox id="append_empty_btns" type="number" value="0" default="0" decimalplaces="0" min="0"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             oninputonfocus="select()"
+                                                             form="productForm" name="append_empty_btns"/>
+                                             </vbox>
+                                         </row>
+                                     </rows>
+                                 </grid>
+
+                                <hbox class="custom-container-button-color-fontsize-picker">
+                                    <vbox flex="1">
+                                        <label value="&plus.button.color;" class="label-sub-title"/>
+                                        <hbox pack="center" align="center" flex="1">
+                                            <button_colorpicker id="dept_button_color" orient="vertical"
+                                                            class="button-color-picker custom-content-color-picker"
+                                                            class-prefix="product-button-color-"
+                                                            form="productForm" name="button_color" default="product-button-color-default"/>
                                         </hbox>
                                     </vbox>
-                                    <hbox class="RightPnlB">
-                                        <vbox flex="1">
-                                            <label value="&plus.button.color;" class="SubTitle"/>
-                                            <hbox pack="center" align="center" flex="1">
-                                                <button_colorpicker id="dept_button_color" orient="vertical"
-                                                                form="productForm" name="button_color"
-                                                                buttonClass="catbtn" class="BtnColors"
-                                                                class-prefix="product-button-color-"
-                                                                default="product-button-color-default"/>
-                                            </hbox>
-                                        </vbox>
-                                        <vbox flex="1">
-                                            <label value="&plus.font.size;" class="SubTitle"/>
-                                            <button_fontsizepicker id="font_size" orient="vertical"
-                                                                   form="productForm" name="font_size" class="FontSizeSet"
-                                                                   buttonClass="ItemButtonB" default="medium"/>
-                                        </vbox>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="&plus.display_order;" class="SubTitle"/>
-                                        <textbox id="display_order" type="number" hidespinbuttons="true" value="" size="4" decimalplaces="Infinity" min="-Infinity" max="Infinity"
-                                                 class="geneditbox right" form="productForm" name="display_order" default="99999"/>
-                                        <label value="&plus.append_empty_btns;" class="SubTitle"/>
-                                        <textbox id="append_empty_btns" type="number" hidespinbuttons="true" value="0" default="0" decimalplaces="0" min="0" form="productForm" name="append_empty_btns" size="4" class="geneditbox right"/>
-                                    </hbox>
-                                    
-
-                                </vbox>
-                            </hbox>
-                        </tabpanel>
-
-                        <!-- Sell Price Levels -->
-                        <tabpanel  flex="1">
-                            <vbox flex="1">
-                                <!--caption label="&plus.pricelevels;" /-->
-                                    <grid class="PLTable">
-                                        <columns>
-                                            <column />
-                                            <column flex="1" />
-                                            <column flex="1" />
-                                            <column flex="1" />
-                                        </columns>
-
-                                        <rows>
-                                            <row>
-                                                <label value="&plus.level;" />
-                                                <label value="&plus.price;" />
-                                                <label value="&plus.halo;" />
-                                                <label value="&plus.lalo;" />
-                                            </row>
-                                            <row>
-                                                <checkbox id="level_enable1" value="1" label="1." form="productForm" name="level_enable1" default="1" checked="true" disabled="true"/>
-                                                <textbox id="price_level1" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="price_level1" size="10" class="geneditbox right" onfocus="this.select()"/>
-                                                <textbox id="halo1" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="halo1" size="10" class="geneditbox right" onfocus="this.select()"/>
-                                                <textbox id="lalo1" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="lalo1" size="10" onfocus="this.select()"/>
-                                            </row>
-                                            <row>
-                                                <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="0"/>
-                                                <textbox id="price_level2" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="price_level2" size="10" onfocus="this.select()"/>
-                                                <textbox id="halo2" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="halo2" size="10" onfocus="this.select()"/>
-                                                <textbox id="lalo2" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="lalo2" size="10" onfocus="this.select()"/>
-                                            </row>
-                                            <row>
-                                                <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="0"/>
-                                                <textbox id="price_level3" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="price_level3" size="10" onfocus="this.select()"/>
-                                                <textbox id="halo3" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="halo3" size="10" onfocus="this.select()"/>
-                                                <textbox id="lalo3" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="lalo3" size="10" onfocus="this.select()"/>
-                                            </row>
-                                            <row>
-                                                <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="0"/>
-                                                <textbox id="price_level4" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="price_level4" size="10" onfocus="this.select()"/>
-                                                <textbox id="halo4" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="halo4" size="10" onfocus="this.select()"/>
-                                                <textbox id="lalo4" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="lalo4" size="10" onfocus="this.select()"/>
-                                            </row>
-                                            <row>
-                                                <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="0"/>
-                                                <textbox id="price_level5" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="price_level5" size="10" onfocus="this.select()"/>
-                                                <textbox id="halo5" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="halo5" size="10" onfocus="this.select()"/>
-                                                <textbox id="lalo5" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="lalo5" size="10" onfocus="this.select()"/>
-                                            </row>
-                                            <row>
-                                                <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="0"/>
-                                                <textbox id="price_level6" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="price_level6" size="10" onfocus="this.select()"/>
-                                                <textbox id="halo6" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="halo6" size="10" onfocus="this.select()"/>
-                                                <textbox id="lalo6" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="lalo6" size="10" onfocus="this.select()"/>
-                                            </row>
-                                            <row>
-                                                <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="0"/>
-                                                <textbox id="price_level7" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="price_level7" size="10" onfocus="this.select()"/>
-                                                <textbox id="halo7" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="halo7" size="10" onfocus="this.select()"/>
-                                                <textbox id="lalo7" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="lalo7" size="10" onfocus="this.select()"/>
-                                            </row>
-                                            <row>
-                                                <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="0"/>
-                                                <textbox id="price_level8" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="price_level8" size="10" onfocus="this.select()"/>
-                                                <textbox id="halo8" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="halo8" size="10" onfocus="this.select()"/>
-                                                <textbox id="lalo8" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="lalo8" size="10" onfocus="this.select()"/>
-                                            </row>
-                                            <row>
-                                                <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="0"/>
-                                                <textbox id="price_level9" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="price_level9" size="10" onfocus="this.select()"/>
-                                                <textbox id="halo9" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="halo9" size="10" onfocus="this.select()"/>
-                                                <textbox id="lalo9" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="productForm" name="lalo9" size="10" onfocus="this.select()"/>
-                                            </row>
-                                        </rows>
-                                    </grid>
-
+                                    <vbox flex="1">
+                                        <label value="&plus.font.size;" class="label-sub-title"/>
+                                        <button_fontsizepicker id="font_size" orient="vertical"
+                                                               class="button-fontsize-picker custom-content-fontsize-picker" buttonClass="button-item-b"
+                                                               form="productForm" name="font_size" default="medium"/>
+                                    </vbox>
+                                </hbox>
                             </vbox>
                         </tabpanel>
 
+                        <!-- Sell Price Levels -->
+                        <tabpanel flex="1">
+                            <grid flex="1" class="data-form">
+                                <columns>
+                                    <column />
+                                    <column flex="1" />
+                                    <column flex="1" />
+                                    <column flex="1" />
+                                </columns>
+
+                                <rows>
+                                    <row>
+                                        <label value="&plus.level;" />
+                                        <label value="&plus.price;" />
+                                        <label value="&plus.halo;" />
+                                        <label value="&plus.lalo;" />
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable1" value="1" label="1." form="productForm" name="level_enable1" default="1" checked="true" disabled="true"/>
+                                        <vivitextbox id="price_level1" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="price_level1" default="0"/>
+                                        <vivitextbox id="halo1" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="halo1" default="0"/>
+                                        <vivitextbox id="lalo1" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="lalo1" default="0"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="0"/>
+                                        <vivitextbox id="price_level2" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="price_level2" default="0"/>
+                                        <vivitextbox id="halo2" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="halo2" default="0"/>
+                                        <vivitextbox id="lalo2" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="lalo2" default="0"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="0"/>
+                                        <vivitextbox id="price_level3" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="price_level3" default="0"/>
+                                        <vivitextbox id="halo3" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="halo3" default="0"/>
+                                        <vivitextbox id="lalo3" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="lalo3" default="0"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="0"/>
+                                        <vivitextbox id="price_level4" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="price_level4" default="0"/>
+                                        <vivitextbox id="halo4" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="halo4" default="0"/>
+                                        <vivitextbox id="lalo4" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="lalo4" default="0"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="0"/>
+                                        <vivitextbox id="price_level5" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="price_level5" default="0"/>
+                                        <vivitextbox id="halo5" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="halo5" default="0"/>
+                                        <vivitextbox id="lalo5" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="lalo5" default="0"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="0"/>
+                                        <vivitextbox id="price_level6" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="price_level6" default="0"/>
+                                        <vivitextbox id="halo6" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="halo6" default="0"/>
+                                        <vivitextbox id="lalo6" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="lalo6" default="0"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="0"/>
+                                        <vivitextbox id="price_level7" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="price_level7" default="0"/>
+                                        <vivitextbox id="halo7" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="halo7" default="0"/>
+                                        <vivitextbox id="lalo7" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="lalo7" default="0"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="0"/>
+                                        <vivitextbox id="price_level8" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="price_level8" default="0"/>
+                                        <vivitextbox id="halo8" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="halo8" default="0"/>
+                                        <vivitextbox id="lalo8" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="lalo8" default="0"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="0"/>
+                                        <vivitextbox id="price_level9" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="price_level9" default="0"/>
+                                        <vivitextbox id="halo9" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="halo9" default="0"/>
+                                        <vivitextbox id="lalo9" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="productForm" name="lalo9" default="0"/>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </tabpanel>
+
                         <!-- condiment Groups -->
-                        <tabpanel flex="1" >
-                            <vbox flex="1">
-
-                                <grid class="DataFormB">
-                                    <columns>
-                                        <column flex="1" /><column flex="1" />
-                                    </columns>
-                                    <rows>
-                                        <row class="ToolBar">
-                                            <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
-                                            <button id="order_cond_group" label="&plus.button.action.order;" class="BtnMod" oncommand="$do('reorderCondimentGroup', null, 'Plus');" />
-                                        </row>
-                                    </rows>
-                                </grid>
-
-                                <groupbox flex="1">
-                                    <!--caption label="&plus.linkgroups;" /-->
-                                    <viviscrollablebuttonpanel id="condimentscrollablepanel" form="productForm" name="cond_group" default="" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no"
-                                                               oncommand=""
-                                                               class="ItemScrollablepanel"
-                                                               buttonClass="ItemButtonA"
-                                                               scrollUpClass="ScrollUp"
-                                                               scrollDownClass="ScrollDown">
-                                        <spacer flex="1"/>
-                                    </viviscrollablebuttonpanel>
-                                </groupbox>
+                        <tabpanel flex="1" orient="vertical">
+                            <hbox>
+                                <vbox flex="1" align="center" pack="center" class="data-form">
+                                    <checkbox id="force_condiment" value="false" label="&plus.require.condiment;"
+                                              form="productForm" name="force_condiment" default="0"/>
+                                </vbox>
+                                <vbox class="toolbar" toolbarmode="horizontal">
+                                    <button id="order_cond_group" label="&plus.button.action.order;" class="button-modify"
+                                            oncommand="$do('reorderCondimentGroup', null, 'Plus');"/>
+                                </vbox>
+                            </hbox>
+                            <vbox flex="1" class="content-buttonpanel">
+                                <viviscrollablebuttonpanel id="condimentscrollablepanel" seltype="multiple" flex="1" cols="3" rows="5" labelField="name" imageField="no"
+                                                           buttonClass="button-item-a"
+                                                           scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
+                                                           form="productForm" name="cond_group" default="">
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
                             </vbox>
                         </tabpanel>
 
                         <!-- Link Groups -->
                         <tabpanel flex="1" >
-                            <vbox flex="1">
-                                <groupbox flex="1">
-                                    <!--caption label="&plus.linkgroups;" /-->
-                                    <viviscrollablebuttonpanel id="group_listscrollablepanel" form="productForm" name="link_group" default="" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no"
-                                                               oncommand=""
-                                                               class="catescrollablepanel"
-                                                               buttonClass="catbtn"
-                                                               scrollUpClass="ScrollUp"
-                                                               scrollDownClass="ScrollDown">
-                                        <spacer flex="1"/>
-                                    </viviscrollablebuttonpanel>
-                                </groupbox>
+                            <vbox flex="1" class="content-buttonpanel">
+                                <viviscrollablebuttonpanel id="group_listscrollablepanel" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no"
+                                                           buttonClass="button-plugroup"
+                                                           scrollUpClass="scroll-up-button"
+                                                           scrollDownClass="scroll-down-button"
+                                                           form="productForm" name="link_group" default="">
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
                             </vbox>
                         </tabpanel>
 
@@ -544,16 +665,16 @@
                 </tabbox>
                 
                 <hbox flex="1">
-                    <hbox class="toolbar" flex="1">
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Plus');" />
                         <button id="link_plu" label="&plus.button.action.link;" hidden="true" disabled="false" class="button-add" oncommand="$do('add', null, 'Plus');" />
                         <button id="modify_plu" label="&plus.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modify', null, 'Plus');" />
                         <spacer flex="1"/>
                         <button id="delete_plu" label="&plus.button.action.delete;" disabled="true" class="button-delete" oncommand="$do('remove', null, 'Plus');" />
                     </hbox>
-                    <hbox id="dialogButtons" class="exitbar" pack="center">
+                    <hbox pack="center" class="exitbar">
                         <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Plus');"/>
+                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="window.close()"/>
                     </hbox>    
                 </hbox>
                 

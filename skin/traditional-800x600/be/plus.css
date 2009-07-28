@@ -1,34 +1,103 @@
-.MainPnl {
-    margin: 10px;
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Departments
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-container-product-image button {
+    height: 44px;
 }
 
-.MainL {
-    border-right: 1px solid #a98f6e;
+.custom-container-product-image button hbox {
+    -moz-box-align: start;
 }
 
-.ToolBar {
-    margin-left: 4px;
-}
-
-.PLUTabbox {
-    margin: 0px 4px 4px 4px;
-    width: 200px;
-    max-width: 200px;
-}
-.PLUTabbox tab {
+.custom-container-product-image button label {
+    font-size: 11pt;
+    padding-left: 8px;
     -moz-appearance: none;
-    padding: 8px 15px;
+}
+
+.custom-content-product-image-area {
+    background: white;
+    padding: 8px;
+    margin: 8px;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+}
+
+.custom-content-product-image {
+    height: 96px;
+    width: 96px;
+}
+
+.custom-container-button-color-fontsize-picker {
+    margin: 4px 6px 4px 4px;
+    background: #f1ede5;
+}
+
+.custom-container-button-color-fontsize-picker vbox {
+    margin: 3px;
+    padding: 3px;
+}
+
+.custom-content-color-picker {
+    margin: 4px;
+}
+
+.custom-content-color-picker button {
+    width: 50px;
+    height: 50px;
+}
+
+.custom-content-fontsize-picker {
+    margin: 4px;
+}
+
+.custom-content-fontsize-picker button {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.custom-content-plusetlist tree {
+    font-size: x-small;
+}
+
+.custom-content-plusetlist tree #label {
+    text-align: left;
+}
+
+.custom-content-plusetlist tree #preset,
+.custom-content-plusetlist tree #linkgroup,
+.custom-content-plusetlist tree #reduction_label {
+    text-align: center;
+}
+
+.custom-content-plusetlist tree #quantity,
+.custom-content-plusetlist tree #baseprice {
+    text-align: right;
+}
+
+.custom-content-tabbox {
+    margin: 4px;
+}
+
+.custom-content-tabbox tab {
     background: white ;
     border:none;
     color: #4f4f51;
     font-size: 12pt;
+    padding: 8px 15px;
+    -moz-appearance: none;
 }
-.PLUTabbox tab hbox {
+
+.custom-content-tabbox tab hbox {
     -moz-box-orient: vertical;
     -moz-box-align: center;
 }
-.PLUTabbox tab[selected=true] {
-    -moz-user-focus: ignore;
+
+.custom-content-tabbox tab[selected=true] {
     background-color: #847860;
     background-image: none;
     color: white;
@@ -37,215 +106,16 @@
     -moz-border-radius-topright: 6px;
     -moz-border-radius-bottomleft: 0px;
     -moz-border-radius-bottomright: 0px;
+    -moz-user-focus: ignore;
 }
-.PLUTabbox tabpanel {
-    border-top: 2px solid #847860;
-    background: #e9e8e3;
-    padding: 10px 5px;
-    -moz-border-radius-bottomleft: 10px;
-    -moz-border-radius-bottomright: 10px;
-}
-.PLUTabbox tabpanels {
-    -moz-appearance: none;
-    background: none;
-    border: none;
-}
-.PLUTabbox .numberbox-input-box{
+
+.custom-content-tabbox tabpanels {
     background: none;
     border: none;
     -moz-appearance: none;
-    padding-right: 5px;
-}
-.tabs-right{
-    max-width: 1px;
 }
 
-.PLUTabbox .SubTitle {
-    margin-top: 0px;
-}
-
-.DataForm {
-    margin: 0 4px 4px 4px;
-}
-
-.DataFormB row{
-	border-bottom: 2px solid white;
-	font-size: 10pt;
-	padding: 2px;
-}
-.DataFormB {
-	border-right: 2px solid white;
-	background: #f1ede5;
-    margin: 0 2px 0px 4px;
-}
-.DataFormB column{
-	border-right: 2px solid white;
-	padding: 2px 8px;
-}
-
-.DataForm {
-    margin: 0 2px 4px 4px;
-}
-
-/* �ϰ���D */
-.DataFormB label {
-  font-size: 10pt;
-  color: #372213;
-}
-
-.DepartBox {
-    background: white;
-    border: 1px solid #dacece;
-    padding: 4px;
-    margin-bottom: 4px;
-}
-
-.RightPnlB {
-    margin: 1px 0px 5px 0px;
-}
-
-.RightPnlB vbox {
-    margin: 1px;
-    background: #f1ede5;
-}
-
-.ImgPnl {
-    background:#f0efe8;
-    padding-left: 8px;
-    margin: 1px;
-}
-
-.ImgPnl button {
-    height: 44px;
-}
-.ImgPnl button hbox {
-    -moz-box-align: start;
-}
-.ImgPnl button label {
-    padding-left: 8px;
-    font-size: 11pt;
-    -moz-appearance: none;
-}
-
-.IconArea {
-    background: white;
-    width: 190px;
-    height: 92px;
-    -moz-box-pack: center;
-    -moz-box-align: center;
-    margin: 0 8px 8px 8px;
-}
-
-.BtnColors {
-    margin: 15px 4px 10px 10px;
-}
-
-.BtnColors button{
-    min-width: 60px;
-    min-height: 60px;
-}
-
-.FontSizeSet {
-    margin: 3px 5px 5px 5px;
-}
-
-.FontSizeSet button {
-    min-height: 50px;
-}
-
-.plubtn {
-    
-}
-
-.plupnl vivibutton {
-    margin-right: 4px;
-}
-
-.Listpnl vivibutton {
-    margin-left: 4px;
-}
-
-.fixWidth {
-    max-width: 170px;
-    margin: 5px 0;
-}
-
-/*
-.DataForm textbox {
-    max-width: 208px;
-}
-*/
-.PLTable {
-    margin-left: 8px;
-}
-.PLTable textbox {
-    max-width: 120px;
-    margin: 4px 6px;
-}
-.PLTable label {
-    font-size: 10pt;
-    color: #372213;
-}
-
-
-.SearchBtn {
-    -moz-appearance: none;
-    color: #372213;
-    font-size: 12pt;
-    margin: 0 5px;
-    -moz-border-radius: 6px;
-    border: 3px solid;
-    -moz-border-top-colors: #e9e8e3 #dad9d5 #bdbcb8;
-    -moz-border-right-colors: #bdbcb8 #91918e #585755;
-    -moz-border-bottom-colors: #bdbcb8 #91918e #585755;
-    -moz-border-left-colors: #e9e8e3 #dad9d5 #bdbcb8;
-    background: white url(images/tboxbg_readonly.png) left center repeat-x;
-    max-height: 60px;
-    height: 50px;
-    padding: 3px;
-}
-
-.SearchBtn:hover {
-    border: 3px solid;
-    -moz-border-top-colors: #ee9400 #ee9400 #ee9400;
-    -moz-border-right-colors: #ee9400 #ee9400 #ee9400;
-    -moz-border-bottom-colors: #ee9400 #ee9400 #ee9400;
-    -moz-border-left-colors: #ee9400 #ee9400 #ee9400;
-    -moz-appearance: none;
-    color: #372213;
-}
-
-#rows_filter row{
-    -moz-box-align: center;
-    padding: 2px;
-}
-
-#rows_filter textbox {
-    min-width: 70px;
-}
-
-#rows_filter label {
-    font-size: 10pt;
-    color: #372213;
-}
-
-.AdvButton{
-    padding: 4px 8px;
-    min-height: 40px;
-}
-
-#plusetscrollabletree tree {
-    font-size: x-small;
-}
-
-#plusetscrollabletree tree #label {
-    text-align: left;
-}
-
-#plusetscrollabletree tree #preset, #linkgroup, #reduction_label {
-    text-align: center;
-}
-
-#plusetscrollabletree tree #quantity, #baseprice {
-    text-align: right;
+.custom-content-tabbox tabpanel {
+    border-top: 1px solid #c1ab8e;
+    padding-top: 5px;
 }
