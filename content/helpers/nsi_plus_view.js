@@ -82,8 +82,6 @@
                 }
             }
             try {
-                if (this._data.length > 0) this._data = [].concat(this._data);
-
                 //we cheat here, invoke vivibutton directly to reset to first page and refresh the buttons
                 this._prodscrollablepanel.vivibuttonpanel.startOffset = 0;
                 this._prodscrollablepanel.selectedIndex = 0;

@@ -101,8 +101,6 @@
                 }
             }
             try {
-                if (this._data.length > 0) this._data = [].concat(this._data);
-
                 this.tree.invalidate();
             }catch(e) {
             }

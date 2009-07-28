@@ -16,6 +16,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-default:active,
 .product-button-color-default[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #3a3a3b #3d3e3f #737678 #afb4b7 !important;
@@ -35,6 +36,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-1:active,
 .product-button-color-1[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #25290a #2a2e0b #40470c #636d14 !important;
@@ -54,6 +56,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-2:active,
 .product-button-color-2[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #3f3415 #493b17 #8b6601 #d49c03 !important;
@@ -73,6 +76,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-3:active,
 .product-button-color-3[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #3b1502 #441902 #843106 #c94d0b !important;
@@ -92,6 +96,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-4:active,
 .product-button-color-4[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #28363c #2d3e45 #557786 #7fb5cb !important;
@@ -111,6 +116,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-5:active,
 .product-button-color-5[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #31281b #382e1e #66502b #9d7a44 !important;
@@ -130,6 +136,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-6:active,
 .product-button-color-6[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #351518 #3d171b #762b32 #9f212f !important;
@@ -149,6 +156,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-7:active,
 .product-button-color-7[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: black #010101 #030303 #060606 #090909 !important;
@@ -168,6 +176,7 @@
     -moz-border-left-colors: black;
  }
 
+.product-button-color-8:active,
 .product-button-color-8[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #3c2a31 #452e36 #875564 #d07f96 !important;
@@ -187,6 +196,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-9:active,
 .product-button-color-9[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #16293c #193045 #215387 #2d7acd !important;
@@ -207,6 +217,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-10:active,
 .product-button-color-10[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #202e10 #233411 #2e5512 #2d7309 !important;
@@ -227,6 +238,7 @@
     -moz-border-left-colors: black;
 }
 
+.product-button-color-11:active,
 .product-button-color-11[selected] {
     border-width: 5px !important;
     -moz-border-top-colors: white #404040 #3c4145 #747e86 #b1c1cc !important;

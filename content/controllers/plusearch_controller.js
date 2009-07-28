@@ -88,7 +88,7 @@
             var fields = [];
             var searchStr = this._queryStringPreprocessor(barcode);
 
-            var conditions = "products.no like '%" + searchStr + "%' or products.barcode like '%" + searchStr + "%' or products.name like '%" + searchStr + "%'";
+            var conditions = "products.no like '" + searchStr + "%' or products.barcode like '" + searchStr + "%' or products.name like '%" + searchStr + "%'";
             var prodModel = new ProductModel();
             var datas = prodModel.find('all',{fields: fields, conditions: conditions, recursive: 1});
 

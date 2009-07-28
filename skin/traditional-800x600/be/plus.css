@@ -1,23 +1,9 @@
 /*-----------------------------------------------------------------------------
  *
- * Back-End Custom Styles for Departments
+ * Back-End Custom Styles for Products
  *
  *-----------------------------------------------------------------------------
  */
-
-.custom-container-product-image button {
-    height: 44px;
-}
-
-.custom-container-product-image button hbox {
-    -moz-box-align: start;
-}
-
-.custom-container-product-image button label {
-    font-size: 11pt;
-    padding-left: 8px;
-    -moz-appearance: none;
-}
 
 .custom-content-product-image-area {
     background: white;
