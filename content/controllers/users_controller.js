@@ -48,13 +48,15 @@
 
             var user = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=550';
             var inputObj = {input0:null, require0:true, alphaOnly0: true,
-                            input1:null, require1:true, numericOnly1: true, type1:'password'};
+                            input1:null, require1:true, numericOnly1: true, type1:'password',
+                            numpad: null};
 
             this._userAdded = false;
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Employee'), aFeatures, _('New Employee'), '', _('User Name'), _('Passcode'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Employee'), aFeatures,
+                                       _('New Employee'), '', _('User Name'), _('Passcode (0-9 only)'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 user.username = inputObj.input0;
                 user.password = inputObj.input1;
@@ -112,6 +114,7 @@
 
                 this.requestCommand('list', newIndex);
 
+                this._selectedIndex = newIndex;
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
                 panel.ensureIndexIsVisible(newIndex);
@@ -149,6 +152,7 @@
 
                 this.requestCommand('list', index);
 
+                this._selectedIndex = index;
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
                 panel.ensureIndexIsVisible(index);
@@ -160,7 +164,7 @@
                 if (currentUser != null && currentUser.id == evt.data.id) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                                               _('Modify Employee'),
-                                              _('Changes to an employee will take effect the next time the employee logs in'));
+                                              _('Changes to the current employee will take effect the next time the employee logs in'));
                 }
             }
         },
@@ -266,6 +270,7 @@
 
             this.requestCommand('list', index);
 
+            this._selectedIndex = index;
             panel.selectedIndex = index;
             panel.selectedItems = [index];
             panel.ensureIndexIsVisible(index);
@@ -277,8 +282,6 @@
 
         afterScaffoldView: function(evt) {
             evt.data.default_job_name = evt.data.Job.jobname;
-            var panel = this.getListObj();
-            this._selectedIndex = panel.selectedIndex;
         },
 
         afterScaffoldIndex: function(evt) {
@@ -335,6 +338,7 @@
 
             this.requestCommand('list', -1);
 
+            this._selectedIndex = -1;
             panel.selectedItems = [-1];
             panel.selectedIndex = -1;
 
@@ -356,22 +360,36 @@
             return true;
         },
 
-        confirmExit: function(data) {
+        exit: function() {
             // check if user form has been modified
-            data.close = true;
             if (this._selectedIndex != -1&& GeckoJS.FormHelper.isFormModified('userForm')) {
-                if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                                             _('Discard Changes'),
-                                             _('You have made changes to the current user. Are you sure you want to discard the changes?'))) {
-                    data.close = false;
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(null,
+                                               _('Exit'),
+                                               _('You have made changes to the current user. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.requestCommand('update', null, 'Users');
                 }
             }
+            window.close();
         },
 
         select: function(){
 		
             var panel = this.getListObj();
             var index = panel.selectedIndex;
+
+            if (index == this._selectedIndex && index != -1) return;
 
             if (!this.confirmChangeUser(index)) {
                 panel.selectedItems = [this._selectedIndex];
@@ -380,6 +398,7 @@
 
             this.requestCommand('list', index);
 
+            this._selectedIndex = index;
             panel.selectedItems = [index];
             panel.selectedIndex = index;
             panel.ensureIndexIsVisible(index);

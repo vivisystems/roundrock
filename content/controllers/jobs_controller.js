@@ -29,7 +29,7 @@
             if (!this.confirmChangeJob()) return;
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0: true};
 
             this._jobAdded = false;
@@ -71,7 +71,8 @@
                 var newIndex = data.length;
 
                 this.requestCommand('list', newIndex);
-
+                
+                this._selectedIndex = newIndex;
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
                 panel.ensureIndexIsVisible(newIndex);
@@ -157,6 +158,7 @@
             }
             this.requestCommand('list', index);
 
+            this._selectedIndex = index;
             panel.selectedIndex = index;
             panel.selectedItems = [index];
             panel.ensureIndexIsVisible(index);
@@ -170,15 +172,8 @@
         },
 
 
-        afterScaffoldIndex: function(evt) {
-            
+        afterScaffoldIndex: function(evt) {           
             this.getListObj().datasource = evt.data;
-
-        },
-
-        afterScaffoldView: function(evt) {
-            var panel = this.getListObj();
-            this._selectedIndex = panel.selectedIndex;
         },
 
         load: function () {
@@ -187,6 +182,7 @@
 
             this.requestCommand('list', -1);
 
+            this._selectedIndex = -1;
             panel.selectedItems = [-1];
             panel.selectedIndex = -1;
 
@@ -199,6 +195,8 @@
 
             var panel = this.getListObj();
 
+            if (index == this._selectedIndex && index != -1) return;
+            
             if (!this.confirmChangeJob(index)) {
                 panel.selectedItems = [this._selectedIndex];
                 return;
@@ -206,6 +204,7 @@
 
             this.requestCommand('list', index);
 
+            this._selectedIndex = index;
             panel.selectedItems = [index];
             panel.selectedIndex = index;
             panel.ensureIndexIsVisible(index);
@@ -214,16 +213,28 @@
             document.getElementById('job_name').focus();
         },
 
-        confirmExit: function(data) {
+        exit: function() {
             // check if job form has been modified
-            data.close = true;
             if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('jobForm')) {
-                if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                                             _('Discard Changes'),
-                                             _('You have made changes to the current job. Are you sure you want to discard the changes?'))) {
-                    data.close = false;
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(null,
+                                               _('Exit'),
+                                               _('You have made changes to the current job. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.requestCommand('update', null, 'Jobs');
                 }
             }
+            window.close();
         },
 
         confirmChangeJob: function(index) {

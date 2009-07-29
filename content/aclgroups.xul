@@ -12,7 +12,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/jobs.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/aclgroups.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -36,17 +35,16 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/aclgroups.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <hbox flex="1" class="container-main layout-a">
             <vbox class="container-left block-33">
-                <caption label="&aclgroups.title;" class="label-page-title" />
+                <caption label="&aclgroups.title;" class="label-page-title"/>
                 <hbox flex="1" class="content-buttonpanel">
-                    <viviscrollablebuttonpanel dir="reverse" id="aclgroupscrollablepanel" flex="1" cols="1" rows="9"
-                                               labelField="name" imageField="no"
-                                               ensureVisible="true"
+                    <viviscrollablebuttonpanel id="aclgroupscrollablepanel" flex="1" cols="1" rows="9" dir="reverse"
+                                               labelField="name" imageField="no" ensureVisible="true"
                                                oncommand="$do('select', this.selectedIndex, 'AclGroups');"
                                                buttonClass="button-item-a"
                                                scrollUpClass="scroll-up-button"
@@ -55,7 +53,7 @@
                     </viviscrollablebuttonpanel>
                 </hbox>
             </vbox>
-            <vbox flex="1" class="custom-container-data-form">
+            <vbox flex="1">
                 <label id="aclgroup_id" hidden="true"  value="" form="aclgroupForm" name="id" default=""/>
                 <grid class="data-form">
                     <columns>
@@ -70,27 +68,26 @@
                         </row>
                     </rows>
                 </grid>
-                <vbox flex="1" class="custom-content-buttonpanel">
+                <vbox flex="1" class="content-buttonpanel">
                     <label value="&aclgroups.role.list;" class="label-sub-title" />
                     <viviscrollablebuttonpanel id="rolelistscrollablepanel" seltype="none" flex="1"
                                                form="aclgroupForm" name="role_group" default=""
                                                cols="3" rows="5" labelField="description" imageField="no"
-                                               buttonClass="button-item-b custom-content-buttonpanel-button"
+                                               buttonClass="button-item-b"
                                                scrollUpClass="scroll-up-button"
                                                scrollDownClass="scroll-down-button">
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
-
                 </vbox>
                 <hbox>
-                    <hbox class="toolbar" flex="1">
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="add_acl_group" label="&aclgroups.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'AclGroups');" />
                         <button id="modify_acl_group" label="&aclgroups.button.action.modify;" disable="true" class="button-modify" oncommand="$do('modify', null, 'AclGroups');" />
                         <spacer flex="1"/>
                         <button id="delete_acl_group" label="&aclgroups.button.action.delete;" disabled="true" class="button-delete" oncommand="$do('remove', null, 'AclGroups');" />
                     </hbox>
-                    <hbox id="dialogButtons" class="exitbar" pack="center">
-                        <button class="button-exit" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    <hbox pack="end" class="exitbar">
+                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'AclGroups');"/>
                     </hbox>
                 </hbox>
             </vbox>

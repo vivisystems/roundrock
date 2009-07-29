@@ -32,14 +32,15 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/storecontact.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('save').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-a">
             <caption label="&storecontact.title;"  class="label-page-title" />
-            <textbox id="id" value="" hidden="true" readonly="true" form="storecontactForm" name="id"/>
+            <textbox id="id" value="" hidden="true" readonly="true"
+                     form="storecontactForm" name="id"/>
             <grid class="data-form custom-content-data-form">
                 <columns>
                     <column flex="1" />
@@ -132,11 +133,10 @@
             </grid>
             <label value="&storecontact.requiredNotice;" class="label-notice"/>
             <spacer flex="1" />
-            <hbox id="dialogButtons" class="exitbar" pack="end" flex="1">
+            <hbox flex="1" pack="end" class="exitbar">
                 <button id="save" label="&dialog.saveButton.label;" class="button-save" default="true" oncommand="$do('update', null, 'StoreContact')"/>
-                <spacer flex="1"/>
                 <button id="vkb" label="" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                <button id="cancel" label="&dialog.cancelButton.label;" class="button-exit" default="false" oncommand="doCancelButton();"/>
+                <button id="close" label="&dialog.cancelButton.label;" class="button-exit" default="false" oncommand="$do('exit', null, 'StoreContact');"/>
             </hbox>
         </vbox>
     </vbox>

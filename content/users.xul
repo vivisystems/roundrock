@@ -11,7 +11,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/users.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -32,10 +31,10 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="container-root layout-root">
+    <vbox flex="1" class="container-be layout-be">
         <hbox flex="1" class="container-main layout-a">
             <!-- Left Panel  -->
             <vbox flex="1" pack="start" class="container-left block-33">
@@ -44,7 +43,7 @@
                     <viviscrollablebuttonpanel id="userscrollablepanel" flex="1" cols="2" rows="7" labelField="displayname"
                                                ensureVisible="true" dir="reverse"
                                                oncommand="$do('select',this.selectedIndex, 'Users');"
-                                               class="custom-content-buttonpanel" buttonClass="button-item-a"
+                                               buttonClass="button-item-a"
                                                scrollUpClass="scroll-up-button"
                                                scrollDownClass="scroll-down-button">
                         <spacer flex="1"/>
@@ -106,7 +105,7 @@
                                             <label value="&users.pricelevel;" control="default_price_level"/>
                                             <menulist id="default_price_level" value=""
                                                       form="userForm" name="default_price_level" default="">
-                                                <menupopup class="custom-content-menupopup">
+                                                <menupopup>
                                                     <menuitem label="" value=""/>
                                                     <menuitem label="1" value="1"/>
                                                     <menuitem label="2" value="2"/>
@@ -157,7 +156,7 @@
                                             <vbox>
                                                 <label value="&users.limit.item.discount;" control="item_discount_limit"/>
                                                 <vivitextbox id="item_discount_limit" type="number" hidespinbuttons="true"
-                                                             numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="item_discount_limit" default="0"/>
                                             </vbox>
                                             <vbox pack="end">
@@ -172,7 +171,7 @@
                                             <vbox>
                                                 <label value="&users.limit.order.discount;" control="order_discount_limit"/>
                                                 <vivitextbox id="order_discount_limit" type="number" hidespinbuttons="true"
-                                                             numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="order_discount_limit" default="0"/>
                                             </vbox>
                                             <vbox pack="end">
@@ -188,7 +187,7 @@
                                             <vbox>
                                                 <label value="&users.limit.item.surcharge;" control="item_surcharge_limit"/>
                                                 <vivitextbox id="item_surcharge_limit" type="number" hidespinbuttons="true"
-                                                             numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="item_surcharge_limit" default="0"/>
                                             </vbox>
                                             <vbox pack="end">
@@ -203,7 +202,7 @@
                                             <vbox>
                                                 <label value="&users.limit.order.surcharge;" control="order_surcharge_limit"/>
                                                 <vivitextbox id="order_surcharge_limit" type="number" hidespinbuttons="true"
-                                                             numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="order_surcharge_limit" default="0"/>
                                             </vbox>
                                             <vbox pack="end">
@@ -245,7 +244,7 @@
                                             <vbox>
                                                 <label value="&users.limit.cash.check;" control="max_cash_check"/>
                                                 <vivitextbox id="max_cash_check" type="number" hidespinbuttons="true"
-                                                             numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="max_cash_check" default="0"/>
                                             </vbox>
                                             <vbox></vbox>
@@ -300,15 +299,15 @@
                     </tabpanels>
                 </tabbox>
                 <hbox>
-                    <hbox class="toolbar" flex="1">
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="add_user" label="&users.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Users');" />
                         <button id="modify_user" label="&users.action.modify;" disabled="false" class="button-modify" oncommand="$do('update', null, 'Users');" />
                         <spacer flex="1"/>
                         <button id="delete_user" label="&users.action.delete;" disabled="false" class="button-delete" oncommand="$do('delete', null, 'Users');" />
                     </hbox>
-                    <hbox id="dialogButtons" class="exitbar" pack="center">
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                        <button class="button-exit" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    <hbox pack="end" class="exitbar">
+                        <button id="vkb" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Users');"/>
                     </hbox>
                 </hbox>
             </vbox>

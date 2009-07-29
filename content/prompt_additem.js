@@ -109,9 +109,11 @@ var options;
         // hide numberpad
         if ('numpad' in inputObj) {
             document.getElementById('numpad').setAttribute('hidden', false);
-            document.getElementById('multinumberpad').setTarget(inputObj.numpad);
-            document.getElementById('bkeyBtn').setTarget(inputObj.numpad);
-            document.getElementById('clearBtn').setTarget(inputObj.numpad);
+            if (inputObj.numpad != null) {
+                document.getElementById('multinumberpad').setTarget(inputObj.numpad);
+                document.getElementById('bkeyBtn').setTarget(inputObj.numpad);
+                document.getElementById('clearBtn').setTarget(inputObj.numpad);
+            }
         }
         else {
             document.getElementById('numpad').setAttribute('hidden', true);

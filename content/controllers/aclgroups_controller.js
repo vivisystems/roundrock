@@ -42,6 +42,10 @@
  
         add: function () {
 
+            if (!this.confirmChangeAclGroup()) {
+                return;
+            }
+
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300";
             var inputObj = {input0:null, require0:true};
@@ -58,6 +62,7 @@
                 }
                 else {
                     if (this.Acl.addGroup(group)) {
+                        this._selectedIndex = -1;
                         this.load(group);
 
                         OsdUtils.info(_('ACL Group [%S] added successfully', [group]));
@@ -69,7 +74,7 @@
             }
         },
 
-        remove: function(evt) {
+        remove: function() {
             var group = $('#aclgroup_name').val();
             if (!group && group.length <= 0) return;
 
@@ -95,6 +100,7 @@
                     listObj.selectedItems = [index];
                     listObj.selectedIndex = index;
 
+                    this._selectedIndex = -1;
                     this.select();
 
                     OsdUtils.info(_('ACL Group [%S] removed successfully', [group]));
@@ -132,6 +138,7 @@
                 r = ds.commit();
                 if(!r) throw new Exception('database is locked');
 
+                this._selectedIndex = -1;
                 this.select();
                 
                 OsdUtils.info(_('ACL Group [%S] modified successfully', [group]));
@@ -189,6 +196,8 @@
             var listObj = this.getListObj();
             var selectedIndex = listObj.selectedIndex;
 
+            if (selectedIndex == this._selectedIndex && this._selectedIndex != -1) return;
+            
             if (!this.confirmChangeAclGroup(selectedIndex)) {
                 listObj.selectedItems = [this._selectedIndex];
                 return;
@@ -210,16 +219,28 @@
             this.validateForm();
         },
 
-        confirmExit: function(data) {
+        exit: function() {
             // check if ACL group form has been modified
-            data.close = true;
             if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('aclgroupForm')) {
-                if (!GREUtils.Dialog.confirm(this.topmostWindow,
-                                             _('Discard Changes'),
-                                             _('You have made changes to the current access group. Are you sure you want to discard the changes?'))) {
-                    data.close = false;
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(null,
+                                               _('Exit'),
+                                               _('You have made changes to the current access group. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.modify();
                 }
             }
+            window.close();
         },
 
         confirmChangeAclGroup: function(index) {

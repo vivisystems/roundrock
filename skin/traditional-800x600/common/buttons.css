@@ -500,7 +500,7 @@ button-fontsize-picker button {
 }
 
 /*-----------------------------------------------------------------------------
- * button style item-a for use in button panels
+ * button style item-a, often used in master button panels
  *-----------------------------------------------------------------------------
  */
 
@@ -539,7 +539,7 @@ button-fontsize-picker button {
 }
 
 /*-----------------------------------------------------------------------------
- * button style item-b
+ * button style item-b, often used in detail button panels
  *-----------------------------------------------------------------------------
  */
 
