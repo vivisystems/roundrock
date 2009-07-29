@@ -122,9 +122,13 @@
                 <parameter name="evt"/>
                 <body>
                 <![CDATA[
+
+                    var attrs = ['labels','columns','noseparator','nolabels','ratios','labelClass','valueClass','separatorClass','keys'];
+                    if (attrs.indexOf(evt.attrName) == -1) return ;
+
                     //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
 
-                    if (evt.attrName != 'value') {
+                    if (evt.attrName != 'value' ) {
                         this._render();
                     }
                 ]]>

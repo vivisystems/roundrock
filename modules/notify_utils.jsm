@@ -23,7 +23,11 @@ var NotifyUtils = {
 	    var runnable = {
 		    run: function() {
 		        try {
-                    if(NotifyUtils.nofityService) NotifyUtils.nofityService.doCall(["vivipos", 0, icon, summary, body, [], {}, total_display_ms],8);
+                            //if(NotifyUtils.nofityService) NotifyUtils.nofityService.doCall(["vivipos", 0, icon, summary, body, [], {}, total_display_ms],8);
+
+                            if(NotifyUtils.nofityService) {
+                                NotifyUtils.nofityService.notify(summary, body, icon, total_display_ms, urgency);
+                            }
                     // use shell
                 }catch(e) {
                 }
@@ -92,8 +96,9 @@ try {
     }
 
     if(!NotifyUtils.nofityService) {
-        var dbus = Components.classes["@movial.com/dbus/service;1"].getService().QueryInterface(Components.interfaces.IDBusService);
-        NotifyUtils.nofityService = dbus.getMethod(dbus.SESSION, 'org.freedesktop.Notifications', '/org/freedesktop/Notifications', 'Notify', 'org.freedesktop.Notifications', "susssasa{sv}i", null);
+        //var dbus = Components.classes["@movial.com/dbus/service;1"].getService().QueryInterface(Components.interfaces.IDBusService);
+        //NotifyUtils.nofityService = dbus.getMethod(dbus.SESSION, 'org.freedesktop.Notifications', '/org/freedesktop/Notifications', 'Notify', 'org.freedesktop.Notifications', "susssasa{sv}i", null);
+        NotifyUtils.nofityService = Components.classes["@firich.com.tw/notify;1"].getService(Components.interfaces.mozIFECNotify);
     }
 
 }catch(e) {
