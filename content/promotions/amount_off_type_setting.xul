@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/promotions_manager.css" type="text/css"?>
 
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
@@ -13,35 +16,39 @@
   ]>
 
 <page title="&promotions_manager.title;"
-	hidechrome="true"
-        xmlns:html="http://www.w3.org/1999/xhtml"
-        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+      hidechrome="true"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />   
-    <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/promotions/controllers/amount_off_type_setting_controller.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/promotions/controllers/amount_off_type_setting_controller.js"/>
   
-    <vbox flex="1" class="pop-dialog">
+    <vbox flex="1" class="container-be custom-content-promotion-type">
+        <groupbox flex="1" orient="vertical">
+            <caption label="&amount_off.title;"/>
 
-        <groupbox>
-            <caption label="&amount_off.title;" />
+            <grid class="data-form">
+                <columns>
+                    <column/>
+                    <column flex="1"/>
+                </columns>
+                <rows>
+                    <row>
+                        <label value="&amount_off.label.type;"/>
+                        <radiogroup id="type" orient="horizontal" form="amountOffForm" name="type">
+                           <radio label="&amount_off.label.type_by_qty;"  value="by_qty"/>
+                           <radio label="&amount_off.label.type_by_subtotal;" selected="true" value="by_subtotal"/>
+                         </radiogroup>
+                    </row>
 
-            <spacer style="height: 10px" />
-            <groupbox>
-                <caption label="&amount_off.label.type;" />
-                <radiogroup orient="horizontal" id="type" name="type" form="amountOffForm">
-                   <radio label="&amount_off.label.type_by_qty;"  value="by_qty" />
-                   <radio label="&amount_off.label.type_by_subtotal;" selected="true" value="by_subtotal" />
-                 </radiogroup>
-            </groupbox>
-
-            <spacer style="height: 5px" />
-            <groupbox>
-		    <label value="&amount_off.label.value;" />
-		    <textbox id="value" name="value" form="amountOffForm" value='0' />
-            </groupbox>
-
+                    <row>
+                        <label value="&amount_off.label.value;"/>
+                        <textbox id="value" value="0" type="number" decimalplaces="Infinity" min="-Infinity"
+                                 form="amountOffForm" name="value"/>
+                    </row>
+                </rows>
+            </grid>
         </groupbox>
-
     </vbox>
 </page>

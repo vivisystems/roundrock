@@ -52,8 +52,6 @@
 <!ENTITY    cheapest_one_free.label.maximum_qty       "Maximum Quantity">
 <!ENTITY    cheapest_one_free.label.value             "Set Free Price">
 
-<!ENTITY    multi_buy.title                   "MultiBuy Setting">
-
 <!ENTITY    button.action.down    "Down">
 <!ENTITY    button.action.modify  "Modify">
 <!ENTITY    button.action.delete  "Delete">

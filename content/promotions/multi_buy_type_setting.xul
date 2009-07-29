@@ -25,7 +25,7 @@
         <groupbox>
             <caption label="&multi_buy.title;" />
 
-			<label value="NOT YET!" /> 
+			<label value="&multi_buy.announcement;" />
         </groupbox>
     </vbox>
 </page>

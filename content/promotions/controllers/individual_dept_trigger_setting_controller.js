@@ -53,7 +53,6 @@
 
             var categoriesById = GeckoJS.Session.get('categoriesById');
 
-            
             var data = [] ;
 
             selectedIndexes.forEach(function(idx){

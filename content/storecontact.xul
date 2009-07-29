@@ -11,7 +11,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/storecontact.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -41,7 +40,7 @@
             <caption label="&storecontact.title;"  class="label-page-title" />
             <textbox id="id" value="" hidden="true" readonly="true"
                      form="storecontactForm" name="id"/>
-            <grid class="data-form custom-content-data-form">
+            <grid class="data-form">
                 <columns>
                     <column flex="1" />
                     <column flex="1" />

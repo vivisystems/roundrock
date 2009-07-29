@@ -7,7 +7,7 @@ pref("vivipos.fec.registry.templates.ledger-sample-24c.label", "chrome://viviecr
 pref("vivipos.fec.registry.templates.ledger-sample-24c.type", "receipt");
 pref("vivipos.fec.registry.templates.ledger-sample-24c.path", "chrome://viviecr/content/devices/templates/ledger-sample-24c.tpl");
 
-pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "chrome://viviecr/locale/messages.properties");"
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");
 
@@ -94,11 +94,6 @@ pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");
 pref("vivipos.fec.registry.devicemodels.vfdfec.type", "vfd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.path", "chrome://viviecr/content/devices/commands/vfdfec.cmd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
-
-pref("vivipos.fec.registry.devicemodels.vfdgeneric.label", "Generic VFD");
-pref("vivipos.fec.registry.devicemodels.vfdgeneric.type", "vfd");
-pref("vivipos.fec.registry.devicemodels.vfdgeneric.path", "chrome://viviecr/content/devices/commands/vfdgeneric.cmd");
-pref("vivipos.fec.registry.devicemodels.vfdgeneric.encodings", "English=US-ASCII");
 
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.label", "Excell AW-30");
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.type", "scale");

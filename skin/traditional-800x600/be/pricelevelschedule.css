@@ -1,114 +1,11 @@
 /*-----------------------------------------------------------------------------
  *
- * Back-End Custom Styles for Condiments
+ * Back-End Custom Styles for Price Level Schedule
  *
  *-----------------------------------------------------------------------------
  */
 
-.MainPnl {
-    margin: 18px;
-}
-
-.MainL {
-    border-right: 1px solid #c1ab8e;
-    padding: 0 8px 5px 4px;
-}
-
-.ToolBar {
-    margin-left: 4px;
-}
-
-.PLbox {
-    background: #f0efe8;
-    margin: 5px 10px 5px 10px;
-    padding: 8px;
-}
-
-.RightPnlB {
-    margin: 0px 10px 5px 10px;
-    background: #f1ede5;
-    padding: 8px;
-}
-
-
-.RightPnlB button {
-    border: 3px solid;
-    -moz-border-top-colors: #f1ede5 #e8e4dc #d6d2cb;
-	-moz-border-right-colors: #d6d2cb #bab7b1 #979590;
-	-moz-border-bottom-colors: #d6d2cb #bab7b1 #979590;
-	-moz-border-left-colors: #f1ede5 #e8e4dc #d6d2cb;
-    background: white url(images/tboxbg_readonly.png) left center repeat-x;
-    -moz-appearance: none;
-    min-height: 36px;
-    color: #3c322d;
-}
-
-.RightPnlB button:active {
-    border: 2px solid;
-    -moz-border-top-colors: #00a99d #00a99d;
-    -moz-border-right-colors: #00a99d #00a99d;
-    -moz-border-bottom-colors: #00a99d #00a99d;
-    -moz-border-left-colors: #00a99d #00a99d;
-    background: white url(images/itembtnB_sel.png) left center repeat-x;
-    -moz-appearance: none;
-    color: #32787a;
-}
-
-.BtnAdd {
-    margin: 0 20px;
-    min-height: 45px;
-    -moz-border-radius: 6px;
-    border: 3px solid;
-    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
-	  -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
-	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
-	  -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
-    background: white url(images/tboxbg_readonly.png) left center repeat-x;
-    -moz-appearance: none;
-    color: #6c6050;
-    font-size: 12pt;
-    padding: 0 8px;
-}
-.BtnAdd:hover {
-		border: 3px solid;
-	  -moz-border-top-colors: #f0efe8 #e8e8e1 #00aeef;
-	  -moz-border-right-colors: #d9d9d2 #c3c2bc #00aeef;
-	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #00aeef;
-	  -moz-border-left-colors: #f0efe8 #e8e8e1 #00aeef;
-	  background: white url(images/tboxbg_readonly.png) left center repeat-x;
-	  -moz-appearance: none;
-}
-.BtnAdd[disabled=false]:active {
-    border: 2px solid;
-	  -moz-border-top-colors: #ee9400 #ee9400;
-	  -moz-border-right-colors: #ee9400 #ee9400;
-	  -moz-border-bottom-colors: #ee9400 #ee9400;
-	  -moz-border-left-colors: #ee9400 #ee9400;
-	  -moz-appearance: none;
-	  color: #603913;
-}
-.BtnAdd[disabled=true] {
-  color: #999 ;
-  border: 1px solid;
-  -moz-border-top-colors: #999;
-  -moz-border-right-colors: #999;
-  -moz-border-bottom-colors: #999;
-  -moz-border-left-colors: #999;
-  list-style-image: none;
-}
-
-.SubTitle {
-    margin-top: 0px;
-}
-
-.ScrollUp {
-    margin-right: 2px;
-}
-
-.ScrollDown {
-    margin-right: 2px;
-}
-
-.ItemButtonA {
-    min-height: 40px !important;
+.custom-content-pricelevel-list tree #time,
+.custom-content-pricelevel-list tree #pricelevel {
+    text-align: center;
 }
