@@ -143,12 +143,12 @@
             }else {
 
             }
-            // quit application
-            GREUtils.quitApplication();
+            // quit application, shutdown process runing, force quit
+            GREUtils.quitApplication(0x03);
 
             return true;
         }catch (e) {
-            alert(e);
+            dump(e);
         }
         return false;
  

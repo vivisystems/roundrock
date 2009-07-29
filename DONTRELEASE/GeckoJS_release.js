@@ -14,7 +14,7 @@
  * @public
  * @namespace
  */
-var GeckoJS = GeckoJS || {version: "1.0.36"}; // Check to see if already defined in current scope
+var GeckoJS = GeckoJS || {version: "1.0.38"}; // Check to see if already defined in current scope
 
 /**
  * This is a reference to the global context, which is normally the "window" object.
@@ -16657,7 +16657,15 @@ GeckoJS.StringBundle.prototype.getStringFromName = function(name, URLSpec) {
 
 	var str = null;
 
-	var bundles = (URLSpec) ? [].push(this.createBundle(URLSpec)) : this.map.getValues();
+	var bundles = [];
+        
+        if(URLSpec) {
+                if(this.createBundle(URLSpec)) {
+                    bundles.push(this.createBundle(URLSpec));
+                }
+        }
+
+        bundles.concat(this.map.getValues());
         
         name = name.replace('\n', '\\n');
 
@@ -16731,7 +16739,16 @@ GeckoJS.StringBundle.formatStringFromName = function(name, params, URLSpec) {
 GeckoJS.StringBundle.prototype.formatStringFromName = function(name, params, URLSpec) {
 
 	var str = null;
-	var bundles = (URLSpec) ? [].push(this.createBundle(URLSpec)) : this.map.getValues();
+
+	var bundles = [];
+
+        if(URLSpec) {
+                if(this.createBundle(URLSpec)) {
+                    bundles.push(this.createBundle(URLSpec));
+                }
+        }
+
+        bundles.concat(this.map.getValues());
 
         name = name.replace('\n', '\\n');
 
