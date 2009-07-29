@@ -4295,7 +4295,7 @@ GREUtils.define('GeckoJS.Array', GeckoJS.global);
  * @return {Boolean}                  "true" if the object is an array; "false" otherwise
  */
 GeckoJS.Array.isArray =  function( obj ) {
-    return toString.call(obj) === "[object Array]";
+    return (typeof obj == 'object' && obj.constructor.name == "Array");
 };
 
 /**
@@ -4342,12 +4342,21 @@ GeckoJS.Array.makeArray = function( array ) {
  * @return {Number}          The index of the element
  */
 GeckoJS.Array.inArray =  function( elem, array ) {
+
+        if (!GeckoJS.Array.isArray(array)) return -1;
+
+        // use javascript 1.6 
+        return array.indexOf(elem);
+
+        /*
 	for ( var i = 0, length = array.length; i < length; i++ )
 	// Use === because on IE, window == document
 		if ( array[ i ] === elem )
 			return i;
 
 	return -1;
+        */
+
 };
 
 
@@ -16657,15 +16666,13 @@ GeckoJS.StringBundle.prototype.getStringFromName = function(name, URLSpec) {
 
 	var str = null;
 
-	var bundles = [];
+	var bundles = this.map.getValues() || [];
         
         if(URLSpec) {
                 if(this.createBundle(URLSpec)) {
-                    bundles.push(this.createBundle(URLSpec));
+                    bundles.splice(0,0,this.createBundle(URLSpec));
                 }
         }
-
-        bundles.concat(this.map.getValues());
         
         name = name.replace('\n', '\\n');
 
@@ -16740,15 +16747,13 @@ GeckoJS.StringBundle.prototype.formatStringFromName = function(name, params, URL
 
 	var str = null;
 
-	var bundles = [];
+	var bundles = this.map.getValues() || [];
 
         if(URLSpec) {
                 if(this.createBundle(URLSpec)) {
-                    bundles.push(this.createBundle(URLSpec));
+                    bundles.splice(0,0,this.createBundle(URLSpec));
                 }
         }
-
-        bundles.concat(this.map.getValues());
 
         name = name.replace('\n', '\\n');
 

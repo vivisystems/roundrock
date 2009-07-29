@@ -19,18 +19,18 @@
 
         lines.forEach(function(line){
 
-            var t = line.split(' = ');
+            var t = line.split('=');
             switch(t[0]) {
                 case 'dallas':
                     dallas = t[1];
                     break;
-                case 'system':
+                case 'system_name':
                     system = t[1];
                     break;
-                case 'vendor':
+                case 'vendor_name':
                     vendor = t[1];
                     break;
-                case 'mac address':
+                case 'mac_address':
                     mac = t[1];
                     break;
 
