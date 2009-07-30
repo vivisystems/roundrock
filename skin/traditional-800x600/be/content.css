@@ -733,10 +733,8 @@
  */
 
 .container-be vividatetimepicker .datetimepicker-input-box {
-    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
-    border: 1px solid #d0cfcb;
+    border: none;
     min-height: 36px;
-    min-width: 250px;
     padding-right: 4px;
     -moz-appearance: none;
     -moz-border-top-colors: #d0cfcb;
@@ -745,6 +743,14 @@
     -moz-border-bottom-colors: #d0cfcb;
 }
 
+.container-be vividatetimepicker[type=popup] .datetimepicker-input-box {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 1px solid #d0cfcb;
+}
+
+.container-be vividatetimepicker[type=embed] .datepicker-popupgrid {
+    margin: 0px 20px;
+}
 .container-be vividatetimepicker .datetimepicker-input-box input {
     background: none;
     font-size: 16px;

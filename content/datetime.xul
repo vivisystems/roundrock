@@ -7,9 +7,12 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 
 <window title="&datetime.title;"
         hidechrome="true"
@@ -26,29 +29,31 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
     
-     <vbox class="main-dialog" flex="1">
-        <vbox flex="1" class="MainPnl">
-            <tabbox class="RightTabbox">
+     <vbox flex="1" class="container-be layout-be">
+        <vbox flex="1" class="container-main">
+            <tabbox flex="1" class="content-tabbox">
                 <tabs>
                     <tab id="tab1" label="&datetime.datetime.title;"/>
                     <tab id="tab2" label="&datetime.timezone.title;"/>
                 </tabs>
-                <tabpanels>
-                    <tabpanel flex="1">
-                        <vividatetimepicker id="datetime" flex="1" type="embed" class="DateTime"/>
+                <tabpanels flex="1">
+                    <tabpanel flex="1" pack="center" orient="vertical">
+                        <vividatetimepicker id="datetime" flex="1" type="embed"/>
                     </tabpanel>
-                    <tabpanel flex="1">
-                        <vivitimezones id="timezones" flex="1" type="listbox" cols="4" rows="6" popupwidth="720" popupheight="540"
-                                       listboxClass="" panelClass="TimeZone" buttonClass="" scrollUpClass="" scrollDownClass=""/>
+                    <tabpanel flex="1" orient="vertical">
+                        <vivitimezones id="timezones" flex="1" type="button" cols="4" rows="6" popupwidth="720" popupheight="540"
+                                       listboxClass="" panelClass="TimeZone"
+                                       timezoneButtonClass="button-execute" btnLabel="&datetime.timezone.select;"
+                                       buttonClass="button-execute"
+                                       scrollUpClass="scroll-up-button"
+                                       scrollDownClass="scroll-down-button"/>
                     </tabpanel>
                 </tabpanels>
             </tabbox>
-            <spacer flex="1" />
-            <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
-                <spacer flex="1" />
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+            <hbox id="dialogButtons" class="exitbar" pack="end">
+                <button id="ok" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="doOKButton();"/>
+                <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button id="cancel" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="doCancelButton();"/>
             </hbox>
         </vbox>
     </vbox>

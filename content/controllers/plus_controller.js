@@ -18,7 +18,7 @@
         catePanelView: null,
         productPanelView: null,
         _pluset: [],
-        _selectedPluSetIndex: null,
+        _selectedSetItemIndex: -1,
         _condGroupsById: null,
         _categoriesByNo: {},
         _categoryIndexByNo: {},
@@ -339,6 +339,7 @@
                 if (selectedIndex >= this._pluset.length) {
                     selectedIndex = this._pluset.length - 1;
                 }
+                this._selectedSetItemIndex = -1;
                 this.selectSetItem(selectedIndex);
 
                 // update form value
@@ -365,7 +366,9 @@
                     this._pluset[selectedIndex] = this._pluset[newIndex];
                     this._pluset[newIndex] = currentItem;
 
-                    this.selectSetItem(newIndex);
+                    this._selectedSetItemIndex = newIndex;
+
+
                 }
             }
         },
@@ -419,6 +422,10 @@
 
         addSetItem: function (){
 
+            if (!this.confirmChangeSetItem()) {
+                return;
+            }
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
@@ -432,11 +439,10 @@
                 var newItem = {
                     label: inputObj.input0,
                     preset: '',
-                    baseprice: '',
+                    baseprice: 0,
                     quantity: 1,
                     linkgroup: '',
-                    reduction: 0,
-                    reduction_label: _('N'),
+                    reduction: false,
                     preset_no: '',
                     linkgroup_id: ''
                 };
@@ -448,6 +454,8 @@
                 this._pluset.splice(++index, 0, newItem);
                 
                 plusetscrollabletree.treeBoxObject.rowCountChanged(this._pluset.length, 1);
+
+                this._selectedSetItemIndex = -1;
                 this.selectSetItem(index);
 
                 // update form value
@@ -458,7 +466,7 @@
         modifySetItem: function() {
             var plusetscrollabletree = this.getPluSetListObj();
             var selectedIndex = plusetscrollabletree.selectedIndex;
-
+            
             if (selectedIndex > -1) {
                 var modifiedItem = GeckoJS.FormHelper.serializeToObject('setitemForm');
 
@@ -468,21 +476,38 @@
 
                 // update form value
                 document.getElementById('pluset').value = GeckoJS.BaseObject.serialize(this._pluset);
+
+                this._selectedSetItemIndex = -1;
+                this.selectSetItem(selectedIndex);
             }
         },
         
         selectSetItem: function(index) {
 
-            var setItem = this._pluset[index];
-            var plusetscrollabletree = this.getPluSetListObj();
+            if (this._selectedSetItemIndex == index && index != -1) {
+                return;
+            }
             
+            var plusetscrollabletree = this.getPluSetListObj();
+
+            if (!this.confirmChangeSetItem(index)) {
+                plusetscrollabletree.selectedIndex = this._selectedSetItemIndex;
+                plusetscrollabletree.selectedItems = [this._selectedSetItemIndex];
+                plusetscrollabletree.selection.select(this._selectedSetItemIndex);
+                plusetscrollabletree.treeBoxObject.ensureRowIsVisible(this._selectedSetItemIndex);
+                return;
+            }
+
+            var setItem = this._pluset[index];
+
             if (setItem) {
                 GeckoJS.FormHelper.unserializeFromObject('setitemForm', setItem);
             }
             else {
                 GeckoJS.FormHelper.reset('setitemForm');
             }
-
+            
+            this._selectedSetItemIndex = index;
             plusetscrollabletree.selection.select(index);
             plusetscrollabletree.treeBoxObject.ensureRowIsVisible(index);
             plusetscrollabletree.refresh();
@@ -629,7 +654,8 @@
 
         exit: function() {
             // check if product form has been modified
-            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('productForm')) {
+            if (this._selectedIndex != -1 &&
+                (GeckoJS.FormHelper.isFormModified('productForm') || GeckoJS.FormHelper.isFormModified('setitemForm'))) {
                 var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                         .getService(Components.interfaces.nsIPromptService);
                 var check = {data: false};
@@ -654,10 +680,23 @@
         confirmChangeProduct: function(index) {
             // check if product form has been modified
             if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
-                && GeckoJS.FormHelper.isFormModified('productForm')) {
+                && (GeckoJS.FormHelper.isFormModified('productForm') || GeckoJS.FormHelper.isFormModified('setitemForm'))) {
                 if (!GREUtils.Dialog.confirm(this.topmostWindow,
                                              _('Discard Changes'),
                                              _('You have made changes to the current product. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        confirmChangeSetItem: function(index) {
+            // check if product form has been modified
+            if (this._selectedSetItemIndex != -1 && (index == null || (index != -1 && index != this._selectedSetItemIndex))
+                && GeckoJS.FormHelper.isFormModified('setitemForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current set item. Are you sure you want to discard the changes?'))) {
                     return false;
                 }
             }

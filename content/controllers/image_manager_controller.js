@@ -188,8 +188,6 @@
 
         showWaitingPanel: function (message) {
 
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
             var waitPanel = document.getElementById( 'wait_panel' );
 
             // set the content of the label attribute be default string, taking advantage of the statusText attribute.

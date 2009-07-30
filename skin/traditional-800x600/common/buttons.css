@@ -79,23 +79,22 @@
  *-----------------------------------------------------------------------------
  */
 
-.systembtn {
-    min-width:80px;
-    max-width:80px;
-    min-height:49px;
-    max-height:49px;
-    height: 49px;
-    width: 80px;
-    margin: 0px 1px 1px 0px;
-    padding: 0px;
-    list-style-type: none;
-    color: black;
-    font-weight: bold !important;
-    font-size: 14px;
-    overflow: hidden;
-    text-wrap: normal;
-    word-wrap: break-word;
+.button-system {
+    background: url(../images/white.png);
     border: 1px solid;
+    color: black;
+    font-size: 14px;
+    font-weight: bold !important;
+    height: 49px;
+    list-style-type: none;
+    margin: 0px 1px 1px 0px;
+    min-width:80px;
+    min-height:49px;
+    overflow: hidden;
+    padding: 0px;
+    text-wrap: normal;
+    width: 80px;
+    word-wrap: break-word;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-border-radius: 8px;
@@ -105,22 +104,50 @@
     -moz-border-left-colors: #444;
     -moz-box-align:center;
     -moz-box-pack:center;
-
-    /* background: white; */
-    background: url(../images/white.png);
 }
 
-.systembtn[disabled=true] {
+.button-system[disabled=true] {
     background: url(../images/btn_gray.png);
     background-position:0pt -64px;
 }
 
-.systembtn label {
+.button-system label {
     max-width:100px;
-    width: 40px;
     text-align: center;
+    width: 40px;
     -moz-box-align:center;
     -moz-box-pack:center;
+}
+
+/*-----------------------------------------------------------------------------
+ * Execute buttons
+ *-----------------------------------------------------------------------------
+ */
+
+
+.button-execute {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 3px solid;
+    color: #6c6050;
+    font-size: 12pt;
+    margin: 0px 5px;
+    max-height: 70px;
+    min-height: 50px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-radius: 6px;
+}
+
+.button-execute:active {
+    border: 2px solid;
+    color: #603913;
+    -moz-border-top-colors: #ee9400 #ee9400;
+    -moz-border-right-colors: #ee9400 #ee9400;
+    -moz-border-bottom-colors: #ee9400 #ee9400;
+    -moz-border-left-colors: #ee9400 #ee9400;
 }
 
 /*-----------------------------------------------------------------------------
@@ -204,11 +231,11 @@
  */
 
 .button-systool {
-    margin: 0px;
-    height: 48px;
-    min-width: 36px;
-    max-width: 36px;
     border: none;
+    height: 48px;
+    margin: 0px;
+    max-width: 36px;
+    min-width: 36px;
     -moz-user-focus: ignore;
     -moz-appearance: none;
 }
@@ -227,11 +254,11 @@
  */
 
 .button-systool2 {
-    margin: 0px;
-    height: 48px;
-    min-width: 42px;
-    max-width: 42px;
     border: none;
+    height: 48px;
+    margin: 0px;
+    max-width: 42px;
+    min-width: 42px;
     -moz-user-focus: ignore;
     -moz-appearance: none;
 }
@@ -261,8 +288,8 @@
 }
 
 .rightnextbtn {
-    min-width:32px;
     height: 50px;
+    min-width:32px;
     width: 32px;
     list-style-image: url(chrome://viviecr/skin/images/down.png);
     -moz-user-focus: ignore;
@@ -659,28 +686,27 @@ button-fontsize-picker button {
  */
 
 .button-fixed {
-    min-width:77px;
-    max-width:77px;
-    width: 77px;
-    min-height:42px;
-    max-height:42px;
-    height: 42px;
-    margin:  2px 0px 0px 3px;
-    padding: 0px;
-    list-style-type: none;
-    color: #3b556c;
-    font-weight: bold !important;
-    font-size: 12px;
-    overflow: hidden;
-    text-wrap: normal;
-    word-wrap: break-word;
+    background: transparent url(../images/funBtn.png) center center no-repeat;
     border: 0px solid;
+    color: #3b556c;
+    font-size: 12px;
+    font-weight: bold !important;
+    height: 42px;
+    list-style-type: none;
+    margin:  2px 0px 0px 3px;
+    max-height:42px;
+    max-width:77px;
+    min-height:42px;
+    min-width:77px;
+    overflow: hidden;
+    padding: 0px;
+    text-wrap: normal;
+    width: 77px;
+    word-wrap: break-word;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-box-align:center;
     -moz-box-pack:center;
-
-    background: transparent url(../images/funBtn.png) center center no-repeat;
 }
 
 .button-fixed:active {

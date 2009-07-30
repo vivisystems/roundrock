@@ -62,7 +62,7 @@
 <!ENTITY plus.location "Stock Location">
 
 <!ENTITY plus.header.label "Label">
-<!ENTITY plus.header.preset "Default Item">
+<!ENTITY plus.header.preset "Preset Item">
 <!ENTITY plus.header.quantity "Qty">
 <!ENTITY plus.header.baseprice "Price">
 <!ENTITY plus.header.group "Group">
@@ -95,7 +95,7 @@
 <!ENTITY plus.button.action.modify "Modify">
 <!ENTITY plus.button.action.clone "Clone">
 <!ENTITY plus.button.action.delete "Delete">
-<!ENTITY plus.button.action.update.setitem "Update">
+<!ENTITY plus.button.action.update.setitem "Update Set Item">
 <!ENTITY plus.button.action.select "Select">
 <!ENTITY plus.button.action.add.icon "Add Icon">
 <!ENTITY plus.button.action.remove.icon "Remove Icon">

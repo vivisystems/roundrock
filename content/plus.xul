@@ -344,7 +344,7 @@
                                 </viviscrollabletree>
                             </vbox>
                             
-                            <hbox>
+                            <vbox>
                                 <grid class="data-form-2" flex="1">
                                     <columns>
                                         <column flex="1"/>
@@ -398,9 +398,9 @@
                                         </row>
                                     </rows>
                                 </grid>
-                                <button id="modify_setitem" label="&plus.button.action.update.setitem;" disabled="true" class="button-modify"
+                                <button id="modify_setitem" label="&plus.button.action.update.setitem;" disabled="true" class="button-modify button-item-c"
                                         oncommand="$do('modifySetItem', null, 'Plus');" />
-                            </hbox>
+                            </vbox>
                         </tabpanel>
 
                         <!-- Icon and Button color -->
@@ -412,10 +412,10 @@
                                         <image id="pluimage" class="custom-content-product-image"/>
                                     </hbox>
                                     <spacer flex="1"/>
-                                    <vbox class="toolbar" toolbarmode="vertical">
-                                        <button id="imageBrowseBtn" class="button-item-a" label="&plus.button.action.add.icon;"
-                                                image="chrome://viviecr/skiren/images/add.png"/>
-                                        <button id="imageRemoveBtn" class="button-item-a" label="&plus.button.action.remove.icon;"
+                                    <vbox>
+                                        <button id="imageBrowseBtn" class="button-execute" label="&plus.button.action.add.icon;"
+                                                image="chrome://viviecr/skin/images/add.png"/>
+                                        <button id="imageRemoveBtn" class="button-execute" label="&plus.button.action.remove.icon;"
                                                 image="chrome://viviecr/skin/images/cancel.png"/>
                                     </vbox>
                                     <spacer flex="1"/>

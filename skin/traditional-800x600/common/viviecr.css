@@ -24,15 +24,16 @@
  */
 
 .label-page-title {
-    font-size: 12pt;
     color: #534741;
-    margin: 5px 8px;
+    font-size: 12pt;
     font-weight: bold;
+    margin: 5px 8px;
 }
 
 .label-sub-title {
-    font-size: 10pt;
     color: #372213;
+    font-size: 10pt;
+    font-weight: bold;
     margin: 5px 8px;
 }
 
@@ -121,4 +122,20 @@ vivitree[class~=standard] treechildren::-moz-tree-checkbox(checked){
   /* css for checked cells. cbox-check.gif isn't available in Firefox 1, 2, and 3 on Mac OS X, so you should specify a URL to an image
      in your extension or elsewhere. */
   list-style-image: url("chrome://global/skin/checkbox/cbox-check.gif");
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard Vivitimezones
+ *-----------------------------------------------------------------------------
+ */
+
+vivitimezones[type=button] label {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+vivitimezones[type=button] hbox {
+    margin: 5px;
+    -moz-box-align: center;
 }
