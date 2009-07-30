@@ -480,7 +480,7 @@
                             prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
                             prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
-                var action = prompts.confirmEx(null,
+                var action = prompts.confirmEx(this.topmostWindow,
                                                _('Exit'),
                                                _('You have made changes to condiment dock settings. Save changes before exiting?'),
                                                flags, _('Save'), _('Discard'), '', null, check);

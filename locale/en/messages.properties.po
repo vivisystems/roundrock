@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-30 20:14+0800\n"
+"POT-Creation-Date: 2009-07-31 04:41+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,7 +162,7 @@ msgid "vivipos.fec.settings.controlpanels.system.remote_control.label"
 msgstr "Remote Control"
 
 msgid "vivipos.fec.settings.controlpanels.system.sync_settings.label"
-msgstr "Synchronization Settings"
+msgstr "Network Service Settings"
 
 msgid "vivipos.fec.settings.controlpanels.system.systembackup.label"
 msgstr "System Backup"
@@ -2592,10 +2592,12 @@ msgid "Failed to set date/time"
 msgstr ""
 
 #: ../..//content/localekeyboard.js:35
+#: ../..//content/controllers/localekeyboard_controller.js:34
 msgid "confirm language and keyboard mapping change"
 msgstr ""
 
 #: ../..//content/localekeyboard.js:36
+#: ../..//content/controllers/localekeyboard_controller.js:35
 msgid ""
 "Language and Keyboard mapping changes require system restart to take effect. "
 "If you save the changes now, the system will restart automatically after you "
@@ -2708,10 +2710,12 @@ msgid "Can not select this order!!"
 msgstr ""
 
 #: ../..//content/sync_settings.js:18
+#: ../..//content/controllers/sync_settings_controller.js:55
 msgid "confirm synchronize settings change"
 msgstr ""
 
 #: ../..//content/sync_settings.js:19
+#: ../..//content/controllers/sync_settings_controller.js:56
 msgid ""
 "Synchronize settings changes require system restart to take effect. If you "
 "save the changes now, the system will restart automatically after you return "
@@ -2774,7 +2778,7 @@ msgstr ""
 #: ../..//content/controllers/plus_controller.js:998
 #: ../..//content/controllers/promotions_manager_controller.js:359
 #: ../..//content/controllers/taxes_controller.js:253
-#: ../..//content/controllers/users_controller.js:255
+#: ../..//content/controllers/users_controller.js:256
 msgid "confirm delete %S"
 msgstr ""
 
@@ -2789,7 +2793,7 @@ msgstr ""
 #: ../..//content/controllers/pricelevelschedule_controller.js:154
 #: ../..//content/controllers/promotions_manager_controller.js:359
 #: ../..//content/controllers/taxes_controller.js:253
-#: ../..//content/controllers/users_controller.js:255
+#: ../..//content/controllers/users_controller.js:256
 msgid "Are you sure?"
 msgstr ""
 
@@ -2817,14 +2821,17 @@ msgstr ""
 #: ../..//content/controllers/condiments_controller.js:157
 #: ../..//content/controllers/departments_controller.js:158
 #: ../..//content/controllers/jobs_controller.js:227
+#: ../..//content/controllers/localekeyboard_controller.js:73
 #: ../..//content/controllers/nonplu_setting_controller.js:217
 #: ../..//content/controllers/plufilter_controller.js:193
 #: ../..//content/controllers/plugroups_controller.js:400
 #: ../..//content/controllers/plus_controller.js:667
+#: ../..//content/controllers/remote_control_controller.js:88
 #: ../..//content/controllers/static_condiments_controller.js:484
 #: ../..//content/controllers/storecontact_controller.js:175
+#: ../..//content/controllers/sync_settings_controller.js:142
 #: ../..//content/controllers/taxes_controller.js:88
-#: ../..//content/controllers/users_controller.js:374
+#: ../..//content/controllers/users_controller.js:375
 msgid "Exit"
 msgstr ""
 
@@ -2838,15 +2845,18 @@ msgstr ""
 #: ../..//content/controllers/condiments_controller.js:159
 #: ../..//content/controllers/departments_controller.js:160
 #: ../..//content/controllers/jobs_controller.js:229
+#: ../..//content/controllers/localekeyboard_controller.js:75
 #: ../..//content/controllers/localization_controller.js:326
 #: ../..//content/controllers/nonplu_setting_controller.js:219
 #: ../..//content/controllers/plufilter_controller.js:195
 #: ../..//content/controllers/plugroups_controller.js:402
 #: ../..//content/controllers/plus_controller.js:669
+#: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:177
+#: ../..//content/controllers/sync_settings_controller.js:144
 #: ../..//content/controllers/taxes_controller.js:90
-#: ../..//content/controllers/users_controller.js:376
+#: ../..//content/controllers/users_controller.js:377
 msgid "Save"
 msgstr ""
 
@@ -2854,6 +2864,7 @@ msgstr ""
 #: ../..//content/controllers/condiments_controller.js:159
 #: ../..//content/controllers/departments_controller.js:160
 #: ../..//content/controllers/jobs_controller.js:229
+#: ../..//content/controllers/localekeyboard_controller.js:75
 #: ../..//content/controllers/localization_controller.js:326
 #: ../..//content/controllers/main_controller.js:793
 #: ../..//content/controllers/main_controller.js:819
@@ -2861,10 +2872,12 @@ msgstr ""
 #: ../..//content/controllers/plufilter_controller.js:195
 #: ../..//content/controllers/plugroups_controller.js:402
 #: ../..//content/controllers/plus_controller.js:669
+#: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:177
+#: ../..//content/controllers/sync_settings_controller.js:144
 #: ../..//content/controllers/taxes_controller.js:90
-#: ../..//content/controllers/users_controller.js:376
+#: ../..//content/controllers/users_controller.js:377
 msgid "Discard"
 msgstr ""
 
@@ -2878,7 +2891,7 @@ msgstr ""
 #: ../..//content/controllers/plus_controller.js:685
 #: ../..//content/controllers/plus_controller.js:698
 #: ../..//content/controllers/taxes_controller.js:106
-#: ../..//content/controllers/users_controller.js:355
+#: ../..//content/controllers/users_controller.js:356
 msgid "Discard Changes"
 msgstr ""
 
@@ -4307,17 +4320,8 @@ msgstr ""
 msgid "Failed to create install.rdf file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/export_locale_controller.js:99
+#: ../..//content/controllers/export_locale_controller.js:98
 msgid "Locale package [%S] successfully exported"
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:104
-#: ../..//content/controllers/localization_controller.js:685
-msgid "Export Locale"
-msgstr ""
-
-#: ../..//content/controllers/export_locale_controller.js:105
-msgid "Failed to export locale package [%S]"
 msgstr ""
 
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:838
@@ -4924,8 +4928,18 @@ msgid "(view)stored"
 msgstr ""
 
 #: ../..//content/controllers/list_orders_controller.js:173
-#: ../..//content/reports/controllers/rpt_base_controller.js:450
+#: ../..//content/reports/controllers/rpt_base_controller.js:447
 msgid "Order Details"
+msgstr ""
+
+#: ../..//content/controllers/localekeyboard_controller.js:58
+msgid "No changed to save"
+msgstr ""
+
+#: ../..//content/controllers/localekeyboard_controller.js:74
+msgid ""
+"You have made changes to locale and keyboard settings. Save changes before "
+"exiting?"
 msgstr ""
 
 #: ../..//content/controllers/localization_controller.js:58
@@ -4943,11 +4957,11 @@ msgstr ""
 msgid "Translations have been modified; save changes?"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:520
+#: ../..//content/controllers/localization_controller.js:519
 msgid "Localization Editor"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:521
+#: ../..//content/controllers/localization_controller.js:520
 msgid ""
 "The text you entered contains one or more special characters (%, &, \") that "
 "should be used with extreme care. Mis-use may lead to non-functional "
@@ -4955,23 +4969,19 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/localization_controller.js:611
-msgid "DTD file [%S] successfully updated"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:615
 msgid "Failed to write DTD to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:630
-msgid "Properties file [%S] successfully updated"
-msgstr ""
-
-#: ../..//content/controllers/localization_controller.js:633
+#: ../..//content/controllers/localization_controller.js:626
 msgid "Failed to write Properties to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:675
+#: ../..//content/controllers/localization_controller.js:668
 msgid "Failed to load install.rdf for package:locale [%S:%S] at path [%S]"
+msgstr ""
+
+#: ../..//content/controllers/localization_controller.js:678
+msgid "Export Locale"
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:174
@@ -5701,6 +5711,16 @@ msgstr ""
 
 #: ../..//content/controllers/remote_control_controller.js:27
 msgid "Password and Verify Password not the same"
+msgstr ""
+
+#: ../..//content/controllers/remote_control_controller.js:75
+msgid "Remote Control Settings saved"
+msgstr ""
+
+#: ../..//content/controllers/remote_control_controller.js:89
+msgid ""
+"You have made changes to remote control settings. Save changes before "
+"exiting?"
 msgstr ""
 
 #: ../..//content/controllers/scale_controller.js:68
@@ -6440,6 +6460,12 @@ msgstr ""
 msgid "Terminal number must only contain [a-zA-Z] and [0-9]"
 msgstr ""
 
+#: ../..//content/controllers/sync_settings_controller.js:143
+msgid ""
+"You have made changes to network service settings. Save changes before "
+"exiting?"
+msgstr ""
+
 #: ../..//content/controllers/systembackup_controller.js:180
 msgid "Backing Up Data to Local Storage"
 msgstr ""
@@ -6869,50 +6895,50 @@ msgid ""
 "logs in"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:209
+#: ../..//content/controllers/users_controller.js:210
 msgid "The assigned drawer [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:224
+#: ../..//content/controllers/users_controller.js:225
 msgid "The assigned drawer [%S] is not yet enabled!"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:229
+#: ../..//content/controllers/users_controller.js:230
 msgid ""
 "Error detected in device manager; unable to verify cash drawer configuration"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:244
+#: ../..//content/controllers/users_controller.js:245
 msgid "[%S] is the default user and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:248
+#: ../..//content/controllers/users_controller.js:249
 msgid "[%S] is the current user and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:252
+#: ../..//content/controllers/users_controller.js:253
 msgid "[%S] may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:280
+#: ../..//content/controllers/users_controller.js:281
 msgid "Employee [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:305
+#: ../..//content/controllers/users_controller.js:306
 msgid "Select Access Group"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:327
+#: ../..//content/controllers/users_controller.js:328
 msgid "Select Default Job"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:356
+#: ../..//content/controllers/users_controller.js:357
 msgid ""
 "You have made changes to the current user. Are you sure you want to discard "
 "the changes?"
 msgstr ""
 
-#: ../..//content/controllers/users_controller.js:375
+#: ../..//content/controllers/users_controller.js:376
 msgid "You have made changes to the current user. Save changes before exiting?"
 msgstr ""
 
@@ -7268,8 +7294,8 @@ msgstr ""
 
 #: ../..//content/reports/controllers/journal_report_controller.js:146
 #: ../..//content/reports/controllers/journal_report_controller.js:159
-#: ../..//content/reports/controllers/rpt_base_controller.js:242
-#: ../..//content/reports/controllers/rpt_base_controller.js:295
+#: ../..//content/reports/controllers/rpt_base_controller.js:239
+#: ../..//content/reports/controllers/rpt_base_controller.js:292
 msgid "Media not found!! Please attach a USB thumb drive..."
 msgstr ""
 
@@ -7277,25 +7303,25 @@ msgstr ""
 msgid "There was a problem saving file!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:217
+#: ../..//content/reports/controllers/rpt_base_controller.js:214
 msgid "Are you sure you want to export PDF copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:225
+#: ../..//content/reports/controllers/rpt_base_controller.js:222
 msgid ""
 "The document is too large to be exported in .PDF format, please export as ."
 "CSV file instead!"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:279
+#: ../..//content/reports/controllers/rpt_base_controller.js:276
 msgid "Are you sure you want to export CSV copy of this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:349
+#: ../..//content/reports/controllers/rpt_base_controller.js:346
 msgid "Are you sure you want to print this report?"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_base_controller.js:511
+#: ../..//content/reports/controllers/rpt_base_controller.js:508
 msgid "The thumb drive has no enough free space!"
 msgstr ""
 

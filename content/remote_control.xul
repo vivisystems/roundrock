@@ -55,7 +55,7 @@
                             <rows>
                                 <row>
                                         <label value="&remote_control.label.port;"/>
-                                        <vivitextbox value="5900" type="number" decimalplaces="0"
+                                        <vivitextbox value="5900" type="number"
                                                      numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                      form="remoteControlForm" name="port"/>
                                 </row>

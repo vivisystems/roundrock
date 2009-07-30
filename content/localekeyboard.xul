@@ -22,12 +22,12 @@
     <script>
     </script>
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/localekeyboard.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/localekeyboard.js"/>
 
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('save').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()"/>
     </keyset>
 
     <vbox flex="1" class="container-be">
@@ -40,7 +40,8 @@
                 <tabpanels>
                     <tabpanel flex="1" orient="vertical" align="center">
                         <vbox flex="1" class="content-listbox">
-                            <vivilocaleslistbox id="locale" package="viviecr" flex="1" class="custom-content-locales"
+                            <vivilocaleslistbox id="locale" package="viviecr" flex="1"
+                                                class="custom-content-locales"
                                                 type="listbox" rows="6" cols="6"/>
                         </vbox>
                     </tabpanel>

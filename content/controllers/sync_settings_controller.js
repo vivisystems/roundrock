@@ -16,9 +16,10 @@
             }
 
             settings.machine_id = settings.machine_id || GeckoJS.Session.get('terminal_no');
-		
-            this.Form.unserializeFromObject('syncSettingForm', settings);
+            settings.active = GeckoJS.String.parseBoolean(settings.active);
+            settings.pull_order = GeckoJS.String.parseBoolean(settings.pull_order);
 
+            this.Form.unserializeFromObject('syncSettingForm', settings);
         },
 
         isAlphaNumeric: function(str) {
@@ -41,9 +42,38 @@
             }
         },
         
-        save: function(data) {
+        save: function() {
+
+            var data = {
+                cancel: false,
+                changed: false
+            };
+
+            $do('validateForm', data, 'SyncSettings');
+
+            if (data.changed) {
+                var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
+                if (GREUtils.Dialog.confirm(topwin, _('confirm synchronize settings change'),
+                    _('Synchronize settings changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
+                    )) {
+
+                    this.update();
+
+                    GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            return !data.cancel;
+        },
+
+        update: function() {
 		
             var obj = this.Form.serializeToObject('syncSettingForm', false);
+            this.Form.unserializeFromObject('syncSettingForm', obj);
 
             // change boolean to integer
             for (var k in obj) {
@@ -98,8 +128,31 @@
             }catch(e) {
             }
 		
-        }
+        },
 
+        exit: function() {
+            
+            if (this.Form.isFormModified('syncSettingForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to network service settings. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    if (!this.save()) return;
+                }
+            }
+            window.close();
+        }
     };
 
     GeckoJS.Controller.extend(__controller__);

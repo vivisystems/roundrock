@@ -789,7 +789,9 @@
                                         prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
                                         prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
-                            var responseDiscardCart = prompts.confirmEx(null, _('Sign Off'), _('What do you want to do with the registered items?'),
+                            var responseDiscardCart = prompts.confirmEx(this.topmostWindow,
+                                                                        _('Sign Off'),
+                                                                        _('What do you want to do with the registered items?'),
                                                                         flags, _('Queue'), _('Discard'), "", null, check);
                             if (responseDiscardCart == 2) return;
                         }
@@ -815,8 +817,10 @@
                                         prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
                                         prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
-                            var responseDiscardQueue = prompts.confirmEx(null, _('Sign Off'), _('You have one or more queued orders. What do you want to do with them?'),
-                                                                        flags, _('Keep'), _('Discard'), "", null, check);
+                            var responseDiscardQueue = prompts.confirmEx(this.topmostWindow,
+                                                                         _('Sign Off'),
+                                                                         _('You have one or more queued orders. What do you want to do with them?'),
+                                                                         flags, _('Keep'), _('Discard'), "", null, check);
                             if (responseDiscardQueue == 2) return;
                         }
                     }

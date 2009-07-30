@@ -1,15 +1,15 @@
 
 <!ENTITY systembackup.backup "System Backup">
 <!ENTITY systembackup.restore "System Restore">
-<!ENTITY systembackup.local "Local Backup:">
-<!ENTITY systembackup.stick "Stick:">
+<!ENTITY systembackup.local "Local Backup">
+<!ENTITY systembackup.stick "External Backup">
 <!ENTITY systembackup.time "Time">
-<!ENTITY systembackup.backuptostick "Copy Local to Stick >>>">
+<!ENTITY systembackup.backuptostick "Copy Local to USB >>>">
 <!ENTITY systembackup.backuptolocal "Backup to Local">
 <!ENTITY systembackup.backupwithprofile "Backup profile and installed apps">
-<!ENTITY systembackup.restorefromstick "Restore from Stick">
+<!ENTITY systembackup.restorefromstick "Restore from USB">
 <!ENTITY systembackup.restorefromlocal "Restore from Local">
-<!ENTITY systembackup.restorewithsystem "Restore With System Settings">
+<!ENTITY systembackup.restorewithsystem "Restore With system settings">
  
 <!ENTITY vivipos.fec.common.ok "Ok">
 <!ENTITY vivipos.fec.common.cancel "Cancel">

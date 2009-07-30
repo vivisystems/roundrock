@@ -150,7 +150,7 @@ msgid "vivipos.fec.settings.controlpanels.system.remote_control.label"
 msgstr "Remote Control"
 
 msgid "vivipos.fec.settings.controlpanels.system.sync_settings.label"
-msgstr "Synchronization Settings"
+msgstr "Network Service Settings"
 
 msgid "vivipos.fec.settings.controlpanels.system.systembackup.label"
 msgstr "System Backup"

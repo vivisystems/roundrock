@@ -321,9 +321,10 @@
                         prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
                         prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
-            var r = prompts.confirmEx(null, _('Localization'),
-                                            _('Translations have been modified; save changes?'),
-                                            flags, _('Save'), _('Discard'), "", null, check);
+            var r = prompts.confirmEx(this.topmostWindow,
+                                      _('Localization'),
+                                      _('Translations have been modified; save changes?'),
+                                      flags, _('Save'), _('Discard'), "", null, check);
             return r;
         },
 
