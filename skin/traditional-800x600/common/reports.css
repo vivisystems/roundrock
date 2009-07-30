@@ -139,7 +139,7 @@ container-report.ReportButton[disabled=true] {
     -moz-border-radius: 8px;
 }
 
-.container-report .ReportTool vivibutton {
+.container-report .ReportTool button {
     background: none;
     border: none;
     border-right: solid 1px white;

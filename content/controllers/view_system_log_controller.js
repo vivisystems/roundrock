@@ -132,7 +132,7 @@
             }
 
             var preview = document.getElementById('preview_frame');
-            preview.contentDocument.body.innerHTML = "<pre> " + content + "</pre>";
+            preview.contentDocument.body.innerHTML = "<pre>" + content + "</pre>";
 
             this.resizeScrollButtons();
             

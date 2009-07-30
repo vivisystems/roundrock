@@ -49,6 +49,7 @@
                         <vivikbmaps id="kbmap" type="button" cols="5" rows="6" flex="1"
                                     label="&localekeyboard.keyboard.select;" popTitle="&localekeyboard.keyboard.title;"
                                     buttonClass="button-selections" kbmapButtonClass="button-execute"
+                                    oncommand="$do('selectKbmap', null, 'LocaleKeyboard');"
                                     scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                         <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
                                src="chrome://viviecr/content/skin/kblayouts/us.png"/>
@@ -60,9 +61,9 @@
             <spacer flex="1"/>
         
             <hbox id="dialogButtons" class="exitbar" pack="end">
-                <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="doOKButton();"/>
+                <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="$do('save', null, 'LocaleKeyboard');"/>
                 <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                <button id="cancel" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="doCancelButton();"/>
+                <button id="cancel" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="$do('exit', null, 'LocaleKeyboard');"/>
             </hbox>
         </vbox>
     </vbox>

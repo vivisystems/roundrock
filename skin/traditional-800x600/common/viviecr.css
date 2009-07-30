@@ -193,12 +193,12 @@ vivikbmaps[type=button] label {
 }
 
 vivikbmaps[type=button] > hbox {
-    margin: 5px 0px;
+    margin: 2px 0px;
     -moz-box-align: center;
 }
 
 vivitimezones stack {
-    padding: 10px;
+    padding: 5px;
 }
 
 vivikbmaps[type=button] panel {
