@@ -249,7 +249,7 @@
             var results = [];
             var destinationArray = new GeckoJS.ArrayQuery( destinations )._data;
             if ( destinationArray ) {
-                destinationArray.filter( function( d ) {
+                results = destinationArray.filter( function( d ) {
                     if ( d.name == destName )
                         return true;
                     return false;
