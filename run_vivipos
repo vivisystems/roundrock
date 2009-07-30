@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env /bin/sh
 
 #
 # vivipos launcher
@@ -91,7 +91,8 @@ while [ $RETVAL != 0 ]; do
     /usr/bin/aosd_cat -F "Sans 24" -d 800000  "$MSG_RUN_VIVIPOS_STARTING" &
 
 	# set env of system info
-    /usr/bin/env `${DIR}/getSystemLicenseStub -v` ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
+	eval `${DIR}/getSystemLicenseStub -v|awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
+	${DIR}/xulrunner/xulrunner ${DIR}/application.ini
     RETVAL=$?
 
     echo "`date +"%Y-%m-%d %H:%M:%S"` : Exit VIVIPOS [${RETVAL}]" >> ${DIR}/log/vivipos.log

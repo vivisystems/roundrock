@@ -2830,8 +2830,8 @@ UpdatePrompt.prototype = {
   /**
    * See nsIUpdateService.idl
    */
-  checkForUpdates: function UP_checkForUpdates() {
-    this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null, UPDATE_WINDOW_NAME,
+  checkForUpdates: function UP_checkForUpdates(parent) {
+    this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, "modal,dialog=yes", UPDATE_WINDOW_NAME,
                  null, null);
   },
 
@@ -2856,7 +2856,7 @@ UpdatePrompt.prototype = {
   /**
    * See nsIUpdateService.idl
    */
-  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background) {
+  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background, parent) {
     if (background) {
       if (!this._enabled)
         return;
@@ -2867,11 +2867,11 @@ UpdatePrompt.prototype = {
                                               [update.name], 1);
       var text = bundle.GetStringFromName(stringsPrefix + "text");
       var imageUrl = "";
-      this._showUnobtrusiveUI(null, URI_UPDATE_PROMPT_DIALOG, null,
+      this._showUnobtrusiveUI((parent||null), URI_UPDATE_PROMPT_DIALOG, null,
                               UPDATE_WINDOW_NAME, "finishedBackground", update,
                               title, text, imageUrl);
     } else {
-      this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null,
+      this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, "modal,dialog=yes",
                    UPDATE_WINDOW_NAME, "finishedBackground", update);
     }
   },

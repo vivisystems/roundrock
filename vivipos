@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env /bin/sh
 DIR=`dirname $0`
 
 # set env of system info
-/usr/bin/env `${DIR}/getSystemLicenseStub -v` ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
+eval `${DIR}/getSystemLicenseStub -v|awk -F"=" '$1 ~ /[A-Za-z0-9_]+/ { print "export " $1 "=\"" $2 "\"";  }'`
+
+ ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
 
