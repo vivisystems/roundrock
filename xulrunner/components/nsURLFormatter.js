@@ -1,4 +1,4 @@
-//@line 37 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/components/urlformatter/src/nsURLFormatter.js"
+//@line 37 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/components/urlformatter/src/nsURLFormatter.js"
 /**
  * @class nsURLFormatterService
  *
@@ -70,7 +70,7 @@ nsURLFormatterService.prototype = {
     }
 
     if (!PS.prefHasUserValue(aPref) &&
-        /^(?:data:.+,.+=.+|chrome:\/\/.+\/locale\/.+\.properties)$/.test(format)) {
+        /^(data:text\/plain,.+=.+|chrome:\/\/.+\/locale\/.+\.properties)$/.test(format)) {
       // This looks as if it might be a localised preference
       try {
         format = PS.getComplexValue(aPref, Ci.nsIPrefLocalizedString).data;

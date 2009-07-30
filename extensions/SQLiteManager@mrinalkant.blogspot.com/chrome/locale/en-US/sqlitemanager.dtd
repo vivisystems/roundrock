@@ -120,6 +120,7 @@
 <!ENTITY menu.help.aboutextension			"About SQLite Manager">
 <!ENTITY menu.help.aboutextension.ak "A">
 
+<!ENTITY profile.dblist.select			"(Select Profile Database)">
 <!ENTITY profile.dblist.buttonlabel			"Go">
 
 <!ENTITY	string.enterSql "Enter SQL">
@@ -135,6 +136,7 @@
 <!ENTITY	btn.showAll.ak "">
 <!ENTITY	btn.exporttable "Export">
 <!ENTITY	btn.exporttable.ak "">
+<!ENTITY	btn.addcol "Add Column">
 <!ENTITY	btn.addrecord "Add Record">
 <!ENTITY	btn.addrecord.ak "A">
 
@@ -152,8 +154,17 @@
 <!ENTITY	menu.copyRowsAsSql "Copy Row(s) as SQL">
 <!ENTITY	menu.copyRowsAsSql.ak "q">
 
-<!ENTITY	btn.runsql 	"Run SQL">
-<!ENTITY	btn.runsql.ak 	"R">
+<!ENTITY	menu.editColumn "Edit Column">
+<!ENTITY	menu.editColumn.ak "E">
+<!ENTITY	menu.dropColumn "Drop Column">
+<!ENTITY	menu.dropColumn.ak "D">
+
+<!ENTITY	btn.runsql        "Run SQL">
+<!ENTITY	btn.runsql.ak 	  "R">
+<!ENTITY	buttonRun 	      "Run SQL Statement (with results)">
+<!ENTITY	buttonRun.ak 	  "R">
+<!ENTITY	buttonExecute 	  "Execute Statement (no results)">
+<!ENTITY	buttonExecute.ak  "E">
 <!ENTITY	label.sqlLastError "Last Error">
 <!ENTITY	label.resultOfQuery "Result of the Query">
 <!ENTITY	label.resultOfQuery.ak "Q">
@@ -228,3 +239,61 @@
 <!ENTITY ifNotExists.ak "I">
 <!ENTITY SelectStatement "Select Statement">
 <!ENTITY SelectStatement.ak "S">
+<!ENTITY createIndex.dbName           "Database:">
+<!ENTITY createIndex.indexname        "Index Name:">
+<!ENTITY createIndex.indexproperties  "Define Index Properties">
+<!ENTITY createIndex.tabletoindex     "Table to Index:">
+<!ENTITY createIndex.loading          "(loading)">
+<!ENTITY createIndex.duplicatevalues  "Duplicate Values:">
+<!ENTITY createIndex.allowed          "Allowed">
+<!ENTITY createIndex.notallowed       "Not Allowed">
+<!ENTITY createIndex.indexcolumns     "Define Index Columns">
+<!ENTITY createTable.dbName           "Database:">
+<!ENTITY createTable.tablename        "Table Name:">
+<!ENTITY createTable.temptable        "Temporary table">
+<!ENTITY createTable.temptable.ak     "T">
+<!ENTITY createTable.ifnotexists      "If Not Exists">
+<!ENTITY createTable.ifnotexists.ak   "I">
+<!ENTITY createTable.tablecolumns     "Define Columns">
+<!ENTITY createTable.colname          "Column Name">
+<!ENTITY createTable.datatype         "Data Type">
+<!ENTITY createTable.primarykey       "Primary Key?">
+<!ENTITY createTable.autoincrement    "Autoinc?">
+<!ENTITY createTable.allownull        "Allow Null?">
+<!ENTITY createTable.default          "Default Value">
+<!ENTITY createTable.unique           "Unique?">
+<!ENTITY createTable.primarykey.yes   "Yes">
+<!ENTITY createTable.autoincrement.yes      "Yes">
+<!ENTITY createTable.autoincrement.tooltip  "AUTOINCREMENT is only allowed on an INTEGER PRIMARY KEY">
+<!ENTITY createTable.allownull.yes          "Yes">
+<!ENTITY createTable.unique.column          "Unique Column">
+<!ENTITY createTable.unique.columnlist      "Unique Column-list">
+<!ENTITY createTrigger.dbName               "Database:">
+<!ENTITY createTrigger.triggername          "Trigger Name:">
+<!ENTITY createTrigger.tabletoindex         "on Table:">
+<!ENTITY createTrigger.loading              "(loading)">
+<!ENTITY createTrigger.tempObject           "Temporary">
+<!ENTITY createTrigger.tempObject.ak        "T">
+<!ENTITY createTrigger.ifnotexists          "If Not Exists">
+<!ENTITY createTrigger.ifnotexists.ak       "I">
+<!ENTITY createTrigger.databaseevent        "Database Event">
+<!ENTITY createTrigger.triggerTime          "Before/After:">
+<!ENTITY createTrigger.triggerTime.ak       "B">
+<!ENTITY createTrigger.dbEvent              "Event:">
+<!ENTITY createTrigger.dbEvent.ak           "v">
+<!ENTITY createTrigger.triggeraction        "Trigger Action">
+<!ENTITY createTrigger.foreachrow           "For Each Row">
+<!ENTITY createTrigger.foreachrow.ak        "F">
+<!ENTITY createTrigger.txtWhenExpression    "WHEN expression (type expression without 'WHEN'):">
+<!ENTITY createTrigger.txtWhenExpression.ak "W">
+<!ENTITY createTrigger.txtTriggerSteps      "Trigger Steps (semicolon terminated):">
+<!ENTITY createTrigger.txtTriggerSteps.ak   "S">
+
+<!-- confirm dialog -->
+<!ENTITY confirm.button.accept  "Yes">
+<!ENTITY confirm.button.cancel  "No">
+
+<!-- RowOperations.xul -->
+<!ENTITY rowOperations.tablenames     "Table Name:">
+<!ENTITY rowOperations.tablenames.ak  "N">
+<!ENTITY rowOperations.loading        "(loading)">

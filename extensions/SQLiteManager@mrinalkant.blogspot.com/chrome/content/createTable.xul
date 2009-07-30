@@ -19,21 +19,21 @@
 	<hbox flex="1" style="margin:5px 0 5px 0;">
     <spacer flex="1"/>
 		<label style="padding-top:3px" accesskey="D"
-				control="dbName" value="Database:"/>
+				control="dbName" value="&createTable.dbName;"/>
     <menulist id="dbName"/>
 		<label style="padding-top:3px" accesskey="N"
-				control="tablename" value="Table Name:"/>
+				control="tablename" value="&createTable.tablename;"/>
     <textbox id="tablename"/>
     <spacer flex="1"/>
   </hbox>
 	<hbox id="hb-temp-exists" flex="1" style="margin:5px 0 5px 0;">
     <spacer flex="1"/>
-		<checkbox id="temptable" accesskey="T" label="Temporary table"/>
-		<checkbox id="ifnotexists" accesskey="I" label="If Not Exists"/>
+		<checkbox id="temptable" accesskey="&createTable.temptable.ak;" label="&createTable.temptable;"/>
+		<checkbox id="ifnotexists" accesskey="&createTable.ifnotexists.ak;" label="&createTable.ifnotexists;"/>
     <spacer flex="1"/>
   </hbox>
 	<groupbox id="rows-grbox">
-	<caption label="Define Columns"/>
+	<caption label="&createTable.tablecolumns;"/>
 		<grid style="overflow-y:auto" height="300">
 		  <columns>
 		    <column/>
@@ -43,14 +43,14 @@
 		  </columns>
 		  <rows id="rows-all">
 		    <row>
-		      <label control="colname" value="Column Name"/>
-		      <label control="datatype" value="Data Type"/>
-		      <label control="primarykey" value="Primary Key?"/>
-		      <label control="autoincrement" value="Autoinc?"/>
-		      <label control="allownull" value="Allow Null?"/>
-		      <label control="" value="Default Value"/>
+		      <label control="colname" value="&createTable.colname;"/>
+		      <label control="datatype" value="&createTable.datatype;"/>
+		      <label control="primarykey" value="&createTable.primarykey;"/>
+		      <label control="autoincrement" value="&createTable.autoincrement;"/>
+		      <label control="allownull" value="&createTable.allownull;"/>
+		      <label control="" value="&createTable.default;"/>
 <!--
-		      <label control="" value="Unique?"/>
+		      <label control="" value="&createTable.unique;"/>
 -->
 		    </row>
 		    <row id="row-template" style="display:none">
@@ -80,14 +80,14 @@
 		        </menupopup>
 				  </menulist>
 		      <checkbox id="primarykey" 
-						label="Yes" checked="false"
+						label="&createTable.primarykey.yes;" checked="false"
             oncommand="CreateManager.togglePrimaryKey(this.id);"/>
 		      <checkbox id="autoincrement" 
-						label="Yes" checked="false" disabled="true"
-						tooltiptext="AUTOINCREMENT is only allowed on an INTEGER PRIMARY KEY"
+						label="&createTable.autoincrement.yes;" checked="false" disabled="true"
+						tooltiptext="&createTable.autoincrement.tooltip;"
             onclick=""/>
 		      <checkbox id="allownull" 
-						label="Yes"	checked="true"/>
+						label="&createTable.allownull.yes;"	checked="true"/>
 		      <menulist id="defaultvalue"   style="width:150px"
 						sizetopopup="always" editable="true">
 		        <menupopup>
@@ -103,8 +103,8 @@
 								oncommand="">
 				        <menupopup>
 				          <menuitem label="" selected="true"/>
-				          <menuitem label="Unique Column" />
-				          <menuitem label="Unique Column-list" />
+				          <menuitem label="&createTable.unique.column;" />
+				          <menuitem label="&createTable.unique.columnlist;" />
 				        </menupopup>
 				  </menulist>
 -->

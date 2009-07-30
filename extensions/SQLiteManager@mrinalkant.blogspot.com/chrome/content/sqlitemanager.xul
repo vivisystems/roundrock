@@ -89,6 +89,8 @@
     <command id="smc-refresh" oncommand="SQLiteManager.refresh()"
     	tooltiptext="&refreshDirection;" label="&refresh;"
       accesskey="&refresh.ak;" observes="bc-dbOpen"/>
+    <command id="smc-options" oncommand="SQLiteManager.openOptionsWindow()"
+    	tooltiptext="&mi.options;" accesskey="&mi.options.ak;"/>
     <command id="smc-selectAllRecords" oncommand="SQLiteManager.selectAllRecords()"
     	tooltiptext="&selectAllRecords;" label="&selectAllRecords;"
       accesskey="&selectAllRecords.ak;" observes="bc-dbOpen"/>
@@ -105,6 +107,15 @@
   </broadcasterset>
 
   <popupset>
+  	<menupopup id="mp-opTableColumn">
+      <menuitem label="&menu.editColumn;" 
+  		accesskey="&menu.editColumn.ak;" 
+  		oncommand="SQLiteManager.alterColumn()"/>
+      <menuitem label="&menu.dropColumn;" 
+  		accesskey="&menu.dropColumn.ak;" 
+  		oncommand="SQLiteManager.dropColumn()"/>
+  	</menupopup>
+
   	<menupopup id="mp-copy">
   <!--
       <menuitem label="&menu.copyCell;"
@@ -329,8 +340,9 @@
 				</menu> 
 			  <menu id="menu-tools" label="&menu.tools;" accesskey="&menu.tools.ak;">
 			    <menupopup>
-				  <menuitem label="&mi.options;" accesskey="&mi.options.ak;" 
-						oncommand="window.openDialog('chrome://sqlitemanager/content/preferences.xul','preferences','chrome,titlebar,toolbar,centerscreen,modal');"/>
+          <menuitem label="&dropIndex;" accesskey="&drop.ak;" 
+      		command="smc-dropIndex"/>
+				  <menuitem label="&mi.options;" accesskey="&mi.options.ak;" command="smc-options"/>
 				  <menuitem id="menu-general-sharedPagerCache"
 						label="&mi.sharedPagerCache;"	accesskey="&mi.sharedPagerCache.ak;"
 						type="checkbox" checked="true"/>
@@ -374,6 +386,8 @@
       <toolbar id="sm-toolbar-refresh">
         <toolbarbutton command="smc-refresh" 
 					image="chrome://sqlitemanager/skin/images/refresh.png"/>
+        <toolbarbutton command="smc-options" 
+					image="chrome://sqlitemanager/skin/images/options.png"/>
 				<toolbarseparator/>
       </toolbar>
       <toolbar id="sm-toolbar-database">
@@ -418,7 +432,7 @@
 	      <menulist id="listbox-profileDB" style="max-width: 25ex" 
 						sizetopopup="always" dirType="profile">
 	        <menupopup>
-	          <menuitem label="(Select Profile Database)" selected="true"/>
+	          <menuitem label="&profile.dblist.select;" selected="true"/>
 	        </menupopup>
 	      </menulist>
         <toolbarbutton label="&profile.dblist.buttonlabel;"
@@ -435,7 +449,7 @@
   <hbox flex="1">
     <vbox id="sidebar-left" flex="1" persist="width">
       <menulist id="ml-dbNames"
-        style="font-size: 120%; font-weight: bold;	color: blue; padding: 6px 6px;"
+        style="font-weight: bold;	color: blue; padding: 3px 3px;"
         context="mp-detachDb" oncommand="SQLiteManager.changeAttachedDb();"/>
   		<tree id="t-dbStructNorm" flex="1" hidecolumnpicker="true" seltype="single"
         selstyle="primary" onselect="SQLiteManager.getDbObjectInfo()">
@@ -453,18 +467,13 @@
     </splitter>
 
     <vbox flex="1">
-    <!-- deck has to have flex -->
-    <deck id="d-mainarea" flex="1">
 		<tabbox id="sm-tabbox" flex="1">
-		  <tabs id="sm-tabs" onselect="SQLiteManager.doSelectTab(this.selectedItem)">
-		    <tab id="tab-structure" linkedpanel="structureTab" label="&tab.structure;"
-					persist="selected"/>
-		    <tab id="tab-browse" linkedpanel="browseTab" label="&tab.browse;"
-					persist="selected"/>
-		    <tab id="tab-execute" linkedpanel="executeTab" label="&tab.execute;"
-					persist="selected"/>
-		    <tab id="tab-dbinfo" linkedpanel="dbInfoTab" label="&tab.dbinfo;"
-					persist="selected"/>
+		  <tabs id="sm-tabs" onselect="SQLiteManager.loadTabWithId(this.selectedItem.id)" closebutton="false" onclosetab="SQLiteManager.closeTab()">
+		    <tab id="tab-structure" linkedpanel="structureTab" label="&tab.structure;"	persist="selected"/>
+		    <tab id="tab-browse" linkedpanel="browseTab" label="&tab.browse;" persist="selected"/>
+		    <tab id="tab-execute" linkedpanel="executeTab" label="&tab.execute;"	persist="selected"/>
+		    <tab id="tab-dbinfo" linkedpanel="dbInfoTab" label="&tab.dbinfo;" persist="selected"/>
+        <tab id="tab-exim" linkedpanel="eximTabpanel" collapsed="true"/>
 		  </tabs>
 
 		  <tabpanels flex="1">
@@ -536,15 +545,55 @@
 					</groupbox>
 					<groupbox>
 				  <caption label="&Columns;"/>
+  <tree id="treeTabCols" rows="6" seltype="single"
+      smTableName=""
+      onselect="SQLiteManager.editTableColumn()"
+      datasources="rdf:null" ref="?" querytype="storage">
+      <treecols>
+        <treecol id="cCid" label="Column ID" flex="1" persist="width"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="cName" label="Name" flex="1" persist="width"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="cType" label="Type" flex="1" persist="width"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="cNotnull" label="Not Null" flex="1" persist="width"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="cDflt_value" label="Default Value" flex="1" persist="width"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="cPk" label="Primary Key" flex="1" persist="width"/>
+      </treecols>
+<!--
+      <template>
+        <query id="qPragmaTable">
+              PRAGMA table_info(sqlite_master)
+        </query>
+        <action>
+          <treechildren id="smTableColumns">
+            <treeitem uri="?">
+              <treerow>
+                <treecell label="?cid"/>
+                <treecell label="?name"/>
+                <treecell label="?type"/>
+                <treecell label="?notnull"/>
+                <treecell label="?dflt_value"/>
+                <treecell label="?pk"/>
+              </treerow>
+            </treeitem>
+          </treechildren>
+        </action>
+      </template>
+-->
+          <treechildren id="smTableColumns" context="mp-opTableColumn">
+          </treechildren>
+  </tree>
+				  <vbox id="hb-addcol">
 				  <hbox>
   				  <label style="width:24ex;" value="&name;"/>
   				  <label style="width:15ex;" value="&type;"/>
-  				  <label style="width:6ex;" value="&pKey;"/>
   				  <label style="width:6ex;" value="&notNull;"/>
   				  <label style="width:10ex;" value="&default;"/>
 				  </hbox>
-				  <vbox id="vb-more-info-table-columns"/>
-				  <hbox id="hb-addcol">
+				  <hbox>
 			    <textbox id="tb-addcol-name" style="width:24ex"	value=""/>
 		      <menulist id="tb-addcol-type"   style="width:15ex"
 						editable="true"	sizetopopup="none">
@@ -569,11 +618,11 @@
 		        </menupopup>
 				  </menulist>
 
-			    <checkbox style="width:7ex"	value="" disabled="true"/>
 			    <checkbox id="tb-addcol-notnull" style="width:7ex"	value=""/>
 			    <textbox id="tb-addcol-default" style="width:10ex"	value=""/>
-					<button id="btn-addcol" label="Add Column" oncommand="SQLiteManager.operateOnTable('addColumn')"/>
+					<button id="btn-addcol" label="&btn.addcol;" oncommand="SQLiteManager.operateOnTable('addColumn')"/>
 				  </hbox>
+				  </vbox>
 				  </groupbox>
 				  </vbox>
 				  <groupbox id="gb-more-info-view"/>
@@ -685,8 +734,7 @@
   
   					<vbox style="min-height:5em">
   					<textbox id="txtSqlStatement" multiline="true" rows="2" 
-  						style="font-size:10pt; overflow: auto"
-  						flex="1" persist="value" value="SELECT * FROM tablename" />
+  						flex="1" value="SELECT * FROM tablename" />
 
   					<hbox flex="0">
   		      <menulist id="listbox-queries" hidden="true" style="max-width: 25ex" 
@@ -696,10 +744,10 @@
   					<button id="buttonRun" label="&btn.runsql;" 
   					accesskey="&btn.runsql.ak;" oncommand="SQLiteManager.runSqlStatement('select')" />
   <!--
-  					<button id="buttonRun" label="Run SQL Statement (with results)" 
-  					accesskey="R" oncommand="SQLiteManager.runSqlStatement('select')" />
-  					<button id="buttonExecute" label="Execute Statement (no results)" 
-  					accesskey="E" oncommand="SQLiteManager.runSqlStatement('execute')" />
+  					<button id="buttonRun" label="&buttonRun;" 
+  					accesskey="&buttonRun.ak;" oncommand="SQLiteManager.runSqlStatement('select')" />
+  					<button id="buttonExecute" label="&buttonExecute;" 
+  					accesskey="&buttonExecute.ak;" oncommand="SQLiteManager.runSqlStatement('execute')" />
   -->
             <label class="forControl" value="&label.sqlLastError;:"/>
             <textbox id="sqlLastError" readonly="true" flex="1"/>
@@ -717,10 +765,9 @@
 		    </tabpanel>
 
 		    <tabpanel id="dbInfoTab"/>
+		    <tabpanel id="eximTabpanel"/>
 		  </tabpanels>
 		</tabbox>
-		<tabbox id="eximTabbox"/>
-		</deck>
 		</vbox>
 		</hbox>
 		</vbox>

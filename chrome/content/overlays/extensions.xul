@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
+<!DOCTYPE window SYSTEM "chrome://vivipos/locale/extensions.dtd" >
 
 <overlay id="overlay_extensions" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript">
+    <script type="application/x-javascript"><![CDATA[
+
 window.addEventListener('load', function() {
  document.getElementById("search-view").hidden = true;
   document.getElementById("themes-view").hidden = false;
@@ -16,11 +18,34 @@ window.addEventListener('load', function() {
    document.getElementById('extensionsManager').setAttribute('screenY', 0);      
 }, true);
 
+
+function checkForUpdates(prompt) {
+    prompt = prompt || false;
+  var um =
+      Components.classes["@mozilla.org/updates/update-manager;1"].
+      getService(Components.interfaces.nsIUpdateManager);
+  var prompter =
+      Components.classes["@mozilla.org/updates/update-prompt;1"].
+      createInstance(Components.interfaces.nsIUpdatePrompt);
+
+  // If there's an update ready to be applied, show the "Update Downloaded"
+  // UI instead and let the user know they have to restart the browser for
+  // the changes to be applied.
+  if (um.activeUpdate && um.activeUpdate.state == "pending") {
+      prompter.showUpdateDownloaded(um.activeUpdate);
+  }else {
+      if (prompt) prompter.checkForUpdates();
+  }
+
+
+}
+]]>
   </script>
 
 
   <hbox id="commandBarBottom">
-    <button label="Close" oncommand="window.close();" />
+    <button label="&checkNewUpdates.label;" tooltiptext="&checkNewUpdates.tooltip;" oncommand="checkForUpdates(true);" />
+    <button label="&close.label;" tooltiptext="&close.tooltip;" oncommand="window.close();" />
   </hbox>
 
 </overlay>

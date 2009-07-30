@@ -49,10 +49,13 @@ pref("extensions.sqlitemanager.tableForExtensionManagement", "__sm_ext_mgmt");
 //for max number of columns in create table dialog
 pref("extensions.sqlitemanager.maxColumnsInTable", 20);
 
-//text to show for blob fields
+//Blob related
+//text to show for blob fields for increased performance
 pref("extensions.sqlitemanager.textForBlob", "BLOB");
-//display size of blob in the blob fields
+//display size of blob in the blob fields (gives better idea of data)
 pref("extensions.sqlitemanager.showBlobSize", true);
+//max size of blob to display as string (convert to string)
+pref("extensions.sqlitemanager.maxSizeToShowBlobData", 0);
 
 //unsafe alter table operations (delete/alter column) are disabled by default
 //pref("extensions.sqlitemanager.allowUnsafeTableAlteration", false);

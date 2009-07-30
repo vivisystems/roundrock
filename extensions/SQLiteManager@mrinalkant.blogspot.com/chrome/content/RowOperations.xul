@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+
 <dialog id="dialog-table-operations" title=""
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml"
@@ -30,16 +32,16 @@
 	<hbox style="margin:5px 0 5px 0;">
     <spacer flex="1"/>
 		<label id="label-name" style="padding-top:3px" 
-				accesskey="N"
+				accesskey="&rowOperations.tablenames.ak;"
 				control="tablenames" 
-				value="Table Name:"/>
+				value="&rowOperations.tablenames;"/>
      <menulist id="tablenames" 
 		 		style="width: 25ex" 
 				 sizetopopup="always" 
 				 oncommand="RowOperations.selectTable('tablenames')"
 				 value="">
       <menupopup>
-        <menuitem label="(loading)" selected="true"/>
+        <menuitem label="&rowOperations.loading;" selected="true"/>
       </menupopup>
     </menulist>
     <spacer flex="1"/>

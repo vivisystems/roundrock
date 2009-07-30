@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+
+<dialog id="columnEditor" title="&window.title; - Edit Column"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+				persist="width sizemode"
+        buttons="accept,cancel"
+        ondialogaccept="return ColumnEditor.doOKCreateTable();"
+        ondialogcancel="return ColumnEditor.doCancel();"
+				onload="ColumnEditor.loadCreateTableDialog();">
+
+  <script type="application/x-javascript" src="globals.js"/>  
+
+  <hbox>
+    <label control="colname" value="Column Name"/>
+    <textbox id="colname"  width="10"/>
+  </hbox>
+
+  <hbox>
+    <label control="datatype" value="Data Type"/>
+    <menulist id="datatype"   style="width:120px"
+			sizetopopup="always" editable="true"
+			oncommand="CreateManager.changeDataType(this.id);"
+			onblur="CreateManager.changeDataType(this.id);">
+      <menupopup>
+        <menuitem label="" selected="true"/>
+        <menuitem label="INTEGER" />
+        <!-- columns with REAL affinity -->
+        <menuitem label="DOUBLE" />
+        <menuitem label="FLOAT" />
+        <menuitem label="REAL" />
+        <!-- columns with TEXT affinity -->
+        <menuitem label="CHAR" />
+        <!--<menuitem label="CLOB" />-->
+        <menuitem label="TEXT" />
+        <menuitem label="VARCHAR" />
+				<!-- columns with NONE affinity -->
+        <menuitem label="BLOB" />
+				<!-- case default is NUMERIC affinity -->
+        <menuitem label="NUMERIC" />
+        <!-- others -->
+        <menuitem label="DATETIME" />
+      </menupopup>
+	  </menulist>
+  </hbox>
+
+  <hbox>
+    <label control="primarykey" value="Primary Key?"/>
+    <checkbox id="primarykey" 
+			label="Yes" checked="false"
+      oncommand="CreateManager.togglePrimaryKey(this.id);"/>
+  </hbox>
+
+  <hbox>
+    <label control="autoincrement" value="Autoinc?"/>
+    <checkbox id="autoincrement" 
+			label="Yes" checked="false" disabled="true"
+			tooltiptext="AUTOINCREMENT is only allowed on an INTEGER PRIMARY KEY"
+            onclick=""/>
+  </hbox>
+
+  <hbox>
+    <label control="allownull" value="Allow Null?"/>
+    <checkbox id="allownull" label="Yes"	checked="true"/>
+  </hbox>
+
+  <hbox>
+    <label control="" value="Default Value"/>
+    <menulist id="defaultvalue"   style="width:150px"
+			sizetopopup="always" editable="true">
+      <menupopup>
+        <menuitem id="mi-val-null" label="" selected="true"/>
+        <menuitem label="CURRENT_DATE" />
+        <menuitem label="CURRENT_TIME" />
+        <menuitem label="CURRENT_TIMESTAMP" />
+      </menupopup>
+	  </menulist>
+  </hbox>
+</dialog>

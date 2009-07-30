@@ -20,25 +20,25 @@
 		<label style="padding-top:3px" 
 				accesskey="D"
 				control="dbName" 
-				value="Database:"/>
+				value="&createTrigger.dbName;"/>
     <menulist id="dbName"
       oncommand="CreateManager.selectDb('dbName')"/>
 		<label style="padding-top:3px" 
 				accesskey="N"
 				control="objectName" 
-				value="Trigger Name:"/>
+				value="&createTrigger.triggername;"/>
     <textbox id="objectName"/>
     
     <label style="padding-top:5px" 
 				accesskey="a"
 				control="tabletoindex" 
-				value="on Table:"/>
+				value="&createTrigger.tabletoindex;"/>
      <menulist id="tabletoindex" 
 		 		style="width: 25ex" 
 				 sizetopopup="always" 
 				 value="">
       <menupopup>
-        <menuitem label="(loading)" selected="true"/>
+        <menuitem label="&createTrigger.loading;" selected="true"/>
       </menupopup>
     </menulist>
     
@@ -47,21 +47,21 @@
 	<hbox flex="1" style="margin:5px 0 5px 0;">
     <spacer flex="1"/>
 		<checkbox id="tempObject"
-				accesskey="T"
-				label="Temporary"/>
+				accesskey="&createTrigger.tempObject.ak;"
+				label="&createTrigger.tempObject;"/>
 		<checkbox id="ifnotexists"
-				accesskey="I"
-				label="If Not Exists"/>
+				accesskey="&createTrigger.ifnotexists.ak;"
+				label="&createTrigger.ifnotexists;"/>
     <spacer flex="1"/>
   </hbox>
   <vbox id="details-view">
   <groupbox>
-    <caption label="Database Event"/>
+    <caption label="&createTrigger.databaseevent;"/>
     <hbox>
 		<label style="padding-top:3px" 
-				accesskey="B"
+				accesskey="&createTrigger.triggerTime.ak;"
 				control="triggerTime" 
-				value="Before/After:"/>
+				value="&createTrigger.triggerTime;"/>
      <menulist id="triggerTime" 
 		 		style="width: 25ex" 
 				 sizetopopup="always" 
@@ -73,9 +73,9 @@
       </menupopup>
     </menulist>
 		<label style="padding-top:3px" 
-				accesskey="v"
+				accesskey="&createTrigger.dbEvent.ak;"
 				control="dbEvent" 
-				value="Event:"/>
+				value="&createTrigger.dbEvent;"/>
      <menulist id="dbEvent" 
 		 		style="width: 25ex" 
 				 sizetopopup="always" 
@@ -89,16 +89,16 @@
 		</hbox>    
 		</groupbox>
   <groupbox>
-    <caption label="Trigger Action"/>
+    <caption label="&createTrigger.triggeraction;"/>
 		<checkbox id="foreachrow"
-				accesskey="F"
-				label="For Each Row"/>
-  	<label control="txtWhenExpression" value="WHEN expression (type expression without 'WHEN'):"
-			accesskey="W"/>
+				accesskey="&createTrigger.foreachrow.ak;"
+				label="&createTrigger.foreachrow;"/>
+  	<label control="txtWhenExpression" value="&createTrigger.txtWhenExpression;"
+			accesskey="&createTrigger.txtWhenExpression.ak;"/>
 		<textbox id="txtWhenExpression" multiline="true" rows="2" cols="50" 
 						align="stretch"/>
-  	<label control="txtTriggerSteps" value="Trigger Steps (semicolon terminated):"
-			accesskey="S"/>
+  	<label control="txtTriggerSteps" value="&createTrigger.txtTriggerSteps;"
+			accesskey="&createTrigger.txtTriggerSteps.ak;"/>
 		<textbox id="txtTriggerSteps" multiline="true" rows="4" cols="50" 
 						align="stretch"/>
 		</groupbox>

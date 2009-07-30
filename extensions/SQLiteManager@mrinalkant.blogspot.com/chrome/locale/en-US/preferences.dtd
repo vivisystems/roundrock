@@ -19,6 +19,8 @@
 
 <!ENTITY  pref-autoBackup.label	"Create a timestamped Backup before opening a database">
 <!ENTITY  pref-autoBackup.ak		"B">
+<!ENTITY  pref-autoBackup.on		"on">
+<!ENTITY  pref-autoBackup.off		"off">
 <!ENTITY  pref-sqliteFileExtensions.label	"Default file extension for SQLite files">
 <!ENTITY  pref-sqliteFileExtensions.ak		"S">
 <!ENTITY  pref-tableForExtensionManagement.label	"Name of the table to store extension management data">
@@ -47,9 +49,12 @@
 <!ENTITY  pref-maxColumnsInTable.label	"Max number of columns in Create Table dialog">
 <!ENTITY  pref-maxColumnsInTable.ak	"M">
 
+<!ENTITY  blobDisplay.caption	"How to display BLOB data?">
 <!ENTITY  pref-textForBlob.label	"Text to display for BLOB value">
 <!ENTITY  pref-textForBlob.ak	"B">
 <!ENTITY  pref-showBlobSize.label	"Display size of blob data">
+<!ENTITY  pref-maxSizeToShowBlobData.label	"Size (in bytes) below which blob should be displayed as string">
+<!ENTITY  pref-maxSizeToShowBlobData.ak	"z">
 
 <!ENTITY  pref-whenInsertingShow.label	"When adding new record, show previously added values, or default values">
 <!ENTITY  pref-whenInsertingShow.ak	"W">

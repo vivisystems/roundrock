@@ -126,6 +126,12 @@ SQLiteHandler.prototype = {
 	  return null;
 	},
 
+  getFile: function() {
+    if (this.dataConnection != null)
+	    return this.dataConnection.databaseFile;
+	  return null;
+	},
+
   get sqliteVersion() {
 		this.selectQuery("SELECT sqlite_version()");
 		return this.aTableData[0][0];
@@ -223,10 +229,10 @@ SQLiteHandler.prototype = {
     if (aArgs.aOrder && aArgs.aOrder.length > 0) {
       var aTemp = [];
       for (var i = 0; i < aArgs.aOrder.length; i++) {
-        aTemp.push(aArgs.aOrder[i][0] + " " + aArgs.aOrder[i][1]);
+        aTemp.push("[" + aArgs.aOrder[i][0] + "] " + aArgs.aOrder[i][1]);
       }
-      sOrder = " ORDER BY " + aTemp.join(",") + " ";
-            //alert("sOrder = " + sOrder);
+      sOrder = " ORDER BY " + aTemp.join(", ") + " ";
+//      alert("sOrder = " + sOrder);
     }
 
 		var extracol = "";
@@ -387,6 +393,9 @@ SQLiteHandler.prototype = {
 	              	var aData = {value:null};
 	  							stmt.getBlob(i, iDataSize, aData);
 	  							cell += " (Size: " + iDataSize.value + ")";
+	  							if (iDataSize.value <= g_maxSizeToShowBlobData || g_maxSizeToShowBlobData < 0) {
+	  							  cell = sm_blob2str(aData.value);
+	  							}
 	              }
 	            }
 							break;

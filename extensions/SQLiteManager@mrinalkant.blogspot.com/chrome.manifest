@@ -28,6 +28,3 @@ overlay chrome://messenger/content/messengercompose/messengercompose.xul chrome:
 #Komodo
 overlay chrome://komodo/content/komodo.xul chrome://sqlitemanager/content/overlays/komodo.xul
 
-#Vivipos
-overlay  chrome://vivipos/content/vivipos.xul chrome://vivipos/content/overlays/sqlitemanager.xul
-

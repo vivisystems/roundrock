@@ -9,8 +9,7 @@ var SmExim = {
 	mFileToImport: null,
 	msLeafName: null,
 
-  mDeckId: null,
-  mPrevDeckPanelId: null,
+  mPrevTabId: null,
 
   init: function() {
     this.msDbName = null;
@@ -21,22 +20,26 @@ var SmExim = {
   },
 
   exitExim: function() {
-    if (this.mPrevDeckPanelId == "eximTabbox")
-      $$(this.mDeckId).selectedIndex = 0;
-    else
-      $$(this.mDeckId).selectedPanel = $$(this.mPrevDeckPanelId);
+  //use collapsed instead of hidden to preserve the ordering of tabs
+    $$("tab-exim").collapsed = true;
+    $$("eximTabpanel").hidden = true;
+    $$("sm-tabs").selectedItem = $$(this.mPrevTabId);
+    $$("sm-tabs").setAttribute("closebutton", false);
   },
 
-	loadDialog: function (sOpType, sDeckId, sObjectType, sObjectName) {
+	loadDialog: function(sOpType, sObjectType, sObjectName) {
     this.init();
-    this.mDeckId = sDeckId;
-    this.mPrevDeckPanelId = $$(sDeckId).selectedPanel.id;
-
-    $$(this.mDeckId).selectedPanel = $$("eximTabbox");
 		this.msDbName = Database.logicalDbName;
 
+    this.mPrevTabId = SQLiteManager.getSelectedTabId();
+    $$("tab-exim").collapsed = false;
+    $$("eximTabpanel").hidden = false;
+    $$("sm-tabs").selectedItem = $$("tab-exim");
+    $$("sm-tabs").setAttribute("closebutton", true);
+
 		if (sOpType == "import") {
-			$$("eximTab").label = "Import Wizard";
+			$$("tab-exim").label = "Import Wizard   ";
+			$$("eximSubtitle").value = "";
 			$$("exim-exp-ok").hidden = true;
 			$$("exim-imp-ok").hidden = false;
 			$$("eximSql-create-statement").hidden = true;
@@ -48,7 +51,8 @@ var SmExim = {
 		if (sOpType == "export") {
 		  this.sObjectType = sObjectType;
 		  this.sObjectName = sObjectName;
-			$$("eximTab").label = "Export Wizard: Exporting the " + sObjectType + ": " + this.sObjectName;
+			$$("tab-exim").label = "Export Wizard   ";
+			$$("eximSubtitle").value = "Exporting the " + sObjectType + ": " + this.sObjectName;
 			$$("exim-exp-ok").hidden = false;
 			$$("exim-imp-ok").hidden = true;
 			$$("eximSql-create-statement").hidden = false;
@@ -182,7 +186,11 @@ var SmExim = {
 		}
     os.close();
 		foStream.close();
-		sm_message(iExportNum + " records exported to " + fp.file.path, 0x3);
+
+    var sMessage = iExportNum + " records exported to " + fp.file.path;
+    var sType = "info";
+    sm_notify("boxNotifyExim", sMessage, sType, 4);
+
 		return false;
 	},
 
@@ -357,12 +365,15 @@ var SmExim = {
 		var iLength = this.msLeafName.indexOf(".");
 		if (iLength >= 0)
 			this.msLeafName = this.msLeafName.substring(0, iLength);
+		$$("eximCsvTableName").value = this.msLeafName;
 		return true;
   },
 
 	doOKImport: function() {
     if (this.mFileToImport == null) {
-      smPrompt.alert(null, "SQLite Manager - Import Error", "No file to import from!\nPlease select the file which contains the data you want to import.");
+      var sMessage = "Import Error: No file to import from!\nPlease select the file which contains the data you want to import.";
+      var sType = "critical";
+      sm_notify("boxNotifyExim", sMessage, sType, 4);
       return false;
     }
 
@@ -418,33 +429,38 @@ var SmExim = {
 		}
 		this.lines = null;
 		if (iImportNum > 0) {
+		  var sMessage = "Import: ";
 		  if (this.sExpType == "sql")
-		    sm_message(iImportNum + " statements executed.", 0x3);
+		    sMessage += iImportNum + " statements executed.";
 		  else
-		    sm_message(iImportNum + " records imported.", 0x3);
+		    sMessage += iImportNum + " records imported.";
+      var sType = "info";
+      sm_notify("boxNotifyExim", sMessage, sType, 4);
 
       SQLiteManager.refreshDbStructure();
       SQLiteManager.loadTabBrowse();
       return true;
 
 		}
-		else
-		  sm_message("Import failed.", 0x3);
+		else {
+      var sMessage = "Import Error: Import failed.";
+      var sType = "critical";
+      sm_notify("boxNotifyExim", sMessage, sType, 4);
+		}
 		  
 		return false;
 	},
 	
 	readCsvContent: function(cSeparator, cEncloser, bColNames) {
-		//determine table name
-		var check = {value: false};   // default the checkbox to false
 		var input = {value: this.msLeafName};   // default the edit field to leafname
-		var result = smPrompt.prompt(null, "SQLite Manager",
-		                  "Enter the name of the table in which data will be imported:", 
-		                  input, null, check);
-		var sTabName = input.value;
+		var sTabName = $$("eximCsvTableName").value;
 		//returns true on OK, false on cancel
-		if (!result || sTabName.length == 0)
+		if (sTabName.length == 0) {
+      var sMessage = "Import Error: Please enter a valid table name.";
+      var sType = "critical";
+      sm_notify("boxNotifyExim", sMessage, sType, 4);
 		  return -1;
+		}
 
 		var sVals, row, colText;
 		var iEnc = cEncloser.length;
@@ -557,10 +573,8 @@ var SmExim = {
 		  sData += this.lines[iLine] + "\n";
 
 		var aQueries = sql_tokenizer(sData);
-//		alert(aQueries);
 
     var bTransact = $$("eximSql-transact-statement").checked;
-
     if (bTransact) {
       //remove the first and last statement which should be
       //BEGIN TRANSACTION and COMMIT respectively

@@ -1,5 +1,0 @@
-dallas = 0000000000000000 
-system =  
-vendor =  
-mac address = 00026b07f441 
-license stub= 1e4a1b03d1b6cd8a174a826f76e009f4d41d8cd98f00b204e9800998ecf8427ed41d8cd98f00b204e9800998ecf8427ebfdb9de7960ce7d72af3e6fb79cdb203 

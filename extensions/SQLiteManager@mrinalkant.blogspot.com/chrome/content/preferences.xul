@@ -63,8 +63,8 @@
     		 		style="width: 20ex" sizetopopup="always"
   					preference="pref-autoBackup">
   				<menupopup>
-  				  <menuitem label="off" value="off"/>
-  				  <menuitem label="on" value="on"/>
+  				  <menuitem label="&pref-autoBackup.off;" value="off"/>
+  				  <menuitem label="&pref-autoBackup.on;" value="on"/>
   				  <menuitem label="prompt" value="prompt"/>
   				</menupopup>
         </menulist>
@@ -144,6 +144,8 @@
 						name="extensions.sqlitemanager.textForBlob" type="string"/>
           <preference id="pref-showBlobSize" 
 						name="extensions.sqlitemanager.showBlobSize" type="bool"/>
+          <preference id="pref-maxSizeToShowBlobData" 
+						name="extensions.sqlitemanager.maxSizeToShowBlobData" type="int"/>
 
           <preference id="pref-whenInsertingShow" 
 						name="extensions.sqlitemanager.whenInsertingShow" type="string"/>
@@ -190,6 +192,23 @@
 					preference="pref-maxColumnsInTable" 
 				  value=""/>
 			  </hbox>
+      	<hbox>
+      		<label style="padding-top:3px" 
+      				accesskey="&pref-whenInsertingShow.ak;"
+      				control="ml-whenInsertingShow" 
+      				value="&pref-whenInsertingShow.label;"/>
+          <spacer flex="1"/>
+          <menulist id="ml-whenInsertingShow" 
+      		 		style="width: 20ex" sizetopopup="always"
+    					preference="pref-whenInsertingShow">
+    				<menupopup>
+    				  <menuitem label="previous" value="previous"/>
+    				  <menuitem label="default" value="default"/>
+    				</menupopup>
+          </menulist>
+        </hbox>
+			  <groupbox>
+			  <caption label="&blobDisplay.caption;"/>
   			<hbox>
 			  <label value="&pref-textForBlob.label;"
 				  style="padding-top:5px" 
@@ -207,21 +226,17 @@
 						preference="pref-showBlobSize" 
 						checked="true"/>
 			  </hbox>
-      	<hbox>
-      		<label style="padding-top:3px" 
-      				accesskey="&pref-whenInsertingShow.ak;"
-      				control="ml-whenInsertingShow" 
-      				value="&pref-whenInsertingShow.label;"/>
-          <spacer flex="1"/>
-          <menulist id="ml-whenInsertingShow" 
-      		 		style="width: 20ex" sizetopopup="always"
-    					preference="pref-whenInsertingShow">
-    				<menupopup>
-    				  <menuitem label="previous" value="previous"/>
-    				  <menuitem label="default" value="default"/>
-    				</menupopup>
-          </menulist>
-        </hbox>
+			  <hbox>
+			  <label value="&pref-maxSizeToShowBlobData.label;"
+				  style="padding-top:5px" 
+				  accesskey="&pref-maxSizeToShowBlobData.ak;"
+          control="tb-maxSizeToShowBlobData"/>
+        <spacer flex="1"/>
+			  <textbox id="tb-maxSizeToShowBlobData" type="number" min="-1"
+					preference="pref-maxSizeToShowBlobData" 
+				  value=""/>
+			  </hbox>
+			  </groupbox>
       </prefpane>
 </prefwindow>
 

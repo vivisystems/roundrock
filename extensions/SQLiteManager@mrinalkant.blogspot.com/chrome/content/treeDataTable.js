@@ -48,7 +48,7 @@ TreeDataTable.prototype = {
     var sData = "";
     for (var iRange = 0; iRange < iRangeCount; iRange++) {
       sel.getRangeAt(iRange,start,end);
-      for (var iRow = start.value; iRow <= end.value; iRow++) {            
+      for (var iRow = start.value; iRow <= end.value; iRow++) {
         if (sData.length > 0)
           sData = sData + "\n";
         sData = sData + this.GetRowData(iRow, sFormat);
@@ -108,26 +108,29 @@ TreeDataTable.prototype = {
       treecol.setAttribute("extraRowId", true);
     treecol.setAttribute("id", sId);
 		treecol.setAttribute("width",iWidth);
-		treecol.setAttribute("minwidth",10);
+		treecol.setAttribute("minwidth",60);
 		if (sClickFn != null)
 		  treecol.setAttribute("onclick", sClickFn);
 		if (sBgColor != null)
 		  treecol.setAttribute("style","color:"+sBgColor);
 
-    if (sColType != null)
-      treecol.setAttribute("tooltiptext", col + " (" + sColType + ")");
+// sColType is based on data in first row, which may not be the same
+// as the type defined for that column in schema
+//    if (sColType != null)
+//      treecol.setAttribute("tooltiptext", col + " (" + sColType + ")");
 
     if (bLast) {
       //want to do anything special for the last column? do it here.
+		  treecol.setAttribute("flex", 1);
     }
     treecols.appendChild(treecol);
 
     //add a splitter after every column
     var splitter = document.createElement("splitter");
-    splitter.setAttribute("id", "splitter" + col);
     splitter.setAttribute("class", "tree-splitter");        
     splitter.setAttribute("resizebefore", "closest");
     splitter.setAttribute("resizeafter", "grow");
+    splitter.setAttribute("oncommand", "SQLiteManager.saveBrowseTreeColState(this)");
     treecols.appendChild(splitter); 
   },
 
@@ -150,8 +153,8 @@ TreeDataTable.prototype = {
   },
 
   // iExtraColForRowId: indicates column number for the column which is a rowid
-  //           0 means no extra rowid, column numbering begins with 1
-  //     use this while copying Issue #151
+  //  0 means no extra rowid, column numbering begins with 1
+  //  use this while copying Issue #151
   createColumns: function(aColumns, iExtraColForRowId, aSortInfo, sClickFn) {
     var treecols = this.treeTable.firstChild;
     ClearElement(treecols);
@@ -172,7 +175,7 @@ TreeDataTable.prototype = {
       iTotalWidth = 0;
       iMaxWidth = 0;
       iTotalWidth = iTreeWidth/iColumnCount;
-      if (iTotalWidth < 50) iTotalWidth = 50;
+      if (iTotalWidth < 60) iTotalWidth = 60;
 
       sColType = GetColumnTypeString(allCols[iColumn][1]);
 
@@ -192,6 +195,17 @@ TreeDataTable.prototype = {
 
       var bExtraColForRowId = (iColumn==iExtraColForRowId-1) ? true : false;
       this.AddTreecol(treecols, iColumn, allCols[iColumn][0], sColType, iTotalWidth, (iColumn==iColumnCount-1?true:false), bExtraColForRowId, sClickFn, sBgColor);
+    }
+  },
+
+  adjustColumns: function(objColInfo) {
+    if (typeof objColInfo.arrId == "undefined" || typeof objColInfo.arrWidth == "undefined")
+      return;
+    var aCols = this.treeTable.querySelectorAll("treecol");
+    for (var i = 0; i < aCols.length; i++) {
+      var pos = objColInfo.arrId.indexOf(aCols.item(i).id);
+      if (pos >= 0)
+        aCols.item(i).width = objColInfo.arrWidth[pos];
     }
   },
 

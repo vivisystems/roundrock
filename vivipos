@@ -1,4 +1,6 @@
 #!/bin/sh
 DIR=`dirname $0`
 
-${DIR}/xulrunner/xulrunner ${DIR}/application.ini
+# set env of system info
+/usr/bin/env `${DIR}/getSystemLicenseStub -v` ${DIR}/xulrunner/xulrunner ${DIR}/application.ini
+

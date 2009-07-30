@@ -268,6 +268,9 @@ SMExtensionManager.prototype = {
   },
   
   getStructTreeState: function() {
+    if (!this.m_bUseConfig)
+      return false;
+
     var sEc = "StructTree:ExpandedCategories", sEo = "StructTree:ExpandedObjects";
     var aExpand = [["all-table"],[]];
 
@@ -286,11 +289,40 @@ SMExtensionManager.prototype = {
   },
 
   setStructTreeState: function(aExpand) {
+    if (!this.m_bUseConfig)
+      return false;
+
     var sEc = "StructTree:ExpandedCategories", sEo = "StructTree:ExpandedObjects";
 
     var q1 = "delete from " + this.m_tbl + " where `type` = '" + sEc + "' OR `type` = '" + sEo + "'";
     var q2 = "insert into " + this.m_tbl + "(`type`, `value`) values('" + sEc + "', '" + aExpand[0].toString() + "')";
     var q3 = "insert into " + this.m_tbl + "(`type`, `value`) values('" + sEo + "', '" + aExpand[1].toString() + "')";
     this.m_db.executeTransaction([q1,q2,q3]);
+  },
+
+  saveBrowseTreeColState: function(objType, objName, objState) {
+    if (!this.m_bUseConfig)
+      return false;
+
+    var sEc = "BrowseTree:ColState:" + objType + ":" + objName;
+
+    var q1 = "delete from " + this.m_tbl + " where type = '" + sEc + "'";
+    var q2 = "insert into " + this.m_tbl + "(type, value) values('" + sEc + "', '" + objState + "')";
+    this.m_db.executeTransaction([q1,q2]);
+  },
+
+  getBrowseTreeColState: function(objType, objName) {
+    if (!this.m_bUseConfig)
+      return false;
+
+    var sEc = "BrowseTree:ColState:" + objType + ":" + objName;
+    var aStr = "";
+    this.m_db.selectQuery("select value from " + this.m_tbl + " where type = '" + sEc + "'");
+    var aData = this.m_db.getRecords();
+    if (aData.length > 0) {
+      aStr = aData[0][0];
+    }
+
+    return aStr;
   }
 };

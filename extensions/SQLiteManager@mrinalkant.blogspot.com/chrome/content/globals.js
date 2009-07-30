@@ -1,32 +1,16 @@
 const Cc = Components.classes;
 const Ci = Components.interfaces;
 
+const chromePrefs = "chrome://sqlitemanager/content/preferences.xul";
+
 var gAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 var gbGecko_191 = (Cc["@mozilla.org/xpcom/version-comparator;1"]
-                      .getService(Ci.nsIVersionComparator)
-                      .compare(gAppInfo.platformVersion, "1.9.1") >= 0);
+                .getService(Ci.nsIVersionComparator)
+                .compare(gAppInfo.platformVersion, "1.9.1") >= 0);
 
-var smGlobals = {
-  gExtVersion: "0.4.8",//vveerrssiioonn
-  g_tempNamePrefix: "__temp__",
-  g_smBundle: null,
-  gAppInfo: Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo),
-  gbGecko_191: (Cc["@mozilla.org/xpcom/version-comparator;1"]
-                  .getService(Ci.nsIVersionComparator)
-                  .compare(this.gAppInfo.platformVersion, "1.9.1") >= 0),
-  gOS: navigator.appVersion,
-  
-  smPrompt: Cc["@mozilla.org/embedcomp/prompt-service;1"]
-                .getService(Ci.nsIPromptService),
-  
-  gSbPanelDisplay: null,
-  g_strForNull: "NULL",
-  g_strForBlob: "BLOB",
-  g_showBlobSize: true
-};
-
-var gExtVersion = "0.4.8";//vveerrssiioonn
-var gExtCreator = "Mrinal Kant";
+var gExtVersion = "";
+var gExtCreator = "";
+sm_setAppInfo();
 
 var g_tempNamePrefix = "__temp__";
 var g_smBundle = null;
@@ -39,6 +23,7 @@ var gSbPanelDisplay = null;
 var g_strForNull = "NULL";
 var g_strForBlob = "BLOB";
 var g_showBlobSize = true;
+var g_maxSizeToShowBlobData = 0;
 
 function $$(sId) {
   return document.getElementById(sId);
@@ -100,6 +85,18 @@ function AddDropdownItem(sLabel, dropdown, bSelect) {
     dropdown.selectedItem = menuitem;
 
   return menuitem;
+}
+
+function sm_notify(sBoxId, sMessage, sType, iTime) {
+  if (iTime == undefined)
+    iTime = 3;
+
+  iTime = iTime * 1000;
+  var notifyBox = $$(sBoxId);
+  var notification = notifyBox.appendNotification(sMessage);
+  notification.type = sType;
+  //notification.priority = notifyBox.PRIORITY_INFO_HIGH;
+  setTimeout('$$("'+sBoxId+'").removeAllNotifications(false);', iTime);
 }
 
 function sm_launchHelp() {
@@ -235,6 +232,14 @@ function sm_blob2hex(aData) {
 	return "X'" + str + "'";
 }
 
+function sm_blob2str(aData) {
+	var str = '';
+	for (var i = 0; i < aData.length; i++) {
+		str += String.fromCharCode(aData[i]);
+	}
+	return str;
+}
+
 function sm_backquote(str) {
 	return "`" + str + "`";
 }
@@ -355,3 +360,16 @@ function getISODateTimeFormat(dt, cSeparator, cPrecision) {
   return sDate;
 }
 
+function sm_setAppInfo(sInfo) {
+  var extId = "SQLiteManager@mrinalkant.blogspot.com";
+  var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+  if (appInfo.ID == extId) {
+    gExtVersion = appInfo.version;
+    gExtCreator = appInfo.vendor;
+  }
+  else {
+    var extInfo = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getItemForID(extId);
+    gExtVersion = extInfo.version;
+    gExtCreator = "Mrinal Kant";
+  }
+}

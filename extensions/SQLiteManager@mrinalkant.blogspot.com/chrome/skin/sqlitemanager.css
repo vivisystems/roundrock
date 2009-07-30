@@ -1,7 +1,9 @@
-tabs#sm-tabs tab,
-tab#eximTab {
-	font-size: 130%;
-  padding: 6px 11px;
+.tabs-closebutton {
+     list-style-image: url("chrome://sqlitemanager/skin/images/close.gif");
+   }
+
+tabs#sm-tabs tab {
+  padding: 4px 7px;
 }
 
 label.dbinfo {
@@ -12,11 +14,6 @@ label.dbinfo {
 
 label.forControl {
 	padding-top: 5px;
-}
-
-tab.exportTabs {
-	padding: 5px 10px;
-	font-size: 125%;
 }
 
 tabbox#sm-tabbox tabpanel {

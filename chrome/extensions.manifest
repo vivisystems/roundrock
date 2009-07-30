@@ -1,0 +1,6 @@
+# DOM INSPECTOR
+overlay  chrome://vivipos/content/vivipos.xul chrome://vivipos/content/overlays/inspector.xul
+
+# sqlitemanager
+overlay  chrome://vivipos/content/vivipos.xul chrome://vivipos/content/overlays/sqlitemanager.xul
+

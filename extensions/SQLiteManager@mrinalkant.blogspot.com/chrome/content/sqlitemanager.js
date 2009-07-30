@@ -136,7 +136,7 @@ var SQLiteManager = {
     //preferences have changed.
     var chPrefs = ["hideMainToolbar", "showMainToolbarDatabase",
       "showMainToolbarTable", "showMainToolbarIndex", "sqliteFileExtensions",
-      "displayNumRecords", "textForBlob", "showBlobSize", "mruPath.1",
+      "displayNumRecords", "textForBlob", "showBlobSize", "maxSizeToShowBlobData", "mruPath.1",
       "posInTargetApp" /* this one for firefox only*/,
       "handleADS" /* this one for Windows only*/ ];
     for(var i = 0; i < chPrefs.length; i++)
@@ -363,8 +363,8 @@ var SQLiteManager = {
 				var sExt = sm_prefsBranch.getCharPref("sqliteFileExtensions");
 				this.maFileExt = sExt.split(",");
 				for (var iC = 0; iC < this.maFileExt.length; iC++) {
-				  this.maFileExt[iC] = this.maFileExt[iC].replace(/^\s+/g, '')
-                                                  .replace(/\s+$/g, '');
+				  this.maFileExt[iC] = this.maFileExt[iC].trim();
+				  //replace(/^\s+/g, '').replace(/\s+$/g, '');
 				}
         // Load profile folder's sqlite db files list into dropdown 
 				this.populateDBList("profile");   
@@ -372,6 +372,8 @@ var SQLiteManager = {
 			case "searchToggler":
 				var sPrefVal = sm_prefsBranch.getCharPref("searchCriteria");
 				this.msBrowseCondition = sPrefVal;
+				//because search criteria has changed, set offset for navigating to zero
+				this.miOffset = 0;
 				//empty the criteria after use for security
 				sm_prefsBranch.setCharPref("searchCriteria", "");
 				this.loadTabBrowse();
@@ -387,6 +389,9 @@ var SQLiteManager = {
 				break;
 			case "showBlobSize":
 				g_showBlobSize = sm_prefsBranch.getBoolPref("showBlobSize");
+				break;
+			case "maxSizeToShowBlobData":
+				g_maxSizeToShowBlobData = sm_prefsBranch.getIntPref("maxSizeToShowBlobData");
 				break;
 			case "handleADS": //for ADS on Windows/NTFS
         $$("mi-connect-ads-win").hidden = true;
@@ -617,78 +622,57 @@ var SQLiteManager = {
 //		var box = $$("gb-more-info-table");
 //		box.hidden = false;
 
-		var vbox = $$("vb-more-info-table-columns");
-		ClearElement(vbox);
+		ClearElement($$("smTableColumns"));
     if (sTable == null)
       return;
 
+////////////////////////////////////
+    if (Database.getOpenStatus() != "Exclusive") {
+//      $$("treeTabCols").datasources = "file://" + Database.getFile().path;
+//      $$("qPragmaTable").textContent = "PRAGMA table_info('" + sTable + "')";
+//      $$("treeTabCols").builder.rebuild();
+    }
+
+////////////////////////////////////
     $$("hb-addcol").hidden = false;
     if (sType == "master") //no add column option for master tables
       $$("hb-addcol").hidden = true;
 
+    $$("treeTabCols").setAttribute("smTableName", sTable);
 		var info = Database.getTableColumns(sTable, "");
 
 		var cols = info[0];
+		ClearElement($$("smTableColumns"));
 		for(var i = 0; i < cols.length; i++) {
-			var hbox = document.createElement("hbox");
-			var tb = document.createElement("textbox");
-			tb.setAttribute("id", "id-for-colname-" + i);
-			tb.setAttribute("style", "width:24ex");
-			if (sType == "master")
-        tb.setAttribute("readonly","true");
-			tb.setAttribute("value", cols[i][info[1]["name"][0]]);
-			tb.setAttribute("oldvalue", cols[i][info[1]["name"][0]]);
-			hbox.appendChild(tb);
+			var trow = document.createElement("treerow");//
 
-			var tb = document.createElement("textbox");
-			tb.setAttribute("id", "id-for-coltype-" + i);
-			tb.setAttribute("style","width:15ex");
-			if (sType == "master")
-        tb.setAttribute("readonly","true");
-			tb.setAttribute("value", cols[i][info[1]["type"][0]]);
-			tb.setAttribute("oldvalue", cols[i][info[1]["type"][0]]);
-			hbox.appendChild(tb);
+			var tcell = document.createElement("treecell");//
+			tcell.setAttribute("label", cols[i][info[1]["cid"][0]]);
+			trow.appendChild(tcell);
 
-			var tb = document.createElement("checkbox");
-			tb.setAttribute("style","width:7ex");
-			tb.setAttribute("disabled","true");
-			if (cols[i][info[1]["pk"][0]] == 1)
-				tb.setAttribute("checked", true);
-			hbox.appendChild(tb);
+			var tcell = document.createElement("treecell");//
+			tcell.setAttribute("label", cols[i][info[1]["name"][0]]);
+			trow.appendChild(tcell);
 
-			var tb = document.createElement("checkbox");
-			tb.setAttribute("style","width:7ex");
-			tb.setAttribute("disabled","true");
-			if (cols[i][info[1]["notnull"][0]] != 0)
-				tb.setAttribute("checked", true);
-			hbox.appendChild(tb);
+			var tcell = document.createElement("treecell");//
+			tcell.setAttribute("label", cols[i][info[1]["type"][0]]);
+			trow.appendChild(tcell);
 
-			var tb = document.createElement("textbox");
-			tb.setAttribute("id", "id-for-coldefval-" + i);
-			tb.setAttribute("style","width:10ex");
-//			if (sType == "master")
-        tb.setAttribute("readonly","true");
-			var def_val = cols[i][info[1]["dflt_value"][0]];
-			//if (info[2][i][info[1]["dflt_value"][0]] == 3)
-			//	def_val = sm_quote(def_val);
-			tb.setAttribute("value", def_val);
-			hbox.appendChild(tb);
+			var tcell = document.createElement("treecell");//
+			tcell.setAttribute("label", cols[i][info[1]["notnull"][0]]);
+			trow.appendChild(tcell);
 
-			var tb = document.createElement("button");
-			tb.setAttribute("label", sm_getLStr("dropColumn"));
-			tb.setAttribute("value", cols[i][info[1]["name"][0]]);
-			tb.setAttribute("oncommand", "SQLiteManager.dropColumn('" + sTable + "','" + cols[i][info[1]["name"][0]] + "')");
-      if (sType != "master") // not for master tables
-      	hbox.appendChild(tb);
+			var tcell = document.createElement("treecell");//
+			tcell.setAttribute("label", cols[i][info[1]["dflt_value"][0]]);
+			trow.appendChild(tcell);
 
-			var tb = document.createElement("button");
-			tb.setAttribute("label", sm_getJsStr("alterColumn"));
-			tb.setAttribute("value", cols[i][info[1]["name"][0]]);
-			tb.setAttribute("oncommand", "SQLiteManager.alterColumn('" + sTable + "'," + i + ")");
-      if (sType != "master") // not for master tables
-      	hbox.appendChild(tb);
+			var tcell = document.createElement("treecell");//
+			tcell.setAttribute("label", cols[i][info[1]["pk"][0]]);
+			trow.appendChild(tcell);
 
-			vbox.appendChild(hbox);
+			var titem = document.createElement("treeitem");
+			titem.appendChild(trow);//
+			$$("smTableColumns").appendChild(titem);//
 		}
 
 		var aTableInfo = Database.getTableInfo(sTable, -1);
@@ -738,7 +722,6 @@ var SQLiteManager = {
     if (!bFound)
       this.maSortInfo.splice(0, 0, [sColName, "asc"]);
     this.loadTabBrowse();
-    //alert(sColName + "=" + sDataType + "=" + tgt.getAttribute("smSortDir"));
   },
 
 	//loadTabBrowse: populates the table list and the tree view for current table
@@ -803,9 +786,7 @@ var SQLiteManager = {
     treeBrowse.ShowTable(false);
 
     try {
-      var aOrder = this.maSortInfo;
-      var aArgs = {sWhere: this.msBrowseCondition, iLimit: this.miLimit,
-                  iOffset: this.miOffset, aOrder: aOrder};
+      var aArgs = {sWhere: this.msBrowseCondition, iLimit: this.miLimit, iOffset: this.miOffset, aOrder: this.maSortInfo};
       var iRetVal = Database.loadTableData(sObjType, sObjName, aArgs);
       var timeElapsed = Database.getElapsedTime();
     } catch (e) { 
@@ -822,7 +803,14 @@ var SQLiteManager = {
 
 		this.manageNavigationControls();    	
     if (records && columns) {
+      $$("browse-tree").setAttribute("smObjType", sObjType);
+      $$("browse-tree").setAttribute("smObjName", sObjName);
       treeBrowse.createColumns(columns, iRetVal, this.maSortInfo, "SQLiteManager.changeSortOrder(event);");
+      var jsonColInfo = smExtManager.getBrowseTreeColState(sObjType, sObjName);
+      if (jsonColInfo != "") {
+        var objColInfo = JSON.parse(jsonColInfo);
+        treeBrowse.adjustColumns(objColInfo);
+      }
       treeBrowse.PopulateTableData(records, columns);
     }
 		return true;
@@ -854,7 +842,7 @@ var SQLiteManager = {
   	var iStart = (this.miCount == 0) ? 0 : (this.miOffset + 1);
   	$$("nav-start-val").value = iStart;
   	var iEnd = this.miOffset + this.miLimit;
-  	iEnd = ((iEnd > this.miCount) || (this.miLimit == -1)) ? this.miCount : iEnd;
+  	iEnd = ((iEnd > this.miCount) || (this.miLimit <= 0)) ? this.miCount : iEnd;
   	$$("nav-end-val").value = iEnd;
 
 		//manage buttons
@@ -1020,23 +1008,10 @@ var SQLiteManager = {
 		sm_prefsBranch.setBoolPref("searchToggler", !bTemp);
   },
 
-  //getSelectedTab: returns the selected tab
-  getSelectedTab: function() {
-		return $$("sm-tabs").selectedItem;
-  },
-
   //getSelectedTabId: returns the id of the selected tab
   getSelectedTabId: function() {
-		var oSelectedTab = $$("sm-tabs").selectedItem;
-		var id = oSelectedTab.getAttribute("id");
-		return id;
+		return $$("sm-tabs").selectedItem.id;
   },
-
-  //doSelectTab: called when onselect event fires on tabs[id="sm-tabs"]
-	doSelectTab: function(oSelectedTab) {
-		var id = oSelectedTab.getAttribute("id");
-		return this.loadTabWithId(id);
-	},
 
   //selectStructTab: called when onselect event fires on tabs[id="sm-tabs-db"]
 	selectStructTab: function(oSelectedTab) {
@@ -1064,9 +1039,27 @@ var SQLiteManager = {
 			case "tab-dbinfo":
 				this.loadTabDbInfo();
 				break;
+			case "tab-exim":
+//				this.loadTabExim();
+				break;
 		}
 		return true;
 	},
+
+  closeTab: function() {
+    var sId = $$("sm-tabs").selectedItem.id;
+		switch(sId) {
+			case "tab-structure":
+			case "tab-browse":
+			case "tab-execute":
+			case "tab-dbinfo":
+				break;
+			case "tab-exim":
+        SmExim.exitExim();
+				break;
+		}
+		return true;
+  },
 
   //bImplicit: false = called from menuitem; true = function call
   useExtensionManagementTable: function(bUse, bImplicit) {
@@ -1513,15 +1506,40 @@ var SQLiteManager = {
 	  }
   },
 
-  alterColumn: function(sTable, iCol) {
+  alterColumn: function(sWhat) {
     var bConfirm = sm_confirm("Dangerous Operation", "This is a potentially dangerous operation. SQLite does not support statements that can alter a column in a table. Here, we attempt to reconstruct the new CREATE SQL statement by looking at the pragma table_info which does not contain complete information about the structure of the existing table.\n\nDo you still want to proceed?");
     if (!bConfirm)
       return false;
-    var sOldName = $$("id-for-colname-" + iCol)
-                      .getAttribute("oldvalue");
-    var sNewName = $$("id-for-colname-" + iCol).value;
-    var sNewType = $$("id-for-coltype-" + iCol).value;
-    var sNewDefVal = $$("id-for-coldefval-" + iCol).value;
+    var treeCol = $$("treeTabCols");
+    var row = treeCol.view.selection.currentIndex;
+    var col = treeCol.columns.getColumnAt(1);
+		var sOldName = treeCol.view.getCellText(row, col);
+    var col = treeCol.columns.getColumnAt(2);
+		var sOldType = treeCol.view.getCellText(row, col);
+
+    var sTable = treeCol.getAttribute("smTableName");
+//create a columnEditor.xul
+    if (sWhat == "name") {
+		  var check = {value: false};   // default the checkbox to false
+		  var input = {value: sOldName};   // default the edit field to existing value
+		  var result = smPrompt.prompt(null, "Enter the new column name",
+		               "Enter the new column name", input, null, check);
+		  var sNewName = input.value;
+		  //returns true on OK, false on cancel
+		  if (!result || sNewName.length == 0)
+		    return false;
+    }
+    if (sWhat == "type") {
+		  var check = {value: false};   // default the checkbox to false
+		  var input = {value: sOldType};   // default the edit field to existing value
+		  var result = smPrompt.prompt(null, "Enter the new column type",
+		               "Enter the new column type", input, null, check);
+		  var sNewType = input.value;
+		  //returns true on OK, false on cancel
+		  if (!result || sNewType.length == 0)
+		    return false;
+    }
+    var sNewDefVal = "";
     sNewDefVal = sm_makeDefaultValue(sNewDefVal);
     var aNewInfo = {oldColName: sOldName,
                     newColName: sNewName,
@@ -1535,12 +1553,17 @@ var SQLiteManager = {
 		return bReturn;
   },
 
-  dropColumn: function(sTable, sColumn) {        
+  dropColumn: function() {        
     var bConfirm = sm_confirm("Dangerous Operation", "This is a potentially dangerous operation. SQLite does not support statements that can alter a column in a table. Here, we attempt to reconstruct the new CREATE SQL statement by looking at the pragma table_info which does not contain complete information about the structure of the existing table.\n\nDo you still want to proceed?");
     if (!bConfirm)
       return false;
 //    var bConfirm = sm_prefsBranch.getBoolPref("allowUnsafeTableAlteration");
-    
+    var treeCol = $$("treeTabCols");
+    var row = treeCol.view.selection.currentIndex;
+    var col = treeCol.columns.getColumnAt(1);
+		var sColumn = treeCol.view.getCellText(row, col);
+    var sTable = treeCol.getAttribute("smTableName");
+
 		var bReturn = CreateManager.modifyTable("dropColumn", sTable, sColumn);
 		if(bReturn) {
 			this.refreshDbStructure();
@@ -1669,7 +1692,7 @@ var SQLiteManager = {
 			alert(sm_getLStr("firstOpenADb"));
 			return false;
 		}
-    SmExim.loadDialog("import", "d-mainarea");
+    SmExim.loadDialog("import");
 	},
 	
 	exportObject: function(sObjectType) {
@@ -1679,11 +1702,7 @@ var SQLiteManager = {
 		}
 
 		var sObjectName = this.aCurrObjNames[sObjectType];
-		
-//    window.openDialog("chrome://sqlitemanager/content/export.xul",
-//						"export",	"chrome, resizable, centerscreen, modal, dialog", 
-//						Database, sObjectType, sObjectName);
-    SmExim.loadDialog("export", "d-mainarea", sObjectType, sObjectName);
+    SmExim.loadDialog("export", sObjectType, sObjectName);
 		return true;
   },
 
@@ -2231,6 +2250,33 @@ var SQLiteManager = {
 
     t.view.selection.selectAll();
     t.focus();
+  },
+
+  openOptionsWindow: function(aElt) {
+    window.openDialog(chromePrefs, 'preferences', 'chrome,titlebar,toolbar,centerscreen,modal');
+  },
+
+  saveBrowseTreeColState: function(aElt) {
+    while (aElt.nodeName != "tree") {
+      aElt = aElt.parentNode;
+    }
+    if (aElt.id == "browse-tree") {
+      var aWidth = [];
+      var aId = [];
+      var aCols = aElt.querySelectorAll("treecol");
+      for (var i = 0; i < aCols.length; i++) {
+        aWidth.push(aCols.item(i).width);
+        aId.push(aCols.item(i).id);
+      }
+      var objColInfo = {};
+      objColInfo.arrWidth = aWidth;
+      objColInfo.arrId = aId;
+      objColInfo.sObjType = aElt.getAttribute("smObjType");
+      objColInfo.sObjName = aElt.getAttribute("smObjName");
+      var jsonObjColInfo = JSON.stringify(objColInfo);
+      smExtManager.saveBrowseTreeColState(objColInfo.sObjType, objColInfo.sObjName, jsonObjColInfo);
+//      alert(jsonObjColInfo);
+    }
   },
 
   setSqlText: function(val) {
