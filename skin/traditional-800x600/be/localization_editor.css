@@ -1,11 +1,10 @@
 /*-----------------------------------------------------------------------------
  *
- * Back-End Custom Styles for Locales
+ * Back-End Custom Styles for Localization Editor
  *
  *-----------------------------------------------------------------------------
  */
 
-.custom-content-pricelevel-list tree #time,
-.custom-content-pricelevel-list tree #pricelevel {
-    text-align: center;
+.custom-content-dropdown-menu {
+    text-align: left !important;
 }

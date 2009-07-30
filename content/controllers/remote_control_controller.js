@@ -7,7 +7,7 @@
         initial: function () {
 
             var settings = (new X11vncSetting()).read();
-
+            
             if (settings == null) {
                 settings = {};
             }
@@ -17,7 +17,7 @@
 
         },
 
-        save: function(result) {
+        save: function() {
 
             var obj = this.Form.serializeToObject('remoteControlForm', false);
 
@@ -25,7 +25,6 @@
 
             if (obj['password'] != obj['verify']) {
                 NotifyUtils.warn(_('Password and Verify Password not the same'));
-                result.data = false;
                 return false;
             }
 
@@ -67,9 +66,36 @@
                 delete x11vncScript;
                 x11vncScript = null;
             }catch(e) {
+                return false
             }
-            result.data = true;
 
+            obj['password_org'] = obj['password'];
+            this.Form.unserializeFromObject('remoteControlForm', obj);
+
+            NotifyUtils.info(_('Remote Control Settings saved'));
+        },
+
+        exit: function() {
+            if (GeckoJS.FormHelper.isFormModified('remoteControlForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(null,
+                                               _('Exit'),
+                                               _('You have made changes to remote control settings. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    if (!this.save()) return;
+                }
+            }
+            window.close();
         }
 
     };

@@ -2,8 +2,8 @@
 <!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
 
 <overlay id="waiting_panel"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-    xmlns:html="http://www.w3.org/1999/xhtml">
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
 
     <popupset id="dialogs">
 		<vivipanel id="wait_panel" position="overlap" noautohide="true" class="container-dialog">

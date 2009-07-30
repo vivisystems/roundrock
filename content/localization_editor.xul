@@ -7,7 +7,10 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/localization_editor.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -24,18 +27,22 @@
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/localization_editor.js" />
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
+    </keyset>
+
+    <vbox flex="1" class="container-be">
+        <vbox flex="1" class="container-main">
             <hbox align="center">
-                <label value="&localization.title;" class="PageTitle"/>
-                <menulist id="package" class="PageTitle" style="text-align:left;" flex="1"
+                <label value="&localization.title;" class="label-page-title"/>
+                <menulist id="package" class="label-page-title custom-content-dropdown-menu" flex="1"
                           oncommand="$do('selectPackage', this.selectedIndex, 'Localization')">
                     <menupopup id="package-popup">
                     </menupopup>
                 </menulist>
             </hbox>
 
-            <grid class="DataForm" flex="1">
+            <grid class="data-form-2" flex="1">
 
                 <columns>
                     <column flex="1"/>
@@ -44,17 +51,21 @@
                 <rows>
                     <row>
                         <!-- package list -->
-                        <menulist id="locale" style="text-align:left;" oncommand="$do('selectLocale', this.selectedItem.value, 'Localization')">
+                        <menulist id="locale" class="custom-content-dropdown-menu"
+                                  oncommand="$do('selectLocale', this.selectedItem.value, 'Localization')">
                             <menupopup id="locale-popup">
                             </menupopup>
                         </menulist>
                     </row>
 
                     <row>
-                        <hbox class="Toolbar">
-                            <textbox id="filter" flex="1" wrap="true"/>
+                        <hbox align="center">
+                            <vbox flex="1">
+                                <textbox id="filter" wrap="true"/>
+                                <spacer flex="1"/>
+                            </vbox>
                             <spacer width="5px"/>
-                            <button id="filter_btn" label="&localization.action.filter;" class="fixedbtn"
+                            <button id="filter_btn" label="&localization.action.filter;" class="button-execute"
                                     oncommand="$do('filter', null, 'Localization');"   />
                         </hbox>
                     </row>
@@ -64,7 +75,7 @@
                                   headers="&localization.heading.key;,&localization.heading.base.string;,&localization.heading.translated.string;"
                                   fields="key,base,working"
                                   onselect="$do('selectEntry', this.currentIndex, 'Localization')"
-                                  class="editscrollabletree showscrollbar">
+                                  class="standard">
                         </vivitree>
                     </row>
 
@@ -91,17 +102,18 @@
             </grid>
 
             <hbox>
-                <hbox class="ToolBar" flex="1">
-                    <button id="modify" label="&localization.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modify', null, 'Localization');"   />
+                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                    <button id="modify" label="&localization.action.modify;" disabled="true" class="button-modify"
+                            oncommand="$do('modify', null, 'Localization');"   />
                     <spacer flex="1"/>
                     <button id="auto_fill" label="&localization.action.generate;" disabled="false" oncommand="$do('autoFill', null, 'Localization');"   />
                     <button id="export_xpi"  label="&localization.action.export;" disabled="false" oncommand="$do('exportDialog', null, 'Localization');"   />
                 </hbox>
-                <hbox flex="0" id="dialogButtons" class="dialogbtns" pack="end">
-                    <button id="save" label="&localization.action.save;" class="SaveBtn" oncommand="$do('save', null, 'Localization');"/>
+                <hbox id="dialogButtons" class="exitbar">
+                    <button id="save" label="&localization.action.save;" class="button-save" oncommand="$do('save', null, 'Localization');"/>
                     <spacer flex="1"/>
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Localization');"/>
                 </hbox>
             </hbox>
         </vbox>

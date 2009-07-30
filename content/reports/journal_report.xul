@@ -7,8 +7,12 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
@@ -27,13 +31,13 @@
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
     </keyset>
-    <vbox flex="1" class="main-dialog">
-		<vbox flex="1" class="MainPnl">
+    <vbox flex="1" class="container-report container-be">
+		<vbox flex="1" class="container-main">
 		    <vbox>
-		        <caption label="&journal.title;"  class="PageTitle"/>
+		        <caption label="&journal.title;"  class="label-page-title"/>
 		        <hbox>
 		            <hbox flex="1">
-		            <grid class="DataForm" flex="1">
+		            <grid class="data-form" flex="1">
 		                <columns>
 		                    <column flex="1"/>
 		                    <column flex="1"/>
@@ -70,14 +74,14 @@
                 <!-- grippy/ -->
             </splitter>
             <hbox class="TopPnl">
-                <hbox class="ReportTool" flex="1" style="overflow: auto;">
+                <hbox class="ReportTool" flex="1">
                     <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
                         <tabs id="tabs" >
                         </tabs>
                     </arrowscrollbox>
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                <hbox id="dialogButtons" pack="end" class="ExitBar">
+                    <button id="ok" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
             <hbox flex="1">
@@ -91,6 +95,6 @@
     </vbox>
 
     <!-- overlay the waiting panel. -->
-    <popupset id="dialogs" />
+    <popupset id="dialogs"/>
 
 </window>

@@ -7,8 +7,10 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/localekeyboard.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -24,37 +26,32 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/localekeyboard.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('save').click()"/>
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <vbox flex="1" class="MainPnl">
-            <!--caption label="&localekeyboard.title;" class="PageTitle" /-->
-            <tabbox class="RightTabbox">
+    <vbox flex="1" class="container-be">
+        <vbox flex="1" class="container-main">
+            <tabbox class="content-tabbox">
                 <tabs>
                     <tab id="tab1" label="&localekeyboard.locale.title;"/>
                     <tab id="tab2" label="&localekeyboard.keyboard.title;"/>
                 </tabs>
                 <tabpanels>
-                    <tabpanel flex="1">
-                        <label value="&localekeyboard.locale.title;" class="SubTitle"/>
-                        <vivilocaleslistbox id="locale" package="viviecr" flex="1"
-                                            type="listbox" rows="6" cols="6" popupwidth="720" popupheight="540"
-                                            listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
+                    <tabpanel flex="1" orient="vertical" align="center">
+                        <vbox flex="1" class="content-listbox">
+                            <vivilocaleslistbox id="locale" package="viviecr" flex="1" class="custom-content-locales"
+                                                type="listbox" rows="6" cols="6"/>
+                        </vbox>
                     </tabpanel>
                           
-                    <tabpanel flex="1">
-                        <vbox flex="1" pack="start">
-                            <hbox flex="1">
-                                <label value="&localekeyboard.keyboard.title;" class="SubTitle"/>
-                                <vivikbmaps id="kbmap" flex="1" type="listbox"
-                                            listboxClass="" panelClass="" buttonClass="" scrollUpClass="" scrollDownClass=""/>
-                                <spacer width="10px"/>
-                            </hbox>
-                            <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
-                                   src="chrome://viviecr/content/skin/kblayouts/us.png"/>
-                        </vbox>         
+                    <tabpanel flex="1" orient="vertical">
+                        <vivikbmaps id="kbmap" type="button" cols="5" rows="6" flex="1"
+                                    label="&localekeyboard.keyboard.select;" popTitle="&localekeyboard.keyboard.title;"
+                                    buttonClass="button-selections" kbmapButtonClass="button-execute"
+                                    scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
+                        <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
+                               src="chrome://viviecr/content/skin/kblayouts/us.png"/>
                     </tabpanel>
 
                 </tabpanels>
@@ -62,11 +59,10 @@
 
             <spacer flex="1"/>
         
-            <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
-                <spacer flex="1" />
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+            <hbox id="dialogButtons" class="exitbar" pack="end">
+                <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="doOKButton();"/>
+                <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button id="cancel" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="doCancelButton();"/>
             </hbox>
         </vbox>
     </vbox>

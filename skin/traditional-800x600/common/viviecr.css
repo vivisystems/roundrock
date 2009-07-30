@@ -49,6 +49,7 @@
 
 .textbox-description {
     font-size: 12px !important;
+    background: white !important;
 }
 
 /*-----------------------------------------------------------------------------
@@ -125,7 +126,7 @@ vivitree[class~=standard] treechildren::-moz-tree-checkbox(checked){
 }
 
 /*-----------------------------------------------------------------------------
- * Standard Vivitimezones
+ * Standard vivitimezones
  *-----------------------------------------------------------------------------
  */
 
@@ -135,7 +136,90 @@ vivitimezones[type=button] label {
     text-align: center;
 }
 
-vivitimezones[type=button] hbox {
-    margin: 5px;
+vivitimezones[type=button] > vbox > hbox {
+    margin: 5px 0px;
     -moz-box-align: center;
 }
+
+vivitimezones stack {
+    padding: 10px;
+}
+
+vivitimezones[type=button] panel {
+    background: white;
+    border-top: 1px solid #a1a1a1;
+    border-left: 1px solid #a1a1a1;
+    border-bottom: 4px solid #a1a1a1;
+    border-right: 4px solid #a1a1a1;
+    padding: 3px 10px 10px 10px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 #a1a1a1 #a1a1a1 #a1a1a1;
+    -moz-border-bottom-colors: #a1a1a1 #a1a1a1 #a1a1a1 #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
+}
+
+vivitimezones[type=button] panel > vbox > label:first-child {
+    color: #573c4d;
+    font-size: 11pt;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard vivilocaleslistbox
+ *-----------------------------------------------------------------------------
+ */
+
+vivilocaleslistbox[type=listbox] listitem {
+    min-height: 36px;
+}
+
+vivilocaleslistbox[type=listbox] listitem[selected=true] {
+    background-color: #92856a;
+    color: white;
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard vivikbmaps
+ *-----------------------------------------------------------------------------
+ */
+
+vivikbmaps[type=button] label {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+vivikbmaps[type=button] > hbox {
+    margin: 5px 0px;
+    -moz-box-align: center;
+}
+
+vivitimezones stack {
+    padding: 10px;
+}
+
+vivikbmaps[type=button] panel {
+    background: white;
+    border-top: 1px solid #a1a1a1;
+    border-left: 1px solid #a1a1a1;
+    border-bottom: 4px solid #a1a1a1;
+    border-right: 4px solid #a1a1a1;
+    padding: 3px 10px 10px 10px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 #a1a1a1 #a1a1a1 #a1a1a1;
+    -moz-border-bottom-colors: #a1a1a1 #a1a1a1 #a1a1a1 #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
+}
+
+vivikbmaps[type=button] panel > vbox > label:first-child {
+    color: #573c4d;
+    font-size: 11pt;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+

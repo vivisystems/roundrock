@@ -7,8 +7,8 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -29,27 +29,23 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/view_journal.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
+    <vbox flex="1" class="container-report">
+        <vbox flex="1" class="container-main">
             <hbox>
-                <caption label="&viewjournal.title;" class="PageTitle" />
+                <caption label="&viewjournal.title;" class="label-page-title"/>
             </hbox>
-            <hbox flex="1">
-                <box class="reportbox" flex="1">
+                <box flex="1" class="reportbox">
                     <html:iframe type="content" id="preview_frame" src="tpl/journal_template.html" flex="1"/>
                 </box>
-            </hbox>
             <hbox class="TopPnl">
                 <hbox class="ReportTool" flex="1">
-                    <!--vivibutton id="print" disabled="true" class="PrintBtn" oncommand="document.getElementById('preview_frame').contentWindow.print();" /-->
                     <vivibutton id="print" class="PrintBtn" oncommand="$do('printJournal', null, 'ViewJournal')" />
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" >
-                    <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                <hbox id="dialogButtons" class="ExitBar">
+                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="window.close();"/>
                 </hbox>
             </hbox>
         </vbox>

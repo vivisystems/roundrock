@@ -716,3 +716,63 @@ button-fontsize-picker button {
 .button-fixed[disabled=true] {
     background: transparent url(../images/funBtn_disabled.png) center center no-repeat;
 }
+
+/*-----------------------------------------------------------------------------
+ * Fixed sized buttons suitable for selection boxes
+ *-----------------------------------------------------------------------------
+ */
+
+.button-selections {
+    background: white;
+    border: 1px solid #a1a1a1;
+    border-bottom: 2px solid;
+    color: #3f3f3f;
+    font-size: 10pt;
+    margin: 5px;
+    max-height: 75px;
+    max-width: 120px;
+    min-height: 75px;
+    min-width: 120px;
+    padding: 4px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 ;
+    -moz-border-bottom-colors: #a1a1a1 #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
+    -moz-border-radius: 6px;
+}
+
+.button-selections hbox {
+    word-wrap: break-word;
+    -moz-box-orient: vertical;
+}
+
+.button-selections image{
+    display: none;
+}
+
+.button-selections[disabled=false]:active {
+    background: #93cbcc;
+    border: 1px solid #a1a1a1;
+    -moz-border-top-colors: #a1a1a1 ;
+    -moz-border-right-colors: #a1a1a1 ;
+    -moz-border-bottom-colors: #a1a1a1;
+    -moz-border-left-colors: #a1a1a1;
+}
+
+.button-selections[selected] {
+    background: #93cbcc;
+    border: 3px solid;
+    color: white;
+    font-weight: bold;
+    padding: 2px;
+    -moz-border-top-colors: #84b6b7 #8abfc0 #90c7c8 ;
+    -moz-border-right-colors: #a3d3d4 #9acecf #9dd0d1;
+    -moz-border-bottom-colors: #a3d3d4 #9acecf #9dd0d1;
+    -moz-border-left-colors: #84b6b7 #8abfc0 #90c7c8;
+}
+
+.button-selections[disabled=true] {
+    background: transparent;
+    border: 0px;
+}

@@ -7,9 +7,14 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
 
 <window title="&localization.export.title;"
         hidechrome="true"
@@ -30,67 +35,57 @@
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/export_locale.js" />
 
-    <vbox flex="1" class="main-dialog">
-        <vbox class="MainPnl" flex="1">
-            <groupbox  flex="1">
-                <hbox>
-                    <caption label="&localization.export.title;" class="PageTitle"/>
-                </hbox>
-                <grid class="DataForm">
-                    <columns>
-                        <column flex="0"/>
-                        <column flex="1"/>
-                    </columns>
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
+    </keyset>
 
-                    <rows>
-                        <row>
-                            <label value="&localization.export.package;" class="SubTitle"/>
-                            <textbox id="package" flex="1" value="" readonly="true" disabled="true"/>
-                        </row>
+    <vbox flex="1" class="container-be">
+        <vbox flex="1" class="container-main">
+            <label value="&localization.export.title;" class="label-page-title"/>
+            <grid class="data-form-2">
+                <columns>
+                    <column flex="0"/>
+                    <column flex="1"/>
+                </columns>
 
-                        <row>
-                            <label value="&localization.export.locale;" class="SubTitle"/>
-                            <textbox id="locale" flex="1" value="" readonly="true" disabled="true"/>
-                        </row>
+                <rows>
+                    <row>
+                        <label value="&localization.export.package;"/>
+                        <textbox id="package" flex="1" value="" readonly="true" disabled="true"/>
+                    </row>
 
-                        <row>
-                            <label value="&localization.export.name;" class="SubTitle"/>
-                            <textbox id="name" flex="1" value="" oninput="$do('validateForm', null, 'ExportLocale')"/>
-                        </row>
+                    <row>
+                        <label value="&localization.export.locale;"/>
+                        <textbox id="locale" flex="1" value="" readonly="true" disabled="true"/>
+                    </row>
 
-                    </rows>
-                </grid>
+                    <row>
+                        <label value="&localization.export.name;"/>
+                        <textbox id="name" flex="1" value="" oninput="$do('validateForm', null, 'ExportLocale')"/>
+                    </row>
 
-                <!-- install.RDF editor -->
-                <vbox flex="1">
-                    <textbox id="install" flex="1" value="" multiline="true"
-                             oninput="$do('validateForm', null, 'ExportLocale')"/>
-                </vbox>
-            </groupbox>
-            <spacer height="5px"/>
+                </rows>
+            </grid>
+
+            <!-- install.RDF editor -->
+            <vbox flex="1" class="content-box">
+                <textbox id="install" flex="1" value="" multiline="true" class="textbox-description"
+                         oninput="$do('validateForm', null, 'ExportLocale')"/>
+            </vbox>
             <hbox>
-                <hbox id="dialogButtons" class="ToolBar" flex="1">
-                    <button id="export" label="&localization.action.export;" disabled="false" default="true" oncommand="$do('exportLocale', null, 'ExportLocale')"/>
+                <hbox id="dialogButtons" flex="1" class="toolbar" toolbarmode="horizontal">
+                    <button id="export" label="&localization.action.export;" disabled="false" default="true"
+                            oncommand="$do('exportLocale', null, 'ExportLocale')"/>
                 </hbox>
-                <hbox class="dialogbtns">
-                    <button id="vkb" label=""  oncommand="opener.VirtualKeyboard.toggle()" class="VkbBtn"/>
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                <hbox class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>
+                    <button id="cancel" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
         </vbox>
     </vbox>
 
-    <vivipanel id="wait_panel" position="overlap" noautohide="true" pack="center" align="center">
-        <vbox flex="1" class="mainWaitPanel">
-            <vbox flex="1" class="mainWaitDialog">
-                <groupbox flex="1">
-                    <caption id="common_wait" label="Waiting..." class="PageTitle"/>
-                    <spacer style="height: 20px;" />
-                    <progressmeter id="progress" mode="undetermined" value="0" />
-                    <spacer style="height: 20px;" />
-                </groupbox>
-            </vbox>
-        </vbox>
-    </vivipanel>
+    <!-- overlay the waiting panel. -->
+    <popupset id="dialogs"/>
     
 </window>
