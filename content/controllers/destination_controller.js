@@ -243,7 +243,18 @@
         setDestination: function(destName) {
             // check if destination is valid
             var destinations = GeckoJS.Session.get('destinations');
-            var results = new GeckoJS.ArrayQuery(destinations).filter('name = ' + destName);
+            //var results = new GeckoJS.ArrayQuery(destinations).filter('name = ' + destName);
+            
+            // doing so makes destName able to have spaces.
+            var results = [];
+            var destinationArray = new GeckoJS.ArrayQuery( destinations )._data;
+            if ( destinationArray ) {
+                destinationArray.filter( function( d ) {
+                    if ( d.name == destName )
+                        return true;
+                    return false;
+                } );
+            }
 
             if (results == null || results.length == 0) {
                 NotifyUtils.warn(_('Destination [%S] has not been defined', [destName]));
