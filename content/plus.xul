@@ -86,7 +86,7 @@
                         </tabpanel>
 
                         <tabpanel orient="vertical">
-                            <label value="&plus.search.label;" class="label-sub-title"/>
+                            <label value="&plus.search.label;"/>
                             <hbox align="center">
                                 <vivitextbox id="plu" flex="1"
                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
@@ -102,8 +102,8 @@
                                           onselect="$do('selectPlu',this.selectedIndex, 'Plus');"/>
                             </vbox>
 
-                            <groupbox id="advance_search" orient="vertical">
-                                <caption label="&plus.search.advancesearch;:" class="label-sub-title"/>
+                            <vbox id="advance_search" orient="vertical">
+                                <label value="&plus.search.advancesearch;:" class="label-sub-title"/>
                                 <grid flex="1" class="data-form">
                                     <columns>
                                         <column flex="1"/>
@@ -116,7 +116,7 @@
                                     <vivibutton id="advSearchBtn" label="&plus.button.numpad.advsearch;" class="button-fixed" oncommand="$do('advSearch', null, 'PluSearch');"/>
                                     <vivibutton id="advClearBtn" label="&plus.button.numpad.advclear;" class="button-fixed" oncommand="$do('advClear', null, 'PluSearch');"/>
                                 </hbox>
-                            </groupbox>
+                            </vbox>
                         </tabpanel>
                     </tabpanels>
                 </tabbox>
@@ -337,10 +337,10 @@
                                                     class="plusetlist" treeClass="standard"
                                                     scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
                                                     onselect="$do('selectSetItem',this.selectedIndex, 'Plus');">
-                                    <vivibutton id="+" class="button-systool button-medium-image button-plus" onclick="event.stopPropagation()" oncommand="$do('addSetItem', null, 'Plus');" />
-                                    <vivibutton id="-" class="button-systool button-medium-image button-minus" onclick="event.stopPropagation()" oncommand="$do('removeSetItem', null, 'Plus');"/>
-                                    <vivibutton id="up" class="button-systool button-medium-image button-up" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', -1, 'Plus');" />
-                                    <vivibutton id="down" class="button-systool button-medium-image button-down" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', 1, 'Plus');"/>
+                                    <vivibutton id="+" class="button-systool button-plus" onclick="event.stopPropagation()" oncommand="$do('addSetItem', null, 'Plus');" />
+                                    <vivibutton id="-" class="button-systool button-minus" onclick="event.stopPropagation()" oncommand="$do('removeSetItem', null, 'Plus');"/>
+                                    <vivibutton id="up" class="button-systool button-up" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', -1, 'Plus');" />
+                                    <vivibutton id="down" class="button-systool button-down" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', 1, 'Plus');"/>
                                 </viviscrollabletree>
                             </vbox>
                             
