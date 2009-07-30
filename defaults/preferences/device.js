@@ -11,7 +11,7 @@ pref("vivipos.fec.registry.templates.ledger-sample-32c.label", "chrome://viviecr
 pref("vivipos.fec.registry.templates.ledger-sample-32c.type", "receipt");
 pref("vivipos.fec.registry.templates.ledger-sample-32c.path", "chrome://viviecr/content/devices/templates/ledger-sample-32c.tpl");
 
-pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "chrome://viviecr/locale/messages.properties");"
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "chrome://viviecr/locale/messages.properties");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");
 
