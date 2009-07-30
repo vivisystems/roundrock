@@ -2561,6 +2561,9 @@ msgstr "Sample Ledger Receipt 42c"
 msgid "vivipos.fec.registry.templates.ledger-sample-24c.label"
 msgstr "Sample Ledger Receipt 24c"
 
+msgid "vivipos.fec.registry.templates.ledger-sample-32c.label"
+msgstr "Sample Ledger Receipt 32c"
+
 msgid "vivipos.fec.registry.templates.receipt-sample-condensed-42c.label"
 msgstr "Sample Receipt 42c condensed"
 
@@ -2578,6 +2581,9 @@ msgstr "Sample Label Argox 203TD"
 
 msgid "vivipos.fec.registry.templates.receipt-sample-condensed-24c.label"
 msgstr "Sample Receipt 24c condensed"
+
+msgid "vivipos.fec.registry.templates.receipt-sample-condensed-32c.label"
+msgstr "Sample Receipt 32c condensed"
 
 msgid "vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.label"
 msgstr "Sample HTML Receipt 24c condensed"
