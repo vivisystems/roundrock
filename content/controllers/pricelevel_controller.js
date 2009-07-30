@@ -48,14 +48,16 @@
             if (activeSchedule) {
 
                 // @todo cron job
-                var schedule = GeckoJS.Session.get('pricelevelSchedule');
+                var scheduleData = GeckoJS.Session.get('pricelevelSchedule');
+                var schedule = scheduleData ? scheduleData.schedule : null;
+                var scheduleDay = scheduleData ? scheduleData.day : null;
                 var today = (new Date()).getDay();
 
-                if (!schedule || revertSchedule || changeToCurrent || this._scheduleDay != today) {
-                    var scheduleList = GeckoJS.Session.get('pricelevelScheduleList');
-                    if (scheduleList) schedule = scheduleList[today];
-                    this._scheduleDay = today;
-                    GeckoJS.Session.set('pricelevelScheduleList', schedule);
+                if (!schedule || revertSchedule || changeToCurrent || scheduleDay != today) {
+                    this.requestCommand('readPrefSchedule', null, 'PriceLevelSchedule');
+                    scheduleData = GeckoJS.Session.get('pricelevelSchedule');
+                    schedule = scheduleData ? scheduleData.schedule : null;
+                    scheduleDay = scheduleData ? scheduleData.day : null;
                 }
 
                 if (schedule != null) {

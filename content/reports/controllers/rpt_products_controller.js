@@ -44,7 +44,8 @@
             cateRecords.forEach(function(o){
                 records[o.no] = {
                     no:o.no,
-                    name:o.name
+                    name:o.name,
+                    plu: []
                     };
             });
 

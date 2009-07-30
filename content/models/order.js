@@ -44,7 +44,7 @@
                 checksum += retObj.id + retObj.modified;
 
                 if (isTraining) {
-                    retObj = this.OrderItem.save(this.mappingTranToOrderItemsFields(data));
+                    retObj = this.OrderItem.saveAll(this.mappingTranToOrderItemsFields(data));
                 }
                 else {
                     retObj = this.OrderItem.saveToBackup(this.mappingTranToOrderItemsFields(data));
@@ -57,7 +57,7 @@
                 });
 
                 if (isTraining) {
-                    retObj = this.OrderAddition.save(this.mappingTranToOrderAdditionsFields(data));
+                    retObj = this.OrderAddition.saveAll(this.mappingTranToOrderAdditionsFields(data));
                 }
                 else {
                     retObj = this.OrderAddition.saveToBackup(this.mappingTranToOrderAdditionsFields(data));
@@ -70,7 +70,7 @@
                 });
 
                 if (isTraining) {
-                    retObj = this.OrderPayment.save(this.mappingTranToOrderPaymentsFields(data));
+                    retObj = this.OrderPayment.saveAll(this.mappingTranToOrderPaymentsFields(data));
                 }
                 else {
                     retObj = this.OrderPayment.saveToBackup(this.mappingTranToOrderPaymentsFields(data));
@@ -83,7 +83,7 @@
                 });
 
                 if (isTraining) {
-                    retObj = this.OrderAnnotation.save(this.mappingTranToOrderAnnotationsFields(data));
+                    retObj = this.OrderAnnotation.saveAll(this.mappingTranToOrderAnnotationsFields(data));
                 }
                 else {
                     retObj = this.OrderAnnotation.saveToBackup(this.mappingTranToOrderAnnotationsFields(data));
@@ -96,7 +96,7 @@
                 });
 
                 if (isTraining) {
-                    retObj = this.OrderItemCondiment.save(this.mappingTranToOrderItemCondimentsFields(data));
+                    retObj = this.OrderItemCondiment.saveAll(this.mappingTranToOrderItemCondimentsFields(data));
                 }
                 else {
                     retObj = this.OrderItemCondiment.saveToBackup(this.mappingTranToOrderItemCondimentsFields(data));
@@ -109,7 +109,7 @@
                 });
 
                 if (isTraining) {
-                    retObj = this.OrderPromotion.save(this.mappingTranToOrderPromotionsFields(data));
+                    retObj = this.OrderPromotion.saveAll(this.mappingTranToOrderPromotionsFields(data));
                 }
                 else {
                     retObj = this.OrderPromotion.saveToBackup(this.mappingTranToOrderPromotionsFields(data));
