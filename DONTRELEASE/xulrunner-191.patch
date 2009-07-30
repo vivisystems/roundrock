@@ -1,0 +1,117 @@
+diff -ruN /home/rack/MyDownload/xulrunner/components/nsExtensionManager.js xulrunner/components/nsExtensionManager.js
+--- /home/rack/MyDownload/xulrunner/components/nsExtensionManager.js	2009-07-23 09:21:23.000000000 +0800
++++ xulrunner/components/nsExtensionManager.js	2009-07-30 14:41:27.000000000 +0800
+@@ -145,6 +145,8 @@
+ var gAllowFlush           = true;
+ var gDSNeedsFlush         = false;
+ var gManifestNeedsFlush   = false;
++var gEnv                  = null;
++var gConv                 = null;
+ 
+ /**
+  * Valid GUIDs fit this pattern.
+@@ -1487,8 +1489,11 @@
+       // create directories first
+       var entries = zipReader.findEntries("*/");
+       while (entries.hasMore()) {
+-        var entryName = entries.getNext();
+-        var target = installLocation.getItemFile(extensionID, entryName);
++        //var entryName = entries.getNext();
++        //var target = installLocation.getItemFile(extensionID, entryName);
++        // if utf8 filename or chinese filename by racklin
++        var entryName = gConv.ConvertFromUnicode(entries.getNext()); 
++        var target = installLocation.getItemFile(extensionID, gConv.ConvertToUnicode(entryName));
+         if (!target.exists()) {
+           try {
+             target.create(Ci.nsILocalFile.DIRECTORY_TYPE, PERMS_DIRECTORY);
+@@ -2327,6 +2332,13 @@
+          getService(Ci.nsIRDFService);
+   gInstallManifestRoot = gRDF.GetResource(RDFURI_INSTALL_MANIFEST_ROOT);
+ 
++  gEnv = Components.classes["@mozilla.org/process/environment;1"]
++                   .getService(Components.interfaces.nsIEnvironment);
++
++  gConv = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
++                   .getService(Components.interfaces.nsIScriptableUnicodeConverter);
++  gConv.charset = "UTF-8";
++
+   // Register Global Install Location
+   var appGlobalExtensions = getDirNoCreate(KEY_APPDIR, [DIR_EXTENSIONS]);
+   var priority = Ci.nsIInstallLocation.PRIORITY_APP_SYSTEM_GLOBAL;
+@@ -6260,6 +6272,10 @@
+   aURI = aURI.replace(/%APP_ABI%/g, gXPCOMABI);
+   aURI = aURI.replace(/%APP_LOCALE%/g, gLocale);
+   aURI = aURI.replace(/%CURRENT_APP_VERSION%/g, gApp.version);
++  aURI = aURI.replace(/%DALLAS%/g, gEnv.get("dallas"));
++  aURI = aURI.replace(/%MAC_ADDRESS%/g, gEnv.get("mac_address"));
++  aURI = aURI.replace(/%VENDOR_NAME%/g, gEnv.get("vendor_name"));
++  aURI = aURI.replace(/%SYSTEM_NAME%/g, gEnv.get("system_name"));
+ 
+   // Replace custom parameters (names of custom parameters must have at
+   // least 3 characters to prevent lookups for something like %D0%C8)
+diff -ruN /home/rack/MyDownload/xulrunner/components/nsUpdateService.js xulrunner/components/nsUpdateService.js
+--- /home/rack/MyDownload/xulrunner/components/nsUpdateService.js	2009-07-23 09:21:24.000000000 +0800
++++ xulrunner/components/nsUpdateService.js	2009-07-30 16:20:09.000000000 +0800
+@@ -88,6 +88,7 @@
+ var gConsole    = null;
+ var gCanUpdate  = null;
+ var gLogEnabled = { };
++var gEnv        = null;
+ 
+ // shared code for suppressing bad cert dialogs
+ //@line 41 "/builds/slave/mozilla-1.9.1-linux-xulrunner/build/toolkit/mozapps/shared/src/badCertHandler.js"
+@@ -1052,6 +1053,9 @@
+           getService(Ci.nsIPrefBranch2);
+   gConsole = Cc["@mozilla.org/consoleservice;1"].
+              getService(Ci.nsIConsoleService);
++  gEnv = Components.classes["@mozilla.org/process/environment;1"]
++                   .getService(Components.interfaces.nsIEnvironment);
++
+ 
+   // Not all builds have a known ABI
+   try {
+@@ -2006,6 +2010,10 @@
+     url = url.replace(/%DISTRIBUTION_VERSION%/g,
+                       getDistributionPrefValue(PREF_APP_DISTRIBUTION_VERSION));
+     url = url.replace(/\+/g, "%2B");
++    url = url.replace(/%DALLAS%/g, gEnv.get("dallas"));
++    url = url.replace(/%MAC_ADDRESS%/g, gEnv.get("mac_address"));
++    url = url.replace(/%VENDOR_NAME%/g, gEnv.get("vendor_name"));
++    url = url.replace(/%SYSTEM_NAME%/g, gEnv.get("system_name"));
+ 
+     if (force)
+       url += (url.indexOf("?") != -1 ? "&" : "?") + "force=1";
+@@ -2822,8 +2830,8 @@
+   /**
+    * See nsIUpdateService.idl
+    */
+-  checkForUpdates: function UP_checkForUpdates() {
+-    this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null, UPDATE_WINDOW_NAME,
++  checkForUpdates: function UP_checkForUpdates(parent) {
++    this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, "modal,dialog=yes", UPDATE_WINDOW_NAME,
+                  null, null);
+   },
+ 
+@@ -2848,7 +2856,7 @@
+   /**
+    * See nsIUpdateService.idl
+    */
+-  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background) {
++  showUpdateDownloaded: function UP_showUpdateDownloaded(update, background, parent) {
+     if (background) {
+       if (!this._enabled)
+         return;
+@@ -2859,11 +2867,11 @@
+                                               [update.name], 1);
+       var text = bundle.GetStringFromName(stringsPrefix + "text");
+       var imageUrl = "";
+-      this._showUnobtrusiveUI(null, URI_UPDATE_PROMPT_DIALOG, null,
++      this._showUnobtrusiveUI((parent||null), URI_UPDATE_PROMPT_DIALOG, null,
+                               UPDATE_WINDOW_NAME, "finishedBackground", update,
+                               title, text, imageUrl);
+     } else {
+-      this._showUI(null, URI_UPDATE_PROMPT_DIALOG, null,
++      this._showUI((parent||null), URI_UPDATE_PROMPT_DIALOG, "modal,dialog=yes",
+                    UPDATE_WINDOW_NAME, "finishedBackground", update);
+     }
+   },
