@@ -54,7 +54,7 @@
             }
 
             var today = (new Date()).getDay();
-            GeckoJS.Session.add('pricelevelSchedule', this._listDatas[today]);
+            GeckoJS.Session.add('pricelevelSchedule', {day: today, schedule: this._listDatas[today]});
             return this._listDatas;
         },
 
@@ -173,7 +173,7 @@
         updateSession: function() {
             this.load();
             var today = (new Date()).getDay();
-            GeckoJS.Session.add('pricelevelSchedule', this._listDatas[today]);
+            GeckoJS.Session.add('pricelevelSchedule', {day: today, schedule: this._listDatas[today]});
 
             this.validateForm();
         },
