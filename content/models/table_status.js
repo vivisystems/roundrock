@@ -22,8 +22,6 @@
         timeout: 15,
         _delta: 0,
 
-        _checkNoArray: [],
-        _tableNoArray: [],
         _connected: false,
         _guestCheck: null,
         _checkList: null,
@@ -41,7 +39,7 @@
 
         initial: function (c) {
             if (!this._tableStatusList) {
-
+                this.setTableStatusOptions();
                 this.getTableStatusList();
             }
         },
@@ -60,13 +58,13 @@
             }
         },
 
-        getRemoteService: function(method) {
+        getRemoteService: function(method,force_remote) {
             this.syncSettings = (new SyncSetting()).read();
 
             if (this.syncSettings && this.syncSettings.active == 1) {
 
                 var hostname = this.syncSettings.table_hostname || 'localhost';
-                if (hostname == 'localhost' || hostname == '127.0.0.1') return false;
+                if ((hostname == 'localhost' || hostname == '127.0.0.1') && !force_remote) return false;
                 
                 //  http://localhost:3000/sequences/getSequence/check_no
                 // check connection status
@@ -186,18 +184,8 @@
             this.data = GeckoJS.BaseObject.unserialize(data);
         },
 
-        resetCheckNoArray: function() {
-            //
-            var self = this;
-            this._checkNoArray = [];
-            this._checkList.forEach(function(o){
-                self._checkNoArray[o.check_no] = 1;
-            });
-        },
-
         getNewCheckNo: function(no) {
 
-            this.resetCheckNoArray();
             var i = 1;
             var cnt = 0;
             var maxCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings.MaxCheckNo') || 999;
@@ -205,18 +193,13 @@
             // minimize maxCheckNo is 30
             maxCheckNo = Math.max(maxCheckNo, 30);
 
+            // remove duplicate check no check...
             // var ar = this.getCheckList('AllCheck', null);
             var ar = this._checkList;
             if (no) {
-                if (!this._checkNoArray[no] || this._checkNoArray[no] == 0) {
-                    this._checkNoArray[no] = 1;
-                    // GeckoJS.Session.set('vivipos_fec_check_number', no);
-                    return "" + no;
-                } else {
-                    // @todo OSD
-                    // NotifyUtils.error(_('Can not get new check no [%S]!!', [no]));
-                    return -1;
-                }
+
+                return "" + no;
+
             } else {
                 while (true) {
                     i = SequenceModel.getSequence('check_no');
@@ -224,17 +207,8 @@
                     if (i > maxCheckNo) {
                         i = 0;
                         SequenceModel.resetSequence('check_no');
-                    } else if (!this._checkNoArray[i] || this._checkNoArray[i] == 0) {
-                        this._checkNoArray[i] = 1;
-                        // GeckoJS.Session.set('vivipos_fec_check_number', i);
+                    } else {
                         return "" + i;
-                        break;
-                    }
-
-                    if (cnt++ > maxCheckNo) {
-                        // @todo OSD
-                        // NotifyUtils.error(_('Can not get new check no!!'));
-                        return -1;
                         break;
                     }
                 }
@@ -251,7 +225,8 @@
             if (remoteUrl) {
                 try {
                     tableStatus = this.requestRemoteService('GET', remoteUrl + "/" + lastModified, null);
-
+GREUtils.log("getTableStatuses:::");
+GREUtils.log(GeckoJS.BaseObject.dump(tableStatus));
                     tableStatus.forEach(function(o){
 
                         var item = GREUtils.extend({}, o.TableStatus);
@@ -361,6 +336,8 @@
                     o.check_no = 0;
                     o.sequence = '';
 
+                    if (o.hostby == '0') o.hostby = '';
+
                     // mark
                     // if (!o.mark || (o.start_time > now) || (o.end_time < now)) {
                     if (!o.mark || (o.end_time < now)) {
@@ -415,9 +392,6 @@
 
         getTableNo: function(table_no) {
             //
-            if (table_no) {
-                this._tableNoArray[table_no] = 1;
-            }
             return table_no;
 
         },
@@ -804,8 +778,19 @@ return;
             tableStatusObj.id = tableStatusObj.order_id;
             this.TableOrder.save(tableStatusObj);
 
+            // remove old table order
+            this._removeOldFinishedTableOrder();
+
             return;
 
+        },
+
+        _removeOldFinishedTableOrder: function() {
+            //
+            // var rmTime = Math.round(Date.today().addDays(-1).getTime() / 1000); // one day ago...
+            var rmTime = Math.round(Date.now().addDays(-1).getTime() / 1000); // one day ago...
+            var cond = "status!=2 AND modified<'" + rmTime + "'";
+            this.TableOrder.delAll(cond);
         },
 
         _setTableStatus: function(tableStatusObj) {
@@ -947,6 +932,121 @@ return;
             }, this);
 
             return this._tableOrders;
+        },
+
+        getRegions: function() {
+
+            var remoteUrl = this.getRemoteService('getRegions');
+            var regions = null;
+
+            if (remoteUrl) {
+                try {
+                    regions = this.requestRemoteService('GET', remoteUrl, null);
+
+                    //@todo
+                    regions.forEach(function(o){
+
+                        var item = GREUtils.extend({}, o.TableRegion);
+                        for (var key in item) {
+                            o[key] = item[key];
+                        }
+                    });
+                    this._connected = true;
+                }catch(e) {
+                    regions = [];
+                    this._connected = false;
+
+                }
+
+            }else {
+                // read all regions
+                this._connected = true;
+
+                var regionModel = new TableRegionModel();
+                regions = regionModel.find('all', {
+                        fields: ['id', 'name']
+                    });
+                delete regionModel;
+
+            }
+
+            return regions;
+        },
+
+        getTableStatusOptions: function() {
+
+            var remoteUrl = this.getRemoteService('getTableStatusOptions');
+            var options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+            var tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+            var marksData = [];
+
+            if (remoteUrl) {
+                try {
+                    var remote_options = this.requestRemoteService('GET', remoteUrl, null);
+
+                    if (remote_options) {
+                        options = remote_options.options;
+                        marksData = remote_options.marks;
+                    }
+
+                    this._connected = true;
+                    
+                }catch(e) {
+                    options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+                    tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+                    this._connected = false;
+
+                }
+
+            }else {
+                // read all regions
+                this._connected = true;
+
+                options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+                tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+
+            }
+
+            
+            if (tableMarks != null && marksData == []) {
+                marksData = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(tableMarks));
+            }
+            if (marksData.length <= 0) marksData = [];
+
+            GeckoJS.Session.set('TableStatus_TableMarks', marksData);
+
+            return options;
+        },
+
+        setTableStatusOptions: function() {
+
+            this.syncSettings = (new SyncSetting()).read();
+            var hostname = this.syncSettings.table_hostname || 'localhost';
+            if (hostname != 'localhost' && hostname != '127.0.0.1') return false;
+
+            var remoteUrl = this.getRemoteService('setTableStatusOptions', true);
+
+            var optionsData = {}
+            var marksData = [];
+
+            var options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
+
+            var tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
+            var marksData = [];
+            if (tableMarks != null)
+                marksData = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(tableMarks));
+            if (marksData.length <= 0) marksData = [];
+
+
+            if (remoteUrl) {
+
+                this.requestRemoteService('POST', remoteUrl, GeckoJS.BaseObject.serialize({options: options, marks: marksData}));
+
+                return ;
+            }
+
+            return options;
+
         }
 
     };

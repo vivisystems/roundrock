@@ -185,8 +185,7 @@
 
         removeOldBooking: function() {
             //
-            var now = Math.round((new Date()).getTime() / 1000);
-            var rmTime = now - 86400; // one day ago...
+            var rmTime = Math.round(Date.now().addDays(-1).getTime() / 1000); // one day ago...
             var cond = "booking<'" + rmTime + "'";
 
             var bookingModel = new TableBookingModel();
@@ -262,14 +261,12 @@
                 }
             }
 
-            // this._table_no = inputObj.table_no;
-            // this._table_id = inputObj.table_id;
             this.setTableId(inputObj.table_id);
             this.setTableNo(inputObj.table_no);
             this.setTableName(inputObj.table_name);
             this.setTableStatusId(inputObj.table_status_id);
 
-            document.getElementById('booking_table_title').setAttribute('label', _('Book Table# %S : %S', [this._table_no, this._table_name]));
+            document.getElementById('booking_table_title').setAttribute('label', _('Book Table# %S - %S', [this._table_no, this._table_name]));
 
             var settings = this.readTableSettings();
             GeckoJS.FormHelper.unserializeFromObject('settingsForm', settings);

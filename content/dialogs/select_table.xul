@@ -16,7 +16,8 @@
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-    
+
+    <script src='chrome://viviecr/content/helpers/nsi_tablestatus_view.js'/>
     <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_table.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/controllers/select_table_controller.js" />
     
@@ -30,13 +31,13 @@
         <vbox class="EmptyArea" >
             <hbox flex="1">
                 <spacer flex = "1" />
-                <button id="btn_prior_region" class="fixedbtn" label="Prior Region" disabled="false"  oncommand="$do('_menuPriorRegion', null, 'SelectTable');" />
+                <button id="btn_prior_region" class="fixedbtn" label="&selecttable.priorregion;" disabled="false"  oncommand="$do('_menuPriorRegion', null, 'SelectTable');" />
                 <menulist id="table_region" flex="1" oncommand="$do('setRegion', this.value, 'SelectTable');">
                     <menupopup id="table_region_menupopup">
 
                     </menupopup>
                 </menulist>
-                <button id="btn_next_region" class="fixedbtn" label="Next Region" disabled="false"  oncommand="$do('_menuNextRegion', null, 'SelectTable');" />
+                <button id="btn_next_region" class="fixedbtn" label="&selecttable.nextregion;" disabled="false"  oncommand="$do('_menuNextRegion', null, 'SelectTable');" />
             </hbox>
             <spacer flex="1" />
         </vbox>

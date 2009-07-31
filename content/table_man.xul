@@ -127,6 +127,7 @@
                                     <button id="add_table" disabled="false" label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addTable', null, 'TableMan');"/>
                                     <button id="modify_table" disabled="false" label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyTable', null, 'TableMan');"/>
                                     <button id="toggleactive_table" disabled="false" label="&tableman.button.toggleactive;" hidden="false" class="BtnMod" oncommand="$do('toggleTable', null, 'TableMan');"/>
+                                    <button id="auto_create_table" disabled="false" label="&tableman.button.addtables;" hidden="true" class="BtnAdd" oncommand="$do('autoCreateTables', null, 'TableMan');"/>
                                     <spacer flex="1"/>
                                     <button id="delete_table" disabled="false" label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteTable', null, 'TableMan');"/>
                                 </hbox>
@@ -271,6 +272,7 @@
                                 <tabs id="options-tabbox">
                                     <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
                                     <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>
+                                    <tab id="tab_options3" label="&tableman.tab.tableoptions.3;"/>
                                 </tabs>
                                 <tabpanels flex="1">
 
@@ -320,7 +322,54 @@
                                                     </hbox>
                                                 </row>
                                                 <row>
-                                                    <label vallue="" />
+                                                    <label value="" />
+                                                    <label value="" />
+                                                </row>
+                                            </rows>
+                                        </grid>
+                                        </vbox>
+                                    </tabpanel>
+
+                                    <tabpanel>
+                                        <vbox flex="1">
+                                        <caption label="&tableman.tableoptions.options;" />
+                                        <grid class="DataForm" flex="1">
+                                            <columns>
+                                                <column flex="1" />
+                                                <column flex="1" />
+                                            </columns>
+                                            <rows>
+                                                <row>
+                                                    <vbox>
+                                                        <label control="print_split_check" value="&tableman.tableoptions.printsplitcheck;"/>
+                                                        <menulist id="print_split_check" name="PrintSplitCheck" form="settingsForm">
+                                                            <menupopup>
+                                                                <menuitem value="0" label="&tableman.tableoptions.printsplitcheck.none;" />
+                                                                <menuitem value="1" label="&tableman.tableoptions.printsplitcheck.auto;" />
+                                                                <menuitem value="2" label="&tableman.tableoptions.printsplitcheck.confirm;" />
+                                                            </menupopup>
+                                                        </menulist>
+                                                    </vbox>
+                                                    <vbox>
+                                                        <label control="default_region" value="&tableman.tableoptions.defaultregion;"/>
+                                                        <menulist id="default_region" name="DefaultRegion" form="settingsForm">
+                                                            <menupopup id="default_region_menupopup">
+
+                                                            </menupopup>
+                                                        </menulist>
+                                                    </vbox>
+                                                </row>
+                                                <row>
+                                                    <vbox>
+                                                        <label control="print_merge_check" value="&tableman.tableoptions.printmergecheck;"/>
+                                                        <menulist id="print_merge_check" name="PrintMergeCheck" form="settingsForm">
+                                                            <menupopup>
+                                                                <menuitem value="0" label="&tableman.tableoptions.printmergecheck.none;" />
+                                                                <menuitem value="1" label="&tableman.tableoptions.printmergecheck.auto;" />
+                                                                <menuitem value="2" label="&tableman.tableoptions.printmergecheck.confirm;" />
+                                                            </menupopup>
+                                                        </menulist>
+                                                    </vbox>
                                                     <vbox>
                                                         <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
                                                         <menulist id="mark_automark" name="AutoMarkAfterSubmit" form="settingsForm">
