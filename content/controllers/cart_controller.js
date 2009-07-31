@@ -3989,7 +3989,7 @@
                 // remove from list;
                 self._removeQueueByKey(key);
 
-                var curTransaction = new Transaction();
+                var curTransaction = new Transaction(true);
                 curTransaction.data = data ;
 
                 self._setTransactionToView(curTransaction);
