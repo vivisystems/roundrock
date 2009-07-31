@@ -10434,7 +10434,7 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
 
         /* ifdef DEBUG 
         this.log('DEBUG', 'restoreFromBackup > datas length = ' + backupDatas.length) ;
-        /* endif DEBUG */
+    /* endif DEBUG */
 
     }catch(e) {
         this.log('ERROR', 'restoreFromBackup > querySelect Error: ') ;
@@ -10513,7 +10513,7 @@ GeckoJS.BaseModel.prototype.restoreFromBackup = function(){
 
         /* ifdef DEBUG 
         this.log('DEBUG', 'restoreFromBackup > ' + this.name + ', useDbConfig ' + this.useDbConfig + ',, begin transaction false') ;
-        /* endif DEBUG */
+    /* endif DEBUG */
 
     }
 
@@ -11106,6 +11106,88 @@ GeckoJS.BaseModel.prototype.dropSchema = function() {
 
     // @todo
     return true;
+
+};
+
+
+/**
+ * Use fields declared type to convert and cast data properties .
+ *
+ * This function is useful for cast data type, that from JSON / or XMLHttpRequest response.
+ *
+ * @name GeckoJS.BaseModel#convertDataTypes
+ * @public
+ * @function
+ * @param {Object|Array} data     data to cast
+ * @return {Object} return converted data
+ */
+GeckoJS.BaseModel.prototype.convertDataTypes = function(data) {
+
+    if (!data) return data;
+
+    if (data.constructor.name == 'Array') {
+
+        for (var i = 0; i < data.length; i++ ) {
+            data[i] = this.convertDataTypes(data[i]);
+        }
+        return data;
+
+    }else {
+
+        var fieldsInfo = this.getFieldsInfo();
+
+        for (var fieldName in data) {
+
+            // fields is defined in table.
+            if (fieldsInfo[fieldName]) {
+
+                var declaredType = fieldsInfo[fieldName].type;
+                var convertType = 'String';
+
+                if (declaredType.match(/bool/i)) {
+                    convertType = "Boolean";
+                }
+                if ((declaredType.match(/date/i) || declaredType.match(/time/i))) {
+                    convertType = "Date";
+                }
+                if (declaredType.match(/int/i)) {
+                    convertType = "Integer";
+                }
+                if (declaredType.match(/float/i)) {
+                    convertType = "Float";
+                }
+
+                switch (convertType) {
+                    default:
+                    case 'String':
+                        break;
+                    case 'Boolean':
+                        data[fieldName] = GeckoJS.String.parseBoolean(data[fieldName]);
+                        break;
+                    case 'Date':
+                        if (parseFloat(data[fieldName]).toFixed(0).length == 10) {
+                            data[fieldName] = new Date(data[fieldName] * 1000);
+                        }else if (parseFloat(data[fieldName]).toFixed(0).length == 13) {
+                            data[fieldName] = new Date(parseFloat(data[fieldName]));
+                        }else {
+                            data[fieldName] = new Date(0);
+                        }
+
+                        data[fieldName] = GeckoJS.String.parseBoolean(data[fieldName]);
+                        break;
+                    case 'Integer':
+                        data[fieldName] = parseInt(data[fieldName]);
+                        break;
+                    case 'Float':
+                        data[fieldName] = parseFloat(data[fieldName]);
+                        break;
+                }
+            }
+        }
+
+        return data;
+
+    }
 
 };
 /**
