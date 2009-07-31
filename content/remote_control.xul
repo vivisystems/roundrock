@@ -78,8 +78,9 @@
                 </tabpanels>
             </tabbox>
 
-            <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
+            <hbox id="dialogButtons" class="exitbar">
                 <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="$do('save', null, 'RemoteControl');"/>
+                <spacer flex="1"/>
                 <button id="vkb" class="button-vkb"  oncommand="VirtualKeyboard.toggle();"/>
                 <button id="cancel" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="$do('exit', null, 'RemoteControl');"/>
             </hbox>

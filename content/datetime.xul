@@ -25,7 +25,7 @@
 
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('save').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
      <vbox flex="1" class="container-be">
@@ -47,10 +47,11 @@
                     </tabpanel>
                 </tabpanels>
             </tabbox>
-            <hbox id="dialogButtons" class="exitbar" pack="end">
+            <hbox id="dialogButtons" class="exitbar">
                 <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="doOKButton();"/>
+                <spacer flex="1"/>
                 <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                <button id="cancel" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="doCancelButton();"/>
+                <button id="close" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="doCancelButton();"/>
             </hbox>
         </vbox>
     </vbox>

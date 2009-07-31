@@ -12,16 +12,6 @@
         
         $do('load', null, 'CurrencySetup');
 
-        doSetOKCancel(
-            function(){
-                $do('save', null, 'CurrencySetup');
-                return true;
-            },
-            function(){
-                return true;
-            }
-            );
-
         $('#currency_exchange_1').focus();
     };
 

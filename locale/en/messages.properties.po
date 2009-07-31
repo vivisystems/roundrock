@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-31 04:41+0800\n"
+"POT-Creation-Date: 2009-07-31 05:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,7 +162,7 @@ msgid "vivipos.fec.settings.controlpanels.system.remote_control.label"
 msgstr "Remote Control"
 
 msgid "vivipos.fec.settings.controlpanels.system.sync_settings.label"
-msgstr "Network Service Settings"
+msgstr "Network Services"
 
 msgid "vivipos.fec.settings.controlpanels.system.systembackup.label"
 msgstr "System Backup"
@@ -2605,7 +2605,7 @@ msgid ""
 msgstr ""
 
 #: ../..//content/overlay.js:17
-#: ../..//content/controllers/main_controller.js:1107
+#: ../..//content/controllers/main_controller.js:1111
 #: ../..//content/controllers/setup_wizard_controller.js:681
 msgid "VIVIPOS Setup"
 msgstr ""
@@ -2707,19 +2707,6 @@ msgstr ""
 
 #: ../..//content/select_checks.js:182
 msgid "Can not select this order!!"
-msgstr ""
-
-#: ../..//content/sync_settings.js:18
-#: ../..//content/controllers/sync_settings_controller.js:55
-msgid "confirm synchronize settings change"
-msgstr ""
-
-#: ../..//content/sync_settings.js:19
-#: ../..//content/controllers/sync_settings_controller.js:56
-msgid ""
-"Synchronize settings changes require system restart to take effect. If you "
-"save the changes now, the system will restart automatically after you return "
-"to the Main Screen. Do you want to save your changes?"
 msgstr ""
 
 #: ../..//content/sysprefs.js:46
@@ -2829,7 +2816,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:88
 #: ../..//content/controllers/static_condiments_controller.js:484
 #: ../..//content/controllers/storecontact_controller.js:175
-#: ../..//content/controllers/sync_settings_controller.js:142
+#: ../..//content/controllers/sync_settings_controller.js:144
 #: ../..//content/controllers/taxes_controller.js:88
 #: ../..//content/controllers/users_controller.js:375
 msgid "Exit"
@@ -2846,7 +2833,7 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:160
 #: ../..//content/controllers/jobs_controller.js:229
 #: ../..//content/controllers/localekeyboard_controller.js:75
-#: ../..//content/controllers/localization_controller.js:326
+#: ../..//content/controllers/localization_controller.js:327
 #: ../..//content/controllers/nonplu_setting_controller.js:219
 #: ../..//content/controllers/plufilter_controller.js:195
 #: ../..//content/controllers/plugroups_controller.js:402
@@ -2854,7 +2841,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:177
-#: ../..//content/controllers/sync_settings_controller.js:144
+#: ../..//content/controllers/sync_settings_controller.js:146
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/users_controller.js:377
 msgid "Save"
@@ -2865,9 +2852,9 @@ msgstr ""
 #: ../..//content/controllers/departments_controller.js:160
 #: ../..//content/controllers/jobs_controller.js:229
 #: ../..//content/controllers/localekeyboard_controller.js:75
-#: ../..//content/controllers/localization_controller.js:326
-#: ../..//content/controllers/main_controller.js:793
-#: ../..//content/controllers/main_controller.js:819
+#: ../..//content/controllers/localization_controller.js:327
+#: ../..//content/controllers/main_controller.js:795
+#: ../..//content/controllers/main_controller.js:823
 #: ../..//content/controllers/nonplu_setting_controller.js:219
 #: ../..//content/controllers/plufilter_controller.js:195
 #: ../..//content/controllers/plugroups_controller.js:402
@@ -2875,7 +2862,7 @@ msgstr ""
 #: ../..//content/controllers/remote_control_controller.js:90
 #: ../..//content/controllers/static_condiments_controller.js:486
 #: ../..//content/controllers/storecontact_controller.js:177
-#: ../..//content/controllers/sync_settings_controller.js:144
+#: ../..//content/controllers/sync_settings_controller.js:146
 #: ../..//content/controllers/taxes_controller.js:90
 #: ../..//content/controllers/users_controller.js:377
 msgid "Discard"
@@ -3726,8 +3713,8 @@ msgstr ""
 #: ../..//content/controllers/clockinout_controller.js:285
 #: ../..//content/controllers/ledger_controller.js:310
 #: ../..//content/controllers/list_orders_controller.js:191
-#: ../..//content/controllers/main_controller.js:951
-#: ../..//content/controllers/main_controller.js:1208
+#: ../..//content/controllers/main_controller.js:955
+#: ../..//content/controllers/main_controller.js:1212
 #: ../..//content/controllers/print_controller.js:1202
 #: ../..//content/controllers/setup_wizard_controller.js:698
 #: ../..//content/controllers/shift_changes_controller.js:988
@@ -3740,8 +3727,8 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:4335
 #: ../..//content/controllers/ledger_controller.js:311
 #: ../..//content/controllers/list_orders_controller.js:192
-#: ../..//content/controllers/main_controller.js:953
-#: ../..//content/controllers/main_controller.js:1209
+#: ../..//content/controllers/main_controller.js:957
+#: ../..//content/controllers/main_controller.js:1213
 #: ../..//content/controllers/setup_wizard_controller.js:699
 #: ../..//content/controllers/shift_changes_controller.js:989
 #: ../..//content/controllers/stock_records_controller.js:731
@@ -4307,8 +4294,8 @@ msgstr ""
 #: ../..//content/controllers/export_locale_controller.js:52
 #: ../..//content/controllers/package_builder_controller.js:368
 #: ../..//content/controllers/stock_records_controller.js:664
-#: ../..//content/controllers/systembackup_controller.js:201
-#: ../..//content/controllers/systembackup_controller.js:271
+#: ../..//content/controllers/systembackup_controller.js:196
+#: ../..//content/controllers/systembackup_controller.js:266
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
@@ -4949,38 +4936,38 @@ msgid ""
 "directory"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:324
+#: ../..//content/controllers/localization_controller.js:325
 msgid "Localization"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:325
+#: ../..//content/controllers/localization_controller.js:326
 msgid "Translations have been modified; save changes?"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:519
+#: ../..//content/controllers/localization_controller.js:520
 msgid "Localization Editor"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:520
+#: ../..//content/controllers/localization_controller.js:521
 msgid ""
 "The text you entered contains one or more special characters (%, &, \") that "
 "should be used with extreme care. Mis-use may lead to non-functional "
 "screens. Are you sure you still want to modify this translation?"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:611
+#: ../..//content/controllers/localization_controller.js:612
 msgid "Failed to write DTD to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:626
+#: ../..//content/controllers/localization_controller.js:627
 msgid "Failed to write Properties to file [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:668
+#: ../..//content/controllers/localization_controller.js:669
 msgid "Failed to load install.rdf for package:locale [%S:%S] at path [%S]"
 msgstr ""
 
-#: ../..//content/controllers/localization_controller.js:678
+#: ../..//content/controllers/localization_controller.js:679
 msgid "Export Locale"
 msgstr ""
 
@@ -5083,9 +5070,9 @@ msgid "Please enter passcode first."
 msgstr ""
 
 #: ../..//content/controllers/main_controller.js:780
-#: ../..//content/controllers/main_controller.js:792
-#: ../..//content/controllers/main_controller.js:805
-#: ../..//content/controllers/main_controller.js:818
+#: ../..//content/controllers/main_controller.js:793
+#: ../..//content/controllers/main_controller.js:807
+#: ../..//content/controllers/main_controller.js:821
 msgid "Sign Off"
 msgstr ""
 
@@ -5093,110 +5080,110 @@ msgstr ""
 msgid "Discard items that have been registered?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:792
+#: ../..//content/controllers/main_controller.js:794
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:793
+#: ../..//content/controllers/main_controller.js:795
 msgid "Queue"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:805
+#: ../..//content/controllers/main_controller.js:807
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:818
+#: ../..//content/controllers/main_controller.js:822
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:819
+#: ../..//content/controllers/main_controller.js:823
 msgid "Keep"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:828
+#: ../..//content/controllers/main_controller.js:832
 msgid "confirm sign-off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:828
+#: ../..//content/controllers/main_controller.js:832
 msgid "Are you ready to sign off?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:903
-#: ../..//content/controllers/main_controller.js:906
-#: ../..//content/controllers/main_controller.js:970
+#: ../..//content/controllers/main_controller.js:907
+#: ../..//content/controllers/main_controller.js:910
+#: ../..//content/controllers/main_controller.js:974
 msgid "Remove All Transaction Records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:904
+#: ../..//content/controllers/main_controller.js:908
 msgid ""
 "This operation will remove all transaction records. Are you sure you want to "
 "proceed?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:907
+#: ../..//content/controllers/main_controller.js:911
 msgid ""
 "Data will not be recoverable once removed. It is strongly recommended that "
 "the system be backed up before truncating transaction records. Proceed with "
 "data removal?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:909
+#: ../..//content/controllers/main_controller.js:913
 msgid "Removing all transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:952
+#: ../..//content/controllers/main_controller.js:956
 msgid ""
 "An error was encountered while attempting to remove all transaction records."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:971
+#: ../..//content/controllers/main_controller.js:975
 msgid "Removal completed. Application will now restart"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:992
+#: ../..//content/controllers/main_controller.js:996
 msgid "Removing expired transaction records"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1008
+#: ../..//content/controllers/main_controller.js:1012
 msgid ""
 "An error was encountered while expiring backup sales activity logs (error "
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1015
+#: ../..//content/controllers/main_controller.js:1019
 msgid ""
 "An error was encountered while expiring sales activity logs (error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1024
+#: ../..//content/controllers/main_controller.js:1028
 msgid ""
 "An error was encountered while expiring backup employee attendance records "
 "(error code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1031
+#: ../..//content/controllers/main_controller.js:1035
 msgid ""
 "An error was encountered while expiring employee attendance records (error "
 "code %S)."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1063
+#: ../..//content/controllers/main_controller.js:1067
 msgid "Adjust Stock"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1067
+#: ../..//content/controllers/main_controller.js:1071
 msgid "Reboot"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1067
+#: ../..//content/controllers/main_controller.js:1071
 msgid "Please confirm to reboot the terminal"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1074
+#: ../..//content/controllers/main_controller.js:1078
 msgid "Shutdown"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:1074
+#: ../..//content/controllers/main_controller.js:1078
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
@@ -6452,81 +6439,92 @@ msgid ""
 "exiting?"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:35
+#: ../..//content/controllers/sync_settings_controller.js:36
 msgid "Synchronization Settings"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:36
+#: ../..//content/controllers/sync_settings_controller.js:37
 msgid "Terminal number must only contain [a-zA-Z] and [0-9]"
 msgstr ""
 
-#: ../..//content/controllers/sync_settings_controller.js:143
+#: ../..//content/controllers/sync_settings_controller.js:56
+msgid "confirm synchronize settings change"
+msgstr ""
+
+#: ../..//content/controllers/sync_settings_controller.js:57
+msgid ""
+"Synchronize settings changes require system restart to take effect. If you "
+"save the changes now, the system will restart automatically after you return "
+"to the Main Screen. Do you want to save your changes?"
+msgstr ""
+
+#: ../..//content/controllers/sync_settings_controller.js:145
 msgid ""
 "You have made changes to network service settings. Save changes before "
 "exiting?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:180
+#: ../..//content/controllers/systembackup_controller.js:175
 msgid "Backing Up Data to Local Storage"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:189
+#: ../..//content/controllers/systembackup_controller.js:184
 msgid "<Backup to Local> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:205
+#: ../..//content/controllers/systembackup_controller.js:200
 msgid "Copying Backup Data to External Storage"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:220
+#: ../..//content/controllers/systembackup_controller.js:215
 msgid "<Copy Backup to Stick> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:223
+#: ../..//content/controllers/systembackup_controller.js:218
 msgid "Please select a local backup first"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:235
+#: ../..//content/controllers/systembackup_controller.js:230
 msgid "Restoring Data from Local Backup"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:249
-msgid "Do you want to restore (%S) from local backup?"
+#: ../..//content/controllers/systembackup_controller.js:244
+msgid "Do you want to restore [%S] from local backup?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:249
-#: ../..//content/controllers/systembackup_controller.js:290
+#: ../..//content/controllers/systembackup_controller.js:244
+#: ../..//content/controllers/systembackup_controller.js:285
 msgid ""
 "If you execute restore now, the system will restart automatically after you "
 "return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:252
-#: ../..//content/controllers/systembackup_controller.js:293
+#: ../..//content/controllers/systembackup_controller.js:247
+#: ../..//content/controllers/systembackup_controller.js:288
 msgid "Confirm Restore"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:256
+#: ../..//content/controllers/systembackup_controller.js:251
 msgid "<Restore from Local backup> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:260
+#: ../..//content/controllers/systembackup_controller.js:255
 msgid "Please select an external backup to restore from"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:276
+#: ../..//content/controllers/systembackup_controller.js:271
 msgid "Restoring Data from External Backup"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:290
-msgid "Do you want to restore (%S) from stick?"
+#: ../..//content/controllers/systembackup_controller.js:285
+msgid "Do you want to restore [%S] from external USB storage?"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:298
+#: ../..//content/controllers/systembackup_controller.js:293
 msgid "<Restore from Stick> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:302
+#: ../..//content/controllers/systembackup_controller.js:297
 msgid "Please select a local backup to restore from"
 msgstr ""
 

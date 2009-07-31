@@ -680,6 +680,43 @@ button-fontsize-picker button {
   display: none;
 }
 
+.button-reset {
+    list-style-image: url(../images/icon_reset.png);
+}
+.button-reset[disabled] {
+    list-style-image: url(../images/icon_reset-d.png);
+}
+.button-set {
+    list-style-image: url(../images/icon_set.png);
+}
+.button-set[disabled] {
+    list-style-image: url(../images/icon_set-d.png);
+}
+.button-enable {
+    list-style-image: url(../images/icon_enable.png);
+}
+.button-enable[disabled] {
+    list-style-image: url(../images/icon_enable-d.png);
+}
+.button-disable {
+    list-style-image: url(../images/icon_disable.png);
+}
+.button-disable[disabled] {
+    list-style-image: url(../images/icon_disable-d.png);
+}
+.button-merge {
+    list-style-image: url(../images/icon_merge.png);
+}
+.button-merge[disabled] {
+    list-style-image: url(../images/icon_merge-d.png);
+}
+.button-remove {
+    list-style-image: url(../images/icon_remove.png);
+}
+.button-remove[disabled] {
+    list-style-image: url(../images/icon_remove-d.png);
+}
+
 /*-----------------------------------------------------------------------------
  * Fixed sized buttons suitable for number and function keys
  *-----------------------------------------------------------------------------

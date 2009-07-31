@@ -449,7 +449,7 @@
                                     <vbox flex="1">
                                         <label value="&plus.button.color;" class="label-sub-title"/>
                                         <hbox pack="center" align="center" flex="1">
-                                            <button_colorpicker id="dept_button_color" orient="vertical"
+                                            <button_colorpicker id="plu_button_color" orient="vertical"
                                                             class="button-color-picker custom-content-color-picker"
                                                             class-prefix="product-button-color-"
                                                             form="productForm" name="button_color" default="product-button-color-default"/>

@@ -33,7 +33,7 @@
 
             // make sure terminal_no is alphanumeric only
             if (!this.isAlphaNumeric(obj['machine_id'])) {
-                GREUtils.Dialog.alert(this.topmostWindow, _('Synchronization Settings'),
+                GREUtils.Dialog.alert(this.topmostWindow, _('Network Service Settings'),
                                       _('Terminal number must only contain [a-zA-Z] and [0-9]'));
                 data.cancel = true;
             }
@@ -53,8 +53,8 @@
 
             if (data.changed) {
                 var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
-                if (GREUtils.Dialog.confirm(topwin, _('confirm synchronize settings change'),
-                    _('Synchronize settings changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
+                if (GREUtils.Dialog.confirm(topwin, _('confirm network service settings change'),
+                    _('Network service settings changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
                     )) {
 
                     this.update();
@@ -66,6 +66,9 @@
                 else {
                     return false;
                 }
+            }
+            else {
+                NotifyUtils.warn(_('No changes to save'));
             }
             return !data.cancel;
         },
@@ -127,7 +130,8 @@
                 syncClientScript = null;
             }catch(e) {
             }
-		
+
+            OsdUtils.info(_('Network service settings saved'));
         },
 
         exit: function() {
@@ -137,14 +141,14 @@
                                         .getService(Components.interfaces.nsIPromptService);
                 var check = {data: false};
                 var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
 
                 var action = prompts.confirmEx(this.topmostWindow,
                                                _('Exit'),
                                                _('You have made changes to network service settings. Save changes before exiting?'),
-                                               flags, _('Save'), _('Discard'), '', null, check);
-                if (action == 2) {
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
                     return;
                 }
                 else if (action == 0) {

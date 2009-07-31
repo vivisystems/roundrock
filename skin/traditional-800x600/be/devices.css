@@ -1,0 +1,20 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Devices
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.custom-content-device {
+   background: #f0efe8;
+   -moz-border-radius: 8px;
+   padding: 8px;
+}
+
+.custom-content-device-details {
+    background-color: white !important;
+}
+
+.custom-content-device-details .data-form {
+    background-color: white !important;
+}

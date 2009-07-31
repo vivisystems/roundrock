@@ -120,11 +120,11 @@
             var storeContactModel = new StoreContactModel();
             storeContactModel.id = formObj.id;
             if (storeContactModel.save(formObj)) {
-                NotifyUtils.info(_('Store contact information successfully saved'));
                 GeckoJS.Session.set('storeContact', formObj);
 
                 GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);
 
+                OsdUtils.info(_('Store contact information successfully saved'));
                 return true;
             }
             else {
@@ -168,14 +168,14 @@
                                         .getService(Components.interfaces.nsIPromptService);
                 var check = {data: false};
                 var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
 
                 var action = prompts.confirmEx(this.topmostWindow,
                                                _('Exit'),
                                                _('You have made changes to store contact information. Save changes before exiting?'),
-                                               flags, _('Save'), _('Discard'), '', null, check);
-                if (action == 2) {
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
                     return;
                 }
                 else if (action == 0) {

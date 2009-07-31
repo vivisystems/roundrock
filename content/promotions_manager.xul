@@ -31,34 +31,30 @@
     </keyset>
 
     <box id="promotionsmanager-container" flex="1" class="container-be layout-be">
-        <hbox flex="1" class="container-main layout-a">
-            <vbox class="container-left block-40">
-                <label value="&promotions_manager.title;" class="label-page-title"/>
-                <vbox id="promotionsmanager-box" flex="1" class="content-listbox">
-                    <viviscrollabletree id="promotions_tree"
-                                        class="custom-content-promotions-list" treeClass="standard"
-                                        headers="&promotions_manager.tree.active.label;,&promotions_manager.tree.name.label;"
-                                        fields="active,name"
-                                        seltype="single"
-                                        reverse="true"
-                                        types="checkbox,"
-                                        flex="1"
-                                        hidecolumnpicker="true"
-                                        hidevscroll="true"
-                                        scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
-                                        onselect="$do('modify', this, 'PromotionsManager')">
-                        <button id="upBtn" disabled="true" class="button-systool button-up"
-                                oncommand="$do('up', null, 'PromotionsManager');"/>
-                        <button id="downBtn" disabled="true" class="button-systool button-down"
-                                oncommand="$do('down', null, 'PromotionsManager');"/>
-                    </viviscrollabletree>
+        <vbox flex="1" class="container-main layout-a">
+            <hbox flex="1">
+                <vbox class="container-left block-40">
+                    <label value="&promotions_manager.title;" class="label-page-title"/>
+                    <vbox id="promotionsmanager-box" flex="1" class="content-listbox">
+                        <viviscrollabletree id="promotions_tree"
+                                            class="custom-content-promotions-list" treeClass="standard"
+                                            headers="&promotions_manager.tree.active.label;,&promotions_manager.tree.name.label;"
+                                            fields="active,name"
+                                            seltype="single"
+                                            reverse="true"
+                                            types="checkbox,"
+                                            flex="1"
+                                            hidecolumnpicker="true"
+                                            hidevscroll="true"
+                                            scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
+                                            onselect="$do('modify', this, 'PromotionsManager')">
+                            <button id="upBtn" disabled="true" class="button-systool button-up"
+                                    oncommand="$do('up', null, 'PromotionsManager');"/>
+                            <button id="downBtn" disabled="true" class="button-systool button-down"
+                                    oncommand="$do('down', null, 'PromotionsManager');"/>
+                        </viviscrollabletree>
+                    </vbox>
                 </vbox>
-                <hbox class="toolbar" toolbarmode="horizontal">
-                    <vivibutton id="addBtn" label="&promotions_manager.button.action.add;" disabled="false" class="button-add"
-                                oncommand="$do('add', null, 'PromotionsManager');"/>
-                </hbox>
-            </vbox>
-            <vbox flex="1">
                 <tabbox  flex="1" class="content-tabbox">
                     <tabs id="tabs">
                         <tab id="tabBasic" label="&promotions_manager.tab.basic;"/>
@@ -206,18 +202,20 @@
                         </tabpanel>
                     </tabpanels>
                 </tabbox>
-
-                <hbox>
-                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
-                        <button id="modifyBtn" label="&promotions_manager.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('update', null, 'PromotionsManager');"/>
-                        <button id="deleteBtn" label="&promotions_manager.button.action.delete;" disabled="true" class="button-delete" oncommand="$do('remove', null, 'PromotionsManager');"/>
-                    </hbox>
-                    <hbox  pack="end" class="exitbar">
-                        <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('close', null, 'PromotionsManager');"/>
-                    </hbox>
+            </hbox>
+            <hbox>
+                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                    <button id="addBtn" label="&promotions_manager.button.action.add;" disabled="false" class="button-add"
+                            oncommand="$do('add', null, 'PromotionsManager');"/>
+                    <spacer flex="1"/>
+                    <button id="modifyBtn" label="&promotions_manager.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('update', null, 'PromotionsManager');"/>
+                    <button id="deleteBtn" label="&promotions_manager.button.action.delete;" disabled="true" class="button-delete" oncommand="$do('remove', null, 'PromotionsManager');"/>
                 </hbox>
-            </vbox>
-        </hbox>
+                <hbox  pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'PromotionsManager');"/>
+                </hbox>
+            </hbox>
+        </vbox>
     </box>
 </window>

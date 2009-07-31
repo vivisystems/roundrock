@@ -36,9 +36,10 @@
     </keyset>
 
     <vbox class="container-be layout-be" flex="1">
-        <hbox flex="1" class="container-main layout-a">
-            <vbox flex="1" class="container-left block-50">
-                <caption label="&pricelevelschedule.title;" class="label-page-title"/>
+        <vbox flex="1" class="container-main layout-a">
+            <hbox flex="1">
+                <vbox class="container-left block-50">
+                    <label value="&pricelevelschedule.title;" class="label-page-title"/>
                     <tabbox id="weekindex" class="content-tabbox"
                             onselect="$do('selectWeek', this.selectedIndex, 'PriceLevelSchedule')">
                         <tabs id="weeklabel" >
@@ -51,50 +52,53 @@
                             <tab label="-" flex="1"/>
                         </tabs>
                     </tabbox>
-                <vbox flex="1" class="content-box">
-                    <vivitree id="schedulescrollablepanel" flex="1" class="standard custom-content-pricelevel-list"
-                              ensureVisible="true" hidecolumnpicker="true"
-                              headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
-                              fields="time,pricelevel"
-                              onselect="$do('validateForm', null, 'PriceLevelSchedule')"/>
-                </vbox>
-                <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
-                    <button id="remove_schedule" label="&pricelevelschedule.button.remove;" disabled="false" class="button-delete"
-                            oncommand="$do('remove', null, 'PriceLevelSchedule');"/>
-                </hbox>
-            </vbox>
-            <vbox flex="1">
-                <label value="&pricelevelschedule.add.header;" class="label-page-title"/>
-                <vbox flex="1" class="content-buttonpanel">
-                    <label value="&pricelevelschedule.step1;" class="label-sub-title"/>
-                    <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="3" rows="4" hideScrollbar="true"
-                                               labelField="name" ensureVisible="true"
-                                               oncommand="$do('validateForm', null, 'PriceLevelSchedule')"
-                                               buttonClass="button-item-a"
-                                               scrollUpClass="scroll-up-button"
-                                               scrollDownClass="scroll-down-button">
+                    <vbox flex="1" class="content-box">
+                        <vivitree id="schedulescrollablepanel" flex="1" class="standard custom-content-pricelevel-list"
+                                  ensureVisible="true" hidecolumnpicker="true"
+                                  headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
+                                  fields="time,pricelevel"
+                                  onselect="$do('validateForm', null, 'PriceLevelSchedule')"/>
+                    </vbox>
+                    <hbox class="toolbar" toolbarmode="horizontal">
                         <spacer flex="1"/>
-                    </viviscrollablebuttonpanel>
+                        <button id="remove_schedule" label="&pricelevelschedule.button.remove;" disabled="false" flex="1"
+                                class="button-execute button-delete"
+                                oncommand="$do('remove', null, 'PriceLevelSchedule');"/>
+                        <spacer flex="1"/>
+                    </hbox>
                 </vbox>
+                <vbox flex="1">
+                    <label value="&pricelevelschedule.add.header;" class="label-page-title"/>
+                    <vbox flex="1" class="content-buttonpanel">
+                        <label value="&pricelevelschedule.step1;" class="label-sub-title"/>
+                        <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="3" rows="4" hideScrollbar="true"
+                                                   labelField="name" ensureVisible="true"
+                                                   oncommand="$do('validateForm', null, 'PriceLevelSchedule')"
+                                                   buttonClass="button-item-a"
+                                                   scrollUpClass="scroll-up-button"
+                                                   scrollDownClass="scroll-down-button">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </vbox>
 
-                <vbox flex="1" class="content-buttonpanel">
-                    <label value="&pricelevelschedule.step2;" class="label-sub-title"/>
-                    <vividatetimepicker-timepad id="datetime" flex="1" type="embed"/>
-                </vbox>
-                
-
-                <hbox>
-                    <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
-                        <button id="add_schedule" label="&pricelevelschedule.button.add;" disabled="false" class="button-add"
+                    <vbox flex="1" class="content-buttonpanel">
+                        <label value="&pricelevelschedule.step2;" class="label-sub-title"/>
+                        <vividatetimepicker-timepad id="datetime" flex="1" type="embed"/>
+                    </vbox>
+                    <hbox class="toolbar" toolbarmode="horizontal">
+                        <spacer flex="1"/>
+                        <button id="add_schedule" label="&pricelevelschedule.button.add;" disabled="false" flex="1"
+                                class="button-execute button-add"
                                 oncommand="$do('add', null, 'PriceLevelSchedule');"/>
+                        <spacer flex="1"/>
                     </hbox>
-                    <hbox pack="end" class="exitbar">
-                        <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                        <button class="button-exit" id="close" label="&dialog.closeButton.label;" default="true" oncommand="window.close();"/>
-                    </hbox>
-                </hbox>
-            </vbox>
-        </hbox>
+                </vbox>
+            </hbox>
+            <hbox pack="end" class="exitbar">
+                <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button class="button-exit" id="close" label="&dialog.closeButton.label;" default="true" oncommand="window.close();"/>
+            </hbox>
+        </vbox>
     </vbox>
   
     

@@ -139,7 +139,8 @@ container-report.ReportButton[disabled=true] {
     -moz-border-radius: 8px;
 }
 
-.container-report .ReportTool button {
+.container-report .ReportTool button,
+.container-report .ReportTool vivibutton {
     background: none;
     border: none;
     border-right: solid 1px white;
@@ -151,6 +152,8 @@ container-report.ReportButton[disabled=true] {
     -moz-border-right-colors: white;
 }
 
+.container-report .ReportTool button description,
+.container-report .ReportTool button label,
 .container-report .ReportTool vivibutton description,
 .container-report .ReportTool vivibutton label{
 	display: none;

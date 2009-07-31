@@ -72,7 +72,7 @@
             obj['password_org'] = obj['password'];
             this.Form.unserializeFromObject('remoteControlForm', obj);
 
-            NotifyUtils.info(_('Remote Control Settings saved'));
+            OsdUtils.info(_('Remote control settings saved'));
         },
 
         exit: function() {
@@ -81,14 +81,14 @@
                                         .getService(Components.interfaces.nsIPromptService);
                 var check = {data: false};
                 var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
 
                 var action = prompts.confirmEx(this.topmostWindow,
                                                _('Exit'),
                                                _('You have made changes to remote control settings. Save changes before exiting?'),
-                                               flags, _('Save'), _('Discard'), '', null, check);
-                if (action == 2) {
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
                     return;
                 }
                 else if (action == 0) {

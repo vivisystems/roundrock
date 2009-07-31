@@ -4,16 +4,16 @@
 <!ENTITY sync_settings.tablabel.advanced "Advanced">
 <!ENTITY sync_settings.tablabel.services "Local Services">
 
-<!ENTITY sync_settings.label.active "Order Synchronization Active">
+<!ENTITY sync_settings.label.active "Enable Network Services">
 <!ENTITY sync_settings.label.protocol "Protocol:">
-<!ENTITY sync_settings.label.hostname "Master Hostname or IP:">
+<!ENTITY sync_settings.label.hostname "Synchronization Server Hostname or IP:">
 <!ENTITY sync_settings.label.port "Port:">
 
 <!ENTITY sync_settings.label.machine_id "Terminal Number (a-z, A-Z, 0-9):">
 <!ENTITY sync_settings.label.password "Password:">
 
 <!ENTITY sync_settings.label.batch_limit "Batch Size:">
-<!ENTITY sync_settings.label.interval "Sync Interval:">
+<!ENTITY sync_settings.label.interval "Synchronization Interval:">
 
 <!ENTITY sync_settings.label.start_hour "Start Hour:">
 <!ENTITY sync_settings.label.end_hour "End Hour:">
@@ -25,7 +25,7 @@
 <!ENTITY sync_settings.label.notify_push "Notify on Push:">
 
 <!ENTITY sync_settings.label.retain_days "Number of days to retain sync log">
-<!ENTITY sync_settings.label.pull_order "Pull order data from master">
+<!ENTITY sync_settings.label.pull_order "Pull order data from synchronization server">
 
 <!ENTITY sync_settings.label.sequence_hostname "Order sequence/checkno hostname or IP">
 <!ENTITY sync_settings.desc.sequence_hostname "Provide order sequence/checkno service's server. Local Network master or localhost">

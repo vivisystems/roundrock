@@ -10,7 +10,7 @@
 <!ENTITY condiment.linkto_plu.label "Link to PLU">
 <!ENTITY condiment.reorder.label "Reorder">
 
-<!ENTITY condiment.group.label "Condiment Groups to Dock:">
+<!ENTITY condiment.group.label "Condiment Groups to Dock">
 
 <!ENTITY condiment.relation_elements.label "Dock Position:">
 

@@ -8,7 +8,6 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/stocks.css" type="text/css"?>
@@ -36,9 +35,9 @@
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/stock_records.js" />
 
-    <vbox flex="1" class="container-be layout-be">
-        <hbox flex="1" class="container-main layout-b">
-            <vbox flex="1" class="container-top">
+    <vbox flex="1" class="container-be">
+        <hbox flex="1" class="container-main">
+            <vbox flex="1">
                 <hbox>
                     <caption label="&stockrecords.title;" class="label-page-title" /> -
                     <caption id="adjustment_type" label="" class="label-page-title" />
@@ -116,7 +115,6 @@
                         </rows>
                     </grid>
                 </vbox>
-                <spacer height="5px"/>
                 <hbox>
 		            <hbox  flex="1" class="toolbar" toolbarmode="horizontal">
 	                    <hbox flex="1" pack="start">

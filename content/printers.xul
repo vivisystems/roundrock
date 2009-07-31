@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
@@ -10,37 +12,37 @@
   %Printers;
   ]>
 
-<window title="hotkey.title;"
-	hidechrome="true"
+<window title="&printers.title;"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include startup script -->
   <script src="chrome://viviecr/content/controllers/printers_controller.js" type="text/javascript"/>
 
-    <box id="hotkey-container"  class="main-dialog" flex="1">
-        <vbox flex="1" class="MainPnl" >
-            <!-- vivifuncpanel -->
-            <vbox class="MainL" flex="1">
-                
-              <browser flex="1" id="browser-content" src="about:blank" autoscroll="true" type="content-primary"/>
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
+    </keyset>
 
-              <hbox>
+    <box id="printers" flex="1" class="container-be">
+        <vbox flex="1" class="container-main">
+            <vbox flex="1">
+                
+                <browser flex="1" id="browser-content" src="about:blank" autoscroll="true" type="content-primary"/>
+
+            </vbox>
+            
+            <hbox class="content-formbox">
                 <statusbarpanel id="status" label="" crop="end" flex="1"/>
                 <progressmeter id="progress" mode="determined" value="0"/>
                 <statusbarpanel id="security" label=""/>
-              </hbox>
+            </hbox>
 
-            </vbox>
-            <hbox>
-            	<hbox class="ToolBar" flex="1">
-            	</hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('closeBrowser', null, 'Printers');"/>
-                </hbox>
+            <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
+                <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('closeBrowser', null, 'Printers');"/>
             </hbox>
         </vbox>
     </box>

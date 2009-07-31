@@ -393,14 +393,14 @@
                                         .getService(Components.interfaces.nsIPromptService);
                 var check = {data: false};
                 var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
 
                 var action = prompts.confirmEx(this.topmostWindow,
                                                _('Exit'),
                                                _('You have made changes to the current product group. Save changes before exiting?'),
-                                               flags, _('Save'), _('Discard'), '', null, check);
-                if (action == 2) {
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
                     return;
                 }
                 else if (action == 0) {
@@ -417,6 +417,7 @@
             var modBtn = document.getElementById('modify_plugroup');
             var delBtn = document.getElementById('delete_plugroup');
             var visibleCheckbox = document.getElementById('visible');
+            var routingCheckbox = document.getElementById('routing');
             var colorpicker = document.getElementById('plugroup_button_color');
             var fontsizepicker = document.getElementById('plugroup_font_size');
 
@@ -433,7 +434,8 @@
                 delBtn.setAttribute('disabled', false);
                 colorpicker.setAttribute('disabled', false);
                 fontsizepicker.setAttribute('disabled', false);
-                visibleCheckbox.removeAttribute('disabled');
+                visibleCheckbox.setAttribute('disabled', false);
+                routingCheckbox.setAttribute('disabled', false);
                 tab1.removeAttribute('disabled');
                 tab2.removeAttribute('disabled');
             }
@@ -443,6 +445,7 @@
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
                 visibleCheckbox.setAttribute('disabled', true);
+                routingCheckbox.setAttribute('disabled', true);
                 colorpicker.setAttribute('disabled', true);
                 fontsizepicker.setAttribute('disabled', true);
                 tab1.setAttribute('disabled', true);

@@ -141,8 +141,9 @@
 
                 <spacer flex="1" />
 
-                <hbox pack="end" class="exitbar">
+                <hbox class="exitbar">
                     <button id="save" label="&dialog.saveButton.label;" class="button-save" oncommand="$do('save', null, 'NonpluSetting');"/>
+                    <spacer flex="1" />
                     <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                     <button id="close" label="&dialog.cancelButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'NonpluSetting')"/>
                 </hbox>

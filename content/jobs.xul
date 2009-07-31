@@ -8,7 +8,6 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 
@@ -34,10 +33,10 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="container-be layout-be">
-        <vbox flex="1" class="container-main layout-b">
-            <vbox flex="1" class="container-top">
-                <caption label="&jobs.title;"  class="label-page-title"/>
+    <vbox flex="1" class="container-be">
+        <vbox flex="1" class="container-main">
+            <vbox flex="1">
+                <label value="&jobs.title;"  class="label-page-title"/>
                 <hbox flex="1" class="content-buttonpanel">
                     <viviscrollablebuttonpanel id="jobscrollablepanel" flex="1" cols="4" rows="7" dir="reverse" labelField="jobname" imageField="no"
                                                oncommand="$do('select',this.selectedIndex, 'Jobs');"

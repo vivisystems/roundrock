@@ -31,7 +31,7 @@
 
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('save').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
 
     <vbox flex="1" class="container-be">
@@ -217,11 +217,11 @@
                 </tabpanels>
             </tabbox>
 
-            <hbox id="dialogButtons" pack="end" class="exitbar">
-                <spacer flex="1"/>
+            <hbox id="dialogButtons" class="exitbar">
                 <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="$do('save', null, 'SyncSettings');"/>
+                <spacer flex="1"/>
                 <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                <button id="cancel" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="$do('exit', null, 'SyncSettings');"/>
+                <button id="close" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="$do('exit', null, 'SyncSettings');"/>
             </hbox>
   
         </vbox>

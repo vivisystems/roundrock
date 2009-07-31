@@ -47,7 +47,7 @@
                           fields="name,imported,exported"
                           onselect="$do('select',this.selectedIndex, 'ImportExport');"/>
             </vbox>
-            <hbox>
+            <hbox class="content-formbox">
                 <hbox align="center">
                     <label value="&importexport.media;:" class="label-notice"/>
                     <label id="lastMedia" value="" class="label-notice" />

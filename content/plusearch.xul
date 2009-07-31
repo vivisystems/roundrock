@@ -32,7 +32,7 @@
 
     <keyset id="keyset_extensions">
         <key id="key_return" keycode="VK_RETURN" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" />
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
     <hbox flex="1" class="container-be layout-be">
@@ -274,7 +274,7 @@
                     </hbox>
                     <hbox pack="center" class="exitbar">
                         <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                        <button id="cancel" label="&dialog.closeButton.label;" default="false" class="button-exit" oncommand="doCancelButton();"/>
+                        <button id="close" label="&dialog.closeButton.label;" default="false" class="button-exit" oncommand="doCancelButton();"/>
                     </hbox>
                 </hbox>
             </vbox>

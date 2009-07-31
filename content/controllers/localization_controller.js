@@ -318,13 +318,13 @@
             var check = {value: false};
 
             var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
 
             var r = prompts.confirmEx(this.topmostWindow,
                                       _('Localization'),
                                       _('Translations have been modified; save changes?'),
-                                      flags, _('Save'), _('Discard'), "", null, check);
+                                      flags, _('Save'), '', _('Discard'), null, check);
             return r;
         },
 
@@ -350,10 +350,10 @@
         exit: function() {
             if (this._dirtyBit) {
                 var response = this._confirmSwitch();
-                if (response == 2) {
+                if (response == 1) {
                     return;
                 }
-                else if (response == 1) {
+                else if (response == 2) {
                     // discard; do nothing
                 }
                 else {
@@ -409,12 +409,12 @@
 
                     // file modified, save first?
                     var response = this._confirmSwitch();
-                    if (response == 2) {
+                    if (response == 1) {
                         // cancel; re-select current package
                         this._menu.selectedIndex = this._currentPkgIndex;
                         return;
                     }
-                    else if (response == 1) {
+                    else if (response == 2) {
                         // discard; do nothing
                     }
                     else if (response == 0) {
@@ -462,12 +462,12 @@
 
                     // file modified, save first?
                     var response = this._confirmSwitch();
-                    if (response == 2) {
+                    if (response == 1) {
                         // cancel; re-select current locale
                         localelist.selectedIndex = this._currentLocaleIndex;
                         return;
                     }
-                    else if (response == 1) {
+                    else if (response == 2) {
                         // discard; do nothing
                     }
                     else if (response == 0) {

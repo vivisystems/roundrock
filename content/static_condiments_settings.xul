@@ -20,7 +20,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
             
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include models -->
     <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
@@ -29,14 +29,14 @@
     <script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/>
 
   <!-- include controllers -->
-    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/static_condiments_controller.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/static_condiments_controller.js"/>
 
   <!-- include startup script -->
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/static_condiments.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/static_condiments.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
     
     <vbox flex="1" class="container-be layout-be">
@@ -69,7 +69,7 @@
                             </vbox>
                         </row>
                         <row>
-                            <spacer />
+                            <spacer/>
                             <vbox>
                                 <label control="btnheight" value="&condiment.button.height;"/>
                                 <vivitextbox id="btnheight" type="number" min="0" max="200" size="3" maxlength="3"
@@ -114,9 +114,15 @@
             </vbox>
 
             <vbox flex="1">
-                <caption label="&condiment.group.label;" />
+                <hbox flex="1" align="center" class="toolbar" toolbarmode="horizontal">
+                    <label value="&condiment.group.label;"/>
+                    <spacer flex="1"/>
+                    <button id="order_cond_group" label="&condiment.reorder.label;" class="button-modify"
+                            oncommand="$do('reorderCondimentGroup', null, 'StaticCondiments');"/>
+                </hbox>
                 <vbox flex="1" class="content-buttonpanel">
-                    <viviscrollablebuttonpanel id="condimentscrollablepanel" seltype="multiple" flex="1" cols="4" rows="3" labelField="name" imageField="no"
+                    <viviscrollablebuttonpanel id="condimentscrollablepanel" seltype="multiple" flex="1" cols="4" rows="2"
+                                               labelField="name" imageField="no"
                                                form="staticCondimentForm" name="condgroups" default=""
                                                buttonClass="button-item-a"
                                                scrollUpClass="scroll-up-button"
@@ -126,12 +132,9 @@
                 </vbox>
 
                 <hbox>
-                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
-                        <button id="order_cond_group" label="&condiment.reorder.label;" class="button-modify"
-                                oncommand="$do('reorderCondimentGroup', null, 'StaticCondiments');" />
-                    </hbox>
-                    <hbox pack="end" class="exitbar">
+                    <hbox flex="1" class="exitbar">
                         <button id="save" class="button-save" label="" oncommand="$do('save', null,'StaticCondiments');"/>
+                        <spacer flex="1"/>
                         <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
                         <button id="close" class="button-exit" label="" default="true" oncommand="$do('exit', null, 'StaticCondiments')"/>
                     </hbox>
