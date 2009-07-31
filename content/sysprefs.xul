@@ -15,9 +15,8 @@
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             ondialogcancel="closePreferences()"
             ondialogaccept="closePreferences()"
-            width="800" height="600"
-            dlgbuttons="accept,cancel"
-            buttons="cancel,extra1"
+            dlgbuttons="extra1,cancel"
+            buttons="extra1,cancel"
             closebuttonlabel="&button.close.label;"
             >
 

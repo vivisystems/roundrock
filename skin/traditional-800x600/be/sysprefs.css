@@ -1,3 +1,10 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for General Options
+ *
+ *-----------------------------------------------------------------------------
+ */
+
 .MainPnl {
     margin: 18px;
 }
@@ -12,7 +19,7 @@ radiogroup {
 radio {
     -moz-appearance: none;
     padding: 16px 8px;
-    background: white url(images/sep.png) center right no-repeat;
+    background: white url(../images/sep.png) center right no-repeat;
     border:none;
     color: #4b4b4b;
     margin-bottom: 5px;
@@ -49,15 +56,17 @@ prefpane {
 }
 
 .prefWindow-dlgbuttons {
-    background: #efe7dc;
-    -moz-border-radius: 8px;
-    padding: 10px 5px;
-    height: 60px;
-    max-height: 60px;
-    min-height: 60px;
-    margin: 4px;
-    
+  background: #eee3d6;
+  height: 60px;
+  margin: 2px;
+  max-height: 60px;
+  min-height: 60px;
+  padding: 5px;
+  -moz-border-radius: 8px;
+  -moz-box-align: center;
+  -moz-box-pack: end;
 }
+
 .prefWindow-dlgbuttons button {
   background-color: white ;
   background-image: none;
@@ -196,7 +205,7 @@ prefpane {
 }
 
 button[dlgtype=cancel] {
-    background: white url(images/VkbBtn.png) center center no-repeat !important;
+    background: white url(../images/VkbBtn.png) center center no-repeat !important;
 }
 
 button[dlgtype=cancel] image,
@@ -205,5 +214,5 @@ button[dlgtype=cancel] label {
 }
 
 button[dlgtype=extra1] {
-    background: white url(images/SaveBtn.png) center center no-repeat !important;
+    background: white url(../images/SaveBtn.png) center center no-repeat !important;
 }
