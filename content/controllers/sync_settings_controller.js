@@ -109,7 +109,7 @@
 
                 var ntp_server = '';
                 if (obj.ntp_hostname != '127.0.0.1' && obj.ntp_hostname != 'localhost') {
-                    ntp_server = 'server ' + obj.ntp_hostname;
+                    ntp_server = 'server ' + obj.ntp_hostname + '\n' + 'fudge ' + obj.ntp_hostname + ' stratum 7';
                 }
 
                 ntpConf.open("w");
