@@ -11,13 +11,14 @@
         document.getElementById('title').setAttribute('label', inputObj.title);
         document.getElementById('description').value = inputObj.description;
         var marksData = [];
-        /*
+        
         var datas = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
         if (datas != null)
             marksData = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
         if (marksData.length <= 0) marksData = [];
-        */
+        
         marksData = GeckoJS.Session.get('TableStatus_TableMarks');
+alert(GeckoJS.BaseObject.dump(marksData));
         
         var index = -1;
         // var marksData = inputObj.marksData;

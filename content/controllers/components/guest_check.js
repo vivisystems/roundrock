@@ -798,6 +798,9 @@ this.log("doSelectTableFuncs:::TransTable:::");
 
         getCheckList: function(key, no, notCheckStatus) {
             //
+            // disable check checksum
+            notCheckStatus = true;
+
             var self = this;
             var order = new OrderModel();
 

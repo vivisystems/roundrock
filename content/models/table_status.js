@@ -978,7 +978,7 @@ return;
             var remoteUrl = this.getRemoteService('getTableStatusOptions');
             var options = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || false;
             var tableMarks = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableMarks');
-            var marksData = [];
+            var marksData;
 
             if (remoteUrl) {
                 try {
@@ -1008,7 +1008,8 @@ return;
             }
 
             
-            if (tableMarks != null && marksData == []) {
+            // if (tableMarks != null && marksData == []) {
+            if (tableMarks != null && (marksData == [] || marksData == null)) {
                 marksData = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(tableMarks));
             }
             if (marksData.length <= 0) marksData = [];
