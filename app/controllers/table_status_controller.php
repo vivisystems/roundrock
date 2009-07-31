@@ -318,5 +318,56 @@ function index() {
 
     }
 
+    function getRegions() {
+
+        $fields = array('TableRegion.id','TableRegion.name');
+        $regions = $this->TableRegion->find('all', array("fields" => $fields, "recursive" => 0));
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $regions
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+        
+        exit;
+
+
+    }
+    
+    function setTableStatusOptions() {
+
+        $table_status_prefs = array();
+	if($_REQUEST['request_data']) {
+		$table_status_prefs = json_decode(str_replace("\\","",$_REQUEST['request_data']), true);
+
+		file_put_contents("/tmp/tableStatusPrefs", serialize($table_status_prefs));
+	}
+        
+        $result = array('status' => 'ok', 'code' => 200);
+        
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+        
+        exit;
+    }
+
+    function getTableStatusOptions() {
+
+        $table_status_prefs = unserialize(file_get_contents("/tmp/tableStatusPrefs"));
+
+        $result = array('status' => 'ok', 'code' => 200 ,
+            'value' => $table_status_prefs
+        );
+
+        $responseResult = $this->SyncHandler->prepareResponse($result, 'json'); // php response type
+
+        echo $responseResult;
+
+        exit;
+    }
+
 }
 ?>
