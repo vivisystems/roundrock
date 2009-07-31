@@ -65,7 +65,7 @@ class DboSqlite3 extends DboSource {
 		'database' => null,
                 'timeout' => 120,
                 'synchronous' => 'NORMAL',
-                'journal_mode' => 'PERSIST',
+                'journal_mode' => 'DELETE',
                 'locking_mode' => 'NORMAL',
 		'connect' => 'sqlite' //sqlite3 in pdo_sqlite is sqlite. sqlite2 is sqlite2
 	);

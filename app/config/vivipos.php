@@ -4,7 +4,8 @@
  */
 $DATABASE_PATH = '/data/databases';
 $SYNCHRONOUS = 'NORMAL';
-$JOURNAL_MODE = 'PERSIST';
+$JOURNAL_MODE = 'MEMORY';
+$LOCKING_MODE = 'NORMAL';
 
 App::import('Core', array('Configure', 'ClassRegistry', 'Overloadable', 'Validation', 'Behavior', 'ConnectionManager', 'Set', 'String','Folder'));
 
@@ -24,7 +25,8 @@ if (($db_configs = Cache::read('db_configs')) === false) {
                     if (strlen($name) == 0 ) $name = 'default';
 
                     $config = array('driver'=>'sqlite3', 'database'=>$database,
-                                    'synchronous'=>$SYNCHRONOUS, 'journal_mode'=>$JOURNAL_MODE);
+                                    'synchronous'=>$SYNCHRONOUS, 'journal_mode'=>$JOURNAL_MODE,
+                                    'locking_mode'=>$LOCKING_MODE);
 
                     $db_configs[$name] = $config;
                     //ConnectionManager::create($name, $config);

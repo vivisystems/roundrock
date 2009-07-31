@@ -73,8 +73,7 @@ class StocksController extends AppController {
 
             $result = array('status' => 'ok', 'code' => 200 );
             // $result['response_data'] = $stocks;
-            $result['response_data'] = base64_encode(gzdeflate($this->SyncHandler->prepareResponse($stocks, 'json')));
-            //$result['response_data'] = base64_encode(gzdeflate($stocks));
+            $result['response_data'] = $this->SyncHandler->prepareResponse($stocks, 'bgz_json');
 
         }
 
@@ -131,7 +130,7 @@ class StocksController extends AppController {
             $result = array('status' => 'ok', 'code' => 200 );
             //$result['response_data'] = $stocks;
             // $result['response_data'] = $stocks;
-            $result['response_data'] = base64_encode(gzdeflate($this->SyncHandler->prepareResponse($stocks, 'json')));
+            $result['response_data'] = $this->SyncHandler->prepareResponse($stocks, 'bgz_json');
 
 
         }
