@@ -1,0 +1,4 @@
+<!ENTITY close.label "Close">
+<!ENTITY close.tooltip "Close Addons Manager">
+<!ENTITY checkNewUpdates.label "Find VIVIPOS Runtime Update">
+<!ENTITY checkNewUpdates.tooltip "Find VIVIPOS Runtime (Framework) Update">
