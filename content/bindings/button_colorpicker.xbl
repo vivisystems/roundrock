@@ -13,12 +13,9 @@
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <binding id="button_colorpicker">
-  <resources>
-  	<stylesheet src="chrome://viviecr/skin/buttons.css" />
-  </resources>
 
   <content>
-    <xul:box xbl:inherits="flex,orient" anonid="boxContainer">
+    <xul:box xbl:inherits="flex,pack,align,orient" anonid="boxContainer">
         <xul:hbox flex="1">
             <xul:button flex="1" xbl:inherits="disabled,class=buttonClass" label="&button-default.label;" color="default" />
             <xul:button flex="1" xbl:inherits="disabled,class=buttonClass" label="&button-1.label;" color="1" />

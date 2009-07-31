@@ -289,7 +289,7 @@
 
             var panel = this.getListObj();
 
-            panel.datasource = evt.data;
+            panel.datasource.data = evt.data;
             panel.ensureIndexIsVisible(panel.selectedIndex);
             
         },
@@ -336,7 +336,31 @@
         load: function () {
 
             var panel = this.getListObj();
+            var panelView = new GeckoJS.NSITreeViewArray();
+            panelView.getCellValue = function(row, col) {
+                var sResult;
+                var user;
+                var key;
 
+                try {
+                    key = col.id;
+                    user = this.data[row];
+                    sResult= user[key];
+                    
+                    if (key == 'displayname') {
+                        var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+                        if (user.id == defaultId) {
+                            sResult = '(*) ' + sResult;
+                        }
+                    }
+                }
+                catch (e) {
+                    return "";
+                }
+                return sResult;
+            }
+            panel.datasource = panelView;
+            
             this.requestCommand('list', -1);
 
             this._selectedIndex = -1;
@@ -406,7 +430,6 @@
             
             this.validateForm(true);
 
-
         },
         
         setDefaultUser: function() {
@@ -418,29 +441,24 @@
                     var user = view.data[panel.selectedIndex];
                     if (user) {
                         GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
+
+                        panel.refresh();
                     }
                 }
             }
         },
 
-        // initialize selected user to userid
-        initUser: function(userid) {
-            
+        clearDefaultUser: function() {
             var panel = this.getListObj();
-            var users = panel.datasource.data;
+            GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', '');
 
-            if (users) {
-                for (var i = 0; i < users.length; i++) {
-                    if (users[i].id == userid) {
-                        panel.selectedItems = [i];
-                        panel.selectedIndex = i;
-                        break;
-                    }
-                }
-            }
+            panel.refresh();
         },
 
         validateForm: function(resetTabs) {
+
+            var setdefaultBtn = document.getElementById('set_default');
+            var cleardefaultBtn = document.getElementById('clear_default');
 
             // return if not in form
             var addBtn = document.getElementById('add_user');
@@ -483,10 +501,16 @@
                 else {
                     delBtn.setAttribute('disabled', false);
                 }
+
+                var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+                setdefaultBtn.setAttribute('hidden', (user.id == defaultId));
+                cleardefaultBtn.setAttribute('hidden', !(user.id == defaultId));
             }
             else {
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
+                setdefaultBtn.setAttribute('hidden', true);
+                cleardefaultBtn.setAttribute('hidden', true);
                 document.getElementById('tab1').setAttribute('disabled', true);
                 document.getElementById('tab2').setAttribute('disabled', true);
                 //document.getElementById('tab3').setAttribute('disabled', true);

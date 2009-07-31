@@ -6,7 +6,6 @@
   %PLUGroups;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
@@ -105,16 +104,16 @@
                                 <hbox flex="1" class="custom-container-button-color-fontsize-picker">
                                     <vbox flex="1">
                                         <label value="&plugroups.button.color;" class="label-sub-title"/>
-                                        <hbox pack="center" align="center" flex="1">
-                                            <button_colorpicker id="plugroup_button_color" orient="vertical" flex="1"
-                                                                class-prefix="plugroup-button-color-" class="button-color-picker custom-content-color-picker"
+                                        <vbox flex="1">
+                                            <button_colorpicker id="plugroup_button_color" orient="vertical" flex="1" pack="center"
+                                                                class-prefix="plugroup-button-color-" class="custom-content-color-picker"
                                                                 form="plugroupForm" name="button_color" default="plugroup-button-color-default"/>
-                                        </hbox>
+                                        </vbox>
                                     </vbox >
                                     <vbox flex="1">
                                         <label value="&plugroups.font.size;" class="label-sub-title"/>
                                         <button_fontsizepicker id="plugroup_font_size" orient="vertical" flex="1"
-                                                               class="button-fontsize-picker custom-content-fontsize-picker" buttonClass="button-item-b"
+                                                               buttonClass="button-item-b"
                                                                form="plugroupForm" name="font_size" default="medium"/>
                                     </vbox>
                                 </hbox>
@@ -127,7 +126,7 @@
                                 <label value="&plugroups.links.department;"/>
                                 <viviscrollablebuttonpanel id="depscrollablepanel"
                                                            seltype="multiple" flex="1" cols="4" rows="3" labelField="name" imageField="no"
-                                                           buttonClass="catbtn"
+                                                           buttonClass="button-department"
                                                            scrollUpClass="scroll-up-button"
                                                            scrollDownClass="scroll-down-button"
                                                            form="plugroupForm" name="link_department" default="">
@@ -141,7 +140,7 @@
                                 <label value="&plugroups.links.plugroup;"/>
                                 <viviscrollablebuttonpanel id="plugroupscrollablepanel"
                                                            seltype="multiple" flex="1" cols="4" rows="3" labelField="name" imageField="no"
-                                                           buttonClass="catbtn"
+                                                           buttonClass="button-department"
                                                            scrollUpClass="scroll-up-button"
                                                            scrollDownClass="scroll-down-button"
                                                            form="plugroupForm" name="link_group" default="">
@@ -153,8 +152,6 @@
                     </tabpanels>
                 </tabbox>
 
-                <spacer flex="1"/>
-                
                 <hbox flex="1">
                     <hbox flex="1" class="toolbar" toolbarmode="horizontal">
                         <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="button-add"

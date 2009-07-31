@@ -5,6 +5,38 @@
  *-----------------------------------------------------------------------------
  */
 
+.prefWindow-dlgbuttons {
+    background: #eee3d6;
+    height: 60px;
+    margin: 2px;
+    max-height: 60px;
+    min-height: 60px;
+    padding: 5px;
+    -moz-border-radius: 8px;
+    -moz-box-align: center;
+    -moz-box-pack: end;
+}
+
+.prefWindow-dlgbuttons button {
+    border: none;
+    height: 50px;
+    max-height: 50px;
+    max-width: 60px;
+    min-height: 50px;
+    min-width: 60px;
+    width: 60px;
+    -moz-appearance: none;
+}
+
+.prefWindow-dlgbuttons button image,
+.prefWindow-dlgbuttons button label {
+    display: none;
+}
+
+.prefWindow-dlgbuttons button[dlgtype=cancel] {
+    background: transparent url(../images/SaveBtn.png) center center no-repeat !important;
+}
+
 .MainPnl {
     margin: 18px;
 }
@@ -53,40 +85,6 @@ radio image {
 
 prefpane {
     
-}
-
-.prefWindow-dlgbuttons {
-  background: #eee3d6;
-  height: 60px;
-  margin: 2px;
-  max-height: 60px;
-  min-height: 60px;
-  padding: 5px;
-  -moz-border-radius: 8px;
-  -moz-box-align: center;
-  -moz-box-pack: end;
-}
-
-.prefWindow-dlgbuttons button {
-  background-color: white ;
-  background-image: none;
-  border: 1px solid !important;
-  -moz-border-top-colors: #b2aca1;
-  -moz-border-left-colors: #b2aca1;
-  -moz-border-right-colors: #b2aca1;
-  -moz-border-bottom-colors: #b2aca1;
-  -moz-appearance: none;
-  color: #6c6050;
-  font-size: 12pt;
-  margin: 0 5px;
-  -moz-border-radius: 6px;
-  min-width: 90px;
-  
-}
-.prefWindow-dlgbuttons button:active {
-    color: #362f2d;
-    text-decoration: underline;
-    -moz-appearance: none;
 }
 
 .numberbox-input-box{
@@ -204,15 +202,3 @@ prefpane {
     -moz-box-align: center;
 }
 
-button[dlgtype=cancel] {
-    background: white url(../images/VkbBtn.png) center center no-repeat !important;
-}
-
-button[dlgtype=cancel] image,
-button[dlgtype=cancel] label {
-    display: none;
-}
-
-button[dlgtype=extra1] {
-    background: white url(../images/SaveBtn.png) center center no-repeat !important;
-}

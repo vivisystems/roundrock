@@ -446,7 +446,7 @@
 	height: 64px;
 }
 
-.button-nolabel description {
+.button-no-label description {
    display: none;
 }
 
@@ -475,55 +475,53 @@
     font-size: 12px;
 }
 
+/*-----------------------------------------------------------------------------
+ * button color picker
+ *-----------------------------------------------------------------------------
+ */
 
-.font-xlarge[selected], .font-large[selected], .font-small[selected], .font-medium[selected] {
+button_colorpicker {
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+    -moz-box-pack: center;
+}
+
+button_colorpicker button hbox {
+    -moz-box-orient: vertical;
+}
+
+button_colorpicker button {
+    margin: 4px;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}
+
+button_colorpicker:not([disabled=true]) button[selected] {
     list-style-image: url(chrome://viviecr/skin/images/con_sel.png);
 }
 
 /*-----------------------------------------------------------------------------
- * Back-end button color picker
+ * button fontsize picker
  *-----------------------------------------------------------------------------
  */
 
-.button-color-picker {
+button_fontsizepicker {
     margin: 2px 2px 2px 2px;
     padding: 0px;
-    -moz-box-pack: center;
 }
 
-.button-color-picker button hbox {
-    -moz-box-orient: vertical;
-}
-
-.button-color-picker button {
-    margin: 4px;
-    min-width: 30px;
-    min-height:50px;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-}
-
-/*-----------------------------------------------------------------------------
- * Back-end button fontsize picker
- *-----------------------------------------------------------------------------
- */
-
-.button-fontsize-picker {
-    margin: 2px 2px 2px 2px;
-    padding: 0px;
-    -moz-box-pack: center;
-}
-
-.button-fontsize-picker button hbox {
+button_fontsizepicker button hbox {
     -moz-box-orient: horizontal;
 }
 
-button-fontsize-picker button {
+button_fontsizepicker button {
     margin: 4px;
-    min-width: 50px;
-    min-height:55px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
+}
+
+button_fontsizepicker:not([disabled=true]) button[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/con_sel.png);
 }
 
 /*-----------------------------------------------------------------------------
@@ -542,15 +540,15 @@ button-fontsize-picker button {
     -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
 }
 
-.button-item-a:active {
+.button-item-a[disabled=false]:active {
     -moz-border-top-colors: #d9d9d2 #c3c2bc #a5a49f;
     -moz-border-left-colors: #d9d9d2 #c3c2bc #a5a49f;
     -moz-border-bottom-colors: #f0efe8 #e8e8e1 #d9d9d2;
     -moz-border-right-colors: #f0efe8 #e8e8e1 #d9d9d2;
 }
 
-.button-item-a[selected],
-.button-item-a[checked] {
+.button-item-a[disabled=false][selected],
+.button-item-a[disabled=false][checked] {
     background: white url(../images/itembtnA_sel.png) left center repeat-x;
     border: 2px solid;
     color: #603913;
@@ -594,8 +592,8 @@ button-fontsize-picker button {
     border: none !important;
 }
 
-.button-item-b[selected],
-.button-item-b[checked] {
+.button-item-b[disabled=false][selected],
+.button-item-b[disabled=false][checked] {
     background: white url(../images/itembtnB_sel.png) left center repeat-x;
     border: 2px solid;
     color: #32787a;
@@ -622,7 +620,7 @@ button-fontsize-picker button {
     -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2 !important;
 }
 
-.button-item-c:not([disabled=true]):active {
+.button-item-c[disabled=false]:active {
     -moz-border-top-colors: #d9d9d2 #c3c2bc #a5a49f !important;
     -moz-border-right-colors: #f0efe8 #e8e8e1 #d9d9d2 !important;
     -moz-border-bottom-colors: #f0efe8 #e8e8e1 #d9d9d2 !important;
@@ -746,7 +744,7 @@ button-fontsize-picker button {
     -moz-box-pack:center;
 }
 
-.button-fixed:active {
+.button-fixed[disabled=false]:active {
     background: transparent url(../images/funBtn_a.png) center center no-repeat;
 }
 
@@ -797,7 +795,7 @@ button-fontsize-picker button {
     -moz-border-left-colors: #a1a1a1;
 }
 
-.button-selections[selected] {
+.button-selections[disabled=false][selected] {
     background: #93cbcc;
     border: 3px solid;
     color: white;

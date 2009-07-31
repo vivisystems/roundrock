@@ -25,7 +25,7 @@
   <script src="chrome://viviecr/content/controllers/funcpanelecrprefs_controller.js" type="text/javascript"/>
     
     <keyset id="keyset_extensions">
-        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('save').click()"/>
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
 
@@ -300,7 +300,7 @@
                                 <vbox flex="1">
                                     <button_fontsizepicker
                                         id="vivifuncpanelecr_prefs_layout_button_fontsizepicker"
-                                        buttonClass="ItemButtonB"
+                                        buttonClass="button-item-b"
                                         flex="1" class="custom-content-fontsize-picker" orient="vertical"
                                         label="&vivifuncpanelecr.prefs.tabpanel.layout.buttonstyle.fontsize.label;"
                                         disabled="true"

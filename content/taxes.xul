@@ -41,122 +41,126 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <hbox flex="1" class="container-be layout-be">
-        <hbox flex="1" class="container-main layout-a">
-            <vbox flex="1" class="container-left block-33">
-                <caption label="&taxes.title;" class="label-page-title"/>
-                <vbox flex="1" class="content-buttonpanel">
-                    <viviscrollablebuttonpanel id="taxscrollablepanel" flex="1" cols="1" rows="8" dir="reverse" labelField="name"
-                                               ensureVisible="true"
-                                               oncommand="$do('select',this.selectedIndex, 'Taxes');"
-                                               buttonClass="button-item-a"
-                                               scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button" >
-                        <spacer flex="1" />
-                    </viviscrollablebuttonpanel>
-                </vbox>
-            </vbox>
-            <vbox flex="1" class="container-right">
-                <caption label="&taxes.details;" class="label-sub-title" />
-                <grid class="data-form-2">
-                    <columns>
-                        <column flex="1" /><column flex="1" />
-                    </columns>
-                    <rows>
-                        <row>
-                            <vbox>
-                                <label id="tax_id" hidden="true" value="" form="taxForm" name="id"/>
-                                <label value="&taxes.code;" control="tax_no"/>
-                                <textbox id="tax_no" value="" size="2" maxsize="2" readonly="true"
-                                         form="taxForm" name="no" default=""/>
-                            </vbox>
-                            <vbox>
-                                <label value="&taxes.type;"/>
-                                <label id="tax_type" value="" hidden="true"
-                                       form="taxForm" name="type"/>
-                                <textbox id="tax_typestr" value=""  size="15" readonly="true"
-                                         form="taxForm" name="typestr" default=""/>
-                            </vbox>
-                        </row>
-                        
-                        <row>
-                            <vbox>
-                                <label  value="&taxes.name;" control="tax_name"/>
-                                <textbox id="tax_name" value="" size="15"
-                                         onfocus="this.select()" oninput="$do('validateForm', null, 'Taxes')"
-                                         form="taxForm" name="name" default=""/>
-                            </vbox>         
-                        </row>
-                    </rows>
-                </grid>
-
-                <deck id="prop_deck" flex="1" orient="vertical">
-                    <vbox flex="1">
-                        <grid class="data-form">
-                            <columns>
-                                <column flex="1"/>
-                                <column flex="1"/>
-                            </columns>
-                            <rows>
-                                <row>
-                                    <vbox>
-                                        <label value="&taxes.rate;" control="tax_rate"/>
-                                        <vivitextbox id="tax_rate" value="" type="number" min="0" decimalplaces="Infinity"
-                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                                     oninput="$do('validateForm', null, 'Taxes')" onfocus="this.select()"
-                                                     form="taxForm" name="rate" default="0"/>
-                                    </vbox>
-                                    <vbox>
-                                        <label value="&taxes.threshold;" control="tax_threshold"/>
-                                        <vivitextbox id="tax_threshold" value="" type="number" min="0" decimalplaces="Infinity"
-                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
-                                                     oninput="$do('validateForm', null, 'Taxes')" onfocus="this.select()"
-                                                     form="taxForm" name="threshold" default="0"/>
-                                    </vbox>
-                                </row>
-
-                                <row>
-                                    <hbox align="center">
-                                        <label value="&taxes.rate_type;" class="label-sub-title" flex="1"/>
-                                        <radiogroup class="RdGroup" id="tax_rate_type" form="taxForm" name="rate_type" default="%" orient="vertical">
-                                            <radio id="tax_rate_type_percentage" label="&taxes.rate_type.percentage;" value="%"/>
-                                            <radio id="tax_rate_type_amount" label="&taxes.rate_type.fixed_amount;" value="$"/>
-                                        </radiogroup>
-                                    </hbox>
-                                </row>
-                            </rows>
-                        </grid>
-                    </vbox>
-
+    <vbox flex="1" class="container-be layout-be">
+        <vbox flex="1" class="container-main layout-a">
+            <hbox flex="1">
+                <vbox flex="1" class="container-left block-33">
+                    <label value="&taxes.title;" class="label-page-title"/>
                     <vbox flex="1" class="content-buttonpanel">
-                        <viviscrollablebuttonpanel id="singletaxscrollablepanel" seltype="multiple" flex="1" cols="2" rows="5" labelField="name"
-                                                   class="custom-content-tax-list"
-                                                   buttonClass="button-item-b"
-                                                   scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
-                                                   form="taxForm" name="combine_tax" default="">
+                        <viviscrollablebuttonpanel id="taxscrollablepanel" flex="1" cols="1" rows="8" dir="reverse" labelField="name"
+                                                   ensureVisible="true"
+                                                   oncommand="$do('select',this.selectedIndex, 'Taxes');"
+                                                   buttonClass="button-item-a"
+                                                   scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button" >
                             <spacer flex="1" />
                         </viviscrollablebuttonpanel>
                     </vbox>
-                </deck>
+                </vbox>
 
-                <hbox>
-                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
-                        <button id="add_tax" label="&taxes.button.action.add;" disabled="false" class="button-add"
-                                oncommand="$do('add', null, 'Taxes');" />
-                        <button id="modify_tax" label="&taxes.button.action.modify;" disabled="true" class="button-modify"
-                                oncommand="$do('update', null, 'Taxes');" />
-                        <spacer flex="1"/>
-                        <button id="delete_tax" label="&taxes.button.action.delete;" disabled="true" class="button-delete"
-                                oncommand="$do('remove', null, 'Taxes');" />
-                    </hbox>
-                    <hbox pack="end" class="exitbar">
-                        <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Taxes');"/>
-                    </hbox> 
+                <vbox flex="1" class="container-right">
+                    <caption label="&taxes.details;" class="label-sub-title" />
+                    <grid class="data-form-2">
+                        <columns>
+                            <column flex="1" /><column flex="1" />
+                        </columns>
+                        <rows>
+                            <row>
+                                <vbox>
+                                    <label id="tax_id" hidden="true" value="" form="taxForm" name="id"/>
+                                    <label value="&taxes.code;" control="tax_no"/>
+                                    <textbox id="tax_no" value="" size="2" maxsize="2" readonly="true"
+                                             form="taxForm" name="no" default=""/>
+                                </vbox>
+                                <vbox>
+                                    <label value="&taxes.type;"/>
+                                    <label id="tax_type" value="" hidden="true"
+                                           form="taxForm" name="type"/>
+                                    <textbox id="tax_typestr" value=""  size="15" readonly="true"
+                                             form="taxForm" name="typestr" default=""/>
+                                </vbox>
+                            </row>
+
+                            <row>
+                                <vbox>
+                                    <label  value="&taxes.name;" control="tax_name"/>
+                                    <textbox id="tax_name" value="" size="15"
+                                             onfocus="this.select()" oninput="$do('validateForm', null, 'Taxes')"
+                                             form="taxForm" name="name" default=""/>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+
+                    <deck id="prop_deck" flex="1" orient="vertical">
+                        <vbox flex="1">
+                            <grid class="data-form">
+                                <columns>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
+                                </columns>
+                                <rows>
+                                    <row>
+                                        <vbox>
+                                            <label value="&taxes.rate;" control="tax_rate"/>
+                                            <vivitextbox id="tax_rate" value="" type="number" min="0" decimalplaces="Infinity"
+                                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                         oninput="$do('validateForm', null, 'Taxes')" onfocus="this.select()"
+                                                         form="taxForm" name="rate" default="0"/>
+                                        </vbox>
+                                        <vbox>
+                                            <label value="&taxes.threshold;" control="tax_threshold"/>
+                                            <vivitextbox id="tax_threshold" value="" type="number" min="0" decimalplaces="Infinity"
+                                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                         oninput="$do('validateForm', null, 'Taxes')" onfocus="this.select()"
+                                                         form="taxForm" name="threshold" default="0"/>
+                                        </vbox>
+                                    </row>
+
+                                    <row>
+                                        <hbox align="center">
+                                            <label value="&taxes.rate_type;" class="label-sub-title" flex="1"/>
+                                            <radiogroup class="RdGroup" id="tax_rate_type" form="taxForm" name="rate_type" default="%" orient="vertical">
+                                                <radio id="tax_rate_type_percentage" label="&taxes.rate_type.percentage;" value="%"/>
+                                                <radio id="tax_rate_type_amount" label="&taxes.rate_type.fixed_amount;" value="$"/>
+                                            </radiogroup>
+                                        </hbox>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </vbox>
+
+                        <vbox flex="1" class="content-buttonpanel">
+                            <viviscrollablebuttonpanel id="singletaxscrollablepanel" seltype="multiple" flex="1" cols="2" rows="5" labelField="name"
+                                                       class="custom-content-tax-list"
+                                                       buttonClass="button-item-b"
+                                                       scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
+                                                       form="taxForm" name="combine_tax" default="">
+                                <spacer flex="1" />
+                            </viviscrollablebuttonpanel>
+                        </vbox>
+                    </deck>
+                </vbox>
+            </hbox>
+            <hbox>
+                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                    <button id="add_tax" label="&taxes.button.action.add;" disabled="false" class="button-add"
+                            oncommand="$do('add', null, 'Taxes');" />
+                    <button id="modify_tax" label="&taxes.button.action.modify;" disabled="true" class="button-modify"
+                            oncommand="$do('update', null, 'Taxes');" />
+                    <spacer flex="1"/>
+                    <button id="set_default" label="&taxes.button.action.setdefault;" hidden="true" class="button-setdefault"
+                            oncommand="$do('setDefaultTaxStatus', null, 'Taxes');" />
+                    <button id="clear_default" label="&taxes.button.action.cleardefault;" hidden="true" class="button-cleardefault"
+                            oncommand="$do('clearDefaultTaxStatus', null, 'Taxes');" />
+                    <spacer flex="1"/>
+                    <button id="delete_tax" label="&taxes.button.action.delete;" disabled="true" class="button-delete"
+                            oncommand="$do('remove', null, 'Taxes');" />
                 </hbox>
-            </vbox>
-        </hbox>
-    </hbox>
-    
-    
-
+                <hbox pack="end" class="exitbar">
+                    <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Taxes');"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
 </window>

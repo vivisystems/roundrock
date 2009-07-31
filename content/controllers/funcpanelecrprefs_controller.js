@@ -234,6 +234,7 @@
                 }
             this.panel.setButtonstyles(this.panel.currentPage, btnstyles, true);
             //this.panel.setSelection(false);
+            this._dirtyBit = true;
         },
 
         // set button fontsize
@@ -261,6 +262,7 @@
                 }
             this.panel.setButtonfontsizes(this.panel.currentPage, fontsizes, true);
             //this.panel.setSelection(false);
+            this._dirtyBit = true;
         },
 
         // update link label

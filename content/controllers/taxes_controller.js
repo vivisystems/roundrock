@@ -379,6 +379,8 @@
             var percentageType = document.getElementById('tax_rate_type_percentage');
             var amountType = document.getElementById('tax_rate_type_amount');
             var modBtn = document.getElementById('modify_tax');
+            var setdefaultBtn = document.getElementById('set_default');
+            var cleardefaultBtn = document.getElementById('clear_default');
             var delBtn = document.getElementById('delete_tax');
 
             if (selectedIndex == -1) {
@@ -391,8 +393,13 @@
 
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
+                setdefaultBtn.setAttribute('hidden', true);
+                cleardefaultBtn.setAttribute('hidden', true);
             }
             else {
+                var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                var tax = this._listDatas[selectedIndex];
+
                 nameTextbox.removeAttribute('disabled');
                 typeTextbox.removeAttribute('disabled');
                 rateTextbox.removeAttribute('disabled');
@@ -404,38 +411,30 @@
                 var rate = rateTextbox.value.replace(/^\s*/, '').replace(/\s*$/, '');
                 modBtn.setAttribute('disabled', name.length == 0 || rate.length == 0 || isNaN(rate));
                 delBtn.setAttribute('disabled', false);
+
+                setdefaultBtn.setAttribute('hidden', (tax.id == defaultId));
+                cleardefaultBtn.setAttribute('hidden', !(tax.id == defaultId));
             }
         },
 
         setDefaultTaxStatus: function() {
-            if (this._listObj) {
-                this._selectedIndex = this._listObj.selectedIndex;
-                if (this._selectedIndex >= 0) {
-                    var tax = this._listDatas[this._selectedIndex];
-                    if (tax) {
-                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', tax.id);
-                    }
-                }
-            }
-        },
-
-        initTaxStatus: function(tax_id) {
-            this.load();
-
             var listObj = this.getListObj();
-            var taxes = this._listDatas;
+            var selectedIndex = listObj.selectedIndex;
 
-            if (taxes && listObj) {
-                listObj.selectedItems = [];
-                listObj.selectedIndex = -1;
-                for (var i = 0; i < taxes.length; i++) {
-                    if (taxes[i].id == tax_id) {
-                        listObj.selectedItems = [i];
-                        listObj.selectedIndex = i;
-                        break;
-                    }
-                }
-            }
+            var tax = this._listDatas[selectedIndex];
+            GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', tax.id);
+
+            listObj.refresh();
+            this.validateForm();
+        },
+        
+        clearDefaultTaxStatus: function() {
+            var listObj = this.getListObj();
+
+            GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', '');
+
+            listObj.refresh();
+            this.validateForm();
         }
 
     };

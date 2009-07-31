@@ -2,43 +2,30 @@
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/sysprefs.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/sysprefs.css" type="text/css"?>
+<!--?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?-->
+<?xml-stylesheet href="chrome://viviecr/skin/be/sysprefs.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
 
-<prefwindow title="&preferences.title;" id="prefwin"
+<prefwindow title="&preferences.title;"
+            id="prefwin"
             hidechrome="true"
             xmlns:html="http://www.w3.org/1999/xhtml"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-            ondialogcancel="closePreferences()"
-            ondialogaccept="closePreferences()"
-            dlgbuttons="extra1,cancel"
-            buttons="extra1,cancel"
-            closebuttonlabel="&button.close.label;"
+            defaultButton="cancel"
+            ondialogcancel="closePreferences();"
             >
 
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
-  
-  <!-- include component -->
-  <script src="chrome://viviecr/content/controllers/components/tax.js" type="application/x-javascript"/>
-
-  <!-- include view -->
-  <script src="chrome://viviecr/content/helpers/nsi_taxes_view.js" type="application/x-javascript"/>
-  
+    
   <!-- include controllers -->
-  <script src="chrome://viviecr/content/controllers/users_controller.js" type="application/x-javascript"/>
-  <script src="chrome://viviecr/content/controllers/taxes_controller.js" type="application/x-javascript"/>
   <script src="chrome://viviecr/content/controllers/training_mode_controller.js" type="application/x-javascript"/>
 
   <!-- include startup scripts -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
-  <script type="application/x-javascript" src="chrome://viviecr/content/taxes.js" />
   <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
    
     <prefpane id="generalSettingsPane" label="&category.general;" >
@@ -243,19 +230,6 @@
                 <row>
                     <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
                 </row>
-                <row>
-                    <vbox>
-                        <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&login.defaultlogin;" />
-                        <viviscrollablebuttonpanel dir="normal" id="userscrollablepanel" flex="1" cols="5" rows="2" labelField="displayname"
-                                               oncommand="$do('select',this.selectedIndex, 'Users');"
-                                               class="ItemScrollablepanel WidthSet"
-                                               buttonClass="ItemButtonA"
-                                               scrollUpClass="ScrollUp"
-                                               scrollDownClass="ScrollDown">
-                            <spacer flex="1"/>
-                        </viviscrollablebuttonpanel>
-                    </vbox>
-                </row>
             </rows>
             </grid>
 
@@ -274,24 +248,6 @@
                 </rows>
             </grid>
         </vbox>
-    </prefpane>
-
-    <prefpane id="taxSettingsPane" label="&category.tax;" >
-        <preferences>
-        </preferences>
-        <vbox class="TopArea">
-            <label value="&tax.defaulttaxstatus;" class="SubTitle"/>
-            <viviscrollablebuttonpanel dir="normal" id="taxscrollablepanel" flex="1" cols="5" rows="6" labelField="name"
-                                       oncommand="$do('select',this.selectedIndex, 'Taxes');"
-                                       class="ItemScrollablepanel"
-                                       buttonClass="ItemButtonA"
-                                       scrollUpClass="ScrollUp"
-                                       scrollDownClass="ScrollDown">
-                <spacer flex="1"/>
-            </viviscrollablebuttonpanel>
-            <spacer flex="10"/>
-        </vbox>
-
     </prefpane>
 
     <prefpane id="orderDataSettingsPane" label="&category.orderdata;" >

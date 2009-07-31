@@ -7,7 +7,6 @@
 <!ENTITY category.general "General">
 <!ENTITY category.formats "Numbers &amp; Formats">
 <!ENTITY category.login "Sign In/Out">
-<!ENTITY category.tax "Taxes">
 <!ENTITY category.plufilters "Product Filters">
 <!ENTITY category.destinations "Destinations">
 <!ENTITY category.annotations "Annotations">
@@ -73,7 +72,6 @@
 <!ENTITY layout.showclockinicon "Show clock-in icon">
 <!ENTITY layout.showvirtualkeyboardicon "Show virtual keyboard icon">
 <!ENTITY layout.showconfigicon "Show control panel icon">
-<!ENTITY tax.defaulttaxstatus "System default tax status">
 <!ENTITY plufilter.filtername "Filter Name">
 <!ENTITY plufilter.index "Index">
 <!ENTITY plufilter.length "Length">

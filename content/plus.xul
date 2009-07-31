@@ -6,7 +6,6 @@
   %PLUs;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
@@ -444,23 +443,24 @@
                                          </row>
                                      </rows>
                                  </grid>
-
                                 <hbox class="custom-container-button-color-fontsize-picker">
                                     <vbox flex="1">
                                         <label value="&plus.button.color;" class="label-sub-title"/>
                                         <hbox pack="center" align="center" flex="1">
-                                            <button_colorpicker id="plu_button_color" orient="vertical"
-                                                            class="button-color-picker custom-content-color-picker"
-                                                            class-prefix="product-button-color-"
-                                                            form="productForm" name="button_color" default="product-button-color-default"/>
+                                            <button_colorpicker id="plu_button_color" orient="vertical" flex="1"
+                                                                class="custom-content-color-picker"
+                                                                class-prefix="product-button-color-"
+                                                                form="productForm" name="button_color" default="product-button-color-default"/>
                                         </hbox>
                                     </vbox>
+
                                     <vbox flex="1">
                                         <label value="&plus.font.size;" class="label-sub-title"/>
-                                        <button_fontsizepicker id="font_size" orient="vertical"
-                                                               class="button-fontsize-picker custom-content-fontsize-picker" buttonClass="button-item-b"
+                                        <button_fontsizepicker id="font_size" orient="vertical" flex="1"
+                                                               buttonClass="button-item-b"
                                                                form="productForm" name="font_size" default="medium"/>
                                     </vbox>
+
                                 </hbox>
                             </vbox>
                         </tabpanel>

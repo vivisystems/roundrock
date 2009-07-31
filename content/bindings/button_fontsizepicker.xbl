@@ -13,9 +13,6 @@
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <binding id="button_fontsizepicker">
-  <resources>
-  	<stylesheet src="chrome://viviecr/skin/buttons.css" />
-  </resources>
 
   <content>
 

@@ -19,7 +19,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
@@ -28,31 +28,31 @@
   <script src="chrome://viviecr/content/controllers/users_controller.js" type="application/x-javascript"/>
 
   <!-- include startup script -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/users.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
 
     <vbox flex="1" class="container-be layout-be">
-        <hbox flex="1" class="container-main layout-a">
-            <!-- Left Panel  -->
-            <vbox flex="1" pack="start" class="container-left block-33">
-                <caption label="&users.title;" class="label-page-title" />
-                <hbox flex="1" class="content-buttonpanel">
-                    <viviscrollablebuttonpanel id="userscrollablepanel" flex="1" cols="2" rows="7" labelField="displayname"
-                                               ensureVisible="true" dir="reverse"
-                                               oncommand="$do('select',this.selectedIndex, 'Users');"
-                                               buttonClass="button-item-a"
-                                               scrollUpClass="scroll-up-button"
-                                               scrollDownClass="scroll-down-button">
-                        <spacer flex="1"/>
-                    </viviscrollablebuttonpanel>
-                </hbox>
-            </vbox>
+        <vbox flex="1" class="container-main layout-a">
+            <hbox flex="1">
+                <!-- Left Panel  -->
+                <vbox flex="1" class="container-left block-40">
+                    <label value="&users.title;" class="label-page-title"/>
+                    <hbox flex="1" class="content-buttonpanel">
+                        <viviscrollablebuttonpanel id="userscrollablepanel" flex="1" cols="2" rows="7" labelField="displayname"
+                                                   ensureVisible="true" dir="reverse"
+                                                   oncommand="$do('select',this.selectedIndex, 'Users');"
+                                                   buttonClass="button-item-a"
+                                                   scrollUpClass="scroll-up-button"
+                                                   scrollDownClass="scroll-down-button">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </hbox>
+                </vbox>
             
-            <!-- Right Panel  -->
-            <vbox flex="1" class="container-right">
+                <!-- Right Panel  -->
                 <tabbox id="tabbox" flex="1" class="content-tabbox">
                     <tabs id="tabs">
                         <tab id="tab1" label="&users.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
@@ -63,13 +63,13 @@
                         <!--tab id="tab3" label="&users.option2;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/-->
                     </tabs>
 
-                    <tabpanels id="tabpanels" flex="1" >
+                    <tabpanels id="tabpanels" flex="1">
 
-                        <tabpanel flex="1" >
+                        <tabpanel flex="1">
                             <vbox flex="1">
                                 <grid class="data-form">
                                     <columns>
-                                        <column flex="1" />
+                                        <column flex="1"/>
                                     </columns>
                                     <rows>
                                         <row>
@@ -82,21 +82,22 @@
 
                                         <row>
                                             <label value="&users.password;" control="password"/>
-                                            <textbox type="password" id="user_password" value=""
+                                            <textbox type="password" id="user_password" value="" size="10"
                                                      oninput="$do('validateForm', null, 'Users')" onfocus="this.select()"
                                                      form="userForm" name="password"/>
                                         </row>
 
                                         <row>
                                             <label value="&users.displayname;" control="display_name"/>
-                                            <textbox id="display_name" value=""
+                                            <textbox id="display_name" value="" size="10"
                                                      oninput="$do('validateForm', null, 'Users')" onfocus="this.select()"
                                                      form="userForm" name="displayname" default=""/>
                                         </row>
 
                                         <row>
                                             <label value="&users.accesslevel;" control="user_group"/>
-                                            <textbox id="user_group" value="" readonly="true" class="button-item-c"
+                                            <textbox id="user_group" value="" readonly="true" size="10"
+                                                     class="button-item-c"
                                                      onclick="$do('getRoleGroup', null,'Users');"
                                                      form="userForm" name="group"/>
                                         </row>
@@ -121,7 +122,8 @@
                                         </row>
                                         <row>
                                             <label value="&users.job;" control="job_name"/>
-                                            <textbox id="job_name" class="button-item-c" value="" readonly="true"
+                                            <textbox id="job_name" readonly="true" size="10"
+                                                    class="button-item-c" value=""
                                                      onclick="$do('getJob', null, 'Users');"
                                                      form="userForm" name="default_job_name" default=""/>
                                             <label hidden="true" id="job_id" value="" form="userForm" name="job_id" default=""/>
@@ -144,19 +146,19 @@
                             </vbox>
                         </tabpanel>
 
-                        <tabpanel flex="1" >
+                        <tabpanel flex="1">
                             <vbox flex="1">
                                 <grid class="data-form-2">
                                     <columns>
-                                        <column flex="0" />
-                                        <column flex="1" />
+                                        <column flex="1"/>
+                                        <column flex="0"/>
                                     </columns>
                                     <rows>
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.item.discount;" control="item_discount_limit"/>
                                                 <vivitextbox id="item_discount_limit" type="number" hidespinbuttons="true"
-                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad" size="10"
                                                              form="userForm" name="item_discount_limit" default="0"/>
                                             </vbox>
                                             <vbox pack="end">
@@ -170,7 +172,7 @@
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.order.discount;" control="order_discount_limit"/>
-                                                <vivitextbox id="order_discount_limit" type="number" hidespinbuttons="true"
+                                                <vivitextbox id="order_discount_limit" type="number" hidespinbuttons="true" size="10"
                                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="order_discount_limit" default="0"/>
                                             </vbox>
@@ -186,7 +188,7 @@
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.item.surcharge;" control="item_surcharge_limit"/>
-                                                <vivitextbox id="item_surcharge_limit" type="number" hidespinbuttons="true"
+                                                <vivitextbox id="item_surcharge_limit" type="number" hidespinbuttons="true" size="10"
                                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="item_surcharge_limit" default="0"/>
                                             </vbox>
@@ -201,7 +203,7 @@
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.order.surcharge;" control="order_surcharge_limit"/>
-                                                <vivitextbox id="order_surcharge_limit" type="number" hidespinbuttons="true"
+                                                <vivitextbox id="order_surcharge_limit" type="number" hidespinbuttons="true" size="10"
                                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="order_surcharge_limit" default="0"/>
                                             </vbox>
@@ -243,7 +245,7 @@
                                         <row>
                                             <vbox>
                                                 <label value="&users.limit.cash.check;" control="max_cash_check"/>
-                                                <vivitextbox id="max_cash_check" type="number" hidespinbuttons="true"
+                                                <vivitextbox id="max_cash_check" type="number" size="10"
                                                              numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                              form="userForm" name="max_cash_check" default="0"/>
                                             </vbox>
@@ -254,11 +256,11 @@
                             </vbox>
                         </tabpanel>
 <!--
-                        <tabpanel flex="1" >
-                            <vbox flex="1" >
+                        <tabpanel flex="1">
+                            <vbox flex="1">
                                 <grid class="data-form">
                                     <columns>
-                                        <column flex="1" />
+                                        <column flex="1"/>
                                     </columns>
                                     <rows>
                                         <row>
@@ -267,7 +269,7 @@
                                                 <textbox id="min_check_no" type="number" decimalplaces="0" hidespinbuttons="true"
                                                          onfocus="this.select()"
                                                          form="userForm" name="min_check"
-                                                     />
+                                                    />
                                             </vbox>
                                         </row>
 
@@ -277,7 +279,7 @@
                                                 <textbox id="max_check_no" type="number" decimalplaces="0" hidespinbuttons="true"
                                                          onfocus="this.select()"
                                                          form="userForm" name="max_check"
-                                                     />
+                                                    />
                                             </vbox>
                                         </row>
 
@@ -287,7 +289,7 @@
                                                 <textbox id="max_open_checks" type="number" decimalplaces="0" hidespinbuttons="true"
                                                          onfocus="this.select()"
                                                          form="userForm" name="max_open_checks"
-                                                     />
+                                                    />
                                             </vbox>
                                         </row>
                                     </rows>
@@ -298,21 +300,25 @@
 -->
                     </tabpanels>
                 </tabbox>
-                <hbox>
-                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
-                        <button id="add_user" label="&users.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Users');" />
-                        <button id="modify_user" label="&users.action.modify;" disabled="false" class="button-modify" oncommand="$do('update', null, 'Users');" />
-                        <spacer flex="1"/>
-                        <button id="delete_user" label="&users.action.delete;" disabled="false" class="button-delete" oncommand="$do('delete', null, 'Users');" />
-                    </hbox>
-                    <hbox pack="end" class="exitbar">
-                        <button id="vkb" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Users');"/>
-                    </hbox>
+            </hbox>
+            <hbox>
+                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                    <button id="add_user" label="&users.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Users');"/>
+                    <button id="modify_user" label="&users.action.modify;" disabled="false" class="button-modify" oncommand="$do('update', null, 'Users');"/>
+                    <spacer flex="1"/>
+                    <button id="set_default" label="&users.action.setdefault;" hidden="true" class="button-setdefault"
+                            oncommand="$do('setDefaultUser', null, 'Users');" />
+                    <button id="clear_default" label="&users.action.cleardefault;" hidden="true" class="button-cleardefault"
+                            oncommand="$do('clearDefaultUser', null, 'Users');" />
+                    <spacer flex="1"/>
+                    <button id="delete_user" label="&users.action.delete;" disabled="false" class="button-delete" oncommand="$do('delete', null, 'Users');"/>
                 </hbox>
-            </vbox>
-
-        </hbox>
+                <hbox pack="end" class="exitbar">
+                    <button id="vkb" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Users');"/>
+                </hbox>
+            </hbox>
+        </vbox>
     </vbox>
 
     

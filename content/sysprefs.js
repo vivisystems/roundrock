@@ -16,9 +16,6 @@
         var rtNode = document.getElementById('roundingtaxes');
         if (rtNode) rtNode.value = rt;
         
-        $do('initUser', defaultUser, 'Users');
-        $do('initTaxStatus', defaultTaxStatus, 'Taxes');
-
         //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
@@ -58,7 +55,7 @@
     window.addEventListener('load', startup, false);
 
     window.addEventListener('dialogextra1', function(){
-        VirtualKeyboard.toggle();
+        closePreferences();
     }, false);
 
 
@@ -119,6 +116,10 @@ function closePreferences() {
         $do('setDefaultTaxStatus', null, 'Taxes');
     }
     catch(e) {};
+
+    OsdUtils.info(_('General settings saved'));
+
+    window.close();
 }
 
 function setVolume(volume, silent) {

@@ -133,12 +133,12 @@
 
             if (imageExists) {
                 if (icon_only) {
-                    classStr += ((classStr.length > 0) ? ' ' : '') + 'nolabelbtn largeimagebtn';
+                    classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label button-large-image';
                     //$(btn).addClass('nolabelbtn largeimagebtn');
                 }
             }
             else {
-                classStr += ((classStr.length > 0) ? ' ' : '') + 'noimagebtn';
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
                 //$(btn).addClass('noimagebtn');
             }
 
