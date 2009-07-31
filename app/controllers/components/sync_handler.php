@@ -581,6 +581,11 @@ class SyncHandlerComponent extends Object {
             case 'json':
                 $response = json_encode($result);
                 break;
+
+            case 'bgz_json':
+                // base64 gzip json
+                $response = base64_encode(gzdeflate(rawurlencode(json_encode($result))));
+                break;
         }
 
         return $response;
