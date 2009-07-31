@@ -88,18 +88,23 @@
 		if(!this.canceled) return;
 		
 		// send event to target element 		
-		var aElement = this.targetObject;		
+		var aElement = this.targetObject;
+        var focusedElement = document.commandDispatcher.focusedElement;
 
 		if (aElement == null) {
 			// try to find last input focus
-			aElement = document.commandDispatcher.focusedElement;
-			if(aElement == null) return;
+			aElement = focusedElement;
+			if (aElement == null) return;
 		}
 
 		if (aElement.localName == 'textbox' &&
 		'inputField' in aElement &&
 		aElement.inputField instanceof Components.interfaces.nsIDOMElement) {
 		    aElement = aElement.inputField;
+        }
+        if (aElement != focusedElement) {
+            GREUtils.log('setting focus on ' + aElement.localName + ', ' + (focusedElement ? focusedElement.localName : 'no focus'));
+            aElement.focus();
         }
 
 		var evt2 = document.createEvent('KeyboardEvent');

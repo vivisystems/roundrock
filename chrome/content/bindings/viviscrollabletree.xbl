@@ -10,7 +10,7 @@
 
         <xul:hbox style="margin: 0px; padding:0px;" flex="1" anonid="scrollablepanel-container" class="scrollablepanel" xbl:inherits="class,flex,pack,dir">
 
-            <xul:vivitree anonid="vivitree" flex="1" xbl:inherits="class=treeClass,headers,fields,enableColumnDrag,flags,hidecolumnpicker,rows,seltype,collapsed,hidevscroll,hidehscroll,fixed,primary,disabled,disableKeyNavigation" />
+            <xul:vivitree anonid="vivitree" flex="1" xbl:inherits="class=treeClass,headers,fields,enableColumnDrag,flags,hidecolumnpicker,rows,seltype,collapsed,hidevscroll,hidehscroll,fixed,primary,disabled,disableKeyNavigation,types,editables,ignorecolumnpickers" />
 
             <xul:vbox style="margin: 0px; padding:0px;" class="scrollablepanel-scrollbar" xbl:inherits="class=scrollbarClass" anonid="scrollbar" >
                 <xul:vivibutton label="UP" anonid="scrollbutton-up" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:vivibutton>

@@ -7,7 +7,7 @@
 
 <binding id="vivitree">
     <content>
-      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,disabled,enableColumnDrag,flags,hidecolumnpicker,rows,fixed,primary,seltype,align,dir,hidevscroll,hidehscroll,disableKeyNavigation">
+      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,disabled,enableColumnDrag,flags,hidecolumnpicker,rows,editable,primary,seltype,align,dir,hidevscroll,hidehscroll,disableKeyNavigation">
           <xul:treecols anonid="treecols" />
           <xul:treechildren anonid="treechildren" alternatingbackground="true" />
       </xul:tree>
@@ -87,13 +87,20 @@
         <body><![CDATA[
 
             var treecols = document.getAnonymousElementByAttribute(this, 'anonid', 'treecols');
-            var fixed = this.getAttribute('fixed');
             var primary = this.getAttribute('primary');
+            var fixed = this.getAttribute('fixed') || '';
+            var types = this.getAttribute('types') || '';
+            var ignoreincolumnpickers = this.getAttribute('ignoreincolumnpicker') || '';
+            var editables = this.getAttribute('editables') || '';
 
             treecols.setAttribute('hidden', "true");
             GeckoJS.Helper.removeAllChildren(treecols);
             var _headers = this.headers.split(',');
             var _fields = this.fields.split(',');
+            var _fixed = fixed ? fixed.split(',') : [];
+            var _types = types ? types.split(',') : [];
+            var _editables = editables ? editables.split(',') : [];
+            var _ignoreincolumnpickers = ignoreincolumnpickers ? ignoreincolumnpickers.split(',') : [];
 
             for (let i = 0; i < _headers.length ; i++) {
 
@@ -107,14 +114,28 @@
                 }
 
                 treecols.appendChild(treecol);
-
-                if (fixed != 'true') {
+                
+                if (_fixed.length == 0 || (_fixed.length > 1 && !_fixed[i]) || (_fixed.length == 1 && !fixed)) {
                     let splitter = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","splitter");
                     // splitter.setAttribute("id", "splitter_" + _fields[i]);
                     splitter.setAttribute("class", "tree-splitter");
                     splitter.setAttribute("resizebefore", "closest");
                     splitter.setAttribute("resizeafter", "grow");
                     treecols.appendChild(splitter);
+                }
+                else {
+                    treecol.setAttribute('fixed', true);
+                }
+
+                if (_types[i]) {
+                    treecol.setAttribute('type', _types[i]);
+                }
+                if (_editables[i]) {
+                    treecol.setAttribute('editable', _editables[i]);
+                }
+
+                if (_ignoreincolumnpickers[i]) {
+                    treecol.setAttribute('ignoreincolumnpicker', _ignoreincolumnpickers[i]);
                 }
             }
             treecols.setAttribute('hidden', "false");

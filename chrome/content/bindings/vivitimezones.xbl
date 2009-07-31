@@ -31,7 +31,7 @@
                             xbl:inherits="class=timezoneButtonClass, label=btnLabel"/>
                 </xul:hbox>
 
-                <xul:stack anonid="timezone-stack" xbl:inherits="class=ImgClass">
+                <xul:stack anonid="timezone-stack" flex="1" xbl:inherits="class=ImgClass">
                     <xul:image src="chrome://vivipos/skin/timezones/timezone_map.png"/>
                     <xul:image src="chrome://vivipos/skin/timezones/timezone_0h.png" offset="0" tzid="+0000" hidden="true"/>
                     <xul:image src="chrome://vivipos/skin/timezones/timezone_1h.png" offset="3600" tzid="+0100" hidden="true"/>
@@ -77,8 +77,8 @@
 
             </xul:vbox>
 
-            <xul:panel anonid="timezone-panel" position="overlap" pack="center" align="center"  xbl:inherits="class=popupClass">
-                <xul:vbox>
+            <xul:panel anonid="timezone-panel" position="overlap" pack="center" align="center" xbl:inherits="class=popupClass">
+                <xul:vbox flex="1">
                 <xul:label xbl:inherits="value=popTitle" />
                 <xul:viviscrollablebuttonpanel anonid="timezone-buttonpanel" flex="1"
                                                cols="4" rows="4" labelField="label"

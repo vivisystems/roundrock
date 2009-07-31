@@ -22,8 +22,8 @@
                 </xul:listbox>
                 <xul:image anonid="locales-image" />
                 <xul:label anonid="locales-label" />
-                <xul:spacer flex="1" />
-                <xul:button anonid="locales-button" oncommand="showLocalesPanel()" hidden="false" 
+                <xul:spacer anonid="locales-spacer" flex="1" />
+                <xul:button anonid="locales-button" oncommand="showLocalesPanel()" hidden="false"
                             xbl:inherits="class=localeButtonClass,label"/>
             </xul:hbox>
 
@@ -155,13 +155,19 @@
 
                 if (this.type == 'button') {
                     // hide listbox
-                    button.hidden = false;
                     listbox.hidden = true;
+                    button.hidden = false;
+                    document.getAnonymousElementByAttribute(this, "anonid", "locales-image").hidden = false;
+                    document.getAnonymousElementByAttribute(this, "anonid", "locales-label").hidden = false;
+                    document.getAnonymousElementByAttribute(this, "anonid", "locales-spacer").hidden = false;
                 }
                 else {
 
                     // hide button
-                    button.hidden = true;
+                    button.hidden = true
+                    document.getAnonymousElementByAttribute(this, "anonid", "locales-image").hidden = true
+                    document.getAnonymousElementByAttribute(this, "anonid", "locales-label").hidden = true
+                    document.getAnonymousElementByAttribute(this, "anonid", "locales-spacer").hidden = true
                     listbox.hidden = false;
                     
                     // Render locale menulist
