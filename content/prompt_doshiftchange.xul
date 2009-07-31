@@ -110,7 +110,7 @@
             <hbox class="AddAccount">
                 <vbox flex="1">
                     <label value="&prompt.shiftchange.amount;"/>
-                    <vivitextbox id="amount" value="0" flex="1" onfocus="select()" oninput="validateInput()"
+                    <vivitextbox id="drawer_amount" value="0" flex="1" onfocus="select()" oninput="validateInput()"
                                  numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>
                 </vbox>
                 <spacer width="10px"/>
