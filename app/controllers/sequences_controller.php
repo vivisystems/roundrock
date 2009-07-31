@@ -6,7 +6,7 @@ class SequencesController extends AppController {
 
     var $name = 'Sequences';
 
-    var $uses = array('Sequence');
+    var $uses = array('Sequence', 'Order');
 	
     var $components = array('SyncHandler', 'Security');
 
@@ -106,6 +106,11 @@ class SequencesController extends AppController {
         exit;
 
 
+    }
+
+    function test () {
+        print_r($this->Order->find('first'));
+        exit;
     }
 
 }
