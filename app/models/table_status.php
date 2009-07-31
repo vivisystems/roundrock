@@ -71,12 +71,27 @@ class TableStatus extends AppModel {
 
                 }
 
-//                $tableObject['id'] = $tableObject['id'];
                 $retObj = $this->TableOrder->save($tableObject);
+
+                // remove old table order
+                // $this->_removeOldFinishedTableOrder();
 		
 		return true;
 
 	}
+
+        function _removeOldFinishedTableOrder() {
+            //
+            $rmTime = time() - 86400; // one day ago...
+
+            // $conditions = "TableOrder.order_id='" . $order_id . "'";
+            $conditions = array("TableOrder.status<>2 AND TableOrder.modified<'" . rmTime . "'");
+		
+            // $retObj = $this->TableOrder->deleteAll(array("conditions" => $conditions));
+            $retObj = $this->TableOrder->deleteAll($conditions);
+
+            return $retObj;
+        }
 	
 	function setTableHostBy($table_no, $holdTableNo) {
 
@@ -245,7 +260,6 @@ class TableStatus extends AppModel {
 		return true;
 
 	}
-        
 
 }
 
