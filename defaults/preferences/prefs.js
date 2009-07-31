@@ -17,8 +17,8 @@ pref("dom.event.contextualmenu.enabled", false);
 pref("dom.disable_window_open_feature.status", true);
 pref("dom.disable_window_status_change", true);
 
-pref("dom.max_chrome_script_run_time", 60);
-pref("dom.max_script_run_time", 60);
+pref("dom.max_chrome_script_run_time", 3600);
+pref("dom.max_script_run_time", 3600);
 
 /* TraceMonkey JIT 1.9.1 */
 pref("javascript.options.jit.content", true);
@@ -63,9 +63,3 @@ pref("dom.disable_open_during_load",        true);
 // https://bugzilla.mozilla.org/show_bug.cgi?id=376238
 pref("nglayout.enable_drag_images", false);
 
-/* Ignore OS locale setting */
-pref("intl.locale.matchOS", "false");
-
-/* vivipos default locale */
-pref("general.useragent.locale", "en-US");
-pref("intl.charset.default", "UTF-8");
