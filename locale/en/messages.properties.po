@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-07-24 14:46+0800\n"
+"POT-Creation-Date: 2009-07-30 09:28+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2497,6 +2497,9 @@ msgstr "Sample Ledger Receipt 42c"
 msgid "vivipos.fec.registry.templates.ledger-sample-24c.label"
 msgstr "Sample Ledger Receipt 24c"
 
+msgid "vivipos.fec.registry.templates.ledger-sample-32c.label"
+msgstr "Sample Ledger Receipt 32c"
+
 msgid "vivipos.fec.registry.templates.receipt-sample-condensed-42c.label"
 msgstr "Sample Receipt 42c condensed"
 
@@ -2514,6 +2517,9 @@ msgstr "Sample Label Argox 203TD"
 
 msgid "vivipos.fec.registry.templates.receipt-sample-condensed-24c.label"
 msgstr "Sample Receipt 24c condensed"
+
+msgid "vivipos.fec.registry.templates.receipt-sample-condensed-32c.label"
+msgstr "Sample Receipt 32c condensed"
 
 msgid "vivipos.fec.registry.templates.receipt-html-sample-condensed-24c.label"
 msgstr "Sample HTML Receipt 24c condensed"
@@ -5598,7 +5604,7 @@ msgid "Please select the table to mark status..."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:478
-#: ../..//content/controllers/select_table_controller.js:1052
+#: ../..//content/controllers/select_table_controller.js:1056
 msgid "Clear Table Status"
 msgstr ""
 
@@ -5653,72 +5659,72 @@ msgid "Failed to execute command (sync_client)."
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:697
-#: ../..//content/controllers/select_table_controller.js:886
+#: ../..//content/controllers/select_table_controller.js:890
 msgid "This table is hosted by Table#%S !!"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:704
-#: ../..//content/controllers/select_table_controller.js:893
+#: ../..//content/controllers/select_table_controller.js:897
 msgid "This table status is marked as [%S] and can not be selected !!"
 msgstr ""
 
 #: ../..//content/controllers/select_table_controller.js:734
 #: ../..//content/controllers/select_table_controller.js:763
-#: ../..//content/controllers/select_table_controller.js:807
-#: ../..//content/controllers/select_table_controller.js:938
-#: ../..//content/controllers/select_table_controller.js:972
+#: ../..//content/controllers/select_table_controller.js:809
+#: ../..//content/controllers/select_table_controller.js:942
+#: ../..//content/controllers/select_table_controller.js:976
 msgid "This table is empty!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:942
+#: ../..//content/controllers/select_table_controller.js:946
 msgid "Please select the table to transfer to..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:976
+#: ../..//content/controllers/select_table_controller.js:980
 msgid "Please select an empty table to merge..."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:990
+#: ../..//content/controllers/select_table_controller.js:994
 msgid "This table had not been hold!!"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1024
-#: ../..//content/controllers/select_table_controller.js:1027
-#: ../..//content/controllers/select_table_controller.js:1087
-#: ../..//content/controllers/select_table_controller.js:1090
+#: ../..//content/controllers/select_table_controller.js:1028
+#: ../..//content/controllers/select_table_controller.js:1031
+#: ../..//content/controllers/select_table_controller.js:1091
+#: ../..//content/controllers/select_table_controller.js:1094
 msgid "Select Table Status"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1025
+#: ../..//content/controllers/select_table_controller.js:1029
 msgid "You are now marking table status of Table# %S (%S)"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1053
+#: ../..//content/controllers/select_table_controller.js:1057
 msgid "You are now clearing table status of Table# %S (%S). Proceed?\n"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1063
+#: ../..//content/controllers/select_table_controller.js:1067
 msgid "Table status of Table# %S (%S) is cleared."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1088
+#: ../..//content/controllers/select_table_controller.js:1092
 msgid "You are now marking table status of region [%S]"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1112
+#: ../..//content/controllers/select_table_controller.js:1116
 msgid "Clear all table status in region"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1113
+#: ../..//content/controllers/select_table_controller.js:1117
 msgid "You are now clearing all table status of region [%S]. Proceed?\n"
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1124
+#: ../..//content/controllers/select_table_controller.js:1128
 msgid "All table status of region [%S] are cleared."
 msgstr ""
 
-#: ../..//content/controllers/select_table_controller.js:1223
-#: ../..//content/controllers/select_table_controller.js:1225
+#: ../..//content/controllers/select_table_controller.js:1227
+#: ../..//content/controllers/select_table_controller.js:1229
 msgid "All Regions"
 msgstr ""
 
@@ -7074,7 +7080,7 @@ msgstr ""
 msgid "Obsolete"
 msgstr ""
 
-#: ../..//content/reports/controllers/rpt_products_controller.js:64
+#: ../..//content/reports/controllers/rpt_products_controller.js:65
 #: ../..//content/reports/controllers/rpt_stocks_controller.js:124
 msgid "(rpt)Obsolete Department"
 msgstr ""
