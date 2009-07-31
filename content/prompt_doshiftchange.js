@@ -63,8 +63,8 @@ var options;
         document.getElementById('cancel').setAttribute('disabled', false);
 
         document.getElementById('clearBtn').addEventListener('command', clearTextBox, false);
-        document.getElementById('amount').textbox.select();
-        
+        document.getElementById('drawer_amount').textbox.select();
+
         document.getElementById('close').disabled = !canEndSalePeriod;
         doSetOKCancel(
 
@@ -72,7 +72,7 @@ var options;
                 inputObj.description = document.getElementById('description').value;
                 // inputObj.type = document.getElementById('type').value;
                 inputObj.type = 'IN';
-                inputObj.amount = parseFloat(document.getElementById('amount').value);
+                inputObj.amount = parseFloat(document.getElementById('drawer_amount').value);
 
                 if (!isNaN(inputObj.amount)) {
                     inputObj.ok = true;
@@ -110,7 +110,7 @@ var options;
 
 function confirmEndSalePeriod() {
     var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
-    var amount = parseFloat(document.getElementById('amount').value);
+    var amount = parseFloat(document.getElementById('drawer_amount').value);
     if (!isNaN(amount) && amount != 0) {
         GREUtils.Dialog.alert(topwin, _('confirm end sale period'), _('Change may not be left in the drawer at the end of sale period'));
         return false;
@@ -129,7 +129,7 @@ function confirmEndSalePeriod() {
 
 function confirmEndShift() {
     var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
-    var amount = parseFloat(document.getElementById('amount').value);
+    var amount = parseFloat(document.getElementById('drawer_amount').value);
     if (!isNaN(amount) && amount < 0) {
         GREUtils.Dialog.alert(topwin, _('confirm shift change'), _('Drawer change may not be negative'));
         return false;
@@ -147,7 +147,7 @@ function confirmEndShift() {
 
 function validateInput() {
     var okButton = document.getElementById('ok');
-    var amount = GeckoJS.String.trim(document.getElementById('amount').value);
+    var amount = GeckoJS.String.trim(document.getElementById('drawer_amount').value);
 
     okButton.setAttribute('disabled', isNaN(amount) || amount > options.cashNet);
 }
