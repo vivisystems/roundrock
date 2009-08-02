@@ -8,12 +8,10 @@
   %ImportExport;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 

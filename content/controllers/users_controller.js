@@ -332,9 +332,15 @@
             };
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Default Job'), aFeatures, inputObj);
 
-            if (inputObj.ok && inputObj.jobid) {
-                $('#job_name').val(inputObj.jobname);
-                $('#job_id').val(inputObj.jobid);
+            if (inputObj.ok) {
+                if (inputObj.jobid) {
+                    $('#job_name').val(inputObj.jobname);
+                    $('#job_id').val(inputObj.jobid);
+                }
+                else {
+                    $('#job_name').val('');
+                    $('#job_id').val('');
+                }
             }
         },
 

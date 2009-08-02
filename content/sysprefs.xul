@@ -13,8 +13,9 @@
             hidechrome="true"
             xmlns:html="http://www.w3.org/1999/xhtml"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-            defaultButton="cancel"
-            ondialogcancel="closePreferences();"
+            defaultButton="extra1"
+            buttons="extra1,cancel"
+            ondialogcancel="VirtualKeyboard.toggle(); return false;"
             >
 
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />

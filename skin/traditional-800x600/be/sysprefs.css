@@ -33,8 +33,12 @@
     display: none;
 }
 
-.prefWindow-dlgbuttons button[dlgtype=cancel] {
+.prefWindow-dlgbuttons button[dlgtype=extra1] {
     background: transparent url(../images/SaveBtn.png) center center no-repeat !important;
+}
+
+.prefWindow-dlgbuttons button[dlgtype=cancel] {
+    background: transparent url(../images/VkbBtn.png) center center no-repeat !important;
 }
 
 .MainPnl {

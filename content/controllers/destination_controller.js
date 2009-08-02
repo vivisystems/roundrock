@@ -27,7 +27,6 @@
             if (!defaultFound) {
                 defaultDest = '';
             }
-            alert('default destination: ' + defaultDest);
             GeckoJS.Session.set('destinations', listDatas);
             GeckoJS.Session.set('defaultDestination', defaultDest);
 

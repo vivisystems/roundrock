@@ -31,7 +31,7 @@
                 <preference id="pref_checktrackingmode" name="vivipos.fec.settings.layout.CheckTrackingMode" type="bool"/>
                 
             </preferences>
-            <grid class="DataForm">
+            <grid class="data-form">
                 <columns>
                     <column flex="1" />
                     <column flex="1" />
@@ -98,7 +98,7 @@
                 <preference id="pref_banneratbottom" name="vivipos.fec.settings.layout.simple_retail.BannerAtBottom" type="bool"/>
 
             </preferences>
-            <grid class="DataForm">
+            <grid class="data-form">
                 <columns>
                     <column flex="1" />
                     <column flex="1" />

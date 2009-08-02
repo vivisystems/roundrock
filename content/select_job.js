@@ -14,21 +14,28 @@
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(jobsData);
 
         for (var index = 0; index < jobsData.length; index ++) {
-            if (jobsData[index].jobid == jobid) break;
+            if (jobsData[index].id == jobid) break;
         }
         if (index == jobsData.length) index = -1;
         panel.datasource = window.viewHelper;
+        
         panel.selectedIndex = index;
         panel.selectedItems = [index];
 
         doSetOKCancel(
             function(){
 
-                var index = panel.selectedIndex;
-
-                inputObj.jobid = jobsData[index].id;
-                inputObj.jobname = jobsData[index].jobname;
-                inputObj.index = index;
+                var selectedItems = panel.selectedItems;
+                
+                if (selectedItems.length == 0) {
+                    inputObj.jobid = '';
+                }
+                else {
+                    var index = selectedItems[0];
+                    
+                    inputObj.jobid = jobsData[index].id;
+                    inputObj.jobname = jobsData[index].jobname;
+                }
                 inputObj.ok = true;
 
                 delete window.viewHelper;

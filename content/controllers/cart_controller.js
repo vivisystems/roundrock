@@ -2374,7 +2374,7 @@
             }
 
             var data = {
-                type: type,
+                type: type || '',
                 payment: curTransaction.formatPrice(payment)
             };
 

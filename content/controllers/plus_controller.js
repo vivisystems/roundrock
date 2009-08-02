@@ -1360,6 +1360,10 @@
 
             // plu selected?
             if (this._selectedIndex == -1) {
+                // disable color and fontsize pickers
+                document.getElementById('plu_button_color').setAttribute('disabled', true);
+                document.getElementById('plu_font_size').setAttribute('disabled', true);
+
                 // disable Modify, Delete buttons
                 document.getElementById('modify_plu').setAttribute('disabled', true);
                 document.getElementById('clone_plu').setAttribute('disabled', true);
@@ -1379,6 +1383,10 @@
             }
             else {
                 var productName = document.getElementById('product_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
+
+                // enable color and fontsize pickers
+                document.getElementById('plu_button_color').setAttribute('disabled', false);
+                document.getElementById('plu_font_size').setAttribute('disabled', false);
 
                 // enable all tabs
                 document.getElementById('tab1').removeAttribute('disabled');

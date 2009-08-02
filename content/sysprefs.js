@@ -110,8 +110,6 @@ function closePreferences() {
         var main = mainWindow.GeckoJS.Controller.getInstanceByName('Main');
        	main.requestCommand('updateOptions', null, 'Main');
 
-        $do('setDefaultUser', null, 'Users');
-        $do('setDefaultTaxStatus', null, 'Taxes');
     }
     catch(e) {};
 

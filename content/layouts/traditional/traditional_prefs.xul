@@ -33,7 +33,7 @@
                 <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.layout.HideSoldOutButtons" type="bool"/>
 
             </preferences>
-            <grid class="DataForm">
+            <grid class="data-form">
                 <columns>
                     <column flex="1" />
                     <column flex="1" />

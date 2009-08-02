@@ -6,7 +6,6 @@
   %Users;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
@@ -123,7 +122,7 @@
                                         <row>
                                             <label value="&users.job;" control="job_name"/>
                                             <textbox id="job_name" readonly="true" size="10"
-                                                    class="button-item-c" value=""
+                                                     class="button-item-c" value=""
                                                      onclick="$do('getJob', null, 'Users');"
                                                      form="userForm" name="default_job_name" default=""/>
                                             <label hidden="true" id="job_id" value="" form="userForm" name="job_id" default=""/>

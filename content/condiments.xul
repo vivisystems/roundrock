@@ -6,7 +6,6 @@
   %Condiments;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
@@ -154,9 +153,11 @@
                     <hbox class="custom-container-button-color-fontsize-picker">
                         <vbox flex="1">
                             <label value="&condiments.condiment.button.color;" class="label-sub-title"/>
-                            <button_colorpicker id="condiment_button_color" orient="vertical" flex="1"
-                                                class-prefix="condiment-button-color-" class="button-color-picker custom-content-color-picker"
-                                                form="condimentForm" name="button_color" default="condiment-button-color-default"/>
+                            <hbox flex="1" pack="center">
+                                <button_colorpicker id="condiment_button_color" orient="vertical"
+                                                    class-prefix="condiment-button-color-" class="button-color-picker custom-content-color-picker"
+                                                    form="condimentForm" name="button_color" default="condiment-button-color-default"/>
+                            </hbox>
                         </vbox>
                         <vbox flex="1">
                             <label value="&condiments.condiment.font.size;" class="label-sub-title"/>

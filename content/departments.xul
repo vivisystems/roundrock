@@ -131,14 +131,16 @@
                 <hbox flex="1" class="custom-container-button-color-fontsize-picker">
                     <vbox flex="1">
                         <label value="&departments.button.color;" class="label-sub-title"/>
-                        <button_colorpicker id="dept_button_color" orient="vertical" flex="1"
-                                            class-prefix="department-button-color-" class="button-color-picker custom-content-color-picker"
-                                            form="deptForm" name="button_color" default="department-button-color-default"/>
+                        <hbox flex="1" pack="center">
+                            <button_colorpicker id="dept_button_color" orient="vertical"
+                                                class-prefix="department-button-color-" class="button-color-picker custom-content-color-picker"
+                                                form="deptForm" name="button_color" default="department-button-color-default"/>
+                        </hbox>
                     </vbox>
                     <vbox flex="1">
                         <label value="&departments.font.size;" class="label-sub-title"/>
                         <button_fontsizepicker id="dept_font_size" orient="vertical" flex="1"
-                                               class="button-fontsize-picker custom-content-fontsize-picker" buttonClass="button-item-b"
+                                               buttonClass="button-item-b"
                                                form="deptForm" name="font_size" default="medium"/>
                     </vbox>
                 </hbox>

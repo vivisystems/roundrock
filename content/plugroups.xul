@@ -104,11 +104,11 @@
                                 <hbox flex="1" class="custom-container-button-color-fontsize-picker">
                                     <vbox flex="1">
                                         <label value="&plugroups.button.color;" class="label-sub-title"/>
-                                        <vbox flex="1">
-                                            <button_colorpicker id="plugroup_button_color" orient="vertical" flex="1" pack="center"
+                                        <hbox flex="1" pack="center">
+                                            <button_colorpicker id="plugroup_button_color" orient="vertical"
                                                                 class-prefix="plugroup-button-color-" class="custom-content-color-picker"
                                                                 form="plugroupForm" name="button_color" default="plugroup-button-color-default"/>
-                                        </vbox>
+                                        </hbox>
                                     </vbox >
                                     <vbox flex="1">
                                         <label value="&plugroups.font.size;" class="label-sub-title"/>

@@ -447,7 +447,7 @@
                                     <vbox flex="1">
                                         <label value="&plus.button.color;" class="label-sub-title"/>
                                         <hbox pack="center" align="center" flex="1">
-                                            <button_colorpicker id="plu_button_color" orient="vertical" flex="1"
+                                            <button_colorpicker id="plu_button_color" orient="vertical"
                                                                 class="custom-content-color-picker"
                                                                 class-prefix="product-button-color-"
                                                                 form="productForm" name="button_color" default="product-button-color-default"/>
@@ -456,7 +456,7 @@
 
                                     <vbox flex="1">
                                         <label value="&plus.font.size;" class="label-sub-title"/>
-                                        <button_fontsizepicker id="font_size" orient="vertical" flex="1"
+                                        <button_fontsizepicker id="plu_font_size" orient="vertical" flex="1"
                                                                buttonClass="button-item-b"
                                                                form="productForm" name="font_size" default="medium"/>
                                     </vbox>

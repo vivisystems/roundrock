@@ -6,7 +6,6 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/plufilters.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/hotkey_prefs.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
@@ -31,6 +30,7 @@
     
     <vbox id="hotkey-container" flex="1" class="container-be layout-be">
         <vbox flex="1" class="container-main layout-a">
+            <label value="&hotkey.title;" class="label-page-title"/>
             <hbox flex="1">
                 <!-- vivifuncpanel -->
                 <vbox class="container-left block-40">
@@ -46,13 +46,13 @@
                     </vbox>
                     <grid class="data-form">
                         <columns>
-                            <column flex="1"/>
+                            <column/>
                             <column flex="1"/>
                         </columns>
                         <rows>
                             <row>
                                 <label value="&hotkey.search.hotkey.label;"/>
-                                <hotkey-textbox id="hotkey_search" size="4" style="width: 100px;" value=""
+                                <hotkey-textbox id="hotkey_search" size="4" value=""
                                                 oncommand="$do('searchHotkey', this, 'HotkeyPrefs')"/>
                             </row>
                        </rows>
@@ -72,7 +72,8 @@
                             <rows>
                                 <!-- hotkey -->
                                 <row>
-                                    <textbox id="hotkey_id" hidden="true" form="hotkeyForm" name="id"/>
+                                    <textbox id="hotkey_id" hidden="true"
+                                             form="hotkeyForm" name="id" default=""/>
                                     <label value="&hotkey.prefs.hotkey.label;"/>
                                     <hotkey-textbox id="hotkey_hotkey" value="" disabled="true"/>
                                 </row>
@@ -80,32 +81,31 @@
                                 <row>
                                     <label value="&hotkey.prefs.name.label;"/>
                                     <textbox id="hotkey_name" value="" readonly="true"
-                                             form="hotkeyForm" name="name"/>
+                                             form="hotkeyForm" name="name" defaut=""/>
                                 </row>
 
                                 <!-- function link -->
                                 <row>
                                     <label value="&hotkey.prefs.linked.label;"/>
                                     <textbox id="hotkey_linked" value="" readonly="true"
-                                             form="hotkeyForm" name="linked"/>
+                                             form="hotkeyForm" name="linked" default=""/>
                                 </row>
 
                                 <!-- function label -->
                                 <row>
                                     <label value="&hotkey.prefs.data.label;"/>
                                     <textbox id="hotkey_data" value="" readonly="true"
-                                             form="hotkeyForm" name="data"/>
+                                             form="hotkeyForm" name="data" default=""/>
                                 </row>
                             </rows>
                         </grid>
 
                         <vbox flex="1" class="content-listbox">
-                            <vivitree id="hotkey_function_tree" flex="1" disabled="true"
+                            <vivitree id="hotkey_function_tree" flex="1"
                                       class="standard"
                                       headers="&hotkey.tree.function.label;,&hotkey.tree.label.label;"
                                       fields="name,label"
-                                      seltype="single"
-                                      hidevscroll="true" hidecolumnpicker="true"
+                                      seltype="single" hidecolumnpicker="true"
                                       onselect="$do('selectFunction', this, 'HotkeyPrefs')"/>
                             <spacer height="5px"/>
                             <hbox>
@@ -127,13 +127,14 @@
                             oncommand="$do('addHotkey', null, 'HotkeyPrefs');"/>
                     <button id="modify_hotkey" label="&hotkey.button.action.modify;" disabled="true" class="button-modify"
                             oncommand="$do('modifyHotkey', null, 'HotkeyPrefs');"/>
+                    <spacer flex="1"/>
                     <button id="delete_hotkey" label="&hotkey.button.action.delete;" disabled="true" class="button-delete"
                             oncommand="$do('removeHotkey', null, 'HotkeyPrefs');"/>
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                     <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit"
-                            oncommand="$do('cancelPreferences', null, 'HotkeyPrefs');"/>
+                            oncommand="$do('exit', null, 'HotkeyPrefs');"/>
                 </hbox>
             </hbox>
         </vbox>

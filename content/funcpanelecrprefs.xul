@@ -2,7 +2,6 @@
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/funcpanelecrprefs.dtd">
 
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/fe/functionpanel.css" type="text/css"?>

@@ -164,12 +164,12 @@
     -moz-border-right-colors: black transparent !important;
 }
 
-.condiment-button-color-default[selected], .condiment-button-color-1[selected],
-.condiment-button-color-2[selected], .condiment-button-color-3[selected],
-.condiment-button-color-4[selected], .condiment-button-color-5[selected],
-.condiment-button-color-6[selected], .condiment-button-color-7[selected],
-.condiment-button-color-8[selected], .condiment-button-color-9[selected],
-.condiment-button-color-10[selected], .condiment-button-color-11[selected] {
+.condiment-button-color-default[disabled=false][selected], .condiment-button-color-1[disabled=false][selected],
+.condiment-button-color-2[disabled=false][selected], .condiment-button-color-3[disabled=false][selected],
+.condiment-button-color-4[disabled=false][selected], .condiment-button-color-5[disabled=false][selected],
+.condiment-button-color-6[disabled=false][selected], .condiment-button-color-7[disabled=false][selected],
+.condiment-button-color-8[disabled=false][selected], .condiment-button-color-9[disabled=false][selected],
+.condiment-button-color-10[disabled=false][selected], .condiment-button-color-11[disabled=false][selected] {
     border-width: 3px;
     list-style-image: url(../images/con_sel.png);
     -moz-border-top-colors: threeddarkshadow !important;
