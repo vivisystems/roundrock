@@ -100,8 +100,6 @@
                     </hbox>
 
                 </vbox>
-
-                <textbox id="vivifuncpanelecr_prefs_gkeymap_page_number" hidden="true" readonly="true" size="3" value="1"/>
             </vbox>
             
             <vbox flex="1">
@@ -379,12 +377,12 @@
                                       flex="1"
                                       hidevscroll="true"
                                       onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
-                            <spacer height="3px"/>
+                            <spacer height="5px"/>
                             <hbox>
                                 <textbox id="vivifuncpanelecr_prefs_keymap_function_desc" class="textbox-description"
                                          wrap="true" readonly="true" multiline="true" flex="1">
                                 </textbox>
-                                <spacer width="3px"/>
+                                <spacer width="5px"/>
                                 <button id="vivifuncpanelecr_prefs_keymap_link"
                                         label="&vivifuncpanelecr.prefs.tabpanel.keymap.link.label;"
                                         disabled="true" class="button-item-a button-set"
@@ -464,7 +462,7 @@
                                       flex="1"
                                       hidevscroll="true"
                                       onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
-                            <spacer height="3px"/>
+                            <spacer height="5px"/>
                             <hbox>
                                 <textbox id="vivifuncpanelecr_prefs_gkeymap_function_desc" class="textbox-description" wrap="true"
                                          readonly="true" multiline="true" flex="1">

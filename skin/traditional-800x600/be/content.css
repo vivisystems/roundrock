@@ -27,6 +27,8 @@
 .container-be textbox[readonly=true] {
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     border: 1px solid #bdbcb8 !important;
+    -moz-user-focus: ignore;
+    -moz-user-input: none;
 }
 
 /*-----------------------------------------------------------------------------

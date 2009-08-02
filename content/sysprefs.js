@@ -7,8 +7,6 @@
 
         var rt = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
         var rp = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-        var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
-        var defaultTaxStatus = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
 
         var rpNode = document.getElementById('roundingprices');
         if (rpNode) rpNode.value = rp;

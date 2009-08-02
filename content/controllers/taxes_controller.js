@@ -229,13 +229,6 @@
                 return;
             }
 
-            // check if tax is the default tax
-            var defaultTax = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-            if (defaultTax == tax.id) {
-                NotifyUtils.warn(_('[%S] is the default tax and may not be deleted', [tax.name]));
-                return;
-            }
-
             // check if tax is part of a combined tax
             var taxList = this.Tax.getTaxList('COMBINE');
             for (var i = 0; i < taxList.length; i++) {
@@ -261,6 +254,12 @@
                 }
 
                 this.createSingleTaxList();
+
+                // check if tax is the default tax
+                var defaultTax = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                if (defaultTax == tax.id) {
+                    GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', '');
+                }
 
                 this.load(selectedIndex);
 

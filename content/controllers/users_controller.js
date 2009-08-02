@@ -13,7 +13,6 @@
 
         getListObj: function() {
             if(this._listObj == null) {
-                // this._listObj = this.query('#userscrollablepanel')[0];
                 this._listObj = document.getElementById('userscrollablepanel');
             }
             return this._listObj;
@@ -269,6 +268,12 @@
                 index = view.data.length - 2;
             }
 
+            // remove default user setting, if needed
+            var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+            if (defaultId == evt.data.id) {
+                GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', '');
+            }
+
             this.requestCommand('list', index);
 
             this._selectedIndex = index;
@@ -418,6 +423,7 @@
 
             if (!this.confirmChangeUser(index)) {
                 panel.selectedItems = [this._selectedIndex];
+                panel.selectedIndex = this._selectedIndex;
                 return;
             }
 
@@ -443,6 +449,8 @@
                         GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
 
                         panel.refresh();
+
+                        this.validateForm();
                     }
                 }
             }
@@ -453,6 +461,8 @@
             GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', '');
 
             panel.refresh();
+
+            this.validateForm();
         },
 
         validateForm: function(resetTabs) {

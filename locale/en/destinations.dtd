@@ -8,4 +8,5 @@
 <!ENTITY destinations.add "Add">
 <!ENTITY destinations.modify "Modify">
 <!ENTITY destinations.delete "Delete">
-<!ENTITY destinations.setdefault "Default Destination">
+<!ENTITY destinations.setdefault "Set as Default">
+<!ENTITY destinations.cleardefault "Clear as Default">
