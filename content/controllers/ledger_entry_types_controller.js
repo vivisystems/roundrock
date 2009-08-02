@@ -8,7 +8,7 @@
 
         _listObj: null,
         _listDatas: null,
-        _index: 0,
+        _selectedIndex: -1,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -23,26 +23,53 @@
         },
         */
         beforeScaffoldAdd: function(evt) {
+
+            var ledgerType = evt.data;
+            ledgerType.id = '';
+
+            if (!this.confirmChangeLedgerEntryType()) {
+                evt.preventDefault();
+                return;
+            }
+            
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var inputObj = {input0:null, require0:true};
+
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Product Group'), aFeatures,
+                                       _('New Ledger Entry Type'), '', _('Ledger Entry Type'), '', inputObj);
+                                       
+            if (inputObj.ok && inputObj.input0) {
+                ledgerType.type = inputObj.input0;
+                ledgerType.mode = 'OUT';
+            } else {
+                evt.preventDefault();
+                return ;
+            }
+
             // check for empty transaction type
-            var type = GeckoJS.String.trim(evt.data.type);
+            var type = GeckoJS.String.trim(ledgerType.type);
             if (type == '') {
                 NotifyUtils.warn(_('Transaction type must not be empty'));
                 evt.preventDefault();
             }
             else {
                 // check for duplicate transaction type
-                var newType = type.replace('\'', '"', 'g');
-                var dupType = new GeckoJS.ArrayQuery(this._listDatas).filter('type = \'' + newType + '\'');
+                var dupType = false;
+                for (var i = 0; i < this._listDatas.length; i++) {
+                    if (this._listDatas[i].type == type) {
+                        dupType = true;
+                        break;
+                    }
+                }
 
-                evt.data.id = '';
-
-                if (dupType.length > 0) {
-                    NotifyUtils.warn(_('Transaction type [%S] already exists', [newType]));
+                if (dupType) {
+                    NotifyUtils.warn(_('Transaction type [%S] already exists', [type]));
                     evt.preventDefault();
                 }
                 else {
                     // check if used for drawer change; if yes, then set other transaction types of the same mode to no
-                    if (evt.data.drawer_change == 'Y') {
+                    if (evt.data.drawer_change) {
                         this.clearDrawerChange(evt.data.mode);
                     }
                 }
@@ -70,15 +97,46 @@
         },
 
         beforeScaffoldEdit: function(evt) {
-            // check if used for drawer change; if yes, then set other transaction types of the same mode to no
-            if (evt.data.drawer_change == 'Y') {
-                this.clearDrawerChange(evt.data.mode);
+
+            var ledgerType = evt.data;
+            var type = ledgerType.type;
+            
+            // check for duplicate transaction type
+            var dupType = false;
+            for (var i = 0; i < this._listDatas.length; i++) {
+                if (this._listDatas[i].id != ledgerType.id && this._listDatas[i].type == type) {
+                    dupType = true;
+                    break;
+                }
+            }
+
+            if (dupType) {
+                NotifyUtils.warn(_('Transaction type [%S] already exists', [type]));
+                evt.preventDefault();
+                ledgerType.id = '';
+            }
+            else {
+                // check if used for drawer change; if yes, then set other transaction types of the same mode to no
+                if (evt.data.drawer_change) {
+                    this.clearDrawerChange(evt.data.mode);
+                }
             }
         },
 
         afterScaffoldEdit: function(evt) {
             if (evt.data.id) {
                 this.load();
+
+                // locate index of modified type
+                for (var index = 0; index < this._listDatas.length; index++) {
+                    if (this._listDatas[index].id == evt.data.id) {
+                        break;
+                    }
+                }
+                if (index == this._listDatas.length) {
+                    index = -1;
+                }
+                this.select(index);
 
                 OsdUtils.info(_('Transaction type [%S] and mode [%S] successfully updated',
                                [evt.data.type, _(evt.data.mode)]))
@@ -97,8 +155,8 @@
         },
 
         afterScaffoldDelete: function(evt) {
-            if (this._index == this._listDatas.length - 1) {
-                this._index--;
+            if (this._selectedIndex == this._listDatas.length - 1) {
+                this._selectedIndex--;
             }
             
             this.load();
@@ -117,9 +175,6 @@
                 if (col.id == 'mode') {
                     text = _('(ledgerEntryType)' + this.data[row][col.id]);
                 }
-                else if (col.id == 'drawer_change') {
-                    text = _('(ledgerEntryType)' + this.data[row][col.id]);
-                }
                 else {
                     text = this.data[row][col.id];
                 }
@@ -128,8 +183,8 @@
             this.getListObj().datasource = panelView;
 
             if (this._listDatas.length > 0) {
-                this.getListObj().selection.select(this._index);
-                this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
+                this.getListObj().selection.select(this._selectedIndex);
+                this.getListObj().treeBoxObject.ensureRowIsVisible(this._selectedIndex);
             }
             else
                 this.getListObj().selection.select(-1);
@@ -139,37 +194,44 @@
 
         load: function() {
             GeckoJS.FormHelper.reset('ledger_entry_typeForm');
-            this.requestCommand('list', {order: 'mode, type', index: this._index});
-            this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
+            this.requestCommand('list', {order: 'mode, type', index: this._selectedIndex});
+            this.getListObj().treeBoxObject.ensureRowIsVisible(this._selectedIndex);
         },
 
         select: function(index){
-            if (index >= 0) {
-                var entry_type = this._listDatas[index];
-                this.requestCommand('view', entry_type.id);
+
+            if (index == this._selectedIndex && index != -1) return;
+
+            if (!this.confirmChangeLedgerEntryType(index)) {
+                this.getListObj().selection.select(this._selectedIndex);
+                return;
             }
+
+            this._selectedIndex = index;
+            var entry_type = this._listDatas[index];
+            this.requestCommand('view', entry_type.id);
             
             this.getListObj().selection.select(index);
             this.getListObj().treeBoxObject.ensureRowIsVisible(index);
-            this._index = index;
+            this._selectedIndex = index;
             
             this.validateForm();
         },
 
         clearDrawerChange: function(mode) {
             var ledgerEntryTypeModel = new LedgerEntryTypeModel();
-            var records = ledgerEntryTypeModel.find('all', {conditions: 'drawer_change = "Y" and mode = "' + mode + '"'});
+            var records = ledgerEntryTypeModel.find('all', {conditions: 'drawer_change = "1" and mode = "' + mode + '"'});
 
             records.forEach(function(record) {
                                 ledgerEntryTypeModel.id = record.id;
-                                record.drawer_change = 'N';
+                                record.drawer_change = false;
                                 ledgerEntryTypeModel.save(record);
                             });
         },
 
         getDrawerChangeType: function(mode) {
             var ledgerEntryTypeModel = new LedgerEntryTypeModel();
-            var entryType = ledgerEntryTypeModel.find('first', {conditions: 'drawer_change = "Y" and mode = "'+ mode + '"',
+            var entryType = ledgerEntryTypeModel.find('first', {conditions: 'drawer_change = "1" and mode = "'+ mode + '"',
                                                                 order: 'type'});
 
             if (entryType) {
@@ -177,23 +239,58 @@
             }
             else {
                 if (mode == 'IN') {
-                    return {type: _('Drawer Change IN'), mode: 'IN', drawer_change: 'Y'};
+                    return {type: _('Drawer Change IN'), mode: 'IN', drawer_change: true};
                 }
                 else {
-                    return {type: _('Drawer Change OUT'), mode: 'OUT', drawer_change: 'Y'};
+                    return {type: _('Drawer Change OUT'), mode: 'OUT', drawer_change: true};
                 }
             }
         },
 
+        confirmChangeLedgerEntryType: function(index) {
+            // check if ledger entry type form has been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('ledger_entry_typeForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current ledger entry type. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        exit: function() {
+            // check if ledger entry type form has been modified
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('ledger_entry_typeForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current ledger entry type. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.requestCommand('update', null, 'LedgerEntryTypes');
+                }
+            }
+            window.close();
+        },
+
         validateForm: function() {
             var index = this.getListObj().selectedIndex;
-            var addBtn = document.getElementById('add_entry_type');
             var modBtn = document.getElementById('modify_entry_type');
             var delBtn = document.getElementById('delete_entry_type');
 
             var type = GeckoJS.String.trim(document.getElementById('entry_type').value);
 
-            addBtn.setAttribute('disabled', type == '');
             modBtn.setAttribute('disabled', index == -1);
             delBtn.setAttribute('disabled', index == -1);
         }

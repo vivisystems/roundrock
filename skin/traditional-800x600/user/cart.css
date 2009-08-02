@@ -162,7 +162,10 @@
     text-align: left;
 }
 
-.cartList #current_qty, #current_price, #current_subtotal, #current_tax {
+.cartList #current_qty,
+.cartList #current_price,
+.cartList #current_subtotal,
+.cartList #current_tax {
     text-align: right;
 }
 

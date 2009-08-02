@@ -68,15 +68,15 @@
                             <row>
                                 <vbox>
                                     <label value="&stockrecords.label.no;"/>
-                                    <textbox id="product_no" readonly="true" form="productForm" name="product_no"/>
+                                    <textbox id="prod_no" readonly="true" form="productForm" name="product_no"/>
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.barcode;" />
-                                    <textbox id="product_barcode" readonly="true" form="productForm" name="product_barcode"/>
+                                    <textbox id="prod_barcode" readonly="true" form="productForm" name="product_barcode"/>
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.name;" />
-                                    <textbox id="product_name" readonly="true" form="productForm" name="product_name"/>
+                                    <textbox id="prod_name" readonly="true" form="productForm" name="product_name"/>
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.minstock;"/>
@@ -86,7 +86,7 @@
                             <row>
                                 <vbox>
                                     <label id="qtytype" value="" control="newquantity"/>
-                                    <vivitextbox id="new_quantity" value="" maxsize="6" type="number"
+                                    <vivitextbox id="new_qty" value="" maxsize="6" type="number"
                                                  numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                                  oninput="$do('validateForm', null, 'StockRecords')" onfocus="select()"
                                                  form="productForm" name="new_quantity"/>
@@ -118,7 +118,9 @@
 		            <hbox  flex="1" class="toolbar" toolbarmode="horizontal">
 	                    <hbox flex="1" pack="start">
 	                    	<button id="modify_stock" label="&stockrecords.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyStock', null, 'StockRecords');" />
+                            <spacer flex="1"/>
 	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" disabled="false" class="button-import" oncommand="$do('importRecords', null, 'StockRecords');" />
+                            <spacer flex="1"/>
 	                    </hbox>
 	                    <hbox>
 	                    	<button id="commitchanges" label="&stockrecords.button.action.commitchanges;" disabled="false" class="button-commit" oncommand="$do('commitChanges', null, 'StockRecords');" />

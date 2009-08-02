@@ -13,6 +13,211 @@
     -moz-border-radius: 8px;
 }
 
+/*-----------------------------------------------------------------------------
+ * Data forms
+ *-----------------------------------------------------------------------------
+ */
+
+.container-report .data-form {
+	border-right: 2px solid white;
+	background: #f0efe8;
+    margin: 4px;
+}
+
+.container-report .data-form row {
+	border-bottom: 2px solid white;
+    min-height: 44px;
+    padding: 2px 0px 4px 0px;
+    -moz-box-align: center;
+}
+
+.container-report .data-form column {
+	border-right: 2px solid white;
+	padding: 6px;
+}
+
+.container-report .data-form label {
+    font-size: 10pt;
+    color: #372213;
+}
+
+.container-report .data-form-2 {
+	border-right: 2px solid white;
+	background: #f0efe8;
+    margin: 4px;
+}
+
+.container-report .data-form-2 row {
+	border-bottom: 2px solid white;
+    min-height: 40px;
+    padding: 2px 0px 4px 0px;
+}
+
+.container-report .data-form-2 column {
+	border-right: 2px solid white;
+	padding: 6px;
+}
+
+.container-report .data-form-2 label {
+    font-size: 10pt;
+    color: #372213;
+}
+
+/*-----------------------------------------------------------------------------
+ * Drop-down List
+ *-----------------------------------------------------------------------------
+ */
+
+.container-report menulist {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 3px solid;
+    list-style-image: url(../images/dropdown.png);
+    min-height: 38px;
+    text-align: right;
+    -moz-appearance: none;
+    -moz-border-top-colors: #f0efe8 #eeede8 #e2e1dc;
+    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-left-colors: #f0efe8 #eeede8 #e2e1dc;
+}
+
+.container-report menulist hbox {
+    -moz-box-direction: reverse;
+}
+
+.container-report menulist hbox label {
+    background: none;
+    border-right: 1px solid ;
+    padding: 0 5px;
+    -moz-appearance: none;
+    -moz-border-right-colors: #a1a1ba;
+}
+
+.container-report .popup-internal-box {
+    background: white;
+    border: 1px solid #666;
+    -moz-appearance: none;
+}
+
+.container-report menuitem {
+    min-height: 32px;
+    text-align: right;
+}
+
+.container-report menuitem[selected=true] {
+    background-color: #7e7259;
+    color: white;
+    -moz-appearance: none;
+}
+
+.container-report .menulist-editable-box{
+    font-size: 18px;
+    padding: 10px;
+    -moz-appearance: none;
+}
+
+.container-report spinbuttons {
+    background: none;
+    border: none;
+    -moz-appearance: none;
+}
+
+.container-report .spinbuttons-box{
+    margin-left: 3px;
+	-moz-box-orient: horizontal;
+}
+
+.container-report .spinbuttons-button{
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 2px solid ;
+    cursor: pointer;
+    min-width: 32px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #b6b6b6 #fff;
+    -moz-border-right-colors: #b6b6b6 #fff;
+    -moz-border-bottom-colors: #b6b6b6 #fff;
+    -moz-border-left-colors: #b6b6b6 #fff;
+}
+
+.container-report .spinbuttons-button[disabled=true] {
+    background: #ddd;
+    -moz-border-top-colors: #bababa #bababa !important;
+    -moz-border-right-colors: #bababa #bababa !important;
+    -moz-border-bottom-colors: #bababa #bababa !important;
+    -moz-border-left-colors: #bababa #bababa !important;
+}
+
+.container-report .spinbuttons-button:active {
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+}
+
+.container-report .spinbuttons-button hbox{
+    -moz-box-pack: center;
+}
+
+.container-report .spinbuttons-button label{
+    display: none;
+}
+
+.container-report .spinbuttons-button image {
+    margin-left: -10px;
+}
+
+.container-report .spinbuttons-up {
+    list-style-image: url(../images/spinup.png);
+}
+
+.container-report .spinbuttons-down{
+	list-style-image: url(../images/spindown.png);
+}
+
+/*-----------------------------------------------------------------------------
+ * Standard text boxes
+ *-----------------------------------------------------------------------------
+ */
+
+.container-report textbox {
+    background: white url(../images/tboxbg.png) left center repeat-x;
+    border: 3px solid;
+    color: #444;
+    font-size: 18px;
+    min-height: 32px;
+    padding: 2px;
+    -moz-appearance: none;
+    -moz-border-top-colors: #a7a7a7 #c5c5c5 #dcdcdc;
+    -moz-border-right-colors: #e7e7e7 #f7f7f7 #fefefe;
+    -moz-border-bottom-colors: #e7e7e7 #f7f7f7 #fefefe;
+    -moz-border-left-colors: #a7a7a7 #c5c5c5 #dcdcdc;
+}
+
+.container-report textbox[readonly=true] {
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    border: 1px solid #bdbcb8 !important;
+    -moz-user-focus: ignore;
+    -moz-user-input: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Arrow scrollbox
+ *-----------------------------------------------------------------------------
+ */
+
+.container-report .arrowScrollBox .autorepeatbutton-up {
+    width: 40px;
+}
+
+.container-report .arrowScrollBox .autorepeatbutton-down {
+    width: 40px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Buttons and other widgets
+ *-----------------------------------------------------------------------------
+ */
+
 .container-report .ExeBtn {
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     border: 3px solid;
@@ -106,7 +311,7 @@ container-report.ReportButton[disabled=true] {
 
 /* Exit Bar */
 
-.container-report .ExitBar {
+.container-report .exitbar {
     background: #eee3d6;
     height: 60px;
     margin: 0px 0px 2px 2px;
@@ -115,7 +320,7 @@ container-report.ReportButton[disabled=true] {
     padding: 5px 8px;
     -moz-border-radius: 8px;
 }
-.container-report .ExitBar button {
+.container-report .exitbar button {
   background: none;
   border: none;
   height: 50px;

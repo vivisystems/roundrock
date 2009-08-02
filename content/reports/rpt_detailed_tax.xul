@@ -6,10 +6,10 @@
   %detailed_tax;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/content/reports/tpl/rpt_detailed_tax.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
@@ -20,67 +20,69 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_detailed_tax.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_detailed_tax.js"/>
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()"/>
+    </keyset>
+
+    <vbox flex="1" class="container-report">
+        <vbox flex="1" class="container-main">
 		    <vbox>
-		        <caption label="&rptdetailedtax.title;"  class="PageTitle"/>
-		        <!--caption label="&rptdetailedtax.conditions;" / -->
+		        <label value="&rptdetailedtax.title;" class="label-page-title"/>
 		        <hbox>
-		            <hbox flex="1">
-		            <grid class="DataForm" flex="1">
+		            <grid flex="1" class="data-form">
 		                <columns>
-		                    <column  flex="1"/><column flex="1" />
+		                    <column flex="1"/>
+                            <column flex="1"/>
 		                </columns>
 		                <rows>
 		                    <row>
 		                        <vbox>
-		                            <label value="&rptdetailedtax.startdate;" />
-		                            <vividatetimepicker id="start_date" value='' type="popup" />  
+		                            <label value="&rptdetailedtax.startdate;"/>
+		                            <vividatetimepicker id="start_date" value="" type="popup"/>
 		                        </vbox>
 		                        <vbox>
-		                            <label value="&rptdetailedtax.enddate;" />
-		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                            <label value="&rptdetailedtax.enddate;"/>
+		                            <vividatetimepicker id="end_date" value="" type="popup"/>
 		                        </vbox>
 		                    </row>
 		                    <row>
 		                    	<vbox>
-		                    		<label value="&rptdetailedtax.periodtype;" />
+		                    		<label value="&rptdetailedtax.periodtype;"/>
 						            <menulist id="periodtype">
 						                <menupopup id="periodtype_menupopup">
-						                    <menuitem selected="false" label="&rptdetailedtax.created;" value="transaction_created" />
-						                    <menuitem selected="true" label="&rptdetailedtax.transaction_submitted;" value="transaction_submitted" />
-						                    <menuitem selected="false" label="&rptdetailedtax.saleperiod;" value="sale_period" />
+						                    <menuitem selected="false" label="&rptdetailedtax.created;" value="transaction_created"/>
+						                    <menuitem selected="true" label="&rptdetailedtax.transaction_submitted;" value="transaction_submitted"/>
+						                    <menuitem selected="false" label="&rptdetailedtax.saleperiod;" value="sale_period"/>
 						                </menupopup>
 						            </menulist>
 						        </vbox>
 						        <vbox>
-				                    <label value="&rptdetailedtax.terminal_no;" />
-				                    <textbox id="terminal_no" value='' width="300"/>
+				                    <label value="&rptdetailedtax.terminal_no;"/>
+				                    <textbox id="terminal_no" value=""/>
 				                </vbox>
 				            </row>
 		                    <row>
 		                    	<vbox>
-				                	<label value="&rptdetailedtax.sortby;" />
+				                	<label value="&rptdetailedtax.sortby;"/>
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="false" label="&rptdetailedtax.sortby.terminal_no;" value="terminal_no" />
-					                        <menuitem selected="true" label="&rptdetailedtax.sortby.time;" value="time" />
-					                        <menuitem selected="false" label="&rptdetailedtax.sortby.sequence;" value="sequence" />
-					                        <menuitem selected="false" label="&rptdetailedtax.sortby.invoice_no;" value="invoice_no" />
-					                        <menuitem selected="false" label="&rptdetailedtax.sortby.total;" value="total" />
+					                        <menuitem selected="false" label="&rptdetailedtax.sortby.terminal_no;" value="terminal_no"/>
+					                        <menuitem selected="true" label="&rptdetailedtax.sortby.time;" value="time"/>
+					                        <menuitem selected="false" label="&rptdetailedtax.sortby.sequence;" value="sequence"/>
+					                        <menuitem selected="false" label="&rptdetailedtax.sortby.invoice_no;" value="invoice_no"/>
+					                        <menuitem selected="false" label="&rptdetailedtax.sortby.total;" value="total"/>
 					                    </menupopup>
 					                </menulist>
 			                    </vbox>
 		                    </row>
 		                </rows>
 		            </grid>
-		            </hbox>
-		            <button id="execute" label="&rptdetailedtax.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDetailedTax');" />
+		            <button id="execute" label="&rptdetailedtax.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDetailedTax');"/>
 		        </hbox>
             </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
@@ -89,18 +91,17 @@
             <hbox class="TopPnl">
                 <hbox class="ReportTool" flex="1" style="overflow: auto;">
                     <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
-                        <tabs id="tabs" >
-                            <vivibutton id="export_pdf" label="&rptdetailedtax.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDetailedTax');" />
-                            <vivibutton id="export_csv" label="&rptdetailedtax.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDetailedTax');" />
-                            <vivibutton id="export_rcp" label="&rptdetailedtax.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDetailedTax');" />
-                            <vivibutton id="print" label="&rptdetailedtax.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptDetailedTax');" />
+                        <tabs id="tabs">
+                            <vivibutton id="export_pdf" label="&rptdetailedtax.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDetailedTax');"/>
+                            <vivibutton id="export_csv" label="&rptdetailedtax.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDetailedTax');"/>
+                            <vivibutton id="export_rcp" label="&rptdetailedtax.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDetailedTax');"/>
+                            <vivibutton id="print" label="&rptdetailedtax.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptDetailedTax');"/>
                         </tabs>
                     </arrowscrollbox>
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                    
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle()"/>
+                    <button id="ok" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
             
@@ -108,7 +109,7 @@
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" id="previewBox" flex="1">
-						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template4.html" flex="1" />
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template4.html" flex="1"/>
 					</box>
                 </groupbox>
             </hbox>
@@ -116,6 +117,6 @@
     </vbox>
   
     <!-- overlay the waiting panel. -->
-    <popupset id="dialogs" />
+    <popupset id="dialogs"/>
 	
 </window>

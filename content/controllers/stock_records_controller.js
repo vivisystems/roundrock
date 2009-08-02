@@ -253,23 +253,23 @@
                     case 'inventory':
                         document.getElementById('reset').removeAttribute('hidden');
                         document.getElementById('qtytype').value = _('(inventory)New Quantity');
-                        document.getElementById('new_quantity').setAttribute('name', 'new_quantity');
+                        document.getElementById('new_qty').setAttribute('name', 'new_quantity');
                         break;
 
                     case 'procure':
                         document.getElementById('price_container').removeAttribute('hidden');
                         document.getElementById('qtytype').value = _('(inventory)Procured Quantity (+)');
-                        document.getElementById('new_quantity').setAttribute('name', 'delta');
+                        document.getElementById('new_qty').setAttribute('name', 'delta');
                         break;
 
                     case 'waste':
                         document.getElementById('qtytype').value = _('(inventory)Waste Quantity (-)');
-                        document.getElementById('new_quantity').setAttribute('name', 'delta');
+                        document.getElementById('new_qty').setAttribute('name', 'delta');
                         break;
 
                     case 'other':
                         document.getElementById('qtytype').value = _('(inventory)+/-');
-                        document.getElementById('new_quantity').setAttribute('name', 'delta');
+                        document.getElementById('new_qty').setAttribute('name', 'delta');
                         break;
                 }
                 
@@ -435,17 +435,17 @@
                 GeckoJS.FormHelper.unserializeFromObject('productForm', item);
 
                 if (this._adjustmentReason == 'waste') {
-                    document.getElementById('new_quantity').value = 0 - item.delta;
+                    document.getElementById('new_qty').value = 0 - item.delta;
                 }
             }
 
             this.validateForm();
 
-            document.getElementById('new_quantity').select();
+            document.getElementById('new_qty').select();
         },
 
         validateForm: function() {
-            var newQtyObj = document.getElementById('new_quantity');
+            var newQtyObj = document.getElementById('new_qty');
             var priceObj = document.getElementById('price');
             var memoObj = document.getElementById('memo');
             var modifyBtnObj = document.getElementById('modify_stock');
@@ -512,14 +512,14 @@
         },
         
         modifyStock: function() {
-            var product_no = document.getElementById('product_no').value;
-            var newQuantity = parseFloat(document.getElementById('new_quantity').value);
+            var product_no = document.getElementById('prod_no').value;
+            var newQuantity = parseFloat(document.getElementById('new_qty').value);
             var memo = document.getElementById('memo').value;
             var price = document.getElementById('price').value;
         	
             if (!isNaN(newQuantity)) {
                 var stockRecord = this._stockRecordsByProductNo[product_no];
-
+                
                 switch(this._adjustmentReason) {
                     case 'inventory':
                         stockRecord.new_quantity = newQuantity;

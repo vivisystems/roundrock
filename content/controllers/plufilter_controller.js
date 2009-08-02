@@ -35,6 +35,7 @@
         },
 
         addFilter: function(){
+
             if (!this.confirmChangeFilter()) {
                 return;
             }
