@@ -78,10 +78,10 @@
                                 </hbox>
                                 <spacer style="height: 10px;" />
                                 <vbox flex="0" pack="center">
-                                    <button id="photoBrowseBtn" class="ItemButtonA" label="&layout.addphoto;" image="chrome://viviecr/skin/images/add.png"
+                                    <button id="photoBrowseBtn" class="button-execute" label="&layout.addphoto;" image="chrome://viviecr/skin/images/add.png"
                                             oncommand="selectImage('defaultimage', 'no-photo.png')"/>
                                     <spacer style="height: 4px;" />
-                                    <button id="photoRemoveBtn" class="ItemButtonA" label="&layout.removephoto;" image="chrome://viviecr/skin/images/cancel.png"
+                                    <button id="photoRemoveBtn" class="button-execute" label="&layout.removephoto;" image="chrome://viviecr/skin/images/cancel.png"
                                             oncommand="removeImage('defaultimage', 'no-photo.png')"/>
                                 </vbox>
                             </hbox>
@@ -122,10 +122,10 @@
                 </hbox>
                 <spacer style="height: 10px;" />
                 <hbox flex="0" pack="center">
-                    <button id="bannerBrowseBtn" class="ItemButtonA" label="&layout.addbanner;" image="chrome://viviecr/skin/images/add.png"
+                    <button id="bannerBrowseBtn" class="button-execute" label="&layout.addbanner;" image="chrome://viviecr/skin/images/add.png"
                             oncommand="selectImage('bannerimage', 'banner.png')"/>
                     <spacer style="height: 4px;" />
-                    <button id="bannerRemoveBtn" class="ItemButtonA" label="&layout.removebanner;" image="chrome://viviecr/skin/images/cancel.png"
+                    <button id="bannerRemoveBtn" class="button-execute" label="&layout.removebanner;" image="chrome://viviecr/skin/images/cancel.png"
                             oncommand="removeImage('bannerimage', 'banner.png')"/>
                 </hbox>
                 <spacer style="width: 20px;" />

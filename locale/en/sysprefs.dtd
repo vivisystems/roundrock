@@ -7,9 +7,7 @@
 <!ENTITY category.general "General">
 <!ENTITY category.formats "Numbers &amp; Formats">
 <!ENTITY category.login "Sign In/Out">
-<!ENTITY category.plufilters "Product Filters">
-<!ENTITY category.destinations "Destinations">
-<!ENTITY category.annotations "Annotations">
+<!ENTITY category.training "Training Mode">
 <!ENTITY category.orderdata "Data Options">
 <!ENTITY general.publicattendance "Individual attendance record visible to all">
 <!ENTITY general.defaultpricelevel "System default price level">
@@ -114,9 +112,9 @@
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
 <!ENTITY orderdata.diskunused "Available disk space">
 <!ENTITY orderdata.orderweeklypack "Pack order data on">
-<!ENTITY orderdata.rebuilddatabase "Rebuild Database">
-<!ENTITY orderdata.vacuumtrainingdb "Vacuum Training DB">
-<!ENTITY orderdata.takecurrentdbtobedefaultdb "Take current DB to be default DB">
-<!ENTITY orderdata.takedefaultdbtobetrainingdb "Take default DB to be training DB">
-<!ENTITY orderdata.taketrainingdbtobedefaultdb "Set Current Training DB Default">
 <!ENTITY orderdata.inventory.adjustment.retaindays "Number of days to retain inventory adjustment records">
+<!ENTITY orderdata.rebuilddatabase "Rebuild Database">
+<!ENTITY training.vacuumtrainingdb "Pack Training database">
+<!ENTITY training.takecurrentdbtobedefaultdb "Take current database to be default training database">
+<!ENTITY training.takedefaultdbtobetrainingdb "Reset training database to default training database">
+<!ENTITY training.taketrainingdbtobedefaultdb "Take current training database as default training database">

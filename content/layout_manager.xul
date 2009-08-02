@@ -17,9 +17,9 @@
             defaultButton="extra1"
             ondialogcancel="VirtualKeyboard.toggle(); return false;"
             class="container-be"
-            >
+           >
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
@@ -34,9 +34,7 @@
     window['_'] = opener._;
     
     window.addEventListener('dialogextra1', function(){
-        var topwin = GREUtils.XPCOM.getUsefulService("window-mediator").getMostRecentWindow(null);
-        GREUtils.Dialog.alert(topwin, _('Layout'), _('Layout settings saved'));
-        window.close();
+        $do('close', null, 'LayoutManager');
     }, false);
   </script>
 
@@ -120,13 +118,14 @@
         </grid>
     </prefpane>
 
-    <prefpane id="layoutSettingsPane" label="&category.layout.top;" >
+    <prefpane id="layoutSettingsPane" label="&category.layout.top;">
         <preferences>
             <preference id="pref_selectedLayout" name="vivipos.fec.general.layouts.selectedLayout" type="unichar"/>
         </preferences>
-        <textbox id="selectedLayout" hidden="true" preference="pref_selectedLayout" />
+        <textbox id="selectedLayout" hidden="true" preference="pref_selectedLayout"/>
         <hbox>
-            <richlistbox flex="1" id="rbSelectLayout"  onselect="$do('select', this, 'LayoutManager');" class="selectLayoutBox" >
+            <richlistbox id="rbSelectLayout" flex="1" class="custom-content-layout-listbox"
+                         onselect="$do('select', this, 'LayoutManager');">
             </richlistbox>
         </hbox>
     </prefpane>

@@ -153,7 +153,7 @@
                     deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
                     deptPanel.setAttribute('hidden', false);
                     deptPanel.initGrid();
-
+                    
                     deptPanel.datasource.refreshView();
                     deptPanel.vivibuttonpanel.refresh();
                 }
@@ -194,7 +194,6 @@
             // not any layout templates support it
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.RegisterAtLeft') || false;
             var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideTagColumn') || false;
-            var hideUnitPrice = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideUnitPriceColumn') || false;
             var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
             var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox') || false;
             var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideSoldOutButtons') || false;

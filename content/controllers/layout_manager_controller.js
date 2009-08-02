@@ -15,19 +15,20 @@
 
         initial: function() {
 
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            var width = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+            var height = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
             var resolution = width + 'x' + height;
 
             var prefwin = document.getElementById('prefwin');
             if (prefwin) {
                 prefwin.width=width;
                 prefwin.height=height;
-                prefwin.dlgbuttons="accept,help";
+                prefwin.dlgbuttons='accept,help';
             }
 
             var selectedLayout = GeckoJS.Configure.read('vivipos.fec.general.layouts.selectedLayout') || 'traditional';
             var layouts = GeckoJS.Configure.read('vivipos.fec.registry.layouts') || {};
+
 
             //var displayPane = document.getElementById('displaySettingsPane');
 
@@ -56,35 +57,35 @@
             var rbObj = this.getRichlistbox();
 
             // filter layouts by resolution
+            var index = -1;
+            var selectedIndex = -1;
             for (var key in layouts) {
                 if (GeckoJS.String.contains(layouts[key].resolutions, resolution)) {
                     this.appendItem(rbObj, layouts[key], key);
+                    index++;
+                    if (selectedLayout == key) selectedIndex = index;
                 }
                 else {
                     delete layouts[key];
                 }
             }
-
-            rbObj.value = selectedLayout;
-
-            this._selectedLayout = selectedLayout;
-
             this._layouts = layouts;
+            this._selectedLayout = rbObj.value = selectedLayout;
 
-            this.updateLayoutUI(layouts[selectedLayout]);
-
+            rbObj.selectedIndex = selectedIndex;
+            rbObj.ensureIndexIsVisible(selectedIndex);
         },
 
         appendItem: function(box, data, value) {
             
             /*
-             *              <richlistitem value="" >
-                                <hbox flex="1">
-                                    <image src="" />
-                                    <vbox flex="1">
-                                    <label value="label" />
-                                    <label value="desc" />
+             *              <richlistitem value='' >
+                                <hbox flex='1'>
+                                    <vbox>
+                                        <label value='label' flex='1'/>
+                                        <image src='' flex='1'/>
                                     </vbox>
+                                    <textbox value='desc' />
                                 </hbox>
                             </richlistitem>
 
@@ -95,18 +96,18 @@
             item.setAttribute('value', value);
 
             var hbox = document.createElement('hbox');
-            hbox.setAttribute('flex', "1");
+            hbox.setAttribute('flex', '1');
 
             var image = document.createElement('image');
             image.setAttribute('src', data.icon);
+            image.setAttribute('flex', '1');
 
             var vbox = document.createElement('vbox');
-            vbox.setAttribute('flex', "1");
 
             // get localed label
-            var labelStr = "" ;
-            if (data.label.indexOf("chrome://") != -1) {
-                var keystr = "vivipos.fec.registry.layouts." + value +".label";
+            var labelStr = '' ;
+            if (data.label.indexOf('chrome://') != -1) {
+                var keystr = 'vivipos.fec.registry.layouts.' + value +'.label';
                 labelStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }else {
                 // use i18n
@@ -114,24 +115,29 @@
             }
             var label = document.createElement('label');
             label.setAttribute('value', labelStr);
+            label.setAttribute('flex', '1');
 
             // get localed desc
-            var descStr = "" ;
-            if (data.desc.indexOf("chrome://") != -1) {
-                var keystr = "vivipos.fec.registry.layouts." + value +".desc";
+            var descStr = '' ;
+            if (data.desc.indexOf('chrome://') != -1) {
+                var keystr = 'vivipos.fec.registry.layouts.' + value +'.desc';
                 descStr = GeckoJS.StringBundle.getPrefLocalizedString(keystr) || keystr;
             }else {
                 // use i18n
                 descStr = _(data.desc);
             }
-            var desc = document.createElement('label');
+            var desc = document.createElement('textbox');
             desc.setAttribute('value', descStr);
+            desc.setAttribute('readonly', true);
+            desc.setAttribute('multiline', true);
+            desc.setAttribute('rows', 6);
+            desc.setAttribute('flex', '1');
 
             // maintaince DOM
             vbox.appendChild(label);
-            vbox.appendChild(desc);
-            hbox.appendChild(image);
+            vbox.appendChild(image);
             hbox.appendChild(vbox);
+            hbox.appendChild(desc);
             item.appendChild(hbox);
             box.appendChild(item);
 
@@ -140,7 +146,7 @@
         },
 
         select: function(obj) {
-
+            
             obj.ensureIndexIsVisible(obj.selectedIndex);
 
             var layouts = this._layouts;
@@ -152,8 +158,8 @@
 
         updateLayoutUI: function(layout) {
 
-            var disabled_features = (layout['disabled_features'] || "").split(",");
-            $("*[feature]").each(function(i) {
+            var disabled_features = (layout['disabled_features'] || '').split(',');
+            $('*[feature]').each(function(i) {
                 var action = this.getAttribute('feature');
                 if(GeckoJS.Array.inArray(this.id, disabled_features) != -1) {
                     this.setAttribute(action, true) ;
@@ -173,7 +179,7 @@
             var rbObj = this.getRichlistbox();
             var newSelectedLayout = rbObj.value;
             var layout = layouts[newSelectedLayout];
-            var changedSkin = "";
+            var changedSkin = '';
             if(layout) {
                 // replace prefs width/height to current resolution.
                 changedSkin = layout.skin.replace('${width}', screenWidth).replace('${height}', screenHeight );
@@ -184,28 +190,29 @@
             if(changedLayout) {
                 // prompt
                     
-                var confirmMessage = _("Do you want to change layout") + "\n" + _("If you change layout now, the system will restart automatically after you return to the Main Screen.");
+                var confirmMessage = _('If you change layout now, the system will restart automatically after you return to the Main Screen. Are you sure you want to change layout?');
 
-                if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Change Layout"), confirmMessage)) {
+                if (GREUtils.Dialog.confirm(this.topmostWindow, _('Confirm Change Layout'), confirmMessage)) {
 
                     if(changedSkin.length > 0 ) {
                         GeckoJS.Configure.write('general.skins.selectedSkin', changedSkin);
                     }
                     GeckoJS.Configure.write('vivipos.fec.general.layouts.selectedLayout', newSelectedLayout);
                     GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
-                    return;
-                        
                 }
 
             }
-
+            else {
+                GREUtils.Dialog.alert(this.topmostWindow, _('Layout Manager'), _('Layout settings saved'));
+            }
             // otherwise just update options and layout
-            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+            var mainWindow = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow('Vivipos:Main');
 
             // change button height
             var layout = mainWindow.GeckoJS.Controller.getInstanceByName('Layout');
             if (layout) layout.requestCommand('resetLayout', null, 'Layout');
 
+            window.close();
         }
 
 
@@ -217,14 +224,4 @@
         $do('initial', null, 'LayoutManager');
     }, false);
 
-
-    window.closePreferences = function closePreferences() {
-        try {
-
-            $do('close', null, 'LayoutManager');
-            
-        }
-        catch(e) {};
-    }
-    
 })();

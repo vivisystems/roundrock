@@ -20,7 +20,6 @@
         var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
         document.getElementById('prefwin').width=width;
         document.getElementById('prefwin').height=height;
-        document.getElementById('prefwin').dlgbuttons="accept,help";
 
         // calculate available disk space...
         var obj = GREUtils.XPCOM.createInstance('@mozilla.org/file/local;1', 'nsILocalFile');
@@ -78,19 +77,13 @@ function rebuildDatabases() {
 
 function showWaitingPanel(message) {
 
-    var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-    var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
     var waitPanel = document.getElementById( 'wait_panel' );
-
-    waitPanel.sizeTo( 360, 120 );
-    var x = ( width - 360 ) / 2;
-    var y = ( height - 240 ) / 2;
 
     // set the content of the label attribute be default string, taking advantage of the statusText attribute.
     var caption = document.getElementById( 'wait_caption' );
     caption.label = message;
 
-    waitPanel.openPopupAtScreen( x, y );
+    waitPanel.openPopupAtScreen( 0, 0 );
 
     return waitPanel;
 }
@@ -113,7 +106,7 @@ function closePreferences() {
     }
     catch(e) {};
 
-    OsdUtils.info(_('General settings saved'));
+    GREUtils.Dialog.alert(window, _('General Options'), _('General options saved'));
 
     window.close();
 }

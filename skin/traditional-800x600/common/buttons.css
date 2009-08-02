@@ -682,37 +682,48 @@ button_fontsizepicker:not([disabled=true]) button[selected] {
 .button-reset {
     list-style-image: url(../images/icon_reset.png);
 }
-.button-reset[disabled] {
+
+.button-reset[disabled=true] {
     list-style-image: url(../images/icon_reset-d.png);
 }
+
 .button-set {
     list-style-image: url(../images/icon_set.png);
 }
-.button-set[disabled] {
+
+.button-set[disabled=true] {
     list-style-image: url(../images/icon_set-d.png);
 }
+
 .button-enable {
     list-style-image: url(../images/icon_enable.png);
 }
-.button-enable[disabled] {
+
+.button-enable[disabled=true] {
     list-style-image: url(../images/icon_enable-d.png);
 }
+
 .button-disable {
     list-style-image: url(../images/icon_disable.png);
 }
-.button-disable[disabled] {
+
+.button-disable[disabled=true] {
     list-style-image: url(../images/icon_disable-d.png);
 }
+
 .button-merge {
     list-style-image: url(../images/icon_merge.png);
 }
-.button-merge[disabled] {
+
+.button-merge[disabled=true] {
     list-style-image: url(../images/icon_merge-d.png);
 }
+
 .button-remove {
     list-style-image: url(../images/icon_remove.png);
 }
-.button-remove[disabled] {
+
+.button-remove[disabled=true] {
     list-style-image: url(../images/icon_remove-d.png);
 }
 

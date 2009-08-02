@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<!--?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?-->
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/sysprefs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul"?>
@@ -16,9 +18,10 @@
             defaultButton="extra1"
             buttons="extra1,cancel"
             ondialogcancel="VirtualKeyboard.toggle(); return false;"
-            >
+            class="container-be"
+           >
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
@@ -27,73 +30,64 @@
   <script src="chrome://viviecr/content/controllers/training_mode_controller.js" type="application/x-javascript"/>
 
   <!-- include startup scripts -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js"/>
    
-    <prefpane id="generalSettingsPane" label="&category.general;" >
+    <prefpane id="generalSettingsPane" label="&category.general;">
         <preferences>
-            <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
-            <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
+            <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool"/>
+            <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int"/>
 
-            <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
-            <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
-            <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool" />
-            <preference id="pref_allowoverstock" name="vivipos.fec.settings.AllowOverStock" type="bool" />
-            <preference id="pref_viewlocalordersonly" name="vivipos.fec.settings.ViewLocalOrdersOnly" type="bool" />
-            <preference id="pref_searchorderbytableno" name="vivipos.fec.settings.SearchOrderByTableNo" type="bool" />
-            <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool" />
-            <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
-            <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool" />
-            <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int" />
-            <preference id="pref_idletime" name="vivipos.fec.settings.idle.time" type="int" />
-            <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool" />
-            <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool" />
-            <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool" />
-            <preference id="pref_autosetdecimalpoint" name="vivipos.fec.settings.AutoSetDecimalPoint" type="bool" />
-            <preference id="pref_ifprintwhiletraining" name="vivipos.fec.settings.ifprintwhiletraining" type="bool" />
+            <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool"/>
+            <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool"/>
+            <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool"/>
+            <preference id="pref_allowoverstock" name="vivipos.fec.settings.AllowOverStock" type="bool"/>
+            <preference id="pref_viewlocalordersonly" name="vivipos.fec.settings.ViewLocalOrdersOnly" type="bool"/>
+            <preference id="pref_searchorderbytableno" name="vivipos.fec.settings.SearchOrderByTableNo" type="bool"/>
+            <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool"/>
+            <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool"/>
+            <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool"/>
+            <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int"/>
+            <preference id="pref_idletime" name="vivipos.fec.settings.idle.time" type="int"/>
+            <preference id="pref_collapsecondiments" name="vivipos.fec.settings.collapse.condiments" type="bool"/>
+            <preference id="pref_departmentpopstotop" name="vivipos.fec.settings.department.pops.to.top" type="bool"/>
+            <preference id="pref_quietcancel" name="vivipos.fec.settings.quietcancel" type="bool"/>
+            <preference id="pref_autosetdecimalpoint" name="vivipos.fec.settings.AutoSetDecimalPoint" type="bool"/>
 
 
         </preferences>
 
-        <grid class="DataFormC">
+        <grid class="data-form data-form-options">
             <columns>
-                <column flex="1" /><column flex="1" />
+                <column flex="1"/><column flex="1"/>
             </columns>
             <rows>
                 <row>
-                    <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&general.activepricelevelschedule;" />
-                    <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&general.pricelevelrevert;" />
+                    <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&general.activepricelevelschedule;"/>
+                    <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&general.pricelevelrevert;"/>
                 </row>
                 <row>
-                    <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&general.changedepartmentclearbuffer;" />
-                    <checkbox preference="pref_clearcartafterfinalization" id="pref_clearcartafterfinalizationCtrl" label="&general.clearcartafterfinalization;" />
+                    <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&general.changedepartmentclearbuffer;"/>
+                    <checkbox preference="pref_clearcartafterfinalization" id="pref_clearcartafterfinalizationCtrl" label="&general.clearcartafterfinalization;"/>
                 </row>
                 <row>
-                    <checkbox preference="pref_ageverificationack" id="pref_ageverificationackCtrl" label="&general.ageverificationack;" />
-                    <checkbox preference="pref_positivepricerequired" id="pref_positivepricerequiredCtrl" label="&general.positivepricerequired;" />
+                    <checkbox preference="pref_ageverificationack" id="pref_ageverificationackCtrl" label="&general.ageverificationack;"/>
+                    <checkbox preference="pref_positivepricerequired" id="pref_positivepricerequiredCtrl" label="&general.positivepricerequired;"/>
                 </row>
                 <row>
-                    <checkbox preference="pref_searchorderbytableno" id="pref_searchorderbytablenoCtrl" label="&general.searchorderbytableno;" />
-                    <checkbox preference="pref_viewlocalordersonly" id="pref_viewlocalordersonlyCtrl" label="&general.viewlocalordersonly;" />
+                    <checkbox preference="pref_searchorderbytableno" id="pref_searchorderbytablenoCtrl" label="&general.searchorderbytableno;"/>
+                    <checkbox preference="pref_viewlocalordersonly" id="pref_viewlocalordersonlyCtrl" label="&general.viewlocalordersonly;"/>
                 </row>
                 <row>
-                    <checkbox preference="pref_departmentpopstotop" id="pref_departmentpopstotopCtrl" label="&general.departmentpopstotop;" />
-                    <checkbox preference="pref_collapsecondiments" id="pref_collapsecondimentsCtrl" label="&general.collapsecondiments;" />
+                    <checkbox preference="pref_departmentpopstotop" id="pref_departmentpopstotopCtrl" label="&general.departmentpopstotop;"/>
+                    <checkbox preference="pref_collapsecondiments" id="pref_collapsecondimentsCtrl" label="&general.collapsecondiments;"/>
                 </row>
                 <row>
-                    <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;" />
-                    <checkbox preference="pref_quietcancel" id="quietcancel" label="&general.quietcancel;" />
+                    <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&general.publicattendance;"/>
+                    <checkbox preference="pref_quietcancel" id="quietcancel" label="&general.quietcancel;"/>
                 </row>
                 <row>
-                    <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
-                    <checkbox preference="pref_autosetdecimalpoint" id="pref_autosedecimalpointCtrl" label="&general.autosetdecimalpoint;" />
-                </row>
-                <row>
-                	<checkbox preference="pref_ifprintwhiletraining" id="ifprintwhiletraining" label="&general.ifprintwhiletraining;" />
-                    <vbox>
-                        <label control="idletime" value="&general.idletime;"/>
-                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
-                    </vbox>
-                    
+                    <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;"/>
+                    <checkbox preference="pref_autosetdecimalpoint" id="pref_autosedecimalpointCtrl" label="&general.autosetdecimalpoint;"/>
                 </row>
                 <row>
                 	<vbox>
@@ -105,12 +99,18 @@
                         <textbox preference="pref_maxsaleperiodleaddays" id="maxsaleperiodleaddays" type="number" size="3" min="1"/>
                     </vbox>
                 </row>
+                <row>
+                    <vbox>
+                        <label control="idletime" value="&general.idletime;"/>
+                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
+                    </vbox>
+
+                </row>
             </rows>
         </grid>
     </prefpane>
     
-
-    <prefpane id="formatSettingsPane" label="&category.formats;" >
+    <prefpane id="formatSettingsPane" label="&category.formats;">
         <preferences>
 
             <preference id="pref_prodnoautogenerate" name="vivipos.fec.settings.AutoGenerateProdNo" type="bool"/>
@@ -119,57 +119,35 @@
             <preference id="pref_thousandsdelimiter" name="vivipos.fec.settings.ThousandsDelimiter" type="unichar"/>
             <preference id="pref_precisionprices" name="vivipos.fec.settings.PrecisionPrices" type="int"/>
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
-            <preference id="pref_sequencetrackssaleperiod" name="vivipos.fec.settings.SequenceTracksSalePeriod" type="bool" />
-            <preference id="pref_sequencenumberlength" name="vivipos.fec.settings.SequenceNumberLength" type="int" />
+            <preference id="pref_sequencetrackssaleperiod" name="vivipos.fec.settings.SequenceTracksSalePeriod" type="bool"/>
+            <preference id="pref_sequencenumberlength" name="vivipos.fec.settings.SequenceNumberLength" type="int"/>
             <preference id="pref_revalueprices" name="vivipos.fec.settings.RevaluePrices" type="int"/>
             <preference id="pref_autorevalueprices" name="vivipos.fec.settings.AutoRevaluePrices" type="bool"/>
 
 
         </preferences>
         <vbox>
-            <grid class="DataForm">
+            <grid class="data-form data-form-options">
                 <columns>
-                    <column flex="1" />
-                    <column flex="1" />
+                    <column flex="1"/>
+                    <column flex="1"/>
                 </columns>
                 <rows>
                     <row>
                         <checkbox id="prodnoautogenerate" label="&formats.autogenerate;" preference="pref_prodnoautogenerate"/>
+                        <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&formats.sequencetrackssaleperiod;"/>
+                    </row>
+                    <row>
+                        <vbox>
+                            <label control="sequencenumberlength" value="&formats.sequence.number.length;"/>
+                            <textbox preference="pref_sequencenumberlength" id="sequencenumberlength" type="number" min="3" max="12"/>
+                        </vbox>
                         <vbox>
                             <label control="prodnolength" value="&formats.prodnolength;"/>
                             <textbox preference="pref_prodnolength" id="prodnolength" type="number" min="2"/>
                         </vbox>
                     </row>
-                    <row>
-                        <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&formats.sequencetrackssaleperiod;"/>
-                        <vbox>
-                            <label control="sequencenumberlength" value="&formats.sequence.number.length;"/>
-                            <textbox preference="pref_sequencenumberlength" id="sequencenumberlength" type="number" min="3" max="12"/>
-                        </vbox>
-                    </row>
 
-                    <row>
-                        <vbox>
-                            <label control="roundingtaxes" value="&formats.roundingtaxes;"/>
-                            <menulist id="roundingtaxes" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
-                                <menupopup>
-                                    <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                                    <!--
-                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
-                                    <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
-                                    <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
-                                    <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>
-                                    -->
-                                    <menuitem label="&formats.rounding.always-round-up;" value="always-round-up"/>
-                                    <menuitem label="&formats.rounding.always-round-down;" value="always-round-down"/>
-                                </menupopup>
-                            </menulist>
-                        </vbox>
-                        <vbox>
-                            <label control="precisiontaxes" value="&formats.precisiontaxes;"/>
-                            <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" min="-9" max="9"/>
-                        </vbox>
-                    </row>
                     <row>
                         <vbox>
                             <label control="roundingprices" value="&formats.roundingprices;"/>
@@ -188,8 +166,30 @@
                             </menulist>
                         </vbox>
                         <vbox>
+                            <label control="roundingtaxes" value="&formats.roundingtaxes;"/>
+                            <menulist id="roundingtaxes" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
+                                <menupopup>
+                                    <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
+                                    <!--
+                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
+                                    <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
+                                    <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
+                                    <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>
+                                    -->
+                                    <menuitem label="&formats.rounding.always-round-up;" value="always-round-up"/>
+                                    <menuitem label="&formats.rounding.always-round-down;" value="always-round-down"/>
+                                </menupopup>
+                            </menulist>
+                        </vbox>
+                    </row>
+                    <row>
+                        <vbox>
                             <label control="precisionprices" value="&formats.precisionprices;"/>
                             <textbox preference="pref_precisionprices" id="precisionprices" type="number" min="-9" max="9"/>
+                        </vbox>
+                        <vbox>
+                            <label control="precisiontaxes" value="&formats.precisiontaxes;"/>
+                            <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" min="-9" max="9"/>
                         </vbox>
                     </row>
                     <row>
@@ -214,44 +214,38 @@
         </vbox>
     </prefpane>
 
-    <prefpane id="loginSettingsPane" label="&category.login;" >
+    <prefpane id="loginSettingsPane" label="&category.login;">
         <preferences>
             <preference id="pref_autodiscardcart" name="vivipos.fec.settings.autodiscardcart" type="bool"/>
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
             <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
-            <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
-            <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool" />
+            <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool"/>
+            <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool"/>
         </preferences>
         <vbox>
-            <grid class="DataForm">
-            <columns>
-                <column flex="1" />
-            </columns>
-            <rows>
-                <row>
-                    <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
-                </row>
-            </rows>
-            </grid>
-
-            <grid class="DataFormB">
+            <grid class="data-form data-form-options">
                 <columns>
-                    <column flex="1" /><column flex="1" />
+                    <column flex="1"/>
                 </columns>
                 <rows>
                     <row>
-                        <checkbox id="autodiscardcart" label="&login.autodiscardcart;" preference="pref_autodiscardcart"/>
-                        <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
+                        <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
                     </row>
                     <row>
                         <checkbox id="mustemptyqueue" label="&login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
+                    </row>
+                    <row>
+                        <checkbox id="autodiscardcart" label="&login.autodiscardcart;" preference="pref_autodiscardcart"/>
+                    </row>
+                    <row>
+                        <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
                     </row>
                 </rows>
             </grid>
         </vbox>
     </prefpane>
 
-    <prefpane id="orderDataSettingsPane" label="&category.orderdata;" >
+    <prefpane id="orderDataSettingsPane" label="&category.orderdata;">
         <preferences>
 
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
@@ -262,60 +256,83 @@
             <preference id="pref_requiretableno" name="vivipos.fec.settings.RequireTableNo" type="bool"/>
 
         </preferences>
-        <grid class="DataForm">
+        <grid class="data-form data-form-options">
             <columns>
-                <column flex="1" />
-                <column flex="1" />
+                <column flex="1"/>
+                <column flex="1"/>
             </columns>
             <rows>
                 <row>
-                    <label value="&orderdata.diskunused;" />
-                    <label id="disk_unused" value="100MB" />
+                    <label value="&orderdata.diskunused;"/>
+                    <label id="disk_unused" value="100MB"/>
                 </row>
                 <row>
-                    <label value="&orderdata.orderretaindays;" />
+                    <label value="&orderdata.orderretaindays;"/>
                     <textbox preference="pref_orderretaindays" id="orderRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>
                 </row>
                 <row>
-                    <label value="&orderdata.orderweeklypack;" />
+                    <label value="&orderdata.orderweeklypack;"/>
                     <menulist preference="pref_orderweeklypack" id="orderweeklypack" flex="1">
                         <menupopup id="weekmenulist">
                         </menupopup>
                     </menulist>
                 </row>
                 <row>
-                    <label value="&orderdata.inventory.adjustment.retaindays;" />
+                    <label value="&orderdata.inventory.adjustment.retaindays;"/>
                     <textbox preference="pref_inventory_adjustment_retaindays" id="inventoryAdjustmentRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>
                 </row>
             </rows>
         </grid>
 
         <vbox align="center" pack="start" flex="1">
-            <diskspace_usage flex="1" />
-
-            <spacer flex="1"/>
-            <hbox class="ToolBar" pack="center">
-                <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
-                    <tabs id="tabs" >
-                        <button id="vacuum_training_db" disabled="false" label="&orderdata.vacuumtrainingdb;" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );" />
-                        <button id="take_current_db_to_be_default_db" disabled="false" label="&orderdata.takecurrentdbtobedefaultdb;" oncommand="$do( 'takeCurrentDBToBeDefaultDB', null, 'TrainingMode' );" />
-                        <button id="take_default_db_to_be_training_db" disabled="false" label="&orderdata.takedefaultdbtobetrainingdb;" oncommand="$do( 'takeDefaultDBToBeTrainingDB', null, 'TrainingMode' );" />
-                        <button id="take_training_db_to_be_default_db" disabled="false" label="&orderdata.taketrainingdbtobedefaultdb;" oncommand="$do( 'takeTrainingDBToBeDefaultDB', null, 'TrainingMode' );" />
-                    </tabs>
-                </arrowscrollbox>
-            </hbox>
+            <diskspace_usage flex="1"/>
         </vbox>
         
-        <spacer height="5px" />
+        <spacer height="5px"/>
 
-        <hbox class="ToolBar" pack="center">
-            <button id="rebuild_database" disabled="false" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
+        <hbox pack="center" class="toolbar" toolbarmode="horizontal">
+            <button id="rebuild_database" disabled="false" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()"/>
         </hbox>
         
     </prefpane>
     
+    <prefpane id="trainingSettingsPane" label="&category.training;">
+        <preferences>
+            <preference id="pref_ifprintwhiletraining" name="vivipos.fec.settings.ifprintwhiletraining" type="bool"/>
+        </preferences>
+        
+        <grid class="data-form data-form-options">
+            <columns>
+                <column flex="1"/>
+                <column flex="1"/>
+            </columns>
+            <rows>
+                <row>
+                	<checkbox preference="pref_ifprintwhiletraining" id="ifprintwhiletraining" label="&general.ifprintwhiletraining;"/>
+                </row>
+                <row>
+                    <label value="&training.vacuumtrainingdb;"/>
+                    <button id="vacuum_training_db" disabled="false" class="button-execute button-enable" oncommand="$do( 'vacuumTrainingDB', null, 'TrainingMode' );"/>
+                </row>
+                <row>
+                    <label value="&training.takecurrentdbtobedefaultdb;"/>
+                    <button id="take_current_db_to_be_default_db" disabled="false" class="button-execute button-enable" oncommand="$do( 'takeCurrentDBToBeDefaultDB', null, 'TrainingMode' );"/>
+                </row>
+                <row>
+                    <label value="&training.takedefaultdbtobetrainingdb;"/>
+                    <button id="take_default_db_to_be_training_db" disabled="false" class="button-execute button-enable" oncommand="$do( 'takeDefaultDBToBeTrainingDB', null, 'TrainingMode' );"/>
+                </row>
+                <row>
+                    <label value="&training.taketrainingdbtobedefaultdb;"/>
+                    <button id="take_training_db_to_be_default_db" disabled="false" class="button-execute button-enable" oncommand="$do( 'takeTrainingDBToBeDefaultDB', null, 'TrainingMode' );"/>
+                </row>
+            </rows>
+        </grid>
+
+    </prefpane>
+
 <!--
-    <prefpane id="soundSettingsPane" label="&category.sound;" >
+    <prefpane id="soundSettingsPane" label="&category.sound;">
         <preferences>
             <preference id="pref_beepOnItemAdd" name="vivipos.fec.settings.beepOnItemAdd" type="bool"/>
             <preference id="pref_beepOnScanningError" name="vivipos.fec.settings.beepOnScanningError" type="bool"/>
@@ -330,9 +347,9 @@
             <preference id="pref_beepOnTrayMarker" name="vivipos.fec.settings.beepOnTrayMarker" type="bool"/>
 
         </preferences>
-        <grid class="DataForm">
+        <grid class="data-form">
             <columns>
-                <column flex="1" /><column flex="1" />
+                <column flex="1"/><column flex="1"/>
             </columns>
             <rows>
                 <row>
@@ -368,6 +385,6 @@
     </prefpane>
 -->
     <!-- overlay the waiting panel. -->
-    <popupset id="dialogs" />
+    <popupset id="dialogs"/>
 
 </prefwindow>
