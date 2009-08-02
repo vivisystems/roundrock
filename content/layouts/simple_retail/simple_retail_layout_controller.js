@@ -156,6 +156,8 @@
                     
                     deptPanel.datasource.refreshView();
                     deptPanel.vivibuttonpanel.refresh();
+
+                    deptPanel.vivibuttonpanel.resizeButtons();
                 }
                 else {
                     deptPanel.setAttribute('hidden', true);
