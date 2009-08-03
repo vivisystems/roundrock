@@ -6,8 +6,10 @@
   %Numberpad;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -15,6 +17,7 @@
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
@@ -26,10 +29,10 @@
         window['GREutils'] = opener.GREUtils;
     </script>
     
-    <vbox class="main-dialog" flex="1">
-        <vbox class="MainPnl" flex="1">
-            <caption id="dialog-caption" label="&shiftchange.alert.title;" class="PageTitle"/>
-            <grid class="DataForm">
+    <vbox flex="1" class="container-dialog">
+        <vbox class="container-main" flex="1">
+            <label id="dialog-caption" value="&shiftchange.alert.title;" class="label-page-title"/>
+            <grid class="data-form">
                 <columns>
                     <column flex="1"/>
                     <column flex="1"/>
@@ -57,11 +60,10 @@
                     </row>
                 </rows>
             </grid>
-            <hbox pack="center" flex="1">
+            <hbox pack="center" flex="1" align="center">
                 <viviclock showdate="true"/>
             </hbox>
-            <spacer flex="1"/>
-            <hbox id="dialogButtons" class="ToolBar" flex="1" pack="center">
+            <hbox id="dialogButtons" flex="1" pack="center" class="toolbar">
                 <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
             </hbox>
         </vbox>

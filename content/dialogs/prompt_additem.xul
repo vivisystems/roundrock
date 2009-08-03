@@ -6,65 +6,70 @@
   %Numberpad;
 ]>
 
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <overlay id="promptAdditemDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/prompt_additem.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/prompt_additem.js"/>
 
     <popupset id="dialogs">
 
-        <vivipanel id="promptAdditemPanel" noautohide="true" >
+        <vivipanel id="promptAdditemPanel" noautohide="true"  class="container-dialog layout-dialog">
 
-            <hbox class="pop-dialog" flex="1" pack="center" style="margin: 0; padding: 0;">
+            <hbox flex="1" class="layout-fullscreen">
 
-                <vbox class="MainPnl" flex="1">
+                <vbox flex="1" class="container-popup-prompt">
 
-                    <groupbox  flex="1">
-                        <caption id="promptAdditem-dialog-caption" label="" class="PageTitle"/>
-                        <label id="promptAdditem-text0" value="" />
-                        <grid class="DataForm" flex="1">
-                            <columns>
-                                <column flex="1"/>
-                            </columns>
-                            <rows>
-                                <row id="promptAdditem-row0">
-                                    <vbox>
-                                        <label id="promptAdditem-title0" style="width:6em" value="" control="promptAdditem-input0"/>
-                                        <textbox id="promptAdditem-input0" flex="1" value="" oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
-                                    </vbox>
-                                </row>
-                                <row id="promptAdditem-row1">
-                                    <vbox>
-                                        <label id="promptAdditem-title1" style="width:6em" value="" control="promptAdditem-input1"/>
-                                        <textbox id="promptAdditem-input1" flex="1" value="" oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
-                                    </vbox>
-                                </row>
-                            </rows>
-                        </grid>
-                    </groupbox>
+                    <label id="promptAdditem-dialog-caption" value="" class="label-page-title"/>
+                    <label id="promptAdditem-text0" value=""/>
+                    <grid class="data-form">
+                        <columns>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row id="promptAdditem-row0">
+                                <vbox>
+                                    <label id="promptAdditem-title0" value="" control="promptAdditem-input0"/>
+                                    <textbox id="promptAdditem-input0" flex="1" value=""
+                                             oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
+                                </vbox>
+                            </row>
+                            <row id="promptAdditem-row1">
+                                <vbox>
+                                    <label id="promptAdditem-title1" value="" control="promptAdditem-input1"/>
+                                    <textbox id="promptAdditem-input1" flex="1" value=""
+                                             oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
 
                     <hbox id="promptAdditem-numpad" pack="center">
-                        <numberpad id="promptAdditem-multinumberpad" class="numpad" target="plu"/>
+                        <numberpad id="promptAdditem-multinumberpad" class="numpad"/>
                         <vbox>
-                            <sendkeybutton id="promptAdditem-bkeyBtn"  label="&numberpad.keylabel.del;" keyCode='0x08' class="fixedbtn"  />
-                            <sendkeybutton id="promptAdditem-clearBtn"  label="&numberpad.keylabel.clear;" oncommand="promptAdditem_clearFocusedElement()" class="fixedbtn"/>
+                            <sendkeybutton id="promptAdditem-bkeyBtn" label="&numberpad.keylabel.del;" keyCode="0x08" class="button-fixed"/>
+                            <sendkeybutton id="promptAdditem-clearBtn" label="&numberpad.keylabel.clear;" class="button-fixed"
+                                           oncommand="promptAdditem_clearFocusedElement()"/>
                         </vbox>
                     </hbox>
 
                     <spacer flex="1"/>
 
                     <hbox>
-                        <hbox class="ToolBar" flex="1">
-                            <button id="promptAdditem-ok" class="okBtn" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="$.hidePanel('promptAdditemPanel', true)"/>
-                            <button id="promptAdditem-cancel" class="cancelBtn" label="&dialog.cancelButton.label;" disabled="false" default="true" oncommand="$.hidePanel('promptAdditemPanel', false)"/>
+                        <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                            <button id="promptAdditem-ok" label="&dialog.okButton.label;" disabled="false" default="true"
+                                    oncommand="$.hidePanel('promptAdditemPanel', true)"/>
+                            <button id="promptAdditem-cancel" label="&dialog.cancelButton.label;" disabled="false" default="true"
+                                    oncommand="$.hidePanel('promptAdditemPanel', false)"/>
                         </hbox>
-                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
+                        <hbox id="dialogButtons" class="exitbar">
+                            <button class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                         </hbox>
                     </hbox>
 

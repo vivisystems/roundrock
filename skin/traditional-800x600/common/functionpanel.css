@@ -1,18 +1,18 @@
 /*-----------------------------------------------------------------------------
  *
- * Front End Function Panel Style
+ * Common Function Panel Style
  *
  *-----------------------------------------------------------------------------
  */
 
-.container-fe .vivifuncpanelecr_function_panel {
+.vivifuncpanelecr_function_panel {
     background: none;
     border-width: 1px;
     padding: 0px 0px 0px 0px;
     
 }
 
-.container-fe .vivifuncpanelecr_spacer {
+.vivifuncpanelecr_spacer {
     margin: 0px 0px 0px 0px;
     min-width: 1px;
     padding: 0px 0px 0px 0px;
@@ -23,7 +23,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.container-fe .vivifuncpanelecr_button_panel {
+.vivifuncpanelecr_button_panel {
     border: none;
     margin: 0px 0px 0px 0px;
     padding: 0px;
@@ -34,7 +34,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.container-fe .vivifuncpanelecr_matrix_button_mapped {
+.vivifuncpanelecr_matrix_button_mapped {
     background: #fff url(../images/funColor01.gif) bottom left repeat-x;
     border-top: 1px solid;
     border-left: 1px solid;
@@ -56,7 +56,7 @@
     -moz-user-focus: ignore;
 }
 
-.container-fe .vivifuncpanelecr_matrix_button_mapped[disabled=true] description {
+.vivifuncpanelecr_matrix_button_mapped[disabled=true] description {
     display: none;
 }
 
@@ -65,7 +65,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.container-fe .vivifuncpanelecr_matrix_button_nomap {
+.vivifuncpanelecr_matrix_button_nomap {
     border: 1px solid;
     list-style-type: none;
     margin: 0px;
@@ -89,7 +89,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.container-fe .vivifuncpanelecr_matrix_button_configure {
+.vivifuncpanelecr_matrix_button_configure {
     border-width: 1px;
     list-style-type: none;
     margin: 0px;
@@ -102,7 +102,7 @@
     -moz-user-focus: ignore;
 }
 
-.container-fe .vivifuncpanelecr_matrix_button_configure[checked=true] {
+.vivifuncpanelecr_matrix_button_configure[checked=true] {
     border-width: 3px;
     -moz-border-top-colors: black red;
     -moz-border-bottom-colors: black red;
@@ -115,7 +115,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.container-fe .vivifuncpanelecr_control_panel {
+.vivifuncpanelecr_control_panel {
     margin: 0px 0px 0px 0px;
     max-width: 34px;
     min-width: 34px;
@@ -129,7 +129,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.container-fe .vivifuncpanelecr_control_scroll_left {
+.vivifuncpanelecr_control_scroll_left {
     background: transparent url(../images/departUp.png) 0 0 no-repeat;
     border: 0px;
     margin: 0px;
@@ -143,11 +143,11 @@
     -moz-user-focus: ignore;
 }
 
-.container-fe .vivifuncpanelecr_control_scroll_left[disabled=false]:active {
+.vivifuncpanelecr_control_scroll_left[disabled=false]:active {
     background-position:-32px 0;
 }
 
-.container-fe .vivifuncpanelecr_control_scroll_right {
+.vivifuncpanelecr_control_scroll_right {
     background: transparent url(../images/departDown.png) 0 0 no-repeat;
     border: 0px;
     margin: 0px;
@@ -161,11 +161,11 @@
     -moz-user-focus: ignore;
 }
 
-.container-fe .vivifuncpanelecr_control_scroll_right[disabled=false]:active {
+.vivifuncpanelecr_control_scroll_right[disabled=false]:active {
     background-position:-32px 0;
 }
 
-.container-fe .vivifuncpanelecr_control_home {
+.vivifuncpanelecr_control_home {
     background: transparent url(../images/funTop.png) 0 0 no-repeat;
     border: 0px;
     margin: 0px 0 2px 0;
@@ -179,11 +179,11 @@
     -moz-user-focus: ignore;
 }
 
-.container-fe .vivifuncpanelecr_control_home[disabled=false]:active {
+.vivifuncpanelecr_control_home[disabled=false]:active {
     background-position:-32px 0;
 }
 
-.container-fe .vivifuncpanelecr_control_label {
+.vivifuncpanelecr_control_label {
     background: transparent;
     border-width: 1px;
     color: #3d4247;
@@ -198,7 +198,7 @@
     -moz-user-focus: ignore;
 }
 
-.container-fe .vivifuncpanelecr_control_label .button-text{
+.vivifuncpanelecr_control_label .button-text{
     margin: 0px;
     padding: 0px;
 }
@@ -210,7 +210,7 @@
 
 /* button active */
 
-.container-fe vivifunctionpanelecr vivibutton[disabled=false]:active {
+vivifunctionpanelecr vivibutton[disabled=false]:active {
     border: 2px solid;
     -moz-border-top-colors: #444 #222;
     -moz-border-right-colors: #444 #ddd;
@@ -223,7 +223,7 @@
  *-----------------------------------------------------------------------------
  */
 
-.container-fe vivifunctionpanelecr #toolbar {
+vivifunctionpanelecr #toolbar {
     margin-left: 2px;
     margin-right: 2px;
 }

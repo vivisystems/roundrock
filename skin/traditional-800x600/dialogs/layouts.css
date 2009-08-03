@@ -16,7 +16,7 @@
  */
 
 .layout-dialog .layout-fullscreen {
-    background: white;
+    background: transparent;
     height: 600px;
     max-height: 600px;
     max-width: 800px;

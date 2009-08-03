@@ -470,7 +470,8 @@
                     view.data = condGroups;
                     this._condGroupscrollablepanel.refresh();
 
-                    this.changeCondimentPanel(this._selectedIndex);
+                    this._selectedIndex = -1;
+                    //this.changeCondimentPanel(this._selectedIndex);
 
                     OsdUtils.info(_('Condiment Group [%S] modified successfully', [inputData.name]));
                 }
@@ -728,7 +729,9 @@
 
                 var view = this._condscrollablepanel.datasource;
                 view.data = condGroups[this._selectedIndex]['Condiment'];
-                this.clickCondimentPanel(this._selectedCondIndex);
+                this._selectedCondIndex = -1;
+                this._condscrollablepanel.refresh();
+                //this.clickCondimentPanel(this._selectedCondIndex);
 
                 OsdUtils.info(_('Condiment [%S] modified successfully', [inputData.name]));
             }

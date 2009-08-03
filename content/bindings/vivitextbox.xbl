@@ -15,11 +15,6 @@
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <binding id="vivitextbox" display="xul:menu"><!-- extends="chrome://global/content/bindings/textbox.xml#textbox" -->
-        <!--resources>
-            <stylesheet src="chrome://global/skin/textbox.css"/>
-            <stylesheet src="chrome://viviecr/skin/buttons.css" />
-            <stylesheet src="chrome://viviecr/skin/options_common.css"/>
-        </resources-->
 
         <content>
             <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer" allowevents="true">

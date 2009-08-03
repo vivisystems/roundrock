@@ -6,77 +6,8 @@
  */
 
 /*-----------------------------------------------------------------------------
- *  Front-end department and product buttons
- *-----------------------------------------------------------------------------
- */
-
-.user-catbtn {
-    min-height:50px;
-    min-width: 50px;
-    border: 2px solid;
-    -moz-border-top-colors: #848388 #bebebe;
-    -moz-border-right-colors: #848388 #bebebe;
-    -moz-border-bottom-colors: #848388 #bebebe;
-    -moz-border-left-colors: #848388 #bebebe;
-    -moz-appearance: none;
-    margin: 2px 2px 2px 2px;
-    padding: 0px;
-    -moz-background-clip: border;
-    -moz-user-focus: ignore;
-    background: #848388 url(../images/departBtn1.png) top left repeat-x;
-}
-
-.user-catbtn[disabled=true] {
-    -moz-border-top-colors: #848388 #bebebe !important;
-    -moz-border-right-colors: #848388 #bebebe !important;
-    -moz-border-bottom-colors: #848388 #bebebe !important;
-    -moz-border-left-colors: #848388 #bebebe !important;
-}
-
-.user-catbtn hbox {
-    -moz-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.user-catbtn description, .user-plubtn description {
-    text-wrap: normal;
-    word-wrap: break-word;
-}
-
-.user-plubtn {
-    min-width: 50px;
-    border: 2px solid;
-    -moz-appearance: none;
-    margin: 0 0 4px 2px;
-    padding: 0px;
-    -moz-border-top-colors: #424851 #fff;
-    -moz-border-right-colors: #424851 #fff;
-    -moz-border-bottom-colors: #424851 #fff;
-    -moz-border-left-colors: #424851 #fff;
-    -moz-box-pack: center;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    background-color: transparent;
-}
-
-.user-plubtn[disabled=true] {
-    -moz-border-top-colors: #424851 #dfe1e4 !important;
-    -moz-border-right-colors: #424851 #dfe1e4 !important;
-    -moz-border-bottom-colors: #424851 #dfe1e4 !important;
-    -moz-border-left-colors: #424851 #dfe1e4 !important;
-    background-color: transparent;
-}
-
-.user-plubtn hbox {
-    -moz-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/*-----------------------------------------------------------------------------
  * System buttons
- *-----------------------------------------------------------------------------
+ *-----------------------------------------------bu------------------------------
  */
 
 .button-system {
@@ -148,6 +79,11 @@
     -moz-border-right-colors: #ee9400 #ee9400;
     -moz-border-bottom-colors: #ee9400 #ee9400;
     -moz-border-left-colors: #ee9400 #ee9400;
+}
+
+.button-execute[disabled=true] {
+    background-color: #e1dfdb !important;
+    border-width: 1px !important;
 }
 
 /*-----------------------------------------------------------------------------
@@ -651,14 +587,6 @@ button_fontsizepicker:not([disabled=true]) button[selected] {
 
 .button-add {
   list-style-image: url(../images/icon_add.png);
-}
-
-.button-up {
-  list-style-image: url(../images/go-up.png);
-}
-
-.button-down {
-  list-style-image: url(../images/go-down.png);
 }
 
 .button-exit {

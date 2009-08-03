@@ -38,8 +38,18 @@
 }
 
 .label-notice {
-    font-weight: bold;
     color: #cc6300 !important;
+    font-weight: bold;
+}
+
+.label-alert {
+    border: 2px solid #cc6300;
+    color: #cc6300 !important;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 5px;
+    padding: 5px;
+    text-align: center;
 }
 
 /*-----------------------------------------------------------------------------

@@ -214,6 +214,37 @@
 }
 
 /*-----------------------------------------------------------------------------
+ * Back-end PLU buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.container-dialog .button-plu {
+    min-height:40px;
+    min-width: 40px;
+    padding: 0px;
+
+    -moz-appearance: none;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+}
+
+.container-dialog .button-plu[disabled=true] {
+    border: none;
+    background: #e1dfdb;
+}
+
+.container-dialog .button-plu hbox {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-box-orient: vertical;
+}
+
+.container-dialog .button-plu description {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+
+/*-----------------------------------------------------------------------------
  * Scroll up button for button panel
  *-----------------------------------------------------------------------------
  */

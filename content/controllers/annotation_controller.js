@@ -386,17 +386,22 @@
             this.getViewListObj().selection.select(index);
 
             // select type matching the view data
-            var type = this._annotationDatas[index].type;
-            for (var i = 0; i < this._typeDatas.length; i++) {
-                if (this._typeDatas[i].type == type) {
-                    typeList.selection.select(i);
-                    typeList.treeBoxObject.ensureRowIsVisible(i);
-                    break;
+            if (index > -1) {
+                var type = this._annotationDatas[index].type;
+                for (var i = 0; i < this._typeDatas.length; i++) {
+                    if (this._typeDatas[i].type == type) {
+                        typeList.selection.select(i);
+                        typeList.treeBoxObject.ensureRowIsVisible(i);
+                        break;
+                    }
                 }
-            }
 
-            // copy view data text into the textbox
-            textBox.value = this._annotationDatas[index].text;
+                // copy view data text into the textbox
+                textBox.value = this._annotationDatas[index].text;
+            }
+            else {
+                textBox.value = '';
+            }
             textBox.select();
             textBox.focus();
 

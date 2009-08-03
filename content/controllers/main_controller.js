@@ -319,7 +319,7 @@
                 var inputObj = {
                     input0: text,
                     require0: false,
-                    multiline0: true,
+                    multiline0: 4,
                     readonly0: readonly,
                     sequence: txn.data.seq,
                     numpad: true

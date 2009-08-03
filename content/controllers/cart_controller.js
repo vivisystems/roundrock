@@ -3146,7 +3146,7 @@
                         var inputObj = {
                             input0: '',
                             require0:false,
-                            multiline0: true
+                            multiline0: 4
                         };
 
                         var data = [

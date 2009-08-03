@@ -222,12 +222,12 @@
 
             if (imageExists) {
                 if (icon_only) {
-                    classStr += ((classStr.length > 0) ? ' ' : '') + 'btn-no-label btn-large-image';
+                    classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label button-large-image';
                     //$(btn).addClass('nolabelbtn largeimagebtn');
                 }
             }
             else {
-                classStr += ((classStr.length > 0) ? ' ' : '') + 'btn-no-image';
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
                 //$(btn).addClass('noimagebtn');
             }
             if (classStr.length > 0) {

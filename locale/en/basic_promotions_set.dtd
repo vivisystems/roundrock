@@ -52,6 +52,9 @@
 <!ENTITY    cheapest_one_free.label.maximum_qty       "Maximum Quantity">
 <!ENTITY    cheapest_one_free.label.value             "Set Free Price">
 
+<!ENTITY    multi_buy.title                "Multi-Buy">
+<!ENTITY    multi_buy.announcement         "This promotion type is coming soon">
+
 <!ENTITY    button.action.down    "Down">
 <!ENTITY    button.action.modify  "Modify">
 <!ENTITY    button.action.delete  "Delete">

@@ -6,9 +6,11 @@
   %SelectQueues;
 ]>
 
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/QueuedOrder.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/queued_order.css" type="text/css"?>
 
 <overlay id="selectQueuesDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -19,30 +21,32 @@
 
     <popupset id="dialogs">
 
-        <vivipanel id="selectQueuesPanel" noautohide="false" pack="center">
+        <vivipanel id="selectQueuesPanel" noautohide="false" class="container-dialog layout-dialog">
 
-            <hbox flex="1" class="main-dialog" pack="center" style="margin: 0; padding: 0;">
+            <hbox flex="1" class="layout-fullscreen layout-a">
 
-                <vbox class="MainPnl" flex="1" style="padding: 0px; margin: 0px;">
+                <vbox flex="1" class="container-main">
 
-                    <caption label="&select.queues.title;"  class="PageTitle"/>
+                    <caption label="&select.queues.title;" class="label-page-title"/>
 
-                    <hbox class="MainL" flex="1">
+                    <hbox flex="1">
 
-                        <vbox class="LeftPnl" flex="6">
-                            <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="1" rows="7"  seltype="single" labelField="key"
-                                                       class="ItemScrollablepanel"  dir="reverse"
-                                                       buttonClass="ItemButtonA"
-                                                       scrollUpClass="ScrollUp"
-                                                       scrollDownClass="ScrollDown">
-                                <spacer flex="1"/>
-                            </viviscrollablebuttonpanel>
+                        <vbox class="container-left block-40">
+                            <hbox flex="1" class="content-buttonpanel">
+                                <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="1" rows="7"  seltype="single" labelField="key"
+                                                           dir="reverse"
+                                                           buttonClass="button-item-a"
+                                                           scrollUpClass="scroll-up-button"
+                                                           scrollDownClass="scroll-down-button">
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
+                            </hbox>
                         </vbox>
 
-                        <vbox class="RightPnl" flex="4">
-                            <label id="selectQueues-label" value="&select.queues.order.details;"  class="PageTitle"/>
-                            <hbox class="sline"></hbox>
-                            <textbox class="QueueList" flex="1" readonly="1" id="selectQueues-itemlist" value="" />
+                        <vbox flex="4">
+                            <label id="selectQueues-label" value="&select.queues.order.details;" class="label-page-title"/>
+                            <hbox class="custom-content-sline"></hbox>
+                            <textbox flex="1" readonly="1" id="selectQueues-itemlist" value="" class="custom-content-queue-list"/>
                         </vbox>
 
                     </hbox>
@@ -50,11 +54,9 @@
                     <spacer flex="1"/>
 
                     <hbox>
-                        <hbox class="ToolBar" flex="1">
-                            <spacer flex="1"/>
-                            <button class="okBtn" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', true)"/>
-                            <button class="cancelBtn" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', false)"/>
-                            <spacer flex="1"/>
+                        <hbox flex="1" pack="center" class="toolbar">
+                            <button disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', true)"/>
+                            <button disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', false)"/>
                         </hbox>
                     </hbox>
 

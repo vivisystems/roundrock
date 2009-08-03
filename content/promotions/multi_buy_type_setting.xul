@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/promotions_manager.css" type="text/css"?>
 
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
@@ -21,7 +23,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/promotions/controllers/multi_buy_type_setting_controller.js" />
   
-    <vbox flex="1" class="pop-dialog">
+    <vbox flex="1" class="container-be custom-content-promotion-type">
         <groupbox>
             <caption label="&multi_buy.title;" />
 

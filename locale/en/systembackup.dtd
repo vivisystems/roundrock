@@ -9,7 +9,7 @@
 <!ENTITY systembackup.backupwithprofile "Backup profile and installed apps">
 <!ENTITY systembackup.restorefromstick "Restore from USB">
 <!ENTITY systembackup.restorefromlocal "Restore from Local">
-<!ENTITY systembackup.restorewithsystem "Restore With system settings">
+<!ENTITY systembackup.restorewithsystem "Restore with system settings">
  
 <!ENTITY vivipos.fec.common.ok "Ok">
 <!ENTITY vivipos.fec.common.cancel "Cancel">

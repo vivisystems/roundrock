@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/terminalstatus.css" type="text/css"?>
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="overlay_test">
 
@@ -7,24 +6,24 @@
         <statusbar id="status-bar" pack="end">
             <statusbarpanel id="statusbar-display" pack="left">
                 <vivisessionstatus id="terminal_no" flex="1"
-                                   class="terminal_no"
+                                   class="console-terminal-no"
                                    columns="1"
                                    crop="end"
                                    nolabels="true"
                                    keys="terminal_no"
-                                   valueClass="console_message_value"
+                                   valueClass="console-message-value"
                                    />
-                <viviuserlabel id="current_user" class="current_user"/>
+                <viviuserlabel id="current_user" class="console-current-user"/>
                 <vivisessionstatus id="sale_period" flex="1"
-                                   class="sale_period"
+                                   class="console-sale-period"
                                    columns="2"
                                    crop="end"
                                    nolabels="true"
                                    noseparator="true"
                                    keys="sale_period_string,shift_number"
-                                   valueClass="console_message_value"
+                                   valueClass="console-message-value"
                                  />
-                <viviclock id="clock" class="clock" showdate="true"/>
+                <viviclock id="clock" class="console-clock" showdate="true"/>
                 <sync_status id="syncStatus"/>
             </statusbarpanel>
         </statusbar>

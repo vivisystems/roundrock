@@ -38,7 +38,7 @@
         <hbox flex="1" class="container-main layout-a">
 
             <!-- Left side -->
-            <vbox flex="1"  class="container-left block-33">
+            <vbox flex="1"  class="container-left block-40">
                 <caption label="&plus.title;" class="label-page-title"/>
                 <label value="&plus.search.label;" class="label-sub-title"/>
                 <vivitextbox id="plu" value=""

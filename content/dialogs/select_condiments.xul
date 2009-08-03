@@ -6,9 +6,11 @@
   %SelectCondiments;
 ]>
 
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <overlay id="selectCondimentsDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -19,34 +21,31 @@
     
     <popupset id="dialogs">
 
-        <vivipanel id="selectCondimentPanel" noautohide="false">
+        <vivipanel id="selectCondimentPanel" noautohide="false" class="container-dialog layout-dialog">
 
-            <hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;">
+            <hbox flex="1" class="layout-fullscreen">
 
-                <vbox class="MainPnl" flex="1">
+                <vbox flex="1" class="container-main">
 
-                    <caption label="&select.condiments.title;" class="PageTitle" />
+                    <label value="&select.condiments.title;" class="label-page-title"/>
 
-                    <hbox class="SelectBox">
+                    <hbox flex="1" class="content-buttonpanel">
                         <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="8" rows="8"  seltype="mix" labelField="name"
-                                                   class="catesdcrollablepanel"
-                                                   buttonClass="plubtn"
+                                                   buttonClass="button-condiment"
                                                    oncommand="if (!$(document.getElementById('selectCondimentPanel')).data('popupPanel.opts').doClick(this)) event.stopPropagation()"
-                                                   scrollUpClass="ScrollUp"
-                                                   scrollDownClass="ScrollDown">
+                                                   scrollUpClass="scroll-up-button"
+                                                   scrollDownClass="scroll-down-button">
                             <spacer flex="1"/>
-                            <vivibutton id="condimentscrollablepanel-soldout" class="systoolbtn soldoutbtn" flex="0" type="checkbox" checkState="0"
+                            <vivibutton id="condimentscrollablepanel-soldout" flex="0" type="checkbox" checkState="0" class="button-systool button-soldout"
                                         oncommand="$('#condimentscrollablepanel')[0].datasource.soldoutActive=this.checkState; event.stopPropagation()"/>
                             <spacer flex="1"/>
                         </viviscrollablebuttonpanel>
                     </hbox>
 
                     <hbox>
-                        <hbox class="ToolBar" flex="1">
-                            <spacer flex="1"/>
-                            <button class="okBtn" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectCondimentPanel', true)"/>
-                            <button class="cancelBtn" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectCondimentPanel', false)"/>
-                            <spacer flex="1"/>
+                        <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                            <button disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectCondimentPanel', true)"/>
+                            <button disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectCondimentPanel', false)"/>
                         </hbox>
                     </hbox>
 

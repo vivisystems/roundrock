@@ -6,63 +6,69 @@
   %Coupon;
 ]>
 
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <overlay id="couponRemarkDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/coupon_remark.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/coupon_remark.js"/>
     
     <popupset id="dialogs">
 
-        <vivipanel id="couponRemarkPanel" noautohide="false">
+        <vivipanel id="couponRemarkPanel" noautohide="false" class="container-dialog layout-dialog">
 
-            <hbox class="pop-dialog" flex="1" pack="center" style="margin: 0; padding: 0;">
+            <hbox flex="1" class="layout-fullscreen">
 
-                <vbox class="MainPnl" flex="1">
+                <vbox flex="1" class="container-popup-prompt">
 
-                    <caption id="couponRemark-dialog-caption" label=""  class="PageTitle"/>
-                    <label id="couponRemark-text0" value="" class="AlertText" />
-                    <grid class="DataForm">
+                    <label id="couponRemark-dialog-caption" value="" class="label-page-title"/>
+                    <hbox>
+                        <label id="couponRemark-text0" flex="1" value="" class="label-alert"/>
+                    </hbox>
+                    <grid class="data-form">
                         <columns>
                             <column flex="1"/>
                         </columns>
                         <rows>
                             <row>
                                 <vbox>
-                                    <label id="couponRemark-title0" style="width:6em" value="" control="couponRemark-input0"/>
-                                    <textbox id="couponRemark-input0" value="" oninput="couponRemark_validateInput()" onfocus="this.select()"/>
+                                    <label id="couponRemark-title0" value="" control="couponRemark-input0"/>
+                                    <textbox id="couponRemark-input0" value=""
+                                             oninput="couponRemark_validateInput()" onfocus="this.select()"/>
                                 </vbox>
                             </row>
                             <row>
                                 <vbox>
-                                    <label id="couponRemark-title1" style="width:6em" value="" control="couponRemark-input1"/>
-                                    <textbox id="couponRemark-input1" value="" oninput="couponRemark_validateInput()" onfocus="this.select()"/>
+                                    <label id="couponRemark-title1" value="" control="couponRemark-input1"/>
+                                    <textbox id="couponRemark-input1" value=""
+                                             oninput="couponRemark_validateInput()" onfocus="this.select()"/>
                                 </vbox>
                             </row>
                         </rows>
                     </grid>
 
                     <hbox pack="center">
-                        <numberpad id="couponRemark-multinumpad" class="numpad" target="plu" style="padding: 0;" />
+                        <numberpad id="couponRemark-multinumpad" class="numpad"/>
                         <vbox pack="end">
-                            <sendkeybutton id="couponRemark-bkeyBtn"  label="&coupon.button.action.del;" keyCode='0x08' target="plu" class="fixedbtn"  />
-                            <sendkeybutton id="couponRemark-clearBtn"  label="&coupon.button.action.clear;" class="fixedbtn"/>
+                            <sendkeybutton id="couponRemark-bkeyBtn" label="&coupon.button.action.del;" keyCode="0x08" class="button-fixed"/>
+                            <sendkeybutton id="couponRemark-clearBtn" label="&coupon.button.action.clear;" class="button-fixed"/>
                         </vbox>
                     </hbox>
 
                     <spacer flex="1"/>
 
                     <hbox>
-                        <hbox class="ToolBar" flex="1">
-                            <button id="couponRemark-ok" class="okBtn" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', true)"/>
-                            <button id="couponRemark-cancel" class="cancelBtn" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', false)"/>
+                        <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                            <button id="couponRemark-ok" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', true)"/>
+                            <button id="couponRemark-cancel" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', false)"/>
                         </hbox>
-                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
+                        <hbox id="dialogButtons" pack="end" class="exitbar">
+                            <button class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                         </hbox>
                     </hbox>
 

@@ -48,7 +48,7 @@ var creditcardRemark_options = null;
                 creditcardRemark_options = inputObj;
 
                 try {
-                    document.getElementById('creditcardRemark-dialog-caption').setAttribute("label", caption0);
+                    document.getElementById('creditcardRemark-dialog-caption').setAttribute("value", caption0);
                     document.getElementById('creditcardRemark-text0').value = text0;
                     document.getElementById('creditcardRemark-title0').value = title0;
                     document.getElementById('creditcardRemark-title1').value = title1;

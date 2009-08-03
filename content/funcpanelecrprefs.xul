@@ -4,7 +4,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/fe/functionpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/functionpanel.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
@@ -33,7 +33,7 @@
             <!-- vivifuncpanel -->
             <vbox class="container-left block-40">
                 <vbox id="vivifuncpanelecr_prefs_preview_box" pack="center" flex="1"
-                      class="container-fe content-buttonpanel">
+                      class="content-buttonpanel">
                     <vivifuncpanelecr
                         id="vivifuncpanelecr_prefs"
                         class="vivifuncpanelecr_function_panel"

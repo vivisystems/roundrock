@@ -48,7 +48,7 @@ var couponRemark_options;
                 couponRemark_options = inputObj;
 
                 try {
-                    document.getElementById('couponRemark-dialog-caption').setAttribute("label", caption0);
+                    document.getElementById('couponRemark-dialog-caption').setAttribute("value", caption0);
                     document.getElementById('couponRemark-text0').value = text0;
                     document.getElementById('couponRemark-title0').value = title0;
                     document.getElementById('couponRemark-title1').value = title1;
