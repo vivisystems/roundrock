@@ -109,6 +109,11 @@ pref("vivipos.fec.registry.devicemodels.excell-aw-30.controller", "ScaleExcellAW
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.iterations", "10");
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.tries", "5");
 
+pref("vivipos.fec.registry.devicemodels.EZ-1100Plus.label", "Godex EZ-1100Plus");
+pref("vivipos.fec.registry.devicemodels.EZ-1100Plus.type", "receipt,check");
+pref("vivipos.fec.registry.devicemodels.EZ-1100Plus.path", "chrome://viviecr/content/devices/commands/EZ-1100Plus.cmd");
+pref("vivipos.fec.registry.devicemodels.EZ-1100Plus.encodings", "English=US-ASCII,Western=ISO-8859-1");
+
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.label", "Mettler Toledo Tiger II");
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.type", "scale");
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.controller", "ScaleMTTigerIIController");

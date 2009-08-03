@@ -1890,14 +1890,16 @@
                     var stack = this._topStack;
                     if (page != 'global') {
 
-                        if (isNaN(page)) {
+                        if (page == null || isNaN(page)) {
                             this.home();
                         }
-                        page %= this.maxpage;
-                        if (page == 0) page = this.maxpage;
+                        else {
+                            page %= this.maxpage;
+                            if (page == 0) page = this.maxpage;
 
-                        this.setSelection(false, stack);
-                        this.currentPage = page;
+                            this.setSelection(false, stack);
+                            this.currentPage = page;
+                        }
                     }
 
                 ]]>
