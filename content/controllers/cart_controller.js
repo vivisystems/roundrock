@@ -987,7 +987,6 @@
             else {
                 NotifyUtils.warn(_('Department number not provided'));
             }
-            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             this._cancelReturn();
@@ -1405,7 +1404,7 @@
             }
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             this._cancelReturn();
@@ -1599,7 +1598,7 @@
             }
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             this._cancelReturn();
