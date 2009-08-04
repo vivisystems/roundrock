@@ -130,7 +130,7 @@
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
 
             var win = this.topmostWindow;
-            if (win.document.title == 'VIVIPOS' && (typeof win.width) == 'undefined')
+            if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
                 win = null;
             GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
         },

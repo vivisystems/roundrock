@@ -7,6 +7,8 @@
   %globalDTD;
   <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
   %bindingsDTD;
+  <!ENTITY % dialogOverlay SYSTEM "chrome://global/locale/dialogOverlay.dtd">
+  %dialogOverlay;
 ]>
 
 <bindings id="timepickerBindings"
@@ -1590,10 +1592,17 @@
       <xul:dropmarker class="datepicker-dropmarker" xbl:inherits="disabled"/>
       <xul:panel onpopupshown="this.firstChild.focus();">
         <xul:hbox>
-        <xul:vividatetimepicker-datepad anonid="datepad" class="datepicker-popupgrid"
+          <xul:vividatetimepicker-datepad anonid="datepad" class="datepicker-popupgrid"
                         xbl:inherits="disabled,readonly,firstdayofweek"/>
-        <xul:vividatetimepicker-timepad anonid="timepad" class="datepicker-popupgrid"
+          <xul:vbox>
+            <xul:vividatetimepicker-timepad anonid="timepad" class="datepicker-popupgrid"
                         xbl:inherits="disabled,readonly"/>
+            <xul:spacer flex="1"/>
+            <xul:hbox>
+                <xul:spacer flex="1"/>
+                <xul:button label="&okButton.label;" oncommand="this.parentNode.parentNode.parentNode.parentNode.hidePopup(); event.stopPropagation();"/>
+            </xul:hbox>
+          </xul:vbox>
         </xul:hbox>
       </xul:panel>
     </content>

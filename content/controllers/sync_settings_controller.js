@@ -121,16 +121,10 @@
             }
 
             // restart sync_client
-            try {
-                var syncClientScript = new GeckoJS.File('/etc/init.d/sync_client');
-                if (syncClientScript.exists()) {
-                    syncClientScript.run(['restart'], true); // no arguments and blocking.
-                }
-                delete syncClientScript;
-                syncClientScript = null;
-            }catch(e) {
-            }
-
+            GeckoJS.File.run('/etc/init.d/sync_client', ['restart'], true);
+            // restart ntp
+            GeckoJS.File.run('/etc/init.d/ntp', ['restart'], true);
+		
             OsdUtils.info(_('Network service settings saved'));
         },
 
