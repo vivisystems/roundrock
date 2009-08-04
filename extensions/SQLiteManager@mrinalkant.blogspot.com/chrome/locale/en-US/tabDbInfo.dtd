@@ -6,10 +6,23 @@
 <!ENTITY schema_version "Schema Version">
 <!ENTITY user_version "User Version">
 
-<!ENTITY auto_vacuum "Auto Vacuum">
 <!ENTITY cache_size "Cache Size (no. of pages)">
-<!ENTITY count_changes "Count Changes">
 <!ENTITY default_cache_size "Default Cache Size (no. of pages)">
+
+<!ENTITY pages "Pages">
+<!ENTITY page_size "Page Size (bytes)">
+<!ENTITY max_page_count "Max Page Count">
+<!ENTITY page_count "Page Count">
+<!ENTITY freelist_count "Freelist Count">
+
+<!ENTITY journals "Journals">
+<!ENTITY journal_mode "Journal Mode">
+<!ENTITY journal_size_limit "Journal Size Limit">
+
+<!ENTITY others "Others">
+<!ENTITY auto_vacuum "Auto Vacuum">
+<!ENTITY case_sensitive_like "Case-sensitive Like">
+<!ENTITY count_changes "Count Changes">
 <!ENTITY empty_result_callbacks "Empty Result Callbacks">
 <!ENTITY encoding "Encoding">
 <!ENTITY UTF8 "UTF-8">
@@ -20,13 +33,10 @@
 <!ENTITY fullfsync "Fullfsync flag">
 <!ENTITY legacy_file_format "Legacy File Format">
 <!ENTITY locking_mode "Locking Mode">
-<!ENTITY page_size "Page Size (bytes)">
-<!ENTITY max_page_count "Max Page Count">
-<!ENTITY page_count "Page Count">
-<!ENTITY freelist_count "Freelist Count">
 <!ENTITY read_uncommitted "Read Uncommitted">
 <!ENTITY short_column_names "Short Column Names">
 <!ENTITY synchronous "Synchronous">
+
 <!ENTITY temp_store "Temporary Store">
 <!ENTITY temp_store_directory "Temporary Store Directory">
 

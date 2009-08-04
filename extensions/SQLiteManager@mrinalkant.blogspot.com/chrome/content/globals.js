@@ -1,12 +1,32 @@
 const Cc = Components.classes;
 const Ci = Components.interfaces;
 
-const chromePrefs = "chrome://sqlitemanager/content/preferences.xul";
+const smChromes = {
+  preferences: "chrome://sqlitemanager/content/preferences.xul",
+  console: "chrome://global/content/console.xul",
+  aboutconfig: "chrome://global/content/config.xul",
+  confirm: "chrome://sqlitemanager/content/confirm.xul",
+  aboutSM: "chrome://sqlitemanager/content/about.xul"
+};
+
+const smWebpages = {
+  home: "http://sqlite-manager.googlecode.com/",
+  faq: "http://code.google.com/p/sqlite-manager/wiki/FAQ",
+  issueNew: "http://code.google.com/p/sqlite-manager/issues/entry",
+  sqliteHome: "http://www.sqlite.org/",
+  sqliteLang: "http://www.sqlite.org/lang.html",
+  mpl: "http://www.mozilla.org/MPL/MPL-1.1.html"
+};
+
+const smDialogFeatures = "chrome,resizable,centerscreen,modal,dialog";
+
+//these are the preferences which are being observed and which need to be initially read.
+const smObservedPrefs = ["hideMainToolbar", "showMainToolbarDatabase", "showMainToolbarTable", "showMainToolbarIndex", "showMainToolbarDebug", "sqliteFileExtensions", "displayNumRecords", "textForBlob", "showBlobSize", "maxSizeToShowBlobData", "mruPath.1",
+      "posInTargetApp" /* this one for firefox only*/,
+      "handleADS" /* this one for Windows only*/ ];
 
 var gAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-var gbGecko_191 = (Cc["@mozilla.org/xpcom/version-comparator;1"]
-                .getService(Ci.nsIVersionComparator)
-                .compare(gAppInfo.platformVersion, "1.9.1") >= 0);
+var gbGecko_191 = (Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(gAppInfo.platformVersion, "1.9.1") >= 0);
 
 var gExtVersion = "";
 var gExtCreator = "";
@@ -16,8 +36,8 @@ var g_tempNamePrefix = "__temp__";
 var g_smBundle = null;
 var gOS = navigator.appVersion;
 
-var smPrompt = 	Cc["@mozilla.org/embedcomp/prompt-service;1"]
-              .getService(Ci.nsIPromptService);							
+var smPrompt = 	Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);							
+var smPrefAll = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 
 var gSbPanelDisplay = null;
 var g_strForNull = "NULL";
@@ -100,15 +120,14 @@ function sm_notify(sBoxId, sMessage, sType, iTime) {
 }
 
 function sm_launchHelp() {
-	var urlHelp = sm_getBundle().getString("sm.url.help");
+	var urlHelp = g_smBundle.getString("sm.url.help");
 	sm_openURL(urlHelp);
 }
 
 function sm_openURL(UrlToGoTo) {
   var ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
   var uri = ios.newURI(UrlToGoTo, null, null);
-  var protocolSvc = Cc["@mozilla.org/uriloader/external-protocol-service;1"]
-                    .getService(Ci.nsIExternalProtocolService);
+  var protocolSvc = Cc["@mozilla.org/uriloader/external-protocol-service;1"].getService(Ci.nsIExternalProtocolService);
 
   if (!protocolSvc.isExposedProtocol(uri.scheme)) {
     // If we're not a browser, use the external protocol service to load the URI.
@@ -120,8 +139,7 @@ function sm_openURL(UrlToGoTo) {
   
   // Try to get the most recently used browser window
   try {
-    var wm = Cc["@mozilla.org/appshell/window-mediator;1"]
-                       .getService(Ci.nsIWindowMediator);
+    var wm = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
     navWindow = wm.getMostRecentWindow("navigator:browser");
   } catch(ex) {}
 
@@ -140,21 +158,17 @@ function sm_openURL(UrlToGoTo) {
     }
   }
   else {
-    // If there is no recently used browser window 
-    // then open new browser window with the URL
-    var ass = Cc["@mozilla.org/appshell/appShellService;1"]
-                .getService(Ci.nsIAppShellService);
+    // If there is no recently used browser window then open new browser window with the URL
+    var ass = Cc["@mozilla.org/appshell/appShellService;1"].getService(Ci.nsIAppShellService);
     var win = ass.hiddenDOMWindow;
-    win.openDialog(sm_getBrowserURL(), "", "chrome,all, dialog=no", UrlToGoTo );
+    win.openDialog(sm_getBrowserURL(), "", "chrome,all,dialog=no", UrlToGoTo );
   }
 }
 
 function sm_getBrowserURL() {
    // For SeaMonkey etc where the browser window is different.
    try {
-      var prefs = Cc["@mozilla.org/preferences-service;1"]
-          .getService(Ci.nsIPrefBranch);
-      var url = prefs.getCharPref("browser.chromeURL");
+      var url = smPrefAll.getCharPref("browser.chromeURL");
       if (url)
          return url;
    } catch(e) {
@@ -165,7 +179,7 @@ function sm_getBrowserURL() {
 
 function sm_getBundle() {
 	if(g_smBundle == null) 
-		g_smBundle = document.getElementById("sm-bundle");  
+		g_smBundle = $$("sm-bundle");  
 
 	return g_smBundle;
 }
@@ -180,8 +194,7 @@ function sm_getJsStr(sName) {
 
 function sm_chooseDirectory(sTitle) {
 	const nsIFilePicker = Ci.nsIFilePicker;
-	var fp = Cc["@mozilla.org/filepicker;1"]
-		      .createInstance(nsIFilePicker);
+	var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 	fp.init(window, sTitle, nsIFilePicker.modeGetFolder);
 	
 	var rv = fp.show();
@@ -277,8 +290,7 @@ function sm_makeSimpleString(str) {
 	return newStr;
 }
 
-//sm_makeDefaultValue: convert the argument into a format suitable for use in
-// DEFAULT clause in column definition. return null, if no DEFAULT clause needed.
+//sm_makeDefaultValue: convert the argument into a format suitable for use in DEFAULT clause in column definition. return null, if no DEFAULT clause needed.
 function sm_makeDefaultValue(str) {
   var sDefValue = null;
   if (str.length > 0) {
@@ -294,17 +306,13 @@ function sm_makeDefaultValue(str) {
 
 function sm_confirm(sTitle, sMessage) {
 	var aRetVals = {};
-  var oWin = window.openDialog("chrome://sqlitemanager/content/confirm.xul",
-        "confirmDialog", "chrome, resizable, centerscreen, modal, dialog",
-        sTitle, sMessage, aRetVals, "confirm");
+  var oWin = window.openDialog(smChromes.confirm, "confirmDialog", smDialogFeatures, sTitle, sMessage, aRetVals, "confirm");
   return aRetVals.bConfirm;
 }
 
 function sm_alert(sTitle, sMessage) {
 	var aRetVals = {};
-  var oWin = window.openDialog("chrome://sqlitemanager/content/confirm.xul",
-        "alertDialog", "chrome, resizable, centerscreen, modal, dialog",
-        sTitle, sMessage, aRetVals, "alert");
+  var oWin = window.openDialog(smChromes.confirm, "alertDialog", smDialogFeatures, sTitle, sMessage, aRetVals, "alert");
 }
 
 function sm_confirmBeforeExecuting(aQueries, sMessage, confirmPrefName) {

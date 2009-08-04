@@ -11,6 +11,11 @@
 <!ENTITY mi.extensionTable "Use Table for Extension Data">
 <!ENTITY mi.extensionTable.ak "E">
 
+<!ENTITY mi.console			"Error Console">
+<!ENTITY mi.console.ak "C">
+<!ENTITY mi.aboutconfig			"about:config">
+<!ENTITY mi.aboutconfig.ak "b">
+
 <!ENTITY menu.db			"Database">
 <!ENTITY menu.db.ak "D">
 <!ENTITY menu.db.new			"New Database">
@@ -57,6 +62,7 @@
 
 <!ENTITY createTable             "Create Table">
 <!ENTITY dropTable               "Drop Table">
+<!ENTITY modifyTable             "Modify Table">
 <!ENTITY emptyTable              "Empty Table">
 <!ENTITY reindexTable            "Reindex Table">
 <!ENTITY renameTable             "Rename Table">
@@ -124,6 +130,7 @@
 <!ENTITY profile.dblist.buttonlabel			"Go">
 
 <!ENTITY	string.enterSql "Enter SQL">
+<!ENTITY	string.enterSql.ak "S">
 
 <!ENTITY	tab.structure "Structure">
 <!ENTITY	tab.browse "Browse &amp; Search">
@@ -194,6 +201,8 @@
 <!ENTITY about "About">
 <!ENTITY version "Version">
 <!ENTITY author "Author">
+<!ENTITY license "License">
+<!ENTITY license.mpl "Mozilla Public License Version 1.1">
 
 <!ENTITY dir "Directory">
 <!ENTITY profileDir "Profile Directory">

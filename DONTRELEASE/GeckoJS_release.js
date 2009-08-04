@@ -3563,8 +3563,13 @@ GeckoJS.String.lcfirst = function(word){
  * @return {String}               The trimmed string
  */
 GeckoJS.String.trim = function(str){
-    // include it in the regexp to enforce consistent cross-browser behavior.
-    return str.replace(/^[\s\xa0]+|[\s\xa0]+$/g, '');
+    // if javascript 1.8.1 use native trim
+    if (str.trim) {
+        return str.trim();
+    }else {
+        // include it in the regexp to enforce consistent cross-browser behavior.
+        return str.replace(/^[\s\xa0]+|[\s\xa0]+$/g, '');
+    }
 };
 
 
@@ -3579,8 +3584,13 @@ GeckoJS.String.trim = function(str){
  * @return {String}               The trimmed string
  */
 GeckoJS.String.trimLeft = function(str){
-    // include it in the regexp to enforce consistent cross-browser behavior.
-    return str.replace(/^[\s\xa0]+/, '');
+    // if javascript 1.8.1 use native trimLeft
+    if (str.trimLeft) {
+        return str.trimLeft();
+    }else {
+        // include it in the regexp to enforce consistent cross-browser behavior.
+        return str.replace(/^[\s\xa0]+/, '');
+    }
 };
 
 
@@ -3595,8 +3605,13 @@ GeckoJS.String.trimLeft = function(str){
  * @return {String}               The trimmed string
  */
 GeckoJS.String.trimRight = function(str){
-    // include it in the regexp to enforce consistent cross-browser behavior.
-    return str.replace(/[\s\xa0]+$/, '');
+    // if javascript 1.8.1 use native trimRight
+    if (str.trimRight) {
+        return str.trimRight();
+    }else {
+        // include it in the regexp to enforce consistent cross-browser behavior.
+        return str.replace(/[\s\xa0]+$/, '');
+    }
 };
 
 
@@ -3722,7 +3737,7 @@ GeckoJS.String.contains = function(s, ss){
  */
 GeckoJS.String.getRandomString = function(){
     return Math.floor(Math.random() * 2147483648).toString(36) +
-    (Math.floor(Math.random() * 2147483648) ^
+    (Math.floor(Math.random() * 2147483648) *
     (new Date).getTime()).toString(36);
 };
 
@@ -5561,7 +5576,7 @@ GeckoJS.File.prototype.normalize = function(){
  * @function
  * @param {Array} aArgs          This is the array of arguments to pass to the executable
  * @param {Boolean} blocking      If "true", the method blocks until the process terminates; defaults to false
- * @return {Number}               The process ID
+ * @return {Number}               The process ID or 0 (blocking)
  */
 GeckoJS.File.prototype.run = function(aArgs, blocking){
 
@@ -5582,6 +5597,9 @@ GeckoJS.File.prototype.run = function(aArgs, blocking){
         else 
             aArgs = null;
         rv = process.run(blocking, aArgs, len);
+        // if success return 0
+        rv = blocking ? 0 : process.pid;
+
     } 
     catch (e) {
 		GREUtils.log('[Error] GeckoJS.File.run: ' + e.message);
