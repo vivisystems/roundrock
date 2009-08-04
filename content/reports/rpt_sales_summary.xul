@@ -104,7 +104,7 @@
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle()"/>
-                    <button id="ok" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="doOKButton();"/>
+                    <button id="ok" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
             <hbox flex="1">

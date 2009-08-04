@@ -63,7 +63,7 @@
             <hbox pack="center" flex="1" align="center">
                 <viviclock showdate="true"/>
             </hbox>
-            <hbox id="dialogButtons" flex="1" pack="center" class="toolbar">
+            <hbox id="dialogButtons" flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
                 <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
             </hbox>
         </vbox>

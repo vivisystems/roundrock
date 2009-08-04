@@ -175,8 +175,8 @@
                             <button id="delete_condiment" label="&condiments.button.action.delete;" disabled="false" class="button-delete" oncommand="$do('removeCond', null, 'Condiments');" />
                         </hbox>
                         <hbox pack="end" class="exitbar">
-                            <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                            <button id="close" label="&dialog.closeButton.label;" class="button-exit" default="true" oncommand="$do('exit', null, 'Condiments');"/>
+                            <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                            <button id="close" class="button-exit" default="true" oncommand="$do('exit', null, 'Condiments');"/>
                         </hbox>
                     </hbox>
                 </vbox>

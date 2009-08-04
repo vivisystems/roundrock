@@ -94,7 +94,7 @@
                             oncommand="$do('exit', null, 'ImageManager');"/>
                 </hbox>
                 <hbox flex="1" pack="end" class="exitbar">
-                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit"
+                    <button id="close" default="true" class="button-exit"
                             oncommand="window.close();"/>
                 </hbox>
             </hbox>

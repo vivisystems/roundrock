@@ -1,5 +1,5 @@
 .maindialog {
-    background: white url(images/Tablebgjpg.jpg) center center no-repeat;
+    background: white url(../images/Tablebgjpg.jpg) center center no-repeat;
     width: 800px;
     height: 600px;
 }
@@ -78,10 +78,10 @@
     border: none;
 }
 .ExitBtn {
-  background: transparent url(images/ExitBtn.png) center center no-repeat !important;
+  background: transparent url(../images/ExitBtn.png) center center no-repeat !important;
 }
 .RefrashBtn {
-  background: transparent url(images/refrash.png) top center no-repeat !important;
+  background: transparent url(../images/refrash.png) top center no-repeat !important;
 }
 
 .mergeBtn {
@@ -161,7 +161,7 @@
     max-width: 48px;
     margin: 6px 0px;
     padding: 0px 0px 0px 0px;
-    background: transparent url(images/tableup.png) top left no-repeat;
+    background: transparent url(../images/tableup.png) top left no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
@@ -177,7 +177,7 @@
     max-width: 48px;
     margin: 6px 0px;
     padding: 0px 0px 0px 0px;
-    background: transparent url(images/tabledown.png) bottom right no-repeat;
+    background: transparent url(../images/tabledown.png) bottom right no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
@@ -226,7 +226,7 @@
     min-width: 50px;
     min-height: 50px;
     margin-left: 55px !important;
-    background: transparent url(images/close.png) center center no-repeat !important;
+    background: transparent url(../images/close.png) center center no-repeat !important;
 }
 
 .CheckTabbox {
@@ -236,7 +236,7 @@
 .CheckTabbox tab {
     -moz-appearance: none;
     padding: 5px 20px;
-    background: white url(images/sep.png) center right no-repeat;
+    background: white url(../images/sep.png) center right no-repeat;
     border:none;
     color: #393939;
 }
@@ -254,7 +254,7 @@
 }
 
 .PromptPnl {
-/*  background: transparent url(images/checkbg.gif) center center no-repeat; */
+/*  background: transparent url(../images/checkbg.gif) center center no-repeat; */
 /*  -moz-appearance: none; */
   border: none;
 /*  padding: 2px; */
@@ -263,7 +263,7 @@
 }
 
 .PromptPnlBg {
-  background: transparent url(images/checkbg.png) left top no-repeat;
+  background: transparent url(../images/checkbg.png) left top no-repeat;
 }
 
 .MsgPnl {
@@ -271,7 +271,7 @@
     border: none;
     width: 708px;
     height: 143px;
-    background: transparent url(images/msgbg.gif) center center no-repeat;
+    background: transparent url(../images/msgbg.gif) center center no-repeat;
 }
 .CancelBtn {
     -moz-appearance: none;
@@ -322,7 +322,7 @@
 	font-size: 17px;
 	color: #7f3100;
     padding: 2px 0 2px 26px;
-    background: transparent url(images/current.png) left center no-repeat;
+    background: transparent url(../images/current.png) left center no-repeat;
 }
 
 ol {

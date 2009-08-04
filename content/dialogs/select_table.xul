@@ -6,10 +6,13 @@
   %SelectTable;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/table_win.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/order_display_template.css" type="text/css"?>
-
-<!-- ?xul-overlay href="chrome://global/content/dialogOverlay.xul" ? -->
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/select_setitem.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_win.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/table_styles.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/order_display_template.css" type="text/css"?>
 
 <overlay id="selectTableDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -22,7 +25,7 @@
     <!-- script type="application/x-javascript" src="chrome://viviecr/content/table_book.js" / -->
 
     <popupset id="dialogs">
-        <vivipanel id="selectTablePanel" noautohide="false">
+        <vivipanel id="selectTablePanel" noautohide="false" class="container-dialog">
 
 
     <vbox flex="1" class="maindialog">

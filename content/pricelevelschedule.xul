@@ -95,7 +95,7 @@
             </hbox>
             <hbox pack="end" class="exitbar">
                 <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                <button class="button-exit" id="close" label="&dialog.closeButton.label;" default="true" oncommand="window.close();"/>
+                <button id="close" default="true" class="button-exit" oncommand="window.close();"/>
             </hbox>
         </vbox>
     </vbox>

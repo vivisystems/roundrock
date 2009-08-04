@@ -109,10 +109,10 @@
                     <button id="export_xpi"  label="&localization.action.export;" disabled="false" oncommand="$do('exportDialog', null, 'Localization');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="exitbar">
-                    <button id="save" label="&localization.action.save;" class="button-save" oncommand="$do('save', null, 'Localization');"/>
+                    <button id="save" class="button-save" oncommand="$do('save', null, 'Localization');"/>
                     <spacer flex="1"/>
-                    <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Localization');"/>
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="close" default="true" class="button-exit" oncommand="$do('exit', null, 'Localization');"/>
                 </hbox>
             </hbox>
         </vbox>

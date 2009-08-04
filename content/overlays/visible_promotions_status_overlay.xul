@@ -9,8 +9,9 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <box id="visiblePromotionsStatusPanelContainer" orient="vertical">
-        <promotions_status id="promotions_status" dir="normal" autohide="false" type="detail"
-                           boxClass="vbox_promotions" labelClass="label_promotions" subtotalClass="subtotal_promotions" value="" />
+        <promotions_status id="promotions_status" dir="normal" autohide="false" type="detail" value=""
+                           boxClass="promotions-vbox" labelClass="promotions-label"
+                           subtotalClass="promotions-subtotal" treeClass="promotions-tree" treeDetailClass="promotions-details"/>
     </box>
 
 </overlay>

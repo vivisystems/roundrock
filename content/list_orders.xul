@@ -31,7 +31,7 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/list_orders.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
     <vbox flex="1" class="container-dialog">
@@ -57,8 +57,7 @@
                             oncommand="$do('orderDetails', null, 'ListOrders')" />
                 </hbox>
                 <hbox id="dialogButtons" class="exitbar">
-                    <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->
-                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="doOKButton();"/>
+                    <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
         </vbox>

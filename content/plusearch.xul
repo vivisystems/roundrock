@@ -7,9 +7,9 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -34,7 +34,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <hbox flex="1" class="container-be layout-be">
+    <hbox flex="1" class="container-dialog layout-dialog">
         <hbox flex="1" class="container-main layout-a">
 
             <!-- Left side -->
@@ -273,7 +273,7 @@
                     </hbox>
                     <hbox pack="center" class="exitbar">
                         <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                        <button id="close" label="&dialog.closeButton.label;" default="false" class="button-exit" oncommand="doCancelButton();"/>
+                        <button id="close" default="false" class="button-exit" oncommand="doCancelButton();"/>
                     </hbox>
                 </hbox>
             </vbox>

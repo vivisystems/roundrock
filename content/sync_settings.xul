@@ -217,10 +217,10 @@
             </tabbox>
 
             <hbox id="dialogButtons" class="exitbar">
-                <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="$do('save', null, 'SyncSettings');"/>
+                <button id="save" default="true" class="button-save" oncommand="$do('save', null, 'SyncSettings');"/>
                 <spacer flex="1"/>
-                <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                <button id="close" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="$do('exit', null, 'SyncSettings');"/>
+                <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button id="close" default="false" class="button-exit" oncommand="$do('exit', null, 'SyncSettings');"/>
             </hbox>
   
         </vbox>

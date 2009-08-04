@@ -46,7 +46,7 @@
                 </hbox>
             </stack>
             <hbox id="dialogButtons" class="exitbar" pack="end">
-                <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="window.close();"/>
+                <button id="close" default="true" class="button-exit" oncommand="window.close();"/>
             </hbox>
         </vbox>
     </vbox>

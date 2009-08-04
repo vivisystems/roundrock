@@ -152,8 +152,8 @@
                         <button id="delete_dept" label="&departments.button.action.delete;" disabled="false" class="button-delete" oncommand="$do('remove', null, 'Departments');" />
                     </hbox>
                     <hbox pack="end" class="exitbar">
-                        <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Departments');"/>
+                        <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                        <button id="close" default="true" class="button-exit" oncommand="$do('exit', null, 'Departments');"/>
                     </hbox>
                 </hbox>
             </vbox>

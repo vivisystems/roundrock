@@ -47,7 +47,7 @@
                                     primary="name" scrollMode="cursor"
                                     headers="&promotions_detail.label.promotion_name;,&promotions_detail.label.promotion_code;,&promotions_detail.label.plu_name;,&promotions_detail.label.plu_no;,&promotions_detail.label.current_qty;,&promotions_detail.label.current_subtotal;,&promotions_detail.label.discount_subtotal;"
                                     fields="promotion_name,promotion_code,name,no,current_qty,current_subtotal,discount_subtotal"
-                                    scrollUpClass="cart-scroll-up-button" scrollDownClass="cart-scroll-down-button" />
+                                    scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button" />
                     <xul:spacer height="10px"/>
 
                     <xul:hbox id="dialogButtons" pack="end" class="exitbar">

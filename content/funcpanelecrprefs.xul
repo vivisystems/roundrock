@@ -478,16 +478,10 @@
                     </tabpanels>
                 </tabbox>
                 <hbox class="exitbar">
-                    <button id="save"
-                            class="button-save"
-                            label="&vivifuncpanelecr.prefs.save.label;"
-                            oncommand="$do('savePreferences', null, 'vivifuncpanelecr_prefs')"/>
+                    <button id="save" class="button-save" oncommand="$do('savePreferences', null, 'vivifuncpanelecr_prefs')"/>
                     <spacer flex="1"/>
                     <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                    <button id="close"
-                            class="button-exit"
-                            label="&vivifuncpanelecr.prefs.cancel.label;"
-                            oncommand="$do('cancelPreferences', null, 'vivifuncpanelecr_prefs')"/>
+                    <button id="close" class="button-exit" oncommand="$do('cancelPreferences', null, 'vivifuncpanelecr_prefs')"/>
                 </hbox>
             </vbox>
         </hbox>

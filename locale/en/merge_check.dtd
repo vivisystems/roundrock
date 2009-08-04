@@ -8,7 +8,7 @@
 <!ENTITY mergecheck.sourcecheck.checkno "Check Number:">
 <!ENTITY mergecheck.sourcecheck.tableno "Table Number:">
 <!ENTITY mergecheck.sourcecheck.name "Name">
-<!ENTITY mergecheck.sourcecheck.qty "Qty">
+<!ENTITY mergecheck.sourcecheck.qty "Quantity">
 <!ENTITY mergecheck.sourcecheck.price "Price">
 <!ENTITY mergecheck.targetcheck "Target Check">
 <!ENTITY mergecheck.targetcheck.checkno "Check Number:">

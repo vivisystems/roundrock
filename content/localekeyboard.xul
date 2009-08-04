@@ -10,8 +10,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/be/localekeyboard.css" type="text/css"?>
-<!--
--->
+
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&localekeyboard.title;"
@@ -61,10 +60,10 @@
             <spacer flex="1"/>
         
             <hbox id="dialogButtons" class="exitbar">
-                <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="$do('save', null, 'LocaleKeyboard');"/>
+                <button id="save" default="true" class="button-save" oncommand="$do('save', null, 'LocaleKeyboard');"/>
                 <spacer flex="1"/>
-                <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                <button id="cancel" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="$do('exit', null, 'LocaleKeyboard');"/>
+                <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button id="cancel" default="false" class="button-exit" oncommand="$do('exit', null, 'LocaleKeyboard');"/>
             </hbox>
         </vbox>
     </vbox>

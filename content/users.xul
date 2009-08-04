@@ -314,7 +314,7 @@
                 </hbox>
                 <hbox pack="end" class="exitbar">
                     <button id="vkb" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Users');"/>
+                    <button id="close" default="true" class="button-exit" oncommand="$do('exit', null, 'Users');"/>
                 </hbox>
             </hbox>
         </vbox>

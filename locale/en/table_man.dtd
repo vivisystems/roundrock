@@ -9,7 +9,7 @@
 <!ENTITY tableman.tab.tableoptions.2 "Options 2">
 
 <!ENTITY tableman.table.active "Active">
-<!ENTITY tableman.table.tableno "Table No.">
+<!ENTITY tableman.table.tableno "Table Number">
 <!ENTITY tableman.table.tablename "Label">
 <!ENTITY tableman.table.seats "Seats">
 <!ENTITY tableman.table.minimumchargepertable "Minimum Charge per table">
@@ -31,7 +31,7 @@
 <!ENTITY tableman.booking.note "Note">
 
 <!ENTITY tableman.mark.name "Name">
-<!ENTITY tableman.mark.period "Status Duration (Minutes)">
+<!ENTITY tableman.mark.period "Duration (Minutes)">
 <!ENTITY tableman.mark.perioddesc "(Set 0 for infinite duration)">
 <!ENTITY tableman.mark.opdeny "No Operations Allowed">
 <!ENTITY tableman.mark.automarkaftersubmit "After order completion, automatically mark table status as:">

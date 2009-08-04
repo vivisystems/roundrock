@@ -78,8 +78,8 @@
                     <button id="delete_annotation"  label="&annotations.delete;" disabled="true" class="button-delete" oncommand="$do('deleteAnnotationCode', null, 'Annotations');"/>
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">
-                    <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Annotations');"/>
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="close"" default="true" class="button-exit" oncommand="$do('exit', null, 'Annotations');"/>
                 </hbox>
             </hbox>
         </vbox>

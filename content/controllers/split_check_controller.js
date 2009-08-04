@@ -73,7 +73,7 @@
             var self = this;
 
             // this._splitItems = [];
-            var selectedItems = document.getElementById('sourcecheckscrollablepanel').vivitree.selectedItems;
+            var selectedItems = document.getElementById('sourcecheckscrollablepanel').selectedItems;
 
             if (selectedItems.length <= 0) {
                 // @todo OSD
@@ -116,13 +116,13 @@
 
             var panelView3 = new GeckoJS.NSITreeViewArray(this._splitItems);
             document.getElementById('splitedscrollablepanel').datasource = panelView3;
-            document.getElementById('splitedscrollablepanel').vivitree.selection.select( cnt - 1);
+            document.getElementById('splitedscrollablepanel').selection.select( cnt - 1);
             this.selectSplitedCheck( cnt - 1);
 
         },
 
         selectMain: function(index) {
-            var numRanges = document.getElementById('sourcecheckscrollablepanel').vivitree.view.selection.getRangeCount();
+            var numRanges = document.getElementById('sourcecheckscrollablepanel').view.selection.getRangeCount();
 
             var selected = !this._sourceItems[index].selected;
             this._sourceItems[index].selected = selected;
@@ -134,17 +134,17 @@
                     this._sourceItems.forEach(function(o){
                         if ((o.parent_index == parentIndex) || (o.index == parentIndex)) {
                             if (selected) {
-                                document.getElementById('sourcecheckscrollablepanel').vivitree.view.selection.rangedSelect(i,i,true);
+                                document.getElementById('sourcecheckscrollablepanel').view.selection.rangedSelect(i,i,true);
                                 o.selected = true;
                             } else {
-                                document.getElementById('sourcecheckscrollablepanel').vivitree.view.selection.clearRange(i,i,true);
+                                document.getElementById('sourcecheckscrollablepanel').view.selection.clearRange(i,i,true);
                                 o.selected = false;
                             }
                         } else {
                             if (o.selected) {
-                                document.getElementById('sourcecheckscrollablepanel').vivitree.view.selection.rangedSelect(i,i,true);
+                                document.getElementById('sourcecheckscrollablepanel').view.selection.rangedSelect(i,i,true);
                             } else {
-                                document.getElementById('sourcecheckscrollablepanel').vivitree.view.selection.clearRange(i,i,true);
+                                document.getElementById('sourcecheckscrollablepanel').view.selection.clearRange(i,i,true);
                             }
                         }
                         i++;
@@ -156,17 +156,17 @@
                     this._sourceItems.forEach(function(o){
                         if ((o.parent_index == itemIndex)) {
                             if (selected) {
-                                document.getElementById('sourcecheckscrollablepanel').vivitree.view.selection.rangedSelect(i,i,true);
+                                document.getElementById('sourcecheckscrollablepanel').view.selection.rangedSelect(i,i,true);
                                 o.selected = true;
                             } else {
-                                document.getElementById('sourcecheckscrollablepanel').vivitree.view.selection.clearRange(i,i,true);
+                                document.getElementById('sourcecheckscrollablepanel').view.selection.clearRange(i,i,true);
                                 o.selected = false;
                             }
                         } else {
                             if (o.selected) {
-                                document.getElementById('sourcecheckscrollablepanel').vivitree.view.selection.rangedSelect(i,i,true);
+                                document.getElementById('sourcecheckscrollablepanel').view.selection.rangedSelect(i,i,true);
                             } else {
-                                document.getElementById('sourcecheckscrollablepanel').vivitree.view.selection.clearRange(i,i,true);
+                                document.getElementById('sourcecheckscrollablepanel').view.selection.clearRange(i,i,true);
                             }
                         }
                         i++;
@@ -209,7 +209,7 @@
 
                 var panelView3 = new GeckoJS.NSITreeViewArray(this._splitItems);
                 document.getElementById('splitedscrollablepanel').datasource = panelView3;
-                document.getElementById('splitedscrollablepanel').vivitree.selection.select(0);
+                document.getElementById('splitedscrollablepanel').selection.select(0);
             } else {
                 document.getElementById('splitedcheckscrollablepanel').datasource = [];
                 document.getElementById('splitedscrollablepanel').datasource = [];

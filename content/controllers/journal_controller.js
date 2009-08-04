@@ -106,7 +106,7 @@
                 if(!this.checkDevices()) {
 
                     var win = this.topmostWindow;
-                    if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+                    if (win.document.title == 'VIVIPOS' && (typeof win.width) == 'undefined')
                         win = null;
                     
                     GREUtils.Dialog.alert(win, _('Journal Error'), _('No electronic journal preview template detected.  Electronic journal entry will not be recorded properly if a preview template is not installed.'));

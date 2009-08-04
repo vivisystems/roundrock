@@ -326,11 +326,18 @@
  *-----------------------------------------------------------------------------
  */
 
-.container-dialog .toolbar {
+.container-dialog .toolbar[toolbarmode=horizontal] {
     background: #e8d1b1;
     height: 60px;
+    margin: 2px;
     max-height: 60px;
     min-height: 60px;
+    padding: 5px;
+    -moz-border-radius: 8px;
+}
+
+.container-dialog .toolbar[toolbarmode=vertical] {
+    background: #e8d1b1;
     margin: 2px;
     padding: 5px;
     -moz-border-radius: 8px;
@@ -343,10 +350,10 @@
     border: 2px solid;
     color: #4d4234;
     font-size: 12pt;
-    margin: 0px 5px;
+    margin: 5px;
     min-height: 40px;
-    min-width: 80px;
-    padding: 0 8px;
+    min-width: 75px;
+    padding: 8px;
     -moz-appearance: none;
     -moz-border-top-colors: #918570 white;
     -moz-border-left-colors: #918570 white;

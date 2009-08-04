@@ -128,9 +128,9 @@
 		            	</hbox>
 		            </hbox>
 		            <hbox pack="end" class="exitbar">
-		                <button id="vkb" label="" class="button-vkb"
+		                <button id="vkb" class="button-vkb"
                                 oncommand="VirtualKeyboard.toggle();"/>
-		                <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit"
+		                <button id="close" default="true" class="button-exit"
                                 oncommand="$do('exit', null, 'StockRecords');"/>
 		            </hbox> 
                 </hbox>         
@@ -150,7 +150,7 @@
                               />
                 </vbox>
                 <hbox id="errorPanelButtons" class="exitbar" pack="end">
-                    <button id="close_error" label="&dialog.closeButton.label;" default="true" class="button-exit"
+                    <button id="close_error" default="true" class="button-exit"
                             oncommand="document.getElementById('error_panel').hidePopup()"/>
                 </hbox>
             </vbox>

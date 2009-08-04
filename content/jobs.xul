@@ -75,7 +75,7 @@
                 </hbox>
                 <hbox pack="end" class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                    <button id="close" label="&dialog.closeButton.label;" class="button-exit" default="true" oncommand="$do('exit', null, 'Jobs');"/>
+                    <button id="close" class="button-exit" default="true" oncommand="$do('exit', null, 'Jobs');"/>
                 </hbox>
             </hbox>
 

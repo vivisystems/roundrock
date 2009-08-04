@@ -52,7 +52,13 @@
     -moz-user-input: none;
 }
 
-.promotions-tree treechildren::-moz-tree-row(selected) { background-color: #1e1b14; }
+.promotions-tree treechildren::-moz-tree-row(selected) {
+    background-color: #f4f4f4;
+}
+
+.promotions-tree treechildren::-moz-tree-cell-text(selected) {
+    color: #1e1b14;
+}
 
 .promotions-tree .tree-scrollable-columns {
     max-height: 0px;
@@ -61,9 +67,12 @@
 
 .promotions-details #promotion_name,
 .promotions-details #promotion_code,
-.promotions-details #name,
-.promotions-details #no {
+.promotions-details #name {
     text-align: left;
+}
+
+.promotions-details #no {
+    text-align: center;
 }
 
 .promotions-details #name {

@@ -41,7 +41,7 @@
 
             <hbox id="dialogButtons" flex="1" pack="end" class="exitbar">
                 <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('closeBrowser', null, 'Printers');"/>
+                <button id="close" default="true" class="button-exit" oncommand="$do('closeBrowser', null, 'Printers');"/>
             </hbox>
         </vbox>
     </box>

@@ -668,8 +668,8 @@
                         <button id="delete_plu" label="&plus.button.action.delete;" disabled="true" class="button-delete" oncommand="$do('remove', null, 'Plus');" />
                     </hbox>
                     <hbox pack="center" class="exitbar">
-                        <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'Plus');"/>
+                        <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                        <button id="close" default="true" class="button-exit" oncommand="$do('exit', null, 'Plus');"/>
                     </hbox>    
                 </hbox>
                 

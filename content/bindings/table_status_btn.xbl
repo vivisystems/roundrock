@@ -14,14 +14,7 @@
 
 <binding id="table_status_btn" display="xul:button"
            extends="chrome://global/content/bindings/button.xml#button-base">
-  <resources>
-  	<stylesheet src="chrome://viviecr/skin/buttons.css" />
-    <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
-    <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
-    <stylesheet src="chrome://viviecr/skin/user/table_status_btn.css" />
-    <stylesheet src="chrome://viviecr/skin/user/TableStyle.css" />
-  </resources>
-
+               
   <content>
     <xul:hbox xbl:inherits="align,dir,pack,orient,disabled" anonid="boxContainer">
     <!-- html:div anonid="face_div" style="position: relative;">

@@ -47,10 +47,10 @@
                 </tabpanels>
             </tabbox>
             <hbox id="dialogButtons" class="exitbar">
-                <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="doOKButton();"/>
+                <button id="save" default="true" class="button-save" oncommand="doOKButton();"/>
                 <spacer flex="1"/>
-                <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                <button id="close" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="doCancelButton();"/>
+                <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button id="close" default="false" class="button-exit" oncommand="doCancelButton();"/>
             </hbox>
         </vbox>
     </vbox>

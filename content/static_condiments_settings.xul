@@ -132,10 +132,10 @@
 
                 <hbox>
                     <hbox flex="1" class="exitbar">
-                        <button id="save" class="button-save" label="" oncommand="$do('save', null,'StaticCondiments');"/>
+                        <button id="save" class="button-save" oncommand="$do('save', null,'StaticCondiments');"/>
                         <spacer flex="1"/>
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                        <button id="close" class="button-exit" label="" default="true" oncommand="$do('exit', null, 'StaticCondiments')"/>
+                        <button id="vkb" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                        <button id="close" default="true" class="button-exit" oncommand="$do('exit', null, 'StaticCondiments')"/>
                     </hbox>
                 </hbox>
             </vbox>

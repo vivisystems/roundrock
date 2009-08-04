@@ -48,7 +48,7 @@
                     <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                 </hbox>
                 <hbox pack="end" class="exitbar">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                 </hbox>
             </hbox>
         </vbox>

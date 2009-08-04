@@ -132,10 +132,10 @@
             <label value="&storecontact.requiredNotice;" class="label-notice"/>
             <spacer flex="1" />
             <hbox flex="1" class="exitbar">
-                <button id="save" label="&dialog.saveButton.label;" class="button-save" default="true" oncommand="$do('update', null, 'StoreContact')"/>
+                <button id="save" class="button-save" default="true" oncommand="$do('update', null, 'StoreContact')"/>
                 <spacer flex="1"/>
-                <button id="vkb" label="" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                <button id="close" label="&dialog.cancelButton.label;" class="button-exit" default="false" oncommand="$do('exit', null, 'StoreContact');"/>
+                <button id="vkb" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                <button id="close" default="false" class="button-exit" oncommand="$do('exit', null, 'StoreContact');"/>
             </hbox>
         </vbox>
     </vbox>

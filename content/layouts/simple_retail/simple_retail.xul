@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/layout.dtd">
 
-<?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
+<?xml-stylesheet href="overlay.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/vfdpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/orderstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/department.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/product.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/condiment.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/inputline.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/promotions_status.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/terminalstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/functionpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
 
-<?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/visible_promotions_status_overlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/bannerOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay2.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/visible_promotions_status_overlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/bannerOverlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/input_line_overlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/overlays/static_condiments_overlay.xul"?>
 
-<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/cartlistPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/functionPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/product_image_overlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/static_condiments_overlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/functionPanelOverlay.xul"?>
+<?xul-overlay href="chrome://viviecr/content/layouts/simple_retail/overlays/product_image_overlay.xul"?>
 
 <overlay id="simpleRetailLayoutOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -26,27 +41,27 @@
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="mainpanel" orient="vertical" dir="normal">
+        <box id="mainPanel" flex="1" class="main-panel" orient="vertical" dir="normal">
 
             <box id="bannerPanelContainer" flex="0" orient="horizontal"/>
             <box id="mainBody" flex="1" orient="horizontal">
-                <box id="leftPanel" flex="0" class="leftPanel" orient="vertical">
-                    <box id="productImagePanelContainer" flex="1" class="roundedContainerBorder" panel="&layout.panel.product.image;"/>
-                    <box id="categoryPanelOuterContainer" flex="0" orient="vertical" class="roundedContainerBorder" panel="&layout.panel.departments;">
+                <box id="leftPanel" flex="0" class="left-panel" orient="vertical">
+                    <box id="productImagePanelContainer" flex="1" panel="&layout.panel.product.image;"/>
+                    <box id="categoryPanelOuterContainer" flex="0" orient="vertical" panel="&layout.panel.departments;">
                         <box id="categoryPanelContainer" flex="0"/>
                     </box>
-                    <box id="functionPanelOuterContainer" flex="0" orient="vertical" class="roundedContainerBorder" panel="&layout.panel.function;">
+                    <box id="functionPanelOuterContainer" flex="0" orient="vertical" panel="&layout.panel.function;">
                         <box id="functionPanelContainer" flex="0"/>
                     </box>
                 </box>
 
                 <spacer id="panelSpacer" flex="1"/>
 
-                <vbox id="rightPanel" flex="0" style="overflow: hidden" orient="vertical" class="rightPanel">
-                    <box id="vfdPanelContainer" flex="0" class="roundedContainerBorder" panel="&layout.panel.vfd;"/>
-                    <box id="cartlistPanelContainer" flex="1" class="roundedContainerBorder" panel="&layout.panel.cart;"/>
-                    <box id="inputLinePanelContainer" flex="0" class="roundedContainerBorder" panel="&layout.panel.inputline;"/>
-                    <box id="visiblePromotionsStatusPanelContainer" flex="0" class="roundedContainerBorder" panel="&layout.panel.promotions;"/>
+                <vbox id="rightPanel" flex="0" orient="vertical" class="right-panel">
+                    <box id="vfdPanelContainer" flex="0" panel="&layout.panel.vfd;"/>
+                    <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
+                    <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
+                    <box id="visiblePromotionsStatusPanelContainer" flex="0" panel="&layout.panel.promotions;"/>
                 </vbox>
                 <box id="productPanelContainer" flex="1" style="display: none;"/>
             </box>

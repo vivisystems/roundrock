@@ -15,12 +15,14 @@
 .main-overlay .left-panel {
     max-width: 360px;
     min-width: 360px;
+    overflow: hidden;
     width: 360px;
 }
 
 .main-overlay .right-panel {
     max-width: 440px;
     min-width: 440px;
+    overflow: hidden;
     width: 440px;
 }
 
@@ -28,6 +30,13 @@
     min-width: 38px;
     max-width: 38px;
     width: 38px;
+}
+
+.main-overlay box[panel] {
+    border: 3px solid #a1a1a1;
+    margin: 4px;
+    padding: 4px;
+    -moz-border-radius: 6px;
 }
 
 .main-overlay .main-wait-panel {
@@ -43,8 +52,4 @@
     margin: 8px;
     padding: 4px;
     -moz-border-radius: 8px;
-}
-
-#statusbar-display .statusbarpanel-text {
-    display: none;
 }

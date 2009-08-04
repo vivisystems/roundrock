@@ -62,10 +62,10 @@ var options;
         
         document.getElementById('cancel').setAttribute('disabled', false);
 
-        document.getElementById('clearBtn').addEventListener('command', clearTextBox, false);
         document.getElementById('drawer_amount').textbox.select();
 
         document.getElementById('close').disabled = !canEndSalePeriod;
+
         doSetOKCancel(
 
             function(){
@@ -83,6 +83,9 @@ var options;
                     inputObj.ok = true;
                     return true;
                 }
+                else {
+                    alert('cash change: [' + inputObj.amount + ']');
+                }
             },
 
             function(){
@@ -93,17 +96,6 @@ var options;
 
     };
 
-    /**
-     * Clear  box
-     */
-    function clearTextBox() {
-
-        var focusedElement = document.commandDispatcher.focusedElement;
-        focusedElement.value = '';
-
-    };
-
-    
     window.addEventListener('load', startup, false);
 
 })();
@@ -143,11 +135,4 @@ function confirmEndShift() {
             return false;
         }
     }
-}
-
-function validateInput() {
-    var okButton = document.getElementById('ok');
-    var amount = GeckoJS.String.trim(document.getElementById('drawer_amount').value);
-
-    okButton.setAttribute('disabled', isNaN(amount) || amount > options.cashNet);
 }

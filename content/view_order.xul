@@ -63,7 +63,7 @@
                     <vivibutton id="print" disabled="true" class="PrintBtn" oncommand="$do('exportRcp', null, 'ViewOrder')"/>
                 </hbox>
                 <hbox id="dialogButtons" class="exitbar">
-                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="doOKButton();"/>
+                    <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
         </vbox>

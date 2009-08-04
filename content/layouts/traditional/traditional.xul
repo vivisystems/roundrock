@@ -18,7 +18,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
 
-<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay2.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>

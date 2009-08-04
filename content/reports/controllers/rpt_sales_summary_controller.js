@@ -40,6 +40,14 @@
         },
         
         setConditionsAnd_reportRecords: function( parameters ) {
+            document.getElementById( 'start_date' ).value = parameters.start;
+            document.getElementById( 'end_date' ).value = parameters.end;
+            document.getElementById( 'terminal_no' ).value = parameters.terminalNo;
+            document.getElementById( 'period_type' ).value = parameters.periodtype;
+            document.getElementById( 'shift_no' ).value = parameters.shiftno;
+            document.getElementById( 'num_dept' ).value = parameters.num_dept || 10;
+            document.getElementById( 'num_product' ).value = parameters.num_product || 10;
+
             this._setConditions( parameters.start, parameters.end, parameters.terminalNo, parameters.periodtype, parameters.shiftno, parameters.num_dept || 10, parameters.num_product || 10 );
             this._set_reportData();
         },

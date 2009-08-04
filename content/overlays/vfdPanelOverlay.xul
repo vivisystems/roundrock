@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/vfdpanel.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/orderstatus.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/orderstatus.dtd">
 
@@ -10,20 +8,20 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <box id="vfdPanelContainer" orient="vertical" flex="0">
-    <vbox id="vfdPanel" flex="1" class="vfdPad">
+    <vbox id="vfdPanel" flex="1" class="vfd-pad">
 
-        <onscreenvfd id="onscreenvfd" maxlen="17" class="vbox_vfd" labelClass="label_vfd" value="" />
+        <onscreenvfd id="onscreenvfd" maxlen="17" class="vfd-vbox" labelClass="vfd-label" inputController="inputLineTextBox" value="" />
 
         <vivisessionstatus id="vivipos_fec_order_status" flex="1"
-                               class="orderstatus"
-                               columns="4"
-                               noseparator="true"
-                               labels="&viviorderstatus.pricelevel.label;,&viviorderstatus.taxtotal.label;,&viviorderstatus.numberitems.label;,&viviorderstatus.ordersequence.label;"
-                               ratios="10,10,10,3"
-                               keys="vivipos_fec_price_level,vivipos_fec_tax_total,vivipos_fec_number_of_items,vivipos_fec_order_sequence"
-                               labelClass="orderstatus_field_label"
-                               valueClass="orderstatus_field_value"
-                               />
+                           class="orderstatus"
+                           columns="4"
+                           noseparator="true"
+                           labels="&viviorderstatus.pricelevel.label;,&viviorderstatus.taxtotal.label;,&viviorderstatus.numberitems.label;,&viviorderstatus.ordersequence.label;"
+                           ratios="10,10,10,3"
+                           keys="vivipos_fec_price_level,vivipos_fec_tax_total,vivipos_fec_number_of_items,vivipos_fec_order_sequence"
+                           labelClass="orderstatus-field-label"
+                           valueClass="orderstatus-field-value"
+                           />
         <vivisessionstatus id="vivipos_fec_check_tracking_status" flex="1"
                                class="orderstatus"
                                columns="4"
@@ -32,8 +30,8 @@
                                ratios="10,10,10,3"
                                labels="&viviorderstatus.destination.label;,&viviorderstatus.numbercustomer.label;,&viviorderstatus.checknumber.label;,&viviorderstatus.tablenumber.label;"
                                keys="vivipos_fec_order_destination,vivipos_fec_number_of_customers,vivipos_fec_check_number,vivipos_fec_table_number"
-                               labelClass="orderstatus_field_label"
-                               valueClass="orderstatus_field_value"
+                               labelClass="orderstatus-field-label"
+                               valueClass="orderstatus-field-value"
                                />
     </vbox>
   </box>

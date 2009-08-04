@@ -86,7 +86,7 @@
                         <button id="delete_acl_group" label="&aclgroups.button.action.delete;" disabled="true" class="button-delete" oncommand="$do('remove', null, 'AclGroups');" />
                     </hbox>
                     <hbox pack="end" class="exitbar">
-                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'AclGroups');"/>
+                        <button id="close" default="true" class="button-exit" oncommand="$do('exit', null, 'AclGroups');"/>
                     </hbox>
                 </hbox>
             </vbox>

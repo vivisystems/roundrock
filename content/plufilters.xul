@@ -96,8 +96,8 @@
                     </hbox>
 
                     <hbox pack="end" class="exitbar">
-                        <button id="vkb" label="" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
-                        <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit"
+                        <button id="vkb" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                        <button id="close" default="true" class="button-exit"
                                 oncommand="$do('exit', null, 'Plufilters');"/>
                     </hbox>
                 </hbox>

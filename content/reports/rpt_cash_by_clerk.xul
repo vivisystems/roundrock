@@ -45,11 +45,11 @@
 		                    <row>
 		                        <vbox>
 		                            <label value="&rptcashbyclerk.startdate;"/>
-		                            <vividatetimepicker id="start_date" value="" type="popup"/>
+		                            <vividatetimepicker id="start_date" value="" mode="date" type="popup"/>
 		                        </vbox>
 		                        <vbox>
 		                            <label value="&rptcashbyclerk.enddate;"/>
-		                            <vividatetimepicker id="end_date" value="" type="popup"/>
+		                            <vividatetimepicker id="end_date" value="" mode="date" type="popup"/>
 		                        </vbox>
 		                    </row>
 		                    <row>
@@ -84,7 +84,7 @@
                 </hbox>
                 <hbox id="dialogButtons" pack="end" class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle()"/>
-                    <button id="ok" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="doOKButton();"/>
+                    <button id="ok" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
             <hbox flex="1">
@@ -99,5 +99,4 @@
 
     <!-- overlay the waiting panel. -->
     <popupset id="dialogs"/>
-
 </window>

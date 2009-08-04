@@ -278,7 +278,7 @@
             var aFeatures = 'chrome,dialog,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
 
             var win = this.topmostWindow;
-            if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+            if (win.document.title == 'VIVIPOS' && (typeof win.width) == 'undefined')
                 win = null;
 
             var handWin = GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
@@ -292,7 +292,7 @@
         _serverError: function(state, status, hostname) {
             this.log('ERROR', 'Stock Server error: ' + state + ' [' +  status + '] at ' + hostname);
             var win = this.topmostWindow;
-            if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+            if (win.document.title == 'VIVIPOS' && (typeof win.width) == 'undefined')
                 win = null;
             
             GREUtils.Dialog.alert(win,

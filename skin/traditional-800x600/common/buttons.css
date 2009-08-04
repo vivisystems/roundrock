@@ -136,16 +136,7 @@
 }
 
 .button-clone {
-    background: #bbb url(../images/copy-32x32.png) center center no-repeat;
-}
-
-.button-clone[disabled=false] {
-    border: 2px solid black !important;
-}
-
-.button-clone[disabled=true] {
-    background-color: transparent;
-    border: 0px solid black !important;
+    background: transparent url(../images/copy-32x32.png) center center no-repeat;
 }
 
 .button-vkb {
@@ -159,6 +150,54 @@
 
 .button-clear-all {
     background: transparent url(../images/uncheck.png) center center no-repeat;
+}
+
+.button-clockinout {
+    background: transparent url(../images/clock.png) center center no-repeat;
+}
+
+.button-options {
+    background: transparent url(../images/option.png) center center no-repeat;
+}
+
+.button-toolbar-vkb {
+    background: transparent;
+    list-style-image: url(../images/keyboard.png);
+}
+
+.button-toolbar-clockinout {
+    background: transparent;
+    list-style-image: url(../images/clock.png);
+}
+
+.button-toolbar-options {
+    background: transparent;
+    list-style-image: url(../images/option.png);
+}
+
+.button-toggle {
+  border: 0px solid;
+  height: 32px;
+  margin: 2px;
+  max-height: 32px;
+  max-width: 32px;
+  min-height: 32px;
+  min-width: 32px;
+  width: 32px;
+  -moz-user-focus: ignore;
+  -moz-appearance: none;
+}
+
+.button-toggle:active {
+	background-position:-32px 0;
+}
+
+.button-toggle[state=true] {
+  background: transparent url(../images/maximize.png) -32px 0 no-repeat !important;
+}
+
+.button-toggle[state=false] {
+    background: transparent url(../images/minimize.png) 0 0 no-repeat;
 }
 
 /*-----------------------------------------------------------------------------
@@ -185,11 +224,11 @@
 }
 
 /*-----------------------------------------------------------------------------
- * Systool button 2
+ * iconic buttons
  *-----------------------------------------------------------------------------
  */
 
-.button-systool2 {
+.button-iconic {
     border: none;
     height: 48px;
     margin: 0px;
@@ -199,69 +238,21 @@
     -moz-appearance: none;
 }
 
-.button-systool2 label {
+.button-iconic label {
     display: none;
 }
 
-.button-systool2 description {
+.button-iconic description {
     display: none;
 }
 
-/*-----------------------------------------------------------------------------
- * Standar scroll buttons
- *-----------------------------------------------------------------------------
- */
-
-.rightprevbtn {
-    min-width:32px;
-    height: 50px;
-    width: 32px;
-    list-style-image: url(chrome://viviecr/skin/images/up.png);
-    -moz-user-focus: ignore;
-    -moz-border-radius-topright: 16px;
-    -moz-border-radius-topleft: 16px;
-    margin: 0px 1px 1px 0px;
+.button-iconic[disabled=false] {
+    border: 2px solid black;
 }
 
-.rightnextbtn {
-    height: 50px;
-    min-width:32px;
-    width: 32px;
-    list-style-image: url(chrome://viviecr/skin/images/down.png);
-    -moz-user-focus: ignore;
-    -moz-border-radius-bottomright: 16px;
-    -moz-border-radius-bottomleft: 16px;
-    margin: 0px 1px 1px 0px;
-}
-
-.rightprevbtn[disabled] {
-    /* list-style-image: none; */
-}
-
-.rightnextbtn[disabled] {
-    /* list-style-image: none; */
-}
-
-.rightprevbtn description, .rightnextbtn description {
-	display: none;
-}
-
-/*-----------------------------------------------------------------------------
- * Thumb button with image
- *-----------------------------------------------------------------------------
- */
-
-.imageThumbBtn,
-.imageThumbBtn[checked]{
-    width: 80px;
-    min-width: 80px;
-    height: 80px;
-    min-height: 80px;
-    overflow: hidden;
-}
-
-.imageThumbBtn hbox {
-    -moz-box-orient: vertical;
+.button-iconic[disabled=true] {
+    background-color: transparent;
+    border: 0px solid black;
 }
 
 /*-----------------------------------------------------------------------------
@@ -578,27 +569,27 @@ button_fontsizepicker:not([disabled=true]) button[selected] {
  */
 
 .button-delete {
-  list-style-image: url(../images/icon_del.png);
+    list-style-image: url(../images/icon_del.png);
 }
 
 .button-modify {
-  list-style-image: url(../images/icon_mod.png);
+    list-style-image: url(../images/icon_mod.png);
 }
 
 .button-add {
-  list-style-image: url(../images/icon_add.png);
+    list-style-image: url(../images/icon_add.png);
 }
 
 .button-exit {
-  background: transparent url(../images/ExitBtn.png) center center no-repeat !important;
+    background: transparent url(../images/ExitBtn.png) center center no-repeat !important;
 }
 
 .button-save {
-  background: transparent url(../images/SaveBtn.png) center center no-repeat !important;
+    background: transparent url(../images/SaveBtn.png) center center no-repeat !important;
 }
 
 .button-vkb {
-  background: transparent url(../images/VkbBtn.png) center center no-repeat !important;
+    background: transparent url(../images/VkbBtn.png) center center no-repeat !important;
 }
 
 .button-exit label,

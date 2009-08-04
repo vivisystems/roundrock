@@ -75,7 +75,7 @@
                 </hbox>
                 <hbox class="exitbar">
                     <button id="vkb" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>
-                    <button id="cancel" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="doOKButton();"/>
+                    <button id="cancel" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
         </vbox>

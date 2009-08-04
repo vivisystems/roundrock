@@ -44,7 +44,7 @@
                     <vivibutton id="print" class="PrintBtn" oncommand="$do('printJournal', null, 'ViewJournal')" />
                 </hbox>
                 <hbox id="dialogButtons" class="ExitBar">
-                    <button id="close" label="&dialog.closeButton.label;" default="true" class="button-exit" oncommand="window.close();"/>
+                    <button id="close" default="true" class="button-exit" oncommand="window.close();"/>
                 </hbox>
             </hbox>
         </vbox>

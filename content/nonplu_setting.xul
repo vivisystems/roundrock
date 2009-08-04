@@ -141,10 +141,10 @@
                 <spacer flex="1" />
 
                 <hbox class="exitbar">
-                    <button id="save" label="&dialog.saveButton.label;" class="button-save" oncommand="$do('save', null, 'NonpluSetting');"/>
+                    <button id="save" class="button-save" oncommand="$do('save', null, 'NonpluSetting');"/>
                     <spacer flex="1" />
-                    <button id="vkb" label="" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                    <button id="close" label="&dialog.cancelButton.label;" default="true" class="button-exit" oncommand="$do('exit', null, 'NonpluSetting')"/>
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="close" default="true" class="button-exit" oncommand="$do('exit', null, 'NonpluSetting')"/>
                 </hbox>
             </vbox>
         </hbox>

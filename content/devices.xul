@@ -1238,10 +1238,10 @@
             </tabbox>
 
             <hbox id="dialogButtons" class="exitbar">
-                <button id="save" label="&dialog.applyButton.label;" default="true" class="button-save" oncommand="$do('save', null, 'Devices');"/>
+                <button id="save" default="true" class="button-save" oncommand="$do('save', null, 'Devices');"/>
                 <spacer flex="1"/>
                 <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
-                <button id="close" label="&dialog.cancelButton.label;" default="false" class="button-exit" oncommand="$do('exit', null, 'Devices');"/>
+                <button id="close" default="false" class="button-exit" oncommand="$do('exit', null, 'Devices');"/>
             </hbox>
         </vbox>
     </vbox>
