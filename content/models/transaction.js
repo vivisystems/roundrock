@@ -1214,13 +1214,9 @@
                             if (transItem) transItem.hasMarker = false;
                         }
                         else if (displayItem.type == 'trans_discount') {
-                            this.log('adjustment display item: ' + GeckoJS.BaseObject.dump(displayItem));
-                            this.log('adjustment item: ' + GeckoJS.BaseObject.dump(this.data.trans_discounts[displayItem.index]));
-                            this.data.trans_discount[displayItem.index].hasMarker = false;
+                            this.data.trans_discounts[displayItem.index].hasMarker = false;
                         }
                         else if (displayItem.type == 'trans_surcharge') {
-                            this.log('adjustment display item: ' + GeckoJS.BaseObject.dump(displayItem));
-                            this.log('adjustment item: ' + GeckoJS.BaseObject.dump(this.data.trans_surcharges[displayItem.index]));
                             this.data.trans_surcharges[displayItem.index].hasMarker = false;
                         }
                         else if (displayItem.type == 'subtotal' ||
