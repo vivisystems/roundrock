@@ -42,7 +42,8 @@
             // warn if one or more enabled devices are off-line
             if (warn) {
                 var win = this.topmostWindow;
-                if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+
+                if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
                     win = null;
 
                 var statusResult = this.checkStatusAll();
