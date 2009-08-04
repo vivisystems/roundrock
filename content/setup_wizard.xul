@@ -14,7 +14,7 @@
   %Taxes;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/bindings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/bindings.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/wizard.css" type="text/css"?>
 
 <wizard id="wizard" class="w_main"

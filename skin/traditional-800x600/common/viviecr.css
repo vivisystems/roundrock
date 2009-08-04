@@ -290,6 +290,13 @@ vividatetimepicker-timepad .TimeLabelBox label {
  *-----------------------------------------------------------------------------
  */
 
+vividatetimepicker .viviDateTimeLabel {
+    color: #534741;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px;
+}
+
 vividatetimepicker .datetimepicker-input-box {
     border: none;
     min-height: 36px;

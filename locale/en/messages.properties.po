@@ -14,7 +14,7 @@ msgstr ""
 "#-#-#-#-#  messages.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-08-04 19:57+0800\n"
+"POT-Creation-Date: 2009-08-04 20:37+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5330,8 +5330,12 @@ msgstr ""
 msgid "Please confirm to shut down the terminal"
 msgstr ""
 
-#: ../..//content/controllers/merge_check_controller.js:240
-msgid "The Check# %S has been merged to Check# %S!!"
+#: ../..//content/controllers/merge_check_controller.js:242
+msgid "Order# [%S] has been merged into Order# [%S]"
+msgstr ""
+
+#: ../..//content/controllers/merge_check_controller.js:245
+msgid "Check# [%S] has been merged into Check# [%S]"
 msgstr ""
 
 #: ../..//content/controllers/nonplu_setting_controller.js:14
