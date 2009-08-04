@@ -39,8 +39,7 @@
                     if (index != -1) {
                         var valueNode = self.nodes[index]; //document.getAnonymousElementByAttribute(this, 'anonid', 'value' + index);
                         if (valueNode) {
-                            //valueNode.value = value;
-                            valueNode.setAttribute('value', value);
+                            valueNode.value = value;
                         }
                     }
                 }
@@ -54,21 +53,19 @@
                         var valueNode = self.nodes[index]; //document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
                         } catch (e) {var valueNode=null;}
                         if (valueNode) {
-                            //valueNode.value = '';
-                            valueNode.setAttribute('value', '');
+                            valueNode.value = '';
                         }
                     }
                     //GREUtils.log('[REMOVE]: leaving');
                 }
 
                 var clearHandler = function (evt) {
-                    //GREUtils.log('[CLEAR]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
+                    GREUtils.log('[CLEAR]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
 
                     for (var i = 0; i < self.keys.length; i++) {
                         var valueNode = self.nodes[i]; //document.getAnonymousElementByAttribute(this,'anonid', 'value' + i);
                         if (valueNode) {
-                            //valueNode.value = '';
-                            valueNode.setAttribute('value', '');
+                            valueNode.value = '';
                         }
                     }
                     //GREUtils.log('[CLEAR]: leaving');
@@ -126,14 +123,20 @@
                 <body>
                 <![CDATA[
 
-                    var attrs = ['labels','columns','noseparator','nolabels','ratios','labelClass','valueClass','separatorClass','keys'];
+					if (evt.attrName == 'chromedir') return;
+
+                    var attrs = ['labels','columns','noseparator','nolabels','ratios','labelClass','valueClass','separatorClass','keys','hidden'];
                     if (attrs.indexOf(evt.attrName) == -1) return ;
 
                     //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
 
                     if (evt.attrName != 'value' ) {
-                        this._render();
-                    }
+//						dump('attrModified ' + evt.attrName + '\n');
+						var self = this;
+						setTimeout(function() {
+				                self._render();
+							}, 100);
+		            }
                 ]]>
                 </body>
             </method>
@@ -193,29 +196,35 @@
 
                 //GREUtils.log('[RENDER]: keys <' + this.keys.join(', ') + '> #keys <' + this.keys.length + '> #cols <' + ncols + '> #row <' + r + '>');
                 // create rows
+				grid.appendChild(rows);
 
                 this.nodes = [];
                 var index = 0;
                 for (var i = 0; i < r; i++) {
+
                     var row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
+					rows.appendChild(row);
 
                     for (j = 0; j < ncols; j++) {
                         if (useLabel) {
                             // create label
-                            var labelNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
+                            let labelNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
+
                             labelNode.setAttribute('class', labelClass);
-                            labelNode.setAttribute('value', labels[index]);
                             labelNode.setAttribute('disabled', 'true');
                             row.appendChild(labelNode);
+							labelNode.value = labels[index];
+							
                         }
 
                         //GREUtils.log('[RENDER]: added field label <' + labelNode.getAttribute('value') + '>');
-                        var valueNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
+                        let valueNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
                         valueNode.setAttribute('class', valueClass);
                         valueNode.setAttribute('anonid', 'value' + index);
-                        valueNode.setAttribute('value', GeckoJS.Session.get(this.keys[index]));
                         valueNode.setAttribute('disabled', 'true');
                         row.appendChild(valueNode);
+						valueNode.value = (GeckoJS.Session.get(this.keys[index]) || "");
+
                         this.nodes.push(valueNode);
 
                         //GREUtils.log('[RENDER]: added field value <' + valueNode.getAttribute('value') + '>');
@@ -226,11 +235,11 @@
                             sepNode.setAttribute('orient', 'vertical');
                             row.appendChild(sepNode);
                         }
-                        rows.appendChild(row);
+                        //rows.appendChild(row);
                         if (++index == this.keys.length) break;
                     }
                 }
-                grid.appendChild(rows);
+                // grid.appendChild(rows);
                 ]]>
                 </body>
             </method>
@@ -240,6 +249,8 @@
                 <body>
                 <![CDATA[
                     //GREUtils.log('[LOCATE]: checking for key <' + key + '> in keys <' + this.keys + '');
+
+					return this.keys.indexOf(key);
 
                     var found = -1;
                     
