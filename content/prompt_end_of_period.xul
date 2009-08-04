@@ -6,9 +6,10 @@
   %EndOfPeriod;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -29,10 +30,10 @@
         window.addEventListener('load', startup, false);
 
     </script>
-    <vbox class="main-dialog" flex="1">
-        <vbox class="MainPnl" flex="1">
-            <label id="message" value="" class="PageTitle"/>
-    		<grid flex="1">
+    <vbox flex="1" class="container-dialog">
+        <vbox flex="1" class="container-main">
+            <label id="message" value="" class="label-page-title"/>
+    		<grid flex="1" class="container-report">
                 <columns>
                     <column  flex="1"/>
                     <column flex="1" />
@@ -63,7 +64,7 @@
                     </row>
                 </rows>
             </grid>
-            <hbox flex="1" class="ToolBar" pack="center">
+            <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
                 <button id="login" label="&shiftchange.button.login;" disabled="false" default="false" oncommand="doOKButton();"/>
             	<button id="poweroff" label="&shiftchange.button.poweroff;" disabled="false" default="true" oncommand="opener.$do('shutdownMachine', null, 'Main');"/>
             </hbox>

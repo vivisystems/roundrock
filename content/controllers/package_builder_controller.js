@@ -103,7 +103,7 @@
         },
 
         selectLocation: function(index) {
-            var locationObj = document.getElementById('location');
+            var locationObj = document.getElementById('pkg_location');
 
             if (index > -1) {
                 locationObj.value = this.Locations[index].location;
@@ -113,7 +113,7 @@
         },
 
         selectSector: function(index) {
-            var sectorObj = document.getElementById('sector');
+            var sectorObj = document.getElementById('pkg_sector');
 
             if (index > -1) {
                 sectorObj.value = this.SectorList[index].sector;
@@ -271,8 +271,8 @@
         },
         
         validateForm: function() {
-            var location = GeckoJS.String.trim(document.getElementById('location').value);
-            var sector = GeckoJS.String.trim(document.getElementById('sector').value);
+            var location = GeckoJS.String.trim(document.getElementById('pkg_location').value);
+            var sector = GeckoJS.String.trim(document.getElementById('pkg_sector').value);
             var exportBtn = document.getElementById('export');
 
             var resolutions = this._getSelectedResolutions();
@@ -334,8 +334,8 @@
             }
 
             var data = {};
-            data.location = document.getElementById('location').value;
-            data.sector = document.getElementById('sector').value;
+            data.location = document.getElementById('pkg_location').value;
+            data.sector = document.getElementById('pkg_sector').value;
             data.resolutions = this._getSelectedResolutions();
             data.locales = this.targetLocales;
             data.translations = this.translations;

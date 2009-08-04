@@ -1,3 +1,10 @@
+/*-----------------------------------------------------------------------------
+ *
+ * CSS for Wizard
+ *
+ *-----------------------------------------------------------------------------
+ */
+
 /* first page */
 .wizard_first {
 	background: white url(images/wizard_first.gif) center center no-repeat;
@@ -193,8 +200,10 @@
     background: transparent url(images/morebtn.png) center center no-repeat;
     max-width: 100px;
     min-width: 100px;
+    width: 100px;
     max-height: 60px;
     min-height: 60px;
+    height: 60px;
     -moz-appearance: none;
     color: #444;
     font-size: 8pt;

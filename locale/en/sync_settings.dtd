@@ -4,37 +4,37 @@
 <!ENTITY sync_settings.tablabel.advanced "Advanced">
 <!ENTITY sync_settings.tablabel.services "Local Services">
 
-<!ENTITY sync_settings.label.active "Active.">
-<!ENTITY sync_settings.label.protocol "Protocol.">
-<!ENTITY sync_settings.label.hostname "master hostname/ip.">
-<!ENTITY sync_settings.label.port "port.">
+<!ENTITY sync_settings.label.active "Enable Network Services">
+<!ENTITY sync_settings.label.protocol "Protocol:">
+<!ENTITY sync_settings.label.hostname "Synchronization Server Hostname or IP:">
+<!ENTITY sync_settings.label.port "Port:">
 
-<!ENTITY sync_settings.label.machine_id "Terminal Number (a-z, A-Z, 0-9)">
-<!ENTITY sync_settings.label.password "Password.">
+<!ENTITY sync_settings.label.machine_id "Terminal Number (a-z, A-Z, 0-9):">
+<!ENTITY sync_settings.label.password "Password:">
 
-<!ENTITY sync_settings.label.batch_limit "batch_limit.">
-<!ENTITY sync_settings.label.interval "interval.">
+<!ENTITY sync_settings.label.batch_limit "Batch Size:">
+<!ENTITY sync_settings.label.interval "Synchronization Interval:">
 
-<!ENTITY sync_settings.label.start_hour "start_hour.">
-<!ENTITY sync_settings.label.end_hour "end_hour.">
+<!ENTITY sync_settings.label.start_hour "Start Hour:">
+<!ENTITY sync_settings.label.end_hour "End Hour:">
 
-<!ENTITY sync_settings.label.error_retry "error_retry.">
-<!ENTITY sync_settings.label.timeout "timeout.">
+<!ENTITY sync_settings.label.error_retry "Error Retries:">
+<!ENTITY sync_settings.label.timeout "Timeout:">
 
-<!ENTITY sync_settings.label.notify_pull "notify_pull.">
-<!ENTITY sync_settings.label.notify_push "notify_push.">
+<!ENTITY sync_settings.label.notify_pull "Notify on Pull:">
+<!ENTITY sync_settings.label.notify_push "Notify on Push:">
 
 <!ENTITY sync_settings.label.retain_days "Number of days to retain sync log">
-<!ENTITY sync_settings.label.pull_order "Pull order data from master">
+<!ENTITY sync_settings.label.pull_order "Pull order data from synchronization server">
 
-<!ENTITY sync_settings.label.sequence_hostname "order sequence/checkno hostname/ip.">
+<!ENTITY sync_settings.label.sequence_hostname "Order sequence/checkno hostname or IP">
 <!ENTITY sync_settings.desc.sequence_hostname "Provide order sequence/checkno service's server. Local Network master or localhost">
 
-<!ENTITY sync_settings.label.table_hostname "table services server hostname/ip.">
+<!ENTITY sync_settings.label.table_hostname "Table services server hostname or IP">
 <!ENTITY sync_settings.desc.table_hostname "Provide table service's server. Local Network master or localhost">
 
-<!ENTITY sync_settings.label.stock_hostname "stock services server hostname/ip.">
+<!ENTITY sync_settings.label.stock_hostname "Stock services server hostname or IP">
 <!ENTITY sync_settings.desc.stock_hostname "Provide realtime stock service's server. Local Network master or localhost">
 
-<!ENTITY sync_settings.label.ntp_hostname "Network Time Protocol server hostname/ip.">
+<!ENTITY sync_settings.label.ntp_hostname "Network Time Protocol server hostname or IP">
 <!ENTITY sync_settings.desc.ntp_hostname "Network Time Protocol service's server. Local Network master or localhost">

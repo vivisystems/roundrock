@@ -6,9 +6,11 @@
   %PricelevelSchedule;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/pricelevelschedule.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/pricelevelschedule.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -17,7 +19,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
@@ -26,69 +28,76 @@
   <script src="chrome://viviecr/content/controllers/pricelevelschedule_controller.js" type="application/x-javascript"/>
 
   <!-- include startup script -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/pricelevelschedule.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/pricelevelschedule.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <hbox flex="1" class="MainPnl">
-            <vbox flex="1" pack="start" class="MainL">
-                <caption label="&pricelevelschedule.title;" class="PageTitle" />
-                <tabbox id="weekindex" class="RightTabbox"
-                        onselect="$do('selectWeek', this.selectedIndex, 'PriceLevelSchedule')">
-                    <tabs id="weeklabel" >
-                        <tab label="-" flex="1" />
-                        <tab label="-" flex="1" />
-                        <tab label="-" flex="1" />
-                        <tab label="-" flex="1" />
-                        <tab label="-" flex="1" />
-                        <tab label="-" flex="1" />
-                        <tab label="-" flex="1" />
-                    </tabs>
-                </tabbox>
-                <vivitree id="schedulescrollablepanel" flex="1" class="ListPnl showscrollbar"
-                          headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
-                          fields="time,pricelevel"
-                          ensureVisible="true"
-                          onselect="$do('validateForm', null, 'PriceLevelSchedule')"/>
-            </vbox>
-            <vbox >
-                <label value="&pricelevelschedule.add.header;" class="PageTitle"/>
-                <vbox class="PLbox" flex="1">
-                    <label value="&pricelevelschedule.step1;" class="SubTitle"/>
-                    <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="3" rows="4" hideScrollbar="true"
-                                               labelField="name" ensureVisible="true"
-                                               oncommand="$do('validateForm', null, 'PriceLevelSchedule')"
-                                               class="ItemScrollablepanel"
-                                               buttonClass="ItemButtonA"
-                                               scrollUpClass="ScrollUp"
-                                               scrollDownClass="ScrollDown">
+    <vbox class="container-be layout-be" flex="1">
+        <vbox flex="1" class="container-main layout-a">
+            <hbox flex="1">
+                <vbox class="container-left block-50">
+                    <label value="&pricelevelschedule.title;" class="label-page-title"/>
+                    <tabbox id="weekindex" class="content-tabbox"
+                            onselect="$do('selectWeek', this.selectedIndex, 'PriceLevelSchedule')">
+                        <tabs id="weeklabel" >
+                            <tab label="-" flex="1"/>
+                            <tab label="-" flex="1"/>
+                            <tab label="-" flex="1"/>
+                            <tab label="-" flex="1"/>
+                            <tab label="-" flex="1"/>
+                            <tab label="-" flex="1"/>
+                            <tab label="-" flex="1"/>
+                        </tabs>
+                    </tabbox>
+                    <vbox flex="1" class="content-box">
+                        <vivitree id="schedulescrollablepanel" flex="1" class="standard custom-content-pricelevel-list"
+                                  ensureVisible="true" hidecolumnpicker="true"
+                                  headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
+                                  fields="time,pricelevel"
+                                  onselect="$do('validateForm', null, 'PriceLevelSchedule')"/>
+                    </vbox>
+                    <hbox class="toolbar" toolbarmode="horizontal">
                         <spacer flex="1"/>
-                    </viviscrollablebuttonpanel>
-                </vbox>
-
-                <vbox class="RightPnlB" flex="1">
-                    <label value="&pricelevelschedule.step2;" class="SubTitle"/>
-                    <vividatetimepicker-timepad id="datetime" flex="1" type="embed" class="DateTime"/>
-                </vbox>
-                
-                <button id="add_schedule" label="&pricelevelschedule.button.add;" class="BtnAdd" disabled="false" oncommand="$do('add', null, 'PriceLevelSchedule');" />
-
-                <spacer flex="1" />
-                 
-                <hbox>
-                    <hbox class="ToolBar" flex="1">
-                        <button id="remove_schedule" label="&pricelevelschedule.button.remove;" disabled="false" class="BtnDel" oncommand="$do('remove', null, 'PriceLevelSchedule');" />
+                        <button id="remove_schedule" label="&pricelevelschedule.button.remove;" disabled="false" flex="1"
+                                class="button-execute button-delete"
+                                oncommand="$do('remove', null, 'PriceLevelSchedule');"/>
+                        <spacer flex="1"/>
                     </hbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </vbox>
+                <vbox flex="1">
+                    <label value="&pricelevelschedule.add.header;" class="label-page-title"/>
+                    <vbox flex="1" class="content-buttonpanel">
+                        <label value="&pricelevelschedule.step1;" class="label-sub-title"/>
+                        <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="3" rows="4" hideScrollbar="true"
+                                                   labelField="name" ensureVisible="true"
+                                                   oncommand="$do('validateForm', null, 'PriceLevelSchedule')"
+                                                   buttonClass="button-item-a"
+                                                   scrollUpClass="scroll-up-button"
+                                                   scrollDownClass="scroll-down-button">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </vbox>
+
+                    <vbox flex="1" class="content-buttonpanel">
+                        <label value="&pricelevelschedule.step2;" class="label-sub-title"/>
+                        <vividatetimepicker-timepad id="datetime" flex="1" type="embed"/>
+                    </vbox>
+                    <hbox class="toolbar" toolbarmode="horizontal">
+                        <spacer flex="1"/>
+                        <button id="add_schedule" label="&pricelevelschedule.button.add;" disabled="false" flex="1"
+                                class="button-execute button-add"
+                                oncommand="$do('add', null, 'PriceLevelSchedule');"/>
+                        <spacer flex="1"/>
                     </hbox>
-                </hbox>
-            </vbox>
-        </hbox>
+                </vbox>
+            </hbox>
+            <hbox pack="end" class="exitbar">
+                <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button id="close" default="true" class="button-exit" oncommand="window.close();"/>
+            </hbox>
+        </vbox>
     </vbox>
   
     

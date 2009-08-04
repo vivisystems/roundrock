@@ -6,8 +6,9 @@
   %RemoteControl;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -16,7 +17,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include model -->
     <script src="chrome://viviecr/content/models/x11vnc_setting.js" type="application/x-javascript"/>
@@ -25,61 +26,62 @@
     <script src="chrome://viviecr/content/controllers/remote_control_controller.js" type="application/x-javascript"/>
 
   <!-- include startup script -->
-    <script type="application/x-javascript" src="chrome://viviecr/content/remote_control.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/remote_control.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('save').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()"/>
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <vbox flex="1" class="MainPnl">
+    <vbox flex="1" class="container-be">
+        <vbox flex="1" class="container-main">
 
-            <tabbox class="RightTabbox" flex="1">
+            <tabbox flex="1" class="content-tabbox">
 
                 <tabs>
                     <tab id="basic-tab" label="&remote_control.tablabel.basic;"/>
                 </tabs>
 
                 <tabpanels>
-                    <tabpanel id="basic-panel" orient="horizontal">
-                        <vbox class="SetArea" flex="1">
-                            <textbox form="remoteControlForm" name="password_org" value="" hidden="true" />
-                            <grid class="DataForm" flex="1">
-                                <columns>
-                                    <column  flex="1" />
-                                    <column flex="5" />
-                                </columns>
-                                <rows>
-                                    <row>
-                                            <label value="&remote_control.label.port;" />
-                                            <textbox form="remoteControlForm" name="port" value="5900"/>
-                                    </row>
+                    <tabpanel id="basic-panel" orient="vertical">
+                        <textbox value="" hidden="true"
+                                 form="remoteControlForm" name="password_org"/>
+                        <grid class="data-form" flex="1">
+                            <columns>
+                                <column  flex="1"/>
+                                <column flex="5"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                        <label value="&remote_control.label.port;"/>
+                                        <vivitextbox value="5900" type="number"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     form="remoteControlForm" name="port"/>
+                                </row>
 
-                                    <row>
-                                            <label value="&remote_control.label.password;" />
-                                            <textbox type="password" form="remoteControlForm" name="password" value=""/>
-                                    </row>
+                                <row>
+                                        <label value="&remote_control.label.password;"/>
+                                        <textbox type="password" value=""
+                                                 form="remoteControlForm" name="password"/>
+                                </row>
 
-                                    <row>
-                                            <label value="&remote_control.label.verify;" />
-                                            <textbox type="password" form="remoteControlForm" name="verify" value=""/>
-                                    </row>
+                                <row>
+                                        <label value="&remote_control.label.verify;"/>
+                                        <textbox type="password" value=""
+                                                 form="remoteControlForm" name="verify"/>
+                                </row>
 
-                                </rows>
-                            </grid>
-                        </vbox>
+                            </rows>
+                        </grid>
                     </tabpanel>
                 </tabpanels>
             </tabbox>
 
-            <spacer flex="1" />
-
-            <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
-                <spacer flex="1" />
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+            <hbox id="dialogButtons" class="exitbar">
+                <button id="save" default="true" class="button-save" oncommand="$do('save', null, 'RemoteControl');"/>
+                <spacer flex="1"/>
+                <button id="vkb" class="button-vkb"  oncommand="VirtualKeyboard.toggle();"/>
+                <button id="cancel" default="false" class="button-exit" oncommand="$do('exit', null, 'RemoteControl');"/>
             </hbox>
   
         </vbox>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/clockin.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/clockin.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/clockin.css" type="text/css"?>
 
 <window title="&clockin.title;"
         hidechrome="true"

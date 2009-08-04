@@ -6,37 +6,38 @@
   %PaymentDetails;
 ]>
 
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/payment_details.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/payment_details.css" type="text/css"?>
 
 <overlay id="paymentDetailsDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/payment_details.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/payment_details.js"/>
     
     <popupset id="dialogs">
 
-        <vivipanel id="paymentDetailsPanel" noautohide="false">
+        <vivipanel id="paymentDetailsPanel" noautohide="false" class="container-dialog layout-dialog">
 
-            <hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;">
+            <hbox flex="1" class="layout-fullscreen">
 
-                <vbox class="MainPnl" flex="1">
+                <vbox flex="1" class="container-main">
 
-                    <caption id="paymentDetails-title" class="PageTitle" />
-                    <viviscrollabletree id="paymentscrollablepanel" flex="1" headers="&paymentdetails.amount;,&paymentdetails.origin_amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"
-                                        fields="amount,origin_amount,name,memo1,memo2"
-                                        class="paymentscrollablepanel" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
-
-                    <spacer height="10px"/>
+                    <label id="paymentDetails-title" class="label-page-title"/>
+                    <vbox flex="1" class="content-listbox">
+                        <vivitree id="paymentscrollablepanel" flex="1"
+                                  headers="&paymentdetails.amount;,&paymentdetails.origin_amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"
+                                  fields="amount,origin_amount,name,memo1,memo2"
+                                  class="standard" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
+                    </vbox>
                     
-                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                        <button class="ExitBtn" id="paymentDetails-ok" label="&dialog.closeButton.label;" default="true" oncommand="$.hidePanel('paymentDetailsPanel', false)"/>
+                    <hbox id="dialogButtons" pack="end" class="exitbar">
+                        <button id="paymentDetails-ok" default="true" class="button-exit"
+                                oncommand="$.hidePanel('paymentDetailsPanel', false)"/>
                     </hbox>
 
                 </vbox>

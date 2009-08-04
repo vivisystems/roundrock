@@ -130,9 +130,8 @@
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
 
             var win = this.topmostWindow;
-            if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+            if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
                 win = null;
-            
             GREUtils.Dialog.openWindow(win, aURL, aName, aFeatures, aArguments);
         },
 
@@ -710,7 +709,7 @@
                 this._dbError(e.errno, e.errstr, e.errmsg);
                 return;
             }
-
+            
             if (inputObj.ok) {
 
                 // cancel current transaction
@@ -845,7 +844,7 @@
 
                 // offer options to power off or restart and to print shift and day reports
                 var aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=280';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=250';
                 var parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                 GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Sale Period Close'), features, parms);
 
@@ -908,7 +907,6 @@
         },
         
         reviewShiftReport: function( all ) {
-            var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get('terminal_no');
 
@@ -931,7 +929,6 @@
         },
 
         reviewDailySales: function() {
-            var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
             var salePeriod = this._getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
             var periodType = 'sale_period';

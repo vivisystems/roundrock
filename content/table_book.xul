@@ -6,9 +6,9 @@
   %TableMan;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://viviecr/content/overlays/tableBookOverlay.xul" ?>
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -26,8 +26,8 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('search_ok').click()" />
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <vbox flex="1" class="MainPnl">
+    <vbox class="container-be" flex="1">
+        <vbox flex="1" class="container-main">
             <box id="tableBookContainer" flex="1"/>
         </vbox>
     </vbox>

@@ -39,6 +39,29 @@
 
         getCurrentIndexData: function (row) {
             return this.data[row];
+        },
+
+        getCellValue: function(row, col) {
+            var sResult;
+            var tax;
+            var key;
+
+            try {
+                key = col.id;
+                tax = this.data[row];
+                sResult= tax[key];
+
+                if (key == 'name') {
+                    var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                    if (tax.id == defaultId) {
+                        sResult = '(*) ' + sResult;
+                    }
+                }
+            }
+            catch (e) {
+                return "";
+            }
+            return sResult;
         }
 
     });

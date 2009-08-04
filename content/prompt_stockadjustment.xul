@@ -8,8 +8,9 @@
   %stockrecords;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -42,11 +43,11 @@
             supplierObj.hidden = true;
         }
     </script>
-    <vbox class="pop-dialog" flex="1">
-        <vbox class="MainPnl" flex="1">
-            <groupbox  flex="1">
-                <caption label="&stockrecords.commit.title;" class="PageTitle"/>
-                <grid id="main-grid" class="DataForm">
+    <vbox flex="1" class="container-dialog">
+        <vbox flex="1" class="container-main">
+            <groupbox flex="1">
+                <caption label="&stockrecords.commit.title;" class="label-page-title"/>
+                <grid id="main-grid" class="data-form">
                     <columns>
                         <column flex="0"/>
                         <column flex="1"/>
@@ -54,7 +55,7 @@
                     <rows id="main-rows">
                         <row id="reason-row">
                             <vbox pack="center">
-                                <label style="width:6em" value="&stockrecords.commit.reason.label;" control="reason"/>
+                                <label value="&stockrecords.commit.reason.label;" control="reason"/>
                             </vbox>
                             <vbox>
 			                    <menulist id="reason">
@@ -69,7 +70,7 @@
 			            </row>
                         <row id="supplier-row" hidden="true">
                             <vbox pack="center">
-                                <label style="width:6em" value="&stockrecords.commit.supplier.label;" control="supplier"/>
+                                <label value="&stockrecords.commit.supplier.label;" control="supplier"/>
                             </vbox>
                             <vbox flex="1">
 			                    <menulist id="supplier" editable="true">
@@ -80,14 +81,14 @@
                         </row>
 
                         <row id="quantity-row" class="RightTabbox">
-                            <label style="width:6em" value="&stockrecords.commit.quantity.label;" control="quantity"/>
+                            <label value="&stockrecords.commit.quantity.label;" control="quantity"/>
                             <vbox flex="1">
                                 <textbox id="quantity" type="number" decimalplaces="Infinity" min="0" flex="1" value="0" onfocus="this.select()"/>
                             </vbox>
                         </row>
 
                         <row id="memo-row">
-                            <label style="width:6em" value="&stockrecords.commit.memo.label;" control="memo"/>
+                            <label value="&stockrecords.commit.memo.label;" control="memo"/>
                             <vbox flex="1">
                                 <textbox id="memo" flex="1" value="" onfocus="this.select()"/>
                             </vbox>
@@ -98,18 +99,20 @@
             <hbox id="numpad" pack="center" flex="1">
                 <numberpad id="multinumberpad" class="numpad" target="plu"/>
                 <vbox>
-                    <sendkeybutton id="bkeyBtn"  label="&numberpad.keylabel.del;" keyCode='0x08' class="fixedbtn"  />
-                    <sendkeybutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="clearFocusedElement()" class="fixedbtn"/>
+                    <sendkeybutton id="bkeyBtn" label="&numberpad.keylabel.del;" keyCode='0x08' class="button-fixed"  />
+                    <sendkeybutton id="clearBtn" label="&numberpad.keylabel.clear;" class="button-fixed" oncommand="clearFocusedElement()"/>
                 </vbox>
             </hbox>
+
             <spacer id="single-line-spacer" flex="1"/>
+
             <hbox>
-                <hbox id="dialogButtons" class="ToolBar" flex="1">
+                <hbox flex="1" pack="center" class="toolbar">
                     <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
                     <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                 </hbox>
-                <hbox class="dialogbtns">
-                    <button id="vkb" label=""  oncommand="opener.VirtualKeyboard.toggle()" class="VkbBtn"/>
+                <hbox pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="opener.VirtualKeyboard.toggle()"/>
                 </hbox>
             </hbox>
         </vbox>

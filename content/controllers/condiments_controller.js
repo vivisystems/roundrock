@@ -6,13 +6,13 @@
 
         helpers: ['Form'],
         
-        _selectedIndex: null,
-        _selectedCondIndex: null,
+        _selectedIndex: -1,
+        _selectedCondIndex: -1,
         _condGroupscrollablepanel: null,
         _condscrollablepanel: null,
 
         initial: function () {
-
+            
             if (GeckoJS.Session.get('condGroups') == null) {
 
                 var condGroups;
@@ -22,7 +22,7 @@
                     recursive: 2
                 });
 
-                GeckoJS.Session.add('condGroups', condGroups);
+                GeckoJS.Session.set('condGroups', condGroups);
                 
                 this.updateCondimentsSession();
 
@@ -39,7 +39,6 @@
 
             var condGroupsById = {};
 
-            var self = this;
             condGroups.forEach(function(condGroup){
 
                 var cgId = condGroup.id;
@@ -47,18 +46,18 @@
                 var condimentGroup = condGroup['CondimentGroup'] || {};
                 condimentGroup['Condiment'] = [];
 
-                if(!condGroup['Condiment']) return ;
-
-                condGroup['Condiment'].forEach(function(condiment) {
-                    condiment['seltype'] = condGroup.seltype;
-                    condimentGroup['Condiment'].push(condiment);
-                });
+                if(condGroup['Condiment']) {
+                    condGroup['Condiment'].forEach(function(condiment) {
+                        condiment['seltype'] = condGroup.seltype;
+                        condimentGroup['Condiment'].push(condiment);
+                    });
+                }
                 condGroupsById[cgId] = condimentGroup;
 
-            });
+            }, this);
 
-            GeckoJS.Session.add('condGroupsById', condGroupsById);
-
+            GeckoJS.Session.set('condGroupsById', condGroupsById);
+            
             var condGroupsByPLU = {};
 
             // preprocess condiments for faster
@@ -105,7 +104,7 @@
 
                 }, this);
             }
-            GeckoJS.Session.add('condGroupsByPLU', condGroupsByPLU);
+            GeckoJS.Session.set('condGroupsByPLU', condGroupsByPLU);
             // self.log('condGroupsByPLU ' + self.dump(condGroupsByPLU));
              
         },
@@ -143,14 +142,65 @@
             this.validateForm();
         },
 
+        exit: function() {
+            // check if condiment group and condiment forms have been modified
+            if ((this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('condGroupForm')) ||
+                (this._selectedCondIndex != -1 && GeckoJS.FormHelper.isFormModified('condimentForm'))) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current condiment group and/or condiment.  Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    if (this._selectedCondIndex != -1 && GeckoJS.FormHelper.isFormModified('condimentForm')) {
+                        this.modifyCond();
+                    }
+                    if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('condGroupForm')) {
+                        this.modify();
+                    }
+                }
+            }
+            window.close();
+        },
+
+        confirmChangeCondGroup: function(index) {
+            // check if condiment group and condiment forms have been modified
+            if ((this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex)) && GeckoJS.FormHelper.isFormModified('condGroupForm')) ||
+                (this._selectedCondIndex != -1 && GeckoJS.FormHelper.isFormModified('condimentForm'))) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current condiment group and/or condiment. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
         changeCondimentPanel: function(index) {
 
+            if (this._selectedIndex == index) return;
+            
             var condGroups = GeckoJS.Session.get('condGroups');
             if (condGroups) {
                 if (index >= condGroups.length) index = condGroups.length - 1;
             }
             else {
                 index = -1;
+            }
+
+            if (!this.confirmChangeCondGroup(index)) {
+                this._condGroupscrollablepanel.selectedItems = [this._selectedIndex];
+                this._condGroupscrollablepanel.selectedIndex = this._selectedIndex;
+                return;
             }
 
             var conds;
@@ -181,8 +231,25 @@
             document.getElementById('condiment_group_name').select();
         },
 
+        confirmChangeCondiment: function(index) {
+            // changing to a new condiment?
+            if (this._selectedCondIndex != -1 && (index == null || (index != -1 && index != this._selectedCondIndex))) {
+                // check if condiment group and condiment forms have been modified
+                if (GeckoJS.FormHelper.isFormModified('condimentForm')) {
+                    if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                                 _('Discard Changes'),
+                                                 _('You have made changes to the current condiment condiment. Are you sure you want to discard the changes?'))) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        },
+
         clickCondimentPanel: function(index) {
 
+            if (this._selectedCondIndex == index) return;
+            
             var condGroups = GeckoJS.Session.get('condGroups');
             var conds = [];
             if (condGroups) {
@@ -202,6 +269,12 @@
             }
             else {
                 index = -1;
+            }
+
+            if (!this.confirmChangeCondiment(index)) {
+                this._condscrollablepanel.selectedItems = [this._selectedCondIndex];
+                this._condscrollablepanel.selectedIndex = this._selectedCondIndex;
+                return;
             }
 
             this._selectedCondIndex = index;
@@ -234,6 +307,9 @@
                 document.getElementById('condiment_name').setAttribute('disabled',  true);
                 document.getElementById('condiment_price').setAttribute('disabled',  true);
                 document.getElementById('condiment_preset').setAttribute('disabled',  true);
+
+                document.getElementById('condiment_button_color').setAttribute('disabled',  true);
+                document.getElementById('condiment_font_size').setAttribute('disabled',  true);
             }
             else {
                 document.getElementById('condiment_group_name').removeAttribute('disabled');
@@ -253,11 +329,17 @@
 
                     document.getElementById('modify_condiment').setAttribute('disabled',  true);
                     document.getElementById('delete_condiment').setAttribute('disabled',  true);
+
+                    document.getElementById('condiment_button_color').setAttribute('disabled',  true);
+                    document.getElementById('condiment_font_size').setAttribute('disabled',  true);
                 }
                 else {
                     document.getElementById('condiment_name').removeAttribute('disabled');
                     document.getElementById('condiment_price').removeAttribute('disabled');
-                    document.getElementById('condiment_preset').removeAttribute('disabled');
+                    document.getElementById('condiment_preset').setAttribute('disabled', false);
+
+                    document.getElementById('condiment_button_color').setAttribute('disabled',  false);
+                    document.getElementById('condiment_font_size').setAttribute('disabled',  false);
 
                     // validate condiment name and price
                     var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
@@ -287,14 +369,15 @@
         },
 
         setInputData: function (valObj) {
-
             GeckoJS.FormHelper.unserializeFromObject('condGroupForm', valObj);
-        //this.query('#condiment_group_id').val(valObj.id);
-        //this.query('#condiment_group_name').val(valObj.name);
-        //this.query('#condiment_group_name').val(valObj.name);
         },
 
         add: function  () {
+            if (!this.confirmChangeCondGroup()) {
+                this._condGroupscrollablepanel.selectedItems = [this._selectedIndex];
+                return;
+            }
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
 
@@ -309,7 +392,8 @@
             if (inputObj.ok && inputObj.input0) {
                 var inputData = {
                     name: inputObj.input0,
-                    seltype: 'single'
+                    seltype: 'single',
+                    newline: false
                 };
                 var condGroupModel = new CondimentGroupModel();
                 var condGroups = condGroupModel.findByIndex('all', {
@@ -336,6 +420,8 @@
 
                     //this._condGroupscrollablepanel.refresh();
 
+                    this._selectedIndex = -1;
+                    this._selectedCondIndex = -1;
                     this.changeCondimentPanel(condGroups.length - 1);
 
                     OsdUtils.info(_('Condiment Group [%S] added successfully', [inputData.name]));
@@ -384,7 +470,8 @@
                     view.data = condGroups;
                     this._condGroupscrollablepanel.refresh();
 
-                    this.changeCondimentPanel(this._selectedIndex);
+                    this._selectedIndex = -1;
+                    //this.changeCondimentPanel(this._selectedIndex);
 
                     OsdUtils.info(_('Condiment Group [%S] modified successfully', [inputData.name]));
                 }
@@ -401,52 +488,61 @@
             var condGroup = condGroups[this._selectedIndex];
 
             // check if condiment group has been assigned to products
-            var productModel = new ProductModel();
-            var products = productModel.findByIndex('all', {
-                index: 'cond_group',
-                value: condGroup.id
-            });
-            if (products && products.length > 0) {
-                NotifyUtils.warn(_('[%S] has been assigned to one or more products and may not be deleted', [condGroup.name]));
-                return;
+            var linked = false;
+            var products = GeckoJS.Session.get('products');
+            for (var i = 0; i < products.length; i++) {
+                if (products[i].cond_group && products[i].cond_group.indexOf(condGroup.id) != -1) {
+                    linked = true;
+                    break;
+                }
+            }
+            if (linked) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('confirm delete %S', [condGroup.name]),
+                                             _('This condiment group is linked to one or more products. Are you sure you want to delete it?'))) {
+                    return;
+                }
+            }
+            else {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
+                    return;
+                }
             }
 
-            if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
-                var condGroupModel = new CondimentGroupModel();
+            var condGroupModel = new CondimentGroupModel();
+            var condimentModel = new CondimentModel();
+
+            try {
+                // cascading delete
+                condGroupModel.removeCondimentGroup(condGroup.id);
+
                 var condimentModel = new CondimentModel();
+                if (condGroup.condiment && condGroup.condiment.length > 0)
+                    condGroup.forEach(function(cond) {
+                        condimentModel.del(cond.id);
+                    });
 
-                try {
-                    // cascading delete
-                    condGroupModel.removeCondimentGroup(condGroup.id);
-
-                    var condimentModel = new CondimentModel();
-                    if (condGroup.condiment && condGroup.condiment.length > 0)
-                        condGroup.forEach(function(cond) {
-                            condimentModel.del(cond.id);
-                        });
-
-                    // collect remaining condiment groups
-                    var groups = [];
-                    for (var i = 0; i < condGroups.length; i++) {
-                        if (i != this._selectedIndex) {
-                            groups.push(condGroups[i]);
-                        }
+                // collect remaining condiment groups
+                var groups = [];
+                for (var i = 0; i < condGroups.length; i++) {
+                    if (i != this._selectedIndex) {
+                        groups.push(condGroups[i]);
                     }
-                    GeckoJS.Session.set('condGroups', groups);
-
-                    var view = this._condGroupscrollablepanel.datasource;
-                    view.data = groups;
-                    this._condGroupscrollablepanel.refresh();
-
-                    var newIndex = this._selectedIndex;
-                    if (newIndex >= groups.length) newIndex = groups.length - 1;
-                    this.changeCondimentPanel(newIndex);
-
-                    OsdUtils.info(_('Condiment Group [%S] removed successfully', [condGroup.name]));
                 }
-                catch (e) {
-                    NotifyUtils.error(_('An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully', [condGroup.name]));
-                }
+                GeckoJS.Session.set('condGroups', groups);
+
+                var view = this._condGroupscrollablepanel.datasource;
+                view.data = groups;
+                this._condGroupscrollablepanel.refresh();
+
+                var newIndex = this._selectedIndex;
+                if (newIndex >= groups.length) newIndex = groups.length - 1;
+                this.changeCondimentPanel(newIndex);
+
+                OsdUtils.info(_('Condiment Group [%S] removed successfully', [condGroup.name]));
+            }
+            catch (e) {
+                NotifyUtils.error(_('An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully', [condGroup.name]));
             }
         },
 
@@ -485,14 +581,20 @@
         addCond: function  () {
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
+            if (!this.confirmChangeCondiment()) {
+                this._condscrollablepanel.selectedItems = [this._selectedCondIndex];
+                return;
+            }
+            
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=550';
             var inputObj = {
                 input0:null,
                 input1:0,
                 require0:true,
                 require1:true,
-                numberOnly1:true
+                numberOnly1:true,
+                numpad:'input1'
             };
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Condiment'), features,
                                        _('New Condiment'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
@@ -552,6 +654,8 @@
 
                         var view = this._condscrollablepanel.datasource;
                         view.data = condGroups[this._selectedIndex]['Condiment'];
+                        
+                        this._selectedCondIndex = -1;
                         this.clickCondimentPanel(view.data.length - 1);
                         OsdUtils.info(_('Condiment [%S] added successfully', [inputData.name]));
                     }
@@ -625,7 +729,9 @@
 
                 var view = this._condscrollablepanel.datasource;
                 view.data = condGroups[this._selectedIndex]['Condiment'];
-                this.clickCondimentPanel(this._selectedCondIndex);
+                this._selectedCondIndex = -1;
+                this._condscrollablepanel.refresh();
+                //this.clickCondimentPanel(this._selectedCondIndex);
 
                 OsdUtils.info(_('Condiment [%S] modified successfully', [inputData.name]));
             }

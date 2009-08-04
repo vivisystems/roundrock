@@ -33,6 +33,6 @@
 <!ENTITY stockrecords.import.errors.desc "The following product number(s)/barcode(s) are invalid">
 <!ENTITY stockrecords.import.errors.title "Import Errors">
 <!ENTITY stockrecords.import.line "Line">
-<!ENTITY stockrecords.import.prodno "Product Number">
+<!ENTITY stockrecords.import.prodno "Product Number/Barcode">
 
 <!ENTITY stockrecords.syncing.title "Syncing stock records from Stock Server">

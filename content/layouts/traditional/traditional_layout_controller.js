@@ -231,7 +231,6 @@
             // not any layout templates support it
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.layout.RegisterAtLeft') || false;
             var productPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.layout.traditional.ProductPanelOnTop') || false;
-            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideTagColumn') || false;
             var showToolbar = GeckoJS.Configure.read('vivipos.fec.settings.layout.ShowToolbar') || false;
             var hideBottomBox = GeckoJS.Configure.read('vivipos.fec.settings.layout.HideBottomBox') || false;
 
@@ -274,29 +273,30 @@
                 checkTrackingStatus.setAttribute('hidden', checkTrackingMode ? 'false' : 'true');
             }
 
-            // display tag field
-            var headers = cartList.getAttribute('headers');
-            var fields = cartList.getAttribute('fields');
-            if (hideTag) {
-                if (headers.split(',').length == 6) {
-                    headers = headers.substring(headers.indexOf(',') + 1);
-                    fields = fields.substring(fields.indexOf(',') + 1);
-                    cartList.setAttribute('headers', headers);
-                    cartList.setAttribute('fields', fields);
+            // cart display fields
+            var cartFields = GeckoJS.Configure.read('vivipos.fec.settings.layout.CartDisplayFields') || '';
+            var headers = cartList.getAttribute('headerlist') || '';
+            var fields = cartList.getAttribute('fieldlist') || '';
+            var headerArray = headers.split(',');
+            var fieldArray = fields.split(',');
+            var displayArray = cartFields.split(',');
 
-                    cartList.vivitree.initTreecols();
-                }
-            }
-            else {
-                if (headers.split(',').length == 5) {
-                    headers = '"",' + headers;
-                    fields = 'tag,' + fields;
-                    cartList.setAttribute('headers', headers);
-                    cartList.setAttribute('fields', fields);
+            var selectedHeaders = '';
+            var selectedFields = '';
 
-                    cartList.vivitree.initTreecols();
-                }
+            if (fieldArray.length > 0) {
+                fieldArray.forEach(function(f, i) {
+                    if (displayArray.indexOf(f) > -1) {
+                        selectedHeaders += ((selectedHeaders == '' ? '' : ',') + headerArray[i]);
+                        selectedFields += ((selectedFields == '' ? '' : ',') + fieldArray[i]);
+                    }
+                });
             }
+            cartList.setAttribute('headers', selectedHeaders);
+            cartList.setAttribute('fields', selectedFields);
+
+            cartList.vivitree.initTreecols();
+
             // display sold out buttons
             if (soldOutCategory) soldOutCategory.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');

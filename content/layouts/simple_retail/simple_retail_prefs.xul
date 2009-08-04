@@ -23,14 +23,14 @@
                 <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.layout.HideDeptScrollbar" type="bool"/>
                 <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.layout.HideSoldOutButtons" type="bool"/>
 
-                <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.layout.HideTagColumn" type="bool"/>
+                <preference id="pref_hideunitpricecolumn" name="vivipos.fec.settings.layout.HideUnitPriceColumn" type="bool"/>
                 <preference id="pref_showtoolbar" name="vivipos.fec.settings.layout.ShowToolbar" type="bool" />
                 <preference id="pref_registeratleft" name="vivipos.fec.settings.layout.RegisterAtLeft" type="bool"/>
                 <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.layout.HideFPScrollbar" type="bool"/>
                 <preference id="pref_checktrackingmode" name="vivipos.fec.settings.layout.CheckTrackingMode" type="bool"/>
                 
             </preferences>
-            <grid class="DataForm">
+            <grid class="data-form">
                 <columns>
                     <column flex="1" />
                     <column flex="1" />
@@ -38,7 +38,7 @@
                 <rows>
                     <row>
                         <checkbox id="RegisterAtLeft" label="&layout.registeratleft;" feature="disabled" preference="pref_registeratleft"/>
-                        <checkbox id="hideTagColumn" label="&layout.hidetagcolumn;" preference="pref_hidetagcolumn"/>
+                        <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
                     </row>
                     <row>
                         <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
@@ -61,7 +61,6 @@
                         <checkbox preference="pref_showconfigicon" id="pref_showconfigiconCtrl" label="&layout.showconfigicon;" />
                     </row>
                     <row>
-                        <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
                         <hbox flex="1" pack="end" align="center">
                             <label value="&layout.defaultproductphoto;"/>
                             <hbox flex="1" pack="center" align="center">
@@ -74,10 +73,10 @@
                                 </hbox>
                                 <spacer style="height: 10px;" />
                                 <vbox flex="0" pack="center">
-                                    <button id="photoBrowseBtn" class="ItemButtonA" label="&layout.addphoto;" image="chrome://viviecr/skin/images/add.png"
+                                    <button id="photoBrowseBtn" class="button-execute" label="&layout.addphoto;" image="chrome://viviecr/skin/images/add.png"
                                             oncommand="selectImage('defaultimage', 'no-photo.png')"/>
                                     <spacer style="height: 4px;" />
-                                    <button id="photoRemoveBtn" class="ItemButtonA" label="&layout.removephoto;" image="chrome://viviecr/skin/images/cancel.png"
+                                    <button id="photoRemoveBtn" class="button-execute" label="&layout.removephoto;" image="chrome://viviecr/skin/images/cancel.png"
                                             oncommand="removeImage('defaultimage', 'no-photo.png')"/>
                                 </vbox>
                             </hbox>
@@ -94,7 +93,7 @@
                 <preference id="pref_banneratbottom" name="vivipos.fec.settings.layout.simple_retail.BannerAtBottom" type="bool"/>
 
             </preferences>
-            <grid class="DataForm">
+            <grid class="data-form">
                 <columns>
                     <column flex="1" />
                     <column flex="1" />
@@ -118,10 +117,10 @@
                 </hbox>
                 <spacer style="height: 10px;" />
                 <hbox flex="0" pack="center">
-                    <button id="bannerBrowseBtn" class="ItemButtonA" label="&layout.addbanner;" image="chrome://viviecr/skin/images/add.png"
+                    <button id="bannerBrowseBtn" class="button-execute" label="&layout.addbanner;" image="chrome://viviecr/skin/images/add.png"
                             oncommand="selectImage('bannerimage', 'banner.png')"/>
                     <spacer style="height: 4px;" />
-                    <button id="bannerRemoveBtn" class="ItemButtonA" label="&layout.removebanner;" image="chrome://viviecr/skin/images/cancel.png"
+                    <button id="bannerRemoveBtn" class="button-execute" label="&layout.removebanner;" image="chrome://viviecr/skin/images/cancel.png"
                             oncommand="removeImage('bannerimage', 'banner.png')"/>
                 </hbox>
                 <spacer style="width: 20px;" />

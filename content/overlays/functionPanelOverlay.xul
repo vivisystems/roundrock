@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-<?xml-stylesheet href="chrome://viviecr/skin/user/function-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/functionpanel.css" type="text/css"?>
-
 <overlay id="functionPanelOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -12,23 +9,23 @@
   <box id="functionPanelContainer" orient="horizontal">
 
         <!-- begin tools -->
-        <vbox id="toolbar">
+        <vbox id="toolbar" align="center" class="function-toolbar">
             <spacer flex="1"/>
             <isoptionenabled id="vkb" option="vivipos.fec.settings.ShowVKIcon" action="display">
                 <vivibutton id="vkb-icon" label=""  oncommand="VirtualKeyboard.toggle();"
-                            class="systoolbtn button-vkb"/>
+                            class="button-systool button-toolbar-vkb"/>
             </isoptionenabled>
             <isoptionenabled id="clockin" option="vivipos.fec.settings.ClockInEnabled" action="display">
                 <vivibutton id="clockin-icon" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
-                            class="systoolbtn clockinout"/>
+                            class="button-systool button-toolbar-clockinout"/>
             </isoptionenabled>
             <isoptionenabled id="config" option="vivipos.fec.settings.ShowConfigIcon" action="display">
                 <vivibutton id="config-icon" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
-                            class="systoolbtn options"/>
+                            class="button-systool button-toolbar-options"/>
             </isoptionenabled>
             <spacer id="spacer" flex="1"/>
             <vivibutton id="togglefunctionpanel"  disabled="false" state="false" suspendable="false" label="" action="display" oncommand="$do('toggleFunctionPanel', null, 'Layout');"
-                        class="togglefunctionpanel" />
+                        class="button-toggle"/>
         </vbox>
         <!-- end tools -->
 

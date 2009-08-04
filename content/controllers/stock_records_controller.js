@@ -194,7 +194,7 @@
             else return -1; // not found
         },
 
-        load: function(data) {
+        load: function() {
 
             var isMaster = this.StockRecord.getRemoteServiceUrl('auth') === false;
             var isTraining = GeckoJS.Session.get("isTraining");
@@ -214,7 +214,7 @@
                 if (inventoryCommitmentModel.lastError != 0) {
                     this._dbError(inventoryCommitmentModel.lastError, inventoryCommitmentModel.lastErrorString,
                                   _('An error was encountered while retrieving stock adjustment records (error code %S).', [inventoryCommitmentModel.lastError]));
-                    data.cancel = true;
+                    window.close();
                     return;
                 }
 
@@ -233,9 +233,17 @@
                     this._adjustmentMemo = inputObj.memo || '';
                     this._adjustmentSupplier = inputObj.supplier || '';
 
-                    document.getElementById('adjustment_type').label = _('(inventory)' + this._adjustmentReason);
+                    var details = '';
+                    if (this._adjustmentReason == 'procure') {
+                        details = _('(inventory)' + this._adjustmentReason) + (this._adjustmentSupplier ? ' [' + this._adjustmentSupplier + ' ]' : '');
+                    }
+                    else {
+                        details = _('(inventory)' + this._adjustmentReason);
+                    }
+                    details += (this._adjustmentMemo ? ' (' + this._adjustmentMemo + ')' : '');
+                    document.getElementById('adjustment_type').label = details;
                 } else {// user canceled.
-                    data.cancel = true;
+                    window.close();
                     return;
                 }
 
@@ -245,23 +253,23 @@
                     case 'inventory':
                         document.getElementById('reset').removeAttribute('hidden');
                         document.getElementById('qtytype').value = _('(inventory)New Quantity');
-                        document.getElementById('new_quantity').setAttribute('name', 'new_quantity');
+                        document.getElementById('new_qty').setAttribute('name', 'new_quantity');
                         break;
 
                     case 'procure':
                         document.getElementById('price_container').removeAttribute('hidden');
                         document.getElementById('qtytype').value = _('(inventory)Procured Quantity (+)');
-                        document.getElementById('new_quantity').setAttribute('name', 'delta');
+                        document.getElementById('new_qty').setAttribute('name', 'delta');
                         break;
 
                     case 'waste':
                         document.getElementById('qtytype').value = _('(inventory)Waste Quantity (-)');
-                        document.getElementById('new_quantity').setAttribute('name', 'delta');
+                        document.getElementById('new_qty').setAttribute('name', 'delta');
                         break;
 
                     case 'other':
                         document.getElementById('qtytype').value = _('(inventory)+/-');
-                        document.getElementById('new_quantity').setAttribute('name', 'delta');
+                        document.getElementById('new_qty').setAttribute('name', 'delta');
                         break;
                 }
                 
@@ -427,17 +435,19 @@
                 GeckoJS.FormHelper.unserializeFromObject('productForm', item);
 
                 if (this._adjustmentReason == 'waste') {
-                    document.getElementById('new_quantity').value = 0 - item.delta;
+                    document.getElementById('new_qty').value = 0 - item.delta;
                 }
             }
 
             this.validateForm();
 
-            document.getElementById('new_quantity').select();
+            document.getElementById('new_qty').select();
         },
 
         validateForm: function() {
-            var newQtyObj = document.getElementById('new_quantity');
+            var newQtyObj = document.getElementById('new_qty');
+            var priceObj = document.getElementById('price');
+            var memoObj = document.getElementById('memo');
             var modifyBtnObj = document.getElementById('modify_stock');
 
             var inputObj = GeckoJS.FormHelper.serializeToObject('productForm');
@@ -453,9 +463,13 @@
 
                 modifyBtnObj.setAttribute('disabled', isNaN(newQuantity) && isNaN(delta));
                 newQtyObj.removeAttribute('disabled');
+                memoObj.removeAttribute('disabled');
+                if (priceObj) priceObj.removeAttribute('disabled');
             } else {
                 modifyBtnObj.setAttribute('disabled', true);
                 newQtyObj.setAttribute('disabled', true);
+                memoObj.setAttribute('disabled', true);
+                if (priceObj) priceObj.setAttribute('disabled', true);
             }
         },
         
@@ -498,14 +512,14 @@
         },
         
         modifyStock: function() {
-            var product_no = document.getElementById('product_no').value;
-            var newQuantity = parseFloat(document.getElementById('new_quantity').value);
+            var product_no = document.getElementById('prod_no').value;
+            var newQuantity = parseFloat(document.getElementById('new_qty').value);
             var memo = document.getElementById('memo').value;
             var price = document.getElementById('price').value;
         	
             if (!isNaN(newQuantity)) {
                 var stockRecord = this._stockRecordsByProductNo[product_no];
-
+                
                 switch(this._adjustmentReason) {
                     case 'inventory':
                         stockRecord.new_quantity = newQuantity;
@@ -527,6 +541,8 @@
                 stockRecord.price = price;
 
                 this.updateStock();
+
+                OsdUtils.info(_('Stock level adjusted for product [%S - %S]', [stockRecord.no, stockRecord.name]));
             }
         },
 
@@ -541,20 +557,18 @@
             return changed;
         },
 
-        exitCheck: function(data) {
+        exit: function(data) {
             if (this.isStockAdjusted()) {
                 if (GREUtils.Dialog.confirm(
                         this.topmostWindow,
                         _('Stock Adjustment'),
                         _('You have made one or more stock adjustments. Discard the changes and exit?'))) {
-                    data.cancel = false;
-                }
-                else {
-                    data.cancel = true;
+                    window.close();
+                    return;
                 }
             }
             else {
-                data.cancel = false;
+                window.close();
             }
         },
 
@@ -705,6 +719,7 @@
                 _('Import Product Stock'),
                 _('Product stock information imported: %S successes, %S failures)', [count, unmatchedRecords.length])
             );
+
             // renew the content of the tree.
             this.updateStock();
         },

@@ -6,27 +6,31 @@
   %CreditCard;
 ]>
 
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <overlay id="creditcardRemarkDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/creditcard_remark.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/creditcard_remark.js"/>
 
     <popupset id="dialogs">
 
-        <vivipanel id="creditcardRemarkPanel" noautohide="false">
+        <vivipanel id="creditcardRemarkPanel" noautohide="false" class="container-dialog layout-dialog">
 
-            <hbox class="pop-dialog" flex="1" pack="center" style="margin: 0; padding: 0;">
+            <hbox flex="1" class="layout-fullscreen">
 
-                <vbox class="MainPnl" flex="1">
+                <vbox flex="1" class="container-popup-prompt">
 
-                    <caption id="creditcardRemark-dialog-caption" label="" class="PageTitle" />
-                    <label id="creditcardRemark-text0" value="" class="AlertText" />
-                    <grid class="DataForm">
+                    <label id="creditcardRemark-dialog-caption" value="" class="label-page-title"/>
+                    <hbox>
+                        <label id="creditcardRemark-text0" flex="1" value="" class="label-alert"/>
+                    </hbox>
+                    <grid class="data-form">
                         <columns>
                             <column flex="1"/>
                         </columns>
@@ -47,23 +51,23 @@
                     </grid>
 
                     <hbox pack="center">
-                        <numberpad id="creditcardRemark-multinumberpad" class="numpad" style="padding: 0;"/>
+                        <numberpad id="creditcardRemark-multinumberpad" class="numpad"/>
                         <vbox pack="end">
-                            <sendkeybutton id="creditcardRemark-bkeyBtn"  label="&creditcard.button.action.del;" keyCode='0x08' target="plu" class="fixedbtn"  />
-                            <sendkeybutton id="creditcardRemark-clearBtn"  label="&creditcard.button.action.clear;" class="fixedbtn"/>
+                            <sendkeybutton id="creditcardRemark-bkeyBtn" label="&creditcard.button.action.del;" keyCode="0x08" class="button-fixed"/>
+                            <sendkeybutton id="creditcardRemark-clearBtn" label="&creditcard.button.action.clear;" class="button-fixed"/>
                         </vbox>
                     </hbox>
 
                     <spacer flex="1"/>
 
                     <hbox>
-                        <hbox class="ToolBar" flex="1">
-                            <button id="creditcardRemark-ok" class="okBtn" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', true)"/>
-                            <button id="creditcardRemark-cancel" class="cancelBtn" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', false)"/>
+                        <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                            <button id="creditcardRemark-ok" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', true)"/>
+                            <button id="creditcardRemark-cancel" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', false)"/>
                         </hbox>
-                        <!--hbox id="dialogButtons" class="dialogbtns" pack="center">
-                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
-                        </hbox-->
+                        <hbox id="dialogButtons" pack="end" class="exitbar">
+                            <button class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                        </hbox>
                     </hbox>
 
                 </vbox>

@@ -12,7 +12,7 @@
 
     <binding id="promotions_status">
         <content>
-            <xul:vbox flex="1" anonid="box" class="vbox_promotions" xbl:inherits="class=boxClass,pack,width,height,disabled,flex,dir" >
+            <xul:vbox flex="1" anonid="box" class="promotions-vbox" xbl:inherits="class=boxClass,pack,width,height,disabled,flex,dir" >
                 <xul:grid flex="1" >
                     <xul:columns>
                         <xul:column />
@@ -22,36 +22,36 @@
                     </xul:columns>
                     <xul:rows>
                         <xul:row align="center" >
-                            <xul:textbox anonid="title_label" disabled="true" class="label_promotions" xbl:inherits="class=labelClass,value"></xul:textbox>
-                            <xul:textbox anonid="subtotal_label" disabled="true" class="subtotal_promotions" xbl:inherits="class=subtotalClass,value"></xul:textbox>
-                            <xul:textbox anonid="applies_label" disabled="true" class="label_promotions" xbl:inherits="class=labelClass,value"></xul:textbox>
-                            <xul:box class="promotionIcon" onclick="popupDetailPanel()">
+                            <xul:textbox anonid="title_label" disabled="true" class="promotions-label" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="subtotal_label" disabled="true" class="promotions-subtotal" xbl:inherits="class=subtotalClass,value"></xul:textbox>
+                            <xul:textbox anonid="applies_label" disabled="true" class="promotions-label" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:box class="promotion-icon" onclick="popupDetailPanel()">
                             <xul:image style="width:36px; height:36px;" xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/icon_list.png"/>
                             </xul:box>
                         </xul:row>
                     </xul:rows>
                 </xul:grid>
-                <xul:viviscrollabletree class="tree_promotions" anonid="promotions_tree" xbl:inherits="class=treeClass,flex"
+                <xul:viviscrollabletree class="promotions-tree" anonid="promotions_tree" xbl:inherits="class=treeClass,flex"
                                 hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
                                 primary="name" scrollMode="cursor"
                                 headers="##########,####,###,######"
                                 fields="name,code,matched_items_qty,discount_subtotal"
-                                scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" />
+                                scrollUpClass="cart-scroll-up-button" scrollDownClass="cart-scroll-down-button" />
 
                 <xul:popupset>
-                <xul:panel anonid="popup_panel" noautohide="false">
-                    <xul:hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;">
-                    <xul:vbox class="MainPnl" flex="1">
-                    <xul:caption id="promotionDetails-title" class="PageTitle" label="&promotions_detail.label.title;" />
-                    <xul:viviscrollabletree class="tree_promotions_detail" anonid="promotions_tree_detail" xbl:inherits="class=treeDetailClass,flex" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
+                <xul:panel anonid="popup_panel" noautohide="false" class="container-dialog layout-dialog">
+                    <xul:hbox flex="1" class="layout-fullscreen">
+                    <xul:vbox flex="1" class="container-main">
+                    <xul:label id="promotionDetails-title" class="label-page-title" label="&promotions_detail.label.title;" />
+                    <xul:viviscrollabletree class="promotions-details" anonid="promotions_tree_detail" xbl:inherits="class=treeDetailClass,flex" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
                                     primary="name" scrollMode="cursor"
                                     headers="&promotions_detail.label.promotion_name;,&promotions_detail.label.promotion_code;,&promotions_detail.label.plu_name;,&promotions_detail.label.plu_no;,&promotions_detail.label.current_qty;,&promotions_detail.label.current_subtotal;,&promotions_detail.label.discount_subtotal;"
                                     fields="promotion_name,promotion_code,name,no,current_qty,current_subtotal,discount_subtotal"
-                                    scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" />
+                                    scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button" />
                     <xul:spacer height="10px"/>
 
-                    <xul:hbox id="dialogButtons" class="dialogbtns" pack="end">
-                        <xul:button class="ExitBtn" id="paymentDetails-ok" label="&dialog.closeButton.label;" default="true" oncommand="hideDetailPanel();"/>
+                    <xul:hbox id="dialogButtons" pack="end" class="exitbar">
+                        <xul:button id="paymentDetails-ok" default="true" class="button-exit" oncommand="hideDetailPanel();"/>
                     </xul:hbox>
                     </xul:vbox>
                     </xul:hbox>

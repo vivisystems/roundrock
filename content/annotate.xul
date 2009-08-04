@@ -6,9 +6,10 @@
   %Annotate;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/annotations.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -29,55 +30,54 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/annotate.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <vbox flex="1" class="MainPnl">
-            <vbox flex="2" pack="start" class="MainL">
+    <vbox flex="1" class="container-dialog layout-dialog">
+        <vbox flex="1" class="container-main layout-b">
+            <vbox class="block-50">
                 <hbox>
-                    <caption label="&annotations.view;"  class="PageTitle"/>
-                    <label id="sequence" value=""  class="PageTitle"/>
+                    <label value="&annotations.view;" class="label-page-title"/>
+                    <label id="sequence" value="" class="label-page-title"/>
                 </hbox>
-                <hbox pack="start" flex="1" class="LeftPnl">
-                    <viviscrollabletree id="viewscrollablepanel" flex="1"
-                                    headers="&annotations.type;,&annotations.text;"
-                                    fields="type,text"
-                                    onclick="$do('selectView',this.selectedIndex, 'Annotations');"
-                                    class="ListPnl"
-                                    scrollUpClass="ScrollUp" dir="normal"
-                                    scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
+                <hbox flex="1" class="content-listbox">
+                    <vivitree id="viewscrollablepanel" flex="1" hidecolumnpicker="true"
+                              headers="&annotations.type;,&annotations.text;"
+                              fields="type,text"
+                              onselect="$do('selectView',this.selectedIndex, 'Annotations');"
+                              class="standard"
+                              scrollUpClass="scroll-up-button" dir="normal"
+                              scrollDownClass="scroll-down-button"/>
                 </hbox>
             </vbox>
 
-            <hbox flex="1" class="MainL">
-                <viviscrollabletree id="typescrollablepanel" flex="1"
-                                headers="&annotations.type;"
-                                fields="type"
-                                onclick="$do('selectType',this.selectedIndex, 'Annotations');"
-                                class="ListPnl"
-                                scrollUpClass="ScrollUp" dir="normal"
-                                scrollDownClass="ScrollDown">
-                    <spacer flex="1" />
-                </viviscrollabletree>
-                <vbox flex="1">
-                    <caption label="&annotations.text;"  class="SubTitle"/>
-                    <textbox id="annotation_text" name="text" multiline="true" flex="1" form="annotateForm" default="" oninput="$do('validateAnnotateForm', null, 'Annotations');"/>
+            <hbox flex="1">
+                <vbox flex="1" class="content-listbox">
+                    <vivitree id="typescrollablepanel" flex="1" hidecolumnpicker="true"
+                              headers="&annotations.type;"
+                              fields="type"
+                              onselect="$do('selectType',this.selectedIndex, 'Annotations');"
+                              class="standard"
+                              scrollUpClass="scroll-up-button" dir="normal"
+                              scrollDownClass="scroll-down-button"/>
+                </vbox>
+                <vbox flex="1" class="content-formbox">
+                    <label value="&annotations.text;"/>
+                    <textbox id="annotation_text" multiline="true" flex="1"
+                             oninput="$do('validateAnnotateForm', null, 'Annotations');"
+                             form="annotateForm" name="text" default=""/>
                 </vbox>
             </hbox>
-            <spacer height="10px"/>
             <hbox>
-                <hbox class="ToolBar" flex="1">
-                    <button id="add_annotation"  label="&annotations.add;" disabled="false" class="BtnAdd" oncommand="$do('addAnnotation', null, 'Annotations');"   />
-                    <button id="modify_annotation"  label="&annotations.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyAnnotation', null, 'Annotations');"   />
+                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                    <button id="add_annotation" label="&annotations.add;" disabled="false" class="button-add" oncommand="$do('addAnnotation', null, 'Annotations');"   />
+                    <button id="modify_annotation" label="&annotations.modify;" disabled="true" class="button-modify" oncommand="$do('modifyAnnotation', null, 'Annotations');"   />
                     <spacer flex="1"/>
-                    <button id="delete_annotation"  label="&annotations.delete;" disabled="true" class="BtnDel" oncommand="$do('deleteAnnotation', null, 'Annotations');"   />
+                    <button id="delete_annotation" label="&annotations.delete;" disabled="true" class="button-delete" oncommand="$do('deleteAnnotation', null, 'Annotations');"   />
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="vkb"  class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
         </vbox>

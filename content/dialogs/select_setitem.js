@@ -41,9 +41,6 @@
 
             init: function(evt) {
                 var plusetViewHelper = new GeckoJS.NSITreeViewArray();
-                var buttonClass0 = $buttonPanel[0].getAttribute('buttonClass0');
-                var buttonClass1 = $buttonPanel[0].getAttribute('buttonClass1');
-                var buttonClass2 = $buttonPanel[0].getAttribute('buttonClass2');
 
                 plusetViewHelper.getCellValue = function(row, col) {
 
@@ -160,7 +157,7 @@
 
                 // set caption
                 var captionObj = document.getElementById('pluset-caption');
-                if (captionObj) captionObj.label = evt.data.name;
+                if (captionObj) captionObj.value = evt.data.name;
 
                 // determine first set item to select
                 opts = $($panel[0]).data('popupPanel.opts');

@@ -37,8 +37,7 @@
                     }
                 }
             }
-            else
-                return this.buf;
+            return this.buf;
         },
 	
         clearBuffer: function() {

@@ -119,11 +119,20 @@
             
             var storeContactModel = new StoreContactModel();
             storeContactModel.id = formObj.id;
-            storeContactModel.save(formObj);
+            if (storeContactModel.save(formObj)) {
+                GeckoJS.Session.set('storeContact', formObj);
 
-            GeckoJS.Session.set('storeContact', formObj);
+                GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);
 
-            return true;
+                OsdUtils.info(_('Store contact information successfully saved'));
+                return true;
+            }
+            else {
+                NotifyUtils.error(_('Failed to save store contact information (error code %S); please try again.', [storeContactModel.lastError]));
+                this.log('ERROR', 'Failed to save store contact information:' + '\nDatabase Error [' +
+                                  storeContactModel.lastError + ']: [' + storeContactModel.lastErrorString + ']');
+                return false;
+            }
         },
         
         load: function () {
@@ -150,6 +159,30 @@
             else {
                 GeckoJS.FormHelper.reset('storecontactForm');
             }
+        },
+
+        exit: function() {
+            // check if job form has been modified
+            if (GeckoJS.FormHelper.isFormModified('storecontactForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to store contact information. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    if (!this.update()) return;
+                }
+            }
+            window.close();
         },
 
         validateForm: function() {

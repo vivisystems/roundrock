@@ -95,15 +95,7 @@
             exec.close();
 
             GREUtils.File.remove(tmpInstallRDF);
-            if (r == 0) {
-                NotifyUtils.info(_( 'Locale package [%S] successfully exported', [this._pkg]));
-            }
-            else {
-                this.log('ERROR', 'Script ' + exportScript + ' failed to export locale package [' + this._pkg + ']');
-                GREUtils.Dialog.alert(this.topmostWindow,
-                                      _('Export Locale'),
-                                      _('Failed to export locale package [%S]', [this._pkg]));
-            }
+            NotifyUtils.info(_( 'Locale package [%S] successfully exported', [this._pkg]));
         },
         
         validateForm: function() {

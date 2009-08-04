@@ -6,10 +6,12 @@
   %Condiments;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/condiments.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/condiments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -33,58 +35,64 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/condiments.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
+    <vbox flex="1" class="container-be layout-be">
+        <vbox flex="1" class="container-main layout-b">
             <!-- Begin Condiment Groups -->
-            <hbox class="TopPnl">
-                <vbox class="MainL" flex="1">
-                    <caption label="&condiments.group;" class="PageTitle" />
-                    <hbox class="LeftPnl LeftTop">
-                        <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name"
+            <hbox class="container-top block-33">
+                <vbox flex="1" class="container-left">
+                    <caption label="&condiments.group;" class="label-page-title" />
+                    <hbox flex="1" class="content-buttonpanel">
+                        <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1"
+                                                   cols="3" rows="2" labelField="name" dir="reverse" ensureVisible="true"
                                                    oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
-                                                   class="ItemScrollablepanel"
-                                                   buttonClass="ItemButtonA"
-                                                   scrollUpClass="ScrollUp"
-                                                   scrollDownClass="ScrollDown">
+                                                   buttonClass="button-item-a"
+                                                   scrollUpClass="scroll-up-button"
+                                                   scrollDownClass="scroll-down-button">
                               <spacer flex="1" />
                         </viviscrollablebuttonpanel>
                     </hbox>
                 </vbox>
                 <vbox>
-                    <grid class="DataForm">
+                    <label id="condiment_group_id" hidden="true" value=""
+                           form="condGroupForm" name="id"/>
+                    <grid class="data-form">
                         <columns>
+                            <column flex="0" />
                             <column flex="1" />
                         </columns>
                         <rows>
                             <row>
-                                <hbox>
-                                    <label id= "condiment_group_id" hidden="true" form="condGroupForm" name="id" value=""/>
-                                    <label value="&condiments.group.name;" control="condiment_group_name"/>
-                                    <textbox id="condiment_group_name" form="condGroupForm" name="name" oninput="$do('validateForm', null, 'Condiments')"
-                                             onfocus="select()"/>
-                                </hbox>
+                                <label value="&condiments.group.name;" control="condiment_group_name"/>
+                                <textbox id="condiment_group_name"
+                                         oninput="$do('validateForm', null, 'Condiments')" onfocus="select()"
+                                         form="condGroupForm" name="name"/>
                             </row>
                             <row>
+                                <label value="&condiments.group.seltype;" control="condiment_group_seltype"/>
+                                <radiogroup id="condiment_group_seltype" orient="horizontal" flex="1"
+                                            form="condGroupForm" name="seltype">
+                                   <radio label="&condiments.group.single;" value="single" />
+                                   <radio label="&condiments.group.multiple;" value="multiple" />
+                                </radiogroup>
+                            </row>
+                            <row>
+                                <label value="&condiments.group.newline;" control="condiment_group_seltype"/>
                                 <hbox>
-                                    <label value="&condiments.group.seltype;" control="condiment_group_seltype"/>
-                                    <radiogroup orient="horizontal" flex="1" form="condGroupForm" name="seltype">
-                                       <radio label="&condiments.group.single;" value="single" />
-                                       <radio label="&condiments.group.multiple;" value="multiple" />
-                                    </radiogroup>
-                                    <checkbox label="&condiments.group.newline;" form="condGroupForm" name="newline" value="false" default="0" />
+                                    <checkbox id="condiment_group_newline" value="false"
+                                              form="condGroupForm" name="newline" default="0"/>
                                 </hbox>
                             </row>
                         </rows>
                     </grid>
                     <spacer  flex="1" />
-                    <hbox class="ToolBar" flex="1">
-                        <button id="add_group" label="&condiments.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Condiments');" />
-                        <button id="modify_group" label="&condiments.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('modify', null, 'Condiments');" />
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                        <button id="add_group" label="&condiments.button.action.add;" disabled="false" class="button-add" oncommand="$do('add', null, 'Condiments');" />
+                        <button id="modify_group" label="&condiments.button.action.modify;" disabled="false" class="button-modify" oncommand="$do('modify', null, 'Condiments');" />
                         <spacer flex="1"/>
-                        <button id="delete_group" label="&condiments.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('remove', null, 'Condiments');" />
+                        <button id="delete_group" label="&condiments.button.action.delete;" disabled="false" class="button-delete" oncommand="$do('remove', null, 'Condiments');" />
                     </hbox>
                 </vbox>
            </hbox>     
@@ -92,74 +100,83 @@
 
             <!-- Begin Condiments -->
             <hbox flex="1">
-                <vbox class="MainL">
-                    <caption label="&condiments.condiment;" class="PageTitle" />
-                    <vbox flex="1" class="LeftPnl LeftBottom">
+                <vbox class="container-left">
+                    <caption label="&condiments.condiment;" class="label-page-title" />
+                    <vbox flex="1" class="content-buttonpanel custom-layout-condiment-panel">
                         <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="detailscrollablepanel" flex="1" cols="2" rows="5" labelField="name" imageField="no"
                                                    oncommand="$do('clickCondimentPanel',this.selectedIndex, 'Condiments');"
-                                                   class="ItemScrollablepanel"
-                                                   buttonClass="plubtn"
-                                                   scrollUpClass="ScrollUp"
-                                                   scrollDownClass="ScrollDown" >
+                                                   buttonClass="button-condiment"
+                                                   scrollUpClass="scroll-up-button"
+                                                   scrollDownClass="scroll-down-button" >
                               <spacer flex="1" />
                         </viviscrollablebuttonpanel>
                     </vbox>
                 </vbox>
-                <vbox pack="center" flex="1">
-                    <groupbox class="DataForm">
-                        <grid>
-                            <columns>
-                                <column flex="1" /><column flex="1" /><column flex="1" />
-                            </columns>
-                            <rows>
-                                <row>
-                                    <vbox>
-                                        <label id="condiment_id" hidden="true" form="condimentForm" name="id" value=""/>
-                                        <label id="condiment_group_id2" hidden="true" form="condimentForm" name="condiment_group_id" value="" />
-                                        <label value="&condiments.condiment.name;" control="condiment_name"/>
-                                        <textbox id="condiment_name" form="condimentForm" name="name" oninput="$do('validateForm', null, 'Condiments')"
-                                             onfocus="select()"/>
-                                    </vbox>
-                                    <vbox>
-                                        <label value="&condiments.condiment.price;" control="condiment_price"/>
-                                        <textbox id="condiment_price" form="condimentForm" name="price" default="" oninput="$do('validateForm', null, 'Condiments')"
-                                             onfocus="select()"/>
-                                    </vbox>
-                                    <vbox align="center">
-                                        <label value="&condiments.condiment.preset;" control="condiment_preset"/>
-                                        <checkbox id="condiment_preset" form="condimentForm" name="preset" value="false" default="0"
-                                             onfocus="select()"/>
-                                    </vbox>
-                                </row>
-                            </rows>
-                        </grid>
-                    </groupbox>
-                    <hbox class="RightPnlB">
+                <vbox flex="1">
+                    <label id="condiment_id" hidden="true" value=""
+                           form="condimentForm" name="id"/>
+                    <label id="condiment_group_id2" hidden="true" value=""
+                           form="condimentForm" name="condiment_group_id"/>
+                    <grid class="data-form-2">
+                        <columns>
+                            <column flex="1" />
+                            <column flex="1" />
+                            <column flex="1" />
+                        </columns>
+                        <rows>
+                            <row>
+                                <vbox>
+                                    <label value="&condiments.condiment.name;" control="condiment_name"/>
+                                    <textbox id="condiment_name"
+                                             oninput="$do('validateForm', null, 'Condiments')" onfocus="select()"
+                                             form="condimentForm" name="name"/>
+                                </vbox>
+                                <vbox>
+                                    <label value="&condiments.condiment.price;" control="condiment_price"/>
+                                    <vivitextbox id="condiment_price" type="number" min="0" decimalplaces="Infinity"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     oninputonfocus="select()"
+                                                     form="condimentForm" name="price" default=""/>
+                                </vbox>
+                                <vbox align="center">
+                                    <label value="&condiments.condiment.preset;" control="condiment_preset"/>
+                                    <spacer flex="1"/>
+                                    <checkbox id="condiment_preset" value="false"
+                                              onfocus="select()"
+                                              form="condimentForm" name="preset" default="0"/>
+                                    <spacer flex="1"/>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+
+                    <hbox class="custom-container-button-color-fontsize-picker">
                         <vbox flex="1">
-                            <label value="&condiments.condiment.button.color;" class="SubTitle"/>
-                            <hbox pack="center" align="center" flex="1">
-                                    <button_colorpicker id="condiment_button_color" form="condimentForm" name="button_color"
-                                                        class-prefix="condiment-button-color-" class="BtnColors"
-                                                        default="condiment-button-color-default"/>
+                            <label value="&condiments.condiment.button.color;" class="label-sub-title"/>
+                            <hbox flex="1" pack="center">
+                                <button_colorpicker id="condiment_button_color" orient="vertical"
+                                                    class-prefix="condiment-button-color-" class="button-color-picker custom-content-color-picker"
+                                                    form="condimentForm" name="button_color" default="condiment-button-color-default"/>
                             </hbox>
                         </vbox>
                         <vbox flex="1">
-                            <label value="&condiments.condiment.font.size;"  class="SubTitle"/>
-                                    <button_fontsizepicker id="condiment_font_size" buttonClass="ItemButtonB" form="condimentForm" name="font_size"
-                                                           default="medium" class="FontSizeSet"/>
+                            <label value="&condiments.condiment.font.size;" class="label-sub-title"/>
+                            <button_fontsizepicker id="condiment_font_size" orient="vertical" flex="1"
+                                                   class="button-fontsize-picker custom-content-fontsize-picker" buttonClass="button-item-b"
+                                                   form="condimentForm" name="font_size" default="medium"/>
                         </vbox>
                     </hbox>
                     <spacer flex="1" />
                     <hbox>
-                        <hbox class="ToolBar" flex="1">
-                            <button id="add_condiment" label="&condiments.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('addCond', null, 'Condiments');" />
-                            <button id="modify_condiment" label="&condiments.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('modifyCond', null, 'Condiments');" />
+                        <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                            <button id="add_condiment" label="&condiments.button.action.add;" disabled="false" class="button-add" oncommand="$do('addCond', null, 'Condiments');" />
+                            <button id="modify_condiment" label="&condiments.button.action.modify;" disabled="false" class="button-modify" oncommand="$do('modifyCond', null, 'Condiments');" />
                             <spacer flex="1"/>
-                            <button id="delete_condiment" label="&condiments.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('removeCond', null, 'Condiments');" />
+                            <button id="delete_condiment" label="&condiments.button.action.delete;" disabled="false" class="button-delete" oncommand="$do('removeCond', null, 'Condiments');" />
                         </hbox>
-                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                            <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                            <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                        <hbox pack="end" class="exitbar">
+                            <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                            <button id="close" class="button-exit" default="true" oncommand="$do('exit', null, 'Condiments');"/>
                         </hbox>
                     </hbox>
                 </vbox>

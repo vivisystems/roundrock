@@ -1,16 +1,12 @@
 (function(){
 
-/**
- * Controller Startup
- */
-function startup() {
-    
-	$do('createCondimentPanel', null, "Condiments");
+    function startup() {
 
-};
+        $do('createCondimentPanel', null, "Condiments");
+        
+    };
 
-window.addEventListener('load', startup, false);
-
+    window.addEventListener('load', startup, false);
 
 })();
 

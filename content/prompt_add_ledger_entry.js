@@ -75,8 +75,8 @@
 
 function validateInput() {
     var okButton = document.getElementById('ok');
-    var amount = GeckoJS.String.trim(document.getElementById('amount').value);
     var selectedItems = document.getElementById('typescrollablepanel').selectedItems || [];
-
+    var amount = GeckoJS.String.trim(document.getElementById('amount').value);
+    
     okButton.setAttribute('disabled', amount == '' || isNaN(amount) || selectedItems.length == 0);
 }

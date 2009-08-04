@@ -6,7 +6,6 @@
   %Wizard;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/wizard.css" type="text/css"?>
 
 

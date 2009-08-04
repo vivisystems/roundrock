@@ -400,7 +400,8 @@
                 itemDisplay = GREUtils.extend(itemDisplay, {
                     id: item.id,
                     no: item.no,
-                    name: this.data.destination_prefix + item.name,
+                    name: item.name,
+                    destination: this.data.destination_prefix,
                     current_qty: item.current_qty,
                     current_price: item.current_price,
                     //current_subtotal: item.current_subtotal + item.current_condiment,
@@ -1214,13 +1215,9 @@
                             if (transItem) transItem.hasMarker = false;
                         }
                         else if (displayItem.type == 'trans_discount') {
-                            this.log('adjustment display item: ' + GeckoJS.BaseObject.dump(displayItem));
-                            this.log('adjustment item: ' + GeckoJS.BaseObject.dump(this.data.trans_discounts[displayItem.index]));
-                            this.data.trans_discount[displayItem.index].hasMarker = false;
+                            this.data.trans_discounts[displayItem.index].hasMarker = false;
                         }
                         else if (displayItem.type == 'trans_surcharge') {
-                            this.log('adjustment display item: ' + GeckoJS.BaseObject.dump(displayItem));
-                            this.log('adjustment item: ' + GeckoJS.BaseObject.dump(this.data.trans_surcharges[displayItem.index]));
                             this.data.trans_surcharges[displayItem.index].hasMarker = false;
                         }
                         else if (displayItem.type == 'subtotal' ||

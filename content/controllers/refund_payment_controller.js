@@ -48,13 +48,15 @@
 
             this._paidTotal = data.paidTotal;
 
+            document.getElementById('orderSeq').value = '[' + data.sequence + ']';
+
             document.getElementById('paymentscrollablepanel').datasource = this._originalPayments;
             document.getElementById('paidTotal').value = this.formatPrice(this._paidTotal);
             
             document.getElementById('refundscrollablepanel').datasource = this._refundPayments;
 
-            document.getElementById('amount').textbox.value = this.formatPrice(this.roundPrice(this._paidTotal));
-            document.getElementById('amount').textbox.focus();
+            document.getElementById('refund_amount').textbox.value = this.formatPrice(this.roundPrice(this._paidTotal));
+            document.getElementById('refund_amount').textbox.select();
 
         },
 
@@ -141,6 +143,10 @@
 
                 document.getElementById('refundTotal').value = this.formatPrice(this._refundTotal);
             }
+        },
+
+        selectRefundPayment: function(index) {
+            document.getElementById('btnMinus').setAttribute('disabled', index == -1);
         }
     };
 

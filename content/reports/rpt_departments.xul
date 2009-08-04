@@ -6,9 +6,10 @@
   %rpt_departments;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
@@ -19,41 +20,43 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_departments.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_departments.js"/>
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()"/>
+    </keyset>
+
+    <vbox flex="1" class="container-report">
+        <vbox flex="1" class="container-main">
 		    <vbox>
-		        <caption label="&rptdepartments.title;"  class="PageTitle"/>
+		        <label value="&rptdepartments.title;" class="label-page-title"/>
 		        <hbox>
-		        	<hbox flex="1">
-		            <grid class="DataForm" flex="1">
+		            <grid flex="1" class="data-form">
 		                <columns>
-		                    <column  flex="1"/>
+		                    <column flex="1"/>
 		                </columns>
 		                <rows>
 		                    <row>
 		                    	<vbox>
-				                    <label value="&rptdepartments.sortby;" />
+				                    <label value="&rptdepartments.sortby;"/>
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="&rptdepartments.sortby.no;" value="no" />
-					                        <menuitem selected="false" label="&rptdepartments.sortby.name;" value="name" />
+					                        <menuitem selected="true" label="&rptdepartments.sortby.no;" value="no"/>
+					                        <menuitem selected="false" label="&rptdepartments.sortby.name;" value="name"/>
 					                    </menupopup>
 					                </menulist>
 					            </vbox>
 					            <vbox>
-					            	<spacer width="280" />
+					            	<spacer width="280"/>
 					            </vbox>
 		                    </row>
 		                </rows>
 		            </grid>
-		            </hbox>
-		            <button id="execute" label="&rptdepartments.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDepartments');" />
+		            <button id="execute" label="&rptdepartments.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDepartments');"/>
 		        </hbox>
             </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
@@ -62,23 +65,23 @@
 			<hbox class="TopPnl">
                 <hbox class="ReportTool" flex="1" style="overflow: auto;">
                     <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
-                        <tabs id="tabs" >
-                            <vivibutton id="export_pdf" label="&rptdepartments.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDepartments');" />
-                            <vivibutton id="export_csv" label="&rptdepartments.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDepartments');" />
-                            <vivibutton id="export_rcp" label="&rptdepartments.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDepartments');" />
-                            <vivibutton id="print" label="&rptdepartments.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptDepartments');" />
+                        <tabs id="tabs">
+                            <vivibutton id="export_pdf" label="&rptdepartments.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDepartments');"/>
+                            <vivibutton id="export_csv" label="&rptdepartments.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDepartments');"/>
+                            <vivibutton id="export_rcp" label="&rptdepartments.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDepartments');"/>
+                            <vivibutton id="print" label="&rptdepartments.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptDepartments');"/>
                         </tabs>
                     </arrowscrollbox>
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="ok" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
             
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" id="previewBox" flex="1">
-						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template1.html" flex="1" />
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template1.html" flex="1"/>
 					</box>
                 </groupbox>
             </hbox>
@@ -86,5 +89,5 @@
     </vbox>
 	
 	<!-- overlay the waiting panel. -->
-    <popupset id="dialogs" />
+    <popupset id="dialogs"/>
 </window>

@@ -29,11 +29,11 @@
         readPrefSchedule: function () {
             var datas = GeckoJS.Configure.read('vivipos.fec.settings.PriceLevelSchedule') || '[]';
 
-            this._listDatas = GeckoJS.BaseObject.unserialize(datas);
+            this._listDatas = GeckoJS.BaseObject.unserialize(datas) || [];
 
             if (this._listDatas.length == 0) {
                 for (var i = 0; i < 7; i++)
-                    this._listdatas.push([]);
+                    this._listDatas.push([]);
             } else if (this._listDatas.length > 0) {
                 // translate old schedule format to week schedule...
                 if (this._listDatas[0].time) {

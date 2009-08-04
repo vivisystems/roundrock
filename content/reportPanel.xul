@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
   <!ENTITY % ControlPanel SYSTEM "chrome://viviecr/locale/controlpanel.dtd">
   %ControlPanel;
   ]>
-
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/viviecr.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/reportPanel.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="Reports Panel"
+<window title="&controlpanel.reports.title;"
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -28,24 +27,27 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reportPanel.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
-        <!-- caption label="Report Panel: "/ -->
-        <stack flex="1">
-            <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" aclField="roles" flex="1"
-                buttonClass="ReportButton" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" class="ItemScrollablepanel" oncommand="launchReport(this);">
-                <spacer flex="1" />
-            </viviscrollablebuttonpanel>
-            <hbox id="loading" align="center" style="display: none;" class="LoadingPnl">
-                <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&controlpanel.loading;</label>
+    <vbox flex="1" class="container-be">
+        <vbox flex="1" class="container-main">
+            <stack flex="1">
+                <vbox flex="1" class="content-buttonpanel">
+                    <viviscrollablebuttonpanel id="reportPanel" flex="1" cols="4" rows="5"
+                                               labelField="label" imageField="icon" aclField="roles"
+                                               buttonClass="custom-button-report" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"
+                                               oncommand="launchReport(this);">
+                        <spacer flex="1" />
+                    </viviscrollablebuttonpanel>
+                </vbox>
+                <hbox id="loading" align="center" style="display: none;" class="custom-content-loading-panel">
+                    <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&controlpanel.loading;</label>
+                </hbox>
+            </stack>
+            <hbox id="dialogButtons" class="exitbar" pack="end">
+                <button id="close" default="true" class="button-exit" oncommand="window.close();"/>
             </hbox>
-        </stack>
-        <hbox id="dialogButtons" class="dialogbtns" pack="end">
-            <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-        </hbox>
         </vbox>
     </vbox>
 </window>

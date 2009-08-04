@@ -1,7 +1,7 @@
 (function(){
 
     var inputObj = window.arguments[0];
-    var tableOrderStatusStr = {0: "***", 1:"Checksum Error", 2:"Lost Status"};
+    var tableOrderStatusStr = {0: '***', 1: _('Checksum Error'), 2: _('Lost Status')};
 
     var CheckListView = window.CheckListView = GeckoJS.NSITreeViewArray.extend({
 
@@ -107,7 +107,7 @@
 
         var checks = inputObj.checks;
         var excludedOrderId = inputObj.excludedOrderId;
-        var self = this;
+        var checkListObj = document.getElementById('checkScrollablepanel');
 
         var checkViews = [];
         checks.forEach(function(checkObj) {
@@ -120,7 +120,7 @@
                 guests: checkObj.no_of_customers,
                 holdby: '',
                 table_order_status: checkObj.table_order_status,
-                clerk: checkObj.service_clerk,
+                clerk: checkObj.service_clerk_displayname,
                 booking: 0,
                 lock: false,
                 status: 0,
@@ -140,9 +140,9 @@
         
         var checkList = new CheckListView(checkViews);
 
-        document.getElementById('checkScrollablepanel').datasource = checkList ;
+        checkListObj.datasource = checkList ;
 
-        document.getElementById('checkScrollablepanel').addEventListener('command', function(evt) {
+        checkListObj.addEventListener('command', function(evt) {
             var index = evt.target.value;
 
             var itemlistObj = document.getElementById('itemlist');

@@ -6,7 +6,7 @@
   %ControlPanel;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/controlpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/controlpanel.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 

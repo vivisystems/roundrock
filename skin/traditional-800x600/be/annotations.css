@@ -1,0 +1,14 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Back-End Custom Styles for Annotations
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+#annotationscrollablepanel #code {
+    text-align: center;
+}
+
+#annotationscrollablepanel #type {
+    text-align: left;
+}

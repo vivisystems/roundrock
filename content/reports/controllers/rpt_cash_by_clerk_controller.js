@@ -75,6 +75,11 @@
         },
         
         set_reportRecords: function( parameters ) { // used while doing shift change.
+            document.getElementById( 'start_date' ).value = parameters.start;
+            document.getElementById( 'end_date' ).value = parameters.end;
+            document.getElementById( 'shift_no' ).value = parameters.shiftNo;
+            document.getElementById( 'terminal_no' ).value = parameters.terminalNo;
+
         	this._set_reportData( parameters.start, parameters.end, parameters.shiftNo, parameters.terminalNo );
         },
         

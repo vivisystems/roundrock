@@ -30,8 +30,8 @@
 <!ENTITY    promotions_manager.label.member_everyone     "Everyone">
 
 
-<!ENTITY    promotions_manager.label.date_between     "Select Date Between">
-<!ENTITY    promotions_manager.label.time_duration     "Select Time Duration">
+<!ENTITY    promotions_manager.label.date_between     "Promotion Period - Date Range">
+<!ENTITY    promotions_manager.label.time_duration     "Promotion Period - Time of Day">
 
 <!ENTITY    promotions_manager.label.start_date     "Start Date">
 <!ENTITY    promotions_manager.label.end_date     "End Date">

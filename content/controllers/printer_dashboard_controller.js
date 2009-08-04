@@ -25,7 +25,7 @@
                             var btn = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','xul:button');
                             btn.setAttribute('type', 'checkbox');
                             btn.setAttribute('label', i);
-                            btn.setAttribute('class', 'printerStatus')
+                            btn.setAttribute('class', 'printer-status')
 
                             // is device enabled?
                             btn.setAttribute('disabled', !devices['receipt-' + i + '-enabled']);
@@ -56,7 +56,7 @@
                             var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
                             btn.setAttribute('type', 'checkbox');
                             btn.setAttribute('label', i);
-                            btn.setAttribute('class', 'printerStatus')
+                            btn.setAttribute('class', 'printer-status')
 
                             // is device enabled?
                             btn.setAttribute('disabled', !devices['check-' + i + '-enabled']);

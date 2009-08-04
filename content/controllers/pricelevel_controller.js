@@ -6,6 +6,7 @@
 
         limit: 9,
         _manualChange: false,
+        _scheduleDay: null,
         _priceLevelSession: "vivipos_fec_price_level",
         _priceLevelSessionBackup: null,
 
@@ -23,7 +24,11 @@
                     }
                 }
             } ).register();
-            
+
+            // load price level preference
+            this.requestCommand('readPrefSchedule', null, 'PriceLevelSchedule');
+
+            this._scheduleDay = (new Date()).getDay();
             this.schedule();
         },
         
@@ -47,14 +52,12 @@
                 var schedule = scheduleData ? scheduleData.schedule : null;
                 var scheduleDay = scheduleData ? scheduleData.day : null;
                 var today = (new Date()).getDay();
-
                 if (!schedule || revertSchedule || changeToCurrent || scheduleDay != today) {
                     this.requestCommand('readPrefSchedule', null, 'PriceLevelSchedule');
                     scheduleData = GeckoJS.Session.get('pricelevelSchedule');
                     schedule = scheduleData ? scheduleData.schedule : null;
                     scheduleDay = scheduleData ? scheduleData.day : null;
                 }
-
                 if (schedule != null) {
                     var timenow = new Date();
                     var hours = timenow.getHours();

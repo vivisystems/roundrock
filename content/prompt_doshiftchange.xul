@@ -6,10 +6,10 @@
   %PromptDoShiftChange;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/shiftchange.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/shiftchange.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -30,19 +30,18 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()"/>
     </keyset>
 
-    <hbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
-            <!-- Left side -->
-            <vbox flex="1" class="MainL">
-                <caption label="&prompt.shiftchange.title;"   class="PageTitle"/>
-                <vivitree id="shiftscrollablepanel" flex="1" onclick=""
+    <hbox flex="1" class="container-dialog">
+        <vbox flex="1" class="container-main">
+            <label value="&prompt.shiftchange.title;" class="label-page-title"/>
+            <vbox flex="1">
+                <vivitree id="shiftscrollablepanel" flex="1" onclick="" dir="normal"
                           headers="&prompt.shiftchange.heading.type;,&prompt.shiftchange.heading.name;,&prompt.shiftchange.heading.count;,&prompt.shiftchange.heading.amount;,&prompt.shiftchange.heading.change;,&prompt.shiftchange.heading.origin_amount;,&prompt.shiftchange.heading.excess;"
                           fields="type,name,count,amount,change,origin_amount,excess_amount"
-                          dir="normal" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"/>
+                          class="standard" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
 
-                <spacer style="height: 5px;"/>
-
-                <grid id="shiftSummary" class="DataForm">
+                <spacer height="5px"/>
+                
+                <grid id="shiftSummary" class="data-form">
                     <columns>
                         <column flex="1"/>
                         <column flex="1"/>
@@ -53,41 +52,41 @@
                     <rows>
                         <row>
                             <vbox>
-                                <label value="&prompt.shiftchange.cash;" class="SubTitle"/>
+                                <label value="&prompt.shiftchange.cash;"/>
                                 <textbox id="cash" flex="1" value="" readonly="true"/>
                             </vbox>
                             <vbox>
-                                <label value="&prompt.shiftchange.balance;" class="SubTitle"/>
+                                <label value="&prompt.shiftchange.balance;"/>
                                 <textbox id="balance" flex="1" value="" readonly="true"/>
                             </vbox>
                             <vbox>
-                                <label value="&prompt.shiftchange.sales;" class="SubTitle"/>
+                                <label value="&prompt.shiftchange.sales;"/>
                                 <textbox id="sales" flex="1" value="" readonly="true"/>
                             </vbox>
                             <vbox>
-                                <label value="&prompt.shiftchange.deposit;" class="SubTitle"/>
+                                <label value="&prompt.shiftchange.deposit;"/>
                                 <textbox id="deposit" flex="1" value="" readonly="true"/>
                             </vbox>
                             <vbox>
-                                <label value="&prompt.shiftchange.refund;" class="SubTitle"/>
+                                <label value="&prompt.shiftchange.refund;"/>
                                 <textbox id="refund" flex="1" value="" readonly="true"/>
                             </vbox>
                         </row>
                         <row>
                             <vbox>
-                                <label value="&prompt.shiftchange.credit;" class="SubTitle"/>
+                                <label value="&prompt.shiftchange.credit;"/>
                                 <textbox id="credit" flex="1" value="" readonly="true"/>
                             </vbox>
                             <vbox>
-                                <label value="&prompt.shiftchange.excess;" class="SubTitle"/>
+                                <label value="&prompt.shiftchange.excess;"/>
                                 <textbox id="excess" flex="1" value="" readonly="true"/>
                             </vbox>
                             <vbox>
-                                <label value="&prompt.shiftchange.ledger.in;" class="SubTitle"/>
+                                <label value="&prompt.shiftchange.ledger.in;"/>
                                 <textbox id="ledger_in" flex="1" value="" readonly="true"/>
                             </vbox>
                             <vbox>
-                                <label value="&prompt.shiftchange.ledger.out;" class="SubTitle"/>
+                                <label value="&prompt.shiftchange.ledger.out;"/>
                                 <textbox id="ledger_out" flex="1" value="" readonly="true"/>
                             </vbox>
                         </row>
@@ -96,47 +95,43 @@
 
             </vbox>
 
-            <spacer height="10px"/>
-            <separator class="groove-thin"/>
+            <spacer height="5px"/>
+            <separator class="groove"/>
             <spacer height="10px"/>
 
             <hbox flex="1" align="center">
-                <caption label="&prompt.shiftchange.drawer.change;" class="SubTitle"/>
+                <caption label="&prompt.shiftchange.drawer.change;"/>
                 <spacer flex="1"/>
-                <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false" class="fixedbtn"
+                <vivibutton id="opendrawer" label="&prompt.shiftchange.open.drawer;" default="false" class="button-fixed"
                             oncommand="$do('openDrawerForShiftChange', null, 'CashDrawer');"/>
                 <spacer width="10px"/>
             </hbox>
             <hbox class="AddAccount">
                 <vbox flex="1">
                     <label value="&prompt.shiftchange.amount;"/>
-                    <vivitextbox id="amount" value="0" flex="1" onfocus="select()" oninput="validateInput()"
-                                 numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>
+                    <vivitextbox id="drawer_amount" flex="1" type="number" value="0" decimalplaces="Infinity" min="-Infinity" max="Infinity"
+                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                 oninputonfocus="select()"/>
                 </vbox>
                 <spacer width="10px"/>
                 <vbox flex="1">
                     <label value="&prompt.shiftchange.description;"/>
                     <textbox id="description" flex="1" onfocus="select()" value=""/>
                 </vbox>
-                <spacer width="10px"/>
-                <vbox pack="end" align="center">
-                    <button id="clearBtn" label="CLEAR" class="fixedbtn" oncommand="clearFocusedElement()"/>
-                </vbox>
-                <spacer width="10px"/>
             </hbox>
 
             <spacer height="10px"/>
 
             <hbox>
-                <hbox id="dialogButtons" class="ToolBar" pack="start" flex="1">
+                <hbox id="dialogButtons" pack="start" flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="ok" label="&prompt.shiftchange.change.shift;" disabled="false" default="true" oncommand="if (confirmEndShift()) doOKButton();"/>
                     <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                     <spacer flex="1"/>
                     <vivibutton id="close" label="&prompt.shiftchange.end.sale.period;" disabled="false" default="false"
                                 oncommand="if (confirmEndSalePeriod()) doOKButton('end')"/>
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                    <button id="vkb" label="" oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                 </hbox>
             </hbox>
         </vbox>

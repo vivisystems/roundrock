@@ -37,12 +37,16 @@
                 var len = parseInt(o.length);
                 var row = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'xul:row');
                 var filter_label = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'xul:label');
-                var filter_textbox = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','xul:textbox');
+                var filter_textbox = document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','xul:vivitextbox');
                 var label = o.filtername + ' (' + index + '-' + (index + len - 1) + '):';
                 filter_label.setAttribute('value', label);
                 filter_textbox.setAttribute('id', 'filter_' + i++);
                 filter_textbox.setAttribute('size', parseInt(o.length) + 2);
                 filter_textbox.setAttribute('maxlength', o.length);
+                filter_textbox.setAttribute('numpadClass', 'numpad');
+                filter_textbox.setAttribute('fixedbtnClass', 'button-fixed');
+                filter_textbox.setAttribute('popupKeypad', 'true');
+                filter_textbox.setAttribute('keypad', 'numpad');
                 row.appendChild(filter_label);
                 row.appendChild(filter_textbox);
                 rows_filter.appendChild(row);
@@ -84,7 +88,7 @@
             var fields = [];
             var searchStr = this._queryStringPreprocessor(barcode);
 
-            var conditions = "products.no like '%" + searchStr + "%' or products.barcode like '%" + searchStr + "%' or products.name like '%" + searchStr + "%'";
+            var conditions = "products.no like '" + searchStr + "%' or products.barcode like '" + searchStr + "%' or products.name like '%" + searchStr + "%'";
             var prodModel = new ProductModel();
             var datas = prodModel.find('all',{fields: fields, conditions: conditions, recursive: 1});
 

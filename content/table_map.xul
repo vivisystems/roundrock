@@ -6,9 +6,10 @@
   %TableMap;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/table_map.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/table_map.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -63,9 +64,9 @@ function popupProp(evt) {
             <vbox flex="1">
             <viviscrollablebuttonpanel id="regionScrollablepanel" flex="1" cols="1" rows="7"  seltype="single" labelField="region"
                                        class="ItemScrollablepanel"
-                                       buttonClass="ItemButtonA"
-                                       scrollUpClass="ScrollUp"
-                                       scrollDownClass="ScrollDown"
+                                       buttonClass="button-item-a"
+                                       scrollUpClass="scroll-up-button"
+                                       scrollDownClass="scroll-down-button"
                                        oncommand="$do('selectRegion',this.selectedIndex, 'TableMap');"
                                        >
                 <spacer flex="1"/>
@@ -73,10 +74,10 @@ function popupProp(evt) {
             </vbox>
 
             <!-- vbox id="dialogButtons" class="dialogbtns" pack="center" -->
-            <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                <button class="BtnAdd" label="test..." oncommand=""/>
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+            <hbox id="dialogButtons" pack="end" class="exitbar">
+                <button class="button-add" label="test..." oncommand=""/>
+                <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button id="ok" default="true" class="button-exit" oncommand="doOKButton();"/>
             </hbox>
 
         </vbox>

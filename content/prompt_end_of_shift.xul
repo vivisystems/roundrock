@@ -6,8 +6,9 @@
   %EndOfShift;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -33,12 +34,12 @@
         window.addEventListener('load', startup, false);
 
     </script>
-    <vbox class="main-dialog" flex="1">
-        <vbox class="MainPnl" flex="1">
-            <label id="message" value="" class="PageTitle"/>
+    <vbox flex="1" class="container-dialog">
+        <vbox flex="1" class="container-main">
+            <label id="message" value="" class="label-page-title"/>
             <spacer flex="1"/>
             <hbox>
-                <hbox id="dialogButtons" class="ToolBar" flex="1">
+                <hbox id="dialogButtons" flex="1" class="toolbar" toolbarmode="horizontaol">
                     <button id="review" label="&shiftchange.button.review.this.shift;" disabled="false" default="false" oncommand="opener.$do('reviewShiftReport', null, 'ShiftChanges');"/>
                     <button id="print" label="&shiftchange.button.print.this.shift;" disabled="false" default="false" oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
                     <spacer flex="1" />

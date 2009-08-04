@@ -28,9 +28,6 @@
         bindingPanel: function(domId) {
             
             var prodscrollablepanel = document.getElementById(domId);
-            //prodscrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.PluRows'));
-            //prodscrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.PluCols'));
-            //prodscrollablepanel.initGrid();
             prodscrollablepanel.datasource = this;
 
             if(this._cateView) this.setCatePanelIndex(this._currentCateIndex);
@@ -42,7 +39,6 @@
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
                 if (evt.data.key == 'products') {
-                    //self.updateProducts();
                     if(self._cateView) self.setCatePanelIndex(self._currentCateIndex);
                 }
             });
@@ -85,19 +81,9 @@
             if(! cate) return;
             
             var productsIndexesByCate;
-            /*
-            if (this.hideInvisible) {
-                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
-            }else {
-                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
-            }
-            
-            this._data = productsIndexesByCate[cate.no] || [];
-            */
            
             if (this.hideInvisible) {
                 if(typeof cate['no'] == 'undefined') {
-                    // group
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroup');
                     this._data = productsIndexesByCate[cate.id] || [];
                 }else {
@@ -107,24 +93,16 @@
 
             }else {
                 if(typeof cate['no'] == 'undefined') {
-                    // group
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
                     this._data = productsIndexesByCate[cate.id] || [];
                 }else {
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
                     this._data = productsIndexesByCate[cate.no] || [];
                 }
-                /*
-                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
-                this._data = productsIndexesByCate[cate.no] || productsIndexesByCate[cate.id] || [];
-                */
-
             }
             try {
                 this.tree.invalidate();
             }catch(e) {
-                
-                // alert('error' + e);
             }
 
             
@@ -244,12 +222,12 @@
 
             if (imageExists) {
                 if (icon_only) {
-                    classStr += ((classStr.length > 0) ? ' ' : '') + 'nolabelbtn largeimagebtn';
+                    classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-label button-large-image';
                     //$(btn).addClass('nolabelbtn largeimagebtn');
                 }
             }
             else {
-                classStr += ((classStr.length > 0) ? ' ' : '') + 'noimagebtn';
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'button-no-image';
                 //$(btn).addClass('noimagebtn');
             }
             if (classStr.length > 0) {
