@@ -49,16 +49,9 @@
         },
 
         rowCountChanged: function(rc1, rc2, newIndex) {
-            // lazy way ? full refresh
+
             var oldIndex = this._cartList.currentIndex;
 
-            // standard way, update rowCountChanged event.
-            /*
-            if (rc1 != rc2) {
-                this.tree.rowCountChanged(rc1,rc2-rc1);
-            }else {
-                this.tree.invalidate();
-            }*/
             //GREUtils.log('rowCountChanged 1: ' + oldIndex + ', ' + rc1 + ', ' + rc2 + ', ' + newIndex);
             if (rc1 < 0) {
                 rc1 = 0;
@@ -70,33 +63,18 @@
             if (rc2 < 0) rc2 = this.data.length;
             if (newIndex == null) newIndex = this.data.length - 1;
             if (rc1 != rc2) {
-                // lazy way ? full refresh
-                //this._cartList.datasource = this;
                 this.tree.rowCountChanged(oldIndex, rc2 - rc1);
-
-                /*
-                if (jumpToLast) newIndex = rc2 - 1;
-                else {
-                    if (oldIndex == rc1 - 1) newIndex = rc2 - 1;
-                    else newIndex = oldIndex;
-                }
-                */
             }
             // doing so to redraw the tree.
             this.tree.invalidate();
 
             if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
             else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
-            //GREUtils.log('rowCountChanged 2: ' + rc1 + ', ' + rc2 + ', ' + newIndex);
 
             this.tree.view.selection.select(newIndex);
             this.tree.ensureRowIsVisible(newIndex);
         },
-/*
-        getCellText: function(row, col) {
-            return 'abiowcasdsadasdasdsadasdiii';
-        },
-*/
+        
         getCellProperties: function(row, col, prop) {
             var data = this.getCurrentIndexData(row);
             var aserv=Components.classes['@mozilla.org/atom-service;1'].
@@ -145,28 +123,7 @@
             }
         },
 
-        /*
-        getCellProperties: function(row,col,props){
-
-            var data = this.getCurrentIndexData(row);
-            if (data.name == '** TRAY') {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
-                props.AppendElement(aserv.getAtom('treecellTRAY'));
-            } else if (data.name == '** SUBTOTAL') {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
-                props.AppendElement(aserv.getAtom('treecellSUBTOTAL'));
-            } else if (data.name == '** TOTAL') {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
-                props.AppendElement(aserv.getAtom('treecellTOTAL'));
-            }
-        },
-        */
-
         getRowProperties : function(row, props){
-            //if (this._old_row == row) return;
             var data = this.getCurrentIndexData(row);
             var aserv=Components.classes['@mozilla.org/atom-service;1'].
                       getService(Components.interfaces.nsIAtomService);
@@ -191,14 +148,7 @@
             else {
                 props.AppendElement(aserv.getAtom('regular'));
             }
-            /*
-            this._old_row = row;
-            */
         },
-
-        //getRowProperties : function(row,props){},
-        //getColumnProperties : function(column,columnElement,props){},
-        //getCellProperties : function(row,column,props){},
 
         getLevel: function(row) {
             return this.data[row].level;
