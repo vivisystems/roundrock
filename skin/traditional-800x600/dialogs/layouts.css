@@ -152,3 +152,17 @@
     min-height: 480px;
     max-height: 480px;
 }
+
+.layout-dialog .layout-b .block-40 {
+    /* 40% */
+    height: 240px;
+    min-height: 240px;
+    max-height: 240px;
+}
+
+.layout-dialog .layout-b .block-60 {
+    /* 60% */
+    height: 360px;
+    min-height: 360px;
+    max-height: 360px;
+}
