@@ -1656,12 +1656,10 @@
         <xul:hbox>
           <xul:vividatetimepicker-datepad anonid="datepad" class="datepicker-popupgrid"
                         xbl:inherits="disabled,readonly,firstdayofweek"/>
-          <xul:vbox>
-            <xul:vividatetimepicker-timepad anonid="timepad" class="datepicker-popupgrid"
+          <xul:vbox pack="end">
+            <xul:vividatetimepicker-timepad anonid="timepad" class="datepicker-popupgrid" flex="1"
                         xbl:inherits="disabled,readonly"/>
-            <xul:spacer flex="1"/>
-            <xul:hbox>
-                <xul:spacer flex="1"/>
+            <xul:hbox pack="end">
                 <xul:button label="&okButton.label;" oncommand="this.parentNode.parentNode.parentNode.parentNode.hidePopup(); event.stopPropagation();"/>
             </xul:hbox>
           </xul:vbox>

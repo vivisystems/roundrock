@@ -36,7 +36,7 @@
 
     <vbox flex="1" class="container-dialog">
         <vbox flex="1" class="container-main">
-            <hbox>
+            <hbox align="center">
                 <label value="&vieworder.title;" class="label-page-title"/>
                 <textbox id="order" default="" flex="1" readonly="true"/>
                 <spacer width="5px"/>
