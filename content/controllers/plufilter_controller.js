@@ -6,6 +6,7 @@
 	
         _listObj: null,
         _listDatas: [],
+        _selectedIndex: -1,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -23,12 +24,22 @@
             }
 
             this.getListObj().datasource = this._listDatas;
-            this.getListObj().treeBoxObject.ensureRowIsVisible(this.getListObj().selectedIndex);
+            this._selectedIndex = -1;
+
+            var index = this.getListObj().selectedIndex;
+            if (index == -1 && this._listDatas.length > 0) index = 0;
+            this.select(index);
+            this.getListObj().treeBoxObject.ensureRowIsVisible(index);
             
             this.validateForm();
         },
 
         addFilter: function(){
+
+            if (!this.confirmChangeFilter()) {
+                return;
+            }
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
@@ -75,13 +86,19 @@
                     this.saveFilters();
 
                     var filterName = this._listDatas[index].filtername;
+
                     OsdUtils.info(_('Filter [%S] modified successfully', [filterName]));
+
+                    return true;
                 }
                 else {
                     // shouldn't happen, but check anyways
                     NotifyUtils.warn(_('Filter name must not be empty'));
+
+                    return false;
                 }
             }
+            return true;
         },
 
         deleteFilter: function(){
@@ -146,19 +163,65 @@
         },
 	
         select: function(index){
+            
+            if (index == this._selectedIndex) return;
+            
+            if (!this.confirmChangeFilter(index)) {
+                this.getListObj().selection.select(this._selectedIndex);
+                return;
+            }
+
+            this._selectedIndex = index;
+            
             this.getListObj().selection.select(index);
             if (index > -1) {
                 var inputObj = this._listDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('filterForm', inputObj);
-
             }
             else {
                 GeckoJS.FormHelper.reset('filterForm');
             }
 
             this.validateForm();
-        }
+        },
 	
+        exit: function() {
+            // check if filter form has been modified
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('filterForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current product filter. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    if (!this.modifyFilter()) return;
+                }
+            }
+            window.close();
+        },
+
+        confirmChangeFilter: function(index) {
+            // check if filter form have been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('filterForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current product filter. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
     };
     
     GeckoJS.Controller.extend(__controller__);

@@ -11,17 +11,6 @@
      * Controller Startup
      */
     function startup() {
-
-        doSetOKCancel(
-            function(){
-                return true;
-            },
-            function(){
-                return true;
-            }
-        );
-
-
         $do('load', inputObj, 'ViewSystemLog');
     };
 

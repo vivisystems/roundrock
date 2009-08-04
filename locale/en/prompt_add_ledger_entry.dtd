@@ -8,3 +8,6 @@
 <!ENTITY prompt.addentry.heading.type "Type">
 <!ENTITY prompt.addentry.heading.mode "Mode">
 <!ENTITY prompt.addentry.button.opendrawer "Open Drawer">
+<!ENTITY prompt.addentry.button.del "DEL">
+<!ENTITY prompt.addentry.button.clear "CLEAR">
+

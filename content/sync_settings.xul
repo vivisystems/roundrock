@@ -6,8 +6,9 @@
   %SyncSettings;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -16,7 +17,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include models -->
     <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
@@ -25,17 +26,17 @@
     <script src="chrome://viviecr/content/controllers/sync_settings_controller.js" type="application/x-javascript"/>
 
   <!-- include startup script -->
-    <script type="application/x-javascript" src="chrome://viviecr/content/sync_settings.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/sync_settings.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('save').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <vbox flex="1" class="MainPnl">
+    <vbox flex="1" class="container-be">
+        <vbox flex="1" class="container-main">
 
-            <tabbox class="RightTabbox" flex="1">
+            <tabbox flex="1" class="content-tabbox">
 
                 <tabs>
                     <tab id="basic-tab" label="&sync_settings.tablabel.basic;"/>
@@ -44,66 +45,77 @@
                 </tabs>
 
                 <tabpanels>
-                    <tabpanel id="basic-panel" orient="horizontal">
-                        <vbox class="SetArea" flex="1">
-                            <checkbox form="syncSettingForm" name="active" label="&sync_settings.label.active;" />
-                            <grid class="DataForm" flex="1">
-                                <columns>
-                                    <column  flex="1" />
-                                    <column flex="1" />
-                                </columns>
-                                <rows>
-
-                                    <row>
-                                        <vbox>
-                                            <label value="&sync_settings.label.hostname;" />
-                                            <textbox form="syncSettingForm" name="hostname" value="localhost"/>
-                                        </vbox>
-                                        <vbox>
-                                            <label value="&sync_settings.label.machine_id;" />
-                                            <textbox form="syncSettingForm" name="machine_id" />
-                                        </vbox>
-                                    </row>
-
-                                    <row>
-                                        <vbox>
-                                            <label value="&sync_settings.label.password;" />
-                                            <textbox form="syncSettingForm" name="password" />
-                                        </vbox>
-                                        <vbox>
-                                            <label value="&sync_settings.label.interval;" />
-                                            <textbox form="syncSettingForm" name="interval" type="number" value="60" />
-                                        </vbox>
-                                    </row>
-
-                                    <row>
-                                        <vbox>
-                                            <label value="&sync_settings.label.start_hour;" />
-                                            <textbox form="syncSettingForm" name="start_hour" value="08" />
-                                        </vbox>
-                                        <vbox>
-                                            <label value="&sync_settings.label.end_hour;" />
-                                            <textbox form="syncSettingForm" name="end_hour" value="20" />
-                                        </vbox>
-                                    </row>
-                                    <row>
-                                        <checkbox form="syncSettingForm" name="pull_order" label="&sync_settings.label.pull_order;" />
-                                    </row>
-                                </rows>
-                            </grid>
+                    <tabpanel id="basic-panel" orient="vertical">
+                        <vbox class="content-formbox" flex="1">
+                            <checkbox form="syncSettingForm" name="active" label="&sync_settings.label.active;"/>
                         </vbox>
+                        <grid class="data-form-2" flex="1">
+                            <columns>
+                                <column  flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+
+                                <row>
+                                    <vbox>
+                                        <label value="&sync_settings.label.hostname;"/>
+                                        <textbox value="localhost"
+                                                 form="syncSettingForm" name="hostname"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&sync_settings.label.machine_id;"/>
+                                        <textbox form="syncSettingForm" name="machine_id"/>
+                                    </vbox>
+                                </row>
+
+                                <row>
+                                    <vbox>
+                                        <label value="&sync_settings.label.password;"/>
+                                        <textbox form="syncSettingForm" name="password"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&sync_settings.label.interval;"/>
+                                        <vivitextbox type="number" value="60"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     form="syncSettingForm" name="interval"/>
+                                    </vbox>
+                                </row>
+
+                                <row>
+                                    <vbox>
+                                        <label value="&sync_settings.label.start_hour;"/>
+                                        <vivitextbox value="08" type="number" min="0" max="23"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     form="syncSettingForm" name="start_hour"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&sync_settings.label.end_hour;"/>
+                                        <vivitextbox value="20" type="number" min="0" max="24"
+                                                     numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                     form="syncSettingForm" name="end_hour"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <checkbox label="&sync_settings.label.pull_order;"
+                                              form="syncSettingForm" name="pull_order"/>
+                                </row>
+                            </rows>
+                        </grid>
+                        
                     </tabpanel>
+
                     <tabpanel id="advanced-panel" orient="horizontal">
 	        
-                        <grid class="DataForm" flex="1">
+                        <grid class="data-form-2" flex="1">
                             <columns>
-                                <column  flex="1" />
-                                <column flex="2" />
+                                <column  flex="1"/>
+                                <column flex="2"/>
                             </columns>
                             <rows>
                                 <row>
-                                    <label value="&sync_settings.label.protocol;" />
-                                    <menulist id="protocol" flex="1" form="syncSettingForm" name="protocol" >
+                                    <label value="&sync_settings.label.protocol;"/>
+                                    <menulist id="protocol" flex="1"
+                                              form="syncSettingForm" name="protocol">
                                         <menupopup>
                                             <menuitem label="http" value="http"/>
                                         </menupopup>
@@ -111,74 +123,91 @@
                                 </row>
 
                                 <row>
-                                    <label value="&sync_settings.label.port;" />
-                                    <textbox form="syncSettingForm" name="port" type="number" size="2" value="80" />
+                                    <label value="&sync_settings.label.port;"/>
+                                    <vivitextbox type="number" size="2" value="80" min="1"
+                                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                 form="syncSettingForm" name="port"/>
                                 </row>
 
                                 <row>
-                                    <label value="&sync_settings.label.batch_limit;" />
-                                    <textbox form="syncSettingForm" name="batch_limit" type="number" value="500" />
+                                    <label value="&sync_settings.label.batch_limit;"/>
+                                    <vivitextbox type="number" value="500"
+                                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                 form="syncSettingForm" name="batch_limit"/>
                                 </row>
 
                                 <row>
-                                    <label value="&sync_settings.label.error_retry;" />
-                                    <textbox form="syncSettingForm" name="error_retry" type="number" value="5" />
+                                    <label value="&sync_settings.label.error_retry;"/>
+                                    <vivitextbox type="number" value="5"
+                                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                 form="syncSettingForm" name="error_retry"/>
                                 </row>
 
                                 <row>
-                                    <label value="&sync_settings.label.timeout;" />
-                                    <textbox form="syncSettingForm" name="timeout" type="number" value="300" />
+                                    <label value="&sync_settings.label.timeout;"/>
+                                    <vivitextbox type="number" value="300"
+                                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                 form="syncSettingForm" name="timeout" />
                                 </row>
 
                                 <row>
-                                    <label value="&sync_settings.label.retain_days;" />
-                                    <textbox form="syncSettingForm" name="retain_days" type="number" size="2" maxlength="2" min="1" max="15"/>
+                                    <label value="&sync_settings.label.retain_days;"/>
+                                    <vivitextbox type="number" size="2" min="1" max="15"
+                                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                 form="syncSettingForm" name="retain_days"/>
                                 </row>
-
                             </rows>
                         </grid>
 
                     </tabpanel>
 
-                    <tabpanel id="services-panel" orient="horizontal">
+                    <tabpanel id="services-panel" orient="vertical">
 
-                        <grid class="DataForm" flex="1">
+                        <grid flex="1" class="data-form-2">
                             <columns>
-                                <column  flex="1" />
-                                <column flex="2" />
+                                <column  flex="1"/>
+                                <column flex="2"/>
                             </columns>
                             <rows>
                                 <row>
                                     <vbox>
-                                        <label value="&sync_settings.label.sequence_hostname;" />
-                                        <textbox form="syncSettingForm" name="sequence_hostname" value="localhost"/>
+                                        <label value="&sync_settings.label.sequence_hostname;"/>
+                                        <textbox value="localhost"
+                                                 form="syncSettingForm" name="sequence_hostname"/>
                                     </vbox>
-                                    <textbox class="descbox_keymap" id="sequence_hostname_desc" wrap="true"
-                                         readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.sequence_hostname;" />
+                                    <textbox id="sequence_hostname_desc" flex="1" class="textbox-description"
+                                             readonly="true" wrap="true" multiline="true" rows="2"
+                                             value="&sync_settings.desc.sequence_hostname;"/>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&sync_settings.label.table_hostname;" />
-                                        <textbox form="syncSettingForm" name="table_hostname" value="localhost"/>
+                                        <label value="&sync_settings.label.table_hostname;"/>
+                                        <textbox value="localhost"
+                                                 form="syncSettingForm" name="table_hostname"/>
                                     </vbox>
-                                    <textbox class="descbox_keymap" id="table_hostname_desc" wrap="true"
-                                         readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.table_hostname;" />
+                                    <textbox id="table_hostname_desc" flex="1" class="textbox-description"
+                                             readonly="true" wrap="true" multiline="true" rows="2"
+                                             value="&sync_settings.desc.table_hostname;"/>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&sync_settings.label.stock_hostname;" />
-                                        <textbox form="syncSettingForm" name="stock_hostname" value="localhost"/>
+                                        <label value="&sync_settings.label.stock_hostname;"/>
+                                        <textbox value="localhost"
+                                                 form="syncSettingForm" name="stock_hostname"/>
                                     </vbox>
-                                    <textbox class="descbox_keymap" id="stock_hostname_desc" wrap="true"
-                                         readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.stock_hostname;" />
+                                    <textbox id="stock_hostname_desc" flex="1" class="textbox-description"
+                                             readonly="true" wrap="true" multiline="true" rows="2"
+                                             value="&sync_settings.desc.stock_hostname;"/>
                                 </row>
                                 <row>
                                     <vbox>
-                                        <label value="&sync_settings.label.ntp_hostname;" />
-                                        <textbox form="syncSettingForm" name="ntp_hostname" value="localhost"/>
+                                        <label value="&sync_settings.label.ntp_hostname;"/>
+                                        <textbox value="localhost"
+                                                 form="syncSettingForm" name="ntp_hostname"/>
                                     </vbox>
-                                    <textbox class="descbox_keymap" id="ntp_hostname_desc" wrap="true"
-                                         readonly="true" multiline="true" rows="2" flex="1" value="&sync_settings.desc.ntp_hostname;" />
+                                    <textbox id="ntp_hostname_desc" flex="1" class="textbox-description"
+                                             readonly="true" wrap="true" multiline="true" rows="2"
+                                             value="&sync_settings.desc.ntp_hostname;"/>
                                 </row>
                             </rows>
                         </grid>
@@ -187,13 +216,11 @@
                 </tabpanels>
             </tabbox>
 
-            <spacer flex="1" />
-
-            <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
-                <spacer flex="1" />
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+            <hbox id="dialogButtons" class="exitbar">
+                <button id="save" default="true" class="button-save" oncommand="$do('save', null, 'SyncSettings');"/>
+                <spacer flex="1"/>
+                <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                <button id="close" default="false" class="button-exit" oncommand="$do('exit', null, 'SyncSettings');"/>
             </hbox>
   
         </vbox>

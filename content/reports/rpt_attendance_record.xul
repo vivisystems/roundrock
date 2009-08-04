@@ -5,12 +5,14 @@
   <!ENTITY % rpt_attendance_record SYSTEM "chrome://viviecr/locale/reports/rpt_attendance_record.dtd">
   %rpt_attendance_record;
   ]>
+  
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_scrollbutton_panel.xul"?>
 
@@ -19,69 +21,71 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_attendance_record.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_attendance_record.js"/>
   
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()"/>
+    </keyset>
+
+    <vbox flex="1" class="container-report">
+        <vbox flex="1" class="container-main">
 		    <vbox><!-- set for the splitter to collapse up to here.-->
-		        <caption label="&rptattendancerecord.title;"  class="PageTitle"/>
-		        <!--caption label="&productsales.conditions;" / -->
+		        <label value="&rptattendancerecord.title;" class="label-page-title"/>
 		        <hbox>
-		            <hbox flex="1">
-		            <grid class="DataForm" flex="1">
+		            <grid flex="1" class="data-form">
 		                <columns>
-		                    <column  flex="1"/><column flex="1" />
+		                    <column flex="1"/>
+                            <column flex="1"/>
 		                </columns>
 		                <rows>
 		                    <row>
 		                        <vbox>
-		                            <label value="&rptattendancerecord.startdate;" />
-		                            <vividatetimepicker id="start_date" value='' type="popup" />
+		                            <label value="&rptattendancerecord.startdate;"/>
+		                            <vividatetimepicker id="start_date" value="" type="popup"/>
 		                        </vbox>
 		                        <vbox>
-		                            <label value="&rptattendancerecord.enddate;" />
-		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                            <label value="&rptattendancerecord.enddate;"/>
+		                            <vividatetimepicker id="end_date" value="" type="popup"/>
 		                        </vbox>
 		                    </row>
 		                    <row>
 				                <vbox>
-				                	<label value="&rptattendancerecord.user;" />
+				                	<label value="&rptattendancerecord.user;"/>
 				                    <menulist id="user">
 				                        <menupopup id="user_menupopup">
-				                            <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
+				                            <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all"/>
 				                        </menupopup>
 				                    </menulist>
 				                </vbox>
 				                <vbox>
-				                	<label value="&rptattendancerecord.jobs;" />
+				                	<label value="&rptattendancerecord.jobs;"/>
 				                	<menulist id="job">
 				                		<menupopup id="job_menupopup">
-				                			<menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
+				                			<menuitem selected="true" label="[&rptattendancerecord.all;]" value="all"/>
 				                		</menupopup>
 				                	</menulist>
 				                </vbox>
 					        </row>
 					        <row>
 					        	<vbox>
-				                	<label value="&rptattendancerecord.sortby;" />
+				                	<label value="&rptattendancerecord.sortby;"/>
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="false" label="&rptattendancerecord.job;" value="job" />
-					                        <menuitem selected="true" label="&rptattendancerecord.intime;" value="InTime" />
-					                        <menuitem selected="false" label="&rptattendancerecord.outtime;" value="OutTime" />
-					                        <menuitem selected="false" label="&rptattendancerecord.spantime;" value="SpanTime" />
+					                        <menuitem selected="false" label="&rptattendancerecord.job;" value="job"/>
+					                        <menuitem selected="true" label="&rptattendancerecord.intime;" value="InTime"/>
+					                        <menuitem selected="false" label="&rptattendancerecord.outtime;" value="OutTime"/>
+					                        <menuitem selected="false" label="&rptattendancerecord.spantime;" value="SpanTime"/>
 					                    </menupopup>
 					                </menulist>
 					            </vbox>
 					        </row>
 		                </rows>
 		            </grid>
-		            </hbox>
-		            <button id="execute" label="&rptattendancerecord.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptAttendanceRecord');" />
+		            <button id="execute" label="&rptattendancerecord.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptAttendanceRecord');"/>
 		        </hbox>
 		    </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
@@ -90,24 +94,24 @@
             <hbox class="TopPnl">
                 <hbox class="ReportTool" flex="1" style="overflow: auto;">
                     <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
-                        <tabs id="tabs" >
-                            <vivibutton id="export_pdf" label="&rptattendancerecord.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptAttendanceRecord');" />
-                            <vivibutton id="export_csv" label="&rptattendancerecord.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptAttendanceRecord');" />
-                            <vivibutton id="export_rcp" label="&rptattendancerecord.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptAttendanceRecord');" />
-                            <vivibutton id="print" label="&rptattendancerecord.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptAttendanceRecord');" />
+                        <tabs id="tabs">
+                            <vivibutton id="export_pdf" label="&rptattendancerecord.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptAttendanceRecord');"/>
+                            <vivibutton id="export_csv" label="&rptattendancerecord.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptAttendanceRecord');"/>
+                            <vivibutton id="export_rcp" label="&rptattendancerecord.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptAttendanceRecord');"/>
+                            <vivibutton id="print" label="&rptattendancerecord.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptAttendanceRecord');"/>
                         </tabs>
                     </arrowscrollbox>
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle()"/>
+                    <button id="ok" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
             
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" id="previewBox" flex="1">
-						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1" />
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1"/>
 					</box>
                 </groupbox>
             </hbox>
@@ -115,6 +119,6 @@
     </vbox>
 
     <!-- overlay the waiting panel. -->
-    <popupset id="dialogs" />
+    <popupset id="dialogs"/>
 
 </window>

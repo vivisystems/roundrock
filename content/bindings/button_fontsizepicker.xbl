@@ -13,18 +13,15 @@
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <binding id="button_fontsizepicker">
-  <resources>
-  	<stylesheet src="chrome://viviecr/skin/buttons.css" />
-  </resources>
 
   <content>
 
-    <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer">
-        <xul:button class="button_fontsizepicker" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-xlarge.label;" fontsize="xlarge" />
-        <xul:button class="button_fontsizepicker" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-large.label;" fontsize="large" />
-        <xul:button class="button_fontsizepicker" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-medium.label;" fontsize="medium" />
-        <xul:button class="button_fontsizepicker" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-small.label;" fontsize="small" />
-    </xul:hbox>
+    <xul:box xbl:inherits="flex,orient" anonid="boxContainer">
+        <xul:button flex="1" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-xlarge.label;" fontsize="xlarge" />
+        <xul:button flex="1" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-large.label;" fontsize="large" />
+        <xul:button flex="1" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-medium.label;" fontsize="medium" />
+        <xul:button flex="1" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-small.label;" fontsize="small" />
+    </xul:box>
 
   </content>
 

@@ -42,7 +42,8 @@
             // warn if one or more enabled devices are off-line
             if (warn) {
                 var win = this.topmostWindow;
-                if (win.document.title == 'ViviPOS' && (typeof win.width) == 'undefined')
+
+                if (win.document.documentElement.id == 'viviposMainWindow' && (typeof win.width) == 'undefined')
                     win = null;
 
                 var statusResult = this.checkStatusAll();
@@ -1811,7 +1812,7 @@
         },
 
         // save configurations
-        save: function (data) {
+        save: function () {
             // get form data
             var formObj = GeckoJS.FormHelper.serializeToObject('deviceForm');
 
@@ -1841,19 +1842,45 @@
                 if (GREUtils.Dialog.confirm(this.topmostWindow,
                                             _('Device Status'),
                                             _('The following enabled devices appear to be offline, do you still want to save the new configuration?') + '\n' + statusStr) == false) {
-                        if (data != null) data.cancel = true;
-                        return;
+                        return false;
                 }
             }
 
+            // update form
+            GeckoJS.FormHelper.unserializeFromObject('deviceForm', formObj);
+            
             // update device session data
             GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices', GeckoJS.BaseObject.serialize(formObj));
 
             GeckoJS.Observer.notify(null, 'device-refresh', this);
 
-            return;
-        }
+            OsdUtils.info(_('Device configuration saved'));
+            
+            return true;
+        },
 
+        exit: function() {
+            if (GeckoJS.FormHelper.isFormModified('deviceForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to device configuration. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    if (!this.save()) return;
+                }
+            }
+            window.close();
+        }
     };
 
     GeckoJS.Controller.extend(__controller__);

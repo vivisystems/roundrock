@@ -6,9 +6,11 @@
   %Plufilters;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/plufilters.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/plufilters.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -17,7 +19,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
@@ -26,72 +28,80 @@
   <script src="chrome://viviecr/content/controllers/plufilter_controller.js" type="application/x-javascript"/>
 
   <!-- include startup script -->
-  <script type="application/x-javascript" src="chrome://viviecr/content/plufilters.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/plufilters.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <vbox flex="1" class="MainPnl">
-            <hbox flex="1">
-                <vbox flex="1" pack="start" class="MainL">
-                    <caption label="&plufilters.title;"  class="PageTitle"/>
-                    <hbox pack="start" flex="1" class="LeftPnl">
-                        <vivitree id="plufilterscrollablepanel" flex="1"
-                                  headers="&plufilters.filtername;,&plufilters.index;,&plufilters.length;"
-                                  fields="filtername,index,length"
-                                  onselect="$do('select',this.selectedIndex, 'Plufilters');"
-                                  class="ListPnl showscrollbar"
-                                  />
+    <vbox flex="1" class="container-be">
+        <vbox flex="1" class="container-main">
+            <vbox flex="1">
+                <label value="&plufilters.title;" class="label-page-title"/>
+                <hbox flex="1" class="content-listbox">
+                    <vivitree id="plufilterscrollablepanel" flex="1" class="standard custom-content-filter-list"
+                              hidecolumnpicker="true"
+                              headers="&plufilters.filtername;,&plufilters.index;,&plufilters.length;"
+                              fields="filtername,index,length"
+                              onselect="$do('select',this.selectedIndex, 'Plufilters');"
+                             />
+                </hbox>
+            </vbox>
+
+            <vbox>
+                <grid class="data-form-2">
+                    <columns>
+                        <column flex="1"/>
+                        <column flex="1"/>
+                        <column flex="1"/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <vbox>
+                                <label control="filter_name" value="&plufilters.filtername;"/>
+                                <textbox id="filter_name" name="filtername" form="filterForm" readonly="true"
+                                        oninput="$do('validateForm', null, 'Plufilters')"/>
+                            </vbox>
+                            <vbox>
+                                <label control="filter_index" value="&plufilters.index;"/>
+                                <vivitextbox id="filter_index" type="number" size="3" min="1" max="99"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             onfocus="select()"
+                                             oninput="$do('validateForm', null, 'Plufilters')"
+                                             name="index" form="filterForm"/>
+                            </vbox>
+                            <vbox>
+                                <label control="filter_length" value="&plufilters.length;"/>
+                                <vivitextbox id="filter_length" type="number" size="3" maxlength="2" min="1" max="99"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             onfocus="select()"
+                                             oninput="$do('validateForm', null, 'Plufilters')"
+                                             name="length" form="filterForm"/>
+                            </vbox>
+                        </row>
+
+                    </rows>
+
+                </grid>
+
+                <hbox>
+                    <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                        <button id="add_filter" label="&plufilters.add;" disabled="false" class="button-add"
+                                oncommand="$do('addFilter', null, 'Plufilters');"/>
+                        <button id="modify_filter" label="&plufilters.modify;" disabled="false" class="button-modify"
+                                oncommand="$do('modifyFilter', null, 'Plufilters');"/>
+                        <spacer flex="1"/>
+                        <button id="delete_filter" label="&plufilters.delete;" disabled="false" class="button-delete"
+                                oncommand="$do('deleteFilter', null, 'Plufilters');"/>
                     </hbox>
-                </vbox>
 
-                <vbox>
-                    <grid class="PluFilterForm">
-                        <columns>
-                            <column flex="1" />
-                        </columns>
-                        <rows>
-                            <row>
-                                <vbox>
-                                    <label control="filter_name" value="&plufilters.filtername;"/>
-                                    <textbox id="filter_name" name="filtername" form="filterForm" readonly="true"
-                                            oninput="$do('validateForm', null, 'Plufilters')"/>
-                                </vbox>
-                            </row>
-                            <row>
-                                <vbox>
-                                    <label control="filter_index" value="&plufilters.index;"/>
-                                    <textbox id="filter_index" size="3" maxlength="2" min="0" max="16" name="index" form="filterForm"
-                                            oninput="$do('validateForm', null, 'Plufilters')"/>
-                                </vbox>
-                            </row>
-                            <row>
-                                <vbox>
-                                    <label control="filter_length" value="&plufilters.length;"/>
-                                    <textbox id="filter_length" size="3" maxlength="2" name="length" form="filterForm"
-                                             oninput="$do('validateForm', null, 'Plufilters')"/>
-                                </vbox>
-                            </row>
-
-                        </rows>
-
-                    </grid>
-                </vbox>
-            </hbox>
-            <hbox>
-                <hbox class="ToolBar" flex="1">
-                    <button id="add_filter" label="&plufilters.add;" disabled="false" class="BtnAdd" oncommand="$do('addFilter', null, 'Plufilters');"   />
-                    <button id="modify_filter" label="&plufilters.modify;" disabled="false" class="BtnMod" oncommand="$do('modifyFilter', null, 'Plufilters');"   />
-                    <spacer flex="1"/>
-                    <button id="delete_filter" label="&plufilters.delete;" disabled="false" class="BtnDel" oncommand="$do('deleteFilter', null, 'Plufilters');"   />
+                    <hbox pack="end" class="exitbar">
+                        <button id="vkb" oncommand="VirtualKeyboard.toggle();" class="button-vkb"/>
+                        <button id="close" default="true" class="button-exit"
+                                oncommand="$do('exit', null, 'Plufilters');"/>
+                    </hbox>
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                </hbox>
-            </hbox>
+            </vbox>
         </vbox>
     </vbox>
   

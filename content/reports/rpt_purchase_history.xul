@@ -6,9 +6,10 @@
   %product_sales;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/reports/rpt_waiting_panel.xul"?>
@@ -19,51 +20,54 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_purchase_history.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_purchase_history.js"/>
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()"/>
+    </keyset>
+
+    <vbox flex="1" class="container-report">
+        <vbox flex="1" class="container-main">
 		    <vbox>
-		        <caption label="&rptpurchasehistory.title;" class="PageTitle"/>
+		        <label value="&rptpurchasehistory.title;" class="label-page-title"/>
 		        <hbox>
-		            <hbox flex="1">
-		            <grid class="DataForm" flex="1">
+		            <grid flex="1" class="data-form">
 		                <columns>
-		                    <column  flex="1"/><column flex="1" />
+		                    <column flex="1"/>
+                            <column flex="1"/>
 		                </columns>
 		                <rows>
 		                    <row>
 		                        <vbox>
-		                            <label value="&rptpurchasehistory.startdate;" />
-		                            <vividatetimepicker id="start_date" value='' type="popup" />  
+		                            <label value="&rptpurchasehistory.startdate;"/>
+		                            <vividatetimepicker id="start_date" value="" type="popup"/>
 		                        </vbox>
 		                        <vbox>
-		                            <label value="&rptpurchasehistory.enddate;" />
-		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                            <label value="&rptpurchasehistory.enddate;"/>
+		                            <vividatetimepicker id="end_date" value="" type="popup"/>
 		                        </vbox>
 		                    </row>
 		                    <row>
 		                        <vbox>
-		                    		<label value="&rptpurchasehistory.groupby;" />
+		                    		<label value="&rptpurchasehistory.groupby;"/>
 					                <menulist id="groupby">
 					                    <menupopup id="groupby_menupopup">
-					                        <menuitem selected="true" label="&rptpurchasehistory.groupby.product;" value="product" />
-					                        <menuitem selected="false" label="&rptpurchasehistory.groupby.supplier;" value="supplier" />
+					                        <menuitem selected="true" label="&rptpurchasehistory.groupby.product;" value="product"/>
+					                        <menuitem selected="false" label="&rptpurchasehistory.groupby.supplier;" value="supplier"/>
 					                    </menupopup>
 					                </menulist>
 		                    	</vbox>
 		                    	<vbox>
-				                    <label value="&rptpurchasehistory.warehouse;" />
-				                    <textbox id="warehouse" value='' width="300"/>
+				                    <label value="&rptpurchasehistory.warehouse;"/>
+				                    <textbox id="warehouse" value=""/>
 				                </vbox>
 		                    </row>
 		                </rows>
 		            </grid>
-		            </hbox>
-		            <button id="execute" label="&rptpurchasehistory.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptPurchaseHistory');" />
+		            <button id="execute" label="&rptpurchasehistory.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptPurchaseHistory');"/>
 		        </hbox>
             </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
@@ -72,24 +76,24 @@
             <hbox class="TopPnl">
                 <hbox class="ReportTool" flex="1" style="overflow: auto;">
                     <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
-                        <tabs id="tabs" >
-                            <vivibutton id="export_pdf" label="&rptpurchasehistory.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptPurchaseHistory');" />
-                            <vivibutton id="export_csv" label="&rptpurchasehistory.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptPurchaseHistory');" />
-                            <vivibutton id="export_rcp" label="&rptpurchasehistory.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptPurchaseHistory');" />
-                            <vivibutton id="print" label="&rptpurchasehistory.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptPurchaseHistory');" />
+                        <tabs id="tabs">
+                            <vivibutton id="export_pdf" label="&rptpurchasehistory.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptPurchaseHistory');"/>
+                            <vivibutton id="export_csv" label="&rptpurchasehistory.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptPurchaseHistory');"/>
+                            <vivibutton id="export_rcp" label="&rptpurchasehistory.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptPurchaseHistory');"/>
+                            <vivibutton id="print" label="&rptpurchasehistory.print;" disabled="false" class="PrintReportBtn" oncommand="$do('print', null, 'RptPurchaseHistory');"/>
                         </tabs>
                     </arrowscrollbox>
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle()"/>
+                    <button id="ok" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
             
 			<hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" id="previewBox" flex="1">
-						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1" />
+						<html:iframe type="content" id="preview_frame" src="chrome://viviecr/content/reports/rpt_template2.html" flex="1"/>
 					</box>
                 </groupbox>
             </hbox>
@@ -97,5 +101,5 @@
     </vbox>
   
     <!-- overlay the waiting panel. -->
-    <popupset id="dialogs" />
+    <popupset id="dialogs"/>
 </window>

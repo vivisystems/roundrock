@@ -243,8 +243,14 @@
 
             // update table status
             this._getTableStatusModel().addCheck(this._mergedCheck);
-            
-            NotifyUtils.warn(_('The Check# %S has been merged to Check# %S!!', [this._sourceCheck.check_no, this._mergedCheck.check_no]));
+
+            // use sequence number if check number not set
+            if (this._sourceCheck.check_no == '' || this._mergedCheck.check_no == '') {
+                NotifyUtils.info(_('Order# [%S] has been merged into Order# [%S]', [this._sourceCheck.seq, this._mergedCheck.seq]));
+            }
+            else {
+                NotifyUtils.info(_('Check# [%S] has been merged into Check# [%S]', [this._sourceCheck.check_no, this._mergedCheck.check_no]));
+            }
 
             var inputObj = window.arguments[0];
             inputObj.ok = true;

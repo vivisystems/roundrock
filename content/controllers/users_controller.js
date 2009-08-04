@@ -7,13 +7,12 @@
         scaffold: true,
 	
         _listObj: null,
-        _selectedIndex: null,
+        _selectedIndex: -1,
         _userAdded: false,
         _userModified: false,
 
         getListObj: function() {
             if(this._listObj == null) {
-                // this._listObj = this.query('#userscrollablepanel')[0];
                 this._listObj = document.getElementById('userscrollablepanel');
             }
             return this._listObj;
@@ -40,15 +39,23 @@
         },
         */
         beforeScaffoldAdd: function (evt) {
+
+            if (!this.confirmChangeUser()) {
+                evt.preventDefault();
+                return;
+            }
+
             var user = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=550';
             var inputObj = {input0:null, require0:true, alphaOnly0: true,
-                            input1:null, require1:true, numericOnly1: true, type1:'password'};
+                            input1:null, require1:true, numericOnly1: true, type1:'password',
+                            numpad: null};
 
             this._userAdded = false;
 
-            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Employee'), aFeatures, _('New Employee'), '', _('User Name'), _('Passcode'), inputObj);
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Employee'), aFeatures,
+                                       _('New Employee'), '', _('User Name'), _('Passcode (0-9 only)'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 user.username = inputObj.input0;
                 user.password = inputObj.input1;
@@ -106,6 +113,7 @@
 
                 this.requestCommand('list', newIndex);
 
+                this._selectedIndex = newIndex;
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
                 panel.ensureIndexIsVisible(newIndex);
@@ -143,6 +151,7 @@
 
                 this.requestCommand('list', index);
 
+                this._selectedIndex = index;
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
                 panel.ensureIndexIsVisible(index);
@@ -154,7 +163,7 @@
                 if (currentUser != null && currentUser.id == evt.data.id) {
                         GREUtils.Dialog.alert(this.topmostWindow,
                                               _('Modify Employee'),
-                                              _('Changes to an employee will take effect the next time the employee logs in'));
+                                              _('Changes to the current employee will take effect the next time the employee logs in'));
                 }
             }
         },
@@ -193,6 +202,7 @@
             if (drawer != null) {
                 drawer = GeckoJS.String.trim(drawer);
                 if (drawer != '') {
+                    alert('drawer: ' + drawer);
                     var warn = true;
                     if (device) {
                         if (!(device.deviceExists('cashdrawer', drawer))) {
@@ -258,8 +268,15 @@
                 index = view.data.length - 2;
             }
 
+            // remove default user setting, if needed
+            var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+            if (defaultId == evt.data.id) {
+                GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', '');
+            }
+
             this.requestCommand('list', index);
-            
+
+            this._selectedIndex = index;
             panel.selectedIndex = index;
             panel.selectedItems = [index];
             panel.ensureIndexIsVisible(index);
@@ -277,7 +294,7 @@
 
             var panel = this.getListObj();
 
-            panel.datasource = evt.data;
+            panel.datasource.data = evt.data;
             panel.ensureIndexIsVisible(panel.selectedIndex);
             
         },
@@ -315,18 +332,49 @@
             };
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Select Default Job'), aFeatures, inputObj);
 
-            if (inputObj.ok && inputObj.jobid) {
-                $('#job_name').val(inputObj.jobname);
-                $('#job_id').val(inputObj.jobid);
+            if (inputObj.ok) {
+                if (inputObj.jobid) {
+                    $('#job_name').val(inputObj.jobname);
+                    $('#job_id').val(inputObj.jobid);
+                }
+                else {
+                    $('#job_name').val('');
+                    $('#job_id').val('');
+                }
             }
         },
 
         load: function () {
 
             var panel = this.getListObj();
+            var panelView = new GeckoJS.NSITreeViewArray();
+            panelView.getCellValue = function(row, col) {
+                var sResult;
+                var user;
+                var key;
 
+                try {
+                    key = col.id;
+                    user = this.data[row];
+                    sResult= user[key];
+                    
+                    if (key == 'displayname') {
+                        var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+                        if (user.id == defaultId) {
+                            sResult = '(*) ' + sResult;
+                        }
+                    }
+                }
+                catch (e) {
+                    return "";
+                }
+                return sResult;
+            }
+            panel.datasource = panelView;
+            
             this.requestCommand('list', -1);
 
+            this._selectedIndex = -1;
             panel.selectedItems = [-1];
             panel.selectedIndex = -1;
 
@@ -335,19 +383,64 @@
             this.validateForm();
         },
 
+        confirmChangeUser: function(index) {
+            // check if user form has been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('userForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current user. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        exit: function() {
+            // check if user form has been modified
+            if (this._selectedIndex != -1&& GeckoJS.FormHelper.isFormModified('userForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current user. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.requestCommand('update', null, 'Users');
+                }
+            }
+            window.close();
+        },
+
         select: function(){
 		
             var panel = this.getListObj();
             var index = panel.selectedIndex;
 
+            if (index == this._selectedIndex && index != -1) return;
+
+            if (!this.confirmChangeUser(index)) {
+                panel.selectedItems = [this._selectedIndex];
+                panel.selectedIndex = this._selectedIndex;
+                return;
+            }
+
             this.requestCommand('list', index);
 
+            this._selectedIndex = index;
             panel.selectedItems = [index];
             panel.selectedIndex = index;
             panel.ensureIndexIsVisible(index);
             
             this.validateForm(true);
-
 
         },
         
@@ -360,29 +453,28 @@
                     var user = view.data[panel.selectedIndex];
                     if (user) {
                         GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
+
+                        panel.refresh();
+
+                        this.validateForm();
                     }
                 }
             }
         },
 
-        // initialize selected user to userid
-        initUser: function(userid) {
-            
+        clearDefaultUser: function() {
             var panel = this.getListObj();
-            var users = panel.datasource.data;
+            GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', '');
 
-            if (users) {
-                for (var i = 0; i < users.length; i++) {
-                    if (users[i].id == userid) {
-                        panel.selectedItems = [i];
-                        panel.selectedIndex = i;
-                        break;
-                    }
-                }
-            }
+            panel.refresh();
+
+            this.validateForm();
         },
 
         validateForm: function(resetTabs) {
+
+            var setdefaultBtn = document.getElementById('set_default');
+            var cleardefaultBtn = document.getElementById('clear_default');
 
             // return if not in form
             var addBtn = document.getElementById('add_user');
@@ -414,6 +506,9 @@
                         textboxes[i].removeAttribute('disabled');
                     }
                 }
+                document.getElementById('default_price_level').removeAttribute('disabled');
+                document.getElementById('user_drawer').removeAttribute('disabled');
+
                 // check for root user
                 if (user.username == 'superuser') {
                     delBtn.setAttribute('disabled', true);
@@ -422,10 +517,16 @@
                 else {
                     delBtn.setAttribute('disabled', false);
                 }
+
+                var defaultId = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+                setdefaultBtn.setAttribute('hidden', (user.id == defaultId));
+                cleardefaultBtn.setAttribute('hidden', !(user.id == defaultId));
             }
             else {
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
+                setdefaultBtn.setAttribute('hidden', true);
+                cleardefaultBtn.setAttribute('hidden', true);
                 document.getElementById('tab1').setAttribute('disabled', true);
                 document.getElementById('tab2').setAttribute('disabled', true);
                 //document.getElementById('tab3').setAttribute('disabled', true);
@@ -436,6 +537,9 @@
                         textboxes[i].disabled = true;
                     }
                 }
+
+                document.getElementById('default_price_level').setAttribute('disabled', true);
+                document.getElementById('user_drawer').setAttribute('disabled', true);
             }
         }
     };

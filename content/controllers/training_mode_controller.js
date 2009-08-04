@@ -102,7 +102,7 @@
         },
         
         vacuumTrainingDB: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to VACUUM training database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to pack the training database?' ) ) )
                 return;
             this._vacuumTrainingDB();
         },
@@ -112,7 +112,7 @@
         },
         
         takeCurrentDBToBeDefaultDB: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to take current database to be default database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to take the current database to be the default training database?' ) ) )
                 return;
             this._takeCurrentDBToBeDefaultDB();
         },
@@ -122,7 +122,7 @@
         },
         
         takeDefaultDBToBeTrainingDB: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to take default database to be training database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to reset the training database to the default training database?' ) ) )
                 return;
             this._takeDefaultDBToBeTrainingDB();
         },
@@ -132,7 +132,7 @@
         },
         
         takeTrainingDBToBeDefaultDB: function() {
-            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to take training database to be default database?' ) ) )
+            if ( !GREUtils.Dialog.confirm( this.topmostWindow, _( 'Training Mode' ), _( 'Are you sure you want to take the current training database to be the default training database?' ) ) )
                 return;
             this._takeTrainingDBToBeDefaultDB();
         },

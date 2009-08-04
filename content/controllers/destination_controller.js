@@ -5,20 +5,27 @@
         name: 'Destinations',
 	
         _listObj: null,
+        _listView: null,
         _listDatas: [],
+        _selectedIndex: -1,
 
         initial: function() {
             // load default destination
-            var defaultDest = null;
             var datastr = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
+            var defaultDest = GeckoJS.Configure.read('vivipos.fec.settings.DefaultDestination');
+            var defaultFound = false;
             var listDatas = null;
-
+            
             if (datastr != null) {
                 listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datastr));
-                var curDefaults = new GeckoJS.ArrayQuery(listDatas).filter('defaultMark = *');
-                if (curDefaults.length > 0) {
-                    defaultDest = curDefaults[0];
+                for (var i = 0; i < listDatas.length; i++) {
+                    if (defaultDest == listDatas[i].name) {
+                        defaultFound = true;
+                    }
                 }
+            }
+            if (!defaultFound) {
+                defaultDest = '';
             }
             GeckoJS.Session.set('destinations', listDatas);
             GeckoJS.Session.set('defaultDestination', defaultDest);
@@ -32,8 +39,32 @@
         },
 
         getListObj: function() {
-            if(this._listObj == null) {
+            if (this._listObj == null) {
                 this._listObj = document.getElementById('destscrollablepanel');
+
+                var panelView = new GeckoJS.NSITreeViewArray();
+                panelView.getCellValue = function(row, col) {
+                    var sResult;
+                    var dest;
+                    var key;
+                    try {
+                        key = col.id;
+                        dest = this.data[row];
+                        sResult= dest[key];
+
+                        if (key == 'default') {
+                            var defaultDest = GeckoJS.Session.get('defaultDestination');
+                            if (dest.name == defaultDest) {
+                                sResult = true;
+                            }
+                        }
+                    }
+                    catch (e) {
+                        return "";
+                    }
+                    return sResult;
+                }
+                this._listView = panelView;
             }
             return this._listObj;
         },
@@ -46,12 +77,20 @@
                 if (this._listDatas.length <= 0) this._listDatas = [];
             }
 
-            this.getListObj().datasource = this._listDatas;
-
+            var listObj = this.getListObj();
+            this._listView.data = this._listDatas;
+            listObj.datasource = this._listView;
+            listObj.refresh();
+            
             this.validateForm();
         },
 
         addDestination: function(){
+
+            if (!this.confirmChangeDestination()) {
+                return;
+            }
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
@@ -68,7 +107,7 @@
                     return;
                 }
 
-                this._listDatas.push({defaultMark: '', name: destName, pricelevel: '-', prefix: '', customerInfo: '0'});
+                this._listDatas.push({name: destName, pricelevel: '', prefix: '', customerInfo: false});
 
                 this.saveDestinations();
 
@@ -94,7 +133,6 @@
                     this._listDatas[index].pricelevel = inputObj.pricelevel;
                     this._listDatas[index].prefix = GeckoJS.String.trim(inputObj.prefix);
                     this._listDatas[index].customerInfo = inputObj.customerInfo;
-                    this.setDefaultDestination(inputObj.defaultCheckbox);
 
                     this.saveDestinations();
 
@@ -102,10 +140,14 @@
 
                     this.getListObj().treeBoxObject.ensureRowIsVisible(index);
                     OsdUtils.info(_('Destination [%S] modified successfully', [destName]));
+
+                    return true;
                 }
                 else {
                     // shouldn't happen, but check anyways
                     NotifyUtils.warn(_('Destination name must not be empty'));
+
+                    return false;
                 }
             }
         },
@@ -136,82 +178,96 @@
             var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
 
             GeckoJS.Configure.write('vivipos.fec.settings.Destinations', datastr);
-            GeckoJS.Session.set('defaultDestination', this.getDefaultDestination());
             GeckoJS.Session.set('destinations', datas);
 
+            this._selectedIndex = -1;
             this.load();
         },
 
-        setDefaultDestination: function(checked) {
-            var index = this.getListObj().selectedIndex;
+        setDefaultDestination: function() {
+            var panel = this.getListObj();
+            var index = panel.selectedIndex;
+            var defaultDest = '';
             if (index >= 0) {
-
-                if (checked) {
-                // find current default and clear it
-                    var curDefaults = new GeckoJS.ArrayQuery(this._listDatas).filter('defaultMark = *');
-                    if (curDefaults.length > 0) {
-                        // @todo OSD
-                        curDefaults.forEach(function(ele) {
-                            ele.defaultMark = '';
-                        });
-                    }
-                    this._listDatas[index].defaultMark = '*';
-                }
-                else {
-                    this._listDatas[index].defaultMark = '';
+                var dest = this._listDatas[index];
+                if (dest) {
+                    defaultDest = dest.name;
                 }
             }
+
+            GeckoJS.Session.set('defaultDestination', defaultDest);
+            GeckoJS.Configure.write('vivipos.fec.settings.DefaultDestination', defaultDest);
+
+            panel.refresh();
+
+            this.validateForm();
         },
 
-        getDefaultDestination: function() {
-            // get default destination
-            if (this._listDatas != null) {
-                var curDefaults = new GeckoJS.ArrayQuery(this._listDatas).filter('defaultMark = *');
-                if (curDefaults.length > 0) {
-                    return curDefaults[0];
-                }
-            }
-            return null;
+        clearDefaultDestination: function() {
+            GeckoJS.Session.set('defaultDestination', '');
+            GeckoJS.Configure.write('vivipos.fec.settings.DefaultDestination', '');
+            
+            var panel = this.getListObj();
+            
+            panel.refresh();
+
+            this.validateForm();
         },
 
         validateForm: function() {
 
-            var addBtn = document.getElementById('add_destination');
             var modifyBtn = document.getElementById('modify_destination');
             var deleteBtn = document.getElementById('delete_destination');
+            var setdefaultBtn = document.getElementById('set_default');
+            var cleardefaultBtn = document.getElementById('clear_default');
             var pricelevelMenu = document.getElementById('destination_pricelevel');
             var prefixTextbox = document.getElementById('destination_prefix');
-            var defaultCheckbox = document.getElementById('destination_default');
+
             var customerInfoCheckbox = document.getElementById('destination_customer_info');
 
             var panel = this.getListObj();
-            if (panel.selectedIndex > -1) {
+            var dest = this._listDatas[panel.selectedIndex];
+            if (dest) {
+                var defaultDest = GeckoJS.Session.get('defaultDestination');
+
                 deleteBtn.setAttribute('disabled', false);
                 modifyBtn.setAttribute('disabled', false);
-                defaultCheckbox.removeAttribute('disabled');
                 pricelevelMenu.removeAttribute('disabled');
                 prefixTextbox.removeAttribute('disabled');
                 customerInfoCheckbox.removeAttribute('disabled');
+
+                var dflt = (defaultDest == dest.name);
+
+                setdefaultBtn.setAttribute('hidden', dflt);
+                cleardefaultBtn.setAttribute('hidden', !dflt);
             } else {
                 deleteBtn.setAttribute('disabled', true);
                 modifyBtn.setAttribute('disabled', true);
-                defaultCheckbox.checked = false;
-                defaultCheckbox.setAttribute('disabled', true);
                 pricelevelMenu.setAttribute('disabled', true);
                 prefixTextbox.setAttribute('disabled', true);
                 customerInfoCheckbox.setAttribute('disabled', true);
+
+                setdefaultBtn.setAttribute('hidden', true);
+                cleardefaultBtn.setAttribute('hidden', true);
             }
         },
 	
         select: function(index){
-            this.getListObj().selection.select(index);
-            this.getListObj().treeBoxObject.ensureRowIsVisible(index);
+
+            var panel = this.getListObj();
+
+            if (index == this._selectedIndex && index != -1) return;
+
+            if (!this.confirmChangeDestination(index)) {
+                panel.selection.select(this._selectedIndex);
+                return;
+            }
+
+            this._selectedIndex = index;
+            panel.selection.select(index);
+            panel.treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
                 var inputObj = this._listDatas[index];
-                if (inputObj.defaultMark == '*')
-                    inputObj.defaultCheckbox = 1;
-                else
-                    inputObj.defaultCheckbox = 0;
                 GeckoJS.FormHelper.unserializeFromObject('destinationForm', inputObj);
 
             }
@@ -225,8 +281,8 @@
         // handles newTransaction event from cart controller to initialize a new transaction
         initTransaction: function() {
             var defaultDest = GeckoJS.Session.get('defaultDestination');
-            if (defaultDest != null) {
-                this.setDestination(defaultDest.name);
+            if (defaultDest != null && defaultDest != '') {
+                this.setDestination(defaultDest);
             }
             else {
                 var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -290,16 +346,16 @@
 
                 // set price level if necessary
                 if (isNaN(dest.pricelevel)) {
-                    if (dest.pricelevel != '-') {
-                        this.requestCommand('changeToCurrentLevel', null, 'Pricelevel');
-                    }
+                    this.requestCommand('changeToCurrentLevel', null, 'Pricelevel');
                 }
                 else {
-                    var oldPriceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
-                    if (oldPriceLevel != dest.pricelevel) {
-                        this.requestCommand('change', dest.pricelevel, 'Pricelevel');
-                        NotifyUtils.info(_('Price Level changed from [%S] to [%S] for destination [%S]',
-                                           [oldPriceLevel, dest.pricelevel, dest.name]));
+                    if (dest.pricelevel != '') {
+                        var oldPriceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
+                        if (oldPriceLevel != dest.pricelevel) {
+                            this.requestCommand('change', dest.pricelevel, 'Pricelevel');
+                            NotifyUtils.info(_('Price Level changed from [%S] to [%S] for destination [%S]',
+                                               [oldPriceLevel, dest.pricelevel, dest.name]));
+                        }
                     }
                 }
 
@@ -315,8 +371,45 @@
                 // send afterSetDestination event to signal success
                 this.dispatchEvent('afterSetDestination', {transaction: txn, destination: dest});
             }
-        }
+        },
 	
+        confirmChangeDestination: function(index) {
+            // check if destination form has been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('destinationForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current destination. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        exit: function() {
+            // check if destination form has been modified
+            if (this._selectedIndex != -1&& GeckoJS.FormHelper.isFormModified('destinationForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current destination. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    if (!this.modifyDestination()) return;
+                }
+            }
+            window.close();
+        }
+
     };
 
     GeckoJS.Controller.extend(__controller__);

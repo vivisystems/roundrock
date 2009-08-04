@@ -8,6 +8,7 @@
 
         _listObj: null,
         _listView: null,
+        _selectedIndex: null,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -39,9 +40,14 @@
 
         beforeScaffoldAdd: function(evt) {
 
+            if (!this.confirmChangePlugroup()) {
+                evt.preventDefault();
+                return;
+            }
+
             var plugroup = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var aFeatures = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
 
             this._plugroupAdded = false;
@@ -240,7 +246,11 @@
             this.validateForm();
         },
 
-        //
+        afterScaffoldView: function(evt) {
+            var panel = this.getListObj();
+            this._selectedIndex = panel.selectedIndex;
+        },
+
         hasTaggedProducts: function (plugroupId) {
             var productModel = new ProductModel();
             var taggedProducts = productModel.find('all', {
@@ -283,11 +293,20 @@
             this.validateForm();
         },
 
-        select: function(){
+        select: function() {
 
             var panel = this.getListObj();
             var index = panel.selectedIndex;
 
+            if (index == this._selectedIndex) return;
+            
+            if (!this.confirmChangePlugroup(index)) {
+                panel.selectedItems = [this._selectedIndex];
+                panel.selectedIndex = this._selectedIndex;
+                return;
+            }
+
+            this._selectedIndex = index;
             if (index == -1) {
                 GeckoJS.FormHelper.reset('plugroupForm');
             }
@@ -301,6 +320,7 @@
         },
 
         updateSession: function(mode, id) {
+            
             var index = -1;
             var plugroupModel = new PlugroupModel();
 
@@ -344,7 +364,50 @@
             GeckoJS.Session.set('plugroupsById', plugroupsById);
             GeckoJS.Session.set('visiblePlugroups', visiblePlugroups);
             GeckoJS.Session.set('allPlugroups', allPlugroups);
+
+            // refresh plugroup panel
+            var plugroupscrollablepanel = document.getElementById('plugroupscrollablepanel');
+            plugroupscrollablepanel.datasource.data = plugroups;
+            plugroupscrollablepanel.refresh();
+            
             return index;
+        },
+
+        confirmChangePlugroup: function(index) {
+            // check if plugroup form has been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('plugroupForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current product group. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        exit: function() {
+            // check if user form has been modified
+            if (this._selectedIndex != -1&& GeckoJS.FormHelper.isFormModified('plugroupForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current product group. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.requestCommand('update', null, 'Plugroups');
+                }
+            }
+            window.close();
         },
 
         validateForm: function() {
@@ -354,6 +417,9 @@
             var modBtn = document.getElementById('modify_plugroup');
             var delBtn = document.getElementById('delete_plugroup');
             var visibleCheckbox = document.getElementById('visible');
+            var routingCheckbox = document.getElementById('routing');
+            var colorpicker = document.getElementById('plugroup_button_color');
+            var fontsizepicker = document.getElementById('plugroup_font_size');
 
             var tab1 = document.getElementById('tab1');
             var tab2 = document.getElementById('tab2');
@@ -366,7 +432,10 @@
                 dispOrderTextbox.removeAttribute('disabled');
                 modBtn.setAttribute('disabled', name.length < 1);
                 delBtn.setAttribute('disabled', false);
-                visibleCheckbox.removeAttribute('disabled');
+                colorpicker.setAttribute('disabled', false);
+                fontsizepicker.setAttribute('disabled', false);
+                visibleCheckbox.setAttribute('disabled', false);
+                routingCheckbox.setAttribute('disabled', false);
                 tab1.removeAttribute('disabled');
                 tab2.removeAttribute('disabled');
             }
@@ -376,6 +445,9 @@
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
                 visibleCheckbox.setAttribute('disabled', true);
+                routingCheckbox.setAttribute('disabled', true);
+                colorpicker.setAttribute('disabled', true);
+                fontsizepicker.setAttribute('disabled', true);
                 tab1.setAttribute('disabled', true);
                 tab2.setAttribute('disabled', true);
             }

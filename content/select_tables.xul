@@ -6,9 +6,9 @@
   %SelectQueues;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -23,22 +23,20 @@
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/select_tables.js" />
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
-            <caption label="&selecttables.title;"  class="PageTitle" />
-            <label id="queues" hidden="true" value="" />
-            <hbox class="SelectBox">
-                <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="4" rows="5"  seltype="single" labelField="check_no"
-                                           class="ItemScrollablepanel"
-                                           buttonClass="ItemButtonA TableHeight"
-                                           buttonTagName="button"
-                                           scrollUpClass="ScrollUp"
-                                           scrollDownClass="ScrollDown">
+    <vbox flex="1" class="container-dialog">
+        <vbox flex="1" class="container-main">
+            <label value="&selecttables.title;" class="label-page-title"/>
+            <label id="queues" hidden="true" value=""/>
+            <hbox flex="1" class="content-buttonpanel">
+                <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true"
+                                           flex="1" cols="4" rows="5"  seltype="single" labelField="check_no"
+                                           buttonClass="button-item-a"
+                                           scrollUpClass="scroll-up-button"
+                                           scrollDownClass="scroll-down-button">
                     <spacer flex="1"/>
                 </viviscrollablebuttonpanel>
             </hbox>
-            <spacer flex="1" />
-            <hbox class="ToolBar" flex="1" pack="center">
+            <hbox pack="center" flex="1" class="toolbar" toolbarmode="horizontal">
                 <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
                 <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
             </hbox>             

@@ -52,6 +52,7 @@ var promptAdditem_options;
                 if ('multiline0' in inputObj) {
                     document.getElementById('promptAdditem-input0').setAttribute('multiline', true);
                     document.getElementById('promptAdditem-row0').setAttribute('flex', 1);
+                    document.getElementById('promptAdditem-input0').setAttribute('rows', isNaN(inputObj.multiline0) ? 3 : inputObj.multiline0);
                     multiline = true;
                     document.getElementById('key_enter').setAttribute('disabled', true);
                 }
@@ -78,14 +79,15 @@ var promptAdditem_options;
 
                 // hide input1?
                 if (!('input1' in inputObj)) {
+                    document.getElementById('promptAdditem-row1').hidden = true;
                     document.getElementById('promptAdditem-title1').hidden = true;
                     document.getElementById('promptAdditem-input1').hidden = true;
                     document.getElementById('promptAdditem-input1').setAttribute('multiline', false);
-                    document.getElementById('promptAdditem-row1').setAttribute('flex', 0);
                 }
                 else {
                     if ('multiline1' in inputObj) {
                         document.getElementById('promptAdditem-input1').setAttribute('multiline', true);
+                        document.getElementById('promptAdditem-input1').setAttribute('rows', isNaN(inputObj.multiline1) ? 3 : inputObj.multiline1);
                         document.getElementById('promptAdditem-row1').setAttribute('flex', 1);
                         multiline = true;
                     }
@@ -111,7 +113,7 @@ var promptAdditem_options;
                     // hide numberpad
                     //document.getElementById('promptAdditem-numpad').setAttribute('hidden', !('numpad' in inputObj));
                     
-                    document.getElementById('promptAdditem-dialog-caption').setAttribute("label", caption0);
+                    document.getElementById('promptAdditem-dialog-caption').setAttribute("value", caption0);
                     document.getElementById('promptAdditem-text0').value = text0;
                     document.getElementById('promptAdditem-title0').value = title0;
                     document.getElementById('promptAdditem-title1').value = title1;

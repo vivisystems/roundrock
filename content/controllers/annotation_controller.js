@@ -10,6 +10,7 @@
         _viewObj: null,
         _typeObj: null,
         _codeDatas: [],
+        _selectedCodeIndex: -1,
         _typeDatas: [],
         _annotationDatas: [],
         _textboxObj: null,
@@ -45,10 +46,14 @@
             }
 
             this.getCodeListObj().datasource = this._codeDatas;
+            this._selectedCodeIndex = -1;
             this.validateCodeForm();
         },
 
         addAnnotationCode: function(){
+
+            if (!this.confirmChangeCode()) return;
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
             var inputObj = {input0:null, require0:true, alphaOnly0:true, input1:null, require1:true};
@@ -92,13 +97,19 @@
                     var annotationCode = this._codeDatas[index].code;
                     this.getCodeListObj().treeBoxObject.ensureRowIsVisible(index);
 
+                    GeckoJS.FormHelper.unserializeFromObject('annotationCodeForm', inputObj);
                     OsdUtils.info(_('Annotation code [%S] modified successfully', [annotationCode]));
+
+                    return true;
                 }
                 else {
                     // shouldn't happen, but check anyways
                     NotifyUtils.warn(_('Annotation code must not be empty'));
+
+                    return false;
                 }
             }
+            return true;
         },
 
         deleteAnnotationCode: function(){
@@ -159,8 +170,17 @@
         },
 	
         selectCode: function(index){
-            this.getCodeListObj().selection.select(index);
-            this.getCodeListObj().treeBoxObject.ensureRowIsVisible(index);
+
+            var panel = this.getCodeListObj();
+
+            if (index == this._selectedCodeIndex && index != -1) return;
+
+            if (!this.confirmChangeCode(index)) {
+                panel.selectedItems = [this._selectedCodeIndex];
+                return;
+            }
+            panel.selection.select(index);
+            panel.treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
                 var inputObj = this._codeDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('annotationCodeForm', inputObj);
@@ -169,7 +189,8 @@
             else {
                 GeckoJS.FormHelper.reset('annotationCodeForm');
             }
-
+            this._selectedCodeIndex = index;
+            
             this.validateCodeForm();
         },
 
@@ -365,17 +386,22 @@
             this.getViewListObj().selection.select(index);
 
             // select type matching the view data
-            var type = this._annotationDatas[index].type;
-            for (var i = 0; i < this._typeDatas.length; i++) {
-                if (this._typeDatas[i].type == type) {
-                    typeList.selection.select(i);
-                    typeList.treeBoxObject.ensureRowIsVisible(i);
-                    break;
+            if (index > -1) {
+                var type = this._annotationDatas[index].type;
+                for (var i = 0; i < this._typeDatas.length; i++) {
+                    if (this._typeDatas[i].type == type) {
+                        typeList.selection.select(i);
+                        typeList.treeBoxObject.ensureRowIsVisible(i);
+                        break;
+                    }
                 }
-            }
 
-            // copy view data text into the textbox
-            textBox.value = this._annotationDatas[index].text;
+                // copy view data text into the textbox
+                textBox.value = this._annotationDatas[index].text;
+            }
+            else {
+                textBox.value = '';
+            }
             textBox.select();
             textBox.focus();
 
@@ -466,6 +492,42 @@
                 }
             }
             return result;
+        },
+
+        confirmChangeCode: function(index) {
+            // check if annotation type form has been modified
+            if (this._selectedCodeIndex != -1 && (index == null || (index != -1 && index != this._selectedCodeIndex))
+                && GeckoJS.FormHelper.isFormModified('annotationCodeForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current annotation code. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        exit: function() {
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('annotationCodeForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current annotation code. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    if (!this.modifyAnnotationCode()) return;
+                }
+            }
+            window.close();
         }
 
     };

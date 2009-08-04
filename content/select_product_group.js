@@ -5,20 +5,21 @@
     var depView;
 
     function startup() {
-        var index = inputObj.index;
-        var groupData = inputObj.groupData;
-        var plugroupOnly = inputObj.plugroupOnly;
+        var id = inputObj.id;
         var panel = document.getElementById('productgroupscrollablepanel');
 
-        if (plugroupOnly) {
-            depView = new NSIPluGroupsView(groupData);
-            panel.datasource = depView;
-        }
-        else {
-            depView = new NSIDepartmentsView('productgroupscrollablepanel', true);
+        depView = new NSIDepartmentsView('productgroupscrollablepanel', true);
 
-            depView.hideInvisible = false;
-            depView.refreshView(false);
+        depView.hideInvisible = false;
+        depView.refreshView(false);
+
+        var index = -1;
+        var data = depView.data;
+        for (var i = 0; i < data.length; i++) {
+            if (data[i] == id) {
+                index = i;
+                break;
+            }
         }
 
         panel.selectedIndex = index;

@@ -6,66 +6,62 @@
   %SelectSetItem;
 ]>
 
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/product-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/select_setitem.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/select_setitem.css" type="text/css"?>
 
 <overlay id="selectSetItemDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_setitem.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_setitem.js"/>
     
     <popupset id="dialogs">
 
-        <vivipanel id="selectSetItemPanel" noautohide="false">
+        <vivipanel id="selectSetItemPanel" noautohide="false" class="container-dialog layout-dialog">
 
-            <hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;">
+            <vbox flex="1" class="layout-fullscreen">
 
-                <vbox class="MainPnl" flex="1">
+                <vbox flex="1" class="container-main layout-a">
 
-                    <caption id="pluset-caption" label="" class="PageTitle" />
+                    <label id="pluset-caption" value="" class="label-page-title"/>
 
-                    <hbox class="SelectBox">
-                        <viviscrollablebuttonpanel id="plusetscrollablepanel" flex="1" cols="1" rows="7" dir="reverse"
-                                                   seltype="single" labelField="name" imageField="no"
-                                                   class="prodscrollablepanel"
-                                                   buttonClass="pluset-button product-button-color-default font-medium"
-                                                   buttonClass0="pluset-button product-button-color-default font-medium"
-                                                   buttonClass1="pluset-button product-button-color-11 font-medium"
-                                                   buttonClass2="pluset-button product-button-color-8 font-medium"
-                                                   oncommand="$(document.getElementById('selectSetItemPanel')).data('popupPanel.opts').clickPluSet(this)"
-                                                   scrollUpClass="ScrollUp"
-                                                   scrollDownClass="ScrollDown">
-                            <spacer flex="1"/>
-                        </viviscrollablebuttonpanel>
-                        <separator class="groove-thin" orient="vertical" width="1" flex="0" style="margin: 0 5px 0 5px"/>
-                        <vbox flex="2">
+                    <hbox flex="1" class="block-30">
+                        <vbox class="content-buttonpanel">
+                            <viviscrollablebuttonpanel id="plusetscrollablepanel" flex="1" cols="1" rows="8" dir="reverse"
+                                                       seltype="single" labelField="name" imageField="no"
+                                                       buttonClass="custom-content-button-pluset product-button-color-default font-large"
+                                                       oncommand="$(document.getElementById('selectSetItemPanel')).data('popupPanel.opts').clickPluSet(this)"
+                                                       scrollUpClass="scroll-up-button"
+                                                       scrollDownClass="scroll-down-button">
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
+                        </vbox>
+                        <vbox flex="1">
 
-                            <label id="setitem-caption" value="" class="PageTitle"/>
-                            <separator class="groove-thin" style="margin: 2px 0 5px 0"/>
+                            <label id="setitem-caption" value="" class="label-page-title"/>
                             <vbox flex="1">
-                                <vbox>
+                                <vbox class="content-buttonpanel">
                                     <label value="&select.setitem.preset;"/>
                                     <vivibuttonpanel id="presetbuttonpanel" flex="1" cols="1" rows="1"  seltype="none"
                                                      labelField="name" imageField="no" disabled="true"
-                                                     class="prodscrollablepanel" buttonClass="product-button mediumimagebtn"
+                                                     buttonClass="button-plu button-medium-image"
                                                      oncommand="$(document.getElementById('selectSetItemPanel')).data('popupPanel.opts').clickPreset(this)"
-                                                     />
+                                                    />
                                 </vbox>
-                                <spacer height="5px"/>
-                                <vbox flex="1">
+                                <vbox flex="1" class="content-buttonpanel">
                                     <label value="&select.setitem.selections;"/>
                                     <viviscrollablebuttonpanel id="selectionscrollablepanel" flex="1" cols="3" rows="4"  seltype="none"
                                                                labelField="name" imageField="no"
-                                                               class="prodscrollablepanel"
-                                                               buttonClass="product-button mediumimagebtn"
+                                                               buttonClass="button-plu button-medium-image"
                                                                oncommand="$(document.getElementById('selectSetItemPanel')).data('popupPanel.opts').clickSelection(this)"
-                                                               scrollUpClass="ScrollUp"
-                                                               scrollDownClass="ScrollDown">
+                                                               scrollUpClass="scroll-up-button"
+                                                               scrollDownClass="scroll-down-button">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
                                 </vbox>
@@ -74,17 +70,15 @@
                     </hbox>
 
                     <hbox>
-                        <hbox class="ToolBar" flex="1">
-                            <spacer flex="1"/>
-                            <button id="setitemDialog-ok" class="okBtn" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectSetItemPanel', true)"/>
-                            <button class="cancelBtn" disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectSetItemPanel', false)"/>
-                            <spacer flex="1"/>
+                        <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                            <button id="setitemDialog-ok" disabled="false" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectSetItemPanel', true)"/>
+                            <button disabled="false" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectSetItemPanel', false)"/>
                         </hbox>
                     </hbox>
 
                 </vbox>
 
-            </hbox>
+            </vbox>
 
         </vivipanel>
 

@@ -6,8 +6,11 @@
   %MergeCheck;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/merge_check.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -16,85 +19,79 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
             
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/merge_check.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/merge_check.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('btn_cancel').click()"/>
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <hbox flex="1" class="MainPnl">
-            <vbox flex="1">
-                <caption label="&mergecheck.title;"/>
-                <vbox class="DataForm">
-                    <hbox>
-                        <vbox flex="1">
+    <vbox flex="1" class="container-dialog layout-dialog">
+        <vbox flex="1" class="container-main layout-b">
+            <label value="&mergecheck.title;" class="label-page-title"/>
+            <separator class="groove"/>
+            <vbox class="block-40">
+                <hbox flex="1">
+                    <vbox flex="1">
+                        <hbox class="content-formbox">
                             <caption label="&mergecheck.sourcecheck;"/>
-                            <hbox>
-                                <spacer style="width:40px;" />
-                                <label value="&mergecheck.sourcecheck.checkno;" />
-                                <label id="source_check_no" value="" />
+                            <spacer style="width:40px;"/>
 
-                                <spacer style="width:40px;" />
-                                <label value="&mergecheck.sourcecheck.tableno;" />
-                                <label id="source_table_no" value="" />
-                            </hbox>
-                            <viviscrollabletree id="sourcecheckscrollablepanel" flex="1" rows="5" seltype="multiple" 
-                                    headers="&mergecheck.sourcecheck.name;,&mergecheck.sourcecheck.qty;,&mergecheck.sourcecheck.price;"
-                                    fields="name,current_qty,current_price"
-                                    dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
-                                    onclick="">
-                                <spacer flex="1" />
-                            </viviscrollabletree>
-                        </vbox>
-                        <vbox style="width:200px;">
-                            <vbox class="ToolBar">
-                            <button id="btn_merge" label="&mergecheck.button.action.merge;" disabled="false" class="BtnAdd" oncommand="$do('mergeItems', null, 'MergeCheck');" />
-                            <spacer style="height: 15px;" />
-                            <button id="btn_cancel" label="&mergecheck.button.action.cancel;" disabled="false" class="BtnDel" oncommand="$do('cancel', null, 'MergeCheck');" />
-                            </vbox>
-                        </vbox>
-                    </hbox>
+                            <label value="&mergecheck.sourcecheck.checkno;"/>
+                            <label id="source_check_no" value=""/>
+                            <spacer style="width:40px;"/>
 
-                    <spacer style="height:10px;" />
-                    <separator class="groove-thin"/>
-                    <spacer style="height:20px;" />
-
-                    <hbox flex="1">
-                        <vbox flex="1">
-                            <caption label="&mergecheck.targetcheck;"/>
-                            <hbox>
-                                <spacer style="width:40px;" />
-                                <label value="&mergecheck.targetcheck.checkno;" />
-                                <label id="target_check_no" value="" />
-
-                                <spacer style="width:40px;" />
-                                <label value="&mergecheck.targetcheck.tableno;" />
-                                <label id="target_table_no" value="" />
-                            </hbox>
-                            <viviscrollabletree id="targetcheckscrollablepanel" flex="1" rows="5" seltype="multiple" 
-                                    headers="&mergecheck.targetcheck.name;,&mergecheck.targetcheck.qty;,&mergecheck.targetcheck.price;"
-                                    fields="name,current_qty,current_price"
-                                    dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
-                                    onclick="">
-                                <spacer flex="1" />
-                            </viviscrollabletree>
+                            <label value="&mergecheck.sourcecheck.tableno;"/>
+                            <label id="source_table_no" value=""/>
+                        </hbox>
+                        <vbox flex="1" class="content-listbox">
+                            <vivitree id="sourcecheckscrollablepanel" flex="1" seltype="multiple" hidecolumnpicker="true"
+                                      headers="&mergecheck.sourcecheck.name;,&mergecheck.sourcecheck.qty;,&mergecheck.sourcecheck.price;"
+                                      fields="name,current_qty,current_price"
+                                      class="standard" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                         </vbox>
-                        <vbox style="width:200px;">                            
-                            <vbox class="ToolBar">
-                                <button id="btn_reverse" label="&mergecheck.button.action.reverse;" disabled="false" class="BtnDel" oncommand="$do('reverse', null, 'MergeCheck');" />
-                                <spacer style="height: 15px;" />
-                                <button id="btn_confirm" label="&mergecheck.button.action.confirm;" disabled="false" class="BtnMod" oncommand="$do('confirm', null, 'MergeCheck');" />
-                                <spacer style="height: 15px;" />
-                                <button id="btn_paythis" label="&mergecheck.button.action.paythis;" disabled="false" class="BtnMod" oncommand="$do('confirm', 'true', 'MergeCheck');" />
-                            </vbox>
-                        </vbox>
-                        
-                    </hbox>
-                </vbox>
+                    </vbox>
+                    <vbox flex="1" class="toolbar custom-content-toolbar" toolbarmode="vertical">
+                        <button id="btn_merge" label="&mergecheck.button.action.merge;" disabled="false" class="BtnAdd" oncommand="$do('mergeItems', null, 'MergeCheck');"/>
+                        <spacer style="height: 15px;"/>
+                        <button id="btn_cancel" label="&mergecheck.button.action.cancel;" disabled="false" class="BtnDel" oncommand="$do('cancel', null, 'MergeCheck');"/>
+                    </vbox>
+                </hbox>
             </vbox>
-        </hbox>
+
+            <separator class="groove"/>
+
+            <vbox flex="1">
+                <hbox flex="1">
+                    <vbox flex="1">
+                        <hbox class="content-formbox">
+                            <caption label="&mergecheck.targetcheck;"/>
+                            <spacer style="width:40px;"/>
+
+                            <label value="&mergecheck.targetcheck.checkno;"/>
+                            <label id="target_check_no" value=""/>
+                            <spacer style="width:40px;"/>
+
+                            <label value="&mergecheck.targetcheck.tableno;"/>
+                            <label id="target_table_no" value=""/>
+                        </hbox>
+                        <vbox flex="1" class="content-listbox">
+                            <vivitree id="targetcheckscrollablepanel" flex="1" seltype="multiple" hidecolumnpicker="true"
+                                      headers="&mergecheck.targetcheck.name;,&mergecheck.targetcheck.qty;,&mergecheck.targetcheck.price;"
+                                      fields="name,current_qty,current_price"
+                                      class="standard" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
+                        </vbox>
+                    </vbox>
+                    <vbox flex="1" class="toolbar custom-content-toolbar" toolbarmode="vertical">
+                        <button id="btn_reverse" label="&mergecheck.button.action.reverse;" disabled="false" class="button-delete" oncommand="$do('reverse', null, 'MergeCheck');"/>
+                        <spacer style="height: 15px;"/>
+                        <button id="btn_confirm" label="&mergecheck.button.action.confirm;" disabled="false" class="button-modify" oncommand="$do('confirm', null, 'MergeCheck');"/>
+                        <spacer style="height: 15px;"/>
+                        <button id="btn_paythis" label="&mergecheck.button.action.paythis;" disabled="false" class="button-modify" oncommand="$do('confirm', 'true', 'MergeCheck');"/>
+                    </vbox>
+                </hbox>
+            </vbox>
+        </vbox>
     </vbox>
 
 </window>

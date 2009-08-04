@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/product-button-colors.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/product.css" type="text/css"?>
 
 <!DOCTYPE overlay SYSTEM "chrome://viviecr/locale/dialog.dtd" >
 
@@ -11,22 +9,21 @@
 
   <box id="productPanelContainer">
     <box id="productPanel" flex="1" orient="vertical">
-
         <!-- Begin PLUs -->
-        <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="1" labelField="name" imageField="no"
+        <viviscrollablebuttonpanel id="prodscrollablepanel" dir="reverse" flex="1" cols="2" rows="1" labelField="name" imageField="no"
                                    oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"
                                    class="prodscrollablepanel"
                                    ensureVisible="true"
-                                   buttonClass="user-plubtn"
-                                   scrollUpClass="depart_scroll_up"
-                                   scrollDownClass="depart_scroll_down"
+                                   buttonClass="button-product"
+                                   scrollUpClass="product-scroll-up-button"
+                                   scrollDownClass="product-scroll-down-button"
                                    seltype="none" >
             <spacer flex="1"/>
-            <vivibutton id="prodscrollablepanel-soldout" class="soldoutbtn" flex="0" type="checkbox" checkState="0" oncommand="event.stopPropagation()"/>
+            <vivibutton id="prodscrollablepanel-soldout" class="button-soldout" flex="0" type="checkbox" checkState="0"
+                        oncommand="event.stopPropagation()"/>
             <spacer flex="1"/>
         </viviscrollablebuttonpanel>
         <!-- End PLUs -->
-
     </box>
   </box>
 </overlay>

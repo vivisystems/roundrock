@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/cart.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/promotions_status.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/cart.dtd">
 
@@ -11,15 +9,14 @@
 
     <box id="cartlistPanelContainer" flex="1" orient="vertical">
 
-            <viviscrollabletree class="cartList" id="cartList" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
-                                primary="name" scrollMode="cursor"
-                                headers="'',&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
-                                fields="tag,name,current_qty,current_price,current_subtotal,current_tax"
-                                scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" >
+            <viviscrollabletree id="cartList" hidevscroll="true" flex="1" dir="normal" fixed="true" class="cart-list"
+                                disableKeyNavigation="true" primary="name" scrollMode="cursor" hidecolumnpicker="true"
+                                headerlist="&cart.item.tag;,&cart.item.destination;,&cart.item.no;,&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
+                                fieldlist="tag,destination,no,name,current_qty,current_price,current_subtotal,current_tax"
+                                scrollUpClass="cart-scroll-up-button" scrollDownClass="cart-scroll-down-button" >
                 <vbox id="cartsidebar">
-                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="systoolbtn mediumimagebtn plusbtn" roles="acl_modify_quantity" action="display"/>
-                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="systoolbtn mediumimagebtn minusbtn" roles="acl_modify_quantity" action="display"/>
-                    <!-- vivibutton id="btnPayment" label="&cart.button.payments;" oncommand="$do('showPaymentStatus', null, 'Cart');"  class="systoolbtn mediumimagebtn paymentdetailsbtn"/-->
+                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="button-systool button-medium-image button-plus" roles="acl_modify_quantity" action="display"/>
+                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="button-systool button-medium-image button-minus" roles="acl_modify_quantity" action="display"/>
                 </vbox>
             </viviscrollabletree>
 

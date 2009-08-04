@@ -159,12 +159,7 @@
 
         _showWaitPanel: function(message) {
             var waitPanel = document.getElementById('wait_panel');
-            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            waitPanel.sizeTo(360, 120);
-            var x = (width - 360) / 2;
-            var y = (height - 240) / 2;
-            waitPanel.openPopupAtScreen(x, y);
+            waitPanel.openPopupAtScreen(0, 0);
 
             var caption = document.getElementById( 'wait_caption' );
             caption.label = message;
@@ -246,7 +241,7 @@
                 args.push(this._localbackupDir + dir);
                 if (withSystem) args.push('with-system');
 
-                var confirmMessage = _("Do you want to restore (%S) from local backup?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
+                var confirmMessage = _("Do you want to restore [%S] from local backup?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
                 if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
 
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Restore"), confirmMessage )) {
@@ -287,7 +282,7 @@
                 args.push(this._stickbackupDir + dir);
                 if (withSystem) args.push('with-system');
 
-                var confirmMessage = _("Do you want to restore (%S) from stick?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
+                var confirmMessage = _("Do you want to restore [%S] from external USB storage?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen.");
                 if (withSystem) confirmMessage += "\n\n" + _("restore_with_system.confirm_message");
                 
                 if (GREUtils.Dialog.confirm(this.topmostWindow, _("Confirm Restore"), confirmMessage)) {

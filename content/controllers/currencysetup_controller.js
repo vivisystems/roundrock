@@ -32,14 +32,17 @@
             
             var currencies = GeckoJS.Session.get('Currencies');
             var obj = {};
-
+            var i;
             for (var i = 0; i < currencies.length; i++) {
                 obj['currency_' + i] = currencies[i].currency;
                 obj['currency_symbol_' + i] = currencies[i].currency_symbol;
-                obj['currency_exchange_' + i] = currencies[i].currency_exchange;
+                obj['currency_exchange_' + i] = currencies[i].currency_exchange || 0;
             }
-
+            for (; i < 6; i++) {
+                obj['currency_exchange_' + i] = 0;
+            }
             this.Form.unserializeFromObject('currencyForm', obj);
+            var formObj = this.Form.serializeToObject('currencyForm');
         },
 
         save: function () {
@@ -49,7 +52,8 @@
 
             for (var i = 0; i < 6; i++) {
                 if (obj['currency_' + i] == '') {
-                    obj['currency_symbol_' + i] = obj['currency_exchange_' + i] = '';
+                    obj['currency_symbol_' + i] = '';
+                    obj['currency_exchange_' + i] = 0;
                 }
 
                 currencies.push({
@@ -59,13 +63,37 @@
                 })
             }
 
-            // this.log(this.dump(currencies));
-
             GeckoJS.Session.set('Currencies', currencies);
 
             var datastr = GeckoJS.BaseObject.serialize(currencies);
 
             GeckoJS.Configure.write('vivipos.fec.settings.Currencies', datastr);
+
+            this.Form.unserializeFromObject('currencyForm', obj);
+            OsdUtils.info(_('Currency exchange rates saved'));
+        },
+
+        exit: function() {
+            if (GeckoJS.FormHelper.isFormModified('currencyForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to currency exchange rates. Save changes before exiting?'),
+                                               flags, _('Save'), _('Discard'), '', null, check);
+                if (action == 2) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.save();
+                }
+            }
+            window.close();
         }
 
     };

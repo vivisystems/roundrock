@@ -7,9 +7,6 @@
 
         var rt = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
         var rp = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-        var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
-        var defaultTaxStatus = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-        var trackSalePeriod = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
 
         var rpNode = document.getElementById('roundingprices');
         if (rpNode) rpNode.value = rp;
@@ -17,16 +14,12 @@
         var rtNode = document.getElementById('roundingtaxes');
         if (rtNode) rtNode.value = rt;
         
-        $do('initUser', defaultUser, 'Users');
-        $do('initTaxStatus', defaultTaxStatus, 'Taxes');
-
         //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
         var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
         document.getElementById('prefwin').width=width;
         document.getElementById('prefwin').height=height;
-        document.getElementById('prefwin').dlgbuttons="accept,help";
 
         // calculate available disk space...
         var obj = GREUtils.XPCOM.createInstance('@mozilla.org/file/local;1', 'nsILocalFile');
@@ -59,7 +52,7 @@
     window.addEventListener('load', startup, false);
 
     window.addEventListener('dialogextra1', function(){
-        VirtualKeyboard.toggle();
+        closePreferences();
     }, false);
 
 
@@ -84,19 +77,13 @@ function rebuildDatabases() {
 
 function showWaitingPanel(message) {
 
-    var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
-    var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
     var waitPanel = document.getElementById( 'wait_panel' );
-
-    waitPanel.sizeTo( 360, 120 );
-    var x = ( width - 360 ) / 2;
-    var y = ( height - 240 ) / 2;
 
     // set the content of the label attribute be default string, taking advantage of the statusText attribute.
     var caption = document.getElementById( 'wait_caption' );
     caption.label = message;
 
-    waitPanel.openPopupAtScreen( x, y );
+    waitPanel.openPopupAtScreen( 0, 0 );
 
     return waitPanel;
 }
@@ -116,10 +103,12 @@ function closePreferences() {
         var main = mainWindow.GeckoJS.Controller.getInstanceByName('Main');
        	main.requestCommand('updateOptions', null, 'Main');
 
-        $do('setDefaultUser', null, 'Users');
-        $do('setDefaultTaxStatus', null, 'Taxes');
     }
     catch(e) {};
+
+    GREUtils.Dialog.alert(window, _('General Options'), _('General options saved'));
+
+    window.close();
 }
 
 function setVolume(volume, silent) {

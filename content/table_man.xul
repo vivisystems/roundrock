@@ -6,9 +6,10 @@
   %TableMan;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/table_man.css" type="text/css"?>
 
 <?xul-overlay href="chrome://viviecr/content/overlays/tableBookOverlay.xul" ?>
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -19,17 +20,17 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/table_man.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/libs/jquery.flow.ex.1.2.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/table_man.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/libs/jquery.flow.ex.1.2.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('search_ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('search_ok').click()"/>
     </keyset>
 
-    <vbox class="main-dialog" flex="1">
-        <vbox flex="1" class="MainPnl">
-            <tabbox flex="1" class="RightTabbox" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
+    <vbox class="container-be" flex="1">
+        <vbox flex="1" class="container-main">
+            <tabbox flex="1" class="content-tabbox" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
                 <tabs id="main-tabbox">
                     <tab id="tab_tables" label="&tableman.tab.tables;"/>
                     <tab id="tab_regions" label="&tableman.tab.regions;"/>
@@ -43,31 +44,33 @@
                     <!-- Tables Panel -->
 
                     <tabpanel id="panel_table" flex="1" oncommand="event.stopPropagation()">
-                        <textbox id="table_id" name="id" form="tableForm" readonly="true" hidden="true"/>
-                        <textbox id="table_active" name="active" form="tableForm" readonly="true" hidden="true"/>
-                        <textbox id="table_map_id" name="map_id" form="tableForm" readonly="true" hidden="true"/>
+                        <textbox id="table_id" name="id"
+                                 form="tableForm" readonly="true" hidden="true"/>
+                        <textbox id="table_active"
+                                 form="tableForm" name="active" readonly="true" hidden="true"/>
+                        <textbox id="table_map_id"
+                                 form="tableForm" name="map_id" readonly="true" hidden="true"/>
                         <textbox id="table_status_id" name="table_status_id" form="tableForm" readonly="true" hidden="true"/>
 
                         <vbox flex="1">
                             <vbox flex="1">
-                                <vbox pack="start" flex="1" class="LeftPnl">
-                                    <vivitree id="tablescrollabletree" flex="1"
+                                <vbox pack="start" flex="1" class="content-listbox">
+                                    <vivitree id="tablescrollabletree" flex="1" dir="normal"
                                               headers="&tableman.table.active;,&tableman.table.tableno;,&tableman.table.tablename;,&tableman.table.seats;,&tableman.table.region;,&tableman.table.destination;"
                                               fields="active,table_no,table_name,seats,region,destination"
                                               onselect="$do('selectTable',this.selectedIndex, 'TableMan');"
-                                              class="ListPnl showscrollbar"
-                                              scrollUpClass="ScrollUp" dir="normal"
-                                              scrollDownClass="ScrollDown"/>
+                                              class="standard" types="checkbox,,,,,"
+                                              scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                                     <hbox>
                                         <label value="&tableman.table.count;"/><label id="table_count"/>
                                     </hbox>
                                 </vbox>
-                                <grid class="DataForm">
+                                <grid class="data-form">
                                     <columns flex="1">
-                                        <column flex="1" />
-                                        <column flex="1" />
-                                        <column flex="1" />
-                                        <column flex="1" />
+                                        <column flex="1"/>
+                                        <column flex="1"/>
+                                        <column flex="1"/>
+                                        <column flex="1"/>
                                     </columns>
                                     <rows>
 
@@ -75,65 +78,66 @@
                                         <row>
                                             <vbox flex="1">
                                                 <label control="table_no" value="&tableman.table.tableno;"/>
-                                                <textbox id="table_no" name="table_no" form="tableForm" default="" onfocus="select()"/>
+                                                <textbox id="current_table_no" onfocus="select()"
+                                                         form="tableForm" name="table_no" default=""/>
                                             </vbox>
                                             <vbox flex="1">
                                                 <label control="table_name" value="&tableman.table.tablename;"/>
-                                                <textbox id="table_name" name="table_name" form="tableForm" default=""  onfocus="select()"
-                                                         oninput="$do('validateForm', null, 'TableMan');"/>
+                                                <textbox id="current_table_name"
+                                                         onfocus="select()" oninput="$do('validateForm', null, 'TableMan');"
+                                                         form="tableForm" name="table_name" default=""/>
                                             </vbox>
                                             <vbox flex="1">
                                                 <label control="seats" value="&tableman.table.seats;"/>
-                                                <textbox id="seats" name="seats" form="tableForm" default="" onfocus="select()"/>
+                                                <textbox id="seats"
+                                                         onfocus="select()"
+                                                         form="tableForm" name="seats" default=""/>
                                             </vbox>
                                             <vbox flex="1">
                                                 <label control="minimumchargepertable" value="&tableman.table.minimumchargepertable;"/>
-                                                <textbox id="minimumchargepertable" name="minimum_charge_per_table" form="tableForm" default="0" onfocus="select()"/>
+                                                <textbox id="minimumchargepertable"
+                                                         onfocus="select()"
+                                                         form="tableForm" name="minimum_charge_per_table" default="0"/>
                                             </vbox>
-                                            
-
                                         </row>
                                         <row>
                                             <vbox flex="1">
                                                 <label control="seats" value="&tableman.table.region;"/>
-                                                <!-- textbox id="table_region" name="region" form="tableForm" default="" onfocus="select()"/ -->
-                                                <menulist id="table_region" name="table_region_id" form="tableForm">
+                                                <menulist id="table_region" form="tableForm" name="table_region_id">
                                                     <menupopup id="table_region_menupopup">
-                                                        
                                                     </menupopup>
                                                 </menulist>
                                             </vbox>
                                             <vbox flex="1">
                                                 <label control="seats" value="&tableman.table.destination;"/>
-                                                <!-- textbox id="table_region" name="region" form="tableForm" default="" onfocus="select()"/ -->
-                                                <menulist id="table_destination" name="destination" form="tableForm">
+                                                <menulist id="table_destination" form="tableForm" name="destination">
                                                     <menupopup id="table_destination_menupopup">
-                                                        
                                                     </menupopup>
                                                 </menulist>
                                             </vbox>
-                                            <vbox />
+                                            <vbox/>
 
                                             <vbox flex="1">
                                                 <label control="minimumchargeperguest" value="&tableman.table.minimumchargeperguest;"/>
-                                                <textbox id="minimumchargeperguest" name="minimum_charge_per_guest" form="tableForm" default="0" onfocus="select()"/>
+                                                <textbox id="minimumchargeperguest"
+                                                         onfocus="select()"
+                                                         form="tableForm" name="minimum_charge_per_guest" default="0"/>
                                             </vbox>
                                         </row>
                                     </rows>
                                 </grid>
                             </vbox>
                             <hbox>
-                                <hbox class="ToolBar" flex="1">
-                                    <button id="add_table" disabled="false" label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addTable', null, 'TableMan');"/>
-                                    <button id="modify_table" disabled="false" label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyTable', null, 'TableMan');"/>
-                                    <button id="toggleactive_table" disabled="false" label="&tableman.button.toggleactive;" hidden="false" class="BtnMod" oncommand="$do('toggleTable', null, 'TableMan');"/>
-                                    <button id="auto_create_table" disabled="false" label="&tableman.button.addtables;" hidden="true" class="BtnAdd" oncommand="$do('autoCreateTables', null, 'TableMan');"/>
+                                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                                    <button id="add_table" disabled="false" label="&tableman.button.add;" hidden="false" class="button-add" oncommand="$do('addTable', null, 'TableMan');"/>
+                                    <button id="modify_table" disabled="false" label="&tableman.button.modify;" hidden="false" class="button-modify" oncommand="$do('modifyTable', null, 'TableMan');"/>
+                                    <button id="toggleactive_table" disabled="false" label="&tableman.button.toggleactive;" hidden="false" class="button-modify" oncommand="$do('toggleTable', null, 'TableMan');"/>
                                     <spacer flex="1"/>
-                                    <button id="delete_table" disabled="false" label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteTable', null, 'TableMan');"/>
+                                    <button id="delete_table" disabled="false" label="&tableman.button.delete;" hidden="false" class="button-delete" oncommand="$do('deleteTable', null, 'TableMan');"/>
                                 </hbox>
-                                <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
-                                    <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('doExit', null, 'TableMan');"/>
+                                <hbox id="search_dialogButtons" pack="end" class="exitbar">
+                                    <button id="search_vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                                    <button id="search_ok" default="true" class="button-exit" oncommand="$do('doExit', null, 'TableMan');"/>
                                 </hbox>
                             </hbox>
                         </vbox>
@@ -142,26 +146,26 @@
                     <!-- Regions Panel -->
 
                     <tabpanel id="panel_region" oncommand="event.stopPropagation()">
-                        <textbox id="region_id" name="id" form="regionForm" readonly="true" hidden="true"/>
+                        <textbox id="region_id" readonly="true" hidden="true" form="regionForm" name="id"/>
                         
                         <vbox flex="1">
                             <vbox flex="1">
-                                <vbox pack="start" flex="1" class="LeftPnl">
+                                <vbox pack="start" flex="1" class="content-listbox">
                                     <vivitree id="regionscrollabletree" flex="1"
                                               headers="&tableman.region.name;,&tableman.region.bgimage;"
                                               fields="name,image"
                                               onselect="$do('selectRegion',this.selectedIndex, 'TableMan');"
-                                              class="ListPnl showscrollbar"
-                                              scrollUpClass="ScrollUp" dir="normal"
-                                              scrollDownClass="ScrollDown"/>
+                                              class="standard"
+                                              scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                                     <hbox>
                                         <label value="&tableman.region.count;"/><label id="region_count"/>
                                     </hbox>
                                 </vbox>
-                                <grid class="DataForm">
+                                <grid class="data-form">
                                     <columns>
-                                        <column flex="1" />
-                                        <column flex="1" />
+                                        <column flex="1"/>
+                                        <column flex="1"/>
+                                        <column flex="1"/>
                                     </columns>
                                     <rows>
 
@@ -169,31 +173,32 @@
                                         <row>
                                             <vbox>
                                                 <label control="region_name" value="&tableman.region.name;"/>
-                                                <textbox id="region_name" name="name" form="regionForm" default=""  onfocus="select()"
-                                                         oninput="$do('validateForm', null, 'TableMan');"/>
+                                                <textbox id="region_name"
+                                                         onfocus="select()" oninput="$do('validateForm', null, 'TableMan');"
+                                                         form="regionForm" name="name" default=""/>
                                             </vbox>
                                             <vbox>
                                                 <label control="region_bgimage" value="&tableman.region.bgimage;"/>
-                                                <hbox>
                                                 <textbox id="region_bgimage" name="image" form="regionForm" default="" onfocus="select()"/>
-                                                <button id="imageBrowseBtn" class="ItemButtonA" label="Select Image" image="chrome://viviecr/skin/images/add.png"/>
-                                                <button id="imageRemoveBtn" class="ItemButtonA" label="Remove Image" image="chrome://viviecr/skin/images/cancel.png"/>
-                                                </hbox>
                                             </vbox>
+                                            <hbox>
+                                                <button id="imageBrowseBtn" class="button-execute" label="Select Image" image="chrome://viviecr/skin/images/add.png"/>
+                                                <button id="imageRemoveBtn" class="button-execute" label="Remove Image" image="chrome://viviecr/skin/images/cancel.png"/>
+                                            </hbox>
                                         </row>
                                     </rows>
                                 </grid>
                             </vbox>
                             <hbox>
-                                <hbox class="ToolBar" flex="1">
-                                    <button id="add_region"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addRegion', null, 'TableMan');"/>
-                                    <button id="modify_region"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyRegion', null, 'TableMan');"/>
+                                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                                    <button id="add_region"  label="&tableman.button.add;" hidden="false" class="button-add" oncommand="$do('addRegion', null, 'TableMan');"/>
+                                    <button id="modify_region"  label="&tableman.button.modify;" hidden="false" class="button-modify" oncommand="$do('modifyRegion', null, 'TableMan');"/>
                                     <spacer flex="1"/>
-                                    <button id="delete_region"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteRegion', null, 'TableMan');"/>
+                                    <button id="delete_region"  label="&tableman.button.delete;" hidden="false" class="button-delete" oncommand="$do('deleteRegion', null, 'TableMan');"/>
                                 </hbox>
-                                <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
-                                    <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('doExit', null, 'TableMan');"/>
+                                <hbox id="search_dialogButtons" pack="end" class="exitbar">
+                                    <button id="search_vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                                    <button id="search_ok" default="true" class="button-exit" oncommand="$do('doExit', null, 'TableMan');"/>
                                 </hbox>
                             </hbox>
                         </vbox>
@@ -208,57 +213,56 @@
                     <!-- Table Marks Panel -->
 
                     <tabpanel id="panel_mark" oncommand="event.stopPropagation()">
-                        <textbox id="region_id" name="id" form="regionForm" readonly="true" hidden="true"/>
+                        <textbox id="region_id" readonly="true" hidden="true"
+                                 form="regionForm" name="id"/>
 
                         <vbox flex="1">
-                            <hbox flex="1">
-                                <vbox pack="start" flex="1" class="LeftPnl">
-                                    <viviscrollabletree id="markscrollabletree" flex="1"
-                                                    headers="&tableman.mark.name;,&tableman.mark.period;,&tableman.mark.opdeny;"
-                                                    fields="name,period,opdeny"
-                                                    onselect="$do('selectMark',this.selectedIndex, 'TableMan');"
-                                                    class="ListPnl" hidecolumnpicker="true"
-                                                    scrollUpClass="ScrollUp" dir="normal"
-                                                    scrollDownClass="ScrollDown">
-                                        <spacer flex="1" />
-                                    </viviscrollabletree>
-                                </vbox>
-                                <grid class="DataForm">
-                                    <columns>
-                                        <column flex="1" />
-                                    </columns>
-                                    <rows>
-                                        <!-- row one -->
-                                        <row>
-                                            <vbox>
-                                                <label control="mark_name" value="&tableman.mark.name;"/>
-                                                <textbox id="mark_name" name="name" form="markForm" default="" readonly="true"/>
-                                            </vbox>
-                                        </row>
-                                        <row>
-                                            <vbox>
-                                                <label control="mark_period" value="&tableman.mark.period;"/>
-                                                <textbox id="mark_period" name="period" form="markForm" type="Number" size="6" maxlength="3" min="0" max="999" onfocus="select()"/>
-                                                <label control="mark_period_desc" value="&tableman.mark.perioddesc;"/>
-                                            </vbox>
-                                        </row>
-                                        <row>
-                                            <checkbox id="mark_op_deny" name="opdeny" form="markForm" default="0" label="&tableman.mark.opdeny;"/>
-                                        </row>
-                                    </rows>
-                                </grid>
-                            </hbox>
+                            <vbox pack="start" flex="1" class="content-listbox">
+                                <vivitree id="markscrollabletree" flex="1" hidecolumnpicker="true"
+                                          headers="&tableman.mark.name;,&tableman.mark.period;,&tableman.mark.opdeny;"
+                                          fields="name,period,opdeny"
+                                          onselect="$do('selectMark',this.selectedIndex, 'TableMan');"
+                                          class="standard" types=",,checkbox"
+                                          scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
+                            </vbox>
+                            <grid class="data-form">
+                                <columns>
+                                    <column flex="0"/>
+                                    <column flex="1"/>
+                                </columns>
+                                <rows>
+                                    <!-- row one -->
+                                    <row>
+                                        <label control="mark_name" value="&tableman.mark.name;"/>
+                                        <textbox id="mark_name" default="" readonly="true"
+                                                 form="markForm" name="name"/>
+                                    </row>
+                                    <row>
+                                        <vbox>
+                                            <label control="mark_period" value="&tableman.mark.period;"/>
+                                            <label control="mark_period_desc" value="&tableman.mark.perioddesc;"/>
+                                        </vbox>
+                                        <textbox id="mark_period" type="Number" size="6" maxlength="3" min="0" max="999"
+                                                 form="markForm" name="period"
+                                                 onfocus="select()"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="mark_op_deny" label="&tableman.mark.opdeny;"
+                                                  form="markForm" name="opdeny" default="false"/>
+                                    </row>
+                                </rows>
+                            </grid>
 
                             <hbox>
-                                <hbox class="ToolBar" flex="1">
-                                    <button id="add_mark"  label="&tableman.button.add;" hidden="false" class="BtnAdd" oncommand="$do('addMark', null, 'TableMan');"/>
-                                    <button id="modify_mark"  label="&tableman.button.modify;" hidden="false" class="BtnMod" oncommand="$do('modifyMark', null, 'TableMan');"/>
+                                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                                    <button id="add_mark"  label="&tableman.button.add;" hidden="false" class="button-add" oncommand="$do('addMark', null, 'TableMan');"/>
+                                    <button id="modify_mark"  label="&tableman.button.modify;" hidden="false" class="button-modify" oncommand="$do('modifyMark', null, 'TableMan');"/>
                                     <spacer flex="1"/>
-                                    <button id="delete_mark"  label="&tableman.button.delete;" hidden="false" class="BtnDel" oncommand="$do('deleteMark', null, 'TableMan');"/>
+                                    <button id="delete_mark"  label="&tableman.button.delete;" hidden="false" class="button-delete" oncommand="$do('deleteMark', null, 'TableMan');"/>
                                 </hbox>
-                                <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
-                                    <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('doExit', null, 'TableMan');"/>
+                                <hbox id="search_dialogButtons" pack="end" class="exitbar">
+                                    <button id="search_vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                                    <button id="search_ok" default="true" class="button-exit" oncommand="$do('doExit', null, 'TableMan');"/>
                                 </hbox>
                             </hbox>
                         </vbox>
@@ -268,7 +272,7 @@
 
                     <tabpanel id="panel_table_settings" oncommand="event.stopPropagation()">
                         <vbox flex="1">
-                            <tabbox flex="1" class="RightTabbox" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
+                            <tabbox flex="1" class="content-tabbox" oncommand="$do('switchTab', this.selectedIndex, 'TableMan')">
                                 <tabs id="options-tabbox">
                                     <tab id="tab_options1" label="&tableman.tab.tableoptions.1;"/>
                                     <tab id="tab_options2" label="&tableman.tab.tableoptions.2;"/>
@@ -278,51 +282,56 @@
 
                                     <tabpanel>
                                         <vbox flex="1">
-                                        <caption label="&tableman.tableoptions.options;" />
-                                        <grid class="DataForm" flex="1">
+                                        <caption label="&tableman.tableoptions.options;"/>
+                                        <grid flex="1" class="data-form">
                                             <columns>
-                                                <column flex="1" />
-                                                <column flex="1" />
+                                                <column flex="1"/>
+                                                <column flex="1"/>
                                             </columns>
                                             <rows>
                                                 <row>
                                                     <checkbox id="tableWinAsFirstWin" label="&tableman.tableoptions.tablewinasfirstwin;" form="settingsForm" name="TableWinAsFirstWin"/>
-                                                    <hbox>
-                                                        <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
-                                                        <textbox id="tableRefreshFrequence" name="TableRefreshFrequence" form="settingsForm" type="Number" size="4" maxlength="3" min="5" max="999" onfocus="select()"/>
-                                                    </hbox>
-                                                    
-                                                </row>
-                                                <row>
                                                     <checkbox id="requireCheckNo" label="&tableman.tableoptions.requirecheckno;" form="settingsForm" name="RequireCheckNo"/>
-                                                    <hbox>
-                                                        <label control="tablePeriodLimit" value="&tableman.tableoptions.tableperiodlimit;"/>
-                                                        <textbox id="tablePeriodLimit" name="TablePeriodLimit" form="settingsForm" type="Number" size="4" maxlength="3" min="1" max="999" onfocus="select()"/>
-                                                    </hbox>
                                                 </row>
                                                 <row>
                                                     <checkbox id="requireTableNo" label="&tableman.tableoptions.requiretableno;" form="settingsForm" name="RequireTableNo"/>
-                                                    <hbox>
-                                                        <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
-                                                        <textbox id="tableRemindTime" name="TableRemindTime" form="settingsForm" type="Number" size="4" maxlength="3" min="10" max="999" onfocus="select()"/>
-                                                    </hbox>
-                                                </row>
-                                                <row>
                                                     <checkbox id="requireGuestNum" label="&tableman.tableoptions.requireguestnum;" form="settingsForm" name="RequireGuestNum"/>
-                                                    <hbox>
+                                                </row>
+                                                <row>
+                                                    <vbox>
+                                                        <label control="tableRefreshFrequence" value="&tableman.tableoptions.tablerefreshfrequence;"/>
+                                                        <textbox id="tableRefreshFrequence" type="Number" size="4" maxlength="3" min="5" max="999"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="TableRefreshFrequence"/>
+                                                    </vbox>
+                                                    <vbox>
+                                                        <label control="tablePeriodLimit" value="&tableman.tableoptions.tableperiodlimit;"/>
+                                                        <textbox id="tablePeriodLimit" type="Number" size="4" maxlength="3" min="1" max="999"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="TablePeriodLimit"/>
+                                                    </vbox>
+                                                </row>
+                                                <row>
+                                                    <vbox>
+                                                        <label control="tableRemindTime" value="&tableman.tableoptions.tableremindtime;"/>
+                                                        <textbox id="tableRemindTime" type="Number" size="4" maxlength="3" min="10" max="999"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="TableRemindTime"/>
+                                                    </vbox>
+                                                    <vbox>
                                                         <label control="tableBookingTimeout" value="&tableman.tableoptions.tablebookingtimeout;"/>
-                                                        <textbox id="tableBookingTimeout" name="TableBookingTimeout" form="settingsForm" type="Number" size="4" maxlength="3" min="1" max="999" onfocus="select()"/>
-                                                    </hbox>
+                                                        <textbox id="tableBookingTimeout" type="Number" size="4" maxlength="3" min="1" max="999"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="TableBookingTimeout"/>
+                                                    </vbox>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="virtualTableMap" label="&tableman.tableoptions.virtualtablemap;" form="settingsForm" name="VirtualTableMap"/>
-                                                    <hbox>
-                                                        <label control="tablePeriodLimit" value="&tableman.tableoptions.maxcheckno;"/>
-                                                        <textbox id="maxCheckNo" name="MaxCheckNo" form="settingsForm" type="Number" size="4" maxlength="3" min="30" max="999" onfocus="select()"/>
-                                                    </hbox>
-                                                </row>
-                                                <row>
-                                                    <label value="" />
+                                                    <vbox>
+                                                        <label control="maxCheckNo" value="&tableman.tableoptions.maxcheckno;"/>
+                                                        <textbox id="maxCheckNo" type="Number" size="4" maxlength="3" min="30" max="999"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="MaxCheckNo"/>
+                                                    </vbox>
                                                     <label value="" />
                                                 </row>
                                             </rows>
@@ -372,9 +381,8 @@
                                                     </vbox>
                                                     <vbox>
                                                         <label control="mark_automark" value="&tableman.mark.automarkaftersubmit;"/>
-                                                        <menulist id="mark_automark" name="AutoMarkAfterSubmit" form="settingsForm">
+                                                        <menulist id="mark_automark" form="settingsForm" name="AutoMarkAfterSubmit">
                                                             <menupopup id="automark_after_submit_menupopup">
-
                                                             </menupopup>
                                                         </menulist>
                                                     </vbox>
@@ -384,88 +392,90 @@
                                         </vbox>
                                     </tabpanel>
 
-                                    <tabpanel>
-                                        <vbox flex="1">
-                                        <caption label="&tableman.tableoptions.minimumchargeoptions;" />
-                                        <grid class="DataForm" flex="1">
+                                    <tabpanel orient="vertical">
+                                        <caption label="&tableman.tableoptions.minimumchargeoptions;"/>
+                                        <grid class="data-form">
                                             <columns>
-                                                <column flex="1" />
-                                                <column flex="1" />
+                                                <column flex="1"/>
+                                                <column flex="1"/>
                                             </columns>
                                             <rows>
                                                 <row>
                                                     <checkbox id="requestMinimumCharge" label="&tableman.tableoptions.requestminimumcharge;" form="settingsForm" name="RequestMinimumCharge"/>
-                                                    <hbox>
+                                                    <vbox>
                                                         <label control="globalMinimumChargePerTable" value="&tableman.tableoptions.globalminimumchargepertable;"/>
-                                                        <textbox id="globalMinimumChargePerTable" name="GlobalMinimumChargePerTable" form="settingsForm" type="Number" size="8" maxlength="6" min="1" max="999999" onfocus="select()"/>
-                                                    </hbox>
+                                                        <textbox id="globalMinimumChargePerTable" type="Number" size="10" maxlength="8" min="1" max="99999999"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="GlobalMinimumChargePerTable"/>
+                                                    </vbox>
                                                 </row>
                                                 <row>
-                                                    <label />
-                                                    <hbox>
+                                                    <label/>
+                                                    <vbox>
                                                         <label control="globalMinimumChargePerGuest" value="&tableman.tableoptions.globalminimumchargeperguest;"/>
-                                                        <textbox id="globalMinimumChargePerGuest" name="GlobalMinimumChargePerGuest" form="settingsForm" type="Number" size="8" maxlength="6" min="1" max="999999" onfocus="select()"/>
-                                                    </hbox>
+                                                        <textbox id="globalMinimumChargePerGuest" type="Number" size="10" maxlength="8" min="1" max="99999999"
+                                                                 onfocus="select()"
+                                                                 form="settingsForm" name="GlobalMinimumChargePerGuest"/>
+                                                    </vbox>
                                                 </row>
                                                 <row>
                                                     <vbox>
-                                                        <label value="&tableman.tableoptions.minimumchargefor;" />
-                                                        <menulist id="minimumChargeFor" name="MinimumChargeFor" form="settingsForm">
+                                                        <label value="&tableman.tableoptions.minimumchargefor;"/>
+                                                        <menulist id="minimumChargeFor" form="settingsForm" name="MinimumChargeFor">
                                                             <menupopup id="minimumChargeForPopup">
-
                                                             </menupopup>
                                                         </menulist>
                                                     </vbox>
                                                     <vbox>
-                                                        <label value="&tableman.tableoptions.minimumchargeplu;" />
+                                                        <label value="&tableman.tableoptions.minimumchargeplu;"/>
                                                         <hbox>
-                                                            <textbox id="minimumChargePlu" name="MinimumChargePlu" form="settingsForm" readonly="true" hidden="true"/>
-                                                            <textbox id="pluInfo" name="PluInfo" form="settingsForm" readonly="true"/>
-                                                            <!-- vivibutton id="plusBtn" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('searchDialog', null, 'TableMan');" / -->
-                                                            <button id="plusBtn" class="ItemButtonA" image="chrome://viviecr/skin/images/gtk-find.png" oncommand="$do('searchDialog', null, 'TableMan');"/>
+                                                            <textbox id="minimumChargePlu" readonly="true" hidden="true"
+                                                                     form="settingsForm" name="MinimumChargePlu"/>
+                                                            <textbox id="pluInfo" readonly="true" form="settingsForm" name="PluInfo"/>
+                                                            <button id="plusBtn" class="buttonexecute" image="chrome://viviecr/skin/images/gtk-find.png"
+                                                                    oncommand="$do('searchDialog', null, 'TableMan');"/>
                                                         </hbox>
                                                     </vbox>
                                                 </row>
                                             </rows>
                                         </grid>
 
-                                        <caption label="&tableman.tableoptions.displayoptions;" />
-                                        <grid class="DataForm" flex="1">
+                                        <caption label="&tableman.tableoptions.displayoptions;"/>
+                                        <grid class="data-form">
                                             <columns>
-                                                <column flex="1" />
-                                                <column flex="1" />
-                                                <column flex="1" />
-                                                <column flex="1" />
-                                            </columns>
-                                            <rows>
-                                                <row>
-                                                    <checkbox id="displayCheckNo" label="&tableman.tableoptions.displaycheckno;" form="settingsForm" name="DisplayCheckNo"/>
-                                                    <checkbox id="displayTableLabel" label="&tableman.tableoptions.displaytablelabel;" form="settingsForm" name="DisplayTableLabel"/>
-                                                    <checkbox id="displaySeqNo" label="&tableman.tableoptions.displayseqno;" form="settingsForm" name="DisplaySeqNo"/>
-                                                    <checkbox id="displayBooking" label="&tableman.tableoptions.displaybooking;" form="settingsForm" name="DisplayBooking"/>
-                                                </row>
-                                                <row>
-                                                    <checkbox id="displayPeriod" label="&tableman.tableoptions.displayperiod;" form="settingsForm" name="DisplayPeriod"/>
-                                                    <checkbox id="displayTotal" label="&tableman.tableoptions.displaytotal;" form="settingsForm" name="DisplayTotal"/>
-                                                    <checkbox id="displayCapacity" label="&tableman.tableoptions.displaycapacity;" form="settingsForm" name="DisplayCapacity"/>
-                                                    <checkbox id="displayClerk" label="&tableman.tableoptions.displayclerk;" form="settingsForm" name="DisplayClerk"/>
-                                                </row>
-                                            </rows>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                    <column flex="1"/>
+                                                </columns>
+                                                <rows>
+                                                    <row>
+                                                        <checkbox id="displayCheckNo" label="&tableman.tableoptions.displaycheckno;" form="settingsForm" name="DisplayCheckNo"/>
+                                                        <checkbox id="displayTableLabel" label="&tableman.tableoptions.displaytablelabel;" form="settingsForm" name="DisplayTableLabel"/>
+                                                        <checkbox id="displaySeqNo" label="&tableman.tableoptions.displayseqno;" form="settingsForm" name="DisplaySeqNo"/>
+                                                        <checkbox id="displayBooking" label="&tableman.tableoptions.displaybooking;" form="settingsForm" name="DisplayBooking"/>
+                                                    </row>
+                                                    <row>
+                                                        <checkbox id="displayPeriod" label="&tableman.tableoptions.displayperiod;" form="settingsForm" name="DisplayPeriod"/>
+                                                        <checkbox id="displayTotal" label="&tableman.tableoptions.displaytotal;" form="settingsForm" name="DisplayTotal"/>
+                                                        <checkbox id="displayCapacity" label="&tableman.tableoptions.displaycapacity;" form="settingsForm" name="DisplayCapacity"/>
+                                                        <checkbox id="displayClerk" label="&tableman.tableoptions.displayclerk;" form="settingsForm" name="DisplayClerk"/>
+                                                    </row>
+                                                </rows>
                                         </grid>
-                                        </vbox>
                                     </tabpanel>
                                 </tabpanels>
                             </tabbox>
 
                             <hbox>
-                                <hbox class="ToolBar" flex="1">
-                                    <button id="save_settings"  label="&tableman.button.savesettings;" hidden="false" class="BtnAdd" oncommand="$do('saveSettings', null, 'TableMan');"/>
-                                    <button id="clone_settings_from_master"  label="&tableman.button.clonesettingsfrommaster;" hidden="false" class="BtnAdd" oncommand="$do('cloneSettingsFromMaster', null, 'TableMan');"/>
+                                <hbox flex="1" class="toolbar" toolbarmode="horizontal">
+                                    <button id="save_settings"  label="&tableman.button.savesettings;" hidden="false" class="button-add" oncommand="$do('saveSettings', null, 'TableMan');"/>
+                                    <button id="clone_settings_from_master"  label="&tableman.button.clonesettingsfrommaster;" hidden="false" class="button-add" oncommand="$do('cloneSettingsFromMaster', null, 'TableMan');"/>
                                     <spacer flex="1"/>
                                 </hbox>
-                                <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
-                                    <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('doExit', null, 'TableMan');"/>
+                                <hbox id="search_dialogButtons" pack="end" class="exitbar">
+                                    <button id="search_vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                                    <button id="search_ok" default="true" class="button-exit" oncommand="$do('doExit', null, 'TableMan');"/>
                                 </hbox>
                             </hbox>
                         </vbox>
@@ -479,21 +489,21 @@
                         <textbox id="supplier_no" name="no" form="supplierForm" readonly="true" hidden="true"/>
 
                         <vbox flex="1">
-                            <vivi_tables_map id="tablesMap" />
+                            <vivi_tables_map id="tablesMap"/>
 
-                            <button oncommand="document.getElementById('tablesMap').slideTo(0)" label="0" />
-                            <button oncommand="document.getElementById('tablesMap').slideTo(1)" label="1" />
-                            <spacer flex="1" />
+                            <button oncommand="document.getElementById('tablesMap').slideTo(0)" label="0"/>
+                            <button oncommand="document.getElementById('tablesMap').slideTo(1)" label="1"/>
+                            <spacer flex="1"/>
 
                             <hbox>
-                                <hbox class="ToolBar" flex="1" oncommand="event.stopPropagation()">
-                                    <button id="edit_modify_supplier"  label="&tableman.button.modify;" hidden="true" class="BtnMod" oncommand="$do('modifySupplier', null, 'Suppliers');"/>
+                                <hbox flex="1" class="toolbar" toolbarmode="horizontal" oncommand="event.stopPropagation()">
+                                    <button id="edit_modify_supplier"  label="&tableman.button.modify;" hidden="true" class="button-modify" oncommand="$do('modifySupplier', null, 'Suppliers');"/>
                                     <spacer flex="1"/>
-                                    <button id="edit_delete_supplier"  label="&tableman.button.delete;" hidden="true" class="BtnDel" oncommand="$do('deleteSupplier', null, 'Suppliers');"   />
+                                    <button id="edit_delete_supplier"  label="&tableman.button.delete;" hidden="true" class="button-delete" oncommand="$do('deleteSupplier', null, 'Suppliers');"  />
                                 </hbox>
-                                <hbox id="edit_dialogButtons" class="dialogbtns" pack="center">
-                                    <button id="edit_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                                    <button class="ExitBtn" id="edit_ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('doExit', null, 'TableMan');"/>
+                                <hbox id="edit_dialogButtons" pack="end" class="exitbar">
+                                    <button id="edit_vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                                    <button id="edit_ok" default="true" class="button-exit" oncommand="$do('doExit', null, 'TableMan');"/>
                                 </hbox>
                             </hbox>
                         </vbox>

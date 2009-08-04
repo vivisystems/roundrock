@@ -7,9 +7,10 @@
         prefTree: null,
         functionTree: null,
         functionArray: null,
-        selectedIndex: null,
+        selectedFunctionIndex: null,
         hotkeys: null,
         hotkeysArray: [],
+        selectedHotkeyIndex: null,
 
         lastLinkFunction: null,
 
@@ -66,7 +67,6 @@
             // apply function list information to keymap panel
             document.getElementById('hotkey_function_tree').datasource = functionArray;
 
-
             // get hotkey prefs
             var hotkey_prefix = 'vivipos.fec.settings.hotkeys';
             GeckoJS.Configure.loadPreferences(hotkey_prefix);
@@ -80,26 +80,71 @@
             }
 
             // refresh hotkeys tree
-            this.hotkeysArray = this.hotkeys.getValues();
-            document.getElementById('hotkey_prefs_tree').datasource = this.hotkeysArray;
+            this.savePreferences();
 
         },
 
         addHotkey: function() {
 
-            this.editableFields(true);
+            if (!this.confirmChangeHotkey()) {
+                return;
+            }
 
-            document.getElementById('modify_hotkey').setAttribute('disabled', false);
-            document.getElementById('delete_hotkey').setAttribute('disabled', false);
+            var aURL = 'chrome://viviecr/content/prompt_addhotkey.xul';
+            var width = GeckoJS.Session.get('screenwidth') || 800;
+            var height = GeckoJS.Session.get('screenheight') || 600;
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + width * 0.8 + ',height=' + height * 0.9;
+            var inputObj = {hotkey: null, name: null, fn: null, fn_list: this.functionArray};
 
-            var nameObj = document.getElementById('hotkey_name');
-            nameObj.value = _('New Hot Key');
-            nameObj.select();
-            nameObj.focus();
-        
-            document.getElementById('hotkey_id').value = GeckoJS.String.uuid();
+            GREUtils.Dialog.openWindow(this.topmostWindow, aURL, _('Add New Hot Key'), features, inputObj);
 
+            if (inputObj.ok) {
 
+                var fn = inputObj.fn;
+                var hotkey = inputObj.hotkey;
+                var name = inputObj.name;
+
+                var inputData = {
+                        name: name,
+                        linked: fn.name,
+                        access: fn.access,
+                        command: fn.command,
+                        controller: fn.controller,
+                        data: ''
+                };
+
+                inputData = GREUtils.extend(inputData, hotkey);
+
+                // check if  hotkey is restricted or already exists
+
+                var keycombo = inputData.keycombo;
+                var keydisplay = inputData.keydisplay;
+
+                if(this.reserveHotKeys[keycombo]) {
+
+                    NotifyUtils.error(_('Hot Key [%S] is reserved', [keydisplay]));
+                    return ;
+                }
+
+                var isExists = this.hotkeys.containsKey(keycombo);
+                if (isExists) {
+
+                    NotifyUtils.error(_('Hot Key [%S] already exists', [keydisplay]));
+                    return ;
+                }
+                
+                this.hotkeys.add(keycombo, inputData);
+                
+                document.getElementById('hotkey_id').value = keycombo;
+
+                this.savePreferences();
+
+                // key order might have changed, let's locate it
+                this.selectedHotkeyIndex = -1;
+                this.locateHotkey(keycombo);
+
+                OsdUtils.info(_('Hot Key [%S] for [%S] added successfully', [keydisplay, fn.name]));
+            }
         },
 
         modifyHotkey: function() {
@@ -107,9 +152,8 @@
             var entry = this.lastLinkFunction;
 
             if (!entry) {
-
                 NotifyUtils.error(_('Please Linking Function to Hot Key'));
-                return ;
+                return false;
             }
 
             var inputData = this.Form.serializeToObject('hotkeyForm');
@@ -132,60 +176,54 @@
 
             //this.log(this.dump(inputData));
 
-            var isEditMode = false;
-            try {
+            var id = inputData.id ;
+            var keycombo = inputData.keycombo;
+            var keydisplay = inputData.keydisplay;
 
-                var id = inputData.id ;
-                var keycombo = inputData.keycombo;
-                var keydisplay = inputData.keydisplay;
+            if (!keycombo) {
 
-                if (!keycombo) {
+                NotifyUtils.error(_('Please Assign Hot Key to Linking Function'));
+                return false;
 
-                    NotifyUtils.error(_('Please Assign Hot Key to Linking Function'));
-                    return ;
+            }
 
+            // change hotkey, check if hotkey exists
+
+            if (id != keycombo) {
+
+                if(this.reserveHotKeys[keycombo]) {
+
+                    NotifyUtils.error(_('Hot Key [%S] is reserved', [keydisplay]));
+                    return false;
                 }
 
-                // change hotkey, find hotkey exists
-                if (id != keycombo) {
+                var isExists = this.hotkeys.containsKey(keycombo);
+                if (isExists) {
 
-                    if(this.reserveHotKeys[keycombo]) {
+                    NotifyUtils.error(_('Hot Key [%S] already exists', [keydisplay]));
+                    return false;
+                }
 
-                        NotifyUtils.error(_('Hot Key [%S] is reserved', [keydisplay]));
-                        return ;
-                    }
-
-                    var isExists = this.hotkeys.containsKey(keycombo);
-                    if (isExists) {
-                        
-                        NotifyUtils.error(_('Hot Key [%S] already exists', [keydisplay]));
-                        return ;
-                    }
-
-                    // remove old
-                    try {
-                        isEditMode = this.hotkeys.containsKey(id);
-                        if (isEditMode) this.hotkeys.remove(id);
-                    }catch(e) {}
+                // remove old
+                if (this.hotkeys.containsKey(id)) {
+                    this.hotkeys.remove(id);
                 }
 
                 delete inputData.id;
-                this.hotkeys.add(keycombo, inputData);
-                document.getElementById('hotkey_id').value = keycombo;
-
-                this.savePreferences();
-
-                if (!isEditMode) {
-                    this.searchHotkey(hotkey);
-                }
-                OsdUtils.info(_('Hot Key [%S] [%S] modified successfully', [inputData.name, keydisplay]));
-
-            }
-            catch (e) {
-                
-                NotifyUtils.error(_('An error occurred while modifying Hot Key [%S]. The hot key may not have been modified successfully', [inputData.name]));
             }
 
+            this.hotkeys.add(keycombo, inputData);
+            document.getElementById('hotkey_id').value = keycombo;
+
+            this.savePreferences();
+
+            // key order might have changed, let's locate it
+            this.selectedHotkeyIndex = -1;
+            this.locateHotkey(keycombo);
+            
+            OsdUtils.info(_('Hot Key [%S] for [%S] modified successfully', [keydisplay, inputData.name]));
+
+            return true;
         },
 
         removeHotkey: function() {
@@ -200,6 +238,12 @@
                     return ;
                 }
 
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('confirm delete Hot Key [%S]', [entry.keydisplay]),
+                                             _('Are you sure you want to delete Hot Key [%S] for [%S]?', [entry.keydisplay, entry.name]))) {
+                    return;
+                }
+
                 var keycombo = entry.keycombo;
                 var keydisplay = entry.keydisplay;
 
@@ -208,6 +252,7 @@
                 this.savePreferences();
 
                 // select preceding hotkey combo
+                this.selectedHotkeyIndex = -1;
                 var tree = document.getElementById('hotkey_prefs_tree');
                 var count = 0;
                 if (tree.datasource != null && tree.datasource.data != null) {
@@ -225,13 +270,15 @@
                     this.selectHotkey(tree);
                 }
                 else {
+                    GeckoJS.FormHelper.reset('hotkeyForm');
+                    
                     this.editableFields(false);
 
                     document.getElementById('modify_hotkey').setAttribute('disabled', true);
                     document.getElementById('delete_hotkey').setAttribute('disabled', true);
                 }
 
-                OsdUtils.info(_('Hot Key [%S] [%S] remove successfully', [inputData.name, keydisplay]));
+                OsdUtils.info(_('Hot Key [%S] for [%S] removed successfully', [keydisplay, inputData.name]));
             }
             catch (e) {
 
@@ -253,28 +300,46 @@
                 document.getElementById('hotkey_hotkey').removeAttribute('disabled');
                 document.getElementById('hotkey_name').removeAttribute('readonly');
                 document.getElementById('hotkey_data').removeAttribute('readonly');
-                document.getElementById('hotkey_function_tree').removeAttribute('disabled');
+                document.getElementById('hotkey_function_tree').setAttribute('disabled', false);
 
             }else {
                 document.getElementById('hotkey_hotkey').setAttribute('disabled', true);
                 document.getElementById('hotkey_name').setAttribute('readonly', true);
                 document.getElementById('hotkey_data').setAttribute('readonly', true);
                 document.getElementById('hotkey_function_tree').setAttribute('disabled', true);
-
             }
 
         },
 
-        selectHotkey: function(tree) {
+        locateHotkey: function(keycombo) {
+            var hotkeys = this.hotkeysArray;
+            for (var i = 0; i < hotkeys.length; i++) {
+                if (hotkeys[i].keycombo == keycombo) {
+                    var hotkeyTree = document.getElementById('hotkey_prefs_tree');
+                    hotkeyTree.currentIndex = i;
+                    hotkeyTree.selection.clearSelection();
+                    hotkeyTree.selection.select(i);
+                    hotkeyTree.treeBoxObject.ensureRowIsVisible(i);
 
+                    break;
+                }
+            }
+        },
+
+        selectHotkey: function(tree) {
             var count = tree.selection.count;
             var index = -1;
             
             if (count > 0) index = tree.currentIndex;
+            
+            if (index == this.selectedHotkeyIndex && index != -1) return;
 
-            if (index <0) return;
+            if (!this.confirmChangeHotkey(index)) {
+                tree.selection.select(this.selectedHotkeyIndex);
+                return;
+            }
 
-            this.selectedIndex = index;
+            this.selectedHotkeyIndex = index;
 
             var entry = this.hotkeysArray[index];
 
@@ -286,11 +351,25 @@
 
             this.editableFields(true);
 
-            document.getElementById('hotkey_id').value = entry.keycombo;
+            // select linked function
+            var fnList = this.functionArray;
+            for (var i = 0; i < fnList.length; i++) {
+                if (entry.name == fnList[i].name) {
+                    var fnTree = document.getElementById('hotkey_function_tree');
+                    fnTree.currentIndex = i ;
+                    fnTree.selection.select(i);
+                    fnTree.treeBoxObject.ensureRowIsVisible(i);
+                    break;
+                }
+            }
+
+            var valObj = {id: entry.keycombo,
+                          name: entry.name,
+                          linked: entry.linked,
+                          data: entry.data};
+            GeckoJS.FormHelper.unserializeFromObject('hotkeyForm', valObj);
+
             document.getElementById('hotkey_hotkey').setHotkey(entry.keycombo, entry.keydisplay);
-            document.getElementById('hotkey_name').value = entry.name;
-            document.getElementById('hotkey_linked').value = entry.linked;
-            document.getElementById('hotkey_data').value = entry.data;
 
             document.getElementById('modify_hotkey').setAttribute('disabled', false);
             document.getElementById('delete_hotkey').setAttribute('disabled', false);
@@ -333,12 +412,20 @@
             }
 
         },
-        
-        // close preferences window
-        cancelPreferences: function() {
-            window.close();
-        },
 
+        confirmChangeHotkey: function(index) {
+            // check if hotkey form has been modified
+            if (this.selectedHotkeyIndex != -1 && (index == null || (index != -1 && index != this.selectedHotkeyIndex))
+                && GeckoJS.FormHelper.isFormModified('hotkeyForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current destination. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+        
         // save preferences
         savePreferences: function() {
 
@@ -346,7 +433,12 @@
             GeckoJS.Configure.write(hotkey_prefix, this.hotkeys.serialize());
 
             // refresh hotkeys tree
-            this.hotkeysArray = this.hotkeys.getValues();
+            this.hotkeysArray = this.hotkeys.getValues().sort(function(a, b) {
+                if (a.name < b.name) return -1
+                else if (a.name > b.name) return 1;
+                else return 0;
+            });
+            
             document.getElementById('hotkey_prefs_tree').datasource = this.hotkeysArray;
 
             // notify target of the preference change
@@ -355,9 +447,34 @@
 
         },
 
+        exit: function() {
+            // check if hotkey form has been modified
+            if (this.selectedHotkeyIndex != -1&& GeckoJS.FormHelper.isFormModified('hotkeyForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current hot key. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    if (!this.modifyHotkey()) return;
+                }
+            }
+            window.close();
+        },
+
         // handle function selection event
         selectFunction: function(tree) {
 
+            var index;
             //GREUtils.log('[SelectFunction]: node <' + tree.nodeName + '> child <' + tree.tree.nodeName + '>');
             var count = tree.selection.count;
             if (count > 0)
@@ -365,7 +482,7 @@
             else
                 index = -1;
 
-            this.selectedIndex = index;
+            this.selectedFunctionIndex = index;
 
             var descID = 'hotkey_function_desc';
             var linkID = 'hotkey_link';
@@ -390,7 +507,7 @@
         // link function to button
         linkFunction: function() {
 
-            var f = this.functionArray[this.selectedIndex];
+            var f = this.functionArray[this.selectedFunctionIndex];
 
             var entry = {
                 name: f.name,

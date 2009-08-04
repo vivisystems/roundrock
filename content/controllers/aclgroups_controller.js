@@ -7,6 +7,7 @@
         _listObj: null,
         _rolelistObj: null,
         _roles: null,
+        _selectedIndex: -1,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -32,7 +33,7 @@
         setInputData: function (valObj) {
             var selroles = this.Acl.getRoleListInGroup(valObj.name);
             var selrolesarray = GeckoJS.Array.objectExtract(selroles, '{n}.name');
-            var selrolesstr = selrolesarray.join(",");
+            var selrolesstr = selrolesarray.sort(function(a,b) {if (a < b) return -1; if (a > b) return 1; return 0}).join(",");
 
             valObj.role_group = selrolesstr;
 
@@ -40,6 +41,10 @@
         },
  
         add: function () {
+
+            if (!this.confirmChangeAclGroup()) {
+                return;
+            }
 
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300";
@@ -56,20 +61,20 @@
                     NotifyUtils.warn(_('ACL Group [%S] already exists; ACL group not added.', [group]));
                 }
                 else {
-                    try {
-                        this.Acl.addGroup(group);
+                    if (this.Acl.addGroup(group)) {
+                        this._selectedIndex = -1;
                         this.load(group);
 
                         OsdUtils.info(_('ACL Group [%S] added successfully', [group]));
                     }
-                    catch (e) {
+                    else {
                         NotifyUtils.error(_('An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully', [group]));
                     }
                 }
             }
         },
 
-        remove: function(evt) {
+        remove: function() {
             var group = $('#aclgroup_name').val();
             if (!group && group.length <= 0) return;
 
@@ -83,8 +88,7 @@
                                       _('The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.', userlist));
             } else if (GREUtils.Dialog.confirm(this.topmostWindow, _('confirm delete %S', [group]), _('Are you sure?'))) {
 
-                try {
-                    this.Acl.removeGroup(group);
+                if (this.Acl.removeGroup(group)) {
 
                     var listObj = this.getListObj();
                     var view = listObj.datasource;
@@ -96,11 +100,12 @@
                     listObj.selectedItems = [index];
                     listObj.selectedIndex = index;
 
+                    this._selectedIndex = -1;
                     this.select();
 
                     OsdUtils.info(_('ACL Group [%S] removed successfully', [group]));
                 }
-                catch (e) {
+                else {
                     NotifyUtils.error(_('An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully', [group]));
                 }
             }
@@ -110,10 +115,10 @@
 
             var self = this;
             var group = $('#aclgroup_name').val();
+            var ds = GeckoJS.ConnectionManager.getDataSource('acl');
 
             try {
 
-                var ds = GeckoJS.ConnectionManager.getDataSource('acl');
                 var r = ds.begin();
                 if(!r) throw new Exception('database is locked');
 
@@ -133,11 +138,13 @@
                 r = ds.commit();
                 if(!r) throw new Exception('database is locked');
 
+                this._selectedIndex = -1;
                 this.select();
                 
                 OsdUtils.info(_('ACL Group [%S] modified successfully', [group]));
             }
             catch (e) {
+                ds.rollback();
                 NotifyUtils.error(_('An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully', [group]));
             }
         },
@@ -189,6 +196,13 @@
             var listObj = this.getListObj();
             var selectedIndex = listObj.selectedIndex;
 
+            if (selectedIndex == this._selectedIndex && this._selectedIndex != -1) return;
+            
+            if (!this.confirmChangeAclGroup(selectedIndex)) {
+                listObj.selectedItems = [this._selectedIndex];
+                return;
+            }
+
             if (selectedIndex > -1) {
                 var rolegroup = listObj.datasource.data[selectedIndex];
                 var panelView =  new NSIRolesView(this.roles);
@@ -199,24 +213,66 @@
                 GeckoJS.FormHelper.reset('aclgroupForm');
             }
             listObj.ensureIndexIsVisible(selectedIndex);
+
+            this._selectedIndex = selectedIndex;
             
             this.validateForm();
+        },
+
+        exit: function() {
+            // check if ACL group form has been modified
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('aclgroupForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current access group. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.modify();
+                }
+            }
+            window.close();
+        },
+
+        confirmChangeAclGroup: function(index) {
+            // check if ACL group form has been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('aclgroupForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current access group. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
         },
 
         validateForm: function() {
             var listObj = this.getListObj();
             var modifyBtn = document.getElementById('modify_acl_group');
             var deleteBtn = document.getElementById('delete_acl_group');
-
+            
+            var btnpanel = this.getRoleListObj().vivibuttonpanel;
             if (listObj.selectedIndex == -1) {
                 modifyBtn.setAttribute('disabled', true);
                 deleteBtn.setAttribute('disabled', true);
+                btnpanel.seltype = 'none';
             }
             else {
                 var group = $('#aclgroup_name').val();
 
                 modifyBtn.setAttribute('disabled', group == 'admin');
                 deleteBtn.setAttribute('disabled', group == 'admin');
+                btnpanel.seltype = 'multiple';
             }
         }
 	

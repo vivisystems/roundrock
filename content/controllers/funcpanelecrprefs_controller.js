@@ -4,6 +4,7 @@
 
         name: 'vivifuncpanelecr_prefs',
 
+        _dirtyBit: false,
         panel: null,
         functionArray: null,
         selectedIndex: null,
@@ -123,6 +124,25 @@
         // close preferences window
 
         cancelPreferences: function() {
+            if (this._dirtyBit) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to function panel configuration. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.savePreferences();
+                }
+            }
             window.close();
         },
 
@@ -179,12 +199,13 @@
             GeckoJS.Configure.savePreferences(prefix);
             //GREUtils.log('[PREFS][SavePreferences]: settings saved <' + GeckoJS.BaseObject.dump(prefix) + '>');
 
+            this._dirtyBit = false;
+            
             // notify target of the preference change
             GeckoJS.Observer.notify(null, 'functionpanel-preferences-update', this.target);
 
             //GREUtils.log('[PREFS][SavePreferences]: target <' + this.target + '> notified');
-
-            window.close();
+            OsdUtils.info(_('Function panel configuration saved'));
         },
 
         // set button color
@@ -213,6 +234,7 @@
                 }
             this.panel.setButtonstyles(this.panel.currentPage, btnstyles, true);
             //this.panel.setSelection(false);
+            this._dirtyBit = true;
         },
 
         // set button fontsize
@@ -240,6 +262,7 @@
                 }
             this.panel.setButtonfontsizes(this.panel.currentPage, fontsizes, true);
             //this.panel.setSelection(false);
+            this._dirtyBit = true;
         },
 
         // update link label
@@ -257,6 +280,8 @@
             var entry = this.panel.getPageKeymap(this.panel.currentPage).get(this.extent.row1 + 'x' + this.extent.column1);
             entry.label = label;
             this.panel.setKeymap(this.panel.currentPage, [entry], true);
+
+            this._dirtyBit = true;
        },
 
         // reset link label
@@ -276,6 +301,8 @@
                 labelNode.value = '';
 
             }
+
+            this._dirtyBit = true;
         },
 
         // update link data
@@ -289,6 +316,8 @@
             var entry = this.panel.getPageKeymap(this.panel.currentPage).get(this.extent.row1 + 'x' + this.extent.column1);
             entry.data = data;
             this.panel.setKeymap(this.panel.currentPage, [entry], true);
+
+            this._dirtyBit = true;
        },
 
         // reset link data
@@ -308,16 +337,14 @@
             else {
                 dataNode.value = '';
             }
+
+            this._dirtyBit = true;
         },
 
         // remove all link
         removeAllLinks: function() {
             var keymap = this.panel.getPageKeymap(this.panel.currentPage);
             var extent = this.extent;
-            var unlinkNode = (this.tabIndex == 2) ? document.getElementById('vivifuncpanelecr_prefs_keymap_unlink_all') :
-                                                    document.getElementById('vivifuncpanelecr_prefs_gkeymap_unlink_all')
-
-            //GREUtils.log('[RemoveAllLinks]: existing keymap <' + GeckoJS.BaseObject.dump(keymap) + '> to unlink, current selection <' + extent + '>');
 
             this.panel.setKeymap(this.panel.currentPage, [], false);
 
@@ -330,14 +357,14 @@
                 this.removedKeys.set(this.panel.currentPage, removedPageKeys);
             }
 
-            //unlinkNode.disabled = true;
-
             if (extent) {
                 var btnid = this.extent.row1 + 'x' + this.extent.column1;
                 this.unmappedButtonSelected(btnid);
 
                 // unmapping selected button
             }
+
+            this._dirtyBit = true;
         },
 
         // remove link
@@ -350,8 +377,7 @@
             var keymap = this.panel.getPageKeymap(this.panel.currentPage);
             var btnid = this.extent.row1 + 'x' + this.extent.column1;
             var newKeymap = [];
-            var unlinkNode = (this.tabIndex == 2) ? document.getElementById('vivifuncpanelecr_prefs_keymap_unlink_all') :
-                                                    document.getElementById('vivifuncpanelecr_prefs_gkeymap_unlink_all')
+            var unlinkNode = document.getElementById('vivifuncpanelecr_prefs_keymap_unlink_all');
 
             //GREUtils.log('[RemoveLink]: existing keymap <' + GeckoJS.BaseObject.dump(keymap) + '> to unlink');
 
@@ -373,6 +399,8 @@
             //GREUtils.log('[RemoveLink]: keymap for page <' + this.panel.currentPage + '> - <' + GeckoJS.BaseObject.dump(newKeymap) + '>');
 
             this.unmappedButtonSelected(btnid);
+
+            this._dirtyBit = true;
         },
 
         // link function to button
@@ -381,8 +409,7 @@
                 //GREUtils.log('[LinkFunction]: no function <' + this.selectedIndex + '> or button <' + this.extent + '> to link');
                 return;
             }
-            var unlinkNode = (this.tabIndex == 2) ? document.getElementById('vivifuncpanelecr_prefs_keymap_unlink_all') :
-                                                    document.getElementById('vivifuncpanelecr_prefs_gkeymap_unlink_all')
+            var unlinkNode = document.getElementById('vivifuncpanelecr_prefs_keymap_unlink_all');
 
             var f = this.functionArray[this.selectedIndex];
             var entry = [{row: this.extent.row1,
@@ -402,6 +429,8 @@
             // update screen fields accordingly
             this.mappedButtonSelected(entry[0].row + 'x' + entry[0].column, entry[0]);
             unlinkNode.disabled = true;
+
+            this._dirtyBit = true;
         },
 
         // handle function selection event
@@ -471,7 +500,6 @@
                 if (tabIndex == 1) {
                     this.panel.setAttribute('seltype', 'range');
                     document.getElementById('vivifuncpanelecr_prefs_keymap_function_tree').selectedIndex = -1;
-                    document.getElementById('vivifuncpanelecr_prefs_gkeymap_function_tree').selectedIndex = -1;
                 }
                 else {
                     if (tabIndex == 3) {
@@ -481,7 +509,6 @@
                     var keymap = this.panel.getPageKeymap(this.panel.currentPage);
                     this.panel.setAttribute('seltype', 'single');
                     document.getElementById('vivifuncpanelecr_prefs_keymap_unlink_all').disabled = !keymap;
-                    document.getElementById('vivifuncpanelecr_prefs_gkeymap_unlink_all').disabled = !keymap;
 
                     //GREUtils.log('[SWITCH]: page <' + this.panel.currentPage + '> keymap <' + keymap + '>');
                 }
@@ -497,23 +524,31 @@
         // set panel orientation
         setOrientation: function(orient) {
             this.panel.setAttribute('dir', orient);
+
+            this._dirtyBit = true;
         },
 
         // set the panel's restrictMode attribute
         setRestrictMode: function(val) {
             this.panel.setAttribute('restrictMode', val);
             this.panel.renderKeymap(this.panel.currentPage);
+
+            this._dirtyBit = true;
         },
 
 
         // set the panel's wrap attribute
         setWrap: function(val) {
             this.panel.setAttribute('wrap', val);
+
+            this._dirtyBit = true;
         },
 
         // set the panel's resizable property
         setResizable: function(val) {
             this.panel.resizable=val;
+
+            this._dirtyBit = true;
         },
 
         // set the panel's size
@@ -522,16 +557,22 @@
                                document.getElementById('vivifuncpanelecr_prefs_size_columns').value,
                                document.getElementById('vivifuncpanelecr_prefs_size_hspacing').value,
                                document.getElementById('vivifuncpanelecr_prefs_size_vspacing').value);
+
+            this._dirtyBit = true;
         },
 
         // set the panel's maxpage attribute
         setMaxPage: function() {
             this.panel.maxpage = document.getElementById('vivifuncpanelecr_prefs_maxpage').value;
+
+            this._dirtyBit = true;
         },
 
         // set the panel's defaultpage attribute
         setDefaultPage: function() {
             this.panel.homePage = document.getElementById('vivifuncpanelecr_prefs_defaultpage').value;
+
+            this._dirtyBit = true;
         },
 
         // set the panel's current page label
@@ -548,6 +589,8 @@
               this.panel.setLabel(page, label);
               //GREUtils.log('[SETLABEL]: page label <' + label + '>');
             }
+
+            this._dirtyBit = true;
         },
 
         // reset the panel's current page label
@@ -560,6 +603,8 @@
                 document.getElementById('vivifuncpanelecr_prefs_layout_label_page').value = label;
                 //GREUtils.log('[RESETLABEL]: resetting page label to <' + label + '>');
             }
+
+            this._dirtyBit = true;
         },
 
         // handle function panel page change event
@@ -575,10 +620,6 @@
             var keymap = evt.root.getPageKeymap(newPage);
             document.getElementById('vivifuncpanelecr_prefs_keymap_page_number').value = newPage;
             document.getElementById('vivifuncpanelecr_prefs_keymap_unlink_all').disabled = !keymap;
-
-            // also update gkeymap panel
-            document.getElementById('vivifuncpanelecr_prefs_gkeymap_page_number').value = newPage;
-            document.getElementById('vivifuncpanelecr_prefs_gkeymap_unlink_all').disabled = !keymap;
         },
 
         // handle function panel page change event
@@ -652,8 +693,6 @@
 
             var layout = [];
             var c, r;
-            var w = extent.column2 - extent.column1 + 1;
-            var h = extent.row2 - extent.row1 + 1;
 
             if (existingLayout == null) {
                 // build a new layout, leaving out buttons in the selection extent
@@ -686,6 +725,8 @@
 
             //GREUtils.log('[RemoveButtons]: new layout with selected buttons removed <' + GeckoJS.BaseObject.dump(layout));
             this.panel.setLayout(page, layout, false);
+
+            this._dirtyBit = true;
         },
 
         // merge buttons by constructing a new layout map
@@ -741,6 +782,8 @@
             }
             //GREUtils.log('[MergeButtons]: merged layout <' + GeckoJS.BaseObject.dump(layout));
             this.panel.setLayout(page, layout, false);
+
+            this._dirtyBit = true;
         },
 
         // reset layout
@@ -759,6 +802,8 @@
                 for (var c = 1; c <= columns; c++)
                     layout.push(r + ',' + c + ',1,1');
             this.panel.setLayout(page, layout, false);
+
+            this._dirtyBit = true;
         },
 
         // set current layout as the global layout
@@ -767,6 +812,8 @@
             var page = document.getElementById('vivifuncpanelecr_prefs_layout_page_number').value;
 
             this.panel.setLayout('global', this.panel.getPageLayout(page), false);
+
+            this._dirtyBit = true;
         },
 
         // apply global layout on the current page

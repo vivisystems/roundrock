@@ -57,9 +57,6 @@
 
         _showWaitingPanel: function( sleepTime ) {
             var waitPanel = document.getElementById( this._wait_panel_id );
-            waitPanel.sizeTo( 360, 120 );
-            var x = ( this._mainScreenWidth - 360 ) / 2;
-            var y = ( this._mainScreenHeight - 240 ) / 2;
             
             // set the content of the label attribute be default string, taking advantage of the statusText attribute.
             var caption = document.getElementById( this.getCaptionId() );
@@ -72,7 +69,7 @@
             progressBar.setAttribute( 'id', this._progress_bar_id );
             progressBox.appendChild( progressBar );
             
-            waitPanel.openPopupAtScreen( x, y );
+            waitPanel.openPopupAtScreen( 0, 0 );
 
             // release CPU for progressbar to show up.
             if ( !sleepTime ) {

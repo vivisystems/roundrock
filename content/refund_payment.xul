@@ -6,9 +6,11 @@
   %RefundPayment;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/payment_details.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/refund_payment.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -17,82 +19,85 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/refund_payment.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/refund_payment_controller.js" />
-    <script type="application/x-javascript" src="chrome://vivipos/content/libs/number.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/refund_payment.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/refund_payment_controller.js"/>
+    <script type="application/x-javascript" src="chrome://vivipos/content/libs/number.js"/>
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()"/>
     </keyset>
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
-            <caption id="title" label="&refundpayment.title;" class="PageTitle" />
-            <grid flex="1" class="DataForm">
+    <vbox flex="1" class="container-dialog">
+        <vbox flex="1" class="container-main">
+            <hbox>
+                <label id="title" value="&refundpayment.title;" class="label-page-title"/>
+                <label id="orderSeq" value="" class="label-page-title"/>
+            </hbox>
+            <grid flex="1" class="data-form-2">
                 <columns>
                     <column flex="1"/>
                 </columns>
                 <rows>
                     <row>
-                        <hbox>
-                            <caption id="title" label="&refundpayment.payments;" class="SubTitle" />
+                        <hbox align="center">
+                            <caption id="title" label="&refundpayment.payments;"/>
                             <textbox id="paidTotal" disabled="true" flex="1"/>
+                            <button flex="1" id="clone_payments" disabled="false" class="button-iconic button-clone"
+                                    oncommand="$do('clonePayments', null, 'RefundPayment'); event.stopPropagation()"/>
                         </hbox>
                     </row>
                     <row flex="1">
-                        <viviscrollabletree id="paymentscrollablepanel" flex="1"
-                                            headers="&refundpayment.sequence;,&refundpayment.type;,&refundpayment.amount;,&refundpayment.origin_amount;,&refundpayment.note1;,&refundpayment.note2;"
-                                            fields="seq,name,display_amount,display_origin_amount,memo1,memo2" hidecolumnpicker="true"
-                                            class="paymentscrollablepanel" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                            <spacer flex="1"/>
-                            <button flex="1" id="clone_payments" oncommand="$do('clonePayments', null, 'RefundPayment'); event.stopPropagation()" class="systoolbtn2 clonebtn"/>
-                            <spacer flex="1"/>
-                        </viviscrollabletree>
+                        <vivitree id="paymentscrollablepanel" flex="1"
+                                  headers="&refundpayment.sequence;,&refundpayment.type;,&refundpayment.amount;,&refundpayment.origin_amount;,&refundpayment.note1;,&refundpayment.note2;"
+                                  fields="seq,name,display_amount,display_origin_amount,memo1,memo2"
+                                  class="custom-content-payment-list standard" scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                     </row>
 
                     <row>
-                        <hbox>
-                            <caption id="title" label="&refundpayment.refunds;" class="SubTitle" />
+                        <hbox align="center">
+                            <caption id="title" label="&refundpayment.refunds;"/>
                             <textbox id="refundTotal" disabled="true" flex="1"/>
+                            <button id="btnMinus" class="button-iconic button-minus" disabled="true"
+                                    oncommand="$do('removePayment', null, 'RefundPayment');"/>
                         </hbox>
                     </row>
                     <row flex="1">
-                        <viviscrollabletree id="refundscrollablepanel" flex="1"
-                                            headers="&refundpayment.sequence;,&refundpayment.amount;,&refundpayment.type;,&refundpayment.note1;,&refundpayment.note2;"
-                                            fields="seq,display_amount,name,memo1,memo2" hidecolumnpicker="true"
-                                            class="paymentscrollablepanel" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                            <spacer flex="1" />
-                            <button id="btnMinus" oncommand="$do('removePayment', null, 'RefundPayment');"  class="systoolbtn2 minusbtn"/>
-                            <spacer flex="1"/>
-                        </viviscrollabletree>
+                        <vivitree id="refundscrollablepanel" flex="1"
+                                  headers="&refundpayment.sequence;,&refundpayment.type;,&refundpayment.amount;,&refundpayment.note1;,&refundpayment.note2;"
+                                  fields="seq,name,display_amount,memo1,memo2"
+                                  onselect="$do('selectRefundPayment', this.selectedIndex, 'RefundPayment');"
+                                  class="custom-content-payment-list standard"
+                                  scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
                     </row>
                 </rows>
             </grid>
 
-            <hbox class="RightTabbox" align="center">
+            <hbox align="center" class="content-formbox">
                 <vbox flex="1">
                     <hbox flex="1">
                         <vbox flex="1" pack="center" align="center">
                             <label value="&refundpayment.amount;" flex="1"/>
-                            <vivitextbox id="amount" flex="1"
+                            <vivitextbox id="refund_amount" flex="1" type="number"
                                          hidespinbuttons="true" decimalplaces="Infinity"
-                                         numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"
+                                         numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
                                          form="refundForm" name="amount" default=""/>
                         </vbox>
+                        <spacer width="5px"/>
                         <vbox flex="1" pack="center" align="center">
                             <label value="&refundpayment.note1;" flex="1"/>
-                            <vivitextbox id="memo1" flex="1" form="refundForm" name="memo1" default=""/>
+                            <textbox id="memo1" flex="1" form="refundForm" name="memo1" default=""/>
                         </vbox>
+                        <spacer width="5px"/>
                         <vbox flex="1" pack="center" align="center">
                             <label value="&refundpayment.note2;" flex="1"/>
-                            <vivitextbox id="memo2" flex="1" form="refundForm" name="memo2" default=""/>
+                            <textbox id="memo2" flex="1" form="refundForm" name="memo2" default=""/>
                         </vbox>
                     </hbox>
                     <hbox flex="1">
-                        <label value="&refundpayment.type;" flex="0" class="SubTitle"/>
+                        <caption label="&refundpayment.type.refund;" flex="0"/>
                         <radiogroup id="type" flex="1" orient="horizontal"
-                                    form="refundForm" name="type" default="cash" >
+                                    form="refundForm" name="type" default="cash">
                                 <radio flex="1" label="&refundpayment.cash;" value="cash"/>
                                 <radio flex="1" label="&refundpayment.creditcard;" value="creditcard"/>
                                 <radio flex="1" label="&refundpayment.coupon;" value="coupon"/>
@@ -102,22 +107,18 @@
                     </hbox>
                 </vbox>
                 <spacer width="10px"/>
-                <vbox pack="center">
-                    <button id="add" flex="1" label="&refundpayment.add;" class="BtnAdd" oncommand="$do('addRefundPayment', null, 'RefundPayment')"/>
-                    <spacer height="10px"/>
-                    <button id="clear" flex="1" label="&refundpayment.clear;" class="BtnDel" oncommand="$do('clearRefundPayments', null, 'RefundPayment')"/>
-                </vbox>
+                <button id="add" flex="1" label="&refundpayment.add;" class="button-execute button-add" oncommand="$do('addRefundPayment', null, 'RefundPayment')"/>
             </hbox>
 
             <spacer height="10px"/>
 
             <hbox>
-                <hbox id="dialogButtons" class="ToolBar" pack="center" flex="1">
+                <hbox id="dialogButtons" pack="center" flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
                     <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                <hbox id="dialogButtons" pack="center" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
                 </hbox>
             </hbox>
         </vbox>

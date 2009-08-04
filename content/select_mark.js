@@ -8,7 +8,7 @@
      */
     function startup() {
 
-        document.getElementById('title').setAttribute('label', inputObj.title);
+        document.getElementById('title').setAttribute('value', inputObj.title);
         document.getElementById('description').value = inputObj.description;
         var marksData = [];
         

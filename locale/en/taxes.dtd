@@ -11,3 +11,5 @@
 <!ENTITY taxes.button.action.add "Add">
 <!ENTITY taxes.button.action.modify "Modify">
 <!ENTITY taxes.button.action.delete "Delete">
+<!ENTITY taxes.button.action.setdefault "Set as Default">
+<!ENTITY taxes.button.action.cleardefault "Clear as Default">

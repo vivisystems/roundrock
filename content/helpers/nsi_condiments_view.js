@@ -149,11 +149,11 @@
                 id: 'preset'
             });
             if (preset) {
-                classStr += ' PresetCondiment';
+                classStr += ' condiment-preset';
                 btn.label = '* ' + btn.label;
             }
             else {
-                classStr += ' NotPresetCondiment';
+                classStr += ' condiment-not-preset';
             }
 
             if (classStr.length > 0) {

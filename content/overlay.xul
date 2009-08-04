@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/bindings.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
-
-<!-- layout -->
-<!--?xul-overlay href="chrome://viviecr/content/layouts/traditional.xul" ?-->
+<?xml-stylesheet href="chrome://viviecr/skin/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/overlay.css" type="text/css"?>
 
 <!-- dialog panel -->
 <?xul-overlay href="chrome://viviecr/content/bootstrap_mainscreen_dialogs.xul" ?>
@@ -86,17 +82,17 @@
 
   <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript"/>
 
-    <box id="main-container">
+    <box id="main-container" class="main-overlay">
 
         <hotkey-keyset id="hotkeySets" />
 
         <popupset id="dialogs" />
 
         <vivipanel id="wait_panel" position="overlap" noautohide="true" pack="center" align="center">
-            <vbox flex="1" class="mainWaitPanel">
-                <vbox flex="1" class="mainWaitDialog">
+            <vbox flex="1" class="main-wait-panel">
+                <vbox flex="1" class="main-wait-dialog">
                     <vbox flex="1">
-                        <caption id="common_wait" label="" class="PageTitle"/>
+                        <caption id="common_wait" label="" class="label-page-title"/>
                         <spacer style="height: 20px;" />
                         <progressmeter id="progress" mode="undetermined" value="0" flex="1"/>
                         <spacer style="height: 20px;" />

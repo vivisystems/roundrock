@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/cart.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/promotions_status.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/cart.dtd">
 
@@ -12,7 +10,7 @@
     <box id="cartlistPanelContainer" flex="1" orient="vertical">
 
             <viviscrollabletree class="cartList" id="cartList" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
-                                primary="name" scrollMode="cursor"
+                                primary="name" scrollMode="cursor" hidecolumnpicker="true"
                                 headers="'',&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
                                 fields="tag,name,current_qty,current_price,current_subtotal,current_tax"
                                 scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown">

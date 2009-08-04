@@ -164,9 +164,6 @@
 
         updateProductSession: function(mode, product, oldProduct) {
 
-            var products = GeckoJS.Session.get('products');
-            var productsById = GeckoJS.Session.get('productsById');
-            var indexesById = GeckoJS.Session.get('productsIndexesById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var indexCate = GeckoJS.Session.get('productsIndexesByCate');
             var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
@@ -305,12 +302,23 @@
 
                         }
 
-                        // always remove old product group(s) first
+                        // remove product group(s) that have been unlinked
+                        var newgroups = [];
+                        if (product.link_group && product.link_group.length > 0) {
+                            newgroups = product.link_group.split(',');
+                        }
+
                         if (oldProduct.link_group && oldProduct.link_group.length > 0) {
 
                             var groups = oldProduct.link_group.split(',');
 
                             groups.forEach(function(group) {
+
+                                var index = newgroups.indexOf(group);
+                                if (newgroups.indexOf(group) != -1) {
+                                    newgroups[index] = -1;
+                                    return;
+                                }
 
                                 var indexLinkGroupArray = indexLinkGroup[(group+"")];
                                 var indexLinkGroupAllArray = indexLinkGroupAll[(group+"")];
@@ -338,11 +346,12 @@
                         }
 
                         // add new product group(s) if any
-                        if (product.link_group && product.link_group.length > 0) {
-                            var groups = product.link_group.split(',');
+                        if (newgroups.length > 0) {
 
-                            groups.forEach(function(group) {
+                            newgroups.forEach(function(group) {
 
+                                if (group == -1) return;
+                                
                                 if (typeof indexLinkGroup[group] == 'undefined') {
                                     indexLinkGroup[group] = [];
                                     indexLinkGroupAll[group] = [];
@@ -488,7 +497,7 @@
             }
 
             // update product relative session
-            if(product) {
+            if (product) {
                 this.updateProductSession(mode, product, oldProduct);
             }
 

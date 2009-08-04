@@ -4,6 +4,8 @@
 <!ENTITY    hotkey.search.button.label                   "Search">
 <!ENTITY    hotkey.search.reset.label                   "Reset">
 
+<!ENTITY    hotkey.prompt.add            "New Hot Key">
+
 <!ENTITY    hotkey.prefs.reset.label     "Reset">
 <!ENTITY    hotkey.prefs.name.label      "Hotkey Name">
 <!ENTITY    hotkey.prefs.hotkey.label    "Hotkey">

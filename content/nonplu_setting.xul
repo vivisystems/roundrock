@@ -6,9 +6,11 @@
   %NonpluSetting;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/nonplu_setting.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/nonplu_setting.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -26,117 +28,110 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/nonplu_setting.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
     
-    <vbox class="main-dialog" flex="1">
-        <hbox flex="1" class="MainPnl">
-            <vbox flex="1"  class="MainL">
-                <caption label="&nonplusetting.title;"  class="PageTitle" />
-                <vivitree id="identifierscrollablepanel" flex="1" class="ListPnl showscrollbar"
-                          headers="&nonplusetting.header.active;,&nonplusetting.header.identifier;,&nonplusetting.header.field1;,&nonplusetting.header.field2check;,&nonplusetting.header.field2;,&nonplusetting.header.content;,&nonplusetting.header.decimalpoint;"
-                          fields="active,identifier,length_of_field1,use_price_check_digit,length_of_field2,content_of_field2,decimal_point_of_field2"
-                          onselect="$do('select',this.selectedIndex, 'NonpluSetting');"/>
+    <vbox flex="1" class="container-be layout-be">
+        <hbox flex="1" class="container-main layout-a">
+            <vbox flex="1" class="container-left block-66">
+                <caption label="&nonplusetting.title;"  class="label-page-title" />
+                <hbox flex="1" class="content-listbox">
+                    <vivitree id="identifierscrollablepanel" flex="1" class="standard custom-content-nonplu-list"
+                              headers="&nonplusetting.header.active;,&nonplusetting.header.identifier;,&nonplusetting.header.field1;,&nonplusetting.header.field2check;,&nonplusetting.header.field2;,&nonplusetting.header.content;,&nonplusetting.header.decimalpoint;"
+                              fields="active,identifier,length_of_field1,use_price_check_digit,length_of_field2,content_of_field2,decimal_point_of_field2"
+                              types="checkbox,,,checkbox"
+                              fixed="true" hidecolumnpicker="true"
+                              onselect="$do('select',this.selectedIndex, 'NonpluSetting');"/>
+                </hbox>
                 <vbox>
-                    <!-- hbox>
-                        <label value="Example Code:" />
-                        <label id="exampleCode" value="" />
-                    </hbox -->
-                    <caption id="exampleCode" label="" />
-
-                    <grid class="DataForm" flex="1">
+                    <caption id="exampleCode" label="" class="label-sub-title"/>
+                    <grid class="data-form">
                         <columns>
-                            <column />
-                            <column />
-                            <column />
-                            <column />
-                            <column />
-                            <column flex="1" />
+                            <column class="custom-example-label"/>
+                            <column flex="1"/>
                         </columns>
                         <rows>
                             <row>
-                                <label value="&nonplusetting.header.identifier;"/>
-                                <label value="&nonplusetting.header.field1;"/>
-                                <label value="*"/>
-                                <label value="&nonplusetting.header.field2;"/>
-                                <label value="&nonplusetting.header.crc;"/>
-                                <label value=""/>
+                                <label value="&nonplusetting.header.pluno;:"/>
+                                <label id="examplePluNo" value="" />
                             </row>
                             <row>
-                                <label id="exIden" value=""/>
-                                <label id="exPluNo" value=""/>
-                                <label id="exCP" value=""/>
-                                <label id="exField2" value=""/>
-                                <label id="exCRC" value=""/>
-                                <label value=""/>
+                                <label id="exampleContentType" value=""/>
+                                <label id="exampleField2" value="" />
                             </row>
                         </rows>
                     </grid>
-
-                    <hbox>
-                        <label value="&nonplusetting.header.pluno;: " style="width: 100px; text-align: right;"/>
-                        <label id="examplePluNo" value="" />
-                    </hbox>
-                    <hbox>
-                        <label id="exampleContentType" value="" style="width: 100px; text-align: right;" />
-                        <label id="exampleField2" value="" />
-                    </hbox>
 
                     
                 </vbox>
 
             </vbox>
-            
-
+           
             <!-- Right Panel -->
-            <vbox>
+            <vbox flex="1" class="container-right">
 
-                <caption label="&nonplusetting.properties;"  class="PageTitle" />
-                <grid class="DataForm" flex="1">
+                <caption label="&nonplusetting.properties;" class="label-sub-title" />
+                <grid class="data-form" flex="1">
                     <columns>
                         <column flex="1" />
                     </columns>
                     <rows>
                         <row>
+                            <checkbox id="activeIdentifier" label="&nonplusetting.activeidentifier;"
+                                      oncommand="$do('changeActiveIdentifier',this.checked, 'NonpluSetting');"
+                                      form="settingsForm" name="active"/>
+                        </row>
+                        <row>
                             <vbox>
                                 <label control="identifier" value="&nonplusetting.identifier;"/>
-                                <textbox id="identifier" name="identifier" form="settingsForm" readonly="true"/>
-
-                                <checkbox id="activeIdentifier" label="&nonplusetting.activeidentifier;" form="settingsForm" name="active" oncommand="$do('changeActiveIdentifier',this.checked, 'NonpluSetting');"/>
+                                <textbox id="identifier" readonly="true"
+                                         name="identifier" form="settingsForm"/>
                             </vbox>
                         </row>
                         <row>
                             <vbox>
                                 <label control="lengthOfField1" value="&nonplusetting.lengthoffield1;"/>
-                                <textbox id="lengthOfField1" name="length_of_field1" form="settingsForm" type="Number" size="8" maxlength="2" min="0" max="10" onchange="$do('changeField1',this.value, 'NonpluSetting');"/>
+                                <vivitextbox id="lengthOfField1" type="number" min="1" max="10"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             oninputonfocus="select()"
+                                             onchange="$do('changeField1',this.value, 'NonpluSetting');"
+                                             name="length_of_field1" form="settingsForm"/>
                             </vbox>
                         </row>
-                        <row flex="1">
-                            <vbox flex="1">
+                        <row>
+                            <vbox>
                                 <label control="lengthOfField2" value="&nonplusetting.lengthoffield2;"/>
-                                <textbox id="lengthOfField2" name="length_of_field2" form="settingsForm" size="6" readonly="true"/>
+                                <textbox id="lengthOfField2" readonly="true" type="number" size="16" hidespinbuttons="true"
+                                         name="length_of_field2" form="settingsForm"/>
                             </vbox>
                         </row>
-                        <row flex="1">
-                            <vbox flex="1">
+                        <row>
+                            <vbox>
                                 <label control="contentOfField2" value="&nonplusetting.contentoffield2;"/>
-                                <menulist id="contentOfField2" name="content_of_field2" form="settingsForm" oncommand="$do('changeContentOfField2',this.value, 'NonpluSetting');">
+                                <menulist id="contentOfField2"
+                                          oncommand="$do('changeContentOfField2',this.value, 'NonpluSetting');"
+                                          name="content_of_field2" form="settingsForm">
                                     <menupopup id="contentTypePopup">
                                         
                                     </menupopup>
                                 </menulist>
                             </vbox>
                         </row>
-                        <row flex="1">
-                            <vbox flex="1">
-                                <checkbox id="usePriceCheckDigit" label="&nonplusetting.usepricecheckdigit;" form="settingsForm" name="use_price_check_digit" oncommand="$do('changeCheckDigit',this.checked, 'NonpluSetting');"/>
+                        <row>
+                            <vbox>
+                                <checkbox id="usePriceCheckDigit" label="&nonplusetting.usepricecheckdigit;"
+                                          oncommand="$do('changeCheckDigit',this.checked, 'NonpluSetting');"
+                                          form="settingsForm" name="use_price_check_digit"/>
                             </vbox>
                         </row>
-                        <row flex="1">
-                            <vbox flex="1">
+                        <row>
+                            <vbox>
                                 <label control="decimalPointOfField2" value="&nonplusetting.decimalpointoffield2;"/>
-                                <textbox id="decimalPointOfField2" name="decimal_point_of_field2" form="settingsForm" type="Number" size="6" maxlength="3" min="0" max="9" onchange="$do('changeDecimal',this.value, 'NonpluSetting');"/>
+                                <vivitextbox id="decimalPointOfField2" type="number" size="8" min="0" max="9"
+                                             numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                             oninputonfocus="select()"
+                                             onchange="$do('changeDecimal',this.value, 'NonpluSetting');"
+                                             name="decimal_point_of_field2" form="settingsForm"/>
                             </vbox>
 
                         </row>
@@ -145,13 +140,12 @@
 
                 <spacer flex="1" />
 
-                <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                    <button class="SaveBtn" id="ok" label="&dialog.saveButton.label;" default="true" oncommand="doOKButton();"/>
-                    <spacer flex="1"/>
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                    <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                <hbox class="exitbar">
+                    <button id="save" class="button-save" oncommand="$do('save', null, 'NonpluSetting');"/>
+                    <spacer flex="1" />
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    <button id="close" default="true" class="button-exit" oncommand="$do('exit', null, 'NonpluSetting')"/>
                 </hbox>
-
             </vbox>
         </hbox>
     </vbox>

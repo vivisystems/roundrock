@@ -77,9 +77,9 @@
         data = new GeckoJS.ArrayQuery(data).orderBy("label asc");
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
 
-        var imagePanel = document.getElementById('imagePanel');
-        if ( imagePanel )
-            imagePanel.datasource = window.viewHelper;
+        var reportPanel = document.getElementById('reportPanel');
+        if ( reportPanel )
+            reportPanel.datasource = window.viewHelper;
 
     };
 

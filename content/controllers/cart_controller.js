@@ -371,6 +371,17 @@
             return true;
         },
 
+        getItemAt: function(index) {
+            var item;
+            if (this.ifHavingOpenedOrder()) {
+                var curTransaction = this._getTransaction();
+                if (curTransaction) {
+                    item = curTransaction.getItemAt(index, true);
+                }
+            }
+            return item;
+        },
+
         tagItem: function(tag) {
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -976,7 +987,6 @@
             else {
                 NotifyUtils.warn(_('Department number not provided'));
             }
-            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             this._cancelReturn();
@@ -1394,7 +1404,7 @@
             }
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             this._cancelReturn();
@@ -1588,7 +1598,7 @@
             }
 
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer(true);
             this._getKeypadController().clearBuffer();
 
             this._cancelReturn();
@@ -2363,7 +2373,7 @@
             }
 
             var data = {
-                type: type,
+                type: type || '',
                 payment: curTransaction.formatPrice(payment)
             };
 
@@ -3119,7 +3129,7 @@
                         var inputObj = {
                             input0: '',
                             require0:false,
-                            multiline0: true
+                            multiline0: 4
                         };
 
                         var data = [

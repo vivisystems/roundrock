@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-<?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/layout.dtd">
 
-<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay2.xul" ?>
+<?xml-stylesheet href="overlay.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/vfdpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/orderstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/department.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/product.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/condiment.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/cart.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/inputline.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/promotions_status.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/fe/terminalstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/functionpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/function-button-colors.css" type="text/css"?>
+
+<?xul-overlay href="chrome://viviecr/content/overlays/vfdPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/categoryPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
@@ -24,21 +40,21 @@
 
     <box id="main-container">
 
-        <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
+        <box id="mainPanel" flex="1" class="main-panel" orient="horizontal">
 
-            <box id="leftPanel" flex="0" orient="vertical" class="leftPanel">
-                <box id="categoryPanelContainer" flex="0" />
-                <box id="productPanelContainer" flex="1" />
+            <box id="leftPanel" flex="0" orient="vertical" class="left-panel">
+                <box id="categoryPanelContainer" flex="0" panel="&layout.panel.departments;"/>
+                <box id="productPanelContainer" flex="1" panel="&layout.panel.products;" />
             </box>
 
             <spacer id="panelSpacer" flex="1"/>
 
-            <box id="rightPanel" flex="0" class="rightPanel" orient="vertical">
-                <box id="vfdPanelContainer" flex="1"/>
-                <box id="cartlistPanelContainer" flex="1"/>
-                <box id="inputLinePanelContainer" flex="0"/>
+            <box id="rightPanel" flex="0" class="right-panel" orient="vertical">
+                <box id="vfdPanelContainer" flex="1" panel="&layout.panel.vfd;"/>
+                <box id="cartlistPanelContainer" flex="1" panel="&layout.panel.cart;"/>
+                <box id="inputLinePanelContainer" flex="0" panel="&layout.panel.inputline;"/>
                 <box id="promotionsStatusPanelContainer" flex="0"/>
-                <box id="functionPanelContainer" flex="0" />
+                <box id="functionPanelContainer" flex="0" panel="&layout.panel.function;"/>
             </box>
 
         </box>

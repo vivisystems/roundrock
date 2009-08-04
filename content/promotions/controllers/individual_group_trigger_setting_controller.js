@@ -13,7 +13,7 @@
         name: 'IndividualGroupTriggerSetting',
 
         _pluGroups: [],
-
+        
         _pluGroupScrollablepanel: null,
         
         _data: [],
@@ -37,7 +37,8 @@
             this._pluGroups = groups;
 
             this._pluGroupScrollablepanel = document.getElementById('groupscrollablepanel');
-            this._pluGroupScrollablepanel.datasource = groups;
+            this._pluGroupPanelView =  new NSIPluGroupsView(this._pluGroups);
+            this._pluGroupScrollablepanel.datasource = this._pluGroupPanelView;
 
             var settings = GeckoJS.Session.get(sessionKey) || null;
 
@@ -58,11 +59,10 @@
             var settings = formData;
 
             // add department to data
-            var panelObj = this._pluGroupScrollablepanel ;
+            var panelObj = this._pluGroupScrollablepanel;
 
             var selectedIndexes = panelObj.selectedItems;
-            var pluGroups =  this._pluGroups;
-
+            var pluGroups = this._pluGroups;
             var data = [] ;
 
             selectedIndexes.forEach(function(idx){
@@ -98,12 +98,13 @@
 
         updatePanelView: function() {
 
-            var panelObj = this._pluGroupScrollablepanel ;
+            var panelObj = this._pluGroupScrollablepanel;
+            var panelView = this._pluGroupPanelView;
             
             var selectedItemsStr = GeckoJS.Array.objectExtract(this._data, '{n}.id');
             var selectedItems = [];
 
-            var dataIdIndex = GeckoJS.Array.objectExtract(this._pluGroups, '{n}.id');
+            var dataIdIndex = panelView.data;
 
             selectedItemsStr.forEach(function(id){
                 var index = GeckoJS.Array.inArray(id, dataIdIndex);
@@ -113,7 +114,6 @@
             // panel.selectedItems = ;
             panelObj.selectedIndex = -1;
             panelObj.selectedItems = selectedItems;
-
         }
 
     };

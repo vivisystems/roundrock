@@ -37,9 +37,6 @@
         },
 
         selectBooking: function(index) {
-            // clear form
-            GeckoJS.FormHelper.reset('bookingForm');
-
             this.getBookingListObj().selection.select(index);
             var idx = this.getBookingListObj().selectedIndex;
 
@@ -255,8 +252,8 @@
             } else {
                 inputObj = {
                     table_id: document.getElementById('table_id').value,
-                    table_no: document.getElementById('table_no').value,
-                    table_name: document.getElementById('table_name').value,
+                    table_no: document.getElementById('current_table_no').value,
+                    table_name: document.getElementById('current_table_name').value,
                     table_status_id: document.getElementById('table_status_id').value
                 }
             }

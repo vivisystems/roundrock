@@ -92,7 +92,7 @@
 
         },
 
-        close: function() {
+        exit: function() {
             
             GeckoJS.Observer.notify(null, 'promotions', 'rules-updated');
 

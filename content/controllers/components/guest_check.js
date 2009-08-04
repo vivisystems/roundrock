@@ -1082,6 +1082,7 @@ this.log("doSelectTableFuncs:::TransTable:::");
                             NotifyUtils.error(_('This order object does not exist [%S]', [id]));
                             return -1
                         }
+                        this._controller.dispatchEvent('afterRecallCheck', this._controller._getTransaction());
 
                         // display to onscreen VFD
                         this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));

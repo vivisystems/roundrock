@@ -1,8 +1,11 @@
+<!ENTITY    cart.item.tag         "Tag">
+<!ENTITY    cart.item.destination "Item Destination">
 <!ENTITY    cart.item.name        "Product Name">
-<!ENTITY    cart.item.qty         "#">
-<!ENTITY    cart.item.unitprice   "@">
+<!ENTITY    cart.item.no          "Product Number">
+<!ENTITY    cart.item.qty         "Quantity">
+<!ENTITY    cart.item.unitprice   "Unit Price">
 <!ENTITY    cart.item.subtotal    "Subtotal">
-<!ENTITY    cart.item.tax         "Tx">
-<!ENTITY    cart.button.plus         "+">
-<!ENTITY    cart.button.minus        "-">
-<!ENTITY    cart.button.payments     "Payments">
+<!ENTITY    cart.item.tax         "Tax">
+<!ENTITY    cart.button.plus      "+">
+<!ENTITY    cart.button.minus     "-">
+<!ENTITY    cart.button.payments  "Payments">

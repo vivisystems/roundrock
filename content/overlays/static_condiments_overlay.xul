@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
 <!DOCTYPE overlay [
   <!ENTITY % SelectCondiments SYSTEM "chrome://viviecr/locale/select_condiments.dtd">
   %SelectCondiments;
 ]>
-
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
 
 <overlay id="staticCondimentsOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -24,12 +19,12 @@
 	<box id="cartlistPanelContainer">
 		<hbox id="staticCondimentsPanelContainer" insertafter="cartlistPanelContainer" style="overflow: none;">
 			<viviscrollablebuttonpanel id="staticCondimentsPanel" flex="1" cols="5" rows="1"  seltype="single" labelField="name"
-                                                   class="catesdcrollablepanel"
-                                                   buttonClass="plubtn"
-                                                   scrollUpClass="ScrollUp"
-                                                   scrollDownClass="ScrollDown">
+                                       class="condscrollablepanel"
+                                       buttonClass="button-condiment"
+                                       scrollUpClass="cond-scroll-up-button"
+                                       scrollDownClass="cond-scroll-down-button">
                             <spacer flex="1"/>
-                            <vivibutton id="staticCondimentsPanel-soldout" class="soldoutbtn" flex="0" type="checkbox" checkState="0"
+                            <vivibutton id="staticCondimentsPanel-soldout" class="button-soldout" flex="0" type="checkbox" checkState="0"
                                         oncommand="$('#staticCondimentsPanel')[0].datasource.soldoutActive=this.checkState; event.stopPropagation()"/>
                             <spacer flex="1"/>
                         </viviscrollablebuttonpanel>

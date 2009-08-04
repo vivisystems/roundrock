@@ -106,20 +106,10 @@
         },
 
         selectTable: function(index) {
-            // clear form
-            GeckoJS.FormHelper.reset('tableForm');
-
             this.getTableListObj().selection.select(index);
             if (index > -1) {
                 var table = this._tableListDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('tableForm', table);
-
-                /*
-                var table_id = document.getElementById('table_id').value;
-                var table_no = document.getElementById('table_no').value;
-                this.requestCommand('setTableId', table_id, 'TableBook');
-                this.requestCommand('setTableNo', table_no, 'TableBook');
-                */
                 this.requestCommand('load', null, 'TableBook');
             }
 
@@ -127,9 +117,6 @@
         },
 
         selectRegion: function(index) {
-            // clear form
-            GeckoJS.FormHelper.reset('regionForm');
-
             this.getRegionListObj().selection.select(index);
             if (index > -1) {
                 var region = this._regionListDatas[index];
@@ -140,17 +127,10 @@
         },
 
         selectMark: function(index){
-            // clear form
-            GeckoJS.FormHelper.reset('markForm');
-
             this.getMarkListObj().selection.select(index);
             this.getMarkListObj().treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
                 var inputObj = this._markListDatas[index];
-//                if (inputObj.defaultMark == '*')
-//                    inputObj.defaultCheckbox = 1;
-//                else
-//                    inputObj.defaultCheckbox = 0;
                 GeckoJS.FormHelper.unserializeFromObject('markForm', inputObj);
 
             }
@@ -571,24 +551,7 @@
             var tables = tableModel.find('all', {fields: fields, order: orderby, recursive: 2});
             
             this._tableListDatas = tables;
-            var tableView =  new GeckoJS.NSITreeViewArray(this._tableListDatas);
-            tableView.getCellValue = function(row, col) {
-                var sResult;
-                var key = (typeof col == 'object') ? col.id : col;
-
-                try {
-                    if (key == 'active') {
-                        sResult = this.data[row][key] ? '*' : ' ';
-                    } else {
-                        sResult= this.data[row][key];
-                    }
-                }
-                catch (e) {
-                    return "<" + row + "," + key + ">";
-                }
-                return sResult;
-            }
-            this.getTableListObj().datasource = tableView;
+            this.getTableListObj().datasource = this._tableListDatas;
 
             document.getElementById('table_count').value = this._tableListDatas.length;
 
@@ -703,25 +666,7 @@
                 if (this._markListDatas.length <= 0) this._markListDatas = [];
             }
 
-            var markView =  new GeckoJS.NSITreeViewArray(this._markListDatas);
-            markView.getCellValue = function(row, col) {
-                var sResult;
-                var key = (typeof col == 'object') ? col.id : col;
-
-                try {
-                    if (key == 'opdeny') {
-                        sResult = this.data[row][key] ? '*' : ' ';
-                    } else {
-                        sResult= this.data[row][key];
-                    }
-                }
-                catch (e) {
-                    return "<" + row + "," + key + ">";
-                }
-                return sResult;
-            }
-
-            this.getMarkListObj().datasource = markView;
+            this.getMarkListObj().datasource = this._markListDatas;
 
             // this.validateMarkForm();
         },
@@ -756,6 +701,8 @@
 
             // read destinations from configure
             var destinations = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
+            var defaultDestination = GeckoJS.Configure.read('vivipos.fec.settings.DefaultDestination');
+            
             if (destinations != null) destinations = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(destinations));
 
             var destinationObj = document.getElementById('table_destination_menupopup');
@@ -773,10 +720,12 @@
             if (destinations && destinations.length > 0) {
                 destinations.forEach(function(data){
                     var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
+
+                    var defaultMark = (data.name == defaultDestination) ? '* ' : '';
                     menuitem.setAttribute('value', data.name);
-                    menuitem.setAttribute('label', data.defaultMark + data.name);
+                    menuitem.setAttribute('label', defaultMark + data.name);
                     destinationObj.appendChild(menuitem);
-                });
+                }, this);
             }
         },
 
@@ -844,10 +793,11 @@
             var buf = null;
             var aArguments = {
                 buffer: buf,
-                item: item
+                item: item,
+                select: true
             };
-            var width = this.screenwidth;
-            var height = this.screenheight;
+            var width = GeckoJS.Session.get('screenwidth') || 800;
+            var height = GeckoJS.Session.get('screenheight') || 600;
 
             GREUtils.Dialog.openWindow(this.topmostWindow, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
 

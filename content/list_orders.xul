@@ -6,9 +6,11 @@
   %ViewOrder;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/list_orders.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/list_orders.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -29,16 +31,14 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/list_orders.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
-            <hbox>
-                <caption label="&listorders.title;" class="PageTitle" />
-            </hbox>
-            <hbox pack="start" flex="1" class="LeftPnl">
-                <vivitree id="orderscrollablepanel" flex="1" class="ListPnl showscrollbar"
+    <vbox flex="1" class="container-dialog">
+        <vbox flex="1" class="container-main">
+            <label value="&listorders.title;" class="label-page-title"/>
+            <hbox flex="1" class="content-listbox">
+                <vivitree id="orderscrollablepanel" flex="1" class="standard"
                           headers="" fields=""
                           onselect="$do('validateForm', this.selectedIndex, 'ListOrders')"/>
             </hbox>
@@ -52,13 +52,12 @@
                 <label id="searchfor" value=""/>
             </hbox>
             <hbox flex="1">
-                <hbox class="ToolBar" pack="start" flex="1">
+                <hbox pack="start" flex="1" class="toolbar" toolbarmode="horizontal">
                     <button id="details" label="&listorders.button.details;" disabled="false"
                             oncommand="$do('orderDetails', null, 'ListOrders')" />
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns">
-                    <!--button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/-->
-                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                <hbox id="dialogButtons" class="exitbar">
+                    <button id="close" default="true" class="button-exit" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
         </vbox>

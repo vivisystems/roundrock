@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
+
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/sysprefs.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/sysprefs.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/layout_manager.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/sysprefs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/layout_manager.css" type="text/css"?>
 
 <prefwindow title="&preferences.title;" id="prefwin"
             hidechrome="true"
             xmlns:html="http://www.w3.org/1999/xhtml"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-            ondialogcancel="closePreferences()"
-            ondialogaccept="closePreferences()"
             width="800" height="600"
-            dlgbuttons="accept,cancel"
-            buttons="cancel,extra1"
-            closebuttonlabel="&button.close.label;"
-            >
+            buttons="extra1,cancel"
+            defaultButton="extra1"
+            ondialogcancel="VirtualKeyboard.toggle(); return false;"
+            class="container-be"
+           >
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
@@ -28,8 +28,17 @@
   <script src="chrome://viviecr/content/controllers/layout_manager_controller.js" type="application/x-javascript"/>
 
   <!-- include startup scripts -->
+  <script type="application/x-javascript">
+      
+    window['GREutils'] = opener.GREUtils;
+    window['_'] = opener._;
+    
+    window.addEventListener('dialogextra1', function(){
+        $do('close', null, 'LayoutManager');
+    }, false);
+  </script>
 
-    <prefpane id="panelSettingsPane" label="&category.layout.panels;" >
+    <prefpane id="panelSettingsPane" label="&category.layout.panels;">
         <preferences>
 
             <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
@@ -45,7 +54,7 @@
 
         </preferences>
         
-        <grid class="DataForm">
+        <grid class="data-form">
             <columns>
                 <column/>
                 <column flex="1"/>
@@ -107,15 +116,30 @@
                 </row>
             </rows>
         </grid>
+
     </prefpane>
 
-    <prefpane id="layoutSettingsPane" label="&category.layout.top;" >
+    <prefpane id="cartSettingsPane" label="&category.layout.cart;">
+        <caption label="&cart.display.fields;"/>
+        <vbox flex="1" class="content-buttonpanel">
+            <viviscrollablebuttonpanel id="cartscrollablepanel" flex="1" seltype="multiple"
+                                       cols="4" rows="4" labelField="header" ensureVisible="true"
+                                       buttonClass="button-item-a"
+                                       scrollUpClass="scroll-up-button"
+                                       scrollDownClass="scroll-down-button">
+                  <spacer flex="1" />
+            </viviscrollablebuttonpanel>
+        </vbox>
+    </prefpane>
+
+    <prefpane id="layoutSettingsPane" label="&category.layout.top;">
         <preferences>
             <preference id="pref_selectedLayout" name="vivipos.fec.general.layouts.selectedLayout" type="unichar"/>
         </preferences>
-        <textbox id="selectedLayout" hidden="true" preference="pref_selectedLayout" />
+        <textbox id="selectedLayout" hidden="true" preference="pref_selectedLayout"/>
         <hbox>
-            <richlistbox flex="1" id="rbSelectLayout"  onselect="$do('select', this, 'LayoutManager');" class="selectLayoutBox" >
+            <richlistbox id="rbSelectLayout" flex="1" class="custom-content-layout-listbox"
+                         onselect="$do('select', this, 'LayoutManager');">
             </richlistbox>
         </hbox>
     </prefpane>

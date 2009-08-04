@@ -103,16 +103,16 @@ pref("vivipos.fec.registry.devicemodels.vfdfec.type", "vfd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.path", "chrome://viviecr/content/devices/commands/vfdfec.cmd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
 
-pref("vivipos.fec.registry.devicemodels.vfdgeneric.label", "Generic VFD");
-pref("vivipos.fec.registry.devicemodels.vfdgeneric.type", "vfd");
-pref("vivipos.fec.registry.devicemodels.vfdgeneric.path", "chrome://viviecr/content/devices/commands/vfdgeneric.cmd");
-pref("vivipos.fec.registry.devicemodels.vfdgeneric.encodings", "English=US-ASCII");
-
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.label", "Excell AW-30");
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.type", "scale");
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.controller", "ScaleExcellAW30Controller");
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.iterations", "10");
 pref("vivipos.fec.registry.devicemodels.excell-aw-30.tries", "5");
+
+pref("vivipos.fec.registry.devicemodels.EZ-1100Plus.label", "Godex EZ-1100Plus");
+pref("vivipos.fec.registry.devicemodels.EZ-1100Plus.type", "receipt,check");
+pref("vivipos.fec.registry.devicemodels.EZ-1100Plus.path", "chrome://viviecr/content/devices/commands/EZ-1100Plus.cmd");
+pref("vivipos.fec.registry.devicemodels.EZ-1100Plus.encodings", "English=US-ASCII,Western=ISO-8859-1");
 
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.label", "Mettler Toledo Tiger II");
 pref("vivipos.fec.registry.devicemodels.mettler-toledo-tiger-ii.type", "scale");

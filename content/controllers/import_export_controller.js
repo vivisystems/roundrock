@@ -20,7 +20,7 @@
         _maxRuntime: 20 * 60,
         _maxRuntimePreference: 'dom.max_chrome_script_run_time',
 
-        select: function( index ) {
+        select: function(index) {
             var button = document.getElementById('importBtn');
             if(this._datas[index].type == 'license') {
                 button.setAttribute('disabled', true);
@@ -29,14 +29,14 @@
             }
         },
 
-        getListObj: function(type) {
+        getListObj: function() {
             if(this._listObj == null) {
                 this._listObj = document.getElementById('datasourcescrollablepanel');
             }
             return this._listObj;
         },
 
-        setButtonDisable: function(disabled) {
+        setButtonDisable: function() {
             //
             //$('#importBtn').attr('disabled', disabled);
             //$('#exportBtn').attr('disabled', disabled);
@@ -197,7 +197,7 @@
                             this._datas[index].filename += table[i] + ".sql ";
                             var exportScript = this._scriptDir + '/' + table[i] + ".exp";
                             var command = executable + " " + database + " < " + exportScript + " > " + this._exportDir + "/" + table[i] + ".sql";
-                            GREUtils.File.run( "/bin/sh", [ '-c', command ], true );
+                            GREUtils.File.run("/bin/sh", [ '-c', command ], true);
                         }
                         break;
                 }
@@ -217,7 +217,7 @@
             var updateProgress = function(index, total) {
                 //
                 progmeter.value = index * 100 / total;
-                if ( (index % dist) == 0 )
+                if ((index % dist) == 0)
                     this.sleep(50);
             };
 
@@ -729,9 +729,9 @@
                                     var resetScript = this._scriptDir + '/' + table[i] + ".imp";
                                     var insertScript = this._importDir + '/' + table[i] + ".sql";
                                     var command = executable + " " + database + " < " + resetScript;
-                                    GREUtils.File.run( "/bin/sh", [ '-c', command ], true );
+                                    GREUtils.File.run("/bin/sh", [ '-c', command ], true);
                                     command = executable + " " + database + " < " + insertScript;
-                                    GREUtils.File.run( "/bin/sh", [ '-c', command ], true );
+                                    GREUtils.File.run("/bin/sh", [ '-c', command ], true);
                                 }
                             }
                             waitPanel.hidePopup();
@@ -1356,7 +1356,7 @@
                                 }
 
                                 progmeter.value = ii * 45 / total;
-                                if ( (ii % dist) == 0 )
+                                if ((ii % dist) == 0)
                                     this.sleep(50);
 
                                 ii++;
@@ -1714,7 +1714,7 @@
                                 // tableTmp.commit();
 
                                 progmeter.value = ii * 100 / total + 45;
-                                if ( (ii % dist) == 0 )
+                                if ((ii % dist) == 0)
                                     this.sleep(50);
 
                                 ii++;
@@ -2122,17 +2122,13 @@
 
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            var waitPanel = document.getElementById( 'wait_panel' );
-
-            waitPanel.sizeTo( 360, 120 );
-            var x = ( width - 360 ) / 2;
-            var y = ( height - 240 ) / 2;
+            var waitPanel = document.getElementById('wait_panel');
 
             // set the content of the label attribute be default string, taking advantage of the statusText attribute.
-            var caption = document.getElementById( 'wait_caption' );
+            var caption = document.getElementById('wait_caption');
             caption.label = message;
 
-            waitPanel.openPopupAtScreen( x, y );
+            waitPanel.openPopupAtScreen(0, 0);
 
             return waitPanel;
         }

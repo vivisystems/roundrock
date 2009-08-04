@@ -20,6 +20,15 @@
         },
 
         changeDepartmentPanel: function(index) {
+
+            if (index == this._selectedIndex) return;
+            
+            if (!this.confirmChangeDepartment(index)) {
+                this._deptscrollablepanel.selectedItems = [this._selectedIndex];
+                this._deptscrollablepanel.selectedIndex = this._selectedIndex;
+                return;
+            }
+
             var dept = this.deptPanelView.getCurrentIndexData(index);
             this._selectedIndex = index;
             this.setInputData(dept);
@@ -135,6 +144,43 @@
             GeckoJS.FormHelper.unserializeFromObject('deptForm', valObj);
         },
 
+        exit: function() {
+            // check if department form has been modified
+            if (this._selectedIndex != -1 && GeckoJS.FormHelper.isFormModified('deptForm')) {
+                var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                        .getService(Components.interfaces.nsIPromptService);
+                var check = {data: false};
+                var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                            prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                            prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+
+                var action = prompts.confirmEx(this.topmostWindow,
+                                               _('Exit'),
+                                               _('You have made changes to the current department. Save changes before exiting?'),
+                                               flags, _('Save'), '', _('Discard'), null, check);
+                if (action == 1) {
+                    return;
+                }
+                else if (action == 0) {
+                    this.modify();
+                }
+            }
+            window.close();
+        },
+
+        confirmChangeDepartment: function(index) {
+            // check if department form has been modified
+            if (this._selectedIndex != -1 && (index == null || (index != -1 && index != this._selectedIndex))
+                && GeckoJS.FormHelper.isFormModified('deptForm')) {
+                if (!GREUtils.Dialog.confirm(this.topmostWindow,
+                                             _('Discard Changes'),
+                                             _('You have made changes to the current department. Are you sure you want to discard the changes?'))) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
         _checkData: function (data, id) {
             var depts = GeckoJS.Session.get('categories');
             var result = 0;
@@ -163,8 +209,13 @@
         },
 
         add: function  () {
+            
+            if (!this.confirmChangeDepartment()) {
+                return;
+            }
+
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=350';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
@@ -193,6 +244,7 @@
 
                         var index = this.updateSession('add', id);
 
+                        this._selectedIndex = -1;
                         this.changeDepartmentPanel(index);
 
                         OsdUtils.info(_('Department [%S] added successfully', [inputData.name]));
@@ -219,6 +271,7 @@
                     cateModel.save(inputData);
 
                     var index = this.updateSession('modify', dept.id);
+                    this._selectedIndex = -1;
                     this.changeDepartmentPanel(index);
 
                     OsdUtils.info(_('Department [%S] modified successfully', [inputData.name]));
@@ -255,6 +308,7 @@
                     this.resetInputData();
 
                     var index = this.updateSession('remove');
+                    this._selectedIndex = -1;
                     this.changeDepartmentPanel(index);
 
                     OsdUtils.info(_('Department [%S] removed successfully', [dept.name]));
@@ -301,6 +355,15 @@
             // update button & text field states
             if (this._selectedIndex == null || this._selectedIndex == -1) {
                 document.getElementById('dept_name').setAttribute('disabled', true);
+                document.getElementById('rate_name').setAttribute('disabled', true);
+                document.getElementById('sale_unit').setAttribute('disabled', true);
+                document.getElementById('dept_visible').setAttribute('disabled', true);
+                document.getElementById('dept_cansale').setAttribute('disabled', true);
+                document.getElementById('scale').setAttribute('disabled', true);
+                document.getElementById('display_order').setAttribute('disabled', true);
+                document.getElementById('dept_button_color').setAttribute('disabled', true);
+                document.getElementById('dept_font_size').setAttribute('disabled', true);
+                document.getElementById('rate_name').setAttribute('disabled', true);
 
                 document.getElementById('modify_dept').setAttribute('disabled', true);
                 document.getElementById('delete_dept').setAttribute('disabled', true);
@@ -308,6 +371,15 @@
             else {
                 var cond_name = document.getElementById('dept_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
                 document.getElementById('dept_name').removeAttribute('disabled');
+                document.getElementById('display_order').removeAttribute('disabled');
+                document.getElementById('rate_name').removeAttribute('disabled');
+                document.getElementById('rate_name').removeAttribute('disabled');
+                document.getElementById('sale_unit').setAttribute('disabled', false);
+                document.getElementById('dept_visible').setAttribute('disabled', false);
+                document.getElementById('dept_cansale').setAttribute('disabled', false);
+                document.getElementById('scale').setAttribute('disabled', false);
+                document.getElementById('dept_button_color').setAttribute('disabled', false);
+                document.getElementById('dept_font_size').setAttribute('disabled', false);
 
                 document.getElementById('modify_dept').setAttribute('disabled', (cond_name.length < 1));
                 document.getElementById('delete_dept').setAttribute('disabled', false);

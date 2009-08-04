@@ -6,16 +6,17 @@
   %AddLedgerEntry;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/ledger.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/ledger.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window id="" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" width="720" height="550">
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-  <script type="application/x-javascript" src="chrome://viviecr/content/prompt_add_ledger_entry.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+  <script type="application/x-javascript" src="chrome://viviecr/content/prompt_add_ledger_entry.js"/>
   <script type="application/x-javascript">
       var GeckoJS = opener.GeckoJS;
       var GREUtils = opener.GREUtils;
@@ -23,71 +24,63 @@
 
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()"/>
     </keyset>
 
-    <hbox flex="1" class="main-dialog">
-        <hbox flex="1" class="MainPnl">
-            <!-- Left side -->
-            <vbox flex="1"  class="MainL">
-                <caption label="&prompt.addentry.title;" class="PageTitle" />
-                <grid flex="1" class="DataForm">
+    <vbox flex="1" class="container-dialog">
+        <vbox flex="1" class="container-main">
+            <label value="&prompt.addentry.title;" class="label-page-title"/>
+            <vbox flex="1" class="content-listbox">
+                <vivitree id="typescrollablepanel" flex="1" class="standard"
+                          headers="&prompt.addentry.heading.type;,&prompt.addentry.heading.mode;"
+                          fields="type,mode" hidecolumnpicker="true"
+                          onselect="validateInput()"
+                          scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button"/>
+            </vbox>
+
+            <hbox>
+                <grid flex="1" class="data-form-2">
                     <columns>
                         <column flex="1"/>
                     </columns>
                     <rows>
-                        <row flex="1">
-                            <vbox>
-                                <vivitree id="typescrollablepanel" flex="1" headers="&prompt.addentry.heading.type;,&prompt.addentry.heading.mode;"
-                                          fields="type,mode" onclick="validateInput()"
-                                          class="ListPnl"
-                                          scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"/>
-                            </vbox>
-                        </row>
-
                         <row>
                             <vbox>
-                                <label value="&prompt.addentry.description;" class="SubTitle"/>
+                                <label value="&prompt.addentry.description;"/>
                                 <textbox id="description" value="" onfocus="select()"/>
                             </vbox>
                         </row>
 
                         <row>
                             <vbox>
-                                <label value="&prompt.addentry.amount;" class="SubTitle"/>
-                                <textbox id="amount" value="" oninput="validateInput()" onfocus="select()"/>
+                                <label value="&prompt.addentry.amount;"/>
+                                <textbox id="amount" value="" flex="1"
+                                         oninput="validateInput()" onfocus="select()"/>
                             </vbox>
                         </row>
                     </rows>
                 </grid>
-            </vbox>
-            <vbox >
-                <spacer style="height:20px;" />
-                <vbox>
+                <hbox>
                     <numberpad id="multinumberpad" class="numpad"/>
-                </vbox>
-                <spacer style="height:5px;" />
-                <hbox>
-                    <sendkeybutton id="bkeyBtn" label="DEL" keyCode='0x08' class="fixedbtn"/>
-                    <button id="clearBtn"  label="CLEAR" class="fixedbtn"/>
-                    <vivibutton id="opendrawer" label="&prompt.addentry.button.opendrawer;" default="false" class="fixedbtn"
-                                oncommand="$do('openDrawerForLedgerEntry', null, 'LedgerRecords');"/>
+                    <spacer style="width:5px;"/>
+                    <vbox>
+                        <sendkeybutton id="bkeyBtn" label="&prompt.addentry.button.del;" keyCode="0x08" class="button-fixed"/>
+                        <button id="clearBtn" label="&prompt.addentry.button.clear;" class="button-fixed"/>
+                        <spacer flex="1"/>
+                        <vivibutton id="opendrawer" label="&prompt.addentry.button.opendrawer;" default="false" class="button-fixed"
+                                    oncommand="$do('openDrawerForLedgerEntry', null, 'LedgerRecords');"/>
+                    </vbox>
                 </hbox>
-                <spacer flex="1" />
-                <hbox>
-                    <hbox id="dialogButtons" class="ToolBar">
-                        <button  id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
-                        <button  id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
-                    </hbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                    </hbox>
+            </hbox>
+            <hbox>
+                <hbox id="dialogButtons" flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                    <button id="ok" label="&dialog.okButton.label;" disabled="false" default="true" oncommand="doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" disabled="false" default="false" oncommand="doCancelButton();"/>
                 </hbox>
-            </vbox>
-        </hbox>
-        
-    </hbox>
-
-    
-
+                <hbox id="dialogButtons" pack="end" class="exitbar">
+                    <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
 </window>

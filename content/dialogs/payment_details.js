@@ -30,7 +30,7 @@
                 var title = evt.data[0];
                 var details = evt.data[1];
 
-                document.getElementById('paymentDetails-title').setAttribute("label", title);
+                document.getElementById('paymentDetails-title').setAttribute("value", title);
 
                 if (details != null) {
                     details = GeckoJS.Array.objectExtract(details, '{s}');

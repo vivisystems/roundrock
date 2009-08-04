@@ -6,9 +6,10 @@
   %stockrecords;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/stocks.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/be/stocks.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -19,16 +20,13 @@
 
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="$do('searchPlu', null, 'StockRecords');"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()" />
     </keyset>
 
   <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
 
   <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
-  <!--script src="chrome://viviecr/content/models/stock_record.js" type="application/x-javascript"/>
-  <script src="chrome://viviecr/content/models/inventory_record.js" type="application/x-javascript"/>
-  <script src="chrome://viviecr/content/models/inventory_commitment.js" type="application/x-javascript"/-->
 
   <!-- include controller -->
   <script src="chrome://viviecr/content/controllers/stock_records_controller.js" type="application/x-javascript"/>
@@ -36,29 +34,30 @@
   <!-- include startup script -->
   <script type="application/x-javascript" src="chrome://viviecr/content/stock_records.js" />
 
-    <vbox class="main-dialog" flex="1">
-        <hbox flex="1" class="MainPnl">
-            <vbox flex="1"  class="MainL">
+    <vbox flex="1" class="container-be">
+        <hbox flex="1" class="container-main">
+            <vbox flex="1">
                 <hbox>
-                    <caption label="&stockrecords.title;" class="PageTitle" /> -
-                    <caption id="adjustment_type" label="" class="PageTitle" />
+                    <caption label="&stockrecords.title;" class="label-page-title" /> -
+                    <caption id="adjustment_type" label="" class="label-page-title" />
                 </hbox>
-                <vbox pack="start" flex="1">
-                    <vivitree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true"
+                <vbox flex="1" class="content-listbox">
+                    <vivitree id="stockrecordscrollablepanel" flex="1" rows="2" hidevscroll="true" class="standard custom-content-stock-records"
                               headers="&stockrecords.header.no;,&stockrecords.header.product;,&stockrecords.header.saleunit;,&stockrecords.header.quantity;,&stockrecords.header.newquantity;,&stockrecords.header.qtydifference;"
                               fields="product_no,product_name,sale_unit,quantity,new_quantity,delta"
-                              onclick="$do('select',this.selectedIndex, 'StockRecords');"
-                              class="pluList ListPnl showscrollbar"
-                              scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" />
+                              onselect="$do('select',this.selectedIndex, 'StockRecords');"
+                              scrollUpClass="scroll-up-button" scrollDownClass="scroll-down-button" />
                     <hbox>
-		                <checkbox id="show_low_stock" value="false" label="&stockrecords.show.low.only;" oncommand="$do('clickLowStock', null, 'StockRecords');" />
-		                <checkbox id="show_delta" value="false" label="&stockrecords.show.qty.different;" oncommand="$do('clickQtyDiff', null, 'StockRecords');" />
-		                <checkbox id="show_maintained_ones" value="false" label="&stockrecords.show.stockmaintainones;" oncommand="$do('clickMaintainedOnes', null, 'StockRecords');" />
+		                <checkbox id="show_low_stock" value="false" label="&stockrecords.show.low.only;" flex="1"
+                                  oncommand="$do('clickLowStock', null, 'StockRecords');" />
+		                <checkbox id="show_delta" value="false" label="&stockrecords.show.qty.different;" flex="1"
+                                  oncommand="$do('clickQtyDiff', null, 'StockRecords');" />
+		                <checkbox id="show_maintained_ones" value="false" label="&stockrecords.show.stockmaintainones;" flex="1"
+                                  oncommand="$do('clickMaintainedOnes', null, 'StockRecords');" />
 		            </hbox>
                 </vbox>
                 <vbox>
-                    <!--label id="plu_id" hidden="true" form="productForm" name="product_id" value="" /-->
-                    <grid class="DataForm1" flex="1">
+                    <grid class="data-form-2" flex="1">
                         <columns>
                             <column flex="1" />
                             <column flex="1" />
@@ -68,67 +67,71 @@
                         <rows>
                             <row>
                                 <vbox>
-                                    <label value="&stockrecords.label.no;" />
-                                    <vivitextbox readonly="true" form="productForm" id="product_no" name="product_no" />    
+                                    <label value="&stockrecords.label.no;"/>
+                                    <textbox id="prod_no" readonly="true" form="productForm" name="product_no"/>
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.barcode;" />
-                                    <vivitextbox readonly="true" form="productForm" id="product_barcode" name="product_barcode" />    
+                                    <textbox id="prod_barcode" readonly="true" form="productForm" name="product_barcode"/>
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.name;" />
-                                    <vivitextbox readonly="true" form="productForm" id="product_name" name="product_name" />    
+                                    <textbox id="prod_name" readonly="true" form="productForm" name="product_name"/>
                                 </vbox>
                                 <vbox>
-                                    <label value="&stockrecords.label.minstock;" />
-                                    <vivitextbox readonly="true" form="productForm" id="min_stock" name="min_stock" />    
+                                    <label value="&stockrecords.label.minstock;"/>
+                                    <textbox id="min_stock" type="number" hidespinbuttons="true" readonly="true" form="productForm" name="min_stock"/>
                                 </vbox>
                             </row>
                             <row>
                                 <vbox>
                                     <label id="qtytype" value="" control="newquantity"/>
-                                    <vivitextbox id="new_quantity" value="" form="productForm" name="new_quantity" maxsize="6"
-                                         oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
-                                         numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
+                                    <vivitextbox id="new_qty" value="" maxsize="6" type="number"
+                                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                 oninput="$do('validateForm', null, 'StockRecords')" onfocus="select()"
+                                                 form="productForm" name="new_quantity"/>
                                 </vbox>
                                 <vbox id="price_container" hidden="true">
                                     <label value="&stockrecords.label.price;" control="price"/>
-                                    <vivitextbox id="price" value="" form="productForm" name="price" maxsize="6"
-                                         oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
-                                         numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
+                                    <vivitextbox id="price" value="" maxsize="6"
+                                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                 oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
+                                                 form="productForm" name="price"/>
                                 </vbox>
                                 <vbox>
                                     <label value="&stockrecords.label.memo;" control="memo"/>
-                                    <vivitextbox id="memo" value="" form="productForm" name="memo" maxsize="6"
-                                         oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
-                                         numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>    
+                                    <vivitextbox id="memo" value="" maxsize="6"
+                                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"
+                                                 oninput="$do('validateForm', null, 'StockRecords')" onfocus="this.select()"
+                                                 form="productForm" name="memo"/>
                                 </vbox>
-                                <!--vbox class="RightPnlB"-->
                                 <vbox>
-								    <!--label value="&stockrecords.search.label;" control="plu" class="SubTitle"/-->
 								    <label value="&stockrecords.search.label;" control="plu" />
-								    <vivitextbox id="plu" value="" onfocus="this.select()"
-								    	numpadClass="numpad" fixedbtnClass="fixedbtn" popupKeypad="true" keypad="numpad"/>
+								    <vivitextbox id="plu" value="" onfocus="select()"
+                                                 numpadClass="numpad" fixedbtnClass="button-fixed" popupKeypad="true" keypad="numpad"/>
 								</vbox>
                             </row>
                         </rows>
                     </grid>
                 </vbox>
-                <spacer height="5px"/>
-                <hbox pack="end">
-		            <hbox id="toolbar" class="ToolBar" flex="1">
-	                    <hbox flex="1">
-	                    	<button id="modify_stock" label="&stockrecords.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyStock', null, 'StockRecords');" />
-	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" disabled="false" class="BtnMod" oncommand="$do('importRecords', null, 'StockRecords');" />
+                <hbox>
+		            <hbox  flex="1" class="toolbar" toolbarmode="horizontal">
+	                    <hbox flex="1" pack="start">
+	                    	<button id="modify_stock" label="&stockrecords.button.action.modify;" disabled="true" class="button-modify" oncommand="$do('modifyStock', null, 'StockRecords');" />
+                            <spacer flex="1"/>
+	                    	<button id="import_records" label="&stockrecords.button.action.importrecords;" disabled="false" class="button-import" oncommand="$do('importRecords', null, 'StockRecords');" />
+                            <spacer flex="1"/>
 	                    </hbox>
-	                    <hbox flex="0">
-	                    	<button id="commitchanges" label="&stockrecords.button.action.commitchanges;" disabled="false" class="BtnMod" oncommand="$do('commitChanges', null, 'StockRecords');" />
-	                    	<button id="reset" label="&stockrecords.button.action.reset;" hidden="true" disabled="false" class="BtnMod" oncommand="$do('reset', null, 'StockRecords');" />
+	                    <hbox>
+	                    	<button id="commitchanges" label="&stockrecords.button.action.commitchanges;" disabled="false" class="button-commit" oncommand="$do('commitChanges', null, 'StockRecords');" />
+	                    	<button id="reset" label="&stockrecords.button.action.reset;" hidden="true" disabled="false" class="button-clear" oncommand="$do('reset', null, 'StockRecords');" />
 		            	</hbox>
 		            </hbox>
-		            <hbox flex="0" id="dialogButtons" class="dialogbtns" pack="end">
-		                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-		                <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+		            <hbox pack="end" class="exitbar">
+		                <button id="vkb" class="button-vkb"
+                                oncommand="VirtualKeyboard.toggle();"/>
+		                <button id="close" default="true" class="button-exit"
+                                oncommand="$do('exit', null, 'StockRecords');"/>
 		            </hbox> 
                 </hbox>         
             </vbox>
@@ -136,21 +139,21 @@
     </vbox>
 
     <vivipanel id="error_panel" position="overlap" noautohide="f" pack="center" align="center">
-        <vbox flex="1" class="errorPanel" pack="center" align="center">
-            <vbox flex="1" pack="start" class="errorDialog">
-                <caption label="&stockrecords.import.errors.title;" class="PageTitle"/>
-                <vbox pack="start" flex="1" class="LeftPnl">
+        <hbox flex="1" class="container-main custom-container-error-panel" pack="center" align="center">
+            <vbox flex="1" pack="start" class="custom-container-error-dialog">
+                <caption label="&stockrecords.import.errors.title;" class="label-page-title"/>
+                <vbox flex="1" class="content-listbox">
                     <label value="&stockrecords.import.errors.desc;"/>
-                    <vivitree id="errorscrollablepanel" flex="1" rows="10"
+                    <vivitree id="errorscrollablepanel" flex="1" rows="10" class="standard custom-content-error-list"
                               headers="&stockrecords.import.line;,&stockrecords.import.prodno;"
                               fields="line,no"
-                              class="ListPnl showscrollbar"
                               />
                 </vbox>
-                <hbox id="errorPanelButtons" class="dialogbtns" pack="end">
-                    <button class="ExitBtn" id="errorPanelOk" label="&dialog.closeButton.label;" default="true" oncommand="document.getElementById('error_panel').hidePopup()"/>
+                <hbox id="errorPanelButtons" class="exitbar" pack="end">
+                    <button id="close_error" default="true" class="button-exit"
+                            oncommand="document.getElementById('error_panel').hidePopup()"/>
                 </hbox>
             </vbox>
-        </vbox>
+        </hbox>
     </vivipanel>
 </window>

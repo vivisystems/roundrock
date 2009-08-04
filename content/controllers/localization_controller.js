@@ -318,12 +318,13 @@
             var check = {value: false};
 
             var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
+                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
 
-            var r = prompts.confirmEx(null, _('Localization'),
-                                            _('Translations have been modified; save changes?'),
-                                            flags, _('Save'), _('Discard'), "", null, check);
+            var r = prompts.confirmEx(this.topmostWindow,
+                                      _('Localization'),
+                                      _('Translations have been modified; save changes?'),
+                                      flags, _('Save'), '', _('Discard'), null, check);
             return r;
         },
 
@@ -346,22 +347,20 @@
             this.selectEntry(0);
         },
 
-        exitCheck: function(data) {
+        exit: function() {
             if (this._dirtyBit) {
                 var response = this._confirmSwitch();
-                if (response == 2) {
-                    // cancel
-                    data.cancel = true;
+                if (response == 1) {
+                    return;
                 }
-                else if (response == 1) {
+                else if (response == 2) {
                     // discard; do nothing
-                    data.cancel = false;
                 }
                 else {
-                    data.cancel = false;
                     this.save();
                 }
             }
+            window.close();
         },
 
         filter: function() {
@@ -378,9 +377,10 @@
             }
             else {
                 emptyCount = 0;
+                filterText = filterText.toLowerCase();
 
                 strings = this._currentPkg.strings.filter(function(str) {
-                    if ((str.translation.indexOf(filterText) > -1) || (str.base.indexOf(filterText) > -1)) {
+                    if ((str.translation.toLowerCase().indexOf(filterText) > -1) || (str.base.toLowerCase().indexOf(filterText) > -1)) {
                         if (str.translation == null || str.translation == '') emptyCount++;
                         return true;
                     }
@@ -409,12 +409,12 @@
 
                     // file modified, save first?
                     var response = this._confirmSwitch();
-                    if (response == 2) {
+                    if (response == 1) {
                         // cancel; re-select current package
                         this._menu.selectedIndex = this._currentPkgIndex;
                         return;
                     }
-                    else if (response == 1) {
+                    else if (response == 2) {
                         // discard; do nothing
                     }
                     else if (response == 0) {
@@ -462,12 +462,12 @@
 
                     // file modified, save first?
                     var response = this._confirmSwitch();
-                    if (response == 2) {
+                    if (response == 1) {
                         // cancel; re-select current locale
                         localelist.selectedIndex = this._currentLocaleIndex;
                         return;
                     }
-                    else if (response == 1) {
+                    else if (response == 2) {
                         // discard; do nothing
                     }
                     else if (response == 0) {
@@ -607,10 +607,7 @@
             });
             var fp = new GeckoJS.File(filepath, true);
             fp.open('w');
-            if (fp.write(buf)) {
-                OsdUtils.info(_('DTD file [%S] successfully updated', [filepath]));
-            }
-            else {
+            if (!fp.write(buf)) {
                 this.log('ERROR', 'Failed to write DTD to [' + filepath + ']');
                 NotifyUtils.error(_('Failed to write DTD to file [%S]', [filepath]));
             }
@@ -626,10 +623,7 @@
             });
             var fp = new GeckoJS.File(filepath, true);
             fp.open('w');
-            if (fp.write(buf)) {
-                OsdUtils.info(_('Properties file [%S] successfully updated', [filepath]));
-            }
-            else {
+            if (!fp.write(buf)) {
                 NotifyUtils.error(_('Failed to write Properties to file [%S]', [filepath]));
                 this.log('ERROR', 'Failed to write Properties to [' + filepath + ']');
             }
