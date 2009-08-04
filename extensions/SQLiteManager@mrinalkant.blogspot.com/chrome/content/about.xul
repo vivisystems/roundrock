@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/sqlitemanager.css" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
  
 <dialog id="sm-about" title="&about; &window.title;"
-        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        buttons="accept"
-        ondialogaccept="window.close();" onload="fillAboutValues();">
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept"
+  ondialogaccept="window.close();" onload="fillAboutValues();">
 
   <script type="application/x-javascript" src="globals.js"/>  
   <script type="application/x-javascript">
@@ -30,14 +31,9 @@
 			</columns>
 			<rows>
 				<row align="center">
-					<image id="about-icon" src="chrome://sqlitemanager/skin/images/icon32.png"
-					       width="32px" height="32px"/>
+					<image id="about-icon"/>
 					<vbox>
-						<text id="about-homepage"
-						      value="http://sqlite-manager.googlecode.com/"
-						      style="font-weight: bold" class="url"
-	                          onmouseover="this.style.cursor='pointer';"
-	                          onclick="sm_openURL('http://sqlite-manager.googlecode.com/');"/>
+						<text id="about-homepage" value="http://sqlite-manager.googlecode.com/" class="url" onclick="sm_openURL(smWebpages.home);"/>
 					</vbox>
 				</row>
 			</rows>
@@ -50,16 +46,19 @@
 			</columns>
 			<rows>
 				<row align="center">
-					<text value="&version; :" />
-					<text id="about-version" value="" style="font-weight: bold" />
+					<text value="&version; :"/>
+					<text id="about-version"/>
 				</row>
 				<row align="center">
-					<text value="&author; :" />
-					<text id="about-creator" value="" style="font-weight: bold" />
+					<text value="&author; :"/>
+					<text id="about-creator"/>
+				</row>
+				<row align="center">
+					<text value="&license; :"/>
+					<text id="about-license" value="&license.mpl;" class="url" onclick="sm_openURL(smWebpages.mpl);"/>
 				</row>
 			</rows>
 		</grid>
 		</groupbox>
   </vbox>
-  
 </dialog>

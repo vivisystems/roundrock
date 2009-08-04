@@ -29,6 +29,7 @@ pref("extensions.sqlitemanager.hideMainToolbar", false);
 pref("extensions.sqlitemanager.showMainToolbarDatabase", true);
 pref("extensions.sqlitemanager.showMainToolbarTable", true);
 pref("extensions.sqlitemanager.showMainToolbarIndex", true);
+pref("extensions.sqlitemanager.showMainToolbarDebug", false);
 
 //default extension for sqlite db files
 pref("extensions.sqlitemanager.sqliteFileExtensions", "sqlite");
@@ -55,7 +56,7 @@ pref("extensions.sqlitemanager.textForBlob", "BLOB");
 //display size of blob in the blob fields (gives better idea of data)
 pref("extensions.sqlitemanager.showBlobSize", true);
 //max size of blob to display as string (convert to string)
-pref("extensions.sqlitemanager.maxSizeToShowBlobData", 0);
+pref("extensions.sqlitemanager.maxSizeToShowBlobData", 50);
 
 //unsafe alter table operations (delete/alter column) are disabled by default
 //pref("extensions.sqlitemanager.allowUnsafeTableAlteration", false);

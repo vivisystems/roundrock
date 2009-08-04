@@ -44,7 +44,7 @@
 
             var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                         .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
-            var mainscreenObject = mainWindow.document.getElementById('vivipos_mainWindow');
+            var mainscreenObject = mainWindow.document.getElementById('viviposMainWindow');
 
             for (var k in mainscreenSettings) {
                 mainscreenObject.setAttribute(k, mainscreenSettings[k]);

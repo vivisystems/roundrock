@@ -2,12 +2,19 @@
 
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 
-<!DOCTYPE window SYSTEM "chrome://vivipos/locale/vivipos.dtd">
-
 <?xul-overlay href="chrome://vivipos/content/mainUIOverlay.xul"?>
 <?xul-overlay href="chrome://vivipos/content/mainScriptsOverlay.xul"?>
 
-<window title="ViviPOS" windowtype="Vivipos:Main" id="vivipos_mainWindow"
+<!DOCTYPE window [
+<!ENTITY % brandDTD SYSTEM "chrome://branding/locale/brand.dtd" >
+%brandDTD;
+<!ENTITY % viviposDTD SYSTEM "chrome://vivipos/locale/vivipos.dtd" >
+%viviposDTD;
+<!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+%globalDTD;
+]>
+
+<window title="&brandShortName;" windowtype="Vivipos:Main" id="viviposMainWindow"
         screenX="0" 
         screenY="0" 
         sizemode="normal"    
@@ -34,12 +41,12 @@
   <keyset id="keyset_extensions">
   </keyset>
 
-  <hbox flex="1" id="vivipos" style="overflow: hidden;">
+  <hbox chromedir="&locale.dir;" flex="1" id="vivipos" style="overflow: hidden;">
     <vbox id="appcontent" flex="1">
     </vbox>
   </hbox>
 
-  <vbox id="vivipos-bottombox">
+  <vbox chromedir="&locale.dir;" id="vivipos-bottombox">
     <statusbar class="chromeclass-status" id="status-bar">
       <statusbarpanel id="statusbar-display" label="" flex="1"/>
       <statusbarpanel class="statusbarpanel-progress" collapsed="true" id="statusbar-progresspanel">

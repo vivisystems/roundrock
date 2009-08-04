@@ -39,7 +39,8 @@
                     if (index != -1) {
                         var valueNode = self.nodes[index]; //document.getAnonymousElementByAttribute(this, 'anonid', 'value' + index);
                         if (valueNode) {
-                            valueNode.value = value;
+                            //valueNode.value = value;
+                            valueNode.setAttribute('value', value);
                         }
                     }
                 }
@@ -53,19 +54,21 @@
                         var valueNode = self.nodes[index]; //document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
                         } catch (e) {var valueNode=null;}
                         if (valueNode) {
-                            valueNode.value = '';
+                            //valueNode.value = '';
+                            valueNode.setAttribute('value', '');
                         }
                     }
                     //GREUtils.log('[REMOVE]: leaving');
                 }
 
                 var clearHandler = function (evt) {
-                    GREUtils.log('[CLEAR]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
+                    //GREUtils.log('[CLEAR]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
 
                     for (var i = 0; i < self.keys.length; i++) {
                         var valueNode = self.nodes[i]; //document.getAnonymousElementByAttribute(this,'anonid', 'value' + i);
                         if (valueNode) {
-                            valueNode.value = '';
+                            //valueNode.value = '';
+                            valueNode.setAttribute('value', '');
                         }
                     }
                     //GREUtils.log('[CLEAR]: leaving');

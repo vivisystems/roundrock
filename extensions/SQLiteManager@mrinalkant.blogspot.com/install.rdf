@@ -4,16 +4,16 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-    <em:id>SQLiteManager@mrinalkant.blogspot.com</em:id>
-    <em:type>2</em:type>
 
     <!-- Extension Info -->
+    <em:id>SQLiteManager@mrinalkant.blogspot.com</em:id>
+    <em:type>2</em:type>
     <em:name>SQLite Manager</em:name>
-    <em:version>0.5.0b3</em:version>
+    <em:version>0.5.0</em:version>
     <em:description>Manage any SQLite database on your computer</em:description>
     <em:creator>Mrinal Kant</em:creator>
     <em:homepageURL>http://sqlite-manager.googlecode.com/</em:homepageURL>
-    <em:iconURL>chrome://sqlitemanager/skin/images/icon32.png</em:iconURL>
+    <em:iconURL>chrome://sqlitemanager/skin/images/default32.png</em:iconURL>
     <em:optionsURL>chrome://sqlitemanager/content/preferences.xul</em:optionsURL>
 
     <!-- Firefox --> 
@@ -54,8 +54,8 @@
    <em:targetApplication>
     <Description>
       <em:id>toolkit@mozilla.org</em:id>
-      <em:minVersion>1.9a1</em:minVersion>
-      <em:maxVersion>1.9.2a1pre</em:maxVersion>
+      <em:minVersion>1.9.1</em:minVersion>
+      <em:maxVersion>1.9.1</em:maxVersion>
     </Description>
    </em:targetApplication>
 
@@ -76,6 +76,16 @@
         <em:maxVersion>5.1.*</em:maxVersion>
       </Description>
     </em:targetApplication>
+
+    <!-- VIVIPOS -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{7aacc14f-1abc-4243-b48e-63b953c0476a}</em:id>
+        <em:minVersion>1.1.*</em:minVersion>
+        <em:maxVersion>1.2.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
 
   </Description>      
 </RDF>

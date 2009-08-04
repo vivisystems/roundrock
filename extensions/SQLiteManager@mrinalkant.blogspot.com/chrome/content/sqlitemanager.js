@@ -78,6 +78,7 @@ var SQLiteManager = {
   // Startup: called ONCE during the browser window "load" event
   Startup: function() {
     $$("experiment").hidden = true;
+
     //create the menus by associating appropriate popups
     this.createMenu();
 
@@ -129,16 +130,9 @@ var SQLiteManager = {
     var iNumRecords = sm_prefsBranch.getIntPref("displayNumRecords");
     if (iNumRecords == -1)
       sm_prefsBranch.setIntPref("displayNumRecords", 100);
-    //manage changes when the following preferences change.
-    //although the this.observe function handles the observer
-    //calling these functions reduces the size of the code
-    //It is like fooling observe into believing that the following
-    //preferences have changed.
-    var chPrefs = ["hideMainToolbar", "showMainToolbarDatabase",
-      "showMainToolbarTable", "showMainToolbarIndex", "sqliteFileExtensions",
-      "displayNumRecords", "textForBlob", "showBlobSize", "maxSizeToShowBlobData", "mruPath.1",
-      "posInTargetApp" /* this one for firefox only*/,
-      "handleADS" /* this one for Windows only*/ ];
+
+    //To set our variables, etc. we fool observe into believing that the following preferences have changed.
+    var chPrefs = smObservedPrefs;
     for(var i = 0; i < chPrefs.length; i++)
       this.observe("", "nsPref:changed", chPrefs[i]);
 
@@ -148,12 +142,11 @@ var SQLiteManager = {
 			var sPath = this.getMruLatest();
 			if(sPath != null) {
 				//Last used DB found, open this DB
-				var newfile = Cc["@mozilla.org/file/local;1"]
-              .createInstance(Ci.nsILocalFile);
+				var newfile = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
 				newfile.initWithPath(sPath);
 				//if the last used file is not found, bail out
 				if(!newfile.exists()) {
-					smPrompt.alert(null, sm_getLStr("extName"), sm_getLStr("lastDbDoesNotExist") + sPath);
+					smPrompt.alert(null, sm_getLStr("extName"), g_smBundle.getFormattedString("lastDbDoesNotExist",[sPath]));
 				  return;
 				}
 				bPrefVal = sm_prefsBranch.getBoolPref("promptForLastDb");
@@ -191,20 +184,12 @@ var SQLiteManager = {
 
 	createMenu: function() {
 		var suffixes = ["table", "index", "view", "trigger"];
-		for(var i = 0; i < suffixes.length; i++) {
-		  var suffix = suffixes[i];
-		  var mp = $$("mp-" + suffix);
-		  var clone = mp.cloneNode(true);
-		  clone.setAttribute("id", "mp-main-" + suffix);
-		  var menu = $$("menu-" + suffix);
-		  ClearElement(menu);
-		  menu.appendChild(clone);
-		}
+
 	  var mpdb = $$("mp-dbstructure");
 		for(var i = 0; i < suffixes.length; i++) {
 		  var suffix = suffixes[i];
-		  var mp = $$("mp-" + suffix);
-		  var ch = mp.childNodes;
+		  var mp = $$("menu-" + suffix);
+		  var ch = mp.querySelector('menupopup').childNodes;
       for (var c = 0; c < ch.length; c++) {
   		  var clone = ch[c].cloneNode(true);
   		  clone.setAttribute("smType", suffix);
@@ -221,10 +206,18 @@ var SQLiteManager = {
 	},
 
 	changeDbSetting: function(sSetting) {
+	  if (sSetting == "schema_version") {
+      var bConfirm = sm_confirm(sm_getLStr("dangerous.op"), sm_getLStr("confirm.changeSchemaVersion") + "\n\n" + sm_getLStr("q.proceed"));
+      if (!bConfirm)
+        return false;
+	  }
 		var node = $$("pr-" + sSetting);
 		var sVal = node.value;
 		var newVal = Database.setSetting(sSetting, sVal);
 		node.value = newVal;
+
+		var sMessage = g_smBundle.getFormattedString("pragma.changed", [sSetting, newVal]);
+		sm_notify("boxNotifyDbInfo", sMessage, "info", 4);
 	},
 		
 	setTreeStructureContextMenu: function() {
@@ -358,6 +351,10 @@ var SQLiteManager = {
 			case "showMainToolbarIndex":
 				var bPrefVal = sm_prefsBranch.getBoolPref("showMainToolbarIndex");
 				$$("sm-toolbar-index").hidden = !bPrefVal;
+				break;
+			case "showMainToolbarDebug":
+				var bPrefVal = sm_prefsBranch.getBoolPref("showMainToolbarDebug");
+				$$("sm-toolbar-debug").hidden = !bPrefVal;
 				break;
 			case "sqliteFileExtensions":
 				var sExt = sm_prefsBranch.getCharPref("sqliteFileExtensions");
@@ -569,6 +566,7 @@ var SQLiteManager = {
     	return false;
     	
     this.hideTabStructure();
+    this.cancelEditColumn();
 
     if (this.sCurrentDatabase == null)
     	return false;
@@ -635,8 +633,12 @@ var SQLiteManager = {
 
 ////////////////////////////////////
     $$("hb-addcol").hidden = false;
-    if (sType == "master") //no add column option for master tables
+    $$("mp-opTableColumn").hidden = false;
+    if (sTable.indexOf("sqlite_") == 0) {
+      //no add/edit/drop column for master tables
       $$("hb-addcol").hidden = true;
+      $$("mp-opTableColumn").hidden = true;
+     }
 
     $$("treeTabCols").setAttribute("smTableName", sTable);
 		var info = Database.getTableColumns(sTable, "");
@@ -724,10 +726,7 @@ var SQLiteManager = {
     this.loadTabBrowse();
   },
 
-	//loadTabBrowse: populates the table list and the tree view for current table
-	//must be called whenever a database is opened/closed
-	//and whenever the schema changes
-	//depends entirely upon the values in "browse-type" and "browse-name" controls
+	//loadTabBrowse: populates the table list and the tree view for current table; must be called whenever a database is opened/closed and whenever the schema changes; depends entirely upon the values in "browse-type" and "browse-name" controls
   loadTabBrowse: function() {
     //no need to waste resources if this tab is not selected
     if(this.getSelectedTabId() != "tab-browse")
@@ -897,7 +896,7 @@ var SQLiteManager = {
     if (this.sCurrentDatabase == null)
     	return false;
 
-	  aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "page_count", "freelist_count", "read_uncommitted", "short_column_names", "synchronous", "temp_store", "temp_store_directory"];
+	  aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", /*"case_sensitive_like",*/ "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "page_count", "freelist_count", "read_uncommitted", "short_column_names", "synchronous", "temp_store", "temp_store_directory"];
 		for(var i = 0; i < aSettings.length; i++)	{
 		  var sSetting = aSettings[i];
 			var node = $$("pr-" + sSetting);
@@ -913,9 +912,7 @@ var SQLiteManager = {
     if (oType == "VIEW")
       return this.searchView(oName);
     if (oType == "TABLE" || oType == "MASTER") {
-      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",
-  					"RowOperations", "chrome, resizable, centerscreen, modal, dialog", 
-  					Database, oName, "search");
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", Database, oName, "search");
   		return true;
   	}
   },
@@ -994,9 +991,7 @@ var SQLiteManager = {
     	types[col] = GetColumnTypeString(columns[col][1]);
     }
     var cols = [names, types];
-    window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",
-					"RowOperations", "chrome, resizable, centerscreen, modal, dialog", 
-					Database, sViewName, "search-view", cols);
+    window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",	"RowOperations", "chrome, resizable, centerscreen, modal, dialog", Database, sViewName, "search-view", cols);
     return true;
   },
 
@@ -1168,7 +1163,7 @@ var SQLiteManager = {
 			if (bRet) {
     		aData = Database.getRecords();
     		aColumns = Database.getColumns();
-   		  sm_message(sm_getLStr("rowsReturned") + ": " + aData.length, 0x2);
+   		  sm_message(sm_getBundle().getFormattedString("rowsReturned", [aData.length]), 0x2);
         smExtManager.addQuery(sQuery);
       }
       //set this value so that query history is reset to latest query
@@ -1321,13 +1316,7 @@ var SQLiteManager = {
     //cannot vacuum from within a transaction
     Database.selectQuery(sQuery);
 		var aftPageCount = Database.getSetting("page_count");
-    sm_alert("Result of Compacting", "The database was compacted using VACUUM statement.\n" +
-      "Before compacting:\n" +
-      "   Page Count    = " + befPageCount + "\n" +
-      "   Database Size = " + befPageCount*pageSize + " bytes\n" +
-      "After compacting:\n" +
-      "   Page Count    = " + aftPageCount + "\n" +
-      "   Database Size = " + aftPageCount*pageSize + " bytes\n");
+    sm_alert(sm_getLStr("vacuum.title"), g_smBundle.getFormattedString("vacuum.details", [befPageCount, befPageCount*pageSize, aftPageCount, aftPageCount*pageSize]));
     return true;
   },
 
@@ -1385,8 +1374,7 @@ var SQLiteManager = {
 
   openDatabaseADS: function() {        
 		const nsIFilePicker = Ci.nsIFilePicker;
-		var fp = Cc["@mozilla.org/filepicker;1"]
-			           .createInstance(nsIFilePicker);
+		var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 		fp.init(window, sm_getLStr("selectDb"), nsIFilePicker.modeOpen);
     var sExt = "";
 		for (var iCnt = 0; iCnt < this.maFileExt.length; iCnt++) {
@@ -1397,11 +1385,9 @@ var SQLiteManager = {
 		
 		var rv = fp.show();
 		if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
-  		var check = {value: false};   // default the checkbox to false
-  		var input = {value: ""};   // default the edit field to table name
-  		var result = smPrompt.prompt(null, "Enter ADS Name: " + fp.file.leafName,
-  		                  "Enter the name of ADS containing sqlite db", 
-  		                  input, null, check);
+  		var check = {value: false};// default the checkbox to false
+  		var input = {value: ""}; // default the edit field to table name
+  		var result = smPrompt.prompt(null, "Enter ADS Name: " + fp.file.leafName, "Enter the name of ADS containing sqlite db", input, null, check);
   		var sAdsName = input.value;
   		//returns true on OK, false on cancel
   		if (!result || sAdsName.length == 0)
@@ -1506,10 +1492,19 @@ var SQLiteManager = {
 	  }
   },
 
-  alterColumn: function(sWhat) {
-    var bConfirm = sm_confirm("Dangerous Operation", "This is a potentially dangerous operation. SQLite does not support statements that can alter a column in a table. Here, we attempt to reconstruct the new CREATE SQL statement by looking at the pragma table_info which does not contain complete information about the structure of the existing table.\n\nDo you still want to proceed?");
-    if (!bConfirm)
-      return false;
+  modifyTable: function(sTableName) {
+//    alert("modtab: " + sTableName);
+  },
+
+  cancelEditColumn: function() {
+    $$("gb-editColumn").hidden = true;
+  },
+
+  startEditColumn: function() {
+//    var bConfirm = sm_confirm(sm_getLStr("dangerous.op"), "This is a potentially dangerous operation. SQLite does not support statements that can alter a column in a table. Here, we attempt to reconstruct the new CREATE SQL statement by looking at the pragma table_info which does not contain complete information about the structure of the existing table.\n\n" + sm_getLStr("q.proceed"));
+//    if (!bConfirm)
+//      return false;
+
     var treeCol = $$("treeTabCols");
     var row = treeCol.view.selection.currentIndex;
     var col = treeCol.columns.getColumnAt(1);
@@ -1518,27 +1513,31 @@ var SQLiteManager = {
 		var sOldType = treeCol.view.getCellText(row, col);
 
     var sTable = treeCol.getAttribute("smTableName");
-//create a columnEditor.xul
-    if (sWhat == "name") {
-		  var check = {value: false};   // default the checkbox to false
-		  var input = {value: sOldName};   // default the edit field to existing value
-		  var result = smPrompt.prompt(null, "Enter the new column name",
-		               "Enter the new column name", input, null, check);
-		  var sNewName = input.value;
-		  //returns true on OK, false on cancel
-		  if (!result || sNewName.length == 0)
-		    return false;
-    }
-    if (sWhat == "type") {
-		  var check = {value: false};   // default the checkbox to false
-		  var input = {value: sOldType};   // default the edit field to existing value
-		  var result = smPrompt.prompt(null, "Enter the new column type",
-		               "Enter the new column type", input, null, check);
-		  var sNewType = input.value;
-		  //returns true on OK, false on cancel
-		  if (!result || sNewType.length == 0)
-		    return false;
-    }
+    $$("tb-ec-table").value = sTable;
+
+    $$("tb-ec-oldName").value = sOldName;
+    $$("tb-ec-oldType").value = sOldType;
+    $$("tb-ec-newName").value = sOldName;
+    $$("tb-ec-newType").value = sOldType;
+
+    $$("gb-editColumn").hidden = false;
+    $$("tb-ec-newName").focus();
+  },
+
+  alterColumn: function() {
+    var bConfirm = sm_confirm(sm_getLStr("dangerous.op"), "This is a potentially dangerous operation. SQLite does not support statements that can alter a column in a table. Here, we attempt to reconstruct the new CREATE SQL statement by looking at the pragma table_info which does not contain complete information about the structure of the existing table.\n\n" + sm_getLStr("q.proceed"));
+    if (!bConfirm)
+      return false;
+
+    var sTable = $$("tb-ec-table").value;
+	  var sOldName = $$("tb-ec-oldName").value;
+	  var sNewName = $$("tb-ec-newName").value;
+	  if (sNewName.length == 0) {
+	    alert("Please specify the new name of the column");
+	    return false;
+	  }
+	  var sNewType = $$("tb-ec-newType").value;
+
     var sNewDefVal = "";
     sNewDefVal = sm_makeDefaultValue(sNewDefVal);
     var aNewInfo = {oldColName: sOldName,
@@ -1547,6 +1546,8 @@ var SQLiteManager = {
                     newDefaultValue: sNewDefVal};
 		var bReturn = CreateManager.modifyTable("alterColumn", sTable, aNewInfo);
 		if(bReturn) {
+		  this.cancelEditColumn();
+
 			this.refreshDbStructure();
 			this.loadTabBrowse();
 		}
@@ -1554,7 +1555,7 @@ var SQLiteManager = {
   },
 
   dropColumn: function() {        
-    var bConfirm = sm_confirm("Dangerous Operation", "This is a potentially dangerous operation. SQLite does not support statements that can alter a column in a table. Here, we attempt to reconstruct the new CREATE SQL statement by looking at the pragma table_info which does not contain complete information about the structure of the existing table.\n\nDo you still want to proceed?");
+    var bConfirm = sm_confirm(sm_getLStr("dangerous.op"), "This is a potentially dangerous operation. SQLite does not support statements that can alter a column in a table. Here, we attempt to reconstruct the new CREATE SQL statement by looking at the pragma table_info which does not contain complete information about the structure of the existing table.\n\n" + sm_getLStr("q.proceed"));
     if (!bConfirm)
       return false;
 //    var bConfirm = sm_prefsBranch.getBoolPref("allowUnsafeTableAlteration");
@@ -1820,6 +1821,10 @@ var SQLiteManager = {
 			var bReturn = Database.dropObject("TABLE", sCurrTable);
 			if(bReturn)	this.refresh();
 			return bReturn;
+		}
+  	if(sOperation == "modify") {
+			this.modifyTable(sCurrTable);
+			return;
 		}
   	if(sOperation == "empty") {
       var bReturn = Database.emptyTable(sCurrTable);
@@ -2253,7 +2258,26 @@ var SQLiteManager = {
   },
 
   openOptionsWindow: function(aElt) {
-    window.openDialog(chromePrefs, 'preferences', 'chrome,titlebar,toolbar,centerscreen,modal');
+    var instantApply = smPrefAll.getBoolPref("browser.preferences.instantApply");
+    var features = "chrome,titlebar,toolbar,centerscreen" + (instantApply ? ",dialog=no" : ",modal");
+    openDialog(smChromes.preferences, 'preferences', features);
+  },
+
+  openConsoleWindow: function(aElt) {
+    window.openDialog(smChromes.console, 'console', 'chrome,resizable,titlebar,toolbar,centerscreen,modal');
+  },
+
+  openAboutConfigWindow: function(aElt) {
+    window.openDialog(smChromes.aboutconfig, 'aboutconfig', 'chrome,resizable,titlebar,toolbar,centerscreen,modal');
+  },
+
+  openDomIWindow: function(aElt) {
+    // Load the Window DataSource so that browser windows opened subsequent to DOM Inspector show up in the DOM Inspector's window list.
+    var windowDS = Cc["@mozilla.org/rdf/datasource;1?name=window-mediator"].getService(Ci.nsIWindowDataSource);
+    var tmpNameSpace = {};                         
+    var sl = Cc["@mozilla.org/moz/jssubscript-loader;1"].createInstance(Ci.mozIJSSubScriptLoader);
+    sl.loadSubScript("chrome://inspector/content/hooks.js", tmpNameSpace);
+    tmpNameSpace.inspectDOMDocument(document);
   },
 
   saveBrowseTreeColState: function(aElt) {

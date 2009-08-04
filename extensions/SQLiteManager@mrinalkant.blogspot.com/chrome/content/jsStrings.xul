@@ -10,5 +10,4 @@
   <label id="jss-failSqlForCopy" value="&failSqlForCopy;" />
   <label id="jss-copyTheTable" value="&copyTheTable;" />
 </vbox>
-
 </overlay>
