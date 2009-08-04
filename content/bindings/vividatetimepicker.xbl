@@ -1184,7 +1184,11 @@
             <label class="datepicker-gridlabel"/>
             <label class="datepicker-gridlabel"/>
           </deck>
-          <label anonid="yearlabel" class="datepicker-gridlabel"/>
+          <label anonid="yearlabel" class="datepicker-gridlabel" onclick="document.getBindingParent(this)._showYearList(this.value);" />
+          <menulist anonid="yearMenulist" hidden="true" style="min-width:120px;" onselect="document.getBindingParent(this)._increaseOrDecreaseYearList(this.value);">
+                <menupopup>
+                </menupopup>
+          </menulist >
           <spacer flex="1"/>
           <!-- button class="datepicker-next datepicker-button" type="repeat"
                   chromedir="&locale.dir;" xbl:inherits="disabled"
@@ -1492,6 +1496,13 @@
               var month = this._displayedDate ? this._displayedDate.getMonth() :
                                                 this.month;
               this._updateUI(this.monthField, month + aDir, true);
+
+              var yearList = document.getAnonymousElementByAttribute(this, "anonid", "yearMenulist");
+              var yearlabel = document.getAnonymousElementByAttribute(this, "anonid", "yearlabel");
+              if (yearList.getAttribute('hidden') != true && yearList.getAttribute('hidden') != 'true') {
+                yearList.value = yearlabel.value;
+              }
+
             }
           ]]>
         </body>
@@ -1505,6 +1516,57 @@
                     aDate1.getDate() == aDate2.getDate() &&
                     aDate1.getMonth() == aDate2.getMonth() &&
                     aDate1.getFullYear() == aDate2.getFullYear());
+          ]]>
+        </body>
+      </method>
+
+      <method name="_showYearList">
+        <parameter name="year"/>
+        <body>
+          <![CDATA[
+            year = parseInt(year) || (new Date()).getYear();
+
+            var yearList = document.getAnonymousElementByAttribute(this, "anonid", "yearMenulist");
+            var yearlabel = document.getAnonymousElementByAttribute(this, "anonid", "yearlabel");
+
+            yearList.removeAllItems();
+
+            var seek = 20;
+            var i = 0, selectedIndex=0;
+            for (nYear=year-seek; nYear<year+seek; nYear++) {
+                yearList.appendItem( nYear, nYear, null );
+                if (nYear == year) selectedIndex = i;
+                i++;
+            }
+            yearList.value = year;
+            
+            yearlabel.setAttribute('hidden', true);
+            yearList.setAttribute('hidden', false);
+
+          ]]>
+        </body>
+      </method>
+
+      <method name="_increaseOrDecreaseYearList">
+        <parameter name="year"/>
+        <body>
+          <![CDATA[
+
+
+            var yearList = document.getAnonymousElementByAttribute(this, "anonid", "yearMenulist");
+            var yearlabel = document.getAnonymousElementByAttribute(this, "anonid", "yearlabel");
+
+            if (yearList.getAttribute('hidden') == true || yearList.getAttribute('hidden') == 'true') return;
+
+            var lYear = parseInt(yearlabel.value);
+            var mYear = parseInt(yearList.value);
+
+            this._increaseOrDecreaseMonth((mYear-lYear)*12);
+
+            yearlabel.setAttribute('hidden', false);
+            yearList.setAttribute('hidden', true);
+
+
           ]]>
         </body>
       </method>
