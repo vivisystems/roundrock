@@ -659,13 +659,13 @@
             var sumWidth = 0;
             for ( var i = 0; i < cols; i++ )
                 sumWidth += buttons[ i ].boxWidth || 0;
-            var btnWidth = Math.floor( sumWidth / cols );
+            var btnWidth = Math.floor( ((sumWidth > 0) ? sumWidth : width ) / cols );
             
             // Calculate the average height of buttons.
             var sumHeight = 0;
             for ( var i = 0; i < rows; i++ )
                 sumHeight += buttons[ i * cols ].boxHeight || 0;
-            var btnHeight = Math.floor( sumHeight / rows );
+            var btnHeight = Math.floor( ((sumHeight > 0) ? sumHeight : height ) / rows );
             
             for(let i=0; i < buttonCount ; i++) {
 		       buttons[i].style['width'] = btnWidth +'px';
